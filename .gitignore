@@ -4379,3 +4379,6 @@
 !src/cod/sa_nm_csnd_getstagebgmreq.c
 !src/cod/sa_nm_libgraph.c
 !src/cod/sa_nm_mtxinitrotquaternion.c
+!src/cod/phase_a_cygnus_eh.c
+!src/cod/sa_classfade_start.c
+!src/cod/sa_003077b0.c
