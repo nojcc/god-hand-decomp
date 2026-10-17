@@ -19058,6 +19058,40 @@
     {
       "path": "src/cod/00382660.c",
       "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/classFADE.c",
+      "compiler": "sn-2.95.3-136",
+      "c_flags_add": [
+        "-O0"
+      ],
+      "as": "sn"
+    },
+    {
+      "path": "src/cod/sa_classfade_start.c",
+      "compiler": "sn-2.95.3-136",
+      "c_flags_add": [
+        "-O0"
+      ],
+      "as": "sn"
+    },
+    {
+      "path": "src/cod/sa_003077b0.c",
+      "compiler": "sn-2.95.3-136",
+      "c_flags_add": [
+        "-O0"
+      ],
+      "as": "sn"
+    },
+    {
+      "path": "src/cod/phase_a_cygnus_eh.c",
+      "compiler": "cygnus-2.96",
+      "c_flags_drop": [
+        "-f=-freorder-blocks"
+      ],
+      "c_flags_add": [
+        "-f=-fno-align-jumps"
+      ]
     }
   ],
   "_carved_funcs_doc": [
@@ -85829,6 +85863,41 @@
       "vaddr": "0x00382660",
       "size": 400,
       "tu": "src/cod/00382660.c"
+    },
+    {
+      "name": "func_003077B0",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003077B0",
+      "size": 52,
+      "tu": "src/cod/sa_003077b0.c"
+    },
+    {
+      "name": "func_00307840",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00307840",
+      "size": 52,
+      "tu": "src/cod/sa_003077b0.c"
+    },
+    {
+      "name": "func_003077E8",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003077E8",
+      "size": 88,
+      "tu": "src/cod/sa_003077b0.c"
+    },
+    {
+      "name": "__uncatch_exception",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003214D0",
+      "size": 48,
+      "tu": "src/cod/phase_a_cygnus_eh.c"
+    },
+    {
+      "name": "classFADE_start",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00307208",
+      "size": 380,
+      "tu": "src/cod/sa_classfade_start.c"
     }
   ],
   "build_dir": "build",
