@@ -4627,3 +4627,11 @@
 !src/cod/phase_a_cygnus_eh.c
 !src/cod/sa_classfade_start.c
 !src/cod/sa_003077b0.c
+
+!progress/PROGRESS.md
+!progress/batch_log.md
+!progress/pending_headers.md
+!progress/nm_closer_log.md
+!progress/asm_fix_later.md
+!progress/nm_solved/
+!progress/nm_solved/README.md
