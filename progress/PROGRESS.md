@@ -1,0 +1,183 @@
+# Matching progress
+
+## Batch 35 — 2026-10-14T21:03:58Z
+
+- **% fully linked:** 44.7959% (1270584 / 2836384 code bytes)
+- **% decompiled:** 45.1129% (1279576 / 2836384); 8992 B NON_MATCHING (from NM sources; `score_nm.sh` failed on missing build-nm object)
+- **Data %:** 83.0150%
+- **Since last entry:** +2412 B, +25 functions; 1378 B/h over 1.75 h (batches 26–35)
+- **Permuter:** 70 queued; 2 promoted to matching since last entry (`func_00374CB8` / `func_00375AB0`)
+- **Notes:** Incremental carve live (typical reseed ~10–17 units rebuilt). Cold at batch 35: both retail hashes OK. `batch_log` now rejects <0.25s finish.
+
+## Batch 45 — 2026-10-14T22:13:17Z
+
+- **% fully linked:** 44.9319% (1274440 / 2836384 code bytes)
+- **% decompiled:** 45.3449% (1286156 / 2836384); 11716 B NON_MATCHING (NM source sizes; score_nm deferred)
+- **Data %:** 83.0150%
+- **Since last entry:** +3856 B, +31 functions; 1542 B/h over 2.50 h (batches 36–45)
+- **Permuter:** 91 queued; 0 promoted since last entry (active: `func_002D4248`)
+- **Notes:** Per-TU hash gates after batch38 incident. Batch38 kept 2/4; batch39 kept 1/3. Batches 40–45 all hash-OK.
+
+## Batch 50 — 2026-10-14T23:47:09Z
+
+- **% fully linked:** 44.9933% (1276184 / 2836384 code bytes)
+- **% decompiled:** 44.9933% (1276184 / 2836384); 0 B NON_MATCHING
+- **Data %:** 83.0150%
+- **Since last entry:** +1744 B, +11 functions; 1118 B/h over 1.56 h
+- **Permuter:** 0 queued; 1 promoted since last entry
+
+- **Notes (halt):** Stopped matching. Permuters killed; bests kept (`func_00170338` best=715, `func_002BEB00` best≈50 base, `func_002D4248` no score artifact). `score_nm.sh` did **not** finish a NON_MATCHING rebuild (log stopped at seed step); `report.nm.json` fuzzy equals matching (0 B NON_MATCHING credited) — decompiled % above is **not** a trusted NM measurement. batch51 removed from `compile_units` (never linked). Retail ELF+overlay hashes OK. No compile/reseed/permuter running.
+- **Unfinished:** see halt inventory in chat / below.
+
+### Unfinished at halt
+- Scratch-matched, **not registered:** `func_00144B50` (184; `build/b50_try*.c`), `func_002E8318`+`func_001ED3C0` (`src/cod/phase_a_sn_batch51.c`), `func_0037FC28`+`func_00313030` (`src/cod/phase_a_sn_batch52.c`), `func_001B5430` (180; `build/b53_try*.c`).
+- **NON_MATCHING files since Batch 45:** `src/cod/batch46_nm.c` … `batch52_nm.c` (plus touch on `batch27_nm.c` for `001B8030` extract).
+- **score_nm:** fix/re-run needed for measured decompiled % (`scripts/score_nm.sh` seed+NM-rebuild path incomplete this session).
+
+## Batch 51 — 2026-10-15T00:20:53Z (integrator setup)
+
+- **% fully linked:** 45.0254% (1277092 / 2836384 code bytes)
+- **% decompiled:** score_nm rebuild in progress (prior summary stale); linked 45.0254%
+- **Data %:** 83.0150%
+- **Since last entry:** +908 B, +5 functions; 1615 B/h over 0.56 h
+- **Permuter:** daemon on (2×-j3); 0 promotions this entry
+- **Integrated:** `func_001B5430`, `func_002E8318`, `func_001ED3C0`, `func_0037FC28`, `func_00313030` (reloc+hash OK). `func_00144B50` scratch PASS / link-false → `batch50_nm.c`.
+- **Workers:** 8 launched on slices (~2010 funcs / ~1.49 MB). Inbox → `integrate_inbox.py`. 
+- **Hashes:** ELF `1742f95b…` OK · overlay `ea599323…` OK
+
+## Halt — 2026-10-15T03:43:00Z
+
+- **% fully linked:** 45.0349% (1277364 / 2836384 code bytes)
+- **% decompiled:** score_nm not run at halt; linked figure above. ~1000 inbox_nm_*.c NON_MATCHING files on disk (not retail-linked)
+- **Data %:** 83.0150%
+- **Since Batch 51:** +272 B, functions now 8314
+- **Permuter:** daemon STOPPED; bests kept under progress/permuter/; queue notes preserved
+- **Inbox drain:** near-misses filed under NON_MATCHING + permuter queue (no reseed). Large asm-wrap match batch failed link (empty ELF) → demoted to NM without carve. Final small batch kept 2 matches (`func_003062A8`, `func_00306330`) with retail hashes OK.
+- **Workers:** halted; no relaunches. Containers stopped.
+- **Hashes:** ELF `OK` · overlay `OK`
+- **Stopped:** integrate_inbox, integrator_loop, permuter_daemon, all worker batches. Safe stop.
+
+
+## Checkpoint (single-agent, batches 1-10) — 2026-10-16T15:45:00Z
+
+- **% fully linked:** 45.3916% (1287480 / 2836384 code bytes); 8371 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (Halt, 2026-10-15T03:43Z):** +10116 B, +57 functions
+- **Bytes per hour:** ~7700 B/h (10116 B over 1.31 h, first logged function 14:26Z to this checkpoint; setup time not counted)
+- **Areas worked:** clone clusters (exhausted), 0035e8.c, CustomID panels 0x1DE4F8 / 0x1ECE30, cIDBase 0x2ABCE8, 0x30D190 (exhausted: 1 hard-tail, 2 NM, 1 jump table left), 0x31A300 (done), 0x31C350 (done; C5C0 NM, VU0 copy macro), ADX 0x324C90 (done), Sofdec 0x347008 (done), Sofdec 0x34F7A0 (F8D0 NM). Next area: 0x3525F0.
+- **Headers:** pending_headers.md moved into include/godhand/ (new: adxm.h, mwsfd.h, gameWork.h, player.h, sfxlib.h, flagList.h, eh.h, cIDBaseAnim.h, CustomIDPanel.h, cMessDrawFontCode.h, cDamageVec.h); local duplicates removed; every affected TU re-checked with match_check.
+- **Cold build:** PASSED (compile.py --cold, 252 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK
+- **Permuter:** single run at a time; found func_0031A538 and pointed at func_00324D18 (both real fixes were int-returning callee prototypes). func_001DEB08 run ended at 290. Idle at checkpoint.
+
+## Checkpoint (single-agent, batches 11-20) — 2026-10-16T17:27:00Z
+
+- **% fully linked:** 45.5597% (1292248 / 2836384 code bytes); 8392 / 10573 functions
+- **Data %:** 83.0150% (unchanged; no data work this stretch)
+- **Since last entry (checkpoint batches 1-10, 15:45Z):** +4768 B, +21 functions
+- **Bytes per hour:** ~2800 B/h (4768 B over 1.70 h)
+- **Areas worked:** Sofdec 0x3525F0 / 0x353928 (done), cObj 0x14E5D0, pack 0x152340, texture/packet 0x151688..0x155AE8 (mostly blocked on SN-assembler dli expansion, NM), 0x1573C8 (NM), Motion 0x1594A0 (done), 0x1ABB58 (done), 0x1B19E0 (done), blackjack 0x1D4720 (done), poker 0x1DBEB0 (3 matched, 3 NM). Current area: next from areas.py (0x1E8EB8).
+- **Headers:** pending_headers.md moved into include/godhand/ (new: sftim.h, pack.h, tim2.h, mdlPkt.h, motion.h, unkObj.h; extended: BlackJack.h card suit/rank/unk104, Poker.h straight table, cDataManager.h isLoaded/resetKind + instances, cObj.h cObj_setId, player.h PlSub). Local duplicates removed; every affected registered TU re-checked with match_check, NM files compile-checked. `int Rnd(void)` kept local (other TUs declare it unsigned).
+- **Cold build:** PASSED (compile.py --cold, 260 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK
+- **Flagged matches:** func_001D4720 / func_001D47E8 need `score++` wrapped in `do { } while (0)` (permuter hint; changes register priority). Reported for review.
+- **Permuter:** single runs; func_00155AE8 (best 335, junk-only, rejected), func_001D4720 (found the do/while(0) form). Idle at checkpoint.
+
+## Checkpoint (single-agent, batches 21-30) — 2026-10-16T18:43:00Z
+
+- **% fully linked:** 45.7198% (1296788 / 2836384 code bytes); 8420 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 11-20, 17:27Z):** +4540 B, +28 functions
+- **Bytes per hour:** ~3580 B/h (4540 B over 1.27 h)
+- **Areas worked:** 0x1E8EB8, Coliseum 0x1F08B8, CustomID 0x1F32A0, cActionButton 0x1F70C8, cMessage 0x2AEE40 / 0x2B1090 / 0x2B4228, 0x2C0B38 (NM), cSnd 0x2CA558 / 0x2CA910 / 0x2D0B88 (NM), 0x2FA350 (NM: cvt.w.s), espSys 0x306030 / 0x307060, stage set data 0x31D2B8, libgcc2 ctors/dtors 0x31DA48, exception.cc 0x321308 (into 00321240.cc as C++). Next area: 0x324EB0.
+- **Headers:** pending_headers.md moved into include/godhand/ (new: DirSel.h, espSys.h, stageSet.h, stlAlloc.h; extended: ColiseumBattle.h enemy list/IsEntryActive, CustomIDPanel.h disp setters, cActionButton.h entry next/unk0C/unk2C/unk32/unk36 + manager layout + ActBtnGame + protos, cMessage.h prio/prev/free/serial + protos, cMessDrawFontCode.h message protos, cSnd.h fA4, unsigned unk5F, cSndKindEnt). Kept local because other TUs declare them differently: func_001F0498, ColiseumBattle_DefeatAllEnemies, cMessageWin_close, the CustomIDWork by-value colour setters, the cSnd method prototypes; MsgWinAnim fields stay in the NM file because cMessageWin is embedded at offset 0 in other structs. Every affected registered TU re-checked with match_check (only pre-existing .rodata-reloc cases unresolved in isolation), NM files compile-checked.
+- **Cold build:** PASSED (compile.py --cold, 277 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK
+- **Permuter:** func_001F3488 run ended at base 320, no improvement; stopped for the cold build, no permuter processes left in godhand-nix.
+
+## Checkpoint (single-agent, batches 31-40) — 2026-10-16T20:15:00Z
+
+- **% fully linked:** 46.0701% (1306724 / 2836384 code bytes); 8479 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 21-30, 18:43Z):** +9936 B, +59 functions (18 NON_MATCHING, 2 hard-tail)
+- **Bytes per hour:** ~7550 B/h (9936 B over 1.32 h, 18:43Z to the last logged function at 20:02Z)
+- **Areas worked:** CRI/Sofdec cygnus band: AIX demux 0x32F988, CRI stream pool 0x336E88, MWSF handle 0x346848 / 0x347F20, SFD ring buffer 0x34F200, SFX 0x35F698, singletons 0x347908 / 0x338788 / 0x354D80 / 0x36C080 / 0x34CCB0; sn band: sequence nodes 0x37C330 / 0x37D760, file select 0x3835A0, menu list 0x385078, 0x2BA7B8; current area: remaining singletons (areas.py top)
+- **Headers:** pending_headers.md moved into include/godhand/ (new: criSj.h, criAix.h, criStm.h, criFs.h, mwsfHn.h, adxmThread.h, seqNode.h, menuCtl.h, cutCmd.h; extended: sftim.h SfdFrm state word/f58, SfdWork f7C/nfrm/16-frame pool/channel ids @0x1F74/ViBuf, SJ interface moved to criSj.h; stageSet.h cBoundingBox returns BoundingBox*; sfxlib.h SfxStm/SfxInf/SfxTbl). Local duplicates removed; every affected TU re-checked (23 includers MATCH). Kept local on purpose: adxm_ResumeThread/WakeupThread int returns in sa_00324eb0.c (adxm.h callers use char/void), the unprototyped func_00323E80/func_003A6A20 in sa_003835a0.c, and the Obj35E8 setter prototypes in sa_0035f698.c (0035e8.c defines them with char* parameters). One new pending row (sa_00347908 views) for the next checkpoint.
+- **Cold build:** PASSED (compile.py --cold, 253 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK
+- **Blocked:** func_003BAFD0 matches as C but carving it zeroes the relocated data words at D_003BAFE4/EC; moved to build/sa/blocked_003bafd0.c and blocklisted.
+- **Permuter:** func_00337240 solved (memset-like callee needed its real `void *` return); func_00347FE0 only via a `mw++; mw--;` no-op (rejected); func_0032BE10 no improvement. Stopped for the cold build; no permuter processes left in godhand-nix.
+
+## Checkpoint (single-agent, batches 41-50) — 2026-10-17T01:02:00Z
+
+- **% fully linked:** 47.1859% (1338372 / 2836384 code bytes); 8637 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 31-40, 20:15Z):** +31648 B, +158 functions (117 own matches, 41 NM closer handoffs); 35 parked NON_MATCHING
+- **Bytes per hour:** ~7280 B/h (31648 B over 4.35 h, 20:15Z to the last logged function at 00:36Z)
+- **Areas worked:** enemy damage-volume family 0x1932D8 (30 units via fam_build), Poker 0x1DC798, pad input 0x161990, classFADE (-O0 units under the per-file approval), cMessage 0x2AFED0 / 0x2B0908, FP motion helpers 0x270D00 / 0x271148 / 0x2DB7E0 (NM: copy-then-abs FP register pattern), MWSF views 0x347908 / 0x356E98, small singletons by size from the decomp queue (sn band 0x31B2E0-0x37CCE0, as sn per file)
+- **Headers:** pending_headers.md moved into include/godhand/ (new: emDamageVol.h, padState.h, mwsfViews.h; extended: Poker.h PokerStraightTbl10, classFADE.h full struct and prototypes). Applied with scripts/sa/header_merge.py: 39 registered units rebuilt with identical objects; 7 NM files compile-checked with unchanged results. Kept local: cEmSetParam_setEm (conflicts with cEmSetParam.c, merge rolled back) and ArenaEm (three TUs define their own).
+- **Cold build:** PASSED (compile.py --cold, 295 s, includes the as=sn and -O0 units) — ELF `1742f95b…` OK · overlay `ea599323…` OK
+- **Per-file settings (standing approval):** as "sn" on 8 new units, fp_hazard_rules "mtc1" on sa_002b0908.c, -O0 on classFADE.c / sa_classfade_start.c; each noted in the batch log.
+- **NM closer handoffs received, registered, rejected:** 41 received, 41 registered, 0 rejected (batches 48-50; the closer started at batch 48). One handoff needed a duplicate func_003077E8 removed after reseed 48f failed to link; nm_handoff.py now rejects solved files that define other non-static functions.
+- **Tools added:** scripts/sa/nm_handoff.py (verify, splice, register handoffs; meta.json per-file settings incl. c_flags_add/c_flags_drop/fp_hazard_rules; header_changes.md applied transactionally with every dependent registered unit rebuilt and compared, rolled back on any break), scripts/sa/nm_prune.py, scripts/sa/header_merge.py (checkpoint header moves with the same rebuild-and-compare transaction). Permuter stopped per instruction.
+
+## Checkpoint (single-agent, batches 51-60) — 2026-10-17T03:15:00Z
+
+- **% fully linked:** 47.8081% (1356020 / 2836384 code bytes); 8735 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 41-50, 01:02Z):** +17648 B, +98 functions in the objdiff report (59 own matches and 25 NM closer handoffs in the batch log; the remainder are functions in multi-function handoff units); 33 parked NON_MATCHING
+- **Bytes per hour:** ~8610 B/h (17648 B over 2.05 h, 01:02Z to the last logged function at 03:05Z)
+- **Areas worked:** never-carved singletons by size from the decomp queue (136-152 B): Sofdec/MWSF handle helpers 0x33B5C8-0x3592xx (cygnus-2.96, mostly -freorder-blocks dropped + as sn), SFX library 0x3603xx-0x37xxxx, cDvd job allocation 0x2017A8, room item helpers 0x260650 / 0x26BAD8, memory card hook 0x2AE8A8, g++ runtime __si_type_info_dcast (ee-2.9-991111)
+- **Headers:** nothing to merge; the batch 51-60 types each have a single user and stay local (listed in pending_headers.md under the batch-60 review).
+- **Cold build:** PASSED (container_run.sh compile.py --cold, 273 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK. A first attempt from the host shell failed before linking (mipsel-linux-gnu-as is only inside the container) and touched no outputs.
+- **Per-file settings (standing approval):** as "sn" and/or -freorder-blocks dropped on new units only, each listed in the batch log; compiler ee-2.9-991111 (already used by src/cod/00376978.c) on sa_0031ef18.c. -fno-gcse and ee-2.9-991111 were tried on func_00376370 / func_003234D0 and not kept.
+- **NM closer handoffs received, registered, rejected:** 26 received, 25 registered, 1 rejected (func_002CA5D8: matches only with the wrapper arg --call-loop-pad, which is not a per-file setting). No handoff used header_changes.md or c_flags_add/c_flags_drop yet.
+- **Tools:** nm_handoff.py and progress/nm_solved/README.md handle header_changes.md and meta.json c_flags_add / c_flags_drop (verified transactionally, rolled back on any break); README states that wrapper args are not accepted.
+
+## Checkpoint (single-agent, batches 61-70) — 2026-10-17T06:04:00Z
+
+- **% fully linked:** 48.3407% (1371128 / 2836384 code bytes); 8818 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 51-60, 03:15Z):** +15108 B, +83 functions in the objdiff report (60 own matches and 23 NM closer handoffs in the batch log); 43 parked NON_MATCHING
+- **Bytes per hour:** ~5770 B/h (15108 B over 2.62 h, 03:15Z to the last logged function at 05:52Z)
+- **Areas worked:** never-carved singletons by size from the decomp queue (184-208 B): Sofdec/MWSF and DTX helpers 0x3307xx-0x35DBxx (cygnus-2.96, mostly -freorder-blocks dropped), SFX/sound 0x36xxxx-0x37xxxx, movie manager 0x2B4960 / 0x2D3BA8, event lookup getEventObjPtr, BGM table 0x2D0658, IOP/SIF library 0x3A92E0 / 0x3B2080 (sn and ee-2.9-991111)
+- **Headers:** nothing to merge; the batch 61-70 types each have one registered user and stay local (listed in pending_headers.md under the batch-70 review).
+- **Cold build:** PASSED (container_run.sh compile.py --cold, 461 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK; same as the cached build.
+- **Per-file settings (standing approval):** on new units only, each listed in the batch log: -freorder-blocks dropped (cygnus), as "sn" (sa_002c7e30.c and others), -f=-fno-gcse on sa_00340130.c. Compiler choice for new files was limited to compilers already in compile_config.json (sn-2.95.3-136, cygnus-2.96, ee-2.9-991111). call_loop_pad is now accepted from handoffs as an existing per-file key.
+- **NM closer handoffs received, registered, rejected:** 23 received, 23 registered, 0 rejected (batches 61-70). func_002CA5D8 was reprocessed and registered after call_loop_pad was accepted.
+- **Tools:** nm_handoff.py and progress/nm_solved/README.md accept call_loop_pad in meta.json. Open tooling note: in func_002BE028 (sa_nm_002be028.c), the call-loop pad nops appear in the stage-s asm but disappear from the ee-as object when cc1 has already filled the jal delay slot inside .set noreorder.
+
+## Checkpoint (single-agent, batches 71-80) — 2026-10-17T13:05:00Z
+
+- **% fully linked:** 49.7040% (1409796 / 2836384 code bytes); 8995 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 61-70, 06:04Z):** +38668 B, +177 functions in the objdiff report (114 own matches and 63 NM closer handoffs in the batch log); 67 parked NON_MATCHING
+- **Bytes per hour:** ~5650 B/h (38668 B over 6.84 h, 06:04Z to the last logged function at 12:54Z)
+- **Areas worked:** never-carved singletons from the decomp queue (212-280 B): CRI ADX/SJ/Sofdec/MPV helpers 0x32xxxx-0x36xxxx (cygnus-2.96, -freorder-blocks dropped), AC-3 header parse 0x3BA3D8, menu and option screens 0x37xxxx-0x38xxxx (menuCtl.h), game objects and the cModel constructor 0x1495A0, player hit check 0x12CAE0, cCoreSave_loadStageState, IOP/SIF retry loops 0x2C9D58, libgcc frame.c (ee-2.9-991111)
+- **Headers:** merged `State76A790` (sa_00377bc8.c) and `Perf76A790` (sa_00375500.c), two views of D_0076A790, into new `include/godhand/sndSys76A790.h` with scripts/sa/header_merge.py; both units rebuilt with identical objects. The other batch 71-80 types stay local (one registered user each, or overlapping views only in NM files); the shared objects to revisit together are listed in pending_headers.md under the batch-80 review.
+- **Cold build:** PASSED (container_run.sh compile.py --cold, 308 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK; same as the cached build.
+- **Per-file settings (standing approval):** on new units only, each listed in the batch log: -freorder-blocks dropped (cygnus), c_flags_add -f=-fno-gcse on sa_001fdfd8.c, compiler ee-2.9-991111 (already in compile_config.json) on sa_0039eaa8.c and sa_00322030.c. No compiler was added and no existing file changed compiler.
+- **NM closer handoffs received, registered, rejected:** 64 received, 63 registered, 1 rejected (batches 71-80; per batch 7/7/0, 2/2/0, 3/3/0, 0/0/0, 6/6/0, 25/24/1, 20/20/0, 1/1/0, 0/0/0, 0/0/0). The rejection was func_001ECFE8, a stale NON_MATCHING block for a function matched since batch 6.
+- **Tools:** nm_handoff.py now accepts *_nm*.c files with bare INCLUDE_ASM lines and falls back to config/symbol_addrs.txt for addresses (batch 77). Order sweeps were plain loops over hand-written statement orders; no permuter. Note for reseeds: the anchor must be a matched (carved) function; a parked anchor exits rc=1 without touching the hashes.
+
+## Halt (batches 81-84, plus one handoff) — 2026-10-17T17:46:59Z
+
+- **% fully linked:** 50.3193% (1427248 / 2836384 code bytes); 9053 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint batches 71-80, 13:05Z):** +17452 B, +58 functions (49 own matches, 9 NM closer handoffs); 30 parked NON_MATCHING
+- **Bytes per hour:** ~3730 B/h (17452 B over 4.70 h, 13:05Z to this halt)
+- **Own matches:** 45 logged in batches 81-84 (39 new units, 6 NM upgrades: func_001B0838, func_00345F48, func_00352F40, func_003533A8, func_00374B70, func_00375988) plus 4 carved units that are in the verified link but have no batch-log row (func_00345090, func_00394DD8, func_001DDF08, func_0030B728)
+- **Cold build:** not run. Cached reseed after the last handoff matches retail: ELF `1742f95bef65bdb2aa57b7a77df4ac7619a092e9646e1ea325bc32ec8a64f3cd`, overlay `ea59932301345e48add7a3eff029b7d0d0138fff1abc67569467880678c653c1` (build/sa/reseed85.log, anchor func_00103760)
+- **Per-file settings (standing approval, new units only):** sn default; cygnus-2.96 with -freorder-blocks dropped; cygnus-2.96 default on sa_00327568.c; ee-2.9-991111 default on sa_00321e08.c and sa_00320800.c; call_loop_pad on sa_0013d400.c; -ffast-math plus fp_hazard_rules probed on func_002AC878 and func_0015AF30 and not kept. No existing file changed compiler.
+- **NM closer handoffs received, registered, rejected:** 11 received, 9 registered, 2 rejected. Registered: func_002D40F8, func_0031C238, func_00379F00, func_002BB2D8, func_00335F20, func_00375380, func_002E2800, func_0032D720, func_00103760. Rejected: func_002E2800 on the first submission (a union member named `word`; resubmitted and registered in batch 84) and func_00375988 (already matched). Inbox empty.
+- **Stopped:** no live compile.py, reseed, or permuter in godhand-nix. 1451 unreaped zombie python/qemu/mipsel processes remain, parented to pid 1 (`sleep infinity`), which does not reap them. Nothing is registered in compile_config.json beyond this verified link.
+
+## Rebase onto upstream; new working folder — 2026-10-17
+
+This tree now lives in `/Users/joncaceres/god-hand-decomp` on branch `work`. The old folder
+(`god-hand-decompilation-main`) is retired. Start from the state below, not from the halt entry above.
+
+- **% fully linked:** 50.7878% (1440536 / 2836384 code bytes); 9113 / 10573 functions (`scripts/progress.sh` with this branch's compile.py)
+- **Data %:** 83.0150% (unchanged)
+- **What changed:** the work was rebased onto upstream (138 upstream commits). Upstream had matched 419 of the same functions independently; its versions were kept and the duplicates here were removed. Many old names changed in upstream's rename sweep: use the names in `config/symbol_addrs.txt` and `compile_config.json`, not the old `func_` names in the log above.
+- **Reverted to INCLUDE_ASM:** 14 matches that pasted retail instructions through `__asm__` (see `asm_fix_later.md`). They need real C.
+- **Not on this branch:** the batch 84 NM drafts (func_00317FF0, func_00356B10, func_003B2708, func_002D8EB0, func_0030FB70, func_00376080) and the func_00103760 handoff, all made after the snapshot. Upstream matched func_00103760 as FollowObj_snapToPlayer. NM drafts whose functions are now matched were dropped (see `nm_closer_log.md`).
+- **Cold build:** PASSED (container_run.sh compile.py --cold, 321 s, after a fresh split) — ELF `1742f95b…` OK · overlay `ea599323…` OK
+- **session_check:** fails dual_compiler_regress and data_decls (both fail on unmodified upstream too) and section_owner (the NON_MATCHING drafts have bodies no carve owns; expected while they are drafts). Everything else passes or skips.
+- **Rules:** agents never run git (see `.cursor/rules/no-git.mdc`). Leave changed files for the maintainer to commit. Real C only: a single `nop` or barrier is fine, no pasted listings, no forced registers.
