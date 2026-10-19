@@ -5,19 +5,7 @@ extern void __malloc_unlock(void *reent);
 
 /* newlib freer.c :: _free_r  -> func_003ACA28 */
 
-typedef unsigned int INTERNAL_SIZE_T;
-
-struct malloc_chunk {
-    INTERNAL_SIZE_T prev_size;
-    INTERNAL_SIZE_T size;
-    struct malloc_chunk *fd;
-    struct malloc_chunk *bk;
-};
-
-typedef struct malloc_chunk *mchunkptr;
-typedef struct malloc_chunk *mbinptr;
-
-extern mbinptr D_003FA9D0[];      /* __malloc_av_ */
+#include "godhand/newlibMalloc.h"
 extern unsigned long D_003FADD8;  /* __malloc_trim_threshold */
 extern unsigned long D_003FADE0;  /* __malloc_top_pad */
 
