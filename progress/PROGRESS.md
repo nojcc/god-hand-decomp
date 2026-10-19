@@ -181,3 +181,57 @@ This tree now lives in `/Users/joncaceres/god-hand-decomp` on branch `work`. The
 - **Cold build:** PASSED (container_run.sh compile.py --cold, 321 s, after a fresh split) — ELF `1742f95b…` OK · overlay `ea599323…` OK
 - **session_check:** fails dual_compiler_regress and data_decls (both fail on unmodified upstream too) and section_owner (the NON_MATCHING drafts have bodies no carve owns; expected while they are drafts). Everything else passes or skips.
 - **Rules:** agents never run git (see `.cursor/rules/no-git.mdc`). Leave changed files for the maintainer to commit. Real C only: a single `nop` or barrier is fine, no pasted listings, no forced registers.
+
+## Checkpoint (single-agent, batches 85-91; due at batch 90, run after batch 91) — 2026-10-18T16:08:00Z
+
+- **% fully linked:** 50.8392% (1441996 / 2836384 code bytes); 9120 / 10573 functions
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (rebase onto upstream):** +1460 B, +7 functions: 6 own matches (__start_cp_handler 56, func_003448B0 68, func_0030DA08 208, func_00327418 332, func_00195D08 332, func_00348670 332 = 1328 B) and 1 NM closer handoff (func_003780F8, 132 B); 15 parked NON_MATCHING (7, 3, 1, 1, 1, 1, 1 in batches 85-91)
+- **Bytes per hour:** ~1170 B/h (1460 B over 1.25 h, batch 85 start at 13:31Z to the last batch 91 row at 14:46Z). Batches 89-91 matched nothing; the user reset the zero-match streak after batch 91.
+- **Areas worked:** never-carved singletons from the untried-M2C queue, 56-336 B: CRI SJ/ADX/MWSF helpers 0x3247xx-0x34Cxxx (cygnus-2.96), damage-take enemy setups 0x17AC90 / 0x195D08 (sn), enemy state 0x28A780, IOP/SIF 0x3B9F60 / 0x3BBEC0
+- **Headers:** nothing merged; every batch 85-91 type has one registered user or appears only in NM files (pending_headers.md, batch 85-87 sections). include/ unchanged.
+- **Cold build:** PASSED (container_run.sh compile.py --cold, ~650 s wall, compile 558 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK; same as the cached reseeds. Log: build/cold_cp90.log.
+- **Per-file settings (standing approval, new units only):** sn default (sa_0030da08.c, sa_00195d08.c, sa_003780f8.c); cygnus-2.96 default (sa_00327418.c); cygnus-2.96 with -freorder-blocks dropped (sa_00348670.c); ee-2.9-991111 default on one batch 85 unit. No compiler added, no existing file changed compiler.
+- **NM closer handoffs received, registered, rejected:** 1 / 1 / 0 (func_003780F8, batch 87). Inbox empty.
+- **Missed timing:** this checkpoint was due after batch 90 and ran after batch 91.
+
+## Checkpoint (single-agent, batches 92-100) — 2026-10-18T17:37:00Z
+
+- **% fully linked:** 51.1602% (1451100 / 2836384 code bytes); 9146 / 10573 functions (objdiff report regenerated through container_run.sh scripts/progress.sh; the host has no tools/objdiff-cli)
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint 90):** +9104 B, +26 functions: 25 own matches in batches 92-100 (func_0012F600 336 from the batch 92 retry window, then 24 in the 340-372 B bands, 8420 B) and 1 NM closer handoff (func_00354650, 348 B, batch 97); 20 functions parked NON_MATCHING with complete C (sa_nm_*.c)
+- **Bytes per hour:** ~6070 B/h (9104 B over 1.5 h, first batch 92 row at 15:57Z to the last batch 100 row at 17:27Z)
+- **Areas worked:** untried-M2C queue, 336-372 B bands: CRI SFD/MWSF/SJ code 0x324950-0x36EE90 (cygnus-2.96, mostly -freorder-blocks dropped), sequence/voice tables 0x37C930-0x37E200 (sn), newlib _malloc_trim_r 0x3ACD20, cOmDoor_setOpen, enemy/object helpers 0x1AEF40-0x2F40C0 (sn), ADX setup 0x3B9998
+- **Headers:** merged the newlib malloc chunk types and __malloc_av_ into new `include/godhand/newlibMalloc.h` (003ac090.c, 003aca28.c, sa_003acd20.c; header_merge OK, 3 units rebuilt identical). Other batch 92-100 types stay local (single registered user or NM-only); see pending_headers.md, batch 92-100 sections.
+- **Cold build:** PASSED (container_run.sh .venv/bin/python compile.py --cold, compile wall 296 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK; same as the cached reseeds after every batch. Log: build/cold_cp100.log.
+- **Per-file settings (standing approval, new units only):** sn-2.95.3-136 default (sa_001aef40.c, sa_001d4df0.c, sa_001dc980.c, sa_001dcad8.c, sa_00288da8.c, sa_0037c930.c, sa_0037e200.c, sa_002f40c0.c, sa_003acd20.c and the batch 93 units); sn-2.95.3-136 with "as": "sn" (sa_001bcfb0.c); cygnus-2.96 with -freorder-blocks dropped (sa_00360950.c, sa_00354478.c, sa_003b9998.c, sa_00334f90.c, sa_00332398.c, sa_0036ee90.c, sa_0034eb98.c, sa_00324950.c, sa_00348e18.c). No compiler added, no existing file changed compiler.
+- **NM closer handoffs received, registered, rejected:** 1 / 1 / 0 (func_00354650). Inbox empty.
+- **Stop conditions:** none hit. Every reseed elf=OK overlay=OK; nm_prune 0 stale throughout; zero-match streak 0.
+
+## Checkpoint (single-agent, batches 101-110) — 2026-10-18T22:45:00Z
+
+- **% fully linked:** 52.3097% (1483704 / 2836384 code bytes); 9224 / 10573 functions (objdiff report regenerated through container_run.sh scripts/progress.sh)
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint 100):** +32604 B, +78 functions. batch_log has 70 own matched rows in batches 101-110 (29452 B) plus 5 NM closer handoffs (func_0030B298, func_00325638, func_00333CE0, func_00373BA8, func_0039B960). The other 8 functions and 3152 B are the 5 handoffs plus 3 functions I did not trace (probably carved entries); I did not break the bytes down further. 24 functions parked NON_MATCHING with complete C (sa_nm_*.c, unregistered), 18 skipped (HAND VU0, HAND MMI, cvt.w.s, jump tables).
+- **Bytes per hour:** ~6650 B/h (32604 B over 4.9 h, first batch 101 row at 17:39Z to the last batch 110 row at 22:33Z)
+- **Areas worked:** untried-M2C queue, 372-476 B bands: CRI ADXT/SJ/SFD code 0x3298F0-0x36B888 (cygnus-2.96, -freorder-blocks dropped), libgcc __frame_state_for, SDK libdma sceDmaPutEnv and libio/newlib (ee-2.9-991111), enemy setup/update families 0x178618-0x2DB0D0 (pointer-to-member phase dispatch, damage-take boxes), menu panels, the MT19937 generator 0x30F348 (sn)
+- **Headers:** merged the shared enemy phase-table entry into new `include/godhand/emPhaseTable.h` (`EmPhaseEnt` / `EmPhaseTable`; sa_00181118.c, sa_001ac980.c, sa_001af098.c, sa_00278390.c, sa_00281968.c; header_merge OK, 5 units rebuilt identical). Other batch 101-110 types stay local (single registered user or NM-only); see pending_headers.md, batch 101-110 sections.
+- **Cold build:** PASSED (container_run.sh .venv/bin/python compile.py --cold, compile wall 400 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK; same as the cached reseeds. Log: build/cold_cp110.log.
+- **Per-file settings (standing approval, new units only):** compiler per address band (sn-2.95.3-136 for game code, cygnus-2.96 with -freorder-blocks dropped for the CRI band, ee-2.9-991111 for libgcc/libio/newlib/SDK); "as": "sn" on sa_002db0d0.c. No compiler added, no existing file changed compiler. Not used: the per-file `extern_double` key (needed by func_003B0EF8); it is not on the standing-approval list.
+- **NM closer handoffs received, registered, rejected:** 5 / 5 / 0. Inbox holds one new solution (Draw_Line_sc), to be applied with the batch 111 handoff.
+- **Process slips:** batch 109 registered three NM files by mistake (removed again before a reseed passed) and left three stale asm fragment objects that broke the link until deleted; func_00192D20's elapsed time is under-logged.
+- **Stop conditions:** none hit. Every reseed ended elf=OK overlay=OK; nm_prune 0 stale throughout; zero-match streak 0.
+
+## Checkpoint (single-agent, batches 111-120) — 2026-10-19T03:40:00Z
+
+- **% fully linked:** 53.0358% (1504300 / 2836384 code bytes); 9262 / 10573 functions (objdiff report regenerated through container_run.sh scripts/progress.sh)
+- **Data %:** 83.0150% (unchanged)
+- **Since last entry (checkpoint 110):** +20596 B, +38 functions. batch_log has 32 own matched rows in batches 111-120 (17448 B) plus 6 NM closer handoffs (Draw_Line_sc, func_001AD5C8, func_0027BB78, func_001A5540, func_0033D720, func_0036DFF0); 32 + 6 = 38 functions, and the handoffs account for the other 3148 B. 52 functions parked NON_MATCHING with complete C (sa_nm_*.c, unregistered), 29 skipped (jump tables, cvt.w.s, HAND VU0/MMI, splitter artifacts like the raw `lui (0x780000 >> 16)` in func_003B4628/func_003B56A0/func_003B4868).
+- **Bytes per hour:** ~4500 B/h (20596 B over 4.6 h, first batch 111 row at 22:44Z to the last batch 120 row at 03:18Z). The 588-652 B band parks far more often than the earlier 372-476 B bands.
+- **Areas worked:** untried-M2C queue, 476-652 B bands: enemy/gimmick update and setup families (0x17B000-0x1B9000), object node sync (0x2E6868, 0x2F48A8), GS texture setup 0x3092E0, CRI ADX/SJ/Sofdec 0x327000-0x36B000 (cygnus-2.96, -freorder-blocks dropped), menu pages 0x3808A0/0x384CA0, SDK SIF/iob (ee-2.9-991111).
+- **Headers:** merged the shared vector inlines into new `include/godhand/vecInline.h` (`vec4_eq` / `vec4_ne` / `vec3_copy`; sa_001b76d8.c, sa_001c0450.c, sa_00276228.c; header_merge OK, 3 units rebuilt identical). The other batch 111-120 types stay local (single registered user or NM-only). The SJ chunk/interface tables (sa_00327048.c, sa_0032cc90.c, sa_0036a3e8.c) are the next merge candidate, but their member names differ per file and need a careful unification pass; see pending_headers.md, batch 111-120 sections.
+- **Cold build:** PASSED (container_run.sh .venv/bin/python compile.py --cold, compile wall 617 s) — ELF `1742f95b…` OK · overlay `ea599323…` OK; same as the cached reseeds. Log: build/cold_cp120.log.
+- **Per-file settings (standing approval, new units only):** "as": "sn" on sa_0037bf10.c and sa_002e6868.c; c_flags_add -f=-fno-gcse on sa_001b57e8.c (same flag as its clone TU 0018a680.c); compiler per address band as before. No compiler added, no existing file changed settings.
+- **NM closer handoffs received, registered, rejected:** 6 / 6 / 0.
+- **Recurring NM blockers (permuter/closer candidates):** short-loop nop pads retail has but ee-as/call_loop_pad don't emit (291D48, 352298); s-reg anchor rebase (30B420); unfolded `xori`/`movn` that ours folds to `sllv` (36AE70); small regalloc/scheduling gaps at 13 diffs (2F48A8, 3B21D0).
+- **Stop conditions:** none hit. Every reseed ended elf=OK overlay=OK; nm_prune 0 stale throughout; zero-match streak 0.

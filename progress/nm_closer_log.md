@@ -499,3 +499,308 @@ batch26_nm.c, batch35_nm.c, batch46_nm.c, batch49_nm.c, inbox_nm_func_001A6F00.c
 inbox_nm_func_00262980.c, sa_nm_00103760.c, sa_nm_0013de90.c, sa_nm_0014e5d0.c, sa_nm_00274018.c,
 sa_nm_002948e8.c, sa_nm_002d3ba8.c. batch31_nm.c keeps only func_002C5338. Before working on a function, check that it isn't
 already carved in `compile_config.json` under its current name.
+
+- func_003780F8: MATCH (~15 min). Even branch wrapped in `do { ts = tbl[r].s; tc = tbl[r].c; *s = ts; } while (0); *c = tc;`. FLAG do-while(0). Permuter score 0 also had `ts++; ts--;` around that wrap; the increments are junk and are not in the handoff. sn-2.95.3-136. Handoff progress/nm_solved/func_003780F8/. Permuter killed; none left in godhand-nix.
+- func_0016F4A8: GAVE UP (~45 min). 2 diffs: `sw unk5EC` and `sh hpMax` swapped; `sh hp` in the jal delay slot already matches. All 6 orders of the three v0=1 stores stay at 2 or worse (source order unk5EC, hpMax, hp is a 3-diff rotation). A second `self->unk5EC = 1` after `hpMax = 1; hp = 1` matches (79 insns, 9 relocs) but the compiler deletes that store after scheduling; rejected as a redundant store. Permuter 900s, base 60, best permuter-score 10, only that family. sn-2.95.3-136. Permuter finished; none left in godhand-nix.
+- func_003A79F8: GAVE UP (~20 min). 1 diff: `beql` into the range-fill loop targets the `.p2align 3` nop (BB label `$L18` sits before the align; loop-back `$L23` is after it). Retail's beql and the back-edge share the post-align label. goto/for/while/user-label forms, ee-2.9, cygnus, `-fno-align-loops`, `-fno-align-jumps` do not move the target. sn-2.95.3-136.
+- func_003B2080: GAVE UP (~25 min). 2 diffs: `addiu %lo(D_00460040)` and `lw %lo(D_0077E520)` swapped; the two `lui %hi` already match. Source order, do-while, reused temp, volatile, and a memory barrier do not fix it (best stays 2). Permuter 15 min, base 60, best permuter-score 30 only via a duplicate if/else or `if (0) {}` (junk, rejected). ee-2.9-991111. Permuter finished; none left in godhand-nix.
+- func_0033FB78 / func_0033AA48 / func_00341EC0 / func_003566E8: GAVE UP. 1 diff each, cygnus reorg `bnel` vs retail `bne`/`bnez` with the same delay-slot insn. Same class as func_0033E5C0 / func_0033A618 / func_0033D870. Guard shapes, callee int/void, and (0033FB78) the odd-result test were already tried; not sent through another permuter.
+- func_00352258: GAVE UP (~20 min). 2 diffs: `mult` and `sd ra` swapped. `long long`/`int` return on func_003B7FE0, two-arg call, local product, and `do {} while (0)` in place of the barrier all stay at 2 (dropping the barrier tail-calls, 14 vs 15 words). Permuter 15 min, base 60, 17696 iters, no output. cygnus-2.96 drop-reorder. Permuter finished; none left in godhand-nix.
+- func_00327A50: GAVE UP (~25 min). 3 diffs: `sw size` / `sb stat` / `sw sj` rotated around a matching `sb unk2`. Retail source order and do-while groupings are 5 to 59. Permuter 15 min, base 230; best permuter scores (40, 70) re-score as 4 and 7 under match_check, and the score-40 source needs `e++; e--;` plus an empty `if (e)` (junk, rejected). Clean chained `nsct2 = (nsct = nsct)` stays at 3. cygnus-2.96 drop-reorder. Permuter finished; none left in godhand-nix.
+- func_00321F48: GAVE UP (~15 min). find_fde. Default ee-2.9 deletes the post-loop `ob == 0` test (35 diffs). `-fno-thread-jumps` is not a handoff flag; under it, 2 diffs remain: the loop-exit `beqz` targets the test with a nop slot, retail targets the `return 0` with `v0 = 0` in the slot. goto/while forms are 18 and 35. ee-2.9-991111.
+- func_00377AC0: do-while around the owner load, and owner/id locals, jump to 51-54 diffs (loads leave the compare). Operand swap stays at 3. Best remains 2. Queued for permuter.
+- func_00340580: inverting the two early guards optimizes back to the same 9 diffs (prologue copy order plus beql vs beq). cygnus-2.96 drop-reorder.
+- func_00377AC0: GAVE UP (~20 min). 2 diffs: `lw` of voice owner at 0x14 and `lw` of track id at 0x4 swapped. Permuter 15 min, base 20, best 10 only via `if (n) { ... } else { same }` and `(ch / 2) ^ 0` (junk, rejected). Clean `2 & kind` stays at 2. sn-2.95.3-136. Permuter finished; none left in godhand-nix.
+- func_00336218: GAVE UP. 2 diffs, both `bne` (retail) vs `bnel` (ours) with the same delay-slot insn. Same reorg class as func_0033E5C0. cygnus-2.96 drop-reorder.
+- func_003977C8: do-while around `unk10 = 0; cmd = 0x10` grows the function (42). Swapping those two stores, and `void *func_003B63A0`, stay at 3. ee-2.9-991111.
+- func_0034F4C0: `int ret = 1; return ret` leaves the 6 diffs (slti/0x40000 in v0, retail v1, plus one beql). Named 0x40/0x10000/0x40000 locals go to 22. cygnus-2.96 drop-reorder.
+- func_0033D090: GAVE UP (~25 min). 7 diffs, v0/v1 swapped in the default-code copy block. Temps, a pointer copy, store order, and signed globals or fields all stay at 7. Permuter 15 min, base 40, best 20 only via `o++; o--;` or a duplicate store (junk); reusing `ch` as the temp gives 6 with different registers. cygnus-2.96 drop-reorder. Permuter finished; none left in godhand-nix.
+- func_0017AC90: MATCH (~10 min). New NM file from batches 85-91. Statement order only: `0x548 = 0x78; 0x54A = 0x78; 0x250 = bits;` (was 54A, 250, 548). 84 insns, 6 relocs. sn-2.95.3-136, no meta.json. Handoff progress/nm_solved/func_0017AC90/. Note: build/SLUS_215.03.map was briefly 0 bytes during a main-agent build; scratch scores in that window show bogus reloc errors. Re-verified after the map came back.
+- func_0016F4A8: all 5040 orders of the last seven tail stores (unk5F6, work, workNum, unk5F4, unk5EC, hp, hpMax): best 2. Sibling (0016fd68/00170050) orders: 27-31. Stays given up.
+- func_0016F790: GAVE UP (~10 min). New file; same sw 0x5EC / sh 0x548 tie as func_0016F4A8. All 5040 orders of the last seven stores (split chained COL_A/COL_B): best 2. sn-2.95.3-136.
+- func_003BA3D8 / func_0019AD00 / func_00342FF8: GAVE UP (over 30 min total across sessions). 003BA3D8 has opposite likely-bit choices on two branches. 0019AD00 (2 after the float-order fix) is the same short-store tie as func_00178E18. 00342FF8 (2 after req.d=0 per arm) is a load-order tie: 120 orders and a permuter found only junk.
+- func_003977C8: GAVE UP (~30 min). 3 diffs: `sw zero, 0x10` scheduled after the arg setup. Permuter 15 min over the RPC store block, base 335, best 225 (`intr = 0x10` temp), which re-scores at 6 under match_check. ee-2.9-991111. Permuter finished; none left in godhand-nix.
+- QUEUE ~17:30Z: what remains open is register-allocation or schedule noise at 7-18 diffs (func_00340580, func_00347AF8, func_003454F0, func_0036D1A8, func_003315D8, func_003552D0) plus far drafts (45+). New batch 85-91 files: func_0017AC90 solved, func_0016F790 gave up; func_0028A780 (71), func_0032D868 (66), func_00347498 (47), and func_0034C3A8 (60) are far. Waiting 20 min, then re-checking src/ and PROGRESS.md. No permuter running.
+- STATUS 15:58Z: about 25 NM functions tried this session; 1 solved (func_003780F8, registered per nm_solved/handoff_log.tsv), 14 gave up, the rest open at 3-9 diffs. No tool blockers.
+- func_0034F4C0: GAVE UP (~20 min). Permuter 15 min on the len2/len tail, base 225, best 155. The clean pieces (`arg = len < 0x40`, `return (unsigned long)1`) re-score at 28 and 6. No match_check improvement. cygnus-2.96 drop-reorder. Permuter finished; none left in godhand-nix.
+- RECHECK ~17:50Z: func_0017AC90 registered (handoff_log 12:23). New NM files since last check: func_001FF858, func_002B3D70, func_003511F8 (PARK 79), func_00354650, func_00386DE0 (PARK 65).
+- func_00354650: MATCH (87 insns, 23 relocs), handed off to nm_solved/func_00354650/ (solved.c + meta.json: cygnus-2.96, drop -freorder-blocks, because the header says "-freorder-blocks dropped" rather than the drop-reorder keyword). The only fix is the callee prototype: `extern int func_0036C450(int, int, int)`, matching its real definition in src/cod/00324108.c. The NM declared it void, which put the a1/a2 setup for the second call in the wrong order. Found through the permuter, which had also slipped in redundant `new_var = sf` copies; those are not needed. Caution: an earlier multi.py batch scored the int prototype at 2; mc.py says MATCH, so trust mc.py.
+- func_002B3D70: open. Join-block ordering brute force (48 variants) gets 11 -> 9: putting `D_003C2550 = 0` after the flags clears helps, but the flags load still schedules above the counter store.
+- func_001FF858: open. The header's 5-word gap closes once `p` is reassigned inside the name loop: `for (i = 0; p[i] != 0; i++) p[i] = tolower((p = self->name)[i]);` gives 87 words and 19 diffs. Retail hoists self->name as a copy ($7) and walks the store pointer; ours recomputes s1+25 inside the loop. 288 while/do/goto/for shapes all floor at 19.
+- func_00354650: registered by the main agent (handoff_log 13:01).
+- TOOL CAVEAT: multi.py takes the preamble (types and prototypes) from v0.c only, so prototype changes in v1..vN are silently ignored. That is why the int prototype for func_00354650 scored 2 in multi.py. Added progress/nm_work/tools/protosweep.py: it flips each extern's return type (void/int/void*/long, plus all-int) and scores each variant with mc.py. Re-swept this session's open and given-up functions where the base score reproduces the known count (0033FB78, 0033AA48, 00341EC0, 003566E8, 00347AF8, 003454F0, 00352258, 00327A50, 00377AC0, 0034F4C0, 0033D090, 003977C8, 0016F790, 003A79F8, 003B2080, 0016F4A8, 003BA3D8, 0019AD00, 002B3D70): no improvement from any flip. Not re-swept because my guessed flags gave the wrong length: 00340580, 0036D1A8, 003315D8, 00321F48, 00336218, 00342FF8.
+- func_001FF858: GAVE UP (~35 min). Best is 19 diffs at 87 words, using `p[i] = tolower((p = self->name)[i])`. A 15-min permuter got 845 -> 670, which re-scores worse (74 diffs, 89 words) because of a hoisted name pointer. Inline strlwr helpers (13 shapes) all strength-reduce back to 82 words. Retail keeps a self->name copy in $7, reassigns p from it in the back-edge delay slot, stores and tests through a walking pointer, and loads p[i] by index.
+- func_002B3D70: GAVE UP (~30 min). Join-block order brute force 11 -> 9, prototype sweep no change. A 15-min permuter got 1095 -> 820, but only through junk (a `new_var = self` alias plus a hoisted f8C pointer). Rejected.
+- func_00386DE0: GAVE UP (PARK 65, register-pair swap). Int params, callee prototypes, memcpy or pointer copy, and a goto split don't help; the best of 72 tail-order variants is 61. Too far.
+- func_003511F8 (sfmpv_SearchDelim, PARK 79): skipped as too far.
+- QUEUE ~17:55Z: no new near-misses. Waiting 20 min, then re-checking src/ and PROGRESS.md. No permuter running.
+- RECHECK ~18:20Z: checkpoint batches 92-100 (17:37Z). Its only header change is newlibMalloc.h, which none of my give-ups use, so no retries. New NM files: 001DCC30, 001FC810 (STOP 82), 001FFF80 (cDoor_setDoorJump, 9), 0028E858 (8), 0034E9B0 (18), 00353630 (PARK 82).
+- func_001DCC30: MATCH (93 insns, 1 reloc), handed off to nm_solved/func_001DCC30/solved.c (sn from the header, no meta). Fix: drop the `tbl` local and index self->slot directly at all three sites (search compare, clear loop, final marks). Using self->slot only for the marks reshaped the loop; doing it everywhere matches. Found by brute-forcing tbl declaration position x use sites (72 variants). The `if (k < N) do {} while (++k < N)` shape was already in the NM.
+- cDoor_setDoorJump (func_001FFF80): MATCH (94 insns, 21 relocs), handed off to nm_solved/cDoor_setDoorJump/solved.c (sn from the header, no meta). Fix: statement order only, with `SYS_LOCK2() |= 0x100000;` after the four SYS_LOCK() ors instead of before them. Found by brute-forcing all 720 orders of the lock block plus the task-flag store; this was the only exact one.
+- func_0028E858: MATCH (94 insns, 24 relocs), handed off to nm_solved/func_0028E858/solved.c (sn, no meta). Fix: pass `(int)v.z` as the float heading argument. sn folds away the float->int->float round-trip, but it moves the f12 load ahead of D_003C2F84 and gives the retail f0/f1/f2 constant allocation. FLAG: the cast is semantically odd (v.z is 0.0, so the value is unchanged), but it is real C, not a no-op statement. A one-line constraint comment at the call explains it. The permuter found it as `se = v.z;` (reusing the int `se`); an `int z = v.z` local and the cast match too. Before that, 144 store-order/scope/arg-form variants and 9 prototype/vector-type variants all stayed at 8.
+- func_0034E9B0: s/in callee-saved swap (18). Declaring `in` at 4 positions x 3 `s->in` use sites gives 17 at best; the prototype sweep doesn't help. Permuter next.
+- func_0034E9B0: GAVE UP (~30 min). A 15-min permuter got 160 -> 105, but only with `in->unk154++; in->unk154--;` junk. Rejected. Same s1/s2 swap as noted.
+- func_0016F790: still given up. A 15-min permuter (11.7k iterations) stayed at base 60.
+- func_00347AF8: GAVE UP. A 15-min permuter got 60 -> 20, but only through junk (an identical if/else on buf, or an if (1)). Rejected.
+- func_00333CE0: MATCH (95 insns, 23 relocs), handed off (solved.c + meta.json: cygnus-2.96, drop -freorder-blocks). Fix: declare memset func_003A52F0 as returning void* (as in criStm.h) instead of void. Found by protosweep. FLAG: prototype.
+- func_0030B298: MATCH (97 insns, 34 relocs), handed off (sn, no meta). Fix: declare func_001FF858 as returning int (its definition returns 1) instead of void. Found by protosweep. FLAG: prototype.
+- cSnd_BgmControl (func_002D0938): skipped. The one missing short-loop pad nop is an assembler behavior; --as=sn with call-loop-pad scores 35 vs 25, and the prototype sweep doesn't help.
+- func_002D4C20: skipped. Its header documents a splitter false reloc pair (%hi/%lo D_70000040) that C cannot reproduce honestly; schedule diff 18; the prototype sweep doesn't help.
+- Prototype sweep redone with correct flags: 00340580 (9), 0036D1A8 (17 -> 16 with func_0036D7C0 int, still far), 00336218 (2), 00342FF8 (5 in this copy): no fix. 00321F48 stays flag-blocked. New files with no prototype fix: cSnd_BgmControl, 002D4C20, 00377150, 002C21A0, 0015ADA0, 00339AE8.
+- func_00377150: GAVE UP (~25 min). A 15-min permuter got 105 -> 55 by holding 0x17 in a local for unk2E, which fixes the tail loads (19 -> 11). The rest is the ch/data-pointer s1/s2 swap. 315 variants (0x17 local position x `one` local x decl order) all floor at 11.
+- func_002D4C20, cSnd_BgmControl: skipped (see above). Remaining new files are far drafts: 002C21A0 (47), 0015ADA0 (62), 00339AE8 (69), 00300458 (97), 003520D8 (90), 001FC810 (82), 00353630 (82), 003511F8 (79).
+- QUEUE ~19:15Z: this session's handoffs 001DCC30, cDoor_setDoorJump, 0028E858 registered at 14:19 per handoff_log; 00333CE0 and 0030B298 pending. Waiting 20 min, then re-checking. No permuter running.
+- RECHECK ~19:40Z: new NM files 00159300 (PARK 107), 00325638 (4), 00333880 (7), 0037D3C8 (PARK 27), 00382660 (PARK 51). No new checkpoint.
+- func_00325638: MATCH (100 insns, 38 relocs), handed off (solved.c + meta.json: cygnus-2.96, drop -freorder-blocks). Fix: declare D_00755C20 and D_00755C28 as the {fn, arg} callback struct that src/cod/0031f4e0.c uses (local typedef Cb325638), with the extern for D_00755C28 before D_00755C20, and clear them in field order (C20.fn, C20.arg, C28.fn, C28.arg). With the externs in address order it stays at 4; a block with two struct-pointer locals also matches.
+- func_00333880: GAVE UP (~30 min). Declaring LogPrintf as int brings 7 -> 5 (the v0/v1 swap around the volatile `ng` spill remains). A non-volatile ng gives 99 words; 432 branch statement orders x ng++ forms floor at 5; a 15-min permuter stayed at base 30.
+- func_0037D3C8: GAVE UP (PARK 27). Case 4 is 3 words short: retail keeps the divide-by-zero beql/break checks and copies through a1 for both divisions there; ours drops the checks. 7 ternary forms and 48 temp-variable variants (type x scope x operand order) don't help (27 best, 36 with a temp).
+- func_00159300 (PARK 107), func_00382660 (PARK 51): skipped as too far.
+- QUEUE ~20:25Z: 00325638 handed off (pending), plus 00333CE0 and 0030B298 pending. Waiting 20 min. No permuter running.
+- func_0030B298, func_00325638, func_00333CE0: registered by the main agent (handoff_log 15:34). No pending handoffs.
+- RECHECK ~20:50Z: one new NM file, func_00332178 (27). No new checkpoint.
+- func_00332178: GAVE UP (~40 min). Two partial findings for whoever retries: reusing the `id` parameter for `size` (`id = bufsize - 0x40; e->size = id; ...`) puts id in t0 like retail, and the permuter likes `e->used = e->unk02 = 1;`. What remains is reorg delay-slot filling on the arg2/bufsize checks: retail fills each beqz slot from the branch target (the next check's andi/sltiu), ours from the fall-through (the error lui), and that shifts everything after it (29-32 diffs by mc). Prototype variants (log int, dtx_create_rmt(void), memset void/uint, SyncDCache/func_003B0640 int), goto error tails (87) and nested ok-conditions (33) don't help. Two 15-min permuter runs: 955 -> 425 -> 280.
+- RECHECK ~21:00Z: new NM files 00150DC8 (103/104 words), 0032B888 (39), 003356B0 (2), 00373BA8 (104/103 words). Prototype sweep: no fixes.
+- func_00373BA8: MATCH (103 insns, 10 relocs), handed off (sn, no meta). Fix, in the stereo/non-mode-1 arm: write the product as `25000 * nch * (freq / 1000)` (keeps freq in a1 and the constant in a3; same value mod 2^32), and hoist the header term into a block-local `int hdr = nch * 0x40C0 + 0x24;` added as `... + hdr + 0x40`. Found by brute-forcing the product order (12) and then header-term forms. The mono arm is unchanged.
+- func_00150DC8: open. Retail uses xori+andi for the mode parity test; 32 spellings x arm orders give 103 or 107 words, never 104.
+- func_003356B0: GAVE UP (~25 min). 2 diffs (0x0C/0x1C store pair). All 528 placements of `e->arg2 = arg2` (in the block and earlier in the function) x chained-zero forms floor at 2; a 15-min permuter stayed at base 20.
+- func_0032B888 (39), func_00150DC8: left open as too far / no lead.
+- QUEUE ~21:35Z: func_00373BA8 handed off (pending). Waiting 20 min. No permuter running.
+- func_00373BA8: registered (handoff_log 17:04).
+
+## Batch ~22:10Z (prototype sweep found no fixes for any of these)
+- func_001AA510 (sn): GAVE UP at 9 diffs. Retail loads kind once and tests it as `li 5; slt; beqz`, storing kind to the stack argument slot in the delay slot. A literal `kind > 5` always becomes `slti 6`/`xori`. A local `int lim = 5;` does produce `li 5`/`slt` (12 diffs), but it hoists the `D_005FEE00` address above the branch, and the local is a magic-constant hack anyway. Best real C is k/v5.c: two unsigned-char loads, 9 diffs.
+- cEmManage_SetEmAnger (sn): GAVE UP at 108 vs 110 words. In both abs tests retail keeps the source and the result in separate registers (`mov.s` in the bc1f delay slot, then `neg.s dst,src`). We always fold them into one register (`bc1tl` + `neg.s` in place). Tried 9 abs spellings, inline helpers, ABS-macro expansions, every compiler, and drop-reorder/sn-as. None changed it. A float-type or volatile difference in the original source is probable.
+- 0013E0B0 (27 diffs), cCoreSave_spawnItems (104/106 words), 002A6FF8 (102/110), TransEsp (55), 0037E4C0 (106/108): PARKED. Too far off for an order or prototype fix. The prototype sweep was clean.
+- func_00334310 (cygnus, drop-reorder): GAVE UP (~45 min) at 1 diff. Partial fix (from the permuter, then cleaned up): `int *psize; ... func_003351C0(name, &info); psize = &info.size; if (info.size == 0) {...} else size = *psize;` brings back retail's second `lw s1,4(sp)`. A `FileInfo334 *ip` pointer does not; it needs the int*. What remains is the success return: retail uses `bgezl s0` with `move v0,s1` annulled in the delay slot, ours uses a plain `bgez`. Tried tail forms (r >= 0 return, size = 0, goto fail, early return size), varargs/int/K&R prototypes for the log functions, and a protosweep on both versions: no change. Two 15-min permuter runs: 400 -> 200, then stuck at 200. Scratch: progress/nm_work/func_00334310/p/v0.c.
+- Turn_dest (sn, as=sn, fdiv): GAVE UP (~30 min) at 2 diffs. Same idiom as cEmManage_SetEmAnger. Retail's final abs compares and negates the original d (`bc1t` with `mov.s r,d` in the delay slot, then `neg.s r,d`). With a plain `-d`, gcc copies d into r first and compares and negates r (114-116 words). `0.0f - d` keeps the right shape but emits sub.s. Tried 11 final forms and a 4x4 grid of ABS_F definitions x final forms: no fix. The 15-min permuter reached 200 only with junk (an alias variable, `if (1) {}`, split subtraction); rejected. Turn_dest_Y, the next function, uses the identical tail, so whoever cracks this idiom should be able to fix all three.
+- func_0039B960 (ee-2.9-991111): MATCH. Handed off as progress/nm_solved/func_0039B960/solved.c. The fix is a chunk-size local, `u_int qwc = 0xFFC0;` (1023 quadwords x 64; the madr step 0xFFC00 is the same chunk in bytes), stored with `D3_QWC = qwc;`. That keeps the DMA register values in v1 and the addresses in a0/a1, as in retail. The permuter found it in about 2 minutes (it used a temp set right after ch.madr); every placement of the local matches, including an int type and the declaration initializer handed off. No meta.json is needed (the header names the compiler).
+- func_00350F48 (50 diffs, 112/111 words) and func_00148D30 (PARK, 41 diffs): PARKED, too far off.
+- QUEUE ~23:55Z: func_0039B960 handed off (pending). Waiting 20 min. No permuter running.
+- func_0039B960: registered (handoff_log 18:33).
+- Draw_Line_sc (sn, as=sn): MATCH. Handed off as progress/nm_solved/Draw_Line_sc/solved.c with meta.json {"compiler": "sn-2.95.3-136", "as": "sn"}, because the header says "as sn" rather than "as=sn". The fix is a screen-offset local, `int ofs = 0x800;`, used as `(float)(ofs - D_003C1180 / 2)`. It moves the %hi(D_00586B80) hoist ahead of the &v and &pts[i-1] setups, as in retail. The header said a 0x800 local didn't work; every placement I tried matches (top of the loop, before count++, before attr, initializer). Found by the permuter in about 3 minutes, after rewriting the `float (*pts)[4]` parameter as `float pts[][4]`, which the permuter cannot otherwise parse (base.c only; same code).
+- LESSON: twice today a local holding a constant (0xFFC0, 0x800) fixed hoist-order and register-assignment diffs. Worth trying early on loop pre-header and volatile-store register swaps.
+- 0035CC80 (88), 003090F8 (29): PARKED. 003B0EF8: blocked on the per-file extern_double setting (main agent's call), skipped.
+- QUEUE ~00:50Z: Draw_Line_sc handed off (pending). Waiting 20 min. No permuter running.
+- QUEUE ~00:50Z: Draw_Line_sc handed off (pending). Waiting 20 min. No permuter running.
+- Draw_Line_sc: registered (handoff_log 19:02).
+- Checkpoint 22:45Z header change (emPhaseTable.h) doesn't affect any prototype-blocked give-up; no retries needed.
+- func_00283C70 (sn): PARKED (~25 min). The whole gap is retail keeping a second constant-2 register (s2) for entry 1's b2/b3 bytes, plus its save/restore (122 vs 119 words). Tried chained and reordered byte stores, a byte parameter on InitEnt, float x/y locals, and indexed or direct &D_00585660[n] forms: none add s2. The 15-min permuter went 1685 -> 1095, all junk (an alias pointer, `do {} while (0)`, a 0.1f local).
+- func_002C1AE0 (sn, as=sn): PARKED (~15 min). Retail leaves the pi constant load unscheduled (after sub.s/abs.s); our scheduler moves it up into the lwc1 shadow. Tried 11 forms (pi local, d > pi, separate fabs statement, 2*pi spellings, ternary, the -(d - 2pi) form at 121 words/15 diffs) and the allowed fno-gcse/fast-math flags: no fix. 0030F8B0 (77), 0013C318 (90), 00383F50 (56): PARKED, too far off.
+- QUEUE ~01:40Z: nothing pending. Waiting 20 min. No permuter running (confirmed PERM=0).
+- func_003B3650 (ee-2.9-991111): PARKED (~20 min). The req/pkt s0/s1 swap survives the prototype sweep (no change). The 15-min permuter went 1220 -> 540, but only through junk (`do {} while (0)`, chained `pkt->f18 = (n = 0)`); cleaned versions of the n = 0 placement score 41 by mc (base 40).
+- QUEUE ~02:25Z: nothing pending. Waiting 20 min. No permuter running.
+- func_001C3988 (sn, -fno-gcse): PARKED (~10 min). Tried rewriting both loops around an inline bounds-checked part accessor modeled on matched sa_00194558.c (GetPart194558, `on[3]` stack copy) and sa_0026a3d8.c (SwayOwner_part, `hold[16]` copy). All three accessor forms land at 102 words vs retail 132, much further off than the NM's 129. Not pursued further.
+- QUEUE ~03:10Z: nothing pending. Waiting 20 min. No permuter running.
+- func_003563B8 (cygnus, drop-reorder): GAVE UP (~35 min) at 3 diffs (from 7). Setting constant locals right after the func_00355E88 call (`one = 1; m1 = -1;`, used for the st+0 and ix+0 stores) gets 5. A pairwise-swap hill-climb of the 13 reset stores (new tool progress/nm_work/tools/swapclimb.py) then reaches 3. Single-statement moves and a climb including the constant lines stay at 3. What remains: retail's st[0x12] byte store falls before the ix stores. The 15-min permuter "70" output is worse by mc (9 diffs). Note that the one/m1 locals are borderline anyway. Natural group order (st bytes / st+0 / st+0x20, then ix, then the rest; all 120 orders of the first group) floors at 11. Scratch: progress/nm_work/func_003563B8/b3.c.
+- TOOL: progress/nm_work/tools/swapclimb.py SRC FUNC START END [mc args]: pairwise-swap hill-climb of a line block, scored with mc.py using 6 threads.
+- func_00356C68 (cygnus, drop-reorder): GAVE UP (~15 min) at 1 diff (the final bnel vs bnez with the s0 restore in the delay slot). The prototype sweep, 7 condition shapes (early returns, nested, skip temp, De Morgan), a block-scoped loop pointer, and char/short/uchar `end` all stay at 1. It's a reorg liveness difference I can't reach from source.
+- func_00159DA0 (sn, as=sn): GAVE UP (~25 min) at 8 diffs (v0/v1 alternation of the four lhu/sw pairs that fill r). Direct p->src indexing, an offset h, reversed fill order and comma fill all stay at 8 (the alternation doesn't follow statement order). Block temps give 9, and hoisting h above the calls breaks things. The 15-min permuter found no improvement at all.
+- 0019AF80 (50), 0033EE30 (51), 0035A2B0 (46): PARKED, too far off.
+- QUEUE ~05:00Z: nothing pending. Waiting 20 min. No permuter running (PERM=0 confirmed).
+- func_00159DA0 (sn, as=sn): GAVE UP (~25 min) at 8 diffs (v0/v1 alternation of the four lhu/sw pairs that fill r). Direct p->src indexing, an offset h, reversed fill order and comma fill all stay at 8 (the alternation doesn't follow statement order). Block temps give 9, and hoisting h above the calls breaks things. The 15-min permuter found no improvement at all.
+- 0019AF80 (50), 0033EE30 (51), 0035A2B0 (46): PARKED, too far off.
+- QUEUE ~05:00Z: nothing pending. Waiting 20 min. No permuter running (PERM=0 confirmed).
+- func_001AD5C8 (sn): MATCH. Handed off as progress/nm_solved/func_001AD5C8/solved.c (no meta.json; the header names sn). Fix: the four-byte state reset is a `static inline void Reset1AD5C8(char *p)` called from both case 0's early exit (`if (p[0x60D] == 0) { Reset1AD5C8(p); break; }`) and the end of case 1, instead of a shared `reset:` label. sched1 then sees the reset stores in case 1's block, which puts the 0x60D clear before the lui as in retail, and the later cross-jump merges the two copies into retail's single tail. Lead from the permuter (score 15 moved the 0x2F5 store above the label); the rest by reasoning. No goto remains.
+- LESSON: when a shared tail reached by goto schedules differently from retail, try duplicating the tail at each source path (as an inline helper or a macro) and let cross-jumping merge it.
+- func_002A6DA8 (sn): PARKED (~15 min). A swap-climb of the 25-statement loop body and all 576 single moves floor at 10. The %hi(D_003C1190)/%hi(D_003C1184) order and the attr+0x30 sd placement don't respond to statement order.
+- 00140E58 (120), 0039CCC0 (147): PARKED, too far off.
+- QUEUE ~06:15Z: func_001AD5C8 handed off (pending). Waiting 20 min. No permuter running.
+- func_001AD5C8: registered (handoff_log 22:18).
+- func_0027BB78 (sn): MATCH. Handed off as progress/nm_solved/func_0027BB78/solved.c. Fix: the TU-local prototype `extern float Turn_dest(void *a0, float f12, float f13, void *a1);` (the same order matched sa 002705d8.c uses), called as `Turn_dest(pos, rot, 3.1415927f, dst)`. Under EABI, float and integer arguments take separate register sequences, so only the source order of the argument moves changes: the lw a1 now lands in the jal delay slot as in retail. `(void *, float, void *, float)` also matches.
+- LESSON: when argument-register setup order around a call differs and the callee mixes float and integer arguments, try reordering the prototype's float and integer parameters (the registers stay the same under EABI).
+- func_001C26B8 (sn, as=sn): GAVE UP (~35 min) at 24 diffs with the correct size (54 words; the NM is at 64). Partial fixes: (1) prototype `Turn_dest(void *a0, float f12, float f13, void *a1)` makes the call setup match retail exactly (lwc1 f12, lw a1, then f13, with a0 in the delay slot); (2) an explicit `float b; if (a < 0.0f) b = -a; else b = a;` gives retail's bc1f + delay-slot mov.s + neg.s shape. The permuter matched in seconds, but only with a dead `b = a;` before `return 1` (verified: that statement alone gives MATCH). Keeping `a` alive past the abs is what retail needs, so the abs result must not fold into a's register. A dead store is not allowed, and the legitimate alternatives (inline Absf in 3 forms, a ternary, reusing d, `0.0f > a`, `a <= 0`, `0.0f - a`, `-1.0f * a`) all stay at 24 or 52 words. Probably the same root cause as Turn_dest and cEmManage_SetEmAnger: something in the original keeps the pre-abs value alive.
+- ObjTrans (sa_nm_0030f650.c, sn): GAVE UP (~35 min), still 7 diffs. Two spots: (1) the toggle path, where retail does `addiu s1` before the shared `sw` (sw goes in the b delay slot); (2) the slot-3 VCall0 path, where retail increments `it` after the call and ours hoists it before. Tried 25 toggle/tail combinations (it++ first, an nf temp, ternary, `|=`, `*it++`, a common it++ after the if/else, `VCall0(*it,3)`, inverted condition), plus --as=sn, --drop-reorder and ee-2.9 (155 words). None beat 7. Permuter: base.c needed `sizeof(f[0])` in place of `sizeof(char *)` (the permuter parser mangles it); in 15 min the best was 180->100, but only by doubling `it++` on the 2C3190 path, which changes behavior, so rejected.
+- func_001A5540 (sn): SOLVED (~10 min), handed off to progress/nm_solved/func_001A5540/solved.c. Fix: case 3 fills both vectors through float-param static inline setters, `SetV3((float *)(self + 0x5C0), 0, 0, 10)` and `SetV4(rot, 0, 0.86, 0, 1)`, and passes `(float *)(self + 0x5C0)` straight to VecRotVec (no `v` local). The inlined float params give retail's f2/f1/f0 constant allocation and store order. Setters alone (keeping `v`) stay at 7; dropping `v` without setters gives 153 words.
+- func_0034A0F0 (cygnus dr): in progress, best 5 (from 4-with-wrong-d). Not reassigning d (`d = -d`) keeps d in v1 as in retail, but the negated value then gets v0 instead of a0; reusing `n` gives s1. Declaration order, block-local decls and equivalent arithmetic forms are all stuck at 5-6.
+- func_0033A730 (cygnus dr): GAVE UP (~10 min), 1 diff. Retail fills the used-test bnez slot with sltiu without annulling; ours annuls (bnel). This is reorg's opposite-thread liveness, insensitive to source: tried !used, inverted and `> 3` id tests, `id < 0 || id >= 4`. The sibling func_0033ABD0 shows the mirror image of the same quirk.
+- func_002CABE8 (sn): SKIPPED: the header notes retail's second lui (SeLoadNo fallback path) has no relocation in the split asm (raw 0x45), so it can't reloc-match even with the registers fixed.
+- func_0029FDE0 (sn): in progress, best 2 (from 7). Fix so far: `int zz = 0xFFFF;` local for the XYZ z (hoists the two 64-bit constants before the i*32+0x1F giv init). Left: the `-1` (sign test for D_003C1180/64) is still hoisted after the giv init in ours, before it in retail.
+- func_0036DFF0 (cygnus dr): SOLVED (~5 min), handed off with meta.json (cygnus-2.96, drop -freorder-blocks). Fix: `while (c->ready == 0 && (d = MPV_GoNextDelimSj(sj)) != 0)` rewritten as `for (;;) { if ((d = MPV_GoNextDelimSj(sj)) == 0) break; ... if (c->ready != 0) break; }`, which is equivalent because ready was just zeroed. Retail enters straight at the MPV call, and the putChunk/ungetChunk arg order also matches. A `while (MPV) {...; if (ready) break;}` form gives 132 words. (Note: mc's left column is retail, the right is ours.)
+- func_0033D720 (cygnus dr): SOLVED (~5 min), handed off with meta.json. Fix: the header callback field type `void (*hdrcb)(...)` becomes `int (*hdrcb)(int obj, int *a, int *b, int *c)` (return value ignored). With an int return, retail's hdrobj load comes before the hdrcb load. An unprototyped `void (*)()`, void* obj, `(*fp)()` call syntax and explicit offsets don't help. The struct is file-local, so no header change is needed.
+- func_0033DD78 (cygnus dr): GAVE UP (~25 min), 2 diffs. Retail reloads the spilled `rate` pointer (lw a0,4(sp)) before the channels lbu; ours after. Tried rate/ch statement orders, a pointer local, swapclimb over the field-store block, and 15 types of r/c temps. Permuter 15 min (base.c needed the signature joined onto one line, since the parser rejects multi-line params): no improvement over 60.
+- func_00345BE0 (cygnus dr): -f=-fno-align-jumps fixes the size (76 words) and brings it to 32 diffs (from 56). Left: sched1 hoists `a1 = 0` for func_003487C0 above the error beqz (retail leaves it for the delay slot), plus the final sw 0x2D4 / sb play order.
+- func_00334D68 (cygnus dr): SKIPPED after a look. cc1 output is identical; only reorg leaves the first bne slot empty where retail puts the lui a1. My guess is that reorg's target-liveness search (find_basic_block) gives up in our compiler and treats a1 as live, so this is the same class as func_0033A730. No source lever, since there is no barrier between function start and the target in either build.
+- func_0037CF00 (sn): GAVE UP (~10 min), 3 diffs (the header's near-miss). Retail forms loop 2's pointer as (D+0x1E)+base*32 with a separate addiu 0x1E; ours folds 0x1E into the lb offset. Tried direct indexing, a prio pointer, an int prio temp, `D + base + i`, `&D[base] + i`, char* byte math, a tbl local (83-86 words), i from base to base+last (92 words), and `min >= prio`.
+- func_00141B18 (sn): GAVE UP (~15 min), 10 diffs. Inline InitWorks(b, w, n) helpers (with and without a Restart helper) give 14-20 or 110 words: the `w[i]` operand order flips the addu, and the pre-loop hoist order changes. Other tries: `b = p + 0x190` (13), reusing w1 (12), `for (b = b2, ...)` (10), and using b2 directly (10). Retail's surviving `daddu s2,s4` copy needs b to stay one pseudo across loops 2 and 3; cse copy-propagates it in ours.
+- func_002AF218, func_001F3118: skipped for now (heavily searched near-misses with multiple independent diffs).
+- func_00358368 (cygnus dr): GAVE UP (~10 min), 11 diffs, all in the schedule of the align-and-copy block (retail: work+0x1F, then the -0x20 mask, then the struct-copy alignment test andi cprm,7 early). Tried the bufSize/hn/w4C/w48 orders (hn first: 37-47), unsigned/char* align casts, `& -0x20` / `& 0xFFFFFFE0` / `/32*32` masks, and a shared mask local (35).
+- func_0029FDE0 (sn): PARKED at 2 diffs (from 7), partial in progress/nm_work/func_0029FDE0/i.c (`int zz = 0xFFFF;` z local). The permuter (15 min) found nothing below base 20. The remaining -1/giv-init order also didn't move with condition forms, decl orders, `<< 5`, or `+ -1`.
+- func_003B9F60: SOLVED (~15 min), handed off with meta.json overriding the header's sn to cygnus-2.96 with -freorder-blocks dropped (the address range is SDK/library code; the same C under sn/ee is 19-20 words). C: `for (i = 0; i < 1; i++) { p = &D_003FC7B8[i]; if (p->word == 0) break; } return i != 1 ? p : 0;`. Assigning p inside the loop keeps retail's separate result giv and the delay-slot copy. Forms that assign p after the loop constant-fold to 5-6 words.
+- func_00345BE0 (cygnus dr): SOLVED (~25 min), handed off with meta.json. Fixes: (1) final stores ordered unk84, unk2D4, play, stat (from a 24-way order search); (2) pass `m->buf1` directly to the two buf1 calls instead of through the `b1` local (`b0` stays a local). Fix 2 removes the sched1 hoist of `a1 = 0` above the error beqz. Found by the permuter in 3 min. Default flags: retail does align jumps, so -fno-align-jumps was a red herring.
+- func_00188B50 (sn): SOLVED (~25 min), handed off. The tail becomes a file-local `static inline void InitDmgVol(char *p, int col, char *sub, int kind, int w)` called as `InitDmgVol(p, 1, p + EM_SUB_BUF, 6, 0xC9)`. Its body: the four zero stores, COL_A = col, TARGET = -1 (a literal, not a param), COL_B = col, SUB_PTR, SUB_KIND, 5EC. The inlined params give retail's "constants materialized first" schedule; the store order came from a 720-way permutation (best 2) and then making -1 a body literal (0). FLAG: the head keeps the existing NM's vector setup (`sz = size; size[0] = ...; sz[1] = ...` alias split plus the `one` local) unchanged. A cleaner SetV4 head is 1 off (size[2] goes via s1). Same idiom as func_0019AA80, which should be retried with this helper.
+
+## func_0034A0F0: GAVE UP (5 diffs)
+- 15-minute permuter on the v0 base (cygnus dr, base score 20) found no improvement. Best scratch result: func_0034A0F0/b4.c (5 diffs).
+
+## func_0019AA80: in progress
+- The InitDmgVol-style tail helper plus a 720-way store-order search reached 8 diffs (from 12), at progress/nm_work/func_0019AA80/perm6/q033.c. The head and constant materialization now match retail (a1=1, a2=7 shared, v1=p+0x620).
+- The remaining diffs are the placement of the -1 and a0 moves among the zero stores, plus the 548/60C/5F4 store order.
+- Signature variants (an unsigned char kind, a short col, a single kind param, -1 as a param, all literals) don't do better. Permuter launched.
+
+## emDamageVol tail family: 7 MATCHES via one shared static inline helper (sn-2.95.3-136)
+All seven use the identical helper below. Its params make retail's "constants materialized first" schedule come out.
+```c
+static inline void InitDmgVol(char *p, int col, char *sub, int kind, int w, int t)
+{ 5E8=t; 5E4=0; 5F0=t; 5F6=0; COL_A=col; COL_B=col; SUB_PTR=sub; SUB_KIND=kind; 5EC=w; TARGET=-1; }
+```
+- func_00188B50: MATCH, handoff re-issued with the shared helper. Call: (p,1,p+EM_SUB_BUF,6,0xC9,0).
+- func_0019A0B8 / func_0019A328 / func_0019A590: MATCH. These were earlier given up at 2 diffs. Call: (p,1,p+EM_SUB_BUF,7,7,0). Found with a 720-way helper store-order search; 7 of the 720 orders match.
+- func_0019AA80: MATCH (was 8 diffs with a struct-field helper). The char* + EM_ offset helper matched. meta: sn.
+- func_0019AD00: MATCH. Helper plus the head order swapped (f[0..2] stored before f[4..6]). meta: sn.
+- func_0016F790: MATCH (was 2 diffs). Call: (p,1,p+EM_SUB_BUF,9,1,0x259).
+- Suggestion for the main agent: the helper could move into include/godhand/emDamageVol.h. Each handoff keeps its own static copy, so no header change is required.
+- func_00178E18 is not covered: its tail has 5F6=5 and a 5B8 |= 0x800 interleaved. Still to try.
+
+## func_0016F4A8: MATCH (sn, meta sn)
+- Same InitDmgVol helper with numeric offsets. emDamageVol.h isn't included because this file declares func_001C28A0 with a void* param. Call: ((char *)self, 1, self->workBuf, 6, 1, 600).
+
+## func_00182690: MATCH (sn; header names the compiler, no meta)
+- Changes: the InitDmgVol helper (call (p,1,p+EM_SUB_BUF,8,7,0)); `f[3] = one` moved before f[5]/f[6]; `float *nv` declared block-scoped inside each of the take and give blocks instead of shared across both. The shared nv was what put the slot in v0 instead of a0.
+
+## func_002F48A8: still parked (13)
+- Retail reloads MOT(self) after the frame-count join; ours CSEs it into a0. Tried a ternary, no mi local, an o/m2 local, int-typed loads for alias sets, and -fno-gcse (worse, and changes the size). No progress.
+
+## func_0034A0F0 / func_0019AA80 permuters: see the entries above. func_00178E18: permuter running from the 5-diff base (only a col/s register swap left).
+
+## func_00178E18: GAVE UP (helper approach)
+- The InitDmgVol variant with a 5F6 param, plus a 5040-way order search, reached 5 diffs (a col/s register swap only). Signature reorders, short params, block-scoped nv, and 5F6 outside the helper all stay at 5 or worse. The 15-minute permuter found nothing (base 25). The original NM at 2 diffs remains the best; this enemy's tail likely isn't the shared helper.
+
+## func_003769B0: MATCH (sn, meta {"compiler": "sn-2.95.3-136", "call_loop_pad": true})
+- Rewrote as `for (i = 0, p = D_0076F050; i < 0x60; i++, p++) { if (p->id != 0 && !(p->flags & 0x10)) { if (key == 0) return p; if (p->key == key) return p; } } return 0;`.
+- The last 2 words were R5900 short-loop nops (the backward beq to the shared `return p`). `--call-loop-pad`, the existing unit key, supplies them.
+- New lever: sweeping all NMs with call_loop_pad.
+
+## func_003A93F8: MATCH (meta {"compiler": "sn-2.95.3-136", "as": "sn", "call_loop_pad": true})
+- The NM C is unchanged. The "two hazard nops at the outer loop head" are the R5900 short-loop pad that `call_loop_pad` emits. Found by padsweep (progress/nm_work/tools/padsweep.py).
+- Note for the main agent: func_003A9498 (registered, flagged for one inline asm nop as a short-loop pad) would likely match without the nop under call_loop_pad. It's a registered unit, so I left it alone.
+
+## padsweep (call_loop_pad over all NMs' best configs): results in progress/nm_work/padsweep_results.txt
+- Improved: func_003A93F8 (MATCH, handed off), func_00347AF8 12->9, func_002CB278 15->11, cSnd_BgmControl (size fixed, 25), func_0035F418 41->39.
+## func_002CB278: GAVE UP (12)
+- Moving `ret = -1` after the find call (a found local) gives 12. Retail reloads a0/a1 from s-regs before cSnd_EmSeFind; ours reuses the incoming arg regs.
+- The 15-minute permuter only reached `return ret = -1;` (junk; not better under mc).
+## func_00347AF8: GAVE UP (9, cygnus dr)
+- s0/s1 priority swap between buf and hn/sj. Tried no sj local, local order, a block-scoped type, an inverted test, and a hdr local: no change.
+## func_003B21D0: permuter running (ee, 13). A pkt pointer local and buf/opt store order don't change it.
+## func_003B21D0: GAVE UP (13, ee)
+- The permuter went from 335 to 260 only via junk (duplicated loop body under `if (iopbuf)`), so rejected.
+## func_003B4AD8: GAVE UP (27, ee)
+- All 240 declaration orders of sid/mode/async/nowait/head stay at 27 (s4-s7 rotation). Note: the file has a doubled `#ifdef NON_MATCHING` (the outer and inner blocks are both open). The main agent may want to clean it up.
+
+## func_0031CDC0: MATCH (sn; header names the compiler) (was PARK at 26)
+- Changes: an early `if (base == 0) return 0;`. No explicit `n != 0` test: it's the rotated `for (i = 1; i <= n; i++)` entry check.
+- `p = &base[n];` with `p++;` at the top of the loop body.
+- Return written `(int *)(base[i] + (int)base)`, which puts the loaded value first in the addu.
+## cFont_setTextureAddr: parked (20)
+- Inline setter shapes (5 forms x 2 loop spellings) are all 21. Also tried C++ (cc1plus, extern "C") under sn/ee/cygnus: no better, and a handoff can't be .cc anyway.
+## func_00376370: GAVE UP (8)
+- Tried all 32 int/void callee return-type combinations: all 8. The permuter's best (120 from 790) moved a call out of the loop (semantic change), so rejected.
+## func_00291D48: not C-fixable
+- The output is identical except the retail short-loop pad nop in the two-branch inner list-scan loop (beqz exit + beqzl back edge). call_loop_pad intentionally skips multi-block loops. Needs a toolchain rule change.
+## func_00394F20: still parked (5)
+- Retail fills the loop bne delay slot with the redundant `lw v0,0(a0)` shared by both paths (plus the short-loop nop). Our reorg uses bnel and keeps the fallthrough copy.
+
+## func_0034A5E0: MATCH (cygnus-2.96 dr, meta) (was 19)
+- The only change: `i = 0` moved from before the GetTri78 early-out into the for-init (`for (i = 0; i < len - 0x12; i += 0x12)`). A while form with `i = 0;` just before the loop also matches.
+## func_00376720: parked (19)
+- for/while/do-while (`--i >= 0`) all compile identically (19). m2c-style goto forms with f preloaded give 26-38. Our i-- lands at the loop top and ori/args are scheduled ahead of the timer test.
+## func_001FCBA0: not C-fixable (size off by 1)
+- The retail nop-led loop head is a short-loop pad on a multi-block loop (same class as func_00291D48).
+## 2026-10-19T05:29:21Z queue of promising NMs exhausted; waiting 20 min (PERM=0 confirmed)
+## func_001F20F8: MATCH -> nm_solved/func_001F20F8 (sn, no meta)
+- Fix: declare `extern int cRoomSave_clearEmDeadFlag(...)`, the real return type from cRoomSave.c, instead of void. The permuter found it via a junk `volatile unsigned` return, which I reduced to plain int.
+- Permuter note: base.c must not carry `__attribute__((section))`; pycparser moves it after the declarator and cc1 rejects that.
+## func_00276F18: MATCH -> nm_solved/func_00276F18 (sn, no meta)
+- Fix: `extern void *func_003A52F0(void *, int, int);` (memset returns void*, as criStm.h declares) instead of void. The entry-6 v0/v1 swap goes away.
+## Return-type sweep (tools/retsweep.py, retsweep_batch.py)
+- Toggled each extern prototype's return type (void/int/void*/uint/short/char) across 17 parked regalloc NMs (results: nm_work/retsweep_batch1.txt). Only one improved:
+  - func_00394F20: `extern int func_003951D0(void)` takes it 5 -> 3. The remaining 3 are the multi-block short-loop pad (retail nop+bne where ours has bnel), not fixable from C. The prototype is worth keeping if it is ever fixed.
+- func_0028E0E0: `extern void espSys_effDataRegist(...)` takes it 16 -> 1. The remaining diff is bit-6 `dsrl` vs ours `srl`. 20+ expression forms tried (casts to 64-bit, bitfields, masks, byte loads): all give srl, lhu/lbu, or a size change. Permuter running.
+## func_0028E0E0: parked at 1 (from 16)
+- Best is nm_work/func_0028E0E0/w0.c: `extern void espSys_effDataRegist(...)` fixes the switch register (a0) and all branches. The one remaining diff is case 0x802 `lw; dsrl 6`, where ours emits `srl 6`. A 15-minute permuter run stayed at base.
+- Standalone tests (nm_work/dsrl/): `unsigned long x = flags; (x>>6)&1` gives dsrl but adds dsll32/dsra32, and in context the function grows to 210 words. No form found that emits a plain dsrl.
+## func_00337400: MATCH -> nm_solved/func_00337400 (cygnus dr meta) [FLAG]
+- Fix: named constant locals. `int one; int two;`, with `one = 1;` before the loop and `for (i = 0, two = 2, e = base; ...)`. `one` replaces the literal 1 in `p->active != 1` and `p->u50.h == 1`; `two` replaces the literal in both `e->type = 2` stores.
+- FLAG for the main agent: these are real value-carrying locals, not no-ops, but they are unusual source. The permuter found `one` (13 -> 3). Hand placement of e's init gave 2, and `two` closed it. Reject if you consider it perturbation.
+## func_0034F4C0: MATCH -> nm_solved/func_0034F4C0 (cygnus dr meta)
+- Fix: early-return tail. `if (len >= 0x40) return 1; if (code != 0x10000 && code != 0x40000) return 1; func_0034F658(w, 0); return 0;` replaces the combined `if (len < 0x40 && (...)) {...} return 1;`.
+## func_0033D090: parked (7)
+- Extern type sweep (27 combos), inline setKey helper (by value and by pointer), and a pointer temp: no change. The permuter's best (20 from 40) duplicates `o->k.s.a = D_003E9D54;`. Junk, rejected.
+- Permuter note: base.c needs a single-line signature or permuter.py reports "does not contain any function".
+## func_002CABE8: parked (5)
+- The 6 assignment orders of hit/se/bgm and two placements: no better. Return-type sweep: nothing.
+## func_001331B8: parked (7)
+- Loop forms (while/for/++k/explicit (char*)+0xC), node pointer, name-array index test: no better.
+## func_0034A0F0: MATCH -> nm_solved/func_0034A0F0 (cygnus dr meta)
+- Fix: negate into a new local before the flag test. `} else { int nd = -d; if (flag) { int m = nd / 32 * 32; ... } }` replaces `} else if (flag) { d = -d; m = d / 32 * 32; ... }`. The permuter pointed at this (`new_var = -d` hoisted above `if (flag)`); the handoff uses the natural rewrite.
+- func_001331B8: permuter (15 min) best was an empty `do { } while (0);` after `s = ...name;`. That's a no-op perturbation, and it scores 14 under mc anyway. Parked at 7.
+## func_003315D8: MATCH -> nm_solved/func_003315D8 (cygnus dr meta)
+- Fix: drop the `ret` variable and use returns: `if (D_003D845C == 0) return 0; if (req->kind != 2) return 0;` then the body, ending `if ((unsigned)(r+1) >= 2 && r != 0x20) { ...; return 1; } return 0;`. A combined `||` early test was 2 words short; the two separate tests match.
+## func_001F4CA8: MATCH -> nm_solved/func_001F4CA8 (sn, no meta)
+- Fix: the inline helper takes (self, idx) and computes `char *w = self + (idx * 0x7C + 0xF64);` internally. Call sites are `setItem(self, idx, ...)`. Passing `self + idx*0x7C + 0xF64` from the caller doesn't match, and neither does a hoisted local.
+## func_003977C8: parked (3)
+- The inline setReq(b, cmd, arg) helper in all 6 store orders: still 3. The permuter's best routes 0x10 through the `intr` local (junk), and scores 6 under mc.
+## func_0015AF30: MATCH -> nm_solved/func_0015AF30 (meta: sn, c_flags_add -f=-ffast-math, fp_hazard_rules sqrt)
+- Fix: move the last two calls into `static inline void setTrans(float (*out)[4], float *pos) { Vec15AF30 v; sceVu0ApplyMatrix(v, out, pos); sceVu0SubVector(out[3], pos, v); }`. Giving the helper its own `v` stops `&v` from being CSE'd into s0 across the call.
+## func_002AC878 / cFont_setTextureAddr: parked
+- 002AC878: dist() inline helpers (by points and by dx/dy, both add orders) stay at 18-19. The sqrt.s scheduling limit is as noted in its header.
+- cFont_setTextureAddr: relocate()/setSlot()/setInfo() inline helpers and a swapped first-loop base/cursor give 20-21 or 81 words. Parked at 20.
+## classCFILTER_TAG_Filter_main (002A0940): parked at 180
+- sz=0xE00 stays REG_EQUIV-constant and is rematerialized at the srl. Tried an init+assign, placing it before or after the D_00747A80 load, int/short/long/ulong types, the register keyword, /32 instead of >>5, and -fno-gcse: all unchanged (201 vs 199 words).
+## Turn_dest_Y (002DA468): in progress
+- A shared inline turnStep(d, cur, max) helper for both blocks (d -= cur in place) takes it from 58 to 55. The first half matches. The remaining gap is in the clamp: retail evaluates ABS(d) as a two-arm select from d and multiplies into f12.
+- No change from: Absf/ABS mixes, if/else forms, an output pointer, or r *= s. Best is nm_work/Turn_dest_Y/h6.c. Permuter running (15 min).
+- Turn_dest_Y permuter (15 min, from h6): the base score of 1190 reached 1150 only by inserting an empty do{}while(0), which is junk. PARKED at 55 (best h6.c). Perm note: the sn assembler needs an `include` symlink in the scratch directory.
+## LightData_Load (002D6A60): parked at 165
+- Conflicting signals:
+  - With -fno-gcse (as in the header), d+off is recomputed at each use, like retail, but loop.c strength-reduces the inner j*0x70.
+  - Without -fno-gcse, the inner loop takes retail's shape (a mult each iteration, i+1 early, s+0x70/s+0x60/&d->p[i] hoisted before the block-copy arms), but d+off is CSE'd into an s-reg. That gives 197 words vs 199, but 186+ diffs.
+- No change from: base=SearchData();s=base (swap), s+=0x70;p[i]=s;tag@0x104;s+=0x108 (identical code), or short/ushort/uint/schar/long types for j.
+- A clean for-loop rewrite gives 177-187 words. Scratch: nm_work/LightData_Load/.
+- 2026-10-19 04:25 queue check: no new NM files, no new header checkpoint (last 111-120), 8 handoffs still pending in nm_solved, PERM=0. Waiting 20 min.
+- 2026-10-19 04:46 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 05:06 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 05:26 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 05:46 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 06:07 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 06:27 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 06:47 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 07:07 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+- 2026-10-19 07:28 queue check: unchanged (no new NM files or checkpoint, 8 handoffs pending, PERM=0). Waiting 20 min.
+## func_00319970: 167 -> 12 (in progress)
+- Fixes (nm_work/func_00319970/n2.c):
+  - isScroll returns int, and the caller tests `(unsigned char)isScroll(self)` (retail andi on both paths).
+  - `g = D_007474A0` local for the 0x574 load and the frame counter.
+  - Block-local `float s = SPDx(self)` in the wrap branches.
+  - Block-local `float t = SPDx(self) * sp` in the cos branches.
+  - Separate block locals i2/n2/m2 in the else loop.
+  - The sn assembler (`"as": "sn"`) is needed for the mtc1/cvt nops.
+- Remaining: retail keeps g in s0 and copies it to s5 before the loop, with 3600 hoisted after f24. Ours keeps g in s5 throughout. A second pointer (w=g at several spots, inline wave() helper, block h) gets copy-propagated away.
+- Permuter running.
+- func_00319970 permuter (15 min, from n2): 285 -> 270 only via `new_var = 3600` (plus an `m - -0x390` junk edit). By hand, a named `mod = 3600` local is worse (15). PARKED at 12 with --as=sn. Best: nm_work/func_00319970/n2.c, a much closer NM body than the current src (12 vs 167 diffs); worth swapping in as the NM source with `"as": "sn"`.
+## func_001846D8: 119 -> 18 (in progress)
+- Fixes (nm_work/func_001846D8/q0.c, n1p.c):
+  - `d = PART0->0x4C` local.
+  - `g = D_007474A0` local for the first loop.
+  - Clamp: `mx = D_00422F70; if (x548 <= mx) 54A = x548; else 54A = mx;` then `61C = 62A = D_00422F70` chained.
+  - Inline `subHit(short *h, unsigned i, short d)` helper containing the `if (i < 7)` check. This avoids the strength-reduced 8th s-reg (7 s-regs, like retail).
+  - `for (i = 1, parts = self+0x600; ...)`.
+- Remaining:
+  - The second D_00422F70 load is lh in retail, lhu in ours.
+  - lwu vs lw for parts[i]->0x60 (`& 1L` doesn't help).
+  - The hit block load is scheduled before the compare.
+  - Level test register swap and parts+i*4 operand order.
+- Permuter running.
+- func_001846D8 permuter (15 min, from q0): 935 -> 640 by moving `f = 3.0f` above subHit. By hand that fixes the level-test registers but hoists the 3.0f load (20 diffs). Ternary, if/else, and && forms give 208 words.
+- PARKED at 18. Best: nm_work/func_001846D8/n1p.c (18) and q0.c (19, retail's lh-in-delay-slot form). Either is far closer than the current src NM body (119); worth swapping in as the NM source.
+## Status 2026-10-19 ~08:30: main agent active again; all 8 pending handoffs registered (0015AF30, 001F20F8, 001F4CA8, 00276F18, 003315D8, 00337400, 0034A0F0, 0034F4C0).
+## func_002B1890 (2 diffs): the x1 = x0+21 / wm = w-42 schedule order is unchanged by reordering, `21.0f + x0`, `w - 21.0f*2`, or moving the pair after call 0 (`w + -42.0f` gives 212 words). Permuter running (15 min).
+- func_002B1890 SOLVED (handed off, no meta; the header has "as": "sn"). The permuter hit score 0 in 24 iterations: move `xe = x0 + w;` from before the x1/wm pair to just after the first func_002B2058 call. MATCH (213 insns, 31 relocs). Clean statement move, no junk.
+## func_003B4D98: skipped. Retail's constant 1 in s5 is used only by the switch decision tree's cmd==1 compare; reproducing it needs a variable compare (if-chain, which the main agent found worse) or a named-constant local. Not attempted further.
+## cModel_setupModel (00149738): parked at 82
+- Same frame (0xD0) and 9 s-regs as retail, but retail also spills arg (sp+0x24) and d (sp+0x20, never reloaded). Global alloc treats d as live across the func_0014C328/BFE0 calls.
+- No change from: an inline isMulti(&d) helper (the ADDRESSOF is optimized away) or `multi = d->num >= 2` (sltiu/xori). Diffs are mostly a slot shift.
+## func_0037B918 / func_001F2D60: skipped
+- 0037B918: which %hi gets hoisted into fp across a dozen string symbols under -fno-gcse. Low odds.
+- 001F2D60: retail reads uninitialized a2/a3 (a phantom by-value parameter), so it's not reproducible in clean C.
+- 08:45 queue check: PERM=0; func_002B1890 handoff pending. Waiting 20 min.
