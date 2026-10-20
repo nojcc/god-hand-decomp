@@ -8,7 +8,7 @@ Folder format: see progress/nm_solved/README.md.
 
 The NON_MATCHING source holding the function is found by its INCLUDE_ASM line.
 - Standalone NM file (not a compile unit, only this function): the solved C,
-  with the .text.<fn> section attribute, becomes src/cod/sa_<addr>.c and the NM
+  with the .text.<fn> section attribute, becomes src/cod/<addr>.c and the NM
   file is removed. Compiler and per-file settings come from meta.json, else the NM
   header. Per-file flags must be in compile.py's per-file vocabulary, and the
   compiler must already be used by some registered unit.
@@ -107,9 +107,7 @@ def already_matched_in(fn: str, nm_rel: str, cfg: dict) -> str | None:
 
 
 def handoff_addr(src: Path, fn: str, cfg: dict) -> str | None:
-    """Lower-case 8-digit address for the new sa_<addr>.c, never derived from a symbol's name text."""
-    if (m := re.fullmatch(r"sa_nm_([0-9a-f]{8})\.c", src.name)):
-        return m.group(1)
+    """Lower-case 8-digit address for the new <addr>.c, never derived from a symbol's name text."""
     if (m := re.fullmatch(r"\w+_([0-9A-Fa-f]{8})", fn)):
         return m.group(1).lower()
     for c in cfg.get("carved_funcs", []):
@@ -428,13 +426,15 @@ def process(folder: Path, apply: bool) -> tuple[str, str]:
                         + ([f"fp_hazard_rules {o['fp_hazard_rules']}"] if o.get("fp_hazard_rules") else [])
                         + (["call_loop_pad"] if o.get("call_loop_pad") else [])
                         + [f"+{f}" for f in o["c_flags_add"]] + [f"-{f}" for f in o["c_flags_drop"]])
-        new = f"/* {tag}: NM closer handoff. */\n" + body.lstrip("\n")
+        new = f"/* {o['compiler']} */\n" + body.lstrip("\n")
         addr = handoff_addr(src, fn, cfg)
         if addr is None:
             return "rejected", f"cannot derive an address-based file name for {fn}"
-        dest = src.parent / f"sa_{addr}.c"
-        if dest.exists():
+        dest = src.parent / f"{addr}.c"
+        if dest.exists() and dest != src:
             return "rejected", f"{dest.relative_to(ROOT)} already exists"
+        if dest == src and rest is not None:
+            return "rejected", f"{rel} holds other drafts; move them to their own <addr>.c files first"
     else:
         extra = set(unit) - UNIT_KEYS_MODELED
         if extra:
