@@ -21,7 +21,7 @@ extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 
 extern EmPhaseTable D_003BFE00;
 
-static inline void *GetPart0_27BB78(char *p)
+static inline void *getPart0(char *p)
 {
     int on[3];
 
@@ -76,7 +76,7 @@ void func_0027BB78(char *s0)
     fp((int)(s0 + arg));
 
     cObjBase_SetSeqEffect(s0);
-    part = GetPart0_27BB78(s0);
+    part = getPart0(s0);
     if (part != 0 && parent != 0) {
         if (*(unsigned int *)(s0 + 0x1560) & 2) {
             void *pos = *(void **)(parent + 0xF0);

@@ -3,17 +3,12 @@
  * drops it as redundant and leaves a nop.
  * func_002C0B38: 27 insns, FP register choice (retail x0/z0 in f9/f6, dz f5)
  * and the last test branching to its own return-0 block. */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 
 extern float sqrtf(float x);
-
-typedef struct HitPos {
-    float x;                    /* 0x0 */
-    float y;                    /* 0x4 */
-    float z;                    /* 0x8 */
-} HitPos;
 
 typedef struct HitQuad {
     float x0, z0;               /* 0x00 */
@@ -32,7 +27,7 @@ typedef struct HitCircle {
     float yMax;                 /* 0x24 */
 } HitCircle;
 
-int func_002C0B38(HitQuad *q, HitPos *p)
+int func_002C0B38(HitQuad *q, Vec3f *p)
 {
     float x0, z0, dx, dz, ax, az, bx, bz, cx, cz;
 
@@ -73,7 +68,7 @@ int func_002C0B38(HitQuad *q, HitPos *p)
     return 1;
 }
 
-int func_002C0C28(HitCircle *c, HitPos *p)
+int func_002C0C28(HitCircle *c, Vec3f *p)
 {
     float dx, dz;
 

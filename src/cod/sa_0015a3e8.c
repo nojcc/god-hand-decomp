@@ -1,20 +1,13 @@
 /* sn-2.95.3-136 ("as": "sn"): Quaternion_GetEulerXYZ, converts a unit quaternion (x, y, z, w) to XYZ Euler angles;
  * at the +-pi/2 pitch singularity the roll is folded into x and z is zero. */
-typedef struct Quat15A3E8 {
-    float x, y, z, w;
-} Quat15A3E8;
-
-typedef struct Euler15A3E8 {
-    float x, y, z;
-} Euler15A3E8;
-
+#include "godhand/vec.h"
 extern float func_003A1B78(float s);
 extern float capVu0Atan2(float y, float x);
 
 #define HALF_PI 1.5707964f
 
 __attribute__((section(".text.Quaternion_GetEulerXYZ")))
-void Quaternion_GetEulerXYZ(Quat15A3E8 *q, Euler15A3E8 *e)
+void Quaternion_GetEulerXYZ(Vec4f *q, Vec3f *e)
 {
     float y2;
     float z2;

@@ -1,24 +1,19 @@
 /* NON_MATCHING func_0028EBF0: same inlined range-check idiom as func_001A6FB0: retail a1=0; slti; bnez; a1=slt; andi 0xFF.
  * C forms give movn or drop the a1 copy */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct Vec28EBF0 {
-    float x;
-    float y;
-    float z;
-} Vec28EBF0;
-
 typedef struct Src28EBF0 {
     char pad00[0x10];
-    Vec28EBF0 pos;
+    Vec3f pos;
     char pad1C[4];
     float rot;
 } Src28EBF0;
 
 typedef struct Mdl28EBF0 {
     char pad000[0xF0];
-    Vec28EBF0 *pos;
+    Vec3f *pos;
     char pad0F4[0x104 - 0xF4];
     float rot;
     char pad108[0x254 - 0x108];
@@ -28,7 +23,7 @@ typedef struct Mdl28EBF0 {
     char pad300[0x3A8 - 0x300];
     float unk3A8;
     char pad3AC[0x490 - 0x3AC];
-    Vec28EBF0 home;
+    Vec3f home;
     char pad49C[0x531 - 0x49C];
     unsigned char unk531;
     char pad532[0x570 - 0x532];
@@ -58,7 +53,7 @@ typedef struct Mdl28EBF0 {
 extern char *D_003BD6E8;
 extern void cIDBase_restartAnim(void *anim);
 
-static inline void Vec28EBF0_copy(Vec28EBF0 *d, Vec28EBF0 *s)
+static inline void Vec28EBF0_copy(Vec3f *d, Vec3f *s)
 {
     if (d != s) {
         d->x = s->x;

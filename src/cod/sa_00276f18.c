@@ -1,17 +1,17 @@
-typedef struct { float x, y, z, w; } V4;
+#include "godhand/vec.h"
 typedef struct {
     unsigned char b0, b1, b2, b3;
     float scale;
     float f8;
     float fC;
-    V4 v1;
-    V4 v2;
+    Vec4f v1;
+    Vec4f v2;
 } Ent30;
 
 extern Ent30 D_005850C0[];
 extern void *func_003A52F0(void *, int, int);
 
-static inline void setV4(V4 *v, float x, float y, float z, float w)
+static inline void setV4(Vec4f *v, float x, float y, float z, float w)
 {
     v->x = x;
     v->y = y;

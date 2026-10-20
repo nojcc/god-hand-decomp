@@ -1,25 +1,25 @@
 /* sn-2.95.3-136 TU. */
 
-typedef struct EfPart145FC8 {
+typedef struct EffPart {
     char pad00[0x40];
     float sx;                   /* 0x40 */
     float sy;                   /* 0x44 */
     char pad48[4];
     unsigned int col;           /* 0x4C */
-} EfPart145FC8;
+} EffPart;
 
-typedef struct EfSlot145FC8 {
-    EfPart145FC8 *a;            /* 0x00 */
+typedef struct EffPartSlot {
+    EffPart *a;            /* 0x00 */
     int pad04;
-    EfPart145FC8 *b;            /* 0x08 */
-    EfPart145FC8 *c;            /* 0x0C */
+    EffPart *b;            /* 0x08 */
+    EffPart *c;            /* 0x0C */
     int pad10;
-} EfSlot145FC8;
+} EffPartSlot;
 
-typedef struct Ef145FC8 {
+typedef struct EffPartObj {
     char pad000[0x90];
     unsigned int flags;         /* 0x090 */
-    EfSlot145FC8 slot[5];       /* 0x094 */
+    EffPartSlot slot[5];       /* 0x094 */
     char pad0F8[0x338 - 0xF8];
     float scale;                /* 0x338 */
     char pad33C[0x364 - 0x33C];
@@ -28,13 +28,13 @@ typedef struct Ef145FC8 {
     char pad36C[0x41E - 0x36C];
     short f41E;                 /* 0x41E */
     short step;                 /* 0x420 */
-} Ef145FC8;
+} EffPartObj;
 
 extern float D_0041E880[];
 extern float D_0041E884;
 
 __attribute__((section(".text.func_00145FC8")))
-void func_00145FC8(Ef145FC8 *ef)
+void func_00145FC8(EffPartObj *ef)
 {
     unsigned short i;
     float t;

@@ -1,19 +1,5 @@
 /* sn-2.95.3-136: func_002A5BB8, game start-up step: wait for the boot flag, load the two system resource blocks and initialise the ID, pad, menu, display and object managers. */
-typedef struct Sys2A5BB8 {
-    char pad000[0x550];
-    int res;                            /* 0x550 offset table: +4 and +8 are blocks */
-    char pad554[4];
-    void *idData;                       /* 0x558 */
-} Sys2A5BB8;
-
-extern unsigned int D_00747A24;
-typedef struct TaskMgr2A5BB8 {
-    char *works;                        /* 0x0 */
-    void *task;                         /* 0x4 running task */
-} TaskMgr2A5BB8;
-
-extern TaskMgr2A5BB8 D_00752C00;
-extern Sys2A5BB8 D_007474A0;
+#include "godhand/gameWork.h"
 extern char D_004664A0[];
 extern void **D_003C2384;
 extern void *D_003C2388;
@@ -32,7 +18,6 @@ extern char D_005864E0[];
 extern char D_00754220[];
 extern char D_005FEC58[];
 
-extern void cTaskWork_sleep(void *task, int frames);
 extern int func_00150C10(void *a0, void *blk, int a2);
 extern void *SearchData(void *data, char *name, int a2);
 extern void cIDManager_systemInit(void *mgr, void *data);
@@ -51,15 +36,15 @@ extern int func_002C8EF8(void *p);
 __attribute__((section(".text.func_002A5BB8")))
 void func_002A5BB8(unsigned char *step)
 {
-    Sys2A5BB8 *sys;
+    GameWork *sys;
 
     while (!(D_00747A24 & 0x2000))
         cTaskWork_sleep(D_00752C00.task, 1);
     sys = &D_007474A0;
-    func_00150C10(D_004664A0, (void *)(*(int *)(sys->res + 4) + sys->res), 1);
-    func_00150C10(D_004664A0, (void *)(*(int *)(sys->res + 8) + sys->res), 1);
+    func_00150C10(D_004664A0, (void *)(sys->effData->block1 + (int)sys->effData), 1);
+    func_00150C10(D_004664A0, (void *)(sys->effData->block2 + (int)sys->effData), 1);
     *D_003C2384 = D_003C2388;
-    cIDManager_systemInit(D_003C2388, SearchData(sys->idData, D_0044AD58, 0));
+    cIDManager_systemInit(D_003C2388, SearchData(sys->langData, D_0044AD58, 0));
     WorkArea_clear(D_003C264C);
     cPadVib_init(D_005E80E0);
     func_002A4970(D_003C2380);

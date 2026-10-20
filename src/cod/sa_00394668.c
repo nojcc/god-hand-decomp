@@ -5,7 +5,7 @@ extern int func_003943D0(void *elem);
 extern int func_00394348(void *tbl, int count, int idx);
 extern void *D_003F852C;
 
-struct Elem394668 {
+struct SymElem {
     int name;
     int value;
     unsigned short id;          /* 0x8 */
@@ -13,26 +13,26 @@ struct Elem394668 {
     unsigned char bind;         /* 0xB */
 };
 
-struct Node394668 {
+struct SymTable {
     char pad0[4];
     void *tbl;                  /* 0x04 */
     int tblCount;               /* 0x08 */
-    struct Elem394668 *elem;    /* 0x0C */
+    struct SymElem *elem;    /* 0x0C */
     int count;                  /* 0x10 */
     char pad14[0x30 - 0x14];
-    struct Node394668 *next;    /* 0x30 */
+    struct SymTable *next;    /* 0x30 */
 };
 
 __attribute__((section(".text.func_00394668")))
 int func_00394668(int name, unsigned short id)
 {
-    struct Node394668 *node;
-    struct Elem394668 *elem;
-    struct Elem394668 *weak;
+    struct SymTable *node;
+    struct SymElem *elem;
+    struct SymElem *weak;
     int cnt;
 
     weak = 0;
-    node = (struct Node394668 *)D_003F852C;
+    node = (struct SymTable *)D_003F852C;
     if (node != 0) {
         do {
             cnt = node->count;
@@ -58,7 +58,7 @@ int func_00394668(int name, unsigned short id)
     }
     if (weak != 0)
         return func_003943D0(weak);
-    node = (struct Node394668 *)D_003F852C;
+    node = (struct SymTable *)D_003F852C;
     if (node != 0) {
         do {
             cnt = node->count;

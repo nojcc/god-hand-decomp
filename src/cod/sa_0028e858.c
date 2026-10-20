@@ -1,48 +1,30 @@
+#include "godhand/cGameObj.h"
+#include "godhand/vec.h"
 #include "godhand/classFADE.h"
 #include "godhand/cScenario.h"
 
 #define EVENT_FADE_TIME  15
 
-typedef struct EvVtEntry28E858 {
-    short delta;                        /* 0x00 */
-    short pad;
-    void (*fn)(void *self, int arg);    /* 0x04 */
-} EvVtEntry28E858;
-
-typedef struct EvVt28E858 {
-    char unk00[0x60];
-    EvVtEntry28E858 reset;              /* 0x60 */
-} EvVt28E858;
-
-typedef struct EvObj28E858 {
-    char unk000[0x214];
-    EvVt28E858 *vt;                     /* 0x214 */
-} EvObj28E858;
-
-typedef struct Vec4_28E858 {
-    float x, y, z, w;
-} Vec4_28E858;
-
 extern unsigned char D_005FEE00[];
 extern char *D_003C23A4;
 
-extern EvObj28E858 *Getplayer(void);
+extern cGameObj *Getplayer(void);
 extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern int cSnd_SeFadeOut(void *a0, int a1, short a2);
 extern void cTaskWork_sleep(struct cTaskWork *task, int frames);
 extern void cTaskWork_exit(struct cTaskWork *task);
-extern void func_002C45A8(cScenario *self, int no, Vec4_28E858 *pos, float arg);
+extern void func_002C45A8(cScenario *self, int no, Vec4f *pos, float arg);
 
 __attribute__((section(".text.func_0028E858")))
-void func_0028E858(EvObj28E858 *self)
+void func_0028E858(cGameObj *self)
 {
-    EvObj28E858 *pl;
+    cGameObj *pl;
     int se;
-    Vec4_28E858 v;
+    Vec4f v;
 
-    self->vt->reset.fn((char *)self + self->vt->reset.delta, 0);
+    self->vt->reset((char *)self + self->vt->resetDelta, 0);
     pl = Getplayer();
-    pl->vt->reset.fn((char *)pl + pl->vt->reset.delta, 0);
+    pl->vt->reset((char *)pl + pl->vt->resetDelta, 0);
     se = cSnd_SeCall_2CBA48(D_005FEE00, 1, 0, self, 0, 0, 0, 0);
     cScenario_execUpCut(D_003C2F84, 0x3004, 0, 0, 0, 1);
     cSnd_SeFadeOut(D_005FEE00, se, EVENT_FADE_TIME);

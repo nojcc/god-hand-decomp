@@ -1,8 +1,5 @@
 /* sn-2.95.3-136 (): object ground-mode step, then node pos/scale sync (0x2E6868). */
-typedef struct Vec3 {
-    float x, y, z;
-} Vec3;
-
+#include "godhand/vec.h"
 extern void func_002FBED0(void *self);
 extern int setMotionInfo(void *a0, int a1, int a2, int a3, float f12, float f13, int t0);
 extern int moveMotion(void *a0);
@@ -23,7 +20,7 @@ typedef struct ObjFlags {
     unsigned char b2 : 1;
 } ObjFlags;
 
-static inline void vcopy(Vec3 *d, Vec3 *s)
+static inline void vcopy(Vec3f *d, Vec3f *s)
 {
     if (d != s) {
         d->x = s->x;
@@ -57,8 +54,8 @@ static inline int linkOn(char *self)
 __attribute__((section(".text.func_002E6868")))
 void func_002E6868(char *self)
 {
-    Vec3 v;
-    Vec3 w;
+    Vec3f v;
+    Vec3f w;
     char *o;
     float scale;
     char *q;
@@ -89,13 +86,13 @@ void func_002E6868(char *self)
     if (MOT(self) && func_002FB060(self)) {
         o = MOT(self);
         StoreVecFromFieldB0_2B6160(&v, self);
-        vcopy(*(Vec3 **)(o + 0xF0), &v);
+        vcopy(*(Vec3f **)(o + 0xF0), &v);
         CopyVec16From20_B62E0(&v, self);
         v.z = v.x;
         cNode_setLocalScale(self, &v);
         func_002B60D0(&w, self);
-        vcopy((Vec3 *)(MOT(self) + 0x100), &w);
-        vcopy((Vec3 *)(MOT(self) + 0x110), &v);
+        vcopy((Vec3f *)(MOT(self) + 0x100), &w);
+        vcopy((Vec3f *)(MOT(self) + 0x110), &v);
         F(MOT(self), 0x240) = F(self, 0x188);
         F(MOT(self), 0x244) = F(self, 0x18C);
         F(MOT(self), 0x248) = F(self, 0x190);

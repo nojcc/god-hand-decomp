@@ -1,10 +1,6 @@
 /* cygnus-2.96: func_003398F8, SJ ring buffer GetChunk: take up to nbyte contiguous bytes from lane 0 (data) or lane 1 (free), advancing that lane's position modulo the buffer size. Other lanes clear the chunk and report -3 through the error callback. */
-typedef struct SjCk3398F8 {
-    char *data;                         /* 0x00 */
-    int len;                            /* 0x04 */
-} SjCk3398F8;
-
-typedef struct SjRbf3398F8 {
+#include "godhand/criSj.h"
+typedef struct SjRbf {
     int unk00;
     int used;                           /* 0x04 */
     int unk08;
@@ -21,7 +17,7 @@ typedef struct SjRbf3398F8 {
     int unk34;
     void (*errfn)(void *obj, int code); /* 0x38 */
     void *errobj;                       /* 0x3C */
-} SjRbf3398F8;
+} SjRbf;
 
 extern char D_00455A80[];
 extern char D_00455AB0[];
@@ -34,7 +30,7 @@ extern void func_00339458(const char *msg, const char *fn);
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 __attribute__((section(".text.func_003398F8")))
-void func_003398F8(SjRbf3398F8 *sj, int id, int nbyte, SjCk3398F8 *ck)
+void func_003398F8(SjRbf *sj, int id, int nbyte, SjChunk *ck)
 {
     if (sj == 0) {
         func_00339458(D_00455AF0, D_00455A80);

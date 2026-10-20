@@ -4,9 +4,9 @@ typedef struct {
     int unk00;
     char **begin;                       /* 0x04 */
     char **end;                         /* 0x08 */
-} EmList2DB0D0;
+} EmPtrList;
 
-extern EmList2DB0D0 *D_00754C30;
+extern EmPtrList *D_00754C30;
 extern float capVu0LengthAB(void *a, void *b);
 
 __attribute__((section(".text.func_002DB0D0")))

@@ -1,30 +1,30 @@
-typedef struct Sf354650 {
+typedef struct SfdDecView {
     char pad0[0x38];
     int mode;               /* 0x38 */
     char pad3C[0x1FC0 - 0x3C];
     void *dec;              /* 0x1FC0 */
     char pad1FC4[0x23A8 - 0x1FC4];
     int mpv;                /* 0x23A8 */
-} Sf354650;
+} SfdDecView;
 
 extern int D_00766C18;
 extern int D_00766C1C;
 extern int D_00766C20;
 
 extern int GetArrayElemA0C_35A1C8(void *hn, int idx);
-extern int func_003547B0(Sf354650 *sf, int *dec);
-extern void func_003563B8(Sf354650 *sf);
+extern int func_003547B0(SfdDecView *sf, int *dec);
+extern void func_003563B8(SfdDecView *sf);
 extern int func_0036C248(void);
 extern int func_0034DD70(void *hn, unsigned int err);
-extern int func_00369E98(int mpv, int (*cb)(), Sf354650 *sf);
+extern int func_00369E98(int mpv, int (*cb)(), SfdDecView *sf);
 extern void func_00354D68(int mpv);
 extern int func_0036C450(int mpv, int id, int val);
 extern int ReturnK_003EE2BC_00358A38_358A38(void);
-extern void func_00350528(Sf354650 *sf, int a, int b, int c);
+extern void func_00350528(SfdDecView *sf, int a, int b, int c);
 extern int func_00354B98();
 
 __attribute__((section(".text.func_00354650")))
-int func_00354650(Sf354650 *sf)
+int func_00354650(SfdDecView *sf)
 {
     int *dec = &sf->mpv;
     int r;

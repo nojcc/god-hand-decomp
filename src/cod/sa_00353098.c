@@ -3,7 +3,7 @@
 typedef struct {
     int w;
     int h;
-} Size353098;
+} FrmSize;
 
 typedef struct {
     int pad00;
@@ -15,29 +15,29 @@ typedef struct {
     int bufH;                   /* 0x18 */
     int nFrm;                   /* 0x1C */
     char *buf;                  /* 0x20 */
-} Cfg353098;
+} FrmCfg;
 
 typedef struct {
     int pad00;
-    Cfg353098 cfg;              /* 0x04 */
+    FrmCfg cfg;              /* 0x04 */
     char pad28[0x30 - 0x28];
     char *frm[(0x178 - 0x30) / 4]; /* 0x30 */
     int nFrm;                   /* 0x178 */
     int pad17C;
     char sub[1];                /* 0x180 */
-} Mgr353098;
+} FrmMgr;
 
 typedef struct {
     char pad0000[0x38];
     int mode;                   /* 0x38 */
     char pad003C[0x1FC0 - 0x3C];
-    Mgr353098 *mgr;             /* 0x1FC0 */
-} Hn353098;
+    FrmMgr *mgr;             /* 0x1FC0 */
+} FrmHnView;
 
 extern int func_0034DD70(void *a0, unsigned int a1);
 extern void func_00354A70(void *sub, char **frm, int n);
 
-static inline unsigned int FrmSize353098(int mode, int w, int h)
+static inline unsigned int frmBufSize(int mode, int w, int h)
 {
     int mbw = w / 16;
     int mbh = h / 16;
@@ -48,10 +48,10 @@ static inline unsigned int FrmSize353098(int mode, int w, int h)
 }
 
 __attribute__((section(".text.func_00353098")))
-int func_00353098(Hn353098 *hn, Size353098 *sz)
+int func_00353098(FrmHnView *hn, FrmSize *sz)
 {
-    Mgr353098 *mgr = hn->mgr;
-    Cfg353098 *cfg = &mgr->cfg;
+    FrmMgr *mgr = hn->mgr;
+    FrmCfg *cfg = &mgr->cfg;
     int mode = hn->mode;
     int n = cfg->nFrm;
     unsigned int size;
@@ -63,7 +63,7 @@ int func_00353098(Hn353098 *hn, Size353098 *sz)
 
     if (cfg->w * cfg->h < sz->w * sz->h)
         return func_0034DD70(hn, 0xFF000F17);
-    size = FrmSize353098(mode, sz->w, sz->h);
+    size = frmBufSize(mode, sz->w, sz->h);
     mbw = cfg->bufW / 16;
     mbh = cfg->bufH / 16;
     if (mode == 2) {

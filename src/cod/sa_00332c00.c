@@ -2,12 +2,12 @@
 #define SECTOR_SHIFT  11
 #define SECTOR_MASK   0x7FF
 
-typedef struct FileInfo332C00 {
+typedef struct CdFileInfo {
     int unk0;
     unsigned int size;                  /* 0x04 */
-} FileInfo332C00;
+} CdFileInfo;
 
-typedef struct File332C00 {
+typedef struct CdFileHn {
     char used;                          /* 0x00 */
     char sized;                         /* 0x01 the size came with the lookup */
     char unk02;                         /* 0x02 */
@@ -19,8 +19,8 @@ typedef struct File332C00 {
     int unk14;
     int unk18;
     int unk1C;
-    FileInfo332C00 info;                /* 0x20 */
-} File332C00;
+    CdFileInfo info;                /* 0x20 */
+} CdFileHn;
 
 extern char D_00454380[];
 extern char D_004543A8[];
@@ -30,19 +30,19 @@ extern char D_00454428[];
 extern char D_003D9C90[];
 
 extern void func_00332808(void *dev, char *msg);
-extern File332C00 *func_00332BA8(void);
-extern int func_00333C00(void *dev, FileInfo332C00 *info);
+extern CdFileHn *func_00332BA8(void);
+extern int func_00333C00(void *dev, CdFileInfo *info);
 extern void func_00333390(void *dev, char *name);
 extern void func_003260C8(char *msg, char *name);
 extern void PushGlobalD8478History_331C78(int tag);
 extern int func_00398DA0(int mode);
-extern int func_00332838(FileInfo332C00 *info, char *name);
-extern void Forward3A52F0_332BE0(File332C00 *f);
+extern int func_00332838(CdFileInfo *info, char *name);
+extern void Forward3A52F0_332BE0(CdFileHn *f);
 
 __attribute__((section(".text.func_00332C00")))
-File332C00 *func_00332C00(void *dev, void *arg, int mode)
+CdFileHn *func_00332C00(void *dev, void *arg, int mode)
 {
-    File332C00 *f;
+    CdFileHn *f;
     int kind;
     unsigned int size;
 

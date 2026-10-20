@@ -1,4 +1,4 @@
-typedef struct Mwsf345BE0 {
+typedef struct MwsfdPlayView {
     char pad0[4];
     int stat;
     char pad8[0x34];
@@ -12,26 +12,26 @@ typedef struct Mwsf345BE0 {
     char buf0[0x20];
     char buf1[0x30];
     int unk2D4;
-} Mwsf345BE0;
+} MwsfdPlayView;
 
 extern char D_00457EF8[];
 extern char D_00457F28[];
 extern void GetD003EC7E0_3452B0(void);
-extern int func_00343D68(Mwsf345BE0 *);
+extern int func_00343D68(MwsfdPlayView *);
 extern void MWSFSVM_Error(char *);
-extern void func_003487C0(Mwsf345BE0 *, int);
-extern void func_00347420(Mwsf345BE0 *);
-extern int func_003473A0(Mwsf345BE0 *);
-extern void func_00347400(Mwsf345BE0 *);
-extern void Obj0000_Init_Fields_B4_B8_BC_Entries(Mwsf345BE0 *);
-extern void func_00345D10(Mwsf345BE0 *);
-extern void func_00345AF8(Mwsf345BE0 *);
-extern void func_00345F48(Mwsf345BE0 *, int);
+extern void func_003487C0(MwsfdPlayView *, int);
+extern void func_00347420(MwsfdPlayView *);
+extern int func_003473A0(MwsfdPlayView *);
+extern void func_00347400(MwsfdPlayView *);
+extern void Obj0000_Init_Fields_B4_B8_BC_Entries(MwsfdPlayView *);
+extern void func_00345D10(MwsfdPlayView *);
+extern void func_00345AF8(MwsfdPlayView *);
+extern void func_00345F48(MwsfdPlayView *, int);
 extern void func_00348550(char *, int);
 extern void func_00348440(char *);
 
 __attribute__((section(".text.func_00345BE0")))
-void func_00345BE0(Mwsf345BE0 *m)
+void func_00345BE0(MwsfdPlayView *m)
 {
     char *b0 = m->buf0;
 

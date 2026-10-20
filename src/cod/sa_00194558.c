@@ -7,7 +7,7 @@ extern int cOmBase_checkDamage(void *self, void *give);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, void *f, int g, int h);
 extern void cOmBase_setMeshColorFromLayer(void *self, int layer, float r, float g, float b);
 
-static inline void SetDown194558(char *p)
+static inline void setDown(char *p)
 {
     *(unsigned int *)(p + 0x5B0) |= 1;
     *(unsigned char *)(p + 0x2F4) = 2;
@@ -16,7 +16,7 @@ static inline void SetDown194558(char *p)
     *(unsigned char *)(p + 0x2F7) = 0;
 }
 
-static inline void *GetPart194558(char *p, int i)
+static inline void *getPart(char *p, int i)
 {
     int on[3];
 
@@ -30,13 +30,13 @@ void func_00194558(char *p)
 {
     if (*(void **)(p + 0x608) != 0 && D_005CB010 != 0) {
         if (func_001FDD38(*(void **)(p + 0x608), Getplayer()) == 1)
-            SetDown194558(p);
+            setDown(p);
     }
     if (cOmBase_checkDamage(p, *(void **)(p + 0x604)) == 1) {
         if (*(short *)(p + 0x54A) <= 0) {
-            SetDown194558(p);
+            setDown(p);
         } else {
-            void *part = GetPart194558(p, 1);
+            void *part = getPart(p, 1);
             cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x8C, p, 0, part, 0, 0);
             *(int *)(p + 0xAF4) = 8;
         }

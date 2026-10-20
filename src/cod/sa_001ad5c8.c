@@ -6,7 +6,7 @@ extern void cOmSub_setVibration(void *mv, int a1, int a2, float f12, float f13, 
 extern int cOmSub_move(void *mv);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, void *f, int g, int h);
 
-static inline void *GetPart1AD5C8(char *p, int i)
+static inline void *getPart(char *p, int i)
 {
     int on[3];
 
@@ -15,7 +15,7 @@ static inline void *GetPart1AD5C8(char *p, int i)
     return 0;
 }
 
-static inline void Move1AD5C8(char *p)
+static inline void movePart(char *p)
 {
     float v[4];
     float z;
@@ -29,7 +29,7 @@ static inline void Move1AD5C8(char *p)
     cOmSub_setVibration(p + 0x630, 0, 5, z, 1.0f, 2.0f);
 }
 
-static inline void Reset1AD5C8(char *p)
+static inline void resetPart(char *p)
 {
     *(unsigned char *)(p + 0x2F4) = 0;
     *(unsigned char *)(p + 0x2F5) = 0;
@@ -43,20 +43,20 @@ void func_001AD5C8(char *p)
     switch (*(unsigned char *)(p + 0x2F5)) {
     case 0:
         if (*(unsigned char *)(p + 0x60D) == 0) {
-            Reset1AD5C8(p);
+            resetPart(p);
             break;
         }
         *(unsigned char *)(p + 0x60E) = 1;
         if (*(int *)(p + 0x600) == 0) {
             cOmSub_initMove3_y(p + 0x630, p, -1, D_00747B00, -0.02f, -*(float *)(p + 0x790), 0.2f);
         } else {
-            Move1AD5C8(p);
+            movePart(p);
         }
         *(int *)(p + 0x5B8) |= 0x100;
-        if (GetPart1AD5C8(p, 1))
-            *(int *)((char *)GetPart1AD5C8(p, 1) + 0x104) = 0;
-        if (GetPart1AD5C8(p, 2))
-            *(int *)((char *)GetPart1AD5C8(p, 2) + 0x104) = 0;
+        if (getPart(p, 1))
+            *(int *)((char *)getPart(p, 1) + 0x104) = 0;
+        if (getPart(p, 2))
+            *(int *)((char *)getPart(p, 2) + 0x104) = 0;
         *(unsigned char *)(p + 0x2F6) = 0;
         *(unsigned char *)(p + 0x2F7) = 0;
         *(unsigned char *)(p + 0x2F5) = 1;
@@ -67,7 +67,7 @@ void func_001AD5C8(char *p)
         *(unsigned char *)(p + 0x60D) = 0;
         *(unsigned char *)(p + 0x60E) = 0;
         cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x83, p, 0, 0, 0, 0);
-        Reset1AD5C8(p);
+        resetPart(p);
         break;
     }
 }

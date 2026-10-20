@@ -3,40 +3,40 @@ typedef struct {
     char pad0[0x100];
     char pos[4];
     float rot;
-} Part1EC;
+} SwingPart;
 
 typedef struct {
     char pad0[0x54];
     unsigned int flags;
     char pad58[0x1C4 - 0x58];
-    Part1EC *parts[10];
-} Obj1EC;
+    SwingPart *parts[10];
+} SwingObj;
 
 extern char D_005FEE00[];
-extern void cModel_calcParts(Part1EC *p);
+extern void cModel_calcParts(SwingPart *p);
 extern void cSnd_SeCall(void *s, int a, int b, void *pos, int c, int d);
 
-static inline unsigned char flagGet(Obj1EC *o, unsigned int n)
+static inline unsigned char flagGet(SwingObj *o, unsigned int n)
 {
     if (n >= 32)
         return 0;
     return ((long)o->flags >> n) & 1;
 }
 
-static inline void flagSet(Obj1EC *o, unsigned int n)
+static inline void flagSet(SwingObj *o, unsigned int n)
 {
     if (n < 32)
         o->flags |= 1L << n;
 }
 
-static inline void flagClr(Obj1EC *o, unsigned int n)
+static inline void flagClr(SwingObj *o, unsigned int n)
 {
     if (n < 32)
         o->flags &= ~(1L << n);
 }
 
 __attribute__((section(".text.func_001EC088")))
-void func_001EC088(Obj1EC *o)
+void func_001EC088(SwingObj *o)
 {
     int i;
     int a;

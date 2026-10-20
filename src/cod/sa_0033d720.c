@@ -1,17 +1,17 @@
-typedef struct Dec33D720 {
+typedef struct AdxDec {
     char pad0[0x10];
     int n;              /* 0x10 */
     char pad14[0xC];
     short *a;           /* 0x20 */
     short *b;           /* 0x24 */
-} Dec33D720;
+} AdxDec;
 
-typedef struct Adx33D720 Adx33D720;
+typedef struct AdxbObj AdxbObj;
 
-struct Adx33D720 {
+struct AdxbObj {
     char pad0[4];
     int stat;                                           /* 0x04 */
-    Dec33D720 *dec;                                     /* 0x08 */
+    AdxDec *dec;                                     /* 0x08 */
     char pad0C[0x68 - 0x0C];
     int hdr68;                                          /* 0x68 */
     int hdr6C;                                          /* 0x6C */
@@ -28,19 +28,19 @@ struct Adx33D720 {
     int replay;                                         /* 0xE8 */
 };
 
-extern int Obj33F8_GetWord_C_FA68(Dec33D720 *dec);
-extern void func_0033FB78(Dec33D720 *dec);
-extern void func_0033FB48(Dec33D720 *dec);
-extern void func_0033D3D0(Adx33D720 *adx);
-extern void func_0033D598(Adx33D720 *adx);
+extern int Obj33F8_GetWord_C_FA68(AdxDec *dec);
+extern void func_0033FB78(AdxDec *dec);
+extern void func_0033FB48(AdxDec *dec);
+extern void func_0033D3D0(AdxbObj *adx);
+extern void func_0033D598(AdxbObj *adx);
 extern void Forward33B658_33E678(void);
 extern void Forward33B670_33E690(void);
-extern void (*D_003E9D4C)(Adx33D720 *adx, int v, short *a, short *b);
+extern void (*D_003E9D4C)(AdxbObj *adx, int v, short *a, short *b);
 
 __attribute__((section(".text.func_0033D720")))
-void func_0033D720(Adx33D720 *adx)
+void func_0033D720(AdxbObj *adx)
 {
-    Dec33D720 *dec;
+    AdxDec *dec;
     int i;
 
     if (adx->stat == 1 && Obj33F8_GetWord_C_FA68(adx->dec) == 0) {

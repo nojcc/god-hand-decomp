@@ -4,7 +4,7 @@ typedef struct {
     int f78;
     char pad7C[0x170 - 0x7C];
     int f170;
-} Sf3514Stm;
+} SfdStmView;
 
 extern int func_00356E98(char *sfd);
 extern int func_00351C00(char *sfd);
@@ -31,7 +31,7 @@ int func_003514B8(char *sfd, int n, int code, int cont, int *out)
     char *st = sfd + 0x950;
     char *w = sfd + 0x1FB8;
     int a;
-    Sf3514Stm *s;
+    SfdStmView *s;
     int err;
     int buf[4];
     int len;
@@ -39,7 +39,7 @@ int func_003514B8(char *sfd, int n, int code, int cont, int *out)
     int t;
 
     *out = 0;
-    s = (Sf3514Stm *)*(int *)(w + 8);
+    s = (SfdStmView *)*(int *)(w + 8);
     a = *(int *)(w + 0x10);
     *(int *)(st + 0x28) = 0;
     if (func_00356E98(sfd) == 0) {

@@ -1,3 +1,4 @@
+#include "godhand/cModel.h"
 extern char D_005864F0[];
 extern char D_00747B00[];
 extern float cEmManage_GetSpeedRate(void *a0);
@@ -9,16 +10,10 @@ extern int moveMotion(void *a0);
 extern void VecRotVec(float *out, float *in, float *rot, int order);
 extern int cOmBase_checkDamage(void *self, void *take);
 
-typedef struct {
-    short delta;
-    short idx;
-    void (*fn)(void *, void *);
-} VEntry;
-
 static inline void VCall(char *o, int slot, void *arg)
 {
-    VEntry *e = &(*(VEntry **)(o + 0x214))[slot];
-    e->fn(o + e->delta, arg);
+    cVtEnt *e = &(*(cVtEnt **)(o + 0x214))[slot];
+    ((void (*)(void *, void *))e->pfn)(o + e->delta, arg);
 }
 
 static inline void SetV3(float *d, float x, float y, float z)

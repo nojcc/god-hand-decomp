@@ -1,4 +1,4 @@
-/* func_002B1C80: message draw setup with ruby scan (sn-2.95.3-136, fp_hazard_rules mtc1) */
+/* func_002B1C80: message draw setup with ruby scan (sn-2.95.3-136) */
 typedef struct {
     char pad0[0x14];
     int flags;
@@ -25,7 +25,7 @@ typedef struct {
     char padA5[0xAE - 0xA5];
     short x;
     short y;
-} Mess2B1;
+} MessDrawWork;
 
 extern char D_005E7510[];
 extern int D_00747A0C;
@@ -44,7 +44,7 @@ extern void func_002AF708(void *f, int a);
 extern void cMessDrawFont_draw(void *f, int a, int b);
 
 __attribute__((section(".text.func_002B1C80")))
-void func_002B1C80(Mess2B1 *m)
+void func_002B1C80(MessDrawWork *m)
 {
     unsigned short *r;
     long t;

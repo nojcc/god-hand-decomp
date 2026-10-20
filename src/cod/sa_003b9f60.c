@@ -1,14 +1,14 @@
-typedef struct Slot3B9F60 {
+typedef struct WordSlot {
     int word;
     char pad[0x3C - 4];
-} Slot3B9F60;
+} WordSlot;
 
-extern Slot3B9F60 D_003FC7B8[];
+extern WordSlot D_003FC7B8[];
 
 __attribute__((section(".text.func_003B9F60")))
-Slot3B9F60 *func_003B9F60(void)
+WordSlot *func_003B9F60(void)
 {
-    Slot3B9F60 *p;
+    WordSlot *p;
     int i;
 
     for (i = 0; i < 1; i++) {

@@ -1,12 +1,12 @@
 /* cygnus-2.96 dr: func_00333560, split a text buffer into lines: each LF/NUL-terminated line (CR/LF stripped) is copied into a fixed-width slot after the nmax-entry header and converted; the first table built is remembered. */
-typedef struct LineTab333560 {
+typedef struct LineTable {
     char *out;                          /* 0x0 */
     int count;                          /* 0x4 */
     int nmax;                           /* 0x8 */
     int width;                          /* 0xC */
-} LineTab333560;
+} LineTable;
 
-extern LineTab333560 D_003D9DC0;
+extern LineTable D_003D9DC0;
 
 extern void func_003A5148(char *dst, char *src, int len);
 extern void dvci_to_large_to_yen(char *s);

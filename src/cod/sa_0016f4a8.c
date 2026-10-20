@@ -1,35 +1,13 @@
+#include "godhand/emDamageVol.h"
 #include "godhand/cOmBase.h"
 
-extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *size);
-extern int func_001C28A0(void *self);
 extern void espSys_effDataRegist(void *sys, int id, void *data);
-extern int D_00574380;
 extern int D_007419A0;
 
-typedef struct Hdr16F4A8 {
+typedef struct DataHdr {
     char pad0[0xC];
     int off;                            /* 0xC */
-} Hdr16F4A8;
-
-typedef struct Obj16F4A8 {
-    cOmBase base;                       /* 0x000 */
-    char unk5E0[4];
-    int unk5E4;                         /* 0x5E4 */
-    int unk5E8;                         /* 0x5E8 */
-    int unk5EC;                         /* 0x5EC */
-    int unk5F0;                         /* 0x5F0 */
-    short unk5F4;                       /* 0x5F4 */
-    short unk5F6;                       /* 0x5F6 */
-    char unk5F8[8];
-    void *damage;                       /* 0x600 */
-    char unk604[4];
-    void *work;                         /* 0x608 */
-    unsigned char workNum;              /* 0x60C */
-    char unk60D[0x13];
-    char workBuf[4];                    /* 0x620 */
-} Obj16F4A8;
+} DataHdr;
 
 static inline void InitDmgVol(char *p, int col, char *sub, int kind, int w, int t)
 {
@@ -46,7 +24,7 @@ static inline void InitDmgVol(char *p, int col, char *sub, int kind, int w, int 
 }
 
 __attribute__((section(".text.func_0016F4A8")))
-int func_0016F4A8(Obj16F4A8 *self)
+int func_0016F4A8(EmDmgVol *self)
 {
     float f[16];
     float *m;
@@ -55,7 +33,7 @@ int func_0016F4A8(Obj16F4A8 *self)
     void *slot;
     float one, ca, cb;
     char *data;
-    Hdr16F4A8 *hdr;
+    DataHdr *hdr;
 
     func_001B6FB8(self);
     one = 1.0f;
@@ -75,8 +53,8 @@ int func_0016F4A8(Obj16F4A8 *self)
     *(int *)&f[9] = 0;
     *(int *)&f[10] = 0;
     m[3] = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
-    self->damage = slot;
+    slot = cDamageManage_CreateDamageTake(D_00574380, self, 2);
+    self->dmgTake = slot;
     if (slot != 0) {
         nv = &f[12];
         *(int *)&f[12] = 0;
@@ -85,7 +63,7 @@ int func_0016F4A8(Obj16F4A8 *self)
         nv[3] = one;
         func_001FD9D8(slot, (char *)self + 0x80, m, nv, t);
     }
-    InitDmgVol((char *)self, 1, self->workBuf, 6, 1, 600);
+    InitDmgVol((char *)self, 1, self->subBuf, 6, 1, 600);
     func_001C28A0(self);
     {
         int h = self->base.texKey;

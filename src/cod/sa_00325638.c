@@ -1,13 +1,13 @@
-typedef struct TPrm325638 {
+typedef struct AdxmThreadPrm {
     int prio_lock;                      /* 0x00 */
     int prio_safe;                      /* 0x04 */
     int prio_mwidle;                    /* 0x08 */
     int prio_usridle;                   /* 0x0C */
     int prio_main;                      /* 0x10 */
     int prio_usrvsync;                  /* 0x14 */
-} TPrm325638;
+} AdxmThreadPrm;
 
-typedef struct TCur325638 {
+typedef struct AdxmThreadCur {
     int prio_lock;                      /* 0x00 */
     int prio_safe;                      /* 0x04 */
     int unk08;
@@ -15,9 +15,9 @@ typedef struct TCur325638 {
     int prio_usridle;                   /* 0x10 */
     int prio_main;                      /* 0x14 */
     int prio_usrvsync;                  /* 0x18 */
-} TCur325638;
+} AdxmThreadCur;
 
-typedef struct ThreadStat325638 {
+typedef struct ThreadStatus {
     int status;
     void *func;
     void *stack;
@@ -26,17 +26,17 @@ typedef struct ThreadStat325638 {
     int initPriority;
     int currentPriority;                /* 0x18 */
     int pad[5];
-} ThreadStat325638;
+} ThreadStatus;
 
 extern volatile int D_003C80A0;
 extern int D_003C80A4;
 extern volatile int D_003C80FC;
-extern TCur325638 D_003C80B0;
+extern AdxmThreadCur D_003C80B0;
 extern volatile int D_003C8148;
 extern int D_003CF9D8;
-typedef struct Cb325638 { void (*fn)(int); int arg; } Cb325638;
-extern Cb325638 D_00755C28;
-extern Cb325638 D_00755C20;
+typedef struct AdxmCbEnt { void (*fn)(int); int arg; } AdxmCbEnt;
+extern AdxmCbEnt D_00755C28;
+extern AdxmCbEnt D_00755C20;
 
 extern void func_0033BE80(void);
 extern void func_00324C90(void);
@@ -45,7 +45,7 @@ extern void Forward324D88_324E70(void);
 extern void Obj0000_Set_D_007588A0_Pair_33BC18(void (*fn)(void), int obj);
 extern void Obj0000_Set_D_007588A8_XY_33BC30(void (*fn)(void), int obj);
 extern int GetThreadId(void);
-extern int ReferThreadStatus(int tid, ThreadStat325638 *st);
+extern int ReferThreadStatus(int tid, ThreadStatus *st);
 extern int ChangeThreadPriority(int tid, int prio);
 extern void func_003253C0(void);
 extern void func_00325468(void);
@@ -54,9 +54,9 @@ extern void func_00325578(void);
 extern void SVM_SetCbBdr(int id, void (*fn)(void), int obj);
 
 __attribute__((section(".text.func_00325638")))
-void func_00325638(TPrm325638 *prm)
+void func_00325638(AdxmThreadPrm *prm)
 {
-    ThreadStat325638 st;
+    ThreadStatus st;
 
     D_003C80A0;
     D_003C80FC = 0;

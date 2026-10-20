@@ -6,13 +6,13 @@ typedef struct {
     char pad2[2];
     unsigned char b4;
     unsigned char b5;
-} Menu37E200;
+} DbgMenuPage;
 
 typedef struct {
     char pad0[0x34];
     int trig;
     int rep;
-} Pad37E200;
+} DbgMenuPad;
 
 extern char D_0045C1B8[];
 extern char D_0045C1C8[];
@@ -20,7 +20,7 @@ extern char *D_003F2888[];
 extern void func_002E0DE8(int, int, int, char *, ...);
 
 __attribute__((section(".text.func_0037E200")))
-int func_0037E200(Menu37E200 *m, Pad37E200 *pad)
+int func_0037E200(DbgMenuPage *m, DbgMenuPad *pad)
 {
     signed char i;
 

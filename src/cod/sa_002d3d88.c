@@ -15,7 +15,7 @@ typedef struct {
     long f20;
     int f28;
     int f2C;
-} Img2D3;
+} MovieImg;
 
 typedef struct {
     char name[4];
@@ -23,15 +23,15 @@ typedef struct {
     char f5;
     short f6;
     char pad8[8];
-    Img2D3 img;
-} ImgHdr2D3;
+    MovieImg img;
+} MovieImgHdr;
 
 typedef struct {
     void *ply;
     int f4;
     void *work;
     void *buf[2];
-    ImgHdr2D3 *img;
+    MovieImgHdr *img;
     int f18;
     short w;
     short h;
@@ -46,7 +46,7 @@ typedef struct {
     short f42;
     char pad44[0x64];
     void *fxbuf;
-} Mv2D3;
+} MoviePlayer;
 
 extern void *D_003C3CF0;
 extern char D_0044D188[];
@@ -55,7 +55,7 @@ extern void *func_003A52F0(void *dst, int val, int len);
 extern void func_003A5DA0(void *dst, void *src, int n);
 extern int mwPlyCalcWorkCprmSfd(int *cp);
 extern void func_003B0640(void *start, void *end);
-extern void func_002D45B0(Mv2D3 *p, int i);
+extern void func_002D45B0(MoviePlayer *p, int i);
 extern int func_00309C30(int a, int w);
 extern int func_00309D40(int n);
 extern void *func_00343E28(int *cp);
@@ -63,10 +63,10 @@ extern void mwPlyFxSetLumiPrm(void *ply, int a, int b, int c);
 extern void Obj3260_Tramp_00337C00_D1F0(void);
 extern int func_003481D8(void);
 extern void Forward3428A0_342870(void *ply, void *buf, int n);
-extern void ResHolder_release(Mv2D3 *p);
+extern void ResHolder_release(MoviePlayer *p);
 
 __attribute__((section(".text.func_002D3D88")))
-int func_002D3D88(Mv2D3 *p)
+int func_002D3D88(MoviePlayer *p)
 {
     int cp[12];
     int n;
@@ -101,8 +101,8 @@ int func_002D3D88(Mv2D3 *p)
         func_002D45B0(p, 1);
     }
     if (p->flags & 0x40) {
-        ImgHdr2D3 *q;
-        Img2D3 *im;
+        MovieImgHdr *q;
+        MovieImg *im;
         int a, b, c;
 
         q = EnsureInitThenForward_2A9538_30EE08(p->w * p->h * 4 + 0x40, 0x80, D_003C3CF0);

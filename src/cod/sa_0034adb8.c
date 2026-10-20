@@ -2,12 +2,12 @@
  * info block and push the frame-rate/time conditions of handle into its timer object. */
 typedef struct {
     int v[7];
-} Info34ADB8;
+} StmReqInfo;
 
 typedef struct {
     int f00;
     int f04;
-    Info34ADB8 info;            /* 0x08 */
+    StmReqInfo info;            /* 0x08 */
     int f24;
     int f28;
     int f2C;
@@ -19,9 +19,9 @@ typedef struct {
     int f44;
     int f48;
     int f4C;
-} Req34ADB8;
+} StmReq;
 
-extern Info34ADB8 D_00760D90;
+extern StmReqInfo D_00760D90;
 extern int func_0034DD70(int a0, unsigned int a1);
 extern int GetArrayElemA0C_35A1C8(void *hn, int idx);
 extern void func_0035C3A0(void *tm);
@@ -35,7 +35,7 @@ extern void func_00360950(int v);
 extern void func_0034A038(void);
 
 __attribute__((section(".text.func_0034ADB8")))
-int func_0034ADB8(char *hn, Req34ADB8 *req)
+int func_0034ADB8(char *hn, StmReq *req)
 {
     long long t[4][2];
 

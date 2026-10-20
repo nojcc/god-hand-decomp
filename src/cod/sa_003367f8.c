@@ -1,5 +1,5 @@
 /* cygnus-2.96: func_003367F8, memory-file read of nsct sectors into buf: clip to the file, copy from the mapped block and zero the tail, all under the reader lock. */
-typedef struct MfRd3367F8 {
+typedef struct MemFileReader {
     char unk00;
     signed char stat;                   /* 0x01 1 = idle, 2 = busy */
     char unk02[2];
@@ -12,13 +12,13 @@ typedef struct MfRd3367F8 {
     char map[0x14];                     /* 0x1C */
     int off;                            /* 0x30 */
     int size;                           /* 0x34 */
-} MfRd3367F8;
+} MemFileReader;
 
 extern char D_00455150[];
 extern char D_00455170[];
 extern char D_00455190[];
 
-extern void func_00336330(MfRd3367F8 *h, char *msg);
+extern void func_00336330(MemFileReader *h, char *msg);
 extern void Forward33B658_3362E8(void);
 extern void Forward33B670_336300(void);
 extern char *func_003363F8(char *map, int *avail);
@@ -26,7 +26,7 @@ extern void func_003A5148(void *d, void *s, int n);
 extern void func_003A52F0(void *p, int c, int n);
 
 __attribute__((section(".text.func_003367F8")))
-int func_003367F8(MfRd3367F8 *h, int nsct, char *buf)
+int func_003367F8(MemFileReader *h, int nsct, char *buf)
 {
     char *base;
     int avail;

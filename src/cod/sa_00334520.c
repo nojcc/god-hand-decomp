@@ -2,17 +2,17 @@
 #define SECTOR_SHIFT  11
 #define SECTOR_MASK   0x7FF
 
-typedef struct FileInfo334520 {
+typedef struct HostFileInfo {
     int fd;                             /* 0x00 */
     int size;                           /* 0x04 */
-} FileInfo334520;
+} HostFileInfo;
 
-typedef union FileInfoBuf334520 {
+typedef union HostFileStat {
     long all;
-    FileInfo334520 f;
-} FileInfoBuf334520;
+    HostFileInfo f;
+} HostFileStat;
 
-typedef struct File334520 {
+typedef struct HostFileHn {
     char used;                          /* 0x00 */
     char sized;                         /* 0x01 the size came with the lookup */
     char unk02;                         /* 0x02 */
@@ -24,7 +24,7 @@ typedef struct File334520 {
     int unk1C;
     int unk20;
     int unk24;
-} File334520;
+} HostFileHn;
 
 extern char D_00454878[];
 extern char D_004548A0[];
@@ -35,20 +35,20 @@ extern char D_003DA250[];
 extern int D_003DA390;
 
 extern void func_00334008(void *dev, char *msg);
-extern File334520 *func_003344C8(void);
-extern void func_003351C0(void *dev, FileInfo334520 *info);
+extern HostFileHn *func_003344C8(void);
+extern void func_003351C0(void *dev, HostFileInfo *info);
 extern void func_00334D68(void *dev, char *name);
 extern void LogPrintf(char *fmt, ...);
 extern long func_00334310(void *dev);
 extern void PushGlobalD8478History_331C78(int tag);
 extern int func_00331EE8(char *name, int mode);
-extern void Forward3A52F0_334500(File334520 *f);
+extern void Forward3A52F0_334500(HostFileHn *f);
 
 __attribute__((section(".text.func_00334520")))
-File334520 *func_00334520(void *dev, void *arg, int mode)
+HostFileHn *func_00334520(void *dev, void *arg, int mode)
 {
-    File334520 *f;
-    FileInfoBuf334520 info;
+    HostFileHn *f;
+    HostFileStat info;
 
     info.all = 0;
     if (dev == 0) {

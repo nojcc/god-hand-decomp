@@ -4,13 +4,13 @@ typedef struct Def24 { int w[9]; } Def24;
 typedef struct Def8 { int w[2]; } Def8;
 typedef struct Def40 { int w[16]; } Def40;
 
-typedef struct Slot3547B0 {
+typedef struct MwsfdDecSlot {
     char pad00[0x54];
     void *buf;                          /* 0x54 */
     char pad58[0xF0 - 0x58];
-} Slot3547B0;
+} MwsfdDecSlot;
 
-typedef struct Hn3547B0 {
+typedef struct MwsfdInitView {
     int f0;
     Def24 prm;                          /* 0x004 */
     Def8 prm2;                          /* 0x028 */
@@ -32,15 +32,15 @@ typedef struct Hn3547B0 {
     char pad140[0x160 - 0x140];
     int f160[6];
     char pad178[0x180 - 0x178];
-    Slot3547B0 slot[16];                /* 0x180 */
+    MwsfdDecSlot slot[16];                /* 0x180 */
     char f1080[0x109C - 0x1080];
     char ent[16][8];                    /* 0x109C */
-} Hn3547B0;
+} MwsfdInitView;
 
 extern Def24 D_00766BA8;
 extern Def8 D_00766BD0;
 extern Def40 D_00766BD8;
-extern int func_003549A8(void *a0, Hn3547B0 *hn);
+extern int func_003549A8(void *a0, MwsfdInitView *hn);
 extern int func_0034DD70(int a0, int a1);
 extern void func_00354A70(void *a0, void *a1, int a2);
 extern void func_00354B20(void *a0);
@@ -48,7 +48,7 @@ extern void func_003520B0(void *a0);
 extern void func_00354B40(void *a0);
 
 __attribute__((section(".text.func_003547B0")))
-int func_003547B0(void *a0, Hn3547B0 *hn)
+int func_003547B0(void *a0, MwsfdInitView *hn)
 {
     int i;
 

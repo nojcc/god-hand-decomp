@@ -1,41 +1,41 @@
 /* sn-2.95.3-136: func_0037CAE0, per-frame voice scan: step every live voice (sequenced voices poll their sequence and retire when it ends), then store the per-kind live counts. */
-typedef struct Voice37CAE0 {
+typedef struct SndVoiceSlot {
     unsigned short id;                  /* 0x00 */
     short seq;                          /* 0x02 */
     char pad04;
     unsigned char flags;                /* 0x05 1/2/4 kind, 8 sequenced */
     char pad06[0x50 - 0x6];
-} Voice37CAE0;
+} SndVoiceSlot;
 
-typedef struct Seq37CAE0 {
+typedef struct SndSeqSlot {
     char pad[0x84];
-} Seq37CAE0;
+} SndSeqSlot;
 
-typedef struct SndStat37CAE0 {
+typedef struct SndVoiceStat {
     char pad00[0x24];
     unsigned char nKind1;               /* 0x24 */
     unsigned char nKind2;               /* 0x25 */
     unsigned char nKind4;               /* 0x26 */
     unsigned char nTotal;               /* 0x27 */
-} SndStat37CAE0;
+} SndVoiceStat;
 
-extern Voice37CAE0 D_0076CF20[51];
-extern Seq37CAE0 D_0076A600[];
-extern SndStat37CAE0 D_0076A790;
+extern SndVoiceSlot D_0076CF20[51];
+extern SndSeqSlot D_0076A600[];
+extern SndVoiceStat D_0076A790;
 
-extern int GetSequenceResult_373770(Seq37CAE0 *seq);
-extern void UpdateSequenceNode_373430(Seq37CAE0 *seq);
-extern void ResetNodeData_3733C8(Seq37CAE0 *seq);
-extern void func_0037D148(Voice37CAE0 *v);
-extern void func_0037D3B0(Voice37CAE0 *v);
-extern void func_0037CC78(Voice37CAE0 *v);
-extern void func_0037CCE0(Voice37CAE0 *v);
+extern int GetSequenceResult_373770(SndSeqSlot *seq);
+extern void UpdateSequenceNode_373430(SndSeqSlot *seq);
+extern void ResetNodeData_3733C8(SndSeqSlot *seq);
+extern void func_0037D148(SndVoiceSlot *v);
+extern void func_0037D3B0(SndVoiceSlot *v);
+extern void func_0037CC78(SndVoiceSlot *v);
+extern void func_0037CCE0(SndVoiceSlot *v);
 
 __attribute__((section(".text.func_0037CAE0")))
 void func_0037CAE0(void)
 {
-    SndStat37CAE0 *st;
-    Voice37CAE0 *v;
+    SndVoiceStat *st;
+    SndVoiceSlot *v;
     unsigned char n1;
     unsigned char n2;
     unsigned char n4;

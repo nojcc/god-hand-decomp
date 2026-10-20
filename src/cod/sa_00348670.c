@@ -1,11 +1,11 @@
 /* cygnus-2.96. Fill the 0x20-byte slot at 0x284 + id*0x20,
  * or report one of the three errors and return 0. */
-typedef struct Obj48670 {
+typedef struct MwsfdSlotOwner {
     char pad0[0x3C];
     int unk3C;
-} Obj48670;
+} MwsfdSlotOwner;
 
-typedef struct Slot48670 {
+typedef struct MwsfdSlot {
     int flag;     /* 0x00 */
     int id;       /* 0x04 */
     int opened;   /* 0x08 */
@@ -14,7 +14,7 @@ typedef struct Slot48670 {
     int span;     /* 0x14 */
     int a4;       /* 0x18 */
     int made;     /* 0x1C */
-} Slot48670;
+} MwsfdSlot;
 
 extern char D_00459240[];
 extern char D_00459270[];
@@ -28,12 +28,12 @@ extern void func_0034E090(int ctx, int a, int span, int z0, int z1);
 extern void MWSFSVM_Error(char *msg);
 
 __attribute__((section(".text.func_00348670")))
-int func_00348670(Obj48670 *o, int id, int a2, int a3, int a4)
+int func_00348670(MwsfdSlotOwner *o, int id, int a2, int a3, int a4)
 {
     int p0;
     int p1;
     int p2;
-    Slot48670 *s;
+    MwsfdSlot *s;
     int opened;
     int span;
     int made;
@@ -44,7 +44,7 @@ int func_00348670(Obj48670 *o, int id, int a2, int a3, int a4)
         return 0;
     func_00348258(id);
     ctx = o->unk3C;
-    s = (Slot48670 *)((char *)o + (id << 5) + 0x284);
+    s = (MwsfdSlot *)((char *)o + (id << 5) + 0x284);
     s->opened = opened;
     s->id = id;
     s->a2 = a2;

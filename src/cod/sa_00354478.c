@@ -1,29 +1,29 @@
 /* cygnus-2.96: func_00354478, find the next MPEG delimiter in the stream's ring, advance by the
  * bytes before it, and count them as data when any of the first three is nonzero. */
-typedef struct SfRing354478 {
+typedef struct SfdRing {
     unsigned char *p0;  /* 0x00 */
     int n0;             /* 0x04 */
     unsigned char *p1;  /* 0x08 */
     int n1;             /* 0x0C */
     int pad10[2];
-} SfRing354478;
+} SfdRing;
 
-typedef struct Sf354478 {
+typedef struct SfdRingView {
     char pad0[0x9A8];
     long total;         /* 0x9A8 */
     long data;          /* 0x9B0 */
     char pad9B8[0x1FC8 - 0x9B8];
     int sj;             /* 0x1FC8 */
-} Sf354478;
+} SfdRingView;
 
-extern int func_0034C2B8(Sf354478 *sf, int sj, SfRing354478 *r);
-extern unsigned char *sfmpv_SearchDelim(SfRing354478 *r, int mask, int *found);
-extern void func_003545D8(Sf354478 *sf, int n);
+extern int func_0034C2B8(SfdRingView *sf, int sj, SfdRing *r);
+extern unsigned char *sfmpv_SearchDelim(SfdRing *r, int mask, int *found);
+extern void func_003545D8(SfdRingView *sf, int n);
 
 __attribute__((section(".text.func_00354478")))
-int func_00354478(Sf354478 *sf, int unused, int mask)
+int func_00354478(SfdRingView *sf, int unused, int mask)
 {
-    SfRing354478 r;
+    SfdRing r;
     int found;
     unsigned char *p;
     int n;

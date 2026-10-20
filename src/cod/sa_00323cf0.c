@@ -1,23 +1,15 @@
 /* cygnus-2.96: func_00323CF0, read-request start: wrap buf in a stream joint of nsct sectors, issue the read and destroy the joint again on failure, with entry and exit trace calls. */
-typedef struct SjIf323CF0 {
-    void *fn[3];
-    void (*destroy)(void *sj);          /* 0x0C */
-} SjIf323CF0;
-
-typedef struct Sj323CF0 {
-    SjIf323CF0 *vt;
-} Sj323CF0;
-
-typedef struct Rd323CF0 {
+#include "godhand/criSj.h"
+typedef struct CdReadReq {
     char unk00;
     signed char stat;                   /* 0x01 2 = busy */
     char busy;                          /* 0x02 */
     char unk03[5];
-    Sj323CF0 *sj;                       /* 0x08 */
+    SjObj *sj;                       /* 0x08 */
     char unk0C[0x18];
     void *buf;                          /* 0x24 */
     int size;                           /* 0x28 */
-} Rd323CF0;
+} CdReadReq;
 
 extern char D_00451718[];
 extern char D_00451740[];
@@ -25,18 +17,17 @@ extern char D_00451770[];
 extern char D_00451798[];
 extern int D_003EB708;
 
-extern void func_003228C0(int id, int phase, Rd323CF0 *h, int nsct, void *buf);
-extern void func_0033F130(char *msg);
-extern Sj323CF0 *func_003395A0(void *buf, int size, int mode);
+extern void func_003228C0(int id, int phase, CdReadReq *h, int nsct, void *buf);
+extern SjObj *func_003395A0(void *buf, int size, int mode);
 extern void Forward33B658_33E678(void);
 extern void Forward33B670_33E690(void);
 extern void Forward3B0640_33F3D0(void *buf, int size);
-extern int func_00323BE0(Rd323CF0 *h, int nsct, Sj323CF0 *sj);
+extern int func_00323BE0(CdReadReq *h, int nsct, SjObj *sj);
 
 __attribute__((section(".text.func_00323CF0")))
-int func_00323CF0(Rd323CF0 *h, int nsct, void *buf)
+int func_00323CF0(CdReadReq *h, int nsct, void *buf)
 {
-    Sj323CF0 *sj;
+    SjObj *sj;
     int size;
     int n;
 

@@ -1,23 +1,23 @@
 /* cygnus-2.96: func_003B9998, set up the ADX decoder for the handle (same shape as
  * func_00336BA8): reset and configure, create the decoder under the lock, then install the five callbacks. */
-typedef struct Work3B9998 {
+typedef struct AdxtDecWork {
     char pad0[0xC0];
     int dec;                /* 0xC0 */
-} Work3B9998;
+} AdxtDecWork;
 
-typedef struct Inner3B9998 {
+typedef struct AdxtInner {
     char pad0[4];
-    Work3B9998 *work;       /* 0x04 */
-} Inner3B9998;
+    AdxtDecWork *work;       /* 0x04 */
+} AdxtInner;
 
-typedef struct Adxt3B9998 {
+typedef struct AdxtView {
     char pad0[4];
-    Inner3B9998 *obj;       /* 0x04 */
+    AdxtInner *obj;       /* 0x04 */
     char pad8[8];
     int nch;                /* 0x10 */
     char pad14[4];
     int sfreq;              /* 0x18 */
-} Adxt3B9998;
+} AdxtView;
 
 extern char D_00460818[];
 extern char D_00460840[];
@@ -27,10 +27,10 @@ extern void *D_003D1420;
 extern void *D_003E9D18;
 extern void *D_003E9D1C;
 
-extern void func_00329EA8(Adxt3B9998 *adxt);
-extern void func_003B9AF8(Adxt3B9998 *adxt);
-extern void Obj3260_TrampVia0C_00337B30_D220(Adxt3B9998 *adxt, int v);
-extern void Obj3260_TrampVia0C_00337B80_D238(Adxt3B9998 *adxt, int v);
+extern void func_00329EA8(AdxtView *adxt);
+extern void func_003B9AF8(AdxtView *adxt);
+extern void Obj3260_TrampVia0C_00337B30_D220(AdxtView *adxt, int v);
+extern void Obj3260_TrampVia0C_00337B80_D238(AdxtView *adxt, int v);
 extern void func_003B9E10(void);
 extern void Obj0000_Set_D_003FC7AC_D_003FC7B0_3B9D98(void (*fn)(), int arg);
 extern void func_003B9D48();
@@ -47,10 +47,10 @@ extern void func_003B9CE8();
 extern void func_003B9D30();
 
 __attribute__((section(".text.func_003B9998")))
-void func_003B9998(Adxt3B9998 *adxt, int a1, int a2)
+void func_003B9998(AdxtView *adxt, int a1, int a2)
 {
     int *sfreq = &adxt->sfreq;
-    Work3B9998 *w;
+    AdxtDecWork *w;
     int nch;
     int dec;
 

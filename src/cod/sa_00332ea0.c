@@ -1,5 +1,5 @@
 /* cygnus-2.96: func_00332EA0, CD file handle read request: clamps the sector count to what is left of the file, records the request, issues SRD_ReqRdCd and, in blocking mode, waits for it and advances the file offset. */
-typedef struct Hn332EA0 {
+typedef struct CdReadHn {
     char pad00[2];
     signed char stat;                   /* 0x02 */
     char pad03[5];
@@ -12,14 +12,14 @@ typedef struct Hn332EA0 {
     int top;                            /* 0x20 */
     char pad24[0x44 - 0x24];
     unsigned char mode[3];              /* 0x44 */
-} Hn332EA0;
+} CdReadHn;
 
 extern char D_00454458[];
 extern char D_00454470[];
 extern char D_00454490[];
 extern unsigned char D_003D9DD0[];
 extern int D_003D9DD4;
-extern void func_00332808(Hn332EA0 *hn, char *msg);
+extern void func_00332808(CdReadHn *hn, char *msg);
 extern void *SRD_Create(void);
 extern void func_003B0640(void *start, void *end);
 extern int func_00331110(void *srd, int lsn, int nsct, void *buf, void *mode);
@@ -32,7 +32,7 @@ extern void func_00331458(void *srd);
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 __attribute__((section(".text.func_00332EA0")))
-int func_00332EA0(Hn332EA0 *hn, int nsct, void *buf)
+int func_00332EA0(CdReadHn *hn, int nsct, void *buf)
 {
     void *srd;
     int ret;

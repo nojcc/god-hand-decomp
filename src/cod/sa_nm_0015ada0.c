@@ -1,14 +1,11 @@
 /* NON_MATCHING func_0015ADA0: rotate a vector by a quaternion, q * (v, 0) * conj(q).
  * Instruction sequence and stack temporaries match; only the FP register numbering of the copied quaternion differs (retail x/y/z/w in f9/f10/f12/f11, this gives f10/f9/f11/f12).
  * Statement orders, conj-from-q, an inline conj helper and helper argument order were tried and did not move it. */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct Quat15ADA0 {
-    float x, y, z, w;
-} Quat15ADA0;
-
-static inline void QuatMul15ADA0(Quat15ADA0 *r, Quat15ADA0 *a, Quat15ADA0 *b)
+static inline void QuatMul15ADA0(Vec4f *r, Vec4f *a, Vec4f *b)
 {
     r->x = a->y * b->z - a->z * b->y + a->x * b->w + a->w * b->x;
     r->y = a->z * b->x - a->x * b->z + a->y * b->w + a->w * b->y;
@@ -17,13 +14,13 @@ static inline void QuatMul15ADA0(Quat15ADA0 *r, Quat15ADA0 *a, Quat15ADA0 *b)
 }
 
 __attribute__((section(".text.func_0015ADA0")))
-Quat15ADA0 *func_0015ADA0(Quat15ADA0 *out, Quat15ADA0 *q, Quat15ADA0 *v)
+Vec4f *func_0015ADA0(Vec4f *out, Vec4f *q, Vec4f *v)
 {
-    Quat15ADA0 r;
-    Quat15ADA0 t;
-    Quat15ADA0 vq;
-    Quat15ADA0 c;
-    Quat15ADA0 qq;
+    Vec4f r;
+    Vec4f t;
+    Vec4f vq;
+    Vec4f c;
+    Vec4f qq;
 
     vq.x = v->x;
     vq.y = v->y;
