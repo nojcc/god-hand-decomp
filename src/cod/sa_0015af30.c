@@ -1,5 +1,5 @@
-typedef float Mtx15AF30[4][4];
-typedef float Vec15AF30[4];
+typedef float Mtx44[4][4];
+typedef float Vec4[4];
 
 extern float D_003C3C40[4][4];
 extern float capVu0Atan2(float y, float x);
@@ -14,17 +14,17 @@ extern void sceVu0SubVector(void *v0, void *v1, void *v2);
 
 static inline void setTrans(float (*out)[4], float *pos)
 {
-    Vec15AF30 v;
+    Vec4 v;
 
     sceVu0ApplyMatrix(v, out, pos);
     sceVu0SubVector(out[3], pos, v);
 }
 
 __attribute__((section(".text.func_0015AF30")))
-void func_0015AF30(Mtx15AF30 out, float *dir, float *pos, float roll)
+void func_0015AF30(Mtx44 out, float *dir, float *pos, float roll)
 {
-    Mtx15AF30 m;
-    Mtx15AF30 inv;
+    Mtx44 m;
+    Mtx44 inv;
     float a;
 
     if (dir[0] == 0.0f && dir[2] == 0.0f) {

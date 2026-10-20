@@ -1,16 +1,16 @@
 /* sn-2.95.3-136: func_001FFA68, look a path up in a node table: normalise it to lower-case backslash form, then walk it one strtok component at a time. */
-typedef struct PathNode1FFA68 {
+typedef struct PathNode {
     unsigned char type;                 /* 0x0 1 = directory, 2 = file, 3 = end of list, 0 = none */
     char unk1[3];
     char *name;                         /* 0x4 */
-    struct PathNode1FFA68 *child;       /* 0x8 */
-} PathNode1FFA68;                       /* 0xC */
+    struct PathNode *child;       /* 0x8 */
+} PathNode;                       /* 0xC */
 
-typedef struct PathTbl1FFA68 {
-    PathNode1FFA68 *root;               /* 0x00 */
+typedef struct PathTable {
+    PathNode *root;               /* 0x00 */
     char unk04[0x15];
     char alias[1];                      /* 0x19 */
-} PathTbl1FFA68;
+} PathTable;
 
 /* newlib ctype: the class table one past its base; bit 0 is upper case. */
 extern unsigned char D_0045F039[];
@@ -23,14 +23,14 @@ extern int func_003A5678(const char *a, const char *b);
 extern char *func_003A9470(char *s, const char *delim);
 
 __attribute__((section(".text.func_001FFA68")))
-PathNode1FFA68 *func_001FFA68(PathTbl1FFA68 *self, const char *path)
+PathNode *func_001FFA68(PathTable *self, const char *path)
 {
     char buf[0x40];
     char *p;
     char *tok;
     int c;
     int d;
-    PathNode1FFA68 *n;
+    PathNode *n;
 
     if (self->root == 0)
         return 0;

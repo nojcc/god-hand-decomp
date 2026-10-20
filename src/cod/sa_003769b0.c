@@ -1,17 +1,17 @@
-typedef struct Ent3769B0 {
+typedef struct SndRegEnt {
     unsigned short id;
     char pad2[2];
     int key;
     unsigned char flags;
     char pad9[0x40 - 9];
-} Ent3769B0;
+} SndRegEnt;
 
-extern Ent3769B0 D_0076F050[];
+extern SndRegEnt D_0076F050[];
 
 __attribute__((section(".text.func_003769B0")))
-Ent3769B0 *func_003769B0(int key)
+SndRegEnt *func_003769B0(int key)
 {
-    Ent3769B0 *p = &D_0076F050[0];
+    SndRegEnt *p = &D_0076F050[0];
     int i;
 
     for (i = 0; i < 0x60; i++, p++) {

@@ -1,11 +1,10 @@
 /* NON_MATCHING func_00283C70 (sn-2.95.3-136;
  * PARK, 108 diffs): retail keeps a second copy of the constant 2 in $s2 for
  * entry 1 (0x70 frame); ours shares $s1, so the frame is 0x60 and everything after the prologue shifts. */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct Vec283C70 { float x, y, z, w; } Vec283C70;
-
 typedef struct Ent283C70 {
     unsigned char b0;
     unsigned char b1;
@@ -14,14 +13,14 @@ typedef struct Ent283C70 {
     float f4;                           /* 0x04 */
     float f8;                           /* 0x08 */
     float fC;
-    Vec283C70 a;                        /* 0x10 */
-    Vec283C70 b;                        /* 0x20 */
+    Vec4f a;                        /* 0x10 */
+    Vec4f b;                        /* 0x20 */
 } Ent283C70;
 
 extern Ent283C70 D_00585660[4];
 extern void *func_003A52F0(void *d, int c, unsigned int n);
 
-static inline void SetVec(Vec283C70 *v, float x, float y)
+static inline void SetVec(Vec4f *v, float x, float y)
 {
     v->y = y;
     v->w = 1.0f;

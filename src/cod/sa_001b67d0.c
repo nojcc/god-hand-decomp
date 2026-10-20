@@ -5,7 +5,7 @@ extern int cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, float *ofs, fl
 extern int cDamageUnit_SetDamageCollActive(void *unit, int on);
 extern char D_00574380[];
 
-static inline void Copy3_1B67D0(float *d, float *s)
+static inline void copyVec3(float *d, float *s)
 {
     if (d != s) {
         d[0] = s[0];
@@ -61,7 +61,7 @@ int func_001B67D0(char *p)
         u = *(char **)(p + 0x620);
         *(short *)(u + 0x44) = 0xF0;
         *(int *)(u + 0x40) = 0;
-        Copy3_1B67D0((float *)(*(char **)(p + 0x620) + 0x10), &f[12]);
+        copyVec3((float *)(*(char **)(p + 0x620) + 0x10), &f[12]);
     }
     *(int *)(p + 0x5B8) &= ~1;
     return 1;

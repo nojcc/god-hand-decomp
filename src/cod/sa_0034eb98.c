@@ -10,28 +10,28 @@ typedef struct {
     int first;
     char pad34[4];
     int mark;
-} Tm34EB98;
+} SfdVideoTime;
 
 typedef struct {
     char pad0[8];
-    Tm34EB98 *tm;
+    SfdVideoTime *tm;
     char padC[0xC];
     int video;
-} Ch34EB98;
+} SfdVideoCh;
 
 typedef struct {
     char pad0[0x1F74];
-    Ch34EB98 ch;
-} Sfd34EB98;
+    SfdVideoCh ch;
+} SfdVideoView;
 
 extern int GetArrayElemA0C_35A1C8(void *hn, int id);
 extern int func_0034F200(void *w, int ch, char *src, int len, long pts);
 
 __attribute__((section(".text.func_0034EB98")))
-int func_0034EB98(Sfd34EB98 *s, int t, char *src, int len, long pts)
+int func_0034EB98(SfdVideoView *s, int t, char *src, int len, long pts)
 {
-    Ch34EB98 *ch;
-    Tm34EB98 *tm;
+    SfdVideoCh *ch;
+    SfdVideoTime *tm;
     int v;
 
     if (GetArrayElemA0C_35A1C8(s, 6) == 0) {

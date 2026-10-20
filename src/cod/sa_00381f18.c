@@ -1,34 +1,15 @@
 /* sn-2.95.3-136: func_00381F18, sound option input: left/right step the selected slot's level (by 10 with the
  * fast bit held, clamped to [-960, 0]) and convert it, up/down step the raw index (clamped to [0, 127]) and look
  * the level up in D_003F2060, then refresh the slots. */
-typedef struct Snd381F18 {
-    char pad00[2];
-    unsigned char slot;                 /* 0x02 */
-    char pad03;
-    short level[5];                     /* 0x04 */
-    short index[5];                     /* 0x0E */
-} Snd381F18;
-
-typedef struct Obj381F18 {
-    char pad000[0x318];
-    Snd381F18 snd;                      /* 0x318 */
-} Obj381F18;
-
-typedef struct Pad381F18 {
-    char pad00[0x2C];
-    int hold;                           /* 0x2C */
-    char pad30[8];
-    int trig;                           /* 0x38 */
-} Pad381F18;
-
+#include "godhand/menuCtl.h"
 extern unsigned short D_003F2060[];
-extern short func_003807E0(Obj381F18 *o, int level);
-extern void func_003820C0(Obj381F18 *o, Snd381F18 *p);
+extern short func_003807E0(SndOptMenu *o, int level);
+extern void func_003820C0(SndOptMenu *o, SndOptLevels *p);
 
 __attribute__((section(".text.func_00381F18")))
-void func_00381F18(Obj381F18 *o, Pad381F18 *pad)
+void func_00381F18(SndOptMenu *o, SndOptPad *pad)
 {
-    Snd381F18 *p;
+    SndOptLevels *p;
     short step;
     int trig;
 

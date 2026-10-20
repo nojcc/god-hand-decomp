@@ -3,21 +3,11 @@
  * Prologue
  * matches up to the start-code skip; retail keeps `bitpos ? nxt << bitpos : nxt` as xori/movn
  * while ours combines it to a bare sllv, and the time-code/bit reads schedule differently. */
+#include "godhand/criSj.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct Sj { unsigned char *f0; int f4; } Sj;
-
-typedef struct SjIf {
-    int pad[6];
-    void (*getChunk)(void *sj, int id, unsigned int len, Sj *out);   /* +0x18 */
-    void (*ungetChunk)(void *sj, int id, Sj *ck);                    /* +0x1C */
-    void (*putChunk)(void *sj, int id, Sj *ck);                      /* +0x20 */
-} SjIf;
-
-typedef struct SjObj { SjIf *vt; } SjObj;
-
-extern void func_0033ACA0(Sj *ck, int n, Sj *a, Sj *b);
+extern void func_0033ACA0(SjChunk *ck, int n, SjChunk *a, SjChunk *b);
 
 #define LOADW(w)                                    \
     w = *p++;                                       \
@@ -42,8 +32,8 @@ extern void func_0033ACA0(Sj *ck, int n, Sj *a, Sj *b);
 __attribute__((section(".text.func_0036AE70")))
 int func_0036AE70(char *h, SjObj *sj)
 {
-    Sj tail;
-    Sj *ck;
+    SjChunk tail;
+    SjChunk *ck;
     char *d;
     char *p;
     unsigned int acc;
@@ -53,7 +43,7 @@ int func_0036AE70(char *h, SjObj *sj)
     int bitpos;
 
     d = h + 0x1D0;
-    ck = (Sj *)(h + 0x38C);
+    ck = (SjChunk *)(h + 0x38C);
     *(int *)(h + 0x3B8) = 2;
     *(int *)(d + 0x30) = *(int *)(d + 0x30) + 1;
     *(int *)(h + 0x3FC) = 0;
@@ -61,8 +51,8 @@ int func_0036AE70(char *h, SjObj *sj)
     *(int *)(d + 0x68) = 0;
     sj->vt->getChunk(sj, 1, 0x7FFFFFFF, ck);
 
-    p = (char *)((int)ck->f0 & ~3);
-    bitpos = ((int)ck->f0 - (int)p) * 8;
+    p = (char *)((int)ck->data & ~3);
+    bitpos = ((int)ck->data - (int)p) * 8;
     LOADW(acc);
     LOADW(nxt);
     acc <<= bitpos;

@@ -6,16 +6,10 @@ extern void func_001AC370(char *self);
 extern void func_001B7EE0(char *self, float f);
 extern char D_005FEE00[];
 
+#include "godhand/cOmBase.h"
 #include "godhand/emPhaseTable.h"
 
 extern EmPhaseTable D_003BDC40;
-
-typedef struct Hit1AC980 {
-    char pad00[0x4C];
-    int damage;                         /* 0x4C */
-    char pad50[0x60 - 0x50];
-    unsigned int flags;                 /* 0x60 */
-} Hit1AC980;
 
 __attribute__((section(".text.func_001AC980")))
 void func_001AC980(char *s0)
@@ -24,7 +18,7 @@ void func_001AC980(char *s0)
     int i8;
     int f0;
     int type; int arg; void (*fp)(int); long entry;
-    Hit1AC980 *hit;
+    cDamageTake *hit;
     int n;
     int m;
     int c;
@@ -57,12 +51,12 @@ void func_001AC980(char *s0)
             *(short *)(s0 + 0x54A) = n;
     }
     if (*(unsigned char *)(s0 + 0x60D) == 0) {
-        hit = *(Hit1AC980 **)(s0 + 0x624);
+        hit = *(cDamageTake **)(s0 + 0x624);
         if (hit != 0) {
             t = hit->flags;
             t &= 1;
             if (t != 0) {
-            int d = hit->damage;
+            int d = hit->power;
 
             m = *(short *)(s0 + 0x54A);
             m -= d;

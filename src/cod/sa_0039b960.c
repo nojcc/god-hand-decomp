@@ -10,19 +10,19 @@ typedef unsigned int u_int;
 #define IPU_CMD  (*(volatile u_int *)0x10002000)
 #define IPU_CTRL (*(volatile int *)0x10002010)
 
-typedef struct Ch3 {
+typedef struct IpuDmaCh {
     volatile int n;
     int          done;
     unsigned int rem;
     unsigned int madr;
     int          total;
-} Ch3;
+} IpuDmaCh;
 
 struct cbp { int reason; int pad[7]; };
 
 extern char D_0045E5F8[];
-extern int _ch3dmaCSC(int chan, Ch3 *p);
-extern int AddDmacHandler2(int chan, int (*fn)(int, Ch3 *), int next, void *arg);
+extern int _ch3dmaCSC(int chan, IpuDmaCh *p);
+extern int AddDmacHandler2(int chan, int (*fn)(int, IpuDmaCh *), int next, void *arg);
 extern int RemoveDmacHandler(int chan, int id);
 extern int func_003B0810(int chan);                    /* EnableDmac */
 extern int func_003B07A8(int chan);                    /* DisableDmac */
@@ -35,7 +35,7 @@ __attribute__((section(".text.func_0039B960")))
 void func_0039B960(void *m, u_int src, int nqw)
 {
     struct cbp cb;
-    Ch3 ch;
+    IpuDmaCh ch;
     int id;
     int oldstat;
     u_int qwc = 0xFFC0;

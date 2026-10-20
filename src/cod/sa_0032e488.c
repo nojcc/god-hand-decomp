@@ -1,5 +1,5 @@
 /* cygnus-2.96 dr: func_0032E488, stream frame step: advance the current frame (callback or +1), wrap at the loop end, and when looping reprogram the reader range for the new frame. */
-typedef struct Strm32E488 {
+typedef struct StmFrameHn {
     char pad000;
     signed char stat;                   /* 0x001 */
     char pad002[2];
@@ -17,7 +17,7 @@ typedef struct Strm32E488 {
     char pad1CC[0x270 - 0x1CC];
     int (*nextFn)(void *obj, int frame, int last); /* 0x270 */
     void *nextObj;                      /* 0x274 */
-} Strm32E488;
+} StmFrameHn;
 
 extern int func_0032F4F0(void *src);
 extern int func_0032F570(void *src);
@@ -29,7 +29,7 @@ extern void Obj33F8_Tramp_0033B658_FC70(void);
 extern void Obj33F8_Tramp_0033B670_FC88(void);
 
 __attribute__((section(".text.func_0032E488")))
-void func_0032E488(Strm32E488 *s)
+void func_0032E488(StmFrameHn *s)
 {
     int frame;
     int kind;

@@ -1,33 +1,33 @@
 typedef struct {
     char pad0[0x3C];
     int ended;            /* 0x3C */
-} Ctx34F4C0;
+} SfdEndCtx;
 
 typedef struct {
     char pad0[0x8];
-    Ctx34F4C0 *ctx;       /* 0x8 */
+    SfdEndCtx *ctx;       /* 0x8 */
     char padC[0x4];
     int arg;              /* 0x10 */
     char pad14[0xC];
     int ofs;              /* 0x20 */
-} Sub34F4C0;
+} SfdEndSub;
 
 typedef struct {
     char pad0[0x1F74];
-    Sub34F4C0 sub;        /* 0x1F74 */
-} Sfd34F4C0;
+    SfdEndSub sub;        /* 0x1F74 */
+} SfdEndView;
 
 extern int func_00368A28(unsigned char *buf);
-extern int func_0034C7D0(Sfd34F4C0 *w, int arg);
-extern int sfmps_IsEffectiveEndcode(Sfd34F4C0 *w, int code);
-extern void func_0034F390(Sfd34F4C0 *w, int flag);
-extern void func_0034F658(Sfd34F4C0 *w, int *out);
+extern int func_0034C7D0(SfdEndView *w, int arg);
+extern int sfmps_IsEffectiveEndcode(SfdEndView *w, int code);
+extern void func_0034F390(SfdEndView *w, int flag);
+extern void func_0034F658(SfdEndView *w, int *out);
 
 __attribute__((section(".text.func_0034F4C0")))
-int func_0034F4C0(Sfd34F4C0 *w, unsigned char *buf, int len, int len2)
+int func_0034F4C0(SfdEndView *w, unsigned char *buf, int len, int len2)
 {
-    Sub34F4C0 *s = &w->sub;
-    Ctx34F4C0 *c = s->ctx;
+    SfdEndSub *s = &w->sub;
+    SfdEndCtx *c = s->ctx;
     int arg = s->arg;
     int code;
     int r;

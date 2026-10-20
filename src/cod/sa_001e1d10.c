@@ -3,11 +3,11 @@ typedef struct {
     int a;
     int b;
     int c;
-} Ent1E1;
+} EquipCombo;
 
 typedef struct {
-    Ent1E1 e[9];
-} Tbl1E1;
+    EquipCombo e[9];
+} EquipComboTbl;
 
 typedef struct {
     char pad0[4];
@@ -24,14 +24,14 @@ typedef struct {
     unsigned short kind;
     char pad490[4];
     int f494;
-} Obj1E1;
+} EquipWork;
 
-extern Tbl1E1 D_0042B758;
+extern EquipComboTbl D_0042B758;
 
 __attribute__((section(".text.func_001E1D10")))
-void func_001E1D10(Obj1E1 *o)
+void func_001E1D10(EquipWork *o)
 {
-    Tbl1E1 t;
+    EquipComboTbl t;
     int i;
 
     t = D_0042B758;

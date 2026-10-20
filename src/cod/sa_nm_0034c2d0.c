@@ -1,8 +1,8 @@
 /* A separate table-base variable fixes the address order but turns the guard into bne/b (25). */
+#include "godhand/criSj.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct { char *data; int len; } SJCK;
 typedef struct {
     char pad0[4];
     int used;      /* 0x04 */
@@ -20,13 +20,13 @@ typedef struct {
     int f18;
 } SfBufInfo;
 
-extern int sfbuf_PeekChunk(void *sj, int type, SJCK *ck1, SJCK *ck2);
+extern int sfbuf_PeekChunk(void *sj, int type, SjChunk *ck1, SjChunk *ck2);
 
 int func_0034C2D0(char *sfh, int no, SfBufInfo *info, int type)
 {
     SfBuf *b;
-    SJCK ck1;
-    SJCK ck2;
+    SjChunk ck1;
+    SjChunk ck2;
 
     info->len1 = 0;
     info->len2 = 0;

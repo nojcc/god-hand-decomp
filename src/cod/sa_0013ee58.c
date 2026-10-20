@@ -1,7 +1,7 @@
 /* sn-2.95.3-136: scroll two UV channels (0x03 per frame, wrapping) into ID works 0/1, drive the fade values at 0xB0/0xB8
  * from channel 0, push them to ID work 2, and show/hide ID work 3 by the index at 0xBE. */
 typedef struct UvCh { float x, y, z, w; } UvCh;
-typedef struct Obj13EE58 {
+typedef struct UvScrollObj {
     char pad00[0x90];
     UvCh ch[2];   /* 0x90 */
     float b0;     /* 0xB0 */
@@ -9,13 +9,13 @@ typedef struct Obj13EE58 {
     float b8;     /* 0xB8 */
     short pad_bc;
     unsigned short idx; /* 0xBE */
-} Obj13EE58;
+} UvScrollObj;
 
 extern char *cIDBase_getIDWork(void *self, int n);
 extern void cIDBase_move(void *self);
 
 __attribute__((section(".text.func_0013EE58")))
-void func_0013EE58(Obj13EE58 *p)
+void func_0013EE58(UvScrollObj *p)
 {
     char *w[3];
     char *w2;

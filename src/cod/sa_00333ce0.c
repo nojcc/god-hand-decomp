@@ -1,14 +1,14 @@
 #define WORK_SIZE  0x1000
 
 extern char D_007563C0[WORK_SIZE];
-typedef struct Tbl333CE0 {
+typedef struct DevTblEnt {
     void *unk0;                         /* 0x00 */
     int unk4;                           /* 0x04 */
     int unk8;                           /* 0x08 */
     int unkC;                           /* 0x0C */
-} Tbl333CE0;
+} DevTblEnt;
 
-extern Tbl333CE0 D_003D9DC0;            /* the open table; Tramp_003A52F0_00333AD8 clears it */
+extern DevTblEnt D_003D9DC0;            /* the open table; Tramp_003A52F0_00333AD8 clears it */
 extern char D_004545E0[];
 extern char D_00454610[];
 extern char D_00454640[];

@@ -134,5 +134,38 @@ typedef struct SndVoiceRef {
     char unk00[0x30];
     void *voice;                        /* 0x30 voice handle */
 } SndVoiceRef;
+/* The sound option pages (0x381F18 first block, 0x383878 second block). */
+typedef struct SndOptLevels {
+    char pad00[2];
+    unsigned char slot;                 /* 0x02 */
+    char pad03;
+    short level[5];                     /* 0x04 */
+    short index[5];                     /* 0x0E */
+} SndOptLevels;
+
+typedef struct SndOptMenu {
+    char pad000[0x318];
+    SndOptLevels snd;                      /* 0x318 */
+} SndOptMenu;
+
+typedef struct SndOptPad {
+    char pad00[0x2C];
+    int hold;                           /* 0x2C */
+    char pad30[8];
+    int trig;                           /* 0x38 */
+} SndOptPad;
+
+typedef struct SndOptLevels2 {
+    char pad00[4];
+    unsigned char slot;                 /* 0x04 */
+    char pad05[3];
+    short level[5];                     /* 0x08 */
+    short index[5];                     /* 0x12 */
+} SndOptLevels2;
+
+typedef struct SndOptMenu2 {
+    char pad000[0x370];
+    SndOptLevels2 snd;                      /* 0x370 */
+} SndOptMenu2;
 
 #endif /* GODHAND_MENUCTL_H */
