@@ -8,8 +8,7 @@ match elsewhere, and duplicate NM copies of one function.
 Only unregistered NM files (not in compile_units) are ever moved, to
 progress/retired_nm/. A file is retired when every INCLUDE_ASM function in its
 NON_MATCHING #else branch is either carved to another compiled unit (real C
-registered there) or also has a NON_MATCHING copy in a src/cod/sa_nm_* file
-(the newer copy wins over inbox_nm_*/batchNN_nm.c). Partially stale files are
+registered there) or also has a NON_MATCHING copy in another file. Partially stale files are
 listed for hand cleanup.
 """
 from __future__ import annotations
@@ -51,8 +50,6 @@ def main() -> int:
         tu = carve.get(n)
         if tu in units and tu != f:
             return f"matched in {tu}"
-        if "/sa_nm_" not in f and any("/sa_nm_" in o for o in copies[n] if o != f):
-            return "newer sa_nm_ copy exists"
         return None
 
     retire, partial = [], []
