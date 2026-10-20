@@ -1,4 +1,3 @@
-/* NM, not registered. cygnus-2.96 (no -freorder-blocks): Sofdec buffer fill check at 0x34F8D0. */
 #include "include_asm.h"
 
 #include "godhand/mwsfd.h"

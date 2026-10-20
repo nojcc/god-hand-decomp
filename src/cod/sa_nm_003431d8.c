@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003431D8 (cygnus-2.96, -freorder-blocks dropped; PARK 74 at attempt 3, best 71): size the decode buffers ((w/16)*(h/16)*1024 for format 2, else *384, plus 0x40) and fill out[0..n) either from the preallocated pool D_00758A38 (after the pool count/size checks) or with func_00344568; -1 if any buffer is missing. Retail keeps the pool loop un-strength-reduced (index recomputed, entered at its test) and divides w in place; ours reduces it and copies the quotients. */
+/* NON_MATCHING func_003431D8: size the decode buffers ((w/16)*(h/16)*1024 for format 2, else *384, plus 0x40) and fill out[0..n) either from the preallocated pool D_00758A38 (after the pool count/size checks) or with func_00344568; -1 if any buffer is missing.
+ * Retail keeps the pool loop un-strength-reduced (index recomputed, entered at its test) and divides w in place; ours reduces it and copies the quotients. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

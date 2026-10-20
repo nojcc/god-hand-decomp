@@ -1,4 +1,4 @@
-/* cygnus-2.96 | drop-freorder-blocks: SFD video time marks, tail call into func_0034F200 (0x34EB98). */
+/* cygnus-2.96: SFD video time marks, tail call into func_0034F200 (0x34EB98). */
 
 typedef struct {
     char pad0[0x10];

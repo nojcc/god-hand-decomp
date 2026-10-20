@@ -1,9 +1,5 @@
-/* NM, not registered. cygnus-2.96 (no -freorder-blocks): Sofdec picture decode (0x353928..). */
 #include "include_asm.h"
 #include "godhand/sftim.h"
-
-
-
 
 extern unsigned char *MPV_SearchDelim(unsigned char *p, int n, unsigned int mask);
 extern unsigned int MPV_CheckDelim(unsigned char *p);

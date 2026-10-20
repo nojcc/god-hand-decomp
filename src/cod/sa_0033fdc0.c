@@ -1,4 +1,4 @@
-/* func_0033FDC0: CRI stream DMA transfer kick (cygnus-2.96, drop-reorder) */
+/* func_0033FDC0: CRI stream DMA transfer kick (cygnus-2.96) */
 typedef struct {
     char *addr;
     int len;

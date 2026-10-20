@@ -1,6 +1,8 @@
-/* NON_MATCHING MoveEsp (sn-2.95.3-136; PARK, 61 diffs): pre-pass, control flow and calls match; loop invariant motion
+/* NON_MATCHING MoveEsp (sn-2.95.3-136;
+ * PARK, 61 diffs): pre-pass, control flow and calls match; loop invariant motion
  * differs as in MoveEmitter: retail hoists the 0x4000000 mask and the D_0071B840 base but keeps D_0071B8C0 in the loop,
- * this source hoists both bitmap bases. Runs every live effect slot (0x400 slots of 0x400 bytes): destroys killed ones,
+ * this source hoists both bitmap bases.
+ * Runs every live effect slot (0x400 slots of 0x400 bytes): destroys killed ones,
  * moves paused ones to the kill set, skips frozen-owner / disallowed-while-paused ones and moves the rest. */
 #include "include_asm.h"
 

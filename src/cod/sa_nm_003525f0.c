@@ -1,8 +1,5 @@
-/* NM, not registered. cygnus-2.96 (no -freorder-blocks): Sofdec timecode helpers (0x3525F0..). */
 #include "include_asm.h"
 #include "godhand/sftim.h"
-
-
 
 int func_003526D0(SftimHn *hn, SftimInfo *info);
 void func_00352790(SftimHn *hn, SftimInfo *info, int time, int update);

@@ -1,4 +1,4 @@
-/* cygnus-2.96 | drop-freorder-blocks: SFD stream-joint write (0x36EE90). */
+/* cygnus-2.96: SFD stream-joint write (0x36EE90). */
 typedef struct {
     char *data;
     int len;

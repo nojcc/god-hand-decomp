@@ -1,4 +1,7 @@
-/* NON_MATCHING func_0034C3A8 (cygnus-2.96, -freorder-blocks dropped; STOP, best 60): push n bytes through the 0x74-byte slot at 0x1310 and fold the count into the running total. Separate early returns give retail's prologue exactly (v0 = 0 hoisted). Only the three exit tests differ: retail loads on into v0, re-zeroes v0 in the beqz delay, then bnez obj jumps forward to the body with b epilogue as the fallthrough; everything after 0x88 is the same code four words later. Untried lead: if (obj != 0) { body; return err; } return 0; */
+/* NON_MATCHING func_0034C3A8: push n bytes through the 0x74-byte slot at 0x1310 and fold the count into the running total.
+ * Separate early returns give retail's prologue exactly (v0 = 0 hoisted).
+ * Only the three exit tests differ: retail loads on into v0, re-zeroes v0 in the beqz delay, then bnez obj jumps forward to the body with b epilogue as the fallthrough; everything after 0x88 is the same code four words later.
+ * Untried lead: if (obj != 0) { body; return err; } return 0; */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

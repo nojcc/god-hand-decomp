@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 #include "godhand/emDamageVol.h"
 
 extern int espSys_effDataRegist(void *table, int id, void *data);

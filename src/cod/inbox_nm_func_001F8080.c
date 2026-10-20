@@ -1,4 +1,3 @@
-/* halt demote func_001F8080 */
 #ifdef NON_MATCHING
 __attribute__((section(".text.func_001F8080")))
 void func_001F8080(float fparg0) {

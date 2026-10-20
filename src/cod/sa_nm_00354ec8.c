@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00354EC8 (cygnus-2.96 --drop-reorder; PARK, 124 diffs): field copy matches, but retail hoists
+/* NON_MATCHING func_00354EC8 (cygnus-2.96 --drop-reorder;
+ * PARK, 124 diffs): field copy matches, but retail hoists
  * the source loads above the record stores (first-pass scheduling, t0-t2 temporaries) while keeping the record
  * stores and the *out reloads in order; no typing of the pointers reproduces both. */
 #include "include_asm.h"

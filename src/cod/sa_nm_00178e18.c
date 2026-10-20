@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00178E18 (sn-2.95.3-136): 2 diffs. Only the 0x5F4/0x5F6 halfword stores swap in the tail;
+/* NON_MATCHING func_00178E18 (sn-2.95.3-136): 2 diffs.
+ * Only the 0x5F4/0x5F6 halfword stores swap in the tail;
  * every ordering of the tail stores tried by order search leaves them swapped. */
 #include "include_asm.h"
 

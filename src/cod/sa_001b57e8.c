@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 (SETTING: -fno-gcse, like 0018a680.c): func_001B57E8, spawn two 0x3B6 helper objects, damage-take volume, flag parts 1..5 with 0x8/0x10. */
+/* sn-2.95.3-136: func_001B57E8, spawn two 0x3B6 helper objects, damage-take volume, flag parts 1..5 with 0x8/0x10. */
 extern void func_001B6FB8(void *a0);
 extern char *CreateObj(int a0, int a1);
 extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);

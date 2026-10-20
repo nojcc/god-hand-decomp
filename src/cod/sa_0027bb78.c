@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 extern int D_00747A78;
 extern char D_005864F0[];
 extern char D_00462FC0[];

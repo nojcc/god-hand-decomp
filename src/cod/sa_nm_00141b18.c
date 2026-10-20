@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00141B18 (sn-2.95.3-136; PARK, 10 diffs): retail keeps the loop-3 base as a copy (daddu s2,s4) of the hoisted p+0x190; ours copy-propagates it, which flips the s3/s4 picks and the addu operand order. */
+/* NON_MATCHING func_00141B18 (sn-2.95.3-136;
+ * PARK, 10 diffs): retail keeps the loop-3 base as a copy (daddu s2,s4) of the hoisted p+0x190; ours copy-propagates it, which flips the s3/s4 picks and the addu operand order. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

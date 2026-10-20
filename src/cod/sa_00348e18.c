@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped. Once the decoder reports state 3 and neither open
+/* cygnus-2.96. Once the decoder reports state 3 and neither open
  * slot still has data queued, finish the stream: stop, concat-play check, close both slots. */
 typedef struct Sj348E18 Sj348E18;
 

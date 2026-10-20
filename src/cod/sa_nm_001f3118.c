@@ -1,4 +1,4 @@
-/* NON_MATCHING func_001F3118 (NEAR-MISS): sn; switch tree fixed by an empty case 2; remaining: lw vs lwu on the 64-bit flag test, case-0 b/a masks not folded to andi 0x7373, and case-1 uninitialized CidColor locals land in a3 instead of t0 (retail register = phantom by-value param pattern under checkpoint-90 review) */
+/* NON_MATCHING func_001F3118: sn; switch tree fixed by an empty case 2; remaining: lw vs lwu on the 64-bit flag test, case-0 b/a masks not folded to andi 0x7373, and case-1 uninitialized CidColor locals land in a3 instead of t0 (retail register = phantom by-value param pattern under checkpoint-90 review) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

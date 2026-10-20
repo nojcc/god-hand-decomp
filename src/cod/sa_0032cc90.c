@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: ADX end-of-stream flush: take the shortest pending chunk from every output SJ,
+/* cygnus-2.96: ADX end-of-stream flush: take the shortest pending chunk from every output SJ,
  * zero-fill it and hand it back, advance the written count, then stop the stream once all the queued data
  * has been played. */
 typedef struct Ck32CC90 { char *data; int len; } Ck32CC90;

@@ -1,4 +1,3 @@
-/* halt demote cOl0e_setFake */
 #ifdef NON_MATCHING
 ? cDamageUnit_SetDamageCollActive(int, ?);          /* extern */
 __attribute__((section(".text.cOl0e_setFake")))

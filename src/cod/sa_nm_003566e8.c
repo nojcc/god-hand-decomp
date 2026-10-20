@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003566E8 (cygnus dr, v0/v1): best 1 (after void->int callee returns; earlier best 5): bnel vs bne at 0x58 remains; earlier note: retail loads eos and vb->end into v1 (not v0) and the busy test is bnez with v0=1 in the slot (ours bnel). ret variable and -fno-gcse no change. */
+/* NON_MATCHING func_003566E8 (cygnus dr, v0/v1): bnel vs bne at 0x58 remains; earlier note: retail loads eos and vb->end into v1 (not v0) and the busy test is bnez with v0=1 in the slot (ours bnel). ret variable and -fno-gcse no change. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

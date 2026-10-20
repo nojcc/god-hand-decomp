@@ -2,7 +2,8 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-/* func_0032B888, write up to nsmpl samples of ADX silence (18 bytes per channel per 32-sample block) into the output stream joint, in whole blocks across the ring wrap. Returns the number of samples written. */
+/* func_0032B888, write up to nsmpl samples of ADX silence (18 bytes per channel per 32-sample block) into the output stream joint, in whole blocks across the ring wrap.
+ * Returns the number of samples written. */
 typedef struct SjCk32B888 {
     char *data;
     int len;

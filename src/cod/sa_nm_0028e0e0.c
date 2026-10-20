@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0028E0E0 (sn-2.95.3-136; PARK, 16 diffs): switch value in v1 (retail a0, constant in v1) and bit-6 test srl vs retail dsrl */
+/* NON_MATCHING func_0028E0E0 (sn-2.95.3-136;
+ * PARK, 16 diffs): switch value in v1 (retail a0, constant in v1) and bit-6 test srl vs retail dsrl */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

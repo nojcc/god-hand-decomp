@@ -1,4 +1,5 @@
-/* NON_MATCHING LightData_Load (sn-2.95.3-136 -fno-gcse; PARK, 165 diffs): retail keeps i*0x80 in s3 from a temp and does not strength-reduce the inner j*0x70 (mult per iteration); base/s register pair swapped */
+/* NON_MATCHING LightData_Load (sn-2.95.3-136 -fno-gcse;
+ * PARK, 165 diffs): retail keeps i*0x80 in s3 from a temp and does not strength-reduce the inner j*0x70 (mult per iteration); base/s register pair swapped */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

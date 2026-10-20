@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00341EC0 (cygnus-2.96, drop-reorder; NEAR-MISS): kind at +0x9C, tail calls for 2, 1, else. One diff, bne vs bnel on the first compare. Best 1. */
+/* NON_MATCHING func_00341EC0: kind at +0x9C, tail calls for 2, 1, else.
+ * One diff, bne vs bnel on the first compare. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

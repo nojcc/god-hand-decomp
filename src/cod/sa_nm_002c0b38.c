@@ -1,9 +1,8 @@
-/* NM, not registered. sn-2.95.3-136: collision hit shapes, XZ quad and circle with a Y band (0x2C0B38..).
- * func_002C0C28: 1 insn under -ffast-math + fdiv (the flags of 002c0cb0.c, its
- *   3D twin): retail repeats daddu v0,0 in the last bc1t delay slot, our reorg
- *   drops it as redundant and leaves a nop.
+/* func_002C0C28: 1 insn under -ffast-math + fdiv (the flags of 002c0cb0.c, its
+ * 3D twin): retail repeats daddu v0,0 in the last bc1t delay slot, our reorg
+ * drops it as redundant and leaves a nop.
  * func_002C0B38: 27 insns, FP register choice (retail x0/z0 in f9/f6, dz f5)
- *   and the last test branching to its own return-0 block. */
+ * and the last test branching to its own return-0 block. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

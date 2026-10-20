@@ -1,4 +1,3 @@
-/* halt demote func_00257E90 */
 #ifdef NON_MATCHING
 void Obj0000_Get_Byte_17C3_NZ_2_276468(char *);        /* extern */
 void cObjBase_addNullSpeed(char *, void);                 /* extern */

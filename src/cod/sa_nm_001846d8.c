@@ -1,4 +1,5 @@
-/* NON_MATCHING func_001846D8 (sn-2.95.3-136, "as": "sn"; PARK, 121 diffs): retail uses 7 s-regs (ours strength-reduces the 0x61C hit index into an 8th), keeps &D_007474A0 hoisted, reuses single D_00422F70/0x4C loads, and splits the 26..39 level test into two compares */
+/* NON_MATCHING func_001846D8 (sn-2.95.3-136, "as": "sn";
+ * PARK, 121 diffs): retail uses 7 s-regs (ours strength-reduces the 0x61C hit index into an 8th), keeps &D_007474A0 hoisted, reuses single D_00422F70/0x4C loads, and splits the 26..39 level test into two compares */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

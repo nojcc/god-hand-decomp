@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002F48A8 (sn-2.95.3-136, as sn; PARK, 13 diffs): only the motion frame-count
+/* NON_MATCHING func_002F48A8 (sn-2.95.3-136, as sn;
+ * PARK, 13 diffs): only the motion frame-count
  * block differs -- retail keeps the uint count in a0 and reloads 0x2B0/0x4D0 after the join
  * (no gcse carry), ours keeps MOT(self) live in a0.  linkOn() inline shape fixed the flag. */
 #include "include_asm.h"

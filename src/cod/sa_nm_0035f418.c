@@ -1,4 +1,7 @@
-/* NON_MATCHING func_0035F418 (cygnus-2.96, -freorder-blocks dropped; STOP 39): build the picture (three planes) and the output buffer records for the frame format (3 = planar: offset U/V by half the luma size; 1/2 = packed) and pass them with the option record to the handle's callback. Frame, block order and the hoisted plane/buffer addresses match; the case-3 loads and stores are scheduled differently (retail stores out.a/out.b between the plane updates) and the address temps land in t1-t4 instead of t2-t5. */
+/* NON_MATCHING func_0035F418 (cygnus-2.96, -freorder-blocks dropped;
+ * STOP 39): build the picture (three planes) and the output buffer records for the frame format (3 = planar: offset U/V by half the luma size;
+ * 1/2 = packed) and pass them with the option record to the handle's callback.
+ * Frame, block order and the hoisted plane/buffer addresses match; the case-3 loads and stores are scheduled differently (retail stores out.a/out.b between the plane updates) and the address temps land in t1-t4 instead of t2-t5. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

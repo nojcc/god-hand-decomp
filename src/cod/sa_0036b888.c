@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_0036B888, SFD stream-joint write up to the next
+/* cygnus-2.96: func_0036B888, SFD stream-joint write up to the next
  * start code after the header, with the video header hook on channel 1 and a capture copy on
  * channel 3; -1 when no start code was found. */
 typedef struct {

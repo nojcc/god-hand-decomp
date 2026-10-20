@@ -1,5 +1,7 @@
-/* NON_MATCHING func_00150F68 (sn-2.95.3-136; PARK, 85 diffs): src param lands in s0 (0x20 frame) where retail
- * keeps it in t4 with a 0x10 frame; dead div trap on bpr placed differently. Sibling of sa_00151168. */
+/* NON_MATCHING func_00150F68 (sn-2.95.3-136;
+ * PARK, 85 diffs): src param lands in s0 (0x20 frame) where retail
+ * keeps it in t4 with a 0x10 frame; dead div trap on bpr placed differently.
+ * Sibling of sa_00151168. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

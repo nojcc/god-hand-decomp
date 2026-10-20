@@ -1,5 +1,5 @@
 #include "include_asm.h"
-/* NM, not registered. sn-2.95.3-136: CustomID panel helpers (offset slides, scale/colour pulses on 0x7C-byte works at +0x60). */
+
 #include "godhand/CustomIDPanel.h"
 
 typedef union { unsigned int v; struct { unsigned int r:8, g:8, b:8, a:8; } c; } CustomIDRGBA;

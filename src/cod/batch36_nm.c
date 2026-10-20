@@ -1,8 +1,6 @@
-/* Batch 36 near-misses — not registered.
- * 104: B3190 float/eq6 schedule;
- *      D4248 a1 vs v1 for 0x5C (3 words).
- * 108: 83DD0 halfword scan / movn.
- * 6-attempt cap. */
+/* B3190 float/eq6 schedule;
+ * D4248 a1 vs v1 for 0x5C (3 words).
+ * 83DD0 halfword scan / movn. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -23,7 +21,6 @@ void func_002B3190(char *self)
 
     *(int *)(self + 0x10) = n;
     eq = (unsigned)eq < 1u;
-    __asm__ __volatile__("" ::"r"(eq));
     f0 = f0 / f2;
     {
         float f1 = (float)sq / f3;

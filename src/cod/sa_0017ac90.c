@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 extern void func_001B6FB8(char *p);
 extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern int cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, float *ofs, float r);

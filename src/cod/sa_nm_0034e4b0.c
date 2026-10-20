@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0034E4B0 (cygnus-2.96 dr; PARK, 88 diffs): Sofdec MPS demux step. Control flow matches;
+/* NON_MATCHING func_0034E4B0 (cygnus-2.96 dr;
+ * PARK, 88 diffs): Sofdec MPS demux step.
+ * Control flow matches;
  * retail ranks nskip/nread/len/buf differently in s2-s7 and keeps the hl<=0 clamp as blezl (ours folds to movz). */
 #include "include_asm.h"
 

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0037D3C8 (sn-2.95.3-136; PARK 27 at attempt 2): voice volume update. Everything except case 4 matches. Retail selects the voice bus volume into a temp (v0, beql) before `r = m * pan / 0x7F00; r = r * vol / 0x7F00`; adding that temp swaps the r/g registers (a1/a2), and without it the selection loads straight into r. */
+/* NON_MATCHING func_0037D3C8: voice volume update.
+ * Everything except case 4 matches.
+ * Retail selects the voice bus volume into a temp (v0, beql) before `r = m * pan / 0x7F00; r = r * vol / 0x7F00`; adding that temp swaps the r/g registers (a1/a2), and without it the selection loads straight into r. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

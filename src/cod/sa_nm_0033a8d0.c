@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033A8D0 (NEAR-MISS): 1 insn: retail fills the open-check delay slot non-annulled (bnez + sltiu), ours bnel; computing ch<4 early gives bne but in v1; void/int/variadic decls no change */
+/* NON_MATCHING func_0033A8D0: 1 insn: retail fills the open-check delay slot non-annulled (bnez + sltiu), ours bnel; computing ch<4 early gives bne but in v1; void/int/variadic decls no change */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

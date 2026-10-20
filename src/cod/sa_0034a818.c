@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: func_0034A818, decoder handle update: poll the stream state and error, latch the error globally, map -1/-2/other errors to codes 0xFF000C08/09/07, reset the sub-object at the end states (4, 5) and stop on error or completion. */
+/* cygnus-2.96: func_0034A818, decoder handle update: poll the stream state and error, latch the error globally, map -1/-2/other errors to codes 0xFF000C08/09/07, reset the sub-object at the end states (4, 5) and stop on error or completion. */
 typedef struct Strm34A818 {
     int sj;                             /* 0x00 */
     char pad04[0x48 - 0x04];

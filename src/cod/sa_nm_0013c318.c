@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0013C318 (sn-2.95.3-136; PARK, 90 diffs): show/hide the four sub-parts from the req bits. Retail
+/* NON_MATCHING func_0013C318 (sn-2.95.3-136;
+ * PARK, 90 diffs): show/hide the four sub-parts from the req bits.
+ * Retail
  * re-tests the hidden bit with a plain mask on the else-if path (no jump threading) and reloads part->flags in parts 1-3;
  * the mask form gets threaded here and the shift form (used below) gives srl/andi instead. */
 #include "include_asm.h"

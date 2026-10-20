@@ -1,5 +1,7 @@
-/* NON_MATCHING func_00159DA0 (sn-2.95.3-136, as sn; PARK, 8 diffs): only the v0/v1 alternation of the four lhu/sw
- * pairs that fill r is swapped; field type, fill form and local choice do not change it. Computes a sprite UV rectangle
+/* NON_MATCHING func_00159DA0 (sn-2.95.3-136, as sn;
+ * PARK, 8 diffs): only the v0/v1 alternation of the four lhu/sw
+ * pairs that fill r is swapped; field type, fill form and local choice do not change it.
+ * Computes a sprite UV rectangle
  * by source kind (1 byte coords via the texture page tables and func_00156550, 3 u16 coords with scale/offset pairs,
  * 5 float coords). */
 #include "include_asm.h"

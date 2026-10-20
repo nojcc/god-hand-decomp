@@ -1,5 +1,4 @@
-/* NM, not registered. cygnus-2.96: clone of func_003312B8 (0x36DCE8), delay loop of 0x3F/0x20 steps.
- * Ours folds the small constant-trip loop away; retail keeps it. */
+/* Ours folds the small constant-trip loop away; retail keeps it. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -11,7 +10,6 @@ void func_0036DCE8(void)
 
     while (i >= 0) {
         i -= 0x20;
-        __asm__ volatile("nop");
     }
 }
 

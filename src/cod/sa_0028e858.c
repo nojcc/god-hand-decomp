@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 #include "godhand/classFADE.h"
 #include "godhand/cScenario.h"
 
@@ -55,7 +54,7 @@ void func_0028E858(EvObj28E858 *self)
         v.y = 1.61f;
         v.z = 0.0f;
         v.w = 1.0f;
-        /* the int round-trip of the heading is needed for the retail argument order */
+        /* the heading is passed as an int */
         func_002C45A8(D_003C2F84, 0x43, &v, (int)v.z);
     } else {
         cScenario__endSoftEvent(D_003C2F84);

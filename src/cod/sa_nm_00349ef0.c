@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00349EF0 (cygnus-2.96, -freorder-blocks dropped): same size, 2 insns differ: after the first call retail sets a3 = &used before the bnez and copies self into a0 in the delay slot; this does the reverse. Tried: early returns, nested single-return form, struct locals. */
+/* NON_MATCHING func_00349EF0 (cygnus-2.96, -freorder-blocks dropped): same size, 2 insns differ: after the first call retail sets a3 = &used before the bnez and copies self into a0 in the delay slot; this does the reverse.
+ * Tried: early returns, nested single-return form, struct locals. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

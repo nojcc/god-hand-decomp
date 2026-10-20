@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_00354478, find the next MPEG delimiter in the stream's ring, advance by the
+/* cygnus-2.96: func_00354478, find the next MPEG delimiter in the stream's ring, advance by the
  * bytes before it, and count them as data when any of the first three is nonzero. */
 typedef struct SfRing354478 {
     unsigned char *p0;  /* 0x00 */

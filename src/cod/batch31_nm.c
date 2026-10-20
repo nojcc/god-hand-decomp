@@ -1,9 +1,7 @@
-/* Batch 31 near-misses — not registered.
- * 336 exact pair: beql switch / color-anim schedule (46 words).
- * 96: task-list walks (s0/s1/s2 alloc); table clear beql shape.
- * 92: flag-or setter frame/s1.
- * 76: sqc2 %lo(v0) vs 0(v0) + beqz delay lui (1-ish shape, 10 words).
- * 6-attempt cap. */
+/* 336 exact pair: beql switch / color-anim schedule (46 words).
+ * task-list walks (s0/s1/s2 alloc); table clear beql shape.
+ * flag-or setter frame/s1.
+ * sqc2 %lo(v0) vs 0(v0) + beqz delay lui (1-ish shape, 10 words). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -27,15 +25,8 @@ void func_002C5338(int enabled, unsigned int type)
     char *s0;
 
     if (type == 0xFFFF && enabled != 0) {
-        __asm__ __volatile__(
-            ".set push\n.set noreorder\n"
-            "lui $2, %%hi(D_005FEB00)\n"
-            "addiu %0, $2, %%lo(D_005FEB00)\n"
-            "sqc2 $vf0, %%lo(D_005FEB00)($2)\n"
-            ".set pop\n"
-            : "=r"(s0)
-            :
-            : "v0", "memory");
+        s0 = (char *)&D_005FEB00;
+        __asm__ __volatile__("sqc2 $vf0, %0" : : "m"(D_005FEB00) : "memory");
         s0 += 0x1C;
         func_002D50C0(s0);
         *(int **)(s0 + 0x30) = &D_0044D1A8;

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_001C26B8 (sn-2.95.3-136, as=sn): 15 insns, 64 words vs 54. Retail copies the Turn_dest result (mov.s f1,f0) and builds |a| in a third register (bc1f with mov.s in the delay slot, then neg.s f2,f1); it also loads the yaw arg before a1. Inline Absf gives 26 insns at the right size. */
+/* NON_MATCHING func_001C26B8 (sn-2.95.3-136, as=sn): 15 insns, 64 words vs 54.
+ * Retail copies the Turn_dest result (mov.s f1,f0) and builds |a| in a third register (bc1f with mov.s in the delay slot, then neg.s f2,f1); it also loads the yaw arg before a1.
+ * Inline Absf gives 26 insns at the right size. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

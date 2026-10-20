@@ -1,4 +1,7 @@
-/* NON_MATCHING sfmpv_SearchDelim (cygnus-2.96, -freorder-blocks dropped; PARK 79): searches both ring-buffer halves for an MPEG delimiter, including one that straddles the wrap (up to 3 tail bytes + 3 head bytes copied to a stack buffer). Logic matches; retail allocates r=s2/p=s1 and places the in-buffer hit block right after the first search. A goto layout compiles identically. */
+/* NON_MATCHING sfmpv_SearchDelim (cygnus-2.96, -freorder-blocks dropped;
+ * PARK 79): searches both ring-buffer halves for an MPEG delimiter, including one that straddles the wrap (up to 3 tail bytes + 3 head bytes copied to a stack buffer).
+ * Logic matches; retail allocates r=s2/p=s1 and places the in-buffer hit block right after the first search.
+ * A goto layout compiles identically. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

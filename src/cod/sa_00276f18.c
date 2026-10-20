@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 typedef struct { float x, y, z, w; } V4;
 typedef struct {
     unsigned char b0, b1, b2, b3;

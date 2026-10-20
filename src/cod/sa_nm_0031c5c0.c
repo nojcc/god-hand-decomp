@@ -1,4 +1,3 @@
-/* NM, not registered. sn-2.95.3-136: player placement at the stage start point (0x31C5C0). */
 #include "include_asm.h"
 #include "godhand/gameWork.h"
 #include "godhand/player.h"

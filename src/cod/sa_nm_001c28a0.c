@@ -1,4 +1,4 @@
-/* NON_MATCHING func_001C28A0 (NEAR-MISS): parts[] range-check idiom (also 1A6FB0, 28EBF0): pointer-param InRange(&i,&lo,&n) with && reproduces the separate index IV + zero-reg lo but adds movz; if-return form + hold[16] gives the stack store and branchy r=slt but loses the index IV (25 diffs) */
+/* NON_MATCHING func_001C28A0: parts[] range-check idiom (also 1A6FB0, 28EBF0): pointer-param InRange(&i,&lo,&n) with && reproduces the separate index IV + zero-reg lo but adds movz; if-return form + hold[16] gives the stack store and branchy r=slt but loses the index IV (25 diffs) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

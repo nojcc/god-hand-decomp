@@ -1,4 +1,3 @@
-/* cygnus-2.96, --f=-freorder-blocks: NM closer handoff. */
 #define WORK_SIZE  0x1000
 
 extern char D_007563C0[WORK_SIZE];

@@ -1,4 +1,5 @@
-/* NON_MATCHING cIDBase_transSprite (sn,as-sn,abi-stack-args): best 35 (--as sn): retail passes 8 words on the stack (w,h,0,1.0,w,h,0,1.0 stored directly with swc1/sw) after f12-f16, leaving f17-f19 unused, so they are not plain float params; a 16-byte struct by value goes by reference (35), 8-byte structs are copied with ldl/ldr (51). Also retail keeps ent in t3 and reads the flag byte at 0x2D. */
+/* NON_MATCHING cIDBase_transSprite (sn,as-sn,abi-stack-args): retail passes 8 words on the stack (w,h,0,1.0,w,h,0,1.0 stored directly with swc1/sw) after f12-f16, leaving f17-f19 unused, so they are not plain float params; a 16-byte struct by value goes by reference (35), 8-byte structs are copied with ldl/ldr (51).
+ * Also retail keeps ent in t3 and reads the flag byte at 0x2D. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

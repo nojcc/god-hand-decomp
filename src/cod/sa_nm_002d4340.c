@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002D4340 (sn-2.95.3-136, as sn; PARK, 97 diffs): DMA REF-tag strip packet + screen rect FTOI4; register allocation and global hi/lo placement differ throughout. */
+/* NON_MATCHING func_002D4340 (sn-2.95.3-136, as sn;
+ * PARK, 97 diffs): DMA REF-tag strip packet + screen rect FTOI4; register allocation and global hi/lo placement differ throughout. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

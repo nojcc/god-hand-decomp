@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00359628 (cyg,regalloc,loop): best 48 (cyg dr): control flow is right (ring-queue span search, hoisted pos<base / pos<wend invariants). Retail holds lt=pos<s in t0 and copies it to v1, copies count to t6 after the blez, and shares one jr/return-i block; ours renumbers registers down by one (no t7 buf) and keeps the -1 return in a different slot. */
+/* NON_MATCHING func_00359628: control flow is right (ring-queue span search, hoisted pos<base / pos<wend invariants).
+ * Retail holds lt=pos<s in t0 and copies it to v1, copies count to t6 after the blez, and shares one jr/return-i block; ours renumbers registers down by one (no t7 buf) and keeps the -1 return in a different slot. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

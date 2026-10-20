@@ -1,4 +1,4 @@
-/* cygnus-2.96 | drop-freorder-blocks: IOP transfer pump (0x332398). */
+/* cygnus-2.96: IOP transfer pump (0x332398). */
 
 typedef struct {
     char pad0[0x3C];

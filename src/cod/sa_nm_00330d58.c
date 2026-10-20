@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00330D58 (cygnus,dr,branch-layout): best 39 with -freorder-blocks dropped (msg variable + shared error tail): retail tests name with bnez over an inline error stub (lui/b/addiu a0 then align nop) and the info[0] test likewise; ours puts the null-name block after the call path and materialises msg via v0. Direct-return error form scores 42. */
+/* Direct-return error form scores 42. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

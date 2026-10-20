@@ -1,4 +1,4 @@
-/* inbox near-miss func_0033BEC0 */
+/* func_0033BEC0 */
 #ifdef NON_MATCHING
 
 __attribute__((section(".text.func_0033BEC0")))

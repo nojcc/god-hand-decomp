@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: func_0033C548, derives the three 16-bit key words from a key string by running it
+/* cygnus-2.96: func_0033C548, derives the three 16-bit key words from a key string by running it
  * through the log/exp tables in D_00456080 once per seed (exp table at 0, log table at 0x80, seeds at 0x100,
  * 0x200 and 0x300). */
 extern int D_003E9D3C;

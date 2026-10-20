@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 #include "godhand/emDamageVol.h"
 
 extern void *cDamageManage_CreateDamageGive(void *mgr, int kind, void *owner);

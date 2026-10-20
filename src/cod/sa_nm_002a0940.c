@@ -1,4 +1,5 @@
-/* NON_MATCHING classCFILTER_TAG_Filter_main (sn-2.95.3-136; PARK, 182 diffs): retail keeps the 0xE00 width constant in s2 across all calls (4 s-regs, 0x50 frame); ours rematerializes it at the use, so the frame is 0x40 and every slot shifts */
+/* NON_MATCHING classCFILTER_TAG_Filter_main (sn-2.95.3-136;
+ * PARK, 182 diffs): retail keeps the 0xE00 width constant in s2 across all calls (4 s-regs, 0x50 frame); ours rematerializes it at the use, so the frame is 0x40 and every slot shifts */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,7 +1,6 @@
 #include "include_asm.h"
-/* NM, not registered (TU would need fp_hazard_rules mtc1). sn-2.95.3-136: cIDBase per-entry animation steps (0x2ABCE8..). */
-#include "godhand/cIDBaseAnim.h"
 
+#include "godhand/cIDBaseAnim.h"
 
 #ifdef NON_MATCHING
 /* 5 words short: retail keeps cells-1 and step+1 separate in the reverse modes and allocates self/step differently. */

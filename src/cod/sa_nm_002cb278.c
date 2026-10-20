@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002CB278 (sn,cse-const): best 11 (nested ifs, ret=-1 local): rest matches; retail keeps -1 in s3 (set after cSnd_EmSeFind) and compares the find result against it, while ours copies the find result into s3 (cse treats it as the -1) and recomputes -1 in v1; the early-out branch also lands before sd ra in ours. Flat early-return forms score 20-32. */
+/* NON_MATCHING func_002CB278 (sn,cse-const): rest matches; retail keeps -1 in s3 (set after cSnd_EmSeFind) and compares the find result against it, while ours copies the find result into s3 (cse treats it as the -1) and recomputes -1 in v1; the early-out branch also lands before sd ra in ours.
+ * Flat early-return forms score 20-32. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00321AD0 (ee-2.9-991111; PARK, 135 diffs): heap sort of Elem* by key at +8 with inlined sift-down twice; frame and checks match, loop rotation and register allocation of the sift loops differ. */
+/* NON_MATCHING func_00321AD0 (ee-2.9-991111;
+ * PARK, 135 diffs): heap sort of Elem* by key at +8 with inlined sift-down twice; frame and checks match, loop rotation and register allocation of the sift loops differ. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

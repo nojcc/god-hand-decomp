@@ -1,7 +1,10 @@
-/* NON_MATCHING func_002CABE8 (sn-2.95.3-136; PARK, 5 diffs): only the saved-register choice for the hit-scale array
- * pointer (s4 here, s0 in retail) and the hoisted %hi(D_0044CE38) (s0 here, s4 in retail) differ. Retail's copy of
+/* NON_MATCHING func_002CABE8 (sn-2.95.3-136;
+ * PARK, 5 diffs): only the saved-register choice for the hit-scale array
+ * pointer (s4 here, s0 in retail) and the hoisted %hi(D_0044CE38) (s0 here, s4 in retail) differ.
+ * Retail's copy of
  * that lui on the SeLoadNo fallback path carries no relocation in the split asm (raw 0x45), so it may not reloc-match
- * even once registers agree. Sound system init: look up the sound tables, load the sound group, open the root / sub
+ * even once registers agree.
+ * Sound system init: look up the sound tables, load the sound group, open the root / sub
  * sound heaps, load the stage SE bank (or the default) and wait for it, then reset the volume tables. */
 #include "include_asm.h"
 

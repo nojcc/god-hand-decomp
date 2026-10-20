@@ -1,4 +1,3 @@
-/* ee-2.9-991111: NM closer handoff. */
 /* ee-2.9-991111: SCE libmpeg CSC transfer: push the image through the IPU on DMA channel 3 in
  * 0xFFC0-quadword chunks, chained by _ch3dmaCSC, and wait for the last chunk. */
 

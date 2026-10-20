@@ -1,4 +1,4 @@
-/* NON_MATCHING func_001A6FB0 (NEAR-MISS): inlined parts[] range check: retail keeps branchy slt-vs-zero-reg + andi 0xFF, sn emits movn/movz; also two IVs for vel[i] (a2-0x84 and a3) */
+/* NON_MATCHING func_001A6FB0: inlined parts[] range check: retail keeps branchy slt-vs-zero-reg + andi 0xFF, sn emits movn/movz; also two IVs for vel[i] (a2-0x84 and a3) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

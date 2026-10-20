@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002A6FF8 (sn-2.95.3-136; 102 vs 110 words: retail keeps self and the
+/* NON_MATCHING func_002A6FF8 (sn-2.95.3-136;
+ * 102 vs 110 words: retail keeps self and the
  * table base in separate s-regs and hoists the 0x7FFFFFFF/0x80000000 masks into s3/s5) */
 #include "include_asm.h"
 

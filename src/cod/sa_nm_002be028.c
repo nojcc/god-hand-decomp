@@ -1,4 +1,6 @@
-/* NON_MATCHING func_002BE028 (sn,call-loop-pad,tooling): best 28 (sn + --call-loop-pad): the C matches except the R5900 short-loop pad: retail has jal/delay/nop/nop/beqz/nop for each of the 4 wait loops. With --call-loop-pad the stage-s asm shows nops inserted before each beq (cc1 fills the jal slot inside .set noreorder), yet the ee-as object has none; with --as sn the nops land after the branch (43). The pass works on BlackJackId_Move, so the difference is the noreorder jal+slot loop body. */
+/* NON_MATCHING func_002BE028: the C matches except the R5900 short-loop pad: retail has jal/delay/nop/nop/beqz/nop for each of the 4 wait loops.
+ * With --call-loop-pad the stage-s asm shows nops inserted before each beq (cc1 fills the jal slot inside .set noreorder), yet the ee-as object has none; with --as sn the nops land after the branch (43).
+ * The pass works on BlackJackId_Move, so the difference is the noreorder jal+slot loop body. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

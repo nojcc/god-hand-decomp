@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0034C2D0 (cygnus dr, address/store order): best 9 with -freorder-blocks dropped: retail adds 0x1310 to sfh before adding no*0x74 and keeps the f10 clear after data2; ours adds the scaled index first and clears f10 early. A separate table-base variable fixes the address order but turns the guard into bne/b (25). */
+/* A separate table-base variable fixes the address order but turns the guard into bne/b (25). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

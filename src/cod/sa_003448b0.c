@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped. stat at 0x2D4; MWSFSVM_Error is noreturn so the
+/* cygnus-2.96. stat at 0x2D4; MWSFSVM_Error is noreturn so the
  * failing path is an if/else-if tail. */
 typedef struct Mwsf3448B0 {
     char pad[0x2D4];

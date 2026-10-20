@@ -1,4 +1,3 @@
-/* halt demote capVu0Cos */
 #ifdef NON_MATCHING
 __attribute__((section(".text.capVu0Cos")))
 float capVu0Cos(float fparg0) {

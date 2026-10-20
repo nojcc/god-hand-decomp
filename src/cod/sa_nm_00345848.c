@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00345848 (cygnus-2.96 dr; PARK, 158 diffs): code shape and block layout match; retail allocates
+/* NON_MATCHING func_00345848 (cygnus-2.96 dr;
+ * PARK, 158 diffs): code shape and block layout match; retail allocates
  * obj/err to s0/s1 and the D_00758B50 high half to a fresh s4, ours swaps obj/err and reuses obj's register. */
 #include "include_asm.h"
 

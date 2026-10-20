@@ -1,4 +1,5 @@
-/* NON_MATCHING cSnd_GetStageBgmReq (PARK): C++ bool idiom: retail 'v0=0; bnez busy; v0=1; andi 0xFF; bnez' (QImode store-flag fallback); C folds to a direct branch, shifting the rest */
+/* NON_MATCHING cSnd_GetStageBgmReq (PARK): C++ bool idiom: retail 'v0=0; bnez busy; v0=1; andi 0xFF; bnez' (QImode store-flag fallback);
+ * C folds to a direct branch, shifting the rest */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

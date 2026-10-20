@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00283C70 (sn-2.95.3-136; PARK, 108 diffs): retail keeps a second copy of the constant 2 in $s2 for
+/* NON_MATCHING func_00283C70 (sn-2.95.3-136;
+ * PARK, 108 diffs): retail keeps a second copy of the constant 2 in $s2 for
  * entry 1 (0x70 frame); ours shares $s1, so the frame is 0x60 and everything after the prologue shifts. */
 #include "include_asm.h"
 

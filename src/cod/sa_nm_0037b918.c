@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0037B918 (sn-2.95.3-136, -fno-gcse; PARK, 61 diffs): -fno-gcse keeps x=0x1D in s4 like retail, but loop hoists %hi(D_0045BF30) into fp where retail hoists %hi(D_003F2800); post-loop table index regs differ */
+/* NON_MATCHING func_0037B918 (sn-2.95.3-136, -fno-gcse;
+ * PARK, 61 diffs): -fno-gcse keeps x=0x1D in s4 like retail, but loop hoists %hi(D_0045BF30) into fp where retail hoists %hi(D_003F2800); post-loop table index regs differ */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

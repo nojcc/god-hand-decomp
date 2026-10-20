@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 #define SLOT_NUM     5
 #define SLOT_F_MARK  0x4
 

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00374720 (sn-2.95.3-136, as=sn): 59 insns, 52 words vs 63. Retail copies self to a2 (a0 becomes the loop counter), leaves the first bne delay slot empty, strength-reduces only the spd pointer and recomputes &tgt (self + 0x1C) in every branch. An inline per-element helper is closest. */
+/* NON_MATCHING func_00374720 (sn-2.95.3-136, as=sn): 59 insns, 52 words vs 63.
+ * Retail copies self to a2 (a0 becomes the loop counter), leaves the first bne delay slot empty, strength-reduces only the spd pointer and recomputes &tgt (self + 0x1C) in every branch.
+ * An inline per-element helper is closest. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

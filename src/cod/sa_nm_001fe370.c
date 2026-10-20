@@ -1,4 +1,4 @@
-/* NON_MATCHING func_001FE370 (sn, likely-slot fill + loop pad): best 38 (43 vs 46 words): retail pads the first loop head to 8 bytes (nop before .L001FE3A0, as in ScriptRun_runChannel) and fills the live/owner branch slots with the pointer/counter increment via beql/bnel, reloading lbu in the back-edge slot; ours fills them from the fall-through (daddu a1) with plain beq/bne. for, do-while and continue forms are the same. */
+/* NON_MATCHING func_001FE370 (sn, likely-slot fill + loop pad): retail pads the first loop head to 8 bytes (nop before .L001FE3A0, as in ScriptRun_runChannel) and fills the live/owner branch slots with the pointer/counter increment via beql/bnel, reloading lbu in the back-edge slot; ours fills them from the fall-through (daddu a1) with plain beq/bne. for, do-while and continue forms are the same. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

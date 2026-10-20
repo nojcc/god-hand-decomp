@@ -1,6 +1,4 @@
-/* Single-agent near-misses from the exact-clone clusters. Not registered.
- *
- */
+/* Drafts for functions with exact clones elsewhere in the binary. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

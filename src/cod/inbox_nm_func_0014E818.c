@@ -1,4 +1,3 @@
-/* halt demote func_0014E818 */
 #ifdef NON_MATCHING
 float Adjust_theta(float);                              /* extern */
 float capVu0Atan2(float, float);                          /* extern */

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00342FF8 (cyg,near-miss,regalloc): best 5 (cyg dr): the three-way buffer request is right. In the third case retail puts kind2 in v0 (delay-slot load) and c2 in a1; ours swaps them. Retail also stores req.d=0 at the join before the argument moves, while ours stores it after. */
+/* NON_MATCHING func_00342FF8: the three-way buffer request is right.
+ * In the third case retail puts kind2 in v0 (delay-slot load) and c2 in a1; ours swaps them.
+ * Retail also stores req.d=0 at the join before the argument moves, while ours stores it after. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00334310 (cygnus-2.96 drop-reorder; 2 diffs: retail reloads info.size into s1
+/* NON_MATCHING func_00334310 (cygnus-2.96 drop-reorder;
+ * 2 diffs: retail reloads info.size into s1
  * with a second lw instead of copying v0, and the success return uses bgezl) */
 #include "include_asm.h"
 

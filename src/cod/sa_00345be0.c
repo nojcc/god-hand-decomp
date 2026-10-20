@@ -1,4 +1,3 @@
-/* cygnus-2.96, as=sn, --f=-freorder-blocks: NM closer handoff. */
 typedef struct Mwsf345BE0 {
     char pad0[4];
     int stat;

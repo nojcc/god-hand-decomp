@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0030CF10 (sn-2.95.3-136; PARK, 72 diffs): same length; retail allocates the hoisted constants as s5 = 1, s4 = 0xFF, s2 = -1, s6 = TH|TCC and schedules the next entry's width/height loads ahead of the pointer bump. A macro (not an inline) is needed so the GS_SET_TEX0 constant fields fold; five TEX0 entries for the screen-copy textures */
+/* NON_MATCHING func_0030CF10 (sn-2.95.3-136;
+ * PARK, 72 diffs): same length; retail allocates the hoisted constants as s5 = 1, s4 = 0xFF, s2 = -1, s6 = TH|TCC and schedules the next entry's width/height loads ahead of the pointer bump.
+ * A macro (not an inline) is needed so the GS_SET_TEX0 constant fields fold; five TEX0 entries for the screen-copy textures */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

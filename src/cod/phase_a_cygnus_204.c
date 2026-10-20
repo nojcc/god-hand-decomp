@@ -1,8 +1,9 @@
-/* Hard-tail, not registered in compile_config.json and not linked.
- * Three Cygnus clones of func_003258B8. Without -freorder-blocks the
+/* Three Cygnus clones of func_003258B8.
+ * Without -freorder-blocks the
  * body matches except the loop reload: retail uses `ld v1` / `beqz v1`,
- * this source uses `ld v0` / `beqz v0`. A 75s permuter run stayed at
- * score 10. Needs c_flags_drop of -f=-freorder-blocks if it is retried. */
+ * this source uses `ld v0` / `beqz v0`.
+ * score 10.
+ * Needs c_flags_drop of -f=-freorder-blocks if it is retried. */
 extern void ChangeThreadPriority(int, int);
 extern void WakeupThread(int);
 extern void adxm_ResumeThread(int);

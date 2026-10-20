@@ -1,4 +1,4 @@
-/* NON_MATCHING func_002D4C20 (sn-2.95.3-136; PARK at attempt 3, score 18): DMA 16 blocks into the scratchpad. Register allocation and loop match; the scheduler pulls the loop-invariant ori's and an a0 reload ahead of the first call where retail leaves them after it. Retail's listing also tags the scratchpad pointer lui/addiu as %hi/%lo(D_70000040), a splitter false pair (0x40 is the per-block step), so the relocations cannot agree from C. */
+/* Register allocation and loop match; the scheduler pulls the loop-invariant ori's and an a0 reload ahead of the first call where retail leaves them after it. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

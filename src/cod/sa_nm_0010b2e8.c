@@ -1,5 +1,7 @@
-/* NON_MATCHING func_0010B2E8 (sn-2.95.3-136; PARK, 159 diffs): 5-slot busy check (f564 0x2A2/0x2A5 -> 0, motion
- * ranges -> 1). Retail's last slot gets different regs and owns the shared return blocks, so the source is
+/* NON_MATCHING func_0010B2E8 (sn-2.95.3-136;
+ * PARK, 159 diffs): 5-slot busy check (f564 0x2A2/0x2A5 -> 0, motion
+ * ranges -> 1).
+ * Retail's last slot gets different regs and owns the shared return blocks, so the source is
  * probably not 5 identical copies; the bool range test must stay branchy (no movn). */
 #include "include_asm.h"
 

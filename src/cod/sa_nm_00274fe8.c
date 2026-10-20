@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00274FE8 (sn-2.95.3-136, as sn; PARK, 103 diffs): the logic is complete, but cross-jumping differs. Retail keeps two unmerged copies of the (2, 2) phase stores in the dying branch and routes every other phase set through one register tail; ours merges the copies and lays the 0x100000 case out as a taken branch. */
+/* NON_MATCHING func_00274FE8 (sn-2.95.3-136, as sn;
+ * PARK, 103 diffs): the logic is complete, but cross-jumping differs.
+ * Retail keeps two unmerged copies of the (2, 2) phase stores in the dying branch and routes every other phase set through one register tail; ours merges the copies and lays the 0x100000 case out as a taken branch. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

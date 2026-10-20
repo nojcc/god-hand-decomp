@@ -1,9 +1,11 @@
-/* Batch 30 near-misses — not registered.
- * 84: VU Adjust_theta_vec; bitfield decode schedule; list scan; ld/sd slot;
- *     float copy beql/const; ID release lui/v0 vs v1 (1 word); flag dsrl
- *     const order (2 words); beql task exit; FP-frame thunk; RNG nibble;
- *     dispatch beql.
- * 6-attempt cap. Closest: SlotUi_release (1), func_002BF420 (2). */
+/* VU Adjust_theta_vec; bitfield decode schedule; list scan; ld/sd slot;
+ * float copy beql/const;
+ * ID release lui/v0 vs v1 (1 word); flag dsrl
+ * const order (2 words); beql task exit;
+ * FP-frame thunk;
+ * RNG nibble;
+ * dispatch beql.
+ * Closest: SlotUi_release (1), func_002BF420 (2). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -22,7 +24,6 @@ extern int func_0037C4C0(void *a0);
 __attribute__((section(".text.Adjust_theta_vec")))
 void Adjust_theta_vec(void *a0)
 {
-    (void)a0;
 }
 
 __attribute__((section(".text.func_002A4BA0")))
@@ -87,7 +88,6 @@ void func_002BECB0(int **a0, int *val)
     unsigned int i = 0;
     char *base;
     char *slot;
-    int one = 1;
 
     if (val == 0)
         return;
@@ -97,7 +97,7 @@ void func_002BECB0(int **a0, int *val)
         if (*(int *)base == 0 && *((int *)base + 1) == 0) {
             *(int **)slot = val;
             base = (char *)*a0 + (i << 4);
-            *((char *)base + 0x618) = (char)one;
+            *((char *)base + 0x618) = 1;
             return;
         }
         i++;

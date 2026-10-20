@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 extern void ColiseumBattle_DefeatAllEnemies(void *a0);
 extern int ColiseumBattle_CountLiveEnemies(void *a0);
 extern int cRoomSave_clearEmDeadFlag(void *a0, int a1);

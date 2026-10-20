@@ -1,5 +1,6 @@
-/* NON_MATCHING func_003B4AD8 (ee-2.9-991111; PARK, 27 diffs): sceWrite-style write; code and layout match, only the
- * s4-s7 assignment is rotated (retail: async s4, sid s5, size s6, mode s7). Good permuter candidate. */
+/* NON_MATCHING func_003B4AD8 (ee-2.9-991111;
+ * PARK, 27 diffs): sceWrite-style write; code and layout match, only the
+ * s4-s7 assignment is rotated (retail: async s4, sid s5, size s6, mode s7). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

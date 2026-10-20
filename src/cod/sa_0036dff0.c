@@ -1,4 +1,3 @@
-/* cygnus-2.96, --f=-freorder-blocks: NM closer handoff. */
 typedef struct Ck36DFF0 { char *data; int len; } Ck36DFF0;
 
 typedef struct OBJ OBJ;

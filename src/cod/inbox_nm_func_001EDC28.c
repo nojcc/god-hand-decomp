@@ -1,4 +1,3 @@
-/* halt demote func_001EDC28 */
 #ifdef NON_MATCHING
 extern CustomIDWork_ResetColorAnim(s32, s32);            /* extern */
 

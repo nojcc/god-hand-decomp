@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003B3650 (ee-2.9-991111; PARK, 40 diffs): req and pkt get s1/s0 swapped versus retail
+/* NON_MATCHING func_003B3650 (ee-2.9-991111;
+ * PARK, 40 diffs): req and pkt get s1/s0 swapped versus retail
  * (no declaration order or register keyword moves them); the final DMA slot stores schedule differently. */
 #include "include_asm.h"
 

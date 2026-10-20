@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00342E88 (cygnus,const-reassoc): best 23 (45 vs 46 words): calls/prologue match; fold merges one +0x40 into the trailing +0x800 (addiu 0x840) and reorders the sum. Retail keeps (s1+s2+s3+0x40)+n+(s0+s4)+((d0+0x40)+(d1+s5))+E80()+0x800 unfolded. Locals for partial sums or a pad local move values into s-regs across the E80 call (39-44). */
+/* NON_MATCHING func_00342E88 (cygnus,const-reassoc): calls/prologue match; fold merges one +0x40 into the trailing +0x800 (addiu 0x840) and reorders the sum.
+ * Retail keeps (s1+s2+s3+0x40)+n+(s0+s4)+((d0+0x40)+(d1+s5))+E80()+0x800 unfolded.
+ * Locals for partial sums or a pad local move values into s-regs across the E80 call (39-44). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

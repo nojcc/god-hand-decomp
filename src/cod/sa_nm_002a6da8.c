@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002A6DA8 (sn-2.95.3-136; PARK, 10 diffs): retail schedules the sd of attr+0x30 after the poly4 arg setup and loads %hi(D_003C1190) before %hi(D_003C1184); the vertex store order is solved (the scheduler emits each float's last store first, then the rest in source order); pause-screen wait loop */
+/* NON_MATCHING func_002A6DA8 (sn-2.95.3-136;
+ * PARK, 10 diffs): retail schedules the sd of attr+0x30 after the poly4 arg setup and loads %hi(D_003C1190) before %hi(D_003C1184); the vertex store order is solved (the scheduler emits each float's last store first, then the rest in source order); pause-screen wait loop */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -41,7 +42,6 @@ void func_002A6DA8(void)
     float h;
     float z;
     float far;
-    float one;
 
     t = gw[0];
     t = t >> 3;
@@ -81,7 +81,6 @@ void func_002A6DA8(void)
         h = D_003C1190;
         z = 0.0f;
         far = 65535.0f;
-        one = 1.0f;
         v[4] = z;
         v[0] = z;
         v[9] = z;
@@ -90,14 +89,14 @@ void func_002A6DA8(void)
         v[14] = far;
         v[10] = far;
         v[6] = far;
-        v[15] = one;
-        v[11] = one;
-        v[7] = one;
+        v[15] = 1.0f;
+        v[11] = 1.0f;
+        v[7] = 1.0f;
         v[1] = z;
         v[8] = w;
         v[5] = h;
         v[2] = far;
-        v[3] = one;
+        v[3] = 1.0f;
         Gp_draw_poly4(v, 0x80000000, 1, attr, 6, 5);
         cTaskWork_sleep(task()[1], 1);
     }

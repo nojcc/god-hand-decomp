@@ -1,9 +1,9 @@
-/* NM, not registered. sn-2.95.3-136: cActionButton manager update (0x1F7360).
- * func_001F7360: the D_00747A80 anchor (flags words at [0]/[-2], work block
- *   at -0x5E0) and the whole case tree match.  Still off: retail hoists the
- *   0x2000000 constant into s6 (8 saved regs vs our 7), tests ent->next in a
- *   temp before copying it to ent, and pads the loop top with a nop (needs
- *   the TU call_loop_pad flag, which sa_register cannot set). */
+/* func_001F7360: the D_00747A80 anchor (flags words at [0]/[-2], work block
+ * at -0x5E0) and the whole case tree match.
+ * Still off: retail hoists the
+ * 0x2000000 constant into s6 (8 saved regs vs our 7), tests ent->next in a
+ * temp before copying it to ent, and pads the loop top with a nop (needs
+ * the TU call_loop_pad flag, which sa_register cannot set). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

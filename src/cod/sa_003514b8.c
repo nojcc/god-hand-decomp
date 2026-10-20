@@ -1,4 +1,4 @@
-/* cygnus-2.96 (drop-reorder): func_003514B8, Sofdec per-picture decode step (term/endcode/skip dispatch). */
+/* cygnus-2.96: func_003514B8, Sofdec per-picture decode step (term/endcode/skip dispatch). */
 typedef struct {
     char pad0[0x78];
     int f78;

@@ -1,4 +1,3 @@
-/* cygnus-2.96, --f=-freorder-blocks: NM closer handoff. */
 typedef struct Dec33D720 {
     char pad0[0x10];
     int n;              /* 0x10 */

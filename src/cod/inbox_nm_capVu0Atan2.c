@@ -1,4 +1,3 @@
-/* halt demote capVu0Atan2 */
 #ifdef NON_MATCHING
 __attribute__((section(".text.capVu0Atan2")))
 float capVu0Atan2(float fparg0, float fparg1) {
@@ -15,7 +14,8 @@ float capVu0Atan2(float fparg0, float fparg1) {
         if (!(fparg0 < 0.0f)) {
             return 1.5707964f;
         }
-        /* Duplicate return node #16. Try simplifying control flow for better match */
+        /* Duplicate return node #16.
+ * Try simplifying control flow for better match */
         return var_f0;
     }
     if (temp_f0 < 0.00001f) {
@@ -26,7 +26,8 @@ float capVu0Atan2(float fparg0, float fparg1) {
                 return 3.1415927f;
             }
         }
-        /* Duplicate return node #16. Try simplifying control flow for better match */
+        /* Duplicate return node #16.
+ * Try simplifying control flow for better match */
         return var_f0;
     }
     M2C_ERROR(/* unknown instruction: lqc2 $vf4, ($v0) */);

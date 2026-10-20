@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00319970 (sn-2.95.3-136; PARK, 168 diffs): retail hoists &D_007474A0 into s0 for both 0x574 and the frame counter, applies andi 0xFF on both paths of the scroll test, and reuses the loaded speed for the wrap compare and stored sum */
+/* NON_MATCHING func_00319970 (sn-2.95.3-136;
+ * PARK, 168 diffs): retail hoists &D_007474A0 into s0 for both 0x574 and the frame counter, applies andi 0xFF on both paths of the scroll test, and reuses the loaded speed for the wrap compare and stored sum */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

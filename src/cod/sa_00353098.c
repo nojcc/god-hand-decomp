@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_00353098, check the configured frame size against
+/* cygnus-2.96: func_00353098, check the configured frame size against
  * the work buffer, then split the buffer into per-frame pointers. */
 typedef struct {
     int w;

@@ -1,4 +1,6 @@
-/* NON_MATCHING __deregister_frame_info (ee-2.9-991111; PARK): libgcc frame.c. Search and free match; prologue schedule and bnel vs bne. Best 20. */
+/* NON_MATCHING __deregister_frame_info (ee-2.9-991111;
+ * PARK): libgcc frame.c.
+ * Search and free match; prologue schedule and bnel vs bne. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

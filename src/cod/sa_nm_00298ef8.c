@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00298EF8 (sn-2.95.3-136): same size, 13 insns differ, all one register swap: retail keeps idx in a1 and the id/flag variable in v1; this allocates them the other way round. Tried: case order (fixed the layout), shared int/unsigned/ushort id variable, int idx narrowed at use. */
+/* NON_MATCHING func_00298EF8 (sn-2.95.3-136): same size, 13 insns differ, all one register swap: retail keeps idx in a1 and the id/flag variable in v1; this allocates them the other way round.
+ * Tried: case order (fixed the layout), shared int/unsigned/ushort id variable, int idx narrowed at use. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,11 +1,9 @@
-/* Batch 27 near-misses — not registered (would collide with asm fragments).
- * 32: movn / branch-shape (lhu+slti range test).
- * 36: xor+sltiu vs bne dual-exit (0xCDCDCDCD check); closest 4-word delay/reg.
- * 40: AreaSet andi/mov.s delay-slot swap only.
- * 48: cam wrapper sd/addiu schedule; list walk missing load-delay nop;
- *     flag setter beql vs beq + store order.
- * 52: FP-frame + dead branches (C++ EH shape); float cvt f4/f1 vs in-place f0.
- * 6-attempt cap. */
+/* movn / branch-shape (lhu+slti range test).
+ * xor+sltiu vs bne dual-exit (0xCDCDCDCD check); closest 4-word delay/reg.
+ * AreaSet andi/mov.s delay-slot swap only.
+ * cam wrapper sd/addiu schedule; list walk missing load-delay nop;
+ * flag setter beql vs beq + store order.
+ * FP-frame + dead branches (C++ EH shape); float cvt f4/f1 vs in-place f0. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -19,10 +17,8 @@ int func_00307118(int a0)
 {
     a0 = *(int *)a0;
     if (a0 != (int)0xCDCDCDCD) {
-        __asm__ volatile("");
         return 0;
     }
-    __asm__ volatile("");
     return 1;
 }
 
@@ -31,7 +27,6 @@ void cSceAtUnit_AreaSet(void *u, float *v, int n, float a, float b)
 {
     unsigned char t;
 
-    __asm__ volatile("" : "+f"(b) : "f"(a));
     t = (unsigned char)n;
     func_001F88A8((char *)u + 4, v, t, a, a, b);
 }
@@ -40,12 +35,9 @@ __attribute__((section(".text.func_00123908")))
 int func_00123908(void)
 {
     char *s0 = D_00463050;
-    int one = 1;
     int r;
 
-    __asm__ volatile("" : "+r"(s0), "+r"(one));
-    r = cCamManager_isCk_CamClass(s0, one);
-    __asm__ volatile("" :: "r"(s0));
+    r = cCamManager_isCk_CamClass(s0, 1);
     return r;
 }
 
@@ -68,7 +60,6 @@ is_one:
 store:
     a0[0x2F5] = (unsigned char)v0;
     a0[0x2F4] = 0;
-    __asm__ volatile("" ::: "memory");
     a0[0x2F6] = 0;
 }
 
@@ -85,7 +76,6 @@ float func_0030F518(void)
     v = (unsigned)func_0030F348() >> 1;
     f1 = (float)(int)v;
     scale.u = 0x30000000U;
-    __asm__ volatile("" : "+f"(f1) : "r"(scale.u));
     return f1 * scale.f;
 }
 

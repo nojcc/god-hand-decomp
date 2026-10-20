@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0035FAD8 (cygnus, store scheduling): best 15: every value and register load matches; the scheduler emits the constant-1/base/0x64 stores before used/f4/f8/fC while retail keeps them in field-assignment order. -fno-gcse no effect; precomputing the buffer addresses only fixed the 0xC00 slot. */
+/* NON_MATCHING func_0035FAD8 (cygnus, store scheduling): every value and register load matches; the scheduler emits the constant-1/base/0x64 stores before used/f4/f8/fC while retail keeps them in field-assignment order. -fno-gcse no effect; precomputing the buffer addresses only fixed the 0xC00 slot. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

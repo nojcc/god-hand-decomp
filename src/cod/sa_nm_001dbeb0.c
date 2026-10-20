@@ -1,11 +1,12 @@
-/* NM, not registered. sn-2.95.3-136: card table setup and poker hands (0x1DBEB0..).
- * func_001DBEB0: retail loops look un-optimized by loop.c (constant 9 re-made
- *   each pass, work copied to a3, pointer anchored on ent[i].state and both
- *   loops end-padded); a goto-loop reproduces all but the +4 anchor and the
- *   pad.  24 differing insns (24 vs 26 words).
+/* func_001DBEB0: retail loops look un-optimized by loop.c (constant 9 re-made
+ * each pass, work copied to a3, pointer anchored on ent[i].state and both
+ * loops end-padded); a goto-loop reproduces all but the +4 anchor and the
+ * pad.
+ * 24 differing insns (24 vs 26 words).
  * func_001DBFB8: 5 insns, ours narrows the five rank loads to lhu where retail
- *   keeps lw.  Declaring BjCardObj.rank volatile matches exactly, but the same
- *   qualifier pushes func_001DC4C0 from 2 to 6 diffs, so it was not adopted.
+ * keeps lw.
+ * Declaring BjCardObj.rank volatile matches exactly, but the same
+ * qualifier pushes func_001DC4C0 from 2 to 6 diffs, so it was not adopted.
  * func_001DC4C0: 2 insns, outer-loop i copy/compare order at the back edge. */
 #include "include_asm.h"
 #include "godhand/Poker.h"

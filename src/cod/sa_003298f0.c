@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_003298F0, CRI ADXT_Destroy: stop the handle, free
+/* cygnus-2.96: func_003298F0, CRI ADXT_Destroy: stop the handle, free
  * its streams, joints and amplitude meter, then clear the 0xC8-byte work. */
 typedef struct Sj3298F0 Sj3298F0;
 

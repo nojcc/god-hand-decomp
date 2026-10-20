@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: func_0036CF30, fills the M2V decoder interface table (D_003F1FF4..D_003F2044) and
+/* cygnus-2.96: func_0036CF30, fills the M2V decoder interface table (D_003F1FF4..D_003F2044) and
  * marks it initialised. */
 typedef void (*Fn36CF30)(void);
 

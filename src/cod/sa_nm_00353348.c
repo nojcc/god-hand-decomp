@@ -1,4 +1,7 @@
-/* NON_MATCHING func_00353348 (cygnus-2.96, drop-reorder; PARK): picture-type predicate on work+0x74. Retail keeps the ==3 test in its own block; C hoists it and drops the a2 return temp. Best 28. */
+/* NON_MATCHING func_00353348 (cygnus-2.96, drop-reorder;
+ * PARK): picture-type predicate on work+0x74.
+ * Retail keeps the ==3 test in its own block;
+ * C hoists it and drops the a2 return temp. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

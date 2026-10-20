@@ -1,4 +1,6 @@
-/* NON_MATCHING func_003257C8 (cygnus-2.96, drop-reorder; PARK): six long stores of 1. Retail materialises each address with addiu then sd offset 0; both cygnus and sn fold the %lo into the sd. Best 21. */
+/* NON_MATCHING func_003257C8 (cygnus-2.96, drop-reorder;
+ * PARK): six long stores of 1.
+ * Retail materialises each address with addiu then sd offset 0; both cygnus and sn fold the %lo into the sd. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

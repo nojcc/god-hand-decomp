@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00342D00 (regalloc): cygnus dr: 36 diffs, all register numbering in the size arithmetic; retail keeps an extra mb copy before the <<10 */
+/* NON_MATCHING func_00342D00: cygnus dr: 36 diffs, all register numbering in the size arithmetic; retail keeps an extra mb copy before the <<10 */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

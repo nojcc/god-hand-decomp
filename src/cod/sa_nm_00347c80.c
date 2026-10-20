@@ -1,5 +1,6 @@
-/* NON_MATCHING func_00347C80 (cygnus-2.96): 4 insns. Retail materializes the error string address before the
- * argument copies a1/a3/t0; here it comes after them. Permuter (30 min) found nothing better. */
+/* NON_MATCHING func_00347C80 (cygnus-2.96): 4 insns.
+ * Retail materializes the error string address before the
+ * argument copies a1/a3/t0; here it comes after them. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

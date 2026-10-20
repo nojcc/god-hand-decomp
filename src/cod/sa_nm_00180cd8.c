@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00180CD8 (sn-2.95.3-136 fp_hazard_rules mtc1; PARK, 155 diffs): HP-ratio mesh layer disp/color; retail cross-jumps only the final jal of the three disp branches (sn also merges branch 1 into branch 2), FP tail regalloc differs */
+/* NON_MATCHING func_00180CD8 (sn-2.95.3-136 fp_hazard_rules mtc1;
+ * PARK, 155 diffs): HP-ratio mesh layer disp/color; retail cross-jumps only the final jal of the three disp branches (sn also merges branch 1 into branch 2), FP tail regalloc differs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -10,7 +11,6 @@ typedef struct {
 
 extern void cOmBase_setMeshDispFromLayer(Om180 *o, int layer, int on);
 extern void cOmBase_setMeshColorFromLayer(Om180 *o, int layer, float r, float g, float b);
-
 
 void func_00180CD8(Om180 *o)
 {

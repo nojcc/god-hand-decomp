@@ -1,4 +1,5 @@
-/* NON_MATCHING func_001FC810 (sn-2.95.3-136; STOP 82 at attempt 6): when the owner is active, bubble-sort its child list by ascending key, then copy up to max active children into out. Retail loads the child count into one register and copies it into a second that feeds the outer bound (two daddu copies plus a nop, 3 words more); a separate cnt local, an inline sort helper, unsigned cnt and a comma reload all allocate one register (82). */
+/* NON_MATCHING func_001FC810: when the owner is active, bubble-sort its child list by ascending key, then copy up to max active children into out.
+ * Retail loads the child count into one register and copies it into a second that feeds the outer bound (two daddu copies plus a nop, 3 words more); a separate cnt local, an inline sort helper, unsigned cnt and a comma reload all allocate one register (82). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

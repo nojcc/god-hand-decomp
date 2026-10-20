@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: func_003398F8, SJ ring buffer GetChunk: take up to nbyte contiguous bytes from lane 0 (data) or lane 1 (free), advancing that lane's position modulo the buffer size. Other lanes clear the chunk and report -3 through the error callback. */
+/* cygnus-2.96: func_003398F8, SJ ring buffer GetChunk: take up to nbyte contiguous bytes from lane 0 (data) or lane 1 (free), advancing that lane's position modulo the buffer size. Other lanes clear the chunk and report -3 through the error callback. */
 typedef struct SjCk3398F8 {
     char *data;                         /* 0x00 */
     int len;                            /* 0x04 */

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00320948 (sn-2.95.3-136): same size, 25 insns differ: block layout and the alias loop match, but retail copies i into a2 at entry (as if the loop variable were a separate local from the parameter) and keeps the entry-pointer temp in v0, so registers differ throughout. Tried: index while loop, type-pointer loop, hoisted types base with an if/else result. */
+/* NON_MATCHING func_00320948 (sn-2.95.3-136): same size, 25 insns differ: block layout and the alias loop match, but retail copies i into a2 at entry (as if the loop variable were a separate local from the parameter) and keeps the entry-pointer temp in v0, so registers differ throughout.
+ * Tried: index while loop, type-pointer loop, hoisted types base with an if/else result. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

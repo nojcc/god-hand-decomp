@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0037B0E0 (sn-2.95.3-136; PARK, 139 diffs): retail keeps the print column 3 in s0 (set once after the first switch) and passes it as a register to every func_002E0DE8 call; ours folds it to an immediate, which shifts all register numbering. Typing x as short/char or moving its assignment does not change that; sound debug page print */
+/* NON_MATCHING func_0037B0E0 (sn-2.95.3-136;
+ * PARK, 139 diffs): retail keeps the print column 3 in s0 (set once after the first switch) and passes it as a register to every func_002E0DE8 call; ours folds it to an immediate, which shifts all register numbering.
+ * Typing x as short/char or moving its assignment does not change that; sound debug page print */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003552D0 (regalloc): cygnus dr: only s0/s1 swap for sfd/mpv (18 insns); tried struct/int/void types, single-exit, nested, decl order */
+/* NON_MATCHING func_003552D0: cygnus dr: only s0/s1 swap for sfd/mpv (18 insns); tried struct/int/void types, single-exit, nested, decl order */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

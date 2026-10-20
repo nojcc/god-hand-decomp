@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00343E28 (cygnus-2.96 drop-reorder; PARK, 56 diffs): mwPly create; retail cross-jumps the Error(msg) tails with the message built straight in a0 (ours needs a msg variable, so %hi goes through v0), and its free-slot loop keeps one iterator copy with the constant 1 in a1 */
+/* NON_MATCHING func_00343E28 (cygnus-2.96 drop-reorder;
+ * PARK, 56 diffs): mwPly create; retail cross-jumps the Error(msg) tails with the message built straight in a0 (ours needs a msg variable, so %hi goes through v0), and its free-slot loop keeps one iterator copy with the constant 1 in a1 */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

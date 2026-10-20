@@ -1,4 +1,7 @@
-/* NON_MATCHING func_003B0EF8 (ee-2.9-991111; PARK, 45 diffs): retail loads 0.1, 0.1 and 1e6 from the split rodata blob (D_0045FE78/80/88), which needs the per-file extern_double setting (li.d slots D_0045FE78,-,D_0045FE80,-,-,-,D_0045FE88). That setting is not on the standing-approval list. With it, what remains is the two loop-condition branches (ours bltzl/bgezl, retail plain bltz/bgez) and the "0.%d" address formed early in s0. */
+/* NON_MATCHING func_003B0EF8 (ee-2.9-991111;
+ * PARK, 45 diffs): retail loads 0.1, 0.1 and 1e6 from the split rodata blob (D_0045FE78/80/88), which needs the per-file extern_double setting (li.d slots D_0045FE78,-,D_0045FE80,-,-,-,D_0045FE88).
+ * That setting is not on the standing-approval list.
+ * With it, what remains is the two loop-condition branches (ours bltzl/bgezl, retail plain bltz/bgez) and the "0.%d" address formed early in s0. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

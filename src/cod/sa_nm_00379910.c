@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00379910 (sn-2.95.3-136; PARK, 150 diffs): calls and block layout match; retail keeps the column x
+/* NON_MATCHING func_00379910 (sn-2.95.3-136;
+ * PARK, 150 diffs): calls and block layout match; retail keeps the column x
  * (3, set in every switch arm) in v0 and schedules its sll after the format lui, ours puts x in a1. */
 #include "include_asm.h"
 

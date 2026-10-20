@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0015ADA0 (sn-2.95.3-136; PARK at attempt 3, score 62): rotate a vector by a quaternion, q * (v, 0) * conj(q). Instruction sequence and stack temporaries match; only the FP register numbering of the copied quaternion differs (retail x/y/z/w in f9/f10/f12/f11, this gives f10/f9/f11/f12). Statement orders, conj-from-q, an inline conj helper and helper argument order were tried and did not move it. */
+/* NON_MATCHING func_0015ADA0: rotate a vector by a quaternion, q * (v, 0) * conj(q).
+ * Instruction sequence and stack temporaries match; only the FP register numbering of the copied quaternion differs (retail x/y/z/w in f9/f10/f12/f11, this gives f10/f9/f11/f12).
+ * Statement orders, conj-from-q, an inline conj helper and helper argument order were tried and did not move it. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

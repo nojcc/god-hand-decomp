@@ -1,6 +1,6 @@
 #include "godhand/cOmDoor.h"
 
-/* sn-2.95.3-136 matched TU (ps2eeas keeps the mtc1/nop hazard pairs). */
+/* sn-2.95.3-136 */
 
 extern float Adjust_theta(float angle);
 

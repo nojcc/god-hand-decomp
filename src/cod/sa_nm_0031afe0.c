@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0031AFE0 (cygnus-2.96 drop-reorder as sn; PARK, 163 diffs): pad state update; union masks make the loop reload like retail, but char sign-test reloads become lbu+sll, arg regs shift by one and retail hoists lui %hi(D_00747A78) above the loop */
+/* NON_MATCHING func_0031AFE0 (cygnus-2.96 drop-reorder as sn;
+ * PARK, 163 diffs): pad state update; union masks make the loop reload like retail, but char sign-test reloads become lbu+sll, arg regs shift by one and retail hoists lui %hi(D_00747A78) above the loop */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -44,7 +45,6 @@ extern unsigned int D_003C3E50[];
 extern void func_0031B410(void *ctx, PadSt *st);
 extern void func_0031B4B8(void *ctx, PadSt *st);
 extern void func_0031B2E0(void *ctx, PadSt *st);
-
 
 void func_0031AFE0(void *ctx, PadSt *st, PadRaw *raw)
 {

@@ -1,4 +1,4 @@
-/* ee-2.9-991111 matched TU. SetNextComp (libkernel timer): program the T2 compare register for the earliest pending alarm, or a short retry when it is already due. */
+/* ee-2.9-991111 TU. SetNextComp (libkernel timer): program the T2 compare register for the earliest pending alarm, or a short retry when it is already due. */
 typedef unsigned int u_int;
 typedef unsigned long u_long;
 

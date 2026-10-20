@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002B00A0 (sn-2.95.3-136, as=sn): same size, 66 insns; FP vertex/uv stores scheduled differently (retail stores the uv header between the first and second vertex) and FP register naming differs. */
+/* NON_MATCHING func_002B00A0 (sn-2.95.3-136, as=sn): same size, 66 insns;
+ * FP vertex/uv stores scheduled differently (retail stores the uv header between the first and second vertex) and FP register naming differs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

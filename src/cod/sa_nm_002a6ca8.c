@@ -1,4 +1,4 @@
-/* NON_MATCHING func_002A6CA8 (sched): sn best 16: only the order of the 16 vertex float stores and f0/f2 numbering differ; searched store/decl/init orders, inline helper */
+/* NON_MATCHING func_002A6CA8 (sched): sn only the order of the 16 vertex float stores and f0/f2 numbering differ; searched store/decl/init orders, inline helper */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

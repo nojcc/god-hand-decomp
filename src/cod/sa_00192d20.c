@@ -2,7 +2,6 @@
  * enemy work defaults (as sa_00192a98.c). */
 #include "godhand/emDamageVol.h"
 
-
 __attribute__((section(".text.func_00192D20")))
 int func_00192D20(EmDmgVol *em)
 {

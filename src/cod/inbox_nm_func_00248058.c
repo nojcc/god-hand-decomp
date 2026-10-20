@@ -1,4 +1,3 @@
-/* halt demote func_00248058 */
 #ifdef NON_MATCHING
 
 #else

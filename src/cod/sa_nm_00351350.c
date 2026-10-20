@@ -1,4 +1,5 @@
-/* NON_MATCHING sfmpv_BsearchDelim (cygnus-2.96, -freorder-blocks dropped; PARK 78 at attempt 2): backward twin of sfmpv_SearchDelim (sa_nm_003511f8.c, same unsolved shape): search the second ring half from its end, then a delimiter straddling the wrap (3+3 bytes copied to a stack buffer), then the first half. Logic matches; retail allocates r=s2/p=s1 and places the straddle-hit block right after `b hit` (a barrier before the straddle code). */
+/* NON_MATCHING sfmpv_BsearchDelim: backward twin of sfmpv_SearchDelim (sa_nm_003511f8.c, same unsolved shape): search the second ring half from its end, then a delimiter straddling the wrap (3+3 bytes copied to a stack buffer), then the first half.
+ * Logic matches; retail allocates r=s2/p=s1 and places the straddle-hit block right after `b hit` (a barrier before the straddle code). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

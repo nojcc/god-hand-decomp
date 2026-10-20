@@ -1,4 +1,3 @@
-/* halt demote func_001C2408 */
 #ifdef NON_MATCHING
 #include "godhand/vu0.h"
 extern int cCoreSave_getClearNum(void *save);

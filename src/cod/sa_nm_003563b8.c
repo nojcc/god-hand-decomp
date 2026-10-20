@@ -1,6 +1,8 @@
-/* NON_MATCHING func_003563B8 (cygnus-2.96 --drop-reorder; PARK, 7 diffs): only the scheduling of the final state-reset
+/* NON_MATCHING func_003563B8 (cygnus-2.96 --drop-reorder;
+ * PARK, 7 diffs): only the scheduling of the final state-reset
  * stores differs (retail: three sb, then the int stores in offset order, with 1 in v1 and -1 in v0); no source order
- * found by hill-climb reproduces it. Sets up the movie decoder work at 0x1FC0 and creates the vi buffer. */
+ * found by hill-climb reproduces it.
+ * Sets up the movie decoder work at 0x1FC0 and creates the vi buffer. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

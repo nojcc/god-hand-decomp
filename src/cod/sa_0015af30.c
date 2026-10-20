@@ -1,4 +1,3 @@
-/* sn-2.95.3-136, fp_hazard_rules sqrt, +-f=-ffast-math: NM closer handoff. */
 typedef float Mtx15AF30[4][4];
 typedef float Vec15AF30[4];
 

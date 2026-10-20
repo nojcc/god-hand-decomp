@@ -1,6 +1,8 @@
-/* NON_MATCHING func_0035A2B0 (cygnus-2.96 --drop-reorder; PARK, 46 diffs): matches through both table-clear loops (the
+/* NON_MATCHING func_0035A2B0 (cygnus-2.96 --drop-reorder;
+ * PARK, 46 diffs): matches through both table-clear loops (the
  * second table is addressed from sub = t + 0xC set before the first loop); the final block of constant stores is
- * scheduled differently and retail reloads 0x2A8 for the 0x2D0 copy. Sofdec timer init: six time callbacks,
+ * scheduled differently and retail reloads 0x2A8 for the 0x2D0 copy.
+ * Sofdec timer init: six time callbacks,
  * sub-timer resets, two 32-entry tables cleared, default timing parameters. */
 #include "include_asm.h"
 

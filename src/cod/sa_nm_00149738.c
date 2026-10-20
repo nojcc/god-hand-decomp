@@ -1,4 +1,5 @@
-/* NON_MATCHING cModel_setupModel (sn-2.95.3-136; PARK, 82 diffs): retail keeps a dead stack copy of the first mesh data pointer at sp+0x20 (pushing the arg spill to 0x24) and tests num >= 2 via sltiu/xori; the error tails cross-jump differently */
+/* NON_MATCHING cModel_setupModel (sn-2.95.3-136;
+ * PARK, 82 diffs): retail keeps a dead stack copy of the first mesh data pointer at sp+0x20 (pushing the arg spill to 0x24) and tests num >= 2 via sltiu/xori; the error tails cross-jump differently */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,5 +1,4 @@
-/* NM, not registered. sn-2.95.3-136, -ffast-math, fp_hazard_rules sqrt: scaled twin of func_001F8550 (0x1F8810).
- * Instructions match except cc1 emits .p2align 3 before the return-0 label, padding one nop at
+/* Instructions match except cc1 emits .p2align 3 before the return-0 label, padding one nop at
  * 0x7C; retail has that label unaligned at 0x1F888C. goto-free variants regress (35 diffs). */
 #include "include_asm.h"
 
@@ -23,7 +22,6 @@ int func_001F8810(cArea *self, float *pt, float scale) {
     dx = pt[0] - self->corner[0].x * scale;
     dz = pt[2] - self->corner[0].z * scale;
     d = __builtin_sqrtf(dx * dx + dz * dz);
-    do { } while (0);
     r = 1;
     if (d < self->radius) goto ret;
 zero:

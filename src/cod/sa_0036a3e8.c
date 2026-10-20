@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: MPEG video header decode: peek the input SJ, check for a sequence end, then step
+/* cygnus-2.96: MPEG video header decode: peek the input SJ, check for a sequence end, then step
  * through the delimiters (sequence, GOP, picture, user data, extension) until a picture start or an error. */
 typedef struct Ck36A3E8 { char *data; int len; } Ck36A3E8;
 

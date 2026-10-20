@@ -1,6 +1,7 @@
-/* Hard-tail, not registered in compile_config.json and not linked.
- * Three SN clones of func_002ABCE8. The inline `(unsigned char)(s < 2)`
- * form is one instruction short (the andi is deleted). Hiding the slti
+/* Three SN clones of func_002ABCE8.
+ * The inline `(unsigned char)(s < 2)`
+ * form is one instruction short (the andi is deleted).
+ * Hiding the slti
  * result so the andi survives also pulls slti out of the bnez delay. */
 #define PHASE_A_68(name, lh_off, sh_off, lb_off, bit)                  \
     __attribute__((section(".text." #name)))                           \

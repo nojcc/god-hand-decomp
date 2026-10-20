@@ -1,4 +1,3 @@
-/* halt demote func_00248D00 */
 #ifdef NON_MATCHING
 
 #include "godhand/vu0.h"

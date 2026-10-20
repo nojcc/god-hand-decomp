@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0033A618 (cygnus dr, bnel vs bne): best 1: identical except retail's used!=0 branch is bnel (annulled sltiu in the slot) where ours is bne. Nested-if, single-exit and shared-goto forms push it to 37-46; -fno-gcse no change. */
+/* NON_MATCHING func_0033A618 (cygnus dr, bnel vs bne): identical except retail's used!=0 branch is bnel (annulled sltiu in the slot) where ours is bne.
+ * Nested-if, single-exit and shared-goto forms push it to 37-46; -fno-gcse no change. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

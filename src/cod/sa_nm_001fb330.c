@@ -61,7 +61,6 @@ void cCoreSave_spawnItems(CoreSave1FB330 *self)
     ItemObj1FB330 *obj;
     VtEnt1FB330 *ent;
 
-
     if (GW_AREA == 0)
         return;
     if (self->data == 0)

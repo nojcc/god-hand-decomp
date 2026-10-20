@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00277348 (sn-2.95.3-136; PARK, 78 diffs): enemy init, same shape as func_0027DE60. Retail keeps the
+/* NON_MATCHING func_00277348 (sn-2.95.3-136;
+ * PARK, 78 diffs): enemy init, same shape as func_0027DE60.
+ * Retail keeps the
  * constant 1 for the 0x2F5 and 0x548/0x54A stores in $s0 across the calls (0x70 frame, extra $s3) but still loads a fresh 1
  * for the 1 < n compare; a shared local gets CSE'd into the compare and literals are not hoisted. */
 #include "include_asm.h"
@@ -57,8 +59,7 @@ int func_00277348(char *a0, char *info, int arg)
         n = *(unsigned char *)(s1 + 0x2B4);
         *(int *)(buf + 0x0) = n;
         {
-            int one = 1;
-            if (one < n) {
+            if (1 < n) {
                 base = *(int *)(*(int *)(s1 + 0x278) + 4);
             } else {
                 base = 0;

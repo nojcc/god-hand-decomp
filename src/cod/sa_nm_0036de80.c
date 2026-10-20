@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0036DE80 (cygnus-2.96, -freorder-blocks dropped; PARK 83 at attempt 3): copy the decoder state at +0x160 into the info record at +0x58 (sizes, rates, flags, and a format byte from the D_0045A570[a][b][c] table). Stores and offsets match; retail keeps the source base in v1 and the record base in a0 (ours swaps them) and hoists some loads above earlier stores, which suggests distinct alias sets for some fields. sn-2.95.3-136 is worse (91). */
+/* NON_MATCHING func_0036DE80: copy the decoder state at +0x160 into the info record at +0x58 (sizes, rates, flags, and a format byte from the D_0045A570[a][b][c] table).
+ * Stores and offsets match; retail keeps the source base in v1 and the record base in a0 (ours swaps them) and hoists some loads above earlier stores, which suggests distinct alias sets for some fields. sn-2.95.3-136 is worse (91). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

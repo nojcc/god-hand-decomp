@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0013D288 (sn, call-arg schedule): best 4: everything matches except the first drawPolyF call's argument setup order (retail f12, f15, f13, f14 with a1=0 in the jal slot; ours a1=0 first and mov.s f14 in the slot). Locals for the constants, an int color and a hoisted height don't move it. */
+/* NON_MATCHING func_0013D288 (sn, call-arg schedule): everything matches except the first drawPolyF call's argument setup order (retail f12, f15, f13, f14 with a1=0 in the jal slot; ours a1=0 first and mov.s f14 in the slot).
+ * Locals for the constants, an int color and a hoisted height don't move it. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00359848 (cygnus-2.96, -freorder-blocks dropped; PARK 20 at attempt 4): once audio and video analysis are finished, take the stream rate/channel info from the MPS header (rate adjusted by the audio clock or scaled by 2048/2018 for old streams), the video info or the ADX info, store it in the work area and call func_00359DF0. Control flow and loads match; retail allocates rate to a1 and ch to v1 (ours swaps them) and shares one rate copy after the audio-clock branch. */
+/* NON_MATCHING func_00359848: once audio and video analysis are finished, take the stream rate/channel info from the MPS header (rate adjusted by the audio clock or scaled by 2048/2018 for old streams), the video info or the ADX info, store it in the work area and call func_00359DF0.
+ * Control flow and loads match; retail allocates rate to a1 and ch to v1 (ours swaps them) and shares one rate copy after the audio-clock branch. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

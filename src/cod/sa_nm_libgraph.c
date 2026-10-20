@@ -1,5 +1,5 @@
 /* libgraph sceGsSetHalfOffset / func_003960D0 (ee-2.9-991111, 136 B): xyoffset1 from the scissor size.
- * Near-miss: same instructions, 26 scheduled differently (retail interleaves the x and y halves). Not registered. */
+ * : same instructions, 26 scheduled differently (retail interleaves the x and y halves). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00377150 (sn-2.95.3-136; PARK at attempt 4, score 19): start one sound-effect channel and fill its voice node. Instruction sequence matches; channel and the per-channel data pointer have swapped s1/s2, and the tail 0x30-0x34 loads pick a1/v1/a0 differently. A `one` local fixes the s-regs but breaks the middle schedule; index locals, a data pointer local and tail reordering were tried. */
+/* NON_MATCHING func_00377150: start one sound-effect channel and fill its voice node.
+ * Instruction sequence matches; channel and the per-channel data pointer have swapped s1/s2, and the tail 0x30-0x34 loads pick a1/v1/a0 differently.
+ * A `one` local fixes the s-regs but breaks the middle schedule; index locals, a data pointer local and tail reordering were tried. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002B4A50 (sn-2.95.3-136; PARK 86 at attempt 3, best of 3): update the three live entities of the manager; for a dead one with a pending slot, clear the slot and its bit in the mask, and once the mask is empty clear eight request bits in D_00747A80. Retail materialises the alive test as a 0/1 byte (bnez/li/andi 0xFF) and hoists all eight masks plus %hi(D_00747A80) out of the loop (caller-saving a1-a3/t0 around the call); ours threads the test and hoists six. */
+/* NON_MATCHING func_002B4A50: update the three live entities of the manager; for a dead one with a pending slot, clear the slot and its bit in the mask, and once the mask is empty clear eight request bits in D_00747A80.
+ * Retail materialises the alive test as a 0/1 byte (bnez/li/andi 0xFF) and hoists all eight masks plus %hi(D_00747A80) out of the loop (caller-saving a1-a3/t0 around the call); ours threads the test and hoists six. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

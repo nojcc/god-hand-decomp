@@ -1,6 +1,6 @@
 /* func_001C3778 / func_001C3988 (SN, 528 B): clear then set the local/parent matrix-skip bits on
- * child parts 1..n around cModel_calcParts. Near-miss: retail range check compares idx against a
- * register zero (no movn) and reads flags0 as lwu+dsra. Not registered. */
+ * child parts 1..n around cModel_calcParts.: retail range check compares idx against a
+ * register zero (no movn) and reads flags0 as lwu+dsra. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00359480 (cygnus-2.96, -freorder-blocks dropped): same size, 34 insns but nearly all register renames: layout, reloads and stores match; retail also copies full (a2) into t1 at entry and keeps t + 1 in a0 with a separate n copy in a2, which shifts every register. Item must alias the int fields (int[4] aligned(8)) to get the cap/count reloads after the copy. Tried: long pair item, int[4] item, split t + 1 / n locals. */
+/* NON_MATCHING func_00359480 (cygnus-2.96, -freorder-blocks dropped): same size, 34 insns but nearly all register renames: layout, reloads and stores match; retail also copies full (a2) into t1 at entry and keeps t + 1 in a0 with a separate n copy in a2, which shifts every register.
+ * Item must alias the int fields (int[4] aligned(8)) to get the cap/count reloads after the copy.
+ * Tried: long pair item, int[4] item, split t + 1 / n locals. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

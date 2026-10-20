@@ -1,4 +1,6 @@
-/* NON_MATCHING func_001FF858 (sn-2.95.3-136; PARK at attempt 3): reset the pack name to the lowercased default, load and allocate the pack, then relocate its entry table (data offsets, and the reference of type-1 entries). Everything after the name loop matches. Retail keeps the name pointer (s0) and the index (s2, reset to 0 before the load and reused by the second loop) live through the lowercase loop, loading p[i] by index and storing through a pointer, so it saves s2 and uses a 0x50 frame; ours strength-reduces the index away. */
+/* NON_MATCHING func_001FF858: reset the pack name to the lowercased default, load and allocate the pack, then relocate its entry table (data offsets, and the reference of type-1 entries).
+ * Everything after the name loop matches.
+ * Retail keeps the name pointer (s0) and the index (s2, reset to 0 before the load and reused by the second loop) live through the lowercase loop, loading p[i] by index and storing through a pointer, so it saves s2 and uses a 0x50 frame; ours strength-reduces the index away. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

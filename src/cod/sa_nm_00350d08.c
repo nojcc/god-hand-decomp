@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00350D08 (cygnus-2.96 --drop-reorder; PARK, 66 diffs): empty case 0x40 gives the retail 8-pivot decision tree, but retail keeps a dead addiu 0x40 delay-slot residue and an extra copy of the MPV_CheckDelim result; prologue arg copies come out s3/s1/s2 instead of s1/s2/s3 (an explicit goto dispatch reaches 54 diffs at full length); Sofdec MPV delimiter scan */
+/* NON_MATCHING func_00350D08 (cygnus-2.96 --drop-reorder;
+ * PARK, 66 diffs): empty case 0x40 gives the retail 8-pivot decision tree, but retail keeps a dead addiu 0x40 delay-slot residue and an extra copy of the MPV_CheckDelim result; prologue arg copies come out s3/s1/s2 instead of s1/s2/s3 (an explicit goto dispatch reaches 54 diffs at full length);
+ * Sofdec MPV delimiter scan */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

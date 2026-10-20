@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002BF948 (sn-2.95.3-136; PARK, 176 diffs): one-insn shift - retail spills cont/allCont and keeps &skill in fp, ours keeps cont in s8; copies need the aligned(16) typedef trick (size 0xD8, align 16) */
+/* NON_MATCHING func_002BF948 (sn-2.95.3-136;
+ * PARK, 176 diffs): one-insn shift - retail spills cont/allCont and keeps &skill in fp, ours keeps cont in s8; copies need the aligned(16) typedef trick (size 0xD8, align 16) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

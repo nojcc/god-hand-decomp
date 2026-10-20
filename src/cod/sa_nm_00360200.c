@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00360200 (cygnus-2.96, -freorder-blocks dropped): 30 words vs 32; block layout matches, but retail aligns the success label with a nop, duplicates *data = 0 into a bnel delay slot, and moves the t0 copy above the ra save. Next lead: as=sn (alignment nop), then the per-field ck copy order. Tried: combined && test, early return, inverted test. */
+/* NON_MATCHING func_00360200 (cygnus-2.96, -freorder-blocks dropped): 30 words vs 32; block layout matches, but retail aligns the success label with a nop, duplicates *data = 0 into a bnel delay slot, and moves the t0 copy above the ra save.
+ * Next lead: as=sn (alignment nop), then the per-field ck copy order.
+ * Tried: combined && test, early return, inverted test. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
