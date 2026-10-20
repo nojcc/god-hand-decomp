@@ -1,7 +1,6 @@
-/* NM, not registered. cygnus-2.96 (drop-reorder): CRI AIX demux.
- * func_0032F988: retail keeps a 0x10 frame saving ra (inlined BE32 helpers); ours is frameless.
+/* func_0032F988: retail keeps a 0x10 frame saving ra (inlined BE32 helpers); ours is frameless.
  * func_0032FC38: control flow matches; register allocation differs (retail spills out/n/i/ret and
- *   keeps &ck in fp/s4; ours gives out s8), 277 vs 274 words. */
+ * keeps &ck in fp/s4; ours gives out s8), 277 vs 274 words. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0039CCC0 (ee-2.9-991111; PARK, 147 diffs): retail keeps the per-macroblock field bases mp+0x6C8/0x6D0/0x6D4/0x6D8 in s1-s4 (set up before each DMA poll loop) and spills flags & 1 to the stack; our build keeps one base and fewer saved registers. The extra nops in the second poll loop are the assembler's short-loop padding; libmpeg macroblock setup */
+/* NON_MATCHING func_0039CCC0 (ee-2.9-991111;
+ * PARK, 147 diffs): retail keeps the per-macroblock field bases mp+0x6C8/0x6D0/0x6D4/0x6D8 in s1-s4 (set up before each DMA poll loop) and spills flags & 1 to the stack; our build keeps one base and fewer saved registers.
+ * The extra nops in the second poll loop are the assembler's short-loop padding; libmpeg macroblock setup */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

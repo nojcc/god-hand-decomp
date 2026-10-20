@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0032D868 (cygnus-2.96, -freorder-blocks dropped; STOP, best 66): null and range checks tail-call the error. Prologue matches, including the dead load of D_00451AC0. Retail uses beql on the null test so the message lui sits in the delay and is repeated on the fallthrough; we emit beq and one lui, and the rest of the function shifts by those two words. */
+/* NON_MATCHING func_0032D868: null and range checks tail-call the error.
+ * Prologue matches, including the dead load of D_00451AC0.
+ * Retail uses beql on the null test so the message lui sits in the delay and is repeated on the fallthrough; we emit beq and one lui, and the rest of the function shifts by those two words. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -21,7 +23,7 @@ typedef struct Obj32D868 {
     int unk1E0;
 } Obj32D868;
 
-extern volatile int D_00451AC0;
+extern int D_00451AC0;
 extern char D_00452A20[];
 extern char D_00452A48[];
 extern char D_00452A78[];
@@ -34,7 +36,6 @@ extern void func_0032F4B0(int, int);
 
 void func_0032D868(Obj32D868 *o, char *name, int a2, int a3, int a4)
 {
-    (void)D_00451AC0;
     if (o == 0 || name == 0) {
         Obj33F8_Tramp_0033F130_FCB0(D_00452A20);
         return;

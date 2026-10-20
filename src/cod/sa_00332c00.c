@@ -1,4 +1,4 @@
-/* cygnus-2.96 | drop-freorder-blocks: func_00332C00, open a file handle on dev: look the file up, read its size from the disc when unknown, and reset the read state. */
+/* cygnus-2.96: func_00332C00, open a file handle on dev: look the file up, read its size from the disc when unknown, and reset the read state. */
 #define SECTOR_SHIFT  11
 #define SECTOR_MASK   0x7FF
 

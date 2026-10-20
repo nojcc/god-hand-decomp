@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0033EBD0 (cygnus-2.96 --drop-reorder; PARK, 42 diffs): ADX loop-info decode; structure and schedule match, register allocation of the byte-swap temps differs. */
+/* NON_MATCHING func_0033EBD0 (cygnus-2.96 --drop-reorder;
+ * PARK, 42 diffs): ADX loop-info decode; structure and schedule match, register allocation of the byte-swap temps differs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

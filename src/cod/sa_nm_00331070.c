@@ -1,6 +1,5 @@
-/* NM, not registered. cygnus-2.96 (drop-reorder): CRI SRD destroy / CD read request.
- * func_00331070 (SRD_Destroy): retail fills the third stat test's delay slot with the
- *   lui of the warning string; ours leaves a nop (a0 treated as live at the reset call).
+/* func_00331070 (SRD_Destroy): retail fills the third stat test's delay slot with the
+ * lui of the warning string; ours leaves a nop (a0 treated as live at the reset call).
  * func_00331110 (SRD_ReqRdCd): 3 insns - stat/devtype stores scheduled after d_lsn. */
 #include "include_asm.h"
 
@@ -47,7 +46,7 @@ extern void PushGlobalD8478History_331C78(int code);
 extern int func_00398DA0(int mode);
 
 extern SRD_OBJ D_003D8410;              /* srd_obj */
-extern volatile Sint32 D_003D8474;      /* destroy count */
+extern Sint32 D_003D8474;      /* destroy count */
 extern char D_00453E30[];               /* "SRD: SRD_Destroy, invalidate srd handle..." */
 extern char D_00453E70[];
 

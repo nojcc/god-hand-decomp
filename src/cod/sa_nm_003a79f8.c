@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003A79F8 (sn): newlib __sccl; 1 diff: the beql into the range-fill loop targets the label before the loop-align nop (ours) instead of after it (retail); do/while and for forms keep it */
+/* NON_MATCHING func_003A79F8 (sn): newlib __sccl;
+ * 1 diff: the beql into the range-fill loop targets the label before the loop-align nop (ours) instead of after it (retail); do/while and for forms keep it */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

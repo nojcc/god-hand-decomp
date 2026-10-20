@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00150DC8 (sn-2.95.3-136; 103 vs 104 words at attempt 3): DMA packet append. Computing p before the count store gives the retail entry copies and p in a3. Remaining: retail tests the mode parity as xori+andi+beqz; every xor spelling ((mode ^ 1) & 1, ~mode & 1, a precomputed flag) moves p to t1 and adds three a3 copies, while the !(mode & 1) forms lose the xori word. */
+/* NON_MATCHING func_00150DC8: DMA packet append.
+ * Computing p before the count store gives the retail entry copies and p in a3.
+ * Remaining: retail tests the mode parity as xori+andi+beqz; every xor spelling ((mode ^ 1) & 1, ~mode & 1, a precomputed flag) moves p to t1 and adds three a3 copies, while the !(mode & 1) forms lose the xori word. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00140E58 (sn-2.95.3-136; PARK, 120 diffs, mostly a 1-word shift): retail tests the 0x40000 pause bit as lui/and/sltu and keeps the bool in v0 for a second test, ours folds it to sra/andi; retail also passes p + 0x1DC0 through v0 before s3 in the update path. The if/return bool helpers and the SetA/SetB setters already line up the flag-set tail; stage object per-frame update */
+/* NON_MATCHING func_00140E58 (sn-2.95.3-136;
+ * PARK, 120 diffs, mostly a 1-word shift): retail tests the 0x40000 pause bit as lui/and/sltu and keeps the bool in v0 for a second test, ours folds it to sra/andi; retail also passes p + 0x1DC0 through v0 before s3 in the update path.
+ * The if/return bool helpers and the SetA/SetB setters already line up the flag-set tail; stage object per-frame update */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

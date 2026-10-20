@@ -1,4 +1,3 @@
-/* halt demote func_002ACF30 */
 #ifdef NON_MATCHING
 __attribute__((section(".text.func_002ACF30")))
 int func_002ACF30(char *a0, void *a1, int a2, int a3)

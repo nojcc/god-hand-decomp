@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002E0DE8 (NEAR-MISS): sn; 14 diffs: retail's div-by-zero trap tests a fresh constant 8 (v0) while div uses a long-lived s4=8, quotient reuses room's v1; ours tests the divisor reg directly and swaps s3/s4. int/short/register/inline-helper divisor variants no change */
+/* NON_MATCHING func_002E0DE8: sn;
+ * 14 diffs: retail's div-by-zero trap tests a fresh constant 8 (v0) while div uses a long-lived s4=8, quotient reuses room's v1; ours tests the divisor reg directly and swaps s3/s4. int/short/register/inline-helper divisor variants no change */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

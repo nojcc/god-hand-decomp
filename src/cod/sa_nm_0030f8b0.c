@@ -1,11 +1,13 @@
-/* NON_MATCHING func_0030F8B0 (sn-2.95.3-136; PARK, 77 diffs): inline vector erase gets pos copied to $a0 early and
+/* NON_MATCHING func_0030F8B0 (sn-2.95.3-136;
+ * PARK, 77 diffs): inline vector erase gets pos copied to $a0 early and
  * the C50/C58 memmove tails are not cross-jumped as in retail. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 /* sn-2.95.3-136: object list sweep: release dead objects, retire objects flagged for removal
  * (drop them from the enemy or other side list, delete them and erase them from the object
- * list) and age the removal flag on the rest. The lists are vectors of object pointers. */
+ * list) and age the removal flag on the rest.
+ * The lists are vectors of object pointers. */
 typedef struct {
     int unk00;
     char **begin;                       /* 0x04 */

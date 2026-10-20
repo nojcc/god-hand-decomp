@@ -1,6 +1,8 @@
-/* NON_MATCHING func_0033EE30 (cygnus-2.96 --drop-reorder; PARK, 51 diffs): header checks and offsets match; retail
+/* NON_MATCHING func_0033EE30 (cygnus-2.96 --drop-reorder;
+ * PARK, 51 diffs): header checks and offsets match; retail
  * schedules all field-address computations ahead of the AINF length store and the 16-byte data-id copy (and keeps a
- * second register for the pan[1] address), and uses beq (not beql) on the AINF tag test. ADX AINF chunk decode:
+ * second register for the pan[1] address), and uses beq (not beql) on the AINF tag test.
+ * ADX AINF chunk decode:
  * AINF length, 16-byte data id, volume, two pan values. */
 #include "include_asm.h"
 

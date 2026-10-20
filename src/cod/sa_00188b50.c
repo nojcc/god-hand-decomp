@@ -1,6 +1,4 @@
-/* sn-2.95.3-136: NM closer handoff. */
 #include "godhand/emDamageVol.h"
-
 
 static inline void InitDmgVol(EmDmgVol *em, int col, char *sub, int kind, int w, int t)
 {

@@ -1,6 +1,8 @@
-/* NON_MATCHING func_00158FC8 (sn-2.95.3-136; PARK, 137 diffs): math and key decoding are right, but the search loops
+/* NON_MATCHING func_00158FC8 (sn-2.95.3-136;
+ * PARK, 137 diffs): math and key decoding are right, but the search loops
  * are laid out differently: retail keeps two separate rotated loops (the second starting at the first key past x) with
- * the exact-hit returns cross-jumped into one mul/add/jr tail, while this source merges them. Evaluate a quantised
+ * the exact-hit returns cross-jumped into one mul/add/jr tail, while this source merges them.
+ * Evaluate a quantised
  * Hermite curve at time x (u16 time/value/in/out keys with scale/offset dequantisation, clamped to the last key). */
 #include "include_asm.h"
 

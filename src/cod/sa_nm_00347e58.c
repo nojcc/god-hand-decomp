@@ -1,8 +1,6 @@
-/* NM, not registered. cygnus-2.96 (drop-reorder): MWSF handle concat / switch (0x347E58, 0x347FE0).
- * func_00347E58: 5 insns; retail reloads concat with lb after the concatSave store and hoists the
- *   sfd load into the delay slot; ours keeps an lbu copy.
- * func_00347FE0: 1 insn; case 1 reuses the busy=1 constant in a2 and reloads a0 (ours the reverse).
- *   Permuter matches only with a no-op "mw++; mw--;" before the case-1 call; not taken. */
+/* func_00347E58: 5 insns; retail reloads concat with lb after the concatSave store and hoists the
+ * sfd load into the delay slot; ours keeps an lbu copy.
+ * func_00347FE0: 1 insn; case 1 reuses the busy=1 constant in a2 and reloads a0 (ours the reverse). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

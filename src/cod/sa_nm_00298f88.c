@@ -1,6 +1,8 @@
-/* NON_MATCHING func_00298F88 (sn-2.95.3-136): 65 words off. This C hoists the high halves of D_00586AF0 and
+/* NON_MATCHING func_00298F88 (sn-2.95.3-136): 65 words off.
+ * This C hoists the high halves of D_00586AF0 and
  * func_002990A0 into saved registers at entry (frame 0x50, s0-s3); retail builds them just before the final
- * call (frame 0x30, s0-s1). Body otherwise as the matched func_002990A0. */
+ * call (frame 0x30, s0-s1).
+ * Body otherwise as the matched func_002990A0. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

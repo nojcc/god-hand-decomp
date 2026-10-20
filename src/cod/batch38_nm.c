@@ -1,4 +1,3 @@
-/* Batch 38 hash-breakers — not registered. */
 #include "include_asm.h"
 #include "godhand/vu0.h"
 
@@ -28,7 +27,6 @@ void *func_00312E88(void)
     VU0_SQC2_VF0(s0, 0x340);
     return s0;
 }
-
 
 #else
 INCLUDE_ASM("asm/nonmatching", func_00312E88);

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_001FE748 (sn-2.95.3-136; PARK, best 70): walk the data slots from the top; for each state-8 slot that passes the 0xFFFE check, release every slot holding the same kind. The shape and calls match. Retail rebuilds 0x5C in v0 on every outer pass (and in the back-branch delay) and hoists only the inner 0x5C into s7, so the outer mult is not shared; here both share one hoisted register and every saved register after s5 shifts by one. */
+/* NON_MATCHING func_001FE748: walk the data slots from the top; for each state-8 slot that passes the 0xFFFE check, release every slot holding the same kind.
+ * The shape and calls match.
+ * Retail rebuilds 0x5C in v0 on every outer pass (and in the back-branch delay) and hoists only the inner 0x5C into s7, so the outer mult is not shared; here both share one hoisted register and every saved register after s5 shifts by one. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

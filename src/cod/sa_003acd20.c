@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 matched TU. */
+/* sn-2.95.3-136 TU. */
 
 extern void __malloc_lock(void *reent);
 extern void __malloc_unlock(void *reent);

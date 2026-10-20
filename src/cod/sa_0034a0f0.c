@@ -1,4 +1,3 @@
-/* cygnus-2.96, --f=-freorder-blocks: NM closer handoff. */
 extern int func_0034A6F8(void *sf, int *nch, int *ntr);
 extern int func_0035A968(void *buf, int ntr);
 extern int GetArrayElemA0C_35A1C8(void *sf, int idx);

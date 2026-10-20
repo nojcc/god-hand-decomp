@@ -1,10 +1,9 @@
-/* NM, not registered. sn-2.95.3-136: CustomID panel (0x1F32A0..).
- * Colours are bitfield structs passed by value (a register), which keeps the
+/* Colours are bitfield structs passed by value (a register), which keeps the
  * per-byte and/or masks unmerged as in retail.
  * func_001F32A0: 38 insns, register choice only - retail builds col from an
- *   uninitialised a3 into a2 (from/to in t0/a2); ours uses a1 and t0/a3.
+ * uninitialised a3 into a2 (from/to in t0/a2); ours uses a1 and t0/a3.
  * CustomIDOwner_setPanelState: 3 insns, case 3 - retail hoists lui a1,0x8000 into a beql
- *   delay slot where ours puts daddu a0,s0 in a plain beq slot. */
+ * delay slot where ours puts daddu a0,s0 in a plain beq slot. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

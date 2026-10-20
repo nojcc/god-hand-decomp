@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00382660 (sn-2.95.3-136; PARK 51 at attempt 3): channel mute toggle and volume push. The control flow and the first copy loop (through c->mute) match. Retail puts sel/mix/mute in s0/s1/s2 (mine s1/s2/s0) and keeps i+1 in s0 in the last loop. */
+/* NON_MATCHING func_00382660: channel mute toggle and volume push.
+ * The control flow and the first copy loop (through c->mute) match.
+ * Retail puts sel/mix/mute in s0/s1/s2 (mine s1/s2/s0) and keeps i+1 in s0 in the last loop. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

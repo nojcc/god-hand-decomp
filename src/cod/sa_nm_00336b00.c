@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00336B00 (cygnus, switch pivot): best 40: retail's case tree pivots on 0xCB (0xC9 left; 0xCD, 0x12B, 0x191 right) while gcc picks 0xCD for these five cases; the bodies match. Single return r with drop-reorder 41, separate 0xCB/0xCD bodies 44. */
+/* NON_MATCHING func_00336B00 (cygnus, switch pivot): retail's case tree pivots on 0xCB (0xC9 left;
+ * 0xCD, 0x12B, 0x191 right) while gcc picks 0xCD for these five cases; the bodies match.
+ * Single return r with drop-reorder 41, separate 0xCB/0xCD bodies 44. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

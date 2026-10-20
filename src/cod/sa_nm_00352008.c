@@ -1,4 +1,3 @@
-/* NON_MATCHING func_00352008 (cygnus dr -fno-strict-aliasing, s4/s5 swap): best 7 with -freorder-blocks dropped and -fno-strict-aliasing (index loaded before hdr in source): identical except retail keeps out1 in s4 and a in s5 (ours the reverse). With strict aliasing best 17 (loads sink past the -1 stores, hdr gets s0). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

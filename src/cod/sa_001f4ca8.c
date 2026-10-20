@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 extern int D_00747A0C;
 extern void func_002D65F8(void *w, float a, float b, float c, float d);
 extern void func_002D6578(void *w, int v);

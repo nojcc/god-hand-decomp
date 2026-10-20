@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003301B0 (cygnus dr, branch layout/sibcalls): best 25 with -freorder-blocks dropped: separate stat/pause ifs stop fold from merging them into a masked word compare (40 otherwise); explicit returns give the sibcalls. Remaining: retail's stat==1 test is bne (not bnel) and the mode==1 sibcall block sits after the retry block with a b to the epilogue. */
+/* Remaining: retail's stat==1 test is bne (not bnel) and the mode==1 sibcall block sits after the retry block with a b to the epilogue. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

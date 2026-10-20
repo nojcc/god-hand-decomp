@@ -19060,40 +19060,6 @@
       "compiler": "sn-2.95.3-136"
     },
     {
-      "path": "src/cod/classFADE.c",
-      "compiler": "sn-2.95.3-136",
-      "c_flags_add": [
-        "-O0"
-      ],
-      "as": "sn"
-    },
-    {
-      "path": "src/cod/sa_classfade_start.c",
-      "compiler": "sn-2.95.3-136",
-      "c_flags_add": [
-        "-O0"
-      ],
-      "as": "sn"
-    },
-    {
-      "path": "src/cod/sa_003077b0.c",
-      "compiler": "sn-2.95.3-136",
-      "c_flags_add": [
-        "-O0"
-      ],
-      "as": "sn"
-    },
-    {
-      "path": "src/cod/phase_a_cygnus_eh.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ],
-      "c_flags_add": [
-        "-f=-fno-align-jumps"
-      ]
-    },
-    {
       "path": "src/cod/sa_00144c90.c",
       "compiler": "sn-2.95.3-136",
       "as": "sn"
@@ -19210,13 +19176,6 @@
       ]
     },
     {
-      "path": "src/cod/sa_00324950.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
-    },
-    {
       "path": "src/cod/sa_0017b2e0.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -19238,22 +19197,8 @@
       "compiler": "sn-2.95.3-136"
     },
     {
-      "path": "src/cod/sa_00360950.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
-    },
-    {
       "path": "src/cod/sa_00294f70.c",
       "compiler": "sn-2.95.3-136"
-    },
-    {
-      "path": "src/cod/sa_0032ca10.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
     },
     {
       "path": "src/cod/sa_0030f348.c",
@@ -19380,13 +19325,6 @@
       "compiler": "ee-2.9-991111"
     },
     {
-      "path": "src/cod/sa_00337728.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
-    },
-    {
       "path": "src/cod/sa_001a5540.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -19462,11 +19400,6 @@
       "compiler": "sn-2.95.3-136"
     },
     {
-      "path": "src/cod/sa_001538f0.c",
-      "compiler": "sn-2.95.3-136",
-      "fp_hazard_rules": "fdiv"
-    },
-    {
       "path": "src/cod/sa_0016f790.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -19481,14 +19414,6 @@
     {
       "path": "src/cod/sa_001c0450.c",
       "compiler": "sn-2.95.3-136"
-    },
-    {
-      "path": "src/cod/sa_002ac6e0.c",
-      "compiler": "sn-2.95.3-136",
-      "fp_hazard_rules": "fdiv",
-      "c_flags_add": [
-        "-f=-ffast-math"
-      ]
     },
     {
       "path": "src/cod/sa_00348e18.c",
@@ -19585,10 +19510,6 @@
       "compiler": "sn-2.95.3-136"
     },
     {
-      "path": "src/cod/sa_0030f090.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
       "path": "src/cod/sa_003092e0.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -19635,13 +19556,6 @@
     },
     {
       "path": "src/cod/sa_00327048.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
-    },
-    {
-      "path": "src/cod/sa_00337400.c",
       "compiler": "cygnus-2.96",
       "c_flags_drop": [
         "-f=-freorder-blocks"
@@ -19705,10 +19619,6 @@
       "compiler": "sn-2.95.3-136"
     },
     {
-      "path": "src/cod/sa_003780f8.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
       "path": "src/cod/sa_003547b0.c",
       "compiler": "cygnus-2.96",
       "c_flags_drop": [
@@ -19719,14 +19629,6 @@
       "path": "src/cod/sa_0037bf10.c",
       "compiler": "sn-2.95.3-136",
       "as": "sn"
-    },
-    {
-      "path": "src/cod/sa_00135040.c",
-      "compiler": "sn-2.95.3-136",
-      "fp_hazard_rules": "fdiv",
-      "c_flags_add": [
-        "-f=-ffast-math"
-      ]
     },
     {
       "path": "src/cod/sa_001ab730.c",
@@ -19750,13 +19652,6 @@
     {
       "path": "src/cod/sa_0027bb78.c",
       "compiler": "sn-2.95.3-136"
-    },
-    {
-      "path": "src/cod/sa_003315d8.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
     },
     {
       "path": "src/cod/sa_003769b0.c",
@@ -19845,10 +19740,6 @@
     },
     {
       "path": "src/cod/sa_0037c930.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
-      "path": "src/cod/sa_002bf568.c",
       "compiler": "sn-2.95.3-136"
     },
     {
@@ -20058,6 +19949,16 @@
     {
       "path": "src/cod/sa_00394668.c",
       "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/003214d0.c",
+      "compiler": "cygnus-2.96",
+      "c_flags_drop": [
+        "-f=-freorder-blocks"
+      ],
+      "c_flags_add": [
+        "-f=-fno-align-jumps"
+      ]
     }
   ],
   "_carved_funcs_doc": [
@@ -86313,13 +86214,6 @@
       "tu": "src/cod/00382898.c"
     },
     {
-      "name": "func_003780F8",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x003780F8",
-      "size": 132,
-      "tu": "src/cod/003780f8.c"
-    },
-    {
       "name": "func_0037D558",
       "unit": "asm/cod/000000",
       "vaddr": "0x0037D558",
@@ -86831,39 +86725,11 @@
       "tu": "src/cod/00382660.c"
     },
     {
-      "name": "func_003077B0",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x003077B0",
-      "size": 52,
-      "tu": "src/cod/sa_003077b0.c"
-    },
-    {
-      "name": "func_00307840",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00307840",
-      "size": 52,
-      "tu": "src/cod/sa_003077b0.c"
-    },
-    {
-      "name": "func_003077E8",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x003077E8",
-      "size": 88,
-      "tu": "src/cod/sa_003077b0.c"
-    },
-    {
       "name": "__uncatch_exception",
       "unit": "asm/cod/000000",
       "vaddr": "0x003214D0",
       "size": 48,
-      "tu": "src/cod/phase_a_cygnus_eh.c"
-    },
-    {
-      "name": "classFADE_start",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00307208",
-      "size": 380,
-      "tu": "src/cod/sa_classfade_start.c"
+      "tu": "src/cod/003214d0.c"
     },
     {
       "name": "func_0039B960",
@@ -86871,13 +86737,6 @@
       "vaddr": "0x0039B960",
       "size": 448,
       "tu": "src/cod/sa_0039b960.c"
-    },
-    {
-      "name": "MoveObj",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x0030F090",
-      "size": 404,
-      "tu": "src/cod/sa_0030f090.c"
     },
     {
       "name": "func_003514B8",
@@ -86901,13 +86760,6 @@
       "tu": "src/cod/sa_0017dcb8.c"
     },
     {
-      "name": "func_00360950",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00360950",
-      "size": 340,
-      "tu": "src/cod/sa_00360950.c"
-    },
-    {
       "name": "func_00379190",
       "unit": "asm/cod/000000",
       "vaddr": "0x00379190",
@@ -86915,25 +86767,11 @@
       "tu": "src/cod/sa_00379190.c"
     },
     {
-      "name": "func_00135040",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00135040",
-      "size": 408,
-      "tu": "src/cod/sa_00135040.c"
-    },
-    {
       "name": "func_00381F18",
       "unit": "asm/cod/000000",
       "vaddr": "0x00381F18",
       "size": 420,
       "tu": "src/cod/sa_00381f18.c"
-    },
-    {
-      "name": "func_002AC6E0",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x002AC6E0",
-      "size": 404,
-      "tu": "src/cod/sa_002ac6e0.c"
     },
     {
       "name": "func_003769B0",
@@ -86957,13 +86795,6 @@
       "tu": "src/cod/sa_0036a3e8.c"
     },
     {
-      "name": "func_0032CA10",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x0032CA10",
-      "size": 380,
-      "tu": "src/cod/sa_0032ca10.c"
-    },
-    {
       "name": "__frame_state_for",
       "unit": "asm/cod/000000",
       "vaddr": "0x00322570",
@@ -86985,13 +86816,6 @@
       "tu": "src/cod/sa_001a5208.c"
     },
     {
-      "name": "Trans_Clipmatrix_set",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x001538F0",
-      "size": 528,
-      "tu": "src/cod/sa_001538f0.c"
-    },
-    {
       "name": "func_00383878",
       "unit": "asm/cod/000000",
       "vaddr": "0x00383878",
@@ -87011,13 +86835,6 @@
       "vaddr": "0x00376B80",
       "size": 376,
       "tu": "src/cod/sa_00376b80.c"
-    },
-    {
-      "name": "func_003315D8",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x003315D8",
-      "size": 284,
-      "tu": "src/cod/sa_003315d8.c"
     },
     {
       "name": "func_00148420",
@@ -87046,34 +86863,6 @@
       "vaddr": "0x0031CDC0",
       "size": 120,
       "tu": "src/cod/sa_0031cdc0.c"
-    },
-    {
-      "name": "func_00337728",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00337728",
-      "size": 716,
-      "tu": "src/cod/sa_00337728.c"
-    },
-    {
-      "name": "func_002BF568",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x002BF568",
-      "size": 404,
-      "tu": "src/cod/sa_002bf568.c"
-    },
-    {
-      "name": "func_00337400",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00337400",
-      "size": 808,
-      "tu": "src/cod/sa_00337400.c"
-    },
-    {
-      "name": "func_00324950",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00324950",
-      "size": 368,
-      "tu": "src/cod/sa_00324950.c"
     },
     {
       "name": "func_003A93F8",

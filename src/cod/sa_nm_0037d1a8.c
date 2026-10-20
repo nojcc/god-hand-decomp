@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0037D1A8 (sn-2.95.3-136, as=sn): 28 words vs 30; the filter chain matches, but retail branches to a separate id-compare block (with two hazard nops) and falls through to return e when id is 0. Goto/nested/drop-reorder variants tried. */
+/* NON_MATCHING func_0037D1A8 (sn-2.95.3-136, as=sn): 28 words vs 30; the filter chain matches, but retail branches to a separate id-compare block (with two hazard nops) and falls through to return e when id is 0.
+ * Goto/nested/drop-reorder variants tried. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002FBB78 (NEAR-MISS): sn; same loop as Esp_killByGroupNumber; 32 diffs, all from one register choice: retail keeps the slot pointer in a2 (the third call argument) while ours uses a3 and copies it to a2 before the vtable call, adding one insn; hoisted this-adjust, local fn pointer, re-derived slot pointer forms no fix */
+/* NON_MATCHING func_002FBB78: sn; same loop as Esp_killByGroupNumber;
+ * 32 diffs, all from one register choice: retail keeps the slot pointer in a2 (the third call argument) while ours uses a3 and copies it to a2 before the vtable call, adding one insn; hoisted this-adjust, local fn pointer, re-derived slot pointer forms no fix */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

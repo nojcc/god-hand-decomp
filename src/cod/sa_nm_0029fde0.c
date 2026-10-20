@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0029FDE0 (sn-2.95.3-136; PARK, 7 diffs): only the loop pre-header order differs; retail sets the i*32+0x1F counter after the hoisted 64-bit constants, ours before. 0x800 sits in a local so loop.c leaves it in the loop. */
+/* NON_MATCHING func_0029FDE0 (sn-2.95.3-136;
+ * PARK, 7 diffs): only the loop pre-header order differs; retail sets the i*32+0x1F counter after the hoisted 64-bit constants, ours before.
+ * 0x800 sits in a local so loop.c leaves it in the loop. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

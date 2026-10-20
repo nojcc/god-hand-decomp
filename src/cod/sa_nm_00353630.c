@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00353630 (cygnus-2.96, -freorder-blocks dropped; PARK 82 at attempt 4): decide whether the next SFD frame is due: hand off to the time callback when set, else correct the time and test it against the frame clock. Control flow and loads match; retail holds t/rate/cnt in s4/s3/s5 (here s3/s5/s4) and uses a0 as the base temp, so it re-copies s and mode before the callback (3 words). Declaration order changes nothing; direct s->tmr access loses the two clock base registers (91). */
+/* NON_MATCHING func_00353630: decide whether the next SFD frame is due: hand off to the time callback when set, else correct the time and test it against the frame clock.
+ * Control flow and loads match; retail holds t/rate/cnt in s4/s3/s5 (here s3/s5/s4) and uses a0 as the base temp, so it re-copies s and mode before the callback (3 words).
+ * Declaration order changes nothing; direct s->tmr access loses the two clock base registers (91). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

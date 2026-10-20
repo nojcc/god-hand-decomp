@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0038F200 (ee-2.9-991111; PARK, 98 diffs): frame and saved regs match, but retail reads D_003FA62C after the field stores and walks the dest pointer itself in the 0x60-byte copy loop. */
+/* NON_MATCHING func_0038F200 (ee-2.9-991111;
+ * PARK, 98 diffs): frame and saved regs match, but retail reads D_003FA62C after the field stores and walks the dest pointer itself in the 0x60-byte copy loop. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

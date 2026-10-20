@@ -1,4 +1,6 @@
-/* NON_MATCHING func_003BBEC0 (cygnus-2.96, drop-reorder; PARK): backward scan of a counted string. Best 23. Retail sign-extends the char with sll/sra and a dead stack store, and builds -1 with lui/ori. */
+/* NON_MATCHING func_003BBEC0 (cygnus-2.96, drop-reorder;
+ * PARK): backward scan of a counted string.
+ * Retail sign-extends the char with sll/sra and a dead stack store, and builds -1 with lui/ori. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

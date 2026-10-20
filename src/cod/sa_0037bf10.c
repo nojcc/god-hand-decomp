@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 (as sn): func_0037BF10, start a voice pair for a sound request: take a channel node and a voice node,
+/* sn-2.95.3-136 (): func_0037BF10, start a voice pair for a sound request: take a channel node and a voice node,
  * link them, and when the request is sequenced find the channel's slot in D_0076CEC0 and start the sequence there. */
 extern char D_0076CEC0[];
 extern int D_00773250[];

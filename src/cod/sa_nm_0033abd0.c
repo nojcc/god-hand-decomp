@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0033ABD0 (cyg,near-miss,branch-likely): best 12 (cyg dr): matches except (1) retail uses bnel at the used!=0 test, with sltiu id<4 in the slot, while ours uses bne; (2) retail's tail shares one sltiu for both modes (bnel xor / slt -> sltiu), while ours emits xori+sltiu with a separate branch. A shared t-variable form if-converts to movz. */
+/* NON_MATCHING func_0033ABD0: matches except (1) retail uses bnel at the used!=0 test, with sltiu id<4 in the slot, while ours uses bne; (2) retail's tail shares one sltiu for both modes (bnel xor / slt -> sltiu), while ours emits xori+sltiu with a separate branch.
+ * A shared t-variable form if-converts to movz. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

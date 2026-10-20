@@ -1,5 +1,4 @@
 #include "include_asm.h"
-/* NM, not registered. sn-2.95.3-136: EE timer 0 interrupt and the VRAM clear at 0x30D1F8. */
 
 typedef unsigned int u_int;
 typedef struct { unsigned char data[0x60]; } sceGsLoadImage;
@@ -19,7 +18,8 @@ extern int func_00395758(sceGsLoadImage *lp, void *src);
 extern int func_003950F8(int mode, int timeout);
 
 #ifdef NON_MATCHING
-/* Retail leaves the AddIntcHandler delay slot empty; SN fills it with the T0_MODE store. */
+/* Retail leaves the AddIntcHandler delay slot empty;
+ * SN fills it with the T0_MODE store. */
 #else
 #endif
 
@@ -45,7 +45,6 @@ void func_0030D258(void)
 #else
 INCLUDE_ASM("asm/nonmatching", func_0030D258);
 #endif
-
 
 /* The parts of the game work block at D_007474A0 this function names. */
 typedef struct GameWorkBoot {

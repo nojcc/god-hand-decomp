@@ -1,6 +1,8 @@
-/* NON_MATCHING func_0019AF80 (sn-2.95.3-136 -f=-fno-gcse; PARK, 50 diffs): setup and part flagging match; retail keeps
+/* NON_MATCHING func_0019AF80 (sn-2.95.3-136 -f=-fno-gcse;
+ * PARK, 50 diffs): setup and part flagging match; retail keeps
  * the outer range loop un-strength-reduced (j*2 recomputed, t1 = table, t3 = table + 1) and enters the inner loop at a
- * bottom test, while this source gets a pointer-walked outer loop and a rotated inner one. Damage-take volume, mesh
+ * bottom test, while this source gets a pointer-walked outer loop and a rotated inner one.
+ * Damage-take volume, mesh
  * layers, then flags parts in the D_004258D8 (start, count) ranges 2 and 3 with 0x8 and 0x10. */
 #include "include_asm.h"
 

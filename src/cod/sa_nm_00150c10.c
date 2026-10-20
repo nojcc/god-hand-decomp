@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00150C10 (sn-2.95.3-136; PARK 17 at attempt 3): draw one glyph at the cursor (mode 0 direct, mode 1 through the font lookup, which can resolve it outright) and advance the cursor from the glyph table; returns the old glyph index, or -1. Structure matches; retail allocates the result to t0 (the lookup result goes v0 -> a0 -> t0) where ours uses a3, which also shifts the glyph-info load. */
+/* NON_MATCHING func_00150C10: draw one glyph at the cursor (mode 0 direct, mode 1 through the font lookup, which can resolve it outright) and advance the cursor from the glyph table; returns the old glyph index, or -1.
+ * Structure matches; retail allocates the result to t0 (the lookup result goes v0 -> a0 -> t0) where ours uses a3, which also shifts the glyph-info load. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

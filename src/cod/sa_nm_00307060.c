@@ -1,6 +1,5 @@
-/* NM, not registered. sn-2.95.3-136: espSys memory pool free-list coalesce (0x307060).
- * func_00307060: 5 insns, register allocation only - retail loads node->base
- *   into a0 and nx->base into v1 (ours v0/a0) for the adjacency compare. */
+/* func_00307060: 5 insns, register allocation only - retail loads node->base
+ * into a0 and nx->base into v1 (ours v0/a0) for the adjacency compare. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

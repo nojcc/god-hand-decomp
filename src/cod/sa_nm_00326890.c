@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00326890 (cygnus-2.96 drop-reorder; PARK, 174 diffs): stream header parse; retail assembler padded the two-block zero-skip loop with 3 nops after the inner exit branch, which our ee-as never does (multi-block), so everything after it is shifted by 3 words */
+/* NON_MATCHING func_00326890 (cygnus-2.96 drop-reorder;
+ * PARK, 174 diffs): stream header parse; retail assembler padded the two-block zero-skip loop with 3 nops after the inner exit branch, which our ee-as never does (multi-block), so everything after it is shifted by 3 words */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -14,7 +15,6 @@ extern char D_00451E68[];
 extern char D_00451E88[];
 extern char D_00451EA8[];
 extern void (*D_003CF9EC)(void *a0, int a1);
-
 
 void func_00326890(char *self)
 {

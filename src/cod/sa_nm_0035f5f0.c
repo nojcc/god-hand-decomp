@@ -1,6 +1,5 @@
-/* NM, not registered. cygnus-2.96 (drop-reorder): SFX stream table entry setup (0x35F5F0).
- * func_0035F5F0: same length; entry base/index register pair swapped (s0/s1) and the
- *   prologue saves are interleaved differently. */
+/* func_0035F5F0: same length; entry base/index register pair swapped (s0/s1) and the
+ * prologue saves are interleaved differently. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

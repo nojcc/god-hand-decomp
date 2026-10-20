@@ -1,4 +1,5 @@
-/* NON_MATCHING MoveEmitter (sn-2.95.3-136; PARK, 118 diffs): control flow and calls match; loop invariant motion
+/* NON_MATCHING MoveEmitter (sn-2.95.3-136;
+ * PARK, 118 diffs): control flow and calls match; loop invariant motion
  * differs: retail keeps the D_00741940 / D_0071B940 bases and 0x80000000 in the loop (mtlo/madd slot address) and
  * hoists the 0x40000000 / 0x4000000 masks plus the D_00741960 / D_00741980 bases instead. */
 #include "include_asm.h"

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00158CD0 (sn-2.95.3-136, fp_hazard_rules fdiv,mtc1; PARK, 155 diffs): Hermite key-curve eval.
+/* NON_MATCHING func_00158CD0 (sn-2.95.3-136, fp_hazard_rules fdiv,mtc1;
+ * PARK, 155 diffs): Hermite key-curve eval.
  * Loop shape matches; ours keeps an i*4 giv in the first loop for the second, and the Hermite tail's FP regs and
  * schedule differ. */
 #include "include_asm.h"

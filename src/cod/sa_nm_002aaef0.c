@@ -1,4 +1,5 @@
-/* NON_MATCHING cIDBase_transTex (abi-stack-args): sn: same ABI wall as cIDBase_transSprite: retail stores w,h,0,1.0 x2 straight into the outgoing stack area; 16-byte aligned structs go by reference, aligned(8) pairs go through 64-bit regs */
+/* NON_MATCHING cIDBase_transTex (abi-stack-args): sn: same ABI wall as cIDBase_transSprite: retail stores w,h,0,1.0 x2 straight into the outgoing stack area;
+ * 16-byte aligned structs go by reference, aligned(8) pairs go through 64-bit regs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

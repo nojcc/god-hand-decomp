@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00350528 (cyg,near-miss,regalloc): best 2 (cyg dr): the only difference is the loop body's base registers; retail stores used=0 through v1 and ptr through the v0 copy, ours the other way round. A pointer-local entry form scores worse (31). */
+/* NON_MATCHING func_00350528: the only difference is the loop body's base registers; retail stores used=0 through v1 and ptr through the v0 copy, ours the other way round.
+ * A pointer-local entry form scores worse (31). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_002B1890 (sn-2.95.3-136, "as": "sn"; PARK, 2 diffs): retail schedules x1 = x0 + 21 before wm = w - 42; no source order changes it; good permuter candidate */
+/* NON_MATCHING func_002B1890 (sn-2.95.3-136, "as": "sn"; */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

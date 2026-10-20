@@ -1,4 +1,3 @@
-/* halt demote func_00208858 */
 #ifdef NON_MATCHING
 s32 ClearAndResetFields_1FE278(char *, s32);           /* extern */
 void NoOp_208260();                                    /* extern */

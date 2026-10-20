@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 typedef struct Sys30B298 {
     char pad000[0x569];
     unsigned char b569;                 /* 0x569 */

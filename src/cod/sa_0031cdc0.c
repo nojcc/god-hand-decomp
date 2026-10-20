@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 __attribute__((section(".text.func_0031CDC0")))
 int *func_0031CDC0(int *base, int *key, int *alt, int nth)
 {

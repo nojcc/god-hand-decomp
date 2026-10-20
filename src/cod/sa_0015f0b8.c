@@ -1,4 +1,3 @@
-/* sn-2.95.3-136, as=sn: NM closer handoff. */
 /* Draw_Line_sc: draw a screen-space polyline: offset each point into GS window coordinates,
  * flag points outside the 0..4095.9 window and draw a segment only when both ends are inside. */
 typedef struct {

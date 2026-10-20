@@ -1,4 +1,3 @@
-/* sn-2.95.3-136, as=sn, call_loop_pad: NM closer handoff. */
 __attribute__((section(".text.func_003A93F8")))
 char *func_003A93F8(char *s, char *p)
 {

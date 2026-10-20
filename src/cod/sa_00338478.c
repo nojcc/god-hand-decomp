@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_00338478, once every channel's stream holds a full
+/* cygnus-2.96: func_00338478, once every channel's stream holds a full
  * block, drain one block from each channel and restart its decoder. */
 typedef struct SJ338 SJ338;
 typedef struct {

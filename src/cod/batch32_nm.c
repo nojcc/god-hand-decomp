@@ -1,7 +1,5 @@
-/* Batch 32 near-misses — not registered.
- * 116: mode switch sb schedule / shared block.
- * 96: slot write s1/s2 arg save order (8–15 words).
- * 6-attempt cap. */
+/* mode switch sb schedule / shared block.
+ * slot write s1/s2 arg save order (8–15 words). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -11,10 +9,6 @@ __attribute__((section(".text.func_002831C8")))
 void func_002831C8(char *self, int mode, unsigned int val)
 {
     unsigned char v = (unsigned char)val;
-    int three;
-    int two;
-    int four;
-    int six;
 
     if (mode == 1)
         goto m1;
@@ -26,33 +20,27 @@ void func_002831C8(char *self, int mode, unsigned int val)
         goto m3;
     return;
 m0:
-    three = 3;
     self[0x2F7] = v;
-    self[0x2F5] = (char)three;
+    self[0x2F5] = 3;
     self[0x2F4] = 0;
     self[0x2F6] = 0;
     return;
 m1:
-    three = 3;
-    two = 2;
     self[0x2F7] = v;
-    self[0x2F5] = (char)three;
-    self[0x2F6] = (char)two;
+    self[0x2F5] = 3;
+    self[0x2F6] = 2;
     self[0x2F4] = 0;
     return;
 m2:
-    three = 3;
-    four = 4;
     self[0x2F7] = v;
-    self[0x2F5] = (char)three;
-    self[0x2F6] = (char)four;
+    self[0x2F5] = 3;
+    self[0x2F6] = 4;
     self[0x2F4] = 0;
     return;
 m3:
-    six = 6;
     self[0x2F7] = v;
     self[0x2F5] = (char)mode;
-    self[0x2F6] = (char)six;
+    self[0x2F6] = 6;
     self[0x2F4] = 0;
 }
 

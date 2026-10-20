@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00300458 (sn-2.95.3-136; PARK at attempt 3, score 97): pool allocator. Control flow and switch compare tree match retail; retail hoists kind<2 and the case constants 1/2/3 into s2-s5 before the loop (frame 0x70), this hoists only 1 (frame 0x40) and fills the switch delay slots instead. */
+/* NON_MATCHING func_00300458: pool allocator.
+ * Control flow and switch compare tree match retail; retail hoists kind<2 and the case constants 1/2/3 into s2-s5 before the loop (frame 0x70), this hoists only 1 (frame 0x40) and fills the switch delay slots instead. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

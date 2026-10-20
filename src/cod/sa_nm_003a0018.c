@@ -1,4 +1,5 @@
-/* NON_MATCHING _initSeq (ee-2.9-991111; PARK, 12 diffs): libmpeg sequence/frame setup; size multiply operands come out swapped (w*384 first, retail ht*384) and the scheduler pairs the fr[2]/fr[5] b2 stores differently in the uncached-address branch */
+/* NON_MATCHING _initSeq (ee-2.9-991111;
+ * PARK, 12 diffs): libmpeg sequence/frame setup; size multiply operands come out swapped (w*384 first, retail ht*384) and the scheduler pairs the fr[2]/fr[5] b2 stores differently in the uncached-address branch */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -56,7 +57,6 @@ static inline void setFr(MpFrame *f, int w, int h)
     f->mbw = w >> 4;
     f->mbh = h >> 4;
 }
-
 
 void _initSeq(MpHdl *h)
 {

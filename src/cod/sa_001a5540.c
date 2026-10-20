@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 extern char D_005864F0[];
 extern char D_00747B00[];
 extern float cEmManage_GetSpeedRate(void *a0);

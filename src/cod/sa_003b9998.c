@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_003B9998, set up the ADX decoder for the handle (same shape as
+/* cygnus-2.96: func_003B9998, set up the ADX decoder for the handle (same shape as
  * func_00336BA8): reset and configure, create the decoder under the lock, then install the five callbacks. */
 typedef struct Work3B9998 {
     char pad0[0xC0];

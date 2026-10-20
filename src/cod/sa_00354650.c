@@ -1,4 +1,3 @@
-/* cygnus-2.96, --f=-freorder-blocks: NM closer handoff. */
 typedef struct Sf354650 {
     char pad0[0x38];
     int mode;               /* 0x38 */

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00274150 (sn-2.95.3-136): 14 insns, same size. Switch decision tree halves are laid out in the opposite order (retail falls into the > 0x260 side and branches to the low side); case 0x260 in retail shares the FindNodeByHit-failed return block. */
+/* NON_MATCHING func_00274150 (sn-2.95.3-136): 14 insns, same size.
+ * Switch decision tree halves are laid out in the opposite order (retail falls into the > 0x260 side and branches to the low side); case 0x260 in retail shares the FindNodeByHit-failed return block. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

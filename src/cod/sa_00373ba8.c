@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 typedef struct Strm373BA8 {
     void *handle;                       /* 0x00 */
     void *mem;                          /* 0x04 */

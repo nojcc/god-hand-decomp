@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0037CF00 (sn-2.95.3-136; STOP near-miss 3): voice allocator over the D_0076C8C0 table. Return a free voice in [base, base+last]; otherwise steal the oldest voice at the lowest priority if the request's priority allows it (equal priority needs flag 0x20). Only diff: retail builds the loop-2 base as (D+0x1E)+base*32 with 0x1E added separately; ours folds it into the lb offset (or into %lo when written as byte arithmetic). */
+/* NON_MATCHING func_0037CF00: voice allocator over the D_0076C8C0 table.
+ * Return a free voice in [base, base+last]; otherwise steal the oldest voice at the lowest priority if the request's priority allows it (equal priority needs flag 0x20).
+ * Only diff: retail builds the loop-2 base as (D+0x1E)+base*32 with 0x1E added separately; ours folds it into the lb offset (or into %lo when written as byte arithmetic). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

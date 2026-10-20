@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003454F0 (store-order,cross-jump): then-path matches via explicit locals; else-path store order (retail C,0,8,4) cannot be steered, so cross-jumping merges sw v0,8(a1) tails; 7 diffs */
+/* NON_MATCHING func_003454F0 (store-order,cross-jump): then-path matches via explicit locals; else-path store order (retail C,0,8,4) cannot be steered, so cross-jumping merges sw v0,8(a1) tails;
+ * 7 diffs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

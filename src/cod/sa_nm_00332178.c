@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00332178 (cygnus-2.96 with -freorder-blocks dropped; near-miss 27 at attempt 3): DTX remote slot open with alignment checks. Remaining: retail keeps id in t0 (mine a1) and reuses t0 for the used byte, and retail fills the arg2-check beqz delay slot with the following bufsize andi; else-if chains and wrapped bodies are far worse (91-99). */
+/* NON_MATCHING func_00332178: DTX remote slot open with alignment checks.
+ * Remaining: retail keeps id in t0 (mine a1) and reuses t0 for the used byte, and retail fills the arg2-check beqz delay slot with the following bufsize andi; else-if chains and wrapped bodies are far worse (91-99). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

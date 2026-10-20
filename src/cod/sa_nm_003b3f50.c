@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003B3F50 (ee-2.9-991111; PARK, 19 diffs): code shape matches; retail computes the
+/* NON_MATCHING func_003B3F50 (ee-2.9-991111;
+ * PARK, 19 diffs): code shape matches; retail computes the
  * D_00781740 address into s0/s1 before sceSifInitRpc (this swaps s0/s1), and the split asm pairs the delay loop's
  * lui 0x10 / addiu -1 as %hi/%lo of the auto symbol D_FFFFF, which no C source reproduces. */
 #include "include_asm.h"

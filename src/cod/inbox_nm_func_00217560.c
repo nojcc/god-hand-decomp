@@ -1,4 +1,3 @@
-/* halt demote func_00217560 */
 #ifdef NON_MATCHING
 void *Getplayer();                                  /* extern */
 s32 Obj0000_Get_Byte_17C3_NZ_2_276468(char *);      /* extern */

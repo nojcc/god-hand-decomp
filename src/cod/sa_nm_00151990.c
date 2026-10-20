@@ -1,13 +1,12 @@
 #include "godhand/gameWork.h"
 
-/* NM, not registered. sn-2.95.3-136: TIM2 texture upload (0x151990).
- * Needs the TU flag "as": "sn" (ps2eeas expands the 64-bit dli masks as
- * ori/dsll; ee-as uses lui), which sa_register cannot set. With
+/* Needs the TU flag "as": "sn" (ps2eeas expands the 64-bit dli masks as
+ * ori/dsll; ee-as uses lui), which sa_register cannot set.
+ * With
  * --assembler=sn: 85 differing insns, bitfield-op scheduling and the
  * format ?: register choice; register allocation otherwise matches. */
 #include "include_asm.h"
 #include "godhand/tim2.h"
-
 
 #ifdef NON_MATCHING
 void func_00151990(TexWork *w, Tim2File *tim, unsigned int *pa, unsigned int *pb, int type)

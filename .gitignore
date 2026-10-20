@@ -4628,7 +4628,8 @@
 !src/cod/sa_classfade_start.c
 !src/cod/sa_003077b0.c
 
-!progress/PROGRESS.md
+
+!src/cod/003214d0.c!progress/PROGRESS.md
 !progress/batch_log.md
 !progress/pending_headers.md
 !progress/nm_closer_log.md
@@ -4639,7 +4640,6 @@
 !src/cod/sa_00321288.c
 !src/cod/sa_003448b0.c
 !src/cod/sa_0030da08.c
-!src/cod/sa_003780f8.c
 !src/cod/sa_00195d08.c
 !src/cod/sa_00327418.c
 !src/cod/sa_00348670.c
@@ -4650,7 +4650,6 @@
 !src/cod/sa_001dcef0.c
 !src/cod/sa_0017ac90.c
 !src/cod/sa_00348e18.c
-!src/cod/sa_00360950.c
 !src/cod/sa_001aef40.c
 !src/cod/sa_001d4df0.c
 !src/cod/sa_001dc980.c
@@ -4668,11 +4667,9 @@
 !src/cod/sa_00332398.c
 !src/cod/sa_0036ee90.c
 !src/cod/sa_0034eb98.c
-!src/cod/sa_00324950.c
 !src/cod/sa_00332c00.c
 !src/cod/sa_00334520.c
 !src/cod/sa_00376b80.c
-!src/cod/sa_0032ca10.c
 !src/cod/sa_00148420.c
 !src/cod/sa_00178618.c
 !src/cod/sa_001fff80.c
@@ -4694,16 +4691,12 @@
 !src/cod/sa_001bf8c8.c
 !src/cod/sa_003b6c28.c
 !src/cod/sa_0019dfb8.c
-!src/cod/sa_002ac6e0.c
-!src/cod/sa_002bf568.c
-!src/cod/sa_0030f090.c
 !src/cod/sa_0032e488.c
 !src/cod/sa_00333560.c
 !src/cod/sa_0037cae0.c
 !src/cod/sa_0030b298.c
 !src/cod/sa_00325638.c
 !src/cod/sa_00333ce0.c
-!src/cod/sa_00135040.c
 !src/cod/sa_00181118.c
 !src/cod/sa_001af098.c
 !src/cod/sa_001b67d0.c
@@ -4761,7 +4754,6 @@
 !src/cod/sa_0017b0d8.c
 !src/cod/sa_0032cc90.c
 !src/cod/sa_0036a3e8.c
-!src/cod/sa_001538f0.c
 !src/cod/sa_003a9018.c
 !src/cod/sa_0013ee58.c
 !src/cod/sa_002be240.c
@@ -4800,7 +4792,6 @@
 !src/cod/sa_003b9f60.c
 !src/cod/sa_003514b8.c
 !src/cod/sa_0017dcb8.c
-!src/cod/sa_00337728.c
 !src/cod/sa_002c0f90.c
 !src/cod/sa_00275da8.c
 !src/cod/sa_0016f4a8.c
@@ -4821,8 +4812,6 @@
 !src/cod/sa_001f20f8.c
 !src/cod/sa_001f4ca8.c
 !src/cod/sa_00276f18.c
-!src/cod/sa_003315d8.c
-!src/cod/sa_00337400.c
 !src/cod/sa_0034a0f0.c
 !src/cod/sa_0034f4c0.c
 !src/cod/sa_002d3d88.c

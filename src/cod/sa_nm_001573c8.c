@@ -1,5 +1,4 @@
-/* NM, not registered. sn-2.95.3-136: XZ quad test and RoundFloat (0x1573C8..).
- * func_001573C8: 13 differing insns, bz/dz FP registers swapped (f7/f8).
+/* func_001573C8: 13 differing insns, bz/dz FP registers swapped (f7/f8).
  * RoundFloat: retail keeps the truncated int in an FPR (cvt.w.s ->
  * cvt.s.w, twice); ours goes trunc.w.s/mfc1/mtc1. */
 #include "include_asm.h"

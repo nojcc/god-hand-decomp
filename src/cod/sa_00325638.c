@@ -1,4 +1,3 @@
-/* cygnus-2.96, --f=-freorder-blocks: NM closer handoff. */
 typedef struct TPrm325638 {
     int prio_lock;                      /* 0x00 */
     int prio_safe;                      /* 0x04 */

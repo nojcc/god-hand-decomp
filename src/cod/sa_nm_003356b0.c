@@ -1,4 +1,6 @@
-/* NON_MATCHING func_003356B0 (cygnus-2.96 with -freorder-blocks dropped; near-miss 2 at attempt 3): CRI LSC request push. The second error message must pass name (keeps the two error tails from cross-jumping) and the previous-slot index needs its own local. Remaining: retail stores the entry fields in 0x10, 0x14, 0x1C, 0x18, 0x0C order with arg2 in s6; every source order of the five stores (120 tried) leaves at least the 0x0C/0x1C pair swapped. */
+/* NON_MATCHING func_003356B0: CRI LSC request push.
+ * The second error message must pass name (keeps the two error tails from cross-jumping) and the previous-slot index needs its own local.
+ * Remaining: retail stores the entry fields in 0x10, 0x14, 0x1C, 0x18, 0x0C order with arg2 in s6; every source order of the five stores (120 tried) leaves at least the 0x0C/0x1C pair swapped. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

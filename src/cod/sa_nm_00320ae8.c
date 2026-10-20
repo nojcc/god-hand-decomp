@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00320AE8 (ee-2.9-991111; PARK, 191 diffs): tree walk with 0x2F0 node copies; retail spills the save/flag locals and keeps b/first/out in s7/s6/fp, ours spills b/first; retail also keeps a dead lb/li 2 tail */
+/* NON_MATCHING func_00320AE8 (ee-2.9-991111;
+ * PARK, 191 diffs): tree walk with 0x2F0 node copies; retail spills the save/flag locals and keeps b/first/out in s7/s6/fp, ours spills b/first; retail also keeps a dead lb/li 2 tail */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002C21A0 (sn-2.95.3-136; PARK 47 at attempt 4): event flag command setting or clearing one of 64 bits in the global or stage flag words. Global path matches; in the stage path retail gives the set and clear arms different bit registers (v1 / a1, bnel with a duplicated lhu), mine shares v1. */
+/* NON_MATCHING func_002C21A0: event flag command setting or clearing one of 64 bits in the global or stage flag words.
+ * Global path matches; in the stage path retail gives the set and clear arms different bit registers (v1 / a1, bnel with a duplicated lhu), mine shares v1. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

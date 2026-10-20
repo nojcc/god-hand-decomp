@@ -1,4 +1,7 @@
-/* NON_MATCHING func_0028A780 (sn-2.95.3-136; STOP, best 71): state byte 0x2F6. Zero rolls a resource pair and a sound, then falls into the countdown; one runs the countdown; anything else returns. The switch gives retail's beqz/beql dispatch. Retail keeps a dead andi after the first Rnd() (id not 0x2A7/0x2AB); every form here deletes it, so the rest is one word short. */
+/* NON_MATCHING func_0028A780: state byte 0x2F6.
+ * Zero rolls a resource pair and a sound, then falls into the countdown; one runs the countdown; anything else returns.
+ * The switch gives retail's beqz/beql dispatch.
+ * Retail keeps a dead andi after the first Rnd() (id not 0x2A7/0x2AB); every form here deletes it, so the rest is one word short. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

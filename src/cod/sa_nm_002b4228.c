@@ -1,8 +1,7 @@
-/* NM, not registered. sn-2.95.3-136: cMessageWin open ease and next state (0x2B4228..).
- * func_002B4228: under fp_hazard_rules fdiv,mtc1 only the first div.s is off -
- *   retail has mtc1 / nop / div.s, ours mtc1 / div.s (7 insns of shift).
+/* func_002B4228: under fp_hazard_rules fdiv,mtc1 only the first div.s is off -
+ * retail has mtc1 / nop / div.s, ours mtc1 / div.s (7 insns of shift).
  * func_002B42F0: 7 insns - ours sign-extends the 64-bit flags test and the
- *   &~8 result (dsll32/dsra32) where retail goes straight lw/dsrl/andi. */
+ * &~8 result (dsll32/dsra32) where retail goes straight lw/dsrl/andi. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_001FDEA8 (regalloc): 11 diffs: loop3 s0/s1 swap and v1/a0 swap around c[1] flag store; inline clearC + split counters i/j/k */
+/* NON_MATCHING func_001FDEA8: 11 diffs: loop3 s0/s1 swap and v1/a0 swap around c[1] flag store; inline clearC + split counters i/j/k */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

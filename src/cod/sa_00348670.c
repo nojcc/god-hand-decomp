@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped. Fill the 0x20-byte slot at 0x284 + id*0x20,
+/* cygnus-2.96. Fill the 0x20-byte slot at 0x284 + id*0x20,
  * or report one of the three errors and return 0. */
 typedef struct Obj48670 {
     char pad0[0x3C];

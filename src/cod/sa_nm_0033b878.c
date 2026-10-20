@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033B878 (cygnus,loop,giv-copy,hazard-nops): best 42 (cygnus default/dr): retail keeps a second slot pointer t0 (copied each iteration) used for the name store, hoists &D_00455EF0 into t2 before the loop, puts the name!=0 store as an out-of-line stub, and has two nops between the slot lw and bnel in the loop (ours has none). ee-2.9-991111 is worse (51). */
+/* NON_MATCHING func_0033B878 (cygnus,loop,giv-copy,hazard-nops): retail keeps a second slot pointer t0 (copied each iteration) used for the name store, hoists &D_00455EF0 into t2 before the loop, puts the name!=0 store as an out-of-line stub, and has two nops between the slot lw and bnel in the loop (ours has none). ee-2.9-991111 is worse (51). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

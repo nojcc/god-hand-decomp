@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: ADX SJ decoder: consume one block from the input SJ and hand
+/* cygnus-2.96: ADX SJ decoder: consume one block from the input SJ and hand
  * the decoded data to each output SJ. */
 typedef struct Ck327048 { int f0; int f4; } Ck327048;
 

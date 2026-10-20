@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003066D0 (sn-2.95.3-136; PARK 36 at attempt 3): for each of n entities (stride 0x2F0) owned by o (or unowned when o is null), resolve the target object, build a handler with func_00300458, initialise it with func_00303A30 and run its virtual check; destroy it and return 0 on failure. Retail compares the counter against a lui/ori 0xFFFFFFFF sentinel and advances e in the continue delay slots; unsigned n instead eliminates the counter (83). */
+/* NON_MATCHING func_003066D0: for each of n entities (stride 0x2F0) owned by o (or unowned when o is null), resolve the target object, build a handler with func_00300458, initialise it with func_00303A30 and run its virtual check; destroy it and return 0 on failure.
+ * Retail compares the counter against a lui/ori 0xFFFFFFFF sentinel and advances e in the continue delay slots; unsigned n instead eliminates the counter (83). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

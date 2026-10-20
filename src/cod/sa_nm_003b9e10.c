@@ -1,5 +1,4 @@
-/* NM, not registered. cygnus-2.96 (drop-reorder): twin of ResetBufferOnFirstEnterA (0x3B9E10).
- * Control flow matches; retail loads the enter counter into a0 (test and increment), ours into v0.
+/* Control flow matches; retail loads the enter counter into a0 (test and increment), ours into v0.
  * memset prototype (void/int/void * return) does not change it. */
 #include "include_asm.h"
 

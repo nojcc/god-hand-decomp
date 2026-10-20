@@ -1,6 +1,8 @@
-/* NON_MATCHING func_00356C68 (cygnus-2.96 --drop-reorder; PARK, 1 diff): the last end-code-skip test comes out as bnel
+/* NON_MATCHING func_00356C68 (cygnus-2.96 --drop-reorder;
+ * PARK, 1 diff): the last end-code-skip test comes out as bnel
  * where retail has bnez with the s0 restore in the delay slot; no condition shape or approved flag changes the reorg
- * choice. Scans a video chunk for MPEG start codes (carried-over tail, then MPV_SearchDelim) and signals end of stream
+ * choice.
+ * Scans a video chunk for MPEG start codes (carried-over tail, then MPV_SearchDelim) and signals end of stream
  * on a sequence end code. */
 #include "include_asm.h"
 

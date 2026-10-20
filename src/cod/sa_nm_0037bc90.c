@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0037BC90 (sn-2.95.3-136; PARK, 124 diffs): call sequence matches, but retail keeps the colour
+/* NON_MATCHING func_0037BC90 (sn-2.95.3-136;
+ * PARK, 124 diffs): call sequence matches, but retail keeps the colour
  * (always 3) in a register as value<<16 (srl/sra 16 at each use, re-set in case 0/2) where this folds it to a
  * constant; probably a register-packed short pair or fixed-point value in the original. */
 #include "include_asm.h"

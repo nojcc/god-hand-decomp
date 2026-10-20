@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003B4D98 (ee-2.9-991111; PARK, 46 diffs): sceIoctl-style request; retail holds the case-1 compare constant in s5 from the prologue (beql s1,s5), which shifts the s-reg assignment and the switch delay slots; if-chain and explicit locals are worse */
+/* NON_MATCHING func_003B4D98 (ee-2.9-991111;
+ * PARK, 46 diffs): sceIoctl-style request; retail holds the case-1 compare constant in s5 from the prologue (beql s1,s5), which shifts the s-reg assignment and the switch delay slots; if-chain and explicit locals are worse */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

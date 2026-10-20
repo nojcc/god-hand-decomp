@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0012DCB8 (sn-2.95.3-136; PARK, 117 diffs): matrix build, corner transform and copies match
+/* NON_MATCHING func_0012DCB8 (sn-2.95.3-136;
+ * PARK, 117 diffs): matrix build, corner transform and copies match
  * in shape; retail's min/max loop runs one induction pointer (self + 16*(i+1), 0x110 displacements, counted down
  * from 6) where this splits it into three givs and counts up, costing s7/s8 and a 0xE0 frame. */
 #include "include_asm.h"

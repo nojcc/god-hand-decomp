@@ -1,10 +1,8 @@
-/* Batch 28 near-misses — not registered.
- * 60: jump-table jalr reg alloc (v0/v1 swap).
- * 64: slot scan delay-slot / loop shape; bnel count walk.
- * 68: float bit-pack handwritten add schedule;
- *     beql range predicate; halfword clamp reg alloc; beql/bltz flag test;
- *     fighting-ring bit-test a2 vs a0 + andi/sll order.
- * 6-attempt cap. */
+/* jump-table jalr reg alloc (v0/v1 swap).
+ * slot scan delay-slot / loop shape; bnel count walk.
+ * float bit-pack handwritten add schedule;
+ * beql range predicate; halfword clamp reg alloc; beql/bltz flag test;
+ * fighting-ring bit-test a2 vs a0 + andi/sll order. */
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
 
@@ -35,7 +33,7 @@ float func_00156508(int a0)
     union { unsigned int i; float f; } u;
 
     a = a & a3;
-    __asm__ volatile("add %0, %1, %2" : "=r"(a) : "r"(a), "r"(b));
+    a = a + b;
     c = c >> 8;
     c = c & a3;
     a3 = a3 << 2;

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00351A08 (cygnus dr, s0/s1 swap): best 14 with -freorder-blocks dropped: retail keeps hn in s0 and the +0xD30 time block in s1 (ours the reverse), and loads total before t[0]. Reading total into a local fixes the load order (24) but not the saved-register swap; all-through-hn and positive-test forms worse. */
+/* Reading total into a local fixes the load order (24) but not the saved-register swap; all-through-hn and positive-test forms worse. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

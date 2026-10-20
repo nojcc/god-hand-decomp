@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: func_0033B218, DTX init (reference counted): clear the EE work area, start the RPC client, allocate the IOP buffer, open remote slot 0 on the 64-byte aligned buffers and install its callbacks. Hangs on allocation failure. */
+/* cygnus-2.96: func_0033B218, DTX init (reference counted): clear the EE work area, start the RPC client, allocate the IOP buffer, open remote slot 0 on the 64-byte aligned buffers and install its callbacks. Hangs on allocation failure. */
 extern int D_003E8DD4;
 extern int D_003E8DD8;
 extern int D_003E8DDC;

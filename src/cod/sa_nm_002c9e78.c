@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002C9E78 (sn-2.95.3-136, as=sn): 34 insns, 58 words vs 55. The stack struct stores match; retail loads fields 2/8/A (lhu + sign-extend) and 0 (lh) straight into a0/v0/v1/a1 with no extra moves, ours stages them in a2/a3 and copies to the arg regs. */
+/* NON_MATCHING func_002C9E78 (sn-2.95.3-136, as=sn): 34 insns, 58 words vs 55.
+ * The stack struct stores match; retail loads fields 2/8/A (lhu + sign-extend) and 0 (lh) straight into a0/v0/v1/a1 with no extra moves, ours stages them in a2/a3 and copies to the arg regs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

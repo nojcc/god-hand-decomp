@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033D090 (regalloc): cygnus dr: 7 diffs, v0/v1 swap in the default-code copy block only; tried short/char-array/temp forms */
+/* NON_MATCHING func_0033D090: cygnus dr: 7 diffs, v0/v1 swap in the default-code copy block only; tried short/char-array/temp forms */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

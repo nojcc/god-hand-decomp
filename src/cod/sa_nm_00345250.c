@@ -1,5 +1,4 @@
-/* NM, not registered. cygnus-2.96 (drop-reorder) batch-40 singletons.
- * func_00345250: ring lookup; same shape, register assignment differs throughout.
+/* func_00345250: ring lookup; same shape, register assignment differs throughout.
  * func_00354B40: 2 insns; clear loop store/increment order.
  * func_0033E5C0: 1 insn; first mode test is bne in retail, bnel here.
  * func_00356E98: 1 insn; retail sltiu (==0) where we get xori for >= 3. */

@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00376370 (sn-2.95.3-136): same size, 8 insns: layout matches; the a0 = s argument copy is hoisted into the delay slot of the preceding beq (and the second test uses beq instead of retail's beql + increment), and the & 0x1000 lands in v1 not v0. Tried: for/while, do-while with signed pointer compare, f &= 0x1000, continue form, -fno-gcse, ee-2.9-991111. */
+/* NON_MATCHING func_00376370 (sn-2.95.3-136): same size, 8 insns: layout matches; the a0 = s argument copy is hoisted into the delay slot of the preceding beq (and the second test uses beq instead of retail's beql + increment), and the & 0x1000 lands in v1 not v0.
+ * Tried: for/while, do-while with signed pointer compare, f &= 0x1000, continue form, -fno-gcse, ee-2.9-991111. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

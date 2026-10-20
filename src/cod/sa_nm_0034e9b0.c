@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0034E9B0 (cygnus-2.96, -freorder-blocks dropped; near-miss 18 at attempt 6): read one chunk header from the SFD input and hand the chunk to its stream object or its type handler. Only the callee-saved registers of self and in are swapped (retail s2/s1); header fields copied to locals and an 8-aligned chunk type give the hoisted ld/t0 by-value pass, and moving in = s->in first changes nothing. */
+/* NON_MATCHING func_0034E9B0: read one chunk header from the SFD input and hand the chunk to its stream object or its type handler.
+ * Only the callee-saved registers of self and in are swapped (retail s2/s1); header fields copied to locals and an 8-aligned chunk type give the hoisted ld/t0 by-value pass, and moving in = s->in first changes nothing. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

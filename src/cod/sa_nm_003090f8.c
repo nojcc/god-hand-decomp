@@ -1,4 +1,5 @@
-/* NON_MATCHING func_003090F8 (sn-2.95.3-136; PARK, 29 diffs): ch and start swap s3/s4; the 0x13 rate switch keeps its constants in a1/v1 with plain beq (ours beql with the 0xE reload hoisted); the channel-record stores are scheduled differently (retail bumps ch and i before them). */
+/* NON_MATCHING func_003090F8 (sn-2.95.3-136;
+ * PARK, 29 diffs): ch and start swap s3/s4; the 0x13 rate switch keeps its constants in a1/v1 with plain beq (ours beql with the 0xE reload hoisted); the channel-record stores are scheduled differently (retail bumps ch and i before them). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

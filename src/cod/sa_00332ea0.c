@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: func_00332EA0, CD file handle read request: clamps the sector count to what is left of the file, records the request, issues SRD_ReqRdCd and, in blocking mode, waits for it and advances the file offset. */
+/* cygnus-2.96: func_00332EA0, CD file handle read request: clamps the sector count to what is left of the file, records the request, issues SRD_ReqRdCd and, in blocking mode, waits for it and advances the file offset. */
 typedef struct Hn332EA0 {
     char pad00[2];
     signed char stat;                   /* 0x02 */

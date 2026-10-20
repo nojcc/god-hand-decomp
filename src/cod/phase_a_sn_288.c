@@ -1,5 +1,5 @@
-/* Hard-tail, not registered in compile_config.json and not linked.
- * Four SN clones of cOmHitVolume_setupBox08x17x08. Float setup is one store-swap from retail.
+/* Four SN clones of cOmHitVolume_setupBox08x17x08.
+ * Float setup is one store-swap from retail.
  * The tail is the same three-instruction miss as func_0018EAF8: the ring
  * pointer, the byte, and 7 are each materialized twice. */
 extern void func_001B6FB8(void *a0);

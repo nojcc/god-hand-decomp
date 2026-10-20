@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0035CC80 (cygnus-2.96 --drop-reorder; PARK, 88 diffs): arguments and call order are right; retail runs a 0x210 frame with one more 64-bit spill slot (the 0x1AC field) and loads the int fields in a different order, so every register and stack offset in the argument setup differs. */
+/* NON_MATCHING func_0035CC80 (cygnus-2.96 --drop-reorder;
+ * PARK, 88 diffs): arguments and call order are right; retail runs a 0x210 frame with one more 64-bit spill slot (the 0x1AC field) and loads the int fields in a different order, so every register and stack offset in the argument setup differs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

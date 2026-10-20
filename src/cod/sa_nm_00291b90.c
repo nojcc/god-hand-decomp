@@ -1,4 +1,5 @@
-/* NON_MATCHING cEmManage_SetEmAnger (sn-2.95.3-136; 108 vs 110 words: both fabs tests
+/* NON_MATCHING cEmManage_SetEmAnger (sn-2.95.3-136;
+ * 108 vs 110 words: both fabs tests
  * compile to bc1tl+neg.s in place, retail copies then negates under bc1f) */
 #include "include_asm.h"
 
