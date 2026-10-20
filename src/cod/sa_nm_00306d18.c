@@ -1,9 +1,8 @@
 /* NON_MATCHING func_00306D18 (sn-2.95.3-136, as=sn): 64 insns, 70 words vs 72; loops match in shape, but retail keeps w in s1 / tail in s0, peels the first node store into the bnel slot, and reloads t.x from the stack for the z copy. */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct { float x, y, z, w; } PoolVec;
-
 typedef struct PoolNode {
     struct PoolNode *next;
     int f04;
@@ -20,14 +19,14 @@ typedef struct {
     PoolNode *head;
     int f04;
     int f08;
-    PoolVec *vecs;
+    Vec4f *vecs;
     short nvec;
 } PoolHead;
 
 typedef struct {
     PoolNode nodes[32];
     int slots[32];
-    PoolVec vecs[1000];
+    Vec4f vecs[1000];
     PoolNode tail;
 } PoolWork;
 
@@ -49,12 +48,12 @@ void func_00306D18(PoolWork *w)
 {
     PoolNode *n;
     PoolHead *h;
-    PoolVec *p;
+    Vec4f *p;
     unsigned int i;
 
     p = w->vecs;
     for (i = 0; i < 1000; i++, p++) {
-        PoolVec t;
+        Vec4f t;
         t.x = 0.0f;
         t.y = 0.0f;
         t.z = 0.0f;

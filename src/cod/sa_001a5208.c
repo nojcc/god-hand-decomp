@@ -1,4 +1,5 @@
 /* func_001A5208: gimmick init (damage give/take spheres, solid sphere, mesh layers). sn-2.95.3-136 */
+#include "godhand/cModel.h"
 extern char D_00574380[];
 extern char D_00462FC0[];
 extern char D_00747B00[];
@@ -12,16 +13,10 @@ extern void cCollisionSolidManage_CreateSphere(void *mgr, void *owner, void *bod
 extern void SetField380Bit2000ForTag_1B7300(void *self, int tag, int on);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 
-typedef struct {
-    short delta;
-    short idx;
-    void (*fn)(void *, void *);
-} VEntry;
-
 static inline void VCall(char *o, int slot, void *arg)
 {
-    VEntry *e = &(*(VEntry **)(o + 0x214))[slot];
-    e->fn(o + e->delta, arg);
+    cVtEnt *e = &(*(cVtEnt **)(o + 0x214))[slot];
+    ((void (*)(void *, void *))e->pfn)(o + e->delta, arg);
 }
 
 __attribute__((section(".text.func_001A5208")))

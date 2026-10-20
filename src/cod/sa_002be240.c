@@ -24,10 +24,10 @@ typedef struct DmaReq {
     unsigned int mode;
 } DmaReq;
 
-typedef struct Obj2BE240 {
+typedef struct ArchiveOwner {
     char pad000[0x4C0];
     PackHdr *pack; /* 0x4C0 */
-} Obj2BE240;
+} ArchiveOwner;
 
 extern char *func_003A93A8(const char *s, int c);
 extern int func_003A6A20(const char *fmt, ...);
@@ -41,7 +41,7 @@ extern int func_003B60A0(const char *path, int a1, int a2);
 static inline int ctype_tolower(int c) { return (D_0045F039[c] & 1) ? c + 0x20 : c; }
 
 __attribute__((section(".text.func_002BE240")))
-int func_002BE240(Obj2BE240 *self, char *path, int a2, int a3)
+int func_002BE240(ArchiveOwner *self, char *path, int a2, int a3)
 {
     DmaReq req;
     char *name;

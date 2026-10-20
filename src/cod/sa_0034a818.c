@@ -1,9 +1,9 @@
 /* cygnus-2.96: func_0034A818, decoder handle update: poll the stream state and error, latch the error globally, map -1/-2/other errors to codes 0xFF000C08/09/07, reset the sub-object at the end states (4, 5) and stop on error or completion. */
-typedef struct Strm34A818 {
+typedef struct DecStm {
     int sj;                             /* 0x00 */
     char pad04[0x48 - 0x04];
     int busy;                           /* 0x48 */
-} Strm34A818;
+} DecStm;
 
 extern int D_00760DAC;
 extern int GuardedCall_00329FD0_329F98(int a);
@@ -19,12 +19,12 @@ __attribute__((section(".text.func_0034A818")))
 void func_0034A818(char *hn, int keep)
 {
     void *sub = hn + 0x1020;
-    Strm34A818 *st;
+    DecStm *st;
     int sj;
     int stat;
     int err;
 
-    st = *(Strm34A818 **)(hn + 0x2004);
+    st = *(DecStm **)(hn + 0x2004);
     sj = st->sj;
     stat = GuardedCall_00329FD0_329F98(sj);
     err = func_0032B0B0(sj);

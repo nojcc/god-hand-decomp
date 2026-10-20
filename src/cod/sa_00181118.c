@@ -3,16 +3,10 @@ extern void cSnd_SeCall_2CBA48(void *snd, int a1, int id, void *owner, int t0, i
 extern void func_00180CD8(char *self);
 extern char D_005FEE00[];
 
+#include "godhand/cOmBase.h"
 #include "godhand/emPhaseTable.h"
 
 extern EmPhaseTable D_003BDB18;
-
-typedef struct Hit181118 {
-    char pad00[0x4C];
-    int damage;                         /* 0x4C */
-    char pad50[0x60 - 0x50];
-    unsigned int flags;                 /* 0x60 */
-} Hit181118;
 
 __attribute__((section(".text.func_00181118")))
 void func_00181118(char *s0)
@@ -21,7 +15,7 @@ void func_00181118(char *s0)
     int i8;
     int f0;
     int type; int arg; void (*fp)(int); long entry;
-    Hit181118 *hit;
+    cDamageTake *hit;
     int n;
     int m;
     int c;
@@ -53,13 +47,13 @@ void func_00181118(char *s0)
         else
             *(short *)(s0 + 0x54A) = n;
     }
-    hit = *(Hit181118 **)(s0 + 0x60C);
+    hit = *(cDamageTake **)(s0 + 0x60C);
     if (hit != 0) {
         t = hit->flags;
         t &= 1;
         if (t != 0) {
         m = *(short *)(s0 + 0x54A);
-        m -= hit->damage;
+        m -= hit->power;
         *(float *)(s0 + 0x54C) = 3.0f;
         if (m >= *(short *)(s0 + 0x548))
             *(short *)(s0 + 0x54A) = *(short *)(s0 + 0x548);

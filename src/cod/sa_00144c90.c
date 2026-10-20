@@ -1,9 +1,8 @@
 /* func_00144C90: 5x5 ID work table setup and placement (sn-2.95.3-136) */
-typedef struct { float x, y, z; } Vec3;
-
-typedef struct E144 {
+#include "godhand/vec.h"
+typedef struct IdTblEnt {
     char pad0[0x1C];
-    struct E144 *link;
+    struct IdTblEnt *link;
     char pad20[4];
     int f24;
     char pad28[4];
@@ -18,20 +17,20 @@ typedef struct E144 {
     int f50;
     char pad54[0x14];
     float w;
-} E144;
+} IdTblEnt;
 
 typedef struct {
     char pad0[0x1C];
     unsigned char f1C;
     char pad1D[0x33];
-} IdW144;
+} IdWorkView;
 
 typedef struct {
     char pad0[0x94];
-    E144 *tbl[5][5];
+    IdTblEnt *tbl[5][5];
     char padF8[8];
-    IdW144 ids[5];
-    Vec3 pos;
+    IdWorkView ids[5];
+    Vec3f pos;
     char pad29C[8];
     int f2A4;
     int cols[5];
@@ -43,16 +42,16 @@ typedef struct {
     char pad36C[0xB2];
     short f41E;
     short f420;
-} Obj144;
+} IdTblScreen;
 
-extern Vec3 D_003BD880;
+extern Vec3f D_003BD880;
 extern float D_0041E880[];
 extern void cIDBase_initIDWork(void *w, int id);
 extern void cIDBase_restartAnim(void *w);
-extern E144 *cIDBase_getIDWork(void *w, int id);
+extern IdTblEnt *cIDBase_getIDWork(void *w, int id);
 extern void cIDBase_move(void *w);
 
-static inline void vcpy(Vec3 *d, Vec3 *s)
+static inline void vcpy(Vec3f *d, Vec3f *s)
 {
     d->x = s->x;
     d->y = s->y;
@@ -60,12 +59,12 @@ static inline void vcpy(Vec3 *d, Vec3 *s)
 }
 
 __attribute__((section(".text.func_00144C90")))
-void func_00144C90(Obj144 *self)
+void func_00144C90(IdTblScreen *self)
 {
     unsigned short i;
     unsigned short j;
     unsigned short k;
-    E144 *e;
+    IdTblEnt *e;
     float sc;
 
     vcpy(&self->pos, &D_003BD880);

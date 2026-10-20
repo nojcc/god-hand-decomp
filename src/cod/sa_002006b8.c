@@ -1,7 +1,8 @@
 /* sn-2.95.3-136: per-frame check of a saved camera/position point: unless the game is paused or the point
  * is locked, the first pass saves the current point, sets the BGM state, opens the sub screen and releases
  * the scenario; then the point is reloaded from the stage start table or restored from the save. */
-typedef struct Pt2006B8 {
+#include "godhand/vec.h"
+typedef struct SavePoint {
     float x;                            /* 0x00 */
     float y;                            /* 0x04 */
     float z;                            /* 0x08 */
@@ -10,23 +11,16 @@ typedef struct Pt2006B8 {
     unsigned char f12;                  /* 0x12 */
     unsigned char lock;                 /* 0x13 */
     int f14;                            /* 0x14 */
-} Pt2006B8;
+} SavePoint;
 
-typedef struct Obj2006B8 {
+typedef struct SavePointWork {
     char unk00[4];
-    Pt2006B8 cur;                       /* 0x04 */
-    Pt2006B8 save;                      /* 0x1C */
+    SavePoint cur;                       /* 0x04 */
+    SavePoint save;                      /* 0x1C */
     char unk34[5];
     signed char step;                   /* 0x39 */
     unsigned char busy;                 /* 0x3A */
-} Obj2006B8;
-
-typedef struct StartPt2006B8 {
-    float x;
-    float y;
-    float z;
-    float w;
-} StartPt2006B8;
+} SavePointWork;
 
 extern int D_00747A2C[];
 extern int D_00747A24;
@@ -34,20 +28,20 @@ extern unsigned int D_00747A84;
 extern char *D_003BD930;
 extern int D_003C2F84;
 extern char D_005FEE00[];
-extern StartPt2006B8 D_00583F00[];
+extern Vec4f D_00583F00[];
 extern float D_003BF198[];
 extern void cSnd_SetBgmState(void *snd, int state);
 extern void cSubScr_SubScrOn(void *scr, int a, int b, int c);
 extern void cScenario_release(int scn);
 
 __attribute__((section(".text.func_002006B8")))
-int func_002006B8(Obj2006B8 *self)
+int func_002006B8(SavePointWork *self)
 {
     unsigned long t;
     unsigned short v;
     char *w;
     int idx;
-    StartPt2006B8 *sp;
+    Vec4f *sp;
 
     t = (unsigned int)D_00747A2C[3];
     if (((t >> 6) & 1) == 1)

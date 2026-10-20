@@ -2,7 +2,7 @@
 #define TONE_F_OFF      0x8000
 #define VOICE_KIND_NOTE 3
 
-typedef struct Tone376B80 {
+typedef struct SndTone {
     char pad00[4];
     unsigned short unk04;               /* 0x04 */
     char pad06[8];
@@ -11,15 +11,15 @@ typedef struct Tone376B80 {
     unsigned short unk18;               /* 0x18 */
     unsigned short unk1A;               /* 0x1A */
     char pad1C[0x14];
-} Tone376B80;                           /* 0x30 */
+} SndTone;                           /* 0x30 */
 
-typedef struct Bank376B80 {
+typedef struct SndToneBank {
     char pad00[4];
-    Tone376B80 *tone;                   /* 0x04 */
+    SndTone *tone;                   /* 0x04 */
     char pad08[0x18];
-} Bank376B80;                           /* 0x20 */
+} SndToneBank;                           /* 0x20 */
 
-typedef struct Trk376B80 {
+typedef struct SndTrack {
     char pad00[2];
     unsigned short unk02;               /* 0x02 */
     int unk04;                          /* 0x04 */
@@ -29,9 +29,9 @@ typedef struct Trk376B80 {
     unsigned char keyBase;              /* 0x0F */
     char pad10[4];
     unsigned short unk14;               /* 0x14 */
-} Trk376B80;
+} SndTrack;
 
-typedef struct Note376B80 {
+typedef struct SndNote {
     char pad00[2];
     unsigned char key;                  /* 0x02 */
     unsigned char unk03;
@@ -41,9 +41,9 @@ typedef struct Note376B80 {
     unsigned short unk0C;               /* 0x0C */
     unsigned short unk0E;               /* 0x0E */
     unsigned short unk10;               /* 0x10 */
-} Note376B80;
+} SndNote;
 
-typedef struct Voice376B80 {
+typedef struct SndVoice {
     short kind;                         /* 0x00 */
     char pad02[2];
     int unk04;                          /* 0x04 */
@@ -78,18 +78,18 @@ typedef struct Voice376B80 {
     unsigned char unk41;                /* 0x41 */
     unsigned char unk42;                /* 0x42 */
     unsigned char unk43;                /* 0x43 */
-} Voice376B80;
+} SndVoice;
 
-extern Bank376B80 D_0076EA50[];
+extern SndToneBank D_0076EA50[];
 
-extern Voice376B80 *func_0037D170(void);
-extern void func_00376CF8(Trk376B80 *trk, Voice376B80 *v);
+extern SndVoice *func_0037D170(void);
+extern void func_00376CF8(SndTrack *trk, SndVoice *v);
 
 __attribute__((section(".text.func_00376B80")))
-void func_00376B80(Trk376B80 *trk, Note376B80 *note)
+void func_00376B80(SndTrack *trk, SndNote *note)
 {
-    Tone376B80 *tone;
-    Voice376B80 *v;
+    SndTone *tone;
+    SndVoice *v;
     int none;
     int prio;
 

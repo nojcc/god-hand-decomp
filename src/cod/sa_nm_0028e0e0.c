@@ -1,15 +1,15 @@
 /* NON_MATCHING func_0028E0E0 (sn-2.95.3-136;
  * PARK, 16 diffs): switch value in v1 (retail a0, constant in v1) and bit-6 test srl vs retail dsrl */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cCoreSave.h"
 
-typedef struct { float x, y, z; } Vec3;
 typedef struct {
     int f0;
     int pad4[3];
-    Vec3 pos;
+    Vec3f pos;
     int pad1C;
     float f20;
     int f24;
@@ -34,7 +34,7 @@ extern void cParts_setRotationOrder(void *a0, int a1);
 extern void cObjBase_KageInit(void *a0, void *a1, void *a2);
 extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 
-static inline void vecCopy(Vec3 *d, Vec3 *s)
+static inline void vecCopy(Vec3f *d, Vec3f *s)
 {
     if (d != s) {
         d->x = s->x;

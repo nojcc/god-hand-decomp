@@ -1,10 +1,10 @@
-typedef struct Strm373BA8 {
+typedef struct SndStm {
     void *handle;                       /* 0x00 */
     void *mem;                          /* 0x04 */
     int size;                           /* 0x08 */
     int unk0C;
     int nch;                            /* 0x10 */
-} Strm373BA8;
+} SndStm;
 
 extern char D_00754210[];
 extern void *func_0031C8E0(int size, int align, void *heap);
@@ -13,7 +13,7 @@ extern void *func_00329438(int nch, void *mem, int size);
 extern void *func_003297A8(void *mem, int size);
 
 __attribute__((section(".text.func_00373BA8")))
-int func_00373BA8(Strm373BA8 *s, int freq, int nblk, int mode, int flag)
+int func_00373BA8(SndStm *s, int freq, int nblk, int mode, int flag)
 {
     int nch = s->nch;
 

@@ -6,15 +6,15 @@ typedef struct {
     unsigned short flags;
     char pad2[2];
     int owner;
-} SeqCtl37C930;
+} SeqOwnerCtl;
 
-extern SeqCtl37C930 D_0076B1C0[];
+extern SeqOwnerCtl D_0076B1C0[];
 
 __attribute__((section(".text.func_0037C930")))
 void func_0037C930(void)
 {
     SeqNode *n;
-    SeqCtl37C930 *c;
+    SeqOwnerCtl *c;
     int i;
     unsigned short f;
 

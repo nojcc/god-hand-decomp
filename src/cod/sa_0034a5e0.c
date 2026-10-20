@@ -1,28 +1,28 @@
-typedef struct Hdr34A5E0 {
+typedef struct SfdStmHdr {
     char pad0[0x38];
     int total;
     void *cb;
-} Hdr34A5E0;
+} SfdStmHdr;
 
-typedef struct Obj34A5E0 {
+typedef struct SfdPosView {
     char pad0[0x9C8];
     long long pos;
     char pad9D0[0x2004 - 0x9D0];
-    Hdr34A5E0 *hdr;
-} Obj34A5E0;
+    SfdStmHdr *hdr;
+} SfdPosView;
 
 extern char D_00459410[];
 extern void func_0034A400(void);
-extern int Obj34D8_GetTri78_Times100(Obj34A5E0 *o);
+extern int Obj34D8_GetTri78_Times100(SfdPosView *o);
 extern int func_003A50B4(const char *a, const char *b, int n);
-extern int func_0034A6F8(Obj34A5E0 *o, int *a, int *b);
+extern int func_0034A6F8(SfdPosView *o, int *a, int *b);
 
 __attribute__((section(".text.func_0034A5E0")))
-void func_0034A5E0(Obj34A5E0 *o, char *p, int len, int *out)
+void func_0034A5E0(SfdPosView *o, char *p, int len, int *out)
 {
     int a, b;
     int i;
-    Hdr34A5E0 *h;
+    SfdStmHdr *h;
 
     *out = 0;
     h = o->hdr;

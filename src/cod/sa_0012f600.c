@@ -1,23 +1,23 @@
 /* sn-2.95.3-136: clear flag bit 4 on every entry listed in the selected index runs. */
-typedef struct Ent12F600 {
+typedef struct FlagEnt {
     char pad0[0x10];
     unsigned int flags;    /* 0x10 */
-} Ent12F600;
+} FlagEnt;
 
-typedef struct Grp12F600 {
+typedef struct IndexRun {
     int start;             /* 0x00 */
     unsigned char n[3];    /* 0x04 */
-} Grp12F600;
+} IndexRun;
 
-typedef struct Obj12F600 {
+typedef struct FlagRunObj {
     char pad0[0x14];
-    Ent12F600 *ent;        /* 0x14 */
+    FlagEnt *ent;        /* 0x14 */
     char pad18[4];
     unsigned short *idx;   /* 0x1C */
-} Obj12F600;
+} FlagRunObj;
 
 __attribute__((section(".text.func_0012F600")))
-void func_0012F600(Obj12F600 *o, Grp12F600 *g, int mask)
+void func_0012F600(FlagRunObj *o, IndexRun *g, int mask)
 {
     unsigned short *base = o->idx + g->start;
 

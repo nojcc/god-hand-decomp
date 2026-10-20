@@ -1,6 +1,6 @@
 /* sn-2.95.3-136: func_0028AC58, sets up an enemy model from its data pack: looks up the model and texture blocks
  * for the character index, applies the kind's alternate textures picked by the 0x155C flags, then builds the model. */
-typedef struct Em28AC58 {
+typedef struct EmModelObj {
     char pad000[0x254];
     unsigned int flags254;              /* 0x254 */
     char pad258[0x2FE - 0x258];
@@ -11,7 +11,7 @@ typedef struct Em28AC58 {
     int kind;                           /* 0x564 */
     char pad568[0x155C - 0x568];
     unsigned int texFlags;              /* 0x155C */
-} Em28AC58;
+} EmModelObj;
 
 extern char D_00448E10[];
 extern char D_00448E18[];
@@ -26,7 +26,7 @@ extern int cModel_setupModel(void *model, void *mdl, void *tex, int a3, int a4);
      cModel_setTextureExchange((o), (tex), (void *)(*(int *)((o)->pack + (off)) + (int)(o)->pack), (slot)))
 
 __attribute__((section(".text.func_0028AC58")))
-int func_0028AC58(Em28AC58 *o)
+int func_0028AC58(EmModelObj *o)
 {
     int idx;
     void *mdl;

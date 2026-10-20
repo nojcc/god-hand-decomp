@@ -1,16 +1,11 @@
 /* NON_MATCHING func_001A6FB0: inlined parts[] range check: retail keeps branchy slt-vs-zero-reg + andi 0xFF, sn emits movn/movz; also two IVs for vel[i] (a2-0x84 and a3) */
+#include "godhand/vec.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct Pos1A6FB0 {
-    float x;
-    float y;
-    float z;
-} Pos1A6FB0;
-
 typedef struct Part1A6FB0 {
     char pad000[0xD0];
-    Pos1A6FB0 *pos;
+    Vec3f *pos;
 } Part1A6FB0;
 
 typedef struct Obj1A6FB0 {

@@ -4956,3 +4956,5 @@
 !include/godhand/emPhaseTable.h
 !include/godhand/newlibMalloc.h
 !include/godhand/vecInline.h
+
+!include/godhand/reachObj.h

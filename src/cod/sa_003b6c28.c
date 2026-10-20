@@ -2,23 +2,23 @@
 typedef unsigned int u_int;
 typedef unsigned long u_long;
 
-typedef struct Alarm3B6C28 {
-    struct Alarm3B6C28 *next;           /* 0x00 */
+typedef struct Alarm {
+    struct Alarm *next;           /* 0x00 */
     int f04;
     int f08;
     int f0C;
     u_long base_count;                  /* 0x10 */
     u_long base_time;                   /* 0x18 */
     u_long schedule;                    /* 0x20 */
-} Alarm3B6C28;
+} Alarm;
 
-typedef struct TimerCtl3B6C28 {
+typedef struct AlarmCtl {
     char pad00[0x18];
-    Alarm3B6C28 *head;                  /* 0x18 */
+    Alarm *head;                  /* 0x18 */
     int handling;                       /* 0x1C id of the alarm being handled, -1 = none */
-} TimerCtl3B6C28;
+} AlarmCtl;
 
-extern TimerCtl3B6C28 D_003FBE90;
+extern AlarmCtl D_003FBE90;
 extern void SetT2_B0001010_3B6A10(int mode);
 extern void SetT2_B0001020_3B6A20(int comp);
 
@@ -28,7 +28,7 @@ extern void SetT2_B0001020_3B6A20(int comp);
 __attribute__((section(".text.SetNextComp")))
 void SetNextComp(u_long now)
 {
-    Alarm3B6C28 *a;
+    Alarm *a;
     u_long t0;
     u_long t1;
     u_int mode;

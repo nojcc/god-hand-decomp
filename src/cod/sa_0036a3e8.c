@@ -1,37 +1,28 @@
 /* cygnus-2.96: MPEG video header decode: peek the input SJ, check for a sequence end, then step
  * through the delimiters (sequence, GOP, picture, user data, extension) until a picture start or an error. */
-typedef struct Ck36A3E8 { char *data; int len; } Ck36A3E8;
-
-typedef struct OBJ OBJ;
-struct OVT {
-    char pad[0x18];
-    void (*getChunk)(OBJ *, int, int, Ck36A3E8 *);      /* 0x18 */
-    void (*ungetChunk)(OBJ *, int, Ck36A3E8 *);         /* 0x1C */
-};
-struct OBJ { struct OVT *vt; };
-
-typedef struct Dec36A3E8 {
+#include "godhand/criSj.h"
+typedef struct MpvHdrDec {
     char pad[0x3F4];
     int f3F4;                           /* 0x3F4 */
-} Dec36A3E8;
+} MpvHdrDec;
 
-extern int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(Dec36A3E8 *dec);
-extern int func_00369F20(Dec36A3E8 *dec, int err);
-extern int func_0036A708(Dec36A3E8 *dec, Ck36A3E8 *ck);
-extern int func_0036C6C8(Dec36A3E8 *dec, OBJ *sj);
-extern int func_0036BCD0(Dec36A3E8 *dec, int a, OBJ *sj);
-extern int mpvhdec_GetCurDelim(OBJ *sj);
-extern void func_0036B6D8(Dec36A3E8 *dec, OBJ *sj, int last);
-extern void func_0036B798(Dec36A3E8 *dec, OBJ *sj, int last);
-extern void func_0036B0F0(Dec36A3E8 *dec, OBJ *sj);
-extern void func_0036AE70(Dec36A3E8 *dec, OBJ *sj);
-extern void func_0036A7B0(Dec36A3E8 *dec, OBJ *sj);
+extern int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(MpvHdrDec *dec);
+extern int func_00369F20(MpvHdrDec *dec, int err);
+extern int func_0036A708(MpvHdrDec *dec, SjChunk *ck);
+extern int func_0036C6C8(MpvHdrDec *dec, SjObj *sj);
+extern int func_0036BCD0(MpvHdrDec *dec, int a, SjObj *sj);
+extern int mpvhdec_GetCurDelim(SjObj *sj);
+extern void func_0036B6D8(MpvHdrDec *dec, SjObj *sj, int last);
+extern void func_0036B798(MpvHdrDec *dec, SjObj *sj, int last);
+extern void func_0036B0F0(MpvHdrDec *dec, SjObj *sj);
+extern void func_0036AE70(MpvHdrDec *dec, SjObj *sj);
+extern void func_0036A7B0(MpvHdrDec *dec, SjObj *sj);
 
 __attribute__((section(".text.func_0036A3E8")))
-int func_0036A3E8(Dec36A3E8 *dec, OBJ *sj)
+int func_0036A3E8(MpvHdrDec *dec, SjObj *sj)
 {
-    Ck36A3E8 ck;
-    Ck36A3E8 ck2;
+    SjChunk ck;
+    SjChunk ck2;
     int d;
     int last;
     int r;

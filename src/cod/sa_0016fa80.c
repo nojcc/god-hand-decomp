@@ -5,7 +5,7 @@
 extern int espSys_effDataRegist(void *table, int id, void *data);
 extern char D_007419A0[];
 
-static inline void SetState16FA80(EmDmgVol *em, int v)
+static inline void setState(EmDmgVol *em, int v)
 {
     em->base.hpMax = v;
     em->base.hp = v;
@@ -59,7 +59,7 @@ int func_0016FA80(EmDmgVol *em)
     em->sub = em->subBuf;
     em->subKind = 9;
     em->target = -1;
-    SetState16FA80((char *)em, 1);
+    setState(em, 1);
     func_001C28A0(em);
     res = *(char **)((char *)em + 0x304);
     espSys_effDataRegist(D_007419A0, 0x25A, (char *)(*(int *)(res + 0xC) + (int)res));

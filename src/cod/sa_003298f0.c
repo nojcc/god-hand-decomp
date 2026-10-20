@@ -1,15 +1,6 @@
 /* cygnus-2.96: func_003298F0, CRI ADXT_Destroy: stop the handle, free
  * its streams, joints and amplitude meter, then clear the 0xC8-byte work. */
-typedef struct Sj3298F0 Sj3298F0;
-
-typedef struct {
-    char pad0[0xC];
-    void (*destroy)(Sj3298F0 *sj);
-} SjVt3298F0;
-
-struct Sj3298F0 {
-    SjVt3298F0 *vt;
-};
+#include "godhand/criSj.h"
 
 typedef struct {
     signed char used;           /* 0x00 */
@@ -18,23 +9,22 @@ typedef struct {
     void *sjd;                  /* 0x04 */
     void *stm;                  /* 0x08 */
     void *rna;                  /* 0x0C */
-    Sj3298F0 *sjf;              /* 0x10 */
+    SjObj *sjf;              /* 0x10 */
     char pad14[4];
-    Sj3298F0 *sjo[2];           /* 0x18 */
+    SjObj *sjo[2];           /* 0x18 */
     char pad20[0x74 - 0x20];
     void *amp;                  /* 0x74 */
-    Sj3298F0 *ampsji[2];        /* 0x78 */
-    Sj3298F0 *ampsjo[2];        /* 0x80 */
+    SjObj *ampsji[2];        /* 0x78 */
+    SjObj *ampsjo[2];        /* 0x80 */
     char pad88[0x94 - 0x88];
     void *lsc;                  /* 0x94 */
-} Adxt3298F0;
+} AdxtObj;
 
 extern char D_00452010[];
-extern void func_0033F130(char *msg);
-extern void func_00329848(Adxt3298F0 *adxt);
-extern void func_00329870(Adxt3298F0 *adxt);
-extern void func_00329898(Adxt3298F0 *adxt);
-extern void func_00329ED8(Adxt3298F0 *adxt);
+extern void func_00329848(AdxtObj *adxt);
+extern void func_00329870(AdxtObj *adxt);
+extern void func_00329898(AdxtObj *adxt);
+extern void func_00329ED8(AdxtObj *adxt);
 extern void Obj3260_TrampChain_D2D8(void *rna);
 extern void func_00326718(void *sjd);
 extern void func_003283E8(void *stm, int a1, int a2);
@@ -46,7 +36,7 @@ extern void ADXAMP_Destroy(void *amp);
 extern void *func_003A52F0(void *d, int c, unsigned int n);
 
 __attribute__((section(".text.func_003298F0")))
-void func_003298F0(Adxt3298F0 *adxt)
+void func_003298F0(AdxtObj *adxt)
 {
     int i;
 
@@ -86,26 +76,26 @@ void func_003298F0(Adxt3298F0 *adxt)
     }
     Forward33B658_33E678();
     if (adxt->sjf != 0) {
-        Sj3298F0 *t = adxt->sjf;
+        SjObj *t = adxt->sjf;
 
         adxt->sjf = 0;
         t->vt->destroy(t);
     }
     for (i = 0; i < adxt->maxnch; i++) {
         if (adxt->sjo[i] != 0) {
-            Sj3298F0 *t = adxt->sjo[i];
+            SjObj *t = adxt->sjo[i];
 
             adxt->sjo[i] = 0;
             t->vt->destroy(t);
         }
         if (adxt->ampsji[i] != 0) {
-            Sj3298F0 *t = adxt->ampsji[i];
+            SjObj *t = adxt->ampsji[i];
 
             adxt->ampsji[i] = 0;
             t->vt->destroy(t);
         }
         if (adxt->ampsjo[i] != 0) {
-            Sj3298F0 *t = adxt->ampsjo[i];
+            SjObj *t = adxt->ampsjo[i];
 
             adxt->ampsjo[i] = 0;
             t->vt->destroy(t);
