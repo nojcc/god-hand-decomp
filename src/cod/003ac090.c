@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 matched TU. */
+/* sn-2.95.3-136 TU. */
 
 /* newlib mallocr.c :: malloc_extend_top  -> func_003AC090 */
 

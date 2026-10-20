@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 matched TU. */
+/* sn-2.95.3-136 TU. */
 
 extern void __malloc_lock(void *reent);
 extern void __malloc_unlock(void *reent);
@@ -8,8 +8,6 @@ extern void __malloc_unlock(void *reent);
 #include "godhand/newlibMalloc.h"
 extern unsigned long D_003FADD8;  /* __malloc_trim_threshold */
 extern unsigned long D_003FADE0;  /* __malloc_top_pad */
-
-
 
 extern int func_003ACD20(void *reent, unsigned int pad); /* _malloc_trim_r */
 
