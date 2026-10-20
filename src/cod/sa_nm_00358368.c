@@ -1,6 +1,8 @@
-/* NON_MATCHING func_00358368 (cygnus-2.96 --drop-reorder; PARK, 11 diffs): only the block before the create-parameter
+/* NON_MATCHING func_00358368 (cygnus-2.96 --drop-reorder;
+ * PARK, 11 diffs): only the block before the create-parameter
  * copy differs: retail computes work + 0x1F before loading the -0x20 mask and tests the source alignment earlier
- * (register / schedule order). Sofdec player create: check and clear the work buffer, align the handle to 32 bytes,
+ * (register / schedule order).
+ * Sofdec player create: check and clear the work buffer, align the handle to 32 bytes,
  * copy the create parameters into it and initialise the sub-blocks; returns the handle or 0. */
 #include "include_asm.h"
 

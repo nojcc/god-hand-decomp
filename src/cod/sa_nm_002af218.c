@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002AF218 (NEAR-MISS): sn; switch on code & 0xFF00 with unsigned short return (andi 0xFFFE/0xFFFC from zero-extend + known low bits). Compare tree matches; retail keeps the explicit-zero case block after case 0xA900 while ours merges it with the post-switch return 0; 720 case-order permutations, default/break/ret-accumulator forms tried, best 27 */
+/* NON_MATCHING func_002AF218: sn; switch on code & 0xFF00 with unsigned short return (andi 0xFFFE/0xFFFC from zero-extend + known low bits).
+ * Compare tree matches; retail keeps the explicit-zero case block after case 0xA900 while ours merges it with the post-switch return 0; */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

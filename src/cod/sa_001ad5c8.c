@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 extern unsigned char D_005FEE00[];
 extern char D_00747B00[];
 extern void cOmSub_initMove3_y(void *mv, void *p, int a2, void *a3, float f12, float f13, float f14);
@@ -20,15 +19,14 @@ static inline void Move1AD5C8(char *p)
 {
     float v[4];
     float z;
-    float one;
 
     v[0] = 0.0f;
     v[1] = *(float *)(p + 0x790);
     v[2] = 0.0f;
-    v[3] = one = 1.0f;
+    v[3] = 1.0f;
     z = v[0];
     cOmSub_initMove1_pos(p + 0x630, p, -1, 0x3C, v, 0.2f, z);
-    cOmSub_setVibration(p + 0x630, 0, 5, z, one, 2.0f);
+    cOmSub_setVibration(p + 0x630, 0, 5, z, 1.0f, 2.0f);
 }
 
 static inline void Reset1AD5C8(char *p)

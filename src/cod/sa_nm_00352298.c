@@ -1,5 +1,7 @@
-/* NON_MATCHING func_00352298 (cygnus-2.96 dr; PARK, 106 diffs, 159 vs 161 words): ring-table
- * update.  Retail's reset loop carries 3 short-loop pad nops (assembler-padded reorder loop)
+/* NON_MATCHING func_00352298 (cygnus-2.96 dr;
+ * PARK, 106 diffs, 159 vs 161 words): ring-table
+ * update.
+ * Retail's reset loop carries 3 short-loop pad nops (assembler-padded reorder loop)
  * that our cygnus pipeline never emits; most remaining diffs are that shift plus the
  * pkt->0x164 / ->0x70 load order in the gap-fill branch. */
 #include "include_asm.h"

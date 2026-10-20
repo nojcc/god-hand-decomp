@@ -1,7 +1,10 @@
-/* NON_MATCHING func_00291D48 (sn-2.95.3-136; PARK, 147 diffs): retail assembler short-loop-padded the
+/* NON_MATCHING func_00291D48 (sn-2.95.3-136;
+ * PARK, 147 diffs): retail assembler short-loop-padded the
  * multi-block list-scan loop (nop after lw 8(a0)); ee-as/call-loop-pad do not pad multi-block
- * loops, shifting everything by one word.  Frame/regalloc otherwise right (wlSet inline breaks
- * the cross-call const-1 CSE); WL store order inside wlSet still unverified. */
+ * loops, shifting everything by one word.
+ * Frame/regalloc otherwise right (wlSet inline breaks
+ * the cross-call const-1 CSE);
+ * WL store order inside wlSet still unverified. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

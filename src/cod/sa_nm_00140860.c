@@ -1,5 +1,7 @@
-/* NON_MATCHING func_00140860 (sn-2.95.3-136; PARK, 134 diffs): drop dead/flagged enemies from the 5-slot list and
- * compact the parallel arrays. Retail keeps the 0x200..0x2FF type test as two branches (no bool), reuses obj for the
+/* NON_MATCHING func_00140860 (sn-2.95.3-136;
+ * PARK, 134 diffs): drop dead/flagged enemies from the 5-slot list and
+ * compact the parallel arrays.
+ * Retail keeps the 0x200..0x2FF type test as two branches (no bool), reuses obj for the
  * dead check but re-reads it in the flag arm, and duplicates the D_00747A84 test per arm. */
 #include "include_asm.h"
 

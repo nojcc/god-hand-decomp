@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002D34A8 (sn-2.95.3-136; PARK, 99 diffs): loop combines p + i*4 into one s-reg (retail keeps i*4 in s2 and re-adds p at each dma/buf load) and the slots base lands before i = 0 instead of after the func_002D3388 join; stream buffer two-slot SifDma / sceSdRemote state machine */
+/* NON_MATCHING func_002D34A8 (sn-2.95.3-136;
+ * PARK, 99 diffs): loop combines p + i*4 into one s-reg (retail keeps i*4 in s2 and re-adds p at each dma/buf load) and the slots base lands before i = 0 instead of after the func_002D3388 join; stream buffer two-slot SifDma / sceSdRemote state machine */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

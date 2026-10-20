@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0028EBF0 (NEAR-MISS): same inlined range-check idiom as func_001A6FB0: retail a1=0; slti; bnez; a1=slt; andi 0xFF. C forms give movn or drop the a1 copy (best 32 diffs, rest matches) */
+/* NON_MATCHING func_0028EBF0: same inlined range-check idiom as func_001A6FB0: retail a1=0; slti; bnez; a1=slt; andi 0xFF.
+ * C forms give movn or drop the a1 copy */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

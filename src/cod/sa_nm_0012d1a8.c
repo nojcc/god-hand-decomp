@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0012D1A8 (sn-2.95.3-136; PARK, 62 diffs): world corners of a scaled unit square plus its bounding box.
+/* NON_MATCHING func_0012D1A8 (sn-2.95.3-136;
+ * PARK, 62 diffs): world corners of a scaled unit square plus its bounding box.
  * Same length as retail; retail keeps self in $s1 (ours $s3) and addresses min/max/corners off self (0x10(s1), 0xC0(v0))
  * where ours goes through the min/max pointer locals. */
 #include "include_asm.h"

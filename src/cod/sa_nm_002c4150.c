@@ -1,4 +1,5 @@
-/* NON_MATCHING cScenario_execUpCutData (sn-2.95.3-136; PARK): stores and the taskExec call match; the slot index stays in v0 instead of t1 and the 0x58 scale adds into the base. Best 18. */
+/* NON_MATCHING cScenario_execUpCutData (sn-2.95.3-136;
+ * PARK): stores and the taskExec call match; the slot index stays in v0 instead of t1 and the 0x58 scale adds into the base. */
 #include "include_asm.h"
 #include "godhand/cScenario.h"
 #include "godhand/cTaskWork.h"

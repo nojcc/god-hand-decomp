@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00344948 (cygnus-2.96 --drop-reorder; PARK, 71 diffs): values and call order are right. Retail copies prm[0..3] into the stack info block, and the info block into the work area, one word at a time through v0, as if every load and store could alias; ours batches the loads (struct copies give ldl/sdl instead). t (prm+0x20) and c (prm+0x2C) also swap s7/fp. */
+/* NON_MATCHING func_00344948 (cygnus-2.96 --drop-reorder;
+ * PARK, 71 diffs): values and call order are right.
+ * Retail copies prm[0..3] into the stack info block, and the info block into the work area, one word at a time through v0, as if every load and store could alias; ours batches the loads (struct copies give ldl/sdl instead). t (prm+0x20) and c (prm+0x2C) also swap s7/fp. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

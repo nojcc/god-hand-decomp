@@ -1,10 +1,13 @@
-/* NON_MATCHING func_002C1AE0 (sn-2.95.3-136, as sn; PARK, 39 diffs): the first 0x134 bytes match. In the facing-arc check, retail loads the pi constant after the sub.s/abs.s pair (so ps2eeas adds an mtc1 hazard nop); ours hoists it above them, which shifts the rest of the tail by one word. */
+/* NON_MATCHING func_002C1AE0 (sn-2.95.3-136, as sn;
+ * PARK, 39 diffs): the first 0x134 bytes match.
+ * In the facing-arc check, retail loads the pi constant after the sub.s/abs.s pair (so ps2eeas adds an mtc1 hazard nop); ours hoists it above them, which shifts the rest of the tail by one word. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 /* func_002C1AE0: area hit check with a facing limit: build the check volume, turn its angle by
  * the attached part's yaw (and an extra offset), test it, then reject hits where the player's yaw
- * is outside the allowed arc. Angles in the parameter block are in 2-degree steps. */
+ * is outside the allowed arc.
+ * Angles in the parameter block are in 2-degree steps. */
 typedef struct {
     char pad00[0x30];
     int count;                          /* 0x30 */

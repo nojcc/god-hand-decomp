@@ -1,4 +1,3 @@
-/* sn-2.95.3-136: NM closer handoff. */
 #include "godhand/cDoor.h"
 #include "godhand/classFADE.h"
 #include "godhand/cScenario.h"

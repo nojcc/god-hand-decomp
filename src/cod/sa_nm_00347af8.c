@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00347AF8 (cygnus,dr,regalloc-swap): best 9 with -freorder-blocks dropped: only s0/s1 are swapped. Retail puts buf in s0 and hn (then hn->sj) in s1; ours gives hn/sj s0 and buf s1. Local order, -fno-gcse and nested ifs (25) do not change it. */
+/* Retail puts buf in s0 and hn (then hn->sj) in s1; ours gives hn/sj s0 and buf s1.
+ * Local order, -fno-gcse and nested ifs (25) do not change it. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

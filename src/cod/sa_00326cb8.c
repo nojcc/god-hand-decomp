@@ -1,4 +1,4 @@
-/* func_00326CB8: ADX SJ header step: skip the 0x8001 header and zero padding, else hand the chunk to the decoder (cygnus-2.96, drop-reorder) */
+/* func_00326CB8: ADX SJ header step: skip the 0x8001 header and zero padding, else hand the chunk to the decoder (cygnus-2.96) */
 typedef struct { char *f0; int f4; } Ck326C;
 
 typedef struct OBJ326C OBJ326C;

@@ -1,4 +1,4 @@
-/* cygnus-2.96 --drop-reorder: MWSFD handle init: copy the default parameter blocks and reset
+/* cygnus-2.96: MWSFD handle init: copy the default parameter blocks and reset
  * the work fields and the 16 decode slots. */
 typedef struct Def24 { int w[9]; } Def24;
 typedef struct Def8 { int w[2]; } Def8;

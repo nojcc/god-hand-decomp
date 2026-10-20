@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00333880 (cygnus-2.96 with -freorder-blocks dropped; near-miss 7 at attempt 3): CD file table build. The loop matches only with `ng` volatile, which frees fp for the hoisted config base; retail's ng is a real spill (reloads in v1, plain blez) under register pressure that a non-volatile ng doesn't reproduce. */
+/* NON_MATCHING func_00333880: CD file table build.
+ * The loop matches only with `ng` volatile, which frees fp for the hoisted config base; retail's ng is a real spill (reloads in v1, plain blez) under register pressure that a non-volatile ng doesn't reproduce. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -44,7 +45,7 @@ int func_00333880(char *tbl, int n)
     int i;
     int off;
     int ok;
-    volatile int ng;
+    int ng;
 
     i = 0;
     ok = 0;

@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0036AE70 (cygnus-2.96 dr; PARK, 120 diffs): MPV GOP header parse.  Prologue
+/* NON_MATCHING func_0036AE70 (cygnus-2.96 dr;
+ * PARK, 120 diffs): MPV GOP header parse.
+ * Prologue
  * matches up to the start-code skip; retail keeps `bitpos ? nxt << bitpos : nxt` as xori/movn
  * while ours combines it to a bare sllv, and the time-code/bit reads schedule differently. */
 #include "include_asm.h"

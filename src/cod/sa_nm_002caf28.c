@@ -1,4 +1,4 @@
-/* NON_MATCHING func_002CAF28 (NEAR-MISS): cygnus dr closest (65 diffs, entry/else branch match); retail materialises the mode==0 test as a C++-style bool (li 0/1 + andi 0xFF) which folds away in C under every compiler; retail 0.1f is 0x3DCCCCCD (sn rounding) while cygnus emits 0x3DCCCCCC even for a double literal, so the unit may be sn C++ which match_check cannot compile (always C) */
+/* NON_MATCHING func_002CAF28: cygnus dr closest (65 diffs, entry/else branch match); retail materialises the mode==0 test as a C++-style bool (li 0/1 + andi 0xFF) which folds away in C under every compiler; retail 0.1f is 0x3DCCCCCD (sn rounding) while cygnus emits 0x3DCCCCCC even for a double literal, so the unit may be sn C++ which match_check cannot compile (always C) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

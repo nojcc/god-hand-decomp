@@ -1,6 +1,8 @@
-/* NON_MATCHING func_001034E0 (sn-2.95.3-136; PARK, 141 diffs): 150 vs 159 words; retail keeps
+/* NON_MATCHING func_001034E0 (sn-2.95.3-136;
+ * PARK, 141 diffs): 150 vs 159 words; retail keeps
  * every branch body separate (no cross-jump of the d/b stores or the 5.0f loads) and lays
- * the 0x621..0x623 tests out as fallthrough chains.  The 0x2F4/0x2F5 pair test is a 64-bit
+ * the 0x621..0x623 tests out as fallthrough chains.
+ * The 0x2F4/0x2F5 pair test is a 64-bit
  * masked ld compare (MREQ_AB), which this reproduces. */
 #include "include_asm.h"
 

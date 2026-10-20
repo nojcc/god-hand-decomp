@@ -1,6 +1,8 @@
-/* NON_MATCHING func_001C3988 (sn-2.95.3-136 -f=-fno-gcse; PARK, 79 diffs): the never-read stack copy of the part count
+/* NON_MATCHING func_001C3988 (sn-2.95.3-136 -f=-fno-gcse;
+ * PARK, 79 diffs): the never-read stack copy of the part count
  * makes retail load the count into a temp and copy it to a second register, which the plain locals here do not;
- * rest of the loop (lo kept in a register, bounds-checked part lookup) is right. Clears then sets part flags 0x08/0x10
+ * rest of the loop (lo kept in a register, bounds-checked part lookup) is right.
+ * Clears then sets part flags 0x08/0x10
  * around cModel_calcParts. */
 #include "include_asm.h"
 

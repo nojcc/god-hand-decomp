@@ -1,4 +1,3 @@
-/* halt demote F32toF16 */
 #ifdef NON_MATCHING
 __attribute__((section(".text.F32toF16")))
 int F32toF16(float f)

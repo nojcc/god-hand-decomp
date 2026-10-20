@@ -1,4 +1,4 @@
-/* sn-2.95.3-136, as=sn: two-choice panel step: open the panel, toggle the choice on left/right
+/* sn-2.95.3-136: two-choice panel step: open the panel, toggle the choice on left/right
  * and confirm on the decide button. */
 #include "godhand/gameWork.h"
 extern char D_005FEE00[];

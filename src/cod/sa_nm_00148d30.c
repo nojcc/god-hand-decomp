@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00148D30 (sn-2.95.3-136; PARK, 41 diffs): the &D_007474A0 base stays in a saved reg instead of a2 with a branch-2 copy into s7, and that shifts every saved reg. */
+/* NON_MATCHING func_00148D30 (sn-2.95.3-136;
+ * PARK, 41 diffs): the &D_007474A0 base stays in a saved reg instead of a2 with a branch-2 copy into s7, and that shifts every saved reg. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,5 +1,4 @@
-/* NM, not registered. cygnus-2.96 singletons.
- * func_0035A7A0: 3 insns; retail loads id into v1 and -1 into a2 (ours swapped).
+/* func_0035A7A0: 3 insns; retail loads id into v1 and -1 into a2 (ours swapped).
  * func_00342E50: 4 insns; retail materialises 0x600 after the first store (schedule order). */
 #include "include_asm.h"
 

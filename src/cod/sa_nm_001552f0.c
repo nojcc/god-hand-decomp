@@ -1,10 +1,9 @@
-/* NM, not registered. sn-2.95.3-136: record block size (0x1552F0).
- * 13 differing insns: retail keeps base/quotient in v0->v1 and reloads 0x18
- * into v0 for the second divide check; ours swaps v0/v1. Tried pointer
+/* 13 differing insns: retail keeps base/quotient in v0->v1 and reloads 0x18
+ * into v0 for the second divide check; ours swaps v0/v1.
+ * Tried pointer
  * forms, MdlPack struct, cnt/base/rec locals, a second divisor variable. */
 #include "include_asm.h"
 #include "godhand/mdlPkt.h"
-
 
 #ifdef NON_MATCHING
 int func_001552F0(MdlObj *self, int idx)

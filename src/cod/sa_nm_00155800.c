@@ -1,11 +1,10 @@
-/* NM, not registered. sn-2.95.3-136: model mesh DMA packet build (0x155800).
- * 156 words vs 167: loop-invariant hoisting differs. Retail hoists 13
+/* 156 words vs 167: loop-invariant hoisting differs.
+ * Retail hoists 13
  * constants (0x01000404, 0x0FFFFFFF, 0x01000103, the four UNPACK words,
  * C0BB<<46, 0x01000000, 0x30000000 twice, 0x17000000) and leaves
  * 0x10000002, 0x412, 0x26 and the other GIF PRIM words inline. */
 #include "include_asm.h"
 #include "godhand/mdlPkt.h"
-
 
 #define GIF_TAG(n, hi)  ((n) | ((unsigned long)(hi) << 46))
 #define DMA_ADDR(p)     ((unsigned long)((unsigned int)(p) & 0x0FFFFFFF) << 32)

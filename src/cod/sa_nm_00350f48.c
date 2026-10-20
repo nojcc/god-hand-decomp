@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00350F48 (cygnus-2.96 drop-reorder; 112 vs 111 words, 50 diffs: retail keeps
+/* NON_MATCHING func_00350F48 (cygnus-2.96 drop-reorder;
+ * 112 vs 111 words, 50 diffs: retail keeps
  * ring p1/end in v1/v0 and returns through bare v0 sets; ours picks a0/a1 and presets v0) */
 #include "include_asm.h"
 

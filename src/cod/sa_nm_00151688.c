@@ -1,14 +1,15 @@
-/* NM, not registered. sn-2.95.3-136: texture pack upload (0x151688..).
- * func_00151688: same size and instruction sequence as retail; 165 insns
+/* func_00151688: same size and instruction sequence as retail;
+ * 165 insns
  * differ only by register assignment (retail: hdr s2, w s7, count fp, i s5,
- * ent s6). Tried GsTex0 bitfields (SN promotes them to int), explicit
+ * ent s6).
+ * Tried GsTex0 bitfields (SN promotes them to int), explicit
  * 64-bit masks with a non-folded __muldi3 multiplier, pkt indexing forms,
- * separate loop counters. In SN, long is 64-bit and long long 128-bit.
+ * separate loop counters.
+ * In SN, long is 64-bit and long long 128-bit.
  * Also needs the TU flag "as": "sn" for the 64-bit mask constants (see
  * sa_nm_00151990.c), which sa_register cannot set. */
 #include "include_asm.h"
 #include "godhand/tim2.h"
-
 
 #define TEX0_TBP0_MASK  0x3FFFUL
 #define TEX0_CBP_SHIFT  37

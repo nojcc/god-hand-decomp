@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0034AC60 (cygnus-2.96, -freorder-blocks dropped; STOP, best 10): open the ADX stream for a handle: create the ADXT on the work at 0x35B0, map its buffer, fill the callback table at 0x365C, then start it. The inline setter gives retail's register for every callback address. Left: retail forms cb (s1+0x365C) between the low halves and loads adxt->id only after the 0x2114 and 0x14 stores; int-typed fields keep the load late but reshuffle the registers. */
+/* NON_MATCHING func_0034AC60: open the ADX stream for a handle: create the ADXT on the work at 0x35B0, map its buffer, fill the callback table at 0x365C, then start it.
+ * The inline setter gives retail's register for every callback address.
+ * Left: retail forms cb (s1+0x365C) between the low halves and loads adxt->id only after the 0x2114 and 0x14 stores; int-typed fields keep the load late but reshuffle the registers. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

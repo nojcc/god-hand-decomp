@@ -1,4 +1,5 @@
-/* NON_MATCHING cFont_setTextureAddr (NEAR-MISS): sn; 20 diffs: retail copies self to v1 at entry and stores info through a second copy of the slot pointer (pointer-copy chain), and swaps base/cursor registers in the first relocation loop; slot pointer, per-field self[idx], inline setter, self+=idx and indexed-loop forms tried */
+/* NON_MATCHING cFont_setTextureAddr: sn;
+ * 20 diffs: retail copies self to v1 at entry and stores info through a second copy of the slot pointer (pointer-copy chain), and swaps base/cursor registers in the first relocation loop; slot pointer, per-field self[idx], inline setter, self+=idx and indexed-loop forms tried */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

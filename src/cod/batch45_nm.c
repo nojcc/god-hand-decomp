@@ -1,8 +1,6 @@
-/* Batch 45 near-misses — not registered.
- * 140: cScenario_startSoftTask scenario task/entry schedule (s0 vs s1; mult order).
- * 148: ActorMove_resetMotion -1 store delay-slot (0x30/0x20) and trailing byte order.
- * 160: func_002CCB58 flag/movz control-flow shape.
- * 6-attempt cap. */
+/* cScenario_startSoftTask scenario task/entry schedule (s0 vs s1; mult order).
+ * ActorMove_resetMotion -1 store delay-slot (0x30/0x20) and trailing byte order.
+ * func_002CCB58 flag/movz control-flow shape. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

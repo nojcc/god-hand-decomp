@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002AC878 (NEAR-MISS): sn + -ffast-math + fp_hazard_rules sqrt,fdiv; 18 diffs, retail keeps the len[i-1] load after sqrt.s (scheduling barrier we cannot reproduce in C); no matched C exists for any of the 18 retail sqrt.s sites */
+/* NON_MATCHING func_002AC878: sn + -ffast-math + fp_hazard_rules sqrt,fdiv;
+ * 18 diffs, retail keeps the len[i-1] load after sqrt.s (scheduling barrier we cannot reproduce in C); no matched C exists for any of the 18 retail sqrt.s sites */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

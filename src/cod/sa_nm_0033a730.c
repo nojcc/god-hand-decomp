@@ -1,4 +1,6 @@
-/* NON_MATCHING func_0033A730 (cygnus-2.96, -freorder-blocks dropped; STOP, NEAR-MISS 1): take a chunk of at least len bytes from free list id; an exact fit is unlinked and its node goes to the spare list, a larger one is split in mode 1. One insn: the used test is bnel here, retail bnez with the sltiu id<4 in the slot (the reverse of func_0033ABD0). Tried: int-returning func_0033A048, signed id, if/else-if chain. */
+/* NON_MATCHING func_0033A730: take a chunk of at least len bytes from free list id; an exact fit is unlinked and its node goes to the spare list, a larger one is split in mode 1.
+ * One insn: the used test is bnel here, retail bnez with the sltiu id<4 in the slot (the reverse of func_0033ABD0).
+ * Tried: int-returning func_0033A048, signed id, if/else-if chain. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

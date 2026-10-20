@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00376720 (sn-2.95.3-136, as=sn): same size, 19 insns: this for-loop hoists i-- to the top and schedules ori/args ahead of the timer test. The m2c goto form (f preloaded, 'if (--i >= 0) { f = e[0]; goto loop; }') reproduces the whole body exactly but inverts the loop exit (bltzl + fallthrough instead of bgezl back-edge), drops the pre-label nop and reorders the prologue saves. Tried: for loop, do/break, goto loop. */
+/* NON_MATCHING func_00376720 (sn-2.95.3-136, as=sn): same size, 19 insns: this for-loop hoists i-- to the top and schedules ori/args ahead of the timer test.
+ * The m2c goto form (f preloaded, 'if (--i >= 0) { f = e[0]; goto loop; }') reproduces the whole body exactly but inverts the loop exit (bltzl + fallthrough instead of bgezl back-edge), drops the pre-label nop and reorders the prologue saves.
+ * Tried: for loop, do/break, goto loop. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

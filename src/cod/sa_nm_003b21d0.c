@@ -1,6 +1,8 @@
-/* NON_MATCHING func_003B21D0 (ee-2.9-991111; PARK, 13 diffs): sceSifInitCmd.  Only scheduling of
+/* NON_MATCHING func_003B21D0 (ee-2.9-991111;
+ * PARK, 13 diffs): sceSifInitCmd.
+ * Only scheduling of
  * the cmd-data init (a3=0x20 / lui hi(D_0077E500) one slot off) and the v0/v1 swap of the
- * packet/pktbuf addresses before the final sceSifSendCmd remain.  Good permuter candidate. */
+ * packet/pktbuf addresses before the final sceSifSendCmd remain. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

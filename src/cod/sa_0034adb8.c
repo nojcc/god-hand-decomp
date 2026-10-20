@@ -1,4 +1,4 @@
-/* cygnus-2.96, -freorder-blocks dropped: func_0034ADB8, fill a stream request from the global
+/* cygnus-2.96: func_0034ADB8, fill a stream request from the global
  * info block and push the frame-rate/time conditions of handle into its timer object. */
 typedef struct {
     int v[7];

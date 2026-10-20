@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0032D430 (cygnus-2.96 dr; PARK, 44 diffs): control flow, frame, search-loop pad and s-regs match;
+/* NON_MATCHING func_0032D430 (cygnus-2.96 dr;
+ * PARK, 44 diffs): control flow, frame, search-loop pad and s-regs match;
  * retail schedules the handle init stores and the size math with less pre-RA reordering (constants reloaded into v0
  * right before each store), ours hoists them. */
 #include "include_asm.h"
@@ -49,7 +50,6 @@ extern int func_00327D00(int, int);
 extern void func_003283E8(int, void *, Hn32D430 *);
 extern void func_0032E488(void);
 extern void func_0032D720(Hn32D430 *);
-
 
 extern Hn32D430 D_003D1488[4];
 extern char D_004529D0[];

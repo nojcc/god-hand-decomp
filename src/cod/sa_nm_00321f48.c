@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00321F48 (ee-2.9-991111,jump-thread): libgcc frame.c find_fde. Best 2 with ee-2.9-991111 plus -fno-thread-jumps: retail keeps the post-loop ob==0 test but threads the loop-exit branch straight to return 0 (beqz s0 with v0=0 in the slot); default flags drop the test (35), -fno-thread-jumps keeps it but leaves the exit branch pointing at it */
+/* NON_MATCHING func_00321F48 (ee-2.9-991111,jump-thread): libgcc frame.c find_fde. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

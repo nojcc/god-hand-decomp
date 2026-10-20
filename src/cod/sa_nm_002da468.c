@@ -1,4 +1,5 @@
-/* NON_MATCHING Turn_dest_Y (sn-2.95.3-136, "as": "sn", fp_hazard_rules fdiv; PARK, 60 diffs): retail keeps the angle and its wrapped difference in f12 and the clamped step in f14; ours splits them differently, so the clamp branches become likely forms */
+/* NON_MATCHING Turn_dest_Y (sn-2.95.3-136, "as": "sn", fp_hazard_rules fdiv;
+ * PARK, 60 diffs): retail keeps the angle and its wrapped difference in f12 and the clamped step in f14; ours splits them differently, so the clamp branches become likely forms */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

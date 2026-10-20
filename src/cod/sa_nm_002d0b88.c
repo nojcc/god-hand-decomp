@@ -1,8 +1,7 @@
-/* NM, not registered. sn-2.95.3-136: cSnd sound-kind table lookup (0x2D0B88).
- * func_002D0B88: 22 insns, register naming only - retail keeps found in a0 and
- *   the table end in a1 (ours a2/a0), which also reorders the fallback stores.
+/* func_002D0B88: 22 insns, register naming only - retail keeps found in a0 and
+ * the table end in a1 (ours a2/a0), which also reorders the fallback stores.
  * cSnd_IsEnemyAlive: 36 insns - our kind range tests fold into one unsigned
- *   compare (or a movz); retail keeps two slti tests with a branch. */
+ * compare (or a movz); retail keeps two slti tests with a branch. */
 #include "include_asm.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cSnd.h"
@@ -11,7 +10,6 @@
 
 extern cSndKindEnt D_003C3120;           /* fallback entry, just before the table */
 extern cSndKindEnt D_003C3138[44];
-
 
 static inline unsigned char SndIsEnemyKind(int kind)
 {

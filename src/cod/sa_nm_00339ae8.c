@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00339AE8 (cygnus-2.96, -freorder-blocks dropped; PARK 69 at attempt 4): SJ ring buffer put chunk: count data (lane 1) or free space (lane 0) back in, mirroring the wrap area. Logic and loads match; retail keeps id in v1 from entry and the chunk length in t0 with a t1 copy, so off and end share v1 and the first wrap test fills its delay slot without a branch-likely (2 words). A length local and a switch on id change nothing (72). */
+/* NON_MATCHING func_00339AE8: SJ ring buffer put chunk: count data (lane 1) or free space (lane 0) back in, mirroring the wrap area.
+ * Logic and loads match; retail keeps id in v1 from entry and the chunk length in t0 with a t1 copy, so off and end share v1 and the first wrap test fills its delay slot without a branch-likely (2 words).
+ * A length local and a switch on id change nothing (72). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

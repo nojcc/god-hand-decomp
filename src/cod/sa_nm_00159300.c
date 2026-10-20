@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00159300 (sn-2.95.3-136 with as sn; PARK 107 at attempt 3): keyframe curve sample, Hermite segment between the bracketing keys. The first search loop matches; retail's second loop keeps three separate induction pointers (frame load, equal-key return, i*16 for the segment) and builds the segment address after the loop, mine merges them. */
+/* NON_MATCHING func_00159300: keyframe curve sample, Hermite segment between the bracketing keys.
+ * The first search loop matches; retail's second loop keeps three separate induction pointers (frame load, equal-key return, i*16 for the segment) and builds the segment address after the loop, mine merges them. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

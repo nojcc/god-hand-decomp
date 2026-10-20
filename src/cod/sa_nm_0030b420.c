@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0030B420 (sn-2.95.3-136; PARK, 27 diffs): matches through the last sceGsSyncV;
+/* NON_MATCHING func_0030B420 (sn-2.95.3-136;
+ * PARK, 27 diffs): matches through the last sceGsSyncV;
  * retail keeps s0 = &D_007474A0+0x584 and derives the base into a2 (flags2 at 4(s0)), ours
  * rebases s0 in the call delay slot (-1412) and loses the nop. */
 #include "include_asm.h"
@@ -33,7 +34,7 @@ extern char D_005CAE50[];
 extern char D_00574380[];
 extern char D_00604700[];
 extern char D_00580D40[];
-extern volatile int D_00753D80;
+extern int D_00753D80;
 
 extern void func_003A6A20(const char *s);
 extern void sceGsSyncV(int mode);

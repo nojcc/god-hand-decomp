@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00394F20 (sn): 5 diffs: list-walk loop tail is bnel+lw where retail has nop+bne+lw; D_003F8528 hi in v0 vs v1 */
+/* NON_MATCHING func_00394F20 (sn): 5 diffs: list-walk loop tail is bnel+lw where retail has nop+bne+lw;
+ * D_003F8528 hi in v0 vs v1 */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

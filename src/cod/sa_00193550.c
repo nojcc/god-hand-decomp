@@ -9,14 +9,13 @@ extern void func_001FD9D8(void *unit, void *pos, float *a, float *b, float *size
 
 extern int D_00574380;
 
-
 __attribute__((section(".text.func_00193550")))
 int func_00193550(cOmHitVolume *self) {
     float box[4];
     float sizeVec[4];
     float originVec[4];
     float origin2Vec[4];
-    float *t;                           /* sizeVec, addressed through a register as retail does */
+    float *t;
     float *m;
     float *nv;
     void *slot;

@@ -1,6 +1,8 @@
-/* NON_MATCHING func_002AC9B8 (sn-2.95.3-136; PARK, 136 diffs): straight-line code and calls match; the child loop
+/* NON_MATCHING func_002AC9B8 (sn-2.95.3-136;
+ * PARK, 136 diffs): straight-line code and calls match; the child loop
  * hoists the ~0x4000 / ~0x2000 / ~0x1000 masks (s5-s7) where retail hoists ~0x2000 / ~0x1000 / ~0x800 / ~0x400
- * (fp, s7-s5) and reloads ~0x4000 in the loop, so the frame is 0x10 smaller and everything after shifts. Step an ID
+ * (fp, s7-s5) and reloads ~0x4000 in the loop, so the frame is 0x10 smaller and everything after shifts.
+ * Step an ID
  * entry and all its child entries for one frame and set / clear the five 0x400..0x4000 update flags. */
 #include "include_asm.h"
 

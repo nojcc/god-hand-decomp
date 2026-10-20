@@ -1,4 +1,5 @@
-/* NON_MATCHING func_001F2D60 (sn-2.95.3-136; PARK, 214 diffs): same CidColor family as sa_nm_001f3118.c; retail keeps the case-0 colours on the stack (word RMW for r, sb for the other bytes through &c1) and case 1 reads uninitialized a2/a3 (phantom by-value param pattern, left for review like 001F3118) */
+/* NON_MATCHING func_001F2D60 (sn-2.95.3-136;
+ * PARK, 214 diffs): same CidColor family as sa_nm_001f3118.c; retail keeps the case-0 colours on the stack (word RMW for r, sb for the other bytes through &c1) and case 1 reads uninitialized a2/a3 (phantom by-value param pattern, left for review like 001F3118) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

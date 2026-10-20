@@ -1,4 +1,4 @@
-/* cygnus-2.96 (-freorder-blocks dropped): ADXF load start: validate args, open the file by name or by pt/index, fill the AdxfLd record and kick ADXF_ReadNw (0x322C68). */
+/* cygnus-2.96 (): ADXF load start: validate args, open the file by name or by pt/index, fill the AdxfLd record and kick ADXF_ReadNw (0x322C68). */
 typedef struct {
     int f0;
     int f4;

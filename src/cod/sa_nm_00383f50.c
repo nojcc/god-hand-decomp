@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00383F50 (sn-2.95.3-136; PARK, 56 diffs): two-mixer sibling of func_00382660 (also NM). Control flow
+/* NON_MATCHING func_00383F50 (sn-2.95.3-136;
+ * PARK, 56 diffs): two-mixer sibling of func_00382660 (also NM).
+ * Control flow
  * matches; retail puts sel/mix/mute in s0/s1/s2 (ours s1/s2/s0) and the last loop is one word off. */
 #include "include_asm.h"
 

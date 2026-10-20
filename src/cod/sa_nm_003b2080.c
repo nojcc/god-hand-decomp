@@ -1,4 +1,6 @@
-/* NON_MATCHING func_003B2080 (ee29,near-miss,sched): best 2 (ee-2.9-991111): int buf[32][4] form. Only the addiu %lo(D_00460040) and the lw %lo(D_0077E520) are swapped. The DmaEnt-struct form sinks the data store (17); the order of the source stores makes no difference. */
+/* NON_MATCHING func_003B2080: int buf[32][4] form.
+ * Only the addiu %lo(D_00460040) and the lw %lo(D_0077E520) are swapped.
+ * The DmaEnt-struct form sinks the data store (17); the order of the source stores makes no difference. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

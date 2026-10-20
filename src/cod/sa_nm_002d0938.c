@@ -1,4 +1,5 @@
-/* NON_MATCHING cSnd_BgmControl (sn-2.95.3-136 + call_loop_pad; near-miss at attempt 4): per-frame BGM node update. Everything matches except one nop: retail's assembler short-loop-padded the call-free found-loop (beqz / addiu / lw / nop / bnel) even though its body holds the exit beqz; ee-as only pads single-block loops, and no C form changes that instruction sequence. */
+/* NON_MATCHING cSnd_BgmControl: per-frame BGM node update.
+ * Everything matches except one nop: retail's assembler short-loop-padded the call-free found-loop (beqz / addiu / lw / nop / bnel) even though its body holds the exit beqz; ee-as only pads single-block loops, and no C form changes that instruction sequence. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

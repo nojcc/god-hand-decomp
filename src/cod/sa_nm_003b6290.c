@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003B6290 (ee-2.9-991111): 52 diffs: retail strlen loop carries R5900 short-loop 3-nop pad that our ee-as path omits (call-loop-pad n/a: no call); also name-11 hoist folded */
+/* NON_MATCHING func_003B6290 (ee-2.9-991111): 52 diffs: retail strlen loop carries R5900 short-loop 3-nop pad that our ee-as path omits; also name-11 hoist folded */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

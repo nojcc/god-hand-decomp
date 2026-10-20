@@ -1,5 +1,4 @@
-/* NM, not registered. sn-2.95.3-136 (fdiv,mtc1): round a percentage up and
- * offset it by a scaled global (0x2FA350).
+/* offset it by a scaled global (0x2FA350).
  * Both: retail converts with cvt.w.s kept in an FPR; every compiler here emits
  * trunc.w.s for an (int) cast, so 29 insns differ (same as RoundFloat). */
 #include "include_asm.h"

@@ -1,4 +1,5 @@
-/* NON_MATCHING ObjTrans (sn-2.95.3-136; PARK, 7 diffs): toggle path sw/addiu delay-slot order, dead reorg addiu before vcall slot 3 */
+/* NON_MATCHING ObjTrans (sn-2.95.3-136;
+ * PARK, 7 diffs): toggle path sw/addiu delay-slot order, dead reorg addiu before vcall slot 3 */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

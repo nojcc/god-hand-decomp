@@ -1,4 +1,5 @@
-/* NON_MATCHING func_00336218 (cyg,near-miss,reorg): best 2 (cyg dr): the only differences are two branches; retail uses bne (non-likely) with the speculative sll v0,a1,5 in the slot before each call, ours uses bnel. Unprototyped or int-returning callees and -fno-gcse / -fno-align-jumps don't change it. */
+/* NON_MATCHING func_00336218: the only differences are two branches; retail uses bne (non-likely) with the speculative sll v0,a1,5 in the slot before each call, ours uses bnel.
+ * Unprototyped or int-returning callees and -fno-gcse / -fno-align-jumps don't change it. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

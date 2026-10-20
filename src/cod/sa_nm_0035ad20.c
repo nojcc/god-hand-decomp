@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0035AD20 (sched): cygnus dr best 46: retail reloads t->last after the -5 test and hoists the cnt load; prologue order differs */
+/* NON_MATCHING func_0035AD20 (sched): cygnus dr retail reloads t->last after the -5 test and hoists the cnt load; prologue order differs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

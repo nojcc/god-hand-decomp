@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00347498 (cygnus-2.96, -freorder-blocks dropped; STOP, best 47): query the joint, search the tag, and either copy it into the buffer at 0x188 or hand the tag span to func_00347698. Registers and prologue match. Retail places the failure stores right after the search (bnez to the success block) and keeps the copy path's stores interleaved with the GetChunk setup; this form puts the failure block last. */
+/* NON_MATCHING func_00347498: query the joint, search the tag, and either copy it into the buffer at 0x188 or hand the tag span to func_00347698.
+ * Registers and prologue match.
+ * Retail places the failure stores right after the search (bnez to the success block) and keeps the copy path's stores interleaved with the GetChunk setup; this form puts the failure block last. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

@@ -1,4 +1,3 @@
-/* halt demote func_001551E0 */
 #ifdef NON_MATCHING
 __attribute__((section(".text.func_001551E0")))
 int func_001551E0(char *a0, int a1)
@@ -21,9 +20,6 @@ int func_001551E0(char *a0, int a1)
     rem = (int)h % d;
     if (rem != 0) {
         q = q + 1;
-        __asm__("");
-    } else {
-        __asm__("");
     }
     return q * 0x90 + 0x10;
 }

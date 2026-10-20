@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00137BB8 (regalloc): sn best 28: only s1..s6 assignment differs (list/found/pt/best); tried all decl orders, offset loop, do-while, hit temp, C++ */
+/* NON_MATCHING func_00137BB8: sn only s1..s6 assignment differs; tried all decl orders, offset loop, do-while, hit temp, C++ */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

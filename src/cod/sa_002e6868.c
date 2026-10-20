@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 (as sn): object ground-mode step, then node pos/scale sync (0x2E6868). */
+/* sn-2.95.3-136 (): object ground-mode step, then node pos/scale sync (0x2E6868). */
 typedef struct Vec3 {
     float x, y, z;
 } Vec3;

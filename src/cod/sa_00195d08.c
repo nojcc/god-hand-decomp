@@ -2,7 +2,6 @@
  * the damage-take flag or'd with 1 after the volume is attached. */
 #include "godhand/emDamageVol.h"
 
-
 __attribute__((section(".text.func_00195D08")))
 int func_00195D08(EmDmgVol *em)
 {

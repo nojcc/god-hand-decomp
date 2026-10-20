@@ -1,6 +1,5 @@
-/* NM, not registered. newlib (EE port) memcpy (0x3A5148) / memmove (0x3A51F4).
- * Closest under sn-2.95.3-136: memcpy is 1 word short (retail moves dst0 to t0 and
- *   uses a0 for loop temporaries; quad copies use v1/v0); memmove 4 words long. */
+/* Closest under sn-2.95.3-136: memcpy is 1 word short (retail moves dst0 to t0 and
+ * uses a0 for loop temporaries; quad copies use v1/v0); memmove 4 words long. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

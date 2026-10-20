@@ -1,4 +1,6 @@
-/* NON_MATCHING func_00386DE0 (sn-2.95.3-136; PARK 65): fetch request idx of bank into out (0x60-byte copy), then fill its 0x18-byte sub-record from the bank's sub table and stamp bank/idx; reports and returns -1 for a bad index or a disabled request. Logic matches; retail assigns bank=a3/idx=t0 and copies the request pointer into v1 for the block move (src v1, dst a0), ours swaps both pairs. */
+/* NON_MATCHING func_00386DE0 (sn-2.95.3-136;
+ * PARK 65): fetch request idx of bank into out (0x60-byte copy), then fill its 0x18-byte sub-record from the bank's sub table and stamp bank/idx; reports and returns -1 for a bad index or a disabled request.
+ * Logic matches; retail assigns bank=a3/idx=t0 and copies the request pointer into v1 for the block move (src v1, dst a0), ours swaps both pairs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

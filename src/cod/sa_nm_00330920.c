@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00330920 (NEAR-MISS): cygnus dr; first loop, strlen/func_003A5148 path and i==2 reset match; second loop guard beqz fills its slot from the target (subu) where retail fills from fall-through (dev pointer init), shifting the loop by one align nop; for/while/do-guard, pointer dest, i+j and k-counter forms, -fno-gcse, -fno-align-jumps no fix */
+/* NON_MATCHING func_00330920: cygnus dr; first loop, strlen/func_003A5148 path and i==2 reset match; second loop guard beqz fills its slot from the target (subu) where retail fills from fall-through (dev pointer init), shifting the loop by one align nop; for/while/do-guard, pointer dest, i+j and k-counter forms, -fno-gcse, -fno-align-jumps no fix */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

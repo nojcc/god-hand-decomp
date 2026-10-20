@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033D3D0 (regalloc): cygnus dr: 40 diffs, structure and schedule right, register numbering of the block counters differs (retail keeps the sub-struct pointer in a1) */
+/* NON_MATCHING func_0033D3D0: cygnus dr: 40 diffs, structure and schedule right, register numbering of the block counters differs (retail keeps the sub-struct pointer in a1) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

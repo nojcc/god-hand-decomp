@@ -1,4 +1,5 @@
-/* NON_MATCHING func_002B4028 (sn-2.95.3-136, as=sn): 41 insns; wrap clamp compiles to movz where retail branches. PadState struct global fixes the address pattern. */
+/* NON_MATCHING func_002B4028 (sn-2.95.3-136, as=sn): 41 insns; wrap clamp compiles to movz where retail branches.
+ * PadState struct global fixes the address pattern. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

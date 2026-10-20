@@ -1,4 +1,8 @@
-/* NON_MATCHING func_002B3D70 (sn-2.95.3-136; STOP 11): step 0 waits for hold to clear and arms bit 0x80; step 1 counts, and once the 90-frame wait or the skip buttons fire, resets the counter, clears the flags, rewinds the step and clears the cut entry if asked. Only the schedule differs: retail keeps D_003C2550 = 0 first in the join block (reorg then copies it into the three branch delay slots); ours moves the flags load above it. Splitting the store into each branch changes register allocation instead (score 61). The bit-4 test needs the long widening idiom (lw + dsrl). */
+/* NON_MATCHING func_002B3D70 (sn-2.95.3-136;
+ * STOP 11): step 0 waits for hold to clear and arms bit 0x80; step 1 counts, and once the 90-frame wait or the skip buttons fire, resets the counter, clears the flags, rewinds the step and clears the cut entry if asked.
+ * Only the schedule differs: retail keeps D_003C2550 = 0 first in the join block (reorg then copies it into the three branch delay slots); ours moves the flags load above it.
+ * Splitting the store into each branch changes register allocation instead (score 61).
+ * The bit-4 test needs the long widening idiom (lw + dsrl). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

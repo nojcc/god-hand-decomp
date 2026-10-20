@@ -1,4 +1,5 @@
-/* NON_MATCHING Turn_dest (sn-2.95.3-136, "as": "sn", fp_hazard_rules fdiv; 2 diffs: the final
+/* NON_MATCHING Turn_dest (sn-2.95.3-136, "as": "sn", fp_hazard_rules fdiv;
+ * 2 diffs: the final
  * abs needs neg.s with a non-likely bc1t, but plain -d picks the other branch shape and 0.0f - d
  * emits sub.s) */
 #include "include_asm.h"

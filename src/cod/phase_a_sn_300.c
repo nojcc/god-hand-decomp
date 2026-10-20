@@ -1,5 +1,5 @@
-/* Near-miss, not registered in compile_config.json and not linked.
- * Eight SN clones of func_0018EAF8. The damage-volume setup matches retail.
+/* Eight SN clones of func_0018EAF8.
+ * The damage-volume setup matches retail.
  * The tail is three instructions long: the pointer, 6, and 7 are each
  * materialized twice (once for the store, once for the call). */
 extern void func_001B6FB8(void *a0);

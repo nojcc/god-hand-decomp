@@ -1,5 +1,7 @@
-/* NON_MATCHING func_0033DD78 (cygnus-2.96 --drop-reorder; PARK, 2 diffs): only the reload of the spilled rate pointer
- * (lw a0,4(sp)) lands after the channel lbu instead of before it. Parse a RIFF/WAVE header: find the RIFF and data tags,
+/* NON_MATCHING func_0033DD78 (cygnus-2.96 --drop-reorder;
+ * PARK, 2 diffs): only the reload of the spilled rate pointer
+ * (lw a0,4(sp)) lands after the channel lbu instead of before it.
+ * Parse a RIFF/WAVE header: find the RIFF and data tags,
  * then report data offset, rate, channels, bits, block align, sample count and codec (0 = PCM16, 1 = PCM8, 2 = ADPCM4). */
 #include "include_asm.h"
 

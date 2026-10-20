@@ -1,4 +1,6 @@
-/* NON_MATCHING func_003520D8 (cygnus-2.96, -freorder-blocks dropped; PARK 90 at attempt 3): SFD audio time: latch the stream base time, then turn a time stamp into a play position, counting samples on while the stamp repeats. Logic matches; retail keeps tc/s/ts/info/unit/rate in s0/s1/s2/s3/s5/s6, base in v1 and computes &tc->last late (s4), reusing s1 for t; this hoists &tc->last to entry and shifts every pointer one register. Dropping the base local spills out (90). */
+/* NON_MATCHING func_003520D8: SFD audio time: latch the stream base time, then turn a time stamp into a play position, counting samples on while the stamp repeats.
+ * Logic matches; retail keeps tc/s/ts/info/unit/rate in s0/s1/s2/s3/s5/s6, base in v1 and computes &tc->last late (s4), reusing s1 for t; this hoists &tc->last to entry and shifts every pointer one register.
+ * Dropping the base local spills out (90). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

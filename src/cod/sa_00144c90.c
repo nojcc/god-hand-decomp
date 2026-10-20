@@ -1,4 +1,4 @@
-/* func_00144C90: 5x5 ID work table setup and placement (sn-2.95.3-136, as=sn) */
+/* func_00144C90: 5x5 ID work table setup and placement (sn-2.95.3-136) */
 typedef struct { float x, y, z; } Vec3;
 
 typedef struct E144 {

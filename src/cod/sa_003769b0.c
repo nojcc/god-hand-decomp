@@ -1,4 +1,3 @@
-/* sn-2.95.3-136, call_loop_pad: NM closer handoff. */
 typedef struct Ent3769B0 {
     unsigned short id;
     char pad2[2];

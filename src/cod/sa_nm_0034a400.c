@@ -1,4 +1,5 @@
-/* NON_MATCHING func_0034A400 (cygnus,dr,prologue-order,regalloc): best 16 with -freorder-blocks dropped: branch layout and calls match. Retail copies the params in reverse order (a3,a2,a1,a0 into s3,s0,s1,s2), stores *skip=0 before the a0/a1 setup, and uses v1 for total / v0 for the handler address at the tail; ours copies in a2,a1,a0,a3 order and swaps v0/v1. Swapping the tail statements does not help. */
+/* Retail copies the params in reverse order (a3,a2,a1,a0 into s3,s0,s1,s2), stores *skip=0 before the a0/a1 setup, and uses v1 for total / v0 for the handler address at the tail; ours copies in a2,a1,a0,a3 order and swaps v0/v1.
+ * Swapping the tail statements does not help. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
