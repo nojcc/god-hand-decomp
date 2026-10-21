@@ -59,7 +59,7 @@ echo "[3/6] delete NON_MATCHING TU objects for measured rebuild"
 python3 - <<'PY'
 from pathlib import Path
 n = 0
-for src in Path("src").rglob("*"):
+for src in [*Path("drafts").rglob("*"), *Path("src").rglob("*")]:
     if src.suffix not in {".c", ".cc", ".cpp"}:
         continue
     if "NON_MATCHING" not in src.read_text(errors="ignore"):
