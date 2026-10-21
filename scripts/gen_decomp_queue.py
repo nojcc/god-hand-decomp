@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
-"""Generate a deterministic priority queue for the remaining code matches."""
+"""Generate a deterministic priority queue for the remaining code matches.
+
+    python3 scripts/gen_decomp_queue.py     # rewrites progress/decomp_queue.json
+
+Reads progress/report.json, so regenerate the report first (scripts/progress.sh).
+The functions still in the monolith live in its asm units, named
+asm/cod/000000.part<N> on main and asm/cod/000000.L<N> once carves split it,
+plus the standalone asm/nonmatching/<name> units.
+"""
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 from pathlib import Path
@@ -50,6 +59,7 @@ def priority(size: int, is_named: bool) -> tuple[int, str]:
 
 
 def main() -> int:
+    argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter).parse_args()
     report = json.loads(REPORT.read_text())
     config = json.loads(CONFIG.read_text())
     carved = {
@@ -62,7 +72,7 @@ def main() -> int:
 
     for unit in report.get("units", []):
         unit_name = unit.get("name", "")
-        if not unit_name.startswith("asm/cod/000000.part"):
+        if not unit_name.startswith(("asm/cod/000000.", "asm/nonmatching/")):
             continue
         for function in unit.get("functions", []) or []:
             name = function["name"]
