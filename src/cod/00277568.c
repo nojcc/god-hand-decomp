@@ -3,6 +3,7 @@
 #include "godhand/cModel.h"
 #include "godhand/player.h"
 #include "godhand/vu0.h"
+#include "godhand/cCollisionSolid.h"
 
 /* The derived enemy's fall state, laid over cEm00.unk1560. */
 typedef struct cEmFallWork {
@@ -22,7 +23,6 @@ extern char D_00462FC0[];
 extern cPmf D_003BFAC0[];
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int cCollisionSolidManage_ChkHit(void *a0, void *a1);
 extern void cObjBase_SetSeqEffect(void *a0);
 extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);

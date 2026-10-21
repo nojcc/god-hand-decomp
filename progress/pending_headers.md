@@ -569,3 +569,19 @@ Callers 001e2eb8, 0016acd0, 0017d488 declare SetEffectPos(int, int, int, void *,
 
 ## cCamManager follow fields, PathHost/PathRec fields (batch 138)
 func_00137F38 (draft, 2 diffs) writes cCamManager 0x444 dist, 0x450 turn, 0x460 height (split unk000), and reads PathHost 0x14 turn, 0x18 rate, 0x1C dist and PathRec 0x34 rate, 0x5C dist. Add them to cCamManager.h and pathRec.h; the draft's macros and local cCamManager view then go away.
+
+## Checkpoint 140 merge
+
+Merged:
+- vu0.h: `VU0_SQC2_MEM` (with the three handoffs) and `VU0_ZERO_VSUB_XYZ_TO`, the non-volatile "=m" form of VU0_ZERO_VSUB_XYZ_MEM (func_00249770 matches with it; the volatile macro stays for its users).
+- sceVu0.h: `cVec_zero` and `cVec_unitOf` with the `Tramp_001F7DF8_00101E28` prototype. 0018f618.c uses the shared helper; func_001A6310 is registered with its own view (cOmRockerLow).
+- cGameObj.h: `vel` at 0x550. cOmWeapon.h: `life` 0x660, `fallVel` 0x674 (func_001CD800). seqNode.h: `SeqLink.age` 0x0C (func_0037CA98).
+- cE3.h: `cursor` is signed (the time limit in minutes) and cE3World names `menuReady` at 0x90; cE3_menu is matched in cE3.c, reaching the game work as D_00747A2C - 0x58C the way 001f7900.c does.
+- cCollisionSolid.h: `int cCollisionSolidManage_ChkHit(void *mgr, void *obj)`; the six files that declared it include the header (the three `void` declarations still match as `int`).
+
+Still open:
+- cEffectParam_init / cNodeDrawState (func_002F4290 held in .review/held, 00302790.c, 00306838.c).
+- cAreaFx header (00305c20.c, 00305e88.c), the cCamManager follow and PathHost/PathRec fields (func_00137F38 draft), cOmHitVolume 0x5E0 (func_00198D40 draft).
+- Shared prototypes: ChkLine (31 files, all `int` with 13 arguments, pointer types differ), Turn_dest, MtxInitRotY, capVu0Atan2, capVu0MagnitudeSqXZ, ForwardVec3At30_147C60, SetEffectPos/SetEffect, func_002BCF28.
+- D_005850B0 (cVec) and D_00747A84 (one shared extern), D_005FEE00 in cSnd.h.
+- objFlags signedness, cGameObjVt.lockOn returning cVec *, cEmWrap.entryNo, cCockGetPoint_setData parameters, cScenario check-point fields, cOmBase 0x100 naming.

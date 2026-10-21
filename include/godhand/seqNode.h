@@ -51,7 +51,7 @@ typedef struct SeqLink {
     unsigned char kind;         /* 0x05 */
     char unk06[2];
     SeqNode *node;              /* 0x08 */
-    char unk0C[4];
+    unsigned int age;           /* 0x0C frames alive, saturates at 0xFFFFFFFF */
     int owner;                  /* 0x10 */
     char unk14[0x1E - 0x14];
     char unk1E;                 /* 0x1E */
