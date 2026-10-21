@@ -7,6 +7,7 @@ extern int Obj2B28_SetField34_To2_ReturnZero(void *);
 extern int Obj2B28_ReturnZero_F68(void *);
 extern int Obj2B28_ReturnZero_F70(void *);
 extern int Obj2B28_ReturnZero_F78(void *);
+extern int func_002B2F80(char *a0);
 extern int Obj2B28_ReturnZero_FA8(void *);
 extern int Obj2B28_ReturnZero_FD0(void *);
 extern int Obj2B28_CopyU16_8C2_To38_ReturnZero(void *);

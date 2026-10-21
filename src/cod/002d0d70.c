@@ -1,6 +1,14 @@
 /* sn-2.95.3-136 */
+/* sn-2.95.3-136 */
 #include "godhand/cSnd.h"
-#include "godhand/cSubScr.h"
+
+/* View of the game-mode object D_003BD930 (no header covers it yet). */
+typedef struct BgmGameMode {
+    char pad000[0x48];
+    int mode;                   /* 0x48 */
+    char pad04C[0xEE8 - 0x4C];
+    int busy;                   /* 0xEE8 */
+} BgmGameMode;
 
 /* View of the bgm override record D_00586B28 points at. */
 typedef struct BgmOverride {
@@ -9,14 +17,14 @@ typedef struct BgmOverride {
     unsigned short bgm;         /* 0x08 */
 } BgmOverride;
 
+extern BgmGameMode *D_003BD930;
 extern BgmOverride *D_00586B28;
 extern unsigned short D_00583EEC;
 extern unsigned char D_005CB010;
 
-/* No screen is stacked on the open sub screen. */
-static __inline__ unsigned char subScr_isIdle(cSubScr *m)
+static __inline__ unsigned char bgmGameMode_isIdle(BgmGameMode *m)
 {
-    if (m->stack[0] != 0) {
+    if (m->busy != 0) {
         return 0;
     }
     return 1;
@@ -26,12 +34,12 @@ static __inline__ unsigned char subScr_isIdle(cSubScr *m)
 __attribute__((section(".text.cSnd_GetStageBgmReq")))
 int cSnd_GetStageBgmReq(cSnd *self, unsigned short stage)
 {
-    cSubScr *m = D_003BD930;
+    BgmGameMode *m = D_003BD930;
     cSndKindEnt *e;
     unsigned short id;
     int r;
 
-    if ((m->kind == 3 || m->kind == 12) && !subScr_isIdle(m)) {
+    if ((m->mode == 3 || m->mode == 12) && !bgmGameMode_isIdle(m)) {
         if (D_00586B28->flags & 1) {
             id = D_00586B28->bgm;
         } else {
