@@ -106,9 +106,12 @@ typedef struct cEm00 {
     unsigned short moveFlags;               /* 0x3AC bits the move code sets: bit 0 and 1 end of a motion, 0x10 */
     char unk3AE[0x86];
     unsigned short unk434;                  /* 0x434 flag word, bit 3 is set before each move */
-    char unk436[0x5A];
+    char unk436[0x12];
+    char ik[0x48];                          /* 0x448 inverse kinematics work */
     cVec posA;                              /* 0x490 position copy */
-    char unk4A0[0xA8];
+    char unk4A0[0x91];
+    signed char link;                       /* 0x531 -1 for none */
+    char unk532[0x16];
     short vitalMax;                         /* 0x548 */
     short vital;                            /* 0x54A hit points */
     float hitFlash;                         /* 0x54C 3.0 right after a hit */
@@ -140,7 +143,8 @@ typedef struct cEm00 {
     float timer2;                           /* 0x604 second countdown */
     float timer3;                           /* 0x608 third countdown, counted down by speedRate */
     float unk60C;                           /* 0x60C zeroed when a hit step starts */
-    char unk610[0x7];
+    char unk610[0x6];
+    unsigned char active;                   /* 0x616 */
     unsigned char unk617;                   /* 0x617 set to 1 when the step starts */
     float playerDist;                       /* 0x618 distance to the player */
     char unk61C[0x24];
@@ -181,10 +185,13 @@ typedef struct cEm00 {
     int unk900;                             /* 0x900 countdown of the derived enemy, ticks down once per frame */
     char unk904[0xC5C];
     int unk1560;                            /* 0x1560 the low byte is also read and cleared as a byte, see CEM00_LOBYTE */
-    char unk1564[0xC];
+    float turnRate;                         /* 0x1564 */
+    int turnArg;                            /* 0x1568 */
+    char unk156C[0x4];
     cVec unk1570;                           /* 0x1570 */
     struct cEm00 *target;                   /* 0x1580 the enemy this one watches */
-    char unk1584[0xC];
+    int watchArg;                           /* 0x1584 */
+    char unk1588[0x8];
     cVec unk1590;                           /* 0x1590 */
     cVec gotoPos;                           /* 0x15A0 goal of a goto, see cEma2_gotoSwitch */
     int gotoFlags;                          /* 0x15B0 bit 0x80 is set by cEma2_gotoSwitch */

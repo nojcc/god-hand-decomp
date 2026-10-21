@@ -1,54 +1,47 @@
-/* NON_MATCHING func_00383170: count-load delay slot + loop n=i+1 temp-copy shape */
-#include "include_asm.h"
+/* sn-2.95.3-136 */
+/* func_00383170: when enabled, send each list channel's value to the list object (-0x3C0 for flagged channels
+ * if any is flagged); otherwise send the master value to the main object (sn-2.95.3-136) */
 
-#ifdef NON_MATCHING
-typedef struct {
+typedef struct CtlList {
     char pad0[8];
-    int count;
-    char pad0C[0x14];
-    void *obj;
+    int count;                  /* 0x08 */
+    char pad0C[0x18 - 0xC];
+    unsigned char on[8];        /* 0x18 indexed from 1 */
+    void *obj;                  /* 0x20 */
 } CtlList;
 
-typedef struct {
+typedef struct ListCtl {
     char pad0[8];
-    short vals[(0x64 - 8) / 2];
-    void *obj64;
+    short vals[(0x64 - 8) / 2]; /* 0x08 [0] master, [1..] per channel */
+    void *obj64;                /* 0x64 */
     char pad68[0xA4 - 0x68];
-    CtlList list;
-    char padC8[0];
+    CtlList list;               /* 0xA4 */
 } ListCtl;
 
 extern int func_00383280(void *a0, CtlList *l);
-extern void func_0032EC78(void *obj, int i, int v);
-extern void func_0032A9F0(void *obj, int v);
+extern void func_0032EC78(int a0, int a1, int a2);
+extern void func_0032A9F0(int a0, int a1);
 
-void func_00383170(void *a0, ListCtl *c, int a2)
+__attribute__((section(".text.func_00383170")))
+void func_00383170(void *a0, ListCtl *c, unsigned char enable)
 {
     CtlList *l;
-    unsigned char *flags;
-    int i, n;
+    int i;
 
-    if ((unsigned char)a2) {
+    if (enable) {
         l = &c->list;
         if (func_00383280(a0, l) != 0) {
-            flags = (unsigned char *)c + 0xBC;
-            for (i = 0; i < l->count; i = n) {
-                n = i + 1;
-                if (flags[n])
-                    func_0032EC78(l->obj, i, -0x3C0);
+            for (i = 0; i < l->count; i++) {
+                if (l->on[i + 1])
+                    func_0032EC78((int)l->obj, i, -0x3C0);
                 else
-                    func_0032EC78(l->obj, i, c->vals[n]);
+                    func_0032EC78((int)l->obj, i, c->vals[i + 1]);
             }
         } else {
-            for (i = 0; i < l->count; i = n) {
-                n = i + 1;
-                func_0032EC78(l->obj, i, c->vals[n]);
-            }
+            for (i = 0; i < l->count; i++)
+                func_0032EC78((int)l->obj, i, c->vals[i + 1]);
         }
     } else {
-        func_0032A9F0(c->obj64, c->vals[0]);
+        func_0032A9F0((int)c->obj64, c->vals[0]);
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00383170);
-#endif

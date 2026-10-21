@@ -29,13 +29,13 @@ int func_002F3F30(ReachObj *o)
     }
     if (ReachObj_isWithinReach(o)) {
         if (o->idxA != -1)
-            D_005CAFF0->stateA = o->idxA;
+            D_005CAFF0->vib[1].count = o->idxA;
         else
-            D_005CAFF0->stateA = 0;
+            D_005CAFF0->vib[1].count = 0;
         if (o->idxB != -1)
-            D_005CAFF0->stateB = o->idxB;
+            D_005CAFF0->vib[0].count = o->idxB;
         else
-            D_005CAFF0->stateB = 0;
+            D_005CAFF0->vib[0].count = 0;
     }
     return 1;
 }

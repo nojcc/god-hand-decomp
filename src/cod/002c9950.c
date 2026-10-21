@@ -1,20 +1,20 @@
-/* NON_MATCHING func_002C9950: register allocation in both sort passes (t0/a2/a3 roles) */
-#include "include_asm.h"
+/* sn-2.95.3-136 */
+/* func_002C9950: cocktail-sort the list's order indices by the key of the item each one selects (sn-2.95.3-136) */
 
-#ifdef NON_MATCHING
 typedef struct SortItem {
     char pad0[0x14];
-    short key;
+    short key;                  /* 0x14 */
     char pad16[0x24 - 0x16];
 } SortItem;
 
 typedef struct SortList {
-    SortItem *items;
+    SortItem *items;            /* 0x00 */
     char pad4[0x10 - 4];
-    unsigned int count;
-    signed char order[1];
+    unsigned int count;         /* 0x10 */
+    signed char order[0];       /* 0x14 count item indices */
 } SortList;
 
+__attribute__((section(".text.func_002C9950")))
 void func_002C9950(SortList *s)
 {
     unsigned int i;
@@ -26,8 +26,8 @@ void func_002C9950(SortList *s)
     do {
         swapped = 0;
         for (i = 0; i < s->count - 1; i++) {
-            t = s->order[i];
-            if (s->items[s->order[i + 1]].key < s->items[t].key) {
+            if (s->items[s->order[i]].key > s->items[s->order[i + 1]].key) {
+                t = s->order[i];
                 s->order[i] = s->order[i + 1];
                 swapped = 1;
                 s->order[i + 1] = t;
@@ -36,8 +36,8 @@ void func_002C9950(SortList *s)
         if (!swapped)
             break;
         for (; i >= 2; i--) {
-            t = s->order[i];
-            if (s->items[t].key < s->items[s->order[i - 1]].key) {
+            if (s->items[s->order[i]].key < s->items[s->order[i - 1]].key) {
+                t = s->order[i];
                 s->order[i] = s->order[i - 1];
                 swapped = 1;
                 s->order[i - 1] = t;
@@ -45,6 +45,3 @@ void func_002C9950(SortList *s)
         }
     } while (swapped);
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_002C9950);
-#endif

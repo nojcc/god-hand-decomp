@@ -235,3 +235,33 @@ This tree now lives in `/Users/joncaceres/god-hand-decomp` on branch `work`. The
 - **NM closer handoffs received, registered, rejected:** 6 / 6 / 0.
 - **Recurring NM blockers (permuter/closer candidates):** short-loop nop pads retail has but ee-as/call_loop_pad don't emit (291D48, 352298); s-reg anchor rebase (30B420); unfolded `xori`/`movn` that ours folds to `sllv` (36AE70); small regalloc/scheduling gaps at 13 diffs (2F48A8, 3B21D0).
 - **Stop conditions:** none hit. Every reseed ended elf=OK overlay=OK; nm_prune 0 stale throughout; zero-match streak 0.
+
+## Stop (single-agent, batches 121-130 plus a final handoff batch; checkpoint header merge not completed) — 2026-10-21T06:30:00Z
+
+- **% fully linked:** 53.0540% (1504816 / 2836384 code bytes); 9212 / 10573 functions matched per progress/report.json (regenerated through container_run.sh scripts/progress.sh at 06:29Z). Data 83.0150% (unchanged).
+- **Numbers that don't add up, not investigated:** code bytes are only +516 B over the batch 120 entry (1504300), and matched functions read 9212 against the 9262 quoted there. That is far less than the batch log and handoff log below account for. The batch 120 function count may have come from a different measure. Treat the deltas as unexplained until the report is compared against the batch 120 one.
+- **Since last entry (batch log rows 2026-10-19T04:01Z to 2026-10-21T04:28Z):** 22 own matched rows (14260 B), 51 parked NON_MATCHING (31931 B, unregistered `#ifdef NON_MATCHING` files), 31 skipped (12940 B: jump tables, cvt.w.s, HAND VU0/MMI, splitter artifacts). NM closer handoffs: 18 registered, 1 rejected (func_002B1890, later re-handed and registered).
+- **Bytes per hour:** not meaningful for this span. It covers two sessions with an idle gap, and late in batch 129/130 host load stretched single compiles to about 3 minutes and a reseed to 37 minutes.
+- **Areas worked:** collision 0x130700-0x137FFF, camera 0x1399A0-0x13BFFF, GS packet 0x299xxx, enemy setup/link 0x26E000-0x283FFF, object/mesh 0x192xxx/0x1B7xxx, effect node 0x2F6xxx and 0x3033A8-0x305FFF, scenario 0x1EBxxx-0x1EFxxx.
+- **Final batch (stop request):** nm_handoff --apply registered func_001334A8, func_00276DC8 and func_00283AA8. The last one brought its own vu0.h change (VU0_VADD_XYZ_IP/VU0_VSUB_XYZ_IP), verified with 95 dependent units rebuilt unchanged. The reseed (anchor func_00283AA8, 13043 units) gave main ELF `1742f95b…` matching retail and r207 `ea599323…` matching retail. nm_prune found 0 stale. Every path registered in compile_config.json exists and was in that build.
+- **Checkpoint header merge:** interrupted. scripts/sa/header_merge.py (build/scratch/hm_cp130.json) applied both of its edits, then stopped before its compare finished. Its orphaned rebuild loop in the container ran to completion. After that:
+  - The `func_002B6350` two-argument edit to 0028b148.c was reverted by hand.
+  - The new `VU0_SQC2_VF0_MEM` macro (memory output operand, no "memory" clobber) is still in include/godhand/vu0.h. No registered unit uses it, and the full reseed above was built with it in place.
+- **Cold build:** not run, per the stop instruction (start nothing new). The last cold build is still the batch 120 one.
+- **Per-file settings (new units only):** none this span beyond the compiler line (sn-2.95.3-136). The 00154da0.c NM draft needs `as: sn` if it is ever registered.
+- **Held, ready but not registered:**
+  - The effect-node TU in build/scratch/003033a8_ckpt2.c matches func_003033A8, func_003034A8, func_00304830, func_00304940 and func_00304A48. It needs VU0_SQC2_VF0_MEM (now present) and, for func_00304A48, the two-argument func_002B6350, which header_merge has to apply again.
+  - func_002F6CF8 is at 9 diffs (build/scratch/002f6cf8_best.c).
+  - func_0017F6C0 and func_0017F828 need memory-operand LQC2/SQC2 copy macros.
+- **Recurring NM blockers:**
+  - Retail rebuilds a stack address (`addiu reg, sp, N`) at each use where ours keeps it in a saved register (00276DC8, 0026EB20, 00283AA8, 001EBA20).
+  - The sqrt.s template.
+  - Short-loop pad nops (cOmBase_setMeshAlphaFromLayer, 1 nop).
+  - If/else constants hoisted before the branch (0013B5F0).
+  - Store scheduling in duplicated arms (00192588).
+- **Open header conflicts (pending_headers.md, batches 127-129):**
+  - D_005CAFF0: reachObj.h types it as `PlayerReach *`, but the camera code and func_002F6CF8 use it as the camera.
+  - cIDBaseEnt.flags signedness.
+  - cMeshNode and cModelNode describe the same mesh node.
+  - cOmBase 0x100 is named posPrev, but the enemy link code reads 0x104 as the heading.
+- **Processes:** godhand-nix runs only its `sleep infinity` init. No compile.py, reseed or permuter process is running on the host or in the container.

@@ -13,12 +13,12 @@ void func_002F40C0(ReachObj *o)
     func_002FBED0(o);
     changed = 0;
     if (o->idxA == -1 && ReachObj_isWithinReach(o)) {
-        changed = D_005CAFF0->stateA != 1;
-        D_005CAFF0->stateA = 2;
+        changed = D_005CAFF0->vib[1].count != 1;
+        D_005CAFF0->vib[1].count = 2;
     }
     if (o->idxB == -1 && ReachObj_isWithinReach(o)) {
-        old = D_005CAFF0->stateB;
-        D_005CAFF0->stateB = 2;
+        old = D_005CAFF0->vib[0].count;
+        D_005CAFF0->vib[0].count = 2;
         if (old != 1) {
             changed = 1;
         }

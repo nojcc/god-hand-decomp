@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/pathRec.h"
 #include "godhand/Slot2.h"
 #include "godhand/vu0.h"
 
@@ -355,22 +356,6 @@ int cSndSeVoice_ckHitSet(HitHost *self, float *pos)
 /* Turn angle toward a target on a path piece: when the piece (record at +0x30, kind byte 0x3F) is kind 1, take its direction vector (0x50), subtract the reference point, flatten it, and measure the angle between it and the flattened target direction. Writes the signed angle times the path blend to *turn and the interpolated height to *height. */
 
 
-
-typedef struct PathRec {
-    char unk00[0x38];
-    float endY;                         /* 0x38 */
-    char unk3C[3];
-    unsigned char kind;                 /* 0x3F */
-    char unk40[0x10];
-    char dir[0x10];                     /* 0x50 direction vector, copied as a blob */
-} PathRec;
-
-typedef struct PathHost {
-    char unk00[0x10];
-    float startY;                       /* 0x10 */
-    char unk14[0x1C];
-    PathRec *rec;                       /* 0x30 */
-} PathHost;
 
 typedef struct Blob16 {
     char b[0x10];

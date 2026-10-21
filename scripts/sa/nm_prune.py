@@ -32,7 +32,7 @@ def main() -> int:
     args = ap.parse_args()
     cfg = json.loads((ROOT / "compile_config.json").read_text())
     units = {u["path"] for u in cfg["compile_units"] if "path" in u}
-    carve = {e["name"]: e.get("tu") for e in cfg["carved_funcs"]}
+    carve = {e["name"]: e.get("tu") for e in cfg["carved_funcs"] if "name" in e}
 
     nm: dict[str, list[str]] = {}
     for p in sorted((ROOT / "src").rglob("*.c")):
