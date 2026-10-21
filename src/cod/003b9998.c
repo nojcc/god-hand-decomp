@@ -1,5 +1,7 @@
 /* cygnus-2.96: func_003B9998, set up the ADX decoder for the handle (same shape as
  * func_00336BA8): reset and configure, create the decoder under the lock, then install the five callbacks. */
+#include "godhand/CriServer.h"
+
 typedef struct AdxtDecWork {
     char pad0[0xC0];
     int dec;                /* 0xC0 */
@@ -38,8 +40,7 @@ extern void Forward33B658_325C60(void);
 extern void Forward33B670_325C78(void);
 extern int func_003B9EB0(int a, int b);
 extern void func_0033F1A8(char *a, char *b);
-extern void func_003BA8C0(int dec, int nch, int sfreq);
-extern void CriServer_setFreq(void *self, int freq);
+extern void CriServer_setFreq(CriServer *self, int freq);
 extern void func_003B9B20(char *obj);
 extern void func_003B9BF0(void *s);
 extern void func_003B9BB8(int a0);
@@ -68,8 +69,8 @@ void func_003B9998(AdxtView *adxt, int a1, int a2)
         func_0033F1A8(D_00460818, D_00460840);
         return;
     }
-    func_003BA8C0(dec, nch, *sfreq);
-    CriServer_setFreq(dec, 0x14);
+    CriServer_setCallback((CriServer *)dec, (void *)nch, (void *)*sfreq);
+    CriServer_setFreq((CriServer *)dec, 0x14);
     w->dec = dec;
     D_003D141C = func_003B9B20;
     D_003E9D20 = func_003B9BF0;
