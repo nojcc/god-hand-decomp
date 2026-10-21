@@ -23,7 +23,7 @@ funcs = sa_precheck.load_funcs()
 idx = near_clone.build_index(cfg, funcs)
 carved = {e["name"] for e in cfg["carved_funcs"] if "name" in e}
 nm_src = set()
-for p in (ROOT / "src").rglob("*.c"):
+for p in [*(ROOT / "drafts").rglob("*.c"), *(ROOT / "src").rglob("*.c")]:
     t = p.read_text(errors="replace")
     if "NON_MATCHING" in t:
         nm_src.update(re.findall(r'INCLUDE_ASM\(\s*"[^"]+"\s*,\s*(\w+)\s*\)', t))

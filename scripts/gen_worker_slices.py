@@ -31,7 +31,7 @@ EXCLUDE_NAMES = {
 
 def nm_names() -> set[str]:
     names: set[str] = set()
-    for p in (ROOT / "src").rglob("*"):
+    for p in [*(ROOT / "drafts").rglob("*"), *(ROOT / "src").rglob("*")]:
         if p.suffix not in {".c", ".cc", ".cpp"}:
             continue
         text = p.read_text(errors="ignore")

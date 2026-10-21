@@ -33,9 +33,16 @@ def main() -> int:
     cfg = json.loads((ROOT / "compile_config.json").read_text())
     units = {u["path"] for u in cfg["compile_units"] if "path" in u}
     carve = {e["name"]: e.get("tu") for e in cfg["carved_funcs"] if "name" in e}
+    # Upstream renames functions, so also compare by address.
+    carve_at = {int(e["vaddr"], 16): e.get("tu") for e in cfg["carved_funcs"] if "vaddr" in e}
+    addr = {}
+    for line in (ROOT / "config" / "symbol_addrs.txt").read_text(errors="ignore").splitlines():
+        m = re.match(r"\s*(\w+)\s*=\s*0x([0-9A-Fa-f]+)\s*;", line)
+        if m:
+            addr.setdefault(m.group(1), int(m.group(2), 16))
 
     nm: dict[str, list[str]] = {}
-    for p in sorted((ROOT / "src").rglob("*.c")):
+    for p in sorted((ROOT / "drafts").rglob("*.c")) + sorted((ROOT / "src").rglob("*.c")):
         t = p.read_text(errors="ignore")
         if "NON_MATCHING" not in t:
             continue
@@ -48,6 +55,11 @@ def main() -> int:
 
     def why_stale(f: str, n: str) -> str | None:
         tu = carve.get(n)
+        if tu is None:
+            a = addr.get(n)
+            if a is None and re.fullmatch(r"func_[0-9A-F]{8}", n):
+                a = int(n[5:], 16)
+            tu = carve_at.get(a)
         if tu in units and tu != f:
             return f"matched in {tu}"
         return None

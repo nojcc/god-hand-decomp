@@ -291,7 +291,7 @@ def verify(name: str, obj: Path) -> tuple[bool, str]:
 def pick_tu(name: str, meta: dict) -> str:
     if meta.get("tu"):
         return meta["tu"]
-    return f"src/cod/inbox_{name}.c"
+    return f"src/cod/{int(resolve_vaddr(name, meta), 16):08x}.c"
 
 
 def resolve_vaddr(name: str, meta: dict) -> str:
@@ -334,10 +334,10 @@ def resolve_src(folder: Path, meta: dict) -> Path:
 
 def register_near_miss(name: str, folder: Path, meta: dict, src: Path) -> str:
     """Write NON_MATCHING-guarded TU + permuter queue. Does not touch retail build."""
-    tu = f"src/cod/inbox_nm_{name}.c"
+    tu = f"drafts/cod/{int(resolve_vaddr(name, meta), 16):08x}.c"
     body = src.read_text()
     text = (
-        f"/* inbox near-miss {name} */\n"
+        f"/* NON_MATCHING {name} */\n#include \"include_asm.h\"\n\n"
         f"#ifdef NON_MATCHING\n{body}\n"
         f"#else\nINCLUDE_ASM(\"nonmatching\", {name});\n#endif\n"
     )

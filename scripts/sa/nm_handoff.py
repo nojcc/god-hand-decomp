@@ -7,9 +7,9 @@
 Folder format: see progress/nm_solved/README.md.
 
 The NON_MATCHING source holding the function is found by its INCLUDE_ASM line.
-- Standalone NM file (not a compile unit, only this function): the solved C,
-  with the .text.<fn> section attribute, becomes src/cod/<addr>.c and the NM
-  file is removed. Compiler and per-file settings come from meta.json, else the NM
+- Standalone draft (drafts/cod/<addr>.c, not a compile unit): the solved C,
+  with the .text.<fn> section attribute, becomes src/cod/<addr>.c, and the
+  draft is removed (or keeps its other functions). Compiler and per-file settings come from meta.json, else the NM
   header. Per-file flags must be in compile.py's per-file vocabulary, and the
   compiler must already be used by some registered unit.
 - Function inside a registered TU: its `#ifdef NON_MATCHING ... #endif` block is
@@ -88,9 +88,9 @@ def supported_flag_sets() -> tuple[set[str], set[str]]:
 
 def find_nm_source(fn: str) -> Path | None:
     pat = re.compile(rf"INCLUDE_ASM\(\"[^\"]+\",\s*{fn}\);")
-    for p in sorted((ROOT / "src").rglob("*.c")):
+    for p in sorted((ROOT / "drafts").rglob("*.c")) + sorted((ROOT / "src").rglob("*.c")):
         t = p.read_text(errors="ignore")
-        if ("NON_MATCHING" in t or re.search(r"_nm(_\w+)?\.c$", p.name)) and pat.search(t):
+        if "NON_MATCHING" in t and pat.search(t):
             return p
     return None
 
@@ -430,7 +430,7 @@ def process(folder: Path, apply: bool) -> tuple[str, str]:
         addr = handoff_addr(src, fn, cfg)
         if addr is None:
             return "rejected", f"cannot derive an address-based file name for {fn}"
-        dest = src.parent / f"{addr}.c"
+        dest = ROOT / "src" / "cod" / f"{addr}.c"
         if dest.exists() and dest != src:
             return "rejected", f"{dest.relative_to(ROOT)} already exists"
         if dest == src and rest is not None:

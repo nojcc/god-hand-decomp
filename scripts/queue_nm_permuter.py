@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scan src/** for NON_MATCHING complete-C bodies and refresh the permuter queue.
+"""Scan drafts/** and src/** for NON_MATCHING complete-C bodies and refresh the permuter queue.
 
     python3 scripts/queue_nm_permuter.py
 
@@ -62,7 +62,7 @@ def find_nm_functions() -> list[tuple[str, Path]]:
     matched = _carved_matched()
     found: list[tuple[str, Path]] = []
     seen: set[str] = set()
-    for path in sorted(SRC.rglob("*.c")):
+    for path in sorted((ROOT / "drafts").rglob("*.c")) + sorted(SRC.rglob("*.c")):
         text = path.read_text(errors="replace")
         if "NON_MATCHING" not in text or "INCLUDE_ASM" not in text:
             continue
