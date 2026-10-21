@@ -53,8 +53,11 @@ int func_0037BF10(char *h)
     if (*(unsigned char *)(h + 0xD) & 8) {
         for (j = 0; j < 3 && D_0076CEC0 + j * 0x20 != a; j++)
             i++;
-        if (i >= 3)
-            goto fail;
+        if (i >= 3) {
+            func_0037D148(b);
+            func_0037D3B0(b);
+            return -1;
+        }
         *(short *)(a + 2) = i;
         *(short *)(b + 2) = i;
         idx = *(short *)(h + 0x20);
@@ -64,7 +67,6 @@ int func_0037BF10(char *h)
         seq = D_0076A600 + (short)i * 0x84;
         if (func_00373118(seq, idx + 0x82, *ent, func_0037C630(h)) == 0 ||
             UpdateSequenceEntry_373298(D_0076A600 + *(short *)(b + 2) * 0x84, *(unsigned short *)(h + 0x48)) == 0) {
-        fail:
             func_0037D148(b);
             func_0037D3B0(b);
             return -1;

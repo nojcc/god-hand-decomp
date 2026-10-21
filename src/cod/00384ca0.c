@@ -51,8 +51,11 @@ int func_00384CA0(char *self, char *arg)
             if ((*(int *)(arg + 0x34) & 0x20) != 0) {
                 if ((*(int *)(arg + 0x2C) & 2) != 0)
                     func_00380DC0(self);
-                if (func_00384EC8(self, s1) != 0)
-                    goto done;
+                if (func_00384EC8(self, s1) != 0) {
+                    func_003854B0(self);
+                    func_00380678(self, 0x18, *(unsigned char *)(self + 4) * 8 + 0xA0, 0x80006060, 0xFFF8);
+                    return 1;
+                }
             }
             v = func_00380F80(self, s2, s1);
             if (v != 0)
@@ -75,7 +78,6 @@ int func_00384CA0(char *self, char *arg)
             *(int *)(s2 + 0x1C) = func_0032D0C0(*(int *)(s2 + 0x30));
         }
     }
-done:
     func_003854B0(self);
     func_00380678(self, 0x18, *(unsigned char *)(self + 4) * 8 + 0xA0, 0x80006060, 0xFFF8);
     return 1;
