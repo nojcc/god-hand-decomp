@@ -1,6 +1,7 @@
 /* NON_MATCHING func_00300458: pool allocator.
 * Control flow and switch compare tree match retail; retail hoists kind<2 and the case constants 1/2/3 into s2-s5 before the loop (frame 0x70), this hoists only 1 (frame 0x40) and fills the switch delay slots instead. */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 #define POOL_NUM   0x100
@@ -16,7 +17,6 @@ extern unsigned int D_00741960[POOL_NUM / 32];
 extern unsigned int D_00741980[POOL_NUM / 32];
 extern char D_0071B940[POOL_NUM][POOL_SIZE];
 
-extern void func_003A52F0(void *dst, int c, int n);
 extern HandlerPool *func_00304D48(void *mem);
 extern HandlerPool *InitObjectSetVtable_4FCF8_304D70(void *mem);
 extern HandlerPool *InitObjectSetVtable_4FC98_304DB0(void *mem);

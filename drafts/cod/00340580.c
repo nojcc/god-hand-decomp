@@ -1,5 +1,6 @@
 /* NON_MATCHING func_00340580: cygnus-2.96: prologue param-copy order plus 3 beql (retail) vs beq with the same delay insn */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 extern char D_003EC420[];
@@ -7,7 +8,6 @@ extern char D_00456F18[];
 extern char D_00456F40[];
 extern char D_00456F68[];
 extern int func_003A50B4(void *d, const void *s, int n);
-extern void func_003A52F0(void *p, int c, int n);
 extern void func_00340700(void *w);
 extern void func_00340450(const char *msg);
 

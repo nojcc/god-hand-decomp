@@ -889,11 +889,10 @@ int *Obj0000_Set_Fields_00_01_D_00451038_31F488(int *a0, int a1) {
     return a0;
 }
 
-extern int D_003EB308[];
 
 __attribute__((section(".text.Obj0000_Get_D_003EB308_Plus10_By_Index_324808")))
 int Obj0000_Get_D_003EB308_Plus10_By_Index_324808(int a0) {
-    return D_003EB308[a0] + 0x10;
+    return (int)D_003EB308[a0]->fname;
 }
 
 extern long long D_003C8100;
@@ -1081,7 +1080,6 @@ void Tramp_003302B0_003302E0(void *a0) {
 
 __attribute__((section(".text.Tramp_003A52F0_00333AD8")))
 void Tramp_003A52F0_00333AD8(void) {
-    extern void func_003A52F0(void *a0, int a1, int a2);
     extern char D_003D9DC0[];
     func_003A52F0(D_003D9DC0, 0, 0x10);
 }
@@ -2107,7 +2105,6 @@ void NoOp_280A08(void) {}
 __attribute__((section(".text.NoOp_280AE8")))
 void NoOp_280AE8(void) {}
 
-extern int func_003A52F0(int a0, int a1, int a2);
 __attribute__((section(".text.Forward3A52F0_332BE0")))
 int Forward3A52F0_332BE0(int a0) { return func_003A52F0(a0, 0, 0x48); }
 
@@ -2119,7 +2116,6 @@ extern int func_00331C98(void);
 __attribute__((section(".text.Forward331C98_333F60")))
 int Forward331C98_333F60(void) { return func_00331C98(); }
 
-extern int func_003A52F0(int a0, int a1, int a2);
 __attribute__((section(".text.Forward3A52F0_334500")))
 int Forward3A52F0_334500(int a0) { return func_003A52F0(a0, 0, 0x30); }
 
@@ -2147,7 +2143,6 @@ extern int func_003A9228(void);
 __attribute__((section(".text.Forward3A9228_336360")))
 int Forward3A9228_336360(void) { return func_003A9228(); }
 
-extern int func_003A52F0(int a0, int a1, int a2);
 __attribute__((section(".text.Forward3A52F0_336588")))
 int Forward3A52F0_336588(int a0) { return func_003A52F0(a0, 0, 0x38); }
 

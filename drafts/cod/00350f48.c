@@ -15,7 +15,7 @@ typedef struct {
     unsigned char b[4];
 } Code350;
 
-extern void func_003A5148(void *dst, void *src, int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern int MPV_CheckDelim(void *code);
 extern unsigned char *sfmpv_SearchDelim(Ring350 *rb, int type, int *flags);
 

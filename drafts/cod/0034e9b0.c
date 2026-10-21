@@ -1,6 +1,7 @@
 /* NON_MATCHING func_0034E9B0: read one chunk header from the SFD input and hand the chunk to its stream object or its type handler.
 * Only the callee-saved registers of self and in are swapped (retail s2/s1); header fields copied to locals and an 8-aligned chunk type give the hoisted ld/t0 by-value pass, and moving in = s->in first changes nothing. */
 #include "include_asm.h"
+#include "godhand/sftim.h"
 
 #ifdef NON_MATCHING
 #define SFD_ERR_HDR     0xFF000D06
@@ -39,7 +40,6 @@ typedef int (*ChunkFn34E9B0)(SfdChunkHn *s, int arg, int a1, int len, Ck34E9B0 c
 extern ChunkFn34E9B0 D_00459680[];
 
 extern int func_00368C60(void *sj, SfdChunkHdr *h);
-extern int func_0034DD70(SfdChunkHn *s, unsigned int code);
 extern void func_0034F658(SfdChunkHn *s, int a1);
 extern int func_0034EB28(void *obj, int a1, int a2, int id, int arg, int len);
 

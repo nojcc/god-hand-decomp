@@ -1,5 +1,6 @@
 /* ee-2.9-991111: __frame_state_for, libgcc frame.c: find the FDE for a PC, run its CIE and FDE
  * call-frame instructions up to that PC and copy the resulting frame state out. */
+#include "godhand/criStm.h"
 typedef struct FdeFS {
     unsigned int length;
     int CIE_delta;
@@ -32,7 +33,6 @@ extern FdeFS *func_00321F48(void *pc);
 extern void *func_00322030(FdeFS *f, CieInfoFS *c);
 extern void *func_00322138(void *insn, FrameStateInternalFS *state, CieInfoFS *info, void **pc);
 extern unsigned char *func_00321938(unsigned char *p, int *val);
-extern void *func_003A52F0(void *d, int c, unsigned int n);
 extern void *memcpy(void *d, const void *s, unsigned int n);
 
 #define get_cie(f) ((FdeFS *)((char *)&(f)->CIE_delta - (f)->CIE_delta))

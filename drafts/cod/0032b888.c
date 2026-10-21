@@ -1,6 +1,7 @@
 /* NON_MATCHING func_0032B888 (cygnus-2.96) */
 #include "godhand/criSj.h"
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 /* func_0032B888, write up to nsmpl samples of ADX silence (18 bytes per channel per 32-sample block) into the output stream joint, in whole blocks across the ring wrap.
@@ -11,7 +12,6 @@ typedef struct AdxEnc {
     SjObj *sj;                       /* 0x14 */
 } AdxEnc;
 
-extern void *func_003A52F0(void *dst, int c, int n);
 extern void func_0033ACA0(SjChunk *ck, int len, SjChunk *head, SjChunk *tail);
 
 __attribute__((section(".text.func_0032B888")))

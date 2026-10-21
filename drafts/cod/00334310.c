@@ -1,6 +1,7 @@
 /* retail reloads info.size into s1
  * with a second lw instead of copying v0, and the success return uses bgezl) */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 /* otherwise open the file, seek to the end for its size, and close it, with history markers. */
@@ -24,7 +25,6 @@ extern void PushGlobalD8478History_331C78(int tag);
 extern int func_00331EE8(char *path, int mode);
 extern int func_00331DB8(int fd, int ofs, int whence);
 extern int func_00331F50(int fd);
-extern void func_003260C8(char *fmt, ...);
 extern void func_00334008(void *obj, char *msg);
 
 __attribute__((section(".text.func_00334310")))

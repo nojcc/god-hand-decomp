@@ -2,6 +2,7 @@
 * Everything after the name loop matches.
 * Retail keeps the name pointer (s0) and the index (s2, reset to 0 before the load and reused by the second loop) live through the lowercase loop, loading p[i] by index and storing through a pointer, so it saves s2 and uses a 0x50 frame; ours strength-reduces the index away. */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct PackEnt {
@@ -25,7 +26,6 @@ extern char D_0042C6B0[];
 extern char D_0042C6B8[];
 extern char D_0042C6C8[];
 
-extern void func_003A52F0(void *dst, int val, int len);
 extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern void LoadAndWaitReady_1FFBF0(PackHdr *self, char *name);
 extern char *AllocSlotEntry_1FFC60(PackHdr *self, char *name);

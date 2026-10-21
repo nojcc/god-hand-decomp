@@ -2,6 +2,7 @@
 * Separate early returns give retail's prologue exactly (v0 = 0 hoisted).
 * Only the three exit tests differ: retail loads on into v0, re-zeroes v0 in the beqz delay, then bnez obj jumps forward to the body with b epilogue as the fallthrough; everything after 0x88 is the same code four words later. */
 #include "include_asm.h"
+#include "godhand/sftim.h"
 
 #ifdef NON_MATCHING
 typedef struct SlotPushObj SlotPushObj;
@@ -22,7 +23,6 @@ typedef struct PushWork {
 } PushWork;
 
 extern int Obj0000_Call_Vtbl6_Vtbl8_Field_1_0034C680(SlotPushObj *o, int mode, int n);
-extern int func_0034DD70(PushWork *w, int code);
 extern void sfbuf_ResetConti(void *buf);
 
 int func_0034C3A8(PushWork *w, int idx, int n, int mode)

@@ -1,6 +1,7 @@
 /* NON_MATCHING func_00333880: CD file table build.
 * The loop matches only with `ng` volatile, which frees fp for the hoisted config base; retail's ng is a real spill (reloads in v1, plain blez) under register pressure that a non-volatile ng doesn't reproduce. */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct CdFile {
@@ -34,7 +35,6 @@ extern void PushGlobalD8478History_331C78(int code);
 extern int func_00398DA0(int mode);
 extern int func_00332838(CdFile *file, char *path);
 extern void LogPrintf(char *fmt, ...);
-extern void func_003260C8(char *msg, int n);
 
 __attribute__((section(".text.func_00333880")))
 int func_00333880(char *tbl, int n)

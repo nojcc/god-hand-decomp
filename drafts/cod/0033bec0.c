@@ -1,7 +1,7 @@
 /* func_0033BEC0 */
 #ifdef NON_MATCHING
+#include "godhand/criStm.h"
 extern void func_0033BDD8(void);
-extern void func_003A52F0(void *a0, int a1, int a2);
 
 __attribute__((section(".text.func_0033BEC0")))
 extern int D_003E9944;

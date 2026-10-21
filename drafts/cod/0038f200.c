@@ -1,5 +1,6 @@
 /* NON_MATCHING func_0038F200 (ee-2.9-991111): frame and saved regs match, but retail reads D_003FA62C after the field stores and walks the dest pointer itself in the 0x60-byte copy loop. */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 /* func_0038F200: libio standard file setup: build the stdin/stdout/stderr
@@ -22,7 +23,6 @@ extern File38F200 D_003F5038;
 extern File38F200 D_003F5098;
 extern char D_0045DAE8[];
 extern int *D_003FA62C;
-extern void *func_003A52F0(void *d, int c, unsigned int n);
 
 __attribute__((section(".text.func_0038F200")))
 void func_0038F200(void)
