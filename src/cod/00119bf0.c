@@ -9,7 +9,6 @@ extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern float Adjust_theta(float f12);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_002DB7A8(void);
@@ -22,6 +21,7 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/sceVu0.h"
 
 
 

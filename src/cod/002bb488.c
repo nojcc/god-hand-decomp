@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/sceVu0.h"
 
 #include "godhand/objField.h"
 extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);

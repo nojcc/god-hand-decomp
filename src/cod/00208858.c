@@ -1,6 +1,6 @@
 #ifdef NON_MATCHING
 s32 ClearAndResetFields_1FE278(char *, s32);           /* extern */
-void NoOp_208260();                                    /* extern */
+void NoOp_208260(void);                                    /* extern */
 void ReleaseObj(s32);                                  /* extern */
 void cCollisionSolidManage_ReleaseUnit(char *, void *);   /* extern */
 s32 cDamageManage_ReleaseDamageGive(char *, s32);      /* extern */

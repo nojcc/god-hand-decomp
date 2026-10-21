@@ -31,7 +31,6 @@ extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern void cEmSetParam_setEm(void *param, int slot);
 extern void cEmWrap_StartAction(void *act);
 extern char D_00586AB0[];
-extern void sceVu0ApplyMatrix(cVec *dst, void *mtx, cVec *src);
 
 #define OM4F_LIFE        0x270F         /* hit points, max and current */
 #define OM4F_SPHERE_R    0.5f           /* hit sphere radius */

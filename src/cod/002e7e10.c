@@ -2,6 +2,7 @@
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern void func_002FBED0(void *self);
 extern char *cWorldLight_Get_LightData2(void *a0, int a1, int a2);
@@ -9,7 +10,6 @@ extern void cWorldLight_Del_LightData(void *a0, int a1, int a2);
 extern void cWorldLight_Set_LightData(void *a0, void *a1);
 extern float Adjust_theta(float f12);
 extern void MtxInitRotVec(void *a0, void *a1, int a2);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void cNode_setLocalTranslation(void *self, void *v);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern char D_00604700[];

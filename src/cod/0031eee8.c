@@ -29,8 +29,9 @@ void *func_0031EEE8(void *a0, void *a1, void *a2, void *a3) {
     return p;
 }
 
+/* Callers pass a request code; the lock does not read it. */
 __attribute__((section(".text.func_003B3EC8")))
-int func_003B3EC8(void) {
+int func_003B3EC8(int cmd) {
     func_003B3E70();
     WaitSema(D_003FAEE4);
     return 0;

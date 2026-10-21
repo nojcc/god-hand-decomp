@@ -4,6 +4,7 @@
 #include "godhand/cEmManage.h"
 #include "godhand/BlackJack.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern int SetEffectParts(int kind, int id, void *owner, int part, float f12, float f13, float f14, float f15, int t0);
 extern void KillEffect(void *owner, int id, int arg);

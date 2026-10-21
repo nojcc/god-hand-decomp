@@ -16,7 +16,6 @@ extern float D_003BD870[];
 extern float D_003BD880[];
 extern float D_003BD890[];
 extern char D_004A6940[];
-extern void sceVu0ApplyMatrix(void *dst, void *m, void *v);
 extern void Draw_Line2(void *pts, int n, unsigned color, int flag);
 extern void ClearFields_4_8_C_E_159998(int a0);
 extern void RecDecode_readHeader(void *a0, void *a1, void *a2);
@@ -112,6 +111,7 @@ void func_0014B9A0(cModel *self, cModelNode *node, short id)
 
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 static __inline__ void CV3(float *d, float *s)
 {

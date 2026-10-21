@@ -5,7 +5,6 @@ extern float SetMotionStep(void *a0, float f12);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
 extern float fRand1_1(void);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern unsigned int irand(void);
@@ -14,6 +13,7 @@ extern char D_00462FC0[];
 extern char D_005FEE00[];
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

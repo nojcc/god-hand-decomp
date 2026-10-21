@@ -5,6 +5,7 @@
  * mode 0 phase 1. */
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 #define EM_F250_NOT_HELD   0xFFFFFFEFU  /* objFlags mask that drops the held bit (0x10); written out, ~0x10 gives a shorter li */
 #define EM_HOLD_X          0.1973f      /* offset from the target, x */
@@ -12,7 +13,6 @@
 
 extern void MtxInitRotY(float *mtx, float angle);
 extern void CopyVec3ToField30_147C40(float *mtx, cVec *v);
-extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *v);
 extern void cModel_calcParts(void *model);
 
 __attribute__((section(".text.cEm00_attachToTarget")))

@@ -5,6 +5,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/Slot2.h"
+#include "godhand/sceVu0.h"
 
 extern void func_002CAF28(cSnd *self);
 extern void cSnd_BgmControl(cSnd *self);
@@ -19,7 +20,6 @@ extern char D_00603A40[];
 extern void cNode_clearActiveRecursive(void *self);
 extern int CallThenReturnPlusB0_002B6420_2B61B0(void *parent);
 extern void MtxInverse(void *dst, void *src);
-extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
 extern void cNode_setLocalTranslation(void *self, void *v);
 extern int strlen(const char *s);
 extern char D_0044B060[];
