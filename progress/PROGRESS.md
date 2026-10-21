@@ -265,3 +265,23 @@ This tree now lives in `/Users/joncaceres/god-hand-decomp` on branch `work`. The
   - cMeshNode and cModelNode describe the same mesh node.
   - cOmBase 0x100 is named posPrev, but the enemy link code reads 0x104 as the heading.
 - **Processes:** godhand-nix runs only its `sleep infinity` init. No compile.py, reseed or permuter process is running on the host or in the container.
+
+## Checkpoint (single-agent, batches 131-139; called early, header merge skipped) — 2026-10-21T20:05:00Z
+
+- **% fully linked:** 53.6008% (1520324 / 2836384 code bytes; report regenerated through container_run.sh scripts/progress.sh at 20:01Z). Data 83.0150% (unchanged). +15508 B over the last entry (1504816).
+- **Since last entry (batch log rows 14:19Z to 19:09Z):** 23 own matched rows (7412 B), 31 parked NON_MATCHING (11448 B), 40 skipped (14864 B: cvt.w.s, VU0 address-hoist wall, cOmBase_childAt at a variable index, packet builders, CRI range). Some matched rows were held, not registered (see below). The rest of the byte gain comes from NM closer handoffs.
+- **Bytes per hour:** about 1500 B/h of own matches (7412 B over 4.8 h). The remaining 350-700 B functions are mostly VU0-heavy.
+- **Areas worked:** object/enemy spawners 0x1A7xxx-0x1D4xxx, enemy core 0x26Bxxx-0x277xxx, custom ID panel 0x1EDxxx, effect nodes and SetEffectPos 0x2F4xxx-0x306xxx, map objects 0x17Fxxx/0x18Fxxx/0x1A6xxx, area zones 0x305C20, camera path 0x137F38, cModel part list 0x149C20.
+- **Registered this span (batches 136-139):** func_0018F618 (needs the per-file setting fp_hazard_rules "fdiv"), func_00305C20, func_00277568 (declares cCollisionSolidManage_ChkHit with its real int return), SetEffectPos (src/cod/00306838.c).
+- **Header merge:** skipped. Every pending item either overlaps the waiting handoffs' header requests (cVec_zero in cOmBase.h, VU0_SQC2_MEM in vu0.h, the cGameObj vel field) or edits several registered units at once. All of them stay in pending_headers.md: cEffectParam_init and cVec_zero; cAreaFx; ChkHit returning int; the cCamManager follow fields; the PathHost/PathRec fields; cOmHitVolume rec at 0x5E0; the func_00302918 and SetEffectPos prototypes; the cEm00 fall view.
+- **Cold build:** PASSED (container_run.sh .venv/bin/python compile.py --cold) with ELF `1742f95b…f3cd` and overlay `ea599323…53c1`, both matching retail and the cached reseeds. Log: build/scratch/cold140.log.
+- **Per-file settings (new units only):** fp_hazard_rules "fdiv" on src/cod/0018f618.c. No others beyond the compiler line.
+- **NM closer handoffs:** 14 received, 11 registered, 3 rejected (func_001299F0, func_0026F328, func_00275888). Those three need header edits and are left in progress/nm_solved/ for later. An apply attempt at this checkpoint was interrupted and then stopped. It had written VU0_SQC2_MEM into vu0.h and the vel field into cGameObj.h; both edits were reverted by hand to the verified text before the cold build. Nothing was registered from it.
+- **Held, ready but not registered (need the header merge):** 002f4290, 001a6310, the 003033a8 group, 001cd800, cE3_menu, 0037ca98, 00249770 (build/scratch/*_ckpt*.c).
+- **New drafts:** drafts/cod/00149c20.c, 00198d40.c, 00137f38.c (2 diffs, permuter candidate), 002a87e8.c (D_00747A84 bit test with dsrl needs a long temporary, which the rules ban).
+- **Recurring NM blockers:** VU0 copies through precomputed sp addresses; cOmBase_childAt at a variable index (andi 0xFF bool and the frame slot); the switch compare tree ==1 / <2 / ==2; a parameter homed to the stack (00149C20).
+- **Tooling note:** scripts/gen_decomp_queue.py has no --help. Calling it with --help ran it and rewrote the untracked progress/decomp_queue.json with an empty queue, because it filters the old `asm/cod/000000.part*` unit names. permuter_daemon.sh reads the file only for optional size metadata.
+- **Stop conditions:** none hit. Every reseed gave elf=OK overlay=OK; nm_prune found 0 stale; session_check gave 18 pass and the known dual_compiler_regress failure in each batch.
+- **Processes:** godhand-nix runs only its `sleep infinity` init (docker top). No compile.py, reseed, handoff, session_check or permuter process is running on the host.
+
+Stopped for upstream sync

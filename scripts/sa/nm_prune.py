@@ -61,8 +61,18 @@ def main() -> int:
                 a = int(n[5:], 16)
             tu = carve_at.get(a)
         if tu in units and tu != f:
+            if n in INC_RE.findall(tu_text(tu)):
+                return None
             return f"matched in {tu}"
         return None
+
+    tu_cache: dict[str, str] = {}
+
+    def tu_text(tu: str) -> str:
+        if tu not in tu_cache:
+            p = ROOT / tu
+            tu_cache[tu] = p.read_text(errors="ignore") if p.exists() else ""
+        return tu_cache[tu]
 
     retire, partial = [], []
     for f, fns in nm.items():

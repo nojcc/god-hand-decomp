@@ -10,7 +10,7 @@ typedef struct cFxStateWatch {
     int state[4];                       /* 0x240 anchor state bytes seen last */
 } cFxStateWatch;
 
-extern void func_00302918(int *p);
+extern void func_00302918(void *p);
 extern void func_003029C0(cFxStateWatch *self);
 
 static __inline__ unsigned char isAnchorMode(cOmBase *om, int mode)

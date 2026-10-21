@@ -507,3 +507,65 @@ Still open:
 - cOmBase.h `cMeshNode` and cModel.h `cModelNode` describe the same mesh node; merging them touches main's own files.
 - cIDBaseEnt.flags signedness (only func_0013BD40, unmatched, depends on it) and cEm00 0x640 (`entryNo` vs the pointer the 0010cd38.c draft reads).
 - The single-user local types listed in batches 101-129 stay local until a second unit needs them.
+
+## Batch 131
+
+Proposed for vu0.h at checkpoint 140:
+- `VU0_SQC2_MEM(reg, v, off)` and `VU0_LQC2_MEM(reg, v, off)`: `sqc2`/`lqc2 $vf<reg>` with a memory operand (`"=m"` / `"m"` on `*(vu0_q128_t *)((char *)(v) + (off))`), the general-register twins of `VU0_SQC2_VF0_MEM`. Retail stores stack copies of vectors at their sp offset (`sqc2 $vf4, 0x30($sp)`); the register-operand `VU0_SQC2` makes ours build the address first. With a scratch copy of `VU0_SQC2_MEM`, the prologue and vector part of func_001C20D8 match (drafts/cod/001c20d8.c). Also needed by func_0017F6C0 and func_0017F828.
+
+Fields seen (local views or offsets until the merge):
+- cOmSub.h: vibration record at 0x140 (count, period, x, y, z floats) and flag `unk03` bit 3 = vibrating (drafts/cod/001c7d50.c, cOmSub_setVibration).
+- cOmBase 0x100..0x108 is a rotation (pitch, yaw, roll) on the flying piece in drafts/cod/001c8930.c and its child; cOmBase.h names it `posPrev`. Same conflict as the batch 127-129 note on 0x104.
+- 001aab10.c: local `cOmBreakable` (cOmBase base, `cDamageUnit *dmgA` 0x604, `dmgB` 0x608, `BreakVol *vol[3]` 0x60C with live bit 0 of flags at +8, flags 0x9D0 bit 31 = broken). unkObj.h also names 0x9D0 `flags`.
+- 001b1c78.c: local `cOmGimmick` (cOmBase base, `checks` 0x600: bit 4 floor, bit 5 walls, bit 6 solids).
+- cEm00.h: byte 0x676 sight flags (bit 0 needs a clear line, bit 2 far range), used through an offset macro in drafts/cod/001c20d8.c.
+- cGameObj.h `cGameObjVt.lockOn` (0x84) returns `cVec *`; cEm00.h already declares the same slot as `getPos` returning `cVec *`. Callers cast today (00146f18.c, 0019b4d0.c).
+
+## Batch 132
+- cEm00/cGameObj.objFlags (0x250): func_00276478 builds `~0x10` as lui/ori, i.e. an unsigned constant or an unsigned field. Candidate: make objFlags `unsigned int` (check all users rebuild).
+- D_00747A84: declared `unsigned int` in 001496c0.c and `int` in 002c3c10.c; needs one shared extern (cSaveLoad.h already documents it). Bit 6 is read with dsrl in func_00276478, so it may be a bitfield word.
+- cOm4f base -> cGameObj; cGameObjVt 0x88/0x8C getRot slot.
+- cSnd.h: `extern cSnd D_005FEE00;` and the cSnd_SeCall_2CB8A0 prototype (used by 001a7f58.c).
+- cEmWrap.unk00 -> `unsigned char entryNo` + pad; cEmSetParam_updateSetDataPos(cEmSetParam *self, unsigned int no, ...) (drafts/cod/00295380.c still uses the old signature).
+- cOmDamaged into a header; a cOmBase_hasChild bool helper.
+- ChkLine (13 args) prototype into a shared header; used by 00273c38.c and drafts 0026f328.c.
+- Turn_dest(void*, void*, float, float), MtxInitRotY(void*, float), capVu0Atan2(float, float), capVu0MagnitudeSqXZ(void*, void*): declared locally in several TUs, should move to a header.
+- seqNode.h SeqLink: `char unk0C[4]` -> `unsigned int age; /* 0x0C frames alive, saturates at 0xFFFFFFFF */`. Held for the checkpoint: build/scratch/0037ca98_ckpt.c (func_0037CA98 matches with this field; retail compares against an unsigned 0xFFFFFFFF).
+- cGameObj 0x2AC: a short read by func_001C2408 as the point-display kind (draft drafts/cod/001c2408.c).
+- cCockGetPoint_setData: its definition in src/cod/casino/cCockGetPoint.c is `void (void)` but func_001C2408 passes (void *self, cVec *pos, unsigned short point, short kind). The body is empty, so the definition can take these parameters (not read) and get a header prototype.
+- vu0.h: proposed `VU0_ZERO_VSUB_XYZ_TO(v, off, a, b)`, the same five instructions as VU0_ZERO_VSUB_XYZ_MEM but as a plain (non-volatile) asm with `"=m"` output for (v+off), inputs a and b, and a "memory" clobber. Retail lets the scheduler hoist independent address arithmetic above this sequence; the volatile form pins it. Measured: func_00249770 matches exactly with it (held as build/scratch/00249770_ckpt.c). func_001569A0 moves from 9 to 4 differing words with it, so it isn't a fix-all; keep the volatile macro for existing users.
+- D_005850B0 (the arena centre vector, reset to (0,0,0,1) by 00137cb8.c): declared `int` in 002426a0.c and `char[]` in 00137cb8.c; it is a cVec. Needs one extern in a header (`extern cVec D_005850B0;`), which 00249770 uses.
+- func_002BCF28 returns func_002BC0F8's int (the caller at 0x2B9868 reads v0); src/cod/002ba878.c declares it `void (void *, float, float, void *, float, float)`. Real signature: `int func_002BCF28(float *mtxA, float *mtxB, float lowA, float highA, float lowB, float highB)` (draft drafts/cod/002bcf28.c). Check 002ba878.c still matches with the corrected prototype before merging.
+- ForwardVec3At30_147C60(void *, float *): declared in 001733b0.c and drafts; move to a header.
+- Finding on the VU0 copy macros: an asm with no outputs is always volatile in gcc, so a non-volatile VU0_LQC2/VU0_SQC2 is impossible as written. The address-hoist near misses (func_001299F0, func_002BCF28, func_001569A0, func_0014E818) all need retail's quadword copy to let `addiu reg, sp, N` move above it. An "=m"-output form works for the subtract (func_00249770). A copy form with a memory output (`VU0_COPYQ(dst, off, src)`: lqc2 from src, sqc2 to an "=m" operand) is the next thing to measure at the checkpoint; a scratch probe of it on func_002BCF28 did not close it alone.
+- cGameObj 0x550..0x558: three floats both objects zero when one grabs the other (func_001299F0); a velocity triple. Draft drafts/cod/001299f0.c.
+- cEm00 0x17D0: an int whose low 3 bits are compared with D_007474A0.frame (func_0024BDA0, draft).
+- cOmWeapon.h: `float life; /* 0x660 frames left before a dropped weapon breaks */` (split unk650 into unk650[0x10] + life + unk664 bytes) and `float fallVel; /* 0x674 vertical speed while dropping */` (split unk674). Held for the checkpoint: build/scratch/001cd800_ckpt.c (func_001CD800) matches exactly with these fields and VU0_SQC2_MEM.
+- cE3.h: `cursor` (0x02) is `signed char` (the E3 time limit in minutes, 0 = unlimited). With it, build/scratch/cE3_menu_ckpt.c (cE3_menu, replaces the INCLUDE_ASM in src/cod/cE3.c) matches exactly; the menu prints D_0042C7A0 "TIME LIMIT = %d [min]" with the cursor or D_0042C7B8 "TIME LIMIT = unlimited". Re-check 001a7ec0.c and 001f7900.c after the change.
+- cScenario.h: unk00 holds a check-point position (float x, y, z at 0x00), a heading (float at 0x10) and a short at 0x16 cleared by cScenario_beginCasinoBattle. That function also calls the player's vtable entries 0x80 and 0x88 as `cVec *f(void *)` (cEm00Vt names them getPos/getScale; cGameObjVt names 0x80 lockOn returning void and puts getPos at 0x68). Reconcile before matching it.
+- New shared type for the checkpoint: `cNodeDrawState` (0x80 bytes: unit scale cVec 0x00, zero cVecs 0x10/0x20, unit scale cVec 0x30, float 0x40, ints 0x44/0x48, bytes 0x4C (-1) .. 0x4F (0xFF), int 0x50, cVec 0x60, shorts 0x70/0x72, byte 0x74, int 0x78) with `cVec_zero(cVec *)` (VU0_SQC2_VF0_MEM) and `cNodeDrawState_init(cNodeDrawState *)` (store order 0x00, 0x10, 0x20, 0x30, 0x40, 0x4C, 0x4F, 0x44, 0x48, 0x4D, 0x4E, 0x50, 0x60; it does not touch 0x70..0x7C). Defined locally in src/cod/00302790.c for now (cDrawNode embeds it at 0x1A0 and clears 0x70..0x78 after init). Move it to a header (cNode.h or a new cNodeDrawState.h), include it from 00302790.c, and register build/scratch/002f4290_ckpt.c (func_002F4290 passes one on the stack to SetEffect; matches exactly with this init).
+- func_0017F6C0 (draft drafts/cod/0017f6c0.c, 9 words): a scratch probe with the proposed non-volatile VU0_ZERO_VSUB_XYZ_TO hoists the work vector address as retail does, but the copy into the temporary (sp+0x20) still pins `addiu a0, sp, 0x20` below it; a non-volatile "=m" copy form did not fix it either. The twin func_0017F828 has the same shape.
+- cOmBase.h (or sceVu0.h): `static __inline__ void cVec_unitOf(cVec *out, cVec *v)` (VU0_SQC2_VF0_MEM(out, 0); len = Tramp_001F7DF8_00101E28(v); if (len > 0) out = v / len component by component, out->w = v->w) and the `float Tramp_001F7DF8_00101E28(cVec *v)` prototype. Defined locally in src/cod/0018f618.c; build/scratch/001a6310_ckpt.c (func_001A6310, the same rocking body on a class whose fields sit 0x50 lower) matches exactly and needs it from the header. Give the twin's view its own name (the class at 0x1A6310 is not the one at 0x18F618), and consider sharing the swing body between the two files.
+
+## func_00302918 prototype (batch 136)
+Declared five different ways (`int *`, `void *`) across 003039e8, 001612c8, 002fab88, 00300d20, 00304c48 and defined as `void func_00302918(int *a0)`. Move one `void func_00302918(void *p);` into a cNode-area header at the checkpoint and include it everywhere.
+
+## cAreaFx (batch 137)
+src/cod/00305c20.c defines cAreaFx (0x400 fx data, 0x404 zone list, 0x408 enable, 0x40C zoneMask, 0x410 inside, 0x414 started, 0x418 triggered) with cAreaZone/cAreaZoneList/cAreaFxTable. src/cod/00305e88.c views the same object as cFxOnce (0x414 started). Merge into one header (cAreaFx.h) with the prototypes of func_00305E88 and func_00305F58, and include it from both TUs.
+The cGameObjVt.lockOn entry returns the lock-on position (cVec *); 0019b4d0 and 00305c20 both cast it. Change its type to `cVec *(*lockOn)(void *self)` if cgameobj_getlockonpos.c still matches.
+
+## cCollisionSolidManage_ChkHit returns int (batch 137)
+Retail cCollisionSolidManage_ChkHit (0x1348E8) loads $v0 from its frame before `jr $ra`, so it returns int. src/cod/00277568.c needs `int` to match (the caller's register choice depends on it). 00185bd0, 00171d20 and 001b1c78 declare it `void`; at the checkpoint put `int cCollisionSolidManage_ChkHit(void *mgr, void *obj);` in a header (with cCollisionSolidManage_SetActive and D_00462FC0) and confirm those three still match.
+
+## cEm00 fall view (batch 137)
+src/cod/00277568.c lays cEmFallWork {unsigned flags; float gravity; float fallVel;} over cEm00.unk1560..0x1568 (the header has int unk1560 / float turnRate / int turnArg there). The derived enemy class (constructor EnemyBase_constructTriVec, 002772.c) needs its own header type; until then the view stays local.
+
+## cOmHitVolume record pointer at 0x5E0 (batch 137)
+func_00198D40 (draft) reads a placement record pointer at cOmHitVolume+0x5E0 (byte variant at +0x2C). Add `struct cOmPlaceRec *rec; /* 0x5E0 */` in place of unk5E0[4] and drop the cast macro in drafts/cod/00198d40.c.
+
+## cEffectParam_init and cVec_zero (batch 138)
+cNodeDrawState (src/cod/00302790.c, build/scratch/002f4290_ckpt.c) is the same 0x80-byte record as cObjBase.h's cEffectParam. SetEffectPos (src/cod/00306838.c) matches only with the init as an inline: put `cVec_zero` (VU0_SQC2_VF0_MEM) and `cEffectParam_init` in cObjBase.h, switch 00302790, 00306838 and 002f4290 to cEffectParam and the shared inline, and confirm all three match.
+Callers 001e2eb8, 0016acd0, 0017d488 declare SetEffectPos(int, int, int, void *, int, float); its definition is (int kind, int id, void *owner, cVec *pos, int handle, float size). Put that prototype and SetEffect's in cObjBase.h.
+
+## cCamManager follow fields, PathHost/PathRec fields (batch 138)
+func_00137F38 (draft, 2 diffs) writes cCamManager 0x444 dist, 0x450 turn, 0x460 height (split unk000), and reads PathHost 0x14 turn, 0x18 rate, 0x1C dist and PathRec 0x34 rate, 0x5C dist. Add them to cCamManager.h and pathRec.h; the draft's macros and local cCamManager view then go away.

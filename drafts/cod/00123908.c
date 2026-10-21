@@ -41,28 +41,6 @@ int func_00123908(void)
     return r;
 }
 
-__attribute__((section(".text.func_0027DB20")))
-void func_0027DB20(unsigned char *a0, int a1)
-{
-    int v0 = 1;
-
-    if (a1 == 0)
-        goto other;
-    if (a1 == 1)
-        goto is_one;
-other:
-    v0 = 5;
-    a0[0x2F7] = 0;
-    goto store;
-is_one:
-    a0[0x2F7] = (unsigned char)a1;
-    v0 = 5;
-store:
-    a0[0x2F5] = (unsigned char)v0;
-    a0[0x2F4] = 0;
-    a0[0x2F6] = 0;
-}
-
 __attribute__((section(".text.func_0030F518")))
 float func_0030F518(void)
 {
@@ -83,6 +61,5 @@ float func_0030F518(void)
 INCLUDE_ASM("asm/nonmatching", func_00307118);
 INCLUDE_ASM("asm/nonmatching", cSceAtUnit_AreaSet);
 INCLUDE_ASM("asm/nonmatching", func_00123908);
-INCLUDE_ASM("asm/nonmatching", func_0027DB20);
 INCLUDE_ASM("asm/nonmatching", func_0030F518);
 #endif

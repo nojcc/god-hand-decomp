@@ -9,6 +9,7 @@ extern int D_0044B310;
 extern void func_002B5D58(cNode *self, cNode *parent);
 extern unsigned char cOmbb_ckFire(void *actor);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
+extern cVec *func_001B8720(cEmActor *actor);
 
 /* Construct a node: set its name and method table, clear its links, scale it to 1, give both matrices the identity and attach it to parent. */
 __attribute__((section(".text.cNode_construct")))
