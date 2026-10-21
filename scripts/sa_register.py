@@ -81,7 +81,7 @@ def main() -> int:
         if args.drop_reorder and "-f=-freorder-blocks" not in args.c_flags_drop:
             args.c_flags_drop.append("-f=-freorder-blocks")
         text = MONOLITH.read_text()
-        by_name = {e["name"]: e for e in cfg["carved_funcs"]}
+        by_name = {e["name"]: e for e in cfg["carved_funcs"] if "name" in e}
         for n in args.names:
             if n in by_name:
                 ledger[n] = {"prev_tu": by_name[n].get("tu")}
@@ -107,10 +107,10 @@ def main() -> int:
             cfg["compile_units"].append(u)
     else:
         names = {n for n in args.names if n in ledger}
-        tus = {e.get("tu") for e in cfg["carved_funcs"] if e["name"] in names}
+        tus = {e.get("tu") for e in cfg["carved_funcs"] if e.get("name") in names}
         kept = []
         for e in cfg["carved_funcs"]:
-            if e["name"] in names:
+            if e.get("name") in names:
                 prev = ledger.pop(e["name"])["prev_tu"]
                 if prev is None:
                     continue

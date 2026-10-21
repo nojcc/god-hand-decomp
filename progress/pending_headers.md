@@ -454,3 +454,56 @@ Declared locally (single user each):
 - sa_00141ce8.c uses WK/FL offset macros on the HUD panel work; no new struct.
 - sa_00326cb8.c declares `Hn326C`/`OBJ326C`/`Ck326C` (CRI handle with chunk count at ck.f4); belongs with the CRI handle header. Leave the loop bound as a field read.
 - NM-only: `Pg37B`/`Ent37B`/`Row37B`/`Quad37B` (sa_nm_0037b918.c, debug page), `Iob4D98`/`Pkt4D98` (sa_nm_003b4d98.c), `Bb149` (sa_nm_00149738.c, 0x20 bbox, used with godhand/cModel.h), `Cprm343`/`Ply343` (sa_nm_00343e28.c, Sofdec player 0x304 slots x8).
+
+## Batch 127
+
+Declared locally (single user each):
+- 00137e70.c declares `PathRec` (cone angle float 0x60) and `PathHost` (rec pointer 0x30); the matched PathHost_calcTurn in 00137cb8.c declares the same two types (PathRec endY 0x38, kind 0x3F, dir 0x50; PathHost startY 0x10). Merge both into one path header with coneAngle at 0x60.
+- NM-only: `cCollUnit` (00134cb0.c and 001346c8.c: owner cOmBase* 0x00, priority 0x08, share float 0x0C, next 0x10) and `cCollUnitList` (head, count). The matched cCollisionSolidManage_CreateUnit in 001346f8.c declares the same layout as `Unit`/`Mgr`, and func_00134430 stores the owner as int. These belong in a cCollisionSolidManage header with the owner typed as `cOmBase *`.
+- NM-only: `CollOBB` (00137670.c, oriented box: center 0x00, axis[3] 0x10, halfLen[3] 0x50).
+
+Conflicts to resolve at the checkpoint:
+- D_005CAFF0: reachObj.h declares `extern PlayerReach *D_005CAFF0;`, while cCamManager.h and several TUs (001334a8.c's screen matrix use) treat it as the current camera. One declaration should win.
+- cEm00.h types 0x640 as `unsigned short entryNo`, but the 0x10xxxx step code (0010cd38.c) reads it as a pointer.
+- D_003BD880 is declared four ways (`float[]`, `const float[4]`, `char[]`, `cObjSimpleVec3`); it is a 16-byte vector.
+
+## Batch 128
+
+Declared locally (single user each):
+- 001399a0.c declares `cFollowCamera` (cCamera base, view `CamView *` 0x360 with its matrix at 0x80, tgtSrc 0x364, eyeSrc 0x368) and `CamNode` (position 0x30, angle 0x104). Belongs in cCamera.h or a follow-camera header. It also declares `func_001F8080(cVec *out, float angle)` from the retail registers; the only C body of func_001F8080 is an unregistered m2c draft that takes just the float.
+- NM-only: `cCollisionSolidPt` (00135040.c, point at 0x180 after the 0x74-byte solid and 0x10C padding), `cCollisionSolidBox` (00134e18.c, box at 0x180), `cCollisionBox` (00133bc8.c: flags int 0x00, min/max, parent matrix 0x40, pos 0x50, local[8] 0x70, world[8] 0xF0, radius 0x170, center 0x180, mtx 0x190), `cCollGrid`/`cCollCell` (001321d8.c: cells 0x18, index 0x1C, dims 0x64/0x68, cell range 0x6C..0x80, probe pos 0x100, radius 0x110, result 0x120, mask 0x174, hitInfo 0x17C, hit 0x180; cell = first index u32, count[3] u8). These belong in a collision header next to cCollisionSolid.h.
+- NM-only: 0013b5f0.c reads the right stick at GameWork 0x1F2/0x1F3 (signed char) through a raw offset; add `signed char stickRX, stickRY` at 0x1F2 to GameWork in gameWork.h. It also uses `PlState` (64-bit state word at 0x2F0), the same view that 0012bb38.c declares as `FxObj.stateWord`.
+
+Conflicts to resolve at the checkpoint:
+- cIDBaseEnt.flags (0x2C) is `unsigned int`, but func_0013BD40 (skipped: jump table) builds `flags & ~IDENT_FLAG_CHILD` as `addiu -9`, which sn only emits for a signed int field. Check whether the field should be `int` before matching that function; the draft is build/scratch/0013bd40_best.c.
+- 0013bc28.c declares the same id set object locally as `IdSet` (`IdWork *work[13]` at 0xB0, x/y 0xA0, unkE4); the elements are cIDBaseEnt. Use one type, with flags 0x94 and step 0x95.
+
+## Batch 129
+
+Declared locally (single user each):
+- 002998a0.c declares `GsPktCtx` (packet buffer 0x10000, cur `GsAdFloat *` 0x10000, num 0x10010) and `GsAdFloat` (s, t floats, 64-bit address). Belongs with the GS packet header.
+- 00305e88.c declares `cFxOnce` (started bit mask at 0x414) and a `cVec_set4` inline (x, y, z, w). The inline belongs in the cVec header next to `cVec_copy3`.
+- 00279d88.c declares `EmPlace` (the 0x40 placement record func_0028EBF0 reads: pos 0x10, rot 0x20, unk31 0xFF) and uses offset macros on cEm00 for fields cEm00.h does not name: ik 0x448, signed char 0x531 (-1 for none, cGameObj.h names it unk531), unsigned char 0x616, float 0x1564, int 0x1568, int 0x1584 beside `target`. Add them to cEm00.h. The NM draft 0028ebf0.c declares the same record as `PartSrc`.
+- NM-only: `cEmLinked` (00276dc8.c: cEm00 base, work 0x2130, mode 0x218C, push 0x2190, link `cGameObj *` 0x21B0), `PlTrail` (0012a578.c: base cVec at 0x630), the model record packet macros in 00154da0.c (MdlObj packet table 0x300, texture bank 0x384, MdlRec texNo 0x16), and `DamageTake`/`cOmSwitch` (00192588.c: hit position 0x10, flags word 0x60 with bits 2 hit, 3 random switch, 6 strong; take pointer at cOmBase 0x604). DamageTake belongs in cDamageUnit.h, which lacks the 0x10 vector and the 0x60 flags.
+- cOmBase.h `cMeshNode` and cModel.h `cModelNode` describe the same mesh node (alpha 0x3AC, next 0x404, layer 0x40C). Use one type.
+
+Header changes needed at the checkpoint (drafts ready in build/scratch/003033a8_ckpt.c):
+- vu0.h: add `VU0_SQC2_VF0_MEM(v, off)`, a `sqc2 $vf0` with an `"=m"` operand, so a stack local is stored at its sp offset as retail does. `VU0_SQC2_VF0` takes the base in a register, so ours computes the address first. With it, func_003033A8, func_003034A8, func_00304830, func_00304940 and func_00304A48 all match (one TU, src/cod/003033a8.c, type `cFxDrift`: param `FxParam *` 0x100, holder 0x104, anchor 0x108, pos 0x11C, rot 0x128, vel 0x134, speed/spread/fall 0x170..0x178, delay short 0x18A).
+- 0028b148.c defines `func_002B6350(void *a0)` as `MtxCopy(a0 + 0xB0)`, but it forwards a second argument (the source matrix); func_00304A48 passes it. Make it `func_002B6350(void *node, void *m)` calling `MtxCopy((char *)node + 0xB0, m)`. 001b5160.c defines `MtxCopy(void)` and `MtxMultiply(void)` as forwarding stubs; callers pass two and three pointers, so the new TU declares them without a prototype.
+
+## Checkpoint 130 merge
+
+Merged:
+- vu0.h keeps `VU0_SQC2_VF0_MEM` (memory-operand `sqc2 $vf0`); src/cod/003033a8.c uses it. `VU0_VSUB_XYZ_IP` stays for 00283aa8.c.
+- 0028b148.c: `func_002B6350(void *node, void *m)` forwards both arguments to `MtxCopy`, which is now prototyped there. func_00304A48 (src/cod/003033a8.c) passes the matrix.
+- New `include/godhand/pathRec.h`: `PathRec` (endY 0x38, kind 0x3F, dir 0x50, coneAngle 0x60) and `PathHost` (startY 0x10, rec 0x30), used by 00137cb8.c and 00137e70.c.
+- cOmBase.h: `cVec_set4` next to `cVec_copy3` (from 00305e88.c); the unused `cOmHitVolume_setVec` is gone from cOmHitVolumeSetup.h.
+- cEm00.h: `ik` 0x448, `link` 0x531 (signed char, -1 for none), `active` 0x616, `turnRate` 0x1564, `turnArg` 0x1568, `watchArg` 0x1584; 00279d88.c uses them instead of offset macros.
+- D_005CAFF0 is the current camera: `extern struct cCamera *D_005CAFF0` in cCamManager.h. reachObj.h's `PlayerReach` was a view of the camera's two `cCamVib` slots (0x254, 0x268, counts at 0x264/0x278); 002f40c0.c and 002f3f30.c use `vib[0].count`/`vib[1].count`; their float stores stay byte offsets, because retail reloads the camera pointer after each one. 0013b9b8.c keeps its own `int` declaration (only a raw store matches there) and does not include cCamManager.h.
+- 003033a8.c holds func_003033A8, func_003034A8, func_00304940, func_00304A48. func_00304830 only matched with `prm = self->param` reassigned before each use, so it stays unmatched.
+
+Still open:
+- D_003BD880 is declared seven ways across 10 files (a 16-byte vector); the type changes the loads in several matched units, so it needs a per-file check.
+- cOmBase.h `cMeshNode` and cModel.h `cModelNode` describe the same mesh node; merging them touches main's own files.
+- cIDBaseEnt.flags signedness (only func_0013BD40, unmatched, depends on it) and cEm00 0x640 (`entryNo` vs the pointer the 0010cd38.c draft reads).
+- The single-user local types listed in batches 101-129 stay local until a second unit needs them.

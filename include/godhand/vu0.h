@@ -257,6 +257,20 @@ typedef struct { int w[4]; } vu0_q128_t;
         : "m"(*(vu0_q128_t *)((char *)(v) + (off))), "r"((void *)(b))  \
         : "memory")
 
+/* VU0_VSUB_XYZ_IP(v, off, b): (v+off).xyz -= b.xyz, the vsub twin of VU0_VADD_XYZ_IP. */
+#define VU0_VSUB_XYZ_IP(v, off, b)                                     \
+    __asm__ __volatile__ (                                             \
+        ".set push\n"                                                  \
+        ".set noreorder\n"                                             \
+        "lqc2  $vf4, %0\n"                                             \
+        "lqc2  $vf5, 0(%1)\n"                                          \
+        "vsub.xyz $vf4, $vf4, $vf5\n"                                  \
+        "sqc2  $vf4, %0\n"                                             \
+        ".set pop\n"                                                   \
+        :                                                              \
+        : "m"(*(vu0_q128_t *)((char *)(v) + (off))), "r"((void *)(b))  \
+        : "memory")
+
 /* (v+off) = 0, then (v+off).xyz = a.xyz - b.xyz. Five instructions:
  * sqc2 vf0, lqc2 vf4, lqc2 vf5, vsub.xyz, sqc2 vf4. */
 #define VU0_ZERO_VSUB_XYZ_MEM(v, off, a, b)                            \
