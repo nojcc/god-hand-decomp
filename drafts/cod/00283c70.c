@@ -2,6 +2,7 @@
  * entry 1 (0x70 frame); ours shares $s1, so the frame is 0x60 and everything after the prologue shifts. */
 #include "include_asm.h"
 #include "godhand/cOmBase.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct SpawnEnt {
@@ -17,7 +18,6 @@ typedef struct SpawnEnt {
 } SpawnEnt;
 
 extern SpawnEnt D_00585660[4];
-extern void *func_003A52F0(void *d, int c, unsigned int n);
 
 static inline void SetVec(cVec *v, float x, float y)
 {

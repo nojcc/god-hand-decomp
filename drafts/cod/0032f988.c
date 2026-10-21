@@ -11,7 +11,7 @@ extern int func_0032FA68(unsigned char *p);
 extern void Obj33F8_Tramp_0033F130_FCB0(const char *msg);
 extern char D_004530A0[];
 extern char D_004530C8[];
-extern void *func_003A5148(void *dst, const void *src, int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 
 extern inline int aix_be32(const unsigned char *p)
 {

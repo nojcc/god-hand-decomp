@@ -1,6 +1,7 @@
 /* NON_MATCHING func_00332178: DTX remote slot open with alignment checks.
 * Remaining: retail keeps id in t0 (mine a1) and reuses t0 for the used byte, and retail fills the arg2-check beqz delay slot with the following bufsize andi; else-if chains and wrapped bodies are far worse (91-99). */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct DtxRmt {
@@ -28,9 +29,7 @@ extern char D_004541F8[];
 extern char D_00454218[];
 extern char D_00454230[];
 extern char D_00454248[];
-extern void func_003260C8(const char *fmt, ...);
 extern int dtx_create_rmt(Sint32 a, Sint32 b, Sint32 c, Sint32 d);
-extern void *func_003A52F0(void *dst, int c, int n);
 extern void SyncDCache(void *start, void *end);
 extern void func_003B0640(void *start, void *end);
 extern void Obj0000_Increment_D_003D84B0_3320E0(void);

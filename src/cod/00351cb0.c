@@ -1,4 +1,5 @@
 /* cygnus-2.96: func_00351CB0, Sofdec MPV picture header decode step. */
+#include "godhand/sftim.h"
 typedef int (*MpvCb)(void *obj, int a, int b);
 
 extern void func_0036A3A8(int h, int a, int b);
@@ -7,8 +8,6 @@ extern int func_0036A3E8(int h, int s);
 extern int func_00351C18(char *mpv, int a, int n, int code);
 extern void func_00351B70(char *mpv, int n);
 extern int func_0036A0D0(int h, int *hdr);
-extern int func_0034DD70(char *mpv, int code);
-extern void *GetArrayElemA0C_35A1C8(char *mpv, int idx);
 extern void func_0036A3C0(int h, int a, void *p);
 extern char *MPV_SearchDelim(char *p, int len, int kind);
 extern void func_00352008(char *mpv, int *hdr, char *p, long *a, long *b, int f);
@@ -65,7 +64,7 @@ int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
         }
         {
             MpvCb cb = (MpvCb)GetArrayElemA0C_35A1C8(mpv, 0x5F);
-            void *o = GetArrayElemA0C_35A1C8(mpv, 0x5F);
+            void *o = (void *)GetArrayElemA0C_35A1C8(mpv, 0x5F);
 
             if (cb != 0 && cb(o, hdr[0], hdr[1]) != 0) {
                 *res = -2;
@@ -98,7 +97,7 @@ int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
     }
     if (f40) {
         fn = (MpvCb)GetArrayElemA0C_35A1C8(mpv, 0x4D);
-        obj = GetArrayElemA0C_35A1C8(mpv, 0x4E);
+        obj = (void *)GetArrayElemA0C_35A1C8(mpv, 0x4E);
         if (fn != 0) {
             char *q = MPV_SearchDelim(buf[0], (int)buf[1], 1);
 

@@ -32,7 +32,7 @@ extern char D_00455B38[];
 extern char D_00455B48[];
 
 extern void func_00339458(char *where, char *msg);
-extern void func_003A5148(void *dst, const void *src, int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 
 __attribute__((section(".text.func_00339AE8")))
 void func_00339AE8(SjRbfView *sj, int id, SjChunk *ck)

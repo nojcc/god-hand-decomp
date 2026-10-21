@@ -1,6 +1,7 @@
 /* NON_MATCHING func_00350528: the only difference is the loop body's base registers; retail stores used=0 through v1 and ptr through the v0 copy, ours the other way round.
 * A pointer-local entry form scores worse (31). */
 #include "include_asm.h"
+#include "godhand/sftim.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -23,7 +24,6 @@ typedef struct {
 } RingSys;
 
 extern void func_00354B40(RingCtx *ctx);
-extern int func_0034DD70(RingSys *sys, int err);
 
 int func_00350528(RingSys *sys, int buf, int num, int size)
 {

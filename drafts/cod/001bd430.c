@@ -1,5 +1,6 @@
 /* NON_MATCHING func_001BD430: range-check inline: retail branches (a2=0; if v>=lo a2=v<hi) where ours if-converts to movn; retail loop walks a1 pointer with count in t1 */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -22,7 +23,6 @@ typedef struct {
     RangeList *list;
 } RangeOwner;
 
-extern void *func_003A52F0(void *dst, int c, int n);
 
 static inline int inRange(int v, int lo, int hi)
 {

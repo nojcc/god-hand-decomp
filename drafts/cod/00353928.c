@@ -10,7 +10,7 @@ void func_00354128(SftimHn *hn, SfdFrm *ft);
 extern SfdFrm *func_003555A8(SftimHn *hn);
 extern void func_003556A0(SfdFrm *frm);
 extern void func_00354430(SfdUsrBuf *dst, SfdUsrBuf *src);
-extern void *func_003A5148(void *d, const void *s, unsigned int n);    /* memcpy */
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 void func_003542B8(SjObj *sj, int *type, unsigned char **ext, int *extLen);
 extern int func_0033A010(void *sj, int id, int n);
 extern long long func_0035BA58(void);

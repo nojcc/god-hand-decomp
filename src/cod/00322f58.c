@@ -1,4 +1,5 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/criStm.h"
 
 extern void NoOp_33E6A8(void);
 extern void func_00329AF0(void);
@@ -29,7 +30,6 @@ extern void Forward33E6A8_324880(void);
 extern void func_00323B80(void);
 extern void Forward33E6B0_324898(void);
 extern void func_003BA058(void);
-extern void func_003A52F0(int, int, int);
 extern void func_00338EC8(int);
 extern void func_0033A300(int);
 extern void PushGlobalD8478History_331C78(int);

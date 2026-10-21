@@ -8,7 +8,7 @@ extern void func_0033ACA0(void *a0, int a1, void *a2, void *a3);
 extern int func_0033CCF0(void *a0, void *a1, int a2);
 extern void func_0033CC50(void *a0);
 extern int Obj33C8_GetShort_98(void *a0);
-extern void func_003A5148(void *a0, void *a1, int a2);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern char D_00451E48[];
 extern char D_00451E68[];
 extern char D_00451E88[];

@@ -1,5 +1,6 @@
 /* NON_MATCHING func_003454F0: then-path matches via explicit locals; else-path store order (retail C,0,8,4) cannot be steered, so cross-jumping merges sw v0,8(a1) tails; */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -22,7 +23,6 @@ typedef struct {
 } MwsfdWork;
 
 extern MwsfdWork *GetD003EC7E0_3452B0(void);
-extern void func_003A52F0(void *p, int c, int n);
 extern void MWSFSVR_SetMwsfdSvrFlg(int f);
 
 void func_003454F0(MwsfdIprm *iprm)

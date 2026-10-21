@@ -29,7 +29,7 @@ typedef struct TagWork {
 extern Sint8 D_00458C98[];
 extern Sint8 D_00458CA0[];
 extern Sint8 *SJ_SearchTag(SjChunk *ck, Sint8 *tag, Sint8 *endtag, SJTAG *tagck);
-extern void func_003A5148(void *dst, void *src, int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern void func_00347698(TagWork *w);
 
 void func_00347498(TagWork *w)

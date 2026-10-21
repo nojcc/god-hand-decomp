@@ -1,5 +1,6 @@
 /* NON_MATCHING func_003552D0: cygnus-2.96: only s0/s1 swap for sfd/mpv (18 insns) */
 #include "include_asm.h"
+#include "godhand/sftim.h"
 
 #ifdef NON_MATCHING
 typedef struct PicHdr {
@@ -21,7 +22,6 @@ typedef struct PicBuf {
 
 extern PicEnt *func_003553C8(void *sfd);
 extern int MPV_DecodePicAtr(int mpv, PicBuf *buf, void *atr);
-extern int func_0034DD70(void *sfd, int err);
 
 int func_003552D0(char *sfd, int *mpv, int *done)
 {

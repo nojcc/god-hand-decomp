@@ -1,5 +1,6 @@
 /* NON_MATCHING func_00343E28 (cygnus-2.96): mwPly create; retail cross-jumps the Error(msg) tails with the message built straight in a0 (ours needs a msg variable, so %hi goes through v0), and its free-slot loop keeps one iterator copy with the constant 1 in a1 */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -61,7 +62,6 @@ extern char *GetD003EC7E0_3452B0(void);
 extern void func_00345750(int err);
 extern void MWSFSVM_Error(char *msg);
 extern int mwsfcre_IsOkUsrMalloc(Cprm343 *cprm);
-extern void func_003A52F0(void *d, int c, int n);
 extern void Obj0000_Set_Fields_1EC_280_Zero(Ply343 *ply, Cprm343 *cprm);
 extern int func_00343340(Ply343 *ply, Cprm343 *cprm);
 extern void func_00346410(Ply343 *ply);
