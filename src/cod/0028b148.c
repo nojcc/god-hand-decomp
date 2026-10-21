@@ -2,7 +2,7 @@
 #include "godhand/cScenario.h"
 
 extern char D_0044A408[];
-extern int MtxCopy();
+extern void MtxCopy(void *dst, void *src);
 extern int cTaskManager_execute_2D54F0(cTaskManager *task, void *entry, void *arg, int slot);
 extern char D_0044CEE8[];
 extern char D_0044E090[];
@@ -57,7 +57,7 @@ void func_002AF6E0(char *arg0, int arg1) {
 
 
 __attribute__((section(".text.func_002B6350")))
-void func_002B6350(void *a0) { MtxCopy((char *)a0 + 0xB0); }
+void func_002B6350(void *node, void *m) { MtxCopy((char *)node + 0xB0, m); }
 
 /* clone */
 

@@ -21,5 +21,6 @@ void *__deregister_frame_info(void *begin)
         }
         p = &((*p)->next);
     }
+
     func_003A7B48();
 }
