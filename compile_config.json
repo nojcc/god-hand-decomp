@@ -18691,6 +18691,10 @@
     {
       "path": "src/cod/003bbec0.c",
       "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/0026f328.c",
+      "compiler": "sn-2.95.3-136"
     }
   ],
   "_carved_funcs_doc": [
@@ -84748,6 +84752,13 @@
       "vaddr": "0x00302790",
       "size": 344,
       "tu": "src/cod/00302790.c"
+    },
+    {
+      "name": "func_0026F328",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0026F328",
+      "size": 332,
+      "tu": "src/cod/0026f328.c"
     }
   ],
   "build_dir": "build",
