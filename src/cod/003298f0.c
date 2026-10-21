@@ -1,6 +1,7 @@
 /* cygnus-2.96: func_003298F0, CRI ADXT_Destroy: stop the handle, free
  * its streams, joints and amplitude meter, then clear the 0xC8-byte work. */
 #include "godhand/criSj.h"
+#include "godhand/criStm.h"
 
 typedef struct {
     signed char used;           /* 0x00 */
@@ -33,7 +34,6 @@ extern void func_00335500(void *lsc);
 extern void Forward33B658_33E678(void);
 extern void Forward33B670_33E690(void);
 extern void ADXAMP_Destroy(void *amp);
-extern void *func_003A52F0(void *d, int c, unsigned int n);
 
 __attribute__((section(".text.func_003298F0")))
 void func_003298F0(AdxtObj *adxt)

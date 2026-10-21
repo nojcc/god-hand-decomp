@@ -1,6 +1,7 @@
 /* Retail copies the params in reverse order (a3,a2,a1,a0 into s3,s0,s1,s2), stores *skip=0 before the a0/a1 setup, and uses v1 for total / v0 for the handler address at the tail; ours copies in a2,a1,a0,a3 order and swaps v0/v1.
 * Swapping the tail statements does not help. */
 #include "include_asm.h"
+#include "godhand/sftim.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -15,7 +16,6 @@ typedef struct {
 } SfdHn;
 extern void func_0034A0F0(int a0, int a1, int a2, int a3);
 extern int func_0032B758(unsigned char *data, int size, int *hdrsize);
-extern int Obj34D8_GetTri78_Times100(SfdHn *hn);
 extern unsigned char *sfadxt_SearchAlign(SfdHn *hn, unsigned char *data, int size);
 
 void func_0034A400(SfdHn *hn, unsigned char *data, int size, int *skip)

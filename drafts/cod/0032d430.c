@@ -2,6 +2,7 @@
 * retail schedules the handle init stores and the size math with less pre-RA reordering (constants reloaded into v0
  * right before each store), ours hoists them. */
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -41,7 +42,6 @@ typedef struct {
 } AdxtSearchHn;
 
 extern void Obj33F8_Tramp_0033F130_FCB0(char *);
-extern void func_003A52F0(void *, int, int);
 extern int func_0032ED70(AdxtSearchHn *, char *, int);
 extern int func_003395A0(char *, int, int);
 extern int func_0032F2D8(int, int, char *);

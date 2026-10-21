@@ -1,5 +1,6 @@
 /* cygnus-2.96: MWSFD handle init: copy the default parameter blocks and reset
  * the work fields and the 16 decode slots. */
+#include "godhand/sftim.h"
 typedef struct Def24 { int w[9]; } Def24;
 typedef struct Def8 { int w[2]; } Def8;
 typedef struct Def40 { int w[16]; } Def40;
@@ -41,7 +42,6 @@ extern Def24 D_00766BA8;
 extern Def8 D_00766BD0;
 extern Def40 D_00766BD8;
 extern int func_003549A8(void *a0, MwsfdInitView *hn);
-extern int func_0034DD70(int a0, int a1);
 extern void func_00354A70(void *a0, void *a1, int a2);
 extern void func_00354B20(void *a0);
 extern void func_003520B0(void *a0);

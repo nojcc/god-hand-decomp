@@ -1,9 +1,9 @@
 #include "include_asm.h"
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 extern void *EnsureInitThenForward_2A9538_30EE08(int size, int align, void *region);
-extern void func_003A52F0(void *dst, int val, int len);
 extern void func_0014E598(void *self);
 extern char D_00754C20[];
 extern int D_00450CE8;

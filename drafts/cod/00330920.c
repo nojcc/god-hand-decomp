@@ -2,7 +2,7 @@
 
 #ifdef NON_MATCHING
 extern int strlen(const char *s);
-extern void func_003A5148(char *dst, char *src, int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern void toUpperStr(char *s);
 
 void func_00330920(char *path, char *dev, char *fname)

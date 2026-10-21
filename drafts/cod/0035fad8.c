@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -19,7 +20,6 @@ typedef struct {
     int f64;         /* 0x64 */
 } DecWork;
 
-extern void func_003A52F0(void *p, int c, int n);
 
 void func_0035FAD8(DecWork *w, int work, int size)
 {

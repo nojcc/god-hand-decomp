@@ -13,7 +13,7 @@ typedef struct {
 
 extern char D_00460040[];
 extern int D_0077E520;
-extern void *func_003A5148(void *dst, const void *src, int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern int SifSetDma(DmaEnt *list, int n);
 extern int isceSifSetDma(DmaEnt *list, int n);
 

@@ -1,4 +1,5 @@
 #include "godhand/gameWork.h"
+#include "godhand/criStm.h"
 
 /* The game work (D_007474A0) as the boot code sees it: only word fields, so 4-byte aligned. */
 typedef struct BootWork {
@@ -32,7 +33,6 @@ extern void func_0030D258(void);
 extern void func_0030ECF8(int a0);
 extern void Tramp_func_0015B0C0_0015B0A0(void);
 extern void func_0031CEB8(void);
-extern void func_003A52F0(void *p, int c, int n);
 extern void func_002BDFF8(void *p);
 extern void func_0030CB30(void);
 extern int sceGsResetGraph(short mode, short inter, short omode, short ffmode);
