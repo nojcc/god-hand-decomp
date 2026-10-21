@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 */
 #include "godhand/cCamera.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 #define SYS_FLAG_CAM_LOCK  0x800000     /* leave the camera where it is */
 
 extern unsigned int D_00747A78;
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void func_001F8080(cVec *out, float angle);
 extern cVec *cCamera__calcRotation(cVec *out, struct cCamera *self, cVec *a, cVec *b);
 

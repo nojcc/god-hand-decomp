@@ -4,6 +4,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
 #include "godhand/cGameObj.h"
+#include "godhand/sceVu0.h"
 
 extern void func_002A8578(void *a0, int a1, int a2, float f12, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
@@ -20,7 +21,6 @@ extern unsigned char D_00462FC0[];
 extern unsigned char D_005FEE00[];
 extern void *Getplayer(void);
 extern int cCoreSave_getGameLevel(void *a0);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern float capVu0Atan2(float y, float x);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern int irand(void);

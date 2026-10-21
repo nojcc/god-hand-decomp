@@ -7,7 +7,7 @@ s32 func_0026F1D8(char *);                          /* extern */
 void func_002705D8(char *);                            /* extern */
 void func_00270C78(char *);                            /* extern */
 void func_002A8578(char *, s32, s32, int, int);            /* extern */
-u32 irand();                                        /* extern */
+int irand(void);                                        /* extern */
 s32 moveMotion(char *);                             /* extern */
 extern void D_005FEE00;
 
@@ -41,7 +41,7 @@ void func_00257E90(char *arg0) {
         if (irand() & 1) {
             arg0->unk5F0 = 5;
         } else {
-            arg0->unk5F0 = (s32) ((irand() % 90U) + 0x1E);
+            arg0->unk5F0 = (int) ((irand() % 90U) + 0x1E);
         }
         arg0->unk2F6 = (u8) (arg0->unk2F6 + 1);
         /* fallthrough */

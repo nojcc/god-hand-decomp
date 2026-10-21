@@ -1,4 +1,5 @@
 /* ee-2.9-991111: sceOpen-style open(name, flags, mode) over the SIF RPC packet at D_0077FFC0 (0x3B4220). */
+extern int func_003B3EC8(int cmd);
 
 typedef struct { int f0; int f4; int f8; int fC; } Iob;
 typedef struct {

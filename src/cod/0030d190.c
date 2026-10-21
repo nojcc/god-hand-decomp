@@ -1,5 +1,6 @@
 /* func_0030D190 */
 #ifdef NON_MATCHING
+extern void func_002CA690(void);
 
 __attribute__((section(".text.func_0030D190")))
 extern void D_005FEE00(void);

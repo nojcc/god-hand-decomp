@@ -3,6 +3,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+extern int func_003B3EC8(int cmd);
 /* ee-2.9-991111 */
 
 typedef struct { int f0; int f4; int f8; int fC; } Iob;

@@ -21,7 +21,7 @@ typedef struct {
 extern char D_007419A0[];
 extern unsigned short D_00747A50;
 extern char D_003C3F68[];
-extern int espSys_effDataRegist(void *table, int id, void *data);
+extern void espSys_effDataRegist(void *self, int id, void *data);
 extern int cModel_setupFromPack(void *self);
 extern void func_0028EBF0(char *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);

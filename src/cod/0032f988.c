@@ -4,6 +4,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+extern int func_0032FA68(unsigned char *p);
 
 #include "godhand/criAix.h"
 

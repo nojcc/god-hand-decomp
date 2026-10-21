@@ -4665,6 +4665,7 @@
 !include/godhand/vecInline.h
 !include/godhand/reachObj.h
 !include/godhand/pathRec.h
+!include/godhand/sceVu0.h
 !src/cod/0010cd38.c
 !src/cod/00137670.c
 !src/cod/001334a8.c

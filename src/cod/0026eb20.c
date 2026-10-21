@@ -6,6 +6,7 @@
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 #define EM_OFFSET_MTX    0x80    /* orientation matrix, not named in cEm00.h */
 #define EM_PITCH(e)      (*(float *)((char *)(e) + 0x1708))  /* not named in cEm00.h */
@@ -16,7 +17,6 @@
 #define PITCH_GAIN       0.1f
 #define PITCH_MIN        0.01f   /* smaller pitches snap to 0 */
 
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern float Pos_probeGroundBelow(cVec *pos);
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
 extern float capVu0Atan2(float y, float x);

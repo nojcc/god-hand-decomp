@@ -3,7 +3,6 @@
 /* sn-2.95.3-136 */
 
 extern void MtxInitRotY(void *a0, float angle);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern int D_00747A0C;
 extern char D_0042CA40[];
 extern char D_0042CA48[];
@@ -33,6 +32,7 @@ extern char D_00446678[];
 extern char D_00446680[];
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 __attribute__((section(".text.func_002726F8")))
 void func_002726F8(void *a0)

@@ -1,5 +1,6 @@
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
+extern void cTaskWork_exit(cTaskWork *self);
 
 /* sn-2.95.3-136: wait out the movie named by D_005E79D0, then queue the two boot tasks. */
 

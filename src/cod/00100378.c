@@ -3,7 +3,6 @@
 extern void MtxInitRotY(void *a0, float angle);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 extern void MtxInverse(void *a0, void *a1);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void func_001B6FB8(void *);
 extern int cDamageManage_CreateDamageTake(int a0, int a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, int a2, float f);
@@ -22,6 +21,7 @@ extern char *D_00747A98;
 extern float D_003BD880[];
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

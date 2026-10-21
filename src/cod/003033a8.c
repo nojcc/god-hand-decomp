@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/cNode.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 /* Shared spin settings of an effect node. */
 typedef struct FxParam {
@@ -50,7 +51,6 @@ extern void *func_002B6310(void *dst, void *node);
 extern void cNode_setLocalTranslation(void *self, void *v);
 extern void MtxCopy(void *dst, void *src);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void *func_002B62F8(void *a0, char *a1);
 extern float *CallThenReturnPlusB0_002B6420_2B61B0(void *node);
 extern void func_00147C88(void *a0, void *a1, int a2);

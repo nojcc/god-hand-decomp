@@ -2,6 +2,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEmManage.h"
+#include "godhand/sceVu0.h"
 
 extern int D_0077E6C0[];
 extern void cOmBase_dieCommon(void);
@@ -303,7 +304,6 @@ extern void StateObj_runHandler(void);
 extern void cOmBase_tickModeTableSkip381(void);
 extern void func_0030A2E0(void);
 extern void func_0030A548(void);
-extern void sceVu0ApplyMatrix(void);
 
 __attribute__((section(".text.MtxCopy")))
 void MtxCopy(void) { func_0030A548(); }
@@ -312,7 +312,7 @@ __attribute__((section(".text.MtxMultiply")))
 void MtxMultiply(void) { func_0030A2E0(); }
 
 __attribute__((section(".text.Tramp_func_0030A2B0_001508D8")))
-void Tramp_func_0030A2B0_001508D8(void) { sceVu0ApplyMatrix(); }
+void Tramp_func_0030A2B0_001508D8(void *v0, void *m0, void *v1) { sceVu0ApplyMatrix(v0, m0, v1); }
 
 __attribute__((section(".text.Tramp_func_0015B0F0_0015B080_15B080")))
 void Tramp_func_0015B0F0_0015B080_15B080(void) { PostInc_D_00566E10_0015B0F0_15B0F0(); }

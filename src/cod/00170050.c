@@ -3,6 +3,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/cOmHitVolume.h"
+#include "godhand/sceVu0.h"
 
 #include "godhand/objField.h"
 extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);

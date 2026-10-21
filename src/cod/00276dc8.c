@@ -3,6 +3,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 #define EMLINK_MODE_FREE  0x100         /* no usable link */
 #define EMLINK_MODE_HELD  0x500         /* pushed along by the link */
@@ -20,11 +21,6 @@ typedef struct cEmLinked {
 
 extern int func_002744B8(cGameObj *obj);
 extern void MtxInitRotY(float *mtx, float angle);
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
-/* v = m * v, in place. */
-static __inline__ void cVec_applyMatrix(cVec *v, void *m) {
-    sceVu0ApplyMatrix(v, m, v);
-}
 extern void func_00104010(void *self, void *work, void *model);
 
 /* Take the push direction from the link's heading when it can push, then run the step. */

@@ -66,6 +66,7 @@ void func_003823E0(void *a0, char *p, unsigned char flag)
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

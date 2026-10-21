@@ -6,7 +6,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
 extern char *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -17,6 +16,7 @@ extern void func_002705D8(void *a0);
 extern void func_00129718(void *a0, void *a1, int a2);
 extern unsigned char D_00462FC0[];
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 #define FRAME ((char *)va)
 /* Phase machine of the enemy that charges the player: it turns toward the player, derives a charge
  * vector from the player's matrix, slides along it until the timer runs out, then plays its end

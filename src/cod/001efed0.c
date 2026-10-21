@@ -3,6 +3,10 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+extern void cDamageGive_SetDmgGiveHitVec(void *self, void *dir);
+extern void cDamageUnit_SetDamageCollFlashActive(char *self, int active, short val);
+extern void cDamageUnit_SetDamageCollOffset(void *self, void *offset);
+extern int cSnd_SeCall(void *self, int slot, short key1, int mtx, int idA, int idB);
 #include "godhand/cSnd.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/cDamageGive.h"
@@ -37,7 +41,7 @@ void func_001EFED0(cHitSet *self, cVec *pos, cVec *dir)
             VU0_SQC2(4, &at, 0);
             cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_A, (int)&at, 0, 0);
             cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_B, (int)&at, 0, 0);
-            cDamageUnit_SetDamageCollOffset((cDamageUnit *)self->unit[self->next], pos);
+            cDamageUnit_SetDamageCollOffset((void *)self->unit[self->next], pos);
             cDamageGive_SetDmgGiveHitVec(self->unit[self->next], dir);
             cDamageUnit_SetDamageCollFlashActive((char *)self->unit[self->next], 1, 1);
         }
