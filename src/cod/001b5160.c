@@ -127,9 +127,10 @@ int func_002BE6C8(int *a0) {
     return func_00394F20(*a0);
 }
 
+/* The caller passes its object; it is not read. */
 __attribute__((section(".text.func_002BE6E8")))
-int func_002BE6E8(void) {
-    return func_00394D58(0);
+void func_002BE6E8(void *obj) {
+    func_00394D58(0);
 }
 
 __attribute__((section(".text.func_002BE818")))

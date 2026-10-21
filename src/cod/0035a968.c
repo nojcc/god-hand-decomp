@@ -13,7 +13,7 @@ typedef struct {
 } Obj35A;
 
 __attribute__((section(".text.func_0035A968")))
-int func_0035A968(Obj35A *o)
+int func_0035A968(Obj35A *o, int ntr)
 {
     long id = o->id;
     int r;

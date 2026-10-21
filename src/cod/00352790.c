@@ -93,7 +93,7 @@ INCLUDE_ASM("asm/nonmatching", func_00352AA0);
 #ifdef NON_MATCHING
 /* Retail keeps &rec[0] in a register and does not write the difference back to the stack. */
 __attribute__((section(".text.func_00352C78")))
-void func_00352C78(SftimHn *hn)
+void func_00352C78(SftimHn *hn, int *hdr)
 {
     SftimTc tc = hn->tim.tc;
     int time;

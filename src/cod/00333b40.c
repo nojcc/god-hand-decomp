@@ -7,8 +7,9 @@ extern char D_00454570[];
 extern char D_00454588[];
 extern char D_00454598[];
 
+/* The caller also passes the last-chunk flag; it is not read. */
 __attribute__((section(".text.func_0036B6D8")))
-int func_0036B6D8(void *a0, void *a1) {
+int func_0036B6D8(void *a0, void *a1, int last) {
     int buf[4];
     void *s0;
     int *s1;

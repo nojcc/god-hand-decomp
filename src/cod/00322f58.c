@@ -9,7 +9,7 @@ extern void Forward33B670_3403E0(void);
 extern void Obj33F8_NoOp_FCA0(void);
 extern void func_0032DBA0(int);
 extern void Obj33F8_NoOp_FCA8(void);
-extern void func_003B9AF8(void);
+extern void func_003B9AF8(void *adxt);
 extern void func_003298C0(int);
 extern void func_00357490(void);
 extern void func_00359800(int);
@@ -99,7 +99,7 @@ void func_0032DB70(int a0) {
 
 __attribute__((section(".text.func_00342A08")))
 void func_00342A08(int a0) {
-    func_003B9AF8();
+    func_003B9AF8((void *)a0);
     func_003298C0(a0);
 }
 
