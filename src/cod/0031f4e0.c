@@ -168,22 +168,25 @@ int func_003567B8(int a0, int a1, char *a2) {
     return 1;
 }
 
+/* The caller passes its ADXT handle; it is not read. */
 __attribute__((section(".text.func_00329848")))
-void func_00329848(void)
+void func_00329848(void *adxt)
 {
     if (D_003D1418)
         D_003D1418();
 }
 
+/* The caller passes its ADXT handle; it is not read. */
 __attribute__((section(".text.func_00329870")))
-void func_00329870(void)
+void func_00329870(void *adxt)
 {
     if (D_003D141C)
         D_003D141C();
 }
 
+/* The caller passes its ADXT handle; it is not read. */
 __attribute__((section(".text.func_00329898")))
-void func_00329898(void)
+void func_00329898(void *adxt)
 {
     if (D_003D1424)
         D_003D1424();
@@ -324,8 +327,9 @@ int func_003A7C48(int a0) {
 	return func_003AD0C0(a0, 0, 0xA);
 }
 
+/* Callers pass their ADXT handle; it is not read. */
 __attribute__((section(".text.func_003B9AF8")))
-void func_003B9AF8(void) {
+void func_003B9AF8(void *adxt) {
     if (D_003D141C) {
         D_003D141C();
     }

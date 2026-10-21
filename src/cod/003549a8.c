@@ -4,8 +4,9 @@ extern int D_00766BA8[];
 extern int D_00766BD0[];
 extern int D_00766BD8[];
 
+/* The caller passes two handles; they are not read. */
 __attribute__((section(".text.func_003549A8")))
-int func_003549A8(void) {
+int func_003549A8(void *a0, void *hn) {
     int i;
     if ((unsigned int)(D_00766BA8[7] - 1) < 0x10) goto ok;
 err:

@@ -179,8 +179,9 @@ int BuildPackedAddr_1FFD98(int a0, unsigned char *a1)
     return ((unsigned int)v0 + (v1 << 16)) << 4;
 }
 
+/* The caller passes its object; it is not read. */
 __attribute__((section(".text.NoOp_1FFE00")))
-void NoOp_1FFE00(void)
+void NoOp_1FFE00(void *obj)
 {
 }
 
