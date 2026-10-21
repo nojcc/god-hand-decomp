@@ -24,7 +24,7 @@ One folder per solved function, named exactly as the symbol (e.g. `func_00164238
     compiler that some unit in compile_config.json already uses. New compilers are never added.
   - `as`, `c_flags_add`, `c_flags_drop`, `fp_hazard_rules` (e.g. `"mtc1"`) and `call_loop_pad` (bool;
     the existing compile_config.json unit key) are per-file settings. They're allowed only for standalone
-    NM files, which become a new `src/cod/sa_<addr>.c` unit. Flags must be in compile.py's per-file
+    drafts (`drafts/cod/<addr>.c`), which become a new `src/cod/<addr>.c` unit. Flags must be in compile.py's per-file
     lists (`SUPPORTED_C_FLAG_ADDS`, `SUPPORTED_C_FLAG_DROPS`); anything else is rejected. Without
     meta.json these are read from the NM header (`as=sn`, `-O0`, `drop-reorder`, `fp_hazard_rules mtc1`,
     `call_loop_pad`).
