@@ -14,7 +14,6 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float a2);
 extern float fRand1_1(void);
 extern float fRand0_1(void);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern char D_00462FC0[];
 extern int D_005CB000;
@@ -22,6 +21,7 @@ extern int D_005CB000;
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

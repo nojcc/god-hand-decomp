@@ -1,11 +1,11 @@
 #ifdef NON_MATCHING
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern unsigned char D_005850B0[];
 extern float Adjust_theta(float);
 extern void MtxInitRotY(void *, float);
-extern void sceVu0ApplyMatrix(void *, void *, void *);
 extern float capVu0Atan2(float, float);
 extern float Turn_dest_dir(float, float, float);
 

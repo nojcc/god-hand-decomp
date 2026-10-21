@@ -3,6 +3,7 @@
  * where ours goes through the min/max pointer locals. */
 #include "include_asm.h"
 #include "godhand/cOmBase.h"
+#include "godhand/sceVu0.h"
 
 #ifdef NON_MATCHING
 typedef struct UnitSquare {
@@ -28,7 +29,6 @@ extern cVec D_00462F00[4];
 extern void MtxInitTransVec(void *m, void *v);
 extern void MtxMulRotVec(void *dst, void *m, void *rot, int order);
 extern void MtxMulTransVec(void *dst, void *m, void *v);
-extern void sceVu0ApplyMatrix(void *dst, void *m, void *src);
 
 __attribute__((section(".text.func_0012D1A8")))
 void func_0012D1A8(UnitSquare *p)

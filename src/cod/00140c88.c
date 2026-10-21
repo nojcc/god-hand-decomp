@@ -5,6 +5,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
+#include "godhand/sceVu0.h"
 
 extern char D_0044E030[];
 extern char D_0044E040[];
@@ -17,7 +18,6 @@ extern void Obj0000_Clear_Fields_94_9C_13C808(void *p);
 extern void ClearFields_A0_250_358_13F2F8(void *p);
 extern void ClearFields94And9C_13E7D8(void *p);
 extern void ClearFields_B0_AC_147018(void *p);
-extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
 extern char D_0042CAB8[];
 extern void *cModel_getMeshPtr_14B730(void *obj, char *name);
 

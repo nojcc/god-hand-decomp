@@ -7,11 +7,11 @@
 #include "godhand/cOl21.h"
 #include "godhand/cEma2.h"
 #include "godhand/cGame.h"
+#include "godhand/sceVu0.h"
 
 extern int D_00747A3C;
 extern char D_003BD718[];
 extern void func_001F8A88(void *a0, float x0, float x1, float y0, float y1, float z0, float z1);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern unsigned char D_005FEE00[];

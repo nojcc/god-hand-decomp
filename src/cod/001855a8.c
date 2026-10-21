@@ -2,6 +2,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern void UpdateObjByIndexedOp_2FBE50(void *slot);
 extern char D_005FEE00[];

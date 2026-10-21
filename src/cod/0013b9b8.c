@@ -2,10 +2,10 @@
 
 #include "godhand/cPlCamera.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern int D_005CAFF0;                  /* the camera manager's live camera */
 extern void MtxInitRotVec(float *mtx, float *rot, int roll);
-extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
 extern void Adjust_theta_vec(cVec *v);
 
 #define PLCAM_FOV_SET  31.0f

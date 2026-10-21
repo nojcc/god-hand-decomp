@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/sceVu0.h"
 
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 
 __attribute__((section(".text.cOl22_setOpenFix")))
 void cOl22_setOpenFix(unsigned char *p)

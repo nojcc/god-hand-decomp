@@ -30,7 +30,6 @@ extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
 extern float SetMotionStep(void *a0, float f12);
 extern void func_00124EC0(void *a0);
 extern float fRand1_1(void);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void func_0010A438(void *a0);
 
 __attribute__((section(".text.func_0011FD10")))

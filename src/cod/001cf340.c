@@ -2,13 +2,13 @@
 
 #include "godhand/cOmWeapon.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern void func_001331B8(char *a0, long a1, int a2);
 extern char D_005CAE50[];
 extern void cModel_calcParts(void *model);
 extern char *Getplayer(void);
 extern void MtxInitRotY(void *a0, float angle);
-extern void sceVu0ApplyMatrix(void *dst, void *m, void *src);
 
 /* Reset a weapon to its resting state: release the hold bit, normal anim rate, state bytes cleared and phase 2. */
 __attribute__((section(".text.cOmWeapon_resetHold")))

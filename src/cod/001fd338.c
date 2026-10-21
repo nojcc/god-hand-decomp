@@ -2,9 +2,9 @@
 
 #include "godhand/cDamageGive.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern void MtxInitRotVec(void *mtx, cVec *dir, int roll);
-extern void sceVu0ApplyMatrix(cVec *out, void *mtx, cVec *in);
 
 /* Rotate the unit Z axis by the facing `dir` and store the result as the hit vector. */
 __attribute__((section(".text.cDamageGive_SetDmgGiveHitVecDir")))

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmWeapon.h"
+#include "godhand/sceVu0.h"
 
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 
 /* Follow the holder: place the weapon at the held offset rotated by the holder's part matrix, copy the holder's previous position and animation rate, and mirror its held bit. */
 __attribute__((section(".text.func_001CF3A8")))

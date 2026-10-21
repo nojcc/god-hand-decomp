@@ -2,6 +2,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern void func_002B6310(cVec *out, void *node);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *node);
@@ -12,7 +13,6 @@ extern void *D_005CAFF0;
 extern float cEmManage_GetSpeedRate(void *manager);
 extern void func_0031A0B8(void *obj, int a);
 extern void func_0031A088(void *obj, int a);
-extern void sceVu0ApplyMatrix(cVec *dst, void *mtx, cVec *src);
 extern void ClearFields_20_24_28_30_1FC7F8(void *node);
 
 #define NODE_LOCKED     0x01000000      /* LockNode.flags: the node is locked on */

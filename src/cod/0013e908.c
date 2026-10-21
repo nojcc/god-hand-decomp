@@ -5,13 +5,13 @@
 #include "godhand/cObjBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cFont.h"
+#include "godhand/sceVu0.h"
 
 extern void func_001B6FB8(cOm53 *self);
 extern void cOm53_setRiseWaitTime(cOm53 *self, int frames);
 extern void cOm53_setDownPos(cOm53 *self, float x);
 extern int cOmBase_checkDamage(cOmScripted *self, int record);
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
-extern void sceVu0ApplyMatrix(cVec *dst, float *mtx, cVec *src);
 extern void func_002A58A0(cFont *self, int a1);
 extern void func_002A58D8(cFont *self, unsigned int v);
 

@@ -6,7 +6,6 @@ extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float f12);
 extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern void KillEffect(void *a0, int a1, int a2);
 extern void MtxInitRotVec(void *a0, void *a1, int a2);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void cDamageUnit_SetDamageCollActive(int a0, int a1);
 extern void cDamageGive_SetDmgGiveHitVecDir(int a0, void *a1);
 extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4, int a5,
@@ -18,6 +17,7 @@ extern char D_005FEE00[];
 extern char D_005864F0[];
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 #define FRAME ((char *)mtx - 0x30)
 

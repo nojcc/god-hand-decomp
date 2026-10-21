@@ -5,6 +5,8 @@ int func_003526D0(SftimHn *hn, SftimInfo *info);
 void func_00352790(SftimHn *hn, SftimInfo *info, int time, int update);
 
 #ifdef NON_MATCHING
+extern void func_00352888(int time, int rate, int drop, int ofs, SftimTc *tc);
+extern void func_00352AA0(SftimTc *src, SftimTc *dst);
 /* Register allocation: retail builds the result in v0 directly; ours uses a3 plus a move. */
 #else
 #endif

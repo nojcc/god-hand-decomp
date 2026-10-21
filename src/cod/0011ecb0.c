@@ -15,7 +15,6 @@ extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
 extern void cSnd_DieDemoStart(void *a0);
 extern void MtxInitRotY(void *a0, float angle);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern float Adjust_theta(float f12);
 extern unsigned int D_00747A24;
 extern unsigned short D_00747A50;
@@ -55,6 +54,7 @@ void func_002A2358(void *a0, char *d, char *s)
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/sceVu0.h"
 
 __attribute__((section(".text.func_0011ECB0")))
 void func_0011ECB0(void *a0)

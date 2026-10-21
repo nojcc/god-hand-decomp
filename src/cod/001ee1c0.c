@@ -1,12 +1,13 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/sceVu0.h"
 
 extern int *D_003C2384;
 extern void CustomIDWork_SetDisp(char *p, int v);
 
 __attribute__((section(".text.Add_nullspeed")))
-int Add_nullspeed(char *a0)
+void Add_nullspeed(char *a0)
 {
-	return sceVu0ApplyMatrix(*(int *)(a0 + 0xF0), (int)(a0 + 0x80), (int)(a0 + 0x330));
+	sceVu0ApplyMatrix(*(void **)(a0 + 0xF0), a0 + 0x80, a0 + 0x330);
 }
 
 __attribute__((section(".text.cIDBase_release")))

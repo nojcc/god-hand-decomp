@@ -3,13 +3,13 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 extern void cHeap_free(int heap, int *block);
 extern int cDvd_ReadAlloc(char *dvd, const char *name, void *outBuf, char *heap, int a4, int a5, int a6, int a7);
 extern void cDvd_CheckWait(char *dvd, int id);
 extern unsigned int D_00747A78;
 extern char D_00463050[];
-extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);
 extern void cCamManager_setSubScrCamera(void *cam, int mode);
 
 /* A holder that keeps one file read in memory: the block at 0x298 and the disc job id at 0x29C. */

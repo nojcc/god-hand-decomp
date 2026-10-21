@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cObjSimple.h"
+#include "godhand/sceVu0.h"
 
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void cModel_setMeshDisplay(void *model, char *name, int on);
 extern char D_0044B4D8[];
 extern char D_0044B4E0[];

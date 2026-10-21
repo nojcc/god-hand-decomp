@@ -3,12 +3,12 @@
 #include "godhand/Slot2.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/sceVu0.h"
 
 extern void ModeObj_pollInputBits(void *self);
 extern void func_00164238(void *self);
 extern void func_001643F8(void *self);
 extern void displayScrollLayer(int layer, int on);
-extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
 extern int irand(void);
 
 /* Phases of the screen: 0 polls the input, 1 and 2..3 run their own updates. */

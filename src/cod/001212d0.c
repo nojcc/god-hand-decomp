@@ -20,7 +20,6 @@ extern char D_005864F0[];
 extern char D_005FEE00[];
 extern unsigned short D_003F2060[];
 extern void func_0032A9F0(int a0, int a1);
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void func_002BB868(void *a0, void *a1, float f);
 extern int _MemoryAlloc(int a0, int a1, void *a2);
 extern char D_00754240[];
@@ -245,6 +244,7 @@ call1:
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

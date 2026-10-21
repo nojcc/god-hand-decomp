@@ -29,7 +29,7 @@ struct SemaParam {
 };
 
 extern IoBuf *get_iob(int fd);
-extern void func_003B3EC8(void);
+extern int func_003B3EC8(int cmd);
 extern void func_003B3F50(void);
 extern int SignalSema_3B3EF8(void);
 extern int CreateSema(struct SemaParam *p);

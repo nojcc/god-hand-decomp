@@ -5,9 +5,9 @@
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/sceVu0.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
-extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *src);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
 extern void func_001DF528(void *p, int a1, int a2);

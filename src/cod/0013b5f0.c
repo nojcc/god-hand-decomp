@@ -8,6 +8,7 @@
 #include "godhand/gameWork.h"
 #include "godhand/player.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 #define PL_STATE_MASK  0xFFFF00000000L  /* mode (0x2F4) and phase (0x2F5) */
 #define PL_STATE_FLY   0x20000000000L   /* mode 0, phase 2 */
@@ -21,7 +22,6 @@ typedef struct PlState {
 } PlState;
 
 extern void MtxInitRotVec(void *mtx, cVec *dir, int roll);
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern float capVu0Sin(float x);
 
 static __inline__ void vecSet(cVec *d, float x, float y, float z)

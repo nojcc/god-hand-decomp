@@ -12,13 +12,13 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002705D8(void *a0);
 extern float fRand1_1(void);
 extern float fRand0_1(void);
-extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
 extern char D_00462FC0[];
 extern char D_005CB000[];
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

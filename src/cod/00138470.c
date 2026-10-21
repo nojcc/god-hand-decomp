@@ -2,10 +2,10 @@
 
 extern int D_003C1180;
 extern int D_003C118C;
-extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 
 

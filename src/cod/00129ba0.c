@@ -2,6 +2,7 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
+#include "godhand/sceVu0.h"
 
 extern void cHeap_free(void *heap, void *p);
 extern void __builtin_delete(void *p);
@@ -18,7 +19,6 @@ extern void NoOp_28E418(void *);
 extern void func_0028EB88(void *, int);
 extern char D_00580D20[];
 extern void cDataManager_addPinnedData(void *mgr, int id, void *data);
-extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *v);
 
 /* Tick down the button's countdown (0x32) while its state (0x36) is 1;
  * when the countdown is spent, call cActionButtonEnt_reset. */

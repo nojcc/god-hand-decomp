@@ -1,5 +1,5 @@
 #ifdef NON_MATCHING
-void *Getplayer();                                  /* extern */
+int Getplayer(void);                                  /* extern */
 s32 Obj0000_Get_Byte_17C3_NZ_2_276468(char *);      /* extern */
 float Turn_dest(s32, s32, float, int);                    /* extern */
 void cGameObj_SetTgtTurn(char *, void *, float);         /* extern */

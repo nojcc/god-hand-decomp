@@ -4,7 +4,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern void func_002E0DE8();
+extern void func_002E0DE8(int x, int y, int color, const char *fmt, ...);
 extern char D_003F26E8[];
 extern char D_0045BF58[], D_0045BF70[], D_0045BF80[], D_0045BF98[], D_0045BFB0[], D_0045BFC8[];
 extern char D_0045BFD8[], D_0045BFE0[], D_0045BFE8[], D_0045BFF8[], D_0045C010[];
