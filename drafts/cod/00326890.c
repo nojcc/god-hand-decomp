@@ -5,7 +5,7 @@
 extern int GetD003E9D5C_33C718(void);
 extern void func_0033F1A8(void *a0, void *a1);
 extern void func_0033ACA0(void *a0, int a1, void *a2, void *a3);
-extern int func_0033CCF0(void *a0, void *a1, int a2);
+extern int ADXB_DecodeHeader(void *a0, void *a1, int a2);
 extern void func_0033CC50(void *a0);
 extern int Obj33C8_GetShort_98(void *a0);
 extern void *func_003A5148(void *d, const void *s, unsigned int n);
@@ -50,7 +50,7 @@ void func_00326890(char *self)
         (*(void (**)())(*(int *)s0 + 0x1C))(s0, 1, b0);
         return;
     }
-    r = func_0033CCF0(s2, (void *)b0[0], b0[1]);
+    r = ADXB_DecodeHeader(s2, (void *)b0[0], b0[1]);
     if (r == 0 || b0[1] < r) {
         (*(void (**)())(*(int *)s0 + 0x1C))(s0, 1, b0);
         return;
