@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cCollisionSolid.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
-extern int cCollisionSolidManage_ChkHit(void *a0, void *a1);
 extern void SetMotionStep(void *a0, float f12);
 extern float D_00747A14;
 extern char D_00462FC0[];

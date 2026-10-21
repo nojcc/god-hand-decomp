@@ -287,6 +287,22 @@ typedef struct { int w[4]; } vu0_q128_t;
           "r"((void *)(a)), "r"((void *)(b))                           \
         : "memory")
 
+/* VU0_ZERO_VSUB_XYZ_TO(v, off, a, b): the same five instructions as
+ * VU0_ZERO_VSUB_XYZ_MEM, with (v+off) as an output operand and without
+ * volatile, so unrelated address arithmetic can be scheduled across it. */
+#define VU0_ZERO_VSUB_XYZ_TO(v, off, a, b)                             \
+    __asm__ (                                                          \
+        ".set push\n.set noreorder\n"                                  \
+        "sqc2  $vf0, %0\n"                                             \
+        "lqc2  $vf4, 0(%1)\n"                                          \
+        "lqc2  $vf5, 0(%2)\n"                                          \
+        "vsub.xyz $vf4, $vf4, $vf5\n"                                  \
+        "sqc2  $vf4, %0\n"                                             \
+        ".set pop\n"                                                   \
+        : "=m"(*(vu0_q128_t *)((char *)(v) + (off)))                   \
+        : "r"((void *)(a)), "r"((void *)(b))                           \
+        : "memory")
+
 /* (v+off).xyz *= f, in place. Five instructions:
  * lqc2 vf4, mfc1 $8, qmtc2.ni vf5, vmulx.xyz, sqc2 vf4. */
 #define VU0_VSCALE_XYZ_MEM(v, off, f)                                  \

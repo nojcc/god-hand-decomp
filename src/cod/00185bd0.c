@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_001B76D8(void *a0);
-extern void cCollisionSolidManage_ChkHit(void *, void *);
 extern char D_00462FC0[];
 extern void cOmBase_setMeshDispFromLayer(int a0, int a1, int a2);
 extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, int a3, int a4, int a5, int a6, int a7);

@@ -26,7 +26,6 @@ extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern int GetSeqSEBase(void *a0);
 extern void cSnd_SeCall_2CB8A0(char *a0, int a1, int a2, int a3, int t0, int t1, int t2);
 extern void func_00102418(void *a0);
-extern int cCollisionSolidManage_ChkHit(void *a0, void *a1);
 extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
 extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 extern void cObjBase_SetSeqEffect(void *a0);
@@ -247,6 +246,7 @@ struct Table_00102150 { struct Entry_00102150 e[1]; };
 extern struct Table_00102150 D_003BC748;
 
 #include "godhand/vu0.h"
+#include "godhand/cCollisionSolid.h"
 
 __attribute__((section(".text.func_00102150")))
 void func_00102150(void *a0)
