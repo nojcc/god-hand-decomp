@@ -70,8 +70,9 @@ void SetField_104_13E3F8(char *arg0) { arg0[0x104] = 0; }
 __attribute__((section(".text.NoOp_133B98")))
 void NoOp_133B98(void) {}
 
+/* The caller passes its manager; it is not read. */
 __attribute__((section(".text.NoOp_1352F0")))
-void NoOp_1352F0(void) {}
+void NoOp_1352F0(void *mgr) {}
 
 __attribute__((section(".text.NoOp_13C750")))
 void NoOp_13C750(void) {}

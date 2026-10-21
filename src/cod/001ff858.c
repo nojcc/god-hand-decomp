@@ -33,7 +33,7 @@ extern char *AllocSlotEntry_1FFC60(PackHdr *self, char *name);
 #define isupper(c) (D_0045F039[(int)(c)] & 1)
 #define tolower(c) ({ int __x = (c); isupper(__x) ? (__x - 'A' + 'a') : __x; })
 
-int func_001FF858(PackHdr *self)
+int func_001FF858(PackHdr *self, void *arg)
 {
     int hdr[4];
     PackEnt *e;

@@ -4,8 +4,9 @@ extern int func_0036B888(char *h, unsigned char *p, int n);
 extern void func_0033ACA0(SjChunk *ck, int n, SjChunk *a, SjChunk *b);
 extern unsigned int MPV_GoNextDelimSj(SjObj *sj);
 
+/* The caller also passes the last-chunk flag; it is not read. */
 __attribute__((section(".text.func_0036B798")))
-int func_0036B798(char *h, SjObj *sj)
+int func_0036B798(char *h, SjObj *sj, int last)
 {
     SjChunk tail;
     SjChunk *ck;

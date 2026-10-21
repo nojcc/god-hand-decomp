@@ -50638,3 +50638,4 @@ func_0027DB20 = 0x0027DB20; // type:func
 func_0015E0A0 = 0x0015E0A0; // type:func
 func_003A9018 = 0x003A9018; // type:func
 func_003B9F60 = 0x003B9F60; // type:func
+func_003298F0 = 0x003298F0; // type:func
