@@ -71,7 +71,9 @@ typedef struct cEm00Vt {
 #define CEM00_REGALLOC_NUDGE(self) (self)->phase++; (self)->phase--
 
 typedef struct cEm00 {
-    char unk000[0xD0];
+    char unk000[0x80];
+    float mtx[16];                          /* 0x080 orientation matrix */
+    char unk0C0[0x10];
     cVec *anchor;                           /* 0x0D0 the vector the body is pinned to */
     char unk0D4[0x1C];
     cVec *pos;                              /* 0x0F0 the enemy's live position */
@@ -147,7 +149,9 @@ typedef struct cEm00 {
     unsigned char active;                   /* 0x616 */
     unsigned char unk617;                   /* 0x617 set to 1 when the step starts */
     float playerDist;                       /* 0x618 distance to the player */
-    char unk61C[0x24];
+    char unk61C[0x3];
+    unsigned char unk61F;                   /* 0x61F while set, the hit countdown at 0x568 also sets unk15F4 bit 0x8000 */
+    char unk620[0x20];
     unsigned short entryNo;                 /* 0x640 the room table's number for it */
     char unk642[0x6];
     unsigned char unk648;                   /* 0x648 set to 0x14 while the 0x640 link is held */
@@ -198,7 +202,7 @@ typedef struct cEm00 {
     float unk15B4;                          /* 0x15B4 */
     char unk15B8[0x4];
     float unk15BC;                          /* 0x15BC countdown, restarts at a random 90 to 180 frames */
-    char unk15C0[0x4];
+    float stepScale;                        /* 0x15C0 scale on stepVec x and z while a knockdown motion runs */
     int unk15C4;                            /* 0x15C4 handle of the item this enemy dropped, 0 while none */
     char unk15C8[0x2C];
     int unk15F4;                            /* 0x15F4 flag word of the derived enemy, 0x10000 is set while the counter runs */
@@ -230,7 +234,8 @@ typedef struct cEm00 {
     char unk16F0[0x4];
     float unk16F4;                          /* 0x16F4 the float argument of the motion start, always stored as the int 0 */
     int unk16F8;                            /* 0x16F8 */
-    char unk16FC[0x10];
+    char unk16FC[0xC];
+    float pitch;                            /* 0x1708 body pitch toward the ground slope */
     float unk170C;                          /* 0x170C scaled by 10.0 into unk1710 on a hard hit */
     int unk1710;                            /* 0x1710 cleared at the start of a step */
     char unk1714[0xC];
