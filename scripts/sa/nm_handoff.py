@@ -17,11 +17,15 @@ The NON_MATCHING source holding the function is found by its INCLUDE_ASM line.
   flags are used; meta.json may not change them.
 
 header_changes.md: each old declaration must occur exactly once in its header.
-Every other registered unit that sees the header and names a declared
-identifier is rebuilt (container `compile.py --single-file`) before and after
-the change, and its object must stay equivalent (scripts/sa/objcmp.py: alloc
-section bytes plus relocations by symbol). Any break, or a failed solved-function
-check, restores the headers and objects and rejects the handoff.
+A handoff that changes a header is verified with one full build (compile.py):
+build/SLUS_215.03.elf and build/rel/r207.rel must stay byte-identical to retail.
+Handoffs without header changes share one full build at the end of the run.
+
+Transactional: every file is copied into build/sa/handoff/journal/ before its
+first write. A handoff that fails is rolled back to its own snapshot; an error,
+Ctrl-C or SIGTERM rolls the whole run back; a run that was killed outright is
+rolled back at the start of the next one. Folders move to done/ or rejected/
+and the log is written only after the final build passes.
 
 The final spliced text is what gets verified (match_check: instruction words
 and relocation targets). Real C only. Results append to
@@ -33,13 +37,14 @@ import argparse
 import datetime
 import json
 import re
+import hashlib
 import shutil
+import signal
 import subprocess
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from objcmp import diff as obj_diff  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 INBOX = ROOT / "progress" / "nm_solved"
@@ -188,6 +193,8 @@ def with_section(text: str, fn: str) -> str:
 def parse_header_changes(path: Path) -> list[dict]:
     """`## <header path>`, then an old and a new label (`### old`, `Old:`, `**Old**`), each followed by one fenced block."""
     text = path.read_text()
+    if re.fullmatch(r"\s*(none|n/a|-)?\.?\s*", text, re.I):
+        return []
     changes = []
     label = r"^[ \t]*(?:#+[ \t]*)?\**{w}\**:?\**[ \t]*\n\s*```[a-z]*\n(.*?)\n```"
     for sec in re.split(r"^## ", text, flags=re.M)[1:]:
@@ -242,136 +249,106 @@ def enclosing_names(header_text: str, snippet: str) -> set[str]:
     return names
 
 
-def includes_of(path: Path) -> list[str]:
-    return re.findall(r'^\s*#\s*include\s*[<"]([^>"]+)[>"]', path.read_text(errors="ignore"), re.M)
+class Journal:
+    """Copies of every file before its first write, kept on disk so an interrupted run can be undone."""
+
+    def __init__(self, path: Path):
+        self.path = path
+        self.index: dict[str, str | None] = {}
+
+    def save(self, f: Path) -> None:
+        key = f.resolve().relative_to(ROOT).as_posix()
+        if key in self.index:
+            return
+        self.path.mkdir(parents=True, exist_ok=True)
+        if f.exists():
+            copy = self.path / f"{len(self.index):04d}"
+            shutil.copy2(f, copy)
+            self.index[key] = copy.name
+        else:
+            self.index[key] = None
+        (self.path / "index.json").write_text(json.dumps(self.index, indent=1))
+
+    def save_from(self, key: str, copy: Path | None) -> None:
+        """Adopt another journal's snapshot of key (the state before that handoff touched it)."""
+        if key in self.index:
+            return
+        self.path.mkdir(parents=True, exist_ok=True)
+        if copy is None:
+            self.index[key] = None
+        else:
+            dst = self.path / f"{len(self.index):04d}"
+            shutil.copy2(copy, dst)
+            self.index[key] = dst.name
+        (self.path / "index.json").write_text(json.dumps(self.index, indent=1))
+
+    def write(self, f: Path, text: str) -> None:
+        self.save(f)
+        f.write_text(text)
+
+    def unlink(self, f: Path) -> None:
+        self.save(f)
+        f.unlink()
+
+    def restore(self) -> list[str]:
+        for key, copy in self.index.items():
+            f = ROOT / key
+            if copy is None:
+                f.unlink(missing_ok=True)
+            else:
+                f.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(self.path / copy, f)
+        touched = sorted(self.index)
+        self.discard()
+        return touched
+
+    def discard(self) -> None:
+        shutil.rmtree(self.path, ignore_errors=True)
+        self.index = {}
+
+    @classmethod
+    def recover(cls, path: Path) -> list[str]:
+        """Undo a run that was killed before it could restore its files."""
+        if not (path / "index.json").is_file():
+            shutil.rmtree(path, ignore_errors=True)
+            return []
+        j = cls(path)
+        j.index = json.loads((path / "index.json").read_text())
+        return j.restore()
 
 
-def affected_units(header: Path, names: set[str], cfg: dict, skip: set[str]) -> list[str]:
-    """Registered C units that transitively include `header` and name one of `names`."""
-    roots = [ROOT / d for d in cfg.get("include_dirs", [])] + [ROOT / "build" / "asm"]
-
-    def resolve(inc: str, frm: Path) -> Path | None:
-        for base in [frm.parent] + roots:
-            p = (base / inc).resolve()
-            if p.is_file():
-                return p
-        return None
-
-    memo: dict[Path, set[Path]] = {}
-
-    def closure(p: Path) -> set[Path]:
-        if p in memo:
-            return memo[p]
-        memo[p] = set()
-        seen = set()
-        for inc in includes_of(p):
-            q = resolve(inc, p)
-            if q and q not in seen:
-                seen.add(q)
-                seen |= closure(q)
-        memo[p] = seen
-        return seen
-
-    target = header.resolve()
-    alt = "|".join(map(re.escape, sorted(names)))
-    word = re.compile(rf"\b({alt})\b") if names else None
-    proto = re.compile(rf"^\s*(extern\s+)?[\w\s\*]+\b({alt})\s*\([^;{{]*\)\s*;\s*$") if names else None
-
-    def header_uses(t: str) -> bool:
-        return any(word.search(l) and not proto.match(l) for l in t.splitlines())
-
-    out = []
-    for u in cfg["compile_units"]:
-        rel = u.get("path")
-        if not rel or rel in skip or not rel.endswith((".c", ".cc", ".cpp")):
-            continue
-        src = ROOT / rel
-        if not src.is_file():
-            continue
-        inc = closure(src.resolve())
-        if target not in inc:
-            continue
-        if word is None or word.search(src.read_text(errors="ignore")) \
-                or any(header_uses(h.read_text(errors="ignore")) for h in inc if h != target):
-            out.append(rel)
-    return out
+def sha(p: Path) -> str:
+    return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else "missing"
 
 
-def obj_path(rel: str) -> Path:
-    return ROOT / "build" / Path(rel).with_suffix(".o")
+def full_build() -> str | None:
+    """One full compile.py build; None when the ELF and r207.rel match retail."""
+    r = subprocess.run(["./scripts/container_run.sh", "python3", "compile.py"], cwd=ROOT, capture_output=True, text=True)
+    if r.returncode != 0:
+        return "full build failed: " + (r.stdout + r.stderr).strip()[-300:]
+    for built, retail in (("build/SLUS_215.03.elf", "disc_extract/SLUS_215.03"),
+                          ("build/rel/r207.rel", "disc_extract/rel/r207.rel")):
+        if sha(ROOT / built) != sha(ROOT / retail):
+            return f"full build: {built} no longer matches retail"
+    return None
 
 
-def build_many(rels: list[str]) -> list[str]:
-    """Rebuild each unit's object in one container session; return the units that failed."""
-    if not rels:
-        return []
-    loop = ("for f in " + " ".join(rels) + "; do "
-            "out=$(python3 compile.py --single-file \"$f\" 2>&1); rc=$?; "
-            "if [ $rc -ne 0 ] || printf '%s' \"$out\" | grep -q 'failed (exit'; then echo \"BUILD-FAIL $f\"; fi; done")
-    r = subprocess.run(["./scripts/container_run.sh", "bash", "-c", loop], cwd=ROOT, capture_output=True, text=True)
-    failed = re.findall(r"^BUILD-FAIL (\S+)$", r.stdout, re.M)
-    return failed if r.returncode == 0 else (failed or list(rels))
-
-
-class HeaderTxn:
-    """Apply header changes; prove every other affected unit's object is unchanged; undo on demand."""
-
-    def __init__(self, changes: list[dict], cfg: dict, skip: set[str]):
-        self.changes, self.cfg, self.skip = changes, cfg, skip
-        self.saved_headers: dict[Path, str] = {}
-        self.saved_objs: dict[str, Path] = {}
-        self.units: list[str] = []
-
-    def apply(self) -> str | None:
-        units: set[str] = set()
-        for c in self.changes:
-            h = ROOT / c["header"]
-            if not h.is_file() or not h.resolve().is_relative_to(ROOT) or not c["header"].startswith(("include/", "src/")):
-                return f"header {c['header']} not found under include/ or src/"
-            t = h.read_text()
-            if t.count(c["old"]) != 1:
-                return f"old declaration occurs {t.count(c['old'])}x in {c['header']} (need exactly 1)"
-            names = enclosing_names(t, c["old"]) or (declared_names(c["old"]) | declared_names(c["new"]))
-            c["names"] = sorted(names)
-            units |= set(affected_units(h, names, self.cfg, self.skip))
-            if c["header"] not in self.skip and any(u.get("path") == c["header"] for u in self.cfg["compile_units"]):
-                units.add(c["header"])
-        self.units = sorted(units)
-        bak = WORK / "objs"
-        shutil.rmtree(bak, ignore_errors=True)
-        bak.mkdir(parents=True)
-        if (bad := build_many(self.units)):
-            return f"baseline build failed for {bad[0]}"
-        for rel in self.units:
-            dst = bak / rel.replace("/", "__")
-            shutil.copy2(obj_path(rel), dst)
-            self.saved_objs[rel] = dst
-        for c in self.changes:
-            h = ROOT / c["header"]
-            self.saved_headers.setdefault(h, h.read_text())
-            h.write_text(h.read_text().replace(c["old"], c["new"], 1))
-        if (bad := build_many(self.units)):
-            return f"header change breaks the build of {bad[0]}"
-        for rel in self.units:
-            d = obj_diff(self.saved_objs[rel], obj_path(rel))
-            if d:
-                return f"header change alters {rel}: {d}"
-        return None
-
-    def undo(self) -> None:
-        for h, t in self.saved_headers.items():
-            h.write_text(t)
-        for rel, saved in self.saved_objs.items():
-            shutil.copy2(saved, obj_path(rel))
-
-    def summary(self) -> str:
-        hs = sorted({f"{c['header']} ({'/'.join(c.get('names', []))})" for c in self.changes})
-        return f"header change {', '.join(hs)}; {len(self.units)} other units rebuilt and unchanged"
+def apply_header_changes(changes: list[dict], j: Journal) -> str | None:
+    for c in changes:
+        h = ROOT / c["header"]
+        if not h.is_file() or not h.resolve().is_relative_to(ROOT) or not c["header"].startswith(("include/", "src/")):
+            return f"header {c['header']} not found under include/ or src/"
+        txt = h.read_text()
+        if txt.count(c["old"]) != 1:
+            return f"old declaration occurs {txt.count(c['old'])}x in {c['header']} (need exactly 1)"
+        j.write(h, txt.replace(c["old"], c["new"], 1))
+    return None
 
 
 # ---------------------------------------------------------------- one handoff
 
-def process(folder: Path, apply: bool) -> tuple[str, str]:
+def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
+    """Verify one handoff; with apply, splice and register it, writing every file through j."""
     fn = folder.name
     cs = sorted(folder.glob("*.c"))
     solved = folder / "solved.c" if (folder / "solved.c").is_file() else (cs[0] if len(cs) == 1 else None)
@@ -453,37 +430,34 @@ def process(folder: Path, apply: bool) -> tuple[str, str]:
             return "rejected", f"cannot isolate the NON_MATCHING block for it in {rel}"
         dest = src
 
-    txn = None
     hc = folder / "header_changes.md"
+    changes = []
     if hc.is_file():
         try:
             changes = parse_header_changes(hc)
         except ValueError as e:
             return "rejected", str(e)
-        txn = HeaderTxn(changes, cfg, {dest.relative_to(ROOT).as_posix()})
-        if (err := txn.apply()):
-            txn.undo()
+        if (err := apply_header_changes(changes, j)):
             return "rejected", err
 
     probe = WORK / (dest.stem + ".c")
     probe.write_text(new)
     ok, why = check(probe, fn, o)
-    if txn:
-        why += f"; {txn.summary()}"
     if not ok:
-        if txn:
-            txn.undo()
         return "rejected", f"re-verify failed: {why}"
+    if changes:
+        hs = ", ".join(sorted({c["header"] for c in changes}))
+        why += f"; header change {hs}"
     if not apply:
-        if txn:
-            txn.undo()
         return "verified", f"{why} -> {dest.relative_to(ROOT)}"
 
-    dest.write_text(new)
+    j.write(dest, new)
     if rest is not None:
-        src.write_text(rest)
+        j.write(src, rest)
     elif dest != src:
-        src.unlink()
+        j.unlink(src)
+    for f in (CFG, ROOT / "progress" / "sa_registered.json", ROOT / ".gitignore", ROOT / "config" / "symbol_addrs.txt"):
+        j.save(f)
     cmd = ["python3", "scripts/sa_register.py", "add", "--compiler", o["compiler"]]
     if unit is None:
         cmd += [f"--c-flags-drop={f}" for f in o["c_flags_drop"]]
@@ -497,32 +471,75 @@ def process(folder: Path, apply: bool) -> tuple[str, str]:
     cmd += [dest.relative_to(ROOT).as_posix(), fn]
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     if r.returncode != 0:
-        if dest != src:
-            dest.unlink()
-        src.write_text(old)
-        if txn:
-            txn.undo()
         return "rejected", f"register failed: {(r.stdout + r.stderr).strip()[-200:]}"
+    r = subprocess.run(["python3", "scripts/checks/carve_allowlist.py", "--fix"], cwd=ROOT, capture_output=True, text=True)
+    if r.returncode != 0:
+        return "rejected", f"allowlist failed: {(r.stdout + r.stderr).strip()[-200:]}"
+    if changes and (err := full_build()):
+        return "rejected", err
+    if changes:
+        why += ", verified by a full build"
     if rest is not None:
         why += f"; cut from {rel}"
     return "registered", f"{why} -> {dest.relative_to(ROOT)}"
+
+
+def _interrupted(signum, frame):
+    raise KeyboardInterrupt(f"signal {signum}")
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true")
     args = ap.parse_args()
+    run_journal = WORK / "journal"
+    undone = []
+    for d in sorted(WORK.glob("journal-*")):         # a handoff that was killed midway
+        undone += Journal.recover(d)
+    undone = sorted(set(undone) | set(Journal.recover(run_journal)))
+    if undone:
+        print(f"nm_handoff: an earlier run was interrupted; restored {len(undone)} files: {', '.join(undone)}")
     (INBOX / "done").mkdir(parents=True, exist_ok=True)
     (INBOX / "rejected").mkdir(parents=True, exist_ok=True)
     folders = [p for p in sorted(INBOX.iterdir()) if p.is_dir() and p.name not in ("done", "rejected")]
     if not folders:
         print("nm_handoff: nothing in progress/nm_solved/")
         return 0
-    for f in folders:
-        verdict, why = process(f, args.apply)
-        print(f"{f.name}\t{verdict}\t{why}")
-        if not args.apply:
-            continue
+    signal.signal(signal.SIGTERM, _interrupted)
+    run = Journal(run_journal)
+    results = []
+    try:
+        for f in folders:
+            # each handoff gets its own snapshot so a rejection undoes only its own edits
+            one = Journal(WORK / f"journal-{f.name}")
+            try:
+                verdict, why = process(f, args.apply, one)
+            except Exception as e:
+                verdict, why = "rejected", f"error: {e}"
+            except BaseException:
+                one.restore()
+                raise
+            if verdict == "registered":
+                for key, copy in one.index.items():
+                    if key not in run.index:
+                        run.save_from(key, None if copy is None else one.path / copy)
+            else:
+                one.restore()
+            one.discard()
+            results.append((f, verdict, why))
+            print(f"{f.name}\t{verdict}\t{why}", flush=True)
+        if args.apply and any(v == "registered" for _, v, _ in results) and (err := full_build()):
+            touched = run.restore()
+            print(f"nm_handoff: final build failed ({err}); restored {len(touched)} files, nothing registered")
+            return 1
+    except BaseException as e:
+        touched = run.restore()
+        print(f"nm_handoff: stopped ({e!r}); restored {len(touched)} files: {', '.join(touched)}")
+        raise
+    run.discard()
+    if not args.apply:
+        return 0
+    for f, verdict, why in results:
         sub = "done" if verdict == "registered" else "rejected"
         target = INBOX / sub / f.name
         if target.exists():
