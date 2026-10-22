@@ -64,7 +64,7 @@ def load_cfg() -> dict:
 
 
 def save_cfg(cfg: dict) -> None:
-    (ROOT / "compile_config.json").write_text(json.dumps(cfg, indent=2) + "\n")
+    (ROOT / "compile_config.json").write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
 
 
 def inbox_folders() -> list[Path]:
