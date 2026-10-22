@@ -1,14 +1,10 @@
 /* func_001A5208: gimmick init (damage give/take spheres, solid sphere, mesh layers). sn-2.95.3-136 */
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
+#include "godhand/cOmHitVolumeSetup.h"
 extern char D_00574380[];
 extern char D_00462FC0[];
 extern char D_00747B00[];
-extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageGive(void *mgr, int kind, void *owner);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern int cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, void *ofs, float r);
-extern int cDamageUnit_SetDamageCollActive(void *unit, int on);
 extern void cCollisionSolidManage_CreateUnit(void *mgr, void *owner, int kind, float radius);
 extern void cCollisionSolidManage_CreateSphere(void *mgr, void *owner, void *body, void *centre, float radius);
 extern void SetField380Bit2000ForTag_1B7300(void *self, int tag, int on);
