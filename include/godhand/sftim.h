@@ -178,7 +178,9 @@ typedef struct SfdWork {
     SfdFrmCfg cfg;              /* 0x004 */
     char unk028[0x30 - 0x28];
     char *frmBuf[16];           /* 0x030 each frame's buffer */
-    char unk070[0x7C - 0x70];
+    char unk070[0x74 - 0x70];
+    unsigned int skipLevel;     /* 0x074 picture-skip level */
+    char unk078[0x7C - 0x78];
     int f7C;                    /* 0x07C */
     char unk080[0x84 - 0x80];
     int f84;                    /* 0x084 */
