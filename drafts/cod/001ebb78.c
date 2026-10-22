@@ -1,64 +1,65 @@
-/* NON_MATCHING func_001EBB78: retail keeps i-- at loop bottom (continues use bnel/beql with the decrement in the likely slot) and andi-truncates the countdown result; ours moves i-- to the top and drops the andi */
+/* NON_MATCHING func_001EBB78 (sn-2.95.3-136): 54 vs 55 words, 19 differing. The flag test (lwu/dsra/andi) matches; retail uses branch-likely for both skips, decrements the delay in the branch slot, and loads f12 before a0 for SetMotionStep. */
+/* sn-2.95.3-136: func_001EBB78, run the owner's five delayed motions: each one not yet started counts its
+ * delay down, and when it runs out the motion is marked started and its object starts it at its step. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct {
-    int unk0;
-    int timer;
-    float step;
-    int v[6];
-} MotParam;
 
-typedef struct {
-    void *obj;
-    int pad4;
-    MotParam p;
-    int pad2C;
-    unsigned int flags;
-    char pad34[0xC];
-} MotEnt;
+/* What a delayed motion passes on when it starts. */
+typedef struct MotionArgs {
+    int kind;                           /* 0x00 */
+    int delay;                          /* 0x04 frames left before the motion starts */
+    float step;                         /* 0x08 */
+    int unk0C[6];
+} MotionArgs;                           /* 0x24 */
 
-typedef struct {
-    char pad[0x5C];
-    MotEnt ent[5];
-} MotOwner;
+/* One delayed motion, 0x40 bytes; the owner holds five at 0x5C. */
+typedef struct DelayedMotion {
+    void *obj;                          /* 0x00 */
+    int unk04;
+    MotionArgs args;                    /* 0x08 */
+    char unk2C[0x30 - 0x2C];
+    unsigned int flags;                 /* 0x30 bit 1 = started */
+    char unk34[0x40 - 0x34];
+} DelayedMotion;
 
-extern void cOm71_SetMotionRun(void *obj);
-extern void SetMotionStep(void *obj, float step);
+#define MOTION_STARTED  2
+#define MOTION_NUM      5
 
-static inline unsigned char countDown(int *t)
+extern void cOm71_SetMotionRun(void *a0);
+extern void SetMotionStep(void *a0, float f12);
+
+/* Count the delay down; nonzero once it has run out. */
+static inline unsigned char delayDone(DelayedMotion *m)
 {
-    int r;
+    int done;
 
-    if (*t != 0) {
-        (*t)--;
-        r = 0;
+    if (m->args.delay != 0) {
+        m->args.delay--;
+        done = 0;
     } else {
-        r = 1;
+        done = 1;
     }
-    return r;
+    return done;
 }
 
-void func_001EBB78(MotOwner *o)
+__attribute__((section(".text.func_001EBB78")))
+void func_001EBB78(char *owner)
 {
-    MotEnt *e = o->ent;
-    MotParam p;
-    int i = 4;
-    long t;
+    DelayedMotion *m = (DelayedMotion *)(owner + 0x5C);
+    int i;
 
-    do {
-        t = e->flags;
-        if (((t >> 1) & 1) == 1) {
-            continue;
+    for (i = 0; i < MOTION_NUM; i++, m++) {
+        long flags = (unsigned int)m->flags;
+
+        if ((flags >> 1 & 1) == 0 && delayDone(m)) {
+            MotionArgs args = m->args;
+
+            m->flags |= MOTION_STARTED;
+            cOm71_SetMotionRun(m->obj);
+            SetMotionStep(m->obj, args.step);
         }
-        if (countDown(&e->p.timer) == 0) {
-            continue;
-        }
-        p = e->p;
-        e->flags |= 2;
-        cOm71_SetMotionRun(e->obj);
-        SetMotionStep(e->obj, p.step);
-    } while (e++, --i >= 0);
+    }
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_001EBB78);
