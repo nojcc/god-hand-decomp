@@ -59,6 +59,11 @@ def main() -> None:
                         help="candidate C file; copied to base.c")
     parser.add_argument("--drop-reorder", action="store_true",
                         help="drop -freorder-blocks from the compile line")
+    parser.add_argument("--as", dest="assembler", choices=("ee", "sn"), default="ee",
+                        help="stage-3 assembler, as compile_units 'as'")
+    parser.add_argument("--extern-jtbl", action="append", default=[], metavar="SYM",
+                        help="retail jump-table symbol, once per switch table in emission order "
+                             "(compile_units[].extern_jtbl)")
     args = parser.parse_args()
     case = ROOT / "progress" / "permuter" / args.function
     case.mkdir(parents=True, exist_ok=True)
@@ -72,6 +77,9 @@ def main() -> None:
     flags = ["-O2", "-G0"]
     if not args.drop_reorder:
         flags.append("-f=-freorder-blocks")
+    if args.assembler != "ee":
+        flags.append(f"--assembler={args.assembler}")
+    flags += [f"--extern-jtbl={s}" for s in args.extern_jtbl]
     flag_text = " ".join(flags)
     (case / "compile.sh").write_text(
         "#!/bin/bash\n"

@@ -58,17 +58,20 @@ def main() -> int:
     a.add_argument("--c-flags-add", action="append", default=[])
     a.add_argument("--c-flags-drop", action="append", default=[])
     a.add_argument("--call-loop-pad", action="store_true")
+    a.add_argument("--extern-jtbl", action="append", default=[], metavar="SYM",
+                   help="retail jump-table symbol, once per switch table in the order cc1 emits them "
+                        "(compile_units[].extern_jtbl); find them with scripts/sa/jtbl_syms.py")
     r = sub.add_parser("remove")
     r.add_argument("names", nargs="+")
     args = ap.parse_args()
     cfg = json.loads(CFG.read_text())
     ledger = json.loads(LEDGER.read_text()) if LEDGER.is_file() else {}
     if args.cmd == "add":
-        per_file = args.assembler or args.c_flags_add or args.c_flags_drop or args.call_loop_pad
+        per_file = args.assembler or args.c_flags_add or args.c_flags_drop or args.call_loop_pad or args.extern_jtbl
         existing = next((u for u in cfg["compile_units"] if u.get("path") == args.tu), None)
         if per_file and existing is not None:
             raise SystemExit(f"sa_register: {args.tu} is already a compile unit; "
-                             "--as / --c-flags-* / --call-loop-pad are only for new per-function files")
+                             "--as / --c-flags-* / --call-loop-pad / --extern-jtbl are only for new per-function files")
         if existing is not None and existing.get("compiler") != args.compiler:
             raise SystemExit(f"sa_register: {args.tu} is compiled with {existing.get('compiler')}; "
                              "the compiler of an existing unit is never changed")
@@ -81,6 +84,10 @@ def main() -> int:
         if args.drop_reorder and "-f=-freorder-blocks" not in args.c_flags_drop:
             args.c_flags_drop.append("-f=-freorder-blocks")
         text = MONOLITH.read_text()
+        missing = [s for s in args.extern_jtbl if f"%hi({s})" not in text]
+        if missing:
+            raise SystemExit(f"sa_register: --extern-jtbl {missing}: no %hi() reference in the monolith; "
+                             "use the D_ symbol each dispatcher loads (scripts/sa/jtbl_syms.py)")
         by_name = {e["name"]: e for e in cfg["carved_funcs"] if "name" in e}
         for n in args.names:
             if n in by_name:
@@ -104,6 +111,8 @@ def main() -> int:
                 u["as"] = args.assembler
             if args.call_loop_pad:
                 u["call_loop_pad"] = True
+            if args.extern_jtbl:
+                u["extern_jtbl"] = list(args.extern_jtbl)
             cfg["compile_units"].append(u)
     else:
         names = {n for n in args.names if n in ledger}

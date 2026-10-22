@@ -30,6 +30,9 @@ for tu in sys.argv[1:]:
         cmd.append(f"--wrap-arg={flag}")
     if u.get("call_loop_pad"):
         cmd.append("--wrap-arg=--call-loop-pad")
+    if u.get("as") == "sn":
+        cmd += ["--as", "sn"]
+    cmd += [f"--extern-jtbl={s}" for s in u.get("extern_jtbl", [])]
     if tu.endswith((".cc", ".cpp")):
         cmd += ["--lang", "c++"]
     out = subprocess.run(cmd, capture_output=True, text=True).stdout
