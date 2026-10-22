@@ -38,7 +38,9 @@ typedef struct SeqNode {
     SeqTimer timer;             /* 0x30 */
     char unk38[0x3E - 0x38];
     unsigned short weight;      /* 0x3E high byte is the update weight */
-    char unk40[0x4A - 0x40];
+    char unk40[0x44 - 0x40];
+    short pan;                  /* 0x44 0..0x7F, 0x40 is centre */
+    char unk46[0x4A - 0x46];
     unsigned short unk4A;       /* 0x4A */
     unsigned short unk4C;       /* 0x4C */
     unsigned short unk4E;       /* 0x4E */
@@ -118,5 +120,8 @@ extern void func_0037D3B0(SeqNode *n);
 extern void func_0037D820(SeqNode *n);
 extern void func_0037D8B8(SeqNode *n, short arg);
 extern void func_00378020(SeqTimer *t);
+extern void func_0037D558(SeqNode *self);
+extern void func_003780F8(unsigned short angle, float *l, float *r);
+extern int Obj0000_Get_D_0076A7A4_3756F0(void);   /* sound output mode: 0 mono, 1 stereo, 2 surround */
 
 #endif /* GODHAND_SEQNODE_H */

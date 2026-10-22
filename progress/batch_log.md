@@ -2201,3 +2201,154 @@ BATCH 130 (subsystems effect node 0x2F6xxx, enemy 0x26Exxx/0x283xxx, scenario 0x
 | 2026-10-21T19:09:38Z | func_002A87E8 | 544 | non-matching | 1 | 76.6 | yes | cGameObj | camera-occlusion fade; bit 6 of D_00747A84 is tested with dsrl (needs a long temporary, banned); drafted drafts/cod/002a87e8.c |
 | 2026-10-21T19:09:52Z | func_002FCD60 | 552 | skipped | 0 | 10.2 | yes | cNode | node local translation from a parent body; cOmBase_childAt at a variable index with the count slot reused as matrix space; skipped |
 | 2026-10-21T19:18:56Z | BATCH | - | batch | - | reseed 0.0; score 0.0 | - | BATCH 139: 0 own matches, 1 NM draft (func_002A87E8 camera-occlusion fade, dsrl bit test needs a long temporary), 1 skip (func_002FCD60 childAt at a variable index); handoffs 0 new; reseed elf/overlay OK; session_check 18 pass / 1 known fail (dual_compiler_regress) |
+| 2026-10-22T04:44:53Z | Draw_Line2 | 424 | non-matching | 3 | 114.7 | no | draw (0x15Exxx): world-space polyline; NM -> drafts/cod/0015ef10.c (106 vs 103 words: retail rebuilds &v from sp at each call) |
+| 2026-10-22T04:44:53Z | Draw_Line_sc | 476 | non-matching | 6 | 114.7 | no | draw (0x15Fxxx): screen-space polyline; the batch-111 handoff (lost in the rebase) matched only with `int ofs = 0x800` (banned constant local); literal form is 3 words off (lui %hi(D_00586B80) placement); NM -> drafts/cod/0015ef10.c |
+| 2026-10-22T04:48:39Z | func_00381478 | 1220 | matched | 3 | 50.5 | yes | menu/sound test (0x381xxx): sound test page printer; case -1 falls into case 0/5; src/cod/00381478.c |
+| 2026-10-22T04:49:47Z | func_00382898 | 1172 | matched | 2 | 64.6 | yes | menu/sound test (0x382xxx): stream sound test page printer; slot record at 0x318 as a nested struct; src/cod/00382898.c |
+| 2026-10-22T04:49:47Z | func_00385A68 | 1072 | skipped | 0 | 0.0 | yes | menu (0x385xxx): g++ C++ with inlined std::string / vector<string> (rep refcount, default-alloc free lists D_003C4030); no C form |
+| 2026-10-22T04:49:47Z | func_00385E98 | 1312 | skipped | 0 | 0.0 | yes | menu (0x385xxx): inlined std::string / vector<string>; no C form |
+| 2026-10-22T04:49:47Z | func_00386700 | 1604 | skipped | 0 | 0.0 | yes | menu (0x386xxx): inlined std::string / vector<string>; no C form |
+| 2026-10-22T04:52:42Z | func_00372CB0 | 1128 | matched | 4 | 157.5 | yes | sound/sequence node (0x372xxx): per-frame fade update for one- and two-track nodes; SETTING as sn on src/cod/00372cb0.c (c.lt.s/bc1fl nop at a label); src/cod/00372cb0.c |
+| 2026-10-22T04:53:09Z | func_00378D18 | 1144 | skipped | 0 | 26.8 | yes | sound/sequencer debug page (0x378xxx): retail holds the x position 0x1B in a short local (s2, sll/sra 16 at each later use); only a constant-holding local reproduces it (banned) |
+| 2026-10-22T04:54:58Z | cSndSeVoice_Setup | 972 | skipped | 1 | 0.3 | yes | sound/cSnd voice (0x2CDxxx): D_00747A84 bit 6 tested as lw+dsrl; unsigned int, int bitfield and casts give srl, an unsigned long bitfield adds dsra32; the long-temporary form is banned |
+| 2026-10-22T04:54:59Z | func_002D0EA0 | 1528 | skipped | 0 | 14.2 | yes | sound/cSnd BGM switch (0x2D0xxx): deferred, nested switch with cross-jumped fade-out arms; revisit |
+| 2026-10-22T05:08:53Z | BATCH | - | batch | - | reseed 91.0; score 0.0 | - | BATCH 140 (sound debug pages, sequencer): 3 own registered (func_00381478 sound test page, func_00382898 stream test page, func_00372CB0 sequence node update; per-file setting: 00372cb0.c as sn), 2 NM drafts (Draw_Line2, Draw_Line_sc in drafts/cod/0015ef10.c), func_001A5208 moved to drafts/cod/001a5208.c (matched only through a placeholder buffer), 5 skips (3 STL C++, func_00378D18 constant local, cSndSeVoice_Setup dsrl) and func_002D0EA0 deferred; handoffs 0 new; reseed elf/overlay OK; nm_prune 0 stale; session_check 18 pass / 1 known fail (dual_compiler_regress) |
+| 2026-10-22T05:10:06Z | func_001B22D0 | 420 | matched | 1 | 51.7 | no | enemy setup (cOmHitVolume family, 0x1B2xxx): take box, give sphere, work defaults |
+| 2026-10-22T05:12:26Z | func_001A3E10 | 452 | matched | 4 | 137.1 | no | enemy setup (cOmHitVolume family, 0x1A3xxx): take cylinder, give sphere, 50 hp, flags2 0x180; tail order needed hp = hpMax = 50 first |
+| 2026-10-22T05:14:19Z | func_00192D20 | 472 | matched | 3 | 52.5 | no | enemy setup (cOmHitVolume family, 0x192xxx): redone after the earlier carve was dropped; v[7] with pointers as the siblings, one mtx local |
+| 2026-10-22T05:14:23Z | func_0018F218 | 680 | skipped | 0 | 4.3 | no | enemy setup (cOmHitVolume family, 0x18Fxxx): cvt.w.s for the give damage (player stat * 80) |
+| 2026-10-22T05:14:31Z | func_00180A10 | 784 | skipped | 0 | 7.3 | no | enemy setup (cOmHitVolume family, 0x180xxx): VU0 vaddx on the offset plus an unaligned 0x60 struct copy into a 12-argument call; needs a vu0.h scalar-add macro |
+| 2026-10-22T05:15:03Z | func_00194080 | 1020 | skipped | 0 | 32.3 | no | cOm1f setup (0x194xxx): cOmBase_childAt count stores land in three frame slots overlapping the vectors; only a placeholder frame array reproduces it |
+| 2026-10-22T05:16:42Z | func_002ACF30 | 120 | non-matching | 6 | 74.8 | no | cIDManager (0x2ACxxx): give back the last buffer run; 5-insn register difference, draft drafts/cod/002acf30.c |
+| 2026-10-22T05:17:26Z | cOl0e_setFake | 224 | skipped | 2 | 43.2 | no | cOl0e (0x173xxx): flags0 bit 1 tested as lwu+dsra (long-temporary pattern, banned); tail also schedules the flags2 store between the state bytes |
+| 2026-10-22T05:18:59Z | cFont_setTextureAddr | 328 | non-matching | 5 | 71.3 | no | cFont texture slots (0x2A4xxx): slot address register choice differs (21 insns from a one-word shift); draft drafts/cod/002a4cb0.c |
+| 2026-10-22T05:19:54Z | func_002FBB78 | 328 | matched | 2 | 15.9 | no | effect slots (0x2FBxxx): vtable entry 6 on live slots in or out of a group; slot pointer from the index inside the loop |
+| 2026-10-22T05:21:08Z | func_00257E90 | 552 | matched | 1 | 61.1 | no | cEm00 step machines (0x257xxx): wait/end motion steps |
+| 2026-10-22T05:21:14Z | func_001E33B0 | 640 | skipped | 0 | 5.8 | no | debug menu (0x1E3xxx): flag word bit 4 tested as lwu+dsra (long-temporary pattern) |
+| 2026-10-22T05:22:43Z | func_0015E2E0 | 560 | matched | 2 | 88.8 | no | TIM2 texture load (0x15Exxx): first picture, TEX0 bitfields; SETTING as sn (64-bit constant expansion) |
+| 2026-10-22T05:23:19Z | func_0015E0A0 | 576 | matched | 2 | 36.9 | no | TIM2 texture load (0x15Exxx): first picture at 0x10/0x80 by format byte; shares src/cod/0015e0a0.c (as sn) with func_0015E2E0 |
+| 2026-10-22T05:23:26Z | func_0015DDF8 | 668 | skipped | 0 | 6.0 | no | TIM2 texture DMA packet (0x15Dxxx): quadword lq/sq packet copies with GIF tag constants; needs a u_long128 packet type |
+| 2026-10-22T05:23:30Z | func_0015DB30 | 692 | skipped | 0 | 0.0 | no | TIM2 texture DMA packet (0x15Dxxx): same quadword packet build as func_0015DDF8 |
+| 2026-10-22T05:25:38Z | func_0013D7B0 | 740 | non-matching | 3 | 127.3 | no | continue prompt (0x13Dxxx): matches with as sn but only through an (unsigned short) cast on cIDBaseEnt.jit[4]; held for the header merge as build/scratch/0013d7b0_ckpt.c |
+| 2026-10-22T05:25:43Z | func_002E9808 | 740 | skipped | 0 | 5.8 | no | GS packet build (0x2E9xxx): dozens of 64-bit register constants scheduled across sd stores |
+| 2026-10-22T05:25:49Z | func_0029F7D8 | 760 | skipped | 0 | 5.9 | no | GS register push list (0x29Fxxx): packed 64-bit register values with hoisted %hi bases |
+| 2026-10-22T05:25:58Z | func_00208858 | 904 | skipped | 0 | 5.1 | no | enemy release (0x208xxx): short-loop pad nops in the slot-clear loop |
+| 2026-10-22T05:26:06Z | func_00145460 | 944 | skipped | 0 | 7.5 | no | title/menu entries (0x145xxx): deferred, four-state machine over 0x14-byte entry records; revisit |
+| 2026-10-22T06:13:07Z | BATCH | - | batch | - | reseed 558.0; score 0.0 | - | BATCH 141 (enemy setups, effect slots, enemy AI, TIM2 upload, path camera): 7 own registered (func_001B22D0, func_001A3E10, func_00192D20 enemy hit-volume setups; func_002FBB78 effect slot broadcast; func_00257E90 cEm00 wait-step; func_0015E0A0 and func_0015E2E0 TIM2 texture/CLUT upload in src/cod/0015e0a0.c; per-file setting: 0015e0a0.c as sn), 2 NM drafts (002acf30 cIDManager give-back, 002a4cb0 cFont_setTextureAddr), skips logged, func_00145460 deferred; handoffs 1 (func_00137F38 path camera; adds VU0_LQC2_SQC2_MEM to vu0.h and PathRec/PathHost fields to pathRec.h, 188 dependents unchanged); reseed elf/overlay OK; nm_prune retired 2 stale drafts (00257e90, 002fbb78); 0013d7b0 held for checkpoint |
+| 2026-10-22T06:13:38Z | func_00171DE8 | 1004 | skipped | 0 | 6.9 | no | enemy setup (cOmHitVolume family, 0x171xxx): VU0 vaddx and cOmBase_childAt frame-slot stores |
+| 2026-10-22T06:15:36Z | func_001B4528 | 948 | skipped | 1 | 97.4 | no | grow/shrink object (0x1B4xxx): cOmBase_childAt count store at 0(sp) only survives with a placeholder array; scalar local is purged |
+| 2026-10-22T06:16:10Z | func_002E0F18 | 960 | skipped | 0 | 25.2 | no | debug text renderer (0x2E0xxx): needs one shared type for D_0061B280 (font state), which already has two conflicting local types; deferred to header merge |
+| 2026-10-22T06:19:38Z | Slot2_Execute | 984 | non-matching | 3 | 208.0 | no | casino Slot2 task (0x1E4xxx): draft drafts/cod/001e4970.c; lwu endFlag read, second fade-wait loop shape, saved-register allocation |
+| 2026-10-22T06:22:11Z | Slot2_JudgeLines | 1040 | matched | 4 | 152.4 | no | casino Slot2 line judge (0x1E5xxx): prize table copied as a typed struct from D_0042B9D8; one line-check macro whose cases each set state/step/phase and return |
+| 2026-10-22T06:23:19Z | Slot2_PayoutJackpotLine | 548 | matched | 2 | 56.7 | no | casino Slot2 jackpot payout (0x1E6xxx): sibling of Slot2_payoutLine1/2; jackpot line read as an if/else chain |
+| 2026-10-22T06:25:30Z | func_001EB7B8 | 576 | non-matching | 4 | 122.5 | no | casino scene camera depth ease (0x1EBxxx): draft drafts/cod/001eb7b8.c; prologue placement of &pos only |
+| 2026-10-22T06:25:58Z | Slot2_StopReels | 1136 | skipped | 0 | 7.8 | no | casino Slot2 reel stop (0x1E5xxx): cvt.w.s and lwu+dsra bit tests (known blockers) |
+| 2026-10-22T06:29:33Z | func_002000F8 | 972 | non-matching | 1 | 206.6 | no | cDoor room jump step (0x200xxx): draft drafts/cod/002000f8.c; retail anchors world fields on &flags5D8 (D_00747A78), only reproduced upstream with raw pointer arithmetic |
+| 2026-10-22T06:32:48Z | func_001F5650 | 1028 | matched | 5 | 190.2 | no | casino-ui |
+| 2026-10-22T06:33:02Z | func_001EC540 | 0 | skipped | 0 | 10.0 | no | casino |
+| 2026-10-22T06:33:02Z | func_001EB030 | 0 | skipped | 0 | 4.7 | no | casino |
+| 2026-10-22T06:33:07Z | func_001EA1F8 | 0 | skipped | 0 | 4.7 | no | casino |
+| 2026-10-22T06:33:52Z | func_00217560 | 0 | skipped | 0 | 45.0 | no | enemy |
+| 2026-10-22T06:36:49Z | func_00349C28 | 184 | non-matching | 4 | 0.0 | no | cri-mwsfd |
+| 2026-10-22T06:38:51Z | func_00149220 | 160 | skipped | 3 | 0.0 | no | model |
+| 2026-10-22T06:39:13Z | strncat | 0 | skipped | 0 | 0.0 | no | libc-mmi |
+| 2026-10-22T06:39:13Z | func_003A53A8 | 0 | skipped | 0 | 0.0 | no | libc-mmi |
+| 2026-10-22T06:39:13Z | func_003A5678 | 0 | skipped | 0 | 0.0 | no | libc-mmi |
+| 2026-10-22T06:39:13Z | func_003A57C4 | 0 | skipped | 0 | 0.1 | no | libc-mmi |
+| 2026-10-22T06:43:43Z | func_001A4010 | 516 | non-matching | 6 | 0.0 | no | cOm49 |
+| 2026-10-22T06:43:54Z | func_001CFE88 | 520 | skipped | 0 | 0.0 | no | weapon |
+| 2026-10-22T06:43:59Z | func_0015E8B8 | 528 | skipped | 0 | 0.0 | no | gs-packet |
+| 2026-10-22T06:44:06Z | func_00275668 | 544 | skipped | 0 | 0.0 | no | enemy |
+| 2026-10-22T06:47:22Z | func_0028E580 | 580 | non-matching | 7 | 0.0 | no | npc-action |
+| 2026-10-22T06:49:50Z | func_00129EB0 | 600 | non-matching | 4 | 0.0 | no | knock |
+| 2026-10-22T06:50:01Z | func_002DDAB0 | 616 | skipped | 0 | 0.0 | no | objlist |
+| 2026-10-22T06:52:30Z | func_001F8DF8 | 628 | non-matching | 3 | 0.0 | no | render |
+| 2026-10-22T07:05:32Z | BATCH | - | batch | - | reseed 36.0; score 0.0 | - | BATCH 142 (slot machine, casino UI, movie volume, object scripts, render tests): 3 own registered (Slot2_JudgeLines, Slot2_PayoutJackpotLine in src/cod/001e58f8.c / 001e6498.c; func_001F5650 status panel in src/cod/001f5650.c; per-file settings: 001f5650.c fp_hazard_rules fdiv,mtc1; 001e58f8.c and 001e6498.c have none), 7 NM drafts (Slot2_Execute, 001eb7b8, 002000f8, 001a4010 cOm49 effect step, 0028e580 action-button soft event, 00129eb0 knock-away scan, 001f8df8 bounding-box depth test), skips logged; handoffs 3 (func_003257C8 adds D_003C8168/D_003C81A8 to adxmThread.h; func_00353348 adds skipLevel to SfdWork in sftim.h; func_0035F970 gives func_0035FB78 its (ver,a1,a2) signature in 00297fb8.c), full build ELF/overlay OK; reseed elf/overlay OK; nm_prune 0 stale; 00349c28 held for checkpoint |
+| 2026-10-22T07:07:15Z | func_00154E98 | 672 | skipped | 0 | 0.0 | no | render |
+| 2026-10-22T07:07:24Z | func_0015EC60 | 636 | skipped | 0 | 0.0 | no | render |
+| 2026-10-22T07:10:46Z | func_002AD2B8 | 724 | non-matching | 6 | 125.9 | no | spring-mesh |
+| 2026-10-22T07:11:05Z | func_002A7CD0 | 868 | skipped | 0 | 0.0 | no | object-sort |
+| 2026-10-22T07:13:40Z | func_0032AFB0 | 236 | matched | 3 | 87.8 | no | adx |
+| 2026-10-22T07:15:59Z | func_003407A0 | 368 | non-matching | 5 | 92.0 | no | sound-pan |
+| 2026-10-22T07:15:59Z | func_003A50B4 | 100 | skipped | 0 | 0.0 | no | libc |
+| 2026-10-22T07:15:59Z | func_00333FD8 | 100 | skipped | 0 | 0.0 | no | libc |
+| 2026-10-22T07:18:48Z | func_0033D598 | 392 | non-matching | 6 | 127.0 | no | adx |
+| 2026-10-22T07:20:15Z | func_0032DD70 | 132 | non-matching | 3 | 0.0 | no | movie |
+| 2026-10-22T07:20:56Z | func_0032AC48 | 176 | matched | 1 | 0.0 | no | adx |
+| 2026-10-22T07:21:27Z | func_003452D8 | 436 | skipped | 0 | 0.0 | no | movie |
+| 2026-10-22T07:21:35Z | func_001F8AD8 | 788 | skipped | 0 | 0.0 | no | render |
+| 2026-10-22T07:54:38Z | BATCH | - | batch | - | reseed 36.0; score 0.0 | - | BATCH 143 (ADX/movie cygnus library, spring mesh, sound pan, render tests): 2 own registered (func_0032AFB0 ADXT server tick in src/cod/0032afb0.c, per-file setting c_flags_drop -freorder-blocks; D_003D140C declared volatile as the cross-thread server stage guard; func_0032AC48 ADX decode limit in src/cod/0032ac48.c, per-file setting c_flags_drop -freorder-blocks), signature correction: func_0032CFC8 and its ADXT_ExecHndl declaration in 00322f58.c now take signed char *adxt (still matches); 3 NM drafts (002ad2b8 spring mesh setup, 003407a0 pan delay, 0033d598 ADXB end-of-decode), 0032dd70 held for checkpoint (needs MwPly span/rate fields; matches with fp_hazard_rules cmpfull), skips logged (packet builders 00154e98/0015ec60, inlined std::sort 002a7cd0, nop delay 00333fd8, MMI memcmp 003a50b4, MWSFD init 003452d8 on callee signatures, corner pattern 001f8ad8); full build ELF/overlay OK; reseed elf/overlay OK; nm_prune 0 stale; strip_data_nonmatching run for the adxmThread.h externs added by the batch 142 handoff; session_check in container: all pass except dual_compiler_regress, which fails only inside the harness (argument list too long) and passes standalone |
+| 2026-10-22T07:54:49Z | func_0012D970 | 788 | skipped | 0 | 0.0 | no | hit-volume |
+| 2026-10-22T07:54:57Z | func_002BB868 | 820 | skipped | 0 | 0.0 | no | geometry |
+| 2026-10-22T07:57:25Z | func_00273960 | 724 | non-matching | 5 | 96.8 | no | enemy-ai |
+| 2026-10-22T07:57:42Z | func_001361A0 | 692 | skipped | 0 | 0.0 | no | geometry |
+| 2026-10-22T07:59:23Z | func_002DACE8 | 636 | non-matching | 4 | 44.9 | no | hit-test |
+| 2026-10-22T07:59:36Z | func_003420E0 | 1000 | skipped | 0 | 0.0 | no | adx-adpcm |
+| 2026-10-22T07:59:37Z | func_0032F580 | 948 | skipped | 0 | 0.0 | no | adx-aix |
+| 2026-10-22T08:00:47Z | func_002EBF98 | 636 | skipped | 0 | 0.0 | no | effect-packet |
+| 2026-10-22T08:03:43Z | func_0012B328 | 660 | non-matching | 5 | 102.2 | no | player-carry |
+| 2026-10-22T08:03:55Z | func_00154A90 | 780 | skipped | 0 | 0.0 | no | dma-packet |
+| 2026-10-22T08:04:00Z | func_001661D8 | 872 | skipped | 0 | 0.0 | no | id-screen |
+| 2026-10-22T08:04:04Z | func_002E8B38 | 944 | skipped | 0 | 0.0 | no | gs-packet |
+| 2026-10-22T08:05:06Z | func_0010C5A8 | 904 | skipped | 0 | 0.0 | no | cEm00-state |
+| 2026-10-22T08:05:13Z | func_001430E8 | 956 | skipped | 0 | 0.0 | no | id-screen |
+| 2026-10-22T08:05:46Z | func_00115310 | 968 | skipped | 0 | 0.0 | no | pl00-state |
+| 2026-10-22T08:06:02Z | func_0039EEA8 | 192 | skipped | 0 | 0.0 | no | libc-mmi |
+| 2026-10-22T08:40:41Z | BATCH | - | batch | - | reseed 121.0; score 0.0 | - | BATCH 144 (hit tests, player/enemy states, ADX library, packet builders): 0 own registered; NM handoff func_0033D598 ADXB end-of-decode -> src/cod/0033d598.c (cygnus, no per-file settings; duplicate compiler line removed, .gitignore line added, symbol entry already present); 3 drafts (00273960 cEm00 three-ray check, 002dace8 segment box hit test (sn, fp_hazard_rules fdiv, needs -ffast-math), 0012b328 player carry target (sn, fp fdiv,mtc1; blocked on cOmBase_canCarry being defined long long)); skips logged (packet builders 00154a90/002e8b38/002ebf98 (002ebf98 also forwards an a1 its callee never reads), sqc2-vf0 array loops 001661d8/001430e8, MMI 003420e0/0039eea8, AIX parser 0032f580, header blockers 0010c5a8 (cEm00 0x5D8 read as int inside posB) and 00115310 (cGameObj 0x580), plus 0012d970/002bb868/001361a0); pending_headers updated; full build ELF/overlay OK; reseed elf/overlay OK; nm_prune 0 stale; session_check in container: all pass except dual_compiler_regress, which fails only inside the harness (argument list too long) and passes standalone |
+| 2026-10-22T08:45:26Z | sceGsSetDefDispEnv | 884 | non-matching | 5 | 140.4 | no | libgraph |
+| 2026-10-22T08:49:05Z | func_00323050 | 1060 | non-matching | 6 | 145.0 | no | adxf |
+| 2026-10-22T08:49:36Z | func_00358AA8 | 972 | skipped | 0 | 0.0 | no | mwsfd |
+| 2026-10-22T08:55:51Z | func_003AD348 | 1092 | non-matching | 6 | 295.9 | no | libm |
+| 2026-10-22T08:57:24Z | func_003284B8 | 1060 | skipped | 0 | 0.0 | no | adx |
+| 2026-10-22T08:58:17Z | func_002FA620 | 1008 | skipped | 0 | 0.0 | no | gs-packet |
+| 2026-10-22T09:00:04Z | func_00201290 | 1156 | non-matching | 4 | 56.5 | no | cdvd |
+| 2026-10-22T09:04:33Z | func_00161D08 | 1388 | non-matching | 4 | 108.5 | no | godreel-menu |
+| 2026-10-22T09:06:17Z | func_0012F750 | 1228 | skipped | 0 | 0.0 | no | hit-probe |
+| 2026-10-22T09:10:24Z | cCamera_update | 1072 | non-matching | 2 | 164.1 | no | camera |
+| 2026-10-22T09:10:40Z | func_003BB4F0 | 1164 | skipped | 0 | 0.0 | no | stl |
+| 2026-10-22T09:10:40Z | func_003BBA10 | 1164 | skipped | 0 | 0.0 | no | stl |
+| 2026-10-22T09:11:07Z | func_002CCD80 | 1100 | skipped | 0 | 0.0 | no | sound-bgm |
+| 2026-10-22T09:14:51Z | BATCH | - | batch | - | reseed 36.0; score 0.0 | - | BATCH 145 (libm, libgraph, ADX/ADXF library, DVD queue, God Reel menu, camera, STL): 0 own registered. NM drafts: sceGsSetDefDispEnv (drafts/cod/00396570.c), func_00323050 ADXF partition load server, func_003AD348 fmod (3 insns off: retail's assembler expands dli 0xffffffff as addiu/dsrl32 and pads call-free short loops; neither assembler route does both), func_00201290 DVD queue pack and sort (cDvdJob.arg6C is an unsigned priority), func_00161D08 God Reel equip screen (344/347 words; cCoreSave_getReelSlot takes an unsigned char slot), cCamera_update (identical through the screen and view matrices; retail's div.s pad depth varies 0/1/2 by site, which no fp_hazard_rules set models). Skips: func_00358AA8, func_003284B8 (ADX stream callees declared three ways), func_002FA620 (GS packet builder), func_0012F750 (sqc2-vf0 loop), func_003BB4F0/func_003BBA10 (inlined STL vector<string>), func_002CCD80 (sound sequencer types clash). pending_headers updated (cDvd priority and cDvd_startJobHeap, ADX stream forwarders, cCoreSave_getReelSlot, cIDBase_move, matrix helpers, sound sequencer). Handoffs 0. Reseed elf/overlay OK (first try used a draft as anchor and failed before compiling; rerun with func_0033D598). nm_prune 0 stale. session_check in container: 18 pass, 7 skipped, 1 fail (dual_compiler_regress, harness-only argument list too long; standalone run started). |
+| 2026-10-22T09:19:14Z | func_002BEDE8 | 288 | non-matching | 5 | 90.3 | no | roomsave |
+| 2026-10-22T09:22:48Z | func_003780F8 | 132 | matched | 6 | 86.1 | no | sound |
+| 2026-10-22T09:22:48Z | func_0037D558 | 292 | skipped | 4 | 155.6 | no | sound |
+| 2026-10-22T09:25:27Z | func_001FB1C0 | 276 | non-matching | 3 | 57.6 | no | coresave |
+| 2026-10-22T09:28:35Z | func_00365EC0 | 592 | non-matching | 6 | 128.9 | no | sfxlib |
+| 2026-10-22T09:54:30Z | BATCH | - | batch | - | reseed 98.0; score 0.0 | - | batch 146: 1 matched+registered (func_003780F8), 1 matched held for checkpoint (func_0037D558, seqNode.h pan field + prototypes), drafts 002bede8/001fb1c0/00365ec0; session_check 18 pass + known dcr ARG_MAX fail; standalone dcr running |
+| 2026-10-22T09:56:54Z | func_002FE8A0 | 628 | non-matching | 2 | 65.6 | no | sprite |
+| 2026-10-22T09:59:35Z | func_00159AD0 | 716 | non-matching | 6 | 102.2 | no | recdecode |
+| 2026-10-22T10:03:06Z | func_0013E970 | 556 | non-matching | 3 | 86.8 | no | hud |
+| 2026-10-22T10:03:54Z | func_0012F288 | 576 | skipped | 1 | 12.7 | no | collision |
+| 2026-10-22T10:07:14Z | func_002956F0 | 368 | non-matching | 4 | 111.8 | no | cEmSetParam |
+| 2026-10-22T10:08:10Z | cSescr_At_ck | 352 | skipped | 0 | 0.0 | no | cvtws |
+| 2026-10-22T10:14:32Z | func_00366110 | 596 | non-matching | 6 | 260.0 | no | sfxCsc |
+| 2026-10-22T10:14:32Z | func_00366368 | 596 | non-matching | 2 | 18.0 | no | sfxCsc |
+| 2026-10-22T10:14:33Z | cSnd_UpdateListener | 608 | skipped | 0 | 0.2 | no | vu0-inline |
+| 2026-10-22T10:14:33Z | func_002C0038 | 676 | skipped | 0 | 0.2 | no | coresave-align |
+| 2026-10-22T10:14:33Z | func_002DAA40 | 680 | skipped | 0 | 0.2 | no | vu0-inline |
+| 2026-10-22T10:14:33Z | cOmSetParam_setOmData | 636 | skipped | 0 | 0.2 | no | cvtws |
+| 2026-10-22T10:14:33Z | func_00378398 | 416 | skipped | 0 | 0.2 | no | cvtws |
+| 2026-10-22T10:14:33Z | func_0037C720 | 524 | skipped | 0 | 0.2 | no | cvtws |
+| 2026-10-22T11:00:55Z | BATCH | - | batch | - | reseed 51.0; score 0.0 | - | batch 147: 0 registered; drafts 002FE8A0 00159AD0 0013E970 002956F0 00366110 00366368; held 0012F288; skips cvt.w.s x5, vu0-inline x2, coresave-align; both hashes OK; session_check OK except known dcr ARG_MAX, standalone dcr PASS |
+| 2026-10-22T11:04:13Z | func_002C45A8 | 704 | non-matching | 5 | 101.6 | no | cScenario |
+| 2026-10-22T11:05:23Z | func_001BC300 | 568 | skipped | 0 | 0.0 | no | lwu-bittest |
+| 2026-10-22T11:05:23Z | func_002C02E8 | 708 | skipped | 0 | 0.0 | no | lwu-bittest |
+| 2026-10-22T11:05:23Z | func_00123160 | 760 | skipped | 0 | 0.0 | no | lwu-bittest |
+| 2026-10-22T11:06:19Z | func_002BFC80 | 952 | skipped | 0 | 0.0 | no | coresave-align |
+| 2026-10-22T11:06:19Z | func_0030CB30 | 988 | skipped | 0 | 0.0 | no | gs-bitfield-sched |
+| 2026-10-22T11:06:19Z | Gp_draw_line | 916 | skipped | 0 | 0.0 | no | gif-packet |
+| 2026-10-22T11:06:19Z | Gp_draw_poly3 | 936 | skipped | 0 | 0.0 | no | gif-packet |
+| 2026-10-22T11:06:19Z | func_0016DC18 | 796 | skipped | 0 | 0.0 | no | cvtws |
+| 2026-10-22T11:06:19Z | func_00143670 | 804 | skipped | 0 | 0.0 | no | cvtws |
+| 2026-10-22T11:06:19Z | func_002F1758 | 824 | skipped | 0 | 0.0 | no | cvtws |
+| 2026-10-22T11:06:19Z | func_003187D8 | 896 | skipped | 0 | 0.0 | no | cvtws |
+| 2026-10-22T11:09:48Z | func_00329490 | 792 | non-matching | 5 | 109.4 | no | adxt |
+| 2026-10-22T11:57:01Z | BATCH | - | batch | - | reseed 37.0; score 0.0 | - | batch 148: 0 registered; drafts 002C45A8 (s0/s1 swap only) 00329490 (ADXT_Create); skips lwu-bittest x3, cvt.w.s x4, coresave-align, gif-packet x2, gs-bitfield-sched; both hashes OK; session_check OK except known dcr ARG_MAX, standalone dcr PASS |
+| 2026-10-22T11:59:27Z | func_0032A1B0 | 756 | non-matching | 4 | 95.9 | no | adxt |
+| 2026-10-22T12:01:03Z | cSnd_UpdateListener | 608 | non-matching | 1 | 34.4 | no | cSnd |
+| 2026-10-22T12:15:15Z | BATCH | - | batch | - | reseed 36.0; score 0.0 | - | batch 149 (cri adxt / snd): 0 registered; drafts 0032A1B0 (ADXT_GetTime, 3 diffs) and 002CC150 (cSnd_UpdateListener, 161 vs 152 words); full build both hashes OK; session_check 18 pass, known dcr rc=126 only; standalone dcr folded into the post-checkpoint run |
+| 2026-10-22T13:41:28Z | func_0037D558 | 292 | matched | 1 | 0.0 | no | seq |
+| 2026-10-22T13:41:28Z | func_0012F288 | 576 | matched | 1 | 0.0 | no | grid |
+| 2026-10-22T13:41:28Z | func_00349C28 | 184 | matched | 1 | 0.0 | no | cri-mwsfd |
+| 2026-10-22T13:41:28Z | func_0032DD70 | 132 | matched | 1 | 0.0 | no | movie |
+| 2026-10-22T13:41:28Z | BATCH | - | batch | - | reseed 36.0; score 0.0 | - | checkpoint after 149 (stopped for upstream sync): header_merge seqNode.h pan + prototypes, new cGrid.h, mwPly.h span/rate + func_00328C80, mwsfd.h + func_0032B488 real signature (12 units identical); registered func_0037D558 (mtc1), func_0012F288 (fdiv), func_00349C28 (drop-reorder), func_0032DD70 (cmpfull); func_0013D7B0 still held; nm_solved handoff not applied (interrupted, header edits reverted); full + cold builds both hashes OK |

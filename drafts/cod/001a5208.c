@@ -1,4 +1,10 @@
-/* func_001A5208: gimmick init (damage give/take spheres, solid sphere, mesh layers). sn-2.95.3-136 */
+/* NON_MATCHING func_001A5208 (sn-2.95.3-136): gimmick init (damage give/take spheres,
+ * solid sphere, mesh layers). This C matches retail only through the raw `char buf[0x20]`
+ * stack area, which holds cOmBase_childAt's child-count store and the sphere centre vectors;
+ * the real out-param type for the child lookup is still unknown. */
+#include "include_asm.h"
+
+#ifdef NON_MATCHING
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/cOmHitVolumeSetup.h"
@@ -73,3 +79,6 @@ int func_001A5208(char *self)
     VCall(self, 15, D_00747B00);
     return 1;
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_001A5208);
+#endif

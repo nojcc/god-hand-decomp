@@ -91,8 +91,9 @@ void func_0035AA40(void *a0, int a1, int a2) {
     *(int*)((char*)a0 + 0x148) = a2;
 }
 
+/* The caller passes two more words; they are not read. */
 __attribute__((section(".text.func_0035FB78")))
-int func_0035FB78(int a0) {
+int func_0035FB78(int a0, int a1, int a2) {
     return a0 >= 0x181F;
 }
 
