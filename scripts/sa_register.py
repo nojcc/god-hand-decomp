@@ -21,11 +21,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CFG = ROOT / "compile_config.json"
 MONOLITH = ROOT / "asm" / "cod" / "000000.s"
+JTBL_WORDS = ROOT / "config" / "jtbl_extern_words.txt"
+sys.path.insert(0, str(ROOT / "scripts" / "sa"))
+from jtbl_syms import extern_words  # noqa: E402
 LEDGER = ROOT / "progress" / "sa_registered.json"
 
 
@@ -113,6 +118,16 @@ def main() -> int:
                 u["call_loop_pad"] = True
             if args.extern_jtbl:
                 u["extern_jtbl"] = list(args.extern_jtbl)
+                words = []
+                for n in args.names:
+                    vaddr, size = listing_info(n, text)
+                    words += extern_words(int(vaddr, 16), size)
+                listed = JTBL_WORDS.read_text().splitlines() if JTBL_WORDS.is_file() else []
+                have = {tuple(l.split()[:2]) for l in listed if l.strip() and not l.startswith("#")}
+                new = [f"{p} {a}" for p, a in words if (p, a) not in have]
+                if new:
+                    with JTBL_WORDS.open("a") as fh:
+                        fh.write("\n".join(new) + "\n")
             cfg["compile_units"].append(u)
     else:
         names = {n for n in args.names if n in ledger}
@@ -131,6 +146,9 @@ def main() -> int:
                                 if not (u.get("path") in tus and u.get("path") not in still)]
     CFG.write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
     LEDGER.write_text(json.dumps(ledger, indent=1) + "\n")
+    if args.cmd == "add" and args.extern_jtbl:
+        # the carved function's .L labels leave the monolith: the blob's table words go raw
+        subprocess.run([sys.executable, str(ROOT / "scripts" / "apply_jtbl_extern_words.py")], check=True)
     return 0
 
 

@@ -463,7 +463,8 @@ def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
         j.write(src, rest)
     elif dest != src:
         j.unlink(src)
-    for f in (CFG, ROOT / "progress" / "sa_registered.json", ROOT / ".gitignore", ROOT / "config" / "symbol_addrs.txt"):
+    for f in (CFG, ROOT / "progress" / "sa_registered.json", ROOT / ".gitignore", ROOT / "config" / "symbol_addrs.txt",
+              ROOT / "config" / "jtbl_extern_words.txt"):
         j.save(f)
     cmd = ["python3", "scripts/sa_register.py", "add", "--compiler", o["compiler"]]
     if unit is None:
