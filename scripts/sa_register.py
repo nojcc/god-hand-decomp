@@ -120,7 +120,7 @@ def main() -> int:
         still = {e.get("tu") for e in cfg["carved_funcs"]}
         cfg["compile_units"] = [u for u in cfg["compile_units"]
                                 if not (u.get("path") in tus and u.get("path") not in still)]
-    CFG.write_text(json.dumps(cfg, indent=2) + "\n")
+    CFG.write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n")
     LEDGER.write_text(json.dumps(ledger, indent=1) + "\n")
     return 0
 
