@@ -9,9 +9,11 @@
 
 /* Per-server stop request / acknowledge flags and wake counters. */
 extern volatile long D_003C8158, D_003C8160;
+extern volatile long D_003C8168;
 extern volatile long D_003C8178, D_003C8180;
 extern volatile long D_003C8188, D_003C8190;
 extern volatile long D_003C8198, D_003C81A0;
+extern volatile long D_003C81A8;
 extern volatile long D_003C8110, D_003C8118, D_003C8120;
 
 extern volatile int D_003C80E4;         /* server busy */

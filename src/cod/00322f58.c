@@ -51,7 +51,7 @@ extern void func_0036CF30(void);
 extern void func_0036CCC8(int, int, int);
 extern char D_00766D48[];
 extern void func_0033A140(void);
-extern void ADXT_ExecHndl(int);
+extern void ADXT_ExecHndl(signed char *adxt);
 extern void func_00335CD8(void);
 extern void LSC_ResetEntry(int);
 extern void func_00335CE0(void);
@@ -278,9 +278,9 @@ void func_0033A110(void) {
 }
 
 __attribute__((section(".text.func_0032CFC8")))
-void func_0032CFC8(int a0) {
+void func_0032CFC8(signed char *adxt) {
     NoOp_33E6A8();
-    ADXT_ExecHndl(a0);
+    ADXT_ExecHndl(adxt);
     NoOp_33E6B0();
 }
 

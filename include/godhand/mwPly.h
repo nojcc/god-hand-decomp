@@ -16,7 +16,9 @@ typedef struct MwPly {
     char unk00C[0x8C - 0x0C];
     int sjDefault;              /* 0x08C an SjObj *, held as an int */
     int sj;                     /* 0x090 the input SjObj *, held as an int */
-    char unk094[0x1AC - 0x94];
+    char unk094[0x118 - 0x94];
+    int span;                   /* 0x118 */
+    char unk11C[0x1AC - 0x11C];
     int unk1AC;                 /* 0x1AC */
     char unk1B0[2];
     unsigned char unk1B2;       /* 0x1B2 */
@@ -26,6 +28,9 @@ typedef struct MwPly {
     int unk1D8;                 /* 0x1D8 */
     int unk1DC;                 /* 0x1DC */
     int ownSj;                  /* 0x1E0 the player created sj itself */
+    float rate;                 /* 0x1E4 */
 } MwPly;
+
+extern int func_00328C80(void *h, int a, int b);
 
 #endif /* GODHAND_MWPLY_H */

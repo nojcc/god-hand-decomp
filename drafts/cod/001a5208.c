@@ -380,3 +380,6 @@ int cOmGiveTake_initSphere(char *p)
     (*(void (**)(char *, char *))(vt + 0x7C))(p + *(short *)(vt + 0x78), D_00747B00);
     return 1;
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_001A5208);
+#endif

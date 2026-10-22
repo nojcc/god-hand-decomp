@@ -1263,3 +1263,416 @@ static inline void InitDmgVol(char *p, int col, char *sub, int kind, int w, int 
 - func_0017F6C0 permuter on m6.c (14:41-14:59): rotated out after 15 min without a usable improvement. Base 100 (5 diffs), best 90, and that one needs an unused file-scope `cVec ofs`, a new_var alias of &f.ofs and a duplicated `step = 0` store. Steering, rejected. Stays parked at m6.c.
 - 14:59: queue is empty of anything closable without a ruling. Waiting 20 min, then rechecking drafts/, nm_solved/ and PROGRESS.md.
 - 15:29: STOPPED on the user's request. Nothing was in progress: the 20-minute wait after 14:59 was interrupted with no function open. No new solves to hand off; func_001299F0, func_0026F328 and func_00275888 are still waiting in nm_solved/ from the 13:5x resubmission. Permuter killed in godhand-nix, PERM=0 confirmed. Waiting for the user's reply.
+
+## 2026-10-22 00:38 new session
+- State at start: the three resubmitted handoffs (func_001299F0, func_0026F328, func_00275888) were registered at 20:47, so VU0_SQC2_MEM, cVec_zero and cGameObj.vel are now in the headers. Every draft's mtime moved after 15:00 (a main-agent pass), so I rescanned: 18 drafts not in this log (nm_work/draftscan2.tsv). Map/cache note: build/SLUS_215.03.map went to 0 bytes again at 00:55 and mc rebuilt symaddr.json empty; deleting it after the map returned fixed it.
+- func_00137F38 (sn): IN PROGRESS, 2 diffs, clean (nm_work/func_00137F38/m1.c).
+  - Rewrite: plain locals `cVec ref, rot; float pathTurn, pathHeight;` (they land at 0x0/0x10/0x20/0x24 as in retail, so the cPathTurnFrame struct goes), VU0_SQC2_MEM for both stores, and header fields instead of the local cCamManager view and offset macros. Local overlay nm_work/func_00137F38/godhand/: cCamManager dist/turn/height at 0x444/0x450/0x460 (split from unk000), PathHost turn/rate/dist at 0x14/0x18/0x1C (split from unk14), PathRec rate at 0x34 and dist at 0x5C (dir becomes `char dir[0xC]` + `float dist`; calcTurn still copies the 16 bytes as one blob). Nothing else reads that padding.
+  - Left: retail puts &player->rot in v1 (player->pos still in v0); ours reuses v0. Store macro choices and a cVec_copy inline give the same 2. An inline taking both sources (i1) gets v0/v1 but evaluates &rot before the first copy (9). No allowed flag changes it. Looks like the non-volatile VU0 asm lead from 0017F6C0 (the addiu crossing the asm).
+  - func_00137BB8 is itself a draft: `int (AreaList *, float *)`, where AreaList is the same object as PathHost (cur at 0x30 is PathHost.rec).
+  - Permuter 00:43-00:58 on m1.c (base 10): no improvement. Rotated out, PERM=0.
+- func_00381F18 / func_00383878 (sn, twins): PARKED (~12 min). Retail order is dec, test 0x40000000, inc, shared level tail, then the index arms. a.c (if/else-if chain, tail repeated per arm) gets exactly that order but cross-jumping merges the dec arm's two stores (104 vs 105 words). c.c (index arm returns on its own) gets the dec block right but places the level tail after the index arms (110). The draft's `||` form puts the tests first (106). drop-reorder changes nothing. Same conclusion as the draft: no clean structure found.
+- func_0013E0B0 (sn): IN PROGRESS. Needs `fp_hazard_rules: "mtc1,fdiv"` (retail's mtc1/nop/cvt and nop/nop/div.s): 108/108 words, 27 diffs. Typed rewrite t1.c: work entries are cIDBaseEnt (0x3C = posY), cIDBase_getIDWork(cIDBaseObj *, int) / cIDBase_move(cIDBaseObj *) from src/cod/id/cIDBase.c, a cIDBaseSlot view (cIDBaseObj + 8 bytes, stride 0x50) and a cIDTimedSet owner view. Left: register naming and load order in the slope expression (retail j+1 in v1, loads key[j] before key[j+1]). Eight spellings (operand order, casts, an inline keySlope) all 27. Permuter started 00:58 on t1.c (base 905).
+- func_00277348: SKIP. Raw m2c-style (char buf[0x20] placeholder, `s1` alias, raw offsets); its stated blocker is the constant 1 held in s0, which needs a banned constant local.
+- func_003B3F50 (ee): SKIP, tooling. The split asm records the delay loop's lui 0x10 / addiu -1 as %hi/%lo of an auto symbol D_FFFFF, so relocations can't match from C.
+- func_0039CCC0 (ee): SKIP, tooling. Its second poll loop carries the R5900 short-loop pad nops. (The draft also calls func_0039C5B8 with 4 of its declared 7 args.)
+- func_00274FE8 (sn): PARKED (~10 min). Retail routes every phase set through one tail (phase v0, sub v1; stores 2F4, 2F5, 2F7, 2F6) and keeps both (2,2) blocks, each jumping to the tail's last store. Brute force of the 24 helper store orders x 3 dying-branch shapes (draft, if/else-if, early returns): 116-139 words, none 120. Same cross-jump wall as func_002B42F0.
+- func_00149C20: SKIP. PROGRESS.md's "parameter homed to the stack" blocker (hdr reloaded from sp+0 at every use).
+- func_002D34A8: SKIP for now. 99 diffs of loop register allocation; its record doesn't fit the file-local StreamBuf in 001e3858.c (here 0x78/0x7C act as pos/left, 0x74 as a flag), so it needs its own type first.
+- func_0030F8B0 (sn): MATCHES, NEEDS A RULING, not handed off. Files nm_work/func_0030F8B0/s11.c (clean, 4 diffs), t1.c and t3.c (MATCH, 121 insns, 20 relocs).
+  - Callee finding for main: func_00312DB8 is the g++ 2.9x STL `__find(first, last, val, random_access_iterator_tag)`. Every caller sets a3 = 0 (the empty tag's slot), so its definition in src/cod/00312db8.c should take a 4th, unread parameter. The draft's 3-parameter prototype with 4-argument calls didn't compile.
+  - Fixes from the draft: the erase as SGI STL `vector::erase` (`if (pos + 1 != end) copy(pos + 1, end, pos); --end;` with copy = memmove of `sizeof(T) * (last - first)`), the find result passed straight into the erase for the 0xC38/0xC58 lists, and the flag update as an else-if chain with `it++` in each arm (gives retail's merged `addiu; b; sw` tail). That is s11, 4 diffs.
+  - Left: retail loads D_00754C50 only after the 0xC38 list's `--end` store; ours hoists it. That is GCC 2.95's fixed-scalar vs varying-struct alias heuristic: the global load must not be MEM_SCALAR_P. It matches when the load is an aggregate access: `extern ObjVec *D_00754C50[1]` (t1) or the tree's existing `extern char D_00754C50[]` read as `*(ObjVec **)D_00754C50` (t3, as in 0030eee8.c). Both are type changes made for codegen under the rules, so not handed off. Retail has separate 4-byte symbols at C30/C38/C50/C58 (no table), and the tree declares these globals five different ways (char[], char *, SideCounter, cMcObjList *, ObjList *).
+  - Also blocked by scope: a typed version needs cGameObj fields (objFlags 0x250, actorId 0x2FE, vt 0x214) plus a cGameObjVt delete slot at 0x8/0xC, which is in the open PR's header.
+- func_00320AE8 (ee): SKIP. Only matches through banned forms: the walk is a backward-goto loop (body/next labels), the key update uses `long` temporaries, and the draft keeps retail's dead `lb; li 2` tail with an empty `if (... == 2) {}`.
+- func_003B0EF8 (ee): SKIP. Needs the per-file extern_double setting for its rodata doubles, which is not on the approved list.
+- func_00300458 (sn, as sn): PARKED again (~15 min). The draft already has retail's shape (control flow, switch compare tree, strength-reduced slot pointer); retail's loop.c moves `kind < 2` and the constants 1/2/3 into s2-s5, ours moves only 1. No change from: case 0 merged with default (both orders), `-f=-fno-gcse`, an inline factory helper for the switch (c.c/d.c bring in a madd), ee-2.9 or cygnus-2.96. Same invariant-choice wall as MoveEmitter/MoveEsp. Permuter not tried yet.
+- func_00321AD0 (ee): IN PROGRESS. Two prototype/form fixes: func_003A7B48 is `noreturn` (as declared in 003224f8.c/003a7b58.c), which gives retail's `beql; lw n` block and drops the duplicate n load; children indexed as `a[i * 2 + 1]` / `a[i * 2 + 2]` with bounds on `c = i * 2` (retail's `sll a3, i, 3`). nm_work/func_00321AD0/na.c: 147/153 words, 32 opcode-only diffs (tools/opdiff.py); the rest is delay-slot filling and register numbering in the first sift. Outer/sift loop spellings (x_*.c) don't beat it.
+- func_001A5208: SKIP, game-object family (cOmBase_childAt / hit-volume spheres; tied to the open PR).
+- Draw_Line2 / Draw_Line_sc (0015ef10.c, sn, as sn): IN PROGRESS. nm_work/Draw_Line/sc1.c: `float v[4]` in Draw_Line_sc becomes `cVec v` (placeholder-array rule), same bytes. Draw_Line_sc: 3 diffs, only the preheader order (retail `lui fp, %hi(D_00586B80)` before `&v` and `&pts[-1]`; ours hoists the lui last). Swapping the v.x/v.y lines hoists 0x800 into fp instead (27); `i <= count` and a walking point pointer both worse (84-91). Draw_Line2: 106 vs 103 words; retail rebuilds `&v` at each call, ours hoists it into s3 and needs s8. Direct VU0_SQC2_VF0_MEM(&v, 0) or VU0_SQC2_VF0_AT(v) instead of cVec_zero, and a loop-scoped v/out, change nothing. Both are loop.c invariant choices.
+- func_00137F38 (sn): SOLVED, handed off (progress/nm_solved/func_00137F38: solved.c, meta.json, header_changes.md). MATCH 92 insns, 3 relocs.
+  - The last 2 diffs were the two quad copies: retail does each as one asm statement (lqc2 + sqc2, destination as a memory operand). New vu0.h macro VU0_LQC2_SQC2_MEM(reg, dst, src), added after VU0_LQC2; a non-volatile version gives 23 diffs.
+  - The second parameter is `struct cPlCamera *`: cCamManager_update passes the manager, whose first member is the player camera (func_00138BE8 runs cPlCamera(a0); PathHost is at 0xFF4 via func_00137A48). The writes at 0x444/0x450/0x460 are cam->nextPose.ofs.y / rotOfs.x / dist (0010c930.c sets them to 1.06 / 0.07 / 4.0). So no cCamManager.h change.
+  - pathRec.h: PathRec.rate (0x34), dir split into `char dir[0xC]` + `float ofsY` (0x5C); PathHost.turn/rate/ofsY (0x14/0x18/0x1C); PathHost_calcTurn prototype moved into the header (plus `#include "godhand/cOmBase.h"` for cVec). Checked: every function in 00137cb8.c and 00137e70.c still matches with the new header.
+  - func_00137BB8 is still a draft defined as `int (AreaList *, float *)`, views of the same PathHost and cVec; declared here as `int func_00137BB8(PathHost *self, cVec *pos)` (same registers, int return unused).
+  - Lead, not worked (game-object family, open PR): func_0017F6C0's remaining diffs are the same shape. Retail's tail is `lqc2 $vf4, 0($v1)` (src in a register) then `sqc2 $vf4, 0x20($sp)` (dst as memory), i.e. VU0_LQC2_SQC2_MEM(4, &tmp, &r) after VU0_ZERO_VSUB_XYZ_MEM, instead of m6.c's VU0_LQC2 + VU0_SQC2 pair. Retry once the cOmBase PR lands and the macro is in vu0.h.
+- func_001CE6C8 (cEmSink, a cGameObj subclass, so borderline for the family skip): tried VU0_LQC2_SQC2_MEM for cVec_scale3's copies (nm_work/func_001CE6C8/cp/). 23 diffs, worse than a3.c's 8. Retail keeps &work in a1 across both scale calls; that's a different problem from 00137F38's.
+- func_00321AD0 permuter on pm.c (na.c without scaffolding), 01:17-01:36: rotated out. Base 3230, best 2630; every improvement (2995, 2985, 2630) wraps part of a loop body in `do { ... } while (0)`, and one also adds an `i = b != base` reuse. Steering, rejected. Parked at na.c (32 opcode diffs). Note: run_perm.sh --kill reported PERM=9 one second after the signal; a listing a few seconds later showed none of them left.
+- Draw_Line2 permuter on nm_work/Draw_Line/pm2.c started 01:37.
+- Tooling: the first Draw_Line2 run (01:37-01:43) permuted the wrong function. With no func_name, decomp-permuter picked `cVec_unitOf`, a sceVu0.h inline. Killed (PERM=0). permsetup.py now writes `func_name` into settings.toml. Restarted Draw_Line2 at 01:44, base 805.
+
+### Draw_Line2 permuter result (01:55)
+- Clean lead from the permuter: declaring `cVec v` before `LineAttr attr` takes Draw_Line2 from 95 differing insns to 11. The remaining diffs are stack layout only: retail has attr at sp+0 and v at sp+0x50. The swapped order puts v at sp+0, so `&v` becomes a plain `sp` copy and is never hoisted. File: nm_work/Draw_Line/o1.c.
+- With retail's layout (attr first), the only thing the permuter found that stops the `&v` hoist is `do { } while (0)` between the w test and sceVu0DivVector (score 600). That is banned, so it's rejected.
+- No effect (still 95): -fno-gcse; ternary / if-else / reordered `out = 0`; `!(v.w >= 0.1f)`; VU0_SQC2_VF0_MEM directly instead of cVec_zero.
+- Parked. Started the Draw_Line_sc permuter (base: sc1, 3 diffs).
+
+### func_003257C8 SOLVED (02:05)
+- Six stop-request flag stores. Retail's `addiu %lo` followed by `sd 0(reg)` comes from volatile: combine won't fold %lo into a volatile store (same as func_00328BB0). The header already has D_003C8158/78/88/98 as `volatile long`. Matches on the band's default cygnus-2.96 with no flags (also with drop-reorder).
+- Handoff: nm_solved/func_003257C8 (solved.c, meta.json compiler cygnus-2.96, header_changes.md adding D_003C8168 and D_003C81A8 to adxmThread.h as volatile long).
+- FLAG for review: D_003C8168 and D_003C81A8 are referenced only here (their server threads aren't in this build). They're declared volatile like the other four stop requests in the same table; without volatile, the %lo folds and the function doesn't match.
+- Dependents checked with an overlay header: 00324eb0.c (6 functions) and 003258b8.c (3) still MATCH.
+
+### func_00353348 SOLVED (02:15)
+- The draft used a parameter alias (`int p = ptype`) and an if-chain. Retail is GCC's case tree for `switch (work->skipLevel)` rooted at 3: ==3, then >3 to default, then ==2. CSE turns `ptype == 3` in case 3 into `ptype == kind` (the xor). With two case nodes GCC roots the tree at the lowest one (2), so retail must have a third node. An empty `case 4: break;` is that node; it matches with cygnus-2.96 and drop-reorder (15 diffs without the drop).
+- Handoff: nm_solved/func_00353348 (solved.c, meta.json cygnus-2.96 + c_flags_drop -freorder-blocks, header_changes.md splitting SfdWork.unk004 to add `unsigned int skipLevel` at 0x74). Not carved yet, so it becomes a new unit src/cod/00353348.c.
+- FLAG for review: `case 4: break;` has the same effect as the implicit default. Value 4 fits MPEG picture_coding_type D (I/P/B = 1/2/3), so an explicit no-skip case for it is plausible original source. No other form tried (cases 0, 1, 0+1, explicit default, signed kind) gives the root-3 tree.
+- Overlay check: 00353bd8.c (6 functions, a sftim.h dependent) still MATCHES. Callers 00353bd8.c and draft 00353928.c declare `int func_00353348(SftimHn *, int)`, the same as the definition. 003381b0.c calls it with no prototype in scope (older file, left alone).
+
+### Draw_Line_sc permuter (01:57-02:01): zero found, REJECTED
+- The permuter reached 0 with `new_var2 = 0x800;` before the loop and `(float)(new_var2 - D_003C1180 / 2)` (a constant held in a variable, banned), plus `new_var = v.x` (not needed: 3 diffs without it).
+- Clean tries, all still 3 diffs: an in-loop computed `xofs = 0x800 - D_003C1180 / 2`; `half = D_003C1180 / 2`; `sx = v.x` locals; all 24 orders of the v.x/y/z/w stores (12 stay at 3, the rest are worse). `-(D/2) + 0x800` gives 22.
+- So retail's preheader order (%hi(D_00586B80) before &v and &pts[-1]) depends on 0x800 not being an in-loop constant movable. Parked at 3.
+
+### MPV_SearchDelim (cygnus, drop-reorder)
+- Clean version (no `p = buf` alias), nm_work/MPV_SearchDelim/a.c: 1 real diff (31 counted from the shift). The case-3 `beq` slot is filled from the fall-through (sltu); retail uses beql from the target (q = p - 4), which means reorg predicted the EQ branch taken.
+- Tried, no better: int st (56), returning p - 4 directly (31), inverted case 3 (50), explicit default (31), for loop (31), int c (31), case 0 placed later (44). Queued for the permuter.
+
+### func_00363528 (cygnus): PARKED at 44
+- Retail loads dst->data before dst->h in the outer loop, as a preheader copy (scheduled above the first `blez`) plus the latch `bnel` slot. The preheader enters the body with `b` and the h load in its slot. dst is in s5 and mbw in s6; ours has them swapped.
+- Tried, all 44: 7 forms of the d expression (operand orders, &data[...], split d = data; d += ...), 24 declaration orders of mbw/mbh/s/d, and 6 assignment orders, each with and without drop-reorder. Putting the load in the loop condition as a diagnostic (`d = dst->data, i < mbw`): 39, still not it.
+- Note: retail never sets v0, so the function is void, but caller 003634e0.c (registered) returns its result with no prototype in scope.
+
+### func_0035F970 SOLVED (02:25)
+- The draft didn't compile: func_0035FB78 was declared with 1 parameter but called with 3, and the error path used a comma expression. Clean rewrite with separate error returns; cross-jumping merges the two error tails into retail's shared block. Steps (cygnus, drop-reorder): 6 diffs (registers); counter increment before the 0x30 store, 3 (scheduling); 0x30 handle typed `int *`, MATCH. Type-based aliasing lets the scheduler move the handle store between the counter's lw and sw.
+- The 0x30 handle really is a pointer: its consumer func_0036CBC0 (0036c8d0.c) takes `int *a0`. sfxlib.h SfxCtx has it as `int unk30`, and changing that ripples into 0035e8.c, so solved.c uses a local view `SfxOpenView` (documented as a view of SfxCtx).
+- Prototypes follow the current definitions: func_0035FB88(int) (00325360.c), so the call passes `(int)s`; func_0036CAB0 returns int (0032f938.c), so the store is `(int *)h2`; func_0035FA88 returns void *. D_003EE338 is declared `unsigned char[]` as in 0035fa88.c; the open counter at +0 is read through `*(int *)`, since no header names it.
+- header_changes.md (src/cod/00297fb8.c): func_0035FB78 gets two unread parameters plus the house "not read" comment line. Retail moves a1..a3 into a0..a2 before the call, and this is its only caller. All 18 functions in 00297fb8.c still MATCH with the change.
+- FLAG for review: the two bridging casts come from legacy int-typed definitions (func_0036CAB0 and func_0035FEF0 return `(int)ptr`; func_0035FB88 takes int). Retyping those definitions to pointers would remove the casts.
+
+### func_00365D90 (cygnus): SKIPPED, same blocker as func_00363528
+- Sibling macroblock converter with the same outer-loop entry: dst->base is loaded in the preheader before the first blez and again in the latch's bnel slot, and the preheader enters with `b` and the pitch load in the slot. In func_00363528, a diagnostic with the load in the loop condition (`d = dst->data, i < mbw`) reproduces the preheader load-before-blez but not the rest (39 diffs). Not a shippable form. Both are parked together.
+
+### func_00343E28 (cygnus): deferred
+- The draft doesn't compile (func_00344278 is declared with one parameter, called with none). It also uses a goto into a block and an `int w[6]` placeholder for the mwsfcre_CalcWorkStmBuf outputs, so it needs a full rewrite. Low priority.
+
+### func_00366730 (sn): SKIPPED, same family blocker
+- Third cftraw-style converter (with func_00363528 and func_00365D90) with the outer-loop shape: the row base `p->data` is loaded before the first exit test and again in the latch bnel slot, never at the body top, and the preheader jumps into the body with `b`. The draft also uses a backward `goto loop` (banned).
+- Working theory for all three: in retail's RTL the data load sits in the loop's exit-test region, which expand_end_loop rolls to the end and duplicate_loop_exit_test copies ahead of the loop. That needs the read to be in the for-condition or increment. No natural C form found yet; worth a maintainer look since it affects three functions.
+
+### MPV_SearchDelim permuter (02:03-02:18): ROTATED
+- Base 420. Best 200 used junk: an unreachable `c = 4;` before case 3 and `q = p - c`. Rejected. Parked at 1 real diff (the case-3 beq delay slot).
+
+### func_00344948 (cygnus): PARKED, not reworked
+- Retail copies prm -> stack info and info -> work one word at a time through v0 (lw v0/sw v0 pairs). prm and work are plain incoming arguments (s2/s1 copies of a1/a2), so alias analysis should separate them from the stack, yet retail doesn't batch. This looks like scheduling or register allocation that clean C can't reach with the allowed flags. Not pursued further.
+
+### func_00330920 (cygnus, drop-reorder; the scan's sn result was wrong)
+- On cygnus with drop-reorder, the draft logic is 29 counted diffs (83 vs 81 words), all in the dev copy loop. Retail fills the `fname[j] == 0` exit beqz from the fall-through (daddu a3,s1) and has its loop-top label before the lbu; ours steals the exit block's subu and gets lbu + nop + label. for/while forms of the second loop: no change. Permuter started 02:18 (base pm.c, f1 form).
+
+### func_003431D8 (cygnus, drop-reorder): PARKED at 18 opcode diffs (from 66)
+- Progress (nm_work/func_003431D8/p3.c): `mbw = w / 16; mbh = h / 16;` as new locals, `size = (fmt == 2 ? mbw * mbh * 1024 : mbw * mbh * 384) + 0x40;`, and `if ((out[i] = f()) == 0) ret = -1;` loop bodies. Everything except the pool loop now matches, including the func_00344568 loop (reversed, strength-reduced).
+- Left: retail's pool loop (D_00758A38) isn't optimized by loop.c. It's entered by a jump to its test (no copied blez pre-test), %hi(D_00758A38) and the i*4 index are recomputed each pass, and there's no strength reduction. GCC does that when it treats the loop as phony or the loop has no loop notes (a backward-goto loop, banned). for, while, and three body forms all get rotated and hoisted.
+
+## func_0036DE80 — PARKED (02:22)
+- Decoder-state copy p+0x160 -> info record p+0x58 (cygnus band). Draft 83 diffs.
+- s1/s2 (typed DecHn with DecInfo/DecState, pointer locals in either order): 83, same as draft; no load moves past any store.
+- s3 (direct p->info.x = p->dec.y): 91; all loads hoisted, s-regs used. Mixed forms s4/s5: 91/90.
+- ee-2.9/sn compilers: 90. Retail has pointer bases (v1=p+0x160, a0=p+0x58) AND partial load/store disambiguation; no clean source form found that gives both. Best: s1.c.
+
+### sfmpv_BsearchDelim (00351350, cygnus): PARKED at 72
+- Draft (77 under cygnus; the scan's sn score was wrong) uses a goto into a block, which is banned. Clean structured rewrite nm_work/sfmpv_BsearchDelim/b.c: 72.
+- Retail: the early hit does `b` to one shared CheckDelim tail (followed by two nops), and the in-buffer hit block sits before the straddle setup. The loop bound compare reuses s1 (p == 0) as i = 0.
+- A forward goto to a shared `check:` label (c.c) still gets its tail duplicated: 90 words vs 89. Same unsolved shape as the twin sfmpv_SearchDelim (parked at 79).
+
+### func_00350D08 (cygnus, drop-reorder): PARKED at 6 (prologue only); type-blocked
+- Draft 127 (4 opcode diffs). Fixes found, nm_work/func_00350D08/best_clean.c (h1.c):
+  - Empty `case 0x40:` and `case 0x80:` (both) gives retail's tree including the dead `addiu v0,0x40` slot: 127 -> 11, 0 opcode diffs.
+  - Tail `if (*dist > 0) *flag = 1; return 0;` fixes the v0/v1 diff. h as `SfdHn *` with `buf = h->seek.index` (mwsfd.h, 0x1FC8): same bytes.
+- Left: prologue arg-copy order (retail copies h first). Retail lets the 0x1FC8 load float free of the `*dist = 0` store, so the field has an alias set different from int.
+  - MATCH (144 insns, 11 relocs) if the field is read as `void *` (h2.c) or as an enum (e1.c). Rejected: func_0034C6D8, func_0034C748 and func_0034C2D0 all use it as an index (a1*116), so it is an int; retyping it only to reorder the load is a banned type change. `const int` read, long/short/unsigned dist: no.
+  - All 48 orders of the four entry statements x 2 tail forms: best 4 (buf first) still reorders lw above the dist store.
+- Retry if a header checkpoint gives SfdSeek+0x10 a real non-int type (e.g. a CRI enum).
+
+### func_00330920 permuter (02:18-02:21 and 02:23-02:34): ROTATED
+- Base 200; ~14 min total, no output better than base. Parked with the earlier notes.
+
+### func_00345848 (cygnus, drop-reorder): IN PROGRESS
+- 3 opcode diffs; pure register allocation. Retail: obj s0, err s1, full D_00758B50 address in s0 (case F40), its %hi in a fresh s4 (hence the sd/ld s4 and an alignment nop after the first `b`). Ours: err s0, obj s1, %hi reuses s1.
+- No change (158): MWSFSVM_Error from mwsfHn.h / mwsfd.h, obj or hn as pointers, `if (err != 0)`, else-arm order, 4 forms of the obj/hn stores (single store after the if, ternary). s-init/s-block forms worse (163).
+- Permuter started 02:35 (perm/func_00345848, base from pm.c).
+
+### func_0034E4B0 (cygnus): looking
+- 11 opcode diffs. The hl clamp: retail `lw v0,hl; blezl v0; li v0,1`; ours if-converts to slti/movn in 9 source forms (ternary, if/else, n=1 first, store orders). Draft also holds its locals in a stack struct `v` (layout steering), which would need a rewrite anyway.
+- func_0034E4B0: PARKED. Plain locals instead of the struct `v` (l1.c): 46 opcode diffs (ret goes to a register; retail keeps ret at 0x14(sp) next to the address-taken locals). The draft's 11 relies on the struct, and the clamp still if-converts. Not pursued further.
+- func_00352298 (cygnus): SKIP, tooling-blocked. Retail's call-free reset loop (`addiu; sh; nop x3; bgez; addiu` with a cc1-filled delay slot) carries 3 short-loop pad nops. Neither ee-as nor sn-as (--as sn) pads it here, and the --call-loop-pad pass only handles call-bearing loops. Not matchable with the current toolchain regardless of C.
+- func_00198D40: SKIP, game-object family (cOmHitVolumeSetup).
+- 00295380.c: holds only cEmSetParam_updateSetDataPos (already BLOCKED, cvt.w.s); the cCollisionSolid_updateBounds line in its header is stale. Skip.
+- func_002A87E8: SKIP, game-object family (cGameObj).
+- func_00326890 (cygnus): SKIP, tooling-blocked: retail assembler padded a multi-block zero-skip loop with 3 nops (per draft header); everything after shifts by 3 words.
+- func_00354EC8 (cygnus): PARKED (124). Retail reorders the record stores and hoists src/ctx loads above them, yet reloads *out after every store. Diagnostic: the callee declared __attribute__((malloc)) frees the loads but also removes the *out reloads (115 words vs 130), so a unique-pointer explanation doesn't fit. The draft's "no pointer typing reproduces both" stands. Related to func_0036DE80 (same partial disambiguation).
+- func_0036AE70 (cygnus): SKIP, 30 opcode diffs; the draft holds a dead store (`acc <<= bitpos;` overwritten on both paths) and would need a rewrite of the bit reader first.
+
+### RECHECK ~02:40: checkpoint seen (src/cod/00137f38.c registered, vu0.h + pathRec.h changed). New drafts 001EB7B8, 002000F8, 001E4970.
+- func_001EB7B8 (sn): 10 diffs, prologue only: retail schedules `addiu s0,sp,0x10` (&pos, kept for cVec_copy3's same-pointer test) among the register saves, ahead of the ZERO_VSUB asm; ours puts it after.
+  - No change: VU0_ZERO_VSUB_XYZ_MEM (12, worse), split VU0_LQC2 + VU0_SQC2 / VU0_SQC2_MEM (10), local declaration orders (10; pos-first 118), -fno-gcse, drop-reorder. Queued for the permuter.
+- func_002000F8 (sn): SKIP for now, 91 opcode diffs (226). Retail bases world fields off &flags5D8.
+- Slot2_Execute (001E4970, sn): SKIP for now, 254 words vs 246 (allocation and loop-test copy).
+- Type-blocked retries after this checkpoint: none of my type-blocked give-ups touch vu0.h/pathRec.h changes beyond func_00137F38 itself; no retries.
+- func_00345848 permuter (02:35-02:50): zero found but rejected. It needs `new_var` copying obj before the call and then reused as a copy of err for the F40 sprintf (a parameter alias). Best non-zero, 145, uses identical `if (obj) strncat else strncat` branches (also banned). Takeaway: retail keeps obj live longer than our clean C does. PARKED at 3 opcode diffs (158).
+- func_001EB7B8 permuter started 02:50 (sn, base 10 diffs).
+- func_001EB7B8 permuter (02:50-03:05): ROTATED. Best 420 adds an extra func_001EC388 call (semantic change), rejected. PARKED at 10 (prologue &pos placement).
+- QUEUE ~03:05: no unlogged near-misses left. Permuter killed (PERM=0). Waiting 20 min, then re-checking drafts/, src/ and headers for a checkpoint.
+
+### RECHECK ~03:25: handoffs func_003257C8 / func_00353348 / func_0035F970 all registered (handoff_log). New drafts 0033D598, 003407A0, 002AD2B8.
+### func_0033D598 (cygnus, no drop): 41 -> 4 (prologue save order only), nm_work/func_0033D598/ord3/o_12034.c
+- `pad = blkLen - rest - 1;` computed right after rest (a real quantity: padding samples in the last block) gives retail's mfhi-first order and the movn select: 41 -> 70 raw, but 16 opcode diffs from 22.
+- Load order obsize, obuf, obdist, blkSmpl, wpos (120 orders brute-forced) and `adx->ndata = ndec * blkSmpl;` after the nsmpl computation: 61.
+- Re-reading `prm->nch == 2` in the replay test gives retail's extra `daddu v0,v1` copy (CSE replaces the load with a copy): 61 -> 4.
+- Left: retail saves fp before s7 (s7 after s1/s2); ours saves s7, fp, s1, s2. 120 load orders x this, and 4 declaration orders: all 4. Permuter next.
+- func_002AD2B8 (sn): PARKED (102, 20 opcode). The fdiv pads are absent at all three div.s sites in our output even with fdiv in the rule set (the first follows a join label); point-loop forms (i<n, !=0, n-- > 0) don't give retail's bnez. Draft's own notes stand.
+- func_003407A0 (cygnus): PARKED (57, 26 opcode with a `dl = &w->bufL[w->pos]` local, xd.c). Retail computes &bufL[pos] once and copies it (daddu) for the load while storing through the original; looks like allocation, not source shape. Caching bufL/bufR/pos in locals is worse (80+).
+- func_0033D598: SOLVED (98 insns, 3 relocs), handed off to nm_solved/func_0033D598/ (solved.c + meta.json cygnus-2.96; matches with or without drop-reorder, so no flag). The permuter (03:31-03:38) found the last piece: a shared `last = prm->total + blkLen - 1;` numerator for nblk/rest, plus obsize loaded right after it, fixes the prologue save order. Its `new_var` was rewritten as `last` (the round-up numerator, used twice), which also matches. Symbol entry already present. No header changes.
+  - FLAG: the replay test reads `prm->nch == 2` although `nch` holds the same value. That re-read gives retail's `daddu v0,v1` copy. Plain C with no steering construct, but the maintainer should judge it.
+- QUEUE ~03:45: empty again. Permuter killed (PERM=0). Waiting 20 min.
+- func_00273960 (new draft 00273960.c, sn-2.95.3-136; a cEm00 function, not in a skipped family): PARKED (~30 min). Same 181 instructions as retail; the 20 differences are all register choice. Retail allocates self to s0, &to to s1 and &from to s2, and loads &to straight into s1. Ours puts &from in s0 and self in s2, and loads &to through a1.
+  - Tried: swapping the from/to declarations, declaring m last, computing len first, `-len`, swapping the zeroing order, moving the len declaration (20-55 diffs or a length change). A static inline ray-end helper makes 184 words; a non-inline one makes 128.
+  - Permuter (sn, -j8, ~15 min): base 355, best 80/85. Both need a `cVec *new_var = &to` alias for every later use of &to (one assigns it inside the ChkLine argument). That is a banned alias, so rejected. Work: nm_work/func_00273960.
+- func_002DACE8 (new draft 002dace8.c, sn-2.95.3-136, -ffast-math, fp_hazard_rules fdiv; a geometry helper that only uses cOmBase.h for cVec, so not in a skipped family), in progress:
+  - Writing the six box tests as one `&&` condition around the hit body gives retail's `c.lt.s` + `bc1f`/`bc1fl` exit shape. The draft's `!(a < b) || ...` early returns invert to `c.le.s`/`bc1tl`.
+  - A single-exit `hit = 0; if (...) { ...; hit = 1; } return hit;` puts v0 = 0 in the first branch's delay slot, as retail does.
+  - Declaring t before q gives retail's slots (q at 0xC0, t at 0xB0). Now 157 vs 159 words (c_hitswap.c).
+  - What's left: retail keeps &p in s3 and &q in s0 across the sceVu0ApplyMatrix calls, so it computes each address once. Ours recomputes it after each call.
+  - No change from: direct sceVu0ApplyMatrix(&p, inv, &p), -fno-gcse, -fforce-addr/-fforce-mem (not in the supported set anyway). A flag sweep with the draft's control flow had no length match.
+- func_002DACE8: PARKED (~50 min). Best clean version is nm_work/func_002DACE8/best_clean.c, 157 vs 159 words, with retail's control flow, exits and stack slots. It's closer than the draft (161 words, inverted compares) and worth folding into the draft. Missing: retail keeps &p (s3) and &q (s0) in saved registers across sceVu0ApplyMatrix.
+  - No change from: declaring p/q as aligned float[4] with direct sceVu0ApplyMatrix calls, or -fno-gcse.
+  - Permuter (sn, -ffast-math, -j8, ~15 min): base 2475, best 1700, using do { } while (0) fences only; rejected. Permuter killed, PERM=0.
+- QUEUE 04:35: empty after 00273960/002DACE8. Permuter killed (PERM=0). Waiting 20 min.
+- sceGsSetDefDispEnv (new draft 00396570.c, ee-2.9-991111): PARKED (~30 min), type-blocked. Best clean version is nm_work/sceGsSetDefDispEnv/best_clean.c, 227 vs 221 words (draft: 235): the interlaced dh goes in its own `dh = ff ? h * 2 - 1 : h - 1;` local.
+  - Retail does the DISPLAY x-term adds in 64 bits: dxOfs + 636/656 with daddiu then daddu magh*dx, and dx*2 + 232 with daddiu in the DTV path. The y terms stay 32-bit. Only a u_long cast on dxOfs or an `L` suffix on the x constants reproduces that (223 words with the dh local). Both are banned type changes unless the SDK source really declared those types.
+  - Retail also cross-jumps the NTSC and PAL interlaced tails, with the dh ternary evaluated last. No clean variant merges them (switch/dh/ternary forms, drop-reorder no effect).
+  - Prototype fix to record for the handoff: src/cod/00396560.c defines func_00396560 (syscall 0x80) as void(void), but callers pass (int mode, int *dx, int *dy, int *dw, int *dh). The syscall stub's bytes don't depend on its parameters.
+- func_00323050 (new draft 00323050.c, cygnus-2.96 with drop-reorder; ADXF, not in a skipped family): PARKED (~20 min), type-blocked plus structural. 248 vs 265 words.
+  - Type block: the draft declares D_003EB838 as signed char * and D_003C5298 as unsigned char *. 00322c68.c and 00322f80.c declare them int, so adxf.h needs one pointer type for each before this can be handed off.
+  - Structure, retail vs ours:
+    - The header check builds buf+4 as `addu a3, buf, s2`, with s2 = 4 also used for the error store. It builds buf+5 in t0 and re-reads bytes 4 and 5 through those registers for nfile.
+    - i is in s1. The loop test `slt s3, i, nword` stays in s3 and is reused for the `if (i < nword)` exit.
+    - Every `return D_003EB840` merges into one reload at the shared epilogue.
+  - Writing the header reads through `i * 4` (i is 1 there): 248-250 words, no gain.
+  - Retry after an adxf.h checkpoint gives these globals real types.
+- QUEUE 04:59: empty. No permuter running. Waiting 20 min.
+- func_002BEDE8 (new draft 002bede8.c, sn; cRoomSave, not in a skipped family), in progress:
+  - The "cvt.w.s vs trunc.w.s" in the draft note is only disassembler naming. Both encodings use funct 0x24, and opdiff shows no opcode differences.
+  - The real gap is one instruction: retail adds the em[] offset 0xC after `data + i*0x18`, with the induction variable starting at 0. Ours folds 0xC into the induction start.
+  - `em = self->data->em; em += i;` reaches 72 words with 20 differences: (data+12)+t0 instead of retail's (data+t0)+12, the counter updates scheduled earlier, and f3 instead of f0. That reassignment is borderline steering, so I'm not counting it as clean.
+  - No length change from: `em = self->data->em + i`, a data local, signed i, walking a src pointer (69 words).
+  - Permuter on the draft (~12 min, base 595): no improvement. Restarted it from the emfirst version.
+- func_00161D08 (new draft 00161d08.c, sn; God Reel menu, not in a skipped family), in progress:
+  - Prototype fix verified: cCoreSave_getReelSlot(cCoreSave *self, unsigned char slot), with the body testing `slot >= 0xA` directly. src/cod/0015fd68.c still matches with it (cCoreSave_getReelSlot and func_0015FD68 both MATCH, using a local header copy in nm_work/reelslot). No registered C callers.
+  - With that prototype the draft is 346 vs 347 words. Declaring `unsigned int j` (retail compares j with sltiu and masks only at the call) fixes the inner loop shape, at 342 words.
+  - Open: retail doesn't strength-reduce D_003BD938[i] in the outer scan. It keeps s1 = i*4 and reloads base + s1 after each call, and computes s5 = i + 1 at the top with `i = s5` at the end. Ours walks two pointers. No change from: continue, while forms, `list[num++] = i` (344).
+- func_002BEDE8: PARKED (~45 min). Best clean is the draft, 71 vs 72 words. The borderline best (em assigned then advanced) is nm_work/func_002BEDE8/best_borderline.c: 72 words, 20 differences. Permuter from it (~15 min): base 625, best 375, needing a `do { } while (0)` fence plus a new_var copy of self->data; rejected. Permuter killed, PERM=0.
+- func_00201290 (new draft 00201290.c, sn; cDvd, not in a skipped family): PARKED (~25 min), header-dependent plus structural. 284 vs 289 words.
+  - The draft's `(unsigned int)` casts on arg6C are banned type changes. The real fix is `unsigned int arg6C` in cDvd.h, tested here through a local header copy (nm_work/func_00201290/cDvd_mod.h).
+  - Opcode alignment shows the 5 missing words are all duplicate copies of &self->job[0] (self+4): an extra saved s5 = s3 with its sq/lq, a separate t0 = a1 induction pointer with its own +0x88 in the pack loop, and t4/t5 = s3 in the sort loop.
+  - A `job = self->job` local (outer test only, outer plus inner, or all uses): 272-284. -fno-gcse: 277. drop-reorder: no change.
+- func_00161D08: PARKED (~45 min). Best is nm_work/func_00161D08/v_uj.c (unsigned int j plus the unsigned char getReelSlot prototype), 342 vs 347 words. The outer scan's missing strength reduction is still open.
+  - Permuter (sn, -j8, ~15+ min): base 7915, best 6840. Its only change is a chained `HELP_B->msg = HELP_A->msg = cond ? 0x20BB : 0x20BC`, which is legal C but makes the function shorter (338). No usable gain. Permuter killed, PERM=0.
+  - The prototype fix cCoreSave_getReelSlot(cCoreSave *self, unsigned char slot) is verified independently and should go in with whatever closes this.
+- cCamera_update (new draft 00138740.c, sn): SKIP, tooling. The draft identifies retail's context-dependent 0/1/2-nop padding of div.s, which no fp_hazard_rules set reproduces. Same wall as func_002AD2B8.
+- QUEUE 05:44: empty. Permuter killed (PERM=0). Waiting 20 min.
+
+## func_00159AD0 — PARKED (register-class wall around the ceiling of t)
+- sn-2.95.3-136 with fp_hazard_rules=mtc1,fdiv: same length as retail (179); the only differences are the ceiling block and the one-word shift after it (37 words).
+- Retail keeps the cvt.w.s result in an FPR (cvt.s.w $f1,$f0, then mfc1 $s1) and skips the increment with bc1tl/nop. Ours always does mfc1/mtc1 through a GPR and uses bc1fl with addiu in the delay slot.
+- Tried without success:
+  - the comparison swapped; an if/else (183); `frame += (cond)` (183); `!(==)`;
+  - frame as int (42 diffs); a float temporary (177-183); an assignment inside the condition;
+  - cygnus-2.96 (same wall); rules mtc1/div1/fdiv/div/cvtdiv/cmpfull/cmppad combinations.
+- permsetup has no fp-rules option, so the permuter can't score it. Retry if tooling gains fp-rules.
+
+## func_0013E970 — SKIP (tooling)
+- The remaining difference is the div.s padding/hazard wall; no supported fp_hazard_rules option reproduces it. Retry if the hazard tooling changes.
+
+## func_002FE8A0 — PARKED (159 vs 157 words; register allocation)
+- Best clean form: nm_work/func_002FE8A0/best_clean.c. The draft started at 149 vs 157 with 147 differing words; this form has 96.
+- What got closer:
+  - `vtx` as `int (*vtx)[4]` instead of the invented QuadVtx struct. Retail reloads the screen globals after the vtx stores; a struct store lets GCC 2.95 assume a varying in-struct address doesn't alias a scalar global. All callers pass global 4-vertex GS buffers (D_0061B500, D_0061B6A0, D_0061B760). FLAG: type choice.
+  - Store x/y into vtx as they are computed (`vtx[i][0] = x = ...`).
+  - A walking `cVec *p` alongside i, which removes the extra &v[i].y pointer.
+  - Chained `v[0].w = ... = 1.0f; v[0].z = ... = 0.0f;`, which gives retail's mtc1 zero/swc1 z stores.
+  - z/w stores at the end of the body, with the `bottom` update first; this hoists 0xFFF00 like retail.
+- Still differs:
+  - %hi(D_00586B80) is re-materialized; retail reuses it across the range check (1 word).
+  - We spill `bottom`; retail spills `left`.
+  - Counter registers and the layout of the fail branch.
+- Sweeps:
+  - Counter/zw orders (360 variants): no exact form.
+  - Permuter run 1: best 2920, by a global ++/-- pair and a change to what the code does. Rejected.
+  - Permuter run 2: best 2890, by reusing counters as scratch, which changes what the code does. Rejected. Clean base is about 3335.
+
+## func_00366110 — PARKED (scheduler tie on the ramp-loop stores)
+- cygnus-2.96 with fp_hazard_rules=cmpfull: same length as retail; only the 4 halfword stores in each ramp loop differ (8 words). The best store order (r,b,g,a and others) gets this to 4.
+- Measured scheduler rule across all 24 source orders: the last `v` store is always scheduled first and the rest keep source order. So the output always starts with a `v` store, but retail starts with the alpha store (a,r,b,g). No source order reaches it.
+- Tried without success:
+  - chain assignments (4 orders), int v / (short) casts, int alpha params, an unsigned alpha field;
+  - a walking entry pointer; the alpha store at the top of the loop;
+  - other rule combinations; the ee-2.9 and sn compilers (wrong length).
+- Probably needs a different body structure that keeps v live past the stores; nothing natural found.
+
+## func_00366368 — PARKED (same wall as func_00366110)
+- With cygnus-2.96 and cmpfull, 15 words differ: the same ramp-store order, plus v0/v1 swapped in the head loop (-0x488 level vs pointer).
+
+## func_002956F0 — PARKED (load narrowing, FPU register allocation, kind-flag copy)
+- Correction to the draft note: cvt.w.s vs trunc.w.s is not a real difference (same 0x24 encoding; the objdump label is misleading).
+- Best clean form: nm_work/func_002956F0/best_clean.c (ternary vital store; same length, 57 differing words).
+- Still differs:
+  1. Retail stores objNo/seBank from full-width loads (lhu 0x2FE, lw 0x564); ours narrows to lbu. Retail's actorId reload after the call looks like a REG_EQUIV reload of a pseudo set before the call.
+     - An actorId local lands in s2 instead; `- EMSET_OBJ_BASE` is folded away.
+  2. The kind flag goes through a0 before `andi 0xff`.
+     - The draft's helper is closest; a result variable gives movn, and `&&` gives a range check.
+  3. Retail converts in place (cvt.w.s $f0,$f0) and loads lwc1 before the constant; ours converts into f2.
+  4. Retail reads vital once (lh a0 + blezl); ours reloads with lhu.
+- Merged return conditions and the mtc1/cvtdiv/fdiv rules change nothing.
+- 2026-10-22 06:50 queue empty after 00159ad0/002fe8a0/00366110/00366368/002956f0; waiting 20 min (permuter PERM=0).
+
+## func_002C45A8 — PARKED (s0/s1 swap: no vs self)
+- sn-2.95.3-136, same length; the only difference is that retail allocates `no` to s0 and `self` to s1 (29 words).
+- Tried without success:
+  - wrapping the body in `if (!self->jumping)`;
+  - `no` first or `angle` before `no` in each case.
+- Permuter reached 0 only with forbidden constructs: `new_var = 0x4D` constant locals, an `if (self)` with identical arms, `ofs.x * 0.0f`. Rejected.
+- Real fix unknown; retail `no` probably has higher allocation priority from some source shape we haven't found.
+
+## func_00329490 — PARKED (missing cross-jump of the two error calls)
+- Use --drop-reorder, as every CRI neighbour does (c_flags_drop -freorder-blocks). That gives retail's block layout: inline parameter-error block, bnel search loop.
+- Remaining: retail's parameter-error path branches into the too-many-handles path's `jal func_0033F130` (shared call with a nop delay slot). Ours keeps two calls, so it is 200 vs 198 words.
+  - The compiler does cross-jump in 00323cf0.c, where the error blocks are adjacent.
+  - Here it doesn't, even with the fail path removed (diagnostic only).
+- The for-loop and `>=` search variants don't help. The store schedule in the buffer setup also differs.
+- 2026-10-22 07:14 queue empty after 002c45a8/00329490; waiting 20 min (PERM=0).
+- 2026-10-22 07:20 queue empty after 002c45a8/00329490; waiting 20 min (PERM=0).
+- 2026-10-22 07:41 recheck: nothing new; waiting 20 min (PERM=0).
+- 2026-10-22 07:54 recheck: nothing new; waiting 20 min (PERM=0).
+
+## func_0032A1B0 — SOLVED (handoff in progress/nm_solved/func_0032A1B0/)
+- cygnus-2.96, c_flags_drop -freorder-blocks (like every CRI neighbour), fp_hazard_rules libm-mtc1,cmpfull. MATCH: 189 insns, 29 relocs.
+- Fix: in the playing branch, `*ncount += (int)(adxt->baseCount + 1);`.
+  - Without the conversion, fold reassociates `n + (baseCount + 1u)` into `(n + baseCount) + 1`.
+  - FLAG: the cast converts the unsigned sum to *ncount's own type (int). It is a real conversion, not a cast on a constant, but review it against the type-change rule.
+- No header changes. Externs follow the callees' definitions: Obj3270_GetVia4_* take void* (003270.c); Obj0000_PostInc_D_003D1428_32A148 is int(void) (000000.c).
+  - func_0032A018 is declared with this file's handle view (AdxtTimeHn *). Its definition in 0032a018.c uses its own view (AdxDecHn *); there is no shared ADXT handle header.
+- NOTE for maintainer: config/symbol_addrs.txt has no func_0032A1B0 entry; add `func_0032A1B0 = 0x0032A1B0; // type:func` with the registration.
+
+## cSnd_UpdateListener (draft 002cc150) — SOLVED (handoff in progress/nm_solved/cSnd_UpdateListener/)
+- sn-2.95.3-136, no extra flags. MATCH: 152 insns, 17 relocs, verified against the header changes through a local overlay (nm_work/func_002CC150/hdr_test).
+- Header changes (header_changes.md):
+  - add `cVecQuad` (`typedef struct cVec cVecQuad __attribute__((aligned(16)))`) to cOmBase.h;
+  - cSnd.h includes cOmBase.h, and listenPos becomes cVecQuad.
+  - Safe because no other unit uses listenPos, no header includes cSnd.h, no src/draft defines its own cVec, and the name cVecQuad is unused. (cVecQ was taken by a different local typedef in drafts/cod/0031c5c0.c.)
+- What closed it:
+  - The listener flags are read into an `unsigned long` local, as in cEvent_updateRelease, with a separate branch per bit and the bit-6 test written as `((flags >> 6) & 1) == 1`. Retail's dsrl proves a 64-bit value.
+  - `mode = self->f110; if (pl == 0) mode = LISTEN_AT_CAMERA;` produces the movz.
+  - Two static inline helpers: unitMatrix(m), and subVecXYZ(out, a, b), which returns out and uses VU0_ZERO_VSUB_XYZ_TO.
+  - The camera-target copy is a u_long128 store; a struct store doesn't reload D_005CAFF0 the way retail does.
+- FLAGS for review:
+  - (1) `unsigned long flags`: precedent on main, but it is a wider local.
+  - (2) The if/else-if ladder repeats `f110 = LISTEN_AT_CAMERA` in three arms. No two arms of the same if are identical; the `||` form folds the two masks together (150 words).
+  - (3) `*(u_long128 *)&...` pun with a local `u_long128` typedef, the same as 00396158.c and 003bad80.c.
+  - (4) func_0030A548 and the sceVu0 Add/Scale/CameraMatrix prototypes stay local (void*, matching their definitions). sceVu0.h can't take them yet: 001b5160.c declares func_0030A548(void) and includes sceVu0.h, and 002d4ef8.c/00138648.c declare the sceVu0 ones with cVec* parameters.
+
+## func_003AD348 (fdlibm __ieee754_fmod) — SKIP (tooling)
+- as=ee gives 3 diffs.
+  - Two are the `dli 0xffffffff` expansion inside the INSERT_WORDS register union: ee-as emits lui 0xffff, retail has addiu -1.
+  - The third is bgtz vs bnez on the fixed-point loop. Stock `while (n--)` changes the loop shape (+2 words).
+- as=sn fixes dli but drops the R5900 short-loop pads on the call-free ilogb loops (262 vs 273 words).
+- as=gnu is not available for SN units.
+- Needs a wrapper route that pads short loops AND expands dli as ps2eeas/GNU does (or a short-loop pad option on the sn route). Not a C problem; revisit when tooling lands.
+
+## cFont_setTextureAddr (draft 002a4cb0) — PARKED
+- 21 diffs, all register allocation. Retail copies font to v1 at entry, builds the slot address in a0, and stores info through a v0 copy.
+- No effect (all 21): index forms `((cFontTexSlot *)font)[slot]`, `&...[slot]`, a slot-table view, and inline texSlot/texSlotSet helpers.
+- Inline validity predicates make it worse (84 vs 82 words).
+- Permuter run1 (perm_run1): best 260 from 470, only through `info->b7 == (info->h2 * 0)` plus a do-while (forbidden). Other hits are new_var hoists of info->h2 or res->w4 (forbidden).
+
+## sceGsSetHalfOffset (draft 00396048) — PARKED
+- ee-2.9-991111 (the neighbouring libgraph units use it). 26 diffs, same instructions, scheduled differently: retail computes the y half first, with scissor and h in v0.
+- Statement reordering changes nothing. Single-expression and if/else store forms are longer. The halfoff `if (halfoff) ofy += 8` form is 32 vs 34 words.
+
+## cEmManage_SetEmAnger (draft 00291b90) — PARKED
+- 108 vs 110 words. Retail's two absolute values are `bc1f` with `mov.s` in the delay slot and then neg.s into a separate register; every form here gives bc1tl with neg.s in place.
+- Forms tried for the abs: ternary, inline absf, `ady = (dy = ...)` (the idiom that matches in 0014b640.c), and an ABSF macro on the expression.
+- A clean for/continue rewrite with an isAngerKind inline folds the range check to an unsigned compare (103 words).
+- Needs real cleanup in any case: AngerEm/AngerEmNode local views instead of the enemy headers, a goto ladder, and ok/tt temporaries.
+
+## cScenario_execUpCutData (draft 002c4150) — PARKED
+- sn-2.95.3-136. 29 vs 30 words, 17 diffs. Retail copies the cScenario_taskExec_2C3890 result into t1 (the slot parameter's register) and indexes from there; ours keeps it in v0.
+- Note: the draft has no section attribute, so mc.py reports "no section" until one is added.
+- No effect (all 29 words): works indexing forms (including 002c3c10.c's `(cTaskWork *)(v * TASKMGR_WORK_SIZE + (int)works)`), a new local for the result, a switch on asTask, an early return, and the assignment inside the condition.
+- Permuter run1: score 0 only by inserting `if (1) { do { } while (0); }` before the call (forbidden). A block or loop-note boundary there is what changes the allocation.
+
+## RoundFloat (draft 00157498) — SKIP (compiler)
+- Retail computes (float)(int)x twice and keeps the int in an FPR both times (cvt.w.s, then cvt.s.w). sn-2.95.3-136, ee-2.9-991111 and cygnus-2.96 all emit one trunc.w.s with mfc1/mtc1 through a GPR.
+- Only 4 functions in the binary have the FPR-only round trip, and none is matched, so there's no C idiom to copy. Draft also lacks the section attribute (mc "no section").
+
+## func_00365EC0 (draft 00365ec0) — SOLVED
+- cygnus-2.96 with -freorder-blocks dropped. MATCH (148 insns, 1 reloc); handoff in nm_solved/func_00365EC0.
+- What closed it: retail's down ramp starts its counter at `lo + (hi - lo)`, so the source is `(range - (i - lo)) * scale` with `range = hi - lo` shared with the scale division. That restores the strength-reduced counter and the lo/tbl/hi -> s0/s1/s2 allocation. Also `if (mode == 1)` with the down ramp first.
+- Steps: draft 150 words (146 with drop-reorder); `int left = hi - i` per iteration made the length equal (38 diffs); the range form matched.
+- Callee func_00360D50 is `int (void)` per src/cod/0031f4e0.c; it's only used here, so the prototype stays local. Symbol entry already exists. No header changes.
+- Tooling note: `--wrap-arg=-Werror`/`-Wall` reach cygnus cc1 as a bare `error`/`all` argument and fail, so warnings weren't checked with that compiler.
+
+## MPV_SearchDelim (draft 00369370) — PARKED
+- cygnus-2.96 --drop-reorder. Case order 0123 gives 67 vs 66 words; the only gap is that retail fills the case-3 beq delay slot with a beql from the target (`addiu s0,s1,-4`). Order 0321 is the same length with 22 diffs.
+- No effect: other st types, a default label, case-3 reorders, if-chains.
+- Permuter run1 (base o_0123, score 420): no improvement after more than 15 minutes, stopped. Archived at nm_work/MPV_SearchDelim/perm_run1.
+
+## cIDBase_transTex (draft 002aaef0) — SKIP (ABI)
+- Passes a struct by value; hits the same struct-passing ABI wall as the earlier skips.
+
+## MoveEmitter (draft 00300628) — SOLVED (review flag)
+- sn-2.95.3-136. MATCH (129 insns, 17 relocs); handoff in nm_solved/MoveEmitter. Symbol entry already exists.
+- Changes from the draft:
+  - Owner test written `ok = own != 0 && (flags & 0x8000) == 0`, which keeps retail's second test and reload. This made the length equal (87 diffs).
+  - The `mode & 0x40` arms are swapped so the `ok == 0` test is the fall-through (86 diffs).
+  - Types follow the tree: `cVtEnt` from cModel.h with prototyped casts (as in 002fbb78.c), `int` bit arrays, and `unsigned char D_0071B940[]` (as in 00300d20.c and 001612c8.c).
+- What closed it: a `flagTest(flags, mask)` inline used for every masked flag test in the function. The inline sets which loop invariants retail hoists (the masks and the D_00741960/D_00741980 bases, but not the D_00741940/D_0071B940 bases), and that gives the mtlo/madd slot address.
+  - Found by permuter run1 (best score 575 out of 2575; its output used a generic inline at 5 sites).
+  - Bisecting showed only the e->flags and D_00747A84 & 0x4000000 sites change the bytes. Using the helper at all 9 masked tests also matches, so the handoff uses it uniformly.
+  - The `(mode >> 6) & 1` bit extract stays a shift; `flagTest(mode, 0x40)` changes the code.
+- FLAG for review: the helper is readable and used consistently, but its effect on the bytes is on loop-invariant motion. If the maintainer counts that as steering, park the function instead; the clean form without the helper sits at 86 diffs.
+- FLAG: DebugPrintfWrapper isn't in a header. It is defined as `int (int, int, int, int, int fmt, ...)` in 0012bfb8.c and declared `void (..., char *fmt, ...)` in 0012e990.c and 00143b70.c; this file uses the latter. Its return value isn't read here.
+- Bit-array comments corrected from this function's logic: a set D_00741960 bit means destroy next frame, a set D_00741980 bit means destroy this frame.
+- Permuter output archived at nm_work/MoveEmitter/perm_run1.
+
+## func_001FB1C0 (draft 001fb1c0) — PARKED
+- sn-2.95.3-136, 66 vs 69 words. The cvt.w.s vs trunc.w.s lines in the diff are only a disassembler display difference.
+- Retail forms the pos[1], pos[2] and yaw store addresses as (i*16 + data) + 0x28A with the field offset kept separate, and computes the address before loading the float operand. extra and flag stores fold the offset normally.
+- No effect so far: an inline item accessor (65 words), and a per-iteration item pointer (52 words; it drops the self->data reloads).
+
+## Turn_dest (draft 002da038) — SOLVED
+- sn-2.95.3-136 with as=sn and fp_hazard_rules=div, the same settings as the neighbour 002da7a8.c. MATCH (112 insns, 1 reloc); handoff in nm_solved/Turn_dest. Symbol entry already exists.
+- The draft's 107-vs-112 gap was mostly the missing as/fp-hazard settings (2 diffs with them). The rest was the final clamp: `d = max < ABS_F(d) ? max : ABS_F(d); return d * sign;`, reusing d instead of a separate r.
+- Forms that missed: separate r with `0.0f - d` or `-d`, if/else, an absf inline (mixed with the macro, 2–3 diffs; used for both, 108–110 words), and early returns.
+- FLAG: func_003A1648 (newlib atanf, defined `float (float)` in 003a1648.c) is also declared locally in 002da7a8.c with the same signature. There's no libm header yet; a shared declaration would need one.
+- Tooling note: in zsh, a `for o in "--as sn" ...` loop passes "$o" as one argument; use ${=o}.
+- Follow-up for func_001FB1C0: an inline `&self->data->item[i]` accessor reproduces the unfolded offsets for the pos stores, but it also strength-reduces the item address to a second giv (65 words). Retail unfolds only pos[1], pos[2] and yaw; extra and flag fold 0x28A normally.
+- Permuter run1 (base 2270, best 1080): it improved only by dropping a self->data reload (`new_var`), which moves away from retail. Stopped; archived at nm_work/func_001FB1C0/perm_run1.
+
+## MoveEsp (draft 002fb0e8) — SOLVED (same review flag as MoveEmitter)
+- sn-2.95.3-136. MATCH (137 insns, 26 relocs); handoff in nm_solved/MoveEsp. Symbol entry already exists.
+- Same treatment as MoveEmitter: `flagTest` inline for the masked flag tests, cVtEnt with prototyped casts, and `int` bit arrays with `char D_0061B7C0[]` (the most common declarations in the tree).
+- Draft (61 diffs) to 4 diffs with flagTest; then `ok = 0;` moved before `if (paused)` with `if (own != 0) ok = ...` inside it, which matched.
+- Without flagTest the matching form goes back to 61 diffs. The same helper being needed in both sibling movers supports it being in the original source.
+- The draft's `long t = (int)D_00747A84; ... ((unsigned long)t >> 6)` is replaced with `extern int D_00747A84` (18 files declare it int, 21 unsigned int) and `unsigned long flags = D_00747A84;`. This is the same idiom as main's func_00160F38 and the cSnd_UpdateListener handoff, and it gives retail's dsrl. Declared `unsigned int`, the global costs two extra zero-extension instructions. That test uses plain `&` because flagTest takes unsigned int.
+- func_00305C20's real parameter type is cAreaFx, which is local to 00305c20.c. The prototype here uses a forward-declared `struct cAreaFx *` rather than copying the type. Note: 001398d0.c calls func_00305C20 with no prototype in scope (existing issue).
+- Bit-array comments corrected as in MoveEmitter (D_0071B840 means destroy next frame, D_0071B8C0 means destroy this frame).
+
+## cCoreSave_spawnItems (draft 001fb330) — PARKED
+- sn-2.95.3-136; `--as sn` takes it from 100 to 104 words (retail 106), and retail's mtc1 hazard nops appear.
+- Gaps:
+  - Retail hoists only %hi(D_007474A0) (in s4) and redoes the %lo add each iteration; ours hoists the full address.
+  - Retail adds `(i << 4) + data` with the giv first, the same operand-order problem cCoreSave_initItem on main solved with a raw cast form.
+  - Retail loads obj->pos after the multiply.
+- D_007474A0 + 0x5B0 is GameWork.room (gameWork.h), and the 0x5B1 byte is its high byte, the same byte func_001FB1C0 reads as D_00747A50[1]. Using `D_007474A0.room` or an inline returning `&D_007474A0` doesn't change the hoisting (101–103 diffs).
+- The draft's `gw1FB330` inline and the local ItemVtEnt/SaveItem copies of cVtEnt/cCoreSaveItem need replacing in any eventual match.
+
+## cOl0e_setFake (draft 00173820) — SKIP (family)
+- Raw m2c output. cOl0e embeds cOmBase (cOl0e.h), so it falls under the skipped game-object families.
+
+## Queue status
+- All 70 unvisited non-family drafts are now either visited or out of scope (59 empty placeholders or drafts without a section attribute). Waiting 20 minutes, then rechecking drafts/cod, include and nm_solved for changes.
+
+## Stop (maintainer request, 2026-10-22 09:16)
+- Stopped during the 20-minute queue wait; no function was in progress.
+- Handoffs this session in nm_solved/: func_0032A1B0, cSnd_UpdateListener, func_00365EC0, MoveEmitter, Turn_dest, MoveEsp. MoveEmitter and MoveEsp carry the flagTest review flag.
+- Permuter killed; PERM=0 confirmed. This session's run directories were moved into nm_work/<func>/perm_runN. The older directories still in nm_work/perm/ are from earlier sessions and were left alone.

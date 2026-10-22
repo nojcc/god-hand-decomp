@@ -206,6 +206,18 @@
         : "r"((void *)(base)), "i"((int)(off))                         \
         : "memory")
 
+/* VU0_LQC2_SQC2_MEM(reg, dst, src): copy the quadword at src to dst through
+ * $vf<reg>, as one statement. src is a register-addressed pointer; dst is a
+ * memory operand, so a stack local is stored at its sp offset. */
+#define VU0_LQC2_SQC2_MEM(reg, dst, src)                               \
+    __asm__ __volatile__ (                                             \
+        ".set push\n"                                                  \
+        ".set noreorder\n"                                             \
+        "lqc2  $vf" #reg ", 0(%1)\n"                                   \
+        "sqc2  $vf" #reg ", %0\n"                                      \
+        ".set pop\n"                                                   \
+        : "=m"(*(vu0_q128_t *)(dst)) : "r"((void *)(src)) : "memory")
+
 /* VU0_VADD_XYZ(dst, s1, s2): $vf<dst>.xyz = $vf<s1>.xyz + $vf<s2>.xyz.
  * A compute-class COP2 op with no inter-op nop (same empirical finding as the
  * lqc2/sqc2 load/store class — see the header preamble); the `.set noreorder`

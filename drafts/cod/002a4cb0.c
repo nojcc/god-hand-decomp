@@ -1,75 +1,54 @@
-/* NON_MATCHING cFont_setTextureAddr: sn;
-* retail copies self to v1 at entry and stores info through a second copy of the slot pointer (pointer-copy chain), and swaps base/cursor registers in the first relocation loop */
+/* NON_MATCHING cFont_setTextureAddr (sn-2.95.3-136):
+ * Retail moves font to v1 at entry, builds the slot address in a0 and stores info through a copy in v0; this build
+ * forms the slot address in v0 directly, one instruction shorter, so everything after the slot stores is shifted. */
 #include "include_asm.h"
+#include "godhand/cFont.h"
+#include "godhand/cFontTex.h"
 
 #ifdef NON_MATCHING
-typedef struct {
-    int pad0;
-    char *ptr;            /* 0x4 */
-    char pad8[0x8];
-} FontRel;
 
-typedef struct {
-    int flags;            /* 0x0, bit 31 = relocated */
-    unsigned short w;     /* 0x4 */
-    unsigned short h;     /* 0x6 */
-    int ofs1;             /* 0x8 */
-    int ofs2;             /* 0xC */
-    unsigned short n1;    /* 0x10 */
-    unsigned short n2;    /* 0x12 */
-} FontTex;
-
-typedef struct {
-    unsigned short num;   /* 0x0 */
-    unsigned short cw;    /* 0x2 */
-    unsigned short ch;    /* 0x4 */
-    unsigned char sx;     /* 0x6 */
-    unsigned char sy;     /* 0x7 */
-} FontInfo;
-
-typedef struct {
-    FontTex *tex;        /* 0x0 */
-    FontInfo *info;      /* 0x4 */
-    unsigned short cw;    /* 0x8 */
-    unsigned short ch;    /* 0xA */
-    short sx;             /* 0xC */
-    short sy;             /* 0xE */
-} FontSlot;
-
-void cFont_setTextureAddr(FontSlot *self, int idx, FontTex *tex, FontInfo *info)
+/* Install a font texture in a slot once the resource and its info record are both complete: keep both pointers and
+ * the info sizes, and the first time through turn the offsets of the two entry lists into addresses. */
+__attribute__((section(".text.cFont_setTextureAddr")))
+void cFont_setTextureAddr(cFont *font, int slot, cFontTexRes *res, cFontTexInfo *info)
 {
-    FontSlot *s;
-    FontRel *r;
+    cFontTexSlot *s;
+    cFontTexEnt *ent;
     char *base;
     unsigned int i;
 
-    if (tex == 0 || info == 0 || info->num == 0 || info->cw == 0 || info->ch == 0 ||
-        info->sx == 0 || info->sy == 0 || tex->flags == 0 || tex->w == 0 || tex->h == 0 ||
-        tex->ofs1 == 0 || tex->ofs2 == 0)
+    if (res == 0 || info == 0) {
         return;
-
-    self += idx;
-    self->tex = tex;
-    self->info = info;
-    self->cw = info->cw;
-    self->ch = info->ch;
-    self->sx = info->sx;
-    self->sy = info->sy;
-
-    if (tex->flags < 0)
+    }
+    if (info->h0 == 0 || info->h2 == 0 || info->h4 == 0 || info->b6 == 0 || info->b7 == 0) {
         return;
-
-    base = (char *)tex + tex->ofs1;
-    r = (FontRel *)base;
-    for (i = 0; i < tex->n1; i++, r++)
-        r->ptr += (int)base;
-
-    base = (char *)tex + tex->ofs2;
-    r = (FontRel *)base;
-    for (i = 0; i < tex->n2; i++, r++)
-        r->ptr += (int)base;
-
-    tex->flags |= 0x80000000;
+    }
+    if (res->flags == 0 || res->w4 == 0 || res->w6 == 0 || res->offA == 0 || res->offB == 0) {
+        return;
+    }
+    s = (cFontTexSlot *)font + slot;
+    s->res = res;
+    s->info = info;
+    s->h8 = info->h2;
+    s->hA = info->h4;
+    s->hC = info->b6;
+    s->hE = info->b7;
+    if (res->flags & CFONTTEX_FIXED) {
+        return;
+    }
+    base = (char *)res + res->offA;
+    ent = (cFontTexEnt *)base;
+    for (i = 0; i < res->numA; i++) {
+        ent->addr += (int)base;
+        ent++;
+    }
+    base = (char *)res + res->offB;
+    ent = (cFontTexEnt *)base;
+    for (i = 0; i < res->numB; i++) {
+        ent->addr += (int)base;
+        ent++;
+    }
+    res->flags |= CFONTTEX_FIXED;
 }
 #else
 INCLUDE_ASM("asm/nonmatching", cFont_setTextureAddr);
