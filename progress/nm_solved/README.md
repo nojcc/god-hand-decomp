@@ -28,6 +28,10 @@ One folder per solved function, named exactly as the symbol (e.g. `func_00164238
   {"compiler": "sn-2.95.3-136", "extern_jtbl": ["D_0041B8A0", "D_0041B8C0", "D_0041B8E0"]}
   ```
 
+  Registration then lists the table entries that jump into the function in
+  `config/jtbl_extern_words.txt`, so they stay raw retail words once the function's labels leave
+  the monolith; the full build that follows checks the link.
+
   - `compiler` is required when the NM file has no `(compiler…)` in its first-line header. It must be a
     compiler that some unit in compile_config.json already uses. New compilers are never added.
   - `as`, `c_flags_add`, `c_flags_drop`, `fp_hazard_rules` (e.g. `"mtc1"`), `call_loop_pad` (bool;

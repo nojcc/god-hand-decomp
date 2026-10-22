@@ -54,6 +54,24 @@ def jtbl_syms(fn: str) -> list[str]:
     return out
 
 
+def extern_words(start: int, size: int) -> list[tuple[str, str]]:
+    """Blob entries that jump into [start, start + size): (blob path, label address).
+
+    Once the function is carved out of the monolith its .L labels are gone, so
+    every such `.word .L<addr>` must be listed in config/jtbl_extern_words.txt
+    (scripts/apply_jtbl_extern_words.py turns them into raw retail words).
+    """
+    out = []
+    for blob in sorted((ROOT / "asm" / "data" / "cod").glob("*.s")):
+        for m in re.finditer(r"\.word \.L([0-9A-Fa-f]+)\b", blob.read_text(errors="ignore")):
+            a = int(m.group(1), 16)
+            if start <= a < start + size:
+                key = (blob.relative_to(ROOT).as_posix(), f"{a:08X}")
+                if key not in out:
+                    out.append(key)
+    return out
+
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         raise SystemExit(__doc__)
