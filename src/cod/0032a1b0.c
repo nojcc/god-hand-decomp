@@ -1,12 +1,5 @@
 /* cygnus-2.96 */
-/*
- * NON_MATCHING: same length as retail; 3 instructions differ. In the
- * playing branch retail adds 1 to baseCount and then adds the count; here
- * gcc sums baseCount and the count first and adds 1 last.
- */
-#include "include_asm.h"
-
-#ifdef NON_MATCHING
+/* cygnus-2.96 */
 #include "godhand/criSj.h"
 
 #define ADXT_STAT_DECODING  3
@@ -85,13 +78,11 @@ void func_0032A1B0(AdxtTimeHn *adxt, int *ncount, int *tscale)
         sfreq = Obj3270_GetVia4_Obj33C8_14_7788(adxt->sjd);
         nsmpl = nsmpl * (16 / Obj3270_GetVia4_0033CEF0_77B8(adxt->sjd));
         *ncount = (float)nsmpl / sfreq * D_003D1454;
-        *ncount = adxt->baseCount + 1 + *ncount;
+        /* baseCount is unsigned; retail converts the sum to int before adding it */
+        *ncount += (int)(adxt->baseCount + 1);
     } else {
         *ncount = 0;
     }
     *ncount += adxt->ofs;
     *tscale = D_003D1454;
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_0032A1B0);
-#endif
