@@ -1,9 +1,6 @@
-/* the final
- * abs needs neg.s with a non-likely bc1t, but plain -d picks the other branch shape and 0.0f - d
- * emits sub.s) */
-#include "include_asm.h"
+/* sn-2.95.3-136 */
+/* sn-2.95.3-136 */
 
-#ifdef NON_MATCHING
 #define PI_F 3.1415927f
 #define ABS_F(x) (0.0f < (x) ? (x) : -(x))
 
@@ -18,7 +15,6 @@ float Turn_dest(float *from, float *to, float cur, float max)
     float ang;
     float d;
     float sign;
-    float r;
 
     dx = to[0] - from[0];
     dz = to[2] - from[2];
@@ -41,9 +37,6 @@ float Turn_dest(float *from, float *to, float cur, float max)
     sign = -1.0f;
     if (0.0f < d)
         sign = 1.0f;
-    r = max < ABS_F(d) ? max : (0.0f < d ? d : 0.0f - d);
-    return r * sign;
+    d = max < ABS_F(d) ? max : ABS_F(d);
+    return d * sign;
 }
-#else
-INCLUDE_ASM("asm/nonmatching", Turn_dest);
-#endif

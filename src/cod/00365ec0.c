@@ -1,13 +1,6 @@
 /* cygnus-2.96 */
-/*
- * NON_MATCHING: 150 vs 148 words. The table loop is identical to retail.
- * Retail keeps lo/tbl/hi in s0/s1/s2 (here hi/lo/tbl), tests mode == 1 with
- * the stereo ramp as the fall-through block, and strength-reduces (hi - i)
- * into a down-counter.
- */
-#include "include_asm.h"
+/* cygnus-2.96 */
 
-#ifdef NON_MATCHING
 extern int func_00360D50(void);
 
 typedef struct SfxCscEnt {
@@ -25,6 +18,7 @@ void func_00365EC0(int mode, int lo, int hi, SfxCscEnt *tbl)
     short y;
     int c;
     int alpha;
+    int range;
     float scale;
 
     alpha = func_00360D50();
@@ -43,8 +37,19 @@ void func_00365EC0(int mode, int lo, int hi, SfxCscEnt *tbl)
         crtbl[i].b = 0;
         crtbl[i].a = 0;
     }
-    scale = (float)alpha / (float)(hi - lo);
-    if (mode != 1) {
+    range = hi - lo;
+    scale = (float)alpha / (float)range;
+    if (mode == 1) {
+        for (i = 0; i < 256; i++) {
+            if (i < lo) {
+                ytbl[i].a = alpha << 6;
+            } else if (i > hi) {
+                ytbl[i].a = 0;
+            } else {
+                ytbl[i].a = (int)((range - (i - lo)) * scale) << 6;
+            }
+        }
+    } else {
         for (i = 0; i < 256; i++) {
             if (i < lo) {
                 ytbl[i].a = 0;
@@ -54,18 +59,5 @@ void func_00365EC0(int mode, int lo, int hi, SfxCscEnt *tbl)
                 ytbl[i].a = (int)((i - lo) * scale) << 6;
             }
         }
-    } else {
-        for (i = 0; i < 256; i++) {
-            if (i < lo) {
-                ytbl[i].a = alpha << 6;
-            } else if (i > hi) {
-                ytbl[i].a = 0;
-            } else {
-                ytbl[i].a = (int)((hi - i) * scale) << 6;
-            }
-        }
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00365EC0);
-#endif
