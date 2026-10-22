@@ -55,7 +55,8 @@ WORK = ROOT / "build" / "sa" / "handoff"
 ASM_RE = re.compile(r"__asm__|\basm\s*(volatile\s*)?\(|\.word\b")
 ALLOWED_ASM_RE = re.compile(r'__asm__\s*(__volatile__|volatile)?\s*\(\s*"(nop)?"\s*(:::\s*"memory"\s*)?\)\s*;')
 GUARD_RE = r"#ifdef NON_MATCHING\n.*?#else\n[^#]*?INCLUDE_ASM\(\"[^\"]+\",\s*{fn}\);\n#endif\n?"
-UNIT_KEYS_MODELED = {"path", "compiler", "c_flags_drop", "c_flags_add", "as", "fp_hazard_rules", "call_loop_pad"}
+UNIT_KEYS_MODELED = {"path", "compiler", "c_flags_drop", "c_flags_add", "as", "fp_hazard_rules", "call_loop_pad",
+                     "extern_jtbl"}
 C_WORDS = set("""auto break case char const continue default do double else enum extern float for goto if
 inline int long register restrict return short signed sizeof static struct switch typedef union unsigned
 void volatile while u8 u16 u32 u64 s8 s16 s32 s64 f32 f64 __attribute__ section aligned packed""".split())
@@ -134,7 +135,8 @@ def header_opts(text: str) -> dict:
             "c_flags_add": ["-O0"] if re.search(r"[\s,(]-O0\b", head) else [],
             "as": "sn" if "as=sn" in head else None,
             "fp_hazard_rules": (m.group(1) if (m := re.search(r"fp_hazard_rules[ =]([\w,]+)", head)) else None),
-            "call_loop_pad": "call_loop_pad" in head}
+            "call_loop_pad": "call_loop_pad" in head,
+            "extern_jtbl": []}
 
 
 def check(path: Path, fn: str, o: dict) -> tuple[bool, str]:
@@ -148,6 +150,7 @@ def check(path: Path, fn: str, o: dict) -> tuple[bool, str]:
         cmd += ["--fp-hazard-rules", o["fp_hazard_rules"]]
     if o.get("call_loop_pad"):
         cmd.append("--wrap-arg=--call-loop-pad")
+    cmd += [f"--extern-jtbl={s}" for s in o.get("extern_jtbl", [])]
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     out = r.stdout + r.stderr
     m = re.search(rf"^MATCH {fn} .*$", out, re.M)
@@ -378,9 +381,11 @@ def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
             if rest is None:
                 return "rejected", f"cannot cut {fn} out of multi-function {rel}; split by hand"
         o = header_opts(old)
-        for k in ("compiler", "as", "c_flags_add", "c_flags_drop", "fp_hazard_rules", "call_loop_pad"):
+        for k in ("compiler", "as", "c_flags_add", "c_flags_drop", "fp_hazard_rules", "call_loop_pad", "extern_jtbl"):
             if k in meta:
                 o[k] = meta[k]
+        if not (isinstance(o["extern_jtbl"], list) and all(isinstance(s, str) for s in o["extern_jtbl"])):
+            return "rejected", f"meta extern_jtbl must be a list of symbol names, got {o['extern_jtbl']!r}"
         if not isinstance(o.get("call_loop_pad", False), bool):
             return "rejected", f"meta call_loop_pad must be true or false, got {o['call_loop_pad']!r}"
         if meta.get("drop_reorder") and "-f=-freorder-blocks" not in o["c_flags_drop"]:
@@ -400,6 +405,7 @@ def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
         except ValueError as e:
             return "rejected", str(e)
         tag = ", ".join([o["compiler"]] + (["as=sn"] if o.get("as") == "sn" else [])
+                        + ([f"extern_jtbl {' '.join(o['extern_jtbl'])}"] if o.get("extern_jtbl") else [])
                         + ([f"fp_hazard_rules {o['fp_hazard_rules']}"] if o.get("fp_hazard_rules") else [])
                         + (["call_loop_pad"] if o.get("call_loop_pad") else [])
                         + [f"+{f}" for f in o["c_flags_add"]] + [f"-{f}" for f in o["c_flags_drop"]])
@@ -418,8 +424,9 @@ def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
             return "rejected", f"unit {rel} has settings match_check can't model ({sorted(extra)}); process by hand"
         o = {"compiler": unit["compiler"], "c_flags_drop": unit.get("c_flags_drop", []),
              "c_flags_add": unit.get("c_flags_add", []), "as": unit.get("as"),
-             "fp_hazard_rules": unit.get("fp_hazard_rules"), "call_loop_pad": unit.get("call_loop_pad", False)}
-        for k in ("compiler", "as", "c_flags_add", "c_flags_drop", "call_loop_pad"):
+             "fp_hazard_rules": unit.get("fp_hazard_rules"), "call_loop_pad": unit.get("call_loop_pad", False),
+             "extern_jtbl": unit.get("extern_jtbl", [])}
+        for k in ("compiler", "as", "c_flags_add", "c_flags_drop", "call_loop_pad", "extern_jtbl"):
             if k in meta and meta[k] not in (o.get(k), None, [], False):
                 return "rejected", f"meta {k}={meta[k]!r} differs from registered unit {rel}; units are never changed"
         if meta.get("drop_reorder") and "-f=-freorder-blocks" not in o["c_flags_drop"]:
@@ -468,6 +475,7 @@ def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
             cmd += ["--fp-hazard-rules", o["fp_hazard_rules"]]
         if o.get("call_loop_pad"):
             cmd.append("--call-loop-pad")
+        cmd += [f"--extern-jtbl={s}" for s in o.get("extern_jtbl", [])]
     cmd += [dest.relative_to(ROOT).as_posix(), fn]
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     if r.returncode != 0:

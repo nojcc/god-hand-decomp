@@ -4103,6 +4103,7 @@
 !scripts/sa/fam_tail.py
 !scripts/sa/hdr_conflicts.py
 !scripts/sa/header_merge.py
+!scripts/sa/jtbl_syms.py
 !scripts/sa/log_analysis.py
 !scripts/sa/lst.py
 !scripts/sa/m2c_survey.py
@@ -4380,3 +4381,4 @@
 !src/cod/00300628.c
 !src/cod/0032a1b0.c
 !src/cod/00365ec0.c
+!src/cod/0037e368.c
