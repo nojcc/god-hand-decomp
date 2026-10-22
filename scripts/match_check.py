@@ -237,6 +237,9 @@ def main() -> int:
     ap.add_argument("--fp-hazard-rules")
     ap.add_argument("--as", dest="assembler", choices=("ee", "sn"), default="ee",
                     help="stage-3 assembler, as compile_units 'as' (sn = ps2eeas under wibo)")
+    ap.add_argument("--extern-jtbl", action="append", default=[], metavar="SYM",
+                    help="retail jump-table symbol, once per switch table in emission order "
+                         "(compile_units[].extern_jtbl)")
     ap.add_argument("-D", dest="defines", action="append", default=[])
     ap.add_argument("--lang", default="c", choices=("c", "c++"))
     ap.add_argument("--wrap-arg", action="append", default=[],
@@ -256,6 +259,8 @@ def main() -> int:
         extra.append(f"--fp-hazard-rules={args.fp_hazard_rules}")
     if args.assembler != "ee":
         extra.append(f"--assembler={args.assembler}")
+    for sym in args.extern_jtbl:
+        extra.append(f"--extern-jtbl={sym}")
     CACHE.mkdir(parents=True, exist_ok=True)
     obj = CACHE / (src.stem + ".o")
     objr = obj.relative_to(ROOT)

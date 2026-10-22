@@ -20,10 +20,18 @@ One folder per solved function, named exactly as the symbol (e.g. `func_00164238
    "call_loop_pad": true}
   ```
 
+  A function whose switch compiles to a jump table also lists the retail table symbols, one per
+  switch in the order cc1 emits them (the same `extern_jtbl` key the build uses; find them with
+  `python3 scripts/sa/jtbl_syms.py <function>`):
+
+  ```json
+  {"compiler": "sn-2.95.3-136", "extern_jtbl": ["D_0041B8A0", "D_0041B8C0", "D_0041B8E0"]}
+  ```
+
   - `compiler` is required when the NM file has no `(compiler…)` in its first-line header. It must be a
     compiler that some unit in compile_config.json already uses. New compilers are never added.
-  - `as`, `c_flags_add`, `c_flags_drop`, `fp_hazard_rules` (e.g. `"mtc1"`) and `call_loop_pad` (bool;
-    the existing compile_config.json unit key) are per-file settings. They're allowed only for standalone
+  - `as`, `c_flags_add`, `c_flags_drop`, `fp_hazard_rules` (e.g. `"mtc1"`), `call_loop_pad` (bool;
+    the existing compile_config.json unit key) and `extern_jtbl` (list of symbols) are per-file settings. They're allowed only for standalone
     drafts (`drafts/cod/<addr>.c`), which become a new `src/cod/<addr>.c` unit. Flags must be in compile.py's per-file
     lists (`SUPPORTED_C_FLAG_ADDS`, `SUPPORTED_C_FLAG_DROPS`); anything else is rejected. Without
     meta.json these are read from the NM header (`as=sn`, `-O0`, `drop-reorder`, `fp_hazard_rules mtc1`,
@@ -53,12 +61,15 @@ One folder per solved function, named exactly as the symbol (e.g. `func_00164238
 
 The main agent checks this folder once per batch with `scripts/sa/nm_handoff.py`:
 
-1. Header changes are applied first. Every other registered unit that includes the header and uses
-   the changed declaration is rebuilt before and after the change. Its object must stay identical:
-   the same section bytes and the same relocations by symbol. If any unit changes or fails to build,
-   the headers and objects are restored and the handoff is rejected with that unit named.
-2. The solved C replaces the NON_MATCHING version, and the final source is re-verified for both
-   instruction words and relocation targets. It is then registered and included in that batch's reseed.
+1. Header changes are applied first, and the solved C is checked with match_check (instruction words
+   and relocation targets).
+2. It is registered. A handoff that changed a header is then verified with one full build: the ELF and
+   r207.rel must stay identical to retail. Handoffs without header changes share one full build at the
+   end of the run.
+3. Every file is journaled before its first write. A rejected handoff is rolled back to its own
+   snapshot; an error, Ctrl-C or SIGTERM rolls the whole run back, and a run that was killed outright
+   is rolled back when the next one starts. Nothing moves and nothing is logged until the final
+   build passes.
 
 Processed folders move to `done/`. Failures move to `rejected/` with the reason in `REJECTED.txt`.
 `handoff_log.tsv` has one row per handoff.
