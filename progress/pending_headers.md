@@ -585,3 +585,159 @@ Still open:
 - Shared prototypes: ChkLine (31 files, all `int` with 13 arguments, pointer types differ), Turn_dest, MtxInitRotY, capVu0Atan2, capVu0MagnitudeSqXZ, ForwardVec3At30_147C60, SetEffectPos/SetEffect, func_002BCF28.
 - D_005850B0 (cVec) and D_00747A84 (one shared extern), D_005FEE00 in cSnd.h.
 - objFlags signedness, cGameObjVt.lockOn returning cVec *, cEmWrap.entryNo, cCockGetPoint_setData parameters, cScenario check-point fields, cOmBase 0x100 naming.
+
+## Batch 140: line drawing, debug print, sound debug pages
+- New `include/godhand/drawLine.h`: `Draw_Line2`, `Draw_Line_sc`, `Draw_Poly_sc` prototypes plus `LineAttr` (flags 0x0, tex1 0x30, size 0x50) and `void *Gp_draw_line(float (*pts)[4], unsigned int color, int a2, int a3, int a4, LineAttr *attr)`. Local declarations in 0014b9a0.c, 0031ca88.c, 0031c950.c, 0031cb80.c and drafts/cod/0015ef10.c switch to the header.
+- `func_002E0DE8(int x, int y, int color, const char *fmt, ...)` (debug text printer) needs one shared prototype; upstream files declare it inconsistently. Used by src/cod/00381478.c and 00382898.c.
+- sceVu0.h: `void sceVu0DivVector(void *dst, void *src, float q)` (drafts/cod/0015ef10.c).
+- menuCtl.h: SndOptLevels extends to the stream-test slot record in src/cod/00382898.c (`SndStrmSlots`: kind, err, slot, level[5] 0x4, index[5] 0xE, pan[5] 0x18, pitch[5] 0x22, state 0x2C). Merge the two and drop the local view.
+- seqNode.h candidate: `SeqTrk` (src/cod/00372cb0.c; stream 0x0, fade union 0x14, handle 0x48, flags 0x4C, wait 0x50, mode 0x54, count 0x58, entry 0x78).
+- cSnd.h for func_002CCD80 (cSndBgmNode update, not yet attempted in C): cSndBgmNode.unkCC becomes `float target[2]` (0xCC) and `float step[2]` (0xD4); cSnd.unk124 is a float; `entry` (0xA8) points to a BGM entry {int 0x0; int 0x8; float 0xC}; `func_002D05B8` returns `short *` (defined as `int` in 002cf258.c).
+- cIDBase.h: `cIDBaseEnt.jit[5]` (0xA0) holds per-channel frame counters that retail compares unsigned (func_002AC378 `lim < (unsigned short)`, func_0013D7B0 lhu + sltiu 0x10) and only reads signed when passing them to Curve_sample. Make it `unsigned short`; the users by name (002ab2a0.c, 002abc18.c, 002abce8.c) only store to it. Then register func_0013D7B0 from build/scratch/0013d7b0_ckpt.c (continue prompt, matches with `--as sn` once the field is unsigned; it matches today only through an `(unsigned short)` cast).
+- tim2.h (new): `GsTex0` (64-bit TEX0 bitfields, now in 003092e0.c and src/cod/0015e0a0.c), `Tim2FileHdr` and `Tim2PicHdr` (src/cod/0015e0a0.c; 003092e0.c's `TexHdr` is the same picture header with the mip fields). drafts/cod/00151990.c expects `godhand/tim2.h` with `Tim2File`/`Tim2Pic`/`GsTex0`.
+- espSlot.h (new): the effect slot pool `D_0061B7C0` (0x400 slots of 0x400 bytes) and the three bit masks `D_0071B7C0`/`D_0071B840`/`D_0071B8C0`, declared locally with different types in 001aad88.c, 001b0f70.c, 001632e8.c, 001855a8.c and src/cod/002fbb78.c (slot view with vt at 0xF0, group 0x23A, subGroup 0x23C).
+- cOmHitVolumeSetup.h: add `cDamageUnit_AddDamageCollCylinder(void *unit, void *mtx, float *ofs, float *rot, float r, float h)`; it is declared locally in 00178618.c, src/cod/001a3e10.c and seven other files.
+- cOl0e.h: COL0E_FLAG2_FAKE (0x100) is cleared when the object goes fake and set when it comes back (cOl0e_setFake retail), the opposite of its comment.
+- 0025b9f0.c calls func_0026F120 and func_0026F1D8 with no prototype in scope.
+
+## Batch 142
+- `D_0061B280` has two conflicting types: `FileBuf` in src/cod/00140c88.c and `signed char[]` in src/cod/002e13d8.c. It is the debug font state read by func_002E0F18: width u8 at 0x8, height u8 at 0x9, cursor x/y u16 at 0xC/0xE, line start x u16 at 0x10, glyph count u16 at 0x12 (limit 0x800). Needs one header type before func_002E0F18 can be carved.
+- cOmBase.h: 0x110 is the model scale x/y/z (`float scale[3]`), read through local macros in 001b0de8.c; add the field when the cOmBase PR merges.
+- `D_007474A0` has two views: `GameWork` (gameWork.h) and `cDoorWorld` (cDoor.h, used by cDoor.c and the func_002000F8 draft). cDoorWorld names 0x5B8..0x5BB (nextArg, kindA/B/C), 0x5D8 (flags5D8 = D_00747A78), 0x5E0 and 0x5E4; merge them into GameWork and drop cDoorWorld.
+- `SavePointWork` (local to src/cod/002006b8.c) is a view of `cDoor`: cur = point[0] at 0x04, save = point[1] at 0x1C, step 0x39 = cDoor.phase, busy 0x3A = cDoor.unk3A. func_002006B8 should take `cDoor *`.
+- func_00200638 (src/cod/001b5160.c) and InitSlotParams_200658 (src/cod/001ff540.c) are defined `(void)` but func_002000F8 passes the door in a0; give them an unread `cDoor *self` parameter when that function lands.
+- `D_005CAC90` has three types: `ContinueCount` (0013d7b0 hold), `unsigned char` (002a5998.c), and a 4-byte game-mode record written by func_002000F8 (byte 0 = 5 for a room jump, bytes 1..3 cleared).
+- MtxMulRotVec (src/cod/00134880.c) is defined with four int parameters but takes (dst matrix, src matrix, rotation vector, order byte).
+- func_001E6910 (src/cod/001dee20.c) is defined `(void)` but Slot2_Execute passes self; Slot2_Execute is declared `(void)` in 001e4920.c but takes `Slot2 *`. Both belong in Slot2.h.
+- Slot2.h: `layer` at 0x400 is a `SlotUi` (customId at 0x450 is its first mark entry).
+- `SetCustomIDDispOneOrAll_1F4778(void *self, int id, int on)` is declared locally in ~10 TUs (0015a590, 001f50a0, 0017b010, 0016ee10, 002c7f88, 00103760, 001c2c40, 001b0b70, 001ecaf0, 001f4ca8, now 001f5650); move to CustomIDPanel.h. Same for `func_002D69A8(CustomIDWork*, unsigned short, float, float)` and `func_002D65F8(CustomIDWork*, float, float, float, float)`. 001f5650.c also has a local `CustomIDOwner` view (CustomIDWork ent[] at 0x60).
+- mwsfd.h: `void func_0032B488(void *adxt, int db, int frac);` (the ADXT output-volume entry; an empty stub in this build). Change src/cod/0032b488.c's definition from `(void *a0)` to that signature, with one line saying db and frac are not read, and include mwsfd.h there. Then register build/scratch/00349c28_ckpt.c (func_00349C28, the SfdHn volume setter; matches exactly with cygnus-2.96 and c_flags_drop -freorder-blocks; uses logf func_003A1DF0, whose prototype also belongs in a shared libm header).
+- cGameObj.h cGameObjVt (off limits now, for the maintainer): the cOm49 table D_00427148 has cGameObj_getLockOnPos at 0x6C and cGameObj_getPos at 0x84, so `getPos` (0x68/0x6C) and `lockOn` (0x80/0x84) look swapped; the header comment's "getLockOnPos and getHitCheckPos both call it" fits 0x84 being getPos. drafts/cod/001a4010.c and src/cod/00149378.c (EffObj) use local views of the 0x80/0x84 pair.
+- cScenario.h: name the byte at 0x14 (split unk00 into unk00[0x14], `unsigned char unk14; /* 0x14 nonzero (1) while an event runs; the action-button checks skip then */`, unk15[0x7]). Readers through raw offsets: src/cod/001633a0.c, src/cod/00162b18.c, drafts/cod/0028e580.c.
+- D_003EE338 (the SFXLIB handle pool) has three types: `char[]` (0035f8b8.c), `int` (00325360.c, the live count at 0 that func_0035FB88 decrements), `unsigned char[]` with a Root3EE338 view (0035fa88.c, and func_0035F970 from the handoff increments it as an int). Give it one struct type in sfxlib.h (count at 0x00, 8 at 0x04, entries after; 0x4C8 bytes). func_0035FB88's definition takes `int a0` but its callers pass the handle pointer; retype it to the handle type when sfxlib.h gets the struct.
+
+## Batch 143
+- New header (spring mesh): `SpringNode` (0x50), `SpringLink` (0x18), `SpringMesh` (cols 0x0, rows 0x4, nodes 0x10, links 0x14), plus `SpringNodeDef`/`SpringLinkDef`, from drafts/cod/002ad2b8.c. src/cod/002ad590.c reads the same records through raw offsets.
+- `void func_002AD2B8(SpringMesh *self, unsigned int count, SpringNodeDef *nodeDefs, int nodeCount, SpringLinkDef *linkDefs, int linkCount, float total)`: retail never sets v0, but src/cod/00182ff8.c declares it `int` and returns its result (001717c0.c has `void`). Fix the caller when the prototype moves to the header.
+- `float capVu0Length(void *a0)` (defined in 001f7df8.c) is declared locally in about 20 files; move it to sceVu0.h.
+- New ADXT header: `signed char D_003C7420[]` (16 handles of 0xC8; src/cod/00323a00.c declares it `int`), `Forward33B658_33E678`/`Forward33B670_33E690` (ADXCRS lock/unlock, declared locally in 6+ files), `void func_0032CFC8(signed char *adxt)` and `void ADXT_ExecHndl(signed char *adxt)` (changed from `int` in 00322f58.c in batch 143; still matches), `volatile int D_003D140C` (server stage guard, src/cod/0032afb0.c), `int D_003D1414`.
+- mwPly.h: add `int span` at 0x118 and `float rate` at 0x1E4 to MwPly (split unk094 and the tail; 0032de38.c writes rate through a raw offset). Then register build/scratch/0032dd70_ckpt.c (func_0032DD70, cygnus-2.96, fp_hazard_rules cmpfull; matches against a scratch view with the same offsets).
+- `func_00328C80(void *h, int a, int b)`: 00335f20.c and 0032dd70 pass the handle pointer, but the definition in 002c54e8.c takes `int a0`. Correct the definition and move the prototype to a header.
+- func_003452D8 (MWSFD init, cygnus) is blocked on callee signatures: func_00345490 is defined `void (void)` but called with the init record; func_00335D18(int, int) receives a function pointer; Forward348BE0_3452C0/Forward346450_3462A8 are int-typed thunks; MWSFSVM_Error is declared two ways (mwsfd.h variadic, mwsfHn.h single arg). Fix those, then retry.
+
+## Batch 144
+
+- `cOmBase_canCarry` (src/cod/0013c618.c, cOmBase family, off limits while its PR is open) is defined as
+  `long long cOmBase_canCarry(void *)`. SN cc1 rejects a long long return ("unsupported wide integer
+  operation"), so SN callers can't use it. The real signature is `int cOmBase_canCarry(cOmBase *self)`,
+  returning bit 3 of 0x5B0. Once the PR merges, fix the definition, put the prototype in cOmBase.h, then
+  revisit drafts/cod/0012b328.c.
+- `ChkLine` is declared locally with different parameter types in 00275888.c, 0017d488.c and others.
+  It needs one prototype in a header (13 args: from, to, a2 ptr, then 10 ints).
+- `D_00754C58` (the game object list) is `cMcObjList *` in cMc.c and `char *` in 002aa480.c; move the
+  `cMcObjList *` extern into cMc.h.
+- cEm00/cOmBase `posB` (cVec at 0x5D0): 0010c300.c and func_0010C5A8 read 0x5D8 as an int and compare it
+  with 4, so 0x5D0..0x5DF probably isn't one cVec (maybe posB is 3 floats then an int, or a union).
+  Settle the layout, then do func_0010C5A8 (sibling of 0010c300; also needs fields 0x630 cVec,
+  0x674 float, 0x6A0 ptr, 0x15F0 float, 0x15FC float, 0x1602 byte).
+- func_00115310 (player catch state) needs a cVec at 0x580 inside cGameObj's range (cGameObj is off limits); after the PR merges add it, then draft the function with pl00.
+- ADXF globals: D_003EB838 (the ADXF handle being loaded; its stat byte is at +1) and D_003C5298 (the
+  partition read buffer) are declared int in 00322c68.c, 00322f80.c and 00320388.c. func_00324500's
+  definition takes signed char *. Give them one pointer type in adxf.h (with D_003EB834/83C/840 and
+  D_003C529C), then revisit drafts/cod/00323050.c.
+- libgraph: sceGsDispEnv/sceGsGParam are defined separately in 00396158.c and 00396440.c (00396440 as
+  u_long r[5]). They need one libgraph.h header. func_00396560 (syscall 0x80 stub in 00396560.c) is
+  declared void(void) but takes (int mode, int *dx, int *dy, int *dw, int *dh); see
+  drafts/cod/00396570.c.
+
+## Batch 145
+
+- cDvd.h: `cDvdJob.arg6C` is an unsigned queue priority (func_00201290 sorts on it with sltu; every
+  other use is a plain store from a parameter). Rename it `unsigned int priority`, update the three
+  ReadAlloc stores, and declare `void cDvd_startJobHeap(cDvd *self, cDvdJob *job)` (defined in
+  001aa478.c) in cDvd.h. Then drop the casts in drafts/cod/00201290.c.
+- ADX stream (func_003284B8): `Obj3290_Tramp_0033E678_9028` (lock) is declared three ways (K&R in
+  003288e0.c, `(void)` in 00327230.c, `(void *)` in 00328300.c), and `func_00330BB0`/`func_00330C18`
+  are defined in 00328300.c as one-parameter forwarders while 003288e0.c and func_003284B8 pass three
+  (handle, offset/count, buffer) that the vtable target reads. Fix the forwarder signatures and give
+  them one header (with the stream handle struct, 0x60 bytes) before func_003284B8.
+- Tooling, not a header: func_003AD348 (fmod, drafts/cod/003ad348.c) is blocked by the assembler.
+  Retail expands `dli $r,0xffffffff` as addiu -1/dsrl32 (needs as: sn) and also pads call-free
+  short loops, which ps2eeas does not; neither assembler route gives both today.
+- cCoreSave.h: `cCoreSave_getReelSlot`'s slot parameter is `unsigned char` (every caller masks it
+  with andi 0xFF; the definition in 0015fd68.c masks an int by hand). Also declare
+  `void cIDBase_move(cIDBaseObj *self)` in cIDBase.h (0013da98.c and 001f28f0.c each declare it
+  locally as void(void *)). Then revisit drafts/cod/00161d08.c.
+- Matrix helpers for cCamera_update (drafts/cod/00138740.c), each declared locally (some K&R) in a
+  dozen files: MtxCopy(float *dst, float *src), MtxMultiply(float *dst, float *a, float *b),
+  sceVu0UnitMatrix(float *m), func_0030A2E0 (sceVu0MulMatrix: dst, a, b), func_0030AA40
+  (sceVu0ViewScreenMatrix: m, then 9 floats), capVu0Sin(float), func_003A1AE8 (tanf) and
+  cCamera_calcViewMatrix(struct cCamera *). They belong in sceVu0.h / cCamera.h. Tooling: retail's
+  div.s pad depth in this function varies 0/1/2 by site, which no fp_hazard_rules set models.
+- Sound sequencer (blocks func_002CCD80, BGM node switching): the sequence object's methods are
+  defined with clashing parameter types: func_00373B30(int *) in 001abd40.c,
+  GetSequenceBlendWeight_373938(void *, int) and SetSequenceFlags_373810(void *, int) in 00373158.c,
+  func_003738A0(S3738A0 *, int, float) in 003738a0.c, func_00373A58(int *) in 00327e18.c,
+  ClearFlagBits_373858(void *, unsigned int) in 002b5bb8.c; cSnd_GetBgmAttr and func_002CCB58 have no
+  C definition yet. One sequence type and one header (cSndSeq.h) first.
+
+## Batch 146
+
+- cRoomSave.h: declare `void func_002BEDC8(cRoomSave *self, int num)` (sets data->emNum; defined in
+  002af638.c). 0014a038.c declares it and func_002BEDE8 against cEmSetTable/cEmSetEntry; func_002BEDE8
+  really takes (cRoomSave *, unsigned int num, cRoomSaveSrc *src). Declare
+  `void func_002BEDE8(cRoomSave *self, unsigned int num, cRoomSaveSrc *src)` there too and switch
+  0014a038.c to it (check its unit still matches). Draft: drafts/cod/002bede8.c.
+- seqNode.h: split `unk40[0x4A - 0x40]` into `unk40[0x44 - 0x40]`, `short pan; /* 0x44 */`,
+  `unk46[0x4A - 0x46]`. Declare `void func_003780F8(unsigned short angle, float *l, float *r)`
+  (pan-gain table lookup, matched in src/cod/003780f8.c) and `void func_0037D558(SeqNode *self)` (now
+  declared locally as void(void *) in 0037bf10.c and void(SeqNode *) in 0037cce0.c).
+- `int Obj0000_Get_D_0076A7A4_3756F0(void)` (sound output mode: 0 mono, 1 stereo, 2 surround) is
+  declared locally in six files, once as (int) in 002cf258.c. Give it one header (seqNode.h or the
+  sound header) and fix 002cf258.c.
+- HELD for checkpoint: func_0037D558 matches (build/scratch/0037d558_ckpt.c) with
+  fp_hazard_rules "mtc1" once the three items above land; register it as new TU src/cod/0037d558.c.
+  The switch keeps an explicit empty `case 0:` (mono) because retail's compare tree tests all three modes.
+- RecDecode (new recDecode.h): move RecIn/RecOut out of 001599b0.c and give RecOut its curve keys
+  `float next; /* 0x14 */ float tanA; /* 0x18 */ float tanB; /* 0x1C */`. Declare
+  `void RecDecode_readHeader(RecOut *out, char *blob, RecIn *in)` there (0014b9a0.c declares it as
+  void(void *, void *, void *)), plus func_00159DA0(RecOut *) and
+  `float func_00159AD0(RecOut *self, char *blob, RecIn *in, float t)`. drafts/cod/00159ad0.c then
+  switches from its RecCurve/RecCurveIn views to the header types.
+- func_002FE8A0 (drafts/cod/002fe8a0.c) needs `float *func_002B6328(cNode *node)` (defined in
+  00126770.c as int(int)) and `void MtxCopy(float *dst, float *src)` (K&R in many files) in shared
+  headers, plus the screen globals D_003C1180 / D_003C118C / D_00586B80 (declared locally in five files).
+- gameWork.h: retail reaches GameWork 0x584 / 0x58C / 0x5E4 through one symbol at 0x747A24 (one lui,
+  offsets 0, 8, 0x60), so that block is its own global, today declared `extern int D_00747A24`.
+  Give it a struct (flags unsigned at 0x00, GameSys.unk00 at 0x08, flags5E4 at 0x60; see the GameFlags
+  view in drafts/cod/0013e970.c) and move the users of `D_00747A24` over. Also declare
+  `void cIDBase_move(cIDBaseObj *self)` (already listed under batch 145).
+- Tooling: func_0013E970 pads its two div.s sites 0 and 2 nops (same per-site variation as
+  cCamera_update); no fp_hazard_rules set models it.
+- HELD for checkpoint: func_0012F288 matches (build/scratch/0012f288_ckpt.c, fp_hazard_rules "fdiv",
+  new TU src/cod/0012f288.c). Needs a header (cGrid.h) holding the cGrid type from that file and
+  prototypes for its callees, defined in legacy files without headers:
+  `void func_00133948(void *self, void *a, void *b)` (00133948.c, VU0 min/max sort; self unused) and
+  `int func_00133408(void *self, float *min, float *max, float *boxMin, float *boxMax)` (00133408.c).
+- func_002956F0 (draft drafts/cod/002956f0.c): when headers land, replace its views with
+  - cEmWrap.h `cEmActorVt`: split unk80 into posDelta/getPos (0x80/0x84) and rotDelta/getRot (0x88/0x8C);
+  - cEmSetParam.h: `cEmSetEntry saved[2]` at 0x10; func_00295660 prototype (legacy `char *(char *)` in 001fe1e0.c) as `cEmSetEntry *(cEmSetParam *)`;
+  - cScenario.h: byte at 0x14 (split unk00);
+  - shared enemy-kind inline (0x200..0x2FF) for 002d0b88.c `SndIsEnemyKind` and this draft.
+  Blocker: retail cvt.w.s for the float->short casts.
+- func_002C45A8 (draft drafts/cod/002c45a8.c, s0/s1 swap only): replace its views when headers land:
+  - cScenario.h: `cVec pos` 0x00, `float angle` 0x10, `unsigned char jumping` 0x14, `unsigned short fromRoom` 0x16 (split unk00; needs cOmBase.h for cVec);
+  - player getters: cGameObjVt entries 16/17 (0x80/0x88) return the position/rotation (cGameObj.h is off limits: its 0x80 pair is named lockOn and returns void);
+  - one shared prototype each for cSaveManager_setCheckPoint (5 local copies), cScenario_beginRoomJump_2C4548, D_003C264C (typed void*, int, ... across files).
+- cCoreSave.h: func_002C0038 and func_002BFC80 copy combo[] (0x1B0, 0xD8 bytes) and skill[] (0xB0, 0x80 bytes) as whole blocks with lq/sq, so retail's types for those two members are 16-byte aligned aggregates (wrapping structs or aligned arrays). The current char/cCoreSaveCombo members are 4-aligned. Both functions also copy flags+unk18 (0x14, 8 bytes, ldl/ldr), fightingRingClear (0xB98, 2x ld), reelSlot (0x98, ld + lhu) as units.
+- Tooling: lwu + dsra + andi single-bit tests (func_001BC300 0x620, func_00123160 0x528, func_002C02E8 D_00568240) have no clean C form found (unsigned/signed int bitfields give lw+srl, u_long bitfields give ld). Legacy cOmDoor_setOpen reaches lwu through `long` locals.
+- cOmDoor_setClose: func_001BC300 passes a second argument (0) in a1; check the definition in 001bd120.c before matching it.
+- adxt.h (new): the 0xC8-byte ADXT handle (AdxtObj, local in 003298f0.c and in the draft drafts/cod/00329490.c = ADXT_Create) with sjf 0x10, sji 0x14, sjo[2] 0x18, ibuf 0x20, ibufbsize 0x24, ibufxlen 0x28, obuf 0x2C, obufsize 0x30, obufdist 0x34, svrfreq 0x38, maxsct/minsct 0x3C/0x3E, outvol 0x40, outpan[2] 0x42, lsc 0x94, ibufend 0xB0; D_003C7420 as `AdxtObj[16]` (00324040.c, 00323a00.c, 00324ac8.c declare it as char/int); func_003298F0, func_0032B6A0 (two definitions disagree: void* vs int), func_0032AB20, func_003395A0 (SJRBF create, `int` in 002c54e8.c) prototypes. The draft needs drop-reorder.
+- func_0032A1B0 (draft drafts/cod/0032a1b0.c, ADXT_GetTime on the vsync clock, 3 diffs): needs cmpfull,libm-mtc1 and drop-reorder. Its AdxtTimeHn view belongs in the adxt.h above: stat 0x01 (also AdxDecHn.stat in 0032a018.c), vsyncFrozen 0x72, ofs 0x88, baseCount 0x9C (unsigned), baseVsync 0xA0. Globals D_003C7418, D_003D1408, D_003D142C, D_003D1454, D_003D1458 (float) want one declaration each; func_0032A018's definition takes AdxDecHn, a second local view of the same handle.
+- cSnd.h: listenPos (0xC0) is a cVec (retail copies the camera target into it with lq/sq; draft drafts/cod/002cc150.c = cSnd_UpdateListener). sceVu0.h wants sceVu0CameraMatrix, sceVu0AddVector, sceVu0ScaleVectorXYZ and func_0030A548 (matrix copy, also MtxCopy's callee) prototypes; D_00747A84 (= D_007474A0 + 0x5E4) wants one declaration next to D_00747A24 in gameWork.h.
+
+## Checkpoint after batch 149 (applied)
+- APPLIED through header_merge (12 units rebuilt identical): seqNode.h `short pan` at 0x44 plus func_0037D558, func_003780F8 and Obj0000_Get_D_0076A7A4_3756F0 prototypes (0037cce0.c's local copy dropped); new cGrid.h (cGrid, func_00133948, func_00133408); mwPly.h `span` 0x118, `rate` 0x1E4 and `int func_00328C80(void *h, int a, int b)`; mwsfd.h `void func_0032B488(void *adxt, int db, int frac)` with src/cod/0032b488.c corrected to it. Registered func_0037D558, func_0012F288, func_00349C28, func_0032DD70.
+- STILL OPEN: func_00328C80's definition in 002c54e8.c takes `int a0`, and 0032e620.c / 000000.c declare it void-returning; move them to the mwPly.h prototype. Obj0000_Get_D_0076A7A4_3756F0 is still declared locally in six files (as `(int)` in 002cf258.c).
+- STILL HELD: func_0013D7B0 (build/scratch/0013d7b0_ckpt.c) needs cIDBaseEnt.jit unsigned, one shared type for D_005CAC90 (three today: 0013d7b0 hold, 002a5998.c, 002a72c8.c/JukeBox.c), and header prototypes for cSnd_SeCall_2CB8A0, cIDBase_move, func_002AC9B8 and D_005FEE00.
+- NM handoff not applied: progress/nm_solved/ holds func_0032A1B0, cSnd_UpdateListener, func_00365EC0, MoveEmitter, MoveEsp, Turn_dest. An apply run was interrupted mid-transaction and left the cSnd_UpdateListener header requests applied (cVecQuad typedef in cOmBase.h, cOmBase.h include and `cVecQuad listenPos` in cSnd.h); all three were reverted by hand to the prior text, and nothing was registered. cOmBase.h is off limits while its PR is open, so that folder waits. func_0032A1B0's solved form uses `*ncount += (int)(adxt->baseCount + 1);` (baseCount is really unsigned; the plain form is 6 insns off), which the reviewer should confirm.

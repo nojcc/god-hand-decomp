@@ -285,3 +285,19 @@ This tree now lives in `/Users/joncaceres/god-hand-decomp` on branch `work`. The
 - **Processes:** godhand-nix runs only its `sleep infinity` init (docker top). No compile.py, reseed, handoff, session_check or permuter process is running on the host.
 
 Stopped for upstream sync
+
+## Checkpoint (single-agent, batches 140-149; header merge applied for the held functions) — 2026-10-22T13:45:00Z
+
+- **% fully linked:** 54.1041% (1534600 / 2836384 code bytes; report regenerated through container_run.sh scripts/progress.sh at 13:42Z). Data 83.0150% (unchanged). +14276 B over the last entry (1520324).
+- **Since last entry (batch log rows after 2026-10-21T20:05Z):** 20 matched rows (11224 B, including the four checkpoint registrations), 39 parked NON_MATCHING (24892 B), 81 skipped (57808 B: cvt.w.s on sn, jump tables, handwritten VU0, lwu bit tests, the off-limits cObjSimple child-model code). Batches 147, 148 and 149 each registered nothing; the small sn queue is exhausted.
+- **Areas worked:** debug print / sound debug pages 0x381xxx, sequencer 0x372xxx-0x37Dxxx, slot machine 0x1F5xxx, TIM2 loader 0x15Exxx, CRI ADXT / MWSFD / movie player 0x329xxx-0x34Axxx, sound listener 0x2CC150, scenario jumps 0x2C45A8, enemy pose 0x2956F0, SFX ramps 0x366xxx.
+- **Header merge:** applied only the items the held functions needed (seqNode.h pan and prototypes, new cGrid.h, mwPly.h span/rate and the func_00328C80 prototype, mwsfd.h func_0032B488 with its definition corrected); header_merge rebuilt 12 units with identical objects. Everything else stays in pending_headers.md.
+- **Registered at the checkpoint:** func_0037D558 (fp_hazard_rules "mtc1"), func_0012F288 (fp_hazard_rules "fdiv"), func_00349C28 (c_flags_drop -freorder-blocks), func_0032DD70 (fp_hazard_rules "cmpfull"). func_0013D7B0 stays held: it needs one shared type for D_005CAC90 and several shared prototypes (pending_headers.md).
+- **NM closer handoffs:** not applied. progress/nm_solved/ holds six folders (func_0032A1B0, cSnd_UpdateListener, func_00365EC0, MoveEmitter, MoveEsp, Turn_dest). The apply run took over 30 minutes and was stopped; it had written cSnd_UpdateListener's header requests (a cVecQuad typedef in the off-limits cOmBase.h, and cSnd.h listenPos) without registering anything. Those edits were reverted by hand to the prior text before the full and cold builds.
+- **New drafts (batches 140-149):** among them drafts/cod/002956f0.c, 00366110.c, 00366368.c, 002c45a8.c (same length, s0/s1 swap only), 00329490.c (ADXT_Create), 0032a1b0.c (ADXT_GetTime, solved by the NM closer), 002cc150.c (cSnd_UpdateListener).
+- **Builds:** full build after the revert and cold build (container_run.sh .venv/bin/python compile.py --cold) both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseed func_003780F8 elf=OK overlay=OK. Logs: build/scratch/build_stop.log, build_stop_cold.log, reseed_stop.out.
+- **Checks:** session_check through batch 149 gave 18 pass plus the known dual_compiler_regress rc=126 (argument list too long inside session_check). The standalone dual_compiler_regress last passed at batch 148 and was not rerun after the checkpoint registrations.
+- **Tooling notes:** a killed nm_handoff --apply leaves its HeaderTxn edits in place (no undo on signal). Sn has no clean form for retail's cvt.w.s or lwu + dsra + andi bit tests.
+- **Processes:** godhand-nix runs only its `sleep infinity` init (docker top). No compile.py, reseed, handoff, session_check, dual_compiler_regress or permuter process is running on the host.
+
+Stopped for upstream sync
