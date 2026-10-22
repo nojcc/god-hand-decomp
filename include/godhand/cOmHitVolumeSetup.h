@@ -32,20 +32,4 @@ static __inline__ void cOmHitVolume_initWork(cOmHitVolume *em, int hp, char *tab
     em->unk5F4 = -1;
 }
 
-/* The work defaults the effect-registering setups write: hit points, the entry table,
- * and the timer pair at 0x5E8/0x5F0. */
-static __inline__ void cOmHitVolume_initWork(cOmHitVolume *em, int hp, char *table, int count, int kind, int timer)
-{
-    em->unk5E8 = timer;
-    em->unk5E4 = 0;
-    em->unk5F0 = timer;
-    em->unk5F6 = 0;
-    em->base.hpMax = hp;
-    em->base.hp = hp;
-    em->table = table;
-    em->count = count;
-    em->unk5EC = kind;
-    em->unk5F4 = -1;
-}
-
 #endif /* GODHAND_COMHITVOLUMESETUP_H */
