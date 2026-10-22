@@ -3,6 +3,8 @@
 #include "include_asm.h"
 #include "godhand/cEma2.h"
 #include "godhand/objField.h"
+#include "godhand/criStm.h"
+#include "godhand/adxf.h"
 
 /* ------------------------------------------------------------------ */
 /* Externs unified across the 7-function D_0044BED0 cluster.          */
