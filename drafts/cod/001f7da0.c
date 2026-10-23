@@ -9,6 +9,8 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cRoomSave.h"
+#include "godhand/cDoor.h"
 extern char D_0076A790[];
 
 __attribute__((section(".text.Adjust_theta_vec")))
@@ -46,54 +48,49 @@ int func_002A4BA0(char *base, unsigned int id)
 }
 
 __attribute__((section(".text.func_002BEAA8")))
-void *func_002BEAA8(int **a0, unsigned int key)
+cRoomJumpGroup *func_002BEAA8(cRoomJump *self, unsigned short id)
 {
-    char *p = (char *)*a0;
+    cRoomJumpTbl *tbl = (cRoomJumpTbl *)self->tbl;
+    cRoomJumpGroup *g;
     unsigned int n;
-    char *slot;
     unsigned int i;
 
-    key &= 0xFFFF;
-    if (p == 0)
+    if (tbl == 0) {
         return 0;
-    n = *(unsigned int *)p;
-    if (n == 0)
+    }
+    n = tbl->groupNum;
+    if (n == 0) {
         return 0;
-    p += 0x10;
-    slot = p;
-    i = 0;
-    do {
-        i++;
-        if (*(unsigned short *)p == key)
-            return slot;
-        slot += 4;
-        p += 4;
-    } while (i < n);
+    }
+    g = tbl->group;
+    for (i = 0; i < n; i++) {
+        if (g[i].id == id) {
+            return &g[i];
+        }
+    }
     return 0;
 }
 
+/* Mark the one-shot slot `key` used: store the key in the first empty slot
+ * of the page. Retail walks the slots with two pointers (one for the test,
+ * one for the store); this keeps one, a word shorter. */
 __attribute__((section(".text.func_002BECB0")))
-void func_002BECB0(int **a0, int *val)
+void func_002BECB0(cRoomSave *self, long key)
 {
-    unsigned int i = 0;
-    char *base;
-    char *slot;
+    cRoomSaveSlot *t;
+    unsigned int i;
 
-    if (val == 0)
+    if (key == 0) {
         return;
-    base = (char *)*a0 + 0x610;
-    slot = base;
-    do {
-        if (*(int *)base == 0 && *((int *)base + 1) == 0) {
-            *(int **)slot = val;
-            base = (char *)*a0 + (i << 4);
-            *((char *)base + 0x618) = 1;
+    }
+    t = self->data->slot;
+    for (i = 0; i < ROOMSAVE_SLOT_NUM; i++) {
+        if (t[i].key == 0) {
+            t[i].key = key;
+            self->data->slot[i].used = 1;
             return;
         }
-        i++;
-        slot += 0x10;
-        base += 0x10;
-    } while (i < 0x100);
+    }
 }
 
 __attribute__((section(".text.func_00377FA0")))

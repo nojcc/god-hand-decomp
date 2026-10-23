@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/seqNode.h"
+
 extern void func_003182D8(int a, int b);
 extern void func_0031CE90(int a, int b);
 extern unsigned char D_0045F039[];
@@ -10,7 +12,6 @@ extern void cCollisionSolidManage_ReleaseUnit(void *a0, void *a1);
 extern void EmitterAllKill(void);
 extern void EspAllKill(void);
 extern void func_00386D70(void);
-extern void func_0037BE98(void);
 extern void FlushCache(int mode);
 extern int sceIpuStopDMA(int chan);
 extern int sceIpuRestartDMA(int chan);

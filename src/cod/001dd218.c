@@ -1,8 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/espSys.h"
+
 extern int sceSifFreeSysMemory(void *);
 extern void CustomIDWork_SetNumber(void *, int);
-extern int FindAndForwardEntry_3059A8(void *, int, void *);
 
 __attribute__((section(".text.Tramp_sceSifFreeSysMemory_3B5A50")))
 int Tramp_sceSifFreeSysMemory_3B5A50(void *a0) {

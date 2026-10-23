@@ -1,10 +1,9 @@
-/* NON_MATCHING func_001EBB78 (sn-2.95.3-136): 54 vs 55 words, 19 differing. The flag test (lwu/dsra/andi) matches; retail uses branch-likely for both skips, decrements the delay in the branch slot, and loads f12 before a0 for SetMotionStep. */
+/* NON_MATCHING func_001EBB78 (sn-2.95.3-136): 2 differing. Retail loads the saved step into f12 before the object into a0 for SetMotionStep; ours loads them the other way round. Only a block-scoped float temporary for the step reorders them. */
 /* sn-2.95.3-136: func_001EBB78, run the owner's five delayed motions: each one not yet started counts its
  * delay down, and when it runs out the motion is marked started and its object starts it at its step. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-
 /* What a delayed motion passes on when it starts. */
 typedef struct MotionArgs {
     int kind;                           /* 0x00 */
@@ -30,27 +29,27 @@ extern void cOm71_SetMotionRun(void *a0);
 extern void SetMotionStep(void *a0, float f12);
 
 /* Count the delay down; nonzero once it has run out. */
+/* Count the delay down; nonzero once it has run out. */
 static inline unsigned char delayDone(DelayedMotion *m)
 {
-    int done;
-
     if (m->args.delay != 0) {
         m->args.delay--;
-        done = 0;
-    } else {
-        done = 1;
+        return 0;
     }
-    return done;
+    return 1;
 }
 
 __attribute__((section(".text.func_001EBB78")))
 void func_001EBB78(char *owner)
 {
-    DelayedMotion *m = (DelayedMotion *)(owner + 0x5C);
+    DelayedMotion *m;
     int i;
 
-    for (i = 0; i < MOTION_NUM; i++, m++) {
-        long flags = (unsigned int)m->flags;
+    for (i = 0; i < MOTION_NUM; i++) {
+        long flags;
+
+        m = (DelayedMotion *)(owner + 0x5C) + i;
+        flags = (unsigned int)m->flags;
 
         if ((flags >> 1 & 1) == 0 && delayDone(m)) {
             MotionArgs args = m->args;

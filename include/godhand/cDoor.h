@@ -25,6 +25,22 @@ typedef struct cRoomJump {
     int tbl;                            /* 0x00 table address, from D_00747A44 */
 } cRoomJump;
 
+/* A group of 0x30-byte jump records in the room's jump table. */
+typedef struct cRoomJumpGroup {
+    unsigned short id;                  /* 0x00 */
+    unsigned char count;                /* 0x02 records in the group */
+    unsigned char first;                /* 0x03 index of the group's first record */
+} cRoomJumpGroup;
+
+/* The header at the jump table address. */
+typedef struct cRoomJumpTbl {
+    unsigned int groupNum;              /* 0x00 */
+    char unk04[4];
+    int recOfs;                         /* 0x08 byte offset of the record array */
+    char unk0C[4];
+    cRoomJumpGroup group[1];            /* 0x10 groupNum entries */
+} cRoomJumpTbl;
+
 /* Where a jump lands: a position, a heading and the jump point it came from. */
 typedef struct cDoorPoint {
     float pos[3];                       /* 0x00 */
@@ -86,5 +102,6 @@ typedef struct cDoorWorld {
 typedef char cDoorPoint_size_check[(sizeof(cDoorPoint) == 0x18) ? 1 : -1];
 
 extern void cRoomJump_setTblAddr(cRoomJump *self, int tbl);
+extern cRoomJumpGroup *func_002BEAA8(cRoomJump *self, unsigned short id);
 
 #endif

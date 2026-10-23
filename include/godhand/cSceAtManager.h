@@ -63,4 +63,8 @@ typedef struct cSceAtManager {
 #define SCEAT_LINK_UNIT  0x80000000
 #define SCEAT_LINK_ADDR  0x7FFFFFFF
 
+extern cSceAtManager D_005FEA60;        /* the scene's attack manager */
+
+extern int FindNodeByHit_2C2490(cSceAtManager *self, void *shape, float *out);
+
 #endif

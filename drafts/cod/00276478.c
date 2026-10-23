@@ -1,6 +1,5 @@
-/* NON_MATCHING func_00276478 (sn-2.95.3-136): 19 differing words. Retail tests emNo
- * with xori, extracts bit 6 of D_00747A84 with dsrl, and builds ~0x10 for objFlags with
- * lui/ori (an unsigned constant); the int types used here give li/bne, srl and addiu. */
+/* NON_MATCHING func_00276478 (sn-2.95.3-136): matches as written, but only with the unsigned flag constant
+ * OBJFLAG_SEE_THROUGH (0x10u): retail builds ~0x10 for objFlags with lui/ori. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -13,7 +12,7 @@
 #define EM_NO_SCREEN_GHOST   0x26A
 #define SYSFLAG_SCENE_HIDE   0x20000000
 #define EMFLAG_SECOND_PART   0x1000000
-#define OBJFLAG_SEE_THROUGH  0x10
+#define OBJFLAG_SEE_THROUGH  0x10u
 #define GHOST_RATE           0.3f
 #define GHOST_HEAD_NEAR_SQ   64.0f
 #define GHOST_PART_NEAR_SQ   36.0f
@@ -24,8 +23,14 @@ typedef struct GhostFrame {
     int childNum;
 } GhostFrame;
 
-extern unsigned int D_00747A84;
+extern int D_00747A84;
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
+
+/* Whether the enemy is the screen ghost. */
+static __inline__ int Em_isScreenGhost(cEm00 *self)
+{
+    return self->emNo == EM_NO_SCREEN_GHOST;
+}
 
 /* Makes the enemy see-through and slow while the camera target is close to its head
  * child (or, when flagged, its ninth child); otherwise restores it. */
@@ -34,16 +39,20 @@ void func_00276478(cEm00 *self)
 {
     GhostFrame f;
     cOmBase *child;
-    unsigned int flags;
+    int flags;
+    unsigned long word;
+    unsigned long bit;
     int near;
 
-    if (self->emNo != EM_NO_SCREEN_GHOST) {
+    if (!Em_isScreenGhost(self)) {
         return;
     }
     flags = D_00747A84;
     if (!(flags & SYSFLAG_SCENE_HIDE)) {
         if (!(flags & SAVELOAD_FLAG_BUSY)) {
-            if (!((flags >> 6) & 1)) {
+            word = flags;
+            bit = (word >> 6) & 1;
+            if (bit == 0) {
                 if (D_005CAFF0 == 0) {
                     return;
                 }
@@ -61,15 +70,15 @@ void func_00276478(cEm00 *self)
                     }
                 }
                 if (near) {
-                    self->objFlags |= OBJFLAG_SEE_THROUGH;
                     self->animRate = GHOST_RATE;
+                    self->objFlags |= OBJFLAG_SEE_THROUGH;
                     return;
                 }
             }
         }
     }
-    self->objFlags &= ~OBJFLAG_SEE_THROUGH;
     self->animRate = 1.0f;
+    self->objFlags &= ~OBJFLAG_SEE_THROUGH;
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_00276478);

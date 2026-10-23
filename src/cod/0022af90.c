@@ -38,7 +38,7 @@ __attribute__((section(".text.func_0024A518"))) void func_0024A518(cEm00 *self)
                 func_002812A8((void *)self->sub0, 1, 0);
             }
             if ((void *)self->sub1 != 0) {
-                func_002831C8((void *)self->sub1, 1, 0);
+                func_002831C8((cGameObj *)self->sub1, 1, 0);
             }
             self->step++;
         case 1:
@@ -59,7 +59,7 @@ __attribute__((section(".text.func_0024A518"))) void func_0024A518(cEm00 *self)
                 func_002812A8((void *)self->sub0, 2, 0);
             }
             if ((void *)self->sub1 != 0) {
-                func_002831C8((void *)self->sub1, 2, 0);
+                func_002831C8((cGameObj *)self->sub1, 2, 0);
             }
             self->timer = 30.0f;
             self->step++;

@@ -30,14 +30,3 @@ cSndKindEnt *func_002D0B88(unsigned short id)
     }
     return found;
 }
-
-static inline unsigned char SndIsEnemyKind(int kind)
-{
-    return kind >= COLISEUM_EM_KIND_FIRST && kind < COLISEUM_EM_KIND_END;
-}
-
-static inline unsigned char SndIsBossKind(int kind)
-{
-    return kind >= COLISEUM_EM_KIND_BOSS && kind < COLISEUM_EM_KIND_END;
-}
-

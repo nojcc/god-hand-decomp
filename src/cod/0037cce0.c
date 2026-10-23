@@ -4,7 +4,6 @@
 extern void SndMix_calcVoiceLevel(SeqNode *self);
 extern void func_0037D680(SeqNode *self);
 extern void func_0037D728(SeqNode *self);
-extern void func_0037C720(SeqNode *self);
 extern void func_003738A0(void *node, int a1, float w);
 extern void UpdateSequenceNodeWeighted_373560(void *node, int a1, float w);
 

@@ -14,8 +14,6 @@ extern void *func_002D50C0(void *a0);
 extern int D_0044D1A8;
 typedef struct { unsigned char b[16]; } Quad16_b29;
 extern Quad16_b29 D_005FEB00;
-extern void CustomIDWork_SetLocalPosX(void *a0, int x);
-extern int D_00747A0C;
 
 __attribute__((section(".text.func_0030A2E0")))
 void func_0030A2E0(float *dst, float *mtx, float *src)
@@ -50,25 +48,6 @@ void func_00156550(int *dst, int *src)
     *dst = *src;
 }
 
-__attribute__((section(".text.func_001DF7D0")))
-void func_001DF7D0(char *self, int cond)
-{
-    int v = D_00747A0C;
-    int a1;
-    int alt;
-
-    if (v == 0 || v < 0 || !(v < 7)) {
-        a1 = 0x12;
-        alt = -0x61;
-    } else {
-        a1 = 0x19;
-        alt = -0x4F;
-    }
-    if (cond)
-        a1 = alt;
-    CustomIDWork_SetLocalPosX(self + 0x440, a1);
-}
-
 __attribute__((section(".text.Adjust_theta")))
 float Adjust_theta(float th)
 {
@@ -83,6 +62,5 @@ float Adjust_theta(float th)
 INCLUDE_ASM("asm/nonmatching", func_0030A2E0);
 INCLUDE_ASM("asm/nonmatching", func_002C5338);
 INCLUDE_ASM("asm/nonmatching", func_00156550);
-INCLUDE_ASM("asm/nonmatching", func_001DF7D0);
 INCLUDE_ASM("asm/nonmatching", Adjust_theta);
 #endif

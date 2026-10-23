@@ -86,7 +86,7 @@ void func_001E32E8(int a0, float *a1, float *a2) {
 
 
 __attribute__((section(".text.func_001E3388")))
-void func_001E3388(void) {
+void func_001E3388(void *self) /* self is not read */ {
     cCamManager_setPlCamera(D_00463050, 0);
 }
 
