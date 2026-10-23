@@ -19,6 +19,12 @@ typedef struct MenuInfo {
     int handle;                 /* 0x30 */
 } MenuInfo;
 
+/* The loaded file table a menu list shows. */
+typedef struct MenuDir {
+    int unk00;
+    int count;                  /* 0x04 */
+} MenuDir;
+
 typedef struct MenuList {
     unsigned char unk00;
     unsigned char result;       /* 0x01 */
@@ -33,7 +39,7 @@ typedef struct MenuList {
     char unk48[0x4C - 0x48];
     MenuInfo info;              /* 0x4C */
     char unk80[0x84 - 0x80];
-    int f84;                    /* 0x84 */
+    struct MenuDir *dir;        /* 0x84 */
 } MenuList;
 
 typedef struct MenuCtl {
@@ -104,6 +110,8 @@ extern int GuardedCall_00329FD0_329F98(int handle);
 extern int func_00380AE8(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern void func_00380EB0(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern int func_0037FD28(FileSel *sel, FileSelWork *work);
+extern void func_0037FC28(FileSel *self);
+extern void func_0037FF98(MenuCtl *ctl);
 extern int func_00323918(int a0, int idx);
 
 /* One row of the option menu pages (D_003F21E8, D_003F2368, D_003F24D0). */

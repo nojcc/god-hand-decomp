@@ -15,6 +15,8 @@
 #ifndef GODHAND_COMSUB_H
 #define GODHAND_COMSUB_H
 
+#include "godhand/cOmBase.h"
+
 #define COMSUB_PART_COUNT   8
 #define COMSUB_REVERSED     1           /* setReverse argument and state */
 
@@ -26,7 +28,16 @@ typedef struct cOmSub {
     void *obj;                          /* 0x04 the object the record is bound to */
     void *ent;                          /* 0x08 the entry of obj it follows */
     void *part[COMSUB_PART_COUNT];      /* 0x0C model parts to recompute, 0 ends a slot */
-    char unk2C[0x104];
+    char unk2C[0x70 - 0x2C];
+    cVec posA;                          /* 0x70 the two base points */
+    cVec posB;                          /* 0x80 */
+    cVec moveA;                         /* 0x90 how far each point travels */
+    cVec moveB;                         /* 0xA0 */
+    cVec startA;                        /* 0xB0 where the walk starts */
+    cVec startB;                        /* 0xC0 */
+    cVec goalA;                         /* 0xD0 where it ends */
+    cVec goalB;                         /* 0xE0 */
+    char unkF0[0x130 - 0xF0];
     float curA;                         /* 0x130 current pair */
     float curB;                         /* 0x134 */
     float endA;                         /* 0x138 end pair */

@@ -29,7 +29,7 @@ extern void NoOp_1F0490(ColiseumBattle *self);
  * still alive, then clears the arena's fight flag. */
 
 __attribute__((section(".text.ColiseumBattle_DefeatAllEnemies")))
-void ColiseumBattle_DefeatAllEnemies(void)
+void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self) /* self is not read */
 {
     ColiseumEmNode *node;
     ColiseumEm *em;

@@ -3,8 +3,9 @@ extern char D_005E85F8;
 extern void cCoreSave_clearStateBit0(void *);
 extern void SetGlobalToggle_375700(int);
 
+/* self, the options panel, is not read. */
 __attribute__((section(".text.func_00167EB0")))
-void func_00167EB0(void)
+void func_00167EB0(void *self)
 {
     cCoreSave_clearStateBit0(D_00569B70);
     SetGlobalToggle_375700(1);

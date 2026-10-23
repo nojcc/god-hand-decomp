@@ -204,7 +204,11 @@ typedef struct cEm00 {
     float unk15BC;                          /* 0x15BC countdown, restarts at a random 90 to 180 frames */
     float stepScale;                        /* 0x15C0 scale on stepVec x and z while a knockdown motion runs */
     int unk15C4;                            /* 0x15C4 handle of the item this enemy dropped, 0 while none */
-    char unk15C8[0x2C];
+    char unk15C8[0x8];
+    float hitWait;                          /* 0x15D0 frames before the next hit check, 90 after one */
+    char unk15D4[0xC];
+    cVec hitPos;                            /* 0x15E0 where the last hit check found a unit */
+    char unk15F0[0x4];
     int unk15F4;                            /* 0x15F4 flag word of the derived enemy, 0x10000 is set while the counter runs */
     char unk15F8[0xB];
     unsigned char unk1603;                  /* 0x1603  */
@@ -216,7 +220,8 @@ typedef struct cEm00 {
     int flags1644;                          /* 0x1644 flag word, bit 0x800000 keeps the body down */
     char unk1648[0x8];
     unsigned char unk1650;                  /* 0x1650 set to 4 when a knockdown ends in a stand-up */
-    char unk1651[0x3F];
+    char unk1651[0x2F];
+    cVec aimPos;                            /* 0x1680 the point the player aims at on this enemy */
     cVec wallPoint;                         /* 0x1690 the wall point the dodge checks against */
     cVec unk16A0;                           /* 0x16A0 */
     cVec unk16B0;                           /* 0x16B0 the point the turn aims at when hitKind is 12 */

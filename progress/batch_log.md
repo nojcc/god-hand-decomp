@@ -2352,3 +2352,292 @@ BATCH 130 (subsystems effect node 0x2F6xxx, enemy 0x26Exxx/0x283xxx, scenario 0x
 | 2026-10-22T13:41:28Z | func_00349C28 | 184 | matched | 1 | 0.0 | no | cri-mwsfd |
 | 2026-10-22T13:41:28Z | func_0032DD70 | 132 | matched | 1 | 0.0 | no | movie |
 | 2026-10-22T13:41:28Z | BATCH | - | batch | - | reseed 36.0; score 0.0 | - | checkpoint after 149 (stopped for upstream sync): header_merge seqNode.h pan + prototypes, new cGrid.h, mwPly.h span/rate + func_00328C80, mwsfd.h + func_0032B488 real signature (12 units identical); registered func_0037D558 (mtc1), func_0012F288 (fdiv), func_00349C28 (drop-reorder), func_0032DD70 (cmpfull); func_0013D7B0 still held; nm_solved handoff not applied (interrupted, header edits reverted); full + cold builds both hashes OK |
+| 2026-10-22T19:26:54Z | func_0012C000 | 212 | matched | 5 | 250.0 | no | player combo (0x12Cxxx): combo set used-up check; extern_jtbl D_0041D1A0; each case a full `set == N && slot >= getComboMax` test that cross-jumping merges (shared-tail forms are 1-3 words off); local ComboHolder view (same fields as ComboObj in 00126918.c, pending header); src/cod/0012c000.c |
+| 2026-10-22T19:29:00Z | func_002BF420 | 88 | non-matching | 3 | 120.0 | no | scenario cursor (0x2BFxxx): still 2 insns (retail puts the 4 for keep in the beqz delay slot); store orders, self[3] form and as sn all leave it; draft drafts/cod/002bf420.c unchanged |
+| 2026-10-22T19:30:00Z | cOl0e_setFake | 224 | non-matching | 3 | 60.0 | no | cOl0e (0x173xxx): body matches; retail compares fake in DImode so the gone-test constant 1 is shared; only a long parameter or an int gone (both banned) reproduce it; draft drafts/cod/00173820.c unchanged |
+| 2026-10-22T19:32:25Z | func_001EBB78 | 220 | non-matching | 6 | 145.0 | no | delayed motions (0x1EBxxx): 19 -> 2 insns (loop index form `m = base + i`, delayDone with two returns); last gap is f12/a0 load order for SetMotionStep, closed only by a block-scoped float temporary (steering); draft drafts/cod/001ebb78.c updated |
+| 2026-10-22T19:33:30Z | func_001F7680 | 280 | non-matching | 2 | 65.0 | no | game view request (0x1F7xxx): retail keeps cases 0-3 as separate arms (no cross-jump) and the view record address in a register; view pointer forms still 11 words short; draft unchanged |
+| 2026-10-22T19:37:50Z | func_0030E660 | 1688 | non-matching | 6 | 260.0 | no | libgraph SN copy of sceGsExecStoreImage (0x30Exxx): as sn + extern_jtbl D_004508F0, switch on the u_long SPSM, (u_long) RRW, no qword temp at the tail; 420/422 words: entry RRW/RRH scheduling, IMR mask li 0x200+or+andi 0x7E00, one short-loop pad nop; Tramp_GsGetIMR_3964A0 definition is void but returns GsGetIMR (pending); draft drafts/cod/0030e660.c |
+| 2026-10-22T19:41:15Z | func_002B42F0 | 156 | non-matching | 5 | 195.0 | no | message window (0x2B4xxx): lw+dsrl idiom (`int flags` read once, `unsigned long f = flags`) fixes the prefix; retail keeps the bit-6 arm and case 0x8000 as two state-7 copies where ours cross-jumps; 35/39 words; draft drafts/cod/002b4228.c updated (section attributes added) |
+| 2026-10-22T19:45:34Z | cSubScr_SubScrOn | 436 | non-matching | 8 | 217.5 | no | sub screen (0x160xxx): GameWork anchors traced: retail forms constant D_007474A0+off addresses (anchor +0x5E4, +0x5D8 after Getplayer) and a base pointer for the 0x5D8/0x5E0 copies; 110/109 words, entry register choice left; needs flags5D8/flags5E0 in gameWork.h; draft drafts/cod/00160020.c |
+| 2026-10-22T19:48:17Z | func_001F0A28 | 464 | non-matching | 6 | 159.0 | no | ColiseumBattle (objects) |
+| 2026-10-22T19:54:48Z | func_00285C58 | 608 | non-matching | 6 | 362.1 | yes | cEm00 enemies (hit reaction) |
+| 2026-10-22T19:55:27Z | func_001F3DF0 | 628 | skipped | 0 | 35.3 | yes | ColiseumEmSelect (casino) |
+| 2026-10-22T19:58:34Z | cOmWeapon_SetBreak | 696 | non-matching | 6 | 186.5 | yes | cOmWeapon (objects) |
+| 2026-10-22T20:17:07Z | BATCH | - | batch | - | reseed 88.0; score 0.0 | - | BATCH 150 (near-miss re-sweep: combos, coliseum, enemies, weapons, libgraph): 1 own registered (func_0012C000 combo set used-up test in src/cod/0012c000.c; per-file setting: extern_jtbl D_0041D1A0); drafts rewritten or new: 001ebb78 (2 insns), 002b4228 (func_002B42F0 35/39), 00160020 (cSubScr_SubScrOn), 001f0a28 (14, store order), 00285c58 (7, actor range test), 001d0818 (cOmWeapon_SetBreak, bool-style child lookup); 002bf420, 00173820, 001f7680 still parked; func_001F3DF0 skipped (cScenario_beginRoomJump_2C4548 definition drops the float angle). Handoffs: 2 received, 1 registered (func_0030E660 -> src/cod/0030e660.c, as sn + extern_jtbl D_004508F0; GsGetIMR/Tramp_GsGetIMR_3964A0/func_00396008 corrected to u_long in 00150078.c and 00396008.c; duplicate compiler line removed), 1 held for the checkpoint (cSubScr_SubScrOn, needs gameWork.h flags5D8/flags5E0). Full build in the handoff and reseed: elf/overlay OK. nm_prune 0 stale. session_check 18 pass, 7 skipped, known dual_compiler_regress rc=126 only |
+| 2026-10-22T20:20:31Z | func_00129718 | 724 | non-matching | 4 | 188.3 | yes | pl00 player (caught by enemy) |
+| 2026-10-22T20:21:08Z | Fil_clut_set | 760 | skipped | 0 | 31.6 | yes | filter CLUT (render) |
+| 2026-10-22T20:21:53Z | func_001DAB00 | 788 | skipped | 0 | 44.5 | yes | Poker (casino) - needs Poker.h byte at 0x3044 (header off limits) |
+| 2026-10-22T20:22:07Z | func_00268068 | 924 | skipped | 0 | 14.2 | yes | enemy AI attack pick (deferred: nested control flow, 118-case table) |
+| 2026-10-22T20:25:29Z | func_00262750 | 560 | non-matching | 5 | 176.2 | no | enemies: attack volume setup |
+| 2026-10-22T20:28:51Z | func_00245538 | 664 | non-matching | 6 | 198.9 | yes | enemies: walk to goal point |
+| 2026-10-22T20:29:23Z | func_00270338 | 668 | skipped | 0 | 27.8 | yes | enemies: head/neck aim (VU0-heavy, deferred) |
+| 2026-10-22T20:31:09Z | func_0026B240 | 676 | non-matching | 2 | 105.9 | yes | enemies: throw weapon at player |
+| 2026-10-22T20:33:16Z | func_00271518 | 696 | non-matching | 2 | 123.4 | yes | enemies: grab aim point |
+| 2026-10-22T20:36:05Z | func_003099D8 | 596 | non-matching | 2 | 133.1 | yes | GS: image upload through scratchpad |
+| 2026-10-22T20:58:30Z | BATCH | - | batch | - | reseed 85.0; score 0.0 | - | BATCH 151: 0 own registered. Drafts: func_00129718, func_00262750 (4 diffs), func_00245538 (18 diffs), func_0026B240, func_00271518, func_003099D8. Skipped: Fil_clut_set, func_001DAB00, func_00268068, func_00270338 (VU0-heavy). Definition fixes, both verified by the full build: cGameObj_SetTgtTurn now takes (self, target, rate) (001351d8.c); func_00397550 takes an unread timeout (00397550.c). Handoffs: 1 new received (func_001F0A28), 0 registered, 2 held for the checkpoint (cSubScr_SubScrOn, func_001F0A28; both need include/ changes). elf/overlay OK; nm_prune 0; session_check 18 pass, 7 skipped, known dual_compiler_regress rc=126. |
+| 2026-10-22T21:01:42Z | func_0030D358 | 620 | non-matching | 2 | 168.0 | yes | boot: system and language data load |
+| 2026-10-22T21:02:17Z | func_0020DA18 | 724 | skipped | 0 | 23.2 | yes | enemies: guard check (irregular nested switch, 5 unnamed cEm00 fields; deferred) |
+| 2026-10-22T21:04:35Z | func_00241908 | 784 | non-matching | 4 | 138.2 | yes | enemies: wait for partners (phase 0x75 setup) |
+| 2026-10-22T21:07:59Z | func_0013DB50 | 828 | non-matching | 4 | 194.4 | yes | HUD: icon screen intro flash |
+| 2026-10-22T21:08:13Z | func_00167518 | 928 | skipped | 0 | 9.6 | yes | HUD: id screen fade (nested irregular switches; deferred) |
+| 2026-10-22T21:09:55Z | cEm00_setGoto | 156 | matched | 2 | 81.6 | yes | enemy: cEm00 goto start |
+| 2026-10-22T21:14:34Z | Set_bg_mode | 156 | non-matching | 2 | 2.9 | yes | render: background mode (matches; held for gameWork.h fields; timer started late, ~6 min real) |
+| 2026-10-22T21:15:59Z | SearchData | 204 | non-matching | 3 | 82.0 | yes | data pack: entry search by name |
+| 2026-10-22T21:19:47Z | cSaveLoad_openSave | 196 | non-matching | 4 | 225.7 | yes | system: save request open |
+| 2026-10-22T21:24:18Z | cMovie_Start | 316 | non-matching | 5 | 263.2 | yes | movie: start clip (matches; held for D_00747A80 header type at checkpoint) |
+| 2026-10-22T21:26:38Z | cModel_calcParts | 384 | non-matching | 3 | 127.6 | yes | model: per-frame part matrices |
+| 2026-10-22T21:27:09Z | cSceAtUnit_AtInit | 140 | non-matching | 4 | 1034.1 | yes | scenario: attack unit init |
+| 2026-10-22T21:41:29Z | BATCH | - | batch | - | reseed 56.0; score 32.0 | - | BATCH 152 (HUD, enemies, render, system, model): 1 own registered (cEm00_setGoto in new src/cod/0026e988.c, SN; its INCLUDE_ASM line removed from src/cod/enemy/cEm00.c, which builds with Cygnus). Held for checkpoint (match, need include changes): Set_bg_mode (gameWork.h fields, build/scratch/0030e5c0_ckpt.c), cMovie_Start (record type for D_00747A80, build/scratch/002b4be8_ckpt.c), NM handoff func_001A4010 (vu0.h). Drafts: func_0030D358, func_00241908, func_0013DB50 (206/207 words), SearchData (6), cSaveLoad_openSave (10), cModel_calcParts (34, one bc1f vs bc1fl), cSceAtUnit_AtInit (4, register swap). Skipped: func_0020DA18, func_00167518 (nested irregular switches). nm_handoff: 3 verified, all held (include frozen). nm_prune: nothing stale. session_check: all pass except the known dual_compiler_regress rc=126. Hashes OK. |
+| 2026-10-22T21:41:55Z | func_0022E6A0 | 836 | skipped | 0 | 15.7 | yes | enemy: VU0 approach phase (needs cEm00 0x590/0x5F0/0x1724/0x1864 fields; include frozen) |
+| 2026-10-22T21:45:30Z | func_001377E8 | 600 | non-matching | 4 | 189.3 | yes | collision: segment vs sphere |
+| 2026-10-22T21:48:53Z | Dest_ck | 404 | matched | 4 | 174.7 | no | enemy-util |
+| 2026-10-22T21:49:58Z | cObjSimple_UpdateHandMesh | 584 | skipped | 0 | 8.4 |
+| 2026-10-22T21:50:43Z | func_0027A320 | 736 | skipped | 0 | 30.5 |
+| 2026-10-22T21:50:43Z | func_0027AE10 | 744 | skipped | 0 | 0.0 |
+| 2026-10-22T21:50:44Z | func_00283688 | 736 | skipped | 0 | 0.0 |
+| 2026-10-22T21:50:44Z | func_00284068 | 744 | skipped | 0 | 0.0 |
+| 2026-10-22T21:50:44Z | func_001F1148 | 576 | skipped | 0 | 0.0 |
+| 2026-10-22T21:52:53Z | SetEffect | 424 | matched | 5 | 128.8 | no | effects |
+| 2026-10-22T21:55:51Z | func_0028D138 | 672 | matched | 5 | 174.0 | no | enemy |
+| 2026-10-22T21:56:54Z | func_0026AB20 | 728 | matched | 2 | 58.7 | no | enemy |
+| 2026-10-22T22:00:16Z | func_0027CB58 | 792 | matched | 5 | 197.1 | no | enemy |
+| 2026-10-22T22:05:25Z | func_0028CB90 | 576 | non-matching | 6 | 301.7 | no | enemy |
+| 2026-10-22T22:06:05Z | cEmSetParam_setEmAll | 720 | skipped | 0 | 34.6 |
+| 2026-10-22T22:06:29Z | func_002C1D68 | 776 | skipped | 0 | 24.7 |
+| 2026-10-22T22:09:58Z | func_0012A610 | 712 | non-matching | 6 | 208.6 | no | player |
+| 2026-10-22T22:31:22Z | BATCH | - | batch | - | reseed 1.0; score 5.0 | - | BATCH 153 (effects, enemies, weapons): 1 own registered (Dest_ck in new src/cod/002da2d0.c; per-file setting: fp_hazard_rules div, as sn; INCLUDE_ASM removed from src/cod/000000.c; Dest_ck prototype in 001b7ee0.c corrected to float* args, func_001B7EE0 still matches). Held for checkpoint (match, need include changes): SetEffect (build/scratch/00306528_ckpt.c), func_0028D138 (extern_jtbl D_0044A120), func_0026AB20 (extern_jtbl D_00445440 D_004455A0), func_0027CB58 (extern_jtbl D_00448150). Drafts: func_0028CB90 (39 diffs), func_0012A610 (171 diffs, frame 0x10 smaller). Reseed elf/overlay OK; nm_prune 0 stale; session_check (container) 18 pass, 7 skipped, known dual_compiler_regress rc=126 only. |
+| 2026-10-22T22:37:15Z | func_0012B618 | 780 | non-matching | 5 | 151.0 |
+| 2026-10-22T22:43:54Z | func_0012BC00 | 848 | matched | 6 | 268.4 | no | player |
+| 2026-10-22T22:44:22Z | func_00110B20 | 888 | skipped | 0 | 17.9 |
+| 2026-10-22T22:46:09Z | func_0014BFE0 | 836 | skipped | 0 | 106.3 |
+| 2026-10-22T22:46:27Z | func_00133DA0 | 1232 | matched | 1 | 18.8 | no | collision |
+| 2026-10-22T22:46:44Z | func_0012D3C8 | 1448 | skipped | 0 | 11.9 |
+| 2026-10-22T22:46:54Z | func_00166780 | 992 | skipped | 0 | 9.5 |
+| 2026-10-22T22:48:08Z | func_0037FAC8 | 164 | skipped | 0 | 0.0 |
+| 2026-10-22T22:52:59Z | func_00269B50 | 1220 | non-matching | 5 | 283.8 |
+| 2026-10-22T22:55:48Z | func_00275978 | 1008 | non-matching | 4 | 153.5 |
+| 2026-10-22T23:06:10Z | BATCH | - | batch | - | reseed 0.0; score 2.0 | - | BATCH 154 (player, collision, enemies, menu): nothing registered, no reseed. Held for checkpoint (match, need include changes): func_0012BC00 (player.h cObjInitVt.init returns int, shared prototype; build/scratch/0012bc00_ckpt.c, extern_jtbl D_0041D180), func_00133DA0 (cCollisionSolidBox into cCollisionSolid.h, shared Draw_Line2 prototype; build/scratch/00133da0_ckpt.c), NM handoff cModel_calcParts (as sn; needs shared Adjust_theta_vec/func_001501D0/func_00156D70 prototypes in cModel.h). Drafts: func_0012B618 (95, by-value vector temporaries), func_00269B50 (child lookups copy into a0 in retail, 0x30 short), func_00275978 (one branch target with cmppad; needs a label-pad wrapper rule and cEm00.h 0x744/0x1680). Skipped: func_00110B20, func_0014BFE0, func_0012D3C8, func_00166780, func_0037FAC8 (func_00380EB0 definition vs menuCtl.h prototype). nm_handoff: 4 verified, all held (include frozen). nm_prune: nothing stale. session_check: all pass except the known dual_compiler_regress rc=126. |
+| 2026-10-22T23:08:54Z | func_002A0C60 | 1160 | non-matching | 1 | 156.9 |
+| 2026-10-22T23:13:05Z | func_0027D400 | 624 | non-matching | 6 | 230.8 |
+| 2026-10-22T23:13:08Z | func_0028AE18 | 648 | skipped | 0 | 3.2 |
+| 2026-10-22T23:16:17Z | func_0012AFE8 | 760 | non-matching | 6 | 182.7 |
+| 2026-10-22T23:17:58Z | func_002812A8 | 116 | skipped | 3 | 55.8 |
+| 2026-10-22T23:18:39Z | KeyStop | 60 | matched | 1 | 9.1 |
+| 2026-10-22T23:20:21Z | cIDBase_getIDWork | 112 | non-matching | 4 | 57.1 |
+| 2026-10-22T23:24:48Z | func_001C86E8 | 580 | non-matching | 5 | 120.3 |
+| 2026-10-22T23:25:22Z | func_002BC950 | 560 | skipped | 0 | 20.7 |
+| 2026-10-22T23:25:22Z | func_002FDE60 | 628 | skipped | 0 | 0.0 |
+| 2026-10-22T23:25:22Z | func_001646C0 | 692 | skipped | 0 | 0.0 |
+| 2026-10-22T23:28:37Z | func_00244398 | 632 | matched | 5 | 125.4 |
+| 2026-10-22T23:30:14Z | func_00248D00 | 732 | matched | 4 | 48.0 |
+| 2026-10-22T23:33:09Z | func_0024BB68 | 564 | non-matching | 6 | 126.0 |
+| 2026-10-22T23:43:57Z | BATCH | - | batch | - | reseed 42.0; score 2.0 | - | BATCH 155 (enemies, system, UI, objects): 2 own registered: func_00244398 (enemy down step, new src/cod/00244398.c) and func_00248D00 (enemy attack step with forward wall probe, new src/cod/00248d00.c), both SN with no per-file settings. Held for checkpoint (match, needs include changes): KeyStop (GameWork 0x178 key record and 0x5D8 lock word, shared D_005E8140; build/scratch/0031afa0_ckpt.c). Drafts: func_002A0C60, func_0027D400 (6), func_0012AFE8 (6), cIDBase_getIDWork (25/28 words, two loop pointers in retail), func_001C86E8 (10 diffs, &step register), func_0024BB68 (3 diffs: neg.s source register, vadd addressing). Skipped: func_0028AE18, func_002812A8 (retail's linear 1/0/2/3 compare chain only reproduced by goto ladders), cvt.w.s (waiting on maintainer): func_002BC950, func_002FDE60, func_001646C0. nm_handoff: 6 verified, none applied: 5 need include changes; func_0012B618 left for Jon (the solved C overlaps the child count and a cVec through a union in a stack-frame struct to reproduce retail's slot sharing). ChkLine a3 corrected to a pointer in both new units (still match). Reseed elf/overlay OK; nm_prune retired 2 stale NM drafts (00244398, 00248d00); session_check (container) 18 pass, 7 skipped, known dual_compiler_regress rc=126 only. |
+| 2026-10-23T00:19:57Z | func_001B0540 | 756 | non-matching | 2 | 39.8 |
+| 2026-10-23T00:22:07Z | func_001B51B0 | 636 | non-matching | 5 | 81.3 |
+| 2026-10-23T00:22:24Z | func_001F00E8 | 628 | skipped | 0 | 0.0 |
+| 2026-10-23T00:26:03Z | cCollisionSolidManage_ChkHit | 968 | matched | 6 | 152.1 |
+| 2026-10-23T00:29:19Z | func_0016AE38 | 956 | matched | 4 | 104.7 |
+| 2026-10-23T00:31:09Z | func_00146A18 | 1032 | matched | 2 | 30.3 |
+| 2026-10-23T00:31:17Z | func_00176D60 | 1148 | skipped | 0 | 0.0 |
+| 2026-10-23T00:33:24Z | func_00162298 | 1160 | non-matching | 5 | 78.9 |
+| 2026-10-23T00:37:07Z | func_001D7560 | 1140 | non-matching | 6 | 110.5 |
+| 2026-10-23T00:37:20Z | func_00148690 | 1352 | skipped | 0 | 0.0 |
+| 2026-10-23T00:39:39Z | func_00167908 | 1448 | matched | 2 | 74.2 |
+| 2026-10-23T00:41:23Z | func_00166BB8 | 1844 | matched | 1 | 55.2 |
+| 2026-10-23T00:44:39Z | func_00169DF8 | 1760 | non-matching | 3 | 53.0 |
+| 2026-10-23T00:54:31Z | BATCH | - | batch | - | reseed 44.0; score 3.0 | - | BATCH 156 (menu panels, collision, ID banners, minigames): 3 own registered, all SN with per-file settings as: sn plus extern_jtbl: func_0016AE38 (menu panel input step, src/cod/0016ae38.c, D_0041FD90), func_00167908 (options panel step, src/cod/00167908.c, D_0041FBD0), func_00166BB8 (pause options panel step, src/cod/00166bb8.c, D_0041FAE0 D_0041FB00). Definition changes, still matching: func_00167EB0 and func_001672F0 now take (void *self), marked not read. Held for checkpoint (match, need include changes): cCollisionSolidManage_ChkHit (cCollisionSolid.h; build/scratch/001348e8_ckpt.c), func_00146A18 (IdPair/cIDBase header, D_003C23A4; build/scratch/00146a18_ckpt.c, extern_jtbl D_0041E8A0). Drafts: func_001B0540, func_001B51B0, func_00162298 (2, one register), func_001D7560 (11, movz payouts; callee definition fixes pending), func_00169DF8 (324, reel shop row loop). Skipped: func_001F00E8, func_00176D60, func_00148690. nm_handoff: 5 verified, all held (include frozen). nm_prune: nothing stale. session_check: all pass except the known dual_compiler_regress rc=126. Hashes OK. |
+| 2026-10-23T03:26:32Z | func_002FA350 | 140 | non-matching | 5 | 0.0 |
+| 2026-10-23T03:26:33Z | func_002FA3E0 | 140 | non-matching | 5 | 0.0 |
+| 2026-10-23T03:27:36Z | func_002FDE60 | 628 | skipped | 0 | 42.2 |
+| 2026-10-23T03:28:23Z | func_002BC950 | 560 | skipped | 0 | 47.2 |
+| 2026-10-23T03:28:32Z | func_001646C0 | 692 | skipped | 0 | 8.8 |
+| 2026-10-23T03:30:47Z | ColiseumBattle_ApplyRingRules | 500 | non-matching | 4 | 134.5 |
+| 2026-10-23T03:32:33Z | func_001F4248 | 480 | non-matching | 3 | 106.5 |
+| 2026-10-23T03:32:57Z | cCoreSave_addItem | 464 | skipped | 1 | 23.2 |
+| 2026-10-23T03:35:36Z | func_002FDDA8 | 184 | non-matching | 6 | 128.9 |
+| 2026-10-23T03:37:12Z | func_003781F8 | 416 | non-matching | 3 | 95.2 |
+| 2026-10-23T03:38:50Z | cSnd_CalcListenerPanDist | 444 | non-matching | 4 | 98.4 |
+| 2026-10-23T03:41:10Z | func_002D8C60 | 376 | matched | 2 | 140.1 |
+| 2026-10-23T03:44:01Z | func_002FBFB0 | 496 | non-matching | 6 | 170.3 |
+| 2026-10-23T03:47:22Z | func_0018F218 | 620 | non-matching | 6 | 201.9 |
+| 2026-10-23T03:50:11Z | cSescr_At_ck | 352 | non-matching | 6 | 127.9 |
+| 2026-10-23T03:51:00Z | func_00378398 | 416 | non-matching | 2 | 44.8 |
+| 2026-10-23T03:53:04Z | func_0037C720 | 524 | non-matching | 3 | 119.2 |
+| 2026-10-23T03:53:30Z | cOmSetParam_setOmData | 636 | skipped | 0 | 20.6 |
+| 2026-10-23T03:53:37Z | func_0016DC18 | 796 | skipped | 0 | 6.7 |
+| 2026-10-23T03:56:07Z | func_00143670 | 804 | non-matching | 5 | 150.7 |
+| 2026-10-23T04:12:06Z | BATCH | - | batch | - | reseed 45.0; score 3.0 | - | BATCH 157 (cvt.w.s re-sweep after the maintainer ruling: world light, effects, sound, HUD): 1 own registered: func_002D8C60 (world light preset fade, new src/cod/002d8c60.c, fp_hazard_rules mtc1; preset table reached as D_00604700.preset, linked bytes identical). NM closer handoffs registered (no header change): func_002FDDA8 (src/cod/002fdda8.c), cSnd_CalcListenerPanDist (src/cod/002cf058.c, fp_hazard_rules mtc1); folders moved to nm_solved/done, drafts removed. Held (header change): func_002FBFB0 (espSys.h, gameWork.h), func_00275978, cModel_calcParts, func_001A4010, func_001F0A28, cSubScr_SubScrOn. Drafts: ColiseumBattle_ApplyRingRules, func_001F4248, func_003781F8, func_00378398 (block order), func_002FBFB0 (solved by NM), func_0018F218 (child loop), cSescr_At_ck (belongs in 002c8b68.c unit), func_00143670 (byte clear of the 0x1C0 bits); func_0037C720 held in build/scratch/0037c720_ckpt.c until sndTiming.h/seqNode.h splits. Skipped: func_002BC950, func_002FDE60, func_001646C0, func_0016DC18 (SN C++ VU0 vector class), cOmSetParam_setOmData (CreateObj definition vs player.h), cCoreSave_addItem/func_002FA350/func_002FA3E0 (in-place cvt.w.s, decisions_needed). Waiting for fpu.h (value kept in a float register): RoundFloat, Adjust_theta, cEmSetParam_updateSetDataPos (in-place). Reseeds elf=OK overlay=OK; nm_prune 0 stale; session_check 18 pass, 7 skipped, known dual_compiler_regress rc=126. |
+| 2026-10-23T04:13:00Z | STEP0 | - | step0 | - | - | - | BATCH 158 STEP 0: container /proc scan found only pid 1 (sleep infinity), no leftover permuter/compile.py/cc1/qemu, nothing killed. Normal build (compile.py) 37 s, rc=0: ELF 1742f95bef65bdb2 matches retail, r207 overlay ea59932301345e48 matches retail. |
+| 2026-10-23T04:20:16Z | func_002F1758 | 824 | non-matching | 5 | 405.4 |
+| 2026-10-23T04:24:25Z | func_003187D8 | 896 | non-matching | 3 | 245.2 |
+| 2026-10-23T04:26:07Z | func_001B4A18 | 752 | skipped | 0 | 0.2 |
+| 2026-10-23T04:26:07Z | func_001BE198 | 736 | skipped | 0 | 0.2 |
+| 2026-10-23T04:26:07Z | func_001C2DA0 | 720 | skipped | 0 | 0.2 |
+| 2026-10-23T04:26:07Z | func_001F85D0 | 572 | skipped | 0 | 0.2 |
+| 2026-10-23T04:26:07Z | func_00279390 | 732 | skipped | 0 | 0.2 |
+| 2026-10-23T04:26:07Z | func_002ADC70 | 736 | skipped | 0 | 0.2 |
+| 2026-10-23T04:26:07Z | func_002F5020 | 772 | skipped | 0 | 0.2 |
+| 2026-10-23T04:30:20Z | func_0026B600 | 996 | matched | 3 | 242.4 |
+| 2026-10-23T04:30:48Z | func_0011E1E0 | 1380 | skipped | 0 | 16.9 |
+| 2026-10-23T04:30:48Z | func_0011E748 | 1380 | skipped | 0 | 0.0 |
+| 2026-10-23T04:31:57Z | cModel_Trans | 1316 | skipped | 0 | 30.2 |
+| 2026-10-23T04:38:47Z | func_0010F720 | 1780 | matched | 4 | 398.5 |
+| 2026-10-23T04:40:57Z | func_00112CB8 | 1392 | matched | 2 | 115.1 |
+| 2026-10-23T04:41:29Z | func_002D3750 | 1108 | skipped | 0 | 12.4 |
+| 2026-10-23T04:41:39Z | func_002A53A8 | 1272 | skipped | 0 | 9.8 |
+| 2026-10-23T04:46:07Z | func_002FD078 | 1204 | matched | 4 | 267.9 |
+| 2026-10-23T04:46:20Z | func_0015D6E8 | 1092 | skipped | 0 | 9.4 |
+| 2026-10-23T04:52:58Z | func_003029C0 | 1160 | matched | 2 | 388.7 |
+| 2026-10-23T04:53:15Z | func_003035D0 | 1048 | skipped | 0 | 9.4 |
+| 2026-10-23T04:57:49Z | func_001AC370 | 1220 | non-matching | 4 | 274.8 |
+| 2026-10-23T05:01:47Z | func_002B34D8 | 1240 | non-matching | 3 | 207.1 |
+| 2026-10-23T05:03:33Z | func_002C78F0 | 1012 | non-matching | 3 | 102.9 |
+| 2026-10-23T05:03:51Z | func_0025FE30 | 1092 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:51Z | func_00268788 | 1600 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:51Z | func_0026DB00 | 1880 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:51Z | func_00270DB0 | 916 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:52Z | func_00271810 | 1692 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:52Z | func_00271EB0 | 1724 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:52Z | func_00272DD8 | 1112 | skipped | 0 | 0.0 |
+| 2026-10-23T05:03:52Z | func_0027D670 | 1144 | skipped | 0 | 0.0 |
+| 2026-10-23T05:04:27Z | func_0011F810 | 1280 | skipped | 0 | 16.0 |
+| 2026-10-23T05:04:35Z | func_00144368 | 1896 | skipped | 0 | 7.5 |
+| 2026-10-23T05:04:44Z | func_001325A0 | 1052 | skipped | 0 | 7.9 |
+| 2026-10-23T05:06:43Z | func_001AE928 | 1156 | non-matching | 1 | 113.4 |
+| 2026-10-23T05:25:09Z | BATCH | - | batch | - | reseed 43.0; score 1.0 | - | BATCH 158 (SN 1000-1900 B by subsystem: enemies, player, effects, objects, HUD): 1 own registered: func_003029C0 (effect emitter frame, new src/cod/003029c0.c, fp_hazard_rules mtc1; cVec_set4 for the anchor translation, separate bit tests through an inline helper). Held for the checkpoint (header change): func_0026B600, func_0010F720, func_00112CB8, func_002FD078. NM closer handoffs still held (header changes): cModel_calcParts, cSubScr_SubScrOn, func_001A4010, func_001F0A28, func_00275978, func_002FBFB0. Drafts: func_002F1758, func_003187D8, func_001AC370 (guard shell colour tail registers; retail pads div.s inconsistently), func_002C78F0 (rotated screen quad, 254 diffs). Not drafted: func_002B34D8 (dispatcher switch tree, 200 diffs), func_001AE928 (retail computes 2.2-0.5 at run time from a 0.5 held in f20; an inline helper parameter is constant-folded, so only a constant held in a variable reproduces it). Skipped (VU0): func_0025FE30, func_00268788, func_0026DB00, func_00270DB0, func_00271810, func_00271EB0, func_00272DD8, func_0027D670, func_0011F810, func_001325A0, func_0011E1E0, func_0011E748, cModel_Trans, plus 7 earlier; skipped other: func_003035D0, func_00144368, func_002D3750, func_002A53A8, func_0015D6E8. Reseed elf=OK overlay=OK; nm_prune 0 stale; session_check 18 pass, 7 skipped, known dual_compiler_regress rc=126. |
+| 2026-10-23T05:28:39Z | func_0030AC40 | 1104 | non-matching | 2 | 202.5 |
+| 2026-10-23T05:29:11Z | func_002A67D0 | 1096 | skipped | 0 | 31.7 |
+| 2026-10-23T05:31:10Z | func_002F3090 | 1056 | skipped | 0 | 101.3 |
+| 2026-10-23T05:34:57Z | func_002F7E30 | 1856 | non-matching | 3 | 226.2 |
+| 2026-10-23T05:35:26Z | func_00145810 | 1976 | skipped | 0 | 26.0 |
+| 2026-10-23T05:38:59Z | func_00309568 | 1132 | non-matching | 4 | 134.0 |
+| 2026-10-23T05:39:38Z | func_00309D88 | 1144 | skipped | 0 | 0.0 |
+| 2026-10-23T05:39:49Z | func_002F43E8 | 1212 | skipped | 0 | 11.3 |
+| 2026-10-23T05:40:26Z | BATCH | - | batch | - | reseed 0.0; score 0.0 | - | BATCH 159 (large SN functions: system, effects, graphics, ID menu): 0 matches. Drafts: func_002F7E30 (esp ring setup; 12 of 20 div.s padded, owner equality and range flag materialised differently), func_00309568 (TIM2 palette upload; two register choices left: the 256-colour step copied v0->s5, i&0xF held in s0 across the call). Not drafted: func_0030AC40 (game main loop; retail's restart is a backward goto, banned; scratch build/scratch/0030ac40_t.c). Skipped: func_002A67D0 (stage unload, ~40 callees), func_002F3090 (SN C++ VU0 vector class), func_00145810 (ID carousel, stack-spilled slot pointers), func_00309D88 (TIM2 DMA chain, t-register spills), func_002F43E8 (shares the motion frame-count block of drafts/cod/002f48a8.c). No registrations, so no reseed; nm_prune 0 stale; nm_handoff: 6 verified, all held for header changes at this checkpoint. |
+| 2026-10-23T07:36:43Z | Set_bg_mode | 156 | matched | 1 | 0.0 |
+| 2026-10-23T07:41:06Z | func_0012AC98 | 848 | skipped | 2 | 58.2 |
+| 2026-10-23T07:43:48Z | func_002F2250 | 1284 | matched | 4 | 155.5 |
+| 2026-10-23T07:47:25Z | func_002F5788 | 1132 | non-matching | 3 | 211.3 |
+| 2026-10-23T07:47:38Z | func_00141678 | 1104 | skipped | 0 | 7.8 |
+| 2026-10-23T07:47:45Z | func_003041B8 | 1656 | skipped | 0 | 7.5 |
+| 2026-10-23T07:49:21Z | func_00302F68 | 1084 | matched | 2 | 53.4 |
+| 2026-10-23T07:49:49Z | func_0010BE18 | 1256 | skipped | 0 | 23.6 |
+| 2026-10-23T07:49:57Z | func_00146328 | 1052 | skipped | 0 | 8.4 |
+| 2026-10-23T07:50:06Z | func_0013AD90 | 1516 | skipped | 0 | 9.1 |
+| 2026-10-23T07:51:32Z | func_001067B8 | 1084 | non-matching | 1 | 85.3 |
+| 2026-10-23T07:57:38Z | func_001329C0 | 988 | non-matching | 6 | 362.5 |
+| 2026-10-23T08:03:43Z | ChkLine | 964 | non-matching | 8 | 347.6 |
+| 2026-10-23T08:04:10Z | func_00136640 | 1088 | skipped | 0 | 9.6 |
+| 2026-10-23T08:04:39Z | func_0012ED60 | 1316 | skipped | 0 | 29.8 |
+| 2026-10-23T08:05:50Z | func_00139180 | 1688 | skipped | 0 | 60.2 |
+| 2026-10-23T08:06:07Z | func_00106BF8 | 1892 | skipped | 0 | 17.7 |
+| 2026-10-23T08:06:53Z | func_002F2A00 | 1440 | skipped | 0 | 27.5 |
+| 2026-10-23T08:13:01Z | BATCH | - | batch | - | reseed 334.0; score 2.0 | - | BATCH 160 (large SN functions: player/camera 0x100000-0x14FFFF, effects 0x2F0000-0x30FFFF): 2 registered: func_002F2250 (esp model effect update, new src/cod/002f2250.c, as sn), func_00302F68 (esp particle move, new src/cod/00302f68.c, as sn). Drafts: func_002F5788 (ribbon setup; constant placement and a data-pointer reload), func_001067B8 (camera sphere push-out; needs a bare sqrt.s), func_001329C0 (ground line test, 13 diffs: entry v0/v1 swap and the to->from copy folded to stack offsets), ChkLine (stepped line test; layout and calls match, register pressure and the piece clamp branch differ). Skipped: func_0012AC98, func_00141678, func_003041B8, func_0010BE18, func_00146328, func_0013AD90, func_00136640 (clamp helper takes 1.0 by reference: stack temporaries), func_0012ED60 (collision grid line probe; stack slot shared between a cVec temporary and the cell-row ints), func_00139180 (decision logged: D_003BD910 handlers take a float t), func_00106BF8 (bare sqrt.s, waits for fpu.h), func_002F2A00 (temporaries shared across switch arms). Reseed elf=OK overlay=OK (also verifies the gameWork.h bgA/bgB unsigned long long bitfields); nm_handoff nothing pending; nm_prune 0 stale. |
+| 2026-10-23T08:14:38Z | func_002F62F8 | 1092 | skipped | 0 | 25.4 |
+| 2026-10-23T08:15:18Z | func_00303A30 | 1928 | skipped | 0 | 40.3 |
+| 2026-10-23T08:15:28Z | func_00149220 | 160 | skipped | 0 | 9.5 |
+| 2026-10-23T08:17:42Z | cObjSimple_UpdateHandMesh | 584 | skipped | 1 | 124.4 |
+| 2026-10-23T08:28:12Z | func_001F1148 | 576 | matched | 3 | 626.4 |
+| 2026-10-23T08:28:42Z | func_002D3750 | 1108 | skipped | 0 | 12.0 |
+| 2026-10-23T08:28:58Z | func_002A53A8 | 1272 | skipped | 0 | 15.7 |
+| 2026-10-23T08:29:04Z | func_0015D6E8 | 1092 | skipped | 0 | 5.3 |
+| 2026-10-23T08:30:32Z | EmClothMove | 216 | matched | 2 | 9.2 |
+| 2026-10-23T08:30:49Z | MtxInverse | 356 | skipped | 0 | 7.7 |
+| 2026-10-23T08:36:01Z | func_001DFDE0 | 1072 | non-matching | 4 | 304.2 |
+| 2026-10-23T08:44:22Z | func_002D6F40 | 1180 | matched | 6 | 496.4 |
+| 2026-10-23T08:50:22Z | func_003B63A0 | 0 | skipped | 0 | 0.0 |
+| 2026-10-23T08:50:22Z | func_003A4FC8 | 0 | skipped | 0 | 0.0 |
+| 2026-10-23T08:50:22Z | func_003A52F0 | 0 | skipped | 0 | 0.0 |
+| 2026-10-23T08:50:49Z | func_002993A0 | 1216 | skipped | 0 | 0.0 |
+| 2026-10-23T08:56:41Z | Gp_draw_polyG4 | 1096 | non-matching | 5 | 0.0 |
+| 2026-10-23T08:56:53Z | func_0031F508 | 1224 | skipped | 0 | 0.0 |
+| 2026-10-23T09:04:20Z | cMessDrawFont_draw | 1248 | non-matching | 6 | 0.0 |
+| 2026-10-23T09:10:23Z | BATCH | - | batch | - | reseed 331.0; score 3.0 | - | BATCH 161 (coliseum/enemy wrap, cloth, world light, slot machine, Gp_draw, message drawer): 3 registered: func_001F1148 (coliseum devil wave, new src/cod/001f1148.c, fp_hazard_rules mtc1), EmClothMove (new src/cod/002df860.c), func_002D6F40 (world light reset, new src/cod/002d6f40.c, fp_hazard_rules mtc1; retail .s symbolizes two immediates as D_10080/D_16171, words identical, full ELF matches). Drafts: func_001DFDE0 (slot 1 task), Gp_draw_polyG4 (G4 quad packet; loop indexing and call sharing differ), cMessDrawFont_draw (4 insns: one store/lui schedule). Skipped: func_002F62F8, func_00303A30, func_00149220, cObjSimple_UpdateHandMesh (decision filed: cOmBase_childAt count store), func_002D3750, func_002A53A8, func_0015D6E8, MtxInverse, func_003B63A0/func_003A4FC8/func_003A52F0 (handwritten COP0/MMI), func_002993A0 (unmapped 0x140A0 record init), func_0031F508 (libgcc C++ RTTI). Header changes in pending_headers.md Batch 161. Reseed elf=OK overlay=OK. |
+| 2026-10-23T09:10:43Z | func_002D45B0 | 1364 | skipped | 0 | 1.1 |
+| 2026-10-23T09:10:59Z | func_001B3AB8 | 1452 | skipped | 0 | 1.1 |
+| 2026-10-23T09:11:37Z | func_00155DC8 | 1532 | skipped | 0 | 1.1 |
+| 2026-10-23T09:13:04Z | func_0031A6B0 | 120 | non-matching | 4 | 1.1 |
+| 2026-10-23T09:14:49Z | func_0037C720 | 620 | matched | 3 | 1.1 |
+| 2026-10-23T09:15:17Z | cOmSetParam_setOmData | 740 | skipped | 0 | 1.1 |
+| 2026-10-23T09:15:25Z | func_0016DC18 | 836 | skipped | 0 | 1.1 |
+| 2026-10-23T09:24:42Z | Slot2_StopReels | 1136 | non-matching | 6 | 1.1 |
+| 2026-10-23T09:25:42Z | func_00164F30 | 1700 | skipped | 0 | 1.1 |
+| 2026-10-23T09:25:44Z | func_00372028 | 1384 | skipped | 0 | 1.1 |
+| 2026-10-23T09:26:00Z | func_001E8830 | 1396 | skipped | 0 | 1.1 |
+| 2026-10-23T09:26:08Z | func_0039BB20 | 1240 | skipped | 0 | 1.1 |
+| 2026-10-23T09:31:35Z | BATCH | - | batch | - | reseed 304.0; score 1.1 | - | batch 162: 1 registered (func_0037C720); drafts func_0031A6B0 (in-place cvt.w.s), Slot2_StopReels (12 diffs); remaining pool is large graphics/libmpeg/IPU code |
+| 2026-10-23T09:32:03Z | func_001EBC58 | 424 | skipped | 0 | 1.1 |
+| 2026-10-23T09:32:12Z | func_0028A2E8 | 436 | skipped | 0 | 1.1 |
+| 2026-10-23T09:36:27Z | func_001E33B0 | 640 | non-matching | 6 | 1.1 |
+| 2026-10-23T09:36:38Z | func_001BC300 | 568 | skipped | 0 | 1.1 |
+| 2026-10-23T09:36:48Z | func_002C02E8 | 708 | skipped | 0 | 1.1 |
+| 2026-10-23T09:36:49Z | func_00123160 | 760 | skipped | 0 | 1.1 |
+| 2026-10-23T09:46:47Z | func_0015E510 | 504 | non-matching | 6 | 2.1 |
+| 2026-10-23T09:46:48Z | func_0015E8B8 | 528 | non-matching | 6 | 1.1 |
+| 2026-10-23T09:49:51Z | func_003A7D08 | 828 | matched | 1 | 1.1 |
+| 2026-10-23T09:51:01Z | cSndSeVoice_Setup | 972 | skipped | 0 | 1.1 |
+| 2026-10-23T09:57:23Z | func_0013BD40 | 1064 | matched | 4 | 1.1 |
+| 2026-10-23T09:59:17Z | func_00276478 | 412 | non-matching | 4 | 1.1 |
+| 2026-10-23T10:06:26Z | BATCH | - | batch | - | reseed 305.0; score 1.1 | - | batch 163: 2 registered (func_003A7D08 newlib mbtowc, func_0013BD40 id set display); drafts func_001E33B0, func_0015E510, func_0015E8B8; func_00276478 matches but waits on decisions_needed (unsigned flag macro); cIDBase flags now int, idSet.h and gsLoadImage.h added |
+| 2026-10-23T10:08:02Z | func_002A1640 | 1460 | skipped | 0 | 1.1 |
+| 2026-10-23T10:08:03Z | func_0029E2C0 | 1568 | skipped | 0 | 1.1 |
+| 2026-10-23T10:13:12Z | func_002C90A0 | 1832 | non-matching | 5 | 1.1 |
+| 2026-10-23T10:17:37Z | CustomIDWork_Main | 1712 | non-matching | 6 | 1.1 |
+| 2026-10-23T10:19:08Z | cOmbe_SetSpeed | 1324 | skipped | 0 | 1.1 |
+| 2026-10-23T10:19:25Z | func_001DAEC0 | 1408 | skipped | 0 | 1.1 |
+| 2026-10-23T10:21:55Z | func_00149400 | 136 | matched | 2 | 1.1 |
+| 2026-10-23T10:21:57Z | func_001504B0 | 136 | matched | 2 | 1.1 |
+| 2026-10-23T10:23:12Z | func_00152340 | 184 | non-matching | 3 | 1.1 |
+| 2026-10-23T10:24:26Z | func_00158198 | 240 | non-matching | 1 | 1.1 |
+| 2026-10-23T10:26:58Z | func_0012CAE0 | 288 | non-matching | 5 | 1.1 |
+| 2026-10-23T10:28:19Z | func_001643F8 | 488 | matched | 4 | 1.1 |
+| 2026-10-23T10:29:27Z | func_001B48E0 | 312 | non-matching | 2 | 1.1 |
+| 2026-10-23T10:31:26Z | func_001B76D8 | 556 | matched | 7 | 1.1 |
+| 2026-10-23T10:32:40Z | func_001D4720 | 200 | non-matching | 8 | 1.1 |
+| 2026-10-23T10:32:41Z | func_001D47E8 | 200 | non-matching | 8 | 1.1 |
+| 2026-10-23T10:35:13Z | func_00148420 | 384 | non-matching | 5 | 1.1 |
+| 2026-10-23T10:37:05Z | func_00312E88 | 116 | matched | 1 | 1.1 |
+| 2026-10-23T10:38:18Z | func_00313030 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:19Z | func_00312F70 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:20Z | func_00313150 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:21Z | func_00313210 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:22Z | func_003132D0 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:23Z | func_00313390 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:24Z | func_00313450 | 192 | skipped | 1 | 1.1 |
+| 2026-10-23T10:38:25Z | func_003077B0 | 52 | skipped | 0 | 1.1 |
+| 2026-10-23T10:38:26Z | func_00307840 | 52 | skipped | 0 | 1.1 |
+| 2026-10-23T10:38:27Z | func_003077E8 | 52 | skipped | 0 | 1.1 |
+| 2026-10-23T10:38:29Z | func_003182D8 | 96 | skipped | 0 | 1.1 |
+| 2026-10-23T10:39:35Z | func_002B2E80 | 184 | non-matching | 3 | 1.1 |
+| 2026-10-23T10:39:48Z | func_002BF568 | 404 | skipped | 0 | 1.1 |
+BATCH 164: 5 registered (func_00149400 and func_001504B0 list reinit into their existing TUs; func_001643F8 menu cursor, new src/cod/001643f8.c, as sn, one forward goto with its label comment; func_001B76D8 cOmBase model upkeep, new src/cod/001b76d8.c; func_00312E88 actor factory, new src/cod/00312e88.c). Drafts: func_00276478 (0x10u flag question), func_002C90A0, CustomIDWork_Main, func_00152340 (alignment held in a variable), func_00158198, func_0012CAE0 (one word, return-1 register reuse), func_001B48E0 (childAt count slot, decision pending), func_001D4720/func_001D47E8 (register assignment), func_00148420, func_002B2E80 (dead owner reload). Skipped: C++ new-expression factories 0x312F70-0x313450, -O0 helpers 0x3077B0-0x307840, static init func_003182D8, func_002BF568, GS filter family, off-limits. Headers: cModel.h trans, cEm00.h hitWait/hitPos, cSceAtManager.h D_005FEA60 + FindNodeByHit, cRecordIndex.h. Prototype fixes in 00149378.c/00150418.c (func_002A9860, EnsureInitThenForward as defined). Reseed anchor func_00312E88: elf=OK overlay=OK (303s). nm_prune: 1 stale draft retired (00312e88.c).
+| 2026-10-23T10:47:00Z | func_002FEBE8 | 68 | non-matching | 5 | 1.1 |
+| 2026-10-23T10:47:51Z | func_002BECB0 | 84 | non-matching | 4 | 1.1 |
+| 2026-10-23T10:50:08Z | func_002BEAA8 | 84 | non-matching | 6 | 1.1 |
+| 2026-10-23T10:52:40Z | func_001DF7D0 | 80 | non-matching | 6 | 1.1 |
+| 2026-10-23T10:54:15Z | func_002A4BA0 | 84 | non-matching | 6 | 1.1 |
+| 2026-10-23T11:06:55Z | func_002831C8 | 116 | matched | 5 | 1.1 |
+| 2026-10-23T11:08:17Z | func_00305858 | 128 | matched | 4 | 1.1 |
+| 2026-10-23T11:09:41Z | func_0037BE98 | 120 | matched | 2 | 1.1 |
+| 2026-10-23T11:10:04Z | func_00376EA0 | 120 | skipped | 0 | 1.1 |
+| 2026-10-23T11:10:54Z | func_00377CB8 | 160 | matched | 1 | 1.1 |
+| 2026-10-23T11:12:24Z | func_0037FC28 | 160 | matched | 1 | 1.1 |
+| 2026-10-23T11:13:43Z | func_0037FF98 | 172 | matched | 1 | 1.1 |
+BATCH 165: 6 registered (func_002831C8 cGameObj phase-3 start, new src/cod/002831c8.c, switch on unsigned kind with an inline state setter; func_00305858 effect data slot release, new src/cod/00305858.c; func_0037BE98 sound request queue flush, new src/cod/0037be98.c; func_00377CB8 SPU2 core reset, new src/cod/00377cb8.c; func_0037FC28 file-select open/read, new src/cod/0037fc28.c; func_0037FF98 menu stream format read, into src/cod/00385078.c). Drafts: func_002BEAA8 (typed in 001f7da0.c, 2 words long), func_001DF7D0 (new drafts/cod/001df7d0.c, 3 insns; moved out of 00156550.c), func_002A4BA0 and func_002BECB0/func_002FEBE8 (non-matching). Skipped: func_00376EA0 (channel request has three local types). Headers: cDoor.h jump-table group/table types, seqNode.h SeqCmd 0x50 record + SndCore + prototypes (00377ed0.c SfxPoolA merged into SeqCmd), menuCtl.h MenuDir, cGameObj.h/espSys.h prototypes; callers updated (0037e368.c, 0022af90.c, 0012cc00.c, 001dd218.c, 00193050.c). First reseed rc=1 (00377ed0.c conflicted with the new D_0076B9C0 type; hashes still OK from the cached object), fixed by merging the type; second reseed anchor func_0037FF98: rc=0 elf=OK overlay=OK (302s). nm_handoff: nothing pending. nm_prune: 0 stale.
+| 2026-10-23T11:29:25Z | cSnd_IsEnemyAlive | 188 | non-matching | 3 | 1.1 |
+| 2026-10-23T11:34:03Z | func_001DC4C0 | 312 | skipped | 1 | 1.1 |
+| 2026-10-23T11:35:21Z | func_002BEBC8 | 232 | non-matching | 2 | 1.1 |
+| 2026-10-23T11:44:24Z | func_00375318 | 100 | skipped | 0 | 1.1 |
+| 2026-10-23T11:49:38Z | func_001C7138 | 468 | non-matching | 5 | 1.1 |
+| 2026-10-23T11:50:45Z | func_00394828 | 1004 | skipped | 0 | 1.1 |
+| 2026-10-23T11:57:55Z | func_0020EF08 | 1028 | non-matching | 5 | 1.1 |
+| 2026-10-23T12:00:19Z | Draw_Poly_sc | 40 | matched | 2 | 1.1 |
+| 2026-10-23T12:00:52Z | classFADE_kill | 56 | skipped | 0 | 1.1 |
+| 2026-10-23T12:00:53Z | classFADE_status | 68 | skipped | 0 | 1.1 |
+| 2026-10-23T12:00:54Z | classFADE_setOt | 76 | skipped | 0 | 1.1 |
+| 2026-10-23T12:01:01Z | cOmSub_setEndPos | 1224 | skipped | 0 | 1.1 |
+| 2026-10-23T12:01:08Z | Cloth_AddWind | 432 | skipped | 0 | 1.1 |
+| 2026-10-23T12:02:41Z | cSceAtUnit_AreaSet | 40 | non-matching | 3 | 1.0 |
+| 2026-10-23T12:03:28Z | func_0030F518 | 52 | non-matching | 2 | 1.1 |
+| 2026-10-23T12:09:16Z | BATCH | - | batch | - | reseed 310.0; score 1.1 | - | BATCH 166 (cut short for upstream sync; 16 processed): 1 registered (Draw_Poly_sc flat quad wrapper, in src/cod/0015f0.c, which now compiles with sn-2.95.3-136; new drawPrim.h shares Gp_draw_poly4 with 001de7c8.c). Drafts: func_002BEBC8 (new drafts/cod/002bebc8.c, short-loop pad), func_001C7138 (new drafts/cod/001c7138.c, VU0 temporary hoist), func_0020EF08 (new drafts/cod/0020ef08.c, two jump tables, 242 vs 257 words), cSnd_IsEnemyAlive, cSceAtUnit_AreaSet (2 insns, delay-slot order), func_0030F518 (4 insns, conversion order). Skipped: func_001DC4C0, func_00375318 (RPC buffer type), func_00394828 (short-loop pad), classFADE_kill/status/setOt (-O0 g++ this-in-register), cOmSub_setEndPos and Cloth_AddWind (C++ vector temporaries, waiting on decisions_needed). Headers: cOmSub.h vectors 0x70..0xE0, drawPrim.h. Reseed anchor Draw_Poly_sc: rc=0 elf=OK overlay=OK (310s), no compile failures. nm_handoff: nothing pending. nm_prune: 0 stale. |

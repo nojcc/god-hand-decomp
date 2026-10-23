@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -6,7 +7,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
 extern void func_002812A8(void *a0, int a1, int a2);
-extern void func_002831C8(void *a0, int a1, int a2);
 extern void func_002495E0(void *a0, float f);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
@@ -40,7 +40,7 @@ __attribute__((section(".text.func_0024A518"))) void func_0024A518(cEm00 *self)
                 func_002812A8((void *)self->sub0, 1, 0);
             }
             if ((void *)self->sub1 != 0) {
-                func_002831C8((void *)self->sub1, 1, 0);
+                func_002831C8((cGameObj *)self->sub1, 1, 0);
             }
             self->step++;
         case 1:
@@ -61,7 +61,7 @@ __attribute__((section(".text.func_0024A518"))) void func_0024A518(cEm00 *self)
                 func_002812A8((void *)self->sub0, 2, 0);
             }
             if ((void *)self->sub1 != 0) {
-                func_002831C8((void *)self->sub1, 2, 0);
+                func_002831C8((cGameObj *)self->sub1, 2, 0);
             }
             self->timer = 30.0f;
             self->step++;

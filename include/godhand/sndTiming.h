@@ -10,7 +10,8 @@ typedef struct SndTiming {
     char name[14];              /* 0x00 */
     char unk0E[2];
     int frame;                  /* 0x10 */
-    char unk14[8];
+    int unk14;                  /* 0x14 */
+    char unk18[4];
     int unk1C;                  /* 0x1C */
     short unk20;                /* 0x20 */
     char unk22[0x84 - 0x22];

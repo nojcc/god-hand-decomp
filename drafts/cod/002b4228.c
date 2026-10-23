@@ -1,6 +1,6 @@
 /* retail has mtc1 / nop / div.s, ours mtc1 / div.s (7 insns of shift).
-* func_002B42F0: 7 insns - ours sign-extends the 64-bit flags test and the
- * &~8 result (dsll32/dsra32) where retail goes straight lw/dsrl/andi. */
+* func_002B42F0: 35 vs 39 words - the flag test and clear now match; retail keeps the
+ * bit-6 arm and the 0x8000 case as two copies of the state-7 stores where ours cross-jumps them. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -21,8 +21,9 @@ typedef struct MsgWinAnim {
     float alpha;                /* 0xA0 */
 } MsgWinAnim;
 
-extern void func_002B21F0(MsgWinAnim *win, unsigned short arg);
+extern void func_002B21F0(void *self, unsigned short id);
 
+__attribute__((section(".text.func_002B4228")))
 int func_002B4228(MsgWinAnim *win)
 {
     unsigned int rest;
@@ -37,13 +38,17 @@ int func_002B4228(MsgWinAnim *win)
     return win->step == 6;
 }
 
+__attribute__((section(".text.func_002B42F0")))
 void func_002B42F0(MsgWinAnim *win)
 {
-    unsigned long flags;
+    int flags = win->flags;
+    unsigned long f;
+    unsigned long bit;
 
-    flags = win->flags;
     win->flags = flags & ~8;
-    if (((flags >> 6) & 1) != 0) {
+    f = flags;
+    bit = (f >> 6) & 1;
+    if (bit != 0) {
         win->unk0F = 0;
         win->state = 7;
     } else {
@@ -60,8 +65,8 @@ void func_002B42F0(MsgWinAnim *win)
             break;
         }
     }
-    win->unk0E = 0;
     win->unk0D = 0;
+    win->unk0E = 0;
 }
 
 #else
