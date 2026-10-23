@@ -1,5 +1,4 @@
 /* sn-2.95.3-136 */
-/* sn-2.95.3-136 */
 
 /* Convert a float to a half float, rounding to nearest even and saturating large values. */
 __attribute__((section(".text.F32toF16")))

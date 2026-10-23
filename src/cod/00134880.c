@@ -16,12 +16,12 @@ extern void MtxInitRotVec(void *a0, int a1, int a2);
 extern void MtxMultiply(int a0, int a1, void *a2);
 
 __attribute__((section(".text.func_002A8578")))
-void func_002A8578(int a0, int a1, int a2, int a3, int t0, int t1, float f12) {
+int func_002A8578(int a0, int a1, int a2, int a3, int t0, int t1, float f12) {
     int m = t0 & 0xFFFF;
     if ((t1 & 0xFFFF) == 0) {
         func_002A84A8(a0, a1, a2, a3, f12);
     }
-    setMotionInfo(a0, a1, a2, a3,
+    return setMotionInfo(a0, a1, a2, a3,
                          *(float*)((char*)a0 + 0x5A8), f12, m);
 }
 
