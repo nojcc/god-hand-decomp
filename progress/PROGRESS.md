@@ -301,3 +301,26 @@ Stopped for upstream sync
 - **Processes:** godhand-nix runs only its `sleep infinity` init (docker top). No compile.py, reseed, handoff, session_check, dual_compiler_regress or permuter process is running on the host.
 
 Stopped for upstream sync
+
+## Checkpoint (single-agent, batches 150-159; held functions and NM handoffs) — 2026-10-23T07:40:00Z
+
+- **% fully linked:** 54.7192% (1552048 / 2836384 code bytes; scripts/progress.sh at 07:36Z). Data 83.0150% (unchanged). +17448 B over the last entry (1534600).
+- **Registered at the checkpoint:** Set_bg_mode (spliced into src/cod/0030e0.c; gameWork.h gains padBtn 0x08, bgA 0x270, bgB 0x3E0, bgColor 0x60C, no offset changes). NM handoffs: cModel_calcParts (by hand, src/cod/00149eb8.c, as sn; nm_handoff left the INCLUDE_ASM in the multi-function src/cod/gfx/cModel.c and the link overflowed .text by 0x164), func_001A4010 (vu0.h VU0_VSCALE_XYZ_TO), func_002FBFB0 (espSys.h EspAnim; the handoff's second extern D_00747A84 was dropped for D_007474A0.flags5E4, same bytes), cSubScr_SubScrOn (gameWork.h flags5D8/flags5E0), func_001F0A28 (cEmWrap.h entryNo, ColiseumBattle_DefeatAllEnemies takes its unread self), func_00275978 (cEm00.h aimPos).
+- **Held, not registered:** KeyStop (with gameWork.h fields retail addresses both words from &D_007474A0.0x5D8 as symbol+offset; the struct-field form shares the base register; 10 diffs). func_00133DA0 (array-ctor zeroing loop and an edge macro need review), func_00146A18 (needs IdPair header and the CustomIDWork/cIDBaseEnt merge), cMovie_Start (needs cMovie.h, off-limits), SetEffect (65 callers), and the rest listed in pending_headers.md.
+- **Tooling notes:** a failed nm_handoff final build moves every folder to rejected/; a later run that finds the interrupted journal restores its snapshot, which can leave compile_units/carved_funcs entries for TUs that don't exist. Fixed by hand (3 phantom units removed) and the three re-applied cleanly. scripts/sa/header_merge.py fails to import HeaderTxn.
+- **Builds:** reseed after Set_bg_mode and after cModel_calcParts elf=OK overlay=OK; each handoff verified by a full build; cold build (container_run.sh python3 compile.py --cold) ELF `1742f95bef65bdb2…`, overlay `ea59932301345e48…`, both retail.
+- **Checks:** session_check 18 pass, 7 skip, known dual_compiler_regress rc=126.
+- **Stop conditions:** none hit.
+
+## Checkpoint (single-agent, batches 160-166; batch 166 cut short) — 2026-10-23T12:35:00Z
+
+- **% fully linked:** 55.0394% (1561128 / 2836384 code bytes; scripts/progress.sh through container_run.sh). Data 83.0150% (unchanged). +9080 B over the last entry (1552048).
+- **Batch 166:** stopped after 16 functions on request. One registered: Draw_Poly_sc (src/cod/0015f0.c now compiles with sn-2.95.3-136; new include/godhand/drawPrim.h, with a .gitignore allowlist line). New drafts: drafts/cod/002bebc8.c, 001c7138.c, 0020ef08.c. The rest are logged in batch_log.md as parked or skipped. Most of the remaining SN game code waits on the C++ VU0 vector temporaries decision in decisions_needed.md.
+- **Headers:** cOmSub.h gains the eight vectors at 0x70..0xE0 (four users still match). Batch 166 notes were appended to pending_headers.md. The pending-header merge was not done: each item is a cross-file refactor, not a quick merge.
+- **NM handoffs:** progress/nm_solved/ has nothing pending (only done/ and rejected/).
+- **Builds:** reseed anchored on Draw_Poly_sc gave rc=0, elf=OK, overlay=OK, with no compile failures in build/sa_reseed.log. The cold build (container_run.sh python3 compile.py --cold) gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, both retail. Logs: build/scratch/reseed166.out, build_b166_cold.log.
+- **Checks:** session_check through container_run.sh gave 18 pass, 7 skip and the known dual_compiler_regress rc=126. Run on the host instead, its build step fails in mipsel-as-wrap.py for every asm file, so it has to run in the container.
+- **Stop conditions:** none hit.
+- **Processes:** godhand-nix runs only its `sleep infinity` init (docker top). No compile.py, reseed, handoff, session_check or permuter process is running on the host.
+
+Stopped for upstream sync

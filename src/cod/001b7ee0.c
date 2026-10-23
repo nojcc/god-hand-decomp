@@ -2,7 +2,7 @@
 
 extern void *Getplayer(void);
 extern float capVu0LengthSq(void *a0);
-extern int Dest_ck(void *a0, void *a1, float f12, float f13);
+extern int Dest_ck(float *from, float *to, float cur, float max);
 extern void cActionButton_set(void *a0, int a1, int a2, int a3, int t0, int t1, int t2);
 extern char D_00568288;
 

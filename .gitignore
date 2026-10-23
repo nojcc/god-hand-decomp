@@ -270,6 +270,9 @@
 !src/cod/0015f0.c
 !src/cod/0015fba8.c
 !src/cod/001684d8.c
+!src/cod/00166bb8.c
+!src/cod/00167908.c
+!src/cod/0016ae38.c
 !src/cod/0016f3b0.c
 !src/cod/0016f698.c
 !src/cod/0016f988.c
@@ -443,6 +446,8 @@
 !src/cod/002376c0.c
 !src/cod/002387b8.c
 !src/cod/00244610.c
+!src/cod/00244398.c
+!src/cod/00248d00.c
 !src/cod/00247708.c
 !src/cod/002477f0.c
 !src/cod/0026af20.c
@@ -475,6 +480,7 @@
 !src/cod/00281d10.c
 !src/cod/00282080.c
 !src/cod/002831a0.c
+!src/cod/002831c8.c
 !src/cod/00284a90.c
 !src/cod/002880c8.c
 !src/cod/002884e0.c
@@ -602,6 +608,7 @@
 !src/cod/002cba48.c
 !src/cod/002cc4b8.c
 !src/cod/002cda38.c
+!src/cod/002cf058.c
 !src/cod/002cf258.c
 !src/cod/002cff30.c
 !src/cod/002d3200.c
@@ -613,6 +620,7 @@
 !src/cod/002d5788.c
 !src/cod/002d6510.c
 !src/cod/002d6560.c
+!src/cod/002d8c60.c
 !src/cod/002d8de0.c
 !src/cod/002d8ff8.c
 !src/cod/002d9bc0.c
@@ -637,6 +645,7 @@
 !src/cod/002fbe18.c
 !src/cod/002fbe20.c
 !src/cod/002fbec8.c
+!src/cod/002fdda8.c
 !src/cod/002febd8.c
 !src/cod/002febe0.c
 !src/cod/002fec30.c
@@ -648,6 +657,7 @@
 !src/cod/002fff10.c
 !src/cod/002fffe0.c
 !src/cod/00302918.c
+!src/cod/003029c0.c
 !src/cod/00303a20.c
 !src/cod/00304938.c
 !src/cod/00305a18.c
@@ -675,6 +685,7 @@
 !src/cod/0030ac38.c
 !src/cod/0030e0.c
 !src/cod/0030e598.c
+!src/cod/00312e88.c
 !src/cod/00313510.c
 !src/cod/003137b0.c
 !src/cod/00313ad0.c
@@ -1646,6 +1657,7 @@
 !src/cod/001574f0.c
 !src/cod/003079c8.c
 !src/cod/002d6d80.c
+!src/cod/002d6f40.c
 !src/cod/0027fbe8.c
 !src/cod/002808d8.c
 !src/cod/0027f780.c
@@ -1964,6 +1976,7 @@
 !src/cod/003a6830.c
 !src/cod/003a5f68.c
 !src/cod/003a7b88.c
+!src/cod/003a7d08.c
 !src/cod/003a0f88.c
 !src/cod/003a6020.c
 !src/cod/003a0fd8.c
@@ -2977,6 +2990,7 @@
 !src/cod/002d0220.c
 !include/godhand/BlackJack.h
 !include/godhand/cArea.h
+!include/godhand/drawPrim.h
 !include/godhand/cBgmData.h
 !include/godhand/cDamageUnit.h
 !include/godhand/cDataManager.h
@@ -3268,6 +3282,7 @@
 !src/cod/001599b0.c
 !src/cod/00140c88.c
 !src/cod/0026e458.c
+!src/cod/0026e988.c
 !src/cod/0012e840.c
 !src/cod/00159200.c
 !src/cod/00326050.c
@@ -3313,6 +3328,7 @@
 !src/cod/0013e908.c
 !src/cod/00124fd8.c
 !src/cod/0013bc28.c
+!src/cod/0013bd40.c
 !src/cod/0011a820.c
 !src/cod/0015a590.c
 !src/cod/001f60d8.c
@@ -3368,6 +3384,7 @@
 !src/cod/0016c678.c
 !src/cod/001689e8.c
 !src/cod/001f1038.c
+!src/cod/001f1148.c
 !src/cod/001e8eb8.c
 !src/cod/00170050.c
 !src/cod/0019bca0.c
@@ -3421,6 +3438,7 @@
 !include/godhand/espSys.h
 !include/godhand/flagList.h
 !include/godhand/gameWork.h
+!include/godhand/gsLoadImage.h
 !include/godhand/mdlPkt.h
 !include/godhand/menuCtl.h
 !include/godhand/motion.h
@@ -3598,6 +3616,7 @@
 !src/cod/0030f5f0.c
 !src/cod/0031c1d0.c
 !src/cod/003741b0.c
+!src/cod/0037fc28.c
 !src/cod/0037fcc8.c
 !src/cod/00380678.c
 !src/cod/0030ee68.c
@@ -3640,6 +3659,7 @@
 !src/cod/0015eac8.c
 !src/cod/00161990.c
 !src/cod/00164238.c
+!src/cod/001643f8.c
 !src/cod/00188de0.c
 !src/cod/0018eaf8.c
 !src/cod/00191b98.c
@@ -3710,6 +3730,7 @@
 !src/cod/002f2898.c
 !src/cod/002f6b40.c
 !src/cod/003057d0.c
+!src/cod/00305858.c
 !src/cod/00305a68.c
 !src/cod/00306030.c
 !src/cod/00306e38.c
@@ -3931,6 +3952,7 @@
 !src/cod/003778d8.c
 !src/cod/00377a28.c
 !src/cod/00377bc8.c
+!src/cod/00377cb8.c
 !src/cod/00377ed0.c
 !src/cod/00378ae0.c
 !src/cod/00378b58.c
@@ -3947,7 +3969,9 @@
 !src/cod/0037ad88.c
 !src/cod/0037b660.c
 !src/cod/0037b808.c
+!src/cod/0037be98.c
 !src/cod/0037c330.c
+!src/cod/0037c720.c
 !src/cod/0037cce0.c
 !src/cod/0037ce20.c
 !src/cod/0037d310.c
@@ -4050,6 +4074,7 @@
 !src/cod/001b22d0.c
 !src/cod/001b67d0.c
 !src/cod/001b7568.c
+!src/cod/001b76d8.c
 !src/cod/001b90d0.c
 !src/cod/001bcfb0.c
 !src/cod/001bf8c8.c
@@ -4141,6 +4166,7 @@
 !include/godhand/mwPly.h
 !include/godhand/cOmHitVolumeSetup.h
 !include/godhand/heapArena.h
+!include/godhand/idSet.h
 !include/godhand/sideCounter.h
 !include/godhand/objField.h
 !include/godhand/emPhaseTable.h
@@ -5262,9 +5288,21 @@
 
 !src/cod/002cc150.c
 !src/cod/002da038.c
+!src/cod/002da2d0.c
+!src/cod/002df860.c
 !src/cod/002fb0e8.c
 !src/cod/00300628.c
 !src/cod/0032a1b0.c
 !src/cod/00365ec0.c
 
 !src/cod/0037e368.c
+
+!src/cod/0012c000.c
+!src/cod/0030e660.c
+!src/cod/00149eb8.c
+!src/cod/002fbfb0.c
+!src/cod/00160020.c
+!src/cod/001f0a28.c
+!src/cod/00275978.c
+!src/cod/002f2250.c
+!src/cod/00302f68.c

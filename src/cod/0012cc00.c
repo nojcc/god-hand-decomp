@@ -1,13 +1,15 @@
+#include "godhand/espSys.h"
+
 __attribute__((section(".text.FindAndForwardEntry_3059A8")))
-int FindAndForwardEntry_3059A8(void *a0, int a1, void *a2) {
+int FindAndForwardEntry_3059A8(void *a0, int a1, int force) {
     int sp[4];
-    int r;
+    int *ent;
     if (a1 == 5) {
         return 0;
     }
-    r = func_003058D8(a0, a1);
-    if (r != 0) {
-        return func_00305858(r, a2);
+    ent = func_003058D8(a0, a1);
+    if (ent != 0) {
+        return func_00305858(ent, force);
     }
     getEffTypeString(sp, a1);
     return 0;

@@ -127,7 +127,7 @@ void IdHolder_releaseAnim(IdHolder *self) {
 
 /* Sets the text draw state: colour, layer, three scales; then runs the two state setters with a3 and t0. */
 __attribute__((section(".text.cFont_setDrawState")))
-void cFont_setDrawState(cFont *self, int colour, int layer, int a3, int t0, float scaleX, float f13, float f14) {
+void cFont_setDrawState(cFont *self, int colour, int layer, int a3, unsigned int t0, float scaleX, float f13, float f14) {
     self->state.colour = colour;
     self->state.layer = layer;
     self->state.scaleY = scaleX;

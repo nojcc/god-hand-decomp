@@ -27,7 +27,12 @@ typedef struct Slot2Reel {
     int sym[3];                     /* 0xA8 symbol on the top, middle, bottom row */
     char unkB4[0xC];
     unsigned int doneFlag;          /* 0xC0 bit 0 set once the reel stopped */
-    char unkC4[0x24];
+    int stopLine;                   /* 0xC4 prize line the reel is told to stop on */
+    unsigned char stopMode;         /* 0xC8 */
+    char unkC9[3];
+    int unkCC[3];                   /* 0xCC */
+    int unkD8[3];                   /* 0xD8 */
+    char unkE4[4];
 } Slot2Reel;                        /* 0xE8 */
 
 typedef struct Slot2Panel {         /* the prize board at +0x310 */
@@ -54,7 +59,8 @@ typedef struct Slot2 {
     Slot2Panel panel;               /* 0x310 */
     int betCost;                    /* 0x368 gold per bet level */
     int unk36C[6];                  /* 0x36C prize per line */
-    char unk384[0x44];
+    int lineWeight[4];              /* 0x384 odds of each prize line */
+    char unk394[0x34];
     int lineLayer;                  /* 0x3C8 layer shown for the line marks */
     char unk3CC[4];
     unsigned short slotId;          /* 0x3D0 */

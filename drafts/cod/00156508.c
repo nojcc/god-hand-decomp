@@ -7,6 +7,7 @@
 #include "godhand/cCoreSave.h"
 
 #ifdef NON_MATCHING
+#include "godhand/espSys.h"
 extern int D_0076A7AC;
 extern void (*D_003F2810[])(int);
 typedef struct { int a; int b; } Pair28;
@@ -61,23 +62,24 @@ int func_001C2328(unsigned char *a0)
     return 0;
 }
 
+/* Set the frame the animation ends at, `len` frames after the current one:
+ * always for mode 1, for mode 0 only when that lengthens the run. Differs from
+ * retail only in which of v0/v1 holds the end frame and the constant 1. */
 __attribute__((section(".text.func_002FEBE8")))
-void func_002FEBE8(char *a0, unsigned int a1, int a2)
+void func_002FEBE8(EspAnim *self, unsigned short len, int mode)
 {
-    unsigned int cur = *(unsigned short *)(a0 + 0x22C);
-    unsigned int base;
+    int end = self->frameEnd;
+    int idx;
+    int left;
 
-    a1 &= 0xFFFF;
-    if (cur == 0) {
-        *(unsigned short *)(a0 + 0x22C) = a1;
+    if (end == 0) {
+        self->frameEnd = len;
         return;
     }
-    base = *(unsigned short *)(a0 + 0x224);
-    if (a2 == 1)
-        goto store;
-    if (a2 == 0 && (int)(cur - base) < (int)a1) {
-store:
-        *(unsigned short *)(a0 + 0x22C) = a1 + base;
+    idx = self->frameIdx;
+    left = end - idx;
+    if (mode == 1 || (mode == 0 && left < len)) {
+        self->frameEnd = len + idx;
     }
 }
 

@@ -44,7 +44,7 @@ int func_0037E368(MenuCtl *self, MenuPad *pad)
         func_0037FE40((unsigned char *)self);
         break;
     case 7:
-        func_0037FF98(self);
+        func_0037FF98((MenuCtl *)self);
         break;
     case 8:
     case 9:

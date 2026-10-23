@@ -3,6 +3,7 @@
 #include "godhand/CustomIDWork.h"
 #include "godhand/Slot2.h"
 #include "godhand/cNode.h"
+#include "godhand/drawPrim.h"
 
 extern void CustomIDWork_SetOffsetPosX(CustomIDWork *work, int x);
 extern void CustomIDWork_SetMoveOffsetPosX(CustomIDWork *work, int from, int to, int frames);
@@ -11,7 +12,6 @@ extern float *CallThenReturnPlusB0_002B6420_2B61B0(cNode *node);
 extern float *func_002B6328(cNode *node);
 extern void MtxMultiply(float *dst, float *a, float *b);
 extern void MtxCopy(float *dst, float *src);
-extern void *Gp_draw_poly4(void *v, int color, int count, void *ctx, int a5, int a6);
 
 #define SLIDE_OFFSET_X  (-0xDC)         /* x offset of the panel when hidden */
 #define SLIDE_FRAMES    10
