@@ -5,8 +5,17 @@
 #ifndef GODHAND_MENUCTL_H
 #define GODHAND_MENUCTL_H
 
+#define MENUPAD_DPAD     0xF0       /* press: any d-pad direction */
+#define MENUPAD_NEXT     0x80       /* press: next page */
+#define MENUPAD_CANCEL   0x40       /* press */
+#define MENUPAD_DECIDE   0x20       /* press */
+#define MENUPAD_PREV     0x10       /* press: previous page */
+
 typedef struct MenuPad {
-    char unk00[0x38];
+    char unk00[0x2C];
+    int hold;                   /* 0x2C held buttons */
+    char unk30[4];
+    int press;                  /* 0x34 buttons pressed this frame, MENUPAD_* */
     unsigned int trg;           /* 0x38 */
 } MenuPad;
 
@@ -15,9 +24,42 @@ typedef struct MenuInfo {
     int f04;                    /* 0x04 */
     int f08;                    /* 0x08 */
     int f0C;                    /* 0x0C */
-    char unk10[0x30 - 0x10];
+    char name[4];               /* 0x10 filled by func_0032A160 */
+    int unk14;                  /* 0x14 */
+    float unk18;                /* 0x18 */
+    int unk1C;                  /* 0x1C */
+    char unk20[4];
+    int unk24;                  /* 0x24 */
+    int unk28;                  /* 0x28 */
+    int unk2C;                  /* 0x2C */
     int handle;                 /* 0x30 */
 } MenuInfo;
+
+/* A sound slot of a menu page: the stream it plays and its state. */
+typedef struct MenuSlot {
+    unsigned char unk00;
+    unsigned char result;       /* 0x01 a prompt is up; any d-pad key clears it */
+    char unk02[0xA];
+    int status;                 /* 0x0C the stream's state, -1 without a stream */
+    MenuInfo info;              /* 0x10 */
+    char unk44[4];
+} MenuSlot;                     /* 0x48 */
+
+/* The data page of a menu. */
+typedef struct MenuPage {
+    unsigned char unk00;
+    unsigned char result;       /* 0x01 a prompt is up; any d-pad key clears it */
+    char unk02[0x30 - 0x02];
+    int status;                 /* 0x30 cleared when the page is left */
+    char unk34[0xFC - 0x34];
+    int count;                  /* 0xFC 0 when there is no data */
+} MenuPage;                     /* 0x100 */
+
+/* The loaded file table a menu list shows. */
+typedef struct MenuDir {
+    int unk00;
+    int count;                  /* 0x04 */
+} MenuDir;
 
 typedef struct MenuList {
     unsigned char unk00;
@@ -27,22 +69,28 @@ typedef struct MenuList {
     char unk06[2];
     short unk08;                /* 0x08 */
     short unk0A;                /* 0x0A */
-    char unk0C[0x10 - 0x0C];
+    int status;                 /* 0x0C the stream's state, -1 without a stream */
     unsigned int count;         /* 0x10 */
     MenuInfo work;              /* 0x14 */
     char unk48[0x4C - 0x48];
     MenuInfo info;              /* 0x4C */
     char unk80[0x84 - 0x80];
-    int f84;                    /* 0x84 */
+    struct MenuDir *dir;        /* 0x84 */
 } MenuList;
 
 typedef struct MenuCtl {
     unsigned char unk00;
     unsigned char unk01;
     unsigned char state;        /* 0x02 */
-    unsigned char unk03[4];
+    unsigned char detail;       /* 0x03 toggled by button 4: also read the stream's sizes */
+    unsigned char row;          /* 0x04 */
+    unsigned char slotNo;       /* 0x05 index into slot[] */
+    unsigned char unk06;
     unsigned char cursor;       /* 0x07 */
-    char unk08[0x470 - 0x08];
+    char unk08[0x48 - 0x08];
+    MenuSlot slot[10];          /* 0x048 */
+    char unk318[0x370 - 0x318];
+    MenuPage page;              /* 0x370 */
     MenuList list;              /* 0x470 */
 } MenuCtl;
 
@@ -104,6 +152,8 @@ extern int GuardedCall_00329FD0_329F98(int handle);
 extern int func_00380AE8(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern void func_00380EB0(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern int func_0037FD28(FileSel *sel, FileSelWork *work);
+extern void func_0037FC28(FileSel *self);
+extern void func_0037FF98(MenuCtl *ctl);
 extern int func_00323918(int a0, int idx);
 
 /* One row of the option menu pages (D_003F21E8, D_003F2368, D_003F24D0). */
@@ -134,5 +184,38 @@ typedef struct SndVoiceRef {
     char unk00[0x30];
     void *voice;                        /* 0x30 voice handle */
 } SndVoiceRef;
+/* The sound option pages (0x381F18 first block, 0x383878 second block). */
+typedef struct SndOptLevels {
+    char pad00[2];
+    unsigned char slot;                 /* 0x02 */
+    char pad03;
+    short level[5];                     /* 0x04 */
+    short index[5];                     /* 0x0E */
+} SndOptLevels;
+
+typedef struct SndOptMenu {
+    char pad000[0x318];
+    SndOptLevels snd;                      /* 0x318 */
+} SndOptMenu;
+
+typedef struct SndOptPad {
+    char pad00[0x2C];
+    int hold;                           /* 0x2C */
+    char pad30[8];
+    int trig;                           /* 0x38 */
+} SndOptPad;
+
+typedef struct SndOptLevels2 {
+    char pad00[4];
+    unsigned char slot;                 /* 0x04 */
+    char pad05[3];
+    short level[5];                     /* 0x08 */
+    short index[5];                     /* 0x12 */
+} SndOptLevels2;
+
+typedef struct SndOptMenu2 {
+    char pad000[0x370];
+    SndOptLevels2 snd;                      /* 0x370 */
+} SndOptMenu2;
 
 #endif /* GODHAND_MENUCTL_H */
