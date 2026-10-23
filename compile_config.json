@@ -19042,11 +19042,6 @@
       ]
     },
     {
-      "path": "src/cod/002b1168.c",
-      "compiler": "sn-2.95.3-136",
-      "fp_hazard_rules": "mtc1"
-    },
-    {
       "path": "src/cod/00325638.c",
       "compiler": "cygnus-2.96",
       "c_flags_drop": [
@@ -19054,23 +19049,8 @@
       ]
     },
     {
-      "path": "src/cod/001ed050.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
       "path": "src/cod/00322570.c",
       "compiler": "ee-2.9-991111"
-    },
-    {
-      "path": "src/cod/00353bd8.c",
-      "compiler": "cygnus-2.96",
-      "c_flags_drop": [
-        "-f=-freorder-blocks"
-      ]
-    },
-    {
-      "path": "src/cod/001de5f8.c",
-      "compiler": "sn-2.95.3-136"
     },
     {
       "path": "src/cod/00283aa8.c",
@@ -19152,6 +19132,26 @@
     },
     {
       "path": "src/cod/00365ec0.c",
+      "compiler": "cygnus-2.96",
+      "c_flags_drop": [
+        "-f=-freorder-blocks"
+      ]
+    },
+    {
+      "path": "src/cod/002b1090.c",
+      "compiler": "sn-2.95.3-136",
+      "fp_hazard_rules": "mtc1"
+    },
+    {
+      "path": "src/cod/001ece30.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/001de4f8.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/00353928.c",
       "compiler": "cygnus-2.96",
       "c_flags_drop": [
         "-f=-freorder-blocks"
@@ -19240,7 +19240,7 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x001DE5F8",
       "size": 464,
-      "tu": "src/cod/001de5f8.c"
+      "tu": "src/cod/001de4f8.c"
     },
     {
       "name": "BuildObjEntry_387160",
@@ -76924,7 +76924,7 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x00353BD8",
       "size": 776,
-      "tu": "src/cod/00353bd8.c"
+      "tu": "src/cod/00353928.c"
     },
     {
       "name": "CustomIDOwner_setSlideState",
@@ -79262,7 +79262,7 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x001DE858",
       "size": 504,
-      "tu": "src/cod/001de5f8.c"
+      "tu": "src/cod/001de4f8.c"
     },
     {
       "name": "ChargeObj_updateAuraEffect",
@@ -79612,14 +79612,14 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x001ED050",
       "size": 292,
-      "tu": "src/cod/001ed050.c"
+      "tu": "src/cod/001ece30.c"
     },
     {
       "name": "func_001ED178",
       "unit": "asm/cod/000000",
       "vaddr": "0x001ED178",
       "size": 584,
-      "tu": "src/cod/001ed050.c"
+      "tu": "src/cod/001ece30.c"
     },
     {
       "name": "func_002ABCE8",
@@ -79773,35 +79773,35 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x00353EE0",
       "size": 132,
-      "tu": "src/cod/00353bd8.c"
+      "tu": "src/cod/00353928.c"
     },
     {
       "name": "func_00353F68",
       "unit": "asm/cod/000000",
       "vaddr": "0x00353F68",
       "size": 280,
-      "tu": "src/cod/00353bd8.c"
+      "tu": "src/cod/00353928.c"
     },
     {
       "name": "func_00354080",
       "unit": "asm/cod/000000",
       "vaddr": "0x00354080",
       "size": 164,
-      "tu": "src/cod/00353bd8.c"
+      "tu": "src/cod/00353928.c"
     },
     {
       "name": "func_00354128",
       "unit": "asm/cod/000000",
       "vaddr": "0x00354128",
       "size": 232,
-      "tu": "src/cod/00353bd8.c"
+      "tu": "src/cod/00353928.c"
     },
     {
       "name": "func_00354210",
       "unit": "asm/cod/000000",
       "vaddr": "0x00354210",
       "size": 168,
-      "tu": "src/cod/00353bd8.c"
+      "tu": "src/cod/00353928.c"
     },
     {
       "name": "cHookList_callAll",
@@ -82734,7 +82734,7 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x002B1168",
       "size": 252,
-      "tu": "src/cod/002b1168.c"
+      "tu": "src/cod/002b1090.c"
     },
     {
       "name": "cMessDrawFont_measureCode",
