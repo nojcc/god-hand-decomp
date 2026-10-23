@@ -9,7 +9,7 @@ void func_00354128(SftimHn *hn, SfdFrm *ft);
 extern SfdFrm *func_003555A8(SftimHn *hn);
 extern void func_003556A0(SfdFrm *frm);
 extern void func_00354430(SfdUsrBuf *dst, SfdUsrBuf *src);
-extern void *func_003A5148(void *d, const void *s, unsigned int n);
+extern void *func_003A5148(void *d, const void *s, unsigned int n);    /* memcpy */
 void func_003542B8(SjObj *sj, int *type, unsigned char **ext, int *extLen);
 int func_00353BD8(SftimHn *hn, SfdPicInf *pic, SfdOut *out, SfdFrm **pfrm);
 void SfdWork_getPicOffset(SftimHn *hn, SfdWork *work, int *x, int *y);
