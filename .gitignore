@@ -5314,3 +5314,6 @@
 !src/cod/001d4720.c
 !src/cod/001d47e8.c
 !src/cod/0039d398.c
+
+!src/cod/0012a578.c
+!include/godhand/cVec.h
