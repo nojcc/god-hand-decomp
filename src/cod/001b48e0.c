@@ -1,9 +1,4 @@
-/* NON_MATCHING func_001B48E0 (sn-2.95.3-136): retail keeps the child count cOmBase_childAt
- * returns in a 16-byte stack frame and stores it; with a plain int the store goes away. It
- * matches with int frame[3], as 00194558.c and 0027bb78.c write it. */
-#include "include_asm.h"
-
-#ifdef NON_MATCHING
+/* sn-2.95.3-136 */
 #include "godhand/cModel.h"
 #include "godhand/cEmManage.h"
 #include "godhand/gameWork.h"
@@ -28,7 +23,7 @@ typedef struct cOmSpinner {
 __attribute__((section(".text.func_001B48E0")))
 void func_001B48E0(cOmSpinner *self)
 {
-    int frame;
+    int frame[3];
     cParts *child;
 
     switch (self->base.step) {
@@ -51,9 +46,6 @@ void func_001B48E0(cOmSpinner *self)
         }
         break;
     }
-    child = (cParts *)cOmBase_childAt(&self->base, &frame, 0);
+    child = (cParts *)cOmBase_childAt(&self->base, frame, 0);
     child->rot.y += self->speed * cEmManage_GetSpeedRate(&D_005864F0) * D_007474A0.timeScale;
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_001B48E0);
-#endif

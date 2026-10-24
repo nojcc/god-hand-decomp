@@ -3678,6 +3678,7 @@
 !src/cod/001a3b80.c
 !src/cod/001b19e0.c
 !src/cod/001b4460.c
+!src/cod/001b48e0.c
 !src/cod/001cd7a8.c
 !src/cod/001d9ca0.c
 !src/cod/001dbf18.c
@@ -5309,3 +5310,7 @@
 !src/cod/002b1090.c
 
 !include/godhand/cGrid.h
+
+!src/cod/001d4720.c
+!src/cod/001d47e8.c
+!src/cod/0039d398.c
