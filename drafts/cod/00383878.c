@@ -9,45 +9,45 @@
 #ifdef NON_MATCHING
 #include "godhand/menuCtl.h"
 extern unsigned short D_003F2060[];
-extern short func_003807E0(SndOptMenu2 *o, int level);
-extern void func_00383A20(SndOptMenu2 *o, SndOptLevels2 *p);
+extern short func_003807E0(MenuCtl *o, int level);
+extern void func_00383A20(MenuCtl *o, MenuPage *p);
 
 __attribute__((section(".text.func_00383878")))
-void func_00383878(SndOptMenu2 *o, SndOptPad *pad)
+void func_00383878(MenuCtl *o, MenuPad *pad)
 {
-    SndOptLevels2 *p;
+    MenuPage *p;
     short step;
     int trig;
 
-    p = &o->snd;
+    p = &o->page;
     step = 1;
     if (pad->hold & 2)
         step = 10;
-    trig = pad->trig;
+    trig = pad->trg;
     if (trig < 0 || (trig & 0x40000000)) {
         if (trig < 0) {
-            if (o->snd.level[p->slot] >= step - 960)
-                o->snd.level[p->slot] -= step;
+            if (o->page.level[p->slot] >= step - 960)
+                o->page.level[p->slot] -= step;
             else
-                o->snd.level[p->slot] = -960;
+                o->page.level[p->slot] = -960;
         } else {
-            if (o->snd.level[p->slot] <= -step)
-                o->snd.level[p->slot] += step;
+            if (o->page.level[p->slot] <= -step)
+                o->page.level[p->slot] += step;
             else
-                o->snd.level[p->slot] = 0;
+                o->page.level[p->slot] = 0;
         }
         p->index[p->slot] = func_003807E0(o, p->level[p->slot]);
     } else {
         if (trig & 0x8000) {
-            if (o->snd.index[p->slot] >= step)
-                o->snd.index[p->slot] -= step;
+            if (o->page.index[p->slot] >= step)
+                o->page.index[p->slot] -= step;
             else
-                o->snd.index[p->slot] = 0;
+                o->page.index[p->slot] = 0;
         } else if (trig & 0x2000) {
-            if (o->snd.index[p->slot] <= 127 - step)
-                o->snd.index[p->slot] += step;
+            if (o->page.index[p->slot] <= 127 - step)
+                o->page.index[p->slot] += step;
             else
-                o->snd.index[p->slot] = 127;
+                o->page.index[p->slot] = 127;
         } else {
             return;
         }

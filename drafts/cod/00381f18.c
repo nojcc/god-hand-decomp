@@ -9,13 +9,13 @@
 #ifdef NON_MATCHING
 #include "godhand/menuCtl.h"
 extern unsigned short D_003F2060[];
-extern short func_003807E0(SndOptMenu *o, int level);
-extern void func_003820C0(SndOptMenu *o, SndOptLevels *p);
+extern short func_003807E0(MenuCtl *o, int level);
+extern void func_003820C0(MenuCtl *o, MenuSnd *p);
 
 __attribute__((section(".text.func_00381F18")))
-void func_00381F18(SndOptMenu *o, SndOptPad *pad)
+void func_00381F18(MenuCtl *o, MenuPad *pad)
 {
-    SndOptLevels *p;
+    MenuSnd *p;
     short step;
     int trig;
 
@@ -23,7 +23,7 @@ void func_00381F18(SndOptMenu *o, SndOptPad *pad)
     step = 1;
     if (pad->hold & 2)
         step = 10;
-    trig = pad->trig;
+    trig = pad->trg;
     if (trig < 0 || (trig & 0x40000000)) {
         if (trig < 0) {
             if (o->snd.level[p->slot] >= step - 960)

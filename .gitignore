@@ -5317,3 +5317,5 @@
 
 !src/cod/0012a578.c
 !include/godhand/cVec.h
+
+!include/godhand/sndStream.h
