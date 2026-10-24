@@ -930,3 +930,97 @@ Still open:
 - vu0.h proposal: a non-volatile `"+m"` twin of VU0_VADD_XYZ_IP (like VU0_ZERO_VSUB_XYZ_TO) moves func_001C7138 from 20 to 12 differing words.
 - drawPrim.h (new, needs review): Gp_draw_poly4 and Draw_Poly_sc prototypes; 001de7c8.c includes it instead of its local Gp_draw_poly4 copy. src/cod/0015f0.c now has a compile_units entry for sn-2.95.3-136 (cygnus turns Draw_Poly_sc's call into a sibcall); Draw_Line_sc there stays INCLUDE_ASM and the reseed still reproduces both hashes.
 - cSceAtUnit is defined twice: cSceAtUnit.h (area at 0x04 as `char[0x30]`) and cSceAtManager.h (link/state/pos view) use the same tag for the same 0x9C record. The area should be typed cArea, and func_001F88A8's prototype (00169258.c) belongs in cArea.h; 002c12c8.c and drafts/cod/00123908.c declare it and cSceAtUnit_AreaSet locally.
+
+## Batch 167
+
+Overlay copies of every changed header are in progress/held/inc/godhand/; progress/held/README.md lists which held file needs which edit. Merge at the checkpoint, then make each defining file include its header.
+
+- capVu0.h (new): capVu0MagnitudeSqXZ(cVec *, cVec *), capVu0Atan2(float y, float x), capVu0Acos(float). capVu0Atan2 is declared locally in 0011b3e8.c, 0026eb20.c, 0014b640.c and others.
+- rand.h (new): `int irand(void);` (definition in 001004c8.c).
+- angle.h (new): `float Turn_dest(float *from, float *to, float cur, float max);` (definition in 002da038.c). This is the one prototype batch 166 asked for; about 15 files declare it locally.
+- cEm00.h: fields counterVital (0x17AC), unk17C4 int and unk17C8 short (were `char unk17C4[0x6]`), unk17D0 int (attack roll, 0 to 4), unk1866 byte (knockdown count). Prototypes: func_0026F1D8, Obj0000_Get_Byte_17C3_NZ_2_276468, StoreMotionParamsBoth_2609A8, func_00260B30, func_002705D8, func_002740D8 `(char *)`, func_0025FE30 `int (void *, int, int)`, func_00274FE8 `void (void *)`.
+- cHeatSys.h: `extern cHeatSys D_005CB000;`.
+- player.h: Obj0000_Get_Field_5FC_NE_Zero_12C748 `int (char *)`.
+- motion.h: `int moveMotion(void *obj);` and `void func_002A8578(int obj, int motA, int motB, int mode, unsigned short sel, unsigned short keep, float start);`. Retail callers mask sel with `andi 0xFFFF` and treat the call as void. The definition in 00134880.c should become that signature: progress/held/00134880_def.c matches. Its current callers (0027c460.c, 00243fa0.c, 002816e0.c, 00227ca8.c, 001cb030.c, 0010c930.c, 002591f8.c) declare it locally with the float in the wrong slot; their code doesn't change when they include motion.h, but each needs a rebuild check.
+- MotionParamFn / MotionGetParam gain `float t`: retail MotionGetParam (0x159510) leaves $f12 untouched, so func_00139180 passes it through.
+- cObjBase.h: cObjBase_addNullSpeed and cObjBase_addNullSpeed_Rotation `(struct cObjBase *, float)`.
+- cGameObj.h: `void cGameObj_SetTgtTurn(char *self, void *target, float rate);`.
+- cSnd.h (new declarations only): `extern cSnd D_005FEE00;`, cSnd_SeCall_2CBA48 as defined in 002cba48.c, GetSeqSEBase `int (int *)`. D_005FEE00 is declared locally about 280 times with six different types.
+- cCollisionSolid.h: `extern char D_00462FC0[];` and cCollisionSolidManage_SetActive `void (int, int, int)` as defined in 001351d8.c. Callers declare it with `void *` parameters in at least five files.
+- cModel_setMeshDisplay `int (cModel *, char *, int)` needs a cModel.h prototype (new declaration; drafts/cod/002b6da0.c declares it locally).
+- 0024c0f0.c declares `void func_00276478(void *)`; the held 00276478.c defines it with `cEm00 *`. Give it one prototype in cEm00.h.
+
+## Batch 168
+
+Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists which held file needs which edit.
+
+- cEm00.h: `unsigned char counterChance` at 0x17B8 (split from unk17B2: 1 = a counter half the time, 2 = two times in three); `cDamageTake *atkHit` at 0x670 (split from unk649: the enemy's own attack hit record); unk510/weapon/unk1866 as noted in batch 167.
+- cEm00.h prototypes: `int cEm00_startHitUnitAim(cEm00 *)`, `void ReleaseField6ECByTag564_26B1E8(void *)`, `void func_00262750(void *, int)`, `int func_00270DB0(cEm00 *)`, `char *func_0026AA30(char *, int)` (as defined in 0026aa30.c), `void func_0026B240(void *, int, int, int)` (0014a038.c and 0022a258.c declare it locally), `void ForwardAnimParamPairByIndex_27EA50(void *, int)`.
+- cGameObj.h: `void InitRenderStruct_2A8608(cGameObj *, int kind, void *no, int a3, int mode, void *follow)` as defined in 002a8608.c; func_00275888, func_002A74E0, func_002A7CA0 prototypes.
+- cObjBase.h: `int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, unsigned int follow)`.
+- player.h: `void func_00129718(cGameObj *player, void *em, int kind)`.
+- cCollisionSolid.h: `int ChkLine(void *, void *, void *, int, int, int, void *, int, int, int, int, int, int)`. 00275888.c, 0017d488.c and 0012c7d0.c declare it locally, and 00275888.c gives the seventh parameter as `int` while 0017d488.c passes a pointer there; they should switch to the shared prototype.
+- capVu0.h: capVu0Sin. cEmManage.h: the CkPlSorry/CkPlCatched near-checks.
+- EmWeaponHolder views in the enemy files describe cEm00 memory and should become cEm00 field reads.
+- Per-file settings to register: `as: sn` for 00224a28.c (retail's hazard nop sits after a label reorg threaded a branch to), and for the 00231300 draft.
+
+## Batch 169
+
+Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists which held file needs which edit.
+
+- BlackJack.h overlay and the sibling-extern fixes from BlackJack_UpdateOpeningDeal (see the README row).
+- cOmBase.h: `float scale[3]` as used by the path blade (func_001B4528).
+- cPathMover.h (new): the path mover record func_001B4528 reads; drafts/cod/001b51b0.c should use it.
+- rand.h: `int Rnd(void);` (definition in 001fd308.c).
+- cSnd.h (new declaration): `void cSnd_SeStop(cSnd *self, int handle);`.
+- D_00747A14 is D_007474A0.timeScale; read it through gameWork.h.
+- mtx.h (new): func_00150710 `(void *dst, float x, float y, float z)`, MtxGetScaleVec `(void *scale, float *mtx)`, func_00147C88 `(void *rot, float *mtx, unsigned char order)`.
+- libm.h (new): `float sqrtf(float x);` (unifies the local externs in 0015a190.c and 002adf50.c) and `float func_003A1B78(float x);` (asinf).
+- capVu0.h: `float capVu0Cos(float x);` (local externs in 00160c48.c and 002f01b8.c).
+- drawPrim.h (new declaration): `void Draw_Line_sc(void *v, int n, unsigned int color, int a3);`.
+- cScrSpriteDraw.h: `unsigned int func_0031ED08(float f12);` (definition in 001c8f30.c; local externs in 002c5bd8.c, 0014ead8.c, 0023a300.c, 001027d8.c).
+- motion.h: func_002A8578 becomes `void func_002A8578(int obj, int motA, int motB, int mode, float start, unsigned short sel, unsigned short keep);` (float fifth; supersedes the float-last line in the batch 166 section). 0025DE58 and 00243408 only match this way; every held user is rewritten and still matches; progress/held/00134880_def.c is the matching definition. Main's local declarations in 0010cd38.c, 00244398.c, 00248d00.c already use this order; 0027c460.c, 00243fa0.c, 002816e0.c, 00227ca8.c, 001cb030.c, 0010c930.c, 002591f8.c, 00134880.c need converting and rebuild checks.
+- motion.h: `void SetMotionStep(void *obj, float step);` (definition 00147c40.c; local externs in 0025c1d0.c, 001cb030.c).
+- rand.h: `float fRand0_1(void); float fRand1_1(void);` (definitions 00124f60.c, 00292f50.c; local externs in 0031d050.c, 001733b0.c, 00287090.c, 0014b640.c and others).
+- cHeatSys.h: `void cHeatSys_AddHeatGage(cHeatSys *self, int a1, float heat);` (definition battle/cHeatSys.c; local extern in 0025c1d0.c with void *).
+- cObjBase.h: `void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size);` (definition 00306838.c, which includes cObjBase.h; local externs in 001e2eb8.c, 0016acd0.c).
+- cEm00.h: split unk56C[0x14] into unk56C[0x2], `short followTimer; /* 0x56E */`, unk570[0x10]. Prototype `void func_00260890(cEm00 *self, int part);`.
+- Adjust_theta lives in cCamera.h; angle.h is the better home (with Turn_dest).
+- NM closer: drafts/cod/00217560.c, 0028e0e0.c, 00245538.c (and the other drafts calling func_002A8578) may close with the float-fifth prototype.
+- Tooling gap: retail func_00147C88 pads a run of div.s once (two nops) and uses one nop where the divide reads the neg.s just before it; no fp_hazard_rules setting does that.
+- Registration at the checkpoint: 0025de58.c (extern_jtbl D_00443A80) and 00243408.c (extern_jtbl D_0043C8B0), no per-file flags.
+
+## Batch 170
+
+Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists which held file needs which edit.
+
+- Poker.h: the table UI prototypes `void func_001DEE40(void *ui, int n); void func_001DF528(char *ui, unsigned char idx, unsigned short mode); void func_001DF7D0(char *ui, int alt); void func_001DF820(char *ui, int enabled); void UiRecord_setDispSubs6to10(void *ui, int on);`. Correct the func_001DEE40 definition in src/cod/001dee20.c to `(void *ui, int n)` forwarding n (retail leaves a1 untouched, same bytes) and include Poker.h there.
+- cSnd.h (new declarations): `int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6); void cSnd_SetBgmState(cSnd *self, int state);`.
+- gameWork.h: `extern long D_00747640;` (D_007474A0.trg under its own symbol) and `extern int D_007476B0;` (D_007474A0.frame under its own symbol).
+- gsLoadImage.h: `void func_0015E708(GsLoadImagePacket *pkt, int psm, int tbp, int tbw, int w, int h, char *data);` (tbw not read). src/cod/0015e0a0.c then includes gsLoadImage.h and tim2.h and drops its local declarations.
+- mdlPkt.h: PktQw gains an `ad { unsigned long data; unsigned long addr; }` view; MdlRec gains `unsigned char texNo` (0x16); MdlObj gains `PktQw *pkt[2][16]` (0x300) and `unsigned char texBank` (0x384, pad385[3]); `extern MdlPktBuf D_00747BB8[];`; `PktQw *func_00155800(MdlObj *self, PktQw *q, int idx, int buf);` (buf not read). drafts/cod/00155800.c and 00154da0.c should use the typed fields.
+- tim2.h (new): GsTex0, Tim2FileHdr, Tim2PicHdr (unsigned totalSize/clutSize/imageSize), D_0041ED80, `int func_00309C30(unsigned int psm, int width);`.
+- texWork.h (new): ImageUpList (moved from 00151168.c), TexWork, the func_00150F68 and func_00151168 prototypes.
+- cEm00.h: `Obj0000_IsSet_Field_16D4_Bit_4_26F308(void *)`, `func_00273EE0(void *)`, `extern unsigned char D_005CB010;` (local declarations in 001169d8.c, 0024f050.c, 0020cac8.c, 002705d8.c then go).
+- cObjSimple.h: StoreVecFromFieldB0_2B6160, CopyVec16From20_B62E0, `int CallThenReturnPlusB0_002B6420_2B61B0(int)`, UpdateObjByIndexedOp_2FBE50, func_002FBED0, `void *func_002B60D0(void *dst, void *self);`, `void cNode_setLocalScale(int self, int scale);` (as its definition in 00134880.c; 002e6868.c and 002f2250.c declare other types).
+- cCamera.h: `void *cCamera_getScreenPos(cVec *out, void *camera, cVec *world);`. mtx.h: `void MtxCopy(void *dst, void *src);`.
+- cObjGround.h (new): the ground effect object (esp04). cObjGround with ObjFlags/cObjLink moves out of src/cod/002e6868.c; adds cObjGroundParam and `int func_002E63C0(char *self);`. 002e6868.c and 002e63c0.c include it.
+- espSys.h: `void *func_00306030(void *sys, int kind, int idx);`, `extern char D_007419A0[];` (effeventdatarelease.c declares it as a plain char), `void func_002D9F68(void *self, int fmt, ...);`.
+- cModel.h: `void cObj_setMeshValue(cModel *self, int value);` (002f1d58.c declares the value as long).
+- Proposed helpers, only if func_002EFD20 closes: `cVec_copy` (VU0_LQC2_SQC2_MEM through pointers) for sceVu0.h and `cEffectParam_initAll` for cObjBase.h.
+- Registration at the checkpoint: 001daec0.c (extern_jtbl D_0042B3A0, fp_hazard_rules fdiv, as sn), 0015e708.c (as sn), 00155678.c (as sn), 00294488.c (extern_jtbl D_0044A830). Drafts to drafts/cod/: 00151cc0_nm.c, 002efd20_nm.c, 002e64b0_nm.c.
+
+## Batch 171
+
+Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists which held file needs which edit.
+
+- cScrSpriteDraw.h, drawPrim.h (new prototypes only), cIDManager.h, drawQueue.h, sceVu0.h, tim2.h: the additions listed for func_002C5548 and the 002C5xxx/002C6xxx drafts in the held README. Register 002c5548.c (extern_jtbl D_0044C2E0, fp_hazard_rules mtc1); replace the local declarations in 002c6d48.c, 002c6550.c and 002c5bd8.c with the header ones. Drafts to drafts/cod/: 002c5ea8, 002c70a8, 002c6840, 0015bcf0.
+- sceTimer.h (new): T2_COUNT/T2_MODE and their bits, KE_NO_TIMER, sceTimerCounter (0x40), sceTimerCtl, `extern volatile sceTimerCtl D_003FBE90;` (interrupt handler state), and the iAllocTimerCounter/iGetTimerSystemTime/GetTimerSystemTime prototypes. Every file with its own view of D_003FBE90 switches to it; src/cod/003b7270.c declares iAllocTimerCounter as returning `void *` and must return int.
+- sif.h (new): sceSifDmaData, sceSifCmdHdr, sceSifRpcState, the SIF_DMA_*/SIF_CMD_* numbers, SIF_SYSREG_RPCINIT, the RPC tables D_0077E740/D_0077EF40/D_0077F740, D_0077E520, D_003FAE54, D_0077FF40, and prototypes for SifSetDma, isceSifSetDma, SifGetReg, SifSetReg, func_003B2850, func_003B21D0, func_003B2058, func_003B2488, the four RPC handlers `(void *pkt, void *data)`, _sceSifSendCmd, `void sceSifInitRpc(int mode)`, sceSifSendCmd. The local D_0077FF40 types in 003b34d0.c, 003b3400.c, 003b3368.c, 003b3568.c, 003b2f48.c and 003b3128.c become sceSifRpcState; the handler definitions take the header types.
+- eeKernel.h: `int func_003B63A0(void); /* DIntr */`, `int EIntr(void);`.
+- cOmSubGimmick.h: `void cOmSub_initMove1_pos(char *mv, char *obj, int idx, int frames, void *pos, float f12, float f13);`.
+- cDamageUnit.h: `void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);`; drop the conflicting `void *` prototype in cOmHitVolumeSetup.h.
+- mtx.h: `void MtxMultiply(void *dst, void *a, void *b);` (fix the definition in 001b5160.c to match). capVu0.h: `float capVu0LengthSq(void *v);`.
+- cOmBase.h (proposed, 60 users): posPrev at 0x154 is the rotation and should be renamed rot; the texKey word at 0x304 is the resource blob.
+- Registration at the checkpoint: 003b2900.c sceSifInitRpc (ee-2.9-991111). Drafts: 001a2e88_nm.c, 001af230_nm.c, 003b2550.c, 003b7130.c, 0039cf10_nm.c.
+- Registered this batch, no header change: src/cod/0039d398.c (_doMC, ee-2.9-991111, local MpegMc* records; they move to a libmpeg header once _getRef0 or the macroblock caller func_0039C5B8 needs them in a second file).
