@@ -69,13 +69,26 @@
         }                                                       \
     }
 
+/* v *= s; (operator*= by a scalar, xyz) */
+#define CVEC_MUL_SCALAR(v, s)   VU0_VSCALE_XYZ_MEM(&(v), 0, s)
+
+/* v += *b; (operator+=, xyz) */
+#define CVEC_ADD_TO(v, b)       VU0_VADD_XYZ_IP(&(v), 0, b)
+
+/* *dst = v; (the whole quadword, as the copy constructor makes it) */
+#define CVEC_STORE(dst, v)                                      \
+    {                                                           \
+        VU0_LQC2(4, &(v), 0);                                   \
+        VU0_SQC2(4, dst, 0);                                    \
+    }
+
+/* Work-only operators, not in a PR yet: each is used by drafts only. */
+
 /* d = m * *a; (a matrix times a vector: a copy of *a transformed in place by
  * sceVu0ApplyMatrix, returned through its return slot, then operator=, xyz
  * only). The caller declares sceVu0ApplyMatrix (sceVu0.h). */
 #define CVEC_SET_APPLY(d, m, a)                                 \
     {                                                           \
-        cVec ret_;                                              \
-        cVec tmp_;                                              \
         cVec *a_ = (a);                                         \
         void *m_ = (m);                                         \
         cVec *t_ = &tmp_;                                       \
@@ -98,8 +111,6 @@
  * returned copy is read through; retail forms it before the first load. */
 #define CVEC_SET_MUL(d, a, s)                                   \
     {                                                           \
-        cVec ret_;                                              \
-        cVec tmp_;                                              \
         cVec *a_ = (a);                                         \
         float s_ = (s);                                         \
         cVec *t_ = &tmp_;                                       \
@@ -122,7 +133,6 @@
  * a float copy of it adds a mov.s. */
 #define CVEC_INIT_MUL(r, a, s)                                  \
     {                                                           \
-        cVec tmp_;                                              \
         cVec *a_ = (a);                                         \
         cVec *t_ = &tmp_;                                       \
                                                                 \
@@ -137,7 +147,6 @@
  * temporary, then operator=, xyz only). d is a float[3]. */
 #define CVEC_SET_XYZ(d, fx, fy, fz)                             \
     {                                                           \
-        cVec tmp_;                                              \
         float *d_ = (d);                                        \
         cVec *r_ = &tmp_;                                       \
                                                                 \
@@ -175,19 +184,6 @@
         v_->y = (fy);                                           \
         v_->z = (fz);                                           \
         v_->w = 1.0f;                                           \
-    }
-
-/* v *= s; (operator*= by a scalar, xyz) */
-#define CVEC_MUL_SCALAR(v, s)   VU0_VSCALE_XYZ_MEM(&(v), 0, s)
-
-/* v += *b; (operator+=, xyz) */
-#define CVEC_ADD_TO(v, b)       VU0_VADD_XYZ_IP(&(v), 0, b)
-
-/* *dst = v; (the whole quadword, as the copy constructor makes it) */
-#define CVEC_STORE(dst, v)                                      \
-    {                                                           \
-        VU0_LQC2(4, &(v), 0);                                   \
-        VU0_SQC2(4, dst, 0);                                    \
     }
 
 /* cVec d(*s); (the copy constructor into a local: the whole quadword) */

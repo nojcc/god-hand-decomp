@@ -28,6 +28,7 @@ void func_001CC668(cOmWeapon *self)
 {
     float rate = cEmManage_GetSpeedRate(&D_005864F0);
     int frame[3];
+    CVEC_TEMPS;
     cOmBase *child;
     cOmBase *body;
     unsigned int i;

@@ -12,6 +12,7 @@
 int func_002DB008(cVec *a, cVec *b, float *dist, cVec *pos, float ra, float h, float rb)
 {
     cVec d;
+    CVEC_TEMPS;
     float len;
 
     CVEC_INIT_SUB(d, a, b);

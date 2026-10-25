@@ -47,6 +47,7 @@ extern float D_0041FE78[];
 __attribute__((section(".text.func_00169358")))
 void func_00169358(ShopPanel *self)
 {
+    CVEC_TEMPS;
     cRecordIndexEntry *e;
     unsigned short i;
     unsigned short j;

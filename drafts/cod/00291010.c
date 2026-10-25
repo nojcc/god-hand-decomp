@@ -35,6 +35,7 @@ cGameObj *func_00291010(cEmManage *self, cVec *pos, cGameObj *skip, int kind, in
     cVec from;
     cVec to;
     cVec dir;
+    CVEC_TEMPS;
     float nearest = 1.0e16f;            /* never lowered: kinds 3 and 4 take the last target in range */
     cGameObj *found = 0;
     cEmSlot *slot;
