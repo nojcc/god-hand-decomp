@@ -17,9 +17,9 @@ typedef struct cMessDrawFont {
     int flags;                      /* 0x00 bit 0 = ruby text is drawn, bit 2 = fixed pitch */
     void *body;                     /* 0x04 message text, as handed in */
     void *ruby;                     /* 0x08 ruby text, as handed in */
-    void *bodyStart;                /* 0x0C first character of the message */
-    void *bodyEnd;                  /* 0x10 end of the message, 0 = none */
-    void *rubyStart;                /* 0x14 first ruby character */
+    unsigned short *bodyStart;      /* 0x0C first character of the message */
+    unsigned short *bodyEnd;        /* 0x10 end of the message, 0 = none */
+    char *rubyStart;                /* 0x14 first ruby character */
     int drawCount;                  /* 0x18 characters drawn so far */
     int drawLimit;                  /* 0x1C stop after this many */
     float posX;                     /* 0x20 */
@@ -56,5 +56,17 @@ typedef struct cMessDrawFrame {
     int colour;                     /* 0x4 packed RGBA */
     int unk8;                       /* 0x8 */
 } cMessDrawFrame;
+
+void cMessDrawFont_draw(cMessDrawFont *self, float *outW, float *outH);
+void cMessDrawFont_measurePage(cMessDrawFont *self, unsigned short *text, float *maxW, float *sumH);
+unsigned short *cMessDrawFont_measureLineHeight(cMessDrawFont *self, unsigned short *text, float *arg, float *out);
+unsigned short *cMessDrawFont_measureText(cMessDrawFont *self, unsigned short *text, void *arg, float *width, float *height);
+void cMessDrawFont_execCommand(cMessDrawFont *self, void *cmd);
+float cMessDrawFont_measureCode(cMessDrawFont *self, unsigned short *text, float *arg);
+int cMessDrawFont_isListedCode(void *unused, unsigned short *code);
+void func_002B0480(void *a0, void *a1);                 /* the frame's starting scale and colour */
+int func_002B04C0(void *a0, void *a1, void *a2);        /* 1 if the code at a1 only sets the frame */
+char *func_002AFC08(cMessDrawFont *self, cMessDrawFrame *frame);  /* draws the ruby over the code, returns the ruby cursor */
+int func_002B12A0(unsigned short *p);                   /* 1 for a full-width code */
 
 #endif

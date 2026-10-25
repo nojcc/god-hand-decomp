@@ -1,12 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cMessDrawFont.h"
+#include "godhand/cMessCommon.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 
-extern unsigned int cMessCommon_getCodeSize(unsigned int code);
-extern void func_002B04C0(cMessDrawFont *self, unsigned short *text, void *arg);
-extern float cMessDrawFont_measureCode(cMessDrawFont *self, unsigned short *text, void *arg);
 extern float func_002B0A58(cMessDrawFont *self, unsigned short *text, void *arg);
 extern void func_001B6FB8(void *self);
 extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);

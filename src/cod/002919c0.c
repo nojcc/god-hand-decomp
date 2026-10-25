@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEmManage.h"
 #include "godhand/heapArena.h"
+#include "godhand/cFont.h"
 
 extern char D_0044BAB0[];
 extern int D_00747A88;
@@ -74,8 +75,8 @@ unsigned char func_002A4C00(char *p, unsigned short i)
 }
 
 __attribute__((section(".text.func_002A4FA0")))
-void func_002A4FA0(char *base) {
-    char *p = base + 0x28000;
+void func_002A4FA0(cFont *font) {
+    char *p = (char *)font + 0x28000;
     int v;
 
     *(int *)(p + 0x205C) = 5;

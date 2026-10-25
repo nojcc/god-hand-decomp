@@ -34,4 +34,10 @@
 #define MESS_END_E5   0xE500
 #define MESS_END_E7   0xE700
 
+int cMessCommon_getCodeSize(unsigned int code);        /* codes the one at hand takes up */
+int cMessCommon_isHighCodeEnd(unsigned short code);   /* 1 for a control code that ends the line */
+
+/* The wait the control code at text asks for, 0 for none. */
+int cScriptCmd_getTicks(unsigned short *text);
+
 #endif

@@ -12,8 +12,6 @@ extern void cOm53_setRiseWaitTime(cOm53 *self, int frames);
 extern void cOm53_setDownPos(cOm53 *self, float x);
 extern int cOmBase_checkDamage(cOmScripted *self, int record);
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
-extern void func_002A58A0(cFont *self, int a1);
-extern void func_002A58D8(cFont *self, unsigned int v);
 
 /* Offsets the cOm53 and cOmBase headers leave as padding. */
 #define COM53_SCRFLAGS(self) (*(int *)((char *)(self) + 0x5A0))
