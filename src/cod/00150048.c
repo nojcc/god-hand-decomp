@@ -65,6 +65,13 @@ int func_00375840(void) {
     return func_003757A0(1, 0xFFFF);
 }
 
+int fflush(int a0, int a1, int a2, int a3);
+int func_003A6830(int a0, void *a1);
+
+__attribute__((section(".text.func_003A6290")))
+int func_003A6290(int a0) {
+    return func_003A6830(a0, fflush);
+}
 
 __attribute__((section(".text.func_003AD0F8")))
 int func_003AD0F8(int a0) {
@@ -145,6 +152,11 @@ __attribute__((section(".text.func_0039AE78")))
 int func_0039AE78(char *a0) {
     sceIpuRestartDMA(*(int *)(a0 + 0x40) + 0x68);
     return 1;
+}
+
+__attribute__((section(".text.func_003A62B0")))
+void func_003A62B0(void) {
+    func_003A6290(D_003FA62C);
 }
 
 __attribute__((section(".text.func_003AD130")))
@@ -284,6 +296,11 @@ __attribute__((section(".text.func_002D9BE0")))
 void func_002D9BE0(void *a0) {
     func_002D9C10(a0);
     func_002D9CA8(a0);
+}
+
+__attribute__((section(".text.func_003A8FE0")))
+int func_003A8FE0(int a0, int a1) {
+    return func_003A80E8(D_003FA62C, a0, a1);
 }
 
 __attribute__((section(".text.func_00150048")))

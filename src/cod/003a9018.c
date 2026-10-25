@@ -59,10 +59,3 @@ unsigned long func_003A9018(struct _reent *rptr, const char *nptr, char **endptr
         *endptr = (char *)(any ? s - 1 : nptr);
     return acc;
 }
-
-/* strtoul on the global reent block. */
-__attribute__((section(".text.func_003A9228")))
-unsigned long func_003A9228(const char *nptr, char **endptr, int base)
-{
-    return func_003A9018(_REENT, nptr, endptr, base);
-}

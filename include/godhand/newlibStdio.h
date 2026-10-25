@@ -128,8 +128,8 @@ struct __suio {
     int uio_resid;
 };
 
-void func_003A61F0(struct _reent *s);                                /* __sinit */
-void func_003A6290(struct _reent *ptr);                              /* _cleanup_r */
+void func_003A61F0(int a0);                                          /* __sinit, as defined in 0014ea28.c */
+int func_003A6290(int a0);                                           /* _cleanup_r, as defined in 00150048.c */
 
 /* Run __sinit on the stream's reent block the first time it is used. */
 #define CHECK_INIT(fp) \
@@ -143,7 +143,7 @@ void func_003A6290(struct _reent *ptr);                              /* _cleanup
   while (0)
 
 int fflush(FILE *fp);
-int func_003A6A88(FILE *fp);                                        /* lflush */
+int func_003A6A88(int a0, int a1, int a2, int a3);                   /* lflush, as defined in 00150078.c */
 int func_003A6830(struct _reent *ptr, int (*function)(FILE *));     /* _fwalk */
 void __smakebuf(FILE *fp);
 int __srefill(FILE *fp);

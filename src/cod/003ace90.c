@@ -64,10 +64,3 @@ long func_003ACE90(struct _reent *rptr, const char *nptr, char **endptr, int bas
         *endptr = (char *)(any ? s - 1 : nptr);
     return acc;
 }
-
-/* strtol on the global reent block. */
-__attribute__((section(".text.func_003AD0C0")))
-long func_003AD0C0(const char *nptr, char **endptr, int base)
-{
-    return func_003ACE90(_REENT, nptr, endptr, base);
-}

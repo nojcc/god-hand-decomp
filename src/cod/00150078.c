@@ -230,7 +230,19 @@ int func_00398B90(int a0, int a1) {
     return sceCdLayerSearchFile(a0, a1, 0);
 }
 
+int fflush(int a0, int a1, int a2, int a3);
 
+__attribute__((section(".text.func_003A6A88")))
+int func_003A6A88(int a0, int a1, int a2, int a3) {
+    return fflush(a0, a1, a2, a3);
+}
+
+int func_003A8FE0(int a0, int a1);
+
+__attribute__((section(".text.func_003A7C28")))
+int func_003A7C28(int a0) {
+    return func_003A8FE0(a0, 0);
+}
 
 int _sceSifLoadModuleBuffer(int a0, int a1, int a2, void *a3);
 
