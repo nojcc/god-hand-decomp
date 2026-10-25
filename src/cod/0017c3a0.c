@@ -15,7 +15,6 @@ extern char D_0044C2C0[];
 extern cSnd D_005FEE00;
 extern unsigned int D_00747A30;
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, int d, int e, int f, int g, int h);
-extern int cSnd_SeCall_2CB8A0(void *a0, int a1, short a2, int a3, int t0, int t1, int t2);
 
 /* Two CustomIDWork elements sit at 0x10D8 and 0x1154 of the owner. */
 #define OWNER_IDW_A(self) ((CustomIDWork *)((char *)(self) + 0x10D8))

@@ -6,7 +6,6 @@
 #include "godhand/cEmSetParam.h"
 #include "godhand/cEmManage.h"
 
-extern void cIDBase_move(void *self);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
@@ -39,7 +38,6 @@ typedef struct IconScreen {
     cIDBaseEnt *ent[11];                /* 0x94 entries from getIDWork */
 } IconScreen;
 
-extern void func_002AC9B8(IconScreen *self, cIDBaseEnt *ent, int arg);   /* refresh one entry */
 
 
 __attribute__((section(".text.IconScreen_stepGrow")))
@@ -51,13 +49,13 @@ void IconScreen_stepGrow(IconScreen *self) {
         self->ent[ICON_ENT_MAIN]->f70[2] = self->ent[ICON_ENT_MAIN]->src->f40[2];
         self->base.playing = 1;
         self->ent[ICON_ENT_C]->flags &= ~IDENT_FLAG_NO_DRAW;
-        func_002AC9B8(self, self->ent[ICON_ENT_C], 0);
+        func_002AC9B8(&self->base, self->ent[ICON_ENT_C], 0);
         self->ent[ICON_ENT_A]->flags &= ~IDENT_FLAG_NO_DRAW;
-        func_002AC9B8(self, self->ent[ICON_ENT_A], 0);
+        func_002AC9B8(&self->base, self->ent[ICON_ENT_A], 0);
         self->ent[ICON_ENT_B]->flags &= ~IDENT_FLAG_NO_DRAW;
-        func_002AC9B8(self, self->ent[ICON_ENT_B], 0);
+        func_002AC9B8(&self->base, self->ent[ICON_ENT_B], 0);
         self->step = self->step + 1;
-        cIDBase_move(self);
+        cIDBase_move(&self->base);
     }
 }
 

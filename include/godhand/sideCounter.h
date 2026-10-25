@@ -12,8 +12,10 @@ typedef struct SideCounter {
     char pad6[2];
     int cnt;                    /* 0x08 */
     int unkC;                   /* 0x0C */
+    float scale;                /* 0x10 1.0 once constructed */
 } SideCounter;
 
 extern SideCounter D_00754C38;
+SideCounter *func_002C53A8(SideCounter *self);  /* constructor */
 
 #endif /* GODHAND_SIDECOUNTER_H */

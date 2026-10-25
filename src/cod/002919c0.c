@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEmManage.h"
+#include "godhand/heapArena.h"
 
 extern char D_0044BAB0[];
 extern int D_00747A88;
@@ -84,12 +85,12 @@ void func_002A4FA0(char *base) {
 }
 
 __attribute__((section(".text.func_002A94F0")))
-void func_002A94F0(char *self) {
-    *(int *)(*(char **)self + 0x8) = 0;
-    *(int *)(*(char **)self + 0x4) = 0;
-    *(int *)(*(char **)self + 0x10) = 0x20;
-    *(int *)(*(char **)self + 0xC) = *(int *)(self + 0x4) - 0x20;
-    *(char **)(*(char **)self + 0x0) = self;
+void func_002A94F0(HeapArena *self) {
+    self->block->unk08 = 0;
+    self->block->unk04 = 0;
+    self->block->unk10 = 0x20;
+    self->block->size = self->size - 0x20;
+    self->block->arena = self;
 }
 
 /* sn-2.95.3-136 */

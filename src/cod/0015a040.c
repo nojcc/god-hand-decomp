@@ -1,18 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cIDBase.h"
+#include "godhand/cIDObj.h"
+#include "godhand/cIDManager.h"
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cOmBase.h"
 
-extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
-extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
-extern void cIDBase_resetAnim(void *self);
-extern int cIDBase_setPackedMessData(void *self, int kind, int arg);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041F378[];
-extern void **D_003C2384;
 extern cTaskManager D_00752C00;
 extern void cTaskWork_sleep(cTaskWork *task, int frames);
 extern float capVu0Sin(float rad);
@@ -30,24 +25,15 @@ extern char D_0044BD60[];
 #define IDOBJ_WORK_NUM  0x1B
 #define IDOBJ_KIND      6
 
-typedef struct IdDispObj {
-    cIDBaseObj base;                    /* 0x00 */
-    char unk48[8];
-    int resHandle;                      /* 0x50 */
-    char unk54[6];
-    unsigned char b5A;                  /* 0x5A */
-    unsigned char b5B;                  /* 0x5B */
-    unsigned char b5C;                  /* 0x5C */
-    unsigned char b5D;                  /* 0x5D */
-    char unk5E[2];
-    int state;                          /* 0x60 */
-    char unk64[0x1C];
+typedef struct IdDispObjKind6 {
+    cIDObj obj;                         /* 0x00 */
+    char unk74[0x80 - sizeof(cIDObj)];
     void *work[IDOBJ_WORK_NUM];         /* 0x80 */
     unsigned char bEC;                  /* 0xEC */
     unsigned char bED;                  /* 0xED */
     unsigned char bEE;                  /* 0xEE */
     unsigned char bEF;                  /* 0xEF */
-} IdDispObj;
+} IdDispObjKind6;
 
 
 
@@ -60,24 +46,24 @@ typedef struct IdDispObj {
 
 
 __attribute__((section(".text.IdDispObj_construct")))
-void IdDispObj_construct(IdDispObj *self)
+void IdDispObj_construct(IdDispObjKind6 *self)
 {
     unsigned short i;
-    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
-    if (func_00161500(self, D_0041F378) != 0) {
-        cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ_KIND, 0);
-        cIDBase_resetAnim(self);
-        self->base.playing = 1;
-        cIDBase_setPackedMessData(self, IDOBJ_KIND, 1);
-        self->b5A = 0;
-        self->state = 2;
-        self->b5B = 0;
-        self->b5C = 0;
-        self->b5D = 0;
+    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(&self->obj);
+    if (func_00161500(&self->obj, D_0041F378) != 0) {
+        cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->obj.resHandle);
+        cIDBase_initialize(&self->obj.base, IDOBJ_KIND, 0);
+        cIDBase_resetAnim(&self->obj.base);
+        self->obj.base.playing = 1;
+        cIDBase_setPackedMessData(&self->obj.base, IDOBJ_KIND, 1);
+        self->obj.state = 0;
+        self->obj.result = 2;
+        self->obj.step = 0;
+        self->obj.unk5C = 0;
+        self->obj.unk5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork(&self->obj.base, i);
     }
     self->bEC = 0;
     self->bED = 0;

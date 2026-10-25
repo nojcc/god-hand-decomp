@@ -10,6 +10,7 @@
 #include "godhand/cOmBase.h"
 
 extern void cOmSub_initMove1_ang(char *dst, char *obj, int idx, int a3, void *a4, float f12, float f13, int a5);
+extern void cOmSub_initMove1_pos(char *mv, char *obj, int idx, int frames, void *pos, float f12, float f13);
 extern void cOmSub_setVibration(void *a0, int a1, int a2, float f12, float f13, float f14);
 extern int cOmSub_move(char *a0);
 

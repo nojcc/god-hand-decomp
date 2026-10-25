@@ -21,7 +21,6 @@ extern int D_00423C70;
 extern int D_00425AC0;
 extern void cObjBase(void *);
 extern int D_00450C38;
-extern int D_003FA62C;
 extern int D_003FBEA8;
 
 __attribute__((section(".text.Tramp_flush__7ostream_3892C0")))
@@ -116,16 +115,6 @@ void *func_003184E0(void *a0){
   cObjBase(a0);
   *(int**)((char*)a0+0x214) = &D_00450C38;
   return a0;
-}
-
-__attribute__((section(".text.func_003A9228")))
-int func_003A9228(int a0, int a1, int a2) {
-    return func_003A9018(D_003FA62C, a0, a1, a2);
-}
-
-__attribute__((section(".text.func_003AD0C0")))
-int func_003AD0C0(int a0, int a1, int a2) {
-    return func_003ACE90(D_003FA62C, a0, a1, a2);
 }
 
 __attribute__((section(".text.func_003B6E40")))

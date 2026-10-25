@@ -12,6 +12,23 @@
 /* v0 = m0 * v1 (v0 may be v1). */
 extern void sceVu0ApplyMatrix(void *v0, void *m0, void *v1);
 
+typedef int sceVu0IVECTOR[4] __attribute__((aligned(16)));
+typedef float sceVu0FVECTOR[4] __attribute__((aligned(16)));
+typedef float sceVu0FMATRIX[4][4] __attribute__((aligned(16)));
+
+/* Copy the 4x4 matrix src to dst (the SDK's sceVu0CopyMatrix). */
+extern void func_0030A548(void *dst, void *src);
+
+/* dst = a * b for 4x4 matrices (MtxMultiply's callee). */
+extern void func_0030A2E0(void *dst, void *a, void *b);
+
+/* Integer screen position of v through the view-projection matrix m (x, y
+ * and z in 12.4 fixed point). */
+extern void sceVu0RotTransPers(void *out, void *m, void *v, int mode);
+
+/* out = v in 12.4 fixed point. */
+extern void sceVu0FTOI4Vector(void *out, void *v);
+
 /* v = m * v, in place. */
 static __inline__ void cVec_applyMatrix(cVec *v, void *m) {
     sceVu0ApplyMatrix(v, m, v);

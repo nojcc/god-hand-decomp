@@ -11,7 +11,6 @@ extern int D_005FEE00;
 extern int cSnd_SeIsLoadOk(void *snd, int handle);
 extern char D_00462FC0[];
 extern void cCollisionSolidManage_SetActive(void *mgr, void *obj, int on);
-extern void cIDBase_move(void *self);
 extern unsigned int D_00747A84;
 extern char D_00586AF0[];
 extern unsigned int cEvent_getCutNo();
@@ -133,7 +132,7 @@ void GoldPanel_update(GoldPanel *self) {
         func_00163F00(self);
         break;
     }
-    cIDBase_move(self);
+    cIDBase_move(&self->base);
 }
 
 #define SYSFLAG_EVENT_RUNNING  0x20000000       /* D_00747A84: a cutscene is running */

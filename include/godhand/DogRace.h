@@ -14,10 +14,11 @@
 #define DOGRACE_DOG_NUM     5
 #define DOGRACE_ODDS_BASE   0x3E8   /* payout base, 0x7D0 after the game was cleared */
 #define DOGRACE_ODDS_CLEAR  0x7D0
+#define DOGRACE_STATS_NUM   5       /* stat records each dog is rolled from */
 
 /* A dog's stat record, one row of the 0x24-byte table entry it spawns from. */
 typedef struct DogRaceStats {
-    int unk00;
+    int msgNo;                  /* 0x00 message the dog list shows for the dog */
     int grade;                  /* 0x04 below 16 it can be bumped to 30 */
     float speed;                /* 0x08 scaled by speedRate at spawn */
     float stamina;              /* 0x0C */
@@ -39,6 +40,16 @@ typedef struct DogRaceDog {
     int power;                  /* 0x38 sort key, strongest first */
     float speedRate;            /* 0x3C */
 } DogRaceDog;                   /* 0x40 */
+
+/* The finish values a place is rolled in, best place first. */
+typedef struct DogRaceTime {
+    int min;                    /* 0x0 */
+    int max;                    /* 0x4 */
+} DogRaceTime;
+
+typedef struct DogRaceTimes {
+    DogRaceTime place[DOGRACE_DOG_NUM];
+} DogRaceTimes;                 /* 0x28 */
 
 typedef struct DogRace {
     char unk00[4];

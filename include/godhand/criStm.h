@@ -124,6 +124,10 @@ extern int PS2RNA_SetBitPerSmpl(long handle, long bitsPerSample);
 extern void func_003260C8(const char *fmt, ...);
 /* memset; callers depend on the void * return. */
 extern void *func_003A52F0(void *dst, int c, int n);
+/* strcmp. */
+extern int func_003A5678(const char *a, const char *b);
+/* memcpy. */
+extern void *func_003A5148(void *dst, const void *src, unsigned int n);
 
 /* An ADX basic decoder, ADXB (0x104 bytes; the pool of 16 is D_003E9D60). */
 typedef struct ADX_BASIC {

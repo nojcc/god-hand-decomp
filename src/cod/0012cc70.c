@@ -1,4 +1,6 @@
 #include "godhand/cModel.h"
+#include "godhand/cIDBase.h"
+#include "godhand/cIDManager.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -11,10 +13,6 @@ extern void func_0037C5C8(void *slot, void *obj, int bit);
 extern void func_0037C6A0(void *slot);
 extern void func_0037C5F8(void *slot, void *obj, int bit);
 extern void func_0037C618(void *slot, void *obj, int bit);
-extern int *D_003C2384;
-extern int D_003C2388;
-extern void cIDBase_buildEntries(int a0, int a1, int a2);
-extern void cIDBase_linkParents(int a0);
 extern void ColiseumBattle_DefeatAllEnemies(void *a0);
 extern void cEmSetParam_setEm(void *a0, int a1);
 extern void cEmWrap_StartAction(void *a0);
@@ -137,42 +135,38 @@ void func_0037C4C0(void *obj)
 
 
 
+/* Count the records of `data` (on the game's own manager, the ones without
+ * IDENT_FLAG_SRC_SKIP), take an entry table for them and build it. 1 on success. */
 __attribute__((section(".text.cIDBase_setWorkFromData")))
-int cIDBase_setWorkFromData(int a0, int a1)
+int cIDBase_setWorkFromData(cIDBaseObj *self, cIDBaseRes *data)
 {
     unsigned int i;
-    int q;
-    int r;
+    cIDBaseSrc *src;
 
-    if (*(int *)a1 != 0x504449) {
+    if (data->magic != IDBASE_RES_MAGIC)
         goto ng;
-    }
-    *(int *)(a0 + 0xC) = 0;
-    q = a1 + 0x10;
+    /* a raw store: through the field the scheduler floats the D_003C2384 load above it */
+    *(int *)((char *)self + IDBASE_OFFSET(entNum)) = 0;
+    src = data->src;
     if (*D_003C2384 == D_003C2388) {
-        for (i = 0; i < *(unsigned int *)(a1 + 4); i++) {
-            if ((*(int *)(a1 + 0x14 + i * 0x2E0) & 0x200) == 0) {
-                *(int *)(a0 + 0xC) += 1;
-            }
+        for (i = 0; i < data->srcNum; i++) {
+            if ((data->src[i].flags & IDENT_FLAG_SRC_SKIP) == 0)
+                self->entNum++;
         }
     } else {
-        *(int *)(a0 + 0xC) = *(int *)(a1 + 4);
+        self->entNum = data->srcNum;
     }
-    if (*(int *)(a0 + 0xC) == 0) {
+    if (self->entNum == 0)
         goto ng;
-    }
-    if (*(int *)(a0 + 4) == 0) {
-        r = cIDManager_allocBufRun(*D_003C2384, *(int *)(a0 + 0xC), *(int *)(a0 + 0x14),
-                          *(int *)(a0 + 0x10));
-        *(int *)(a0 + 4) = r;
-        if (r == 0) {
+    if (self->ent == 0) {
+        self->ent = cIDManager_allocBufRun(*D_003C2384, self->entNum, self->resNo, self->id);
+        if (self->ent == 0)
             goto ng;
-        }
     }
-    cIDBase_buildEntries(a0, q, *(int *)(a0 + 0xC));
-    cIDBase_linkParents(a0);
+    cIDBase_buildEntries(self, src, self->entNum);
+    cIDBase_linkParents(self);
     return 1;
-ng:
+ng: /* early returns were tried: they move this exit ahead of the success path */
     return 0;
 }
 

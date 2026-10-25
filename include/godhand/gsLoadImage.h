@@ -29,5 +29,6 @@ typedef struct GsLoadImagePacket {
 } GsLoadImagePacket;
 
 extern void func_0015E510(GsLoadImagePacket *pkt, int psm, int tbp, int tbw, int w, int h, char *data);
+extern void func_0015E708(GsLoadImagePacket *pkt, int psm, int tbp, int tbw, int w, int h, char *data);
 
 #endif

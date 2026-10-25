@@ -3,7 +3,6 @@
 #include "godhand/cHeatSys.h"
 #include "godhand/cCoreSave.h"
 
-extern void cHeatSys_UpdateHeatLv(cHeatSys *self);
 
 /* Recompute max from the player record, pull cur down to it, refresh lv. `unused` is passed in $f12 by
  * cHeatSys_Initialize and never read. */

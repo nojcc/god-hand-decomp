@@ -12,4 +12,9 @@ typedef struct cWorldTime {
     unsigned int stageTime;     /* 0x04 ticks since the stage started */
 } cWorldTime;
 
+extern cWorldTime D_0061A990;   /* the game clock */
+
+void cWorldTime_getGlobalHMS(cWorldTime *self, unsigned int *h, unsigned int *m, unsigned int *s);
+void cWorldTime_getStageHMS(cWorldTime *self, unsigned int *h, unsigned int *m, unsigned int *s);
+
 #endif

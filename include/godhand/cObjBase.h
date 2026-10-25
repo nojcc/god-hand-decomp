@@ -142,4 +142,12 @@ typedef struct cObjBase cObjBase;
  * address by hand to match retail. */
 #define COBJBASE_OFFSET(field) ((int)&((struct cObjBase *)0)->field)
 
+void cObjBase_addNullSpeed(struct cObjBase *self, float scale);
+
+/* Starts effect id of the given kind at pos with the default parameters. */
+void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size);
+
+/* Sets up the object's shadow in work from shadowData. */
+void cObjBase_KageInit(struct cObjBase *self, char *work, void *shadowData);
+
 #endif

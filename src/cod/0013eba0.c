@@ -13,7 +13,6 @@ extern char D_0042AA98[];
 extern char D_00574380[];
 extern char D_007419A0[];
 extern int cSnd_GetBgmData(int a0, int a1);
-extern int D_005FEE00;
 extern int cSaveLoad_openLoad(void *p);
 extern char D_00747A2C[];
 extern char D_00747A88[];

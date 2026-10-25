@@ -2310,3 +2310,134 @@ A rule such as `div2_unless_after(cvt.s.w|lwc1|div.s)` would need checking again
 - The maintainer asked for a real global or table holding the work page. Retail builds 0xE00 with an `addiu` immediate in all eight functions and never loads it from memory, so no data symbol backs it.
 - Probe: a file-scope `static const int gsWorkPage = 0xE00;` compiles to a %hi/%lo load from .rodata (291 words, unresolvable .rodata relocations), which is not retail's shape.
 - All eight stay parked as the answer says.
+
+## Session 2026-10-24 17:50 — re-sweep after the 2026-10-24 answers (cVec.h, switch cases, fpu.h)
+- Read the 2026-10-24 rules and answers. fpu.h still doesn't exist on work, so the fpu.h group (RoundFloat, Adjust_theta, func_002FA350, func_002FA3E0, cCoreSave_addItem, func_0031A6B0) stays skipped.
+- Every draft in drafts/cod/ with a C body is already in this log; this session only retries drafts whose blocker was answered.
+- The drafts for func_00245A18, func_00233DD8 and func_0025F1F0 are empty stubs in drafts/cod/ (their C is in progress/held/, which is the main agent's). The cEm00.h retype of 0x6EC..0x708/0x734 to `cOmWeapon *` (answered yes) isn't on work yet; it's the main agent's checkpoint change. Skipped.
+
+## cMessDrawFont_draw — handoff resubmitted (2026-10-24)
+- The handoff had been rejected with "compiler unknown (no meta.json, no NM header)": the draft's first line is `/* sn-2.95.3-136 */`, which nm_handoff doesn't read as an NM header.
+- Re-verified: MATCH (312 insns, 36 relocs). Moved back to progress/nm_solved/cMessDrawFont_draw/ with meta.json `{"compiler": "sn-2.95.3-136"}`. Reason for the meta: it only names the compiler, which the draft header gives in a form the tool doesn't parse. No per-file settings.
+
+## func_001C7138 (draft 001c7138, walk start/goal points) — PARKED: waiting: function-level cVec temporaries
+- Retail is four `d = a + b` operators (two per branch) sharing one return slot (0(sp)) and one temporary (0x10(sp)), frame 0x20.
+- A new CVEC_SET_ADD in CVEC_SET_SUB's shape (bind a_, b_, then r_; copy-construct tmp_ from a_; tmp_ += b_; copy tmp_ to ret_; then `if (&(d) != r_)` copy xyz by name) with block-local ret_/tmp_ gives a 0x50 frame: each block gets its own slots (103 differing, 6 words long).
+- With ret_/tmp_ declared once at the top of the function (the unapproved form) the frame is right; best is 39 diffs (progress/nm_work/func_001C7138/best.c): a `cVec *d_ = &(d);` binding last and the copy through d_ reading r_. Left: retail computes &tmp_ (a3) at the top of each block before the first lqc2 and interleaves the copy-out loads with the stores. A t_ pointer for tmp_ (all 120 binding orders, used everywhere or only for the copy-out) is worse (54-106).
+- Multi-operator, so it waits on the function-level temporaries question in decisions_needed.md anyway.
+- Same for SphereTriangle (three operators, one temporary at 0x40 shared): waiting: function-level cVec temporaries. No draft with a C body has a single operator.
+
+## func_0020EF08 (draft 0020ef08, enemy hit reaction) — PARKED (~45 min), best nm_work/func_0020EF08/best.c: 256 vs 257 words, 159 diffs (draft: 242 words, 234)
+- Applied the 2026-10-24 answer: the second switch keeps `default:` and `case 44:` as separate cases.
+- Fixes, all plain C:
+  - Callee prototypes as defined: Obj2810_ClearState_B/C(char *) and func_002815D0(char *) (src/cod/002810.c), called with `(char *)self->sub0` as the siblings (00249ef8.c, 0024b218.c) do. The draft had `int`.
+  - The separate ClearState_B blocks come from `return 1;` in place of the fall-through in hit kind 35 and in the second switch's default and case 44 (the C case keeps `break`). With `break` everywhere, cross-jumping merges the three into one (242 words). This replaces `break` with `return 1`; it adds no statement.
+  - The hit tests read `((cDamageTake *)self->unk698)->kind` in place, and the default branch reads `self->emFlags` in both tests instead of a `flags` local. That gives retail's `daddu a0, v0` copy of the flag word and the reload at the cse path limit.
+- Left: retail loads the hit pointer into v0, keeps kind in a0, and copies the pointer to a1 in the first bne's delay slot. After the 10th compare it reloads kind from a1 (`lh v1, 0x46(a1)`); ours reloads both the pointer and kind from self. A `hit` local (assigned at the top, or through an inline getter) gives the a1 reload but no copy (255 words).
+- Permuter (15 min, base 785, best 515): the gains all come from a `kind`/`new_var2` local assigned partway down the ladder and used for only some of the tests, which is steering.
+- `cVec *pos = self->pos;` before the call stays: without it the position is loaded after Getplayer (253 words). 0026b4e8.c and 0014b640.c pass Turn_dest a local the same way.
+- Turn_dest has no definition and no header prototype; it's declared locally as `float Turn_dest(void *, void *, float, float)` in five files. It belongs in a shared header.
+
+## Queue check — 2026-10-24 18:20
+- No unlogged drafts. Retries for the 2026-10-24 answers done (above). Permuter not running (PERM=0). Waiting for new drafts, new answers in decisions_needed.md (function-level cVec temporaries) and fpu.h.
+
+## Queue checks — 2026-10-24 18:30 to 2026-10-25 02:05
+- Checked every 10 minutes: no new drafts, no fpu.h, no new answer that affects a closer function (the decisions file only gained main-agent questions: func_00289E38, cOmBase.posPrev, func_001CCDE0). The function-level cVec temporaries question is still open, so func_001C7138 and SphereTriangle stay parked. Permuter not running.
+
+## func_001F4530 (2026-10-25) — parked, 3 insns
+- Remaining diff: v0/v1 swap in the `em == 0x33` save-flag read (retail: data ptr in v1, flags in v0, mask in a0).
+- Tried: `em != 0x33` early return (30 diffs), `!= 0` inside the branch (4), mask-first `&` (3), a `data` local (3).
+- Permuter 10 min: score 10 only via `new_var = 0x33` / `new_var = 0x800000` (constants held in locals — forbidden). Left as draft.
+
+## func_002CEA00 (2026-10-25) — parked, 4 insns
+- Left-volume easing: retail computes `d` into $v1 and keeps volL in $a0; ours computes in place in $a0.
+- Tried: `d >= 0 ? d : -d`, if/else for the step, `> 6` with swapped arms (all 4); `short d` (113).
+- Permuter 15 min (occlusion block under PERM_IGNORE, pycparser can't read the vu0 statement expressions): base 20, no improvement.
+
+## func_0031B560 (2026-10-25) — parked, 5 insns (draft 14)
+- progress/nm_work/func_0031B560/best.c: neutral bytes stored 4,5,6,7 in order, and `trg` written before `rel` (14 -> 5). Suggest the main agent take that into the draft.
+- Remaining: in the camera block retail puts the `lui %hi(D_005CAFF0)` in $a0 before the angle `swc1`, and `&cam->eye` in $v1; ours has the lui in $v1 after the store and `&cam->eye` in $a0.
+- Tried: camera read directly in the copies (40), cam declared after the vectors, at function scope, assigned after the angle store (all 5), angle through a local (7), target copied first (8), vectors declared in reverse (10).
+- Not permuted: pycparser can't parse the vu0 macros in the block that differs.
+- Note: the draft keeps a local PadState/PadPort typedef and a local CVEC_INIT_SUB macro; no header has them yet.
+
+## func_00151CC0 (2026-10-25) — parked, 36 insns
+- Mostly the swap of `w` (retail s5) and `type` (retail fp), plus the CSA clear and the final `*pa` add register.
+- Tried: `*pa +=` (170), `*pb += 4` tail (135), `*pb = cbp + 4` (53).
+- Permuter 15 min: base 1345, best 325 only with `(&t)->CLD = 1` (address-of steering; 19 insns as C). Hint: retail may keep `t` addressable (a helper filling a `GsTex0 *` inlined, as func_0015E0A0 writes `out->`), not tried as a real helper since none exists.
+
+## func_001CC668 (2026-10-25) — parked, 88 insns (with extern_jtbl D_0042A7A0)
+- Needs `extern_jtbl D_0042A7A0` (the actorId switch); without it 90 + rodata relocs.
+- Remaining is the debris loop's cOmBase_childAtIdx inline: retail computes i + 1 into $v0 and copies it to $s3, and keeps `in` in $a0 (zeroed, then a copy of the range flag); ours folds both copies.
+- Tried: for-loop (90), int i (88), i from 1 with piece[i - 1] (227), the child test in the for condition (227).
+- Not permuted: the loop body is vu0 macros pycparser can't read.
+- Correction to my func_0031B560/func_002CEA00 notes: in mc.py output the left column is retail, the right is ours. Diff counts above are unaffected.
+
+## func_002C70A8 (2026-10-25) — parked, 488 vs 490 words (extern_jtbl D_0044C380 D_0044C3A0)
+- Leading-digit ladder: retail branches for count 2 / 1 (`b` + delay slot each); ours if-converts the last step into `movn`. The digit divisions are also scheduled one slot apart from the first `div` on.
+- Tried: `else if (d1)` (496), `else if (d1 || 1)` (same as draft), `d1 >= 0` (496), int/unsigned char/int-all count types (454), count cleared inside the branch (444).
+
+## Remaining 2026-10-25 drafts — far from matching, not attempted this round
+- func_00291010 506 vs 505 words, 496 diffs; func_002A5EC0 498 vs 500 (extern_jtbl D_0044AD90), 477; func_00299DE0 899 vs 907, 491; func_003A96C0 353 vs 367, 349; capVu0Acos 21 vs 15 words.
+- Not scored: func_002A2ED0, func_002D81A0, EmClothInit, func_002DF950, func_001FCF20, cScrSpriteDraw_drawRectLine, _getRef0 (all 1000+ / 9999 in the scan).
+
+## func_002B45F8 (2026-10-25) — SOLVED, handed off to progress/nm_solved/func_002B45F8/
+- MATCH, 35 insns, 2 relocs (sn-2.95.3-136, meta.json gives the compiler).
+- Fix: the size call reads `*text` again (`cMessCommon_getCodeSize(*text)`), which gives retail's copy of the code word into $a0.
+- func_002AF218 declared `unsigned short` as its draft definition is (int matches too).
+- For the main agent: no header declares func_002B45F8; its callers (00124fd8.c, 001b7de8.c) call it without a prototype in scope. It belongs in a header (cMessCommon.h?) with this signature.
+
+## New drafts of 2026-10-25 (second scan) — triage
+- func_002B45F8: solved (above).
+- MtxGetScaleVec: retail is 40 words with each row's sqrt.s unscheduled behind two nops (as if the sqrt were an opaque statement). With `-f=-ffast-math` ours is 33 words (34 with as sn) and interleaves the rows; without it, it calls sqrtf (66). Only a sqrt intrinsic macro would give the barrier (no such macro; asm is not allowed in C). Skipped; candidate for an fpu.h `FPU_SQRT_S` proposal.
+- func_001C3090: 298 vs 299 words, needs the shared C++ temporary slot (function-level cVec temporaries). Waiting on that answer.
+- func_00169358: 674 vs 679 words (extern_jtbl D_0041FD00), 464 diffs: frame and row-loop slots. Not close.
+- func_00155DC8: depends on one end symbol per blob in config/symbol_addrs.txt (off-limits for me). For the main agent.
+- func_00147C88 (1072), func_0015DB30 (9999): far, not attempted.
+
+## cMotCamera_setMotion (2026-10-25) — parked, 4 insns
+- Correction to the draft header: retail (left column) loads x and y, stores x (0x3B0(s0)) and y (4(v0)), then loads and stores z (8(v0)); ours loads all three first and stores through s0.
+- The draft as committed scores 23 in my build; writing roll through a `float *` this-pointer (inline set) brings it to 4 (progress/nm_work/cMotCamera_setMotion/c.c).
+- operator= shapes tried: d_ pointer with s_ (5), d_ with v direct (5), s_ bound first (5), compare `s_ != d_` (6), plain field writes with the &self->pos != &v test (4). The remaining gap is the scheduler keeping the z load behind the y store.
+
+## func_00270160 (2026-10-25) — parked, 19 insns (draft 21)
+- Sway pushes: retail multiplies before loading sway[no], reuses $f12 for both products, keeps &sway[0] in $v1.
+- Tried: `a *= rate[no]` then add (20), a static inline push helper (21; with `f *=` 20; with the bias in the argument 21), one `float f` product for both pushes (19, progress/nm_work/func_00270160/hd.c), a `float *sway` base (112).
+- Permuter 15 min (CVEC_ZERO under PERM_IGNORE): base 1095, best 770 only via a `do { } while (0)` fence (forbidden).
+
+## func_00274D18 (2026-10-25) — parked, 10 insns (with -f=-ffast-math, fp_hazard_rules fdiv)
+- Remaining: retail loads dir.x, dir.z, squares x first, loads dir.y straight into $f12 for capVu0Atan2 and stores x, y, z; ours loads z first and moves y into $f12 (one extra mov.s, store in the jal delay slot).
+- Tried: `dir.x * dir.x + dir.z * dir.z` order (10), the length in its own statement (10), copying x, z, y (10), CVEC_ASSIGN for the copy (44), a d_ this-pointer copy (47).
+
+## func_0026A018 (2026-10-25) — not attempted: 125 vs 122 words, 73 diffs with -f=-ffast-math.
+
+## func_0026A838, func_002DB008 (2026-10-25) — skipped: volatile sqrt.s
+- Both (and MtxGetScaleVec above) differ only around an unscheduled sqrt.s (two nops, root taken before neighbouring loads), which only an asm sqrt macro gives. No such macro exists in fpu.h (fpu.h isn't on work either); skipped until one is approved.
+
+## func_002D8070 (2026-10-25) — skipped: in-place cvt.w.s (fpu.h)
+- Retail converts each fog channel in place (`cvt.w.s $f1, $f1; mfc1`), the fpu.h case; 65 vs 75 words as plain C. Skipped until fpu.h is on work (same as its sibling func_002D81A0).
+
+## func_002D8070 (2026-10-25) — skipped: in-place cvt.w.s (fpu.h)
+- Retail converts each fog channel in place (`cvt.w.s $f1, $f1; mfc1`), the fpu.h case; 65 vs 75 words as plain C. Skipped until fpu.h is on work (same as its sibling func_002D81A0).
+
+## func_002D8070 (2026-10-25) — skipped: in-place cvt.w.s (fpu.h)
+- Retail converts each fog channel in place (`cvt.w.s $f1, $f1; mfc1`), the fpu.h case; 65 vs 75 words as plain C. Skipped until fpu.h is on work (same as its sibling func_002D81A0).
+
+## func_00164F30 (2026-10-25) — parked, 424 vs 425 words (as sn)
+- Only the assembler padding differs: retail puts two nops before the `/ 260.0f` div.s (after `mtc1 at, $f5`) and none before the hp ratio div.s. Swept fp_hazard_rules div, div1, fdiv, mtc1, div+mtc1, fdiv+mtc1, mtc1+div1, cmpfull, libm-mtc1, cmppad, fpfence: none gives that (best is none, 1 word short). Needs a hazard rule that pads div.s right after an mtc1 of an unrelated register; that is a tool change for the main agent.
+
+## func_00164F30 (2026-10-25) — parked, 424 vs 425 words (as sn)
+- Only the assembler padding differs: retail puts two nops before the `/ 260.0f` div.s (after `mtc1 at, $f5`) and none before the hp ratio div.s. Swept fp_hazard_rules div, div1, fdiv, mtc1, div+mtc1, fdiv+mtc1, mtc1+div1, cmpfull, libm-mtc1, cmppad, fpfence: none gives that (best is none, 1 word short). Needs a hazard rule that pads div.s right after an mtc1 of an unrelated register; that is a tool change for the main agent.
+
+## func_00164F30 (2026-10-25) — parked, 424 vs 425 words (as sn)
+- Only the assembler padding differs: retail puts two nops before the `/ 260.0f` div.s (after `mtc1 at, $f5`) and none before the hp ratio div.s. Swept fp_hazard_rules div, div1, fdiv, mtc1, div+mtc1, fdiv+mtc1, mtc1+div1, cmpfull, libm-mtc1, cmppad, fpfence: none gives that (best is none, 1 word short). Needs a hazard rule that pads div.s right after an mtc1 of an unrelated register; that is a tool change for the main agent.
+
+## func_00166780, func_00167518 (2026-10-25) — parked, 4 insns each
+- Both fade-out calls: retail loads 0xFF000000 into $t1 before 0 into $t0 (the delay slot of the branch to the shared call gets the zero); ours loads in argument order.
+- Tried on 00166780: the fade sequence as a static inline returning "finished" (281 words; cross-jumping lost). Constant casts are not allowed, and they don't change it anyway (4).
+- For the main agent: main declares classFADE_start locally in at least 4 files (0017df88.c, 001ef8b8.c, 001612c8.c, 00113f68.c) with col/col2 typed differently from classFADE.h's `int col, int col2`.
+
+## Stop 2026-10-25 11:36 (user request)
+- Nothing in progress: func_00166780/func_00167518 were already logged.
+- Handoffs waiting in progress/nm_solved/: func_002B45F8 (new this session), cMessDrawFont_draw (resubmitted), func_00276478.
+- Permuter: `run_perm.sh --kill` reports PERM=0, none left in godhand-nix. The wait loop is stopped.

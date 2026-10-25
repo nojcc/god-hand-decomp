@@ -3,6 +3,10 @@
 #include "godhand/cMc.h"
 #include "godhand/cEvent.h"
 #include "godhand/Slot2.h"
+#include "godhand/cIDBaseScreen.h"
+#include "godhand/cSubScrMenu.h"
+#include "godhand/cIDManager.h"
+#include "godhand/criStm.h"
 
 extern void func_0();
 extern cMc D_005E6900;
@@ -10,37 +14,19 @@ extern cMcTaskRef D_00752C00;
 extern void cMc_DllLoad(cMc *self, int pump);
 extern void cMc_DllRelease(cMc *self);
 extern void cTaskWork_exit(void *task);
-extern void Obj0000_Set_D_007474A0_Fields_5D8_5E0(int a0);
-extern void cIDBase_release(int a0);
-extern void func_00161590(int a0);
-extern char **D_003C2384;
 extern void displayScrollLayer(int layer, int show);
 
 /* sn-2.95.3-136 */
-/* Motion blend record: a table of up to 0x23 halfwords copied in from a source table. */
-typedef struct BlendWork {
-    char unk00[0x90];
-    unsigned int flags;                 /* 0x90 */
-    char unk94[0x36C - 0x94];
-    short table[0x23];                  /* 0x36C copied from the source table */
-    short tableNum;                     /* 0x3B2 halfwords in use, at most 0x23 */
-} BlendWork;
-
-#define BLENDWORK_TABLE_READY 0x40000000        /* flags: the table holds fresh data */
-#define BLENDWORK_TABLE_MAX   0x23
-
-extern void *func_003A5148(void *d, const void *s, int n); /* memcpy */
-
-/* Copy num halfwords from src into the table (clamped to the table size) and mark the table ready. */
+/* Copy the item ids in (num clamped to SCR_LIST_MAX, which sets listNum) and mark the list ready. */
 __attribute__((section(".text.BlendWork_copyShortTable")))
-void BlendWork_copyShortTable(BlendWork *self, void *src, short num) {
-    if (num >= BLENDWORK_TABLE_MAX + 1) {
-        self->tableNum = BLENDWORK_TABLE_MAX;
+void BlendWork_copyShortTable(cIDBaseScreen *self, const short *src, short num) {
+    if (num >= SCR_LIST_MAX + 1) {
+        self->listNum = SCR_LIST_MAX;
     } else {
-        self->tableNum = num;
+        self->listNum = num;
     }
-    func_003A5148(self->table, src, self->tableNum << 1);
-    self->flags |= BLENDWORK_TABLE_READY;
+    func_003A5148(self->item, src, self->listNum << 1);
+    self->flags |= SCR_FLAG_READY;
 }
 
 /* sn-2.95.3-136 */
@@ -70,19 +56,20 @@ void cMc_loadRunReleaseB(void) {
 
 
 
-/* Reset an object: run the base reset, release its four id slots, clear two counters on the shared record. */
+
+/* Tear down the sub-screen menu: put the GameWork flags back, release its four displays, clear manager slot 4 and free the id heap. */
 __attribute__((section(".text.IdObj_resetAndReleaseIds4")))
-void IdObj_resetAndReleaseIds4(int a0) {
-    char *p;
-    Obj0000_Set_D_007474A0_Fields_5D8_5E0(a0);
-    cIDBase_release(a0 + 0x230);
-    cIDBase_release(a0 + 0x100);
-    cIDBase_release(a0);
-    cIDBase_release(a0 + 0x180);
-    p = *D_003C2384;
-    *(int *)(p + 0x24) = 0;
-    *(int *)(p + 0x20) = 0;
-    func_00161590(a0);
+void IdObj_resetAndReleaseIds4(cSubScrMenu *self) {
+    cIDManager *mgr;
+    Obj0000_Set_D_007474A0_Fields_5D8_5E0(&self->obj);
+    cIDBase_release(&self->level);
+    cIDBase_release(&self->status);
+    cIDBase_release(&self->obj.base);
+    cIDBase_release(&self->items);
+    mgr = *D_003C2384;
+    mgr->pair[4].tex = 0;
+    mgr->pair[4].data = 0;
+    func_00161590(&self->obj);
 }
 
 /* sn-2.95.3-136 */

@@ -2,6 +2,7 @@
 
 #include "godhand/cCoreSave.h"
 #include "godhand/cActionButton.h"
+#include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
 #include "godhand/cVec.h"
 #include "godhand/cNode.h"
@@ -13,7 +14,6 @@ extern void func_001F7820(void *mgr, void *ent);
 extern void cNode_clearActiveRecursive(void *self);
 extern void func_002B60D0(void *dst, void *src);
 extern void func_002B6230(void *self, void *v);
-extern int func_001B8030(void *obj);
 
 #define DRAW_FLAG_ENABLED  0x20000000   /* IdDrawObj.flags: the display is switched on */
 #define SYS_HIDE_BIT       3            /* sysState.flags: bit 3 hides every display */
@@ -191,7 +191,7 @@ int getItemNumInRoom(void)
     for (p = D_00754C58->begin; p != D_00754C58->end; p++) {
         k = *(unsigned short *)(*p + 0x2FE);
         if (inrange(k, ACTOR_ITEM_FIRST, ACTOR_ITEM_END) & 0xFF) {
-            if (func_001B8030(*p) == 1) {
+            if (func_001B8030((cGameObj *)*p) == 1) {
                 n++;
             }
         }

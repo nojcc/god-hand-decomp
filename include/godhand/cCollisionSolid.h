@@ -41,4 +41,18 @@ typedef char cCollisionSolid_radius_check[((int)&((cCollisionSolidObj *)0)->radi
 /* Nonzero when obj hits a solid of the manager. */
 extern int cCollisionSolidManage_ChkHit(void *mgr, void *obj);
 
+/* The solid collision manager. */
+extern char D_00462FC0[];
+
+
+/* Gives obj a solid collision unit of the given kind and radius. */
+void cCollisionSolidManage_CreateUnit(void *mgr, void *owner, int kind, float radius);
+
+/* Adds a sphere at centre, relative to the matrix mtx, to obj's unit. */
+void cCollisionSolidManage_CreateSphere(int mgr, int owner, int mtx, int centre, float radius);
+
+/* Casts a line from a to b against the world; 1 when it hits, with the hit point in hit. */
+int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, void *a6,
+            int a7, int a8, int a9, int a10, int a11, int a12);
+
 #endif

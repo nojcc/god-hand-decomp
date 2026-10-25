@@ -1,4 +1,5 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/sndRamp.h"
 
 extern unsigned short D_0076A790;
 

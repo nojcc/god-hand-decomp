@@ -1,67 +1,49 @@
-/* NON_MATCHING func_001BD430: range-check inline: retail branches (a2=0; if v>=lo a2=v<hi) where ours if-converts to movn; retail loop walks a1 pointer with count in t1 */
+/* sn-2.95.3-136. Differs from retail in register allocation only (same length, 30
+ * instructions): retail keeps the collision pointer in a1 and re-reads *touch for the
+ * toucher store; ours keeps a copy of it. */
 #include "include_asm.h"
+#include "godhand/cOmDoor.h"
 #include "godhand/criStm.h"
 
 #ifdef NON_MATCHING
-typedef struct {
-    char pad[0x2FE];
-    unsigned short kind;
-} RangeEnt;
 
-typedef struct {
-    char pad0[0x34];
-    RangeEnt *list[8];
-    unsigned int count;
-} RangeList;
-
-typedef struct {
-    char pad0[0x630];
-    unsigned short found;
-    char pad632[2];
-    RangeEnt *target;
-    char pad638[0x644 - 0x638];
-    RangeList *list;
-} RangeOwner;
-
-
-static inline int inRange(int v, int lo, int hi)
+/* Empties the contact list. */
+static __inline__ void cObjCollision_clearTouch(cObjCollision *coll)
 {
-    int r = 0;
-
-    if (v >= lo) {
-        r = v < hi;
-    }
-    return r;
+    func_003A52F0(coll->touch, 0, sizeof(coll->touch));
+    coll->touchNum = 0;
 }
 
-void func_001BD430(RangeOwner *o)
+/* Counts a player or enemy contact on the door and remembers it, then empties the contact list. */
+__attribute__((section(".text.func_001BD430")))
+void func_001BD430(cOmDoor *self)
 {
-    RangeList *l;
+    cObjCollision *coll = self->collision;
+    cGameObj **touch;
     unsigned int i;
-    int v;
 
-    if (o->list == 0) {
-        o->found = 0;
-        o->target = 0;
-        return;
-    }
-    if (o->list->list[0] == 0) {
-        o->target = 0;
-        o->found = 0;
-    } else {
-        for (i = 0; i < o->list->count; i++) {
-            v = o->list->list[i]->kind;
-            if (inRange(v, 0x100, 0x1FF) == 1 || inRange(v, 0x200, 0x300) == 1) {
-                o->found++;
-                o->target = o->list->list[i];
-                break;
+    if (coll != 0) {
+        if (coll->touch[0] != 0) {
+            touch = coll->touch;
+            for (i = 0; i < coll->touchNum; i++, touch++) {
+                if (cGameObj_idInRange(*touch, 0x100, 0x1FF) == 1
+                    || cGameObj_idInRange(*touch, 0x200, 0x300) == 1) {
+                    self->toucher = *touch;
+                    self->touchedNum++;
+                    break;
+                }
             }
+        } else {
+            self->toucher = 0;
+            self->touchedNum = 0;
         }
+        cObjCollision_clearTouch(self->collision);
+    } else {
+        self->toucher = 0;
+        self->touchedNum = 0;
     }
-    l = o->list;
-    func_003A52F0(l->list, 0, 0x20);
-    l->count = 0;
 }
+
 #else
 INCLUDE_ASM("asm/nonmatching", func_001BD430);
 #endif

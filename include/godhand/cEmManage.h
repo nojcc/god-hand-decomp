@@ -76,7 +76,7 @@ typedef struct cEmManage {
     char unk519[7];
     cVec unk520;                    /* 0x520 position stored with unk530 */
     int unk530;                     /* 0x530 wait that goes with unk520 */
-    char unk534[4];
+    int dropMiss;                   /* 0x534 CreateItem: random drops missed since the last one */
     signed char bigHitEffWait;      /* 0x538 SetBigHitEffWait */
     signed char unk539;             /* 0x539 wait, func_00292F18 */
     signed char unk53A;             /* 0x53A wait */
@@ -105,7 +105,8 @@ typedef struct cEmManage {
     unsigned char unk5A3;           /* 0x5A3 bits */
     unsigned char unk5A4;           /* 0x5A4 bits */
     unsigned char unk5A5;           /* 0x5A5 bits */
-    char unk5A6[6];
+    char unk5A6[2];
+    int lastItem;                   /* 0x5A8 CreateItem: the last randomly chosen item kind */
     cEmActor *unk5AC[2];            /* 0x5AC */
     char unk5B4;
     unsigned char unk5B5;           /* 0x5B5 */
@@ -113,6 +114,19 @@ typedef struct cEmManage {
 
 #define EMMANAGE_OFFSET(field) ((int)&((cEmManage *)0)->field)
 typedef char SET_EM_DATA_chk_size[sizeof(SET_EM_DATA) == 0x34 ? 1 : -1];
+
+/* *d = *s, field by field (the record's operator=). */
+static __inline__ void SET_EM_DATA_copy(SET_EM_DATA *d, SET_EM_DATA *s)
+{
+    d->objId = s->objId;
+    cVec_copy3(&d->pos, &s->pos);
+    d->rot = s->rot;
+    d->flags = s->flags;
+    d->seBank = s->seBank;
+    d->seNo = s->seNo;
+    d->appPattern = s->appPattern;
+    d->entryNo = s->entryNo;
+}
 typedef char SET_EM_DATA_chk_pos[(int)&((SET_EM_DATA *)0)->pos == 0x10 ? 1 : -1];
 typedef char SET_EM_DATA_chk_flags[(int)&((SET_EM_DATA *)0)->flags == 0x24 ? 1 : -1];
 typedef char cEmSlot_chk_size[sizeof(cEmSlot) == 0x14 ? 1 : -1];
@@ -173,7 +187,13 @@ void cEmManage_SetSlotWait(cEmManage *self, int wait);
 void cEmManage_setBigHitEff(cEmManage *self);
 void cEmManage_SetBigHitEffWait(cEmManage *self, int wait);
 int cEmManage_CkBigHitEffWait(cEmManage *self);
+void cEmManage_damageEma2Near(cEmManage *self, cVec *pos);
+struct cEma2 *cEmManage_findEma2Near(cEmManage *self, cVec *pos, float radius);
+int cEmManage_ckEnemyActiveNear(cEmManage *self, cVec *pos, float radius);
+int cEmManage_ckEmNear(cEmManage *self, cVec *pos, cEmActor *skip, float radius);
 int func_00292F18(cEmManage *self);
+/* Notes on which side of the player's heading pos lies (turnBehind, turnPlus, turnMinus). */
+void func_00292F70(cEmManage *self, cVec *pos);
 void cEmManage_SetSpeedRate(cEmManage *self, float rate);
 float cEmManage_GetSpeedRate(cEmManage *self);
 int cEmManage_getNextNo(cEmManage *self);
@@ -184,6 +204,10 @@ void cEmManage_SetPlCatched(cEmManage *self);
 int cEmManage_CkPlCatched(cEmManage *self);
 void cEmManage_SetPlSorry(cEmManage *self);
 int cEmManage_CkPlSorry(cEmManage *self);
+/* An enemy of the given kind near pos (within range and angle of rotY), other
+ * than skip; 0 when none. */
+struct cGameObj *func_00291010(cEmManage *self, cVec *pos, struct cGameObj *skip, int kind, int flag,
+                               float rotY, float range, float angle);
 cEmSlot *cEmManage_getTop(cEmManage *self);
 void Obj293_OrByte_5A3(cEmManage *self, unsigned int bits);
 void Obj293_ClearBytes_5A0_5A3(cEmManage *self);

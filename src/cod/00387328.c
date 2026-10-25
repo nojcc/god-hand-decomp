@@ -1,5 +1,7 @@
 /* sn-2.95.3-136: func_00387328, queues a voice-parameter command: with val 0 or -1 every channel is
  * reset (mask 0xF), otherwise the channels in mask get (prm, val); returns 0, or -1 if the queue is full. */
+#include "godhand/sndCmd.h"
+
 typedef struct SndCmdCh {
     short unk0;
     short prm;      /* +2 */

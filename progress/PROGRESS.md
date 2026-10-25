@@ -324,3 +324,42 @@ Stopped for upstream sync
 - **Processes:** godhand-nix runs only its `sleep infinity` init (docker top). No compile.py, reseed, handoff, session_check or permuter process is running on the host.
 
 Stopped for upstream sync
+
+## Checkpoint (single-agent, batches 167-176; header merge and held registrations) — 2026-10-25T07:50:00Z
+
+- **% fully linked:** 55.5297% (1575036 / 2836384 code bytes; scripts/progress.sh through container_run.sh). Data 83.0150% (unchanged). +13908 B over the last entry (1561128).
+- **Headers:** the progress/held/inc overlays were 3-way merged into include/godhand (build/scratch/hmerge.py): 22 new headers with .gitignore allowlist lines (angle, cEmLinked, cObjGround, cPathMover, cShopPanel, capVu0, cloth, dbgText, drawQueue, eeKernel, fileHolder, keySlot, libm, mtx, padWork, rand, sceMpeg, sceTimer, scrollLayer, sif, texWork, tim2) and the padding splits. Where main already named a field (seqNode.h, menuCtl.h, regTbl.h, cSubScr.h, sideCounter.h) main's text was kept. 33 prototypes whose definitions disagree with main's local declarations were taken back out (they add -Wall warnings in 77 main files); they wait on a typing PR (decisions_needed.md). 23 local duplicate declarations in main were removed in favour of the headers, and the definitions of cCoreSave_ckClearStage, EmWeaponHolder_dropWeapons, func_002A9528 and func_002C53A8 now take their real types.
+- **Registered:** 15 held matches (list and config reasons in batch_log.md). 25 drafts moved to drafts/cod/; 41 drafts and 29 other held files (matches and definition fixes) stay held on the header questions.
+- **Builds:** full build and cold build (container_run.sh python3 compile.py --cold) both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseed anchored on func_002C5548 elf=OK overlay=OK. Logs: build/scratch/ck176_b5.log, ck176_cold.log.
+- **Checks:** session_check through container_run.sh: 18 pass, 7 skip, known dual_compiler_regress rc=126. cygnus-2.96 -Wall shows no new warnings in the changed and added files (build/scratch/wallcmp.py). tools/strip_data_nonmatching.py rewrote 2 asm/data files for the new header externs.
+- **Stop conditions:** none hit.
+
+## Checkpoint (single-agent, batches 177-178; held registrations) — 2026-10-25T08:39:46Z
+
+- **% fully linked:** 55.5638% (1576004 / 2836384 code bytes; scripts/progress.sh through container_run.sh). Data 83.0150% (unchanged). +968 B over the last entry (1575036).
+- **Headers:** new include/godhand/sndCmd.h (func_00387328, func_00387270) and sndRamp.h (SndRamp, SndRampOwner, func_00378070, func_00377688), with .gitignore allowlist lines; tim2.h gains TexUpBlock/TexUpFile and func_0015DDF8 takes them. Main's 0037a4c8.c, 001fcde8.c and 0037cc78.c drop their local declarations for the header ones; 00387328.c and 00376e38.c include their headers (00376e38.c called func_00377688 without a prototype).
+- **Registered:** func_0015DDF8 (sn, as sn), func_00377688, func_00387270; the definition of func_00378070 now takes SndRamp *. Held: func_00165EB8 (OK-lock test decision; menuKey.h page keys overlay). Drafts added: 0015db30, 002b45f8, 00155dc8.
+- **Builds:** full build and cold build both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseed anchored on func_0015DDF8 elf=OK overlay=OK. Logs: build/scratch/ck178_b1.log, ck178_cold.log.
+- **Checks:** session_check through container_run.sh: 18 pass, 7 skip, known dual_compiler_regress rc=126. cygnus-2.96 -Wall: no new warnings in the 9 changed and added files. strip_data_nonmatching: no changes.
+- **Stop conditions:** none hit.
+
+## Checkpoint (single-agent, batch 179; held registration) — 2026-10-25T11:40:00Z
+
+- **% fully linked:** 55.5688% (1576144 / 2836384 code bytes; scripts/progress.sh through container_run.sh). Data 83.0150% (unchanged). +140 B over the last entry (1576004).
+- **Headers:** cMessDrawFontCode.h gains the func_002AF218 and func_002B45F8 prototypes; 002afed0.c drops its duplicate func_002AF218 declaration. Four main callers still use implicit declarations (listed in pending_headers.md).
+- **Registered:** func_002B45F8 (sn, default flags). Drafts added in batch 179: 001390b8 (cMotCamera_setMotion), 00270160, 0026a018, 00274d18, 002ba300 (create); held draft 00149220_nm.
+- **Builds:** full build and cold build both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseed anchored on func_002B45F8 elf=OK overlay=OK. Logs: build/scratch/ck179_full.log, ck179_cold.log.
+- **Checks:** session_check through container_run.sh: 18 pass, 7 skip, known dual_compiler_regress rc=126. cygnus-2.96 -Wall: no warnings in the 2 changed and added files. strip_data_nonmatching: no changes.
+- **Stop conditions:** none hit.
+
+## Checkpoint (single-agent, batch 186; id-range helper matches) — 2026-10-25T16:08:40Z
+
+- **% fully linked:** 55.6294% (1577864 / 2836384 code bytes, progress/report.json). Data 83.0150% (unchanged). +220 B over checkpoint 186.
+- **Headers:** cGameObj.h gains the func_001B8030 prototype (returns cGameObj_idInRange's long flag as is) and cSnd.h the cSnd_IsEnemyAlive prototype. The other changes in the held cGameObj.h, cSnd.h and cOmDoor.h overlays stay held (pending_headers.md).
+- **Registered:** func_001B8030 (src/cod/001b8030.c) and cSnd_IsEnemyAlive (src/cod/002d0c10.c), sn, default flags. 0013cf20.c (getItemNumInRoom) now uses the header prototype; 002cf310.c had called cSnd_IsEnemyAlive undeclared. Draft rewritten: drafts/cod/001bd430.c.
+- **NM handoffs:** func_00276478 and func_002B45F8 are stale (already matched in src). cMessDrawFont_draw byte-matches but declares about 20 callees locally with pointer-to-int casts, so it was left for a cleanup pass.
+- **Builds:** full build and cold build (container_run.sh python3 compile.py --cold) both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseeds anchored on func_001B8030 and cSnd_IsEnemyAlive rc=0. Logs: build/scratch/cp187_full.log, cp187_cold.log.
+- **Checks:** session_check through container_run.sh: 18 pass, 7 skip, known dual_compiler_regress rc=126. cygnus-2.96 -Wall: no new warnings in the changed and added files. strip_data_nonmatching: no changes.
+- **Stop conditions:** none hit (the zero-match streak ended at 4).
+
+Stopped for upstream sync

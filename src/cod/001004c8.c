@@ -1,5 +1,6 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cSubScrOption.h"
 extern int D_005CAFF0;
 extern int D_007476B0;
 extern char *D_00566E10;
@@ -145,17 +146,15 @@ int PostInc_D_00566E10_0015B0F0_15B0F0(int a0) {
     return (int)cur;
 }
 
+/* Hide every entry of the options variant. */
 __attribute__((section(".text.SetFlagOnChildren_167EE8")))
-void SetFlagOnChildren_167EE8(int a0)
+void SetFlagOnChildren_167EE8(cSubScrOptionT *self)
 {
-    int **p = (int **)((char *)a0 + 0x80);
-    unsigned int i = 0;
-    do {
-        int *q = *p;
-        i++;
-        p++;
-        *(int *)((char *)q + 0x2C) |= 0x08000000;
-    } while (i < 16);
+    unsigned int i;
+
+    for (i = 0; i < SUBSCR_OPTIONT_ENT_NUM; i++) {
+        self->ent[i]->flags |= IDENT_FLAG_NO_DRAW;
+    }
 }
 
 __attribute__((section(".text.GetTypeDefaultValue_16EDE0")))
@@ -457,11 +456,10 @@ void cCoreSave_addContinueNum(cCoreSave *self) {
 
 __attribute__((section(".text.cCoreSave_ckClearStage")))
 /* 1 if stage `no` (0..8) is cleared; the 0x80000 cheat clears them all. */
-int cCoreSave_ckClearStage(cCoreSave *self, unsigned int no) {
+int cCoreSave_ckClearStage(cCoreSave *self, unsigned short no) {
     cCoreSaveData *data;
     int bit;
     data = self->data;
-    no = no & 0xFFFF;
     if (data == 0) {
         return 0;
     }

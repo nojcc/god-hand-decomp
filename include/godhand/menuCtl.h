@@ -140,7 +140,7 @@ typedef char MenuPage_size_check[sizeof(MenuPage) == 0x100 ? 1 : -1];
 typedef struct SlotInfoA {
     char unk00[0x14];
     int info;                   /* 0x14 */
-    char unk18[0x20 - 0x18];
+    unsigned char mute[8];      /* 0x18 1 when muted: [0] the whole stream, [n] track n */
     int handle;                 /* 0x20 */
     int buf;                    /* 0x24 freed once the handle stops */
 } SlotInfoA;
@@ -159,7 +159,8 @@ typedef struct SlotInfoB {
 typedef struct SlotView {
     unsigned char unk00[3];
     unsigned char flags;        /* 0x03 */
-    char unk04[0x30 - 0x04];
+    unsigned char track;        /* 0x04 track the mute page shows, 1-based; 0 for the whole stream */
+    char unk05[0x30 - 0x05];
     int stat;                   /* 0x30 */
     SlotInfoB b;                /* 0x34 */
     char unk6C[0xA4 - 0x34 - sizeof(SlotInfoB)];
@@ -194,6 +195,8 @@ typedef struct FileSel {
 extern int GuardedCall_00329FD0_329F98(int handle);
 extern int func_00380AE8(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern void func_00380EB0(MenuCtl *ctl, MenuInfo *info, MenuList *list);
+int func_0032B0B0(int handle);          /* the stream's error code, under the ADX lock */
+void func_0032B118(int handle);         /* clear the stream's error code, under the ADX lock */
 extern int func_0037FD28(FileSel *sel, FileSelWork *work);
 extern void func_0037FC28(FileSel *self);
 extern void func_0037FF98(MenuCtl *ctl);
@@ -222,10 +225,57 @@ typedef struct SndTrkSet {
     void *ply;                          /* 0x20 player handle */
 } SndTrkSet;
 
+/* A stream's mixer page: the track picked and a left and a right volume per
+ * track, [0] being the whole stream. */
+typedef struct SndMixer {
+    char unk00[2];
+    unsigned char cur;                  /* 0x02 track picked, 0 for the whole stream */
+    char unk03[0x18 - 0x03];
+    short lvol[5];                      /* 0x18 */
+    short rvol[5];                      /* 0x22 */
+    char unk2C[0x30 - 0x2C];
+    SndTrkSet trk;                      /* 0x30 */
+} SndMixer;
+
+int func_00382520(void *ctx, SndMixer *mix, unsigned char right);
+
 /* The voice reference of a sound option (the handle at 0x30). */
 typedef struct SndVoiceRef {
     char unk00[0x30];
     void *voice;                        /* 0x30 voice handle */
 } SndVoiceRef;
+/* The sound option pages (0x381F18 first block, 0x383878 second block). */
+typedef struct SndOptLevels {
+    char pad00[2];
+    unsigned char slot;                 /* 0x02 */
+    char pad03;
+    short level[5];                     /* 0x04 */
+    short index[5];                     /* 0x0E */
+} SndOptLevels;
+
+typedef struct SndOptMenu {
+    char pad000[0x318];
+    SndOptLevels snd;                      /* 0x318 */
+} SndOptMenu;
+
+typedef struct SndOptPad {
+    char pad00[0x2C];
+    int hold;                           /* 0x2C */
+    char pad30[8];
+    int trig;                           /* 0x38 */
+} SndOptPad;
+
+typedef struct SndOptLevels2 {
+    char pad00[4];
+    unsigned char slot;                 /* 0x04 */
+    char pad05[3];
+    short level[5];                     /* 0x08 */
+    short index[5];                     /* 0x12 */
+} SndOptLevels2;
+
+typedef struct SndOptMenu2 {
+    char pad000[0x370];
+    SndOptLevels2 snd;                      /* 0x370 */
+} SndOptMenu2;
 
 #endif /* GODHAND_MENUCTL_H */

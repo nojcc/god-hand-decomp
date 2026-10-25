@@ -1,5 +1,6 @@
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cObjBase.h"
+#include "godhand/cIDBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -12,8 +13,6 @@ extern int D_0041EC58;
 extern int D_007856E8;
 extern void cObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
-extern int D_00754230;
-extern void func_002A94F0(void *a0);
 extern int D_004292F0;
 extern void *InitFields_1B6E90(void *a0);
 extern int D_007859B8;
@@ -22,8 +21,6 @@ extern int D_00785878;
 extern void GetOrInitGlobal785878_1B8058(void);
 extern int D_007854D8;
 extern int D_0044AEC8;
-extern void *cIDBase_getIDWork(void *self, int idx);
-extern void cIDBase_initEntry(void *a0, int a1, void *a2);
 extern void func_002B64C0(int a0);
 extern char D_0045C470[];
 extern char D_0045C4A0[];
@@ -106,14 +103,6 @@ void *cObjBase__tf(void)
     return &D_007854F8;
 }
 
-__attribute__((section(".text.func_00161590")))
-void func_00161590(char *a0)
-{
-    func_002A94F0(&D_00754230);
-    *(char*)(a0 + 0x64) = 0;
-    *(int*)(a0 + 0x60) = -1;
-    *(int*)(a0 + 0x50) = 0;
-}
 
 #include "godhand/vu0.h"
 
@@ -152,12 +141,13 @@ void *cGameObj__tf(void)
     return &D_007854D8;
 }
 
+/* Rebuild the entry with id `id` from its source record. */
 __attribute__((section(".text.cIDBase_initIDWork")))
-void cIDBase_initIDWork(void *a0, int idx)
+void cIDBase_initIDWork(cIDBaseObj *self, int id)
 {
-    void *v0 = cIDBase_getIDWork(a0, idx);
-    if (v0 != 0) {
-        cIDBase_initEntry(a0, *(int*)((char*)v0 + 0x1C), v0);
+    cIDBaseEnt *ent = cIDBase_getIDWork(self, id);
+    if (ent != 0) {
+        cIDBase_initEntry(self, ent->src, ent);
     }
 }
 

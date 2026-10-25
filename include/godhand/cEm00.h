@@ -22,6 +22,9 @@
 
 #include "godhand/cOmBase.h"
 
+struct cParts;
+struct cModelNode;
+
 /* The address of a record in the resource blob. The blob starts with a
  * table of offsets from its own start; res is the blob's address as an int
  * and off the table slot. */
@@ -30,7 +33,10 @@
 /* The method table at 0x214. Each method is a short delta, added to this
  * before the call, a short index and a pfn. */
 typedef struct cEm00Vt {
-    char unk00[0x60];
+    char unk00[0x58];
+    short unk5CDelta;                       /* 0x58 */
+    short pad5A;
+    void (*unk5C)(void *self);              /* 0x5C called each frame while mode is 4 */
     short suspendDelta;                     /* 0x60 */
     short pad62;
     void (*suspend)(void *self, int flag);  /* 0x64 */
@@ -82,7 +88,9 @@ typedef struct cEm00 {
     float unk110;                           /* 0x110 x of a second vector, scaled by 0.0902 in step 6 */
     float unk114;                           /* 0x114 */
     float unk118;                           /* 0x118 z of that vector, scaled by 1.8281 in step 6 */
-    char unk11C[0xF8];
+    char unk11C[0x28];
+    struct cParts *parts;                   /* 0x144 the model's first part (cModel next) */
+    char unk148[0xCC];
     cEm00Vt *vt;                            /* 0x214 method table of the second base; entries are delta/pfn pairs */
     char unk218[0x34];
     float animRate;                         /* 0x24C 1.0 normal */
@@ -90,9 +98,12 @@ typedef struct cEm00 {
     int texFlags;                           /* 0x254 bit 28 is set while a texture exchange is active, as in cOmBase */
     char unk258[0x20];
     struct cEm00 **children;                /* 0x278 child object list */
-    char unk27C[0x38];
+    char unk27C[0x8];
+    int texSet;                             /* 0x284 texture set handed to cModel_setTextureExchange, as in cOmBase */
+    char unk288[0x2C];
     unsigned char childNum;                 /* 0x2B4 number of children */
-    char unk2B5[0x3F];
+    char unk2B5[0x3B];
+    int unk2F0;                             /* 0x2F0 bit 1 moves the parts along with the link's part */
     unsigned char mode;                     /* 0x2F4 0x2F4..0x2F7 are the four state bytes, as in cOmBase */
     unsigned char phase;                    /* 0x2F5 */
     unsigned char step;                     /* 0x2F6 the phase machines switch on this byte */
@@ -112,7 +123,9 @@ typedef struct cEm00 {
     char unk436[0x12];
     char ik[0x48];                          /* 0x448 inverse kinematics work */
     cVec posA;                              /* 0x490 position copy */
-    char unk4A0[0x91];
+    char unk4A0[0x70];
+    float unk510;                           /* 0x510 tested below 8.0 before a close attack */
+    char unk514[0x1D];
     signed char link;                       /* 0x531 -1 for none */
     char unk532[0x16];
     short vitalMax;                         /* 0x548 */
@@ -123,7 +136,9 @@ typedef struct cEm00 {
     int emNo;                               /* 0x564 enemy number */
     short unk568;                           /* 0x568 set when a hit lands; the end-of-motion code clears it and calls the hit method */
     short unk56A;                           /* 0x56A countdown beside unk568 */
-    char unk56C[0x14];
+    char unk56C[0x2];
+    short followTimer;                      /* 0x56E frames left of following the player's velocity */
+    char unk570[0x10];
     cVec unk580;                            /* 0x580 */
     cVec unk590;                            /* 0x590 */
     int scrFlags;                           /* 0x5A0 */
@@ -156,7 +171,9 @@ typedef struct cEm00 {
     unsigned short entryNo;                 /* 0x640 the room table's number for it */
     char unk642[0x6];
     unsigned char unk648;                   /* 0x648 set to 0x14 while the 0x640 link is held */
-    char unk649[0x2F];
+    char unk649[0x27];
+    cDamageTake *atkHit;                    /* 0x670 hit record of the enemy's own attack; attacker is set once it lands */
+    char unk674[0x4];
     void *unk678;                           /* 0x678 link record of the enemy it works with, its 0x34 field is the target object */
     char unk67C[0x1C];
     void *unk698;                           /* 0x698 link record, its 0x34 field is the enemy being watched */
@@ -166,16 +183,16 @@ typedef struct cEm00 {
     cVec unk6D0;                            /* 0x6D0 */
     float unk6E0;                           /* 0x6E0 copied to the facing angle (rot.y) at the start of a step */
     char unk6E4[0x8];
-    int unk6EC;                             /* 0x6EC handle released by ReleaseField6ECByTag564_26B1E8 */
-    int fx0;                                /* 0x6F0 effect handle */
-    int fx1;                                /* 0x6F4 effect handle */
-    int fx2;                                /* 0x6F8 effect handle */
-    int fx3;                                /* 0x6FC effect handle */
-    int fx4;                                /* 0x700 effect handle */
-    int fx5;                                /* 0x704 effect handle */
-    int fx6;                                /* 0x708 effect handle */
+    struct cOmWeapon *unk6EC;               /* 0x6EC weapon released by ReleaseField6ECByTag564_26B1E8 */
+    struct cOmWeapon *fx0;                  /* 0x6F0 weapon slot */
+    struct cOmWeapon *fx1;                  /* 0x6F4 weapon slot */
+    struct cOmWeapon *fx2;                  /* 0x6F8 weapon slot */
+    struct cOmWeapon *fx3;                  /* 0x6FC weapon slot */
+    struct cOmWeapon *fx4;                  /* 0x700 weapon slot */
+    struct cOmWeapon *fx5;                  /* 0x704 weapon slot */
+    struct cOmWeapon *fx6;                  /* 0x708 weapon slot */
     int unk70C;                             /* 0x70C attached object, updated with func_001C2378 */
-    char unk710[0x20];
+    void *weapon[8];                        /* 0x710 weapons held by enemy 0x211, 0 = empty slot */
     int unk730;                             /* 0x730 effect handle, released when moveFlags bit 0 is set */
     int unk734;                             /* 0x734 effect handle */
     void *gotoEffect;                       /* 0x738 effect a goto drops (func_001D0408) */
@@ -185,7 +202,8 @@ typedef struct cEm00 {
     int sub0;                               /* 0x748 child object, its own state bytes follow the enemy's */
     int sub1;                               /* 0x74C */
     int sub2;                               /* 0x750 */
-    char unk754[0xC];
+    char unk754[0x8];
+    float unk75C;                           /* 0x75C */
     float unk760;                           /* 0x760 */
     char unk764[0x4];
     float unk768;                           /* 0x768 angle tested against pi/4 before the attack */
@@ -210,7 +228,7 @@ typedef struct cEm00 {
         float time;                         /* a timer, counted down by frames */
         float angle;                        /* a wobble phase in radians */
     } stepVar;                              /* 0x15B4 the current step's counter: an int in some steps, a float in others */
-    char unk15B8[0x4];
+    int unk15B8;                            /* 0x15B8 cleared by func_00284AF8 */
     float unk15BC;                          /* 0x15BC countdown, restarts at a random 90 to 180 frames */
     float stepScale;                        /* 0x15C0 scale on stepVec x and z while a knockdown motion runs */
     int unk15C4;                            /* 0x15C4 handle of the item this enemy dropped, 0 while none */
@@ -223,7 +241,8 @@ typedef struct cEm00 {
     int unk15F4;                            /* 0x15F4 flag word of the derived enemy, 0x10000 is set while the counter runs */
     char unk15F8[0xB];
     unsigned char unk1603;                  /* 0x1603  */
-    char unk1604[0x10];
+    unsigned char unk1604;                  /* 0x1604 cleared every frame by func_002873B8 */
+    char unk1605[0xF];
     unsigned char unk1614;                  /* 0x1614 selector of the derived enemy, 0 to 2 */
     char unk1615[0xB];
     int unk1620;                            /* 0x1620 sound handle, stopped with cSnd_SeStop */
@@ -254,19 +273,28 @@ typedef struct cEm00 {
     float pitch;                            /* 0x1708 body pitch toward the ground slope */
     float unk170C;                          /* 0x170C scaled by 10.0 into unk1710 on a hard hit */
     int unk1710;                            /* 0x1710 cleared at the start of a step */
-    char unk1714[0xC];
+    float unk1714;                          /* 0x1714 enemy 0x20F throws what it holds once this has run out */
+    char unk1718[0x8];
     float unk1720;                          /* 0x1720 */
-    char unk1724[0xC];
+    char unk1724[0x4];
+    float unk1728;                          /* 0x1728 enemy 0x278's attack 0x8C waits until this has run out */
+    char unk172C[0x4];
     float unk1730;                          /* 0x1730 */
     char unk1734[0xC];
     float unk1740;                          /* 0x1740 */
     char unk1744[0x24];
     float unk1768;                          /* 0x1768 */
-    char unk176C[0x34];
+    char unk176C[0x8];
+    struct cModelNode *hand[6];             /* 0x1774 the hand meshes by pose: 0..2 one hand, 3..5 the other */
+    char unk178C[0x14];
     int unk17A0;                            /* 0x17A0 the object this enemy turns toward, cleared when its motion ends */
-    char unk17A4[0xD];
+    char unk17A4[0x4];
+    int unk17A8;                            /* 0x17A8 enemies 0x275/0x276 take attack 0x3A only at 51 or more */
+    int counterVital;                       /* 0x17AC hit points a counter attack restores (capped at vitalMax); 0 or less: no counter */
+    char unk17B0[0x1];
     unsigned char unk17B1;                  /* 0x17B1 index passed to func_002948C8 */
-    char unk17B2[0x7];
+    char unk17B2[0x6];
+    unsigned char counterChance;            /* 0x17B8 1: a counter half the time, 2: two times in three */
     unsigned char counterReady;             /* 0x17B9 nonzero lets the enemy start a counter attack */
     char unk17BA[0x1];
     unsigned char unk17BB;                  /* 0x17BB */
@@ -274,19 +302,71 @@ typedef struct cEm00 {
     unsigned char slowFlinch;               /* 0x17C1 nonzero keeps the slow flinch speed of stepArg 3 */
     char unk17C2[0x1];
     unsigned char unk17C3;                  /* 0x17C3 */
-    char unk17C4[0x6];
+    int unk17C4;                            /* 0x17C4 set to -1 when a counter attack starts */
+    short unk17C8;                          /* 0x17C8 cleared when a counter attack starts */
     unsigned short unk17CA;                 /* 0x17CA 30 before a motion ends */
     float unk17CC;                          /* 0x17CC set to 150.0 by func_0026F120, tested positive by func_0026F1D8 */
-    char unk17D0[0x94];
+    int unk17D0;                            /* 0x17D0 random 0 to 4 picked when an attack starts */
+    float unk17D4;                          /* 0x17D4 set to 4.0 with unk1865 while an attack runs */
+    char unk17D8[0x8C];
     unsigned char unk1864;                  /* 0x1864 */
-    char unk1865[0x2];
+    unsigned char unk1865;                  /* 0x1865 set to 2 with unk17D4 while an attack runs */
+    unsigned char unk1866;                  /* 0x1866 counted up each time a knockdown starts */
     unsigned char hitCount;                 /* 0x1867 the hits taken in a row, counted up to 4 */
-    char unk1868[0x2];
+    char unk1868[0x1];
+    signed char unk1869;                    /* 0x1869 on enemy 0x275: how many of four meshes stay shown */
     unsigned char unk186A;                  /* 0x186A */
     unsigned char unk186B;                  /* 0x186B a scalar byte */
     char unk186C[0x4];
 } cEm00;
 
 typedef char cEm00_size_check[(sizeof(cEm00) == 0x1870) ? 1 : -1];
+
+int Obj0000_Get_Byte_17C3_NZ_2_276468(void *self);
+/* Raises the float at 0x15B4 of a0 to at least f12. */
+void func_0027DD10(void *a0, float f12);
+/* Turns the enemy toward the object a1 by orientation type a2. */
+void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
+/* Loads the enemy's model for its number; 0 if it can't. */
+int func_0028C400(void *a0);
+/* Pins the data the enemy number's child objects load. */
+void func_0028CED8(void *a0);
+/* Builds the cloth of the enemies that have one. */
+void func_0028CDD0(char *arg);
+/* Creates weapon object a1 at the enemy's position; 0 if it can't. */
+char *func_0028D048(char *a0, int a1);
+/* Attaches weapon object a1 (kind a2) to the enemy. */
+void func_0028D138(char *a0, char *a1, int a2);
+void cOmBase_attachWeaponGrip(cOmBase *self, void *weapon, int left);
+void cOmWeapon_loadEffectParamsByType(void *a0, int a1, unsigned int a2);
+/* Attach a created child object to its enemy q. */
+void cEm53_SetParent(char *p, char *q, int idx);
+void cEm57_SetParent(char *p, char *q, int idx);
+void func_00283BE8(char *p, char *q, int idx);
+/* Starts a lunge at the player if it is within reach; 1 if it did. */
+void func_0026A638(void *a0, int a1);
+/* The enemy view with the held object slots (001a6098.c). */
+struct EmThrower;
+void func_00260890(cEm00 *self, int part);
+void func_002705D8(void *self);
+int func_0025FE30(void *self, int flags, int arg);
+void func_00274FE8(void *self);
+void func_0026B600(void *self);
+void ReleaseField6ECByTag564_26B1E8(void *self);
+void func_00262750(void *self, int kind);
+/* Starts hit volume kind of the current attack; arg picks one of several. */
+/* Loads the model and textures for the enemy number; 0 when there are none. */
+int func_00288DA8(cEm00 *self);
+int func_00270DB0(cEm00 *self);
+void func_0026B240(void *a0, int a1, int a2, int a3);
+/* Drops up to count of the weapons enemy 0x211 holds. */
+void EmWeaponHolder_dropWeapons(cEm00 *self, unsigned int count, int arg);
+
+/* 1 while bit 2 of emFlags2 (0x16D4) is set. */
+int Obj0000_IsSet_Field_16D4_Bit_4_26F308(void *a0);
+/* 1 once the float at 0x1724 has run down to 0. */
+int func_00273EE0(void *a0);
+/* Nonzero holds back the enemies' catch moves. */
+extern unsigned char D_005CB010;
 
 #endif

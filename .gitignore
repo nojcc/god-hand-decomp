@@ -190,6 +190,7 @@
 !src/cod/00100280.c
 !src/cod/001004c8.c
 !src/cod/00100508.c
+!src/cod/00100fb8.c
 !src/cod/00102ee0.c
 !src/cod/00107de0.c
 !src/cod/00107ec8.c
@@ -265,9 +266,11 @@
 !src/cod/001506f0.c
 !src/cod/00150710.c
 !src/cod/001507b8.c
+!src/cod/00155678.c
 !src/cod/00158fb8.c
 !src/cod/00159490.c
 !src/cod/0015f0.c
+!src/cod/0015e708.c
 !src/cod/0015fba8.c
 !src/cod/001684d8.c
 !src/cod/00166bb8.c
@@ -459,6 +462,7 @@
 !src/cod/00273eb8.c
 !src/cod/00273ee0.c
 !src/cod/002772.c
+!src/cod/00276478.c
 !src/cod/00277a48.c
 !src/cod/002780.c
 !src/cod/00278878.c
@@ -499,6 +503,7 @@
 !src/cod/00292ef0.c
 !src/cod/00292f38.c
 !src/cod/00292f50.c
+!src/cod/00294488.c
 !src/cod/00294968.c
 !src/cod/00294970.c
 !src/cod/002955f0.c
@@ -525,6 +530,7 @@
 !src/cod/002a9c90.c
 !src/cod/002a9d28.c
 !src/cod/002ace28.c
+!src/cod/002ad108.c
 !src/cod/002af628.c
 !src/cod/002af638.c
 !src/cod/002af658.c
@@ -601,6 +607,7 @@
 !src/cod/002c3858.c
 !src/cod/002c4de0.c
 !src/cod/002c54e8.c
+!src/cod/002c5548.c
 !src/cod/002cabe0.c
 !src/cod/002cb070.c
 !src/cod/002cb200.c
@@ -685,6 +692,7 @@
 !src/cod/0030ac38.c
 !src/cod/0030e0.c
 !src/cod/0030e598.c
+!src/cod/003129d0.c
 !src/cod/00312e88.c
 !src/cod/00313510.c
 !src/cod/003137b0.c
@@ -705,6 +713,7 @@
 !src/cod/003173b0.c
 !src/cod/00317810.c
 !src/cod/00317c70.c
+!src/cod/003182d8.c
 !src/cod/003183a8.c
 !src/cod/003183b8.c
 !src/cod/003183c0.c
@@ -983,14 +992,18 @@
 !src/cod/0036e378.c
 !src/cod/00373158.c
 !src/cod/003749d8.c
+!src/cod/00375318.c
 !src/cod/00375ef8.c
 !src/cod/00376508.c
 !src/cod/003766f8.c
 !src/cod/00376708.c
 !src/cod/00376e38.c
+!src/cod/00376ea0.c
 !src/cod/00377520.c
 !src/cod/003775e8.c
 !src/cod/0037a810.c
+!src/cod/00382520.c
+!src/cod/00384bc8.c
 !src/cod/00389470.c
 !src/cod/00389478.c
 !src/cod/00389480.c
@@ -1049,6 +1062,7 @@
 !src/cod/0039adc0.c
 !src/cod/0039add0.c
 !src/cod/0039ade0.c
+!src/cod/0039bb20.c
 !src/cod/0039c390.c
 !src/cod/0039eb90.c
 !src/cod/003a1c78.c
@@ -1070,6 +1084,7 @@
 !src/cod/003b1fa8.c
 !src/cod/003b2028.c
 !src/cod/003b2048.c
+!src/cod/003b2900.c
 !src/cod/003b2b90.c
 !src/cod/003b3a48.c
 !src/cod/003b64a8.c
@@ -1331,6 +1346,7 @@
 !src/cod/00281b40.c
 !src/cod/002c3678.c
 !src/cod/001b7ee0.c
+!src/cod/001b8030.c
 !src/cod/001bea40.c
 !src/cod/001bd120.c
 !src/cod/001d45a0.c
@@ -2742,6 +2758,7 @@
 !src/cod/00321240.cc
 !src/cod/003217b8.cc
 !src/cod/00145410.c
+!src/cod/00145460.c
 !src/cod/0014a338.c
 !src/cod/001b7de8.c
 !src/cod/001ffe10.c
@@ -3428,6 +3445,7 @@
 !include/godhand/adxm.h
 !include/godhand/adxmThread.h
 !include/godhand/cIDBaseAnim.h
+!include/godhand/cIDBaseScreen.h
 !include/godhand/cMessDrawFontCode.h
 !include/godhand/criAix.h
 !include/godhand/criFs.h
@@ -3719,6 +3737,7 @@
 !src/cod/002d0128.c
 !src/cod/002d0658.c
 !src/cod/002d0b88.c
+!src/cod/002d0c10.c
 !src/cod/002d4248.c
 !src/cod/002da1f8.c
 !src/cod/002db7e0.c
@@ -5199,7 +5218,11 @@
 !src/cod/003bbec0.c!include/godhand/emPhaseTable.h
 
 !include/godhand/emPhaseTable.h!include/godhand/newlibMalloc.h
-!include/godhand/vecInline.h
+
+!include/godhand/emPhaseTable.h
+!include/godhand/newlibMalloc.h
+!include/godhand/newlibStdio.h
+!include/godhand/newlibStdlib.h!include/godhand/vecInline.h
 
 !include/godhand/reachObj.h
 
@@ -5319,3 +5342,42 @@
 !include/godhand/cVec.h
 
 !include/godhand/sndStream.h
+
+!include/godhand/sndCmd.h
+!include/godhand/sndRamp.h
+!include/godhand/angle.h
+!include/godhand/cEmLinked.h
+!include/godhand/cIDObj.h
+!include/godhand/cSubScrMenu.h
+!include/godhand/cSubScrOption.h
+!include/godhand/cObjGround.h
+!include/godhand/cPathMover.h
+!include/godhand/cShopPanel.h
+!include/godhand/capVu0.h
+!include/godhand/cloth.h
+!include/godhand/dbgText.h
+!include/godhand/drawQueue.h
+!include/godhand/eeKernel.h
+!include/godhand/keySlot.h
+!include/godhand/libm.h
+!include/godhand/mtx.h
+!include/godhand/padWork.h
+!include/godhand/rand.h
+!include/godhand/sceMpeg.h
+!include/godhand/sceTimer.h
+!include/godhand/scrollLayer.h
+!include/godhand/sif.h
+!include/godhand/texWork.h
+!include/godhand/tim2.h
+!src/cod/002ddea0.c
+!src/cod/0015ddf8.c
+!src/cod/001614d0.c
+!src/cod/00377688.c
+!src/cod/00387270.c
+!src/cod/002b45f8.c
+!src/cod/003a6188.c
+!src/cod/003a6a88.c
+!src/cod/003a7c28.c
+!src/cod/003a8fe0.c
+!src/cod/003ace90.c
+!src/cod/003a6ce0.c

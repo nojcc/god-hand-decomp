@@ -1,5 +1,5 @@
+#include "godhand/sndRamp.h"
 extern void func_0037D820(void *self);
-extern void func_00378070(void *p);
 
 __attribute__((section(".text.func_0037CC78")))
 void func_0037CC78(unsigned short *self)
@@ -12,6 +12,6 @@ void func_0037CC78(unsigned short *self)
         func_0037D820(self);
         return;
     }
-    func_00378070((char *)self + 0x30);
+    func_00378070((SndRamp *)((char *)self + 0x30));
     self[3] = self[3] | 0x9;
 }

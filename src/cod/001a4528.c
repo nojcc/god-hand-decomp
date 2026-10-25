@@ -10,7 +10,6 @@
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
-extern void func_001DF528(void *p, int a1, int a2);
 extern void cSnd_SetBgmState(void *snd, int state);
 extern long D_00747640;
 extern char D_005FEE00[];

@@ -4,7 +4,6 @@
 
 extern void *Getplayer(void);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
-extern void func_0025FE30(void *a0, int a1, int a2);
 extern void cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);

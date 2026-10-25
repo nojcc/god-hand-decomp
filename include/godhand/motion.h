@@ -29,4 +29,17 @@ extern MotionParamFn D_003BD910[];
 int MotionIsHaveParam(MotionData *mot, int kind, int sub);
 float MotionGetParam(MotionData *mot, int kind, int sub);
 
+/* Steps the object's motion; nonzero when it ended this frame. */
+int moveMotion(void *obj);
+/* Starts motion motA/motB on the object (both addresses in its resource blob). */
+void func_002A8578(int obj, int motA, int motB, int mode, float start, unsigned short sel, unsigned short keep);
+
+/* Sets the motion step of obj (negated for a mirrored motion). */
+void SetMotionStep(void *obj, float step);
+
+/* Starts motion motion..motionEnd on self at frame start, with the rate and blend. */
+struct cObjBase;
+int setMotionInfo(struct cObjBase *self, char *motion, char *motionEnd, unsigned int start,
+                  float rate, float blend, int flags);
+
 #endif

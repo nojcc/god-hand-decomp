@@ -60,4 +60,7 @@ typedef char cEma2_chk_mesh[EMA2_OFFSET(mesh) == 0x15B4 ? 1 : -1];
 /* The name every cEma2 carries in cGameObj.kindName; cEmManage compares it. */
 extern char D_0044A7A8[];
 
+/* Starts the hit cooldown when the player is hidden from this enemy; 1 when it started. */
+int cEma2_startHitCooldown(cEma2 *self);
+
 #endif /* GODHAND_CEMA2_H */

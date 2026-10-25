@@ -4,6 +4,8 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cMc.h"
 #include "godhand/cEvent.h"
+#include "godhand/cIDBaseScreen.h"
+#include "godhand/criStm.h"
 
 extern cGameObj *InitFields_1B6E90(cGameObj *self);
 #include "godhand/objField.h"
@@ -35,30 +37,16 @@ cGameObj *cGameObj_constructSubclassA(cGameObj *self) {
     return self;
 }
 
-/* Motion blend record: a table of up to 0x23 words copied in from a source table. */
-typedef struct BlendWork {
-    char unk00[0x90];
-    unsigned int flags;                 /* 0x90 */
-    char unk94[0x2A8 - 0x94];
-    int table[0x23];                    /* 0x2A8 copied from the source table */
-    short tableNum;                     /* 0x334 words in use, at most 0x23 */
-} BlendWork;
-
-#define BLENDWORK_TABLE_READY 0x40000000        /* flags: the table holds fresh data */
-#define BLENDWORK_TABLE_MAX   0x23
-
-
-
-/* Copy num words from src into the table (clamped to the table size) and mark the table ready. */
+/* Copy the item texture addresses in (num clamped to SCR_LIST_MAX) and mark the list ready. */
 __attribute__((section(".text.BlendWork_copyTable")))
-void BlendWork_copyTable(BlendWork *self, void *src, short num) {
-    if (num >= BLENDWORK_TABLE_MAX + 1) {
-        self->tableNum = BLENDWORK_TABLE_MAX;
+void BlendWork_copyTable(cIDBaseScreen *self, void *const *src, short num) {
+    if (num >= SCR_LIST_MAX + 1) {
+        self->texNum = SCR_LIST_MAX;
     } else {
-        self->tableNum = num;
+        self->texNum = num;
     }
-    func_003A5148(self->table, src, self->tableNum << 2);
-    self->flags |= BLENDWORK_TABLE_READY;
+    func_003A5148(self->tex, src, self->texNum << 2);
+    self->flags |= SCR_FLAG_READY;
 }
 
 /* The player object (pl00): the fields the attack-button check reads. */

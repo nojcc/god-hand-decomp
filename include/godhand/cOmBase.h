@@ -51,19 +51,36 @@ typedef struct cMeshNode {
     unsigned char layer;                /* 0x40C */
 } cMeshNode;
 
+/* Attack kinds, as stored in cDamageTake.kind. Retail switches on the kind
+ * as this (signed) enum: with an int index gcc 2.95 weighs small case values
+ * by character cost and builds a different compare tree. */
+typedef enum cDamageKind {
+    DAMAGE_KIND_NONE = -1
+} cDamageKind;
+
 /* The hit record that cOmBase_checkDamage receives. */
 typedef struct cDamageTake {
-    char unk00[0x10];
+    unsigned int opts;                  /* 0x00 bit 0: take hits without the line-of-sight check */
+    char unk04[0xC];
     cVec dir;                           /* 0x10 hit direction */
-    char unk20[0x14];
+    cVec hitPos;                        /* 0x20 where the attacking volume was */
+    struct cGameObj *victim;            /* 0x30 the object the record belongs to */
     char *attacker;                     /* 0x34 the object that dealt the hit */
-    char unk38[0xE];
+    char unk38[0x8];
+    int unk40;                          /* 0x40 copied from cDamageGive.unk40 */
+    short unk44;                        /* 0x44 copied from cDamageGive.unk44 */
     short kind;                         /* 0x46 attack kind */
     char unk48[4];
     int power;                          /* 0x4C */
     char unk50[0x10];
     unsigned int flags;                 /* 0x60 bit 0 must be set for the hit to count */
 } cDamageTake;
+
+/* The attack kind of a hit, as the cDamageKind that retail switches on. */
+static __inline__ cDamageKind cDamageTake_kind(cDamageTake *take)
+{
+    return take->kind;
+}
 
 /* Bits of cOmBase.hitFlags (0x5B4), set by the hit classifier. */
 #define COMBASE_HIT_STRONG    1
@@ -89,7 +106,8 @@ typedef struct cOmBase {
     cVec *pos;                              /* 0x0F0 the object's live position */
     char unk0F4[0xC];
     cVec posPrev;                           /* 0x100 position last frame */
-    char unk110[0x38];
+    float scale[3];                         /* 0x110 model scale, as in cGameObj */
+    char unk11C[0x2C];
     struct cOmBase *owner;                  /* 0x148 set on a child body to its weapon */
     char unk14C[0x214 - 0x14C];
     struct cVtEnt *vtable;                  /* 0x214 g++ 2.x vtable, entries as cModel.h cVtEnt */
@@ -114,7 +132,9 @@ typedef struct cOmBase {
     int texKey;                             /* 0x304 key searched in the texture table */
     char unk308[0x188];
     cVec posA;                              /* 0x490 position copy used for model sync */
-    char unk4A0[0x98];
+    char unk4A0[0x91];
+    signed char unk531;                     /* 0x531 as cGameObj.unk531; a thrown weapon sets 2 */
+    char unk532[0x6];
     long name;                              /* 0x538 object name, up to 8 chars packed low byte first */
     long modelHandle;                       /* 0x540 */
     short hpMax;                            /* 0x548 */
@@ -123,7 +143,8 @@ typedef struct cOmBase {
     char unk550[0x10];
     int dropItem;                           /* 0x560 item id this object drops, 0xFFFF for the default drop, 0x9C3 for none */
     int actionId;                           /* 0x564 on a fighter: the current action */
-    char unk568[0x18];
+    short unk568;                           /* 0x568 a frame counter of the derived object (a weapon's burst wait) */
+    char unk56A[0x16];
     int unk580;                             /* 0x580 cleared by the enemy setup at 0x1B90D0 */
     int unk584;                             /* 0x584 */
     int unk588;                             /* 0x588 */
@@ -151,6 +172,26 @@ static __inline__ cOmBase *cOmBase_childAt(cOmBase *b, int *frame, int idx)
 
     *frame = n = b->childNum;
     if (idx >= 0 && idx < n) {
+        return b->children[idx];
+    }
+    return 0;
+}
+
+/* cOmBase_childAt for an index that may be out of range either way. Retail
+ * builds the range test as a flag and masks it with 0xFF where it tests it,
+ * as cGameObj_idInRange does. */
+static __inline__ cOmBase *cOmBase_childAtIdx(cOmBase *b, int *frame, int idx)
+{
+    int n;
+    long in = 0;
+
+    *frame = n = b->childNum;
+    if (idx >= 0) {
+        int below = idx < n;
+
+        in = below;
+    }
+    if (in & 0xFF) {
         return b->children[idx];
     }
     return 0;

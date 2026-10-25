@@ -6,7 +6,6 @@
 extern unsigned int D_00747A50;       /* lhu -> u16 */
 extern void *D_003BD6E8;
 
-extern void cHeatSys_UpdateHeatLv(cHeatSys *self);
 /* Add `heat` to the gauge (boosted by 1.25 for some players and in heat mode), clamp at max,
  * move the floor up by the gain, and refresh lv. Does nothing while heat mode is on and heat > 0,
  * unless a1 is set. */

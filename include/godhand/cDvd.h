@@ -14,6 +14,8 @@
 
 #define CDVD_JOB_NUM   32
 
+struct HeapArena;
+
 typedef struct cDvdJob {
     int state;                          /* 0x00 0 = free, 1 = queued */
     int id;                             /* 0x04 handed back to the caller */
@@ -23,7 +25,7 @@ typedef struct cDvdJob {
     int arg70;                          /* 0x70 */
     int blockNum;                       /* 0x74 size in 0x800-byte blocks */
     int size;                           /* 0x78 size in bytes */
-    int align;                          /* 0x7C buffer alignment argument */
+    struct HeapArena *align;            /* 0x7C the heap the buffer is allocated from */
     void *buf;                          /* 0x80 where the data lands */
     void *heap;                         /* 0x84 owner of buf, 0 if none */
 } cDvdJob;                              /* 0x88 */
@@ -41,5 +43,14 @@ extern void func_00201228(cDvd *self, cDvdJob *job);     /* give a job back */
 extern void func_00201290(cDvd *self);                   /* start the next job */
 extern void func_00324008(void *heap);                   /* free the heap block */
 extern void FreeObjectSlot_2018F0(cDvd *self);
+
+extern cDvd D_00583F20;                                 /* the disc reader */
+
+/* Queues a read of name into a block allocated from heap: *out is zeroed
+ * first and set to the block. id 0 takes the next job id; a size of 0 reads
+ * the whole file. Returns the job id, 0 if no job was free. */
+int cDvd_ReadAlloc(cDvd *self, char *name, void **out, struct HeapArena *heap,
+                   int id, int size, int arg70, int arg6C);
+extern void cDvd_CheckWait(cDvd *self, int id);         /* waits for job id */
 
 #endif

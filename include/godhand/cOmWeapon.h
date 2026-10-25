@@ -17,10 +17,8 @@
 
 /* One piece of debris. rot is the spin per frame, vel the launch velocity. */
 typedef struct cOmWeaponPiece {
-    float rot[3];                       /* 0x00 */
-    float unk0C;
-    float vel[3];                       /* 0x10 */
-    float unk1C;
+    cVec rot;                           /* 0x00 */
+    cVec vel;                           /* 0x10 */
 } cOmWeaponPiece;
 
 typedef struct cOmWeapon {
@@ -34,7 +32,10 @@ typedef struct cOmWeapon {
     float fallSpeed;                        /* 0x630 */
     char unk634[0xC];
     cVec vel;                               /* 0x640 launch velocity */
-    char unk650[0x10];
+    struct cDamageGive *give;               /* 0x650 damage volume of a thrown weapon, 0 when none */
+    int giveNode;                           /* 0x654 id of the node both volumes size */
+    struct cDamageGive *give2;              /* 0x658 second damage volume, 0 when none */
+    char unk65C[0x4];
     float life;                             /* 0x660 frames left before a dropped weapon breaks */
     unsigned char unk664;                   /* 0x664 */
     unsigned char unk665;                   /* 0x665 */
@@ -55,5 +56,8 @@ typedef struct cOmWeapon {
 } cOmWeapon;
 
 typedef char cOmWeapon_size_check[(sizeof(cOmWeapon) == 0x790) ? 1 : -1];
+
+/* Hangs the weapon on child idx of par, held at heldPos with offset heldOfs. */
+void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, cVec *heldOfs);
 
 #endif

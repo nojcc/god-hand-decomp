@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cOm1f.h"
+#include "godhand/cSubScrOption.h"
 
 extern int cOm5a_setCloseFix();
 extern int cOm5a_setOpenFix();
@@ -126,19 +127,15 @@ int func_00162720(int a0)
     return v0;
 }
 
-/* clone */
-
+/* Hide every entry of the options panel. */
 __attribute__((section(".text.func_00167328")))
-void func_00167328(int a0)
+void func_00167328(cSubScrOption *self)
 {
-    int **p = (int **)((char *)a0 + 0x80);
-    unsigned int i = 0;
-    do {
-        int *q = *p;
-        i++;
-        p++;
-        *(int *)((char *)q + 0x2C) |= 0x08000000;
-    } while (i < 24);
+    unsigned int i;
+
+    for (i = 0; i < SUBSCR_OPTION_ENT_NUM; i++) {
+        self->ent[i]->flags |= IDENT_FLAG_NO_DRAW;
+    }
 }
 
 /* clone */

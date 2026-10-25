@@ -4,7 +4,6 @@
 #include "godhand/sndTiming.h"
 
 extern int D_0045A600[];
-extern char D_0076B1C0[];
 extern void *func_003A52F0(void *p, int c, int n);
 extern void func_00377D58(void);
 extern void func_00377D80(void);

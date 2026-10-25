@@ -22,12 +22,7 @@ extern void displayScrollLayer(int layer, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void cModel_calcParts(void *self);
 extern void cSnd_BgmEventStart(void *snd, int event, int a2, int a3);
-extern void func_001DF528(void *p, int a1, int a2);
 extern void func_001DEE40(void *p, int a1);
-extern char D_005FEE00[];
-extern void cIDBase_initIDWork(cNowLoading *self, int idx);
-extern cIDBaseEnt *cIDBase_getIDWork(cNowLoading *self, int idx);
-extern void cIDBase_restartAnim(cNowLoading *self);
 
 /* Copies the wave settings from the parameter block, clamps the entry count
  * to 1..32 (0 or less gives 25), builds the smoothing table from the squared
@@ -206,7 +201,7 @@ void Poker_updateResultWait(Poker *self)
     case 1:
         if (!Poker_timerDone(self))
             return;
-        cSnd_BgmEventStart(D_005FEE00, POKER_BGM_EVENT, 0, 0);
+        cSnd_BgmEventStart(&D_005FEE00, POKER_BGM_EVENT, 0, 0);
         func_001DF528(POKER_UI(self), 1, 4);
         /* fall through */
     case 0:
@@ -237,16 +232,16 @@ void cNowLoading_setup(cNowLoading *self)
     cIDBaseEnt *barEnt;
     unsigned short i;
 
-    cIDBase_initIDWork(self, 0);
-    cIDBase_initIDWork(self, 1);
-    cIDBase_initIDWork(self, 2);
-    cIDBase_initIDWork(self, 3);
-    cIDBase_restartAnim(self);
+    cIDBase_initIDWork(&self->base, 0);
+    cIDBase_initIDWork(&self->base, 1);
+    cIDBase_initIDWork(&self->base, 2);
+    cIDBase_initIDWork(&self->base, 3);
+    cIDBase_restartAnim(&self->base);
     self->base.playing = 1;
-    ent[0] = cIDBase_getIDWork(self, 0);
-    ent[1] = cIDBase_getIDWork(self, 1);
-    barEnt = cIDBase_getIDWork(self, 2);
-    ent[2] = cIDBase_getIDWork(self, 3);
+    ent[0] = cIDBase_getIDWork(&self->base, 0);
+    ent[1] = cIDBase_getIDWork(&self->base, 1);
+    barEnt = cIDBase_getIDWork(&self->base, 2);
+    ent[2] = cIDBase_getIDWork(&self->base, 3);
     for (i = 0; i < NOWLOADING_SLOT_NUM; i++) {
         self->slot[i].one = NOWLOADING_SLOT_ONE;
         self->slot[i].two = NOWLOADING_SLOT_TWO;

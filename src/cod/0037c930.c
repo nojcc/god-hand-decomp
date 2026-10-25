@@ -2,14 +2,6 @@
 
 #include "godhand/seqNode.h"
 
-typedef struct {
-    unsigned short flags;
-    char pad2[2];
-    int owner;
-} SeqOwnerCtl;
-
-extern SeqOwnerCtl D_0076B1C0[];
-
 __attribute__((section(".text.func_0037C930")))
 void func_0037C930(void)
 {

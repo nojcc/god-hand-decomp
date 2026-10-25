@@ -88,9 +88,23 @@ typedef struct cMeshData {
 /* One mesh of the model's mesh list. A node holds two draw packets, one per
  * frame parity, then its state. cOmBase.h's cMeshNode is the same record with
  * fewer fields named. */
+/* What a node hands the VU per frame parity: the transform with the fog
+ * scale and offset in its last column, a parameter block (eye, uv scroll,
+ * colour) and the world matrix. */
+typedef struct cModelNodeDraw {
+    char unk00[0x10];
+    float mtx[4][4];                    /* 0x10 [0][3] fog offset, [1][3] fog scale */
+    cVec eye;                           /* 0x50 xyz copied from the camera target */
+    char unk60[0x10];
+    float uv[4];                        /* 0x70 uv scroll, 0, 1 */
+    float color[4];                     /* 0x80 rgb, alpha */
+    float world[4][4];                  /* 0x90 */
+} cModelNodeDraw;                       /* 0xD0 */
+
 typedef struct cModelNode {
     char packet[2][0xB0];               /* 0x000 draw packet, index = frame parity */
-    char unk160[0x220];
+    cModelNodeDraw draw[2];             /* 0x160 index = frame parity */
+    char unk300[0x80];
     unsigned int dispFlags;             /* 0x380 CMODEL_NODE_* */
     unsigned char unk384;               /* 0x384 */
     char unk385;
@@ -333,6 +347,36 @@ static __inline__ void cMtxMulVu0(void *dst, void *a, void *b) {
     VU0_SQC2(13, dst, 0x10);
     VU0_SQC2(14, dst, 0x20);
     VU0_SQC2(15, dst, 0x30);
+}
+
+void cObj_setMeshValue(cModel *self, int value);
+
+
+
+/* Wraps each angle of an x, y, z rotation back into range. */
+void Adjust_theta_vec(cVec *v);
+
+/* Builds the world matrix of each part from the model's. */
+void cModel_calcWorldParts(cModel *self);
+
+/* Runs the model's inverse kinematics; ik is its work area (cGameObj.ik). */
+void IK_InverseKinematics(void *ik, void *self);
+
+/* Sets the order the parts' rotations are applied in. */
+void cParts_setRotationOrder(char *arg0, int arg1);
+
+/* Hides a mesh node, if the model has it. */
+static __inline__ void cModelNode_hide(cModelNode *node)
+{
+    if (node != 0)
+        node->dispFlags |= CMODEL_NODE_HIDE;
+}
+
+/* Shows a mesh node again, if the model has it. */
+static __inline__ void cModelNode_show(cModelNode *node)
+{
+    if (node != 0)
+        node->dispFlags &= ~CMODEL_NODE_HIDE;
 }
 
 #endif

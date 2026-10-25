@@ -1,4 +1,5 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/sndRamp.h"
 
 extern void ActorRec_reset(void *a0);
 extern unsigned char D_0042C4D8[];
@@ -11,7 +12,6 @@ extern void ClearSlotArray_1FF5B8(void *);
 extern void func_0032A6D0(void *a0, void *a1, void *a2);
 extern void ClearSlotRefs_376AE0(void *a0, int a1);
 extern void func_00378020(void *a0);
-extern void func_00378070(void *a0);
 
 __attribute__((section(".text.ResetObjectFields_1FCDE8")))
 void ResetObjectFields_1FCDE8(void *a0) {
@@ -111,7 +111,7 @@ void UpdateSlotState_3767B0(void *a0) {
                 ClearSlotRefs_376AE0(a0, 0);
             }
         } else {
-            func_00378070((void *)(s + 0x18));
+            func_00378070((SndRamp *)(s + 0x18));
             *(short *)(s + 0x12) = (short)(*(unsigned short *)(s + 0x12) | 0x1);
         }
     }

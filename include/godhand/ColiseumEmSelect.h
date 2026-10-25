@@ -16,13 +16,39 @@ typedef struct ColiseumHost {
     int pickB;                  /* 0xAC */
 } ColiseumHost;
 
+/* One entry of the coliseum enemy table D_003BE8B0 (0x28 bytes, 2-aligned). */
+typedef struct ColiseumEmEntry {
+    short unk00;                /* 0x00 */
+    unsigned short room;        /* 0x02 room the fight runs in */
+    char unk04[0x28 - 0x04];
+} ColiseumEmEntry;
+
 typedef struct ColiseumEmSelect {
     char unk000[0x04];
     int vtIndex;                /* 0x04 index into the D_003BF0A8 dispatch table */
-    char unk008[0x60 - 8];
+    int step;                   /* 0x08 */
+    char unk00C[0x60 - 0x0C];
     char idBase[0x10];          /* 0x60 sub-object released at close */
-    char unk70[0x37D8 - 0x70];
+    char unk70[0x37A8 - 0x70];
+    ColiseumEmEntry entry;      /* 0x37A8 the picked enemy's table entry */
+    short emA;                  /* 0x37D0 */
+    short emDiff;               /* 0x37D2 emA - emB */
+    short emB;                  /* 0x37D4 */
+    char unk37D6[2];
     int *cardNode;              /* 0x37D8 heap node, 0 when none */
 } ColiseumEmSelect;
+
+/* The pick handed to the fight, D_00568240. */
+typedef struct ColiseumPick {
+    char unk00[0x10];
+    short emA;                  /* 0x10 */
+    short emB;                  /* 0x12 */
+    char unk14[4];
+    ColiseumEmEntry entry;      /* 0x18 */
+} ColiseumPick;
+
+extern ColiseumPick D_00568240;
+
+void ColiseumEmSelect_close(ColiseumEmSelect *self);
 
 #endif

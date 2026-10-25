@@ -84,7 +84,7 @@ struct cIDBaseSrc {
     float sclY;                 /* 0x2C */
     char unk30[0x10];
     float f40[4];               /* 0x40 */
-    unsigned int colorBase;     /* 0x50 */
+    cIDColor colorBase;         /* 0x50 */
     unsigned char b54;          /* 0x54 */
     unsigned char b55;          /* 0x55 */
     unsigned char b56;          /* 0x56 */
@@ -135,7 +135,7 @@ struct cIDBaseEnt {
     float f6C;                  /* 0x6C */
     float f70[4];               /* 0x70 */
     float f80;                  /* 0x80 */
-    unsigned int seed;          /* 0x84 */
+    int seed;                   /* 0x84 also the number a number entry shows; compared signed */
     unsigned char kind;         /* 0x88 IDENT_KIND_* */
     unsigned char b89;          /* 0x89 */
     unsigned char b8A;          /* 0x8A */
@@ -173,6 +173,62 @@ typedef struct cIDBase {
     short h44;                  /* 0x44 starts at 0x80 */
     unsigned char mode;         /* 0x46 starts at 6: draw with the entry's own colour number */
 } cIDBaseObj;
+
+#define IDBASE_RES_MAGIC    0x504449    /* "IDP" */
+
+/* The resource setWorkFromData builds the entries from. */
+typedef struct cIDBaseRes {
+    int magic;                  /* 0x00 IDBASE_RES_MAGIC */
+    unsigned int srcNum;        /* 0x04 */
+    char unk08[8];
+    cIDBaseSrc src[1];          /* 0x10 srcNum records */
+} cIDBaseRes;
+
+/* Load resource `resNo` and build the entry table from it. 1 on success. */
+int cIDBase_initialize(cIDBaseObj *self, int resNo, int id);
+/* Bind the packed message resource `resNo`. 1 on success. */
+int cIDBase_setPackedMessData(cIDBaseObj *self, int resNo, int arg);
+/* Give the entry table back to the manager. 1 when there was one. */
+int cIDBase_release(cIDBaseObj *self);
+/* Count the records of `data`, take an entry table and build it. 1 on success. */
+int cIDBase_setWorkFromData(cIDBaseObj *self, cIDBaseRes *data);
+void cIDBase_clear(cIDBaseObj *self);
+void cIDBase_buildEntries(cIDBaseObj *self, cIDBaseSrc *src, int num);
+void cIDBase_initEntry(cIDBaseObj *self, cIDBaseSrc *src, cIDBaseEnt *ent);
+void cIDBase_linkParents(cIDBaseObj *self);
+/* Rebuild the entry with id `id` from its source record. */
+void cIDBase_initIDWork(cIDBaseObj *self, int id);
+/* The entry with id `id`; a shared dummy entry when there is none. */
+cIDBaseEnt *cIDBase_getIDWork(cIDBaseObj *self, int id);
+/* Show or hide the entry with id `id`, its parent chain and its children. */
+void cIDBase_setDispFamily(cIDBaseObj *self, int id, int show);
+void cIDBase_setDispParent(cIDBaseObj *self, cIDBaseEnt *ent, int show);
+void cIDBase_setDispChildren(cIDBaseObj *self, cIDBaseEnt *ent, int show);
+void cIDBase_calcEntries(cIDBaseObj *self);
+/* Advance every entry of the display one frame. */
+void cIDBase_move(cIDBaseObj *self);
+/* Draw the entries layer by layer. */
+void cIDBase_trans(cIDBaseObj *self);
+void cIDBase_transTex(cIDBaseObj *self, cIDBaseDraw *draw, cIDBaseEnt *ent);
+void cIDBase_transSprite(cIDBaseObj *self, cIDBaseDraw *draw, cIDBaseEnt *ent);
+void cIDBase_transText(cIDBaseObj *self, cIDBaseEnt *ent);
+void cIDBase_transIcon(cIDBaseObj *self, cIDBaseEnt *ent);
+void cIDBase_transPanel(cIDBaseObj *self, cIDBaseEnt *ent);
+void cIDBase_resetAnim(cIDBaseObj *self);
+/* Reset the animation of every entry and start it playing. */
+void cIDBase_restartAnim(cIDBaseObj *self);
+void cIDBase_stepMoveAnim(cIDBaseObj *self, cIDBaseEnt *ent);
+/* Pick the shared message environment's draw style from `val`. */
+void func_002AB9A8(cIDBaseObj *self, unsigned char val);
+/* Refresh one entry of the display; the third argument is a 16-bit mode. */
+void func_002AC9B8(cIDBaseObj *self, cIDBaseEnt *ent, unsigned short mode);
+
+/* Restart the display's animation and mark it playing. */
+static inline void cIDBase_play(cIDBaseObj *self)
+{
+    cIDBase_restartAnim(self);
+    self->playing = 1;
+}
 
 typedef char cIDBaseEnt_size_check[sizeof(cIDBaseEnt) == IDBASE_ENT_SIZE ? 1 : -1];
 typedef char cIDBaseSrc_size_check[sizeof(cIDBaseSrc) == IDBASE_SRC_SIZE ? 1 : -1];

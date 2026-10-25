@@ -33,20 +33,31 @@
 #define GAMEOBJ_OBJ_SUSPEND  0x8000     /* set by setSuspend(1) */
 
 /* The method table every game object points at (0x214). Each entry is a g++
- * 2.x delta (short) and function pointer; only the pair at 0x80 is used here. */
+ * 2.x delta (short) and function pointer. */
 typedef struct cGameObjVt {
-    char unk00[0x60];
+    char unk00[0x40];
+    short unk40Delta;                   /* 0x40 */
+    short pad42;
+    int (*unk44)(void *self);           /* 0x44 set-up, 0 if it fails; cEmManage_CreateItem calls it first on a new item */
+    char unk48[0x60 - 0x48];
     short resetDelta;                   /* 0x60 */
     short pad62;
     void (*reset)(void *self, int arg); /* 0x64 */
     short getPosDelta;                  /* 0x68 */
     short pad6A;
     cVec *(*getPos)(void *self);        /* 0x6C the object's current position */
-    char unk70[0x80 - 0x70];
+    short unk70Delta;                   /* 0x70 */
+    short pad72;
+    void (*unk74)(void *self, cVec *pos); /* 0x74 cEmManage_CreateItem passes the drop position */
+    char unk78[0x80 - 0x78];
     short lockOnDelta;                  /* 0x80 */
     short pad82;
     void (*lockOn)(void *self);         /* 0x84 getLockOnPos and getHitCheckPos both call it */
-    char unk88[0xC0 - 0x88];
+    char unk88[0x90 - 0x88];
+    short getCenterDelta;               /* 0x90 */
+    short pad92;
+    cVec *(*getCenter)(void *self);     /* 0x94 the point line-of-sight checks between objects start from */
+    char unk98[0xC0 - 0x98];
     short canAngerDelta;                /* 0xC0 */
     short padC2;
     int (*canAnger)(void *self);        /* 0xC4 nonzero if the enemy can be angered */
@@ -92,7 +103,9 @@ typedef struct cGameObj {
     cOmBase **children;                 /* 0x278 child bodies, as in cOmBase */
     char unk27C[0x2B4 - 0x27C];
     unsigned char childNum;             /* 0x2B4 */
-    char unk2B5[0x2F4 - 0x2B5];
+    char unk2B5[0x2D0 - 0x2B5];
+    int unk2D0;                         /* 0x2D0 flag word; an enemy carrying the object clears bit 31 and sets bit 30 */
+    char unk2D4[0x2F4 - 0x2D4];
     unsigned char mode;                 /* 0x2F4 the four state bytes the move code writes together */
     unsigned char phase;                /* 0x2F5 */
     unsigned char step;                 /* 0x2F6 the phase machines switch on it */
@@ -123,7 +136,9 @@ typedef struct cGameObj {
     cVec vel;                           /* 0x550 velocity, zeroed when the object is stopped */
     int dropItem;                       /* 0x560 item id it drops, as in cOmBase */
     int emNo;                           /* 0x564 enemy number of an enemy */
-    char unk568[0x570 - 0x568];
+    short unk568;                       /* 0x568 frame counter, as in cEm00 */
+    short unk56A;                       /* 0x56A countdown beside unk568, as in cEm00 */
+    char unk56C[0x570 - 0x56C];
     short effNo;                        /* 0x570 one more effect to kill with the object, -1 if none */
     short pad572;
     int effArg;                         /* 0x574 the mode to kill it with */
@@ -199,5 +214,22 @@ static __inline__ unsigned char cGameObjSortEnt_less(const cGameObjSortEnt *a, c
 
 
 extern void func_002831C8(cGameObj *self, unsigned int kind, unsigned char arg);
+/* Aims the object at target; the third argument is not read. */
+void func_002A74E0(void *self, cVec *target, int unused);
+/* Bit 0x1000 of the word at 0x15F4. */
+int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(char *a0);
+int func_00275888(cGameObj *self, float dist);
+void InitRenderStruct_2A8608(cGameObj *self, int kind, void *no, int a3, int mode, void *follow);
+/* Whether obj is an item: its actor id lies in [0x3C0, 0x400). */
+long func_001B8030(cGameObj *obj);
+
+/* Effect kind the enemy attack steps start with: no effect picked. */
+#define FX_KIND_NONE  0x4E2
+
+/* 1 when kind names an effect to start. */
+static __inline__ int fxKind_isSet(int kind)
+{
+    return kind != FX_KIND_NONE;
+}
 
 #endif /* GODHAND_CGAMEOBJ_H */

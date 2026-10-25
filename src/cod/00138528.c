@@ -40,18 +40,6 @@ void Set_Fields_1884_1894_2609F8(char *a0, int a1, int a2, int a3, int t0, short
     *(short*)((char*)a0+0x1894) = t1;
 }
 
-__attribute__((section(".text.ClearFields_1614D0")))
-void ClearFields_1614D0(char *a0) {
-    *(char *)(a0 + 0x58) = 0;
-    *(char *)(a0 + 0x59) = 0;
-    *(int *)(a0 + 0x50) = 0;
-    *(char *)(a0 + 0x64) = 0;
-    *(char *)(a0 + 0x5A) = 0;
-    *(char *)(a0 + 0x5B) = 0;
-    *(char *)(a0 + 0x5C) = 0;
-    *(int *)(a0 + 0x60) = -1;
-    *(char *)(a0 + 0x5D) = 0;
-}
 
 __attribute__((section(".text.ClearStateAndFlag_1C7E08")))
 int ClearStateAndFlag_1C7E08(void *a0) {

@@ -2,16 +2,12 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cIDObj.h"
+#include "godhand/cIDManager.h"
 #include "godhand/cEm00.h"
 
 extern void displayScrollLayer(int layer, int show);
-extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
-extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
-extern void cIDBase_resetAnim(void *self);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041F1F0[];
-extern void **D_003C2384;
 extern void CustomIDWork_SetOffsetPosX(void *work, int x);
 extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
 extern void func_001DEE60(void *ui, int sub, int on);
@@ -95,7 +91,6 @@ void Slot2_updateMarkAt4C0(Slot2Mark *self) {
 }
 
 /* sn-2.95.3-136 */
-extern void *func_003A52F0(void *d, int c, unsigned int n);   /* memset */
 extern void *func_003A5148(void *d, const void *s, unsigned int n);   /* memcpy */
 
 /* Read a 12 byte effect record: zeroed unless `valid` is 1, in which case it is copied from `src`. Returned by value. */
@@ -129,40 +124,31 @@ MotionEffectData Motion_seq_readEffectData(const void *src, unsigned char valid)
 #define IDOBJ_WORK_NUM  0xF
 #define IDOBJ_KIND      9
 
-typedef struct IdDispObj {
-    cIDBaseObj base;                    /* 0x00 */
-    char unk48[8];
-    int resHandle;                      /* 0x50 */
-    char unk54[6];
-    unsigned char b5A;                  /* 0x5A */
-    unsigned char b5B;                  /* 0x5B */
-    unsigned char b5C;                  /* 0x5C */
-    unsigned char b5D;                  /* 0x5D */
-    char unk5E[2];
-    int state;                          /* 0x60 */
-    char unk64[0x1C];
+typedef struct IdDispObjKind9 {
+    cIDObj obj;                         /* 0x00 */
+    char unk74[0x80 - sizeof(cIDObj)];
     void *work[IDOBJ_WORK_NUM];         /* 0x80 */
     unsigned char bBC;                  /* 0xBC */
-} IdDispObj;
+} IdDispObjKind9;
 
 __attribute__((section(".text.IdDispObj_constructKind9")))
-void IdDispObj_constructKind9(IdDispObj *self)
+void IdDispObj_constructKind9(IdDispObjKind9 *self)
 {
     unsigned short i;
-    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
-    if (func_00161500(self, D_0041F1F0) != 0) {
-        cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ_KIND, 0);
-        cIDBase_resetAnim(self);
-        self->base.playing = 1;
-        self->state = 6;
-        self->b5A = 0;
-        self->b5B = 0;
-        self->b5C = 0;
-        self->b5D = 0;
+    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(&self->obj);
+    if (func_00161500(&self->obj, D_0041F1F0) != 0) {
+        cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->obj.resHandle);
+        cIDBase_initialize(&self->obj.base, IDOBJ_KIND, 0);
+        cIDBase_resetAnim(&self->obj.base);
+        self->obj.base.playing = 1;
+        self->obj.result = 6;
+        self->obj.state = 0;
+        self->obj.step = 0;
+        self->obj.unk5C = 0;
+        self->obj.unk5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork(&self->obj.base, i);
     }
     self->bBC = 0;
 }

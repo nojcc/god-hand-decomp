@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/CustomIDPanel.h"
 
-extern int CustomIDWork_SetNumber();
 extern char D_00463050[];
 extern int cCamManager_setSubScrCamera();
 extern int cCamManager_setPlCamera();
@@ -10,37 +10,37 @@ extern int cIDBase_release();
 
 
 __attribute__((section(".text.func_001E7848")))
-void func_001E7848(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x1C4); }
+void func_001E7848(char *self, int n) { CustomIDWork_SetNumber(self + 0x1C4, n); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7868")))
-void func_001E7868(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x240); }
+void func_001E7868(char *self, int n) { CustomIDWork_SetNumber(self + 0x240, n); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7888")))
-void func_001E7888(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x2BC); }
+void func_001E7888(char *self, int n) { CustomIDWork_SetNumber(self + 0x2BC, n); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78A8")))
-void func_001E78A8(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x338); }
+void func_001E78A8(char *self, int n) { CustomIDWork_SetNumber(self + 0x338, n); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78C8")))
-void func_001E78C8(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x3B4); }
+void func_001E78C8(char *self, int n) { CustomIDWork_SetNumber(self + 0x3B4, n); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78E8")))
-void func_001E78E8(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x430); }
+void func_001E78E8(char *self, int n) { CustomIDWork_SetNumber(self + 0x430, n); }
 
 /* clone */
 
@@ -86,4 +86,4 @@ void func_001ECBD0(void *a0) { cIDBase_release((char *)a0 + 0x10); }
 
 
 __attribute__((section(".text.func_001ED490")))
-void func_001ED490(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x124C); }
+void func_001ED490(void *self, int n) { CustomIDWork_SetNumber((char *)self + 0x124C, n); }

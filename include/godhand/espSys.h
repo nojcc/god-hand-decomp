@@ -25,8 +25,11 @@ typedef struct espMemNode {
 
 extern int func_00305858(int *entry, int force);
 extern int *func_003058D8(void *sys, int kind);
-extern int FindAndForwardEntry_3059A8(void *sys, int kind, void *arg);
+extern int FindAndForwardEntry_3059A8(void *sys, int kind, int force);
 extern void *func_00305FB0(void *sys, int idx);
+void *func_00306030(void *sys, int kind, int idx);
+extern char D_007419A0[];               /* the effect system */
+void func_002D9F68(void *self, int fmt, ...);  /* effect error print, with the effect's kind and number */
 extern void func_00306FC0(char *self, espMemNode *node);
 
 /* A frame-driven effect steps its frame timer each tick, by one or through
@@ -73,12 +76,22 @@ typedef struct espEmitRec {
     char unk08[0x133 - 0x8];
     unsigned char espNo;                /* 0x133 the particle kind it emits */
 } espEmitRec;
+/* An effect data file: a count of entries and their offsets from the file
+ * start (0 = no entry). */
+#define ESP_FILE_MAGIC   0x444D45       /* "EMD" */
 
 /* The node an emitter rides on. */
 typedef struct espAnchor {
     char unk00[0x80];
     float mtx[4][4];                    /* 0x80 world matrix, translation in row 3 */
 } espAnchor;
+typedef struct EspFile {
+    int magic;                          /* 0x00 ESP_FILE_MAGIC */
+    unsigned int count;                 /* 0x04 entries in ofs */
+    char unk08[4];
+    int subOfs;                         /* 0x0C offset of the second table */
+    int ofs[1];                         /* 0x10 count entries */
+} EspFile;
 
 typedef struct espEmitter {
     cNode base;                         /* 0x000 */
@@ -106,6 +119,18 @@ typedef struct espEmitter {
     char unk22C[0x260 - 0x22C];
 } espEmitter;                           /* 0x260, the slots at D_0071B940 */
 typedef char espEmitter_size_check[sizeof(espEmitter) == 0x260 ? 1 : -1];
+/* The effect data registry: the parts the loaded files provide, by entry
+ * number, and the loaded files, by id. */
+#define ESP_PART_MAX     0x40
+#define ESP_FILE_MAX     0x4E2
+
+typedef struct EspRegistry {
+    void *part[ESP_PART_MAX];           /* 0x000 */
+    EspFile *file[ESP_FILE_MAX];        /* 0x100 */
+} EspRegistry;
+
+int func_00306A48(EspFile *file, unsigned int no, void **out);
+void func_00306AA8(EspRegistry *reg);
 
 void func_002FA350(float *frame);
 int EspAnim_step(EspAnim *self);

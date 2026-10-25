@@ -17,7 +17,8 @@ typedef struct EffDataHdr {
     char unk00[4];
     int block1;                 /* 0x04 offset of the first system block */
     int block2;                 /* 0x08 offset of the second system block */
-    char unk0C[8];
+    char unk0C[4];
+    int unk10;                  /* 0x10 offset of the effect bank the stage set-up reads */
     int unk14;                  /* 0x14 offset of the first effect table */
     char unk18[4];
     int unk1C;                  /* 0x1C offset of the second effect table */
@@ -25,7 +26,8 @@ typedef struct EffDataHdr {
 
 /* Room and pad fields use the names main gives them in cDoor.h and cE3.h. */
 typedef struct GameWork {
-    char pad000[0x08];
+    int unk000;                 /* 0x00 the combo attacks charge while bits 0xD0 are set */
+    char pad004[0x04];
     int padBtn;                 /* 0x08 face-button bits, 0x10-0x80 */
     char pad00C[0x1A0 - 0x0C];
     long trg;                   /* 0x1A0 pad trigger bits */
@@ -55,7 +57,9 @@ typedef struct GameWork {
     int unk57C;                 /* 0x57C */
     int unk580;                 /* 0x580 */
     int flags;                  /* 0x584 GAMEWORK_* */
-    char pad588[0x594 - 0x588];
+    int unk588;                 /* 0x588 */
+    char pad58C[0x590 - 0x58C];
+    int unk590;                 /* 0x590 */
     int debugFlags;             /* 0x594 */
     int flags598;               /* 0x598 */
     int flags59C;               /* 0x59C */
@@ -69,14 +73,17 @@ typedef struct GameWork {
     float startPos[3];          /* 0x5C0 player start point */
     char pad5CC[4];
     float startAngle;           /* 0x5D0 */
-    char pad5D4[0x5D8 - 0x5D4];
+    short unk5D4;               /* 0x5D4 */
+    char pad5D6[0x5D8 - 0x5D6];
     unsigned int flags5D8;      /* 0x5D8 */
-    char pad5DC[0x5E0 - 0x5DC];
+    unsigned int flags5DC;      /* 0x5DC bit 0x100000 holds the sub screen manager */
     unsigned int flags5E0;      /* 0x5E0 */
     int flags5E4;               /* 0x5E4 */
-    char pad5E8[0x5F4 - 0x5E8];
+    unsigned int flags5E8;      /* 0x5E8 */
+    char unk5EC[8];             /* 0x5EC cleared at stage set-up */
     void *playerObj;            /* 0x5F4 */
-    char pad5F8[0x600 - 0x5F8];
+    int unk5F8;                 /* 0x5F8 */
+    char pad5FC[0x600 - 0x5FC];
     unsigned char pairNum;      /* 0x600 entries used in D_007558A8 */
     char pad601[0x60C - 0x601];
     int bgColor;                /* 0x60C background fill colour, r | g << 8 | b << 16 */
@@ -84,6 +91,13 @@ typedef struct GameWork {
 } GameWork;                     /* 0x620 */
 
 extern GameWork D_007474A0;
+
+/* A GameWork field read through its constant address. Retail addresses some
+ * flag words from the field's own address (&D_007474A0.flags5D8 and the
+ * like); a plain D_007474A0.field access addresses them from D_007474A0 and
+ * changes the code. */
+#define GAMEWORK_AT(field) \
+    (*(__typeof__(D_007474A0.field) *)((char *)&D_007474A0 + (int)&((GameWork *)0)->field))
 
 /* The block from GameWork 0x58C on, which code also reaches as its own symbol D_00747A2C.
  * cSaveLoad.h (cSaveLoadGlobals) and cE3.h (cE3Sys) describe parts of the same block. */
@@ -100,6 +114,8 @@ typedef struct GameSys {
 
 extern GameSys D_00747A2C;
 extern int D_00747A24;          /* D_007474A0.flags under its own symbol */
+extern long D_00747640;         /* D_007474A0.trg under its own symbol */
+extern int D_007476B0;          /* D_007474A0.frame under its own symbol */
 
 /* One 0x80-byte DMA packet; the chain has 11, each double-buffered. */
 typedef struct DmaPkt {

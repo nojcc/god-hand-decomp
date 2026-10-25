@@ -3,13 +3,13 @@
 #include "godhand/vu0.h"
 #include "godhand/cOmDoor.h"
 #include "godhand/cSceAtManager.h"
+#include "godhand/cSubScrOption.h"
 
 extern void *D_003C264C;
 extern char D_005FEE00[];
 extern void cSaveManager_stageClear(void *self);
 extern void func_002CABE0(void *bus);
 extern unsigned int D_00747A78;
-extern void cIDBase_trans(void *self);
 
 extern char D_005CAE50[];           /* collision list */
 extern char D_00429290[];           /* six unit vectors of the door box */
@@ -94,25 +94,16 @@ void cSceAtManager_clearCursor(cSceAtManagerCursor *self) {
     }
 }
 
-/* Draw the object: its second display block comes first while mode is 2 or 3. */
-typedef struct IdDrawObj {
-    char unk00[0x5A];
-    signed char mode;                   /* 0x5A */
-    char unk5B[0x65];
-    char sub[0x20];                     /* 0xC0 second cIDBase block */
-} IdDrawObj;
-
-
-
+/* Draw the options variant: the second display too while it is open (modes 2 and 3). */
 __attribute__((section(".text.IdDrawObj_transDual")))
-void IdDrawObj_transDual(IdDrawObj *self) {
-    int mode = self->mode;
+void IdDrawObj_transDual(cSubScrOptionT *self) {
+    int mode = self->obj.state;
     if (mode >= 0) {
         if (mode >= 2) {
             if (mode < 4) {
-                cIDBase_trans(self->sub);
+                cIDBase_trans(&self->sub);
             }
         }
     }
-    cIDBase_trans(self);
+    cIDBase_trans(&self->obj.base);
 }

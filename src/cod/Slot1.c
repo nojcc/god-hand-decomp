@@ -27,7 +27,7 @@ Slot1Obj *Slot1(Slot1Obj *self)
     int i;
     func_003A52F0(self, 0, SLOT1_HEAD_SIZE);
     *(int *)((char *)self + SLOT1_HEAD_SIZE) = 0;
-    reel = self->reel;
+    reel = (char *)self->reel;
     for (i = SLOT1_REEL_NUM - 1; i != -1; i--) {
         InitStructSubfieldsAndFloatB(reel);
         reel += SLOT1_REEL_SIZE;

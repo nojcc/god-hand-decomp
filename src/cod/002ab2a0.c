@@ -3,7 +3,6 @@
 #include "godhand/cIDBase.h"
 
 extern unsigned char *D_003C23A4;
-extern void func_002AB9A8(cIDBaseObj *self, int a1);
 extern unsigned int irand(void);
 extern void func_002ABC18(cIDBaseObj *self, cIDBaseEnt *ent);
 extern void func_002ABC30(cIDBaseObj *self, cIDBaseEnt *ent);

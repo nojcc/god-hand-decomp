@@ -16,7 +16,6 @@ extern void cModel_queuePacket(cModel *self, short id);
 extern void func_0014C5A0(cModel *self, short id);
 extern void func_0031A600(void *queue, int kind, int id, void *packet);
 extern void KillEffect(void *owner, int handle, int arg);
-extern void SetEffectPos(int kind, int id, int arg, void *pos, int handle, float scale);
 extern int SetEffect(int kind, int id, void *owner, void *param, int handle, void *owner2);
 extern char D_005864E0[];
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);

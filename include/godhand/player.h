@@ -65,8 +65,12 @@ extern int pl00_CkSubScreen(PlSub *pl);
 extern int func_0012BAF0(PlSub *pl);
 
 extern cGameObj *Getplayer(void);
+void func_00129718(cGameObj *player, void *em, int kind);
+extern int Obj0000_Get_Field_5FC_NE_Zero_12C748(char *self);
 extern cGameObj *CreateObj(int kind, int id);
 extern void cHeatSys_UpdateHeatMax(cHeatSys *self, float max);
 extern void cHeatSys_SetHeatGage(cHeatSys *self, float heat);
+
+void pl01__SetParent(void *a0, void *a1, int a2);
 
 #endif

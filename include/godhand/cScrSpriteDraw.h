@@ -50,13 +50,30 @@ typedef struct cScrSprite {
 /* The texture draw config the packet builders take: a mode word, then the
  * texel window. The callers keep the whole 0x50 bytes on the stack. */
 typedef struct cScrTexCfg {
-    int mode;
-    float u0;
-    float v0;
-    float u1;
-    float v1;
-    char unk14[0x50 - 0x14];
-} cScrTexCfg;
+    int mode;                           /* 0x00 SCR_TEX_* bits */
+    float u0;                           /* 0x04 */
+    float v0;                           /* 0x08 */
+    float u1;                           /* 0x0C */
+    float v1;                           /* 0x10 */
+    float u2;                           /* 0x14 SCR_TEX_CORNERS: (u0,v0) (u1,v1) (u2,v2) (u3,v3) */
+    float v2;                           /* 0x18 */
+    float u3;                           /* 0x1C */
+    float v3;                           /* 0x20 */
+    float cutX;                         /* 0x24 SCR_TEX_CUT0/1: fraction of the top edge kept */
+    float cutY;                         /* 0x28 */
+    char unk2C[4];
+    unsigned long alpha;                /* 0x30 SCR_TEX_ALPHA: ALPHA_1 register */
+    char unk38[8];
+    unsigned long clamp;                /* 0x40 SCR_TEX_CLAMP: CLAMP_1 register */
+    char unk48[8];
+} cScrTexCfg;                           /* 0x50 */
+
+#define SCR_TEX_RECT     0x01           /* texel rectangle (u0,v0)-(u1,v1) */
+#define SCR_TEX_CUT1     0x04           /* pull vertex 1 toward vertex 0 by cutX, cutY */
+#define SCR_TEX_CUT0     0x08           /* pull vertex 0 toward vertex 1 by cutX, cutY */
+#define SCR_TEX_CORNERS  0x10           /* one texel position per corner */
+#define SCR_TEX_ALPHA    0x20
+#define SCR_TEX_CLAMP    0x80
 
 typedef struct cScrVtx {
     float x;
@@ -72,6 +89,17 @@ static __inline__ void cScrVtx_set(cScrVtx *v, float x, float y, int z) {
     v->w = 1.0f;
 }
 
+extern float D_003C1184;                /* screen width (512.0) */
+extern int D_003C11B0;                  /* draw mode word passed to the packet builders */
+
+/* Float to unsigned int (definition in 001c8f30.c). */
+unsigned int func_0031ED08(float f12);
+
+/* Draw glyph digit (0-9, -1 the minus sign) of the digit sheet texNo in bank
+ * slot, centred on (x, y) (definition in 002c6d48.c). */
+void func_002C6D48(cScrSpriteDraw *self, int digit, float x, float y, float w, float h,
+                   unsigned int color, short texNo, unsigned short slot);
+
 /* One colour channel of the packed colour, scaled and clamped back to a byte
  * (func_0031ED08 does the clamp). */
 #define SCR_CHAN(color, shift, scale) \
@@ -79,8 +107,11 @@ static __inline__ void cScrVtx_set(cScrVtx *v, float x, float y, int z) {
 
 typedef char cScrSpriteDraw_size_check[(sizeof(cScrSpriteDraw) == 0x34) ? 1 : -1];
 
-extern void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex, unsigned int color,
+extern void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex,
                                    float x, float y, float w, float h,
-                                   float u0, float v0, float u1, float v1);
+                                   float u0, float v0, float u1, float v1, unsigned int color);
+void cScrSpriteDraw_drawTexCentered(cScrSpriteDraw *self, unsigned int tex,
+                                    float x, float y, float w, float h,
+                                    float u0, float v0, float u1, float v1, unsigned int color);
 
 #endif

@@ -5,10 +5,7 @@ extern int *D_003C2384;
 
 /* The stores go through a raw byte offset: through the struct fields the
  * scheduler floats the D_003C2384 load above them and the bytes change. */
-extern void cIDBase_clear(cIDBaseObj *self);
 extern void *func_002ACD78(int a0, int a1, int a2);
-extern int cIDBase_setWorkFromData(cIDBaseObj *self, void *data);
-extern void cIDBase_resetAnim(cIDBaseObj *self);
 /* Load resource `resNo` and build the entry table from it. 1 on success. */
 __attribute__((section(".text.cIDBase_initialize")))
 int cIDBase_initialize(cIDBaseObj *self, int resNo, int id)
@@ -48,9 +45,6 @@ cIDBaseObj *cIDBase(cIDBaseObj *self)
     return self;
 }
 
-extern cIDBaseEnt *cIDBase_getIDWork(cIDBaseObj *self, int id);
-extern void cIDBase_setDispParent(cIDBaseObj *self, cIDBaseEnt *ent, int show);
-extern void cIDBase_setDispChildren(cIDBaseObj *self, cIDBaseEnt *ent, int show);
 /* Show or hide the entry with id `id`, its parent chain and its children. */
 __attribute__((section(".text.cIDBase_setDispFamily")))
 void cIDBase_setDispFamily(cIDBaseObj *self, int id, int show)
@@ -61,9 +55,7 @@ void cIDBase_setDispFamily(cIDBaseObj *self, int id, int show)
 }
 
 
-extern void cIDBase_calcEntries(cIDBaseObj *self);
 extern void func_002ABDC0(cIDBaseObj *self, cIDBaseEnt *ent);
-extern void cIDBase_stepMoveAnim(cIDBaseObj *self, cIDBaseEnt *ent);
 extern void func_002AC1C0(cIDBaseObj *self, cIDBaseEnt *ent);
 extern void IdEnt_stepCurveRotation(cIDBaseObj *self, cIDBaseEnt *ent);
 extern void func_002AC378(cIDBaseObj *self, cIDBaseEnt *ent);
@@ -118,11 +110,6 @@ extern void cScrSpriteDraw_drawInit(void *p);
 extern void cMessDrawFont_setEnvInit(void *a0);
 extern void func_002AF6A8(void *a0, int a1, int a2);
 
-extern void cIDBase_transSprite(cIDBaseObj *self, cIDBaseDraw *draw, cIDBaseEnt *ent);
-extern void cIDBase_transText(cIDBaseObj *self, cIDBaseEnt *ent);
-extern void cIDBase_transIcon(cIDBaseObj *self, cIDBaseEnt *ent);
-extern void cIDBase_transPanel(cIDBaseObj *self, cIDBaseEnt *ent);
-extern void cIDBase_transTex(cIDBaseObj *self, cIDBaseDraw *draw, cIDBaseEnt *ent);
 /* Draw every visible entry, layer 4 first and layer -4 last, picking the
  * draw routine from the entry's kind. An entry is skipped when it is HIDDEN
  * or NO_DRAW, or when a CHILD-flagged entry in its parent chain is NO_DRAW. */

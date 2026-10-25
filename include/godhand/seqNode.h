@@ -121,6 +121,25 @@ typedef struct SndCh {
 
 extern SndCh D_0076E910[];
 
+/* Bits of SndChReq.flags (0x08). */
+#define SNDCHREQ_CMD 0x10               /* a command for a running channel, not a key-on */
+
+/* A channel request waiting for the sound update (0x70 bytes, 8 of them). */
+typedef struct SndChReq {
+    unsigned short kind;                /* 0x00 nonzero while queued */
+    short slot;                         /* 0x02 index in the queue */
+    int id;                             /* 0x04 */
+    unsigned char flags;                /* 0x08 SNDCHREQ_* */
+    char unk09;
+    short cmd;                          /* 0x0A command number, with SNDCHREQ_CMD */
+    short ch;                           /* 0x0C channel index */
+    char unk0E[0x70 - 0x0E];
+} SndChReq;
+
+extern SndChReq D_0076E590[8];
+int func_00376F18(SndChReq *r);         /* key on a channel */
+int func_003772D8(SndChReq *r);         /* apply a command to a running channel */
+
 /* Per-SPU2-core state (two cores, 0x20 bytes each). */
 typedef struct SndCore {
     unsigned short used;        /* 0x00 */
@@ -151,6 +170,15 @@ typedef struct SndVoiceOut {
 } SndVoiceOut;
 
 extern SndVoiceOut D_0076A9C0[64];
+
+/* One owner's state as the sound driver reports it (8 bytes, 256 of them). */
+typedef struct SeqOwnerCtl {
+    unsigned short flags;       /* 0x00 */
+    char pad2[2];
+    int owner;                  /* 0x04 */
+} SeqOwnerCtl;
+
+extern SeqOwnerCtl D_0076B1C0[256];
 #define SEQ_NUM 51
 
 extern SeqLink D_0076C8C0[SEQ_NUM];
@@ -165,5 +193,11 @@ extern void func_0037D558(SeqNode *self);
 extern void func_0037C720(SeqNode *self);
 extern void func_003780F8(unsigned short angle, float *l, float *r);
 extern int SdeSystemOutModeGet(void);   /* sound output mode: 0 mono, 1 stereo, 2 surround */
+
+/* Sequence-node helpers the BGM code calls on a cSndBgmNode, whose sequence
+ * state comes first (definitions in 00373158.c and 002b5bb8.c). */
+extern void UpdateSequenceNodeWeighted_373560(void *a0, int a1, float f);
+extern void SetSequenceBlendWeight_3739A0(void *a0, int a1, float f);
+extern void ClearFlagBits_373858(void *a0, unsigned int a1);
 
 #endif /* GODHAND_SEQNODE_H */

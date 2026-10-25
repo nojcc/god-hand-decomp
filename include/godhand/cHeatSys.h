@@ -30,4 +30,12 @@ typedef struct cHeatSys {
 
 typedef char cHeatSys_size_check[sizeof(cHeatSys) == 0x18 ? 1 : -1];
 
+extern cHeatSys D_005CB000;     /* the player's gauge */
+
+void cHeatSys_AddHeatGage(cHeatSys *self, int a1, float heat);
+/* cur / max, or 0 when max is 0. */
+float cHeatSys_GetHeatRatio(cHeatSys *self);
+/* Recompute lv (0, 1 or 2) from the cur / max ratio. */
+void cHeatSys_UpdateHeatLv(cHeatSys *self);
+
 #endif

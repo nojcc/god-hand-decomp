@@ -3,7 +3,8 @@
 
 /* A cIDBase display with a second one at 0xB0 that is drawn once per active slot. */
 typedef struct IDSlotScreen {
-    char unk000[0xB0];
+    cIDBaseObj base;            /* 0x00 */
+    char unk48[0xB0 - sizeof(cIDBaseObj)];
     cIDBaseObj base2;           /* 0xB0 */
     char unkF8[0x100 - 0xF8];
     float posYOfs[16];          /* 0x100 */
@@ -13,9 +14,6 @@ typedef struct IDSlotScreen {
     unsigned char on[16];       /* 0x1B0 */
 } IDSlotScreen;
 
-extern void cIDBase_trans(void *self);
-extern void cIDBase_move(void *self);
-extern cIDBaseEnt *cIDBase_getIDWork(void *self, int idx);
 
 __attribute__((section(".text.func_00143998")))
 void func_00143998(IDSlotScreen *obj)
@@ -23,7 +21,7 @@ void func_00143998(IDSlotScreen *obj)
     unsigned short i;
     cIDBaseEnt *w;
 
-    cIDBase_trans(obj);
+    cIDBase_trans(&obj->base);
     i = 0;
     w = cIDBase_getIDWork(&obj->base2, 0);
     for (; i < 16; i++) {
