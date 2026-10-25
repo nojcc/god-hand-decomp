@@ -13,6 +13,8 @@ extern int D_0041EC58;
 extern int D_007856E8;
 extern void cObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
+extern int D_00754230;
+extern void func_002A94F0(void *a0);
 extern int D_004292F0;
 extern void *InitFields_1B6E90(void *a0);
 extern int D_007859B8;
@@ -103,6 +105,14 @@ void *cObjBase__tf(void)
     return &D_007854F8;
 }
 
+__attribute__((section(".text.func_00161590")))
+void func_00161590(char *a0)
+{
+    func_002A94F0(&D_00754230);
+    *(char*)(a0 + 0x64) = 0;
+    *(int*)(a0 + 0x60) = -1;
+    *(int*)(a0 + 0x50) = 0;
+}
 
 #include "godhand/vu0.h"
 
