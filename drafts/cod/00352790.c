@@ -2,7 +2,7 @@
 #include "godhand/sftim.h"
 
 int func_003526D0(SftimHn *hn, SftimInfo *info);
-void func_00352790(SftimHn *hn, SftimInfo *info, int time, int update);
+void Sftim_setTimecode(SftimHn *hn, SftimInfo *info, int time, int update);
 
 #ifdef NON_MATCHING
 extern void func_00352888(int time, int rate, int drop, int ofs, SftimTc *tc);
@@ -13,8 +13,8 @@ extern void func_00352AA0(SftimTc *src, SftimTc *dst);
 
 #ifdef NON_MATCHING
 /* Register allocation: retail loads rate straight into a1; ours goes through v1 (8 insns). */
-__attribute__((section(".text.func_00352790")))
-void func_00352790(SftimHn *hn, SftimInfo *info, int time, int update)
+__attribute__((section(".text.Sftim_setTimecode")))
+void Sftim_setTimecode(SftimHn *hn, SftimInfo *info, int time, int update)
 {
     SftimWork *w = &hn->tim;
     int rate = info->rate;
@@ -48,7 +48,7 @@ void func_00352790(SftimHn *hn, SftimInfo *info, int time, int update)
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00352790);
+INCLUDE_ASM("asm/nonmatching", Sftim_setTimecode);
 #endif
 
 #ifdef NON_MATCHING
@@ -92,8 +92,8 @@ INCLUDE_ASM("asm/nonmatching", func_00352AA0);
 
 #ifdef NON_MATCHING
 /* Retail keeps &rec[0] in a register and does not write the difference back to the stack. */
-__attribute__((section(".text.func_00352C78")))
-void func_00352C78(SftimHn *hn, int *hdr)
+__attribute__((section(".text.SftimHn_recordLastFrame")))
+void SftimHn_recordLastFrame(SftimHn *hn, int *hdr)
 {
     SftimTc tc = hn->tim.tc;
     int time;
@@ -114,5 +114,5 @@ void func_00352C78(SftimHn *hn, int *hdr)
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00352C78);
+INCLUDE_ASM("asm/nonmatching", SftimHn_recordLastFrame);
 #endif

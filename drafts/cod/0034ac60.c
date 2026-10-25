@@ -49,7 +49,7 @@ extern void func_00349BA8(int a0, int a1, int a2);
 extern void func_00349BC8(int a0, int a1);
 extern void func_00349BE8(int a0, int a1);
 extern void func_00349C08(int a0);
-extern void func_00349C28(int a0);
+extern void TargetOwner_setLogScaleValue(int a0);
 
 static inline void SetCb34AC60(AdxOpenCb *cb, int id, void *f0, void *f1, void *f2, void *f3, void *f4)
 {
@@ -86,7 +86,7 @@ int func_0034AC60(AdxOpenHn *hn)
     rec->span = span;
     rec->adxt = adxt;
     hn->cb = cb;
-    SetCb34AC60(cb, adxt->id, func_00349BA8, func_00349BC8, func_00349BE8, func_00349C08, func_00349C28);
+    SetCb34AC60(cb, adxt->id, func_00349BA8, func_00349BC8, func_00349BE8, func_00349C08, TargetOwner_setLogScaleValue);
     func_00329D38(adxt, span);
     func_0034B3E0(hn, 1);
     func_0034AFF0(hn);

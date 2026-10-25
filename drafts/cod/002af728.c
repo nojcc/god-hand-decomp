@@ -18,7 +18,7 @@ extern void func_002B0480(void *a0, void *a1);
 extern int func_002B04C0(void *a0, void *a1, void *a2);
 extern int func_002AFC08(void *a0, int a1);
 extern int func_002B12A0(unsigned short *p);
-extern int func_002AF218(unsigned short *text);
+extern int cScriptCmd_getTicks(unsigned short *text);
 extern int cMessCommon_isHighCodeEnd(unsigned short code);
 extern int cMessCommon_getCodeSize(unsigned int code);
 extern void func_002A4FA0(char *base);
@@ -128,7 +128,7 @@ void cMessDrawFont_draw(cMessDrawFont *self, float *outW, float *outH)
                 self->unk88 += frame.scale * self->charH * self->zoomY * 32.0f;
             }
         }
-        self->charNum += func_002AF218(self->cursor);
+        self->charNum += cScriptCmd_getTicks(self->cursor);
         self->cursor += cMessCommon_getCodeSize(*self->cursor);
     }
     BuildGifPacket_2A5930((int)D_003C2380);

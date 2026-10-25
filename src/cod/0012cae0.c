@@ -9,7 +9,6 @@ extern void cSndSeVoice_CheckEnd(void *snd, int handle);
 extern int cSnd_ReserveSeSlot(void *snd, void *data);
 extern char D_005FEE00[];
 extern cSceAtManager D_005FEA60;
-extern int FindNodeByHit_2C2490(cSceAtManager *mgr, cVec *shape, float *out);
 extern int SetEffect(int kind, int id, void *owner, int param, int handle, unsigned int owner2);
 extern int D_00747A2C;
 

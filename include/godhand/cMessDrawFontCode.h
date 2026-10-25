@@ -23,7 +23,7 @@ extern int func_002A4B20(int font, unsigned short code);
 
 /* The wait the control code at text asks for, 0 for none. Its draft returns
  * unsigned short; every caller reads an int. */
-extern int func_002AF218(unsigned short *text);
+extern int cScriptCmd_getTicks(unsigned short *text);
 
 struct MessWin;
 /* 1 if text reaches a control code of kind before its end, another 0x80xx

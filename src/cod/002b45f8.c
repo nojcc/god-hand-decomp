@@ -8,7 +8,7 @@ int func_002B45F8(struct MessWin *self, unsigned short *text, unsigned short kin
 {
     unsigned short code;
 
-    while (func_002AF218(text) == 0) {
+    while (cScriptCmd_getTicks(text) == 0) {
         code = *text;
         if (code >> 15) {
             if ((code & 0xFF00) == kind) {

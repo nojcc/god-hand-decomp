@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0032D868: null and range checks tail-call the error.
+/* NON_MATCHING MwPly_openByName: null and range checks tail-call the error.
 * Prologue matches, including the dead load of D_00451AC0.
 * Retail uses beql on the null test so the message lui sits in the delay and is repeated on the fallthrough; we emit beq and one lui, and the rest of the function shifts by those two words. */
 #include "include_asm.h"
@@ -33,7 +33,7 @@ extern void Obj33F8_Tramp_0033B670_FC88(void);
 extern char *func_003A57C4(char *d, const char *s);
 extern void func_0032F4B0(int, int);
 
-void func_0032D868(AdxtRangeObj *o, char *name, int a2, int a3, int a4)
+void MwPly_openByName(AdxtRangeObj *o, char *name, int a2, int a3, int a4)
 {
     if (o == 0 || name == 0) {
         Obj33F8_Tramp_0033F130_FCB0(D_00452A20);
@@ -62,5 +62,5 @@ void func_0032D868(AdxtRangeObj *o, char *name, int a2, int a3, int a4)
     Obj33F8_Tramp_0033B670_FC88();
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0032D868);
+INCLUDE_ASM("asm/nonmatching", MwPly_openByName);
 #endif
