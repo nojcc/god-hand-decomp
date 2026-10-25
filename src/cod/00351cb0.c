@@ -14,7 +14,7 @@ extern void func_00352008(char *mpv, int *hdr, char *p, long *a, long *b, int f)
 extern void func_00352298(char *mpv, int *hdr, int f);
 extern void func_003525F0(char *mpv, int *hdr, long a, int f);
 extern void func_00352B98(char *mpv, int *hdr);
-extern void func_00352C78(char *mpv, int *hdr);
+extern void SftimHn_recordLastFrame(char *mpv, int *hdr);
 extern int func_00352E10(char *mpv, int h, int *hdr, char **buf);
 
 __attribute__((section(".text.func_00351CB0")))
@@ -113,6 +113,6 @@ int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
     func_00352298(mpv, hdr, *(int *)(w + 0x110));
     func_003525F0(mpv, hdr, l0, *(int *)(w + 0x110));
     func_00352B98(mpv, hdr);
-    func_00352C78(mpv, hdr);
+    SftimHn_recordLastFrame(mpv, hdr);
     return func_00352E10(mpv, h, hdr, buf);
 }

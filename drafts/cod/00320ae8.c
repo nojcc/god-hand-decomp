@@ -22,7 +22,7 @@ typedef struct {
 extern Node *func_00320A50(int key, Node *cur, Node *prev);
 extern int func_00320800(int a, unsigned int *p, int b, int flag, int *found);
 extern int func_00320728(int key, unsigned int *p);
-extern long *func_00320948(int idx, Node *n, Node *prev);
+extern long *SlotTable_resolveValue(int idx, Node *n, Node *prev);
 extern void func_003209D0(int i, Node *n, Node *out);
 extern void func_00320AE0(void);
 extern void func_00320280(void);
@@ -81,7 +81,7 @@ body:
                 haveSaveOk = 1;
             }
         }
-        { long t = *func_00320948(cur->u29A, cur, last); key = (int)t - 1; }
+        { long t = *SlotTable_resolveValue(cur->u29A, cur, last); key = (int)t - 1; }
     }
 next:
     last = cur;
@@ -116,7 +116,7 @@ done:
                     if (i != cur->u29A && cur->c29C[i] != 0)
                         func_003209D0(i, cur, out);
                 }
-                { long t = *func_00320948(cur->u29A, cur, last); key = (int)t - 1; }
+                { long t = *SlotTable_resolveValue(cur->u29A, cur, last); key = (int)t - 1; }
                 last = cur;
             } while (key != stop);
         }

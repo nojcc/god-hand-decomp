@@ -67,7 +67,7 @@ extern int func_00343340(Ply343 *ply, Cprm343 *cprm);
 extern void func_00346410(Ply343 *ply);
 extern void func_00343AE8(Ply343 *ply);
 extern void mwsfcre_CalcWorkStmBuf(Cprm343 *cprm, int *a, int *b, int *c, int *d, int *e, int *f);
-extern void func_00343C18(Ply343 *ply, Cprm343 *cprm, int a, int b);
+extern void SfdHn_setPlayConds(Ply343 *ply, Cprm343 *cprm, int a, int b);
 extern int Obj0000_Call_003395A0_Field_1C4_1C8_1CC(Ply343 *ply);
 extern int func_00338B90(int a, int b);
 extern int SFD_GetTrHn(int sfd, int type, int *out);
@@ -135,7 +135,7 @@ err:
     func_00346410(ply);
     func_00343AE8(ply);
     mwsfcre_CalcWorkStmBuf(cprm, &w[0], &w[1], &w[2], &w[3], &w[4], &w[5]);
-    func_00343C18(ply, cprm, wk[1], wk[2]);
+    SfdHn_setPlayConds(ply, cprm, wk[1], wk[2]);
     ply->f1C0 = Obj0000_Call_003395A0_Field_1C4_1C8_1CC(ply);
     if (ply->f1C0 == 0) {
         msg = D_00457530;

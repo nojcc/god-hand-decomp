@@ -220,7 +220,7 @@ extern SfdFrm *func_003555A8(SftimHn *hn);
 extern int D_00459730[];        /* picture/extension type by 3-bit code */
 extern int D_003EE2F0;          /* delimiter search error count */
 
-/* Timecode source info passed to func_00352790. */
+/* Timecode source info passed to Sftim_setTimecode. */
 typedef struct SftimInfo {
     char unk00[0x10];
     int rate;                   /* 0x10 */

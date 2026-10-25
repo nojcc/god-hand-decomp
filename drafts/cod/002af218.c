@@ -1,4 +1,4 @@
-/* NON_MATCHING func_002AF218: sn; switch on code & 0xFF00 with unsigned short return (andi 0xFFFE/0xFFFC from zero-extend + known low bits).
+/* NON_MATCHING cScriptCmd_getTicks: sn; switch on code & 0xFF00 with unsigned short return (andi 0xFFFE/0xFFFC from zero-extend + known low bits).
 * Compare tree matches; retail keeps the explicit-zero case block after case 0xA900 while ours merges it with the post-switch return 0; */
 #include "include_asm.h"
 
@@ -15,7 +15,7 @@ extern unsigned short D_003C23A8;
 extern int func_002AF348(int);
 extern int func_002AF380(int);
 
-unsigned short func_002AF218(unsigned short *text)
+unsigned short cScriptCmd_getTicks(unsigned short *text)
 {
     unsigned short c = *text;
 
@@ -44,5 +44,5 @@ unsigned short func_002AF218(unsigned short *text)
     return 30;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_002AF218);
+INCLUDE_ASM("asm/nonmatching", cScriptCmd_getTicks);
 #endif

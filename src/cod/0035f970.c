@@ -16,7 +16,7 @@ extern char D_0045A010[];
 extern char D_0045A030[];
 extern void *func_0035FA88(void);
 extern int func_0035FB78(int ver, int a1, int a2);
-extern void func_0035FAD8(void *w, int work, int size);
+extern void StageBuf_init(void *w, int work, int size);
 extern int func_0035FEF0(void);
 extern int func_0036CAB0(void);
 extern void func_0035FB88(int a0);
@@ -36,7 +36,7 @@ SfxOpenView *func_0035F970(int work, int ver, int a2, int a3)
         SFXLIB_Error(0, 0, D_00459FE0);
         return 0;
     }
-    func_0035FAD8(s, work, ver);
+    StageBuf_init(s, work, ver);
     h = func_0035FEF0();
     if (h == 0) {
         SFXLIB_Error(0, 0, D_0045A010);

@@ -21,7 +21,7 @@ typedef struct {
 } DecWork;
 
 
-void func_0035FAD8(DecWork *w, int work, int size)
+void StageBuf_init(DecWork *w, int work, int size)
 {
     int base;
     int b0, b1, b2;
@@ -48,5 +48,5 @@ void func_0035FAD8(DecWork *w, int work, int size)
     w->f64 = 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0035FAD8);
+INCLUDE_ASM("asm/nonmatching", StageBuf_init);
 #endif

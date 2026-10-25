@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00376370 (sn-2.95.3-136): same size, 8 insns: layout matches; the a0 = s argument copy is hoisted into the delay slot of the preceding beq (and the second test uses beq instead of retail's beql + increment), and the & 0x1000 lands in v1 not v0. */
+/* NON_MATCHING SndSlot_updateAll (sn-2.95.3-136): same size, 8 insns: layout matches; the a0 = s argument copy is hoisted into the delay slot of the preceding beq (and the second test uses beq instead of retail's beql + increment), and the & 0x1000 lands in v1 not v0. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -9,7 +9,7 @@ extern void func_00376720(char *s);
 extern void UpdateSlotState_3767B0(char *s);
 extern void UpdatePendingFlags_376820(char *s);
 
-void func_00376370(void)
+void SndSlot_updateAll(void)
 {
     char *s = D_00770850;
 
@@ -30,5 +30,5 @@ void func_00376370(void)
     } while ((int)(s += 0xE0) < (int)(D_00770850 + 0x2A00));
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00376370);
+INCLUDE_ASM("asm/nonmatching", SndSlot_updateAll);
 #endif
