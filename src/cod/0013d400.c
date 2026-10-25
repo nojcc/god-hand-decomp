@@ -32,11 +32,11 @@ void func_0013D400(IDPanelScreen *obj)
 
     obj->unk92 = 0;
     for (i = 0; i < 11; i++) {
-        cIDBase_initIDWork(obj, i);
-        obj->ent[i] = cIDBase_getIDWork(obj, i);
-        func_002AC9B8(obj, obj->ent[i], 0);
+        cIDBase_initIDWork(&obj->base, i);
+        obj->ent[i] = cIDBase_getIDWork(&obj->base, i);
+        func_002AC9B8(&obj->base, obj->ent[i], 0);
     }
-    cIDBase_restartAnim(obj);
+    cIDBase_restartAnim(&obj->base);
     obj->on = 1;
     obj->ent[4]->f70[2] = 0.0f;
     obj->ent[4]->sclX = 0.0f;

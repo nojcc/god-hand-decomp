@@ -32,19 +32,36 @@ typedef struct cMeshNode {
     unsigned char layer;                /* 0x40C */
 } cMeshNode;
 
+/* Attack kinds, as stored in cDamageTake.kind. Retail switches on the kind
+ * as this (signed) enum: with an int index gcc 2.95 weighs small case values
+ * by character cost and builds a different compare tree. */
+typedef enum cDamageKind {
+    DAMAGE_KIND_NONE = -1
+} cDamageKind;
+
 /* The hit record that cOmBase_checkDamage receives. */
 typedef struct cDamageTake {
-    char unk00[0x10];
+    unsigned int opts;                  /* 0x00 bit 0: take hits without the line-of-sight check */
+    char unk04[0xC];
     cVec dir;                           /* 0x10 hit direction */
-    char unk20[0x14];
+    cVec hitPos;                        /* 0x20 where the attacking volume was */
+    struct cGameObj *victim;            /* 0x30 the object the record belongs to */
     char *attacker;                     /* 0x34 the object that dealt the hit */
-    char unk38[0xE];
+    char unk38[0x8];
+    int unk40;                          /* 0x40 copied from cDamageGive.unk40 */
+    short unk44;                        /* 0x44 copied from cDamageGive.unk44 */
     short kind;                         /* 0x46 attack kind */
     char unk48[4];
     int power;                          /* 0x4C */
     char unk50[0x10];
     unsigned int flags;                 /* 0x60 bit 0 must be set for the hit to count */
 } cDamageTake;
+
+/* The attack kind of a hit, as the cDamageKind that retail switches on. */
+static __inline__ cDamageKind cDamageTake_kind(cDamageTake *take)
+{
+    return take->kind;
+}
 
 /* Bits of cOmBase.hitFlags (0x5B4), set by the hit classifier. */
 #define COMBASE_HIT_STRONG    1
@@ -83,6 +100,26 @@ static __inline__ cOmBase *cOmBase_childAt(cOmBase *b, int *frame, int idx)
 
     *frame = n = b->partNum;
     if (idx >= 0 && idx < n) {
+        return b->children[idx];
+    }
+    return 0;
+}
+
+/* cOmBase_childAt for an index that may be out of range either way. Retail
+ * builds the range test as a flag and masks it with 0xFF where it tests it,
+ * as cGameObj_idInRange does. */
+static __inline__ cOmBase *cOmBase_childAtIdx(cOmBase *b, int *frame, int idx)
+{
+    int n;
+    long in = 0;
+
+    *frame = n = b->childNum;
+    if (idx >= 0) {
+        int below = idx < n;
+
+        in = below;
+    }
+    if (in & 0xFF) {
         return b->children[idx];
     }
     return 0;

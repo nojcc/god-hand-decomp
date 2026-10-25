@@ -14,19 +14,10 @@ extern int FindEntityAtPosition_2C2638(void *mgr, cVec *pos, cVec *center, float
 #define EM_NO_WEAPON_HOLDER  0x211      /* emNo of the enemy that holds the weapons */
 #define EM_WEAPON_NUM        8
 
-/* The enemy record: the number at 0x564 and the weapon handle array at 0x710. */
-typedef struct EmWeaponHolder {
-    char unk000[0x564];
-    int emNo;                           /* 0x564 */
-    char unk568[0x1A8];
-    void *weapon[EM_WEAPON_NUM];        /* 0x710 weapon handles, 0 = empty slot */
-} EmWeaponHolder;
-
-
 
 /* Enemy 0x211: drop up to `count` of its held weapons, in slot order, and forget their handles. */
 __attribute__((section(".text.EmWeaponHolder_dropWeapons")))
-void EmWeaponHolder_dropWeapons(EmWeaponHolder *self, unsigned int count, int arg)
+void EmWeaponHolder_dropWeapons(cEm00 *self, unsigned int count, int arg)
 {
     unsigned int i;
     unsigned int dropped;

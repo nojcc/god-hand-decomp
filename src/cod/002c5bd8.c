@@ -53,9 +53,9 @@ extern int D_003C11B0;                  /* draw mode word passed to the packet b
  * the packed colour. TIM2 textures go through one builder, the rest through
  * the other. */
 __attribute__((section(".text.cScrSpriteDraw_drawTex")))
-void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex, unsigned int color,
+void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex,
                             float x, float y, float w, float h,
-                            float u0, float v0, float u1, float v1) {
+                            float u0, float v0, float u1, float v1, unsigned int color) {
     cScrVtx v[2];
     cScrTexCfg cfg;
     unsigned int a, b, g, r;

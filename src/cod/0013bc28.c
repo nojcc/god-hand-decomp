@@ -9,8 +9,6 @@ extern cOmBase *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int id, int on);
 extern void CustomIDWork_SetNumber(void *work, int value);
-extern int cIDBase_initialize(void *self, int a1, int a2);
-extern int cIDBase_getIDWork(void *self, int idx);
 extern int ChkLine(cVec *from, cVec *to, cVec *hit, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
 extern void func_001FD988(void *self, int n);
 
@@ -58,11 +56,11 @@ void func_0013BC28(IdSet *self) {
     unsigned short i;
 
     self->unk90 = 0;
-    cIDBase_initialize(self, 1, 4);
+    cIDBase_initialize(&self->base, 1, 4);
     i = 0;
     do {
         /* byte-offset form: tbl[i] swaps the addu operands */
-        *(int *)((char *)tbl + (i << 2)) = cIDBase_getIDWork(self, i);
+        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
     } while (i < IDSET_WORK_NUM);
     self->x = self->work[0]->posX;

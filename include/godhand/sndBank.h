@@ -48,6 +48,31 @@ typedef struct SndBankCmd {
     char *tbl3;                 /* 0x24 */
 } SndBankCmd;
 
-extern SndBankCmd D_0076A880;
+/* The start-up command: where the driver writes the voice output block and
+ * the owner state each frame (seqNode.h). */
+typedef struct SndInitCmd {
+    int unk00;
+    struct SndVoiceOut *voiceOut;       /* 0x04 D_0076A9C0 */
+    struct SeqOwnerCtl *ownerCtl;       /* 0x08 D_0076B1C0 */
+} SndInitCmd;
+
+/* The sound driver RPC buffer: a 0x40-byte send area holding one command,
+ * the 0x40-byte reply, the client data and the bind-done flag. */
+typedef struct SndRpc {
+    union {
+        SndBankCmd bank;
+        SndInitCmd init;
+        char raw[0x40];
+    } send;                             /* 0x000 */
+    int reply[0x10];                    /* 0x040 */
+    char unk080[0x5C];
+    char cd[0x24];                      /* 0x0DC sceSifClientData */
+    int done;                           /* 0x100 set once the bind completes */
+} SndRpc;
+
+extern SndRpc D_0076A880;
+
+/* Post command cmd to the sound driver and return the first reply word. */
+int func_003758E8(int cmd);
 
 #endif /* GODHAND_SNDBANK_H */

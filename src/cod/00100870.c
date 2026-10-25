@@ -2,7 +2,6 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cloth.h"
 
-extern void func_001038E0(char *a0, char *a1, char *a2, float f12, float f13);
 extern char D_003BBF80[];
 extern char D_003BBFA8[];
 extern char D_003BBFD0[];
@@ -69,7 +68,7 @@ extern char D_003BC6E0[];
         dst[2] = *(float *)&v[2];                                  \
     }                                                                       \
     *(float *)(p + 0x20C0) = 1.0471976f;                                    \
-    func_001038E0(p, p + 0x2050, p + 0x4D0, 0.1f, 0.0f);
+    func_001038E0(p, (EmCloth *)(p + 0x2050), p + 0x4D0, 0.1f, 0.0f);
 
 __attribute__((section(".text.func_00100870")))
 void func_00100870(char *p)

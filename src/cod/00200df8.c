@@ -4,7 +4,7 @@
 
 extern char D_00580D40[];
 extern int FindEntryValue_1FF9C0(char *table, char *name, int *size, char *key);
-extern void *_MemoryAlloc(int size, int align, int a2);
+extern void *_MemoryAlloc(int size, int align, struct HeapArena *heap);
 
 /* cDvd_cancelAll: drop the running job, then give every queued job back. */
 
@@ -72,7 +72,7 @@ int cDvd_cancel(cDvd *self, int id) {
 
 
 __attribute__((section(".text.cDvd_ReadAllocSized")))
-int cDvd_ReadAllocSized(cDvd *self, char *name, void **outBuf, int a3, int id, unsigned int *outSize, int arg70, int arg6C) {
+int cDvd_ReadAllocSized(cDvd *self, char *name, void **outBuf, struct HeapArena *heap, int id, unsigned int *outSize, int arg70, int arg6C) {
     cDvdJob *job;
     void *buf;
 
@@ -80,7 +80,7 @@ int cDvd_ReadAllocSized(cDvd *self, char *name, void **outBuf, int a3, int id, u
     job = cDvd_takeFreeJob(self);
     if (job == 0) return 0;
     job->fileNo = FindEntryValue_1FF9C0(D_00580D40, name, &job->size, job->unk0C);
-    job->align = a3;
+    job->align = heap;
     job->blockNum = (unsigned int)(job->size + 0x7FF) >> 11;
     if (job->fileNo < 0) return 0;
     job->state = 1;
@@ -92,7 +92,7 @@ int cDvd_ReadAllocSized(cDvd *self, char *name, void **outBuf, int a3, int id, u
     job->arg6C = arg6C;
     job->arg70 = arg70;
     job->buf = 0;
-    buf = _MemoryAlloc(job->blockNum << 11, 0x80, a3);
+    buf = _MemoryAlloc(job->blockNum << 11, 0x80, heap);
     job->buf = buf;
     if (buf == 0) {
         func_00201228(self, job);

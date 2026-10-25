@@ -5,7 +5,6 @@
 
 extern char D_0041DCC8[];
 extern void __builtin_delete(void);
-extern void cIDBase_trans(void *);
 
 /* Start a tutorial message once the pack is loaded: remember the message
  * number, raise the flag byte and hide entries 5 and 6. */
@@ -45,15 +44,28 @@ void InitPtrField80AndForward_146748(void *a0, int a1) {
     }
 }
 
+/* The object behind vtable D_0041E8C0, as far as its draw reads it: two displays,
+ * the second one drawn instead of the first while `alt` is set. */
+typedef struct IDDualDisp {
+    cIDBaseObj base;                    /* 0x00 */
+    char unk48[0x79 - sizeof(cIDBaseObj)];
+    char state;                         /* 0x79 nothing is drawn in states 0 and 6 */
+    char unk7A[0xA0 - 0x7A];
+    cIDBaseObj base2;                   /* 0xA0 */
+    char unkE8[0xF8 - 0xE8];
+    unsigned short alt;                 /* 0xF8 */
+} IDDualDisp;
+
+/* Draw the first display, or the second one while `alt` is set; nothing in states 0 and 6. */
 __attribute__((section(".text.ForwardTransBySubState_146E20")))
-void ForwardTransBySubState_146E20(char *a0) {
-    char v1 = a0[0x79];
-    if (v1 == 0) return;
-    if (v1 == 6) return;
-    if (*(unsigned short *)(a0 + 0xF8) == 0) {
-        cIDBase_trans(a0);
+void ForwardTransBySubState_146E20(IDDualDisp *self) {
+    char state = self->state;
+    if (state == 0) return;
+    if (state == 6) return;
+    if (self->alt == 0) {
+        cIDBase_trans(&self->base);
     } else {
-        cIDBase_trans(a0 + 0xA0);
+        cIDBase_trans(&self->base2);
     }
 }
 

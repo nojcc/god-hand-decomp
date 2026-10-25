@@ -1,23 +1,24 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cIDBaseScreen.h"
 
 extern char D_0041B6A0[];
 extern char D_0041B730[];
 extern void cActionButtonUnit_setOk(int x);
 extern void ClearLinkedNodeList_12ECF0(void *p);
 
+/* Item id the screen shows next: during the pop-in phase the entry after cur
+ * (wrapping to the first); -1 while another phase runs; -2 while it is closed. */
 __attribute__((section(".text.GetNextAnimIndex_1451E0")))
-short GetNextAnimIndex_1451E0(char *a0) {
+short GetNextAnimIndex_1451E0(cIDBaseScreen *self) {
     int idx;
-    int bound;
-    if (*(short*)(a0+0x41E) == 3 && *(short*)(a0+0x420) == 0) {
-        idx = *(short*)(a0+0x422) + 1;
-        bound = *(short*)(a0+0x3B2);
-        if (idx >= bound) {
-            return *(short*)(a0 + 0x36C);
+    if (self->phase == 3 && self->step == 0) {
+        idx = self->cur + 1;
+        if (idx >= self->listNum) {
+            return self->item[0];
         }
-        return *(short*)(a0 + (idx << 1) + 0x36C);
+        return self->item[idx];
     }
-    if (*(short*)(a0+0x41E) != 0) {
+    if (self->phase != 0) {
         return -1;
     }
     return -2;

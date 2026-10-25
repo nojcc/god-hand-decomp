@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cIDBaseScreen.h"
 
 extern char D_0044BED0[];
 extern char D_00747AC0;
@@ -10,9 +11,6 @@ extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, fl
 extern char D_0044E300[];
 extern void cHeap_free(void *heap, void *p);
 extern void BlockOwner_dtor(void *self, int flags);
-extern unsigned short D_003BD70C;
-extern int cIDBase_initialize(void *self, int pack, int type);
-extern void func_00144C90(void *self);
 
 /* Constructor of a collision shape: set its vtable, zero the flags and the four
  * vector slots (0x50, 0x60, 0xD0, 0xF0), record the owner, mark the shape as
@@ -182,32 +180,23 @@ void BufOwner_deletingDtor(BufOwner *self, int flags) {
     BlockOwner_dtor(self, flags);
 }
 
-/* Init the display: five entries of 0x50 bytes from 0x100 (pack 1, type 5),
- * two more at 0x430 (type 0x19) and 0x480 (type 0x1A), set both colour words
- * to 0x80808080, run func_00144C90, clear the three counters and take the
- * default value from D_003BD70C. */
-#define ENTRY_SIZE   0x50
-#define ENTRY_COUNT  5
-
-
-
-
-
-
+/* Init the screen: the five rows (pack 1, type 5), the two extra displays
+ * (types 0x19 and 0x1A), both colours to 0x80808080, lay the rows out, then
+ * close it and take the timer's start value. */
 __attribute__((section(".text.cIDBaseScreen_init")))
-void cIDBaseScreen_init(char *self) {
+void cIDBaseScreen_init(cIDBaseScreen *self) {
     unsigned short i = 0;
     do {
-        cIDBase_initialize(self + 0x100 + i * ENTRY_SIZE, 1, 5);
+        cIDBase_initialize(&self->row[i].id, 1, 5);
         i = i + 1;
-    } while (i < ENTRY_COUNT);
-    cIDBase_initialize(self + 0x430, 1, 0x19);
-    cIDBase_initialize(self + 0x480, 1, 0x1A);
-    *(int *)(self + 0x364) = 0x80808080;
-    *(int *)(self + 0x368) = 0x80808080;
+    } while (i < SCR_ROW_NUM);
+    cIDBase_initialize(&self->extraA.id, 1, 0x19);
+    cIDBase_initialize(&self->extraB.id, 1, 0x1A);
+    self->color0 = 0x80808080;
+    self->color1 = 0x80808080;
     func_00144C90(self);
-    *(short *)(self + 0x41E) = 0;
-    *(short *)(self + 0x420) = 0;
-    *(int *)(self + 0x90) = 0;
-    *(unsigned short *)(self + 0x4D0) = D_003BD70C;
+    SCR_STORE(short, self->phase, 0);
+    SCR_STORE(short, self->step, 0);
+    SCR_STORE(int, self->flags, 0);
+    SCR_STORE(short, self->timer, D_003BD70C);
 }

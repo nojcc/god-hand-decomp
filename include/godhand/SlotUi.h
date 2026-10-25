@@ -36,4 +36,14 @@ typedef struct SlotUi {
 
 typedef char SlotUi_idBase2_check[(int)&((SlotUi *)0)->idBase2 == 0x530 ? 1 : -1];
 
+/* Counts a slot timer down one frame; 1 once it has run out. */
+static __inline__ unsigned char Slot_tick(int *timer)
+{
+    if (*timer != 0) {
+        *timer = *timer - 1;
+        return 0;
+    }
+    return 1;
+}
+
 #endif

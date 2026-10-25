@@ -41,8 +41,20 @@ typedef struct cIDManager {
     int poolUsed;                       /* 0x1B544 buffers handed out */
 } cIDManager;
 
+/* The manager in use: D_003C2384 points at the word after the game's own
+ * manager (D_003C2388, the cIDManager at D_005CB3B0), which holds it. */
+extern cIDManager **D_003C2384;
+extern cIDManager *D_003C2388;
+
 extern char D_0044AF70[];               /* name table SearchData looks in */
 extern void *SearchData(void *name, void *table, int which);
 extern void *func_003A52F0(void *dst, int val, int len);  /* memset */
+int cIDManager_getTexAddr(cIDManager *self, int slot, unsigned int idx);
+void cIDManager_setIDData(cIDManager *self, int slot, void *data);
+int cIDManager_getLocalFileName(void *a0, void *a1, void *a2, signed char a3);
+/* Take a run of n pool buffers, cleared, under a new job. 0 when the pool is short. */
+void *cIDManager_allocBufRun(cIDManager *self, int n, int tag, int arg);
+/* Give back the last run if it is `buf` and was taken under `tag`; `arg` is not read. 1 on success. */
+int func_002ACF30(cIDManager *self, void *buf, int tag, int arg);
 
 #endif

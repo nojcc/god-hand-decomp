@@ -1,6 +1,5 @@
 /* sn-2.95.3-136: func_00375988, registers a sound bank header in slot `bank` and posts command 6. */
 #include "godhand/sndBank.h"
-extern int func_003758E8(int cmd);
 
 __attribute__((section(".text.func_00375988")))
 void func_00375988(short bank, SndBankHdr *hdr, int sysMem, int size)
@@ -8,7 +7,7 @@ void func_00375988(short bank, SndBankHdr *hdr, int sysMem, int size)
     SndBank *b;
     SndBankCmd *c;
 
-    c = &D_0076A880;
+    c = &D_0076A880.send.bank;
     b = &D_0076EA50[bank];
     b->id = hdr->id;
     b->data = (char *)hdr + hdr->dataOfs;

@@ -1,4 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cSubScrOption.h"
+#include "godhand/cIDManager.h"
 
 extern int cSceAtManager_SetDisableById(int a0, int a1);
 extern void cScenario_taskExec(void *a0, void *a1, void *a2, int a3);
@@ -16,10 +18,6 @@ extern int D_00785878;
 extern void GetOrInitGlobal785878_1B8058(void);
 extern int D_007860B8;
 extern int D_00428828;
-extern void Obj0000_Set_D_007474A0_Fields_5D8_5E0(int a0);
-extern void cIDBase_release(int a0);
-extern void func_00161590(int a0);
-extern char **D_003C2384;
 
 /* Disable the scenario object tied to this machine's slot id, then queue its step task. */
 
@@ -85,38 +83,29 @@ void *GetSingletonC(void) {
     return p;
 }
 
-/* Reset an object: run the base reset, release both id slots, clear two counters on the shared record. */
-
-
-
-
-
+/* Tear down the options panel: put the GameWork flags back, release both displays, clear manager slot 8 and free the id heap. */
 __attribute__((section(".text.ResetObjAndReleaseIdsA")))
-void ResetObjAndReleaseIdsA(int a0) {
-    char *p;
-    Obj0000_Set_D_007474A0_Fields_5D8_5E0(a0);
-    cIDBase_release(a0 + 0xE0);
-    cIDBase_release(a0);
-    p = *D_003C2384;
-    *(int *)(p + 0x44) = 0;
-    *(int *)(p + 0x40) = 0;
-    func_00161590(a0);
+void ResetObjAndReleaseIdsA(cSubScrOption *self) {
+    cIDManager *mgr;
+    Obj0000_Set_D_007474A0_Fields_5D8_5E0(&self->obj);
+    cIDBase_release(&self->sub);
+    cIDBase_release(&self->obj.base);
+    mgr = *D_003C2384;
+    mgr->pair[SUBSCR_OPTION_RES].tex = 0;
+    mgr->pair[SUBSCR_OPTION_RES].data = 0;
+    func_00161590(&self->obj);
 }
 
-/* Reset an object: run the base reset, release both id slots, clear two counters on the shared record. */
-
-
-
-
-
+/* Tear down the options variant the same way. */
 __attribute__((section(".text.ResetObjAndReleaseIdsB")))
-void ResetObjAndReleaseIdsB(int a0) {
-    char *p;
-    Obj0000_Set_D_007474A0_Fields_5D8_5E0(a0);
-    cIDBase_release(a0 + 0xC0);
-    cIDBase_release(a0);
-    p = *D_003C2384;
-    *(int *)(p + 0x44) = 0;
-    *(int *)(p + 0x40) = 0;
-    func_00161590(a0);
+void ResetObjAndReleaseIdsB(cSubScrOptionT *self) {
+    cIDManager *mgr;
+    Obj0000_Set_D_007474A0_Fields_5D8_5E0(&self->obj);
+    cIDBase_release(&self->sub);
+    cIDBase_release(&self->obj.base);
+    mgr = *D_003C2384;
+    /* retail clears cSubScrOption's slot here, not SUBSCR_OPTIONT_RES */
+    mgr->pair[SUBSCR_OPTION_RES].tex = 0;
+    mgr->pair[SUBSCR_OPTION_RES].data = 0;
+    func_00161590(&self->obj);
 }

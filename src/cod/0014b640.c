@@ -12,7 +12,6 @@ extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0, float f12
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
-extern void func_002A74E0(void *a0, void *a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern float fRand0_1(void);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);

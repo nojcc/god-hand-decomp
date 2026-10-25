@@ -1,12 +1,9 @@
 /* sn-2.95.3-136 */
 
-/* newlib libc/stdlib/mbtowc_r.c -- transcribed. */
+#include "godhand/newlibStdio.h"
+#include "godhand/newlibStdlib.h"
 
-/* The part of newlib's struct _reent this function reads. */
-typedef struct ReentLocale {
-    char pad00[0x34];
-    char *_current_locale;      /* 0x34 */
-} ReentLocale;
+/* newlib libc/stdlib/mbtowc_r.c -- transcribed. */
 
 typedef enum { ESCAPE, DOLLAR, BRACKET, AT, B, J, NUL, JIS_CHAR, OTHER, JIS_C_NUM } JIS_CHAR_TYPE;
 typedef enum { ASCII, A_ESC, A_ESC_DL, JIS, J_ESC, J_ESC_BR, J2_ESC, J2_ESC_BR, DUMMY } JIS_STATE;
@@ -30,7 +27,7 @@ extern char D_0045F600[];   /* "C-JIS" */
 
 /* Convert the multibyte character at s (at most n bytes) to a wide character in the current locale. */
 __attribute__((section(".text.func_003A7D08")))
-int func_003A7D08(ReentLocale *r, int *pwc, const char *s, unsigned int n, int *state)
+int func_003A7D08(struct _reent *r, int *pwc, const char *s, unsigned int n, int *state)
 {
     int dummy;
     unsigned char *t = (unsigned char *)s;

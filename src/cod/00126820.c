@@ -2,14 +2,13 @@
 
 #include "godhand/cMessage.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cIDBaseScreen.h"
 #include "godhand/vu0.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cMessCommon.h"
 
 extern unsigned int D_00747A78;
 extern void func_002B2438(cMessageWin *win);
-extern unsigned short D_003BD70C;
-extern void cIDBase_resetAnim(void *id);
 extern unsigned int D_007474A8;
 extern cCollisionSolidObj *cCollisionSolid(cCollisionSolidObj *self);
 extern void *_MemoryAlloc(int size, int align, int heap);
@@ -50,53 +49,19 @@ void cMessage_updateAll(cMessage *self) {
 /* Reset the screen object: restart all seven display blocks and clear the cursor words. */
 
 
-#define SCR_SLOT_NUM  5
-
-/* Store through a cast pointer, not a member access. A member store cannot alias the scalar
- * global D_003BD70C, so the scheduler lifts that load above it; retail keeps the load after
- * the stores, which only the cast form reproduces. */
-#define SCR_STORE(type, field, value)  (*(type *)&(field) = (value))
-
-/* A display block sits on a 0x50 stride. */
-typedef struct ScrIdSlot {
-    cIDBaseObj id;                      /* 0x00 */
-    char pad48[0x50 - sizeof(cIDBaseObj)];
-} ScrIdSlot;
-
-typedef struct ScrObj {
-    char unk000[0x90];
-    int unk90;                          /* 0x090 */
-    char unk94[0x6C];
-    ScrIdSlot slot[SCR_SLOT_NUM];       /* 0x100 */
-    char unk290[0x18E];
-    short unk41E;                       /* 0x41E */
-    short unk420;                       /* 0x420 */
-    char unk422[0xE];
-    ScrIdSlot extraA;                   /* 0x430 */
-    ScrIdSlot extraB;                   /* 0x480 */
-    short unk4D0;                       /* 0x4D0 */
-} ScrObj;
-
-typedef char ScrObj_extraA_check[((int)&((ScrObj *)0)->extraA == 0x430) ? 1 : -1];
-typedef char ScrObj_unk4D0_check[((int)&((ScrObj *)0)->unk4D0 == 0x4D0) ? 1 : -1];
-
-
-extern void func_00144C90(ScrObj *self);
-
-
 __attribute__((section(".text.ScrObj_reset")))
-void ScrObj_reset(ScrObj *self) {
+void ScrObj_reset(cIDBaseScreen *self) {
     unsigned short i;
     func_00144C90(self);
-    for (i = 0; i < SCR_SLOT_NUM; i++) {
-        cIDBase_resetAnim(&self->slot[i]);
+    for (i = 0; i < SCR_ROW_NUM; i++) {
+        cIDBase_resetAnim(&self->row[i].id);
     }
-    cIDBase_resetAnim(&self->extraA);
-    cIDBase_resetAnim(&self->extraB);
-    SCR_STORE(short, self->unk41E, 0);
-    SCR_STORE(short, self->unk420, 0);
-    SCR_STORE(int, self->unk90, 0);
-    SCR_STORE(short, self->unk4D0, D_003BD70C);
+    cIDBase_resetAnim(&self->extraA.id);
+    cIDBase_resetAnim(&self->extraB.id);
+    SCR_STORE(short, self->phase, 0);
+    SCR_STORE(short, self->step, 0);
+    SCR_STORE(int, self->flags, 0);
+    SCR_STORE(short, self->timer, D_003BD70C);
 }
 
 /* Enemy slot upkeep: with no key held count the cooldown down, then release the slot; a held key picks the slot kind. */

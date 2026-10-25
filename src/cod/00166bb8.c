@@ -3,44 +3,30 @@
 #include "godhand/cSnd.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/seqNode.h"
-#include "godhand/cIDBase.h"
-#include "godhand/cIDMenuPanel.h"
+#include "godhand/cSubScrOption.h"
+#include "godhand/padWork.h"
 #include "godhand/menuKey.h"
 
+extern void SetGlobalToggle_375700(int mode);
+
 #define OPTION_ROWS      8
-#define PAD_WORK_VIBRATION 0x4B8               /* D_005E8140 byte: pad vibration on */
 
 #define OPTION_MSG_ASK   0x2008               /* message id of the yes/no question */
 
-/* The pause options panel. head.state: 0 = pick a row, 2 = leaving, 4 = yes/no. */
-typedef struct PauseOptionPanel {
-    cIDPanelHead head;                  /* 0x00 */
-    char unk64[0xC8 - 0x64];
-    cIDBaseEnt *ask;                    /* 0xC8 the question's display entry */
-    char unkCC[0x130 - 0xCC];
-    signed char row;                    /* 0x130 */
-    signed char answer;                 /* 0x131 0 = yes, 1 = no */
-} PauseOptionPanel;
-
-extern cSnd D_005FEE00;
-extern unsigned char D_005E8140[];
-extern int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
-extern void SdeSystemOutModeSet(int a0);
-extern void func_001672F0(void *self);
 
 /* Input step of the pause options panel: moves through the eight rows,
  * changes the picked setting (a save flag, the sound output mode, pad
  * vibration) and runs the yes/no question. */
 __attribute__((section(".text.func_00166BB8")))
-void func_00166BB8(PauseOptionPanel *self)
+void func_00166BB8(cSubScrOption *self)
 {
-    switch (self->head.state) {
+    switch (self->obj.state) {
     case 0:
         switch (self->row) {
         case 0:
             if (D_007474A0.trg & MENU_KEY_OK) {
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
-                self->head.state = 1;
+                self->obj.state = 1;
             }
             break;
         case 1:
@@ -94,15 +80,15 @@ void func_00166BB8(PauseOptionPanel *self)
         case 4:
             if (D_007474A0.trg & MENU_KEY_OK) {
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
-                self->head.result = 13;
+                self->obj.result = 13;
             }
             break;
         case 5:
             if (D_007474A0.trg & MENU_KEY_OK) {
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
-                self->ask->msg = OPTION_MSG_ASK;
+                self->ent[SUBSCR_OPTION_ENT_ASK]->msg = OPTION_MSG_ASK;
                 self->answer = 1;
-                self->head.state = 4;
+                self->obj.state = 4;
             }
             break;
         case 6:
@@ -114,7 +100,7 @@ void func_00166BB8(PauseOptionPanel *self)
         case 7:
             if (D_007474A0.trg & MENU_KEY_OK) {
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
-                self->head.result = 10;
+                self->obj.result = 10;
             }
             break;
         }
@@ -128,11 +114,11 @@ void func_00166BB8(PauseOptionPanel *self)
         self->row = self->row < 0 ? OPTION_ROWS - 1 : self->row < OPTION_ROWS ? self->row : 0;
         if ((D_007474A0.trg & (MENU_KEY_OK | MENU_KEY_BACK)) == MENU_KEY_BACK) {
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
-            self->head.result = 10;
+            self->obj.result = 10;
         }
         if ((D_007474A0.trg & (MENU_KEY_OK | MENU_KEY_CLOSE)) == MENU_KEY_CLOSE) {
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
-            self->head.result = -1;
+            self->obj.result = -1;
         }
         break;
     case 1:
@@ -140,10 +126,10 @@ void func_00166BB8(PauseOptionPanel *self)
     case 2:
         if (D_007474A0.trg & (MENU_KEY_OK | MENU_KEY_BACK)) {
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
-            self->head.state = 3;
+            self->obj.state = 3;
         } else if (D_007474A0.trg & MENU_KEY_CLOSE) {
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
-            self->head.result = -1;
+            self->obj.result = -1;
         }
         break;
     case 3:
@@ -153,16 +139,16 @@ void func_00166BB8(PauseOptionPanel *self)
             switch (self->answer) {
             case 0:
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
-                self->head.result = 11;
+                self->obj.result = 11;
                 break;
             case 1:
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
-                self->head.state = 0;
+                self->obj.state = 0;
                 break;
             }
         } else if (D_007474A0.trg & MENU_KEY_BACK) {
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
-            self->head.state = 0;
+            self->obj.state = 0;
         }
         if (D_007474A0.rep & MENU_KEY_LEFTRIGHT) {
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);

@@ -6,7 +6,6 @@ extern int D_00428928;
 extern void func_00380E88(void *, void *, void *);
 extern void func_0031C900(int);
 extern void cSnd_SetBgmState(void *, int);
-extern void func_00144C90(void *);
 extern void BuildObjEntry_387160(int, void *);
 
 /* func_001F3260 — sn-2.95.3-136 */
@@ -21,6 +20,7 @@ void func_001F3260(char *a0) {
 }
 
 #include "godhand/vu0.h"
+#include "godhand/cIDBaseScreen.h"
 /* func_001B6710 — sn-2.95.3-136 */
 
 
@@ -60,13 +60,13 @@ void func_002CA8C8(void *a0) {
     *(int *)((char *)a0 + 0xAC) &= 0xFFBFFFFF;
 }
 
-/* func_00145410 — sn-2.95.3-136 */
+/* Closed phase: once a list is loaded, lay the rows out (func_00144C90 opens the screen). */
 
 __attribute__((section(".text.func_00145410")))
-void func_00145410(char *a0) {
-    if ((*(int *)(a0 + 0x90) & 0x40000000) != 0) {
-        func_00144C90(a0);
-        *(int *)(a0 + 0x90) &= 0xEFFFFFFF;
+void func_00145410(cIDBaseScreen *self) {
+    if ((self->flags & SCR_FLAG_READY) != 0) {
+        func_00144C90(self);
+        self->flags &= ~SCR_FLAG_SETUP;
     }
 }
 

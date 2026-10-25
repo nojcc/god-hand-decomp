@@ -80,4 +80,53 @@ typedef struct PokerHandView {
     PokerHandSlot *slot[POKER_HAND_NUM]; /* 0x3004 Poker.hand */
 } PokerHandView;
 
+/* Where a dealt card starts (the deck) and where each hand slot puts it, x and y used. */
+extern float D_00568160[4];
+extern float D_00568170[POKER_HAND_NUM][4];
+/* The two card slots of the double-up game. */
+extern float D_005681C0[2][4];
+
+void Poker_resetDeck(Poker *self);
+void func_001DBE18(Poker *self, BlackJackCard **slot);
+void func_001D6EC8(BlackJackCard *card, int a1);
+void func_001D6DD0(BlackJackCard *card, int a1);
+void SetField_56_1DEBE8(void *obj, int v);
+int Casino_randRange(void *self, int lo, int hi);
+
+/* The table UI at POKER_UI. */
+void func_001DEE40(void *ui, int n);
+void func_001DF528(char *ui, unsigned char idx, unsigned short mode);
+void func_001DF7D0(char *ui, int alt);
+void func_001DF820(char *ui, int enabled);
+void UiRecord_setDispSubs6to10(void *ui, int on);
+
+#define POKER_DEAL_FRAMES 10            /* frames a card takes from the deck to its slot */
+
+/* Puts a card object at pos through its virtual setter. */
+static __inline__ void Poker_placeCard(BlackJackCardObj *obj, float *pos)
+{
+    obj->vtbl[14].pfn((char *)obj + obj->vtbl[14].delta, pos);
+}
+
+/* Moves hand card i one frame along its way from the deck to slot i. */
+static __inline__ void Poker_moveCard(Poker *self, int i)
+{
+    float t = (POKER_DEAL_FRAMES - (float)self->unk302C) / POKER_DEAL_FRAMES;
+    float x = t * (D_00568170[i][0] - D_00568160[0]) + D_00568160[0];
+    float y = t * (D_00568170[i][1] - D_00568160[1]) + D_00568160[1];
+
+    self->hand[i]->obj->pos[0] = x;
+    self->hand[i]->obj->pos[1] = y;
+}
+
+/* Counts a step timer down one frame; 1 once it has run out. */
+static __inline__ unsigned char Poker_tick(int *timer)
+{
+    if (*timer == 0) {
+        return 1;
+    }
+    *timer = *timer - 1;
+    return 0;
+}
+
 #endif

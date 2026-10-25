@@ -1,13 +1,12 @@
 /* sn-2.95.3-136: func_00375500, flush the two transfer buffers and run the sync, measuring the time
  * in hblanks (T0 counter) and microseconds and keeping the peaks. */
 #include "godhand/seqNode.h"
+#include "godhand/sndBank.h"
 #include "godhand/sndTiming.h"
 
 extern unsigned long GetTimerSystemTime(void);
 extern void TimerBusClock2USec(unsigned long clock, unsigned int *sec, unsigned int *usec);
 extern void SyncDCache(void *start, void *end);
-extern int func_003758E8(int mode);
-extern char D_0076B1C0[];
 
 __attribute__((section(".text.func_00375500")))
 void func_00375500(void)
@@ -24,7 +23,7 @@ void func_00375500(void)
     h0 = *t0;
     buf = (char *)D_0076A9C0;
     SyncDCache(buf, buf + 0x7FF);
-    buf = D_0076B1C0;
+    buf = (char *)D_0076B1C0;
     SyncDCache(buf, buf + 0x7FF);
     func_003758E8(2);
     h1 = *t0;

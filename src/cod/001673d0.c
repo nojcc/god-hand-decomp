@@ -1,18 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cIDBase.h"
+#include "godhand/cSubScrOption.h"
+#include "godhand/cIDManager.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 
 extern void displayScrollLayer(int layer, int on);
-extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
-extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
-extern void cIDBase_resetAnim(void *self);
-extern int cIDBase_setPackedMessData(void *self, int kind, int arg);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041FBA0[];
-extern void **D_003C2384;
 extern void func_001B6FB8(void *self);
 extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *box);
@@ -118,52 +113,30 @@ void Slot2_blinkMarksAt4A6(Slot2Blink *self)
 
 
 
-/* Constructor of a 0x1B-part display object with a second part record: base setup, then (when its data table matches) the ID data, initial animation and message of both records, and the 0x10 display works. */
-#define IDOBJ_WORK_NUM  0x10
-#define IDOBJ_KIND      0x1B
-
-typedef struct IdDispObj {
-    cIDBaseObj base;                    /* 0x00 */
-    char unk48[8];
-    int resHandle;                      /* 0x50 */
-    char unk54[6];
-    unsigned char b5A;                  /* 0x5A */
-    unsigned char b5B;                  /* 0x5B */
-    unsigned char b5C;                  /* 0x5C */
-    unsigned char b5D;                  /* 0x5D */
-    char unk5E[2];
-    int state;                          /* 0x60 */
-    char unk64[0x1C];
-    void *work[IDOBJ_WORK_NUM];         /* 0x80 */
-    char sub[0x50];                     /* 0xC0 second part record */
-    char unkSubEnd[0x0];
-    unsigned char b110;                  /* 0x110 */
-    unsigned char b111;                  /* 0x111 */
-} IdDispObj;
-
+/* Options variant constructor: base setup, then (when its id resource loads) the id data, initial animation and message of both displays, and the 0x10 entries. */
 __attribute__((section(".text.IdDispObj_constructKind1B")))
-void IdDispObj_constructKind1B(IdDispObj *self)
+void IdDispObj_constructKind1B(cSubScrOptionT *self)
 {
     unsigned short i;
-    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
-    if (func_00161500(self, D_0041FBA0) != 0) {
-        cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ_KIND, 0);
-        cIDBase_resetAnim(self);
-        cIDBase_setPackedMessData(self, IDOBJ_KIND, 2);
-        cIDBase_initialize(self->sub, IDOBJ_KIND, 1);
-        cIDBase_resetAnim(self->sub);
-        self->b5A = 0;
-        self->state = 5;
-        self->b5B = 0;
-        self->b5C = 0;
-        self->b5D = 0;
+    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(&self->obj);
+    if (func_00161500(&self->obj, D_0041FBA0) != 0) {
+        cIDManager_setIDData(*D_003C2384, SUBSCR_OPTIONT_RES, self->obj.resHandle);
+        cIDBase_initialize(&self->obj.base, SUBSCR_OPTIONT_RES, 0);
+        cIDBase_resetAnim(&self->obj.base);
+        cIDBase_setPackedMessData(&self->obj.base, SUBSCR_OPTIONT_RES, 2);
+        cIDBase_initialize(&self->sub, SUBSCR_OPTIONT_RES, 1);
+        cIDBase_resetAnim(&self->sub);
+        self->obj.state = 0;
+        self->obj.result = 5;
+        self->obj.step = 0;
+        self->obj.unk5C = 0;
+        self->obj.unk5D = 0;
     }
-    for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+    for (i = 0; i < SUBSCR_OPTIONT_ENT_NUM; i++) {
+        self->ent[i] = cIDBase_getIDWork(&self->obj.base, i);
     }
-    self->b110 = 0;
-    self->b111 = 0;
+    self->row = 0;
+    self->answer = 0;
 }
 
 /* sn-2.95.3-136 */

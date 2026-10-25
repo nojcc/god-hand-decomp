@@ -2,6 +2,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
+#include "godhand/heapArena.h"
 
 extern float cEmManage_GetSpeedRate(void *manager);
 extern int D_00586AF0;
@@ -104,18 +105,9 @@ void cGameObj_destructSubclass(cGameObj *self, int flag) {
     SetField214PtrThenInit_1B6F38(self, flag);
 }
 
-/* Arena header: block start, size, and a user word. */
-typedef struct Arena {
-    char *block;                        /* 0x0 start of the managed block */
-    int size;                           /* 0x4 size in bytes */
-    int user;                           /* 0x8 */
-} Arena;
-
-extern void func_002A94F0(Arena *self);
-
 /* Set up an arena over a block; an empty block or size leaves it cleared. */
 __attribute__((section(".text.Arena_init")))
-void Arena_init(Arena *self, char *block, int size, int user) {
+void Arena_init(HeapArena *self, void *block, int size, int user) {
     if (block == 0 || size == 0) {
         self->block = 0;
         self->size = 0;

@@ -4,35 +4,23 @@
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cSubScrMenu.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 
 extern void cHeap_free(int heap, int *block);
-extern int cDvd_ReadAlloc(char *dvd, const char *name, void *outBuf, char *heap, int a4, int a5, int a6, int a7);
-extern void cDvd_CheckWait(char *dvd, int id);
 extern unsigned int D_00747A78;
 extern char D_00463050[];
 extern void cCamManager_setSubScrCamera(void *cam, int mode);
 
-/* A holder that keeps one file read in memory: the block at 0x298 and the disc job id at 0x29C. */
-typedef struct FileHolder {
-    char unk000[0x298];
-    int *data;                          /* 0x298 loaded block, 0 when empty */
-    int jobId;                          /* 0x29C disc job that filled it */
-} FileHolder;
-
-extern char D_00583F20[];               /* cDvd */
-extern char D_00754230[];               /* heap the file is read into */
-
-
-
-
 /* Frees the held block, reads the named file into it again and waits for the read. */
 __attribute__((section(".text.FileHolder_reload")))
-void FileHolder_reload(FileHolder *self, const char *name) {
+void FileHolder_reload(cSubScrMenu *self, const char *name) {
     if (self->data != 0) {
         cHeap_free(self->data[-8], self->data);
     }
-    self->jobId = cDvd_ReadAlloc(D_00583F20, name, &self->data, D_00754230, 0, 0, 0, 0);
-    cDvd_CheckWait(D_00583F20, self->jobId);
+    self->jobId = cDvd_ReadAlloc(&D_00583F20, (char *)name, (void **)&self->data, &D_00754230, 0, 0, 0, 0);
+    cDvd_CheckWait(&D_00583F20, self->jobId);
 }
 
 /* A game object that keeps a "camera on" byte at 0x763. */
@@ -57,7 +45,6 @@ void cGameObjCam_startSubCamera(cGameObjCam *self)
     float *v;
     float *d;
     float *mtx;
-    cVec *cam;
     cVec *pos;
 
     if (self->camOn != 0) {

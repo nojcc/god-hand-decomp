@@ -53,12 +53,17 @@ typedef struct cSndSeVoice {
     int pri;                    /* 0x24 */
     short idA;                  /* 0x28 -1 when unused */
     short idB;                  /* 0x2A -1 when unused */
-    char unk2C[0xC];
+    short curVolL;              /* 0x2C left volume last sent to the driver */
+    short curVolR;              /* 0x2E right volume last sent */
+    short curPitch;             /* 0x30 pitch last sent */
+    short curPan;               /* 0x32 pan angle last sent, 0..719 */
+    short dist;                 /* 0x34 fixed listener distance (kind 3) */
+    char unk36[2];
     void *obj;                  /* 0x38 object the sound follows */
     void *part;                 /* 0x3C part of that object */
     float pos[3];               /* 0x40 */
     float scale;                /* 0x4C */
-} cSndSeVoice;                  /* 0x50 */
+} __attribute__((aligned(16))) cSndSeVoice; /* 0x50 */
 
 /* One call remembered by the recent-call ring. */
 typedef struct cSndSeRecent {
@@ -132,7 +137,7 @@ typedef struct cSnd {
     char unk00[0x18];
     cSndBgmNode *bgmHead;       /* 0x18 first BGM node */
     cSndSeVoice *voiceHead;     /* 0x1C first playing voice */
-    char unk20[4];
+    struct HitHost *seHit;      /* 0x20 hit set voices with stateFlags bit 1 are checked against */
     struct cBgmHit *hit;        /* 0x24 BGM hit table */
     char unk28[0xC];
     cSndSeVoice *voicePool;     /* 0x34 CSND_VOICE_NUM voices */
@@ -141,11 +146,22 @@ typedef struct cSnd {
     char unk40[4];
     int f44;                    /* 0x44 */
     int f48;                    /* 0x48 */
-    char unk4C[0x20];
+    char unk4C[4];
+    int bgmAttr;                /* 0x50 BGM attribute bits now in force */
+    int bgmAttrPrev;            /* 0x54 last frame's bgmAttr */
+    int bgmDefAttr;             /* 0x58 attribute bits bgmAttr returns to each frame */
+    char unk5C[4];
+    float f60;                  /* 0x60 volume scale for voices with stateFlags bit 2 */
+    float f64;                  /* 0x64 volume scale for voices with stateFlags bit 2 */
+    float f68;                  /* 0x68 volume scale for object voices started while system bit 0x8000000 is set */
     float f6C;                  /* 0x6C weight BGM nodes are blended with */
-    char unk70[0x2C];
+    float f70;                  /* 0x70 volume scale for voices with stateFlags bit 0x20 */
+    float f74;                  /* 0x74 f9C each frame unless a BGM area sets it */
+    char unk78[0x10];
+    float f88;                  /* 0x88 fA0 each frame unless a BGM area sets it */
+    char unk8C[0x10];
     float f9C;                  /* 0x9C fade ratio, 0..1 */
-    char unkA0[4];
+    float fA0;                  /* 0xA0 */
     int fA4;                    /* 0xA4 cleared on resume */
     char unkA8[4];
     unsigned int flagsAC;       /* 0xAC */
@@ -192,5 +208,27 @@ typedef char cSndMemHeap_size_check[sizeof(cSndMemHeap) == 0x390 ? 1 : -1];
 
 cSndKindEnt *func_002D0B88(unsigned short id);
 int cSnd_BgmReqFromEnemies(void *self);
+
+extern cSnd D_005FEE00;
+
+/* Plays sound effect se for an object; kind 1 picks the enemy's sound group. */
+int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
+void cSnd_SetBgmState(cSnd *self, int state);
+void cSnd_SeStop(cSnd *self, int handle);
+/* The object's first sound-effect number (its word at 0x424). */
+int GetSeqSEBase(int *obj);
+
+/* Nonzero when pos is inside the hit set at self+0x20 (definition in
+ * 00137cb8.c, whose HitHost is a view of cSnd). */
+int cSndSeVoice_ckHitSet(struct HitHost *self, float *pos);
+
+/* Pan angle and distance of a sound at pos (definition in 002cf058.c). */
+void cSnd_CalcListenerPanDist(void *self, cVec *pos, short *dist, short *pan);
+
+/* Starts sound effect key1 of slot at the position mtx (definition in sound/cSnd.c). */
+int cSnd_SeCall(cSnd *self, int slot, short key1, int mtx, int idA, int idB);
+
+/* 1 when a live, non-boss enemy of the given kind is on the field; self is not read. */
+int cSnd_IsEnemyAlive(cSnd *self, int kind);
 
 #endif /* GODHAND_CSND_H */

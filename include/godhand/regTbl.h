@@ -15,6 +15,13 @@ typedef struct RegEnt {
     unsigned char active;       /* 0x0B */
 } RegEnt;
 
+/* One symbol relocation: patch where with the entry's value plus addend. */
+typedef struct RegReloc {
+    int where;                  /* 0x00 offset, an address once relocated */
+    unsigned int info;          /* 0x04 patch type in the low byte, entry index above */
+    int addend;                 /* 0x08 */
+} RegReloc;
+
 /* One registered table; the tables form a list from D_003F852C. */
 typedef struct RegTbl {
     char unk00[4];
@@ -22,9 +29,22 @@ typedef struct RegTbl {
     int handleB;                /* 0x08 */
     RegEnt *ents;               /* 0x0C */
     int count;                  /* 0x10 */
-    char unk14[0x30 - 0x14];
+    int unk14;                  /* 0x14 */
+    int unk18;                  /* 0x18 */
+    int unk1C;                  /* 0x1C */
+    int *ptrs;                  /* 0x20 words that each hold an address, 0 = none */
+    int ptrCount;               /* 0x24 */
+    char unk28[0x30 - 0x28];
     struct RegTbl *next;        /* 0x30 */
+    unsigned char *relStream;   /* 0x34 packed local relocations, 0 = none */
+    int unk38;                  /* 0x38 */
 } RegTbl;
+
+int patch(unsigned char *where, unsigned int type, unsigned int value);
+int func_00393FD8(int name, unsigned short id);
+int func_003944E8(RegEnt *ent);
+int func_003945C0(RegEnt *ent);
+void func_00395180(void);       /* FlushCache(0) then FlushCache(2) */
 
 extern RegTbl *D_003F852C;
 

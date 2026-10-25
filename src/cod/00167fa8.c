@@ -2,18 +2,14 @@
 
 #include "godhand/cMessDrawFont.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cIDObj.h"
+#include "godhand/cIDManager.h"
 
 extern unsigned int cMessCommon_getCodeSize(unsigned int code);
 extern int cMessCommon_isHighCodeEnd(unsigned short code);
 extern int func_002B04C0(cMessDrawFont *self, unsigned short *text, float *arg);
 extern float func_002B0BE0(cMessDrawFont *self, unsigned short *text, float *arg);
-extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
-extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
-extern void cIDBase_restartAnim(void *self);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041FC50[];
-extern void **D_003C2384;
 extern float Curve_sample(void *a0, int a1, int a2, int a3);
 
 /* Find the tallest glyph on a line: walk the codes until an end code, ask func_002B0BE0 for each code's height, and keep the largest in the running maximum; each new maximum also stores arg[0] scaled by charH and zoomY to *out. Returns the end-code position. */
@@ -53,15 +49,8 @@ typedef struct IdDispLink {
 } IdDispLink;
 
 typedef struct IdDispObj16 {
-    cIDBaseObj base;                    /* 0x00 */
-    char unk48[8];
-    int resHandle;                      /* 0x50 */
-    char unk54[6];
-    unsigned char variantCopy;          /* 0x5A */
-    char unk5B[5];
-    int state;                          /* 0x60 */
-    unsigned char variant;              /* 0x64 */
-    char unk65[0x1B];
+    cIDObj obj;                         /* 0x00 */
+    char unk74[0x80 - sizeof(cIDObj)];
     void *work[IDOBJ16_WORK_NUM];       /* 0x80 */
     char unk90;
     unsigned char clearByte;            /* 0x91 */
@@ -72,19 +61,19 @@ __attribute__((section(".text.IdDispObj16_construct")))
 void IdDispObj16_construct(IdDispObj16 *self)
 {
     int i;
-    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
-    if (func_00161500(self, D_0041FC50) != 0) {
-        cIDManager_setIDData(*D_003C2384, IDOBJ16_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ16_KIND, 0);
-        cIDBase_restartAnim(self);
-        self->state = IDOBJ16_PLAYING;
+    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(&self->obj);
+    if (func_00161500(&self->obj, D_0041FC50) != 0) {
+        cIDManager_setIDData(*D_003C2384, IDOBJ16_KIND, self->obj.resHandle);
+        cIDBase_initialize(&self->obj.base, IDOBJ16_KIND, 0);
+        cIDBase_restartAnim(&self->obj.base);
+        self->obj.result = IDOBJ16_PLAYING;
     }
     for (i = 0; i < IDOBJ16_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork(&self->obj.base, i);
     }
-    if (self->variant == 1) {
+    if (self->obj.sel == 1) {
         IdDispLink *link;
-        self->variantCopy = self->variant;
+        self->obj.state = self->obj.sel;
         link = (IdDispLink *)self->work[3];
         link->flags &= ~IDOBJ16_LINK_HIDE;
     }

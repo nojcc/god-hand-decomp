@@ -1,7 +1,8 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/sceVu0.h"
+#include "godhand/cIDBase.h"
+#include "godhand/cIDManager.h"
 
-extern int *D_003C2384;
 extern void CustomIDWork_SetDisp(char *p, int v);
 
 __attribute__((section(".text.Add_nullspeed")))
@@ -10,16 +11,15 @@ void Add_nullspeed(char *a0)
 	sceVu0ApplyMatrix(*(void **)(a0 + 0xF0), a0 + 0x80, a0 + 0x330);
 }
 
+/* Give the entry table back to the manager. 1 when there was one. */
 __attribute__((section(".text.cIDBase_release")))
-int cIDBase_release(int *a0)
+int cIDBase_release(cIDBaseObj *self)
 {
-    int a1;
-    a1 = a0[1];
-    if (a1) {
-        func_002ACF30(*D_003C2384, a1, a0[5], a0[4]);
-        a0[0] = 0;
-        a0[1] = 0;
-        a0[2] = 0;
+    if (self->ent) {
+        func_002ACF30(*D_003C2384, self->ent, self->resNo, self->id);
+        self->src = 0;
+        self->ent = 0;
+        self->packed = 0;
         return 1;
     }
     return 0;

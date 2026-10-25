@@ -59,4 +59,7 @@ struct cCamera {
 
 extern float Adjust_theta(float angle);
 
+/* Project world through camera; out gets the screen position. */
+void *cCamera_getScreenPos(cVec *out, void *camera, cVec *world);
+
 #endif

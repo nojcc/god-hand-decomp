@@ -1,10 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cIDBase.h"
+#include "godhand/cIDManager.h"
 
-extern int *D_003C2384;
-extern int D_003C2388;
-extern void cIDBase_initEntry(cIDBaseObj *self, cIDBaseSrc *src, cIDBaseEnt *ent);
 
 /* Hide or show an entry and, recursively, its parent chain. */
 __attribute__((section(".text.cIDBase_setDispParent")))
@@ -54,7 +52,7 @@ void cIDBase_initEntry(cIDBaseObj *self, cIDBaseSrc *src, cIDBaseEnt *ent)
     ent->sclX = src->sclX;
     ent->sclY = src->sclY;
     ent->rotSpeed = src->rotSpeed;
-    ent->colorBase.word = src->colorBase;
+    ent->colorBase.word = src->colorBase.word;
     ent->f68 = src->f14;
     ent->f6C = src->f18;
     ent->f70[0] = src->f40[0];

@@ -164,7 +164,7 @@ void cCoreSave_addVitalItem(cCoreSave *self, unsigned char n);
 void cCoreSave_addTensionItem(cCoreSave *self, unsigned char n);
 int cCoreSave_addStock(cCoreSave *self, int i, int d);
 void cCoreSave_addUpgradeLv(cCoreSave *self, unsigned int kind, int n);
-int cCoreSave_ckClearStage(cCoreSave *self, unsigned int no);
+int cCoreSave_ckClearStage(cCoreSave *self, unsigned short no);
 int cCoreSave_ckEventFlag(cCoreSave *self, int no);
 int cCoreSave_ckFightingRingClear(cCoreSave *self, unsigned int bit);
 int cCoreSave_ckGodReel(cCoreSave *self, int no);

@@ -7,7 +7,6 @@ extern float capVu0Sin(float f12);
 extern float capVu0Cos(float f12);
 extern int D_005E7510;
 extern int D_00747A0C;
-extern void func_002AB9A8(cIDBaseObj *self, int a1);
 extern void func_002AF710(void *env, int a1, int a2);
 extern void func_002AF720(void *env, float a1);
 extern void func_002AF698(void *env, float a1, float a2);

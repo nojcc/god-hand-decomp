@@ -5,7 +5,6 @@
 extern void *cSnd_GetSeData(void *a0, int a1);
 extern int cSeData_IsAlive(void *p);
 extern void cSndSeVoice_Unlink(void *a0);
-extern char D_005FEE00[];
 extern unsigned int D_00747A84;
 extern int D_00747A78;
 extern unsigned int irand(void);
@@ -35,7 +34,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
     if (cSndSeVoice_IsActive(voice) == 0) {
         return;
     }
-    snd = (cSnd *)D_005FEE00;
+    snd = &D_005FEE00;
     entry = cSnd_GetSeData(snd, voice->key0);
     if (cSeData_IsAlive(entry) == 0) {
         goto reset;
@@ -82,7 +81,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
         if (1.0f < ratio) {
             ratio = 1.0f;
         }
-        sndNow = (cSnd *)D_005FEE00;
+        sndNow = &D_005FEE00;
         sndNow->f9C = ratio;
     }
     state = func_003750E0(voice->handle);

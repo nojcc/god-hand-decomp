@@ -84,7 +84,7 @@ struct cIDBaseSrc {
     float sclY;                 /* 0x2C */
     char unk30[0x10];
     float f40[4];               /* 0x40 */
-    unsigned int colorBase;     /* 0x50 */
+    cIDColor colorBase;         /* 0x50 */
     unsigned char b54;          /* 0x54 */
     unsigned char b55;          /* 0x55 */
     unsigned char b56;          /* 0x56 */
@@ -135,7 +135,7 @@ struct cIDBaseEnt {
     float f6C;                  /* 0x6C */
     float f70[4];               /* 0x70 */
     float f80;                  /* 0x80 */
-    unsigned int seed;          /* 0x84 */
+    int seed;                   /* 0x84 also the number a number entry shows; compared signed */
     unsigned char kind;         /* 0x88 IDENT_KIND_* */
     unsigned char b89;          /* 0x89 */
     unsigned char b8A;          /* 0x8A */

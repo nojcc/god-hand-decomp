@@ -21,7 +21,6 @@ extern int D_00423C70;
 extern int D_00425AC0;
 extern void cObjBase(void *);
 extern int D_00450C38;
-extern int D_003FA62C;
 extern int D_003FBEA8;
 
 __attribute__((section(".text.Tramp_flush__7ostream_3892C0")))

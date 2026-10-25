@@ -73,10 +73,37 @@ typedef struct cMovie {
 #define MOVIE_CLIP_LOCK_PAD  0x20       /* flags: hold the pad while the clip plays */
 
 typedef struct cMovieClip {
-    char unk00[0x2C];
+    const char *name;                   /* 0x00 the .sfd file */
+    short w;                            /* 0x04 picture size, copied to cMovieTrack.w/h */
+    short h;                            /* 0x06 */
+    short unk08;                        /* 0x08 */
+    short unk0A;                        /* 0x0A */
+    short scrW;                         /* 0x0C the screen size (D_003C1180, D_003C118C) */
+    short scrH;                         /* 0x0E */
+    int f34;                            /* 0x10 copied to cMovieTrack.f34 */
+    int f28;                            /* 0x14 copied to cMovieTrack.f28 */
+    int f2C;                            /* 0x18 copied to cMovieTrack.f2C */
+    int f30;                            /* 0x1C copied to cMovieTrack.f30 */
+    int f38;                            /* 0x20 copied to cMovieTrack.f38 */
+    int level;                          /* 0x24 int read as a float into the track at 0x44 */
+    int level2;                         /* 0x28 the same, used instead when Obj0000_Get_D_0076A7A4_3756F0() is 2 */
     unsigned int flags;                 /* 0x2C */
 } cMovieClip;                           /* 0x30 */
 
+typedef char cMovieClip_size_check[(sizeof(cMovieClip) == 0x30) ? 1 : -1];
+
 typedef char cMovieTrack_size_check[(sizeof(cMovieTrack) == 0xAC) ? 1 : -1];
+
+#define MOVIE_CLIP_NUM  6
+
+extern cMovieClip D_005E7BF0[MOVIE_CLIP_NUM]; /* clip descriptions */
+extern cMovieClip D_005E7D10[MOVIE_CLIP_NUM]; /* the same clips, used when D_00747A0C is set */
+extern cMovieTrack D_005E7E30[MOVIE_TRACK_NUM];
+
+/* Constructs the movie manager: points it at the track table and clears it. */
+cMovie *func_002B48F0(cMovie *self);
+
+/* Constructs one track: clears its handle and buffers. */
+cMovieTrack *func_002D36E8(cMovieTrack *self);
 
 #endif

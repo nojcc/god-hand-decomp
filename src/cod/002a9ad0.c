@@ -2,8 +2,6 @@
 
 #include "godhand/cHeatSys.h"
 
-extern float cHeatSys_GetHeatRatio(cHeatSys *self);
-extern void cHeatSys_UpdateHeatLv(cHeatSys *self);
 extern void *Getplayer(void);
 extern void KillEffect(void *eff, int a, int b);
 

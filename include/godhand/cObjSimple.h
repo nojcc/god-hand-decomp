@@ -135,4 +135,12 @@ typedef char cObjSimple_chk_one[COBJSIMPLE_OFS(oneBodyFlag) == 0x4D8 ? 1 : -1];
 typedef char cObjSimple_chk_kage[COBJSIMPLE_OFS(kageObj) == 0x4DC ? 1 : -1];
 typedef char cObjSimple_chk_pendOn[COBJSIMPLE_OFS(pendulumOn) == 0x1390 ? 1 : -1];
 
+/* Node helpers (0x2B6xxx), on any object whose node record starts at 0. */
+void *StoreVecFromFieldB0_2B6160(void *dst, void *self);   /* world position of the node */
+void *CopyVec16From20_B62E0(void *dst, char *self);       /* the node's scale at 0x20 */
+void *func_002B60D0(void *dst, void *self);              /* the node's rotation angles */
+int CallThenReturnPlusB0_002B6420_2B61B0(int a0);         /* updates the world matrix, returns it (node + 0xB0) */
+void UpdateObjByIndexedOp_2FBE50(void *self);
+void func_002FBED0(void *self);
+
 #endif

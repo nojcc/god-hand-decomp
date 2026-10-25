@@ -20,7 +20,9 @@ typedef struct cEmActorVt {
     short suspendDelta;         /* 0x60 */
     short pad62;
     void (*suspend)(void *self, int flag);          /* 0x64 */
-    char unk68[8];
+    short getPosDelta;          /* 0x68 */
+    short pad6A;
+    struct cVec *(*getPos)(void *self);             /* 0x6C the actor's current position */
     short setPosDelta;          /* 0x70 */
     short pad72;
     void (*setPos)(void *self, int pos);            /* 0x74 */
@@ -31,10 +33,17 @@ typedef struct cEmActorVt {
     short entryDelta;           /* 0x98 */
     short pad9A;
     int (*entry)(void *self, void *data, void *parent);  /* 0x9C set up from a SET_EM_DATA */
-    char unkA0[0xD8 - 0xA0];
+    char unkA0[0xC8 - 0xA0];
+    short ckTargetDelta;        /* 0xC8 */
+    short padCA;
+    int (*ckTarget)(void *self);                    /* 0xCC nonzero: skip the height test of a target search */
+    char unkD0[0xD8 - 0xD0];
     short startDelta;           /* 0xD8 */
     short padDA;
     void (*startAction)(void *self);                /* 0xDC */
+    short unkE4Delta;           /* 0xE0 */
+    short padE2;
+    int (*unkE4)(void *self);                       /* 0xE4 0: a target search passes over the actor */
 } cEmActorVt;
 
 typedef struct cEmActor {
@@ -60,7 +69,9 @@ typedef struct cEmActor {
     int scrFlags;               /* 0x5A0 */
     char unk5A4[4];
     float speedRate;            /* 0x5A8 copied from cEmManage every frame */
-    char unk5AC[0x640 - 0x5AC];
+    char unk5AC[0x617 - 0x5AC];
+    unsigned char unk617;       /* 0x617 nonzero: a target search passes over the actor */
+    char unk618[0x640 - 0x618];
     unsigned short entryNo;     /* 0x640 the room table's number for it, cEmManage_GetEm's key */
 } cEmActor;
 
@@ -81,6 +92,8 @@ typedef char cEmActor_chk_flags[EMACTOR_OFFSET(objFlags) == 0x250 ? 1 : -1];
 typedef char cEmActor_chk_kind[EMACTOR_OFFSET(kind) == 0x4AC ? 1 : -1];
 typedef char cEmActor_chk_emno[EMACTOR_OFFSET(emNo) == 0x564 ? 1 : -1];
 typedef char cEmActor_chk_entry[EMACTOR_OFFSET(entryNo) == 0x640 ? 1 : -1];
+typedef char cEmActor_chk_617[EMACTOR_OFFSET(unk617) == 0x617 ? 1 : -1];
+typedef char cEmActorVt_chk_ckTarget[(int)&((cEmActorVt *)0)->ckTarget == 0xCC ? 1 : -1];
 typedef char cEmActorVt_chk_entry[(int)&((cEmActorVt *)0)->entry == 0x9C ? 1 : -1];
 
 #endif

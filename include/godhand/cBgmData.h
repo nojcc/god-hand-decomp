@@ -103,22 +103,55 @@ typedef struct cBgmStageEnt {
     int bgm[5];                 /* 0x04 bgm request per eBgmState */
 } cBgmStageEnt;                 /* 0x18 */
 
-/* One entry of the hit table. */
+/* One entry of the hit table: an area, and what the BGM does when the
+ * listener point goes in or out of it. */
+#define CBGM_HIT_SHAPE_MASK   0x6       /* cBgmHitEnt.flags bits 1-2 */
+#define CBGM_HIT_STATE_IN     0x1       /* cBgmHitEnt.state: inside this frame */
+#define CBGM_HIT_STATE_ENTER  0x2       /* came in this frame */
+#define CBGM_HIT_STATE_LEAVE  0x4       /* went out this frame */
+
+/* One parameter word; each action reads it as its own type. */
+typedef union cBgmHitPrm {
+    int i;
+    float f;
+    unsigned short s;
+    unsigned char b;
+} cBgmHitPrm;
+
 typedef struct cBgmHitEnt {
-    char unk00[0x28];
+    float pt[4][2];             /* 0x00 x, z of the corners; a round area keeps its centre in pt[0] and radius in pt[1][0] */
+    float yLo;                  /* 0x20 */
+    float yHi;                  /* 0x24 */
     signed char id;             /* 0x28 */
     unsigned char flags;        /* 0x29 bit 0: hit flag set */
-    char unk2A[0x42];
+    char unk2A[2];
+    cBgmHitPrm prm[4];          /* 0x2C */
+    unsigned char unk3C;        /* 0x3C action 6: also fade the other nodes */
+    unsigned char unk3D;        /* 0x3D action 6: group bit */
+    unsigned char unk3E;        /* 0x3E action 6: 0 measures from the camera target, 1 from the player */
+    unsigned char unk3F;        /* 0x3F action 6: nonzero uses segA/segB */
+    float segA[3];              /* 0x40 */
+    float segB[3];              /* 0x4C */
+    char unk58[4];
+    int state;                  /* 0x5C CBGM_HIT_STATE_* */
+    char unk60[8];
+    int action;                 /* 0x68 0..7 */
 } cBgmHitEnt;                   /* 0x6C */
+
+typedef char cBgmHitEnt_size_check[sizeof(cBgmHitEnt) == 0x6C ? 1 : -1];
 
 /* The hit table cSnd.hit points at. */
 typedef struct cBgmHit {
-    char unk00[4];
+    char magic[4];              /* 0x00 "BMH" */
     float version;              /* 0x04 1.3 */
     unsigned short entNum;      /* 0x08 */
     char unk0A[2];
     float scale;                /* 0x0C */
     cBgmHitEnt ent[1];          /* 0x10 */
 } cBgmHit;
+
+/* Nonzero when arg is inside the entry's area; with mode 1 only entries
+ * whose hit flag is set are tested (definition in 001731b8.c). */
+int HitNode_dispatchByKind(cBgmHitEnt *node, void *arg, int mode);
 
 #endif /* GODHAND_CBGMDATA_H */

@@ -4,9 +4,6 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cIDBase.h"
 
-extern void cIDBase_restartAnim(cIDBaseObj *self);
-extern float cHeatSys_GetHeatRatio(cHeatSys *self);
-extern void func_002AC9B8(void *p, void *ent, int arg);
 
 #define HUD_GOD_ITEM_NUM  6             /* god-item marks */
 #define HUD_LEVEL_ENT     12            /* ent[] index of the first game-level mark */
@@ -72,7 +69,7 @@ void func_00141CE8(HudPanel *self)
         self->level = 4;
     self->level--;
     self->ent[self->level + HUD_LEVEL_ENT]->flags &= ~IDENT_FLAG_NO_DRAW;
-    func_002AC9B8(self, self->ent[self->level + HUD_LEVEL_ENT], 0);
+    func_002AC9B8(&self->base, self->ent[self->level + HUD_LEVEL_ENT], 0);
     self->frameEnt[5]->flags |= IDENT_FLAG_NO_DRAW;
     self->frameEnt[6]->flags |= IDENT_FLAG_NO_DRAW;
     self->frameEnt[7]->flags |= IDENT_FLAG_NO_DRAW;
@@ -104,7 +101,7 @@ void func_00141CE8(HudPanel *self)
     {
         cIDBaseObj *b = &self->frame;
 
-        func_002AC9B8(self, self->ent[11], 1);
+        func_002AC9B8(&self->base, self->ent[11], 1);
         self->ent[11]->colorBase.c[3] = 0;
         func_002AC9B8(b, self->frameEnt[0], 1);
         self->frameEnt[0]->colorBase.c[3] = 0;
