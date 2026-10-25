@@ -66,6 +66,7 @@ __attribute__((section(".text.func_0031B560")))
 void func_0031B560(PadPort *port, PadState *st, int mode)
 {
     unsigned char neutral[0x20];
+    CVEC_TEMPS;
     unsigned char *p;
     int n;
     int first;

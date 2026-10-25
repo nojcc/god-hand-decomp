@@ -54,6 +54,7 @@ static inline void cDamageTake_setUnk44(cDamageTake *take, int unk44)
 __attribute__((section(".text.func_001FCF20")))
 void func_001FCF20(cDamageGive *self)
 {
+    CVEC_TEMPS;
     cDamageData *hits[DAMAGE_HIT_MAX];
     cDamageNode *node;
     cDamageData *ent;

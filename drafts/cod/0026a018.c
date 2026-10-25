@@ -28,6 +28,7 @@ extern float Turn_dest_dir(float f12, float f13, float f14);
 /* Enemy 0x264: turn the head part toward the player. */
 void func_0026A018(cEm00 *self)
 {
+    CVEC_TEMPS;
     if ((self->emNo ^ 0x264) == 0) {
         cGameObj *pl = Getplayer();
         cVec target;
