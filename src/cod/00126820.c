@@ -12,8 +12,6 @@ extern void func_002B2438(cMessageWin *win);
 extern unsigned int D_007474A8;
 extern cCollisionSolidObj *cCollisionSolid(cCollisionSolidObj *self);
 extern void *_MemoryAlloc(int size, int align, int heap);
-extern int cMessCommon_getCodeSize(int code);
-
 /* Update every open message window unless the lock bit is set; a window of kind 7 is deleted. */
 
 

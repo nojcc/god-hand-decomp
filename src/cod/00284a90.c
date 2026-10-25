@@ -1,4 +1,5 @@
 #include "godhand/cEmManage.h"
+#include "godhand/cFont.h"
 
 extern int D_00448CA0;
 extern int cOmbb_ckFire(cEmActor *em);
@@ -46,15 +47,15 @@ void ResetAltStateVtable_289788(int a0, int a1) {
 }
 
 __attribute__((section(".text.BuildGifPacket_2A5930")))
-void BuildGifPacket_2A5930(int a0) {
+void BuildGifPacket_2A5930(cFont *font) {
     int *t0;
-    t0 = func_002A4F30(a0, 0x10);
+    t0 = func_002A4F30(font, 0x10);
     if (t0 != 0) {
         *(long *)((char *)t0 + 0x0) = 0x70000000;
         *(int *)((char *)t0 + 0x8) = 0x11000000;
         *(int *)((char *)t0 + 0xC) = 0;
-        func_0031A650(&D_00754C80, *(int *)((char *)a0 + 0x2A060),
-                      *(int *)((char *)a0 + 0x2A064), *(int *)((char *)a0 + 0x2A050), t0);
+        func_0031A650(&D_00754C80, *(int *)((char *)font + 0x2A060),
+                      *(int *)((char *)font + 0x2A064), *(int *)((char *)font + 0x2A050), t0);
     }
 }
 

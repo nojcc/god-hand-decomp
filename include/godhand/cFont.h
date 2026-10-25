@@ -49,6 +49,13 @@ extern cFont *D_003C2380;               /* the font */
 
 void cFont_setDrawState(cFont *self, int colour, int layer, int a3, unsigned int t0, float scaleX, float f13, float f14);
 
+/* The font's GIF packet, built in the packet buffer 0x28000 bytes in. */
+void func_002A4FA0(cFont *font);                        /* start a packet: mode 5, cursor aligned to 16 */
+void func_002A52E8(cFont *font, unsigned int col);      /* the packet's RGBA colour */
+void func_002A58A0(cFont *font, int value);             /* the texture mode, then func_002A58D8(font, -1) */
+void func_002A58D8(cFont *font, unsigned int v);        /* the filter; -1 picks it from the texture mode */
+void BuildGifPacket_2A5930(cFont *font);                /* close the packet and send it */
+
 typedef char cFont_state_check[(sizeof(cFont) == CFONT_STATE_OFFSET + 0x3C) ? 1 : -1];
 
 #endif

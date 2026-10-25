@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/Slot2.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cFont.h"
 
 extern long D_00747650;
 extern char D_0042BAC0[];
@@ -20,14 +21,14 @@ extern int D_007476B0;
 
 
 __attribute__((section(".text.func_002A52E8")))
-void func_002A52E8(int a0, unsigned int col)
+void func_002A52E8(cFont *font, unsigned int col)
 {
     char *p;
     float f;
     int q;
     long v;
 
-    p = func_002A4F30(a0, 0x30);
+    p = func_002A4F30(font, 0x30);
     if (p != 0) {
         f = 1.0f;
         q = *(int *)&f;

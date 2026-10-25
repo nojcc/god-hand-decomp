@@ -1,11 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cIDBase.h"
+#include "godhand/cMessDrawFont.h"
 
 extern float Adjust_theta(float f12);
 extern float capVu0Sin(float f12);
 extern float capVu0Cos(float f12);
-extern int D_005E7510;
+extern cMessDrawFont D_005E7510;
 extern int D_00747A0C;
 extern void func_002AF710(void *env, int a1, int a2);
 extern void func_002AF720(void *env, float a1);
@@ -15,7 +16,6 @@ extern void cMessDrawFont_setDrawPos(void *env, int align, float x, float y);
 extern void cMessDrawFont_setMessage(void *env, int id);
 extern void func_002ACC28(void *env, int a1, int a2);
 extern void cMessDrawFont_setDrawCounter(void *env, int a1, int a2);
-extern void cMessDrawFont_draw(void *env, int a1, int a2);
 
 /* Per-frame layout pass: work out every entry's final position, scale,
  * rotation and colour from its own values and its chain of parents. */

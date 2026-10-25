@@ -10,9 +10,6 @@ extern void CustomIDWork_SetOffsetPosX(void *work, int x);
 extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
 extern void func_001DEE60(void *ui, int sub, int on);
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *take);
-extern void func_002B0480(cMessDrawFont *self, float *frame);
-extern unsigned short *cMessDrawFont_measureText(cMessDrawFont *self, unsigned short *text, float *frame, float *w, float *h);
-extern int cMessCommon_getCodeSize(unsigned int code);
 extern int cMessCommon_isPageEndCode(unsigned short code);
 
 /* Blink counter of the mark lights: once armed (bit 15), count frames; after 8 frames flip the on/off bit (bit 14) every frame and show the layer set that matches. */

@@ -17,7 +17,6 @@ extern void func_002AF6A8(int *f, int a, int b);
 extern void func_002AF6B8(char *f, int a);
 extern void func_002AF6E0(char *f, int a);
 extern void func_002AF708(void *f, int a);
-extern void cMessDrawFont_draw(void *f, int a, int b);
 
 __attribute__((section(".text.func_002B1C80")))
 void func_002B1C80(Panel *m)

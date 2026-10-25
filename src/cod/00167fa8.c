@@ -1,13 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cMessDrawFont.h"
+#include "godhand/cMessCommon.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cIDObj.h"
 #include "godhand/cIDManager.h"
 
-extern unsigned int cMessCommon_getCodeSize(unsigned int code);
-extern int cMessCommon_isHighCodeEnd(unsigned short code);
-extern int func_002B04C0(cMessDrawFont *self, unsigned short *text, float *arg);
 extern float func_002B0BE0(cMessDrawFont *self, unsigned short *text, float *arg);
 extern char D_0041FC50[];
 extern float Curve_sample(void *a0, int a1, int a2, int a3);
