@@ -82,6 +82,20 @@
         VU0_SQC2(4, dst, 0);                                    \
     }
 
+
+/* Vec v(fx, fy, fz); (the three-float constructor in place, w = 1). As an
+ * inline function the arguments go through registers and 0.0 components are
+ * no longer stored from $zero. */
+#define CVEC_INIT_XYZ(v, fx, fy, fz)                            \
+    {                                                           \
+        cVec *v_ = &(v);                                        \
+                                                                \
+        v_->x = (fx);                                           \
+        v_->y = (fy);                                           \
+        v_->z = (fz);                                           \
+        v_->w = 1.0f;                                           \
+    }
+
 /* Work-only operators, not in a PR yet: each is used by drafts only. */
 
 /* d = m * *a; (a matrix times a vector: a copy of *a transformed in place by
@@ -173,18 +187,6 @@
         }                                                       \
     }
 
-/* cVec v(fx, fy, fz); (the three-float constructor in place, w = 1). As an
- * inline function the arguments go through registers and 0.0 components are
- * no longer stored from $zero. */
-#define CVEC_INIT_XYZ(v, fx, fy, fz)                            \
-    {                                                           \
-        cVec *v_ = &(v);                                        \
-                                                                \
-        v_->x = (fx);                                           \
-        v_->y = (fy);                                           \
-        v_->z = (fz);                                           \
-        v_->w = 1.0f;                                           \
-    }
 
 /* cVec d(*s); (the copy constructor into a local: the whole quadword) */
 #define CVEC_COPY(d, s)                                         \

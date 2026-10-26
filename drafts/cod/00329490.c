@@ -74,7 +74,7 @@ extern void *func_003353C0(SjObj *sj);
 extern void func_00335580(void *lsc, void *stm);
 extern void Forward33B658_33E678(void);
 extern void Forward33B670_33E690(void);
-extern void func_003298F0(AdxtObj *adxt);
+extern void adxPly_destroy(AdxtObj *adxt);
 extern void func_0032B6A0(AdxtObj *adxt, int a1);
 extern void func_0032AB20(AdxtObj *adxt, int a1);
 
@@ -171,7 +171,7 @@ AdxtObj *func_00329490(int maxnch, void *work, int worksize)
     return adxt;
 
 fail:
-    func_003298F0(adxt);
+    adxPly_destroy(adxt);
     return 0;
 }
 #else

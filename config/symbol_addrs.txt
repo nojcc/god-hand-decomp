@@ -50665,6 +50665,7 @@ IntrCtl_enableVblankStart = 0x0030D190; // type:func
 IntrNest_leave = 0x00360AA8; // type:func
 M2vDec_init = 0x0036BE00; // type:func
 StmMgr_runStartupPass = 0x0032AFB0; // type:func
+TargetOwner_setLogScaleValue = 0x00349C28; // type:func
 CdSrd_finishRead = 0x00331AD8; // type:func
 MixChannel_isUniformC = 0x00384138; // type:func
 SeqCmd_findStartByMask = 0x0037D1A8; // type:func

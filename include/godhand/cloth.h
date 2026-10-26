@@ -1,16 +1,15 @@
-/* include/godhand/cloth.h - the cloth set-up record and its collision spheres.
+/* include/godhand/cloth.h - the cloth collision spheres.
  *
- * A cloth is a chain of model joints described by an EmCloth record, which
- * func_001038E0 starts. The player's costumes (func_00100870) and some enemies
- * (EmClothInit) fill one. Its spheres keep the cloth off the body: a sphere
- * sits on the bone segment from boneB to boneA at blend (1.0 is on boneA),
- * moved by ofs. Field names are ours; offsets are exact.
+ * A cloth's spheres keep it off the body: a sphere sits on the bone segment
+ * from boneB to boneA at blend (1.0 is on boneA), moved by ofs. The player's
+ * costumes fill four tables of them (func_00100FB8). Field names are ours;
+ * offsets are exact.
  */
 #ifndef GODHAND_CLOTH_H
 #define GODHAND_CLOTH_H
 
 #include "godhand/cVec.h"
-#include "godhand/criStm.h"
+#include "godhand/criStm.h"          /* memset (func_003A52F0) */
 
 typedef struct ClothSphere {
     char unk00[2];
