@@ -3,6 +3,7 @@
  * sw zero, and counts the corner loop up from 0; here every store folds to an sp offset and the loop
  * counts down. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCamManager.h"
 #include "godhand/sceVu0.h"

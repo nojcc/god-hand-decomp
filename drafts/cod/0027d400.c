@@ -1,6 +1,7 @@
 /* NON_MATCHING func_0027D400 (sn-2.95.3-136, c_flags_add -f=-ffast-math, fp_hazard_rules "sqrt"): the size and the instruction sequence match. 54 instructions differ in float and saved-register numbering: retail keeps the clamped angle in $f2 and the speed rate in $f4, and holds &f.push in $s4 and the swing vector in $s5, where ours swaps them. Without -ffast-math, __builtin_sqrtf keeps a NaN check and a sqrtf call that retail does not have. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"

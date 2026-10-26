@@ -1,4 +1,8 @@
 /* sn-2.95.3-136 */
+/* NON_MATCHING func_00249770: matches byte for byte, but needs VU0_ZERO_VSUB_XYZ_TO, which vu0.h doesn't have.
+ * Waiting on LucasPicoli (progress/decisions_needed.md, "vu0.h macros"). */
+#include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cCamera.h"
 #include "godhand/sceVu0.h"
@@ -22,6 +26,7 @@ extern float capVu0Atan2(float y, float x);
 extern void MtxInitRotY(void *mtx, float angle);
 extern float Turn_dest_dir(float from, float to, float step);
 
+#ifdef NON_MATCHING
 /* Moves the object around the arena centre by angle on a fixed radius and turns it
  * to face away from the centre. */
 __attribute__((section(".text.func_00249770")))
@@ -49,3 +54,6 @@ void func_00249770(cGameObj *self, float angle)
                                   self->speedRate * ORBIT_TURN_STEP);
     self->rot[1] = Adjust_theta(self->rot[1]);
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_00249770);
+#endif

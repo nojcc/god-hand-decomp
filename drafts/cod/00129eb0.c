@@ -3,6 +3,7 @@
  * self->mtx and &D_005FEE00 inside the loop and spills &ret to the stack; here loop optimisation hoists
  * both invariants into saved registers and the element lives in one. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOm60.h"
 #include "godhand/cMc.h"

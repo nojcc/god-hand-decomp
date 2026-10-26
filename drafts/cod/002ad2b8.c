@@ -3,6 +3,7 @@
  * the spring loop and loads the two spring constants just before their stores; register numbering
  * differs from there on. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cOmBase.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"

@@ -5,6 +5,7 @@
  * an fpu.h macro), so this draft uses the checked form twice. The early return also lays out
  * differently. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cOmBase.h"

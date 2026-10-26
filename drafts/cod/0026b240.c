@@ -1,6 +1,7 @@
 /* NON_MATCHING func_0026B240 (sn-2.95.3-136): the child index test and register use differ. Retail masks the 0/1 result of the index test with andi 0xFF before branching (the same pattern as func_00285C58), and keeps &tmp in s3 across the calls, saving five registers in a 0xC0 frame; ours saves four in 0xB0. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cOmWeapon.h"

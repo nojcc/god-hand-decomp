@@ -5,6 +5,7 @@
  * piece = 1.0 clamp without branch-likely and loads 1.0 after the divide; this build moves the
  * clamp out of line with bc1tl and hoists the constant above the divide. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cOmBase.h"

@@ -2,6 +2,7 @@
  * in-place scale by 0.2 addresses the vector as 0x50(sp); here the inline helper's pointer is
  * already in v0, so the scale's lqc2/sqc2 use 0(v0). */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cOmBase.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"

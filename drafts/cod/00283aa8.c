@@ -1,4 +1,8 @@
 /* sn-2.95.3-136 */
+/* NON_MATCHING func_00283AA8: matches byte for byte, but needs VU0_VSUB_XYZ_IP, which vu0.h doesn't have.
+ * Waiting on LucasPicoli (progress/decisions_needed.md, "vu0.h macros"). */
+#include "include_asm.h"
+#include "../vu0_pending.h"
 /* func_00283AA8: point the push along the heading of the link's holder (sn-2.95.3-136) */
 
 #include "godhand/cEm00.h"
@@ -27,6 +31,7 @@ extern void MtxInitRotY(float *mtx, float angle);
 extern float capVu0Atan2(float y, float x);
 extern void func_00104010(void *self, void *work, void *model);
 
+#ifdef NON_MATCHING
 /* Point the push along the heading of the link's holder (or of the link), then run the step. */
 __attribute__((section(".text.func_00283AA8")))
 void func_00283AA8(cEmLinked *self)
@@ -65,3 +70,6 @@ void func_00283AA8(cEmLinked *self)
     }
     func_00104010(self, self->work, &self->base.unk5B0);
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_00283AA8);
+#endif

@@ -3,6 +3,7 @@
  * (in the delay slot of the spin test); this C computes it into $v0 just
  * before the copy, 10 instructions differ. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"

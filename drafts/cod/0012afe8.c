@@ -1,6 +1,7 @@
 /* NON_MATCHING func_0012AFE8 (sn-2.95.3-136, fp_hazard_rules "fdiv"): 6 instructions differ. Retail computes the address of the temporary at 0x50 into $s0 at the start of the block, ahead of the zero-and-subtract; ours computes it right before the copy that reads it. With a helper that takes the temporary as a parameter, the address moves up but the subtract then stores through 0($s0) instead of 0x50($sp). pl00ThrowView stands in for pl00 until pl00.h names the locked-on target at 0x640. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cGameObj.h"

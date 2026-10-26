@@ -3,6 +3,7 @@
  * of the sum temporary at the top of each block, before the first quadword
  * copy; here it is computed just before the copy out of it. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cOmSub.h"

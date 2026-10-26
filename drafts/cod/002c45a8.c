@@ -4,6 +4,7 @@
  * here they are the other way round. Everything else matches.
  */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cScenario.h"

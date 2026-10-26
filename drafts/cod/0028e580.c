@@ -3,6 +3,7 @@
  * the sub.s, so the nop and one word go missing and everything after shifts. The byte at
  * cScenario+0x14 is read through a raw offset until cScenario.h names it. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cScenario.h"
 #include "godhand/player.h"
