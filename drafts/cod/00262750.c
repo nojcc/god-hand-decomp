@@ -1,6 +1,7 @@
 /* NON_MATCHING func_00262750 (sn-2.95.3-136, extern_jtbl D_004440E0): 4 of 140 insns differ, a v0/v1 swap in the motion vector block. Retail puts &posA in v1 and the vsub result address in v0; ours has them the other way round. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"

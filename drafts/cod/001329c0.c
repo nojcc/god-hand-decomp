@@ -4,6 +4,7 @@
  * after the floor walk, retail reads to.y and to.z through the &to register and interleaves the
  * loads with the stores; this build folds them to stack offsets and loads all three first. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cOmBase.h"

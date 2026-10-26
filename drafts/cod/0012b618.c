@@ -1,6 +1,7 @@
 /* NON_MATCHING func_0012B618 (sn-2.95.3-136): the frame size, the four saved registers and every stack offset match retail. Retail keeps self in $s0 and the vector addresses in $s1..$s3; ours numbers them differently. Ours also addresses the subtraction and unit temporaries through a register, where retail addresses them off $sp. Retail's shape is a by-value vector return, a result pointer that lives in a saved register with the temporary on the stack, which plain C does not express directly. pl00ThrowView stands in for pl00 until pl00.h names the locked-on target at 0x640. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cGameObj.h"

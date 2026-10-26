@@ -1,6 +1,7 @@
 /* NON_MATCHING func_00271518 (sn-2.95.3-136): stack layout and the first enemy number switch differ. Retail keeps the matrix and both child count stores at sp+0 in a 0xC0 frame with three saved registers; ours gives them separate slots (0xE0, four saved). Retail tests 0x264 first and then 0x260 or 0x265 as single values; ours groups 0x264..0x265 as a range. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"

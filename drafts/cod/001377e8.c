@@ -1,6 +1,7 @@
 /* NON_MATCHING func_001377E8 (sn-2.95.3-136, fp_hazard_rules "fdiv", c_flags_add "-f=-ffast-math" for the bare sqrt.s): the stack slots differ. Retail puts the first difference at sp+0x10 and later reuses it for the unit direction, the second difference at sp+0x30, and the hit point in the direction slot at sp+0x20; ours gives each vector its own slot or shares one slot for every temporary. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 
 #ifdef NON_MATCHING
 #include "godhand/sceVu0.h"

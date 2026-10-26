@@ -5232,7 +5232,6 @@
 !src/cod/00135d50.c
 !src/cod/00305e88.c
 !src/cod/00279d88.c
-!src/cod/00283aa8.c
 !src/cod/001eba20.c
 
 !src/cod/002a5bb8.c!src/cod/003033a8.c
@@ -5252,6 +5251,7 @@
 !drafts/
 !drafts/cod/
 !drafts/cod/*.c
+!drafts/vu0_pending.h
 
 !src/cod/001d4980.c
 !src/cod/001aab10.c
@@ -5278,7 +5278,6 @@
 !src/cod/0018f618.c
 !src/cod/001a6310.c
 !src/cod/001cd800.c
-!src/cod/00249770.c
 !src/cod/0026f328.c
 !src/cod/00275888.c
 !src/cod/00304c48.c
@@ -5297,12 +5296,10 @@
 !src/cod/002fbb78.c
 !src/cod/00257e90.c
 !src/cod/0015e0a0.c
-!src/cod/00137f38.c
 !src/cod/001e58f8.c
 !src/cod/001e6498.c
 !src/cod/001f5650.c
 
-!src/cod/002cc150.c
 !src/cod/002da038.c
 !src/cod/002da2d0.c
 !src/cod/002df860.c

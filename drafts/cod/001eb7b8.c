@@ -2,6 +2,7 @@
  * 10 instructions differ, all in the prologue: retail computes &pos (sp + 0x10) into s0 among the register
  * saves, before the zero-and-subtract block; this build computes it after that block. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 

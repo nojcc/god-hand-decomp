@@ -4,6 +4,7 @@
  * lhu at 0x624 (bitfields give the same). The bytes may sit in an 8-byte
  * record at 0x620. 52 instructions differ, all from that test on. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"

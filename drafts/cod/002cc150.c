@@ -1,4 +1,8 @@
 /* sn-2.95.3-136 */
+/* NON_MATCHING cSnd_UpdateListener: matches byte for byte, but needs VU0_LQC2_SQC2_MEM, VU0_ZERO_VSUB_XYZ_TO, which vu0.h doesn't have.
+ * Waiting on LucasPicoli (progress/decisions_needed.md, "vu0.h macros"). */
+#include "include_asm.h"
+#include "../vu0_pending.h"
 /* sn-2.95.3-136 */
 #include "godhand/cSnd.h"
 #include "godhand/cCamera.h"
@@ -39,6 +43,7 @@ static __inline__ cVec *subVecXYZ(cVec *out, cVec *a, cVec *b)
     return out;
 }
 
+#ifdef NON_MATCHING
 /* Place the sound listener for this frame: at the camera, just behind the
  * player's head looking at the player, or halfway between the two. */
 __attribute__((section(".text.cSnd_UpdateListener")))
@@ -110,3 +115,6 @@ void cSnd_UpdateListener(cSnd *self)
         break;
     }
 }
+#else
+INCLUDE_ASM("asm/nonmatching", cSnd_UpdateListener);
+#endif

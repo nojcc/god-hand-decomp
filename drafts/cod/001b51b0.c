@@ -4,6 +4,7 @@
  * offset as (node << 4) + nodes into $v0, and reaches the return-0 exit and
  * the end-of-path branch with branch-likely delay slots. */
 #include "include_asm.h"
+#include "../vu0_pending.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEmManage.h"
 #include "godhand/gameWork.h"
