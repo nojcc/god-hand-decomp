@@ -24,4 +24,7 @@ extern void Draw_Poly_sc(void *v, int color);
 void *Gp_draw_polyFT4(void *v, unsigned int col, int n, void *tex,
                       int t0, int t1, void *cfg, int t3, int extra);
 
+/* Draw a line strip through n world-space points in one colour. */
+void Draw_Line2(void *pts, unsigned int n, unsigned int color, int flag);
+
 #endif /* GODHAND_DRAWPRIM_H */

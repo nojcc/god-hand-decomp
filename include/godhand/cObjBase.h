@@ -100,7 +100,7 @@ static __inline__ void cEffectParam_init(cEffectParam *p)
     cVec unk320; \
     cVec nullSpeed;                     /* 0x330 speed of the null part, in model space */ \
     float quat[4];                      /* 0x340 orientation as a quaternion */ \
-    char unk350[0x10]; \
+    cVec unk350;                        /* 0x350 quat a frame ago */ \
     cVec nullRotSpeed;                  /* 0x360 rotation speed of the null part */ \
     char unk370[0x10]; \
     char unk380[0x10]; \
@@ -151,11 +151,30 @@ struct cObjBase {
 typedef struct cObjBase cObjBase;
 #endif
 
+/* Child number idx of the object, or 0 when idx is out of range; writes the
+ * child count to *frame, as cOmBase_childAt does for a cOmBase. */
+static __inline__ struct cOmBase *cObjBase_childAt(struct cObjBase *b, int *frame, int idx)
+{
+    int n;
+
+    *frame = n = b->partNum;
+    if (idx >= 0 && idx < n) {
+        return b->children[idx];
+    }
+    return 0;
+}
+
 /* Byte offset of a cObjBase field, for the few bodies that must form the
  * address by hand to match retail. */
 #define COBJBASE_OFFSET(field) ((int)&((struct cObjBase *)0)->field)
 
 void cObjBase_addNullSpeed(struct cObjBase *self, float scale);
+
+/* Starts effect id of the given kind on owner with param (0 for the defaults).
+ * follow is the object the effect follows, 0xFFFFFFFF for owner. */
+int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, unsigned int follow);
+/* SetEffect on part `part` of owner at (x, y, z) with the default parameters and the given size. */
+int SetEffectParts(int kind, int id, void *owner, int part, float x, float y, float z, float size, int handle);
 
 /* Starts effect id of the given kind at pos with the default parameters. */
 void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size);

@@ -29,6 +29,15 @@ extern void sceVu0RotTransPers(void *out, void *m, void *v, int mode);
 /* out = v in 12.4 fixed point. */
 extern void sceVu0FTOI4Vector(void *out, void *v);
 
+/* *a0 = *a1 scaled to length 1 (xyz). */
+extern void sceVu0Normalize(void *a0, void *a1);
+
+/* The dot product of *a0 and *a1 (xyz). */
+extern float sceVu0InnerProduct(void *a0, void *a1);
+
+/* *a0 = *a1 x *a2, w cleared. */
+extern void sceVu0OuterProduct(void *a0, void *a1, void *a2);
+
 /* v = m * v, in place. */
 static __inline__ void cVec_applyMatrix(cVec *v, void *m) {
     sceVu0ApplyMatrix(v, m, v);

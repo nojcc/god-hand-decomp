@@ -363,3 +363,34 @@ Stopped for upstream sync
 - **Stop conditions:** none hit (the zero-match streak ended at 4).
 
 Stopped for upstream sync
+
+## Progress update (single-agent, batches 187-196; batch 196 still open) — 2026-10-26T20:20:00Z
+
+Not a checkpoint: the header merge, the held registrations and the full and cold builds wait for checkpoint 197.
+
+- **% matched code:** 56.3492% (1598280 / 2836384 code bytes, progress/report.json). Data 83.0150% (unchanged). +20416 B over the last entry (1577864).
+- **Registered:** 1, func_0027CB58 (batch 187, src/cod/0027cb58.c, `extern_jtbl D_00448150`).
+- **Held matches, to register at checkpoint 197 (14):**
+  - Batch 187: func_00233DD8, func_0026B600, func_0026AB20, func_0028D138, func_001191A0.
+  - Batch 191: func_00293C40, func_002937C0.
+  - Batch 194: func_001BF5E0.
+  - Batch 195: func_002F5588, func_002F1B60, func_00186398, func_0026BBD0.
+  - Batch 196: cGameObj (the constructor) and func_00110B20 (the player takes the partner's weapon).
+  - Most wait on a header question or a definition fix that must land first: the CreateObj signature, the SetEffect prototype, and the cGameObj size below.
+- **Held drafts:** progress/held now holds 92 non-matching drafts across all batches since the last merge, each with a row in progress/held/README.md that says what still differs. Batch 196 so far: func_00275668, func_002DDAB0, func_003132D0, func_00137BB8, func_001EBC58.
+- **Skipped:** most of the remaining candidates in this range share stack slots between C++ vector temporaries and named vectors (D-021), or need the vu0_pending.h macros. Batch 196 so far has 18 skips (including six twins of the func_003132D0 factory).
+- **Decision filed (batch 196):** sizeof(cGameObj) becomes 0x5B0 once its 64-bit fields at 0x538/0x540 are typed `long`. Every derived header then pads from 0x5B0 instead of 0x5AC (decisions_needed.md lists the headers, src files and drafts to sweep). Recommendation: yes. The cGameObj constructor match depends on it.
+- **Checks:** session_check through container_run.sh after each batch close: 19 pass, 6 skip, known dual_compiler_regress rc=126.
+- **Next:** finish batch 196 (func_00123160, 0014BFE0, 001B4A18, 00270DB0, 00283688, 00284068, 002C02E8, 002C1D68), then checkpoint 197.
+
+## Checkpoint 197 (single-agent, batches 187-196) — 2026-10-27T03:09:28Z
+
+- **% matched code:** 56.5932% (1605200 / 2836384 code bytes, progress/report.json). Data 83.0150% (unchanged). +6920 B over the progress update (1598280).
+- **Headers:** the held overlays are merged into include/. Main's names and types win wherever main already had one. About 50 prototypes that clash with main's local declarations stay held, waiting on the "W-set" decision row. So do cEm00 atkVol / pl00 hit[], which would make cEm00.h and pl00.h include cDamageGive.h. New: cOl40.h, the object factory prototypes in cObj.h, SetEffect in cObjBase.h, cDataManager_countReady/getReadyKind. The details are in pending_headers.md under "Checkpoint 197 merge". The cGameObj size and layout are unchanged (waiting on LucasPicoli).
+- **Registered (9):** func_00165EB8, func_00186398, func_001BF5E0, func_0026BBD0, func_0028D138, func_002937C0, func_00293C40, func_002F1B60, and func_001FDEA8 by NM handoff. Config reasons are in batch_log.md.
+- **Definitions corrected in place:** func_002A8578 (void return, float fifth, unsigned short sel/keep). CreateObj is now `cGameObj *CreateObj(int kind, int id)` and forwards id, as retail does. Its chain (func_0030FAC8, func_00312AB0, func_0030FB20, CreateEventObj) takes `(int id, int dataId)`. All of these still match.
+- **Drafts:** 44 held drafts moved to drafts/cod. Of the 50 still held, 24 need overlay types, and the rest collide with an existing draft or lack the INCLUDE_ASM scaffolding.
+- **Still held (24 matches):** 20 wait on the W-set prototypes (cObjBase_addNullSpeed_Rotation, cSnd_SeCall_2CBA48, Obj1D00_ClearState_6/7, cModel_calcParts, ...). Three wait on the new decision rows: func_00394828, the 00306a48 registry and func_002F5588. The cGameObj constructor waits on the layout question.
+- **Builds:** full build and cold build both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseed anchored on func_002F1B60 elf=OK overlay=OK. Logs: build/scratch/ck197/ck197_full3.log, ck197_cold.log.
+- **Checks:** session_check: 19 pass, 6 skip, known dual_compiler_regress rc=126. strip_data_nonmatching applied (the handoff's node-pool externs). naming_sync is consistent (func_001FDEA8 symbol added). cygnus-2.96 -Wall shows no warnings in the added and changed files.
+- **Stop conditions:** none hit.

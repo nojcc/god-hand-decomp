@@ -53,5 +53,6 @@ typedef struct cMcObjList {
     cMcObj **end;                       /* 0x8 */
 } cMcObjList;
 
+extern cMcObjList *D_00754C58;
 
 #endif

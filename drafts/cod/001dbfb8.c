@@ -68,39 +68,6 @@ void func_001DBFB8(Poker *work, unsigned short *rank0, unsigned short *num0,
     *num4 = num[4];
 }
 
-int func_001DC4C0(Poker *work)
-{
-    unsigned short rank[5];
-    unsigned short num[5];
-    unsigned short nSame;
-    int i;
-    int j;
-    int n;
-
-    func_001DBFB8(work, &rank[0], &num[0], &rank[1], &num[1], &rank[2], &num[2],
-                  &rank[3], &num[3], &rank[4], &num[4]);
-    if (num[0] != 4 && num[1] != 4) {
-        return 0;
-    }
-    for (i = 0; i < 4; i++) {
-        for (n = 0; n < 5; n++) {
-            work->hand[n]->flags &= ~4;
-        }
-        nSame = 0;
-        for (j = i + 1; j < 5; j++) {
-            if (work->hand[i]->obj->rank == work->hand[j]->obj->rank) {
-                nSame++;
-                work->hand[i]->flags |= 4;
-                work->hand[j]->flags |= 4;
-            }
-        }
-        if (nSame == 3) {
-            break;
-        }
-    }
-    return 1;
-}
 #else
 INCLUDE_ASM("asm/nonmatching", func_001DBFB8);
-INCLUDE_ASM("asm/nonmatching", func_001DC4C0);
 #endif

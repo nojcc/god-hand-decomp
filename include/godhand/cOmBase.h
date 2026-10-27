@@ -18,6 +18,12 @@
 
 #include "godhand/cGameObj.h"
 
+/* The squared distance between a and b (x, y and z). */
+static __inline__ float cVec_distSq(cVec *a, cVec *b) {
+    return (a->x - b->x) * (a->x - b->x) + (a->y - b->y) * (a->y - b->y)
+         + (a->z - b->z) * (a->z - b->z);
+}
+
 /* One node of the model's mesh list. A model owns a singly linked list of
  * nodes; each node carries the layer it belongs to. */
 typedef struct cMeshNode {

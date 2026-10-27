@@ -16,10 +16,16 @@
 typedef struct cOmScripted {
     cOmBase base;                       /* 0x000 */
     char unk5E0[0x24];
-    unsigned char seqState;             /* 0x604 */
+    unsigned char seqState;             /* 0x604 OMSCRIPTED_SEQ_* */
     unsigned char dead;                 /* 0x605 set when a hit used up the hp */
-    char unk606[2];
+    unsigned char rewarded;             /* 0x606 the reward has been given */
+    char unk607;
     int hitRecord;                      /* 0x608 damage record for cOmBase_checkDamage */
 } cOmScripted;
+
+#define OMSCRIPTED_SEQ_DONE 4
+#define OMSCRIPTED_SEQ_RUN  5
+
+void func_001A6AF8(cOmScripted *self);
 
 #endif

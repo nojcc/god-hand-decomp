@@ -5,6 +5,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cEma2.h"
+#include "godhand/cDataManager.h"
 
 extern int D_007476B0;
 extern char D_00754C80[];
@@ -16,8 +17,6 @@ extern void cModel_queuePacket(cModel *self, short id);
 extern void func_0014C5A0(cModel *self, short id);
 extern void func_0031A600(void *queue, int kind, int id, void *packet);
 extern void KillEffect(void *owner, int handle, int arg);
-extern int SetEffect(int kind, int id, void *owner, void *param, int handle, void *owner2);
-extern char D_005864E0[];
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 
 typedef int (*cModelVoidFn)(void *self);
@@ -71,8 +70,6 @@ void cModel_Trans_screen(cModel *self) {
     }
 }
 
-extern void SetEffectParts(int kind, int id, void *owner, int part, int handle,
-                           float x, float y, float z, float w);
 
 /* Field f of the effect entry at base, formed as retail does: the entry index
  * is scaled into base first and the table offset is added at the access. */
@@ -137,12 +134,12 @@ void cObjBase_SetSeqEffect(cObjBase *self) {
                 SetEffectPos(kind, id, 0, self->pos, -1, 1.0f);
             } else if (self->motionFlags & 2) {
                 param.flags |= EFFECT_PARAM_LOOP;
-                SetEffect(kind, id, owner, &param, handle, owner);
+                SetEffect(kind, id, owner, &param, handle, (unsigned int)owner);
             } else {
-                SetEffect(kind, id, owner, &param, handle, owner);
+                SetEffect(kind, id, owner, &param, handle, (unsigned int)owner);
             }
         } else {
-            SetEffectParts(kind, id, owner, part, handle, 0.0f, 0.0f, 0.0f, 1.0f);
+            SetEffectParts(kind, id, owner, part, 0.0f, 0.0f, 0.0f, 1.0f, handle);
         }
     }
 }
@@ -157,8 +154,8 @@ int cEmManage_pickStandInEm(cEmManage *self, SET_EM_DATA *out)
     unsigned int i;
     int id;
 
-    for (i = 0; i < cDataManager_countReady(D_005864E0); i++) {
-        id = cDataManager_getReadyKind(D_005864E0, i);
+    for (i = 0; i < cDataManager_countReady(&D_005864E0); i++) {
+        id = cDataManager_getReadyKind(&D_005864E0, i);
         switch (id) {
         case 0x202:
         case 0x208:

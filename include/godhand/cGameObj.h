@@ -55,11 +55,15 @@ typedef struct cGameObjVt {
     short unk70Delta;                   /* 0x70 */
     short pad72;
     void (*unk74)(void *self, cVec *pos); /* 0x74 cEmManage_CreateItem passes the drop position */
-    char unk78[0x80 - 0x78];
+    short setRotDelta;                  /* 0x78 */
+    short pad7A;
+    void (*setRot)(void *self, cVec *rot); /* 0x7C sets the rotation */
     short lockOnDelta;                  /* 0x80 */
     short pad82;
-    void (*lockOn)(void *self);         /* 0x84 getLockOnPos and getHitCheckPos both call it */
-    char unk88[0x90 - 0x88];
+    cVec *(*lockOn)(void *self);        /* 0x84 the lock-on point; getLockOnPos and getHitCheckPos both call it */
+    short getRotDelta;                  /* 0x88 */
+    short pad8A;
+    cVec *(*getRot)(void *self);        /* 0x8C the object's rotation, y is the heading */
     short getCenterDelta;               /* 0x90 */
     short pad92;
     cVec *(*getCenter)(void *self);     /* 0x94 the point line-of-sight checks between objects start from */

@@ -206,10 +206,15 @@ typedef char cSndBgmNode_size_check[sizeof(cSndBgmNode) == 0xDC ? 1 : -1];
 typedef char cSndKindEnt_size_check[sizeof(cSndKindEnt) == 0x18 ? 1 : -1];
 typedef char cSndMemHeap_size_check[sizeof(cSndMemHeap) == 0x390 ? 1 : -1];
 
+cSndMemBlk *cSndMemHeap_FindBlk(cSndMemHeap *heap, int addr);
+cSndMemBlk *cSndMemHeap_FindUnusedBlk(cSndMemHeap *heap);
+cSndMemBlk *cSndMemHeap_FindFitBlk(cSndMemHeap *heap, unsigned int size);
+
 cSndKindEnt *func_002D0B88(unsigned short id);
 int cSnd_BgmReqFromEnemies(void *self);
 
 extern cSnd D_005FEE00;
+void cSnd_BgmEventFade(cSnd *self, int reqNo, float time, float level, float weight);
 
 /* Plays sound effect se for an object; kind 1 picks the enemy's sound group. */
 int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
@@ -228,6 +233,13 @@ void cSnd_CalcListenerPanDist(void *self, cVec *pos, short *dist, short *pan);
 /* Starts sound effect key1 of slot at the position mtx (definition in sound/cSnd.c). */
 int cSnd_SeCall(cSnd *self, int slot, short key1, int mtx, int idA, int idB);
 
+int cSnd_AddBgmAttr(cSnd *self, int bits);
+int cSnd_ClearBgmAttr(cSnd *self, int bits);
+int cSnd_AddBgmDefAttr(cSnd *self, int bits);
+int cSnd_ClearBgmDefAttr(cSnd *self, int bits);
+
+void cSnd_BgmHitBeSet(cSnd *self, int on, unsigned short id);
+void cSnd_SetBgmLevel(char *p, float lv, int a, int b, int c);
 /* 1 when a live, non-boss enemy of the given kind is on the field; self is not read. */
 int cSnd_IsEnemyAlive(cSnd *self, int kind);
 

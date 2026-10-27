@@ -10,6 +10,8 @@
 #ifndef GODHAND_COBJSIMPLE_H
 #define GODHAND_COBJSIMPLE_H
 
+#include "godhand/cOmBase.h"
+
 #define COBJSIMPLE_STATE_ACTIVE  4   /* state at which the object's virtual hook runs */
 
 typedef struct cObjSimple cObjSimple;
@@ -110,6 +112,31 @@ struct cObjSimple {
     char unk30CC[4];
     cObjSimpleVec3 parentOfsB;      /* 0x30D0 */
 };
+
+/* Child idx of the prop, 0 when idx is past the child count. The count is
+ * stored to *frame first, as cOmBase_childAt does. */
+static __inline__ cObjSimpleChild *cObjSimple_childAt(cObjSimple *self, int *frame, int idx)
+{
+    int n;
+
+    *frame = n = self->childNum;
+    if (idx >= 0 && idx < n) {
+        return self->children[idx];
+    }
+    return 0;
+}
+
+/* cObjSimple_childAt with the range test built as a flag (cOmBase_childAtIdx). */
+static __inline__ cObjSimpleChild *cObjSimple_childAtIdx(cObjSimple *self, int *frame, int idx)
+{
+    int n;
+
+    *frame = n = self->childNum;
+    if (cOmBase_idxInRange(idx, 0, n) & 0xFF) {
+        return self->children[idx];
+    }
+    return 0;
+}
 
 /* Offset checks: a wrong pad makes one of these array sizes negative. */
 #define COBJSIMPLE_OFS(f) ((int)&((cObjSimple *)0)->f)

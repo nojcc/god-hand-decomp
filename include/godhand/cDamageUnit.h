@@ -37,12 +37,18 @@ typedef struct cDamageNode {
     struct cDamageNode *next;   /* 0x24 */
     cDamageData *data;          /* 0x28 */
     short id;                   /* 0x2C */
-} cDamageNode;
+    unsigned char used;         /* 0x2E nonzero while the node is taken from its pool */
+    char unk2F[0x40 - 0x2F];
+} cDamageNode;                  /* 0x40 */
 
 typedef struct cDamageUnit {
     char unk00[0x3C];
     cDamageNode *nodes;         /* 0x3C list head, 0 when empty */
 } cDamageUnit;
+
+/* The two volume node pools (func_001FE5A8 and func_001FE660 take the first unused node). */
+extern cDamageNode D_00569B80[160];
+extern cDamageNode D_0056C380[512];
 
 #define CDAMAGE_SHAPE_SETRADIUS  3      /* vt[3] of cCollisionShape */
 #define CDAMAGE_SHAPE_GETPOS     8      /* vt[8]: returns the shape's position */
@@ -53,6 +59,10 @@ void func_001FD988(cDamageUnit *self, unsigned char active);
 
 /* Copies up to max of the active volumes touching node's volume into out, in ascending key order. */
 void func_001FC810(cDamageNode *node, cDamageData **out, unsigned short max);
+
+
+/* Moves the hit volume of every node by the given offset. */
+void cDamageUnit_SetDamageCollOffset(cDamageUnit *self, void *offset);
 
 /* Sets the radius of the node with the given id. */
 void cDamageUnit_SetDamageCollRadius(cDamageUnit *self, int id, float radius);

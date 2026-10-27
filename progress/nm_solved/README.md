@@ -77,3 +77,5 @@ The main agent checks this folder once per batch with `scripts/sa/nm_handoff.py`
 
 Processed folders move to `done/`. Failures move to `rejected/` with the reason in `REJECTED.txt`.
 `handoff_log.tsv` has one row per handoff.
+
+- nm_handoff.py holds a lock (build/sa/handoff/.lock) for the whole run. "another nm_handoff run is in progress" means the other agent is applying handoffs; wait and run it again. Two runs at once used to undo each other (batch 187).

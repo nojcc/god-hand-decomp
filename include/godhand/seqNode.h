@@ -121,6 +121,9 @@ typedef struct SndCh {
 
 extern SndCh D_0076E910[];
 
+/* Channel idx's state bits (1 while func_003779D0 finds it busy, 0 when free). */
+int func_00387430(short idx);
+
 /* Bits of SndChReq.flags (0x08). */
 #define SNDCHREQ_CMD 0x10               /* a command for a running channel, not a key-on */
 

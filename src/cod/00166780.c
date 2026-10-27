@@ -1,11 +1,4 @@
 /* sn-2.95.3-136 */
-/* NON_MATCHING func_00166780 (sn-2.95.3-136, extern_jtbl D_0041FAA0): 248 words, 4 differ.
- * In both fade-out calls (step 0 of modes 1 and 3) retail loads the 0xFF000000 colour
- * into t1 before the zero into t0; this loads them in argument order, so the branch
- * delay slot takes the other one. Everything else matches. */
-#include "include_asm.h"
-
-#ifdef NON_MATCHING
 #include "godhand/cSubScrOption.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/classFADE.h"
@@ -132,6 +125,3 @@ void func_00166780(cSubScrOption *self)
     cIDBase_move(&self->sub);
     cIDBase_move(&self->obj.base);
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00166780);
-#endif

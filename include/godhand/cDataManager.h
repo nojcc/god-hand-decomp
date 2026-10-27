@@ -46,6 +46,11 @@ extern int cDataManager_isLoaded(cDataManager *self, int kind);
 extern void cDataManager_resetKind(cDataManager *self, int kind, int arg);
 
 extern cDataManager D_005864E0;
+
+/* Slots whose load has finished. */
+int cDataManager_countReady(cDataManager *self);
+/* Kind of the nth ready slot, 0xFFFF when there are fewer than n + 1. */
+int cDataManager_getReadyKind(cDataManager *self, int n);
 extern cDataManager D_00580D20;
 
 #endif

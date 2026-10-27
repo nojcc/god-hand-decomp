@@ -34,7 +34,29 @@ typedef struct cDamageGive {
     int activeTime;                     /* 0x4C frames the volume stays active, 0 while parked */
 } cDamageGive;
 
+/* One attack volume of an actor: the cDamageGive (a cDamageUnit with the hit
+ * data after it, so both views name one object) and the id of its node,
+ * which cDamageUnit_AddDamageCollSphere returned. */
+typedef struct cDamageGiveVol {
+    union {
+        cDamageGive *give;
+        cDamageUnit *unit;
+    } u;
+    int node;
+} cDamageGiveVol;
+
+/* Sets cDamageGive 0x40 and 0x44 for an attack. Retail evaluates both
+ * arguments before either store, as an inline function does. */
+static __inline__ void cDamageGive_setParams(cDamageGive *self, short a, int b)
+{
+    self->unk40 = b;
+    self->unk44 = a;
+}
+
 /* Copies dir into the hit vector. */
 void cDamageGive_SetDmgGiveHitVec(cDamageGive *self, cVec *dir);
+
+/* Sets the hit vector from a facing direction (the unit Z axis rotated by dir). */
+void cDamageGive_SetDmgGiveHitVecDir(cDamageGive *self, cVec *dir);
 
 #endif

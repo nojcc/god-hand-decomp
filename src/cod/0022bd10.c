@@ -10,7 +10,6 @@ extern void *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int moveMotion(void *a0);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
-extern void func_0026BBD0(void *a0, int a1);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -48,10 +47,7 @@ __attribute__((section(".text.func_0022BD10"))) void func_0022BD10(cEm00 *self)
             char *v1;
             cCoreSave *s4;
             int s2v, s1v;
-            int t;
             int one;
-            int raw;
-            unsigned char b;
 
             self->unk1864 = 0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -117,7 +113,7 @@ __attribute__((section(".text.func_0022BD10"))) void func_0022BD10(cEm00 *self)
             int gb;
             char *v1;
             int s2v, s1v;
-            int r;
+            struct cOmWeapon *r;
 
             self->unk1864 = 0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -135,7 +131,7 @@ __attribute__((section(".text.func_0022BD10"))) void func_0022BD10(cEm00 *self)
             cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x23, self, 0, 0, 0, 0);
             self->unk568 = self->unk568 - 1;
             if (*(char *)((char *)self + 0x1869) > 0) {
-                r = func_0026AA30(self, 0x36A);
+                r = (struct cOmWeapon *)func_0026AA30((char *)self, 0x36A);
                 if (r != 0) {
                     func_0026BBD0(self, r);
                 }
