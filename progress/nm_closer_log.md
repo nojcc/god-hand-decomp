@@ -2441,3 +2441,134 @@ A rule such as `div2_unless_after(cvt.s.w|lwc1|div.s)` would need checking again
 - Nothing in progress: func_00166780/func_00167518 were already logged.
 - Handoffs waiting in progress/nm_solved/: func_002B45F8 (new this session), cMessDrawFont_draw (resubmitted), func_00276478.
 - Permuter: `run_perm.sh --kill` reports PERM=0, none left in godhand-nix. The wait loop is stopped.
+
+## Session 2026-10-26
+
+## SphereTriangle (draft 00135b18) — SOLVED, handed off to progress/nm_solved/SphereTriangle/
+- MATCH, 141 insns, 1 reloc (sn-2.95.3-136, meta.json gives the compiler). Retried after the CVEC_TEMPS answer.
+- Retail is `cVec sum = *a + *b + *c; cVec mid = sum * (1/3);`: the first `+` goes into the return slot (0x30), the second constructs `sum` (0x20), the scale constructs `mid` (0x10), one temporary at 0x40. Locals near, mid, sum, then CVEC_TEMPS.
+- New cVec.h operator CVEC_INIT_ADD(r, a, b) in CVEC_INIT_MUL's shape (`t_ = &tmp_` before the first load, copy through t_ into r). b is not bound: binding it adds a `daddu` copy of the parameter (130 vs 70 diffs).
+- The bounding radius is `maxf(db, da)` then `maxf(m, dc)` through a two-argument inline (retail's extra `mov.s $f0, $f1`); the ternaries inline give one instruction less.
+- The final test is `if (d <= rr) { if (hit) cVec_copy3(hit, &near); return 1; } return 0;` (retail keeps v0 = 1 from the beqz delay slot).
+- The distance is SphereSquare's `cVec_distSq` (product-of-differences form; the x/y/z-locals form schedules differently, 16 off). Header changes: cVec_distSq moves to cOmBase.h, func_00135348's prototype to cCollisionSolid.h (both used by SphereSquare in 00135d50.c and here), and 00135d50.c drops its copies; SphereSquare re-verified MATCH with them.
+- Steering for the PR's Steering section: CVEC_TEMPS after near/mid/sum (retail's stack order), `ret_` passed as the first sum's destination, `t_` in CVEC_INIT_ADD exists for retail's pointer load, b unbound.
+
+## func_001C3090 (draft 001c3090) — stays NON_MATCHING (D-021)
+- Retried with CVEC_TEMPS in mind. Retail has four 16-byte slots: p 0x10, v 0x20, 0x30 shared by the lock-on copy (`lock`, only lock.y read) and the (1, 1, 1) scale, at 0x40. The (1, 1, 1) is a constructor temporary, but the lock-on copy is a named local in every plausible source (a copy of the vtable call's returned position), so retail reuses one slot for a named local and a temporary: the func_002BC950 case the rules keep as NON_MATCHING.
+
+## cScriptCmd_getTicks (draft 002af218) — skipped: off-limits (#25 retypes cScriptCmd_getTicks and ScriptCmd)
+
+## func_00166780 (draft 00166780) — SOLVED, handed off to progress/nm_solved/func_00166780/
+- MATCH, 248 insns, 39 relocs (sn, extern_jtbl D_0041FAA0).
+- Fix: classFADE_start's colour parameters are `unsigned int` (header_changes.md for classFADE.h). With `int`, cc1 loads 0 into t0 before 0xFF000000 into t1; retail loads t1 first. The four main files that declare classFADE_start locally (0017df88.c, 001ef8b8.c, 001612c8.c, 00113f68.c) all type at least one colour unsigned, which is how they matched; they can drop their local externs for the header once it changes.
+- Re-verified every unit that includes classFADE.h with the change (0030b728, 0028e858, 001fff80, 001f7900, 00143b70, 00160ff0): all match (progress/nm_work/tools/unitcheck.py).
+
+## func_00167518 (draft 00167518) — matches, waiting on a data symbol (decisions_needed.md)
+- MATCH with the same classFADE.h change (extern_jtbl D_0041FBB0). It reads its fade step as `D_003BD9E9`, retail's own symbol for the byte after D_003BD9E8, which config/symbol_addrs.txt lacks, so it can't link. A struct over the two bytes changes the addressing (134 off). Question in decisions_needed.md; not handed off.
+
+## func_0026EF60 (draft 0026ef60) — parked, 1 insn, rewritten in the cVec.h form
+- progress/nm_work/func_0026EF60/c/b.c: the ViewFrame placeholder struct is gone. `cVec target, dir; CVEC_TEMPS;`, CVEC_ZERO both, CVEC_ASSIGN(target, &cam->target), CVEC_SUB(&cam->eye, &target) and then `dir.x/y/z = ret_.x/y/z` (retail copies the return slot with no self-check, so it isn't operator=; CVEC_SET_SUB's check costs 75 diffs). Prototypes from capVu0.h and angle.h (Turn_dest takes float *). Suggest the main agent take this form into the draft.
+- Still the one word: retail `neg.s $f2, $f20` (negates the angle), ours `neg.s $f2, $f2` (the copy in the delay slot). Tried 14 abs forms (absf inline, ternaries, one-armed ifs, `!(a >= 0)`, `0 - a`, `a * -1`): 1 at best. Flags (-fno-gcse, drop-reorder, no-schedule) don't help. Not permuted: pycparser can't read the cVec macros.
+- func_0013D288: rechecked 2026-10-26 with the definition's prototype (drawPolyF(cScrSpriteDraw *, unsigned int, float x4)), an inline bar helper (39 words) and int colour: still 4 (the first call's a1 = 0 scheduled first). Parked.
+## func_001F4530: parked (3)
+- Variants A-J in nm_work/func_001F4530 (statement order, temps for the repeated loads, callee prototype types): best stays 3.
+## func_00162298: parked (2)
+- Retail builds the constant 5 stored to sel in $a0 at the left-scroll wrap (0x278/0x27c); ours uses $v1. Note: with `--as sn` the full draft file (include_asm.h plus the INCLUDE_ASM branch) fails in ps2eeas_objfix; score the NM body alone (scan/<fn>__d_sn_as.c form).
+## func_0028E0E0: still parked (1)
+- Retried the maintainer's lw + dsrl idiom on case 0x802 (`unsigned long f = (int)flags; unsigned long bit = (f >> 6) & 1;`, plus `long`, `f >>= 6`, and uniform `(flags >> n) & 1` for all nine cases). Retail shares one `andi 1; beqz` tail between 0x607 (lbu 0x15) and 0x802 (lw; dsrl 6). The idiom forms break that cross-jump (+2..4 words, 83 diffs); the uniform shift forms merge the cases (189 words). The draft also still needs typed cEm00 fields instead of self+0x1510/0x304/0x564 raw offsets before it could hand off.
+## func_001C2408: needs VU0_LQC2_SQC2_MEM (pending macro)
+- MATCH (34 insns) only with `VU0_LQC2_SQC2_MEM(4, &pos, self->pos)` from drafts/vu0_pending.h (nm_work/func_001C2408/p.c). CVEC_COPY and the two-statement LQC2/SQC2 form leave 2 (lui v0 vs retail v1); pointer-typed globals, arg-order locals, int params: 2-12. Added to the VU0_LQC2_SQC2_MEM row in decisions_needed.md. A handoff would also need the 0x2AC short in cGameObj and cCockGetPoint_setData's stub definition given its real parameters.
+## func_002C5338: MATCH -> nm_solved/func_002C5338 (sn, no flags)
+- A static initializer: `if (priority == 0xFFFF && initialize != 0)` constructs D_005FEB00 through two inline constructors (StaticObj_construct: CVEC_ZERO of the cVec at 0, then StaticPart_construct(&self->part): func_002D50C0 base constructor, vtable D_0044D1A8 at 0x30). 19 insns, 6 relocs.
+- Steering: the inline constructors stand for the C++ constructor calls. Passing &D_005FEB00 as the inline's `this` is what gives retail's separate `addiu s0, 0x1C` and the `%lo(D_005FEB00)($v0)` sqc2; writing the zero and the base call directly in the function folds the +0x1C (15 diffs), and VU0_SQC2_VF0_AT(self->unk00) gives 0(s0) (3 diffs). The old "VU0 not allowed" entry is stale.
+- Types are local (no header covers this class): StaticPart (vtable at 0x30), StaticObj (cVec at 0, part at 0x1C). D_0044D1A8 is declared `char []` like D_0044D1C8 in 002d5ca8.c / 00150048.c.
+## func_0014E818: stays NM (D-021)
+- The old "VU0 inline asm only" skip is stale; retried with cVec.h. Retail's frame holds only two vectors: the direction at 0(sp) and operator-'s temporary at 0x10. The direction is the return slot itself (`cVec dir = *target - *self->pos;` with the slot elided into dir). With CVEC_TEMPS the unused ret_ takes its own slot (frame 0x60 vs 0x50, 17 diffs; test CVEC_INIT_SUB overlay in nm_work/func_0014E818). A named local that is the return slot goes in as NON_MATCHING per D-021.
+## SndSlot_updateAll: stale draft
+- drafts/cod/00376370.c is already matched in src/cod/00308f40.c (carved_funcs has it). Nothing to do; the main agent can delete the draft.
+## func_00192588: parked (6)
+- All 120 orders of the random arm's then-stores (mode, phase, flags0, step, stepArg): best 6 (`mode, phase, stepArg, step, flags0`), from 7. The rest is the second flags load (retail lwu into v0, ours v1 then dsra v0,v1) and the else-arm sb order.
+- Before a handoff the draft's local DamageTake must go: cOmBase.h already has cDamageTake, which names 0x10 `dir` and 0x20 `hitPos`, while the draft reads 0x10 as hitPos. Check which name is right (decisions_needed if the header's is wrong).
+- QUEUE 15:23Z: close drafts (score <= 12) all tried or blocked; waiting 10 min for new drafts or answers. PERM=0.
+## func_002BF420: still parked (2)
+- Re-read for a handoff. Besides the li 4 / li 1 order, the draft isn't handoff-ready: `D_00747A84[1]`/`[-24]` are GameWork.flags5E8 and GameWork.flags (0x584) read from the flags5E4 address (retail's shared base is D_00747A84 with 4() and -0x60()), and `((char *)self)[0xC]` lies past the 4-byte ScenarioCursor, so the parameter is a larger record (unidentified). flags5E8 is `unsigned int` in gameWork.h while retail tests it with bltz (bit 31; 00201a00.c sets it with |= 0x80000000), so the test is `(flags5E8 & 0x80000000) == 0`.
+- RECHECK 15:44Z: main agent applied the SphereTriangle and func_00166780 headers (cVec.h, cCollisionSolid.h, cOmBase.h, classFADE.h). Drafts using them (Slot2_Execute, func_001DFDE0, func_002000F8) are size mismatches; func_00167518 still waits on D_003BD9E9. No new drafts or answers. PERM=0.
+- RECHECK 15:55Z: drafts/cod/00156550.c trimmed by the main agent (func_002C5338 handed off); decisions_needed has a new main-agent row (CVEC_SET_ADD binding), nothing answered for the closer. Waiting. PERM=0.
+- RECHECK 16:21Z: no new drafts, no answers for the closer. Waiting. PERM=0.
+- RECHECK 16:51Z: 30 min with no new drafts, header changes or answers. Waiting. PERM=0.
+- RECHECK 17:02Z: decisions_needed edited by the main agent (new rows, none answered for the closer's skips). Snapshot kept in nm_work/decisions_snapshot.md for diffs. Waiting. PERM=0.
+## func_00195068 (main agent's held draft, scratch only): note added to its decisions_needed row
+- An inline helper owning `float mtx[16]` reproduces the fresh matrix address and the 0x130 frame. What's left is the -1000.0f hoist into $f21, which cc1's loop pass skips because the body is a few insns over its threshold: removing any one call in a scratch copy makes it hoist. Six shape changes didn't. Not a drafts/cod function, so nothing handed off.
+## func_0026EF60: still parked (1)
+- Retail's abs is `mov.s f2, f20` in the bc1f delay slot, then `neg.s f2, f20` (negates angle, not the copy). Retried `off = angle; if (angle < 0) off = -angle;`, the ?: form, `off = Turn_dest(...)` with `off = -off`, a separate `turn` local, and an inverted test: 1, 1, 35, 4, 1 differing (the 35s are a merged-branch layout).
+- func_0014E818: re-tried against the main agent's CVEC_TEMP question. With `cVec tmp_;` only and a CVEC_INIT_SUB shape it's 4 off (v0/v1 swapped for self->pos and &tmp_, as in the draft), 11 with t_ bound first. Note added to that decisions row. Stays a draft.
+- RECHECK 18:13Z: no new drafts, header changes or answers since the last entry. Waiting. PERM=0.
+- RECHECK 18:15Z: no new drafts, header changes or answers since the last entry. Waiting. PERM=0.
+- RECHECK 18:54Z: still nothing new (40 min). Waiting. PERM=0.
+- RECHECK 19:25Z: one new main-agent row (cEm00 0x670 volumes), nothing for the closer. Waiting. PERM=0.
+- RECHECK 19:55Z: main-agent rows only (cOmWeapon.throwArg); nothing new for the closer. Waiting. PERM=0.
+- RECHECK 20:25Z: main-agent rows only (cEm00 0x56E); nothing for the closer. Waiting. PERM=0.
+- RECHECK 20:45Z: main agent added func_002F02B8 to the VU0_LQC2_SQC2_MEM row; still unanswered. Waiting. PERM=0.
+- RECHECK 20:52Z: main agent added func_002F02B8 to the VU0_LQC2_SQC2_MEM row; still unanswered. Waiting. PERM=0.
+- RECHECK 21:22Z: main-agent rows only (__moddi3 alias, cOmBase 0x100, CVEC_TEMPS3); none affect the closer's drafts. Waiting. PERM=0.
+- RECHECK 21:52Z: main-agent rows only; no new drafts or answers. Waiting. PERM=0.
+- 22:19Z: added a note to the main agent's 'CVEC operators inside loops' row: the func_00195068 scratch shows the constant hoisting with asm in the loop once the body is smaller (size threshold in loop.c), so 'any asm stops motion' is too strong.
+- RECHECK 22:47Z: main-agent rows only (tmp_-only CVEC_TEMPS, C++ block scoping). Nothing answered. Waiting. PERM=0.
+- 22:58Z: noted func_001C3090 as a candidate on the main agent's C++ block-scoping row.
+- RECHECK 23:18Z: main-agent rows only (operator inlines, identical retail arms). Waiting. PERM=0.
+## func_00195068 (main agent's held draft): MATCH under -fmove-all-movables (scratch only)
+- progress/nm_work/func_00195068/k1.c: the inline matrix helper, plus the second cOmBase_childAt read into a block local before cSnd_SeCall_2CBA48, compiled with `--wrap-arg=-f=-fmove-all-movables`: MATCH 215 insns, 23 relocs. Without the flag it's 201 off. The flag isn't in SUPPORTED_C_FLAG_ADDS (main agent's open question), so nothing handed off. Note added to the main agent's -fmove-all-movables row as a third measured case.
+## -fmove-all-movables sweep (tools/flagsweep.py, results nm_work/flagsweep_mam.txt)
+- Re-scored the ~100 drafts at 1-40 diffs with and without `--wrap-arg=-f=-fmove-all-movables`. New matches: func_0029FDE0 (25 -> 0, the draft as is) and Draw_Line_sc (3 -> 0 with `cVec v`, nm_work/Draw_Line/mam/a.c). Worse: func_003090F8 (29 -> 50). No other changes.
+- Not handed off: the flag isn't in SUPPORTED_C_FLAG_ADDS (the main agent's open question). Both added to that decisions row as measured cases, with func_00195068.
+- Tool note: a background `cmd &` inside a Shell call dies when the call ends; start long sweeps as their own background command.
+## func_001FDEA8: MATCH -> nm_solved/func_001FDEA8 (sn, c_flags_add -f=-fno-gcse)
+- Found by a sweep of the allowed per-file flags (tools/flagsweep.py; -fno-gcse in nm_work/flagsweep_nogcse.txt, -fno-align-jumps in flagsweep_noalign.txt). -fno-gcse took the draft from 11 to 7. A separate node pointer for the 512-node loop closed it: 55 insns, 8 relocs. Without the flag it's 12 off. The reason is in meta.json.
+- Types: D_00569B80/D_0056C380 are cDamageNode pools (id at 0x2C, the 0x2E in-use byte func_001FE5A8/func_001FE660 test, 0x40 stride). header_changes.md pads cDamageNode to 0x40 (only ever used through pointers), declares both pools in cDamageUnit.h, and moves 001fe1e0.c from its local `char []` externs to the header with casts. All 12 functions of 001fe1e0.c and every unit including cDamageUnit.h, cDamageGive.h or cOl0e.h (15 TUs) were re-checked: all match (unitcheck.py).
+- The pool record (cDamagePool: 160 give, 256 take, 2 spare records; func_001FE1E0 returns the spare at 0xAC00 when the give pool is full) is local: no header covers it. Callee prototypes copy their definitions: func_001FCDB8(char *), ResetObjectFields_1FCDE8(void *), ClearFields_20_24_28_30_1FC7F8(int), with casts at the calls.
+- Steering: the two spare stores go through a static inline (cDamagePoolGive_setSpare); direct `pool->spare[n].unk49 = 0` stores fold the 0xAC00/0xAC60 offsets (32 off). Each node loop has its own counter and its own pointer (node, bigNode): one shared pointer or counter gives 7-8.
+- -fno-align-jumps changed nothing. -fno-gcse also improved func_001FE370 (26 -> 18) and func_00273960 (20 -> 19); neither is close.
+- -ffast-math sweep (drafts at 1-40 diffs, nm_work/flagsweep_fastmath.txt): no changes.
+- -fno-gcse sweep over the drafts at 41-150 diffs (nm_work/flagsweep_nogcse_41_150.txt, 38 drafts): no matches. Improvements: func_00134E18 113 -> 61, Draw_Line2 97 -> 51, func_00148D30 41 -> 32, func_001C20D8 94 -> 78. All still far. PERM=0.
+
+- 2026-10-26 21:20 RECHECK: no new drafts/headers. decisions_needed: new cGameObj 0x538/0x540 layout note (waiting on LucasPicoli; sizeof unchanged) - affects none of my parked functions. func_001FDEA8 handoff still pending. PERM=0.
+
+- 2026-10-26 21:42 RECHECK after header checkpoint (46 headers touched, cVec.h gained CVEC_INIT_SUB/CVEC_TEMP_COPY/CVEC_ARG_COPY etc.): func_0014E818 with the real CVEC_INIT_SUB is 11 off with `cVec tmp_;` only, 17 with CVEC_TEMPS (unchanged; stays draft). func_001FDEA8 handoff re-verified against the new cDamageUnit.h (old strings still apply; MATCH 55 insns, 8 relocs, -fno-gcse). cDamageTake in cOmBase.h unchanged, so func_00192588 stays parked. No fpu.h; vu0_pending macros still not in vu0.h. PERM=0.
+
+- 2026-10-26 22:12 RECHECK: header checkpoint still in progress (19 more headers touched, no new drafts, no decisions changes). func_001FDEA8 re-verified against current cDamageUnit.h: still MATCH. PERM=0.
+
+## func_001DC4C0: SOLVED (handoff)
+- The draft called func_001DBFB8 with no prototype in scope (Poker.h has none), so cc1 evaluated the ten address arguments in implicit-declaration order: 5 off. With the siblings' prototype (001dc980.c/001dcc30.c, local extern as they keep it) and their `x[8]`/`y[8]` locals it is MATCH 78 insns, 1 reloc. No meta. -> progress/nm_solved/func_001DC4C0.
+
+## func_001C9AF0: SOLVED (handoff)
+- Draft (held 339/340 words, batch 193) was 1 off: reorg's relax_delay_slots redirected case 2's fall-speed exit past the reset block's `v0 = 1`, because the unk664 store left an identical (set v0 1) just before. Writing the four state bytes through a small static inline `cOmBase_setState(cOmBase *, unsigned char mode, phase, step, stepArg)` at all three reset sites makes the block's constant a parameter copy, not redundant with the unk664 store: MATCH 339 insns, 26 relocs (extern_jtbl D_0042A100 D_0042A120). Using it only at the shared block was 61 off (cross-jumping no longer merged the case-2/5 copies). int params also match; kept unsigned char, the fields' type. -Wall clean. -> progress/nm_solved/func_001C9AF0 (meta: extern_jtbl with reason). If other files want the setter it belongs in cOmBase.h.
+
+## func_0039B960: stays NM (6 off; only fix is a held constant)
+- 6 insns: retail puts the D3_QWC value 0xFFC0 in v1 and the D3_CHCR address in a0, ours the other way round. Tried: an inline DMA-start helper like 0039bb20.c's MpegCsc_run (first form not inlinable: "function with sibling calls", the EIntr tail call; with the IPU_CMD write inside it inlines, still 6), volatile int vs unsigned register macros, `1023 * 16 * 4`, `oldstat != 0`. Permuter (15 min budget, hit zero at ~5 min): the only zero is `new_var = 0xFFC0;` set at the top and stored later, i.e. a constant held in a variable (forbidden); its score-20 result held the CHCR address in a variable. Parked; nothing for decisions_needed.
+
+## SetActionJumpDown: skipped (main agent's open question)
+- 7 off; decisions_needed "Inline operator bodies" row already records that a "+m" VU0_VADD_XYZ_IP variant in a cVec_addTo inline makes it MATCH. Waiting on that answer.
+
+## Pending-macro skips (2026-10-26 checkpoint)
+- func_001947C8, func_001AF230, func_002CEA00, func_002EFD20 use CVEC_TEMP_COPY/CVEC_ARG_COPY, whose bodies call VU0_LQC2_SQC2_MEM (still only in drafts/vu0_pending.h), so they compile it as a call. Skipped like the other vu0_pending functions.
+
+## func_0017F828: stays NM (2 off; needs a new cVec operator shape)
+- Draft 14 off. Retail forms &tmp_ (v1) and &ret_ (a0) before the operator- vector code and reloads the result through the tmp_ pointer: the a_, b_, t_, r_ binding CVEC_SET_MUL/CVEC_SET_ADD have, which CVEC_SET_SUB lacks. CVEC_INIT_SUB(ret_, ...) + CVEC_FROM_RET(to) (existing macros) gives the t_ but binds r_ late: 16. A scratch CVEC_SET_SUB with t_ (a_, b_, t_, r_) is 7; order search over the three state-byte store groups (step/sliding/phase/stepArg in case 0, phase/step/mode in the reset) takes it to 2 (nm_work/func_0017F828/b75.c): retail loads self->base.pos before forming &tmp_, ours after; all 24 binding orders are 2 or 3. Folding the resets into one 4-byte reset or a cOmBase_setState inline: 74-77. Not handed off (not a match, and it would need a new CVEC_SET_SUB variant in cVec.h).
+
+## func_001A6AF8: stays NM (13 off even with the pending macro)
+- 15 off. The D_003BD6E8 v1/v0 part is the func_001C2408 case: with VU0_LQC2_SQC2_MEM(4, &pos, self->base.pos) from drafts/vu0_pending.h instead of CVEC_COPY it goes (13 left). The rest: retail keeps the D_003C2F84 load for the first and last calls in the jal delay slot after the objFlags store (ours hoists it above), and at the end stores seqState before the objFlags write-back. -fno-strict-aliasing/-fstrict-aliasing: no change, so not type-based aliasing. No matched cOmScripted sequence sibling to copy. Also: its SysFlagWords view duplicates 001496c0.c's local one (a header candidate for the main agent). Parked.
+
+## func_001F3DF0: MATCH found, held for a decision
+- Draft as-is is 95 off: cScenario_beginRoomJump_2C4548 had no prototype (float passed as a double in $a3). With the callers' local prototype (float angle 3rd), 2 off (lhu vs lh). Two short one-use locals with interleaved stores (e3.c) or setEmA/setEmB inlines (d.c): MATCH 157 insns, 18 relocs, extern_jtbl D_0042BF70. Held: the 10-24 answer allowed the local only for an unsigned destination (it is short), and the callee's definition (00150830.c) contradicts the prototype that matches. decisions_needed: new follow-up section.
+
+## func_001565A0: skipped for now (33 off, float-register schedule over two cross products)
+
+## cSndMemHeap_Alloc: stays NM (1 off)
+- Draft 16 off (s1/s2 swap for need/heap). Order search over the seven new-block stores (5040 orders): v6 `prev, next, size, freeSize, owner, top, base` fixes the allocation (nm_work/cSndMemHeap_Alloc/b6.c). Left: retail fills the first null check (fit) as beql with the exit's v0 = 0, ours as a plain beq with the same delay slot. Tried: early returns (32), early return on fit only (1), `if (fit)` (1), `fit != 0 && (blk = ...) != 0` (1), the || form (28), a single-exit ret (40), unsigned size (32), `& ~15` (29-42), -fno-gcse/-ffast-math/-fno-rtti, as=sn, drop-reorder (all 1). Permuter 15 min from b6: nothing below base. Parked.
+
+## func_002E64B0: stays NM (one delay slot, 28 insns shifted)
+- Also missing a prototype for cNode_setLocalScale (the draft calls it with int casts and none in scope); its definition in 00134880.c is `void cNode_setLocalScale(int a0, int a1)`, and adding that changes nothing. Left: retail fills the branch around cObj_setMeshValue as beql with the reload of self->mot from the target (one word longer, and the call's a0 load lands in the jal delay slot); ours fills it with the lui of 0x51011. Tried `!= 0`, `== 0x80000`, an empty-then/else form, the mot local for the call (223). Permuter 15 min: best 100 (base 420), only an invented `if (self->color)` branch. Parked.
+
+## func_001E0840: skipped (32 off; saved-register choice for two constants and the D_005E8140 address in a large switch)
+
+- 2026-10-26 23:16 queue pass done: handed off func_001DC4C0, func_001C9AF0; func_001F3DF0 matches but is held on decisions_needed; the rest parked or skipped as above. PERM=0.

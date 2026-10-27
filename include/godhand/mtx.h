@@ -21,4 +21,7 @@ void MtxCopy(void *dst, void *src);
 /* dst = a * b. */
 void MtxMultiply(void *dst, void *a, void *b);
 
+/* mtx = a rotation by angle about y, no translation. */
+void MtxInitRotY(float *mtx, float angle);
+
 #endif

@@ -90,11 +90,11 @@ static __inline__ void cEffectParam_init(cEffectParam *p)
     cVec unk320; \
     cVec nullSpeed;                     /* 0x330 speed of the null part, in model space */ \
     float quat[4];                      /* 0x340 orientation as a quaternion */ \
-    char unk350[0x10]; \
+    cVec unk350;                        /* 0x350 quat a frame ago */ \
     cVec nullRotSpeed;                  /* 0x360 rotation speed of the null part */ \
-    char unk370[0x10]; \
-    char unk380[0x10]; \
-    char unk390[0x10]; \
+    cVec unk370; \
+    cVec unk380;                        /* 0x380 unk370 a frame ago */ \
+    cVec unk390;                        /* 0x390 unk370 - unk380 */ \
     char unk3A0[0xE]; \
     unsigned short seqEffectNum;        /* 0x3AE entries in use */ \
     cSeqEffect seqEffect[9];            /* 0x3B0 (the table length is not measured) */ \
@@ -107,9 +107,10 @@ static __inline__ void cEffectParam_init(cEffectParam *p)
     unsigned char seqSkip;              /* 0x436 while set, SEQEFF_SKIP entries wait */ \
     char unk437[0x1]; \
     float motionStart;                  /* 0x438 */ \
-    char unk43C[0x4]; \
+    float motionLen;                    /* 0x43C the blend-in length */ \
     float motionRate;                   /* 0x440 */ \
-    char unk444[0x8]; \
+    float motionSpeed;                  /* 0x444 */ \
+    char unk448[0x4]; \
     void *shadowData;                   /* 0x44C what KageInit was given */ \
     char *kageWork;                     /* 0x450 two shadow work areas, 0x750 bytes each */ \
     char unk454[0xC]; \
@@ -138,11 +139,30 @@ struct cObjBase {
 typedef struct cObjBase cObjBase;
 #endif
 
+/* Child number idx of the object, or 0 when idx is out of range; writes the
+ * child count to *frame, as cOmBase_childAt does for a cOmBase. */
+static __inline__ struct cOmBase *cObjBase_childAt(struct cObjBase *b, int *frame, int idx)
+{
+    int n;
+
+    *frame = n = b->partNum;
+    if (idx >= 0 && idx < n) {
+        return b->children[idx];
+    }
+    return 0;
+}
+
 /* Byte offset of a cObjBase field, for the few bodies that must form the
  * address by hand to match retail. */
 #define COBJBASE_OFFSET(field) ((int)&((struct cObjBase *)0)->field)
 
 void cObjBase_addNullSpeed(struct cObjBase *self, float scale);
+
+/* Starts effect id of the given kind on owner with param (0 for the defaults).
+ * follow is the object the effect follows, 0xFFFFFFFF for owner. */
+int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, unsigned int follow);
+/* SetEffect on part `part` of owner at (x, y, z) with the default parameters and the given size. */
+int SetEffectParts(int kind, int id, void *owner, int part, float x, float y, float z, float size, int handle);
 
 /* Starts effect id of the given kind at pos with the default parameters. */
 void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size);

@@ -1,5 +1,7 @@
 /* SN ProDG ee-gcc 2.95.3: func_003807E0, index of the table entry nearest to x in the ascending 128-entry
  * table D_003F2060 (rounds down below the midpoint), -1 past the end. */
+#include "godhand/menuCtl.h"
+
 extern unsigned short D_003F2060[];
 
 __attribute__((section(".text.func_003807E0")))

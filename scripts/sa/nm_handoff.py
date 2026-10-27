@@ -35,6 +35,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import fcntl
 import json
 import re
 import hashlib
@@ -409,6 +410,7 @@ def process(folder: Path, apply: bool, j: Journal) -> tuple[str, str]:
                         + ([f"fp_hazard_rules {o['fp_hazard_rules']}"] if o.get("fp_hazard_rules") else [])
                         + (["call_loop_pad"] if o.get("call_loop_pad") else [])
                         + [f"+{f}" for f in o["c_flags_add"]] + [f"-{f}" for f in o["c_flags_drop"]])
+        body = re.sub(r"^/\* (?:sn-|cygnus-|ee-)[^\n]*\*/\n", "", body.lstrip("\n"), count=1)
         new = f"/* {o['compiler']} */\n" + body.lstrip("\n")
         addr = handoff_addr(src, fn, cfg)
         if addr is None:
@@ -501,6 +503,14 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true")
     args = ap.parse_args()
+    # Another run's journals look like an interrupted run to the recovery below, which would undo its work.
+    WORK.mkdir(parents=True, exist_ok=True)
+    lock = open(WORK / ".lock", "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        print("nm_handoff: another nm_handoff run is in progress; try again when it finishes")
+        return 1
     run_journal = WORK / "journal"
     undone = []
     for d in sorted(WORK.glob("journal-*")):         # a handoff that was killed midway

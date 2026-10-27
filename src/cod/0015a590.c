@@ -8,7 +8,6 @@ extern void CustomIDOwner_setAllShown(void *self, int on);
 extern void func_001F4928(void *self, int on);
 extern void Effect_killByModeB(int a0, int a1);
 extern int EffEventIsCutDataExist(unsigned int id);
-extern int SetEffect(int kind, int id, void *owner, void *param, int handle, unsigned int owner2);
 
 #define DISP_ALL  0x6F                  /* id that stands for every element */
 

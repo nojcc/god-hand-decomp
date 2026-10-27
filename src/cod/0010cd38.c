@@ -6,7 +6,6 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned int t1);
 extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
 extern void cSnd_SeStop(cSnd *self, int handle);
 extern int func_00124540(void *a0, int a1);

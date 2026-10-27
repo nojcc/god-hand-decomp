@@ -28,7 +28,11 @@ typedef struct Slot1Reel {
     int phase;                      /* 0x00C */
     char unk10[0xB0];
     unsigned int doneFlag;          /* 0x0C0 bit 0 = stopped, bit 1 = settled */
-    char unkC4[0x40];
+    int unkC4[3];                   /* 0x0C4 per row: set to payMode when the reel is stopped */
+    int lineSym[8];                 /* 0x0D0 per line: the symbol the other two reels already show on it */
+    char unkF0[4];
+    int sym[3];                     /* 0x0F4 symbol on the top, middle, bottom row */
+    char unk100[4];
     short stopMode;                 /* 0x104 2 = stop on the drawn bonus, 0x15 = free */
     char unk106[2];
 } Slot1Reel;                        /* 0x108 */

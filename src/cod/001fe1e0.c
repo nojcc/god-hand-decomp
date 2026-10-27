@@ -1,8 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/cSnd.h"
-
-extern char D_00569B80[];
-extern char D_0056C380[];
+#include "godhand/cDamageUnit.h"
 
 __attribute__((section(".text.func_001FE1E0")))
 char *func_001FE1E0(char *base) {
@@ -23,7 +21,7 @@ char *func_001FE1E0(char *base) {
 
 __attribute__((section(".text.func_001FE5A8")))
 char *func_001FE5A8(void) {
-    char *p = D_00569B80;
+    char *p = (char *)D_00569B80;
     unsigned int i = 0;
 
     do {
@@ -38,7 +36,7 @@ char *func_001FE5A8(void) {
 
 __attribute__((section(".text.func_001FE660")))
 char *func_001FE660(void) {
-    char *p = D_0056C380;
+    char *p = (char *)D_0056C380;
     unsigned int i = 0;
 
     do {

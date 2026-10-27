@@ -4,16 +4,11 @@
 * MMI psllw pack; movn pos select; dual-base jalr;
 * null/vtable return shape; beql/bnel slot walk.
 * RoundFloat special cvt.w.s;
-* Adjust_theta handwritten add.
-* Closest: func_002C5338 (1 word, sqc2 base). */
+* Adjust_theta handwritten add. */
 #include "include_asm.h"
 #include "godhand/vu0.h"
 
 #ifdef NON_MATCHING
-extern void *func_002D50C0(void *a0);
-extern int D_0044D1A8;
-typedef struct { unsigned char b[16]; } Quad16_b29;
-extern Quad16_b29 D_005FEB00;
 
 __attribute__((section(".text.func_0030A2E0")))
 void func_0030A2E0(float *dst, float *mtx, float *src)
@@ -26,20 +21,6 @@ void func_0030A2E0(float *dst, float *mtx, float *src)
         src += 4;
         dst += 4;
     } while (n != 0);
-}
-
-__attribute__((section(".text.func_002C5338")))
-void func_002C5338(int enabled, unsigned int type)
-{
-    char *s0;
-
-    if (type == 0xFFFF && enabled != 0) {
-        s0 = (char *)&D_005FEB00;
-        __asm__ __volatile__("sqc2 $vf0, %0" : : "m"(D_005FEB00) : "memory");
-        s0 += 0x1C;
-        func_002D50C0(s0);
-        *(int **)(s0 + 0x30) = &D_0044D1A8;
-    }
 }
 
 __attribute__((section(".text.func_00156550")))
@@ -60,7 +41,6 @@ float Adjust_theta(float th)
 
 #else
 INCLUDE_ASM("asm/nonmatching", func_0030A2E0);
-INCLUDE_ASM("asm/nonmatching", func_002C5338);
 INCLUDE_ASM("asm/nonmatching", func_00156550);
 INCLUDE_ASM("asm/nonmatching", Adjust_theta);
 #endif

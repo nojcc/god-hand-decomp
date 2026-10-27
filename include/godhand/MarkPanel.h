@@ -18,4 +18,7 @@ typedef struct MarkPanel {
 typedef char MarkPanel_chk_layer[((int)&((MarkPanel *)0)->layer == 0x448) ? 1 : -1];
 typedef char MarkPanel_chk_flag[((int)&((MarkPanel *)0)->markFlag == 0x49C) ? 1 : -1];
 
+/* Show or hide mark `mark` (0..2) and set whether it starts lit. */
+void MarkPanel_setMark(MarkPanel *self, unsigned short mark, int show, int startLit);
+
 #endif

@@ -37,12 +37,15 @@ typedef struct EffModelObj {
     cGameObj *model;                    /* 0x2B0 the model object, 0 until created */
     int modelNo;                        /* 0x2B4 which model data to load */
     char unk2B8[0x2DC - 0x2B8];
-    int mode;                           /* 0x2DC */
+    unsigned int mode;                  /* 0x2DC */
     int t32Idx;                         /* 0x2E0 index into the T32 table */
     char unk2E4[4];
     unsigned char effGroup;             /* 0x2E8 non-zero: start an effect on the model */
     char unk2E9[0x300 - 0x2E9];
     float size;                         /* 0x300 */
 } EffModelObj;
+
+/* Builds the effect object's model; 0 when a step fails. */
+int func_002F1B60(EffModelObj *self);
 
 #endif

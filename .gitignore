@@ -85,6 +85,7 @@
 !/flake.nix
 !include/.gitkeep
 !include/godhand/cCoreSave.h
+!include/godhand/cOl40.h
 !include/godhand/cVec.h
 !include/godhand/eesyscall.h
 !include/godhand/mmi.h
@@ -202,6 +203,7 @@
 !src/cod/00126770.c
 !src/cod/0012a578.c
 !src/cod/0012ac28.c
+!src/cod/0012bc00.c
 !src/cod/0012c4f0.c
 !src/cod/0012c758.c
 !src/cod/0012cc00.c
@@ -219,6 +221,7 @@
 !src/cod/001339c0.c
 !src/cod/00133a80.c
 !src/cod/00133ba0.c
+!src/cod/00133da0.c
 !src/cod/00134430.c
 !src/cod/001347e8.c
 !src/cod/00134880.c
@@ -272,6 +275,7 @@
 !src/cod/0015f0.c
 !src/cod/0015e708.c
 !src/cod/0015fba8.c
+!src/cod/00165eb8.c
 !src/cod/001684d8.c
 !src/cod/00166bb8.c
 !src/cod/00167908.c
@@ -315,6 +319,7 @@
 !src/cod/001825e0.c
 !src/cod/00182888.c
 !src/cod/001835a0.c
+!src/cod/00186398.c
 !src/cod/00186738.c
 !src/cod/00186998.c
 !src/cod/00187750.c
@@ -393,6 +398,7 @@
 !src/cod/001bde50.c
 !src/cod/001be918.c
 !src/cod/001bf4e0.c
+!src/cod/001bf5e0.c
 !src/cod/001bfac8.c
 !src/cod/001c25f0.c
 !src/cod/001c2c00.c
@@ -454,6 +460,7 @@
 !src/cod/00247708.c
 !src/cod/002477f0.c
 !src/cod/0026af20.c
+!src/cod/0026bbd0.c
 !src/cod/0026e7a0.c
 !src/cod/0026ea28.c
 !src/cod/0026ec60.c
@@ -492,6 +499,7 @@
 !src/cod/00289028.c
 !src/cod/00289038.c
 !src/cod/0028b0.c
+!src/cod/0028d138.c
 !src/cod/0028e0.c
 !src/cod/0028fdd0.c
 !src/cod/0028fe28.c
@@ -503,6 +511,8 @@
 !src/cod/00292ef0.c
 !src/cod/00292f38.c
 !src/cod/00292f50.c
+!src/cod/002937c0.c
+!src/cod/00293c40.c
 !src/cod/00294488.c
 !src/cod/00294968.c
 !src/cod/00294970.c
@@ -644,6 +654,7 @@
 !src/cod/002efb40.c
 !src/cod/002f0058.c
 !src/cod/002f1750.c
+!src/cod/002f1b60.c
 !src/cod/002f4230.c
 !src/cod/002f4b28.c
 !src/cod/002fbcc8.c
@@ -3986,6 +3997,7 @@
 !src/cod/0037c720.c
 !src/cod/0037cce0.c
 !src/cod/0037ce20.c
+!src/cod/0037d298.c
 !src/cod/0037d310.c
 !src/cod/0037d760.c
 !src/cod/0037fd28.c
@@ -4127,6 +4139,7 @@
 !src/cod/00305c20.c
 !src/cod/00305e88.c
 !src/cod/00306838.c
+!src/cod/00306900.c
 !src/cod/00312b00.c
 !src/cod/00322c68.c
 !src/cod/00323cf0.c
@@ -4283,6 +4296,7 @@
 !src/cod/0030da08.c
 !src/cod/0030e660.c
 !src/cod/0030eee8.c
+!src/cod/0030f090.c
 !src/cod/0030f348.c
 !src/cod/0030fcc0.c
 !src/cod/00312e88.c
@@ -4352,7 +4366,9 @@
 !src/cod/002ebf98.c
 !src/cod/003ba148.c
 !src/cod/00321ad0.c
+!src/cod/003820c0.c
 !src/cod/00382660.c
+!src/cod/003827f0.c
 
 !scripts/sa/
 !scripts/append_progress.py
@@ -5367,4 +5383,10 @@
 !src/cod/00387270.c
 !src/cod/002b45f8.c
 !src/cod/003ace90.c
-!src/cod/003a6ce0.c!src/cod/002af728.c
+!src/cod/003a6ce0.c
+!src/cod/002af728.c
+!src/cod/0027cb58.c
+!src/cod/00135b18.c
+!src/cod/00166780.c
+!src/cod/001fdea8.c
+!src/cod/001dc4c0.c

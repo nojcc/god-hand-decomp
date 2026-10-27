@@ -1,12 +1,10 @@
 #include "godhand/vu0.h"
-
-extern int func_0030FB70(void *, void *);
-extern int func_0030FE68(void *, void *);
+#include "godhand/cObj.h"
 
 __attribute__((section(".text.func_0030FAC8")))
-int func_0030FAC8(void *object, void *key)
+char *func_0030FAC8(int id, int dataId)
 {
-    if (func_0030FB70(object, key) == 0)
+    if (func_0030FB70(id, dataId) == 0)
         return 0;
-    return func_0030FE68(object, key);
+    return func_0030FE68(id, dataId);
 }

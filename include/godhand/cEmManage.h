@@ -206,8 +206,12 @@ void cEmManage_SetPlSorry(cEmManage *self);
 int cEmManage_CkPlSorry(cEmManage *self);
 /* An enemy of the given kind near pos (within range and angle of rotY), other
  * than skip; 0 when none. */
-struct cGameObj *func_00291010(cEmManage *self, cVec *pos, struct cGameObj *skip, int kind, int flag,
-                               float rotY, float range, float angle);
+struct cGameObj *func_00291010(cEmManage *self, cVec *pos, float rotY, float range, float angle,
+                               struct cGameObj *skip, int kind, int flag);
+/* The enemy nearest pos within range and angle of rotY, other than skip; 0
+ * when none. */
+struct cGameObj *cEmManage_GetTargetNear(cEmManage *self, cVec *pos, float rotY, float range, float angle,
+                                         struct cGameObj *skip, int mode);
 cEmSlot *cEmManage_getTop(cEmManage *self);
 void Obj293_OrByte_5A3(cEmManage *self, unsigned int bits);
 void Obj293_ClearBytes_5A0_5A3(cEmManage *self);

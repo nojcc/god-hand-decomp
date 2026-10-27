@@ -20,4 +20,7 @@ extern void Draw_Poly_sc(void *v, int color);
 /* Draw a line strip through n + 1 screen-space vertices in one colour. */
 extern void Draw_Line_sc(void *v, int n, unsigned int color, int a3);
 
+/* Draw a line strip through n world-space points in one colour. */
+void Draw_Line2(void *pts, unsigned int n, unsigned int color, int flag);
+
 #endif /* GODHAND_DRAWPRIM_H */

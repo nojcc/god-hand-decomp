@@ -68,6 +68,8 @@ extern cGameObj *Getplayer(void);
 void func_00129718(cGameObj *player, void *em, int kind);
 extern int Obj0000_Get_Field_5FC_NE_Zero_12C748(char *self);
 extern cGameObj *CreateObj(int kind, int id);
+/* Launch the player's cOmbe (actor 0x3BE) for move type 0x29..0x2F; side 1/2 slants type 0x2D. */
+void func_0012BC00(cGameObj *self, int type, unsigned int side);
 extern void cHeatSys_UpdateHeatMax(cHeatSys *self, float max);
 extern void cHeatSys_SetHeatGage(cHeatSys *self, float heat);
 

@@ -52,4 +52,16 @@ typedef char cObj_size_check[(sizeof(struct cObj) == 0x310) ? 1 : -1];
 
 extern void cObj_setId(struct cObj *self, int id);
 
+/* Object creation by actor id. Each maker takes the id and the id of the
+ * data to build it from (0xFFFF for the default) and returns the object, 0
+ * when it can't be made. */
+int func_0030FB70(int id, int dataId);
+char *func_0030FE68(int id, int dataId);
+char *func_0030FAC8(int id, int dataId);
+char *func_00312AB0(int id, int dataId);
+char *func_00312B00(int id, int dataId);
+/* Registers a new object; returns it, or 0 after releasing it when the
+ * object lists are full. */
+char *func_0030FB20(int id, char *obj);
+
 #endif

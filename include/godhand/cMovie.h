@@ -96,9 +96,6 @@ typedef char cMovieTrack_size_check[(sizeof(cMovieTrack) == 0xAC) ? 1 : -1];
 
 #define MOVIE_CLIP_NUM  6
 
-extern cMovieClip D_005E7BF0[MOVIE_CLIP_NUM]; /* clip descriptions */
-extern cMovieClip D_005E7D10[MOVIE_CLIP_NUM]; /* the same clips, used when D_00747A0C is set */
-extern cMovieTrack D_005E7E30[MOVIE_TRACK_NUM];
 
 /* Constructs the movie manager: points it at the track table and clears it. */
 cMovie *func_002B48F0(cMovie *self);

@@ -52,6 +52,45 @@
         VU0_SQC2_MEM(4, &ret_, 0);                              \
     }
 
+/* len = (*a - *b).lengthSq(); (operator- into the return slot, then
+ * lengthSq on the slot). The caller includes capVu0.h. */
+#define CVEC_SUB_LENGTH_SQ(len, a, b)                           \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        cVec *b_ = (b);                                         \
+        cVec *r_ = &ret_;                                       \
+                                                                \
+        VU0_ZERO_VSUB_XYZ_MEM(&tmp_, 0, a_, b_);                \
+        VU0_LQC2(4, &tmp_, 0);                                  \
+        VU0_SQC2_MEM(4, &ret_, 0);                              \
+        (len) = capVu0LengthSq(r_);                             \
+    }
+
+/* a + b; (operator+ into the return slot, for a caller that reads ret_) */
+#define CVEC_ADD(a, b)                                          \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        cVec *b_ = (b);                                         \
+                                                                \
+        VU0_LQC2(4, a_, 0);                                     \
+        VU0_SQC2_MEM(4, &tmp_, 0);                              \
+        VU0_VADD_XYZ_IP(&tmp_, 0, b_);                          \
+        VU0_LQC2(4, &tmp_, 0);                                  \
+        VU0_SQC2_MEM(4, &ret_, 0);                              \
+    }
+
+/* a->unit(); (the unit vector of *a, built in the temporary by cVec_unitOf,
+ * into the return slot, for a caller that reads ret_). The caller includes
+ * sceVu0.h. */
+#define CVEC_UNIT(a)                                            \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+                                                                \
+        cVec_unitOf(&tmp_, a_);                                 \
+        VU0_LQC2(4, &tmp_, 0);                                  \
+        VU0_SQC2_MEM(4, &ret_, 0);                              \
+    }
+
 /* d = a - b; (operator- into the return slot, then operator=, xyz only) */
 #define CVEC_SET_SUB(d, a, b)                                   \
     {                                                           \
@@ -142,6 +181,24 @@
         }                                                       \
     }
 
+/* d = a->unit(); (the unit vector of *a, zero when *a has no length, built
+ * in the temporary by cVec_unitOf, returned through the return slot, then
+ * operator=, xyz only). The caller includes sceVu0.h. */
+#define CVEC_SET_UNIT(d, a)                                     \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        cVec *r_ = &ret_;                                       \
+                                                                \
+        cVec_unitOf(&tmp_, a_);                                 \
+        VU0_LQC2(4, &tmp_, 0);                                  \
+        VU0_SQC2_MEM(4, &ret_, 0);                              \
+        if (&(d) != r_) {                                       \
+            (d).x = ret_.x;                                     \
+            (d).y = ret_.y;                                     \
+            (d).z = ret_.z;                                     \
+        }                                                       \
+    }
+
 /* cVec r = *a * s; (operator* by a scalar: a copy of *a scaled in place,
  * constructing r through the return slot). s is used once and not bound:
  * a float copy of it adds a mov.s. */
@@ -153,6 +210,21 @@
         VU0_LQC2(4, a_, 0);                                     \
         VU0_SQC2_MEM(4, &tmp_, 0);                              \
         VU0_VSCALE_XYZ_MEM(&tmp_, 0, s);                        \
+        VU0_LQC2(4, t_, 0);                                     \
+        VU0_SQC2_MEM(4, &(r), 0);                               \
+    }
+
+/* cVec r = *a + *b; (operator+: a copy of *a with *b added in place,
+ * constructing r through the return slot; r is ret_ when the sum is passed
+ * on). b is used once and not bound: a copy of it adds a move. */
+#define CVEC_INIT_ADD(r, a, b)                                  \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        cVec *t_ = &tmp_;                                       \
+                                                                \
+        VU0_LQC2(4, a_, 0);                                     \
+        VU0_SQC2_MEM(4, &tmp_, 0);                              \
+        VU0_VADD_XYZ_IP(&tmp_, 0, b);                           \
         VU0_LQC2(4, t_, 0);                                     \
         VU0_SQC2_MEM(4, &(r), 0);                               \
     }
@@ -188,6 +260,19 @@
     }
 
 
+/* d = s; (operator= on d with a named vector s: this is &d, compared
+ * against &s before the copy, xyz only) */
+#define CVEC_ASSIGN_VEC(d, s)                                   \
+    {                                                           \
+        cVec *d_ = &(d);                                        \
+                                                                \
+        if (d_ != &(s)) {                                       \
+            d_->x = (s).x;                                      \
+            d_->y = (s).y;                                      \
+            d_->z = (s).z;                                      \
+        }                                                       \
+    }
+
 /* cVec d(*s); (the copy constructor into a local: the whole quadword) */
 #define CVEC_COPY(d, s)                                         \
     {                                                           \
@@ -196,5 +281,92 @@
         VU0_LQC2(4, s_, 0);                                     \
         VU0_SQC2_MEM(4, &(d), 0);                               \
     }
+
+/* *dp = v; (operator= from a named vector into one reached through a
+ * pointer, xyz only: the pointer is read once) */
+#define CVEC_PUT(dp, v)                                         \
+    {                                                           \
+        cVec *d_ = (dp);                                        \
+                                                                \
+        if (d_ != &(v)) {                                       \
+            d_->x = (v).x;                                      \
+            d_->y = (v).y;                                      \
+            d_->z = (v).z;                                      \
+        }                                                       \
+    }
+
+/* d = v; (operator= with its argument bound before this: &v is formed
+ * first and only used for the self-check, the copy reads v by name, xyz) */
+#define CVEC_ASSIGN_ARG(d, v)                                   \
+    {                                                           \
+        cVec *s_ = &(v);                                        \
+        cVec *d_ = &(d);                                        \
+                                                                \
+        if (d_ != s_) {                                         \
+            d_->x = (v).x;                                      \
+            d_->y = (v).y;                                      \
+            d_->z = (v).z;                                      \
+        }                                                       \
+    }
+
+/* d = *a + *b; (operator+: a copy of *a with *b added in place, returned
+ * through its return slot, then operator=, xyz only). t_ is the pointer the
+ * returned copy is read through; retail forms it before the first load. */
+#define CVEC_SET_ADD(d, a, b)                                   \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        cVec *b_ = (b);                                         \
+        cVec *t_ = &tmp_;                                       \
+                                                                \
+        VU0_LQC2(4, a_, 0);                                     \
+        VU0_SQC2_MEM(4, &tmp_, 0);                              \
+        VU0_VADD_XYZ_IP(&tmp_, 0, b_);                          \
+        VU0_LQC2(4, t_, 0);                                     \
+        VU0_SQC2_MEM(4, &ret_, 0);                              \
+        CVEC_PUT(&(d), ret_);                                   \
+    }
+
+/* m * *a; (a matrix times a vector into the return slot, for a caller that
+ * passes &ret_ on). The caller declares sceVu0ApplyMatrix (sceVu0.h). */
+#define CVEC_APPLY(m, a)                                        \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        void *m_ = (m);                                         \
+        cVec *t_ = &tmp_;                                       \
+                                                                \
+        VU0_LQC2(4, a_, 0);                                     \
+        VU0_SQC2_MEM(4, &tmp_, 0);                              \
+        sceVu0ApplyMatrix(t_, m_, t_);                          \
+        VU0_LQC2(4, t_, 0);                                     \
+        VU0_SQC2_MEM(4, &ret_, 0);                              \
+    }
+
+/* cVec r = *a - *b; (operator- constructing r through the return slot, xyz) */
+#define CVEC_INIT_SUB(r, a, b)                                  \
+    {                                                           \
+        cVec *a_ = (a);                                         \
+        cVec *b_ = (b);                                         \
+        cVec *t_ = &tmp_;                                       \
+                                                                \
+        VU0_ZERO_VSUB_XYZ_MEM(&tmp_, 0, a_, b_);                \
+        VU0_LQC2(4, t_, 0);                                     \
+        VU0_SQC2_MEM(4, &(r), 0);                               \
+    }
+
+/* f(cVec(*s)); (a temporary copy passed by reference: p takes the
+ * temporary's address before the copy is made into it) */
+#define CVEC_TEMP_COPY(p, t, s)                                 \
+    {                                                           \
+        (p) = &(t);                                             \
+        VU0_LQC2_SQC2_MEM(4, &(t), s);                          \
+    }
+
+/* f(cVec(*s)) for a by-value cVec argument: the copy into the temporary t is
+ * made when the argument is evaluated; the expression is &t. */
+#define CVEC_ARG_COPY(t, s)                                     \
+    ({                                                          \
+        VU0_LQC2_SQC2_MEM(4, &(t), s);                          \
+        &(t);                                                   \
+    })
 
 #endif /* GODHAND_CVEC_H */

@@ -38,11 +38,21 @@ typedef struct cCollisionSolidObj {
 
 typedef char cCollisionSolid_radius_check[((int)&((cCollisionSolidObj *)0)->radius == 0x70) ? 1 : -1];
 
+/* A box collision body: the solid record, then the eight corners, bottom face first. */
+typedef struct cCollisionSolidBox {
+    cCollisionSolidObj base;
+    char unk74[0xF0 - 0x74];
+    cVec corner[8];                     /* 0xF0 0..3 bottom face, 4..7 top face, in order around */
+} cCollisionSolidBox;
+
+typedef char cCollisionSolidBox_corner_check[((int)&((cCollisionSolidBox *)0)->corner == 0xF0) ? 1 : -1];
+
 /* Nonzero when obj hits a solid of the manager. */
 extern int cCollisionSolidManage_ChkHit(void *mgr, void *obj);
 
 /* The solid collision manager. */
 extern char D_00462FC0[];
+
 
 
 /* Gives obj a solid collision unit of the given kind and radius. */
@@ -54,5 +64,8 @@ void cCollisionSolidManage_CreateSphere(int mgr, int owner, int mtx, int centre,
 /* Casts a line from a to b against the world; 1 when it hits, with the hit point in hit. */
 int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, void *a6,
             int a7, int a8, int a9, int a10, int a11, int a12);
+
+/* The point of the triangle a b c closest to p, into out. */
+void func_00135348(cVec *out, cVec *p, cVec *a, cVec *b, cVec *c);
 
 #endif

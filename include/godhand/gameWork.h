@@ -139,5 +139,6 @@ extern int func_003950F8(int mode, int timeout);   /* GS path sync */
 extern void FlushCache(int op);
 extern void iFlushCache(int op);
 extern void cTaskWork_sleep(struct cTaskWork *task, int frames);
+extern void cTaskWork_exit(struct cTaskWork *task);
 
 #endif

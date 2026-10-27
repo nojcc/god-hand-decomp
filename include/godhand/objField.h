@@ -4,7 +4,7 @@
  * helpers write fixed offsets of the record the caller passes. In the setup
  * code at 0x160E78 and its siblings that record is a 0x60-byte slot from the
  * array at owner + 0x628, and field 0x50 gets a pointer to node + 0x80. The
- * record has no typed struct yet.
+ * breakable objects keep one per child body for its flying piece: cOmPiece.
  *
  * Set_Field_50 and Set_Byte_54 are defined in the monolith 000000.c, the
  * CopyVec3 helpers in the carved TU 0014b6f8.c, ForwardVec3At30_147C60 in
@@ -17,6 +17,25 @@
  */
 #ifndef GODHAND_OBJFIELD_H
 #define GODHAND_OBJFIELD_H
+
+#include "godhand/cOmBase.h"
+
+/* A loose piece of a broken object: it moves by vel and turns by spin every
+ * frame, falls by gravity, and writes its matrix to the child body's. */
+typedef struct cOmPiece {
+    cVec pos;                           /* 0x00 */
+    cVec rot;                           /* 0x10 */
+    cVec vel;                           /* 0x20 */
+    cVec spin;                          /* 0x30 */
+    cVec scale;                         /* 0x40 */
+    float *mtx;                         /* 0x50 the child body's matrix */
+    unsigned char active;               /* 0x54 GetField_54_173900 / Obj0000_Set_Byte_54 */
+    char unk55[3];
+    float gravity;                      /* 0x58 added to vel.y every frame */
+    char unk5C[4];
+} cOmPiece;
+
+typedef char cOmPiece_size_check[sizeof(cOmPiece) == 0x60 ? 1 : -1];
 
 /* Store the pointer value at offset 0x50 of rec. */
 extern void Obj0000_Set_Field_50_173998(void *rec, void *value);

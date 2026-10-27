@@ -195,6 +195,7 @@ typedef struct FileSel {
 extern int GuardedCall_00329FD0_329F98(int handle);
 extern int func_00380AE8(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern void func_00380EB0(MenuCtl *ctl, MenuInfo *info, MenuList *list);
+int func_00380F80(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 int func_0032B0B0(int handle);          /* the stream's error code, under the ADX lock */
 void func_0032B118(int handle);         /* clear the stream's error code, under the ADX lock */
 extern int func_0037FD28(FileSel *sel, FileSelWork *work);
@@ -204,14 +205,19 @@ extern int func_00323918(int a0, int idx);
 
 /* One row of the option menu pages (D_003F21E8, D_003F2368, D_003F24D0). */
 typedef struct MenuRowEnt {
-    short unk0;
-    short unk2;
+    void *value;                        /* 0x00 the value the row edits, a char or a short by width */
     short unk4;
     short y;                            /* 0x06 */
-    char unk8;
+    signed char type;                   /* 0x08 value rows: 0 char, 1 short; flag rows: the bits toggled */
     signed char handler;                /* 0x09 index into D_003F2628 */
-    char unkA[0xA];
+    unsigned short min;                 /* 0x0A */
+    unsigned short max;                 /* 0x0C */
+    short step;                         /* 0x0E */
+    short fastStep;                     /* 0x10 with hold bit 8 */
+    char unk12[2];
 } MenuRowEnt;
+
+typedef char MenuRowEnt_size_check[sizeof(MenuRowEnt) == 0x14 ? 1 : -1];
 
 extern MenuRowEnt D_003F21E8[];
 extern MenuRowEnt D_003F2368[];
@@ -244,5 +250,12 @@ typedef struct SndVoiceRef {
     char unk00[0x30];
     void *voice;                        /* 0x30 voice handle */
 } SndVoiceRef;
+
+/* Index of the volume table entry nearest to x, -1 past the end. self is not read. */
+int func_003807E0(void *self, short x);
+/* 1 if every channel's mute flag equals the picked slot's. */
+int func_003827F0(MenuCtl *self, MenuSnd *snd);
+/* Send the picked slot's level to the player (slot 0 sets every unmuted channel). */
+void func_003820C0(MenuCtl *self, MenuSnd *snd);
 
 #endif /* GODHAND_MENUCTL_H */

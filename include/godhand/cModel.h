@@ -73,7 +73,9 @@ typedef struct cMeshInfo {
     long name;                          /* 0x08 up to 8 chars packed low byte first */
     char unk10[0x24];
     unsigned int flags;                 /* 0x34 CMODEL_MESH_* */
-    char unk38[0xB];
+    char unk38[6];
+    unsigned short uvSpeed[2];          /* 0x3E uv scroll per frame, half floats */
+    char unk42;
     unsigned char layer;                /* 0x43 */
     char unk44[0x14];
     unsigned char alpha;                /* 0x58 nonzero: the node blends */
@@ -351,6 +353,9 @@ static __inline__ void cMtxMulVu0(void *dst, void *a, void *b) {
 
 void cObj_setMeshValue(cModel *self, int value);
 
+
+/* The float a half float holds (00156488.c). */
+float F16toF32(unsigned short half);
 
 
 /* Wraps each angle of an x, y, z rotation back into range. */

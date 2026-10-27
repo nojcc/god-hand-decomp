@@ -26,7 +26,8 @@ typedef struct pl00VtEnt {
 
 typedef struct pl00 {
     cGameObj base;
-    char unk5AC[0x5DC - 0x5AC];
+    char unk5AC[0x5D8 - 0x5AC];
+    int unk5D8;                         /* 0x5D8 4 limits the catch search to GetTargetNear */
     float unk5DC;                       /* 0x5DC set with base.speedRate by the combo attacks */
     unsigned short comboSlot;           /* 0x5E0 combo slot being run (ComboObj.slot) */
     unsigned short comboSet;            /* 0x5E2 combo set (ComboObj.set) */
@@ -45,7 +46,10 @@ typedef struct pl00 {
     cGameObj *unk640;                   /* 0x640 */
     char unk644[4];
     unsigned char unk648;               /* 0x648 set to 0x14 while unk640 is set */
-    char unk649[0x678 - 0x649];
+    char unk649[0x660 - 0x649];
+    cVec jumpPos;                       /* 0x660 where a jump down starts: half a unit out from the ledge, at the player's height */
+    float jumpAngle;                    /* 0x670 facing for the jump down */
+    char unk674[0x678 - 0x674];
     cDamageTake *damage;                /* 0x678 the hit the player took this frame, 0 if none */
     char unk67C[0x698 - 0x67C];
     cGameObj *sub698;                   /* 0x698 */
@@ -53,7 +57,9 @@ typedef struct pl00 {
     cGameObj *sub6A0;                   /* 0x6A0 */
     char unk6A4[4];
     cGameObj *sub6A8;                   /* 0x6A8 */
-    char unk6AC[0x1588 - 0x6AC];
+    char unk6AC[0x76C - 0x6AC];
+    float unk76C;                       /* 0x76C an enemy's catch scales the damage it gives the player by this */
+    char unk770[0x1588 - 0x770];
     float unk1588;                      /* 0x1588 forward push added to nullSpeed.z, decays by 0.9 */
     char unk158C[0x1598 - 0x158C];
     float unk1598;                      /* 0x1598 second push, decays by 0.9 */
@@ -82,7 +88,12 @@ typedef struct pl00 {
     int unk1664;                        /* 0x1664 Obj0000_Set_Fields_166C_1664... writes it */
     int moveA;                          /* 0x1668 (ComboObj.moveA) */
     int moveB;                          /* 0x166C (ComboObj.moveB) */
-    char unk1670[0x1684 - 0x1670];
+    int unk1670;                        /* 0x1670 hit kind (cDamageGive.unk46) of the first attack set */
+    int unk1674;                        /* 0x1674 the same for the second set */
+    int unk1678;                        /* 0x1678 cDamageGive.unk40 of the first set */
+    int unk167C;                        /* 0x167C cDamageGive.unk40 of the second set */
+    short unk1680;                      /* 0x1680 cDamageGive.unk44 of the first set */
+    short unk1682;                      /* 0x1682 cDamageGive.unk44 of the second set */
     unsigned char unk1684;              /* 0x1684 */
 } pl00;
 
@@ -110,6 +121,8 @@ typedef char pl00_chk_15c4[((int)&((pl00 *)0)->unk15C4 == 0x15C4) ? 1 : -1];
 typedef char pl00_chk_1603[((int)&((pl00 *)0)->unk1603 == 0x1603) ? 1 : -1];
 typedef char pl00_chk_1610[((int)&((pl00 *)0)->unk1610 == 0x1610) ? 1 : -1];
 typedef char pl00_chk_1618[((int)&((pl00 *)0)->unk1618 == 0x1618) ? 1 : -1];
+typedef char pl00_chk_5d8[((int)&((pl00 *)0)->unk5D8 == 0x5D8) ? 1 : -1];
+typedef char pl00_chk_1682[((int)&((pl00 *)0)->unk1682 == 0x1682) ? 1 : -1];
 typedef char pl00_chk_1660[((int)&((pl00 *)0)->unk1660 == 0x1660) ? 1 : -1];
 typedef char pl00_chk_1668[((int)&((pl00 *)0)->moveA == 0x1668) ? 1 : -1];
 

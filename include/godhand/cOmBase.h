@@ -37,6 +37,12 @@ static __inline__ void cVec_set4(cVec *v, float x, float y, float z, float w) {
     v->w = w;
 }
 
+/* The squared distance between a and b (x, y and z). */
+static __inline__ float cVec_distSq(cVec *a, cVec *b) {
+    return (a->x - b->x) * (a->x - b->x) + (a->y - b->y) * (a->y - b->y)
+         + (a->z - b->z) * (a->z - b->z);
+}
+
 /* One node of the model's mesh list. A model owns a singly linked list of
  * nodes; each node carries the layer it belongs to. */
 typedef struct cMeshNode {
@@ -119,7 +125,9 @@ typedef struct cOmBase {
     struct cOmBase **children;              /* 0x278 child body list, entry 0 is the collision body */
     char unk27C[0x8];
     int texSet;                             /* 0x284 texture set handed to cModel_setTextureExchange */
-    char unk288[0x2C];
+    char unk288[0x24];
+    short unk2AC;                           /* 0x2AC passed with the gold amount to cCockGetPoint_setData */
+    char unk2AE[0x6];
     unsigned char childNum;                 /* 0x2B4 */
     char unk2B5[0x3F];
     unsigned char mode;                     /* 0x2F4 0x2F4..0x2F7 are the four state bytes the move code writes together */
@@ -144,7 +152,8 @@ typedef struct cOmBase {
     int dropItem;                           /* 0x560 item id this object drops, 0xFFFF for the default drop, 0x9C3 for none */
     int actionId;                           /* 0x564 on a fighter: the current action */
     short unk568;                           /* 0x568 a frame counter of the derived object (a weapon's burst wait) */
-    char unk56A[0x16];
+    short unk56A;                           /* 0x56A a second frame counter of the derived object (a dropped weapon's effect interval) */
+    char unk56C[0x14];
     int unk580;                             /* 0x580 cleared by the enemy setup at 0x1B90D0 */
     int unk584;                             /* 0x584 */
     int unk588;                             /* 0x588 */

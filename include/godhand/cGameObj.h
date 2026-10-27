@@ -39,7 +39,11 @@ typedef struct cGameObjVt {
     short unk40Delta;                   /* 0x40 */
     short pad42;
     int (*unk44)(void *self);           /* 0x44 set-up, 0 if it fails; cEmManage_CreateItem calls it first on a new item */
-    char unk48[0x60 - 0x48];
+    char unk48[0x50 - 0x48];
+    short moveDelta;                    /* 0x50 */
+    short pad52;
+    void (*move)(void *self);           /* 0x54 the per-frame update MoveObj calls */
+    char unk58[0x60 - 0x58];
     short resetDelta;                   /* 0x60 */
     short pad62;
     void (*reset)(void *self, int arg); /* 0x64 */
@@ -49,11 +53,15 @@ typedef struct cGameObjVt {
     short unk70Delta;                   /* 0x70 */
     short pad72;
     void (*unk74)(void *self, cVec *pos); /* 0x74 cEmManage_CreateItem passes the drop position */
-    char unk78[0x80 - 0x78];
+    short setRotDelta;                  /* 0x78 */
+    short pad7A;
+    void (*setRot)(void *self, cVec *rot); /* 0x7C sets the rotation */
     short lockOnDelta;                  /* 0x80 */
     short pad82;
-    void (*lockOn)(void *self);         /* 0x84 getLockOnPos and getHitCheckPos both call it */
-    char unk88[0x90 - 0x88];
+    cVec *(*lockOn)(void *self);        /* 0x84 the lock-on point; getLockOnPos and getHitCheckPos both call it */
+    short getRotDelta;                  /* 0x88 */
+    short pad8A;
+    cVec *(*getRot)(void *self);        /* 0x8C the object's rotation, y is the heading */
     short getCenterDelta;               /* 0x90 */
     short pad92;
     cVec *(*getCenter)(void *self);     /* 0x94 the point line-of-sight checks between objects start from */
@@ -105,7 +113,8 @@ typedef struct cGameObj {
     unsigned char childNum;             /* 0x2B4 */
     char unk2B5[0x2D0 - 0x2B5];
     int unk2D0;                         /* 0x2D0 flag word; an enemy carrying the object clears bit 31 and sets bit 30 */
-    char unk2D4[0x2F4 - 0x2D4];
+    char unk2D4[0x2F0 - 0x2D4];
+    unsigned int unk2F0;                /* 0x2F0 MoveObj clears the low two bits after each move */
     unsigned char mode;                 /* 0x2F4 the four state bytes the move code writes together */
     unsigned char phase;                /* 0x2F5 */
     unsigned char step;                 /* 0x2F6 the phase machines switch on it */
@@ -125,7 +134,11 @@ typedef struct cGameObj {
     cVec posA;                          /* 0x490 position copy used by setPos */
     char unk4A0[0x4AC - 0x4A0];
     const char *kindName;               /* 0x4AC class name of the object, set by its constructor */
-    char unk4B0[0x520 - 0x4B0];
+    char unk4B0[0x4D0 - 0x4B0];
+    int unk4D0;                         /* 0x4D0 0xFFFF after construction */
+    char unk4D4[0x510 - 0x4D4];
+    int unk510;                         /* 0x510 */
+    char unk514[0x520 - 0x514];
     cVec stored;                        /* 0x520 position remembered with storedWait (w is 1.0) */
     unsigned char storedWait;           /* 0x530 */
     signed char unk531;                 /* 0x531 -1 after construction */
@@ -142,7 +155,9 @@ typedef struct cGameObj {
     short effNo;                        /* 0x570 one more effect to kill with the object, -1 if none */
     short pad572;
     int effArg;                         /* 0x574 the mode to kill it with */
-    char unk578[0x5A0 - 0x578];
+    char unk578[0x580 - 0x578];
+    cVec unk580;                        /* 0x580 */
+    cVec unk590;                        /* 0x590 */
     int scrFlags;                       /* 0x5A0 GAMEOBJ_SCR_* */
     char unk5A4[4];
     float speedRate;                    /* 0x5A8 1.0 normal, copied from the manager every frame */
@@ -216,6 +231,7 @@ static __inline__ unsigned char cGameObjSortEnt_less(const cGameObjSortEnt *a, c
 extern void func_002831C8(cGameObj *self, unsigned int kind, unsigned char arg);
 /* Aims the object at target; the third argument is not read. */
 void func_002A74E0(void *self, cVec *target, int unused);
+unsigned char func_002A7CA0(struct cGameObj *self, cVec *out);
 /* Bit 0x1000 of the word at 0x15F4. */
 int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(char *a0);
 int func_00275888(cGameObj *self, float dist);

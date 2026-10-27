@@ -1,4 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/player.h"
+#include "godhand/cObj.h"
 
 extern unsigned char D_003C3CFC;
 extern void func_0030ECF8(int a0);
@@ -33,8 +35,9 @@ void KillEffect(int a0, int a1, int a2) {
     }
 }
 
+/* Makes the object of actor id kind from data id and registers it. */
 __attribute__((section(".text.CreateObj")))
-int CreateObj(int a0)
+cGameObj *CreateObj(int kind, int id)
 {
-    return func_0030FB20(a0, func_0030FAC8(a0));
+    return (cGameObj *)func_0030FB20(kind, func_0030FAC8(kind, id));
 }

@@ -31,17 +31,28 @@
 #define DOOR_ANGLE_90  1.5707964f
 #define DOOR_ANGLE_100 1.7453293f
 
+/* The door's collision object (made by the D_005CAE50 manager): the objects
+ * that touched it this frame. Only the contact list is known. */
+typedef struct cObjCollision {
+    char unk00[0x34];
+    cGameObj *touch[8];                 /* 0x34 cleared every frame */
+    unsigned int touchNum;              /* 0x54 */
+} cObjCollision;
+
 typedef struct cOmDoor {
     cGameObj base;                      /* 0x000 */
     char unk5AC[0x610 - 0x5AC];
     float size[3];                      /* 0x610 width, height, depth of the collision box */
     char unk61C[4];
     unsigned int flags620;              /* 0x620 */
-    char unk624[0x638 - 0x624];
+    char unk624[0x630 - 0x624];
+    unsigned short touchedNum;          /* 0x630 player or enemy contacts seen */
+    char unk632[2];
+    cGameObj *toucher;                  /* 0x634 the last of them */
     float closedHeading;                /* 0x638 heading while closed */
     char unk63C[4];
     float openHeading;                  /* 0x640 heading when swung open */
-    void *collision;                    /* 0x644 solid collision object, 0 once released */
+    cObjCollision *collision;           /* 0x644 solid collision object, 0 once released */
 } cOmDoor;
 
 #endif

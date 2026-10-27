@@ -12,6 +12,8 @@
 #ifndef GODHAND_BLACKJACK_H
 #define GODHAND_BLACKJACK_H
 
+#include "godhand/cOmBase.h"
+
 #define BLACKJACK_DECK_NUM   52
 #define BLACKJACK_HAND_NUM   5      /* card slots per hand */
 #define BLACKJACK_SUIT_NUM   4
@@ -78,5 +80,12 @@ typedef struct BlackJack {
     short cardIdA[BLACKJACK_HAND_NUM];  /* 0x1822 card ids dealt to hand A */
     short cardIdB[BLACKJACK_HAND_NUM];  /* 0x182C card ids dealt to hand B */
 } BlackJack;                            /* 0x1836 */
+
+
+struct PanelHost;
+
+void func_001D45A0(char *a0, int *a1, unsigned short a2);
+void func_001D0D90(int a0, int a1);
+int func_001D48B0(char *p);
 
 #endif
