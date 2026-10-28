@@ -1,28 +1,25 @@
 #include "godhand/cEm00.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned int irand(void);
 extern unsigned int Rnd(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int GetSeqSEBase(void *a0);
 extern int Getplayer(void);
 extern int moveMotion(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DAF0(int a0);
 extern void Obj2810_SetState_1_a1(int a0, int a1);
 extern void SetBytes2F4Mode1_283188(int a0, int a1);
 extern void Obj1D00_SetState_7_2(int a0);
 extern void Obj1D00_SetState_7_4(int a0);
 extern void Obj1D00_SetState_7_8(int a0);
-extern void Obj1D00_ClearState_7(int a0);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern void func_002744E0(void *a0);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -671,13 +668,13 @@ __attribute__((section(".text.func_0023C620"))) void func_0023C620(cEm00 *self)
 
             if (t < 0x264 || (t >= 0x266 && t != 0x26A)) {
                 int r = Getplayer();
-                cGameObj_SetTgtTurn(s3, *(int *)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.19634955f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.19634955f);
             }
             if (moveMotion(s3) != 0) {
                 func_002705D8(s3);
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         } break;
         case 2: {
             int nb;
@@ -714,12 +711,12 @@ __attribute__((section(".text.func_0023C620"))) void func_0023C620(cEm00 *self)
             {
                 int r = Getplayer();
 
-                cGameObj_SetTgtTurn(s3, *(int *)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.09817477f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.09817477f);
                 if (moveMotion(s3) != 0) {
                     *(unsigned char *)(s3 + 0x2F6) += 1;
                 }
-                cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-                cObjBase_addNullSpeed(s3, 1.0f);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+                cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             }
             break;
         case 6: {
@@ -739,18 +736,18 @@ __attribute__((section(".text.func_0023C620"))) void func_0023C620(cEm00 *self)
         case 7: {
             int r = Getplayer();
 
-            cGameObj_SetTgtTurn(s3, *(int *)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.09817477f);
             if (moveMotion(s3) != 0) {
-                cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-                cObjBase_addNullSpeed(s3, 1.0f);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+                cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
                 func_002705D8(s3);
                 if (*(int *)(s3 + 0x708) != 0) {
-                    Obj1D00_ClearState_7(*(int *)(s3 + 0x708));
+                    Obj1D00_ClearState_7(*(cOmBase **)(s3 + 0x708));
                 }
                 return;
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         } break;
         default:
             break;

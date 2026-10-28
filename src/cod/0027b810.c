@@ -3,11 +3,8 @@
 extern void func_0028EBF0(char *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern void moveMotion(void *a0);
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern void cParts_setRotationOrder(void *a0, int a1);
 extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
@@ -43,6 +40,7 @@ extern char D_005864E0[];
  *   - the vtable temporaries must be declared vt, off, fn in that order.
  */
 #include "godhand/vu0.h"
+#include "godhand/cModel.h"
 
 
 
@@ -97,9 +95,9 @@ int func_0027B810(char *a0)
     *(int *)(s1 + 0x1584) = 0;
     func_002A8578(s1, *(int *)(v0 + 0x10) + v0, *(int *)(v0 + 0x14) + v0, 0.0f, 0, 0, 0);
     moveMotion(s1);
-    cModel_calcParts(s1);
+    cModel_calcParts((cModel *)s1);
     IK_InverseKinematics(s1 + 0x448, s1);
-    cModel_calcWorldParts(s1);
+    cModel_calcWorldParts((cModel *)s1);
     *(unsigned char *)(s1 + 0x616) = 1;
     cCollisionSolidManage_SetActive(&D_00462FC0, s1, 0);
     cParts_setRotationOrder(s1, 4);

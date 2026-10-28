@@ -1,23 +1,19 @@
 #include "godhand/cEm00.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int GetSeqSEBase(void *a0);
 extern int Getplayer(void);
 extern int moveMotion(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void ReleaseField6ECByTag564_26B1E8(void *a0);
-extern void Obj1D00_ClearState_6(int a0);
-extern void Obj1D00_ClearState_7(int a0);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026EE40(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -231,10 +227,10 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 *(float *)(s3 + 0x604) = -0.3f;
             }
             if (*(int *)(s3 + 0x6F0) != 0) {
-                Obj1D00_ClearState_6(*(int *)(s3 + 0x6F0));
+                Obj1D00_ClearState_6(*(cOmBase **)(s3 + 0x6F0));
             }
             if (*(int *)(s3 + 0x708) != 0) {
-                Obj1D00_ClearState_7(*(int *)(s3 + 0x708));
+                Obj1D00_ClearState_7(*(cOmBase **)(s3 + 0x708));
             }
             *(int *)(s3 + 0x5F0) = 5;
             *(float *)(s3 + 0x600) = 15.0f;
@@ -250,7 +246,7 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 int r;
                 *(int *)(s3 + 0x5F0) = c - 1;
                 r = Getplayer();
-                cGameObj_SetTgtTurn(s3, *(int *)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.39269909f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.39269909f);
             }
             moveMotion(s3);
             {
@@ -259,13 +255,13 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 *(float *)(s3 + 0x338) = *(float *)(s3 + 0x338) + e * d;
                 *(float *)(s3 + 0x604) = e * (1.0f - d * 0.3f);
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (*(float *)(s3 + 0x173C) <= 0.0f) {
                 float t = *(float *)(s3 + 0x600) - *(float *)(s3 + 0x5A8);
                 *(float *)(s3 + 0x600) = t;
                 if (t <= 0.0f) {
-                    if (func_00262AA8(s3) != 0) {
+                    if (func_00262AA8(self) != 0) {
                         break;
                     }
                     *(unsigned char *)(s3 + 0x2F6) = 2;
@@ -439,8 +435,8 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 func_0026EE40(s3, 0, 0);
                 func_002705D8(s3);
             } else {
-                cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-                cObjBase_addNullSpeed(s3, 1.0f);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+                cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             }
         } break;
     }

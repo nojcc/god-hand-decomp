@@ -249,5 +249,11 @@ static __inline__ int fxKind_isSet(int kind)
 {
     return kind != FX_KIND_NONE;
 }
+/* Turns the heading toward target by at most rate (scaled to radians). */
+void cGameObj_SetTgtTurn(cGameObj *self, cVec *target, float rate);
+/* Moves the position by the null node's speed (stepVec through the rotation matrix). */
+void Add_nullspeed(cGameObj *self);
+/* Kills every effect the object started. */
+void func_002A8718(cGameObj *self);
 
 #endif /* GODHAND_CGAMEOBJ_H */

@@ -4,7 +4,6 @@
 #include "godhand/CustomIDWork.h"
 
 extern void func_00294898(void *a, void *self);
-extern cMeshNode *cModel_getMeshPtr_14B730(void *self, void *name);
 extern char D_005864F0[];
 extern char D_00428AF0[];
 extern void *SearchData(void *pack, void *name, int which);
@@ -35,7 +34,7 @@ int cObj_hideAndFlagMesh(MeshHideObj *self) {
     self->state1 = 0;
     self->base.objFlags = flags | CMODEL_F_HIDDEN;
     func_00294898(D_005864F0, self);
-    mesh = cModel_getMeshPtr_14B730(self, D_00428AF0);
+    mesh = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00428AF0);
     if (mesh != 0) {
         mesh->dispFlags |= CMODEL_NODE_HIDE;
     }

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern void *SearchData(void *a, void *b, int c);
 extern void ClearLinkedNodeList_12ECF0(void *p);
@@ -27,8 +28,6 @@ extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int
 extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern float fRand1_1(void);
 extern void Obj1D00_SetState_6_E_a1(void *a0, int a1);
 
@@ -327,8 +326,8 @@ void func_002464E0(void *a0)
         if (moveMotion(s2) != 0) {
             *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
         }
-        cObjBase_addNullSpeed_Rotation(s2, 1.0f);
-        cObjBase_addNullSpeed(s2, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 2:
         *(char *)(s2 + 0x1864) = 0;
@@ -339,8 +338,8 @@ void func_002464E0(void *a0)
         *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
     case 3:
         moveMotion(s2);
-        cObjBase_addNullSpeed_Rotation(s2, 1.0f);
-        cObjBase_addNullSpeed(s2, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(int *)(s2 + 0x16D0) & 0x20000000) {
             func_002705D8(s2);
         }
@@ -377,8 +376,8 @@ void func_00247050(void *a0)
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         *(float *)(s0 + 0x600) = *(float *)(s0 + 0x600) - *(float *)(s0 + 0x5A8);
         if (*(float *)(s0 + 0x600) <= 0.0f) {
             *(unsigned char *)(s0 + 0x2F6) = 2;
@@ -400,8 +399,8 @@ void func_00247050(void *a0)
         if (moveMotion(s0) != 0) {
             *(unsigned char *)(s0 + 0x2F6) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
 }

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern unsigned char D_00462FC0[];
 extern unsigned char D_005864F0[];
@@ -14,8 +15,6 @@ extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
 extern void cSnd_DieDemoStart(void *a0);
@@ -83,8 +82,8 @@ void func_001205D8(void *a0)
             }
             pl00_clearMotionCam(s1, 0, 0);
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0 && *(int *)(s1 + 0x15B4) != 0) {
             *(int *)(s1 + 0x15B4) = 0;
             if (s0 != 0) {
@@ -126,8 +125,8 @@ void func_001205D8(void *a0)
         if (moveMotion(s1) != 0) {
             D_00747A24 = D_00747A24 | 8;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 4:
         pl00_clearMotionCam(s1, 1, 0);
@@ -141,8 +140,8 @@ void func_001205D8(void *a0)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
 }

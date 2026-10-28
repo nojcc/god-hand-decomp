@@ -11,7 +11,6 @@
 
 extern unsigned int D_00747A84;
 extern void cModel_ScrollTexture(cModel *self, float f);
-extern void cModel_calcParts(cModel *self);
 extern void cOmBase_dieCommon(int a0);
 
 static inline long cOmBase_flag2Bit(cOmBase *self, int bit)

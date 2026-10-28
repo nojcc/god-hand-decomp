@@ -1,19 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
-extern int GetSeqSEBase(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
-extern unsigned char D_005FEE00[];
 extern void *Getplayer(void);
 extern int irand(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f);
 extern void Obj2810_SetState_8_a1(char *a0, int a1);
 extern void SetBytes2F4Mode7_283270(char *a0, char a1);
 extern void ClearBytes2F4To2F7_283170(void *a0);
@@ -51,8 +48,8 @@ __attribute__((section(".text.func_0025FCF8"))) void func_0025FCF8(cEm00 *self)
                 *(unsigned char *)(s1 + 0x2F7) = 0;
             } else {
                 one = 1.0f;
-                cObjBase_addNullSpeed_Rotation(s1, one);
-                cObjBase_addNullSpeed(s1, one);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)s1, one);
+                cObjBase_addNullSpeed((cObjBase *)s1, one);
             }
             break;
     }
@@ -103,8 +100,8 @@ __attribute__((section(".text.func_0024B218"))) void func_0024B218(cEm00 *self)
                 self->stepArg = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
     }
     if (self->moveFlags & 1) {

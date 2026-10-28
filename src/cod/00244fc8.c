@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -13,8 +14,6 @@ extern float SetMotionStep(void *a0, float f12);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern int irand(void);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -108,8 +107,8 @@ __attribute__((section(".text.func_00244FC8"))) void func_00244FC8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         }
         case 2: {
@@ -168,9 +167,9 @@ __attribute__((section(".text.func_00244FC8"))) void func_00244FC8(cEm00 *self)
             *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
             SetMotionStep(s1, *(float *)(s1 + 0x5A8) * 1.5f);
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
             *(float *)(s1 + 0x338) = *(float *)(s1 + 0x600) * *(float *)(s1 + 0x5A8);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             mag = capVu0MagnitudeSqXZ(*(void **)(s1 + 0xF0), v580);
             if (mag < 4.0f) {
                 *(unsigned char *)(s1 + 0x2F6) = 4;
@@ -231,8 +230,8 @@ __attribute__((section(".text.func_00244FC8"))) void func_00244FC8(cEm00 *self)
                 *(char *)(s1 + 0x2F7) = 1;
                 *(char *)(s1 + 0x2F6) = 0;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             *(unsigned short *)(s1 + 0x3AC) = *(unsigned short *)(s1 + 0x3AC) | 0x400;
             break;
         case 6: {
@@ -280,8 +279,8 @@ __attribute__((section(".text.func_00244FC8"))) void func_00244FC8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

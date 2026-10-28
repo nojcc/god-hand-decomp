@@ -5,11 +5,12 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/espSys.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern void CustomIDWork_SetScaleAnimSin(CustomIDWork *work, unsigned short frames, float from, float to);
 extern void CustomIDWork_ResetScaleAnim(CustomIDWork *work);
 extern int SetEffectParts(int kind, int id, void *owner, int part, float f12, float f13, float f14, float f15, int t0);
-extern void KillEffect(void *owner, int id, int arg);
 extern unsigned int D_00747A84;
 extern void func_002FA350(float *frame);
 extern char D_00580D40[];
@@ -18,8 +19,6 @@ extern void FreeResourceNode_2D3710(cMovieTrack *track);
 extern int FindEntryValue_1FF9C0(char *table, char *name, int *size, char *key);
 extern void func_00347BC0(int handle, int a1, int found);
 extern void func_00346078(int handle, int a1, int found);
-extern char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *snd, int b, int c, void *obj, int e, int f, int g, int h);
 extern float Turn_dest_dir(float cur, float dest, float speed);
 extern float Adjust_theta(float f12);
 
@@ -173,7 +172,7 @@ void cGameObjTurn_stepTurn(cGameObjTurn *self) {
     switch (self->base.step) {
     case 0:
         if (self->base.actorId != ACTOR_ID_A && self->base.actorId != ACTOR_ID_B) {
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, 3, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 3, self, 0, 0, 0, 0);
         }
         self->base.stepArg = 0;
         self->base.step = 1;

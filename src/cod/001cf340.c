@@ -3,10 +3,10 @@
 #include "godhand/cOmWeapon.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cModel.h"
 
 extern void func_001331B8(char *a0, long a1, int a2);
 extern char D_005CAE50[];
-extern void cModel_calcParts(void *model);
 extern char *Getplayer(void);
 extern void MtxInitRotY(void *a0, float angle);
 
@@ -76,7 +76,7 @@ void cOmWeapon_setFall(cOmWeapon *self) {
         body2->posPrev.x = 0.0f;
         body2->posPrev.y = 0.0f;
         body2->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->base.mode = 0;
         self->base.phase = 0;
         self->base.step = 0;
@@ -118,7 +118,7 @@ void cOmWeapon_dropToGround(cOmWeapon *self) {
         body2->posPrev.x = 0.0f;
         body2->posPrev.y = 0.0f;
         body2->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->base.step = 4;
         self->base.mode = 0;
         self->base.phase = 0;
@@ -167,7 +167,7 @@ void cOmWeapon_kickOff(cOmWeapon *self) {
         body2->posPrev.x = 0.0f;
         body2->posPrev.y = 0.0f;
         body2->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->base.phase = 0x13;
         self->base.mode = 0;
         self->base.step = 0;

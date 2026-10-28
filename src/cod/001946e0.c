@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
 
 extern void func_002FBED0(void *self);
 extern void Pos_followGround(void *self);
@@ -12,7 +13,6 @@ extern void func_002D5768(void *entry, int src, int id, void *owner);
 extern int CreateSema(void *param);
 extern char D_00754200[];
 extern void cEm00_swapTextureAndShowMesh(void *self);
-extern void cModel_setTextureExchange(void *model, int texSet, int tex, int arg);
 extern void func_00194558(void *self);
 extern unsigned int cEvent_getCutNo();
 extern float cEvent_getCutFrame(void *ev);
@@ -133,8 +133,8 @@ void TexObj_updateTexExchange(TexObj *self)
         cEm00_swapTextureAndShowMesh(self);
         return;
     }
-    cModel_setTextureExchange(self, self->base.texSet,
-        *(int *)(self->base.texKey + 0x60) + self->base.texKey, 0);
+    cModel_setTextureExchange((cModel *)self, (void *)self->base.texSet,
+        (cTexTable *)(*(int *)(self->base.texKey + 0x60) + self->base.texKey), 0);
     if (self->texMode != 0 && ((self->texMode & TEX_MODE_ODD) || self->texMode >= TEX_MODE_SMALL_MAX)) {
         self->base.texFlags |= TEX_EXCHANGE_ON;
     } else {

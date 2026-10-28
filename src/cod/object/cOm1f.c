@@ -1,7 +1,7 @@
 /* TU: cOm1f [object] - recovered C++ class. */
 #include "godhand/cOm1f.h"
+#include "godhand/cModel.h"
 
-extern void cModel_calcParts(cOm1f *self);
 extern void cOmBase_setMeshDispFromLayer(cOm1f *self, int a, int b);
 
 /* Switch between the two set types: clear the child's mesh flag bits and
@@ -13,7 +13,7 @@ void cOm1f_changeSetType(cOm1f *self, int type) {
     if (cOmBase_childAt(&self->base, (int *)frame, 1) != 0) {
         ((cOm1fChild *)cOmBase_childAt(&self->base, (int *)frame, 1))->meshFlags &= ~COM1F_CHILD_FLAG_A;
         ((cOm1fChild *)cOmBase_childAt(&self->base, (int *)frame, 1))->meshFlags &= ~COM1F_CHILD_FLAG_B;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
     }
     switch (type) {
     case 0:

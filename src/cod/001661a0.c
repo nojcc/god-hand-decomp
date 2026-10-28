@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cSubScrMenu.h"
+#include "godhand/cIDBase.h"
 
 /* Move the status, item and level displays. */
 __attribute__((section(".text.func_001661A0")))

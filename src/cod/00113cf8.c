@@ -1,3 +1,4 @@
+#include "godhand/cObjBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
@@ -10,8 +11,6 @@ extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, in
 extern int moveMotion(void *a0);
 extern void func_00124EC0(void *a0);
 
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern int D_005864F0;
 
@@ -46,8 +45,8 @@ void func_00113CF8(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 2;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);
         break;
     case 2:
@@ -71,8 +70,8 @@ void func_00113CF8(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         if (func_00123938(s1, 1) != 0) {
             pl00_clearMotionCam(s1, 0, 0);
         }

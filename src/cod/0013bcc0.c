@@ -1,16 +1,13 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern short D_005CAE40;
-extern void cIDBase_move(void *);
-extern void cIDBase_trans(void *);
 extern void CustomIDWork_SetMessNo(void *work, int messNo);
 extern void func_001415E8(void *self, int arg);
 extern void displayScrollLayer(int layer, int on);
 extern long D_007474A0[];
 extern char D_005FEE00[];
 extern int cSnd_SeCall_2CB8A0(void *snd, int slot, int key, int idA, int idB, int a5, int a6);
-extern void cIDBase_restartAnim(void *self);
-extern void *cIDBase_getIDWork(void *self, int idx);
 
 /* Run an entry's update hook from the type table D_003BF0E0 (g++ 2.x
  * delta/index/pfn entries, indexed by the type byte at +0), set the screen
@@ -34,8 +31,8 @@ void Entry_runHookAndDraw(unsigned char *self) {
     int delta = D_003BF0E0[type].delta;
     D_003BF0E0[type].pfn(self + delta);
     D_005CAE40 = SCREEN_STATE_ENTRY_RUN;
-    cIDBase_move(self + 0x30);
-    cIDBase_trans(self + 0x30);
+    cIDBase_move((cIDBaseObj *)(self + 0x30));
+    cIDBase_trans((cIDBaseObj *)(self + 0x30));
 }
 
 /* Set message `messNo` on the two work records of display slot `slot`
@@ -171,10 +168,10 @@ __attribute__((section(".text.IdScreen_refillEntries")))
 void IdScreen_refillEntries(IdScreen *self) {
     unsigned short i = 0;
     self->unk90 = 0;
-    cIDBase_restartAnim(self);
+    cIDBase_restartAnim((cIDBaseObj *)self);
     self->started = 1;
     do {
-        self->ent[i] = cIDBase_getIDWork(self, i);
+        self->ent[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
         i = i + 1;
     } while (i < ENTRY_COUNT);
     self->sel0 = 0;

@@ -1,26 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cModel.h"
+#include "godhand/cSnd.h"
 
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
 extern int moveMotion(void *a0);
-extern void cModel_calcNullPart(void *a0);
-extern void Add_nullspeed(void *a0);
 extern unsigned int D_00747A78;
-extern char D_005FEE00[];
 extern void func_0028E580(void);
 extern int Getplayer(void);
-extern void cGameObj_SetTgtTurn(char *a0, int a1, float f12);
 extern void cObjBase_SetSeqEffect(void *a0);
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
 extern void func_002A87E8(void *a0, int a1);
 extern int cSnd_SeEndCk(void *a0, int a1);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int func_00291010(void *a0, void *a1, int a2, int a3, float f12, float f13, float f14, int t0);
 extern char D_005864F0[];
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
-extern void cParts_setRotationOrder(void *a0, int a1);
 extern void cObjBase_KageInit(void *a0, void *a1, void *a2);
 extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
@@ -87,8 +82,8 @@ void func_002865F0(void *a0)
         (*(float **)(s0 + 0xF0))[0] = (*(float **)(s0 + 0xF0))[0] * 0.99f + *(float *)(s0 + 0x5C0) * 0.01f;
         (*(float **)(s0 + 0xF0))[2] = (*(float **)(s0 + 0xF0))[2] * 0.99f + *(float *)(s0 + 0x5C8) * 0.01f;
         moveMotion(s0);
-        cModel_calcNullPart(s0);
-        Add_nullspeed(s0);
+        cModel_calcNullPart(a0);
+        Add_nullspeed(a0);
         break;
     }
 }
@@ -127,8 +122,8 @@ void func_0028A560(void *a0)
         (*(float **)(s0 + 0xF0))[2] = (*(float **)(s0 + 0xF0))[2] * 0.99f + *(float *)(s0 + 0x5C8) * 0.01f;
         *(int *)(s0 + 0x15A0) = *(int *)(s0 + 0x15A0) | 1;
         moveMotion(s0);
-        cModel_calcNullPart(s0);
-        Add_nullspeed(s0);
+        cModel_calcNullPart(a0);
+        Add_nullspeed(a0);
         break;
     }
 }
@@ -151,17 +146,17 @@ void func_0028E420(void *a0)
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         v0 = Getplayer();
-        cGameObj_SetTgtTurn(s0, *(int *)(v0 + 0xF0), *(float *)(s0 + 0x5A8) * 0.09817477f);
+        cGameObj_SetTgtTurn(a0, *(cVec **)(v0 + 0xF0), *(float *)(s0 + 0x5A8) * 0.09817477f);
         moveMotion(s0);
         break;
     }
     cObjBase_SetSeqEffect(s0);
-    cModel_calcParts(s0);
+    cModel_calcParts(a0);
     IK_InverseKinematics(s0 + 0x448, s0);
-    cModel_calcWorldParts(s0);
+    cModel_calcWorldParts(a0);
     func_002A87E8(s0, 0);
-    if (cSnd_SeEndCk(D_005FEE00, *(int *)(s0 + 0x1550)) != 0) {
-        *(int *)(s0 + 0x1550) = cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x12, s0, 0, 0, 0, 0);
+    if (cSnd_SeEndCk(&D_005FEE00, *(int *)(s0 + 0x1550)) != 0) {
+        *(int *)(s0 + 0x1550) = cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x12, s0, 0, 0, 0, 0);
     }
     q = (float *)(s0 + 0x490);
     p = *(float **)(s0 + 0xF0);
@@ -196,8 +191,8 @@ void func_00288350(void *a0)
     }
     case 1:
         moveMotion(s0);
-        cModel_calcNullPart(s0);
-        Add_nullspeed(s0);
+        cModel_calcNullPart(a0);
+        Add_nullspeed(a0);
         VU0_LQC2(4, *(char **)(s0 + 0xF0), 0);
         VU0_SQC2(4, buf, 0);
         if (func_00291010(D_005864F0, buf, 0, 1, *(float *)(s0 + 0x104), 10.0f, 3.14159274f, 0) != 0) {
@@ -218,8 +213,8 @@ void func_00288350(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 0;
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cModel_calcNullPart(s0);
-        Add_nullspeed(s0);
+        cModel_calcNullPart(a0);
+        Add_nullspeed(a0);
         break;
     }
 }

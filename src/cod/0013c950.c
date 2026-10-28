@@ -1,6 +1,6 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern void cIDBase_move(void *a0);
 extern int D_00747A24[];
 
 /* sn-2.95.3-136 matched TU. */
@@ -217,5 +217,5 @@ void func_0013C950(char *self)
         break;
     }
     *(char *)(*(int *)(self + 0xC4) + 0x8B) = *(unsigned char *)(self + 0xB8) - 1;
-    cIDBase_move(self);
+    cIDBase_move((cIDBaseObj *)self);
 }

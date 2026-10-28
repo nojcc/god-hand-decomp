@@ -2,13 +2,12 @@
 
 /* cEm00_stepSetGrabPrompt parked, sn-2.95.3-136 --fp-hazard-rules mtc1: EXACT 137/143, insn delta -1, ONE missing nop: retail has 'mtc1 $at,$f1 ; L: nop ; c.lt.s $f0,$f1' (nop AFTER the branch-target label). cc1 emits no #nop hint across a label, so no source or listed rule reaches it. Tool ask: an mtc1 rule that pads a label-separated mtc1 -> c.<cond>.s. */
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cActionButton_set(void *, int, int, int, void *, void *, int);
 extern void InitStateBytes_2478B8(void);
 extern char D_00568288;
@@ -44,8 +43,8 @@ void cEm00_stepSetGrabPrompt(cEm00 *self)
         func_002A8578(self, EM_RES_REC(b, 0x2BC), EM_RES_REC(b, 0x2C0), 0.0f, 0, m, 0);
         moveMotion(self);
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(self, one);
-        cObjBase_addNullSpeed(self, one);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+        cObjBase_addNullSpeed((cObjBase *)self, one);
         self->moveFlags |= 0x400;
         if (self->unk768 < 0.7853982f) {
             float lim = 4.0f;
@@ -71,8 +70,8 @@ void cEm00_stepSetGrabPrompt(cEm00 *self)
             func_002705D8(self);
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(self, one);
-        cObjBase_addNullSpeed(self, one);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+        cObjBase_addNullSpeed((cObjBase *)self, one);
         break;
     }
 }

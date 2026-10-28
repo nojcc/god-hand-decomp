@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern unsigned int Rnd(void);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern unsigned char D_00462FC0[];
 extern unsigned char D_005864F0[];
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
@@ -23,7 +22,6 @@ extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cEmManage_SetSpeedRate(void *a0, float f12);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void KillEffect(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
 
 __attribute__((section(".text.func_00278690")))
@@ -50,8 +48,8 @@ void func_00278690(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     case 2: {
         char *b = *(char **)(s0 + 0x304);
@@ -65,8 +63,8 @@ void func_00278690(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     f = *(float *)(s0 + 0x618);
@@ -130,8 +128,8 @@ void func_0011A060(void *a0)
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     if (func_00123938(s1, 1) != 0) {
@@ -179,8 +177,8 @@ void func_00248FE0(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 2;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     case 2: {
         t = Obj0000_Get_Byte_17C3_NZ_2_276468(s0) & 0xFFFF;
@@ -217,8 +215,8 @@ void func_00248FE0(void *a0)
             func_002705D8(s0);
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }

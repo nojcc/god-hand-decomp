@@ -6,17 +6,15 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern void sceVu0CameraMatrix(float *out, cVec *p, cVec *zd, cVec *yd);
 extern unsigned char D_005CB010;
 extern void *Getplayer(void);
 extern void cOmBase_setMeshDispFromLayer(cOmBase *self, int layer, int on);
-extern int SetEffect(int effNo, int kind, void *obj, int a3, int a4, unsigned int a5);
-extern int cSnd_SeCall_2CBA48(void *snd, int a1, int a2, void *obj, int a4, int a5, int a6, int a7);
-extern char D_005FEE00[];
 extern void cDamageUnit_SetDamageCollActive(cDamageUnit *unit, int active);
 extern void cCollisionSolidManage_SetActive(void *mgr, void *obj, int active);
-extern void KillEffect(void *obj, int effNo, int mode);
 extern char D_00462FC0[];
 
 /* Build the view matrix: take the eye and the target through the model
@@ -120,7 +118,7 @@ void cOmBase_setDispMode(cOmBase *self, int mode)
         break;
     case 4:
         SetEffect(0x298, 2, self, 0, -1, -1);
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x113, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, self, 0, 0, 0, 0);
         break;
     }
 }

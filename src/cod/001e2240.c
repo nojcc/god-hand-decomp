@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern void cSnd_BgmEventStart(void *a0, int a1, int a2, int a3);
 extern void Slot2_setMarkLayers(void *a0, int a1, int a2);
 extern void Slot2_selectMark(void *a0, int a1, int a2, int a3);

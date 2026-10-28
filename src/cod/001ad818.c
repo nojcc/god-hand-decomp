@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmWeapon.h"
+#include "godhand/cModel.h"
 
-extern void cModel_calcParts(void *m);
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
 extern float fRand0_1(void);
 extern float fRand1_1(void);
@@ -46,7 +46,7 @@ void func_001D0140(cOmWeapon *self, cVec *pos, int arg)
         body->posPrev.x = 0.0f;
         body->posPrev.y = 0.0f;
         body->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->throwArg = arg;
         {
             cVec *d2 = &self->vel;
@@ -88,7 +88,7 @@ void func_001D0240(cOmWeapon *self, cVec *pos, int arg)
         body->posPrev.x = 0.0f;
         body->posPrev.y = 0.0f;
         body->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->throwArg = arg;
         {
             cVec *d2 = &self->vel;
@@ -130,7 +130,7 @@ void func_001D0340(cOmWeapon *self)
         body->posPrev.x = 0.0f;
         body->posPrev.y = 0.0f;
         body->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->throwArg = 0;
         self->base.mode = 0;
         self->base.phase = 0x14;
@@ -168,7 +168,7 @@ void func_001D0408(cOmWeapon *self)
         body->posPrev.x = 0.0f;
         body->posPrev.y = 0.0f;
         body->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->throwArg = 0;
         self->base.mode = 0;
         self->base.phase = 0x15;
@@ -275,7 +275,7 @@ void func_001CFD60(cOmWeapon *self, int target)
         body->posPrev.x = 0.0f;
         body->posPrev.y = 0.0f;
         body->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         self->target = target;
         self->unk6A0 = 0;
         self->unk6A4 = fRand0_1() * 2.0f + 2.0f;

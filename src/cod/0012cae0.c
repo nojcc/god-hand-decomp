@@ -3,13 +3,13 @@
 #include "godhand/cEm00.h"
 #include "godhand/cSceAtManager.h"
 #include "godhand/cFontTex.h"
+#include "godhand/cObjBase.h"
 
 extern void *SearchData(void *name, void *table, int which);
 extern void cSndSeVoice_CheckEnd(void *snd, int handle);
 extern int cSnd_ReserveSeSlot(void *snd, void *data);
 extern char D_005FEE00[];
 extern cSceAtManager D_005FEA60;
-extern int SetEffect(int kind, int id, void *owner, int param, int handle, unsigned int owner2);
 extern int D_00747A2C;
 
 extern char D_0044B1E0[];               /* name of the sound data to look up */

@@ -108,8 +108,8 @@ void Obj0000_Set_Field_424_1595E8(int *arg0, int arg1) {
 }
 
 __attribute__((section(".text.GetSeqSEBase")))
-int GetSeqSEBase(int *arg0) {
-    return *((int *)((char *)arg0 + 0x424));
+int GetSeqSEBase(void *obj) {
+    return *((int *)((char *)obj + 0x424));
 }
 
 __attribute__((section(".text.Circle_line2")))

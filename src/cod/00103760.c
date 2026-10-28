@@ -2,6 +2,8 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/cSnd.h"
 
 extern void CustomIDWork_SetLocalPosY(char *work, int y);
 extern void SetCustomIDDispOneOrAll_1F4778(char *self, int id, int on);
@@ -9,12 +11,10 @@ extern void StoreVecFromFieldB0_2B6160(float *out, void *obj);
 extern void cNode_setTranslationFromWorld(void *self, float *pos);
 extern void func_002FBED0(void *self);
 extern int cOmBase_checkDamage(void *self, void *damage);
-extern int cSnd_SeCall_2CBA48(void *snd, int a1, int a2, void *a3, int a4, int a5, int a6, int a7);
 extern void func_001B0540(void *self);
 extern void func_001B7EE0(void *self, float f);
 extern float capVu0LengthSq(void *v);
 extern cOmBase *Getplayer(void);
-extern void cModel_calcParts(void *model);
 
 #define POS_NUM  7                      /* positions per table */
 
@@ -159,7 +159,6 @@ void WrapObj_wrapIntoBox(WrapObj *self)
     func_002FBED0(self);
 }
 
-extern char D_005FEE00[];               /* cSnd */
 
 #define HP_DISPLAY_MAX  1000
 
@@ -191,7 +190,7 @@ void HitPhaseObj_tickPhase(HitPhaseObj *self)
             self->base.hp = cap;
         }
         self->base.hitFlash = 5.0f;
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x2D, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x2D, self, 0, 0, 0, 0);
         self->base.step = 0;
         self->base.phase = 1;
         self->base.stepArg = 0;
@@ -303,7 +302,7 @@ void FollowObj_snapToPlayer(FollowObj *self, int mode)
     cVec_copy3(self->base.pos, Getplayer()->pos);
     cVec_copy3(&self->base.posA, self->base.pos);
     cVec_copy3(&self->base.posPrev, &Getplayer()->posPrev);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     switch (mode) {
     default:
     case 0:

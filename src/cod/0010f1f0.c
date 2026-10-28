@@ -2,6 +2,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cWorldLight.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern int cWorldLight_Set_LightData(void *a0, void *a1);
 extern void cEmManage_SetSlotWait(void *a0, int a1);
@@ -16,8 +17,6 @@ extern void func_00124EC0(void *a0);
 extern int  moveMotion(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 extern void cSnd_SeStop(void *a0, int a1);
 extern char D_005864F0[];
@@ -223,8 +222,8 @@ void func_00112318(void *a0)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     func_0010A438(s1);
@@ -384,8 +383,8 @@ void func_0010F1F0(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
             pl00_clearMotionCam(s1, 1, 0);
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {

@@ -5,6 +5,7 @@
 #include "godhand/cOl2b.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cRecordIndex.h"
+#include "godhand/cIDBase.h"
 
 extern char D_0044ACF0[];
 extern void Moji_size_set(int w, int h);
@@ -12,7 +13,6 @@ extern void printf_2E0DA8(int x, int y, int a2, int a3, char *fmt, ...);
 extern void cTaskWork_sleep(void *work, int frames);
 extern void cOl2b_setOpenFix(cOl2b *self);
 extern int D_003C2388;
-extern int cIDBase_initialize(void *part, int a1, int id);
 extern void *cIDManager_getTexAddr_2ACE28(int mgr, int id);
 
 /* Debug overlay owner: the value shown on screen sits at 0x2A08C. */
@@ -137,9 +137,9 @@ __attribute__((section(".text.IdScreen_init")))
 void IdScreen_init(IdScreen *self)
 {
     self->count = 0;
-    cIDBase_initialize(self, 1, SCREEN_PART_ID_A);
-    cIDBase_initialize((char *)self + 0x500, 1, SCREEN_PART_ID_B);
-    cIDBase_initialize((char *)self + 0x550, 1, SCREEN_PART_ID_C);
-    cIDBase_initialize((char *)self + 0x4B0, 1, SCREEN_PART_ID_D);
+    cIDBase_initialize((cIDBaseObj *)self, 1, SCREEN_PART_ID_A);
+    cIDBase_initialize((cIDBaseObj *)((char *)self + 0x500), 1, SCREEN_PART_ID_B);
+    cIDBase_initialize((cIDBaseObj *)((char *)self + 0x550), 1, SCREEN_PART_ID_C);
+    cIDBase_initialize((cIDBaseObj *)((char *)self + 0x4B0), 1, SCREEN_PART_ID_D);
     self->tex = cIDManager_getTexAddr_2ACE28(D_003C2388, SCREEN_TEX_ID);
 }

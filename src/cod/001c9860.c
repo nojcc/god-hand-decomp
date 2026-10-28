@@ -2,13 +2,12 @@
  * timer, run the current phase handler, update the model, keep the follow positions in step and
  * die when the object falls out of the stage. */
 #include "godhand/cEmManage.h"
+#include "godhand/cModel.h"
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
 extern void cModel_ScrollTexture(void *a0, float f);
 extern void func_001CF3A8(char *self);
-extern void cModel_calcParts(void *a0);
 extern void cOmBase_dieCommon(void *a0);
 
-#include "godhand/cModel.h"
 #include "godhand/emPhaseTable.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/cOmHitVolumeSetup.h"
@@ -59,7 +58,7 @@ void func_001C9860(cOmFallGimmick *self)
 
     cModel_ScrollTexture(self, self->base.speedRate);
     func_001CF3A8((char *)self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
 
     vec3_copy(&self->base.posA.x, &self->base.pos->x);
     vec3_copy(&self->base.posB.x, &self->base.posPrev.x);

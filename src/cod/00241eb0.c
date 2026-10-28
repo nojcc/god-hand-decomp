@@ -1,4 +1,6 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -10,15 +12,12 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
 extern void func_00262750(void *a0, int a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern void func_0026E7A8(void *a0, int a1);
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void cObj_setupAimStep2(void *a0, void *a1, int a2, void *a3, void *a4);
 extern void SetField_2F6_1C2308(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 
 #include "godhand/vu0.h"
@@ -65,8 +64,8 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
             if (moveMotion(s3) != 0) {
                 *(char *)(s3 + 0x2F6) = 2;
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s3, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s3, 1.0f);
             if (*(unsigned short *)(s3 + 0x3AC) & 0x10) {
                 float *dv = va;
                 float *d;
@@ -113,8 +112,8 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
             if (moveMotion(s3) != 0) {
                 *(unsigned char *)(s3 + 0x2F6) += 1;
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s3, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s3, 1.0f);
             break;
         case 4:
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s3) & 0xFFFF;
@@ -127,8 +126,8 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
             if (moveMotion(s3) != 0) {
                 *(unsigned char *)(s3 + 0x2F6) += 1;
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s3, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s3, 1.0f);
             if (*(unsigned short *)(s3 + 0x3AC) & 1) {
                 if (*(int *)(s3 + 0x70C) == 0) {
                     int it =
@@ -160,7 +159,7 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
         case 7:
             *(int *)(s3 + 0x16D0) |= 0x400;
             if (self != 0) {
-                cGameObj_SetTgtTurn(s3, *(int *)((char *)self + 0xF0),
+                cGameObj_SetTgtTurn((cGameObj *)s3, *(cVec **)((char *)self + 0xF0),
                                     *(float *)(s3 + 0x5A8) * 0.098174770424681f);
                 if (capVu0MagnitudeSqXZ(*(void **)((char *)self + 0xF0), *(void **)(s3 + 0xF0)) <
                     64.0f) {
@@ -170,8 +169,8 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
                 *(unsigned char *)(s3 + 0x2F6) = 8;
             }
             moveMotion(s3);
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s3, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s3, 1.0f);
             break;
         case 8:
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s3) & 0xFFFF;
@@ -182,8 +181,8 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
             /* fallthrough */
         case 9:
             moveMotion(s3);
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s3, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s3, 1.0f);
             break;
     }
 }

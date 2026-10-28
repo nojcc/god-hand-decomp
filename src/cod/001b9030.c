@@ -5,6 +5,7 @@
 #include "godhand/Slot2.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cMessage.h"
+#include "godhand/cObjBase.h"
 
 extern int D_00747A24;
 extern void Slot2_hideLayerIds(Slot2 *self);
@@ -13,7 +14,6 @@ extern int cDvd_ReadAlloc(void *dvd, const char *name, void *outBuf, void *heap,
 extern void cDvd_CheckWaitFrame(void *dvd, int id);
 extern void cHeap_free(int heap, int *node);
 extern int cDamageManage_ReleaseDamageGive(void *mgr, void *give);
-extern void KillEffect(void *obj, int a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *obj, void *arg);
 extern char D_005FEE00[];
 extern void cSndSeVoice_CheckEnd(void *snd, int handle);

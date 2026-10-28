@@ -7,11 +7,11 @@ extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void *CopyVec16From20_B62E0(void *dst, char *self);
 extern void UpdateObjByIndexedOp_2FBE50(void *self);
 extern void cNode_setTranslationFromWorld(void *self, void *v);
-extern int SetEffect();
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -143,12 +143,12 @@ void func_002E6B88(void *arg, float thr) {
             fr.s.v10.z = fr.c.z;
             if (*(signed char *)(self + 0x2D0) != -1) {
                 SetEffect(*(signed char *)(self + 0x2D0),
-                          *(unsigned char *)(self + 0x2D1) + 1, 0, &fr.s, -1,
+                          *(unsigned char *)(self + 0x2D1) + 1, 0, (cEffectParam *)(&fr.s), -1,
                           0xFFFFFFFF);
             } else {
                 fr.s.b74 = *(unsigned char *)(self + 0x2E6);
                 SetEffect(*(short *)(self + 0x23A),
-                          *(unsigned short *)(self + 0x23C), 0, &fr.s, -1,
+                          *(unsigned short *)(self + 0x23C), 0, (cEffectParam *)(&fr.s), -1,
                           0xFFFFFFFF);
             }
             if (*(int *)(self + 0x2D8) != 2) {

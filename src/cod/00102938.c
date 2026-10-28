@@ -2,6 +2,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 
 extern int setMotionInfo(cObjBase *self, char *motion, char *motionEnd, unsigned int start,
 
@@ -10,13 +11,9 @@ float rate, float blend, int flags);
 extern unsigned int func_0031ED08(float seconds);
 extern int moveMotion(cObjBase *self);
 extern void func_0014E818(cObjBase *self, float maxTurn, cVec *target);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern int D_00462FC0;
-extern char D_005FEE00[];
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern unsigned int irand(void);
 extern void *Getplayer(void);
 extern float Adjust_theta(float f12);
@@ -69,7 +66,7 @@ void func_00288A58(void *a0)
         cCoreSave_addKillNpcNum(&D_00569B70);
         v0 = *(int *)(s0 + 0x304);
         func_002A8578(s0, *(int *)(v0 + 0x90) + v0, *(int *)(v0 + 0x94) + v0, 0.0f, 5, 0, 0);
-        cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x5F, s0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5F, s0, 0, 0, 0, 0);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         if (moveMotion(s0) != 0) {
@@ -79,8 +76,8 @@ void func_00288A58(void *a0)
             *(unsigned char *)(s0 + 0x2F5) = 2;
         } else {
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s0, one);
-            cObjBase_addNullSpeed(s0, one);
+            cObjBase_addNullSpeed_Rotation(a0, one);
+            cObjBase_addNullSpeed(a0, one);
         }
         break;
     }
@@ -125,8 +122,8 @@ void func_0011A530(void *a0)
     case 1:
         one = 1.0f;
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -184,8 +181,8 @@ void func_00102CB0(void *a0)
             *(char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -223,8 +220,8 @@ void func_00102938(void *a0)
         }
         one = 1.0f;
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     func_001034E0(s0);
@@ -270,8 +267,8 @@ void func_0024AA68(void *a0)
             *(char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }

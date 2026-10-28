@@ -4,6 +4,7 @@
 #include "godhand/cArea.h"
 #include "godhand/vu0.h"
 #include "godhand/cObjSimple.h"
+#include "godhand/cModel.h"
 
 extern cHeatSys D_005CB000;
 extern void cHeatSys_UpdateHeatMax(cHeatSys *self, float range);
@@ -12,7 +13,6 @@ extern void func_002A9C90(cHeatSys *self, float range);
 extern int func_001573C8(float *pt, cAreaVec4 *a, cAreaVec4 *b, cAreaVec4 *c, cAreaVec4 *d);
 extern void cModel_ScrollTexture(cObjSimple *self, float dt);
 extern void cObjSimple_FollowParent(cObjSimple *self);
-extern void cModel_calcParts(cObjSimple *self);
 extern void cObjBase_KageDraw(cObjSimple *self);
 extern void EmClothMove(int cloth, cObjSimple *self, void *data, void *anchor);
 extern void cObjSimple_MoveBust(cObjSimple *self);
@@ -83,7 +83,7 @@ void cObjSimple_Update(cObjSimple *self)
     cModel_ScrollTexture(self, 1.0f);
     if (self->parentOn)
         cObjSimple_FollowParent(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     if (self->kageObj)
         cObjBase_KageDraw(self);
     if (self->pendulumOn)

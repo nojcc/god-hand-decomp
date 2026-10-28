@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
@@ -9,18 +11,11 @@ extern int  moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 
 extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void SetMotionStep(void *a0, float f12);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern void cSnd_SeStop(void *a0, int a1);
-extern void KillEffect(void *a0, int a1, int a2);
-extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
 extern char *Getplayer(void);
-extern char D_005FEE00[];
 extern int D_007474A0;
 
 struct VtEnt { short delta; short index; void *pfn; };
@@ -124,7 +119,7 @@ void func_0010E5B8(void *a0)
                 if (*(float *)(s1 + 0x15C0) >= 1.10000002f) {
                     if (*(int *)(s1 + 0x15B8) != 0) {
                         *(int *)(s1 + 0x15B8) = 0;
-                        *(int *)(s1 + 0x1620) = cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x11B, s1, 0, 0, 0, 0);
+                        *(int *)(s1 + 0x1620) = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11B, s1, 0, 0, 0, 0);
                     }
                 }
             } else {
@@ -142,7 +137,7 @@ void func_0010E5B8(void *a0)
                     KillEffect(Getplayer(), 2, 2);
                     SetEffect(0, 0x32, s1, 0, -1, 0xFFFFFFFFu);
                 }
-                cSnd_SeStop(D_005FEE00, *(int *)(s1 + 0x1620));
+                cSnd_SeStop(&D_005FEE00, *(int *)(s1 + 0x1620));
                 *(int *)(s1 + 0x1620) = 0;
             }
         }
@@ -167,8 +162,8 @@ void func_0010E5B8(void *a0)
         }
         *(float *)(s1 + 0x338) = *(float *)(s1 + 0x338) + *(float *)(s1 + 0x1588);
         *(float *)(s1 + 0x1588) = *(float *)(s1 + 0x1588) * 0.899999976f;
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     }

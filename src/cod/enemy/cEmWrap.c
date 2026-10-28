@@ -1,6 +1,7 @@
 /* TU: cEmWrap [enemy] - recovered C++ class. */
 #include "godhand/cEmWrap.h"
 #include "godhand/cEm00.h"
+#include "godhand/cModel.h"
 struct vec4 { int a; float b; int c; float d; };
 extern int D_00747B00[];
 extern unsigned char D_005864F0[];
@@ -19,7 +20,7 @@ int cEmWrap_setPos_2959B0(int *a0, int a1)
         short off = *(short *)(v0 + 0x70);
         void (*fp)(int, int) = *(void (**)(int, int))(v0 + 0x74);
         fp(a2 + off, a1);
-        cModel_calcParts(*(int *)((char *)a0 + 4));
+        cModel_calcParts(*(cModel **)((char *)a0 + 4));
     }
 }
 
@@ -42,7 +43,7 @@ void cEmWrap_setPos_295A08(int *a0, int a1, float f12)
             v.d = 1.0f;
             (*(void (**)(int, struct vec4 *))(a2 + 0x7C))(s0 + off2, &v);
         }
-        cModel_calcParts(*(int *)((char *)a0 + 4));
+        cModel_calcParts(*(cModel **)((char *)a0 + 4));
     }
 }
 

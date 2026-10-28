@@ -23,8 +23,8 @@
  * correct (objdump mislabels the identical bytes as `sdc2 $0`). */
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 
-extern int SetEffect();
 
 /* The effect descriptor SetEffect reads. */
 typedef struct {
@@ -97,11 +97,11 @@ void InitRenderStruct_2A8608(cGameObj *a0, int a1, void *a2, int a3, int t0, voi
                 s.f40 = a0->scale[1];
             }
         }
-        SetEffect(a1, a2, a0, &s, a3, a0);
+        SetEffect(a1, (int)a2, a0, (cEffectParam *)(&s), a3, (unsigned int)a0);
     } else {
         if (a0 != 0) {
             s.f40 = a0->scale[1];
         }
-        SetEffect(a1, a2, t1, &s, a3, a0);
+        SetEffect(a1, (int)a2, t1, (cEffectParam *)(&s), a3, (unsigned int)a0);
     }
 }

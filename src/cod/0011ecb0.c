@@ -9,8 +9,6 @@ extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
-extern void cObjBase_addNullSpeed(void *a0, float f12);
 extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
 extern void cSnd_DieDemoStart(void *a0);
@@ -20,7 +18,6 @@ extern unsigned int D_00747A24;
 extern unsigned short D_00747A50;
 extern char D_00462FC0[];
 extern char D_005864F0[];
-extern char D_005FEE00[];
 extern void cOmSub_setVibration(void *a0, int a1, int a2, float f12, float f13, float f14);
 extern int cOmSub_move(void *a0);
 extern char D_00585720[];
@@ -55,6 +52,8 @@ void func_002A2358(void *a0, char *d, char *s)
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 __attribute__((section(".text.func_0011ECB0")))
 void func_0011ECB0(void *a0)
@@ -149,8 +148,8 @@ void func_0011ECB0(void *a0)
                 D_00747A24 |= 8;
             }
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(int *)(s1 + 0x15B4) > 0)
             *(int *)(s1 + 0x15B4) = *(int *)(s1 + 0x15B4) - 1;
         if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0
@@ -167,7 +166,7 @@ void func_0011ECB0(void *a0)
                 func_0012C0F8(s1, (int)(*(float *)(s3 + 0x76C) * 12.0f));
             if (*(short *)(s1 + 0x54A) <= 0) {
                 *(short *)(s1 + 0x54A) = 0;
-                cSnd_DieDemoStart(D_005FEE00);
+                cSnd_DieDemoStart(&D_005FEE00);
                 cCoreSave_addGameLevelPoint(&D_00569B70, -0x3E8);
                 *(short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
             }
@@ -181,8 +180,6 @@ extern void cOmSub_initMove1_pos(void *a0, void *a1, int a2, int a3, void *t0,
                                  float f12, float f13);
 
 
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4, int a5,
-                              int a6, int a7);
 
 
 __attribute__((section(".text.func_001AD0D0")))
@@ -312,7 +309,7 @@ void func_001AD0D0(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
             *(unsigned char *)(s1 + 0x2F5) = 3;
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x84, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x84, s1, 0, 0, 0, 0);
         }
         *(short *)(s1 + 0x61C) = *(unsigned short *)(s1 + 0x61C) - 1;
         break;

@@ -1,6 +1,6 @@
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern void cModel_calcParts(void *m);
 
 static inline void SetBit(int *w, int b) {
     if ((unsigned int)b < 0x20) {

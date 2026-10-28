@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_001B76D8(void *a0);
 extern char D_00462FC0[];
 extern void cOmBase_setMeshDispFromLayer(int a0, int a1, int a2);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-extern void SetEffect(int a0, int a1, int a2, int a3, int a4, unsigned int a5);
-extern int D_005FEE00;
 extern void func_001B6FB8(void *a0);
 extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void func_001FD9D8(void *a0, void *a1, float *a2, float *a3, float *t0);
@@ -111,8 +110,8 @@ void SetMeshLayerAndPlayEffect(int arg0, int arg1)
         cOmBase_setMeshDispFromLayer(arg0, 0x29, 1);
         break;
     case 4:
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, arg0, 0, 0, 0, 0);
-        SetEffect(0x298, 4, arg0, 0, -1, 0xFFFFFFFF);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, (void *)arg0, 0, 0, 0, 0);
+        SetEffect(0x298, 4, (void *)arg0, 0, -1, 0xFFFFFFFF);
         break;
     }
 }

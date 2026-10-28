@@ -3,24 +3,20 @@
 extern unsigned int Rnd(void);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void func_00279C20(void *a0);
 extern char *D_00586A7C;
 extern void func_00188798(void *a0);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern char D_005FEE00[];
 extern void SetField5B0Bit2ClearBit8_1B7908(void *a0);
 extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, int a2);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
-extern void Adjust_theta_vec(float *p);
 extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
 extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
 extern int MtxCopy();
 #include "godhand/objField.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 extern char D_005864F0[];
 
 __attribute__((section(".text.func_00278C30")))
@@ -50,8 +46,8 @@ void func_00278C30(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     case 2: {
         char *v0 = *(char **)(s0 + 0x304);
@@ -66,8 +62,8 @@ void func_00278C30(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     if (g != 0) {
@@ -111,8 +107,8 @@ void func_001881F0(void *a0)
             ((float *)buf)[1] = r[1];
             ((float *)buf)[2] = r[2];
         }
-        SetEffectPos(0, 7, 0, buf, -1, 1.0f);
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0, s1, 0, 0, 0, 0);
+        SetEffectPos(0, 7, 0, (cVec *)buf, -1, 1.0f);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s1, 0, 0, 0, 0);
         func_00188798(s1);
         SetField5B0Bit2ClearBit8_1B7908(s1);
         if (*(int *)(s1 + 0x608) != 0) {
@@ -186,7 +182,7 @@ void func_001881F0(void *a0)
             VU0_LQC2(4, q20v, 0);
             VU0_SQC2(4, buf, 0x10);
             VU0_VADD_XYZ_IP(e10, 0, q10v);
-            Adjust_theta_vec((float *)e10);
+            Adjust_theta_vec((cVec *)e10);
             m1 = buf + 0x30;
             MtxInitRotVec(m1, e10, 0);
             m1 = 0;

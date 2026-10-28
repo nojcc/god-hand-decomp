@@ -12,8 +12,6 @@ extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
 extern void cSnd_DieDemoStart(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern char D_00462FC0[];
 extern char D_005864F0[];
 extern char D_005FEE00[];
@@ -21,6 +19,7 @@ extern int D_00747A24;
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -83,8 +82,8 @@ void func_0011C608(void *a0)
         func_00124EC0(s0);
         if (moveMotion(s0))
             *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 2: {
         float z;
@@ -112,8 +111,8 @@ void func_0011C608(void *a0)
                 func_0012C348(s0, 0);
             }
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 4:
         cEm00_GetPlMotion(s1, 9, 3.0f, 0.0f);
@@ -127,8 +126,8 @@ void func_0011C608(void *a0)
         *(short *)(s0 + 0x434) = *(unsigned short *)(s0 + 0x434) | 8;
         if (moveMotion(s0))
             D_00747A24 |= 8;
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 6:
         cEm00_GetPlMotion(s1, 0xA, 3.0f, 0.0f);
@@ -143,8 +142,8 @@ void func_0011C608(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 0;
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     default:
         break;

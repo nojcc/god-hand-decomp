@@ -2,6 +2,8 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cModel.h"
 
 extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
@@ -14,9 +16,6 @@ extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void ReleaseObj(void *a0);
 extern void func_00275DA8(void *a0);
-extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern int D_00463050;
 extern int D_0042CAD0;
 
@@ -76,7 +75,7 @@ __attribute__((section(".text.func_00247B18"))) void func_00247B18(cEm00 *self)
                 cEm00_attachToTarget(*(void **)(s1 + 0x744), s1);
             }
             *(float *)(s1 + 0x1768) = 600.0f;
-            v = cModel_getMeshPtr_14B730(s1, &D_0042CAD0);
+            v = cModel_getMeshPtr_14B730((cModel *)self, (char *)(&D_0042CAD0));
             if (v != 0) {
                 *(int *)(v + 0x380) = *(int *)(v + 0x380) & 0xFFFFFFFE;
             }
@@ -139,14 +138,14 @@ __attribute__((section(".text.func_00247B18"))) void func_00247B18(cEm00 *self)
                 s.h72 = 0;
                 s.b74 = 0;
                 s.i78 = 0;
-                SetEffect(0xBD, 0x19, s1, &s, 1, 0xFFFFFFFF);
+                SetEffect(0xBD, 0x19, s1, (cEffectParam *)(&s), 1, 0xFFFFFFFF);
                 *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) | 0x20000000;
                 *(char *)(s1 + 0x186C) = 2;
                 *(unsigned char *)(s1 + 0x2F6) = 2;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
         case 2:
             *(char *)(s1 + 0x1864) = 0;
@@ -162,8 +161,8 @@ __attribute__((section(".text.func_00247B18"))) void func_00247B18(cEm00 *self)
                 *(unsigned char *)(s1 + 0x2F7) = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
     }
 }

@@ -480,8 +480,6 @@ void func_00283BE8(char *p, char *q, int idx);
 /* Starts a lunge at the player if it is within reach; 1 if it did. */
 /* Creates the object held in hand slot no. */
 void func_0026A638(cEm00 *self, int no);
-/* The enemy view with the held object slots (001a6098.c). */
-struct EmThrower;
 void func_00260890(cEm00 *self, int part);
 void func_002705D8(void *self);
 int func_002740D8(char *self);
@@ -564,5 +562,7 @@ void func_00273D30(cEm00 *self);
 void func_00274238(cEm00 *self, unsigned char kind);
 /* Marks the enemy's room slot (0x640) dead in the room save. */
 void func_0028FB08(cEm00 *self);
+/* Throws held object no; fast picks the faster throw. */
+void EmThrower_throwHeld(cEm00 *self, int no, int fast);
 
 #endif

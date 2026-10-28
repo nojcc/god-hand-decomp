@@ -169,5 +169,9 @@ void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float si
 
 /* Sets up the object's shadow in work from shadowData. */
 void cObjBase_KageInit(struct cObjBase *self, char *work, void *shadowData);
+/* Adds the turn the model's null part made this frame, scaled. */
+void cObjBase_addNullSpeed_Rotation(struct cObjBase *self, float scale);
+/* Ends the owner's effect in slot handle (arg 0: the slot table, 1: the list, 2: both). */
+void KillEffect(void *owner, int handle, int arg);
 
 #endif

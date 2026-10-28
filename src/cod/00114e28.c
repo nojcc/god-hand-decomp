@@ -11,12 +11,6 @@ extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
-extern unsigned char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern void KillEffect(void *a0, int a1, int a2);
 extern void KillEffectWithFlag(void *a0, int a1, int a2, int a3);
 extern void func_001AAB10(void *a0);
 extern void SetField5B0Bit2ClearBit8_1B7908(int a0);
@@ -31,9 +25,6 @@ extern void cIDManager_getLocalFileName();
 extern int cDvd_ReadAlloc();
 extern void cDvd_CheckWait();
 extern void cIDManager_setIDData();
-extern void cIDBase_initialize();
-extern void cIDBase_resetAnim();
-extern char *cIDBase_getIDWork();
 extern int D_003C2388;
 extern char D_0041E190[];
 extern char D_00583F20[];
@@ -46,7 +37,6 @@ extern float D_003BDE78;
 extern float D_003BDE7C;
 extern float D_003BDE80;
 extern float D_003BDE84;
-extern int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
 
@@ -71,6 +61,10 @@ extern void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
 
 __attribute__((section(".text.func_001215C8")))
 void func_001215C8(void *a0)
@@ -118,8 +112,8 @@ void func_001215C8(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     if (func_00123938(s1, 1)) {
@@ -165,7 +159,7 @@ void func_001AA6C0(void *a0)
             buf[1] = src[1];
             buf[2] = src[2];
         }
-        SetEffectPos(0, 7, 0, buf, -1, 1.0f);
+        SetEffectPos(0, 7, 0, (cVec *)buf, -1, 1.0f);
         {
             int i = 5;
             if ((hold[0] = b = *(unsigned char *)(s1 + 0x2B4)), i < b)
@@ -268,8 +262,8 @@ void func_00114E28(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0 && *(int *)(s1 + 0x698) == 0) {
@@ -364,23 +358,23 @@ void cCockMiddleBoss_roomInit(MiddleBoss *a0) {
             a0->fA4 = r;
             cDvd_CheckWait(D_00583F20, r);
             cIDManager_setIDData(*D_003C2384, 0xD, a0->fA0);
-            cIDBase_initialize(a0, 0xD, 0);
-            cIDBase_resetAnim(a0);
-            *(float *)(cIDBase_getIDWork(a0, 0) + 0x38) = -100.0f;
+            cIDBase_initialize((cIDBaseObj *)a0, 0xD, 0);
+            cIDBase_resetAnim((cIDBaseObj *)a0);
+            cIDBase_getIDWork((cIDBaseObj *)a0, 0)->posX = -100.0f;
             a0->f90 = 0;
             for (i = 0; i < 5; i++) {
                 IDBase50 *id = &a0->id[i];
-                char *w;
-                cIDBase_initialize(id, 0xD, 1);
-                cIDBase_resetAnim(id);
+                cIDBaseEnt *w;
+                cIDBase_initialize((cIDBaseObj *)id, 0xD, 1);
+                cIDBase_resetAnim((cIDBaseObj *)id);
                 a0->f2C0[i] = 1.0f;
                 a0->f2D4[i] = 1.0f;
                 a0->f2E8[i] = 1.0f;
                 a0->f2FC[i] = 0;
                 a0->f370[i] = 0;
                 a0->fA8[i] = 0;
-                w = cIDBase_getIDWork(id, 0);
-                *(float *)(w + 0x3C) = *(float *)(cIDBase_getIDWork(a0, 0) + 0x3C);
+                w = cIDBase_getIDWork((cIDBaseObj *)id, 0);
+                w->posY = cIDBase_getIDWork((cIDBaseObj *)a0, 0)->posY;
             }
         }
     } while (0);
@@ -487,7 +481,7 @@ void func_00273748(char *s0)
     if (o == 0) return;
     switch (*(int *)(s0 + 0x564)) {
     case 0x208:
-        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(o)) {
+        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08((cOmBase *)o)) {
             if ((*(long *)(s0 + 0x2F0) & 0xFFFF00000000) == 0xE0000000000) return;
             if (!(capVu0MagnitudeSqXZ(*(char **)(*(char **)(s0 + 0x700) + 0xF0), *(char **)(s0 + 0xF0)) < 0.360000014f)) return;
             SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 0);
@@ -499,7 +493,7 @@ void func_00273748(char *s0)
         return;
     case 0x22F:
         big = 1;
-        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(o)) {
+        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08((cOmBase *)o)) {
             if ((*(long *)(s0 + 0x2F0) & 0xFFFF00000000) != 0xE0000000000) {
                 if (capVu0MagnitudeSqXZ(*(char **)(*(char **)(s0 + 0x700) + 0xF0), *(char **)(s0 + 0xF0)) < 0.360000014f) {
                     SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 2);

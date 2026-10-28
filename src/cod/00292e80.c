@@ -2,6 +2,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEmManage.h"
+#include "godhand/cObjBase.h"
 extern int D_00747A30;
 extern int D_0044F448;
 

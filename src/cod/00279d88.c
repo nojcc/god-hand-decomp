@@ -20,11 +20,8 @@ extern char D_00462FC0[];
 
 extern int func_00279F68(char *a0);
 extern int func_0028EBF0(void *self, void *src, int arg);
-extern void cModel_calcParts(cModel *self);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(cModel *self);
 extern void cCollisionSolidManage_SetActive(int a0, int a1, int a2);
-extern void cParts_setRotationOrder(char *arg0, int arg1);
 
 /* Set up enemy 0x23F: load its model, place the parts at the origin and turn its collision on. */
 __attribute__((section(".text.func_00279D88")))
@@ -43,9 +40,9 @@ int func_00279D88(cEm00 *self)
         func_0028EBF0(self, &place, 0);
         self->target = 0;
         self->watchArg = 0;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         IK_InverseKinematics(self->ik, self);
-        cModel_calcWorldParts(self);
+        cModel_calcWorldParts((cModel *)self);
         self->active = 1;
         self->link = -1;
         cCollisionSolidManage_SetActive((int)D_00462FC0, (int)self, 0);

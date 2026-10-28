@@ -3,6 +3,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
 #include "godhand/cRoomSave.h"
+#include "godhand/cObjBase.h"
 
 extern char D_00585240[];
 extern char D_00585450[];
@@ -17,8 +18,6 @@ extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, in
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern char D_00462FC0[];
 
 /* Fill the 11 trail-sprite records of the table at D_00585240: each is a 0x30-byte record holding two kind bytes, a position pair and two vectors with the same Y. */
@@ -249,8 +248,8 @@ __attribute__((section(".text.cEm00_stepHopAway"))) void cEm00_stepHopAway(cEm00
                 }
             }
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
 
         case 2:
@@ -279,8 +278,8 @@ __attribute__((section(".text.cEm00_stepHopAway"))) void cEm00_stepHopAway(cEm00
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

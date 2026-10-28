@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmWeapon.h"
 #include "godhand/cObjSimple.h"
+#include "godhand/cModel.h"
 
 extern void SubRec_initCenter(void *self, void *center, float highY, float lowY, float extra);
 extern float fRand1_1(void);
-extern void cModel_calcParts(void *a0);
 extern void SubInit_init(void *self, unsigned int count, void *a, void *b, float w, float h, int arg);
 
 /* sn-2.95.3-136 matched TU. */
@@ -211,7 +211,7 @@ void cOmWeapon_setThrow(cOmWeapon *self, cVec *v, int n)
         body->posPrev.x = 0.0f;
         body->posPrev.y = 0.0f;
         body->posPrev.z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         d = &self->vel;
         s = v;
         if (d != s) {
@@ -274,7 +274,7 @@ void cOmWeapon_setThrowPL(cOmWeapon *self, cVec *v)
         body->posPrev.y = 0.0f;
         body->posPrev.z =
             fRand1_1() * 0.5235987901687622f + 0.5235987901687622f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         d = &self->vel;
         s = v;
         if (d != s) {
@@ -328,7 +328,7 @@ void func_001CFB28(cOmWeapon *self, cVec *pos, int arg)
         body->anchor->x = 0.0f;
         body->anchor->y = 0.0f;
         body->anchor->z = 0.0f;
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         {
             cVec *d2 = &self->vel;
             if (d2 != pos) { d2->x = pos->x; d2->y = pos->y; d2->z = pos->z; }

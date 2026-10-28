@@ -1,16 +1,14 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cModel.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int D_00747A78;
 extern void func_002A8578(void *a0, int a1, int a2, float f12, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cModel_calcNullPart(void *a0);
-extern void Add_nullspeed(void *a0);
 extern void cObjBase_SetSeqEffect(void *a0);
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
 extern void func_0028CEA8(void *a0);
 extern void func_0028D7E8(void *a0);
 extern void func_0028CB90(void *a0);
@@ -188,16 +186,16 @@ __attribute__((section(".text.func_0028BEC8"))) void func_0028BEC8(cEm00 *self)
         /* fallthrough */
         case 1:
             moveMotion(self);
-            cModel_calcNullPart(self);
-            Add_nullspeed(self);
+            cModel_calcNullPart((cModel *)self);
+            Add_nullspeed((cGameObj *)self);
             break;
         default:
             break;
     }
     cObjBase_SetSeqEffect(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(((char *)self + 0x448), self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     func_0028CEA8(self);
     func_0028D7E8(self);
     func_0028CB90(self);

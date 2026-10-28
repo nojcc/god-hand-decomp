@@ -53,6 +53,8 @@
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cObjBase.h"
 
 typedef signed char        s8;
 typedef unsigned char      u8;

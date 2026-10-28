@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cIDBase.h"
 
 extern void func_00326020(int a0);
 extern void func_003A6A20(const char *s);
@@ -21,8 +22,6 @@ extern char D_0044CE10[];
 extern char D_0044CE20[];
 extern char D_00601F80[];
 extern char D_00747A24[];
-extern void cIDBase_move(void *p);
-extern char *cIDBase_getIDWork(void *this, int idx);
 extern int D_0071B7C0[];
 extern int D_0071B840[];
 extern int D_0071B8C0[];
@@ -103,22 +102,22 @@ void func_0013E4F0(char *p)
     } else {
         *(int *)(*(char **)(p + 0xA0) + 0x2C) |= 0x08000000;
     }
-    cIDBase_move(p);
+    cIDBase_move((cIDBaseObj *)p);
     if (*(int *)(p + 0x90) == 0) return;
     if (*(int *)(p + 0x100) != 0) {
-        *(int *)(cIDBase_getIDWork(p + 0xB0, 0) + 0x2C) &= ~0x08000000;
-        *(int *)(cIDBase_getIDWork(p + 0xB0, 0) + 0x84) = *(int *)(p + 0x100);
+        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 0)->flags &= ~0x08000000;
+        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 0)->seed = *(int *)(p + 0x100);
     } else {
-        *(int *)(cIDBase_getIDWork(p + 0xB0, 0) + 0x2C) |= 0x08000000;
+        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 0)->flags |= 0x08000000;
     }
-    cIDBase_move(p + 0xB0);
+    cIDBase_move((cIDBaseObj *)(p + 0xB0));
     if (*(unsigned char *)(p + 0x104) == 1) {
-        *(int *)(cIDBase_getIDWork(p + 0xB0, 1) + 0x2C) &= ~0x08000000;
-        *(int *)(cIDBase_getIDWork(p + 0xB0, 1) + 0x84) = *(int *)(p + 0x100);
+        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 1)->flags &= ~0x08000000;
+        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 1)->seed = *(int *)(p + 0x100);
     } else {
-        *(int *)(cIDBase_getIDWork(p + 0xB0, 1) + 0x2C) |= 0x08000000;
+        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 1)->flags |= 0x08000000;
     }
-    cIDBase_move(p + 0xB0);
+    cIDBase_move((cIDBaseObj *)(p + 0xB0));
 }
 
 __attribute__((section(".text.func_002FBA60")))

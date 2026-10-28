@@ -5,10 +5,10 @@
 #include "godhand/cModel.h"
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/cDamageGive.h"
+#include "godhand/cObjBase.h"
 extern char D_00747B00[];
 extern void SetMotionStep(void *a0, float f12);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern int moveMotion(void *a0);
 extern void VecRotVec(float *out, float *in, float *rot, int order);
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *take);

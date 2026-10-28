@@ -1,3 +1,4 @@
+#include "godhand/cObjBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 typedef struct {
@@ -29,9 +30,6 @@ extern void func_002B4528(void *self, int value);
 extern void func_002D5918(void *self);
 extern void func_002D5990(void *self);
 extern int func_00394DD8(void *value, int mode);
-extern int SetEffect(
-    int effect, int resource, void *owner, int arg3,
-    int arg4, unsigned int arg5);
 
 __attribute__((section(".text.func_0031AF70")))
 int func_0031AF70(int value)

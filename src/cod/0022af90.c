@@ -1,5 +1,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -9,8 +10,6 @@ extern int moveMotion(void *a0);
 extern void func_002812A8(void *a0, int a1, int a2);
 extern void func_002495E0(void *a0, float f);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void *Getplayer(void);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Turn_dest_dir(float f12, float f13, float f14);
@@ -45,8 +44,8 @@ __attribute__((section(".text.func_0024A518"))) void func_0024A518(cEm00 *self)
         case 1:
             one = 1.0f;
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             if (*(float *)((char *)self + 0x176C) <= 0.0f) {
                 self->step++;
             }
@@ -78,8 +77,8 @@ __attribute__((section(".text.func_0024A518"))) void func_0024A518(cEm00 *self)
                 func_002705D8(self);
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
     }
 }
@@ -115,8 +114,8 @@ __attribute__((section(".text.func_0022AF90"))) void func_0022AF90(cEm00 *self)
                               *(float *)(s1 + 0x5A8) * 0.19634955f);
             *(float *)(s1 + 0x104) = *(float *)(s1 + 0x104) + d;
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             if (*(short *)((char *)Getplayer() + 0x54A) <= 0) {
                 return;
             }
@@ -163,8 +162,8 @@ __attribute__((section(".text.func_0022AF90"))) void func_0022AF90(cEm00 *self)
                 *(unsigned char *)(s1 + 0x2F6) = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             if (*(unsigned short *)(s1 + 0x3AC) & 1) {
                 if (*(unsigned char *)(s1 + 0x17C3) != 0) {
                     func_0026A638(self, 1);

@@ -1,9 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern float D_00567FC0[];
-extern unsigned char D_005FEE00[];
 extern int cOmSub_move(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern float D_00568020[];
 extern void func_001B6FB8(void *a0);
 extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
@@ -13,6 +11,7 @@ extern int D_00574380;
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 
 

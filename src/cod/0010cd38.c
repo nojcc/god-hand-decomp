@@ -6,8 +6,6 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
-extern void cSnd_SeStop(cSnd *self, int handle);
 extern int func_00124540(void *a0, int a1);
 extern void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12);
 extern void Obj0000_Clear_Fields_640_648_124E58(char *a0);
@@ -15,9 +13,6 @@ extern void func_001268F0(int *p);
 extern int func_00123938(void *a0, int a1);
 extern void func_002A8578(int a0, int a1, int a2, int a3, int t0, int t1, float f12);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
-extern cSnd D_005FEE00;
 
 /* The object held at 0x640, read as a pointer as 0010f4b8.c and 00124e68.c do. cEm00.h
  * names the same word's low half entryNo, so the pointer stays a raw read. It is not

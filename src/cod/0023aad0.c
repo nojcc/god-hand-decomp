@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -8,8 +9,6 @@ extern int moveMotion(void *a0);
 extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern int D_007476B0;
 
 /* sn-2.95.3-136 */
@@ -50,8 +49,8 @@ __attribute__((section(".text.func_0023AAD0"))) void func_0023AAD0(cEm00 *self)
                 break;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
         case 2: {
             int t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -96,8 +95,8 @@ __attribute__((section(".text.func_0023AAD0"))) void func_0023AAD0(cEm00 *self)
                 }
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
         case 4: {
             int t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -113,8 +112,8 @@ __attribute__((section(".text.func_0023AAD0"))) void func_0023AAD0(cEm00 *self)
                 break;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
     }
 }

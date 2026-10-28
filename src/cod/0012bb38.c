@@ -5,11 +5,10 @@
 #include "godhand/BlackJack.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cModel.h"
 
 extern int SetEffectParts(int kind, int id, void *owner, int part, float f12, float f13, float f14, float f15, int t0);
-extern void KillEffect(void *owner, int id, int arg);
-extern void cModel_calcParts(void *self);
-extern void cModel_calcWorldParts(void *self);
 extern cOmBase *Getplayer(void);
 extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(cOmBase *obj);
 extern void cPlayer_tryTrigger(void);
@@ -96,8 +95,8 @@ void func_001ADD20(cOmBase *self)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cModel_calcParts(self);
-    cModel_calcWorldParts(self);
+    cModel_calcParts((cModel *)self);
+    cModel_calcWorldParts((cModel *)self);
 }
 
 /* Show the action prompt of an object: only while the player is alive, its 0x15F4 bit 22 is clear and no slot wait is pending; prompt 8 when the target test passes, else prompt 7. */

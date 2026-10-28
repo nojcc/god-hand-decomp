@@ -2,11 +2,11 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cEma2.h"
+#include "godhand/cModel.h"
 
 extern void func_0028EBF0(cEma2 *self, SET_EM_DATA *data, void *arg);
 extern int func_0028AC58(cEma2 *self);
 extern int cDamageUnit_AddDamageCollSphere(int unit, void *joint, cVec *offset, float radius);
-extern cMeshNode *cModel_getMeshPtr_14B730(void *model, char *name);
 
 /* The int stored at byte ofs of the motion block, plus the block address. */
 static __inline__ int motionBlock_at(char *block, int ofs) {
@@ -27,11 +27,8 @@ static __inline__ void cMeshNode_show(cMeshNode *node) {
 
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern void moveMotion(void *a0);
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern void cParts_setRotationOrder(void *a0, int a1);
 extern void cObjBase_KageInit(void *a, void *b, void *c);
 extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
@@ -106,12 +103,12 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
         break;
     }
     moveMotion(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->base.ik, self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     cCollisionSolidManage_SetActive(&D_00462FC0, self, 0);
     cVec_copy3(&self->escPos, self->base.pos);
-    cParts_setRotationOrder(self, 4);
+    cParts_setRotationOrder((char *)self, 4);
     cObjBase_KageInit(self, self->shadow, D_003C3F68);
     self->damageTake = cDamageManage_CreateDamageTake(D_00574380, self, 1);
 
@@ -189,14 +186,14 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     *(int *)&self->goal.z = 0;
     self->goal.y = 0.02f;
     self->goal.w = fRand0_1() * 90.0f + 90.0f;
-    self->mesh[0] = cModel_getMeshPtr_14B730(self, D_00448DB8);
-    self->mesh[1] = cModel_getMeshPtr_14B730(self, D_00448DC0);
-    self->mesh[2] = cModel_getMeshPtr_14B730(self, D_00448DC8);
-    self->mesh[3] = cModel_getMeshPtr_14B730(self, D_00448DD0);
-    self->mesh[4] = cModel_getMeshPtr_14B730(self, D_00448DD8);
-    self->mesh[5] = cModel_getMeshPtr_14B730(self, D_00448DE0);
-    self->mesh[6] = cModel_getMeshPtr_14B730(self, D_00448DE8);
-    self->mesh[7] = cModel_getMeshPtr_14B730(self, D_00448DF0);
+    self->mesh[0] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DB8);
+    self->mesh[1] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DC0);
+    self->mesh[2] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DC8);
+    self->mesh[3] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DD0);
+    self->mesh[4] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DD8);
+    self->mesh[5] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DE0);
+    self->mesh[6] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DE8);
+    self->mesh[7] = (cMeshNode *)cModel_getMeshPtr_14B730((cModel *)self, D_00448DF0);
     cMeshNode_hide(self->mesh[0]);
     cMeshNode_hide(self->mesh[1]);
     cMeshNode_hide(self->mesh[2]);

@@ -3,6 +3,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
@@ -12,8 +13,6 @@ extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern int SetEffectParts(int a0, int a1, void *a2, int a3, float f12,
@@ -60,8 +59,8 @@ void func_00115C00(void *a0)
             D_00747A24 |= 8;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         if (*(unsigned short *)(s1 + 0x3AC) & 0x10) {
             float *pa = va;
             float *pb;
@@ -115,8 +114,8 @@ void func_00115C00(void *a0)
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }

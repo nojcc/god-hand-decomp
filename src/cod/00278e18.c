@@ -1,18 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern float fRand1_1(void);
 extern unsigned int Rnd(void);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern char *D_00586A7C;
-extern unsigned char D_005FEE00[];
 
 #include "godhand/vu0.h"
 
@@ -42,8 +40,8 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
                 self->step += 1;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
         case 2: {
             int v = self->resource;
@@ -59,7 +57,7 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
         case 3:
             if (g != 0) {
                 if (16.0f < dist) {
-                    cGameObj_SetTgtTurn(self, *(int *)(g + 0xF0), self->speedRate * 0.024543693f);
+                    cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(g + 0xF0), self->speedRate * 0.024543693f);
                 }
                 if (*(float *)((char *)self->pos + 4) <
                     *(float *)(*(char **)(g + 0xF0) + 4) + 2.5f) {
@@ -93,8 +91,8 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
                 }
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             {
                 float x = self->timer2 - self->speedRate;
                 self->timer2 = x;
@@ -112,7 +110,7 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
         case 5:
             if (g != 0) {
                 if (4.0f < dist) {
-                    cGameObj_SetTgtTurn(self, *(int *)(g + 0xF0), self->speedRate * 0.09817477f);
+                    cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(g + 0xF0), self->speedRate * 0.09817477f);
                 }
                 if (*(float *)(*(char **)(g + 0xF0) + 4) + 2.0f <
                     *(float *)((char *)self->pos + 4)) {
@@ -146,8 +144,8 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
                 }
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             if (dist < 0.25f) {
                 self->mode = 0;
                 self->phase = 4;
@@ -169,22 +167,22 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
             switch ((unsigned char)(Rnd() % 6)) {
                 default:
                 case 0:
-                    cSnd_SeCall_2CBA48(D_005FEE00, 1, 0, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0, self, 0, 0, 0, 0);
                     break;
                 case 1:
-                    cSnd_SeCall_2CBA48(D_005FEE00, 1, 1, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 1, self, 0, 0, 0, 0);
                     break;
                 case 2:
-                    cSnd_SeCall_2CBA48(D_005FEE00, 1, 2, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 2, self, 0, 0, 0, 0);
                     break;
                 case 3:
-                    cSnd_SeCall_2CBA48(D_005FEE00, 1, 3, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 3, self, 0, 0, 0, 0);
                     break;
                 case 4:
-                    cSnd_SeCall_2CBA48(D_005FEE00, 1, 4, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 4, self, 0, 0, 0, 0);
                     break;
                 case 5:
-                    cSnd_SeCall_2CBA48(D_005FEE00, 1, 5, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 5, self, 0, 0, 0, 0);
                     break;
             }
         }

@@ -1,5 +1,7 @@
 /* TU: cOl2b [object] - recovered C++ class. */
 #include "include_asm.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 typedef struct CGUnk_00180310
 {
   unsigned char unk[0xA28];
@@ -39,9 +41,6 @@ unsigned char cOl2b_isActive(unsigned char *a0) {
     return a0[0xA28];
 }
 
-extern int D_005FEE00;
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
-extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 
 __attribute__((section(".text.cOl2b_setFire")))
 void cOl2b_setFire(char *p)

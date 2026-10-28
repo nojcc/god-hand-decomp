@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cObjSimple.h"
+#include "godhand/cModel.h"
 
 extern void *SearchData(void *a, void *b, int c);
-extern void cModel_setTextureExchange(void *self, void *tex, int tbl, int n);
 extern char D_0044B4A8[];
 extern char D_0044B4B0[];
 
@@ -90,7 +90,7 @@ void cObjSimple__SetTexChange(cObjSimple *self, int n) {
     if (m != 0) {
         if (val != 0) {
             self->drawFlags = self->drawFlags | 0x10000000;
-            cModel_setTextureExchange(self, m, val, n);
+            cModel_setTextureExchange((cModel *)self, m, (cTexTable *)val, n);
         }
     }
 }

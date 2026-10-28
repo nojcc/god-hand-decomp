@@ -7,18 +7,16 @@ extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int
 extern void func_00281560(int a0, int a1);
 extern void func_00283438(int a0, int a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002705D8(void *a0);
 extern float fRand1_1(void);
 extern float fRand0_1(void);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
 extern char D_00462FC0[];
 extern char D_005CB000[];
 
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -84,8 +82,8 @@ void func_0025E248(void *a0)
     case 3:
     phase1:
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6);
         break;
     case 4: {
@@ -104,8 +102,8 @@ void func_0025E248(void *a0)
     case 5:
         if (moveMotion(s0))
             func_002705D8(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     default:
         break;
@@ -118,7 +116,7 @@ void func_0025E248(void *a0)
             buf[1] = fRand1_1() * 0.1f + 1.5f;
             buf[2] = fRand0_1() * 0.1f + 0.7f;
             sceVu0ApplyMatrix(buf, s1 + 0x80, buf);
-            SetEffectPos(0, 0x4F, 0, buf, -1, 1.0f);
+            SetEffectPos(0, 0x4F, 0, (cVec *)buf, -1, 1.0f);
         }
         if (*(short *)(s0 + 0x56A) != 0) {
             if (*(unsigned short *)(s0 + 0x3AC) & 1) {

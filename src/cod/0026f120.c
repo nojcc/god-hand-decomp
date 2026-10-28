@@ -1,9 +1,8 @@
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int irand(void);
-extern unsigned char D_005FEE00[];
 
 __attribute__((section(".text.func_0026F120")))
 int func_0026F120(cEm00 *self) {

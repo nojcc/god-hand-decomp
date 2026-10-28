@@ -383,5 +383,22 @@ static __inline__ void cModelNode_show(cModelNode *node)
     if (node != 0)
         node->dispFlags &= ~CMODEL_NODE_HIDE;
 }
+/* Builds the model's world matrix and updates each part. */
+void cModel_calcParts(cModel *self);
+/* Updates the null part of the model. */
+void cModel_calcNullPart(cModel *self);
+/* The mesh node of the model named name, or 0. */
+cModelNode *cModel_getMeshPtr_14B730(cModel *self, char *name);
+/* A texture exchange table: a list of texture keys, then groups of
+ * (slot, key index) pairs. Each group is a count byte and its pairs. */
+typedef struct cTexTable {
+    int magic;                          /* 0x00 D_0041EA80 */
+    unsigned short groupNum;            /* 0x04 */
+    unsigned short keyNum;              /* 0x06 */
+    long key[1];                        /* 0x08 keyNum keys, then the groups */
+} cTexTable;
+/* Fill the model's texture slot table from group n of tbl, looking each key
+ * up in tex. Returns 1 when the table is valid and has that group. */
+int cModel_setTextureExchange(cModel *self, void *tex, cTexTable *tbl, int n);
 
 #endif

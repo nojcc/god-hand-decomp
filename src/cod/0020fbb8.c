@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -8,8 +9,6 @@ extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, in
 extern int moveMotion(void *a0);
 extern int irand(void);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, void *a1, int a2);
@@ -1095,8 +1094,8 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                 float *fp2;
                 fv = 1.0f;
                 moveMotion(s1);
-                cObjBase_addNullSpeed_Rotation(s1, fv);
-                cObjBase_addNullSpeed(s1, fv);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)self, fv);
+                cObjBase_addNullSpeed((cObjBase *)self, fv);
                 fp1 = *(float **)(s1 + 0xF0);
                 fp1[0] = fp1[0] * 0.99500002f + *(float *)(s1 + 0x5C0) * 0.0049999999f;
                 fp2 = *(float **)(s1 + 0xF0);
@@ -1643,8 +1642,8 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                 }
             }
             fv = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s1, fv);
-            cObjBase_addNullSpeed(s1, fv);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, fv);
+            cObjBase_addNullSpeed((cObjBase *)self, fv);
             break;
     }
 }

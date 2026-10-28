@@ -2,8 +2,8 @@
 
 #include "godhand/cEm00.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/cModel.h"
 
-extern void cModel_setTextureExchange(void *model, int set, int rec, int flag);
 extern void SetCustomIDDispOneOrAll_1F4778(void *self, int sel, int on);
 extern void CustomIDWork_SetNumber(CustomIDWork *self, int number);
 extern void CustomIDWork_SetOffsetPosX(CustomIDWork *self, int x);
@@ -61,7 +61,7 @@ void cEm00_stepTextureHide(cEm00 *self)
         } else {
             EM_FLAGS254(self) |= EM_FLAG254_TEXHIDE;
         }
-        cModel_setTextureExchange(self, EM_TEXSET(self), EM_RES_REC(self->resource, 0x8C), 0);
+        cModel_setTextureExchange((cModel *)self, (void *)(EM_TEXSET(self)), (cTexTable *)(EM_RES_REC(self->resource, 0x8C)), 0);
     }
 }
 

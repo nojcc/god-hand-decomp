@@ -208,5 +208,9 @@ static __inline__ cOmBase *cOmBase_childAtIdx(cOmBase *b, int *frame, int idx)
     }
     return 0;
 }
+void Obj1D00_ClearState_6(cOmBase *self);
+void Obj1D00_ClearState_7(cOmBase *self);
+/* 1 when the object is in mode 0 and phase 4. */
+int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(cOmBase *self);
 
 #endif

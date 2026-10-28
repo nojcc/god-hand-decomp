@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/cModel.h"
 
 extern int SearchData(int a0, void *a1, int a2);
-extern void cModel_setTextureExchange(void *a0, int a1, int a2, int a3);
 extern int D_00428A18;
 extern void func_003A52F0(void *a0, int a1, int a2);
 extern void cSndMemHeap_ResetFirstBlk(void *);
@@ -23,8 +23,8 @@ extern void func_003870E0(int);
 __attribute__((section(".text.cOmBase_setTexChange")))
 void cOmBase_setTexChange(cOmBase *self, int arg) {
     self->texFlags |= 0x10000000;
-    cModel_setTextureExchange(self, self->texSet,
-        SearchData(self->texKey, &D_00428A18, 0), arg);
+    cModel_setTextureExchange((cModel *)self, (void *)self->texSet,
+        (cTexTable *)(SearchData(self->texKey, &D_00428A18, 0)), arg);
 }
 
 /* cSndMemHeap_OpenRoot — sn-2.95.3-136 */

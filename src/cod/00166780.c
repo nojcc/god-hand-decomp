@@ -4,6 +4,7 @@
 #include "godhand/classFADE.h"
 #include "godhand/padWork.h"
 #include "godhand/seqNode.h"
+#include "godhand/cIDBase.h"
 
 #define OPTION_MSG_ROW      0x2000      /* message of row n is this + n */
 #define OPTION_MSG_ASK      0x2008      /* message of the yes/no question */

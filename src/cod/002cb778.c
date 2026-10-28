@@ -6,7 +6,6 @@ extern char D_00754C10[];
 extern char D_00754220[];
 extern void func_003A52F0(void *, int, int);
 extern void cSndMemHeap_ResetFirstBlk(void *);
-extern int cSndMemHeap_Alloc(int, int);
 
 /* A slot is available when it is unset (-1), has no owner, or its entry is alive. */
 __attribute__((section(".text.cSnd_SeIsLoaded")))

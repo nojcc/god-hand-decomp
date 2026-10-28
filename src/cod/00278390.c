@@ -24,9 +24,7 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_00278570(char *self);
 extern void cObjBase_SetSeqEffect(cObjBase *a0);
 extern void func_00279B20(char *self);
-extern void cModel_calcParts(cModel *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(cModel *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 
 extern EmPhaseTable D_003BFB00;
@@ -55,9 +53,9 @@ void func_00278390(cEm00 *self)
 
     cObjBase_SetSeqEffect(self);
     func_00279B20((char *)self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->ik, self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
     vec3_copy(&self->posA.x, &self->pos->x);
 }

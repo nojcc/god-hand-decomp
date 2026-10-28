@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* func_00247708 — ORs 0x30000 into +0x16D0 and 0x10000 into +0x250, sets
  * +0x54C=3.0f, then a +0x2F6 phase machine (record fields 0x2148/0x214C, mode 0,
@@ -9,8 +10,6 @@ extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int
 extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 
 /* Phase machine on the step byte, 2 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,
  * func_002A8578, moveMotion, func_002705D8, cObjBase_addNullSpeed_Rotation, cObjBase_addNullSpeed.
@@ -32,8 +31,8 @@ __attribute__((section(".text.func_00247708"))) void func_00247708(cEm00 *self)
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

@@ -1,12 +1,11 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern char *D_00586A58;
 extern char *D_00586A5C;
 
@@ -231,8 +230,8 @@ __attribute__((section(".text.func_00241500"))) void func_00241500(cEm00 *self)
             *(char *)(p + 0x617) = 1;
             *(float *)(p + 0x54C) = 3.0f;
             moveMotion(p);
-            cObjBase_addNullSpeed_Rotation(p, 1.0f);
-            cObjBase_addNullSpeed(p, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             {
                 int bit = *(int *)(p + 0x16D0) & 0x20000000;
                 int flg = bit != 0;
@@ -269,8 +268,8 @@ __attribute__((section(".text.func_00241500"))) void func_00241500(cEm00 *self)
             *(char *)(p + 0x617) = 1;
             *(float *)(p + 0x54C) = 3.0f;
             moveMotion(p);
-            cObjBase_addNullSpeed_Rotation(p, 1.0f);
-            cObjBase_addNullSpeed(p, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             {
                 float d = *(float *)(p + 0x600) - *(float *)(p + 0x5A8);
 

@@ -1,23 +1,20 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
-extern int GetSeqSEBase(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_0026ECD0(void *a0, int a1);
 extern float fRand1_1(void);
 extern float Adjust_theta(float f12);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
 extern void func_002705D8(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -252,8 +249,8 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
             *(unsigned short *)(s1 + 0x434) |= 8;
             moveMotion(s1);
             *(float *)(s1 + 0x338) = *(float *)(s1 + 0x5A8) * -0.159999996f;
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             func_00262750(s1, 4);
             break;
         }
@@ -388,10 +385,10 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 func_002705D8(s1);
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             o = (char *)Getplayer();
-            cGameObj_SetTgtTurn(s1, *(int *)(o + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(o + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
             n = *(int *)(s1 + 0x5F0);
             if (n != 0) {
                 *(int *)(s1 + 0x5F0) = n - 1;

@@ -1,14 +1,13 @@
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void Poker_resetDeck(void *a0);
 extern void func_001DBE18(void *a0, void *a1);
 extern void func_001D6EC8(void *a0, int a1);
 extern void func_001D6DD0(void *a0, int a1);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void SetField_56_1DEBE8(void *a0, int a1);
 extern float D_00568160[];
 extern float D_005681C0[];
-extern int D_005FEE00;
 
 /* sn-2.95.3-136 matched TU. */
 

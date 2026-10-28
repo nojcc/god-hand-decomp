@@ -3,7 +3,6 @@
 extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern void SetField380Bit2000ForTag_1B7300(void *a0, int a1, int a2);
-extern void cModel_calcParts(void *a0);
 extern void func_00174208(char *a0, int a1, float *a2, float *a3);
 
 /* sn-2.95.3-136 */
@@ -15,6 +14,7 @@ extern void func_00174208(char *a0, int a1, float *a2, float *a3);
 
 
 #include "godhand/vu0.h"
+#include "godhand/cModel.h"
 
 __attribute__((section(".text.func_00174448")))
 void func_00174448(char *p)
@@ -59,7 +59,7 @@ void func_00174448(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts(p);
+    cModel_calcParts((cModel *)p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;

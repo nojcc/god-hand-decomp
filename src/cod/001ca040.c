@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cObjBase.h"
 extern unsigned char D_005864F0[];
 extern float cEmManage_GetSpeedRate(void *a0);
-extern void KillEffect(void *a0, int a1, int a2);
 extern float Adjust_theta(float f12);
 extern int D_005864E0[];
 extern unsigned int irand(void);

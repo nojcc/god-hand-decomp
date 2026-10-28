@@ -15,12 +15,10 @@ extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void SetMotionStep(void *a0, float f12);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float f12);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -84,8 +82,8 @@ void func_00118690(void *a0)
         func_00124EC0(s1);
         if (moveMotion(s1))
             *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 2:
         cEm00_GetPlMotion(s2, 0x43, 0.0f, 0.0f);
@@ -170,8 +168,8 @@ void func_00118690(void *a0)
         func_00124EC0(s1);
         if (moveMotion(s1) && *(short *)(s1 + 0x568) <= 0)
             *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 4:
         cEm00_GetPlMotion(s2, 0x44, 0.0f, 0.0f);
@@ -186,8 +184,8 @@ void func_00118690(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     default:
         break;

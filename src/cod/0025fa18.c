@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -6,8 +7,6 @@ extern void *Getplayer(void);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern void cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cCamManager_setPartsCamera(void *cam, int mode);
 extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
@@ -63,7 +62,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             func_002A8578(s1, EM_RES_REC(v0, 0x444), EM_RES_REC(v0, 0x448), 0.0f, 0, 0, 0);
             *(unsigned short *)(s1 + 0x3AC) = *(unsigned short *)(s1 + 0x3AC) & 0xFDFF;
             *(unsigned char *)(s1 + 0x617) = 1;
-            func_0025FE30(s1, 0x400000, 1);
+            func_0025FE30((cEm00 *)s1, 0x400000, 1);
             cDamageUnit_SetDamageCollActive(s2, 0);
             *(short *)(s1 + 0x568) = 0xDD;
             *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
@@ -71,8 +70,8 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             one = 1.0f;
             *(unsigned short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, one);
+            cObjBase_addNullSpeed((cObjBase *)s1, one);
             if (*(short *)(s1 + 0x568) != 0) {
                 *(unsigned short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
             } else {
@@ -87,7 +86,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             func_002A8578(s1, EM_RES_REC(v0, 0x153C), EM_RES_REC(v0, 0x1540), 0.0f, 0, 0, 0);
             *(unsigned short *)(s1 + 0x3AC) = *(unsigned short *)(s1 + 0x3AC) & 0xFDFF;
             *(unsigned char *)(s1 + 0x617) = 1;
-            func_0025FE30(s1, 0x400000, 1);
+            func_0025FE30((cEm00 *)s1, 0x400000, 1);
             cDamageUnit_SetDamageCollActive(s2, 0);
             *(short *)(s1 + 0x568) = 0x11D;
             *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
@@ -115,8 +114,8 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             cPartsCamera_SetParts(parts, s1, a2v, a3v);
             *(unsigned short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, one);
-            cObjBase_addNullSpeed(s1, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, one);
+            cObjBase_addNullSpeed((cObjBase *)s1, one);
             if (*(short *)(s1 + 0x568) != 0) {
                 *(unsigned short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
             } else {

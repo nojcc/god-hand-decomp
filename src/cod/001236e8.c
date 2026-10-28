@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cModel.h"
 
-extern void cModel_setTextureExchange(void *a0, int a1, int a2, int a3);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -22,7 +22,7 @@ void func_001236E8(void *arg)
         char *p;
         *(int *)(s0 + 0x254) |= 0x10000000;
         t0 = *(char **)(s0 + 0x304);
-        cModel_setTextureExchange(s0, *(int *)(s0 + 0x284), *(int *)(t0 + 0xC) + (int)t0, 0);
+        cModel_setTextureExchange(arg, *(void **)(s0 + 0x284), (cTexTable *)(*(int *)(t0 + 0xC) + (int)t0), 0);
         p = *(char **)(s0 + 0x1550);
         if (p != 0) {
             *(int *)(p + 0x380) |= 1;
@@ -43,7 +43,7 @@ void func_001236E8(void *arg)
             char *p;
             *(int *)(s0 + 0x254) |= 0x10000000;
             t0 = *(char **)(s0 + 0x304);
-            cModel_setTextureExchange(s0, *(int *)(s0 + 0x284), *(int *)(t0 + 0xC) + (int)t0, 1);
+            cModel_setTextureExchange(arg, *(void **)(s0 + 0x284), (cTexTable *)(*(int *)(t0 + 0xC) + (int)t0), 1);
             p = *(char **)(s0 + 0x1550);
             if (p != 0) {
                 *(int *)(p + 0x380) |= 1;

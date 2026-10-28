@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern unsigned char D_005864F0[];
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
@@ -13,8 +14,6 @@ extern int moveMotion(void *a0);
 extern int cEmManage_CkPlSorry(void *a0);
 extern int cEmManage_CkPlCatched(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -81,8 +80,8 @@ __attribute__((section(".text.func_0022A8D0"))) void func_0022A8D0(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         }
         case 2: {
@@ -140,8 +139,8 @@ __attribute__((section(".text.func_0022A8D0"))) void func_0022A8D0(cEm00 *self)
             } else if (cEmManage_CkPlCatched(g) != 0) {
                 *(char *)(s1 + 0x2F6) = 4;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         }
         case 4: {
@@ -159,8 +158,8 @@ __attribute__((section(".text.func_0022A8D0"))) void func_0022A8D0(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
     func_00260B30(self);

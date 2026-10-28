@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cModel.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
-extern void cModel_calcParts(void *);
-extern void cModel_calcWorldParts(void *);
 extern char D_00462FC0[];
 extern void func_001C0450(void *);
 extern float cEmManage_GetSpeedRate(void *a0);
@@ -58,8 +57,8 @@ void UpdatePhaseThenCalcPartsB(void *a0)
     fp((int)(s0 + arg));
     func_002A87E8(s0, 0);
     func_001B76D8(s0);
-    cModel_calcParts(s0);
-    cModel_calcWorldParts(s0);
+    cModel_calcParts(a0);
+    cModel_calcWorldParts(a0);
 }
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */

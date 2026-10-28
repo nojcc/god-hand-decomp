@@ -1,17 +1,16 @@
+#include "godhand/cObjBase.h"
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern float SetMotionStep(void *a0, float f12);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern float Adjust_theta(float f12);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cEm00_startJumpSetup(void *a0);
 
 extern float D_003BD478;
 extern float D_003BD480;
 extern float Turn_dest_dir(float f12, float f13, float f14);
-extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeedDir(void *a0, float f12);
 __attribute__((section(".text.func_0010C300")))
 void func_0010C300(void *a0)
@@ -73,14 +72,14 @@ void func_0010C300(void *a0)
                 *(float *)(s0 + 0x104) = Adjust_theta(*(float *)(s0 + 0x104));
             }
             moveMotion(s0);
-            cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-            cObjBase_addNullSpeed(s0, 1.0f);
+            cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+            cObjBase_addNullSpeed(a0, 1.0f);
         } else {
             v = Turn_dest_dir(*(float *)(s0 + 0x104), *(float *)(s0 + 0x15FC), 0.39269909f);
             *(float *)(s0 + 0x104) = *(float *)(s0 + 0x104) + v;
             *(float *)(s0 + 0x104) = Adjust_theta(*(float *)(s0 + 0x104));
             moveMotion(s0);
-            cModel_calcNullPart(s0);
+            cModel_calcNullPart(a0);
             Add_nullspeedDir(s0, *(float *)(s0 + 0x15FC));
         }
         break;

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cIDBase.h"
 
 extern int irand(void);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
@@ -14,9 +15,6 @@ extern int cIDManager_getLocalFileName();
 extern int cDvd_ReadAlloc();
 extern void cDvd_CheckWait();
 extern void cIDManager_setIDData();
-extern void cIDBase_initialize();
-extern void cIDBase_restartAnim();
-extern char *cIDBase_getIDWork();
 extern void CustomIDWork_Initialize();
 extern void CustomIDWork_SetMessNo();
 extern void CustomIDWork_SetNumber();
@@ -254,15 +252,15 @@ void func_001E71B8(char *a0, int a1)
     if (r != 0) {
         cDvd_CheckWait(D_00583F20, r);
         cIDManager_setIDData(*D_003C2384, 0x11, *(int *)(a0 + 0x678));
-        cIDBase_initialize(a0, 0x11, a1);
-        cIDBase_restartAnim(a0);
+        cIDBase_initialize((cIDBaseObj *)a0, 0x11, a1);
+        cIDBase_restartAnim((cIDBaseObj *)a0);
         for (i = 0; i < 10; i++)
-            CustomIDWork_Initialize(a0 + 0x50 + i * 0x7C, cIDBase_getIDWork(a0, i));
+            CustomIDWork_Initialize(a0 + 0x50 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)a0, i));
         b = a0 + 0x530;
-        cIDBase_initialize(b, 0x11, 2);
-        cIDBase_restartAnim(b);
+        cIDBase_initialize((cIDBaseObj *)b, 0x11, 2);
+        cIDBase_restartAnim((cIDBaseObj *)b);
         for (i = 0; i < 2; i++)
-            CustomIDWork_Initialize(a0 + 0x580 + i * 0x7C, cIDBase_getIDWork(b, i));
+            CustomIDWork_Initialize(a0 + 0x580 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)b, i));
         g = (char *)&D_007474A0;
         if (*(unsigned short *)(g + 0x5B0) == 5)
             CustomIDWork_SetMessNo(a0 + 0x5FC, 0x1001);

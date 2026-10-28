@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* func_00244610 — runs the 0x1346C8 handler and ORs 0x10000 into +0x16D0, then a
  * +0x2F6 phase machine (record fields 0x2494/0x2498, mode 3, t0 = low 16 bits of
@@ -12,8 +13,6 @@ extern int D_00462FC0;
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002606E8(void *a0, int a1);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 
 /* Phase machine on the step byte, 2 case labels. Calls cCollisionSolidManage_SetActive,
  * Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578, func_002606E8, moveMotion, func_002705D8 and 2
@@ -36,8 +35,8 @@ __attribute__((section(".text.func_00244610"))) void func_00244610(cEm00 *self)
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

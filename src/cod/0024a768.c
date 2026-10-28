@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern int Obj2B28_SetField34_To1_ReturnZero(void *);
 extern int Obj2B28_SetField34_To2_ReturnZero(void *);
@@ -19,11 +21,7 @@ extern void Obj2810_ClearState_4(void *a0);
 extern void SetBytes2F4Mode4_283240(void *a0);
 extern int moveMotion(void *a0);
 extern int irand(void);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void func_0026DB00(void *a0, int a1, int a2);
-extern char D_005FEE00[];
 
 /* sn-2.95.3-136 candidate. */
 
@@ -158,8 +156,8 @@ __attribute__((section(".text.func_0024A768"))) void func_0024A768(cEm00 *self)
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
     if ((self->moveFlags & 1) != 0) {
@@ -168,7 +166,7 @@ __attribute__((section(".text.func_0024A768"))) void func_0024A768(cEm00 *self)
         self->timer = t;
         if (t <= 0.0f) {
             self->timer = 35.0f;
-            cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
             if ((irand() & 1) != 0) {
                 func_0026BEF0(self, 0x19, 0);
                 func_0026BEF0(self, 0x19, 2);

@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cModel.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
@@ -9,8 +11,6 @@ extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern char D_004365A8[];
 extern char D_004365B0[];
 
@@ -83,8 +83,8 @@ __attribute__((section(".text.func_002170B8"))) void func_002170B8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
             break;
     }
     if (*(unsigned short *)(s1 + 0x3AC) & 1) {
@@ -92,11 +92,11 @@ __attribute__((section(".text.func_002170B8"))) void func_002170B8(cEm00 *self)
             char *r;
             func_0026BEF0(self, 8, 0);
             *(int *)(s1 + 0x16D4) |= 8;
-            r = (char *)cModel_getMeshPtr_14B730(s1, D_004365A8);
+            r = (char *)cModel_getMeshPtr_14B730((cModel *)s1, D_004365A8);
             if (r != 0) {
                 *(int *)(r + 0x380) |= 1;
             }
-            r = (char *)cModel_getMeshPtr_14B730(s1, D_004365B0);
+            r = (char *)cModel_getMeshPtr_14B730((cModel *)s1, D_004365B0);
             if (r != 0) {
                 *(int *)(r + 0x380) |= 1;
             }

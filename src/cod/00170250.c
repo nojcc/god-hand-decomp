@@ -1,7 +1,6 @@
 #include "godhand/objField.h"
 extern int D_004204F8;
 extern unsigned char D_00574380[];
-extern unsigned char D_005FEE00[];
 extern int D_007857E8;
 extern unsigned char D_004205C8[];
 extern unsigned char D_00785798[];
@@ -12,6 +11,7 @@ extern int D_00785808;
 extern int D_004206B0;
 
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 
 
@@ -84,8 +84,8 @@ void FreeObjResourceAndDestroyD_170570(void *a0, void *a1) {
 
 __attribute__((section(".text.InitObjVU0Slots0A0C_170700")))
 void InitObjVU0Slots0A0C_170700(int a0) {
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, a0, 0, 0, 0, 0);
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, a0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, (void *)a0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, (void *)a0, 0, 0, 0, 0);
 }
 
 __attribute__((section(".text.GetOrInit_D_007857F8_170778")))

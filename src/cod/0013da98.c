@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/Slot2.h"
+#include "godhand/cIDBase.h"
 
 extern void MtxInitRotY(void *a0);
 extern void Tramp_func_0030A2B0_001508D8(int, void *, int);
-extern void cIDBase_move(void *p);
 extern void displayScrollLayer(int id, int on);
 extern char D_003BE528[];
 extern void func_001EC088(void *self);
@@ -39,7 +39,7 @@ __attribute__((section(".text.IconScreen_waitChildDone")))
 void IconScreen_waitChildDone(IconScreen *self)
 {
     if (self->child->flags & ICONSCREEN_SUB_FLAG_DONE) {
-        cIDBase_move(self);
+        cIDBase_move((cIDBaseObj *)self);
         self->step++;
     }
 }

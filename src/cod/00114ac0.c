@@ -3,13 +3,11 @@
 #include "godhand/cEm00.h"
 #include "godhand/vecInline.h"
 #include "godhand/cObjBase.h"
+#include "godhand/cGameObj.h"
 
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int moveMotion(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 
 #define WALK_STALL_FRAMES  2            /* stalled frames in a row that end the walk */
 
@@ -24,7 +22,7 @@ void func_00114AC0(cEm00 *self)
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         func_002A8578(self, EM_RES_REC(self->resource, 0x48), EM_RES_REC(self->resource, 0x4C), 3, 0.0f, 0, 0);
-        cGameObj_SetTgtTurn(self, &self->unk580, 3.1415927f);
+        cGameObj_SetTgtTurn((cGameObj *)self, &self->unk580, 3.1415927f);
         self->stepVar.count = 0;
         self->unk1590.x = 99999.9f;
         self->unk1590.y = 99999.9f;

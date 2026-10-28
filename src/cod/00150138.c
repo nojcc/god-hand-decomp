@@ -4,6 +4,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
 #include "godhand/cOm1f.h"
+#include "godhand/cObjBase.h"
 
 extern void func_001B6FB8(void *a0);
 extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
@@ -19,12 +20,9 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern void func_00262750(void *a0, int a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026E7A8(void *a0, int a1);
 extern float fRand0_1(void);
 extern void func_002705D8(void *a0);
-extern void Adjust_theta_vec(cVec *v);
 extern void MtxInitTransVec(cParts *part, cVec *trans);
 extern void MtxMulRotVec(cParts *dst, cParts *src, cVec *rot, int order);
 extern void MtxMulScaleVec(cParts *dst, cParts *src, cVec *scale);
@@ -203,8 +201,8 @@ void cEm00_stepDropToFloor(cEm00 *self)
         if (moveMotion(self) != 0) {
             self->step = 2;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         if (self->moveFlags & 0x10) {
             float *dv = va;
             float *d;
@@ -279,8 +277,8 @@ void cEm00_stepDropToFloor(cEm00 *self)
             self->idleTimer = fRand0_1() * 5.0f * 30.0f + 150.0f;
             func_002705D8(self);
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     }
 }

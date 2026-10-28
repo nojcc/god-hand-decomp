@@ -1,16 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern unsigned int irand(void);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 
 /* Phase machine on the step byte, 12 case labels. Calls CheckSlotsShort2FEAndSetByte1864_262A10,
  * Obj0000_Get_Byte_17C3_NZ_2_276468, StoreMotionParamsBoth_2609A8, cCoreSave_getGameLevel, irand,
@@ -76,12 +75,12 @@ __attribute__((section(".text.func_00225E30"))) void func_00225E30(cEm00 *self)
                 int q;
                 *(int *)(s1 + 0x5F0) = *(int *)(s1 + 0x5F0) - 1;
                 q = Getplayer();
-                cGameObj_SetTgtTurn(s1, *(int *)(q + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634954f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(q + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634954f);
             }
             if (moveMotion(s1))
                 func_002705D8(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         default:
             break;

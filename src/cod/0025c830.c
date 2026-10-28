@@ -2,6 +2,7 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern unsigned char D_00462FC0[];
 extern unsigned char D_005CB000[];
@@ -14,8 +15,6 @@ extern int moveMotion(void *a0);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float f12);
 extern void func_002705D8(void *a0);
 
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 
 __attribute__((section(".text.func_0025C830")))
 void func_0025C830(void *a0)
@@ -51,8 +50,8 @@ void func_0025C830(void *a0)
         VU0_VADD_XYZ_IP(p, 0, q);
         if (moveMotion(s0))
             *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     case 2: {
@@ -80,8 +79,8 @@ void func_0025C830(void *a0)
             fp(s0 + off, 8, s1, 1, 0);
             cHeatSys_AddHeatGage(&D_005CB000, 0, 1.0f);
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6);
         break;
     }
@@ -119,8 +118,8 @@ void func_0025C830(void *a0)
             }
             func_002705D8(s0);
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(unsigned short *)(s0 + 0x3AC) & 1) {
             if (*(int *)(s0 + 0x5F0) != 0) {
                 char *vt;
@@ -171,8 +170,8 @@ void func_0025C830(void *a0)
                 break;
             }
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     default:
         break;

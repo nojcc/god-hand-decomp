@@ -4,7 +4,6 @@ extern int cDamageManage_CreateDamageGive(int a0, int a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, int a2, float f);
 extern void cDamageUnit_SetDamageCollActive(int a0, int a1);
 extern void cDamageGive_SetDmgGiveHitVec(char *a0, float *a1);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned int t1);
 extern int espSys_effDataRegist(void *a0, int a1, void *a2);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern char *CreateObj(int a0, int a1);
@@ -16,6 +15,7 @@ extern int D_007419A0;
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 
 

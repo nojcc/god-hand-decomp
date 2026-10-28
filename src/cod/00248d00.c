@@ -4,6 +4,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/player.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cGameObj.h"
 
 extern void MtxInitRotY(void *a0, float angle);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
@@ -13,11 +14,8 @@ extern int Rnd(void);
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(int a0, int a1, int a2, int a3, int t0, int t1, float f12);
-extern void cGameObj_SetTgtTurn(char *self, void *target, float rate);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 
 /* Attack step: on entry a wall within 8 ahead, or one roll in four, picks the
  * second motion; then turn toward the player until the motion ends. */
@@ -64,7 +62,7 @@ void func_00248D00(cEm00 *self)
         self->step++;
     case 1:
         self->emFlags |= 0x800000;
-        cGameObj_SetTgtTurn((char *)self, Getplayer()->pos, self->speedRate * 0.19634955f);
+        cGameObj_SetTgtTurn((cGameObj *)((char *)self), Getplayer()->pos, self->speedRate * 0.19634955f);
         if (moveMotion(self) != 0) {
             if (16.0f < self->playerDist && self->playerDist < 144.0f) {
                 if (irand() & 1) {

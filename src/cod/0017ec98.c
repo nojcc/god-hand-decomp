@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/cObjBase.h"
 
 extern int espSys_effDataRegist(void *table, int id, void *data);
-extern int SetEffect(int kind, int id, void *obj, int a3, int a4, unsigned int a5);
 extern char D_007419A0[];
 extern void cCollisionSolidManage_CreateUnit(void *mgr, void *owner, int kind, float radius);
 extern void cCollisionSolidManage_CreateSphere(void *mgr, void *owner, void *body, void *centre, float radius);

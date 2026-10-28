@@ -2,6 +2,8 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cModel.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
@@ -9,9 +11,6 @@ extern int moveMotion(void *a0);
 extern void ReleaseObj(void *a0);
 extern void func_00275DA8(void *a0);
 
-extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern int D_0042CAD0;
 
 typedef struct {
@@ -95,8 +94,8 @@ __attribute__((section(".text.func_00247E60"))) void func_00247E60(cEm00 *self)
             s.h72 = 0;
             s.b74 = 0;
             s.i78 = 0;
-            SetEffect(0xBD, 0x19, self, &s, 1, 0xFFFFFFFF);
-            v = cModel_getMeshPtr_14B730(self, &D_0042CAD0);
+            SetEffect(0xBD, 0x19, self, (cEffectParam *)(&s), 1, 0xFFFFFFFF);
+            v = cModel_getMeshPtr_14B730((cModel *)self, (char *)(&D_0042CAD0));
             if (v != 0) {
                 *(int *)(v + 0x380) = *(int *)(v + 0x380) & 0xFFFFFFFE;
             }
@@ -110,8 +109,8 @@ __attribute__((section(".text.func_00247E60"))) void func_00247E60(cEm00 *self)
                 self->stepArg = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
     }
 }

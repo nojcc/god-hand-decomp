@@ -1,8 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern unsigned int irand(void);
-extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern void func_0012C348(void *a0, int a1);
@@ -10,9 +11,6 @@ extern void func_00126770(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern char D_005FEE00[];
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
@@ -26,7 +24,6 @@ extern void func_00129630(void *a0);
 extern void func_0010A438(void *a0);
 extern void func_0012BC00(void *a0, int a1, int a2);
 extern char D_005864F0[];
-extern void cSnd_SeStop(void *a0, int a1);
 extern int D_00747A0C;
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern unsigned char D_00462FC0[];
@@ -74,9 +71,9 @@ void func_0011B900(void *a0)
         }
         func_002A8578(s1, p1, p2, 0.0f, 1, 0, 0);
         if (irand() & 1) {
-            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
         } else {
-            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xD0, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD0, s1, 0, 0, 0, 0);
         }
         func_0012C348(s1, 1);
         pl00_clearMotionCam(s1, 0, 0);
@@ -97,8 +94,8 @@ void func_0011B900(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     default:
         break;
@@ -157,8 +154,8 @@ void func_001127F8(void *a0)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     func_0010A438(s1);
@@ -224,8 +221,8 @@ void func_00112A48(void *a0)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0 && *(int *)(s1 + 0x15B0) != 0) {
@@ -328,8 +325,8 @@ void func_00111A20(void *a0)
                 }
             }
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     func_0010A438(s1);
@@ -337,11 +334,11 @@ void func_00111A20(void *a0)
         cEmManage_SetSpeedRate(D_005864F0, 0.05f);
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 3) != 0) {
-        char *g = D_005FEE00;
+        cSnd *g = &D_005FEE00;
         cSnd_SeStop(g, *(int *)(s1 + 0x161C));
         *(int *)(s1 + 0x161C) = 0;
-        *(int *)(g + 0xB0) &= 0xFFBFFFFF;
-        *(int *)(g + 0xAC) &= 0xFFBFFFFF;
+        g->flagsB0 &= 0xFFBFFFFF;
+        g->flagsAC &= 0xFFBFFFFF;
     }
     if (func_00123938(s1, 1) != 0) {
         func_00129630(s1);

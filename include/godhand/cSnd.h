@@ -221,7 +221,7 @@ int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, i
 void cSnd_SetBgmState(cSnd *self, int state);
 void cSnd_SeStop(cSnd *self, int handle);
 /* The object's first sound-effect number (its word at 0x424). */
-int GetSeqSEBase(int *obj);
+int GetSeqSEBase(void *obj);
 
 /* Nonzero when pos is inside the hit set at self+0x20 (definition in
  * 00137cb8.c, whose HitHost is a view of cSnd). */
@@ -242,5 +242,14 @@ void cSnd_BgmHitBeSet(cSnd *self, int on, unsigned short id);
 void cSnd_SetBgmLevel(char *p, float lv, int a, int b, int c);
 /* 1 when a live, non-boss enemy of the given kind is on the field; self is not read. */
 int cSnd_IsEnemyAlive(cSnd *self, int kind);
+/* Starts sound effect se of bank kind for obj. */
+int cSnd_SeCall_2CBA48(cSnd *self, int kind, int se, void *obj, void *owner, int a5, int a6, int a7);
+int cSndMemHeap_Alloc(cSndMemHeap *heap, int size);
+void cSndMemHeap_Free(cSndMemHeap *heap, int addr);
+cSndBgmNode *cSnd_FindBgmNode(cSnd *self, int bank, int reqNo);
+int cSnd_AllocBgmNode(cSnd *self);
+int cSnd_BgmNodeStart(cSndBgmNode *node, int bank, int reqNo, int state, unsigned int param, int wordA, int wordB);
+void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
+void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
 
 #endif /* GODHAND_CSND_H */

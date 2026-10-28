@@ -1,17 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
-extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
 extern int irand(void);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 /* sn-2.95.3-136 candidate TU. */
 
@@ -66,9 +64,9 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     *(int *)(s1 + 0x5F0) = 0x14;
                     StoreMotionParamsBoth_2609A8(self, 0x3C, 0x13, 0x3B, 0, 0x111);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7E, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7E, 0, 2, *(void **)(s1 + 0x6EC));
                     } else {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x79, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x79, 0, 2, *(void **)(s1 + 0x6EC));
                     }
                 } else if ((irand() & 1) != 0 || *(unsigned char *)(s1 + 0x2F7) != 0) {
                     char *pb = *(char **)(s1 + 0x304);
@@ -122,9 +120,9 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     StoreMotionParamsBoth_2609A8(self, 0x28, 0x12, 0x38, 0, 0x112);
                 bend:;
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7F, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7F, 0, 2, *(void **)(s1 + 0x6EC));
                     } else {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7A, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7A, 0, 2, *(void **)(s1 + 0x6EC));
                     }
                 } else {
                     char *pc = *(char **)(s1 + 0x304);
@@ -176,9 +174,9 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     StoreMotionParamsBoth_2609A8(self, 0x3C, 0x12, 0x39, 0, 0x112);
                 cend:;
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x80, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x80, 0, 2, *(void **)(s1 + 0x6EC));
                     } else {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7B, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7B, 0, 2, *(void **)(s1 + 0x6EC));
                     }
                 }
             }
@@ -209,16 +207,16 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                 char *v0;
                 *(int *)(s1 + 0x5F0) -= 1;
                 v0 = (char *)Getplayer();
-                cGameObj_SetTgtTurn(s1, *(int *)(v0 + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634955f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(v0 + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634955f);
             }
             if (moveMotion(s1) != 0) {
-                cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-                cObjBase_addNullSpeed(s1, 1.0f);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+                cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
                 func_002705D8(s1);
                 return;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
     func_00260B30(self);

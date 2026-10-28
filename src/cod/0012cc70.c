@@ -1,10 +1,10 @@
 #include "godhand/cModel.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cIDManager.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern void func_001E7E68(void *dst, void *a, void *b, int n);
 extern void InitClearStructAndSet_1E79A8(int *a0, int a1);
 extern void Scroll_showLayerBySelector(void *a0, int a1);

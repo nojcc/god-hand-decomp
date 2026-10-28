@@ -2,13 +2,15 @@
 #include "godhand/sceVu0.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cIDManager.h"
+#include "godhand/cGameObj.h"
 
 extern void CustomIDWork_SetDisp(char *p, int v);
 
 __attribute__((section(".text.Add_nullspeed")))
-void Add_nullspeed(char *a0)
+void Add_nullspeed(cGameObj *self)
 {
-	sceVu0ApplyMatrix(*(void **)(a0 + 0xF0), a0 + 0x80, a0 + 0x330);
+	/* 0x330: the null node's step vector, past cGameObj's named fields */
+	sceVu0ApplyMatrix(self->pos, self->mtx, (char *)self + 0x330);
 }
 
 /* Give the entry table back to the manager. 1 when there was one. */

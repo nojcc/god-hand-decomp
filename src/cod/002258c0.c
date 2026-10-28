@@ -1,14 +1,13 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
 extern void cObj_setupAimStep2(void *a0, void *a1, int a2, void *a3, void *a4);
 extern void SetField_2F6_1C2308(void *a0);
@@ -66,13 +65,13 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             /* fallthrough */
         case 1:
             if (s3 != 0) {
-                cGameObj_SetTgtTurn(self, *(int *)(s3 + 0xF0), self->speedRate * 0.19634955f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(s3 + 0xF0), self->speedRate * 0.19634955f);
             }
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 2: {
             char *v0;
@@ -94,7 +93,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
         case 3: {
             float d;
             if (s3 != 0) {
-                cGameObj_SetTgtTurn(self, *(int *)(s3 + 0xF0), self->speedRate * 0.19634955f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(s3 + 0xF0), self->speedRate * 0.19634955f);
                 if (capVu0MagnitudeSqXZ(*(void **)((char *)self + 0xF0), *(void **)(s3 + 0xF0)) <
                     4.0f) {
                     self->step = 6;
@@ -108,8 +107,8 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
                 self->step = 4;
             }
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             func_00262750(self, 3);
             func_00260B30(self);
             break;
@@ -128,8 +127,8 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step = 8;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 6: {
             float z = 0.0f;
@@ -168,7 +167,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
                 float dt = self->speedRate;
                 self->timer = cur - dt;
                 if (s3 != 0) {
-                    cGameObj_SetTgtTurn(self, *(int *)(s3 + 0xF0), dt * 0.19634955f);
+                    cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(s3 + 0xF0), dt * 0.19634955f);
                 }
             }
             func_00262750(self, 3);
@@ -178,8 +177,8 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
                 *(char *)((char *)self + 0x2F6) = 0;
                 *(char *)((char *)self + 0x2F7) = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (self->moveFlags & 2) {
                 if (*(int *)((char *)self + 0x70C) != 0) {
                     int nv = *(unsigned short *)((char *)self + 0x54A) + 0x12C;
@@ -208,8 +207,8 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
     self->emFlags |= 0x1000;

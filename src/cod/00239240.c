@@ -4,8 +4,6 @@ extern void *Getplayer(void);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern void func_002DB770(void);
 extern char D_00462FC0[];
@@ -28,6 +26,7 @@ extern char D_007474A0[];
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 __attribute__((section(".text.func_00239240")))
 void func_00239240(void *a0)
@@ -74,8 +73,8 @@ void func_00239240(void *a0)
             *(char *)(s0 + 0x2F6) = 0;
             *(char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(short *)(s0 + 0x56A) > 0) {
             *(short *)(s0 + 0x56A) = *(unsigned short *)(s0 + 0x56A) - 1;
             func_002DB770();
@@ -119,8 +118,8 @@ void func_00239240(void *a0)
             func_002705D8(s0);
             break;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if ((*(unsigned short *)(s0 + 0x3AC) & 0x1) != 0) {
             if (*(int *)(s0 + 0x5F0) != 0) {
                 char *vt = *(char **)(s0 + 0x214);

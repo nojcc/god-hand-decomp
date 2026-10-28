@@ -5,10 +5,10 @@
 #include "godhand/cEmSetParam.h"
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
+#include "godhand/cModel.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void cDamageUnit_SetDamageCollActive(void *unit, int active);
-extern void cModel_calcParts(void *self);
 extern void func_001B6FB8(cOmBase *self);
 extern void cOmBase_setMeshDispFromLayer(cOmBase *self, int layer, int hide);
 extern int espSys_effDataRegist(void *table, int id, void *data);
@@ -81,7 +81,7 @@ void cOmBase_updateWithHitRecord(cOmHitHolder *self)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     cVec_copy3(&self->base.posA, self->base.pos);
     cVec_copy3(&self->base.posB, &self->base.posPrev);
 }

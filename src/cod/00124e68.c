@@ -1,3 +1,4 @@
+#include "godhand/cGameObj.h"
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern char D_00429C80[];
@@ -17,7 +18,6 @@ extern int D_0044FBB8;
 extern void GetOrInit_460D58_2B6528(void);
 extern int SignalSema(int sema);
 extern int SleepThread(void);
-extern void cGameObj_SetTgtTurn(char *a0, int a1, float f12);
 
 __attribute__((section(".text.ResetField214FreeField180_1C2820")))
 void ResetField214FreeField180_1C2820(int *a0, int a1) {
@@ -74,6 +74,6 @@ void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12)
         short off = *(short *)(v1 + 0x68);
         int (*fn)(char *) = *(int (**)(char *))(v1 + 0x6C);
         int r = fn(a1 + off);
-        cGameObj_SetTgtTurn(a0, r, f12);
+        cGameObj_SetTgtTurn((cGameObj *)a0, (cVec *)r, f12);
     }
 }

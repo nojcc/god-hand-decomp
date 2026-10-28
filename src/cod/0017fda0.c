@@ -6,9 +6,7 @@ extern void cDamageUnit_AddDamageCollCylinder(void *a0, void *a1, float *a2, flo
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern int D_00574380;
 extern float D_00567FF0[];
-extern unsigned char D_005FEE00[];
 extern int cOmSub_move(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -82,6 +80,7 @@ int func_00181920(char *p)
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 
 

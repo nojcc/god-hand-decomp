@@ -1,14 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern char *Getplayer(void);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002DB770(void);
-extern void KillEffect(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
 extern char D_00462FC0[];
 extern char D_007474A0[];
@@ -56,8 +54,8 @@ void func_00238F10(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 0;
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(short *)(s0 + 0x56A) != 0) {
             (*(short *)(s0 + 0x56A))--;
         } else {
@@ -103,8 +101,8 @@ void func_00238F10(void *a0)
             }
             func_002705D8(s0);
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(unsigned short *)(s0 + 0x3AC) & 1) {
             if (*(short *)(s0 + 0x568) != 0) {
                 char *vt = *(char **)(s0 + 0x214);

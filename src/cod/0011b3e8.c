@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
-extern unsigned char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
 extern float capVu0Atan2(float y, float x);
@@ -12,8 +12,6 @@ extern void func_0012B928(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 #include "godhand/vu0.h"
 /* Phase machine of the enemy that turns toward the target of its link record: step 0 starts the
  * motion and sets the facing angle from the vector to the target, step 1 waits for the motion to
@@ -31,9 +29,9 @@ __attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLi
             g = (char *)&D_005FEE00;
             s2v = EM_RES_REC(v0, 0x270);
             s1v = EM_RES_REC(v0, 0x274);
-            cSnd_SeCall_2CBA48(g, 0, 0xCF, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(g, 0, 0x2D, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(g, 0, 0x32, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48((cSnd *)g, 0, 0xCF, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48((cSnd *)g, 0, 0x2D, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48((cSnd *)g, 0, 0x32, self, 0, 0, 0, 0);
             self->hitFlash = 5.0f;
             func_0012C348(self, 2);
             CallWithAndClearField698_12AC28(self);
@@ -78,8 +76,8 @@ __attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLi
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -7,8 +8,6 @@ extern int moveMotion(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int D_00462FC0;
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -50,8 +49,8 @@ __attribute__((section(".text.func_0023ADB8"))) void func_0023ADB8(cEm00 *self)
         case 1:
             self->emFlags = self->emFlags | 0x400000;
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (self->emFlags & 0x20000000) {
                 self->step = 2;
             }
@@ -64,8 +63,8 @@ __attribute__((section(".text.func_0023ADB8"))) void func_0023ADB8(cEm00 *self)
             self->step = self->step + 1;
         case 3:
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 4: {
             int t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -75,8 +74,8 @@ __attribute__((section(".text.func_0023ADB8"))) void func_0023ADB8(cEm00 *self)
             self->step = self->step + 1;
         case 5:
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

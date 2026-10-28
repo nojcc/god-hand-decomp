@@ -1,14 +1,13 @@
+#include "godhand/cIDBase.h"
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
-extern void cIDBase_trans(void);
 extern int D_0041DCC8[];
 extern void __builtin_delete(void);
-extern void cIDBase_move(void *);
 
 __attribute__((section(".text.Forward2AAC28_13F070")))
-void Forward2AAC28_13F070(void)
+void Forward2AAC28_13F070(cIDBaseObj *self)
 {
-    cIDBase_trans();
+    cIDBase_trans(self);
 }
 
 __attribute__((section(".text.SetVtable80WithConditionalForward_13F090")))

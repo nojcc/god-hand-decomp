@@ -1,4 +1,5 @@
 #include "godhand/cCockBossBar.h"
+#include "godhand/cIDBase.h"
 
 extern void *D_003C2388;
 extern void *D_003C2384;

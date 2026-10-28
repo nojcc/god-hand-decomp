@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern int irand(void);
-extern int GetSeqSEBase(void *a0);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern char *Getplayer(void);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
 extern float Adjust_theta(float f12);
@@ -19,7 +18,6 @@ extern void Obj293_OrByte_5A4(void *a0, int a1);
 extern void Obj293_OrByte_5A5_1(void *a0);
 extern void Obj293_ClearBytes_5A0_5A3(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern unsigned char D_005FEE00[];
 extern int D_005864F0;
 extern char D_00462FC0[];
 
@@ -52,8 +50,6 @@ extern char D_00462FC0[];
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f,
-                              int g, int h);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5,
                           int a6);
 
@@ -102,12 +98,12 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
         }
             /* fallthrough */
         case 1: {
-            char *m = s1 + 0x580;
+            cVec *m = &self->unk580;
 
-            cGameObj_SetTgtTurn(s1, (int)m, *(float *)(s1 + 0x5A8) * 0.196349546f);
+            cGameObj_SetTgtTurn((cGameObj *)self, m, *(float *)(s1 + 0x5A8) * 0.196349546f);
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (capVu0MagnitudeSqXZ(m, *(void **)(s1 + 0xF0)) < 1.0f) {
                 *(unsigned char *)(s1 + 0x2F6) += 1;
             }
@@ -140,11 +136,11 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             /* fallthrough */
         case 3:
             if (s2 != 0) {
-                cGameObj_SetTgtTurn(s1, *(int *)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
             }
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             *(float *)(s1 + 0x600) = *(float *)(s1 + 0x600) - *(float *)(s1 + 0x5A8);
             if (s2 == 0 || *(float *)(s1 + 0x600) <= 0.0f) {
                 goto L784;
@@ -167,11 +163,11 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             /* fallthrough */
         case 5:
             if (s2 != 0) {
-                cGameObj_SetTgtTurn(s1, *(int *)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
             }
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (s2 != 0) {
                 goto L79C;
             }
@@ -208,8 +204,8 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             {
                 char *g = (char *)&D_005864F0;
 
@@ -230,8 +226,8 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 *(unsigned char *)(s1 + 0x2F6) += 1;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             goto LA64;
         case 10: {
             char *b = *(char **)(s1 + 0x304);
@@ -254,8 +250,8 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             }
             SetMotionStep(s1, *(float *)(s2 + 0x5A8) * *(float *)(s1 + 0x604));
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (2.0f <= *(float *)(s1 + 0x604)) {
                 theta = Adjust_theta(*(float *)(s1 + 0x104) + 3.14159274f);
                 {
@@ -305,8 +301,8 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (*(unsigned short *)(s1 + 0x3AC) & 1) {
                 StoreMotionParamsBoth_2609A8(self, 0x28, 0, 0x3F, -1, 0);
                 func_00260B30(self);

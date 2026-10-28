@@ -1,9 +1,9 @@
 #include "godhand/cSaveLoad.h"
 #include "godhand/cDoor.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void KillEffect(void *a0, int a1, int a2);
 extern int D_00747A84;
 extern void func_002000F8(cDoor *self);
 

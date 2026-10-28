@@ -4,13 +4,12 @@
  * waits out a 150 frame timer and then ends the step. */
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 extern void cCollisionSolidManage_SetPriority(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern int D_00462FC0;
 
@@ -129,8 +128,8 @@ void cEm00_stepMotionThenTimedEnd(cEm00 *self)
         float t;
 
         moveMotion(self);
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         t = self->timer - self->speedRate;
         self->timer = t;
         if (t <= 0.0f) {

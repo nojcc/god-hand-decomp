@@ -2,11 +2,11 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
 
 extern char D_0044BED0[];
 extern char D_00747AC0;
-extern char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
 extern char D_0044E300[];
 extern void cHeap_free(void *heap, void *p);
@@ -134,7 +134,7 @@ typedef struct StunObj {
 __attribute__((section(".text.StunObj_startStun")))
 void StunObj_startStun(StunObj *self) {
     float v;
-    cSnd_SeCall_2CBA48(D_005FEE00, 0, 10, self, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
     cOmBase_setMeshColorFromLayer(self, 0, 1.0f, 0.0f, 0.0f);
     self->state = STUN_STATE;
     if (self->timer == 0) {

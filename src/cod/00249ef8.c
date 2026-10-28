@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void Obj2810_SetState_2_a1(char *a0, int a1);
 extern void SetBytes2F4Mode2_2831B0(char *a0, char a1);
 extern void ClearBytes2F4To2F7_283170(char *a0);
@@ -56,8 +55,8 @@ __attribute__((section(".text.func_00249EF8"))) void func_00249EF8(cEm00 *self)
                 self->stepArg = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             break;
     }
     if (self->moveFlags & 1) {

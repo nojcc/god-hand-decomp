@@ -1,19 +1,18 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int func_002DDAB0(void *a0, int a1, float f);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
 extern void cOmBase_dieCommon(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern char D_00462FC0;
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern float Adjust_theta(float f12);
 extern void func_001034E0(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void func_00260438(void *a0);
 extern void func_002705D8(void *a0);
 extern unsigned short D_00747A50;
@@ -47,8 +46,8 @@ void func_00277C48(void *a0)
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -77,8 +76,8 @@ void func_00246F40(void *a0)
             func_00270C78(a0);
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -116,8 +115,8 @@ void func_00102A80(void *a0)
         }
         one = 1.0f;
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     func_001034E0(s0);
@@ -174,8 +173,8 @@ void func_00258C40(void *a0)
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -211,15 +210,15 @@ void func_00246088(void *a0)
         *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
     case 1:
         v = (char *)Getplayer();
-        cGameObj_SetTgtTurn(p, *(int *)(v + 0xF0), *(float *)(p + 0x5A8) * 0.19634954f);
+        cGameObj_SetTgtTurn(a0, *(cVec **)(v + 0xF0), *(float *)(p + 0x5A8) * 0.19634954f);
         if (moveMotion(p) != 0) {
             if (--*(short *)(p + 0x568) <= 0) {
                 func_002705D8(p);
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(p, one);
-        cObjBase_addNullSpeed(p, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -258,8 +257,8 @@ void func_00110E98(void *a0)
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     if (*(unsigned short *)(s0 + 0x3AC) & 1) {

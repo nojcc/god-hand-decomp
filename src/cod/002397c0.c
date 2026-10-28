@@ -5,14 +5,13 @@ extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
 extern void func_002DB770(void);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002705D8(void *a0);
 extern char D_00462FC0[];
 extern char D_007474A0[];
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -72,8 +71,8 @@ void func_002397C0(void *a0)
         *(float *)(s0 + 0x54C) = 3.0f;
         if (moveMotion(s0))
             *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 2: {
         int w = *(int *)(s0 + 0x304);
@@ -111,8 +110,8 @@ void func_002397C0(void *a0)
                 *(unsigned char *)(s1 + 0x2F6) = 4;
             }
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 4: {
         int w = *(int *)(s0 + 0x304);
@@ -130,8 +129,8 @@ void func_002397C0(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 0;
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     case 6: {
         int w = *(int *)(s0 + 0x304);
@@ -145,8 +144,8 @@ void func_002397C0(void *a0)
     case 7:
         if (moveMotion(s0))
             func_002705D8(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(unsigned short *)(s0 + 0x3AC) & 1) {
             if (*(int *)(s0 + 0x5F0) != 0) {
                 int vt = *(int *)(s0 + 0x214);

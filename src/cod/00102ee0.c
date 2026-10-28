@@ -1,3 +1,4 @@
+#include "godhand/cObjBase.h"
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern int D_00785508;
@@ -8,8 +9,6 @@ extern char D_007854C8[];
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, void *a1, void *a2, float f, int a3, int t0, int t1);
 extern char D_00462FC0[];
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 
 __attribute__((section(".text.GetOrInitSubSingleton_103880")))
 void *GetOrInitSubSingleton_103880(void) {

@@ -1,10 +1,10 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void func_001F2D60(void *a0);
 extern void func_001F3118(void *a0);
 extern void func_001F32A0(void *a0);
 extern void CustomIDWork_Main(void *a0);
-extern void cIDBase_move(void *a0);
 
 __attribute__((section(".text.func_001F28F0")))
 void func_001F28F0(void *a0) {
@@ -25,7 +25,7 @@ void func_001F28F0(void *a0) {
         q += 0x7C;
     }
 
-    cIDBase_move(p + 0x10);
+    cIDBase_move((cIDBaseObj *)(p + 0x10));
 
     r = p + 0x930;
     q = p + 0x980;
@@ -34,5 +34,5 @@ void func_001F28F0(void *a0) {
         q += 0x7C;
     }
 
-    cIDBase_move(r);
+    cIDBase_move((cIDBaseObj *)r);
 }

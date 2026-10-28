@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern float Adjust_theta(float);
 extern int moveMotion(int *);
 extern void cOm71_SetMotionRun(int *);
-extern void cObjBase_addNullSpeed_Rotation(int *, float);
-extern void cObjBase_addNullSpeed(int *, float);
 extern void Poker_resetDeck(void);
 extern void func_001DD340(char *a0);
 extern void CustomIDWork_SetNumber_1DD218(char *a0, int a1);
@@ -114,10 +113,10 @@ void func_001B1E30(int *a0) {
     L88:
         *(int *)((char *)s0 + 0x600) |= 0x100;
     }
-    cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+    cObjBase_addNullSpeed_Rotation((cObjBase *)s0, 1.0f);
     m = *(unsigned int *)((char *)s0 + 0x600);
     if (((m >> 7) & 1) == 0) {
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)s0, 1.0f);
     }
 }
 

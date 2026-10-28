@@ -1,4 +1,6 @@
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -7,15 +9,10 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int irand(void);
 extern void Obj0000_Set_Bytes_2F4_2F7_2F5_2F6_27DCD0(int a0, int a1);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
-extern int GetSeqSEBase(void *a0);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_002726F8(void *a0);
 extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern int moveMotion(void *a0);
 extern void func_00274FE8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -246,7 +243,7 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                         *(unsigned char *)(s2 + 0x2F6) = 0;
                         *(unsigned char *)(s2 + 0x2F7) = 0;
                     } else {
-                        func_0025FE30(s2, 0x1000000, 0);
+                        func_0025FE30(self, 0x1000000, 0);
                         *(unsigned char *)(s2 + 0x2F4) = 2;
                         *(unsigned char *)(s2 + 0x2F5) = 2;
                         *(unsigned char *)(s2 + 0x2F6) = 0;
@@ -257,8 +254,8 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 }
             } else {
                 one = 1.0f;
-                cObjBase_addNullSpeed_Rotation(s2, one);
-                cObjBase_addNullSpeed(s2, one);
+                cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+                cObjBase_addNullSpeed((cObjBase *)self, one);
             }
             break;
         }

@@ -1,18 +1,16 @@
+#include "godhand/cModel.h"
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_00126770(void *a0);
 extern unsigned short func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
 extern void moveMotion(void *a0);
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_0012C348(void *a0, int a1);
 extern void FollowObj_snapToPlayer(void *a0, int a1);
 extern void pl00_reset(void *a0);
-extern char D_005FEE00[];
 extern char *D_00586A88;
 __attribute__((section(".text.func_0012C540"))) void func_0012C540(void *a0, int a1)
 {
@@ -22,7 +20,7 @@ __attribute__((section(".text.func_0012C540"))) void func_0012C540(void *a0, int
   int v0;
   *((float *) (s0 + 0x54C)) = t;
   SetEffectPos(0xAA, 0xB, 0, *((void **) (s0 + 0xF0)), -1, 1.0f);
-  cSnd_SeCall_2CBA48(D_005FEE00, 2, 0xD1, s0, 0, 0, 0, 0);
+  cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xD1, s0, 0, 0, 0, 0);
   func_0012C348(s0, 0);
   switch (a1)
   {
@@ -43,9 +41,9 @@ __attribute__((section(".text.func_0012C540"))) void func_0012C540(void *a0, int
       *((unsigned char *) (s0 + 0x2F7)) = 0;
       func_002A8578(s0, (*((int *) (v0 + 0x6F8))) + v0, (*((int *) (v0 + 0x6FC))) + v0, 0, 0.0f, 0, 0);
       moveMotion(s0);
-      cModel_calcParts(s0);
+      cModel_calcParts(a0);
       IK_InverseKinematics(s0 + 0x448, s0);
-      cModel_calcWorldParts(s0);
+      cModel_calcWorldParts(a0);
       if (s1 != 0)
     {
       FollowObj_snapToPlayer(s1, 0);

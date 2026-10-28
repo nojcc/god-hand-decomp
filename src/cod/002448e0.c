@@ -1,19 +1,16 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned char D_00462FC0[];
-extern unsigned char D_005FEE00[];
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand0_1(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_002705D8(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
@@ -59,8 +56,8 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 2:
             self->timer = fRand0_1() * 45.0f + 90.0f;
@@ -74,7 +71,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             *(char *)((char *)self + 0x623) = 1;
             self->hitFlash = 2.0f;
             *(char *)((char *)self + 0x531) = -1;
-            cGameObj_SetTgtTurn(self, &self->unk16A0, self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &self->unk16A0, self->speedRate * 0.09817477f);
             *(unsigned short *)((char *)self + 0x434) =
                 *(unsigned short *)((char *)self + 0x434) | 8;
             moveMotion(self);
@@ -87,8 +84,8 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
                 *(int *)((char *)self + 0x334) = 0;
                 *(int *)((char *)self + 0x338) = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             self->timer = self->timer - self->speedRate;
             if (self->timer <= 0.0f) {
                 self->step = 4;
@@ -136,8 +133,8 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             func_00260B30(self);
             break;
     }

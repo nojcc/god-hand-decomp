@@ -52,7 +52,6 @@ void cSndSeVoice_Stop(cSndSeVoice *v) {
 
 /* cModel_setMeshDisplay — sn-2.95.3-136 */
 
-extern cModelNode *cModel_getMeshPtr_14B730(cModel *self, char *name);
 /* Show or hide the mesh called name. Returns 0 when the model has no such
  * mesh. */
 __attribute__((section(".text.cModel_setMeshDisplay")))

@@ -25,9 +25,7 @@ extern cPmf D_003BFAC0[];
 extern float capVu0MagnitudeSqXZ(void *a, void *b);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cObjBase_SetSeqEffect(cObjBase *a0);
-extern void cModel_calcParts(cModel *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(cModel *a0);
 extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
 extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 
@@ -64,9 +62,9 @@ void func_00277568(cEm00 *self)
         fn((char *)self + off);
     }
     cObjBase_SetSeqEffect(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->ik, self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     cCollisionSolidManage_ChkHit(D_00462FC0, self);
     if (!(EMFALL(self)->flags & EMFALL_GROUNDED)) {
         VU0_SQC2_VF0(&wall, 0);

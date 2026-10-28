@@ -7,6 +7,8 @@
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
 #include "godhand/cNowLoading.h"
+#include "godhand/cModel.h"
+#include "godhand/cIDBase.h"
 
 extern void func_002E8038(WaveObj *self, float width);
 extern void WaveObj_fillWaveTable(WaveObj *self, float step);
@@ -14,13 +16,11 @@ extern void *cSnd_GetSeData(cSnd *self, int idx);
 extern void cSeData_Release(void *data);
 extern void cSnd_releaseEmSeAll(cSnd *self);
 extern void cSndMemHeap_Close(void *heap);
-extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
 extern void cSndBgmNode_Release(cSndBgmNode *node);
 extern char D_006036A0[];
 extern char D_00603310[];
 extern void displayScrollLayer(int layer, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
-extern void cModel_calcParts(void *self);
 extern void cSnd_BgmEventStart(void *snd, int event, int a2, int a3);
 extern void func_001DEE40(void *p, int a1);
 
@@ -171,7 +171,7 @@ void cOmBase_updatePhaseAndCalcParts(cOmBase *self)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     cVec_copy3(&self->posA, self->pos);
     cVec_copy3(&self->posB, &self->posPrev);
 }

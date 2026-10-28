@@ -2,10 +2,11 @@
 
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern char D_00462FC0[];
 extern unsigned char D_005864F0[];
-extern char D_005FEE00[];
 extern int D_007474A8;
 
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
@@ -18,11 +19,7 @@ extern unsigned int irand(void);
 extern void func_002A8578(void *a0, int a1, int a2, float f12, int a3, int t0, int t1);
 extern void func_002DB7A8(void);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
-extern void cObjBase_addNullSpeed(void *a0, float f12);
 extern void func_0012C348(void *a0, int a1);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int t0, float f12);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4, int a5, int a6, int a7);
 extern void func_0012C0F8(void *a0, int a1);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
@@ -101,8 +98,8 @@ void func_0011FD10(void *a0)
         *(float *)(s0 + 0x54C) = 5.0f;
         func_002DB7A8();
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (s1 != 0) {
             if ((*(unsigned short *)(s1 + 0x3AC) & 3) != 0) {
                 switch (irand() % 3) {
@@ -128,8 +125,8 @@ void func_0011FD10(void *a0)
                 }
                 func_002A8578(s0, f1, f2, 0.0f, 0, 0, 0);
                 moveMotion(s0);
-                cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-                cObjBase_addNullSpeed(s0, 1.0f);
+                cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+                cObjBase_addNullSpeed(a0, 1.0f);
             }
             func_0012C348(s0, 0);
             {
@@ -148,7 +145,7 @@ void func_0011FD10(void *a0)
                     SetEffectPos(0x58, 0x10, 0, *(void **)(e + 0xF0), -1, 1.0f);
                 }
             }
-            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xA, s0, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, s0, 0, 0, 0, 0);
         }
         if ((*(unsigned short *)(s0 + 0x3AC) & 1) != 0 && *(int *)(s0 + 0x15B4) != 0) {
             *(int *)(s0 + 0x15B4) = 0;
@@ -247,18 +244,18 @@ void func_0011FD10(void *a0)
         SetMotionStep(s0, *(float *)(s0 + 0x5A8));
         func_00124EC0(s0);
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if ((*(unsigned short *)(s0 + 0x3AC) & 3) == 0) {
             break;
         }
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x123, s0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x123, s0, 0, 0, 0, 0);
         VU0_SQC2_VF0(buf, 0x0);
         buf[0] = fRand1_1() * 0.200000003f;
         buf[1] = fRand1_1() * 0.200000003f + 1.29999995f;
         buf[2] = fRand1_1() * 0.200000003f + 0.600000024f;
         sceVu0ApplyMatrix(buf, s0 + 0x80, buf);
-        SetEffectPos(0, 0x40, 0, buf, -1, 1.0f);
+        SetEffectPos(0, 0x40, 0, (cVec *)buf, -1, 1.0f);
         break;
     case 4: {
         buf[1] = 0.0f;
@@ -300,8 +297,8 @@ void func_0011FD10(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 0;
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     func_0010A438(s0);

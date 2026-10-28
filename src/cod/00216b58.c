@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
@@ -8,8 +9,6 @@ extern void *Getplayer(void);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern unsigned int irand(void);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
@@ -116,8 +115,8 @@ __attribute__((section(".text.func_00216B58"))) void func_00216B58(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 *(unsigned char *)(s1 + 0x2F6) += 1;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
             break;
         case 2: {
             *(int *)(s1 + 0x17D0) = irand() % 5;
@@ -151,8 +150,8 @@ __attribute__((section(".text.func_00216B58"))) void func_00216B58(cEm00 *self)
             char *p;
 
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
             p = *(char **)(s1 + 0x700);
             if (p != 0 &&
                 capVu0MagnitudeSqXZ(*(void **)(p + 0xF0), *(void **)(s1 + 0xF0)) < 2.25f) {
@@ -224,8 +223,8 @@ __attribute__((section(".text.func_00216B58"))) void func_00216B58(cEm00 *self)
             a6_end:
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
             break;
         }
     }

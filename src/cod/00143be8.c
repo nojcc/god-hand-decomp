@@ -1,4 +1,5 @@
 #include "godhand/cIDScreen3.h"
+#include "godhand/cIDBase.h"
 
 extern void *Getplayer(void);
 

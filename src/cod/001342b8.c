@@ -1,12 +1,11 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned char D_0044BAB0[];
 extern void __builtin_delete(void *a);
 extern unsigned char D_0044D3C0[];
-extern int cIDBase_initialize();
 extern int D_00747A80;
 extern int cGameObj_isClip();
-extern int cIDBase_getIDWork(void *a, int b);
 extern int D_00785548;
 extern int D_00460D10;
 extern int D_0041D830;
@@ -97,7 +96,7 @@ void func_0013F118(void *a0) {
 __attribute__((section(".text.func_00143558")))
 void func_00143558(void *a0) {
     cIDBase_initialize(a0, 1, 0x13);
-    cIDBase_initialize((char *)a0 + 0xB0, 1, 0x18);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xB0), 1, 0x18);
 }
 
 /* LANE K3, wave 18 -- DEAD-HEAD boundary class.
@@ -140,10 +139,10 @@ int func_001B80C0(void *a0) {
 __attribute__((section(".text.func_0013D048")))
 void func_0013D048(void *a0) {
     cIDBase_initialize(a0, 1, 6);
-    cIDBase_initialize((char *)a0 + 0x140, 1, 7);
-    cIDBase_initialize((char *)a0 + 0x190, 1, 8);
-    cIDBase_initialize((char *)a0 + 0xA0, 1, 0x1B);
-    cIDBase_initialize((char *)a0 + 0xF0, 1, 0x1C);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0x140), 1, 7);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0x190), 1, 8);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xA0), 1, 0x1B);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xF0), 1, 0x1C);
 }
 
 /* LANE K3, wave 18 -- DEAD-HEAD boundary class.
@@ -170,7 +169,7 @@ void func_0013C220(void *a0) {
     cIDBase_initialize(a0, 1, 0xA);
     i = 0;
     do {
-        *(int *)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
+        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
         i = i + 1;
     } while (i < 4);
 }

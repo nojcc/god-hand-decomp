@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
@@ -8,8 +10,6 @@ extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern int  moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float capVu0Atan2(float y, float x);
@@ -17,14 +17,12 @@ extern float Turn_dest_dir(float f12, float f13, float f14);
 extern float Adjust_theta(float f12);
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern int cOmBase_checkDamage(void *a0, int a1);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void StunObj_startStun(void *a0);
 extern void func_001B48E0(void *a0);
 extern void func_001B54E8(void *a0);
 extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
-extern char D_005FEE00[];
 
 struct VtEnt { short delta; short index; void *pfn; };
 
@@ -105,8 +103,8 @@ void func_0010EBF8(void *a0)
                 *(int *)(s1 + 0x338) = 0;
             }
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     }
@@ -244,8 +242,8 @@ void func_00241C18(void *a0)
             p = *(char **)(s0 + 0xF0);
             VU0_VADD_XYZ_IP(p, 0, buf);
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     }
@@ -276,12 +274,12 @@ void func_001B4068(void *a0)
         return;
     if (cOmBase_checkDamage(s0, *(int *)(s0 + 0x650)) != 0) {
         if (*(short *)(s0 + 0x54A) <= 0) {
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x89, s0, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x89, s0, 0, 0, 0, 0);
             *(char *)(s0 + 0x2F4) = 3;
             *(char *)(s0 + 0x2F5) = 0;
             *(int *)(s0 + 0x5B0) |= 1;
         } else {
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x8E, s0, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x8E, s0, 0, 0, 0, 0);
         }
         StunObj_startStun(s0);
     }

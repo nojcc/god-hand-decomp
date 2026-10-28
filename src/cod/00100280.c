@@ -1,3 +1,4 @@
+#include "godhand/cObjBase.h"
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern int D_0041B598;
@@ -16,8 +17,6 @@ extern int D_007854F8;
 extern void cObjBase__tf(void);
 extern float D_003BC7C0;
 extern void func_002A8578(void *, void *, void *, int, int, int, float);
-extern void cObjBase_addNullSpeed_Rotation(void *, float);
-extern void cObjBase_addNullSpeed(void *, float);
 
 __attribute__((section(".text.IsStateByteIdle_10B5F0")))
 int IsStateByteIdle_10B5F0(unsigned char *a0) {

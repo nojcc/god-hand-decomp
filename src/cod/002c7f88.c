@@ -23,7 +23,17 @@ cSndMemBlk *cSndMemHeap_FindFitBlk(cSndMemHeap *heap, unsigned int size) {
 }
 
 __attribute__((section(".text.cSnd_FindBgmNode")))
-void *cSnd_FindBgmNode(int a0,int a1,int a2){int p=*(int*)(a0+0x18);while(p!=0){if(*(int*)(p+0x8C)-0x80==a1&&*(int*)(p+0x90)==a2)return (void*)p;p=*(int*)(p+0x88);}return 0;}
+cSndBgmNode *cSnd_FindBgmNode(cSnd *self, int bank, int reqNo)
+{
+    cSndBgmNode *node = self->bgmHead;
+
+    while (node != 0) {
+        if (node->bank - 0x80 == bank && node->reqNo == reqNo)
+            return node;
+        node = node->next;
+    }
+    return 0;
+}
 
 /* sn-2.95.3-136 */
 __attribute__((section(".text.func_002D42B0")))

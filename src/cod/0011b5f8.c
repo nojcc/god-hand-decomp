@@ -1,7 +1,8 @@
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned int irand(void);
-extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float a3, int a4, int a5, int a6);
 extern void func_0012C348(void *a0, int a1);
@@ -9,9 +10,6 @@ extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_002DB770(void);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern char D_005FEE00[];
 extern char D_007474A0[];
 
 __attribute__((section(".text.func_0011B5F8")))
@@ -28,16 +26,16 @@ void func_0011B5F8(void *a0)
             char *v0 = *(char **)(s1 + 0x304);
             p1 = *(int *)(v0 + 0x148) + (int)v0;
             p2 = *(int *)(v0 + 0x14C) + (int)v0;
-            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
         } else {
             char *v1 = *(char **)(s1 + 0x304);
             p1 = *(int *)(v1 + 0x150) + (int)v1;
             p2 = *(int *)(v1 + 0x154) + (int)v1;
-            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xD0, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD0, s1, 0, 0, 0, 0);
         }
         pl00_clearMotionCam(s1, 0, 0);
         func_002A8578(s1, p1, p2, 0.0f, 1, 0, 0);
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x8C, s1, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x8C, s1, 0, 0, 0, 0);
         func_0012C348(s1, 0);
         CallWithAndClearField698_12AC28(s1);
         func_0012B928(s1);
@@ -65,8 +63,8 @@ void func_0011B5F8(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 2;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     case 2: {
@@ -96,8 +94,8 @@ void func_0011B5F8(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     }

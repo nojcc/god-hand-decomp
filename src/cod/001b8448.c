@@ -1,4 +1,4 @@
-extern void KillEffect(void *, int, int);
+#include "godhand/cObjBase.h"
 extern void cOmBase_dieCommon(void *);
 
 __attribute__((section(".text.func_001B8448")))
