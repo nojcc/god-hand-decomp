@@ -2,7 +2,7 @@
 #include "godhand/Slot2.h"
 
 extern void cIDBase_trans(void *self);
-extern int CustomIDWork_SetNumber();
+extern void CustomIDWork_SetNumber(void *work, int n);
 extern int CustomIDWork_ResetColorAnim();
 extern int CustomIDWork_SetColorAnimSin();
 extern char D_00463050[];
@@ -20,7 +20,7 @@ void func_001DEE20(void *a0) { cIDBase_trans((char *)a0 + 0x10); }
 
 
 __attribute__((section(".text.func_001DEE40")))
-void func_001DEE40(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x7A4); }
+void func_001DEE40(void *ui, int n) { CustomIDWork_SetNumber((char *)ui + 0x7A4, n); }
 
 /* clone */
 

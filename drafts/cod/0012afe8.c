@@ -28,8 +28,6 @@ typedef struct pl00ThrowFrame {
     cVec tmp;                           /* 0x50 */
 } pl00ThrowFrame;
 
-extern cSnd D_005FEE00;
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
 extern void capVu0ApplyMatrixXYZ(void *a0, void *a1, void *a2);
 extern void cOmWeapon_setThrowPL(cOmWeapon *self, cVec *v);
 

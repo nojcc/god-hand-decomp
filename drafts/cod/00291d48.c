@@ -5,6 +5,7 @@
  * the cross-call const-1 CSE);
 * WL store order inside wlSet still unverified. */
 #include "include_asm.h"
+#include "godhand/cObjBase.h"
 
 #ifdef NON_MATCHING
 extern char D_007474A0[];
@@ -13,8 +14,6 @@ struct WL { int pad; unsigned char on; char p5[3]; int t8; int tC; };
 extern struct WL D_00754C38;
 extern char D_00604700[];
 extern unsigned int D_00747A84;
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
-extern void KillEffect(void *a0, int a1, int a2);
 extern void cWorldLight_loadPreset(void *wl, int on);
 extern void cWorldLight_startFade(void *wl, int a1, int frames);
 extern void cWorldLight_Light_curent_set(void *wl, int a1);

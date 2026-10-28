@@ -33,8 +33,6 @@ typedef struct GoldScreen {
 
 #define SCENARIO_RUNNING(sc)  (*(unsigned char *)((char *)(sc) + 0x14))   /* cScenario does not name 0x14 yet */
 
-extern void func_002AC9B8(void *self, cIDBaseEnt *ent, int arg);
-extern void cIDBase_move(void *self);
 
 /* Per-frame update of the gold counter: steps the shown amount toward the
  * saved gold, starts a popup for each new pickup, and fades the popups. */

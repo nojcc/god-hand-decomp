@@ -8,13 +8,10 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
 
-extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(int a0, int a1, int a2, int a3, int t0, int t1, float f12);
 extern float Turn_dest_dir(float angle, float dest, float rate);
 extern float Adjust_theta(float angle);
 extern int moveMotion(void *self);
-extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 
 /* cEm00.h does not name 0x1748 yet. */
 #define EM_1748(self) (*(float *)((char *)(self) + 0x1748))

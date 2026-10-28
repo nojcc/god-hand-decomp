@@ -4,13 +4,12 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cOmWeapon.h"
+#include "godhand/cModel.h"
+#include "godhand/cSnd.h"
 
-extern void cModel_calcParts(void *self);
 extern void cOmBase_setMeshDispFromLayer(void *model, int layer, int show);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
 extern float fRand0_1(void);
 extern float fRand1_1(void);
-extern char D_005FEE00[];
 
 /* Break the weapon: drop it from its holder, free the collision body, show the broken mesh layer, play the break
  * sound for the weapon kind and launch a debris piece for each child body after the first. */
@@ -45,19 +44,19 @@ void cOmWeapon_SetBreak(cOmWeapon *self)
     switch (self->base.actorId) {
     case 0x361:
     default:
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x115, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x115, self, 0, 0, 0, 0);
         break;
     case 0x362: case 0x36D: case 0x375: case 0x377: case 0x378: case 0x3A8:
     case 0x3A9: case 0x3AA: case 0x3AB: case 0x3AD: case 0x3AE: case 0x3B4:
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x116, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x116, self, 0, 0, 0, 0);
         break;
     case 0x363: case 0x380: case 0x3B7:
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x11D, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11D, self, 0, 0, 0, 0);
         break;
     case 0x3AF:
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0xD4, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xD4, self, 0, 0, 0, 0);
     case 0x3B8: case 0x3B9: case 0x3BA:
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x11C, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11C, self, 0, 0, 0, 0);
         break;
     }
     for (i = 0; i < COMWEAPON_PIECE_NUM; i++) {

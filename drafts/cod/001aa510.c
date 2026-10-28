@@ -1,5 +1,6 @@
 /* NON_MATCHING func_001AA510 (sn-2.95.3-136, 13 insns differ in the hit-sound call: retail stores the stack arg first and tests the kind with li 5 / slt on the unsigned byte, this source reloads it signed) */
 #include "include_asm.h"
+#include "godhand/cSnd.h"
 
 #ifdef NON_MATCHING
 /* func_001AA510, enemy damage-phase update: on a confirmed hit either kill (guard at zero) or flag the
@@ -17,10 +18,8 @@ typedef struct HitPhaseTable {
 } HitPhaseTable;
 
 extern HitPhaseTable D_00427C68;
-extern char D_005FEE00[];
 extern int cOmBase_checkDamage(void *, void *);
 extern void SetField_9E0_1AA500(char *self);
-extern int cSnd_SeCall_2CBA48(void *snd, int a1, int id, void *owner, int t0, int t1, int t2, int t3);
 extern void func_001B7EE0(void *, float);
 
 __attribute__((section(".text.func_001AA510")))
@@ -44,7 +43,7 @@ void func_001AA510(char *s0)
         }
         SetField_9E0_1AA500(s0);
         kind = *(unsigned char *)(s0 + 0x2B4);
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x8C, s0, 0, (signed char)kind > 5 ? *(int *)(*(char **)(s0 + 0x278) + 0x14) : 0, 0, 0, kind);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x8C, s0, 0, (signed char)kind > 5 ? *(int *)(*(char **)(s0 + 0x278) + 0x14) : 0, 0, 0, kind);
     }
 
     tbl = D_00427C68;

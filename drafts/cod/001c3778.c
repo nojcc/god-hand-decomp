@@ -8,7 +8,6 @@
 #include "godhand/cOmBase.h"
 
 extern void func_001B7E50(void *self, cVec *newPos);
-extern void cModel_calcParts(void *self);
 
 typedef struct OmParts {
     cOmBase base;

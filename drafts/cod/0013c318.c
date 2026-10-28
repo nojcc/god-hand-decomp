@@ -3,6 +3,7 @@
  * re-tests the hidden bit with a plain mask on the else-if path (no jump threading) and reloads part->flags in parts 1-3;
 * the mask form gets threaded here and the shift form (used below) gives srl/andi instead. */
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 #ifdef NON_MATCHING
 typedef struct SubPart {
@@ -16,7 +17,6 @@ typedef struct SubPartOwner {
     SubPart *part[4];                /* 0x98 */
 } SubPartOwner;
 
-extern void cIDBase_move(void *p);
 
 __attribute__((section(".text.func_0013C318")))
 void func_0013C318(SubPartOwner *o)

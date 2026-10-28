@@ -1,14 +1,12 @@
 /* NON_MATCHING func_00274FE8 (sn-2.95.3-136): the logic is complete, but cross-jumping differs.
 * Retail keeps two unmerged copies of the (2, 2) phase stores in the dying branch and routes every other phase set through one register tail; ours merges the copies and lays the 0x100000 case out as a taken branch. */
 #include "include_asm.h"
+#include "godhand/cEm00.h"
 
 #ifdef NON_MATCHING
 /* func_00274FE8: enemy think: pick the next phase (0x2F4/0x2F5) from the hit points, the current
  * action id at 0x564 and the player distance at 0x618. */
-extern int func_0025FE30(char *self, int flag, int a2);
-extern int cEm00_startHitUnitAim(char *self);
 extern int func_00274150(char *self);
-extern int func_0026F1D8(char *self);
 extern int irand(void);
 
 static inline void SetPhase274FE8(char *p, int phase, int sub)
@@ -20,8 +18,10 @@ static inline void SetPhase274FE8(char *p, int phase, int sub)
 }
 
 __attribute__((section(".text.func_00274FE8")))
-void func_00274FE8(char *p)
+void func_00274FE8(void *self)
 {
+    char *p = (char *)self;
+
     if (*(short *)(p + 0x54A) <= 0) {
         int sub;
 
@@ -32,7 +32,7 @@ void func_00274FE8(char *p)
         if (*(unsigned int *)(p + 0x1644) & 0x800000) {
             sub = 3;
         } else {
-            if (func_0025FE30(p, 0x1000000, 0)) {
+            if (func_0025FE30(self, 0x1000000, 0)) {
                 SetPhase274FE8(p, 2, 2);
                 return;
             }
@@ -41,7 +41,7 @@ void func_00274FE8(char *p)
         SetPhase274FE8(p, 2, sub);
         return;
     }
-    if (cEm00_startHitUnitAim(p))
+    if (cEm00_startHitUnitAim(self))
         return;
     if (func_00274150(p) == 0 && !(0.0f < *(float *)(p + 0x1734))) {
         switch (*(int *)(p + 0x564)) {

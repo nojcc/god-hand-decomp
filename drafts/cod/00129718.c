@@ -8,8 +8,6 @@
 #include "godhand/cSnd.h"
 
 extern void func_00126770(char *a0);
-extern void cSnd_SeStop(cSnd *self, int handle);
-extern cSnd D_005FEE00;
 
 /* pl00.h does not name these yet: the enemy holding the player and the held sound effect handle. */
 #define PL00_CATCHER(p) (*(void **)((char *)(p) + 0x694))

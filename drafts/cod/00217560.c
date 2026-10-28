@@ -1,14 +1,9 @@
+#include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cObjBase.h"
 #ifdef NON_MATCHING
 int Getplayer(void);                                  /* extern */
-s32 Obj0000_Get_Byte_17C3_NZ_2_276468(char *);      /* extern */
 float Turn_dest(s32, s32, float, int);                    /* extern */
-void cGameObj_SetTgtTurn(char *, void *, float);         /* extern */
-void cObjBase_addNullSpeed(char *, int);                 /* extern */
-void cObjBase_addNullSpeed_Rotation(char *, int);        /* extern */
-void func_00262AA8(char *);                            /* extern */
-s32 func_0026AA30(char *, int);                       /* extern */
-void func_0026B240(char *, s32, int, int);                 /* extern */
-void func_002705D8(char *);                            /* extern */
 void func_002A8578(char *, void *, void *, int, int);      /* extern */
 s32 moveMotion(char *);                             /* extern */
 

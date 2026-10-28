@@ -1,6 +1,7 @@
 #include "include_asm.h"
 #include "godhand/gameWork.h"
 #include "godhand/player.h"
+#include "godhand/cModel.h"
 
 typedef struct cVecQ {
     float x, y, z, w;
@@ -12,7 +13,6 @@ int ChkLine(void *a0, void *a1, void *a2, void *a3, int a4, int a5, int a6,
             int a7, int a8, int a9, int a10, int a11, int a12);
 void MtxInitTransVec(float *mtx, cVec *pos);
 void MtxMulRotVec(float *dst, float *src, float *rot, unsigned char order);
-void cModel_calcParts(void *self);
 void cPlCamera_SetNormalZoomOutMode(void *cam, void *pose, int snap);
 
 #ifdef NON_MATCHING

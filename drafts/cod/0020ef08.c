@@ -15,9 +15,6 @@ extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern void Obj2810_ClearState_B(int obj);
 extern void Obj2810_ClearState_C(int obj);
 extern int func_002815D0(int obj);
-extern int func_0026F1D8(void *self);
-extern void func_0026F120(void *self);
-extern void func_00270C78(void *self);
 extern unsigned char D_005CB010;
 
 /* Knocked down, or a held reaction when the hold flag is set. */

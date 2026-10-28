@@ -21,7 +21,6 @@ typedef struct GameFlags {
 extern GameFlags D_00747A24;
 
 #ifdef NON_MATCHING
-extern void cIDBase_move(cIDBaseObj *self);
 
 #define VITALGAUGE_INIT     0x40000000  /* flags: bars set to full */
 #define VITALGAUGE_HOLD     40          /* frames the lost part stays before draining */

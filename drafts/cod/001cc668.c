@@ -4,6 +4,7 @@
 #include "godhand/cModel.h"
 #include "godhand/cVec.h"
 #include "include_asm.h"
+#include "godhand/cObjBase.h"
 
 /* 229 words against retail's 231. Still differs in the debris loop: retail
  * builds i + 1 and the child range flag in registers of their own and copies
@@ -17,7 +18,6 @@
 #define WEAPON_GRAVITY      0.013f   /* taken off the fall speed every frame */
 #define WEAPON_FADE         0.02f    /* taken off animRate every frame */
 
-extern void KillEffect(int owner, int handle, int mode);
 
 
 /* Broken weapon: stop the trail once (step 0), then every frame spin the

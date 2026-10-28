@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 #ifdef NON_MATCHING
 typedef struct {
@@ -14,7 +15,6 @@ typedef struct {
     char ids[1];
 } ActBtnObj;
 
-extern IDWork *cIDBase_getIDWork(void *self, int idx);
 
 void func_001F6680(ActBtnObj *o)
 {

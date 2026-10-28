@@ -4,6 +4,8 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cCoreSave.h"
+#include "godhand/cModel.h"
+#include "godhand/cObjBase.h"
 
 typedef struct {
     int f0;
@@ -26,12 +28,6 @@ extern int cModel_setupFromPack(void *self);
 extern void func_0028EBF0(char *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, int a3, float a4, int a5, int a6);
 extern int moveMotion(void *self);
-extern void cModel_calcParts(void *a0);
-extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
-extern void cParts_setRotationOrder(void *a0, int a1);
-extern void cObjBase_KageInit(void *a0, void *a1, void *a2);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 
 static inline void vecCopy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
 {

@@ -20,10 +20,7 @@ typedef struct Slot2Marks Slot2Marks;
 
 extern void cSnd_BattleBgmAllPause(cSnd *self, float time);
 extern void cSnd_BgmEventStart(cSnd *self, int reqNo, int a2, int a3);
-extern void cSnd_BgmEventFade(cSnd *self, int reqNo, float time, float level, float weight);
 extern void cSnd_BgmFlaggedNodeKick(cSnd *self, float arg);
-extern void cTaskWork_exit(cTaskWork *self);
-extern void MarkPanel_setMark(MarkPanel *self, unsigned short mark, int show, int startLit);
 extern void Slot2_setMarkLayersAt464(Slot2Marks *self, int show, int startLit);
 extern void Slot2_setMarkLayersAt46C(Slot2Marks *self, int show, int startLit);
 extern void Slot2_setMarkLayers(Slot2Marks *self, int show, int startLit);
@@ -38,7 +35,6 @@ extern void func_001E0210(int a0);
 extern void SlotUi_release(SlotUi *self);
 extern void func_001E3388(void *self);
 extern int cSceAtManager_SetEnable_2C2950(cSceAtManager *self, unsigned short id);
-extern cSnd D_005FEE00;
 extern unsigned int D_00747A78;         /* D_007474A0.flags5D8 under its own symbol */
 
 #define SLOT1_BGM        0x31           /* casino music request */

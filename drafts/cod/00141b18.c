@@ -1,14 +1,11 @@
 /* NON_MATCHING func_00141B18 (sn-2.95.3-136): retail keeps the loop-3 base as a copy (daddu s2,s4) of the hoisted p+0x190; ours copy-propagates it, which flips the s3/s4 picks and the addu operand order. */
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 #ifdef NON_MATCHING
 /* func_00141B18: HUD panel init: set up the four ID bases, cache every ID work
  * pointer, restart the anims and pick up the game level. */
 extern char D_00569B70[];
-extern int cIDBase_initialize(void *p, int a, int b);
-extern void cIDBase_initIDWork(void *p, int i);
-extern void *cIDBase_getIDWork(void *p, int i);
-extern void cIDBase_restartAnim(void *p);
 extern int cCoreSave_getGameLevel(void *self);
 
 __attribute__((section(".text.func_00141B18")))

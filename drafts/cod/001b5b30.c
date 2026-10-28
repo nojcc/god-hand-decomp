@@ -6,7 +6,6 @@
 #include "godhand/cVec.h"
 
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *give);
-extern int cSnd_SeCall_2CBA48(void *snd, int kind, int se, void *obj, void *owner, int a5, int a6, int a7);
 
 typedef struct cOmTwin {
     cOmBase base;                       /* 0x000 */

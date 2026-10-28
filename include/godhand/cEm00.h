@@ -407,7 +407,10 @@ typedef struct cEm00 {
     unsigned char counterReady;             /* 0x17B9 nonzero lets the enemy start a counter attack */
     char unk17BA[0x1];
     unsigned char unk17BB;                  /* 0x17BB */
-    char unk17BC[0x5];
+    char unk17BC[0x2];
+    unsigned char unk17BE;                  /* 0x17BE counted 0..2 on each knock-back; picks the emFlags2 bit (0x80 or 0x100) */
+    char unk17BF[0x1];
+    unsigned char unk17C0;                  /* 0x17C0 counted up each time the wait timer2 runs out; at 3 the enemy may act */
     unsigned char slowFlinch;               /* 0x17C1 nonzero keeps the slow flinch speed of stepArg 3 */
     char unk17C2[0x1];
     unsigned char unk17C3;                  /* 0x17C3 */

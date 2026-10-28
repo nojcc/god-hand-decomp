@@ -20,7 +20,6 @@
 /* Defined as int func_0010B2E8(BusyOwner *self, int flag); BusyOwner is its view of pl00. */
 extern int func_0010B2E8(pl00 *self, int flag);
 extern int ComboObj_startNext(ComboObj *self);
-extern void KillEffect(int a0, int a1, int a2);
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
 extern void func_00124EC0(void *obj);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);

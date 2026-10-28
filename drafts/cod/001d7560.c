@@ -27,8 +27,6 @@
 #define POKER_SE_OK      0x15E
 #define POKER_SE_BACK    0x161
 
-extern cSnd D_005FEE00;
-extern int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
 extern void func_001DD770(void *a0, unsigned char a1);
 extern void SetBlendField1D4_1DDB10(void *self, int on);
 extern void NoOp_1DCE60(void *self);
