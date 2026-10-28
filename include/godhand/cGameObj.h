@@ -238,6 +238,8 @@ int func_00275888(cGameObj *self, float dist);
 void InitRenderStruct_2A8608(cGameObj *self, int kind, void *no, int a3, int mode, void *follow);
 /* Whether obj is an item: its actor id lies in [0x3C0, 0x400). */
 long func_001B8030(cGameObj *obj);
+/* Nonzero when nothing blocks the line from the enemy's eye to a point ahead of it. */
+int func_00273C38(cGameObj *self);
 
 /* Effect kind the enemy attack steps start with: no effect picked. */
 #define FX_KIND_NONE  0x4E2

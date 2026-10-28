@@ -394,3 +394,19 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - **Builds:** full build and cold build both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail; reseed anchored on func_002F1B60 elf=OK overlay=OK. Logs: build/scratch/ck197/ck197_full3.log, ck197_cold.log.
 - **Checks:** session_check: 19 pass, 6 skip, known dual_compiler_regress rc=126. strip_data_nonmatching applied (the handoff's node-pool externs). naming_sync is consistent (func_001FDEA8 symbol added). cygnus-2.96 -Wall shows no warnings in the added and changed files.
 - **Stop conditions:** none hit.
+
+## Checkpoint 207 (single-agent, batches 198-204) — 2026-10-28T08:40:00Z
+
+- **% matched code:** 56.7703% (1610224 / 2836384 code bytes, progress/report.json). Data 83.0150% (unchanged).
+- **Headers merged into include/ (only what the registered matches need):**
+  - angle.h: `absf`, so the overlay copy of angle.h is gone.
+  - cOmBase.h: `unk150`/`meshFlags` at 0x150/0x154.
+  - cEm00.h: `unk16FC` at 0x16FC, the `cEm00_setState` inline (int arguments, step 0), and the `func_00268068` and `func_00271148` prototypes.
+  - cGameObj.h: `func_00273C38`.
+  - The duplicate `cEmManage_CreateItem` prototype is removed from the held cEmManage.h overlay.
+- **Callers updated:** src/cod/00239b88.c drops its local `void *` extern for func_00271148 and uses the cEm00.h prototype. drafts/cod/0020ef08.c drops its private 5-argument `cEm00_setState` and calls the header's.
+- **Registered (3):** func_00268068 (enemy reaction pick; `as: sn`, `extern_jtbl D_00444E20`), func_0026A3D8 (child tilt copy and decay; `as: sn`), func_00271148 (back attack check; no config). The symbol func_0026A3D8 was added; naming_sync is consistent.
+- **Drafts:** 9 held drafts moved to drafts/cod. They compile with -DNON_MATCHING against include/ alone, and cygnus -Wall shows no warnings: func_00124540, func_0012EC58, func_00130700, moveMotion, func_0015C410, func_001C5F48, func_001C6CB8, func_002A8038, SetEffect. Five of them got the INCLUDE_ASM scaffolding. Held now: 61 drafts (they need overlay types, collide with an existing draft, or lack a prototype), plus 47 matches waiting on the W-set prototypes and the open decision rows.
+- **Builds:** the full build and the cold build both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail. Logs: build/scratch/b207/cp207_full.log, cp207_cold.log.
+- **Checks:** session_check: 19 pass, 6 skip, and dual_compiler_regress rc=126 in the combined run. Run alone in the container, dual_compiler_regress passed (935 s). nm_prune: 0 fully stale, 2 partially stale (NM closer's drafts 00156508, 00352790). nm_handoff: nothing solved.
+- **Stop condition:** no workable functions left. Every remaining non-CRI function outside the off-limits PRs has a logged blocker (batch 204 pool survey): the W-set prototypes, D-021 shared temporaries, vu0_pending.h macros, or forbidden constructs.

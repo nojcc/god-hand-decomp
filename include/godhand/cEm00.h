@@ -373,7 +373,8 @@ typedef struct cEm00 {
     char unk16F0[0x4];
     float unk16F4;                          /* 0x16F4 the float argument of the motion start, always stored as the int 0 */
     int unk16F8;                            /* 0x16F8 */
-    char unk16FC[0xC];
+    float unk16FC;                          /* 0x16FC decays by 0.6 a call (sign flipped for 0x223, 0x275, 0x276), copied to children 1 and 2 */
+    char unk1700[0x8];
     float pitch;                            /* 0x1708 body pitch toward the ground slope */
     float unk170C;                          /* 0x170C scaled by 10.0 into unk1710 on a hard hit */
     int unk1710;                            /* 0x1710 cleared at the start of a step */
@@ -516,5 +517,20 @@ int Obj0000_IsSet_Field_16D4_Bit_4_26F308(void *a0);
 int func_00273EE0(void *a0);
 /* Nonzero holds back the enemies' catch moves. */
 extern unsigned char D_005CB010;
+/* Starts an attack picked by the enemy number; 1 if it switched the action. */
+int func_00268068(cEm00 *self, int force);
+/* Starts the enemy's reaction to the player. */
+void func_00271148(cEm00 *self);
+
+/* Switches the enemy to another mode and phase, at step 0 with the given
+ * step argument. An inline function: the arguments are int, so a byte store
+ * of the same constant just before isn't reused for them. */
+static __inline__ void cEm00_setState(cEm00 *self, int mode, int phase, int stepArg)
+{
+    self->mode = mode;
+    self->phase = phase;
+    self->step = 0;
+    self->stepArg = stepArg;
+}
 
 #endif

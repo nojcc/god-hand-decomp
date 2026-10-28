@@ -115,7 +115,10 @@ typedef struct cOmBase {
     float scale[3];                         /* 0x110 model scale, as in cGameObj */
     char unk11C[0x2C];
     struct cOmBase *owner;                  /* 0x148 set on a child body to its weapon */
-    char unk14C[0x214 - 0x14C];
+    char unk14C[0x4];
+    float unk150;                           /* 0x150 on a child body: the value that goes with meshFlags bit 0x800 */
+    int meshFlags;                          /* 0x154 on a child body: mesh flag bits */
+    char unk158[0x214 - 0x158];
     struct cVtEnt *vtable;                  /* 0x214 g++ 2.x vtable, entries as cModel.h cVtEnt */
     char unk218[0x24C - 0x218];
     float animRate;                         /* 0x24C 1.0 normal */
