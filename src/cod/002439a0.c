@@ -10,7 +10,6 @@ extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void func_0026B600(void *a0);
 extern float capVu0Sin(float f12);
 extern float Adjust_theta(float f12);
 extern char D_00462FC0[];
