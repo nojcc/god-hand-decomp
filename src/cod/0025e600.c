@@ -7,9 +7,6 @@ extern void ClearField630_SetField2F6_1C2318(void *a0);
 extern void func_001D0108(void *a0);
 extern void cEm_breakHeldWeapons(void *a0);
 extern void func_001D0408(void *a0);
-extern void Obj1D00_ClearState_6(void *a0);
-extern void Obj1D00_ClearState_7(void *a0);
-extern void KillEffect(void *a0, int a1, int a2);
 extern cPmf D_003BF878[];
 
 __attribute__((section(".text.func_0025E600")))

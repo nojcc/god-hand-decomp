@@ -10,16 +10,11 @@
 extern int moveMotion(void *a0);
 extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0, float f12, float f13, float f14);
 extern int IsEntryActive_1C2490(int a0);
-extern void cModel_calcNullPart(void *a0);
-extern void Add_nullspeed(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float f);
 extern int irand(void);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void cObj_setupAimStep2(void *a0, void *a1, int a2, void *a3, void *a4);
 extern unsigned char D_005864F0[];
-extern unsigned char D_005FEE00[];
 extern int D_007476B0;
 
 __attribute__((section(".text.cEm00_stepPatrolAttackDrop")))
@@ -58,8 +53,8 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         if (moveMotion(self) != 0) {
             self->step = self->step + 1;
         }
-        cModel_calcNullPart(self);
-        Add_nullspeed(self);
+        cModel_calcNullPart((cModel *)self);
+        Add_nullspeed((cGameObj *)self);
         break;
     case 2: {
         int b = EM_RES(self);
@@ -71,8 +66,8 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         self->gotoFlags = self->gotoFlags | 1;
         if (0.0f < self->tint.w) {
             moveMotion(self);
-            cModel_calcNullPart(self);
-            Add_nullspeed(self);
+            cModel_calcNullPart((cModel *)self);
+            Add_nullspeed((cGameObj *)self);
         }
         if ((self->gotoFlags & 0x40) != 0) {
             return;
@@ -102,7 +97,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
     case 5:
         if ((self->seqFlags & 2) == 0) {
             player = Getplayer();
-            cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.049087386f);
+            cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.049087386f);
         }
         if (moveMotion(self) != 0) {
             if ((self->gotoFlags & 4) == 0) {
@@ -111,8 +106,8 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
                 self->step = 6;
             }
         }
-        cModel_calcNullPart(self);
-        Add_nullspeed(self);
+        cModel_calcNullPart((cModel *)self);
+        Add_nullspeed((cGameObj *)self);
         break;
     case 6: {
         int rec;
@@ -156,13 +151,13 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
     case 7:
         self->gotoFlags = self->gotoFlags | 1;
         player = Getplayer();
-        cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.049087386f);
+        cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.049087386f);
         if (400.0f < self->playerDist) {
             return;
         }
         moveMotion(self);
-        cModel_calcNullPart(self);
-        Add_nullspeed(self);
+        cModel_calcNullPart((cModel *)self);
+        Add_nullspeed((cGameObj *)self);
         break;
     case 8: {
         int b = EM_RES(self);
@@ -172,7 +167,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
     }
     case 9:
         player = Getplayer();
-        cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.049087386f);
+        cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.049087386f);
         if (moveMotion(self) != 0) {
             self->step = self->step + 1;
         }
@@ -208,10 +203,10 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
     }
     case 11:
         player = Getplayer();
-        cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.049087386f);
+        cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.049087386f);
         moveMotion(self);
-        cModel_calcNullPart(self);
-        Add_nullspeed(self);
+        cModel_calcNullPart((cModel *)self);
+        Add_nullspeed((cGameObj *)self);
         if (self->unk15C4 != 0) {
             return;
         }
@@ -225,12 +220,12 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
     }
     case 13:
         player = Getplayer();
-        cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.049087386f);
+        cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.049087386f);
         if (moveMotion(self) != 0) {
             self->step = 6;
         }
-        cModel_calcNullPart(self);
-        Add_nullspeed(self);
+        cModel_calcNullPart((cModel *)self);
+        Add_nullspeed((cGameObj *)self);
         break;
     }
 }

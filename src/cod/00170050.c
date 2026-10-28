@@ -6,6 +6,7 @@
 #include "godhand/sceVu0.h"
 
 #include "godhand/objField.h"
+#include "godhand/cObjBase.h"
 extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);
 extern float LengthPositionToGivenLine(void *line, void *pos, void *dir, int *flag);
 extern int D_00427CF0;
@@ -14,7 +15,6 @@ extern int D_005CAE50;
 extern void ClearAndResetFields_1FE278(void *a, void *b);
 extern void cDamageManage_ReleaseDamageGive(void *a, int b);
 extern void func_0012EC58(void *a, int b);
-extern void KillEffect(void *a0, int a1, int a2);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern float D_00747B00[];
 extern void cDamageUnit_SetDamageCollRadius(void *unit, int id, float radius);

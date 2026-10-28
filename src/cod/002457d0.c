@@ -5,8 +5,6 @@
 
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -34,8 +32,8 @@ __attribute__((section(".text.func_002457D0"))) void func_002457D0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 2: {
             char *v0 = (char *)EM_RES(self);
@@ -74,8 +72,8 @@ __attribute__((section(".text.func_002457D0"))) void func_002457D0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 4: {
             char *v0 = (char *)EM_RES(self);
@@ -88,8 +86,8 @@ __attribute__((section(".text.func_002457D0"))) void func_002457D0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

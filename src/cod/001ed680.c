@@ -1,8 +1,8 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void func_001ED848(void *a0);
 extern void CustomIDWork_Main(void *a0);
-extern void cIDBase_move(void *a0);
 
 __attribute__((section(".text.func_001ED680")))
 void func_001ED680(void *a0) {
@@ -15,5 +15,5 @@ void func_001ED680(void *a0) {
         CustomIDWork_Main(p);
         p += 0x7C;
     }
-    cIDBase_move((char *)a0 + 0x10);
+    cIDBase_move((cIDBaseObj *)((char *)a0 + 0x10));
 }

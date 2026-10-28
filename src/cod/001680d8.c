@@ -1,5 +1,6 @@
 /* sn-2.95.3-136: func_001680D8, menu panel fade in/out plus the left/right arrow highlight. */
 #include "godhand/cIDMenuPanel.h"
+#include "godhand/cIDBase.h"
 extern char *D_003BD930;
 
 /* The marks' flags and x are written through their addresses: as cIDBaseEnt fields (an

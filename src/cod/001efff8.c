@@ -3,6 +3,7 @@
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
 
 extern unsigned int D_00747A84;
 extern void func_0028E858(void);
@@ -12,8 +13,6 @@ extern void *SearchData(void *name, void *table, int which);
 extern unsigned int D_00747A78;
 extern char *D_005CAFF0;
 extern void func_001582A0(void *self, void *link, float f12, float f13, int a2, int a3, int t0);
-extern void cParts_setRotationOrder(void *self, int order);
-extern void cModel_calcParts(void *self);
 extern char D_00574380[];
 extern char D_00747AC0[];
 extern int cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, void *ofs, float radius);
@@ -130,9 +129,9 @@ void PartObj_refresh(PartObj *self) {
                 dst[1] = src[1];
                 dst[2] = src[2];
             }
-            cParts_setRotationOrder(self, 4);
+            cParts_setRotationOrder((char *)self, 4);
         }
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
     }
 }
 

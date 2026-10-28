@@ -7,16 +7,12 @@
 
 extern void func_001268F0(void *a0);
 extern void func_00124540(void *a0, int a1);
-extern void cSnd_SeStop(void *a0, int a1);
 extern unsigned int irand(void);
 extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int cCollisionManager_checkNearCollision(void *a0, int a1, void *a2, float f);
 extern void pl00_addComboHit(void *a0);
-extern char D_005FEE00[];
 extern char D_005E8040[];
 extern void func_002D42E0(cMovieTrack *track);
 extern int D_00747A84;
@@ -35,7 +31,7 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
             self->unk5E2 = 0;
             func_001268F0(self);
             func_00124540(self, 5);
-            cSnd_SeStop(D_005FEE00, self->unk1620);
+            cSnd_SeStop(&D_005FEE00, self->unk1620);
             self->unk1620 = 0;
             switch (self->unk1614) {
                 case 0:
@@ -90,8 +86,8 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
                 self->stepArg = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(self, one);
-            cObjBase_addNullSpeed(self, one);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+            cObjBase_addNullSpeed((cObjBase *)self, one);
             self->unk5E2 = 0;
             if (self->stepVar.count != 0) {
                 self->stepVar.count -= 1;

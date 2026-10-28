@@ -6,8 +6,6 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int moveMotion(void *a0);
 extern float fRand1_1(void);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int irand(void);
 extern void func_002744E0(void *a0);
 extern char *CreateObj(int a0, int a1);
@@ -234,8 +232,8 @@ __attribute__((section(".text.func_00246698"))) void func_00246698(cEm00 *self)
         }
         case 1:
             moveMotion(p);
-            cObjBase_addNullSpeed_Rotation(p, 1.0f);
-            cObjBase_addNullSpeed(p, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if ((*(int *)(p + 0x16D0) & 0x20000000) != 0) {
                 if ((*(unsigned short *)(p + 0x3AC) & 3) != 0 && *(int *)(p + 0x5F0) != 0) {
                     *(int *)(p + 0x5F0) = 0;
@@ -284,8 +282,8 @@ __attribute__((section(".text.func_00246698"))) void func_00246698(cEm00 *self)
             if (moveMotion(p) != 0) {
                 *(char *)(p + 0x2F6) = 0;
             }
-            cObjBase_addNullSpeed_Rotation(p, 1.0f);
-            cObjBase_addNullSpeed(p, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if ((*(unsigned short *)(p + 0x3AC) & 1) != 0 && *(int *)(p + 0x738) == 0) {
                 char *obj = CreateObj(0x3B1, 0xFFFF);
                 *(char **)(p + 0x738) = obj;

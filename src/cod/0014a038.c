@@ -8,7 +8,6 @@
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float f);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void func_0026B240(void *a0, int a1, int a2, int a3);
@@ -18,7 +17,6 @@ extern void MtxInverse(float *dst, float *src);
 extern void sceVu0MulMatrix(float *dst, float *a, float *b);
 extern void func_00156D70(cParts *dst, cParts *src, float *m, float blend);
 extern void func_001501D0(cParts *part, int flags);
-extern void Adjust_theta_vec(cVec *v);
 extern void MtxInitTransVec(cParts *part, cVec *trans);
 extern void MtxMulRotVec(cParts *dst, cParts *src, cVec *rot, int order);
 extern void MtxMulScaleVec(cParts *dst, cParts *src, cVec *scale);
@@ -61,7 +59,7 @@ void cEm00_stepCircleTargetTurn(cEm00 *self)
         self->step = self->step + 1;
     case 1:
         player = Getplayer();
-        cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.19634954f);
+        cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.19634954f);
         {
             int fa = 0x10000;
             int fb = 0x20000;
@@ -96,7 +94,7 @@ void cEm00_stepCircleTargetTurn(cEm00 *self)
         self->step = self->step + 1;
     case 3:
         player = Getplayer();
-        cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.19634954f);
+        cGameObj_SetTgtTurn((cGameObj *)self, player->pos, self->speedRate * 0.19634954f);
         {
             int fa = 0x10000;
             int fb = 0x20000;

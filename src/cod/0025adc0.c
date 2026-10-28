@@ -8,8 +8,6 @@ extern void cCollisionSolidManage_SetPriority(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_00262750(void *a0, int a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -190,8 +188,8 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 *(char *)(s1 + 0x2F7) = 1;
                 *(char *)(s1 + 0x2F6) = 0;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (*(unsigned short *)(s1 + 0x3AC) & 0x10) {
                 float *q;
                 int r;

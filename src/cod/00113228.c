@@ -15,8 +15,6 @@ extern int moveMotion(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 
 extern int D_005864F0;
@@ -76,8 +74,8 @@ void func_00113228(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     }

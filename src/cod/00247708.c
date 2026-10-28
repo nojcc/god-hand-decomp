@@ -9,8 +9,6 @@
 extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 
 /* Phase machine on the step byte, 2 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,
  * func_002A8578, moveMotion, func_002705D8, cObjBase_addNullSpeed_Rotation, cObjBase_addNullSpeed.
@@ -32,8 +30,8 @@ __attribute__((section(".text.func_00247708"))) void func_00247708(cEm00 *self)
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

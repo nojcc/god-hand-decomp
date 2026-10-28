@@ -10,8 +10,6 @@ extern float Adjust_theta(float f12);
 extern int moveMotion(void *a0);
 extern int cEmManage_CkPlSorry(void *a0);
 extern int cEmManage_CkPlCatched(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cObjBase_MoveByNullSpeed(void *a0, float f12, float f13);
 extern char D_005864F0[];
 
@@ -77,8 +75,8 @@ __attribute__((section(".text.func_0022A3F8"))) void func_0022A3F8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 *(unsigned char *)(s1 + 0x2F6) += 1;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
             break;
         }
         case 2: {
@@ -140,7 +138,7 @@ __attribute__((section(".text.func_0022A3F8"))) void func_0022A3F8(cEm00 *self)
             if (cEmManage_CkPlSorry(g) != 0 || cEmManage_CkPlCatched(g) != 0) {
                 *(unsigned char *)(s1 + 0x2F6) = 4;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
             *(int *)(s1 + 0x330) = 0;
             *(int *)(s1 + 0x334) = 0;
             switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -185,8 +183,8 @@ __attribute__((section(".text.func_0022A3F8"))) void func_0022A3F8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_00270C78(self);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
             break;
     }
     func_00260B30(self);

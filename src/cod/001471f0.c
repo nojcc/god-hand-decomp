@@ -1,7 +1,6 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern void cIDBase_restartAnim(void *a0);
-extern void cIDBase_move(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -16,7 +15,7 @@ void func_001471F0(char *s0) {
         st = *(unsigned char *)(s0 + 0xB8) - 1;
         switch (st) {
         case 0:
-            cIDBase_restartAnim(s0);
+            cIDBase_restartAnim((cIDBaseObj *)s0);
             s0[0x1C] = 1;
             s0[0xB8] = 2;
         case 1:
@@ -115,6 +114,6 @@ void func_001471F0(char *s0) {
             *(unsigned short *)(s0 + 0xAC) = 0xFFFF;
             break;
         }
-        cIDBase_move(s0);
+        cIDBase_move((cIDBaseObj *)s0);
     }
 }

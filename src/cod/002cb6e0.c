@@ -6,7 +6,6 @@ extern int cSnd_FindFreeSeSlot(cSnd *self);
 extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int idx);
 extern void cSnd_SeVoiceCallAll(cSnd *self, int idx, int flag);
 extern void cSndSeVoice_Stop(cSndSeVoice *v);
-extern void cSndMemHeap_Free(cSndMemHeap *parent, int addr);
 
 /* Returns the slot already playing this id; failing that, claims an active slot for it. -1 if none. */
 __attribute__((section(".text.cSnd_ReserveSeSlot")))

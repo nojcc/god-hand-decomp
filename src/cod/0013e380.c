@@ -1,9 +1,8 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern char *D_003BD6E8;
 extern void func_00143A90(char *a0);
-extern void cIDBase_initialize(void *a0, int a1, int a2);
-extern int cIDBase_getIDWork(void *a0, int a1);
 extern void func_002B2580(char *self);
 extern void cSndSeTrack_switchSoundData(char *self);
 extern int D_00747A34;
@@ -46,7 +45,7 @@ void InitTwoIdWorks(void *a0) {
     cIDBase_initialize(a0, 1, 0x1F);
     i = 0;
     do {
-        *(int *)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
+        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
         i = i + 1;
     } while (i < 2);
     *(int *)((char *)a0 + 0x90) = 0;

@@ -18,9 +18,7 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_00281B40(char *self);
 extern void cObjBase_SetSeqEffect(cObjBase *a0);
 extern void func_00283070(char *self);
-extern void cModel_calcParts(cModel *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(cModel *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern float capVu0Sin(float f12);
 extern float Adjust_theta(float angle);
@@ -47,9 +45,9 @@ void func_00281968(cEm00 *self)
 
     cObjBase_SetSeqEffect(self);
     func_00283070((char *)self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->ik, self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
 
     scroll = capVu0Sin(self->stepVar.angle) * 0.5f;

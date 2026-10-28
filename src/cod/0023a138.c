@@ -6,8 +6,6 @@
 extern int moveMotion(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int D_00462FC0;
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -48,8 +46,8 @@ __attribute__((section(".text.func_0023A138"))) void func_0023A138(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step = self->step + 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 6:
             res = EM_RES(self);
@@ -64,8 +62,8 @@ __attribute__((section(".text.func_0023A138"))) void func_0023A138(cEm00 *self)
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
 }

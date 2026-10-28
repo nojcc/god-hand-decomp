@@ -1,7 +1,6 @@
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern int D_005FEE00;
-extern void cSnd_SeCall_2CBA48(int *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 
 __attribute__((section(".text.func_00281B40")))

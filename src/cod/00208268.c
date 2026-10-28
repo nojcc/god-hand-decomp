@@ -1,8 +1,8 @@
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int GetEm00CharIndex(int a, int b);
 extern void *SearchData(void *a, void *b, int c);
-extern int cModel_setTextureExchange(void *self, void *tex, void *tbl, int n);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
 extern char D_0042FD50[];
 extern char D_0042FD58[];
@@ -33,7 +33,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x44) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x44) + b), 0);
             *(int *)(s1 + 0x564) = 0x227;
         }
         break;
@@ -41,7 +41,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x48) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x48) + b), 0);
             *(int *)(s1 + 0x564) = 0x228;
         }
         break;
@@ -49,7 +49,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x4C) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x4C) + b), 0);
             *(int *)(s1 + 0x564) = 0x229;
         }
         break;
@@ -57,7 +57,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x50) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x50) + b), 0);
             *(int *)(s1 + 0x564) = 0x22A;
         }
         break;
@@ -65,7 +65,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x54) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x54) + b), 0);
             *(int *)(s1 + 0x564) = 0x22B;
         }
         break;
@@ -73,7 +73,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x64) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x64) + b), 0);
             *(int *)(s1 + 0x564) = 0x24A;
         }
         break;
@@ -81,7 +81,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x58) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x58) + b), 0);
             *(int *)(s1 + 0x564) = 0x22C;
         }
         break;
@@ -89,7 +89,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x70) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x70) + b), 0);
             *(int *)(s1 + 0x564) = 0x22E;
         }
         break;
@@ -97,7 +97,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x68) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x68) + b), 0);
             *(int *)(s1 + 0x564) = 0x22F;
         }
         break;
@@ -105,7 +105,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x74) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x74) + b), 0);
             *(int *)(s1 + 0x564) = 0x24C;
         }
         break;
@@ -113,7 +113,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x88) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x88) + b), 0);
             *(int *)(s1 + 0x564) = 0x24E;
         }
         break;
@@ -121,7 +121,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x6C) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x6C) + b), 0);
             *(int *)(s1 + 0x564) = 0x24B;
         }
         break;
@@ -129,7 +129,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x78) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x78) + b), 0);
             *(int *)(s1 + 0x564) = 0x22D;
         }
         break;
@@ -137,7 +137,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x7C) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x7C) + b), 0);
             *(int *)(s1 + 0x564) = 0x24D;
         }
         break;
@@ -145,7 +145,7 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x80) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x80) + b), 0);
             *(int *)(s1 + 0x564) = 0x243;
         }
         break;
@@ -153,19 +153,19 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x5C) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x5C) + b), 0);
             *(int *)(s1 + 0x564) = 0x271;
         }
         if (*(int *)(s1 + 0x164C) & 2) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x5C) + b), 1);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x5C) + b), 1);
             *(int *)(s1 + 0x564) = 0x272;
         }
         if (*(int *)(s1 + 0x164C) & 4) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x5C) + b), 2);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x5C) + b), 2);
             *(int *)(s1 + 0x564) = 0x273;
         }
         break;
@@ -173,12 +173,12 @@ int func_00208268(void *a0)
         if (*(int *)(s1 + 0x164C) & 1) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x94) + b), 0);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x94) + b), 0);
         }
         if (*(int *)(s1 + 0x164C) & 2) {
             int b = *(int *)(s1 + 0x304);
             *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s1, m2, (void *)(*(int *)(b + 0x94) + b), 1);
+            cModel_setTextureExchange(a0, m2, (void *)(*(int *)(b + 0x94) + b), 1);
         }
         break;
     }

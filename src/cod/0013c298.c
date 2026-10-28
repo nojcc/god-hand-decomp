@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/ScenarioCursor.h"
+#include "godhand/cIDBase.h"
 
 extern void func_002BF708(ScenarioCursor *self);
 extern void SysFlags_saveAndFreeze(ScenarioCursor *self);
@@ -10,8 +11,6 @@ extern char D_0044F1C8[];
 extern void ReleaseObj(void *obj);
 extern void func_002FBE28(void *self, int flags);
 extern void func_002D5790(void *work);
-extern void cIDBase_restartAnim(void *self);
-extern void *cIDBase_getIDWork(void *self, int idx);
 
 /* Re-initialise a second scenario cursor: run the two reset steps, tell the manager,
  * then set its four state bytes (step = 2, keep = old keep value, rest 0). */
@@ -85,10 +84,10 @@ typedef struct IdScreen3 {
 __attribute__((section(".text.IdScreen3_refillEntries")))
 void IdScreen3_refillEntries(IdScreen3 *self) {
     unsigned short i = 0;
-    cIDBase_restartAnim(self);
+    cIDBase_restartAnim((cIDBaseObj *)self);
     self->started = 1;
     do {
-        self->ent[i] = cIDBase_getIDWork(self, i);
+        self->ent[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
         i = i + 1;
     } while (i < ENTRY_COUNT);
 }
@@ -113,10 +112,10 @@ __attribute__((section(".text.IdScreen4_refillEntries")))
 void IdScreen4_refillEntries(IdScreen4 *self) {
     unsigned short i = 0;
     self->unk90 = 0;
-    cIDBase_restartAnim(self);
+    cIDBase_restartAnim((cIDBaseObj *)self);
     self->started = 1;
     do {
-        self->ent[i] = cIDBase_getIDWork(self, i);
+        self->ent[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
         i = i + 1;
     } while (i < ENTRY_COUNT);
     self->sel = 0;

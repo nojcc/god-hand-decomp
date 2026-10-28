@@ -4,14 +4,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int GetSeqSEBase(void *a0);
 extern int moveMotion(void *a0);
 extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -203,13 +199,13 @@ __attribute__((section(".text.func_002591F8"))) void func_002591F8(cEm00 *self)
 
             if (t != 0) {
                 *(int *)(s3 + 0x5F0) = t - 1;
-                cGameObj_SetTgtTurn(s3, (int)(s3 + 0x5D0), *(float *)(s3 + 0x5A8) * 0.39269909f);
+                cGameObj_SetTgtTurn((cGameObj *)self, (cVec *)(s3 + 0x5D0), *(float *)(s3 + 0x5A8) * 0.39269909f);
             }
             if (moveMotion(s3) != 0) {
                 func_002705D8(s3);
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         }
     }

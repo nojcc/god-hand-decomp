@@ -15,13 +15,13 @@ extern int cDamageManage_CreateDamageGive(int a0, int a1, int a2);
 extern void cDamageUnit_SetDamageCollActive(int a0, int a1);
 extern char D_005CAE50[];
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int t0);
-extern void cModel_calcParts(void *a0);
 extern void func_00100870(void *a0);
 extern char *D_00747A98;
 extern float D_003BD880[];
 
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cModel.h"
 
 
 
@@ -193,7 +193,7 @@ int func_00100378(char *p)
                 d[2] = D_003BD880[2];
             }
         }
-        cModel_calcParts(p);
+        cModel_calcParts((cModel *)p);
         func_00100870(p);
         D_00747A98 = p;
     }

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmWeapon.h"
+#include "godhand/cModel.h"
 
-extern void cModel_calcParts(void *m);
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
 extern float fRand0_1(void);
 extern float fRand1_1(void);

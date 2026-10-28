@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cIDBase.h"
 
 /* Opening phase: grow the four row labels in, fill the five rows from the list, then scale the rows up. */
 __attribute__((section(".text.func_00145460")))

@@ -14,8 +14,6 @@ extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float SetMotionStep(void *a0, float f);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
-extern void cObjBase_addNullSpeed(void *a0, float f12);
 
 __attribute__((section(".text.func_002383D0")))
 void func_002383D0(cEm00 *self)
@@ -86,8 +84,8 @@ void func_002383D0(cEm00 *self)
                 *(float *)(s0 + 0x5A8) + *(float *)(s0 + 0x5A8));
         }
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         {
             int t = *(unsigned short *)(s0 + 0x568) - 1;
 
@@ -156,8 +154,8 @@ void func_002383D0(cEm00 *self)
             *(char *)(s0 + 0x2F6) = 0;
             *(char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     default:
         break;

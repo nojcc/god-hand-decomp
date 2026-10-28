@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 extern void func_00188798(void *a0);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern char D_005FEE00[];
 extern void SetField5B0Bit2ClearBit8_1B7908(void *a0);
 extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, int a2);
 extern int GetField_54_173900(void *a0);
@@ -18,7 +17,6 @@ extern int MtxCopy();
 extern char D_005864F0[];
 extern void cGameObj_pickDropItem(void *a0);
 extern void SwitchToSecondPose(void *a0);
-extern void cSnd_SeStop(void *a0, int a1);
 
 struct VtEnt { short delta; short index; void *pfn; };
 
@@ -50,10 +48,10 @@ void func_001AF870(void *a0)
         }
         SetEffectPos(0, 0xCC, 0, buf, -1, 1.0f);
         if (*(int *)(s1 + 0xAF4) != 0) {
-            cSnd_SeStop(D_005FEE00, *(int *)(s1 + 0xAF4));
+            cSnd_SeStop(&D_005FEE00, *(int *)(s1 + 0xAF4));
             *(int *)(s1 + 0xAF4) = 0;
         }
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x56, s1, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x56, s1, 0, 0, 0, 0);
         cGameObj_pickDropItem(s1);
         SwitchToSecondPose(s1);
         SetField5B0Bit2ClearBit8_1B7908(s1);

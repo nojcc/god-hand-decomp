@@ -9,8 +9,6 @@ extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
-extern void cObjBase_addNullSpeed(void *a0, float f12);
 extern void func_0012C348(void *a0, int a1);
 extern void cSnd_DieDemoStart(void *a0);
 extern unsigned int D_00747A24;
@@ -43,6 +41,7 @@ extern char D_005FEE00[];
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 __attribute__((section(".text.func_0011DE30")))
 void func_0011DE30(void *a0)
@@ -100,8 +99,8 @@ void func_0011DE30(void *a0)
                 D_00747A24 |= 8;
             }
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         if (*(int *)(s0 + 0x15B4) > 0)
             *(int *)(s0 + 0x15B4) = *(int *)(s0 + 0x15B4) - 1;
         if ((*(unsigned short *)(s0 + 0x3AC) & 1) != 0
@@ -145,8 +144,8 @@ void func_0011DE30(void *a0)
             *(char *)(s0 + 0x2F6) = 0;
             *(char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     default:
         break;

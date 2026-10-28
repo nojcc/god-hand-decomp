@@ -16,7 +16,6 @@ extern void cModel_queueNodeKind4(cModel *self, cModelNode *node, short id);
 extern void cModel_queuePacket(cModel *self, short id);
 extern void func_0014C5A0(cModel *self, short id);
 extern void func_0031A600(void *queue, int kind, int id, void *packet);
-extern void KillEffect(void *owner, int handle, int arg);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 
 typedef int (*cModelVoidFn)(void *self);

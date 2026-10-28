@@ -2,14 +2,13 @@
 
 extern int D_00421FE8;
 extern int InitFields_1B6E90(void *self);
-extern void cIDBase_restartAnim(void *self);
-extern int cIDBase_getIDWork(void *self, int idx);
 extern void *D_003C23A4;
 extern void *cMessage_getMessageAddr(void *mgr, int id);
 extern void *cMessage_getRubyAddr(void *mgr, int id);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cIDBase.h"
 
 
 
@@ -63,7 +62,7 @@ void *func_0017E0F8(void *a0) {
 
 typedef struct S143598 {
     char pad00[0x94];
-    int work[4];
+    cIDBaseEnt *work[4];
     char pad1[0x10C];
     char bytes[0x10];
 } S143598;

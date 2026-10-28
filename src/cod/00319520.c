@@ -1,7 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void cParts_setRotationOrder(void *a0, int a1);
-extern void cModel_calcParts(void *a0);
 extern void VecRotVec(void *a0, void *a1, void *a2, int a3);
 extern float sqrtf(float x);
 extern char *D_005CAFF0;
@@ -17,6 +15,7 @@ extern char D_003BD8C0[];
 
 
 #include "godhand/vu0.h"
+#include "godhand/cModel.h"
 
 __attribute__((section(".text.func_00319520")))
 void func_00319520(char *self)
@@ -46,14 +45,14 @@ void func_00319520(char *self)
         }
         cParts_setRotationOrder(self, 4);
         if ((*(int *)(self + 0x250) & 0x200000) == 0) {
-            cModel_calcParts(self);
+            cModel_calcParts((cModel *)self);
         }
     }
     if ((*(int *)(*(char **)(self + 0x320) + 0x34) & 0x2000000) != 0) {
         *(float *)(self + 0x104) = *(float *)(D_005CAFF0 + 0x224);
         cParts_setRotationOrder(self, 4);
         if ((*(int *)(self + 0x250) & 0x200000) == 0) {
-            cModel_calcParts(self);
+            cModel_calcParts((cModel *)self);
         }
     }
     fl = *(int *)(*(char **)(self + 0x320) + 0x34);

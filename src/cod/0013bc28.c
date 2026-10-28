@@ -3,6 +3,8 @@
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 #include "godhand/idSet.h"
+#include "godhand/cModel.h"
+#include "godhand/cIDBase.h"
 
 extern int D_00747A78;
 extern cOmBase *Getplayer(void);
@@ -25,7 +27,6 @@ typedef struct cEmNear {
 
 
 extern void func_00279FF0(cEmNear *self);
-extern void cModel_calcParts(cEmNear *self);
 
 /* Per-frame update unless the game is frozen: measure the distance to the player, update the AI, rebuild the parts, copy the position. */
 __attribute__((section(".text.cEmNear_updateNearPlayer")))
@@ -33,7 +34,7 @@ void cEmNear_updateNearPlayer(cEmNear *self) {
     if ((D_00747A78 & SYSFLAG_FREEZE) == 0) {
         self->playerDistSq = capVu0MagnitudeSqXZ(Getplayer()->pos, self->base.pos);
         func_00279FF0(self);
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
         cVec_copy3(&self->base.posA, self->base.pos);
     }
 }

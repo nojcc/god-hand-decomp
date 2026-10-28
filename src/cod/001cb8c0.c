@@ -7,7 +7,6 @@
 extern int moveMotion(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern float SetMotionStep(void *a0, float f);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern int D_005864F0;
 /* Phase machine on the step byte, 2 case labels. Calls cEmManage_GetSpeedRate, SetMotionStep,
  * func_002A8578, SetEffect, moveMotion. */

@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cIDBase.h"
 
-extern int cIDBase_getIDWork(void *this, int idx);
 extern void IconScreen_stepGrow(void *this);
 extern void func_0013D7B0(void *this);
 extern void IconScreen_waitChildDone(void *this);
 extern void func_0013DB50(void *this);
 extern void CustomIDWork_Main(void *p);
-extern void cIDBase_move(void *p);
 
 /* func_0013D540 — sn-2.95.3-136, --call-loop-pad.
    The CustomIDWork_Main sweep (for j=4; j>=0; j--) is the padded call-loop
@@ -22,7 +21,7 @@ extern void cIDBase_move(void *p);
 
 
 
-struct Obj { char _pad[0x94]; int ids[11]; };
+struct Obj { char _pad[0x94]; cIDBaseEnt *ids[11]; };
 
 __attribute__((section(".text.func_0013D540")))
 void func_0013D540(void *this) {
@@ -62,6 +61,6 @@ void func_0013D540(void *this) {
         CustomIDWork_Main(p);
         p += 0x7C;
     }
-    cIDBase_move(pD0);
+    cIDBase_move((cIDBaseObj *)pD0);
     cIDBase_move(this);
 }

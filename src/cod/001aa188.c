@@ -2,6 +2,7 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cModel.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
 extern void SetMotionStep(void *a0, float f12);
@@ -10,11 +11,8 @@ extern char D_00462FC0[];
 extern void cOmBase_blinkTick(void *a0);
 extern void func_001AADE0(void *a0);
 extern void cObjBase_SetSeqEffect(void *a0);
-extern void cModel_calcParts(void *a0);
-extern void cModel_calcWorldParts(void *a0);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
-extern void Adjust_theta_vec(float *p);
 extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
 extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
@@ -109,7 +107,7 @@ void func_001AA188(void *a0)
             VU0_LQC2(4, q20v, 0);
             VU0_SQC2(4, frame, 0x20);
             VU0_VADD_XYZ_IP(e10, 0, q10v);
-            Adjust_theta_vec((float *)e10);
+            Adjust_theta_vec((cVec *)((float *)e10));
             m1 = frame + 0x40;
             MtxInitRotVec(m1, e10, 0);
             m1 = 0;
@@ -130,6 +128,6 @@ void func_001AA188(void *a0)
         }
     }
     cObjBase_SetSeqEffect(s2);
-    cModel_calcParts(s2);
-    cModel_calcWorldParts(s2);
+    cModel_calcParts(a0);
+    cModel_calcWorldParts(a0);
 }

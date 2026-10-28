@@ -1,7 +1,7 @@
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
-extern void cModel_calcParts(void *m);
 extern void func_00276C88(void *a0);
 extern float D_003BD880;
 extern void func_0027A600(void *a0);
@@ -72,7 +72,7 @@ int func_00276808(char *p)
                 d2[2] = s2[2];
             }
         }
-        cModel_calcParts(p);
+        cModel_calcParts((cModel *)p);
         func_00276C88(p);
     }
     return ok;
@@ -141,7 +141,7 @@ int func_0027A180(char *p)
                 d2[2] = s2[2];
             }
         }
-        cModel_calcParts(p);
+        cModel_calcParts((cModel *)p);
         func_0027A600(p);
     }
     return ok;
@@ -210,7 +210,7 @@ int func_0027AC70(char *p)
                 d2[2] = s2[2];
             }
         }
-        cModel_calcParts(p);
+        cModel_calcParts((cModel *)p);
         func_0027B0F8(p);
     }
     return ok;
@@ -279,7 +279,7 @@ int func_002834E8(char *p)
                 d2[2] = s2[2];
             }
         }
-        cModel_calcParts(p);
+        cModel_calcParts((cModel *)p);
         func_00283968(p);
     }
     return ok;
@@ -348,7 +348,7 @@ int func_00283EC8(char *p)
                 d2[2] = s2[2];
             }
         }
-        cModel_calcParts(p);
+        cModel_calcParts((cModel *)p);
         func_00284350(p);
     }
     return ok;

@@ -1,8 +1,8 @@
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 candidate. */
 
-extern void cModel_calcNullPart(void *p);
 extern void cParts_calcLocal(int obj);
 extern void func_001501D0(int obj, int a);
 extern int func_002AD2B8(void *g, int a, void *b, int c, void *d, int e, float f);
@@ -41,7 +41,7 @@ int cOl30_SetInitialPosition(char *p, float *a1, float *a2)
 
     CopyVec3(*(float **)(p + 0xF0), a1);
     CopyVec3((float *)(p + 0x100), a2);
-    cModel_calcNullPart(p);
+    cModel_calcNullPart((cModel *)p);
     j = 0;
     do {
         k = 0;

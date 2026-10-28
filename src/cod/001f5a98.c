@@ -2,6 +2,7 @@
 
 #include "godhand/JukeBox.h"
 #include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
 
 extern int D_003C2388;
 extern int *D_003C2384;
@@ -14,17 +15,12 @@ extern void cIDManager_getLocalFileName(int a0, void *a1, void *a2, int a3);
 extern int cDvd_ReadAlloc(void *a0, void *a1, void *a2, void *a3, int t0, int t1, int t2, int t3);
 extern void cDvd_CheckWait(void *a0, int a1);
 extern void cIDManager_setIDData(int a0, int a1, int a2);
-extern int cIDBase_initialize(void *id, int no, int flag);
-extern int cIDBase_setPackedMessData(void *id, int no, int flag);
 extern void SlotList_selectPrev(JukeBoxObj *self);
-extern cSnd D_005FEE00;
 extern void SetSequenceFlags_373810(cSndBgmNode *node, int bits);
 extern void ClearFlagBits_373858(cSndBgmNode *node, int bits);
-extern void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
 extern void UpdateSequenceNodeSetFlag_373488(cSndBgmNode *node);
 extern int GetSequenceResult_373770(cSndBgmNode *node);
 extern void cSndBgmNode_Unlink(cSndBgmNode *node);
-extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
 
 /* sn-2.95.3-136 */
 
@@ -57,8 +53,8 @@ int JukeBox_Load(JukeBoxObj *self)
     h = cDvd_ReadAlloc(D_00583F20, name, &self->dataFile, D_00754220, 0, 0, 0, 0);
     cDvd_CheckWait(D_00583F20, h);
     cIDManager_setIDData(*D_003C2384, JUKEBOX_ID_NO, self->dataFile);
-    if (cIDBase_initialize(id, JUKEBOX_ID_NO, 0) == 0
-        || cIDBase_setPackedMessData(id, JUKEBOX_ID_NO, 1) == 0) {
+    if (cIDBase_initialize((cIDBaseObj *)id, JUKEBOX_ID_NO, 0) == 0
+        || cIDBase_setPackedMessData((cIDBaseObj *)id, JUKEBOX_ID_NO, 1) == 0) {
         return 0;
     }
     game = D_007474A0;

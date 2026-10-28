@@ -1,10 +1,8 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int _MemoryAlloc(void *ctx, int k, int v);
 extern char D_0044B288[];
-extern void cIDBase_initialize(void *p, int a, int b);
-extern void cIDBase_restartAnim(void *p);
-extern void *cIDBase_getIDWork(void *p, int i);
 extern void CustomIDWork_Initialize(void *p, void *w);
 extern void CustomIDWork_SetDisp(void *p, int f);
 extern void CustomIDWork_SetMessNo(void *p, int n);
@@ -47,10 +45,10 @@ void func_001DECE0(char *p)
 {
     int i;
 
-    cIDBase_initialize(p + 0x10, 0x12, 1);
-    cIDBase_restartAnim(p + 0x10);
+    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x12, 1);
+    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
     for (i = 0; i < 0x11; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
+        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
     }
     CustomIDWork_SetDisp(p + 0x60, 0);
     CustomIDWork_SetMessNo(p + 0x3C4, 0x1000);

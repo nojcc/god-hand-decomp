@@ -11,9 +11,6 @@ extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -147,14 +144,14 @@ void func_00233248(void *arg0)
             *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
         }
         if (moveMotion(s1) != 0) {
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(arg0, 1.0f);
+            cObjBase_addNullSpeed(arg0, 1.0f);
             func_002705D8(s1);
             return;
         }
         *(float *)(s1 + 0x338) = *(float *)(s1 + 0x338) * *(float *)(s1 + 0x608);
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(arg0, 1.0f);
+        cObjBase_addNullSpeed(arg0, 1.0f);
         break;
     }
     if (*(int *)(s1 + 0x564) == 0x222) {

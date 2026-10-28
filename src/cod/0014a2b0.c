@@ -1,9 +1,9 @@
 #include "godhand/cModel.h"
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
-extern void cSndBgmNode_FadeOut(void *a0, float f12);
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
 extern void CustomIDWork_SetDisp(void *a0, int a1);
 extern void InitFields_1B6E90(void *a0);
@@ -16,7 +16,7 @@ void cSnd_DieDemoStart(void *a0)
     char *s0 = *(char **)(p + 0x18);
     while (s0 != 0) {
         *(unsigned int *)(s0 + 0x98) = *(unsigned int *)(s0 + 0x98) | 0x10000;
-        cSndBgmNode_FadeOut(s0, 180.0f);
+        cSndBgmNode_FadeOut((cSndBgmNode *)s0, 180.0f);
         s0 = *(char **)(s0 + 0x88);
     }
     *(unsigned int *)(p + 0xB0) = *(unsigned int *)(p + 0xB0) | 0x100000;

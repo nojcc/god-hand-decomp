@@ -1,8 +1,8 @@
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 candidate. */
 
-extern void cModel_calcNullPart(void *o);
 extern void cParts_calcLocal(void *o);
 extern void func_001501D0(void *o, int a1);
 extern void func_002AD2B8(void *a0, int a1, void *a2, int a3, void *t0, int t1,
@@ -48,7 +48,7 @@ void func_001717C0(char *self, float *p1, float *p2)
             e[2] = p2[2];
         }
     }
-    cModel_calcNullPart(self);
+    cModel_calcNullPart((cModel *)self);
     tbl = D_004209E8;
     q = (float *)(frame + 0x10);
     for (j = 0; j < 7; j++) {

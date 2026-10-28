@@ -10,7 +10,6 @@ extern void cBgmData_Reset(cBgmData *);
 extern void cSndBgmNode_FadeTo(cSndBgmNode *, float, float);
 extern float GetSequenceBlendWeight_373938(cSndBgmNode *, int);
 extern void UpdateSequenceNodeWeighted_373560(cSndBgmNode *, int, float);
-extern void cSndBgmNode_FadeOut(cSndBgmNode *, float);
 
 __attribute__((section(".text.cSnd_SeCheckParam")))
 int cSnd_SeCheckParam(void *self, short a, short b, int c)

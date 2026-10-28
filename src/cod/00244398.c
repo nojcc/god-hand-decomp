@@ -10,8 +10,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void KillEffect(int a0, int a1, int a2);
 extern void func_00262750(void *a0, int a1);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 extern int ChkLine(void *a0, void *a1, void *a2, void *a3, int a4, int a5, void *a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern void func_001D0108(cOmWeapon *self);
@@ -36,7 +34,7 @@ void func_00244398(cEm00 *self)
         func_002A8578(self, EM_RES_REC(EM_RES(self), 0x246C),
                       EM_RES_REC(EM_RES(self), 0x2470), 3, 0.0f, motion, 0);
         self->unk1730 = 600.0f;
-        KillEffect((int)self, 1, 2);
+        KillEffect(self, 1, 2);
         self->emFlags2 &= 0xFFFFFFDF;
         self->step++;
     case 1:

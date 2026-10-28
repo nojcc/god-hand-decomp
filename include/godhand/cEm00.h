@@ -461,6 +461,8 @@ void func_00273D30(cEm00 *self);
 void func_00274238(cEm00 *self, unsigned char kind);
 /* Marks the enemy's room slot (0x640) dead in the room save. */
 void func_0028FB08(cEm00 *self);
+/* Throws held object no; fast picks the faster throw. */
+void EmThrower_throwHeld(cEm00 *self, int no, int fast);
 
 int Obj0000_IsSet_Field_16D4_Bit_4_26F308(void *a0);    /* definition in 000000.c */
 int func_00273EE0(void *a0);                            /* definition in 00273ee0.c */

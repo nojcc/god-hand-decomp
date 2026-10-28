@@ -1,5 +1,6 @@
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cIDBase.h"
 
 /* ──────────────────────────── small picks ─────────────────────────────── */
 
@@ -61,7 +62,6 @@ void *GetPilotClassDesc2_2BA948(void) {
 /* ResetAnimState_1F5EF8: jal cIDBase_restartAnim + 4-arg jal classFADE_start + 1-arg jal
  *                cTaskWork_sleep via vtable; sets bytes 0..3 of $a0 struct;
  *                29 insns, 116 B. */
-extern void cIDBase_restartAnim(void *);
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, int f, int g);
 extern void cTaskWork_sleep(void *p, int a);
 extern int D_00747470;
@@ -69,7 +69,7 @@ extern void *D_003C2F84;
 
 __attribute__((section(".text.ResetAnimState_1F5EF8")))
 void ResetAnimState_1F5EF8(unsigned char *this) {
-    cIDBase_restartAnim(this + 0x30);
+    cIDBase_restartAnim((cIDBaseObj *)(this + 0x30));
     this[0] = 1;
     this[1] = 1;
     this[2] = 0;

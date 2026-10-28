@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
 
 extern void func_002FBED0(void *self);
 extern void Pos_followGround(void *self);
@@ -12,7 +13,6 @@ extern void func_002D5768(void *entry, int src, int id, void *owner);
 extern int CreateSema(void *param);
 extern char D_00754200[];
 extern void cEm00_swapTextureAndShowMesh(void *self);
-extern void cModel_setTextureExchange(void *model, int texSet, int tex, int arg);
 extern void func_00194558(void *self);
 extern unsigned int cEvent_getCutNo();
 extern float cEvent_getCutFrame(void *ev);

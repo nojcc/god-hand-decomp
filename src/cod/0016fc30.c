@@ -3,7 +3,7 @@ extern unsigned char D_00420310[];
 extern unsigned char D_00785798[];
 extern int D_00420328;
 #include "godhand/objField.h"
-extern unsigned char D_005FEE00[];
+#include "godhand/cSnd.h"
 extern int D_007857C8;
 extern unsigned char D_004203F8[];
 extern int D_00420410;
@@ -51,8 +51,8 @@ void *InitObjVU0Fields_16FC80(void *obj)
 __attribute__((section(".text.func_0016FEA0")))
 void func_0016FEA0(void *obj)
 {
-    cSnd_SeCall_2CBA48(D_005FEE00, 2, 0, obj, 0, 0, 0, 0);
-    cSnd_SeCall_2CBA48(D_005FEE00, 2, 2, obj, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, obj, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 2, obj, 0, 0, 0, 0);
 }
 
 __attribute__((section(".text.GetOrInitSingleton7857C8_16FF18")))

@@ -9,22 +9,15 @@ extern int cSeData_IsFailed(void *p);
 extern int D_0044CE48[];
 extern void *cSnd_AllocVoice(void *a0);
 extern int cSndSeVoice_StartAtOrigin(void *p, short a1, int a2, int a3, int a4, int a5, int a6);
-extern void cSndBgmNode_FadeOut(int a0, float f12);
-extern void cSndBgmNode_FadeIn(int a0, float f12);
-extern int cSnd_FindBgmNode(int a0, int a1, int a2);
 extern void cSndBgmNode_Release(int a0);
-extern int cSnd_AllocBgmNode(int a0);
 extern int cSnd_BgmNodeSet(int a0, int a1, int a2, int a3, unsigned int a4, int a5, int a6);
 extern void cSndBgmNode_Resume(int a0);
-extern int cSnd_BgmNodeStart(int a0, int a1, int a2, int a3, unsigned int a4, int a5, int a6);
 extern void SetSequenceParam_373A18(int a0, int a1);
 
 void cSndBgmNode_SetFlagsFadeOut(int, int, float);
 void cSndBgmNode_FadeTo(int, float, float);
 void UpdateSequenceNodeWeighted_373560(int, int, float);
 float GetSequenceBlendWeight_373938(int, int);
-void cSndBgmNode_FadeOut(int, float);
-void cSndBgmNode_FadeIn(int, float);
 
 /* Plays a sound-effect slot on a free voice, at the origin or, with a matrix, at that position. */
 __attribute__((section(".text.cSnd_SeCall")))
@@ -121,7 +114,7 @@ __attribute__((section(".text.cSnd_BgmEventSet")))
 void cSnd_BgmEventSet(cSnd *self, int reqNo, int wordA, int wordB)
 {
     int node;
-    node = cSnd_AllocBgmNode((int)self);
+    node = cSnd_AllocBgmNode(self);
     if (node != 0)
         cSnd_BgmNodeSet(node, 0, reqNo, 5, 0xFFFFFFFF, wordA, wordB);
 }
@@ -173,7 +166,7 @@ __attribute__((section(".text.cSnd_BgmEventFade")))
 void cSnd_BgmEventFade(cSnd *self, int reqNo, float time, float level, float weight)
 {
     int node;
-    node = cSnd_FindBgmNode((int)self, 0, reqNo);
+    node = cSnd_FindBgmNode(self, 0, reqNo);
     if (node != 0) {
         if (0.0f <= weight) {
             float w = GetSequenceBlendWeight_373938(node, 0);
@@ -197,14 +190,14 @@ void cSnd_BgmEventStop(cSnd *self, int keep)
     for (node = self->bgmHead; node != 0; node = node->next) {
         if (node->state == 5) {
             if (keep != 1)
-                cSndBgmNode_FadeOut((int)node, 0.0f);
+                cSndBgmNode_FadeOut(node, 0.0f);
         } else {
             flags = node->flags;
             if (flags & CSND_BGM_FLAG_PAUSE) {
                 rest = flags & ~CSND_BGM_FLAG_PAUSE;
                 node->flags = rest;
                 if ((rest & 0x1FF00) == 0 && node->state2 != 2)
-                    cSndBgmNode_FadeIn((int)node, 15.0f);
+                    cSndBgmNode_FadeIn(node, 15.0f);
             }
         }
     }
@@ -217,7 +210,7 @@ void cSnd_BgmEvDataEnd(cSnd *self)
     int data;
     for (node = self->bgmHead; node != 0; node = node->next) {
         if (node->bank - 0x80 == 1)
-            cSndBgmNode_FadeOut((int)node, 10.0f);
+            cSndBgmNode_FadeOut(node, 10.0f);
     }
     data = cSnd_GetBgmData((int)self, 1);
     cBgmData_Reset(data);
@@ -229,10 +222,10 @@ __attribute__((section(".text.cSnd_BgmEvSet")))
 int cSnd_BgmEvSet(cSnd *self, int bgmPt, int reqNo)
 {
     int node;
-    node = cSnd_FindBgmNode((int)self, bgmPt, reqNo);
+    node = cSnd_FindBgmNode(self, bgmPt, reqNo);
     if (node != 0)
         cSndBgmNode_Release(node);
-    node = cSnd_AllocBgmNode((int)self);
+    node = cSnd_AllocBgmNode(self);
     if (node == 0)
         return 0;
     return cSnd_BgmNodeSet(node, bgmPt, reqNo, 4, 0xFFFFFFFFu, 0, 0) != 0;
@@ -242,16 +235,16 @@ __attribute__((section(".text.cSnd_BgmEvStart")))
 int cSnd_BgmEvStart(cSnd *self, int bgmPt, int reqNo, int param)
 {
     cSndBgmNode *node;
-    node = (cSndBgmNode *)cSnd_FindBgmNode((int)self, bgmPt, reqNo);
+    node = (cSndBgmNode *)cSnd_FindBgmNode(self, bgmPt, reqNo);
     if (node != 0) {
         if (node->flags & 1)
             cSndBgmNode_Resume((int)node);
         return 1;
     }
-    node = (cSndBgmNode *)cSnd_AllocBgmNode((int)self);
+    node = (cSndBgmNode *)cSnd_AllocBgmNode(self);
     if (node == 0)
         return 0;
-    if (cSnd_BgmNodeStart((int)node, bgmPt, reqNo, 4, 0xFFFFFFFFu, 0, 0) == 0)
+    if (cSnd_BgmNodeStart(node, bgmPt, reqNo, 4, 0xFFFFFFFFu, 0, 0) == 0)
         return 0;
     SetSequenceParam_373A18((int)node, param);
     return 1;
@@ -290,7 +283,7 @@ void cSnd_BgmEvAllSuspend(cSnd *self, float time)
     cSndBgmNode *node;
     for (node = self->bgmHead; node != 0; node = node->next) {
         node->flags |= CSND_BGM_FLAG_SUSPEND;
-        cSndBgmNode_FadeOut((int)node, time);
+        cSndBgmNode_FadeOut(node, time);
     }
 }
 
@@ -308,7 +301,7 @@ void cSnd_BgmEvAllSignal(cSnd *self, float time)
             rest = flags & ~CSND_BGM_FLAG_SUSPEND;
             node->flags = rest;
             if ((rest & 0x1FF00) == 0 && node->state2 != 2)
-                cSndBgmNode_FadeIn((int)node, time);
+                cSndBgmNode_FadeIn(node, time);
         }
     }
 }

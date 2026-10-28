@@ -1,3 +1,4 @@
+#include "godhand/cObjBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
@@ -7,8 +8,6 @@ extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern int  moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 
 
@@ -109,8 +108,8 @@ void func_0010DE70(void *a0)
         }
         if ((*(unsigned short *)(s1 + 0x3AC) & 0x200) != 0)
             *(float *)(s1 + 0x338) = *(float *)(s1 + 0x338) * 1.5f;
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     }

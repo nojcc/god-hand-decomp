@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
 
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
-extern char D_005FEE00[];
 extern void func_003057D0(void *a, int b, int c);
 extern void ClearAndResetFields_1FE278(void *a, void *b);
 extern void espSys_effDataRelease(void *a, int b);
@@ -15,9 +15,6 @@ extern int _MemoryAlloc(int a, int b, int c);
 extern int FindEntryValue_1FF9C0(void *a, void *b, int c, int d);
 extern void cSeData_AddLoadBits(void *a, int b);
 extern char D_00580D40[];
-extern void cIDBase_initialize(void *p, int a, int b);
-extern void cIDBase_restartAnim(void *p);
-extern void *cIDBase_getIDWork(void *p, int i);
 extern void CustomIDWork_Initialize(void *p, void *w);
 extern void CustomIDWork_SetDisp(void *p, int f);
 extern void CustomIDWork_SetNumber_1DD218(void *p, int n);
@@ -34,7 +31,7 @@ void func_001793D0(char *p)
     if (st == 1) goto tick;
     return;
 init:
-    cSnd_SeCall_2CBA48((void *)D_005FEE00, 2, 2, p, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48((void *)&D_005FEE00, 2, 2, p, 0, 0, 0, 0);
     *(short *)(p + 0x654) = 0xF;
     *(char *)(p + 0x2F5) = 1;
     *(char *)(p + 0x2F6) = 0;
@@ -122,10 +119,10 @@ void func_001DD0D8(char *p)
 {
     int i;
 
-    cIDBase_initialize(p + 0x10, 0x12, 0);
-    cIDBase_restartAnim(p + 0x10);
+    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x12, 0);
+    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
     for (i = 0; i < 0x4D; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
+        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
     }
     CustomIDWork_SetDisp(p + 0x60, 0);
     CustomIDWork_SetNumber_1DD218(p, 0);

@@ -12,9 +12,6 @@ extern int moveMotion(void *a0);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int GetSeqSEBase(void *a0);
 extern void ReleaseField6ECByTag564_26B1E8(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern void cEmManage_setBigHitEff(void *a0);
@@ -28,7 +25,6 @@ extern void func_002705D8(void *a0);
 
 
 extern void func_0027DB50(int a0, int a1);
-extern unsigned char D_005FEE00[];
 extern unsigned char D_005864F0[];
 extern unsigned char D_005CB010;
 extern unsigned char D_00747A2C[];
@@ -212,7 +208,7 @@ void cEm00_hitReaction(void *a0)
                 int p = EM_RES(self);
                 recA = EM_RES_REC(p, 0xA68);
                 recB = EM_RES_REC(p, 0xA6C);
-                cSnd_SeCall_2CBA48(D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
             }
             break;
         case 0x260:
@@ -241,7 +237,7 @@ void cEm00_hitReaction(void *a0)
             break;
         }
         func_002A8578(self, recA, recB, 3, 0.0f, nb, 0);
-        cSnd_SeCall_2CBA48(D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
         {
             char *link = (char *)self->unk698;
 
@@ -264,7 +260,7 @@ void cEm00_hitReaction(void *a0)
             int c = self->timerA;
             if (c != 0) {
                 self->timerA = c - 1;
-                cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+                cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
             }
         }
         self->pos->y = self->pos->y + self->home.y * self->speedRate;
@@ -353,8 +349,8 @@ void cEm00_hitReaction(void *a0)
             self->motionFlags |= 8;
         }
         moveMotion(self);
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     case 2:
         if (func_002740D8(self) != 0) {
@@ -556,8 +552,8 @@ void cEm00_hitReaction(void *a0)
         if (moveMotion(self) != 0) {
             func_002705D8(self);
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     case 6:
         if (self->unk6EC != 0) {
@@ -634,7 +630,7 @@ void cEm00_hitReaction(void *a0)
             } else {
                 MOTION_PAIR(0x9D8, 0x9DC)
             }
-            cSnd_SeCall_2CBA48(D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
             break;
         case 0x260:
             MOTION_PAIR(0x3184, 0x3188)
@@ -681,7 +677,7 @@ void cEm00_hitReaction(void *a0)
             recB = EM_RES_REC(p, 0x788);
         }
         func_002A8578(self, recA, recB, 2, 0.0f, nb, 0);
-        cSnd_SeCall_2CBA48(D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
         func_0026F120(self);
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         case 1:
@@ -728,7 +724,7 @@ void cEm00_hitReaction(void *a0)
             int c = self->timerA;
             if (c != 0) {
                 self->timerA = c - 1;
-                cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+                cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
             }
         }
         if (moveMotion(self) != 0) {
@@ -773,8 +769,8 @@ void cEm00_hitReaction(void *a0)
             }
         } else {
         ADDNULL:
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         }
         break;
     }

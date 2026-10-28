@@ -1,17 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern int cIDBase_getIDWork(void *self, int idx);
-extern void cIDBase_move(void *a0);
-extern void cIDBase_trans(void *a0);
-extern unsigned char D_005FEE00[];
+#include "godhand/cIDBase.h"
 extern unsigned char D_005864F0[];
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void func_0019BA08(void *a0, int a1, int a2);
 extern void SetField5B0Bit2ClearBit8_1B7908(int a0);
 extern float capVu0Atan2(float y, float x);
-extern int SetEffect();
 extern void DamageObj_disableDamage(void *a0);
 extern void func_00373FA0(void *a0);
 extern void func_0032BDC0(void *a0, int a1, int a2);
@@ -43,31 +37,33 @@ void func_0016ACD0(void *a0)
             if (*q != 0) {
                 int ids;
                 int k;
-                char *w1 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
-                char *w2 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
+                char *w1 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
+                char *w2 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
                 char *w3;
                 char *w4;
                 int t;
                 *(float *)(w1 + 0x3C) =
                     *(float *)(*(int *)(w2 + 0x1C) + 0xC) - (float)(i * 26);
-                w3 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
+                w3 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
                 *(char *)(w3 + 0x4F) = (int)((float)*q / 20.0f * 256.0f);
-                w4 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
+                w4 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
                 k = i * 4;
                 ids = (int)(s4 + 0x26C);
                 t = *(int *)(ids + k);
                 *(int *)(w4 + 0x84) = t;
-                cIDBase_move(s4 + 0x210);
-                cIDBase_trans(s4 + 0x210);
+                cIDBase_move((cIDBaseObj *)(s4 + 0x210));
+                cIDBase_trans((cIDBaseObj *)(s4 + 0x210));
             }
         }
     }
-    cIDBase_trans(s4 + 0xD0);
-    cIDBase_trans(s4);
+    cIDBase_trans((cIDBaseObj *)(s4 + 0xD0));
+    cIDBase_trans(a0);
 }
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 
 
@@ -99,7 +95,7 @@ void func_0019B580(void *a0)
             buf[1] = src[1];
             buf[2] = src[2];
         }
-        SetEffectPos(0, 0xCC, 0, buf, -1, 1.0f);
+        SetEffectPos(0, 0xCC, 0, (cVec *)buf, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s0, 0, 0, 0, 0);
         if (*(char *)(s0 + 0xA92) == 0) {
             func_0019BA08(s0, 0, 2);
@@ -260,7 +256,7 @@ void func_001BFD28(void *a0)
             fr.s.v20.z = fr.a.z;
         }
         fr.s.f40 = 1.0f;
-        SetEffect(0, 0x1C, 0, &fr.s, -1, 0xFFFFFFFF);
+        SetEffect(0, 0x1C, 0, (cEffectParam *)(&fr.s), -1, 0xFFFFFFFF);
         {
             char *vt2 = *(char **)(s0 + 0x214);
             short off2 = *(short *)(vt2 + 0xA8);

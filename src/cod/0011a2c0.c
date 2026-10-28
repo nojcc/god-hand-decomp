@@ -1,14 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 extern unsigned char D_00462FC0[];
 extern unsigned char D_005864F0[];
-extern unsigned char D_005FEE00[];
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float f12);
@@ -19,8 +19,6 @@ extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, i
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_0010A438(void *a0);
 
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
@@ -71,8 +69,8 @@ void func_0011A2C0(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
+        cObjBase_addNullSpeed(a0, 1.0f);
         break;
     }
     func_0010A438(s1);

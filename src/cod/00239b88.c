@@ -5,10 +5,7 @@
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern char *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 
 extern void func_002705D8(void *a0);
@@ -36,13 +33,13 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             self->step += 1;
             /* fallthrough */
         case 1:
-            cGameObj_SetTgtTurn(self, *(void **)(Getplayer() + 0xF0),
+            cGameObj_SetTgtTurn((cGameObj *)self, *(void **)(Getplayer() + 0xF0),
                                 self->speedRate * 0.19634955f);
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 2: {
             float z = 0.0f;
@@ -99,7 +96,7 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             }
             VU0_VMULX_XYZ(4, 4, 5);
             VU0_SQC2(4, self, 0x590);
-            cGameObj_SetTgtTurn(self, d, 3.14159274f);
+            cGameObj_SetTgtTurn((cGameObj *)self, (cVec *)d, 3.14159274f);
             self->step += 1;
         }
             /* fallthrough */
@@ -134,8 +131,8 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
                 if (t <= 0.0f)
                     self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 4:
             self->unk1864 = 0;
@@ -149,8 +146,8 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             func_00271148(self);
             break;
         case 6:
@@ -162,7 +159,7 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             /* fallthrough */
         case 7:
             cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
-            cGameObj_SetTgtTurn(self, *(void **)(Getplayer() + 0xF0),
+            cGameObj_SetTgtTurn((cGameObj *)self, *(void **)(Getplayer() + 0xF0),
                                 self->speedRate * 0.19634955f);
             if (moveMotion(self) != 0) {
                 if (func_00270DB0(self) != 0) {
@@ -177,8 +174,8 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
                 }
                 break;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             func_00271148(self);
             break;
     }

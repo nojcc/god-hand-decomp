@@ -7,8 +7,6 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
-extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cActionButton_set(void *, int, int, int, void *, void *, int);
 extern void InitStateBytes_2478B8(void);
 extern char D_00568288;
@@ -71,8 +69,8 @@ void cEm00_stepSetGrabPrompt(cEm00 *self)
             func_002705D8(self);
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(self, one);
-        cObjBase_addNullSpeed(self, one);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
+        cObjBase_addNullSpeed((cObjBase *)self, one);
         break;
     }
 }

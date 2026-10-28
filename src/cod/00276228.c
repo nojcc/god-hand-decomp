@@ -5,9 +5,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/vecInline.h"
 
-extern void cModel_calcParts(cModel *self);
 extern void IK_InverseKinematics(void *ik, void *self);
-extern void cModel_calcWorldParts(cModel *self);
 extern void func_001CF3A8(cOmWeapon *self);
 extern void func_001C2378(char *self);
 extern void func_0027D300(char *self);
@@ -24,9 +22,9 @@ void func_00276228(cEm00 *self, float *pos)
     self->mtx[12] = pos[0];
     self->mtx[13] = pos[1];
     self->mtx[14] = pos[2];
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->ik, self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     if (self->unk6EC != 0) {
         func_001CF3A8((void *)self->unk6EC);
         cModel_calcParts((void *)self->unk6EC);

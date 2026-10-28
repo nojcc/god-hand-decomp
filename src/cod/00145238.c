@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cIDBase.h"
 
 extern float D_0041E898[2];
 

@@ -4,6 +4,7 @@
 #include "godhand/cEmWrap.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern cEmActor *cEmManage_GetEm(cEmManage *mgr, unsigned char entryNo);
 extern void cEm00_setEm65Separate(cEmActor *em);
@@ -14,7 +15,6 @@ extern char D_005FEE00[];
 extern char D_00574380[];
 extern void cSnd_SeStop(void *snd, int handle);
 extern int cDamageManage_ReleaseDamageGive(void *mgr, void *give);
-extern void KillEffect(void *obj, int a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *obj, int flag);
 
 /* Arena boss intro: step 0 defeats every enemy; step 1 waits until the boss is wounded to half life or less (and alive), then starts a soft event, suspends the boss and sets its separate mode, for 191 frames; step 2 counts those frames down, ends the soft event and moves on. */

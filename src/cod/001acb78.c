@@ -1,7 +1,6 @@
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern int D_005FEE00;
-extern void cSnd_SeCall_2CBA48(int *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern int irand(void);
 extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, short a2);
 

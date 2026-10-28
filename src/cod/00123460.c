@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
-extern void KillEffect(void *a0, int a1, int a2);
 extern void cHeatSys_SetHeatGage(void *a0, float f12);
 extern int cHeatSys_SubHeatGage(void *a0, int a1, float f12);
 extern int cHeatSys_GetHeatLv(void *a0);

@@ -1,11 +1,10 @@
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void LayerScreen_hideLayers(char *a0, int a1);
 extern void Slot2_selectMark(char *a0, int a1, int a2, int a3);
 extern void MarkObj_setMarkFlag(char *a0, int a1, int a2);
 extern void displayScrollLayer(int a0, int a1);
-extern int D_005FEE00;
-extern void cSnd_SeCall_2CBA48(int *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 
 __attribute__((section(".text.func_001E2EB8")))

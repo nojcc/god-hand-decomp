@@ -1,3 +1,4 @@
+#include "godhand/cSnd.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void *cSnd_GetSeData(void *a0, int a1);
@@ -10,13 +11,13 @@ extern void getEffTypeString(void *a0, int a1);
 extern void func_003A6C58(void *a0, void *a1, void *a2, int a3, int t0);
 
 __attribute__((section(".text.cSnd_SeCall_2CBA48")))
-int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3) {
-    void *s3 = a0;
-    int s4 = (short)a1;
-    int sa2 = (short)a2;
-    void *s5 = a3;
-    void *s0t0 = t0;
-    int s6 = t1, s7 = t2, fp = t3;
+int cSnd_SeCall_2CBA48(cSnd *self, int kind, int se, void *obj, void *owner, int a5, int a6, int a7) {
+    void *s3 = self;
+    int s4 = (short)kind;
+    int sa2 = (short)se;
+    void *s5 = obj;
+    void *s0t0 = owner;
+    int s6 = a5, s7 = a6, fp = a7;
     int s1;
     void *r;
 

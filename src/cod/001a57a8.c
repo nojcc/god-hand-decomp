@@ -1,17 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 extern void func_00188798(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern void cDamageUnit_SetDamageCollActive(void *a0, int a1);
-extern char D_005FEE00[];
 extern void func_001A5D68(void *a0);
 extern void SetField5B0Bit2ClearBit8_1B7908(void *a0);
 extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, int a2);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
-extern void Adjust_theta_vec(float *p);
 extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
 extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
@@ -55,7 +53,7 @@ void func_001A57A8(void *a0)
         do { } while (0);
         ok = ((*(int *)(buf + 0x10) = cnt), (idx >= 0 && idx < cnt));
         if (ok) tt = *(int *)(*(int *)(s1 + 0x278) + idx * 4); else tt = 0;
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x95, s1, 0, tt, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x95, s1, 0, tt, 0, 0);
         if (*(int *)(s1 + 0x620) != 0) {
             cDamageUnit_SetDamageCollActive(*(void **)(s1 + 0x620), 0);
         }
@@ -129,7 +127,7 @@ void func_001A57A8(void *a0)
             VU0_LQC2(4, q20v, 0);
             VU0_SQC2(4, buf, 0x20);
             VU0_VADD_XYZ_IP(e10, 0, q10v);
-            Adjust_theta_vec((float *)e10);
+            Adjust_theta_vec((cVec *)e10);
             m1 = buf + 0x40;
             MtxInitRotVec(m1, e10, 0);
             m1 = 0;

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136: func_00144C90, set up the 5 x 5 table of ID works and place each entry on its column and row. */
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cIDBase.h"
 
 extern cObjSimpleVec3 D_003BD880;
 

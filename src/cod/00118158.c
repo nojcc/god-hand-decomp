@@ -3,6 +3,7 @@
 /* func_00118158, 1336 B, sn-2.95.3-136. Wave 2026-08-31 V2 b3 + nested Duff do{}while(0) opened inside case 3 before the state++ (label 0x00118508, 0 mod 8), case 3/1 tails as goto tail3, plain barrier at case 7 (next label 0x00118620, 0 mod 8), cross-block short f15. */
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern char D_00462FC0[];
 extern unsigned char D_005864F0[];
@@ -20,8 +21,6 @@ extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern float SetMotionStep(void *a0, float f);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
-extern void cObjBase_addNullSpeed(void *a0, float f12);
 
 __attribute__((section(".text.func_00118158")))
 void func_00118158(char *s1)
@@ -167,8 +166,8 @@ void func_00118158(char *s1)
             *(char *)(s1 + 0x2F7) = 0;
         }
     tail3:
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
         break;
     case 6:
         cEm00_GetPlMotion(s2, 0x40, 0.0f, 0.0f);
@@ -197,8 +196,8 @@ void func_00118158(char *s1)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)s1, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)s1, 1.0f);
         break;
     default:
         break;

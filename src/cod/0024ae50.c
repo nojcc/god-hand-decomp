@@ -12,8 +12,6 @@ extern void func_002832A0(void *a0, int a1);
 extern void cGameObj_placeBeforeAnchor(void *a0, float a1);
 extern float fRand1_1(void);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026DB00(void *a0, int a1, int a2);
 extern int D_005850B0;
 
@@ -75,8 +73,8 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step = 2;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 2: {
             int gb;
@@ -146,8 +144,8 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
     if (self->seqFlags & 1) {

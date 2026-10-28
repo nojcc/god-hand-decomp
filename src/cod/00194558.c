@@ -1,6 +1,7 @@
 /* sn-2.95.3-136: func_00194558, breakable object update: break when the player touches its trigger or its life runs out, play the hit sound and flash the mesh for 8 frames after a hit. */
 #include "godhand/cOmBase.h"
 #include "godhand/player.h"
+#include "godhand/cSnd.h"
 
 #define BREAK_FLASH_FRAMES  8
 #define BREAK_MESH_LAYER    2
@@ -18,10 +19,8 @@ typedef struct cOmBreakObj {
 } cOmBreakObj;
 
 extern unsigned char D_005CB010;
-extern unsigned char D_005FEE00[];
 extern int func_001FDD38(void *trigger, void *pl);
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *give);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, void *f, int g, int h);
 extern void cOmBase_setMeshColorFromLayer(void *self, int layer, float r, float g, float b);
 
 static inline void setDown(cOmBreakObj *self)
@@ -52,7 +51,7 @@ void func_00194558(cOmBreakObj *self)
             setDown(self);
         } else {
             void *part = getPart(self, 1);
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, BREAK_HIT_SE, self, 0, part, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, BREAK_HIT_SE, self, 0, (int)part, 0, 0);
             self->flash = BREAK_FLASH_FRAMES;
         }
     }

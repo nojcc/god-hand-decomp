@@ -5,8 +5,6 @@
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int irand(void);
 extern void func_002705D8(void *a0);
 extern unsigned short D_00747A50;
@@ -274,8 +272,8 @@ __attribute__((section(".text.func_0023F5C8"))) void func_0023F5C8(cEm00 *self)
             if (moveMotion(p) != 0) {
                 func_002705D8(p);
             }
-            cObjBase_addNullSpeed_Rotation(p, 1.0f);
-            cObjBase_addNullSpeed(p, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
     }
     if (*(int *)(p + 0x564) == 0x20F && (*(unsigned short *)(p + 0x3AC) & 1) != 0) {

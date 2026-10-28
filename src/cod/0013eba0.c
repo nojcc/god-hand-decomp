@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 extern void cIDBase_trans(void *p);
 extern char D_00747A24[];
 extern int cDamageManage_ReleaseDamageGive(void *m, void *d);
-extern void KillEffect(void *p, int a, int b);
 extern void espSys_effDataRelease(void *a, int b);
 extern void cOmBase_dieCommon(void *p);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);

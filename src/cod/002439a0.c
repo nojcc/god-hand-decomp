@@ -6,7 +6,6 @@
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -37,7 +36,7 @@ __attribute__((section(".text.func_002439A0"))) void func_002439A0(cEm00 *self)
         }
         /* fallthrough */
         case 1:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self))
                 self->step++;
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
@@ -57,10 +56,10 @@ __attribute__((section(".text.func_002439A0"))) void func_002439A0(cEm00 *self)
         /* fallthrough */
         case 3: {
             float d;
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             d = self->timer - self->speedRate;
             self->timer = d;
             if (d <= 0.0f)
@@ -77,7 +76,7 @@ __attribute__((section(".text.func_002439A0"))) void func_002439A0(cEm00 *self)
         }
         /* fallthrough */
         case 5:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self))
                 self->step++;
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
@@ -107,10 +106,10 @@ __attribute__((section(".text.func_002439A0"))) void func_002439A0(cEm00 *self)
         }
         /* fallthrough */
         case 7:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             if (self->unk568 != 0) {
                 if (0.0f < self->timer) {
                     self->timer = self->timer - self->speedRate;
@@ -131,11 +130,11 @@ __attribute__((section(".text.func_002439A0"))) void func_002439A0(cEm00 *self)
         }
         /* fallthrough */
         case 9:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self))
                 self->step++;
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             break;
         case 10: {
             int t = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -147,10 +146,10 @@ __attribute__((section(".text.func_002439A0"))) void func_002439A0(cEm00 *self)
         /* fallthrough */
         case 11: {
             float d;
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
             d = self->timer - self->speedRate;
             self->timer = d;
             if (d <= 0.0f) {

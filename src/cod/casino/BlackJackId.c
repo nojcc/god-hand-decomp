@@ -1,9 +1,9 @@
 /* TU: BlackJackId [casino] - recovered C++ class. */
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 extern void SetFlagOnEntries7C_1D51B8();
 extern void CustomIDWork_Main(void *a0);
-extern void cIDBase_move(void *a0);
 
 __attribute__((section(".text.BlackJackId_Move")))
 void BlackJackId_Move(void *a0) {
@@ -20,7 +20,7 @@ void BlackJackId_Move(void *a0) {
         CustomIDWork_Main(q);
         q += 0x7C;
     }
-    cIDBase_move(p + 0x10);
+    cIDBase_move((cIDBaseObj *)(p + 0x10));
 }
 
 __attribute__((section(".text.BlackJackId_SetDefaultDisp")))

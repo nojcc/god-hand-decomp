@@ -3,9 +3,9 @@
 #include "godhand/cObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cDvd.h"
+#include "godhand/cModel.h"
 
 extern void func_001C2378(void *self);
-extern void cModel_calcParts(void *self);
 extern void cOmBase_setMeshColorFromLayer(void *self, int layer, float r, float g, float b);
 extern cOmBase *Getplayer(void);
 extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *obj);
@@ -34,7 +34,7 @@ void cObj_setupAimStep2(AimObj *self, int a, int b, cVec *from, cVec *to) {
     cVec_copy3(&self->to, to);
     self->step = 2;
     func_001C2378(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
 }
 
 /* A node of a list of sequences. */

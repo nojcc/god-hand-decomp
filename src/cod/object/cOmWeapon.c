@@ -1,11 +1,11 @@
 /* TU: cOmWeapon [object] - recovered C++ class. */
 #include "godhand/cOmWeapon.h"
 #include "include_asm.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cModel.h"
 
 extern void func_001CF3A8(void *a0);
-extern void cModel_calcParts(void *a0);
 extern void func_001331B8(char *a0, long a1, int a2);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern char D_005CAE50[];
 
 static inline void cpy3(float *d, float *s)
@@ -51,7 +51,7 @@ void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, 
     self->unk664 = 0;
     self->base.phase = 1;
     func_001CF3A8(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     func_001331B8(D_005CAE50, self->base.modelHandle, 0);
     if (self->base.actorId != 0x369) return;
     if (par == 0) return;

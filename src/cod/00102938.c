@@ -12,10 +12,7 @@ extern unsigned int func_0031ED08(float f);
 extern void func_0014E818(cObjBase *self, float maxTurn, cVec *target);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern int D_00462FC0;
-extern char D_005FEE00[];
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern unsigned int irand(void);
 extern void *Getplayer(void);
 extern float Adjust_theta(float f12);
@@ -78,8 +75,8 @@ void func_00288A58(void *a0)
             *(unsigned char *)(s0 + 0x2F5) = 2;
         } else {
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s0, one);
-            cObjBase_addNullSpeed(s0, one);
+            cObjBase_addNullSpeed_Rotation(a0, one);
+            cObjBase_addNullSpeed(a0, one);
         }
         break;
     }
@@ -124,8 +121,8 @@ void func_0011A530(void *a0)
     case 1:
         one = 1.0f;
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -183,8 +180,8 @@ void func_00102CB0(void *a0)
             *(char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }
@@ -222,8 +219,8 @@ void func_00102938(void *a0)
         }
         one = 1.0f;
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
     func_001034E0(s0);
@@ -269,8 +266,8 @@ void func_0024AA68(void *a0)
             *(char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(a0, one);
+        cObjBase_addNullSpeed(a0, one);
         break;
     }
 }

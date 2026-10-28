@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
 extern void cNode_setLocalTranslation(void *self, void *v);
 extern void LinkObj_callLockOn(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -102,7 +102,7 @@ void func_00280BE0(char *p, char *par, int idx, float *v0p, float *v1p)
     cpy3((float *)(p + 0x15A0), v1p);
     cpy3((float *)(p + 0x110), (float *)(par + 0x110));
     s.f40 = *(float *)(p + 0x114);
-    SetEffect(0xC2, 1, p, &s, 1, 0xFFFFFFFFu);
+    SetEffect(0xC2, 1, p, (cEffectParam *)(&s), 1, 0xFFFFFFFFu);
 }
 
 /* sn-2.95.3-136 matched TU. */

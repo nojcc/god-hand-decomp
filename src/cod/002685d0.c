@@ -1,8 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern int cEmManage_DarkWorldCk(void *a0);
-extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
-extern void KillEffect(void *a0, int a1, int a2);
 extern unsigned char D_005864F0[];
 
 /* sn-2.95.3-136 candidate. */
@@ -13,6 +11,7 @@ extern unsigned char D_005864F0[];
 
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 typedef struct {
     float f00;          /* 0x00 */
@@ -86,21 +85,21 @@ void func_002685D0(void *a0)
             *(int *)(s0 + 0x16D0) = *(int *)(s0 + 0x16D0) | 0x100;
             switch (*(int *)(s0 + 0x564)) {
             case 0x200: default:
-                SetEffect(0x58, 0xB, s0, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xB, s0, (cEffectParam *)(&s), 4, 0xFFFFFFFFu);
                 break;
             case 0x205: case 0x206: case 0x207: case 0x224: case 0x241:
-                SetEffect(0x58, 0xD, s0, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xD, s0, (cEffectParam *)(&s), 4, 0xFFFFFFFFu);
                 break;
             case 0x20F: case 0x210: case 0x226:
-                SetEffect(0x58, 0xE, s0, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xE, s0, (cEffectParam *)(&s), 4, 0xFFFFFFFFu);
                 break;
             case 0x20A: case 0x20C: case 0x20D: case 0x245: case 0x247: case 0x24F:
-                SetEffect(0x58, 0xC, s0, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xC, s0, (cEffectParam *)(&s), 4, 0xFFFFFFFFu);
                 break;
             case 0x21A: case 0x21B: case 0x21D: case 0x21E: case 0x225: case 0x22C:
             case 0x22D: case 0x22E: case 0x22F: case 0x248: case 0x249: case 0x24C:
             case 0x24D: case 0x24E: case 0x25A:
-                SetEffect(0x58, 0x6D, s0, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0x6D, s0, (cEffectParam *)(&s), 4, 0xFFFFFFFFu);
                 break;
             case 0x208: case 0x209: case 0x20B: case 0x20E: case 0x211: case 0x213:
             case 0x214: case 0x215: case 0x217: case 0x21C: case 0x21F: case 0x220:

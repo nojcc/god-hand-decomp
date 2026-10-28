@@ -1,6 +1,6 @@
+#include "godhand/cModel.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern int cModel_setTextureExchange(void *self, void *tex, void *tbl, int n);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
 
 /* sn-2.95.3-136 matched TU. */
@@ -289,7 +289,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC6D4 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC6D4 + 0x4) + (int)tC6D4), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC6D4 + 0x4) + (int)tC6D4), 0);
             *(int *)(s0 + 0x564) = 0x227;
         }
         break;
@@ -297,7 +297,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC714 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC714 + 0x8) + (int)tC714), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC714 + 0x8) + (int)tC714), 0);
             *(int *)(s0 + 0x564) = 0x228;
         }
         break;
@@ -305,7 +305,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC754 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC754 + 0xC) + (int)tC754), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC754 + 0xC) + (int)tC754), 0);
             *(int *)(s0 + 0x564) = 0x229;
         }
         break;
@@ -313,7 +313,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC794 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC794 + 0x10) + (int)tC794), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC794 + 0x10) + (int)tC794), 0);
             *(int *)(s0 + 0x564) = 0x22A;
         }
         break;
@@ -321,7 +321,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC7D4 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC7D4 + 0x14) + (int)tC7D4), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC7D4 + 0x14) + (int)tC7D4), 0);
             *(int *)(s0 + 0x564) = 0x22B;
         }
         break;
@@ -329,7 +329,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC814 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC814 + 0x24) + (int)tC814), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC814 + 0x24) + (int)tC814), 0);
             *(int *)(s0 + 0x564) = 0x24A;
         }
         break;
@@ -337,7 +337,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC854 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC854 + 0x18) + (int)tC854), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC854 + 0x18) + (int)tC854), 0);
             *(int *)(s0 + 0x564) = 0x22C;
         }
         break;
@@ -345,7 +345,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC894 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC894 + 0x30) + (int)tC894), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC894 + 0x30) + (int)tC894), 0);
             *(int *)(s0 + 0x564) = 0x22E;
         }
         break;
@@ -353,7 +353,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC8D4 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC8D4 + 0x28) + (int)tC8D4), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC8D4 + 0x28) + (int)tC8D4), 0);
             *(int *)(s0 + 0x564) = 0x22F;
         }
         break;
@@ -361,7 +361,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC914 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC914 + 0x34) + (int)tC914), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC914 + 0x34) + (int)tC914), 0);
             *(int *)(s0 + 0x564) = 0x24C;
         }
         break;
@@ -369,7 +369,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC954 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC954 + 0x48) + (int)tC954), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC954 + 0x48) + (int)tC954), 0);
             *(int *)(s0 + 0x564) = 0x24E;
         }
         break;
@@ -377,7 +377,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC994 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC994 + 0x2C) + (int)tC994), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC994 + 0x2C) + (int)tC994), 0);
             *(int *)(s0 + 0x564) = 0x24B;
         }
         break;
@@ -385,7 +385,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tC9D4 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tC9D4 + 0x38) + (int)tC9D4), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tC9D4 + 0x38) + (int)tC9D4), 0);
             *(int *)(s0 + 0x564) = 0x22D;
         }
         break;
@@ -393,7 +393,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tCA14 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tCA14 + 0x3C) + (int)tCA14), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tCA14 + 0x3C) + (int)tCA14), 0);
             *(int *)(s0 + 0x564) = 0x24D;
         }
         break;
@@ -401,7 +401,7 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tCA54 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tCA54 + 0x40) + (int)tCA54), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tCA54 + 0x40) + (int)tCA54), 0);
             *(int *)(s0 + 0x564) = 0x243;
         }
         break;
@@ -413,19 +413,19 @@ int func_0028C400(void *a0)
         if (*(int *)(s0 + 0x153C) & 0x1) {
             char *tCA94 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tCA94 + 0x1C) + (int)tCA94), 0);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tCA94 + 0x1C) + (int)tCA94), 0);
             *(int *)(s0 + 0x564) = 0x271;
         }
         if (*(int *)(s0 + 0x153C) & 0x2) {
             char *tCAD4 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tCAD4 + 0x1C) + (int)tCAD4), 1);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tCAD4 + 0x1C) + (int)tCAD4), 1);
             *(int *)(s0 + 0x564) = 0x272;
         }
         if (*(int *)(s0 + 0x153C) & 0x4) {
             char *tCB14 = *(char **)(s0 + 0x304);
             *(int *)(s0 + 0x254) = *(int *)(s0 + 0x254) | 0x10000000;
-            cModel_setTextureExchange(s0, (void *)s1, (void *)(*(int *)(tCB14 + 0x1C) + (int)tCB14), 2);
+            cModel_setTextureExchange(a0, (void *)s1, (void *)(*(int *)(tCB14 + 0x1C) + (int)tCB14), 2);
             *(int *)(s0 + 0x564) = 0x273;
         }
         break;

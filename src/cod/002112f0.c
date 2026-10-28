@@ -5,11 +5,8 @@
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern int moveMotion(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
-extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern void func_002A74E0(void *a0, void *a1, int a2);
 
@@ -315,8 +312,8 @@ __attribute__((section(".text.func_002112F0"))) void func_002112F0(cEm00 *self)
                 *((int *)(s2 + 0x16D0)) = (*((int *)(s2 + 0x16D0))) | 0x8000;
                 if (0.0f < (*((float *)(s2 + 0x24C)))) {
                     moveMotion(s2);
-                    cObjBase_addNullSpeed_Rotation(s2, 1.0f);
-                    cObjBase_addNullSpeed(s2, 1.0f);
+                    cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+                    cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
                 }
             }
             sp0 = *((char **)(s2 + 0xF0));
@@ -866,7 +863,7 @@ __attribute__((section(".text.func_002112F0"))) void func_002112F0(cEm00 *self)
             *((unsigned char *)(s2 + 0x2F6)) = (*((unsigned char *)(s2 + 0x2F6))) + 1;
 
         case 3:
-            cGameObj_SetTgtTurn(s2, *((int *)(((char *)Getplayer()) + 0xF0)),
+            cGameObj_SetTgtTurn((cGameObj *)self, (cVec *)(*((int *)(((char *)Getplayer()) + 0xF0))),
                                 (*((float *)(s2 + 0x5A8))) * 0.09817477f);
             if (900.0f < (*((float *)(s2 + 0x618)))) {
                 if ((D_007476B0 & 7) == ((*((unsigned int *)(s2 + 0x17D0))) & 7)) {
@@ -895,7 +892,7 @@ __attribute__((section(".text.func_002112F0"))) void func_002112F0(cEm00 *self)
         if ((D_007476B0 & 7) == ((*((unsigned int *)(s2 + 0x17D0))) & 7)) {
             *((int *)(s2 + 0x16D4)) = (*((int *)(s2 + 0x16D4))) & 0xF7FFFFFF;
             func_002A74E0(s2, *((void **)(((char *)Getplayer()) + 0xF0)), 1);
-            if (func_002A7CA0(s2, s2 + 0x16A0) != 0) {
+            if (func_002A7CA0((cGameObj *)self, (cVec *)(s2 + 0x16A0)) != 0) {
                 *((int *)(s2 + 0x16D4)) = (*((int *)(s2 + 0x16D4))) | 0x8000000;
             }
             if (((*((float *)(s2 + 0x510))) < 8.0f) || ((*((int *)(s2 + 0x16EC))) != 0)) {

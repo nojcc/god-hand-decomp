@@ -1,7 +1,6 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
-extern int cIDBase_initialize();
-extern int cIDBase_getIDWork(void *a, int b);
 extern void IdPair_init(void *a);
 extern int cSceAtManager_getUnit(int a0, int a1);
 extern void func_002C1D68(int a0, int a1, int a2);
@@ -20,10 +19,10 @@ void func_001467E8(void *a0) {
     unsigned short i;
     tbl = (int *)((char *)a0 + 0x90);
     cIDBase_initialize(a0, 1, 0x1D);
-    cIDBase_initialize((char *)a0 + 0xA0, 1, 0x1E);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xA0), 1, 0x1E);
     i = 0;
     do {
-        *(int *)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
+        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
         i = i + 1;
     } while (i < 4);
     *(short *)((char *)a0 + 0x100) = 0;

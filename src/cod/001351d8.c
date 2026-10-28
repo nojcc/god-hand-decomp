@@ -1,4 +1,5 @@
 #include "godhand/cObjBase.h"
+#include "godhand/cGameObj.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
@@ -53,7 +54,7 @@ void cCollisionSolidManage_SetActive(int a0, int a1, int a2) {
 }
 
 __attribute__((section(".text.cGameObj_SetTgtTurn")))
-void cGameObj_SetTgtTurn(char *self, void *target, float rate) {
-    float r = Turn_dest(*(void **)(self + 0xF0), target, *(float *)(self + 0x104), rate * D_007479FC);
-    *(float *)(self + 0x104) = Adjust_theta(*(float *)(self + 0x104) + r);
+void cGameObj_SetTgtTurn(cGameObj *self, cVec *target, float rate) {
+    float r = Turn_dest(&self->pos->x, &target->x, self->rot[1], rate * D_007479FC);
+    self->rot[1] = Adjust_theta(self->rot[1] + r);
 }

@@ -6,8 +6,6 @@
 #include "godhand/cVec.h"
 
 extern char D_0042CAC8[];
-extern void cModel_setTextureExchange(void *model, int set, int rec, int flag);
-extern void *cModel_getMeshPtr_14B730(void *obj, char *name);
 extern float capVu0LengthSq(void *v);
 
 #define EM_NO_TEX_SWAP      0x251

@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/ColiseumBattle.h"
+#include "godhand/cModel.h"
 
 extern char D_00747470[];
 extern void classFADE_kill(void *p);
@@ -14,8 +15,6 @@ extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
 extern void cOmShake_updateHeight(void *);
 extern void cOmBase_shakeHeight(void *);
-extern void cModel_calcParts(void *);
-extern void cModel_calcWorldParts(void *);
 
 /* Start a screen fade (mode 0 fades to black, mode 1 from black): stop a running fade first, then flag a fade as running. */
 
@@ -211,7 +210,7 @@ void UpdatePhaseThenCalcParts(void *a0)
         arg = f0;
     fp((int)(s0 + arg));
     func_002A87E8(s0, 0);
-    cModel_calcParts(s0);
-    cModel_calcWorldParts(s0);
+    cModel_calcParts(a0);
+    cModel_calcWorldParts(a0);
     func_001B76D8(s0);
 }

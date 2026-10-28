@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cHeatSys.h"
+#include "godhand/cObjBase.h"
 
 extern void *Getplayer(void);
-extern void KillEffect(void *eff, int a, int b);
 
 /* Recompute lv (0, 1 or 2) from the cur / max ratio. */
 __attribute__((section(".text.cHeatSys_UpdateHeatLv")))

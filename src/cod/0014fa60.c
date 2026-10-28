@@ -7,7 +7,6 @@
 
 extern unsigned int D_00747A84;
 extern void VecRotVec(float *out, float *in, float *rot, int order);
-extern void KillEffect(void *obj, int effNo, int mode);
 extern cGameObj *Getplayer(void);
 extern float capVu0Atan2(float x, float z);
 

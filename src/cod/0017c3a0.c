@@ -12,9 +12,7 @@ extern void func_0017C028(void *self, int pos, void *rot);
 extern int cSnd_SeFadeOut(cSnd *self, int handle, short fade);
 extern char D_0044C2B8[];
 extern char D_0044C2C0[];
-extern cSnd D_005FEE00;
 extern unsigned int D_00747A30;
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, int d, int e, int f, int g, int h);
 
 /* Two CustomIDWork elements sit at 0x10D8 and 0x1154 of the owner. */
 #define OWNER_IDW_A(self) ((CustomIDWork *)((char *)(self) + 0x10D8))
@@ -125,7 +123,7 @@ void cSnd_SeCallGlobal(int unused, int id, short slot, int voice)
     t = bit & 1;
     if (t == 0) {
         if (voice != 0) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, id, slot, voice, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, id, slot, (void *)voice, 0, 0, 0, 0);
         } else {
             cSnd_SeCall_2CB8A0(&D_005FEE00, id, slot, -1, -1, 0, 0);
         }

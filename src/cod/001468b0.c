@@ -4,14 +4,13 @@
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/cIDBase.h"
 
 extern unsigned short D_00747A50;
 extern void func_0026ECD0(cEm00 *self, int flag);
 extern float ESLib_ESHermite(float t, float p0, float p1, float m0, float m1);
 extern char D_0044E960[];
 extern void cHeap_free(int heap, int *block);
-extern void cIDBase_initIDWork(void *part, int idx);
-extern CustomIDWork *cIDBase_getIDWork(void *part, int idx);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern float capVu0Length(void *a0);
 extern char *D_005CAFF0;
@@ -130,17 +129,17 @@ void IdPair_init(IdPair *self)
     self->state[2] = 0;
     self->state[3] = 0;
     do {
-        cIDBase_initIDWork(self, i);
+        cIDBase_initIDWork((cIDBaseObj *)self, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork(self, 0)->offsAmp[0] = IDPAIR_AMP;
+    ((CustomIDWork *)cIDBase_getIDWork((cIDBaseObj *)self, 0))->offsAmp[0] = IDPAIR_AMP;
     i = 0;
     part = (char *)self + 0xA0;
     do {
-        cIDBase_initIDWork(part, i);
+        cIDBase_initIDWork((cIDBaseObj *)part, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork(part, 0)->offsAmp[0] = IDPAIR_AMP;
+    ((CustomIDWork *)cIDBase_getIDWork((cIDBaseObj *)part, 0))->offsAmp[0] = IDPAIR_AMP;
     self->timer = 0x5A;
 }
 

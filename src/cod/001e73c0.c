@@ -1,7 +1,7 @@
+#include "godhand/cIDBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern void CustomIDWork_Main(void *a0);
-extern void cIDBase_move(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -20,7 +20,7 @@ void func_001E73C0(void *a0) {
         q += 0x7C;
     }
 
-    cIDBase_move(p + 0x530);
+    cIDBase_move((cIDBaseObj *)(p + 0x530));
 
     q = p + 0x50;
     for (i = 9; i >= 0; i--) {
@@ -28,5 +28,5 @@ void func_001E73C0(void *a0) {
         q += 0x7C;
     }
 
-    cIDBase_move(p);
+    cIDBase_move(a0);
 }
