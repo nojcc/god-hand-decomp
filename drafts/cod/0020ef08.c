@@ -20,22 +20,13 @@ extern void func_0026F120(void *self);
 extern void func_00270C78(void *self);
 extern unsigned char D_005CB010;
 
-static __inline__ void cEm00_setState(cEm00 *self, unsigned char mode, unsigned char phase,
-                                      unsigned char step, unsigned char arg)
-{
-    self->mode = mode;
-    self->phase = phase;
-    self->step = step;
-    self->stepArg = arg;
-}
-
 /* Knocked down, or a held reaction when the hold flag is set. */
 static __inline__ void knockDown(cEm00 *self)
 {
     if (!(self->emFlags & EM_FLAG_HOLD))
-        cEm00_setState(self, 1, 0x1A, 0, 0);
+        cEm00_setState(self, 1, 0x1A, 0);
     else
-        cEm00_setState(self, 1, 0x1B, 0, 2);
+        cEm00_setState(self, 1, 0x1B, 2);
 }
 
 __attribute__((section(".text.func_0020EF08")))
@@ -61,7 +52,7 @@ int func_0020EF08(cEm00 *self)
         knockDown(self);
     } else if (hit->kind == 35) {
         if (self->emFlags & EM_FLAG_HOLD)
-            cEm00_setState(self, 1, 0x1B, 0, 0);
+            cEm00_setState(self, 1, 0x1B, 0);
         else if (self->sub0 != 0)
             Obj2810_ClearState_B(self->sub0);
     } else if (hit->kind == 37) {
@@ -87,20 +78,20 @@ int func_0020EF08(cEm00 *self)
         if (self->moveFlags & 8)
             return 1;
         if (self->vital <= 0) {
-            cEm00_setState(self, 1, 0x1A, 0, 0);
+            cEm00_setState(self, 1, 0x1A, 0);
         } else if (self->emFlags & EM_FLAG_HOLD) {
             kind = ((cDamageTake *)self->unk698)->kind;
             switch (kind) {
             case 2: case 3: case 4: case 5: case 7:
             case 21: case 22: case 23: case 24: case 27: case 44:
-                cEm00_setState(self, 1, 0x1B, 0, 0);
+                cEm00_setState(self, 1, 0x1B, 0);
                 break;
             case 13:
-                cEm00_setState(self, 1, 0x1B, 0, 2);
+                cEm00_setState(self, 1, 0x1B, 2);
                 break;
             case 1: case 84:
             default:
-                cEm00_setState(self, 1, 0x1B, 0, 1);
+                cEm00_setState(self, 1, 0x1B, 1);
                 break;
             }
         } else if (func_0026F1D8(self) == 0 && (func_0026F120(self), func_0026F1D8(self) != 0)) {
