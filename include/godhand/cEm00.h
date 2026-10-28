@@ -429,6 +429,38 @@ static __inline__ void cEm00_setState(cEm00 *self, int mode, int phase, int step
     self->step = 0;
     self->stepArg = stepArg;
 }
+/* Starts the hit volume of the current attack (atk[0].kind picks the setup). */
+void func_00260B30(cEm00 *self);
+/* 1, and sets unk1864, when one of the linked hit records' attackers is the player. */
+int CheckSlotsShort2FEAndSetByte1864_262A10(cEm00 *self);
+/* Fills both attack parameter sets (0x1870 and 0x1884) with the same values. */
+void StoreMotionParamsBoth_2609A8(cEm00 *self, int time, int kind, int dmgKind, int unk0C, short unk10);
+/* The first and the second half of StoreMotionParamsBoth_2609A8. */
+void StoreMotionParams_2609E0(cEm00 *self, int time, int kind, int dmgKind, int unk0C, short unk10);
+void Set_Fields_1884_1894_2609F8(cEm00 *self, int time, int kind, int dmgKind, int unk0C, short unk10);
+/* Starts the motion pair index of the enemy resource. */
+void ForwardAnimParamPairByIndex_27EA50(cEm00 *self, int index);
+/* Restarts the enemy in phase 4 with mode, step and stepArg cleared. */
+void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DB08(cEm00 *self);
+/* Restarts the enemy in phase 9 with stepArg as its step argument. */
+void Obj0000_Set_Bytes_2F4_2F7_2F5_2F6_27DCB8(cEm00 *self, char stepArg);
+/* 1 when self can see the player (kept in its flags; some kinds always see). */
+int func_0026F328(cEm00 *self);
+int func_00273960(cEm00 *self, float reach);
+void func_0026BEF0(cEm00 *self, int kind, int arg);
+/* 1 when it switched the enemy to another action, else 0. */
+int func_00262AA8(cEm00 *self);
+/* Clears the 0x5B4 counter and sets unk17CC once it reaches 200; 0 before that. */
+int func_0026F120(cEm00 *self);
+/* Picks the next action once the enemy's motion ends. */
+void func_00270C78(cEm00 *self);
+/* Empty in retail; self is not read. */
+void func_00273630(cEm00 *self);
+/* Sets bit 1 of emFlags2 once and drops the enemy's item. */
+void func_00273D30(cEm00 *self);
+void func_00274238(cEm00 *self, unsigned char kind);
+/* Marks the enemy's room slot (0x640) dead in the room save. */
+void func_0028FB08(cEm00 *self);
 
 int Obj0000_IsSet_Field_16D4_Bit_4_26F308(void *a0);    /* definition in 000000.c */
 int func_00273EE0(void *a0);                            /* definition in 00273ee0.c */
