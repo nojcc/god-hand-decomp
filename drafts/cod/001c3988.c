@@ -4,10 +4,10 @@
 * Clears then sets part flags 0x08/0x10
  * around cModel_calcParts. */
 #include "include_asm.h"
+#include "godhand/cModel.h"
 
 #ifdef NON_MATCHING
 extern void func_001B7EA8(char *p, float *src);
-extern void cModel_calcParts(char *p);
 
 __attribute__((section(".text.func_001C3988")))
 void func_001C3988(char *p)

@@ -3,17 +3,14 @@
  * constant 1 for the 0x2F5 and 0x548/0x54A stores in $s0 across the calls (0x70 frame, extra $s3) but still loads a fresh 1
  * for the 1 < n compare; a shared local gets CSE'd into the compare and literals are not hoisted. */
 #include "include_asm.h"
+#include "godhand/cModel.h"
 
 #ifdef NON_MATCHING
 extern int func_00277F80(char *a0);
 extern void func_0028EBF0(char *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cModel_calcParts(void *a0);
-extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern void cParts_setRotationOrder(void *a0, int a1);
 extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);

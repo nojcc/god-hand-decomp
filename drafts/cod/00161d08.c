@@ -49,7 +49,6 @@ extern float D_0041F3E0[];      /* cursor x per slot column */
 extern float D_0041F3F8[];      /* cursor y per slot row */
 extern float D_0041F400[];      /* list cursor y per row */
 extern int D_003BD938[];        /* reel ids */
-extern void cIDBase_move(cIDBaseObj *self);
 
 /* Refresh the God Reel screen: slot icons, the owned-reel list, cursors, scroll bar and names. */
 __attribute__((section(".text.func_00161D08")))

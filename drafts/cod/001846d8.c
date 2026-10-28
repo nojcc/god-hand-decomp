@@ -1,15 +1,14 @@
 /* NON_MATCHING func_001846D8 (sn-2.95.3-136): retail uses 7 s-regs (ours strength-reduces the 0x61C hit index into an 8th), keeps &D_007474A0 hoisted, reuses single D_00422F70/0x4C loads, and splits the 26..39 level test into two compares */
 #include "include_asm.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 #ifdef NON_MATCHING
 extern char D_007474A0[];
 extern short D_00422F70;
 extern unsigned char D_005CB010;
-extern char D_005FEE00[];
 extern int cOmBase_checkDamage(void *self, void *part);
 extern void func_00186598(void *self, float f);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
-extern int cSnd_SeCall_2CBA48(void *snd, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 
 #define PART(self, i) (((char **)((self) + 0x600))[i])
 #define HITS(self) ((short *)((self) + 0x61C))
@@ -68,37 +67,37 @@ void func_001846D8(char *self)
         case 1:
             if (*(unsigned char *)(self + 0x65C) == 0) {
                 SetEffect(0x298, 0xD, self, 0, -1, 0xFFFFFFFF);
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
-                cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
             } else {
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
             }
             break;
         case 2:
             if (*(unsigned char *)(self + 0x65D) == 0) {
                 SetEffect(0x298, 0xE, self, 0, -1, 0xFFFFFFFF);
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
-                cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
             } else {
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
             }
             break;
         case 3:
             if (*(unsigned char *)(self + 0x65E) == 0) {
                 SetEffect(0x298, 0x10, self, 0, -1, 0xFFFFFFFF);
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
-                cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
             } else {
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
             }
             break;
         case 4:
             if (*(unsigned char *)(self + 0x65F) == 0) {
                 SetEffect(0x298, 0xF, self, 0, -1, 0xFFFFFFFF);
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
-                cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x10F, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
             } else {
-                cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x117, self, 0, 0, 0, 0);
             }
             break;
         }

@@ -32,7 +32,6 @@ typedef struct cHeldFrame {
 
 extern int D_00747A78;
 extern void func_00107C68(void *self, void *a1, void *a2);
-extern void cModel_calcParts(void *self);
 extern void func_00276DC8(cHeldModel *self);
 
 /* Moves the model with its holder: optional child offset, then position, rotation, alpha and the visibility flags. */

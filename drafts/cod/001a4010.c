@@ -6,12 +6,11 @@
 #include "godhand/cOmBase.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 
 #ifdef NON_MATCHING
 extern void SetEffectPos(int kind, int effNo, int a2, void *pos, int a4, float scale);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern char D_005FEE00[];
 
 /* The method table of cOm49 (D_00427148); the pair at 0x80 is cGameObj_getPos. */
 typedef struct cOm49Vt {
@@ -82,7 +81,7 @@ void func_001A4010(cOm49 *self)
     cVec_copy3(&step, &w.ret);
     VU0_VADD_XYZ_IP(&pos, 0, &step);
     SetEffectPos(1, self->effNo, 0, &pos, -1, 1.0f);
-    cSnd_SeCall_2CBA48(D_005FEE00, 0, 10, self, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_001A4010);

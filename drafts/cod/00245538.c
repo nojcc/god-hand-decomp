@@ -6,14 +6,10 @@
 #include "godhand/cEm00.h"
 #include "godhand/cSceAtManager.h"
 #include "godhand/cObjBase.h"
+#include "godhand/cGameObj.h"
 
-extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002A8578(int a0, int a1, int a2, int a3, int t0, int t1, float f12);
 extern int moveMotion(void *self);
-extern void func_002705D8(void *a0);
-extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
-extern void cGameObj_SetTgtTurn(char *self, void *target, float rate);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 
 /* cEm00.h does not name these yet: the point the enemy walks to, and a word cleared when the walk ends. */

@@ -5,6 +5,7 @@
 #include "godhand/cRecordIndex.h"
 #include "godhand/cScrSpriteDraw.h"
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 /* NON_MATCHING: retail keeps &D_00569B70 in one register for all three calls
  * in the stage loop; here the event-flag call rebuilds it from the high half

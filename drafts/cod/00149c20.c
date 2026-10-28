@@ -7,7 +7,6 @@
 #ifdef NON_MATCHING
 extern int func_001500C0(void);
 extern cParts *cModel_getPart(cModel *self, int n);
-extern void cModel_calcParts(void *a0);
 extern void MtxInverse(void *dst, void *src);
 
 /* Build the model's part list from the script header: allocate each part, place it,

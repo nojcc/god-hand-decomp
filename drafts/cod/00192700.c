@@ -8,6 +8,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 #define FADE_HOLD_FRAMES  30
 #define FADE_OUT_FRAMES   15
@@ -25,9 +26,7 @@ typedef struct cOmFadeBreak {
 
 typedef struct cOmDamaged cOmDamaged;
 
-extern char D_005FEE00[];
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
 extern void cOmDamaged_switchOff(cOmDamaged *self);
 extern void SetField5B0Bit2ClearBit8_1B7908(cOmBase *self);
 
@@ -45,7 +44,7 @@ void func_00192700(cOmFadeBreak *self)
         src = ((cVec *(*)(void *))self->base.vt->lockOn)((char *)self + self->base.vt->lockOnDelta);
         cVec_copy3(&pos, src);
         SetEffectPos(0, FADE_EFFECT, 0, &pos, -1, 1.0f);
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self, 0, 0, 0, 0);
         cOmDamaged_switchOff((cOmDamaged *)self);
         SetField5B0Bit2ClearBit8_1B7908((cOmBase *)self);
         self->base.phase = FADE_HOLD;

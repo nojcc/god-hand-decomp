@@ -1,5 +1,6 @@
 /* NON_MATCHING func_0013E0B0 (sn-2.95.3-136) */
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 #ifdef NON_MATCHING
 /* func_0013E0B0, steps the eight sub-objects that have a running timer: collects their eleven ID
@@ -23,8 +24,6 @@ typedef struct IdOwner {
 
 extern unsigned short D_0041E010[];
 extern float D_0041DFF8[];
-extern void *cIDBase_getIDWork(void *self, int id);
-extern void cIDBase_move(void *self);
 
 __attribute__((section(".text.func_0013E0B0")))
 void func_0013E0B0(IdOwner *o)

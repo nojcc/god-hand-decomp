@@ -4,10 +4,9 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
 extern void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size);
-extern char D_005FEE00[];
 
 /* cEm00.h does not name 0x670 yet: the cDamageTake of the last hit. */
 #define EM00_DAMAGE_TAKE(self) (*(cDamageTake **)((char *)(self) + 0x670))
@@ -70,7 +69,7 @@ void func_00285C58(cEm00 *self)
         self->vital = self->vitalMax;
     else
         self->vital = vital;
-    cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
     child = cOmBase_childAt((cOmBase *)self, (int *)frame, 4);
     if (child != 0)
         SetEffectPos(0x58, 0x10, 0, child->pos, -1, 1.0f);

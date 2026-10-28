@@ -2,6 +2,7 @@
 * C forms give movn or drop the a1 copy */
 #include "include_asm.h"
 #include "godhand/cObjSimple.h"
+#include "godhand/cIDBase.h"
 
 #ifdef NON_MATCHING
 typedef struct PartSrc {
@@ -51,7 +52,6 @@ typedef struct PartModel {
 } PartModel;
 
 extern char *D_003BD6E8;
-extern void cIDBase_restartAnim(void *anim);
 
 static inline void Vec28EBF0_copy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
 {

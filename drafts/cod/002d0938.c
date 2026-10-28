@@ -9,7 +9,6 @@ extern unsigned int D_00747A84;
 extern void cSndBgmNode_StepState(cSndBgmNode *node);
 extern void cSnd_BgmEventStop(cSnd *self, int a1);
 extern int func_00373A78(cSndBgmNode *node);
-extern void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
 extern void func_002D0EA0(cSnd *self);
 
 __attribute__((section(".text.cSnd_BgmControl")))

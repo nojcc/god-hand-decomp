@@ -30,9 +30,6 @@ extern float capVu0LengthSq(void *a0);
 extern float sqrtf(float x);
 extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
 extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
-extern int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
-extern int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, void *owner2);
-extern cSnd D_005FEE00;
 
 /* Moves the object by its velocity until it stops rolling: friction, gravity,
  * wall and floor contact, the landing sounds, and a dust puff every 10 frames

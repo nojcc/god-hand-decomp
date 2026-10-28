@@ -1,8 +1,8 @@
 /* NON_MATCHING func_0013DF70 (sn-2.95.3-136): 17 insns, 38 words vs 39; retail builds the element pointer in v0 and copies it to s0 for the delay-slot store, ours allocates it to s0 directly. */
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 #ifdef NON_MATCHING
-extern int cIDBase_initialize(void *id, int a1, int a2);
 
 void func_0013DF70(char *self)
 {

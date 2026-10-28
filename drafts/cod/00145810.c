@@ -2,6 +2,7 @@
 #include "godhand/cIDBaseScreen.h"
 #include "godhand/gameWork.h"
 #include "include_asm.h"
+#include "godhand/cIDBase.h"
 
 /* NON_MATCHING: 490 of 494 words. Retail keeps the two row colours (0x303030,
  * 0x808080) in registers through the first row loop and spills the texture,

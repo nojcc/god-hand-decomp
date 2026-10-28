@@ -8,11 +8,10 @@
 #include "godhand/sceVu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/player.h"
+#include "godhand/cSnd.h"
 
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
 extern float fRand1_1(void);
 extern void cOmWeapon_setThrow(cOmWeapon *self, cVec *v, int n);
-extern char D_005FEE00[];
 
 static __inline__ unsigned char hasChild(cOmBase *b, int *frame, int idx)
 {
@@ -63,7 +62,7 @@ void func_0026B240(cOmBase *self, cOmWeapon *weapon, int id, int idx)
         speed = 0.9f;
     }
     VU0_VSCALE_XYZ_MEM(&dir, 0, speed);
-    cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
     cVec_copy3(weapon->base.pos, hand->pos);
     cVec_copy3(&weapon->base.posA, hand->pos);
     cOmWeapon_setThrow(weapon, &dir, (int)self);

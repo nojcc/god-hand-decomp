@@ -32,8 +32,6 @@ static __inline__ void cVec_assignSub(cVec *d, cVec *a, cVec *b)
     cVec_copy3(d, &tmp);
 }
 
-extern cSnd D_005FEE00;
-extern int cSnd_SeCall_2CBA48(cSnd *self, int slot, int id, void *obj, int a4, int a5, int a6, int a7);
 extern void cOmSub_initMove1_pos(cOmSub *mv, void *obj, int ent, int frames, cVec *pos, float f12, float f13);
 extern int cOmSub_move(cOmSub *mv);
 

@@ -44,9 +44,7 @@ typedef struct ReelPanel {
     signed char reel[1];                /* 0xF1 reel numbers of the list */
 } ReelPanel;
 
-extern cSnd D_005FEE00;
 extern unsigned int D_003BD938[];
-extern int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
 extern int func_00162720(int a0);
 
 /* Input step of the reel setting panel. */

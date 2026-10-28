@@ -13,6 +13,7 @@
 #include "godhand/cRecordIndex.h"
 #include "godhand/gameWork.h"
 #include "godhand/player.h"
+#include "godhand/cIDBase.h"
 
 extern char D_0041F6A0[];               /* "idsubscrmenu" */
 extern int func_002C8EF8(void *self);

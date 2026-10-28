@@ -10,6 +10,7 @@
 #include "godhand/classFADE.h"
 #include "godhand/padWork.h"
 #include "godhand/seqNode.h"
+#include "godhand/cIDBase.h"
 
 /* Step of cSubScrOptionT's fade; retail addresses it as its own byte, which has no symbol yet. */
 extern unsigned char D_003BD9E9;
