@@ -449,14 +449,15 @@ _FP_DEST_RE = re.compile(
 #           never emits one nop: the 62 retail sites at pad depth 1 are
 #           outside it (use `div1` for a TU whose divides all carry one).
 #           This is a FIT, NOT THE MECHANISM.  Of retail's 966 `div.s` sites
-#           it matches 743 (76.9%) when labels are ignored and 754 (78.1%)
-#           with the label rule (LucasPicoli's count, issue #23: 780, 80.7%),
-#           against 627 (64.9%) for `fdiv`; the bare/padded split by previous
+#           it matches 743 (76.9%) when labels are ignored.  With the label
+#           rule this count gives 754 (78.1%) and LucasPicoli's (issue #23)
+#           gives 780 (80.7%); the difference is not yet explained.  `fdiv`
+#           matches 627 (64.9%).  The bare/padded split by previous
 #           instruction is 170/54 for FP arithmetic writing a divide operand
-#           and 59/100 for FP arithmetic writing something else.  Functions
-#           that mix padded and bare divides: it fits every site in 18 of 51
-#           here (his count: 19 of 48).  Opt-in per TU, byte-verified on every
-#           TU that selects it.
+#           and 59/100 for FP arithmetic writing something else.  Of the
+#           functions that mix padded and bare divides, it fits every site in
+#           18 of 51 by this count and 19 of 48 by his.  Opt-in per TU,
+#           byte-verified on every TU that selects it.
 #   libm    The retail libm objects' policy, and ONLY theirs.  Two changes to
 #           _materialize_hazard_nops: DELETE the first nop after the
 #           `mtc1`/`ctc1`/`li.s`/`li.d` family (the later nops of the run are
