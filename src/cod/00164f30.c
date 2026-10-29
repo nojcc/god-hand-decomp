@@ -1,11 +1,6 @@
-/* sn-2.95.3-136 */
-/* NON_MATCHING func_00164F30 (sn-2.95.3-136, as sn): 424 vs 425 words. Retail pads
- * the second div.s (the heat maximum over 150) with two nops and leaves the first
- * (hp over hpMax, right after its cvt.s.w) bare; no fp_hazard_rules value pads one
- * and not the other. Everything else matches. */
-#include "include_asm.h"
-
-#ifdef NON_MATCHING
+/* sn-2.95.3-136, as sn, fp_hazard_rules fdivdep: retail pads the second div.s
+ * (the heat maximum over 150) with two nops and leaves the first (hp over hpMax,
+ * right after the cvt.s.w that writes its operand) bare, as fdivdep does. */
 #include "godhand/cSubScrMenu.h"
 #include "godhand/cIDManager.h"
 #include "godhand/cCoreSave.h"
@@ -30,10 +25,10 @@ void func_00164F30(cSubScrMenu *self)
     cGameObj *pl;
     unsigned int godNum;
 
-    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(&self->obj);
+    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0((unsigned char *)&self->obj);
     cIDBase_initialize(&self->items, 1, 0xC);
     cIDBase_restartAnim(&self->items);
-    if (func_00161500(&self->obj, D_0041F6A0) != 0) {
+    if (func_00161500((int)&self->obj, (int)D_0041F6A0) != 0) {
         cIDManager_setIDData(*D_003C2384, SUBSCR_MENU_RES, self->obj.resHandle);
         cIDBase_initialize(&self->obj.base, SUBSCR_MENU_RES, 0);
         cIDBase_initialize(&self->status, SUBSCR_MENU_RES, 1);
@@ -147,6 +142,3 @@ void func_00164F30(cSubScrMenu *self)
     GAMEWORK_AT(flags5E0) |= 0x08000000;
     func_002C8EF8(&D_005FEC58);
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00164F30);
-#endif
