@@ -1,5 +1,4 @@
 /* sn-2.95.3-136 */
-#include "include_asm.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cObjBase.h"
@@ -15,12 +14,20 @@ void LineObj_checkWaterHit(struct LineObj *self);
 #define WEAPON_REST_OFS  0.15f
 #define WEAPON_SPIN      0.5235988f
 
-#ifdef NON_MATCHING
+/* Sets the four state bytes the move code writes together. Writing the four
+ * stores in place instead changes the code: case 2's exit branch skips the
+ * reset block's first word. */
+static __inline__ void cOmBase_setState(cOmBase *self, unsigned char mode, unsigned char phase, unsigned char step, unsigned char stepArg)
+{
+    self->mode = mode;
+    self->phase = phase;
+    self->step = step;
+    self->stepArg = stepArg;
+}
+
 /* A dropped weapon: falls (spinning its body) until it lands on the floor,
  * plays its landing sound and effect, then waits; kind 0x3AF breaks after a
- * countdown. Still differs from retail in one word: case 2's fall-speed exit
- * branches past the reset block's `v0 = 1` (v0 already holds the unk664
- * store's 1); retail branches to the block's first word. */
+ * countdown. */
 __attribute__((section(".text.func_001C9AF0")))
 void func_001C9AF0(cOmWeapon *self)
 {
@@ -119,10 +126,7 @@ void func_001C9AF0(cOmWeapon *self)
         }
         self->fallVel -= rate;
         if (self->fallVel <= 0.0f) {
-            self->base.mode = 1;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+            cOmBase_setState(&self->base, 1, 0, 0, 0);
         }
         return;
     case 3:
@@ -143,20 +147,11 @@ void func_001C9AF0(cOmWeapon *self)
         self->fallVel -= rate;
         self->fallSpeed -= rate * WEAPON_GRAVITY;
         if (self->fallVel <= 0.0f) {
-            self->base.mode = 1;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+            cOmBase_setState(&self->base, 1, 0, 0, 0);
         }
         return;
     default:
         return;
     }
-    self->base.mode = 1;
-    self->base.phase = 0;
-    self->base.step = 0;
-    self->base.stepArg = 0;
+    cOmBase_setState(&self->base, 1, 0, 0, 0);
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_001C9AF0);
-#endif

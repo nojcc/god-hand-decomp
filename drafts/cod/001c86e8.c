@@ -14,7 +14,7 @@
 #ifdef NON_MATCHING
 typedef struct ThrownObj {
     cGameObj base;
-    char unk5AC[0x610 - 0x5AC];
+    char unk5B0[0x610 - 0x5B0];
     cVec vel;                           /* 0x610 */
     float life;                         /* 0x620 frames left in flight */
 } ThrownObj;

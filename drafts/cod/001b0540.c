@@ -16,7 +16,7 @@
 /* The rolling object func_001B0980 starts; no header type yet. */
 typedef struct RollObj {
     cGameObj base;
-    char unk5AC[0x600 - 0x5AC];
+    char unk5B0[0x600 - 0x5B0];
     void *damage;                       /* 0x600 damage unit, 0 if none */
     char unk604[0x610 - 0x604];
     cVec vel;                           /* 0x610 */

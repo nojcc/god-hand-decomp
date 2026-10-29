@@ -166,7 +166,7 @@ typedef char cGameObj_chk_size[sizeof(struct cGameObj) == 0x5B0 ? 1 : -1];
 /* Whether the actor id of obj lies in [lo, hi), as a long flag. The retail
  * range tests build the flag with a branch and a copy, then mask it with 0xFF
  * where it is tested: write `if (cGameObj_idInRange(obj, lo, hi) & 0xFF)`. */
-static __inline__ long cGameObj_idInRange(const cGameObj *obj, int lo, int hi)
+static __inline__ long cGameObj_idInRange(const struct cGameObj *obj, int lo, int hi)
 {
     int id = obj->actorId;
     long in = 0;
@@ -202,18 +202,18 @@ static __inline__ unsigned char cGameObjSortEnt_less(const cGameObjSortEnt *a, c
 }
 
 
-extern void func_002831C8(cGameObj *self, unsigned int kind, unsigned char arg);
+extern void func_002831C8(struct cGameObj *self, unsigned int kind, unsigned char arg);
 /* Aims the object at target; the third argument is not read. */
 void func_002A74E0(void *self, cVec *target, int unused);
 unsigned char func_002A7CA0(struct cGameObj *self, cVec *out);
 /* Bit 0x1000 of the word at 0x15F4. */
 int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(char *a0);
-int func_00275888(cGameObj *self, float dist);
-void InitRenderStruct_2A8608(cGameObj *self, int kind, void *no, int a3, int mode, void *follow);
+int func_00275888(struct cGameObj *self, float dist);
+void InitRenderStruct_2A8608(struct cGameObj *self, int kind, void *no, int a3, int mode, void *follow);
 /* Whether obj is an item: its actor id lies in [0x3C0, 0x400). */
-long func_001B8030(cGameObj *obj);
+long func_001B8030(struct cGameObj *obj);
 /* Nonzero when nothing blocks the line from the enemy's eye to a point ahead of it. */
-int func_00273C38(cGameObj *self);
+int func_00273C38(struct cGameObj *self);
 
 /* Effect kind the enemy attack steps start with: no effect picked. */
 #define FX_KIND_NONE  0x4E2
@@ -224,10 +224,10 @@ static __inline__ int fxKind_isSet(int kind)
     return kind != FX_KIND_NONE;
 }
 /* Turns the heading toward target by at most rate (scaled to radians). */
-void cGameObj_SetTgtTurn(cGameObj *self, cVec *target, float rate);
+void cGameObj_SetTgtTurn(struct cGameObj *self, cVec *target, float rate);
 /* Moves the position by the null node's speed (stepVec through the rotation matrix). */
-void Add_nullspeed(cGameObj *self);
+void Add_nullspeed(struct cGameObj *self);
 /* Kills every effect the object started. */
-void func_002A8718(cGameObj *self);
+void func_002A8718(struct cGameObj *self);
 
 #endif /* GODHAND_CGAMEOBJ_H */

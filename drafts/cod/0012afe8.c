@@ -14,7 +14,7 @@
 /* View of pl00 with the locked-on target that pl00.h does not name yet. */
 typedef struct pl00ThrowView {
     cGameObj base;
-    char unk5AC[0x640 - 0x5AC];
+    char unk5B0[0x640 - 0x5B0];
     cGameObj *lockOn;                   /* 0x640 */
 } pl00ThrowView;
 

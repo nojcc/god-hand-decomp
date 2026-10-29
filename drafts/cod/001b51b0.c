@@ -17,7 +17,7 @@
 /* An object that walks a list of path nodes; no header type yet. */
 typedef struct PathMover {
     cGameObj base;
-    char unk5AC[0x600 - 0x5AC];
+    char unk5B0[0x600 - 0x5B0];
     int pathFlags;                      /* 0x600 PATH_* */
     cVec *nodes;                        /* 0x604 */
     unsigned short nodeNum;             /* 0x608 */
