@@ -87,8 +87,8 @@ void func_0011E748(cEm00 *self)
         ofs.y = 0.0f;
         cVec_applyMatrix(&ofs, mtx);
         CVEC_SET_ADD(*pl->base.pos, self->pos, &ofs);
-        pl->base.rot[1] = self->rot.y + 3.1415927f;
-        pl->base.rot[1] = Adjust_theta(pl->base.rot[1]);
+        pl->base.rot.y = self->rot.y + 3.1415927f;
+        pl->base.rot.y = Adjust_theta(pl->base.rot.y);
         cEm00_GetPlMotion(pl, 0x19, 0.0f, 0.0f);
         self->gotoFlags = 1;
         self->followTimer = 60;

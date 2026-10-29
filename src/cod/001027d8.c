@@ -5,10 +5,9 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cSnd.h"
 
-extern int setMotionInfo(cObjBase *self, char *motion, char *motionEnd, unsigned int start,
 
-float rate, float blend, int flags);
-
+extern int setMotionInfo(cObjBase *self, char *motion, SEQ_DATA_HEADER_1 *seqData, unsigned int blendLen,
+                         float rate, float start, int flags);
 extern unsigned int func_0031ED08(float seconds);
 extern int moveMotion(cObjBase *self);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
@@ -32,8 +31,8 @@ void func_0014ED60(cObjBase *self)
 
     switch (self->step) {
     case 0:
-        setMotionInfo(self, self->motion, self->motionEnd, func_0031ED08(self->motionStart),
-                      self->motionRate, self->motionBlend, self->motionFlags);
+        setMotionInfo(self, self->motion, self->seqData, func_0031ED08(self->blendLeft),
+                      self->motionRate, self->motionFrame, self->motionFlags);
         self->step = self->step + 1;
     case 1:
         if (moveMotion(self) != 0) {

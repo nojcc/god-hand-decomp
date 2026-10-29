@@ -16,7 +16,6 @@ extern int cSnd_SeEndCk(void *a0, int a1);
 extern int func_00291010(void *a0, void *a1, int a2, int a3, float f12, float f13, float f14, int t0);
 extern char D_005864F0[];
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
-extern void cObjBase_KageInit(void *a0, void *a1, void *a2);
 extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
@@ -240,7 +239,7 @@ int func_00101EB8(char *a0)
     }
     *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x8000000;
     cParts_setRotationOrder(s1, 4);
-    cObjBase_KageInit(s1, s1 + 0x5C0, D_003C3F58);
+    cObjBase_KageInit((cObjBase *)s1, s1 + 0x5C0, D_003C3F58);
     cCollisionSolidManage_CreateUnit(&D_00462FC0, s1, 5, 0.2f);
     q = (struct sph *)(buf + 0x0);
     *(int *)(buf + 0x0) = 0;

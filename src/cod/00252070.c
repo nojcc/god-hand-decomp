@@ -4,13 +4,16 @@
 #include "godhand/cEm00.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/vu0.h"
-#include "godhand/cGameObj.h"
 #include "godhand/cSnd.h"
 
 /* cObjBase.h declares SetEffectPos with the handle before the size. This file's
  * calls only match with the size evaluated first, so it keeps its own declarations
- * of cObjBase.h's functions until that order is settled. */
+ * of the functions in cObjBase.h, and in cGameObj.h (which includes it), until
+ * that order is settled. */
 struct cObjBase;
+struct cGameObj;
+extern void cGameObj_SetTgtTurn(struct cGameObj *self, cVec *target, float rate);
+extern void InitRenderStruct_2A8608(struct cGameObj *self, int kind, void *no, int a3, int mode, void *follow);
 extern void cObjBase_addNullSpeed_Rotation(struct cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed(struct cObjBase *self, float scale);
 extern void SetEffectPos(int kind, int id, void *owner, cVec *pos, float size, int handle);
@@ -80,7 +83,7 @@ void func_00252070(void *a0)
                     if (tgt == Getplayer()) {
                         self->rot.y = Adjust_theta(((cEm00 *)Getplayer())->rot.y + 3.14159274f);
                     } else {
-                        cGameObj_SetTgtTurn((cGameObj *)self, *(void **)(tgt + 0xF0), 3.14159274f);
+                        cGameObj_SetTgtTurn((struct cGameObj *)self, *(void **)(tgt + 0xF0), 3.14159274f);
                     }
                     if (d > 1.57079637f) {
                         self->stepArg = 1;
@@ -423,7 +426,7 @@ void func_00252070(void *a0)
             cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
             break;
         }
-        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)8, 0, 2, 0);
+        InitRenderStruct_2A8608((struct cGameObj *)self, 0x58, (void *)8, 0, 2, 0);
         cVec_copy3(EM_VEC(self, EM_TURNTO_OFFSET), (cVec *)self->pos);
         if (self->vital <= 0 && !(self->emFlags2 & 0x1000)
             && (func_00273D30(self), (self->emNo != 0x21F || !(self->emFlags2 & 0x100000)))) {

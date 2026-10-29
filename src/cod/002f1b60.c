@@ -37,7 +37,7 @@ int func_002F1B60(EffModelObj *self)
         func_002D9F68(self, (int)D_0044ED28);
         return 0;
     }
-    if (self->model->vt->unk44((char *)self->model + self->model->vt->unk40Delta) == 0) {
+    if (cGameObj_vt(self->model)->unk44((char *)self->model + cGameObj_vt(self->model)->unk40Delta) == 0) {
         func_002D9F68(self, (int)D_0044ED48);
         ReleaseObj((char *)self->model);
         return 0;

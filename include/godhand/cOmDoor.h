@@ -1,6 +1,6 @@
 /* include/godhand/cOmDoor.h - cOmDoor, a hinged door map object.
  *
- * cOmDoor builds on the cGameObj record (0x5AC bytes). Its own flag word
+ * cOmDoor builds on the cGameObj record (0x5B0 bytes). Its own flag word
  * at 0x620 holds bit 0 (open or opening), bit 1 (locked); the door keeps
  * the heading it was closed at (0x638) and the heading it swings to
  * (0x640), and a collision object at 0x644 while it is solid.
@@ -41,7 +41,7 @@ typedef struct cObjCollision {
 
 typedef struct cOmDoor {
     cGameObj base;                      /* 0x000 */
-    char unk5AC[0x610 - 0x5AC];
+    char unk5B0[0x610 - 0x5B0];
     float size[3];                      /* 0x610 width, height, depth of the collision box */
     char unk61C[4];
     unsigned int flags620;              /* 0x620 */

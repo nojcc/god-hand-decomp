@@ -32,7 +32,7 @@ typedef struct pl00ThrowFrame {
 
 /* Position of the locked-on target, through its method table. */
 #define LOCKON_POS(self) \
-    ((cVec *(*)(void *))(self)->lockOn->vt->getPos)((char *)(self)->lockOn + (self)->lockOn->vt->getPosDelta)
+    ((cVec *(*)(void *))cGameObj_vt((self)->lockOn)->getPos)((char *)(self)->lockOn + cGameObj_vt((self)->lockOn)->getPosDelta)
 
 /* *ret = a - b (x, y, z; w zero), built in tmp; returns ret. */
 static __inline__ cVec *cVec_subTo(cVec *ret, cVec *a, cVec *b, cVec *tmp)

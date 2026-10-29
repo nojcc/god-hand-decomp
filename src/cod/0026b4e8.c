@@ -13,7 +13,7 @@
 /* An enemy that carries a weapon. */
 typedef struct cEmCarrier {
     cGameObj base;
-    char unk5AC[0x700 - 0x5AC];
+    char unk5B0[0x700 - 0x5B0];
     cOmWeapon *held;            /* 0x700 the weapon it carries, or 0 */
 } cEmCarrier;
 
@@ -36,9 +36,9 @@ void func_0026B4E8(cEmCarrier *self)
     {
         cVec *from = self->base.pos;
         cVec *to = Getplayer()->pos;
-        float turn = Turn_dest(from, to, self->base.rot[1], THROW_TURN_LIMIT);
+        float turn = Turn_dest(from, to, self->base.rot.y, THROW_TURN_LIMIT);
 
-        MtxInitRotY(mtx, Adjust_theta(turn + self->base.rot[1]));
+        MtxInitRotY(mtx, Adjust_theta(turn + self->base.rot.y));
     }
     vel.x = 0;
     vel.y = 0;

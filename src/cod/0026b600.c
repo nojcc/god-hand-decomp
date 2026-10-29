@@ -44,7 +44,7 @@ void func_0026B600(cEm00 *self)
             if (rock == 0) {
                 return;
             }
-            rock->vt->unk44((char *)rock + rock->vt->unk40Delta);
+            cGameObj_vt(rock)->unk44((char *)rock + cGameObj_vt(rock)->unk40Delta);
             cVec_copy3(rock->pos, self->pos);
             switch (i & 7) {
             default:
@@ -83,7 +83,7 @@ void func_0026B600(cEm00 *self)
             }
             rock->pos->y -= 6.0f;
             cVec_copy3(&rock->posA, rock->pos);
-            vec3_set(rock->rot, 0.0f, 0.0f, 0.0f);
+            vec3_set(&rock->rot.x, 0.0f, 0.0f, 0.0f);
             func_001CFD60((cOmWeapon *)rock, (int)self);
             self->weapon[i] = rock;
         }

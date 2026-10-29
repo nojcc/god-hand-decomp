@@ -49,7 +49,7 @@ int func_001C20D8(cEm00 *self)
     VU0_LQC2(4, CEM00_VCALL0(self, getPos), 0);
     VU0_SQC2(4, &me, 0);
     player = Getplayer();
-    VU0_LQC2(4, ((cVec *(*)(void *))player->vt->lockOn)((char *)player + player->vt->lockOnDelta), 0);
+    VU0_LQC2(4, ((cVec *(*)(void *))cGameObj_vt(player)->lockOn)((char *)player + cGameObj_vt(player)->lockOnDelta), 0);
     VU0_SQC2(4, &pl, 0);
     VU0_SQC2_VF0_MEM(&d, 0);
     pl.y += EM_SIGHT_EYE_HEIGHT;

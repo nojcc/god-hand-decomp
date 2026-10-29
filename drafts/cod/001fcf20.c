@@ -35,7 +35,7 @@ static inline unsigned char isSuspended(cGameObj *obj)
 
 static inline cVec *centerOf(cGameObj *obj)
 {
-    return obj->vt->getCenter((char *)obj + obj->vt->getCenterDelta);
+    return cGameObj_vt(obj)->getCenter((char *)obj + cGameObj_vt(obj)->getCenterDelta);
 }
 
 static inline void cDamageTake_setKind(cDamageTake *take, int kind)

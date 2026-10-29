@@ -51,19 +51,19 @@ void func_001101A8(pl00 *self)
             self->unk1684 = 0;
             switch (self->sub698->actorId) {
             default:
-                motA = EM_RES_REC((int)self->base.motionData, 0x3B4);
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motA = EM_RES_REC((int)self->base.pack, 0x3B4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 break;
             case 0x377:
             case 0x378:
-                motA = EM_RES_REC((int)self->base.motionData, 0x90C);
-                motB = EM_RES_REC((int)self->base.motionData, 0x910);
+                motA = EM_RES_REC((int)self->base.pack, 0x90C);
+                motB = EM_RES_REC((int)self->base.pack, 0x910);
                 break;
             case 0x36D:
             case 0x3AA:
             case 0x3AB:
-                motA = EM_RES_REC((int)self->base.motionData, 0x924);
-                motB = EM_RES_REC((int)self->base.motionData, 0x928);
+                motA = EM_RES_REC((int)self->base.pack, 0x924);
+                motB = EM_RES_REC((int)self->base.pack, 0x928);
                 break;
             }
             if (self->sub698 == 0) {
@@ -72,48 +72,48 @@ void func_001101A8(pl00 *self)
             switch (self->sub698->actorId) {
             case 0x361: /* listed in retail: the table starts at 0x361 */
             default:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 0x14, 0x1F, 0x32, 0x111);
                 break;
             case 0x362:
             case 0x37B:
             case 0x390:
             case 0x3A9:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3BC);
+                motB = EM_RES_REC((int)self->base.pack, 0x3BC);
                 pl00_setSwing(self, 0xF, 0x1F, 0x32, 0x112);
                 break;
             case 0x3A8: /* retail keeps separate jump-table targets for 0x3A8 and 0x3AD */
-                motB = EM_RES_REC((int)self->base.motionData, 0x3BC);
+                motB = EM_RES_REC((int)self->base.pack, 0x3BC);
                 pl00_setSwing(self, 0x1E, 0x1F, 0x32, 0x112);
                 break;
             case 0x3AD:
             case 0x3AE:
             case 0x3B4:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3BC);
+                motB = EM_RES_REC((int)self->base.pack, 0x3BC);
                 pl00_setSwing(self, 0x1E, 0x1F, 0x32, 0x112);
                 break;
             case 0x363:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 0x19, 0x1F, 0x32, 0x11D);
                 break;
             case 0x380:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 4, 0x1F, 0x32, 0xEA);
                 break;
             case 0x3B7:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 0x14, 0x1F, 0x32, 0x11D);
                 break;
             case 0x368:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 0x1E, 0x1F, 0x32, 0x111);
                 break;
             case 0x379:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 0x1E, 0x1F, 0x34, 0x112);
                 break;
             case 0x3AF:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3B8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3B8);
                 pl00_setSwing(self, 1, 0x1F, 0x32, 0x11D);
                 break;
             case 0x375:
@@ -134,19 +134,19 @@ void func_001101A8(pl00 *self)
             self->unk1684 = 0;
             switch (self->sub698->actorId) {
             default:
-                motA = EM_RES_REC((int)self->base.motionData, 0x3C0);
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motA = EM_RES_REC((int)self->base.pack, 0x3C0);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 break;
             case 0x377:
             case 0x378:
-                motA = EM_RES_REC((int)self->base.motionData, 0x914);
-                motB = EM_RES_REC((int)self->base.motionData, 0x918);
+                motA = EM_RES_REC((int)self->base.pack, 0x914);
+                motB = EM_RES_REC((int)self->base.pack, 0x918);
                 break;
             case 0x36D:
             case 0x3AA:
             case 0x3AB:
-                motA = EM_RES_REC((int)self->base.motionData, 0x92C);
-                motB = EM_RES_REC((int)self->base.motionData, 0x930);
+                motA = EM_RES_REC((int)self->base.pack, 0x92C);
+                motB = EM_RES_REC((int)self->base.pack, 0x930);
                 break;
             }
             if (self->sub698 == 0) {
@@ -155,51 +155,51 @@ void func_001101A8(pl00 *self)
             switch (self->sub698->actorId) {
             case 0x361: /* listed in retail: the table starts at 0x361 */
             default:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 0x28, 0x20, 0x33, 0x111);
                 break;
             case 0x362: /* retail keeps separate jump-table targets for 0x362 and 0x37B */
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C8);
                 pl00_setSwing(self, 0x1E, 0x20, 0x33, 0x112);
                 break;
             case 0x37B:
             case 0x390:
             case 0x3A9:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C8);
                 pl00_setSwing(self, 0x1E, 0x20, 0x33, 0x112);
                 break;
             case 0x3A8: /* retail keeps separate jump-table targets for 0x3A8 and 0x3AD */
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C8);
                 pl00_setSwing(self, 0x3C, 0x20, 0x33, 0x112);
                 break;
             case 0x3AD:
             case 0x3AE:
             case 0x3B4:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C8);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C8);
                 pl00_setSwing(self, 0x3C, 0x20, 0x33, 0x112);
                 break;
             case 0x363:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 0x32, 0x20, 0x33, 0x11D);
                 break;
             case 0x380:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 8, 0x20, 0x33, 0xEA);
                 break;
             case 0x3B7:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 0x28, 0x20, 0x33, 0x11D);
                 break;
             case 0x368:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 0x3C, 0x20, 0x33, 0x111);
                 break;
             case 0x379:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 0x3C, 0x20, 0x35, 0x112);
                 break;
             case 0x3AF:
-                motB = EM_RES_REC((int)self->base.motionData, 0x3C4);
+                motB = EM_RES_REC((int)self->base.pack, 0x3C4);
                 pl00_setSwing(self, 2, 0x20, 0x33, 0x11D);
                 break;
             case 0x375:
@@ -236,7 +236,7 @@ void func_001101A8(pl00 *self)
             cGameObj *target = self->unk640;
             cVec *pos = self->base.pos;
 
-            if (capVu0MagnitudeSqXZ(pos, target->vt->getPos((char *)target + target->vt->getPosDelta)) < 1.21f) {
+            if (capVu0MagnitudeSqXZ(pos, cGameObj_vt(target)->getPos((char *)target + cGameObj_vt(target)->getPosDelta)) < 1.21f) {
                 ((cObjBase *)self)->nullSpeed.x = 0.0f;
                 ((cObjBase *)self)->nullSpeed.z = 0.0f;
             }

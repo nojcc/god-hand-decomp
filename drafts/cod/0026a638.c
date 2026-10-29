@@ -56,10 +56,10 @@ void func_0026A638(cEm00 *self, int no)
     if (obj == 0) {
         return;
     }
-    obj->base.vt->unk44((char *)obj + obj->base.vt->unk40Delta);
+    cGameObj_vt(&obj->base)->unk44((char *)obj + cGameObj_vt(&obj->base)->unk40Delta);
     cVec_copy3(obj->base.pos, hand->pos);
     cVec_copy3(&obj->base.posA, obj->base.pos);
-    vec3_set(obj->base.rot, 0.0f, 0.0f, 0.0f);
+    vec3_set(&obj->base.rot.x, 0.0f, 0.0f, 0.0f);
     SetEntryParams_1B1928(obj, 1, GetSeqSEBase((int *)self) + 0x11);
     rot.x = 0.0f;
     rot.y = 0.0f;

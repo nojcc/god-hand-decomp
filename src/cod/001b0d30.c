@@ -76,7 +76,7 @@ void ArenaEm_stepBossIntro(ArenaEm *self)
 /* A game object with a sound handle and two damage-give records. */
 typedef struct cGiveOwner {
     cGameObj base;
-    char unk5AC[0x668 - sizeof(cGameObj)];
+    char unk5B0[0x668 - sizeof(cGameObj)];
     int seHandle;                       /* 0x668 sound voice, 0 when none */
     void *give[2];                      /* 0x66C damage-give records, 0 when none */
     int giveId[2];                      /* 0x674 -1 when none */
@@ -93,7 +93,7 @@ typedef struct cGiveOwner {
 /* Destructor: install the class method table, stop the sound, release both damage-give records, kill the effects and run the base destructor. */
 __attribute__((section(".text.cGiveOwner_destruct")))
 void cGiveOwner_destruct(cGiveOwner *self, int flag) {
-    self->base.vt = (cGameObjVt *)&D_004282F0;
+    self->base.vtable = (cVtEnt *)&D_004282F0;
     if (self->seHandle != 0) {
         cSnd_SeStop(D_005FEE00, self->seHandle);
         self->seHandle = 0;

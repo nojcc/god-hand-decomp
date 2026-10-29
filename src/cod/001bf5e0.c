@@ -16,7 +16,7 @@ extern cActionButton D_00568288;
 /* A switch that spins in place and offers the player a cut-scene button. */
 typedef struct cOmSpinSwitch {
     cGameObj obj;                       /* 0x000 */
-    char unk5AC[0x602 - 0x5AC];
+    char unk5B0[0x602 - 0x5B0];
     short timer;                        /* 0x602 phase 2 countdown */
 } cOmSpinSwitch;
 
@@ -29,24 +29,24 @@ void func_001BF5E0(cOmSpinSwitch *self)
     cVec rot;
     CVEC_TEMPS;
 
-    CVEC_STORE(&rot, *self->obj.vt->getRot((char *)self + self->obj.vt->getRotDelta));
+    CVEC_STORE(&rot, *cGameObj_vt(&self->obj)->getRot((char *)self + cGameObj_vt(&self->obj)->getRotDelta));
     rot.y += 0.10471976f;
     rot.y = Adjust_theta(rot.y);
-    self->obj.vt->setRot((char *)self + self->obj.vt->setRotDelta, &rot);
+    cGameObj_vt(&self->obj)->setRot((char *)self + cGameObj_vt(&self->obj)->setRotDelta, &rot);
 
     switch (self->obj.phase) {
     case 0: {
         cGameObj *pl = Getplayer();
         float len;
 
-        CVEC_SUB_LENGTH_SQ(len, pl->vt->lockOn((char *)pl + pl->vt->lockOnDelta),
-                           self->obj.vt->lockOn((char *)self + self->obj.vt->lockOnDelta));
+        CVEC_SUB_LENGTH_SQ(len, cGameObj_vt(pl)->lockOn((char *)pl + cGameObj_vt(pl)->lockOnDelta),
+                           cGameObj_vt(&self->obj)->lockOn((char *)self + cGameObj_vt(&self->obj)->lockOnDelta));
         if (len < 6.25f) {
             cGameObj *p1 = Getplayer();
-            cVec *from = p1->vt->lockOn((char *)p1 + p1->vt->lockOnDelta);
+            cVec *from = cGameObj_vt(p1)->lockOn((char *)p1 + cGameObj_vt(p1)->lockOnDelta);
             cGameObj *p2 = Getplayer();
-            cVec *plRot = p2->vt->getRot((char *)p2 + p2->vt->getRotDelta);
-            cVec *to = self->obj.vt->lockOn((char *)self + self->obj.vt->lockOnDelta);
+            cVec *plRot = cGameObj_vt(p2)->getRot((char *)p2 + cGameObj_vt(p2)->getRotDelta);
+            cVec *to = cGameObj_vt(&self->obj)->lockOn((char *)self + cGameObj_vt(&self->obj)->lockOnDelta);
 
             if (Dest_ck(&from->x, &to->x, plRot->y, 1.3962634f) != 0) {
                 cActionButton_set(&D_00568288, 4, 0x28, 0, (int)cOmBase_startCutTask, (int)self, 0);

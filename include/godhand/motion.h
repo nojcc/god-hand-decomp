@@ -37,9 +37,11 @@ void func_002A8578(int obj, int motA, int motB, int mode, float start, unsigned 
 /* Sets the motion step of obj (negated for a mirrored motion). */
 void SetMotionStep(void *obj, float step);
 
-/* Starts motion motion..motionEnd on self at frame start, with the rate and blend. */
+/* Starts motion on self with its sequence data, blending in over blendLen
+ * frames, at frame start (frameNum - 1 - start when the rate is negative). */
 struct cObjBase;
-int setMotionInfo(struct cObjBase *self, char *motion, char *motionEnd, unsigned int start,
-                  float rate, float blend, int flags);
+struct SEQ_DATA_HEADER_1;
+int setMotionInfo(struct cObjBase *self, char *motion, struct SEQ_DATA_HEADER_1 *seqData, unsigned int blendLen,
+                  float rate, float start, int flags);
 
 #endif

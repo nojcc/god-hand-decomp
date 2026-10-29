@@ -58,7 +58,7 @@ void func_0012AFE8(pl00ThrowView *self, cOmWeapon *weapon)
             cVec_copy3(&f.to, part->pos);
             f.to.y += 0.5f;
         } else {
-            p = self->lockOn->vt->getPos((char *)self->lockOn + self->lockOn->vt->getPosDelta);
+            p = cGameObj_vt(self->lockOn)->getPos((char *)self->lockOn + cGameObj_vt(self->lockOn)->getPosDelta);
             f.to.x = p->x;
             f.to.y = p->y;
             f.to.z = p->z;

@@ -1,6 +1,6 @@
 /* include/godhand/cOm60.h - cOm60, a map object that can be thrown.
  *
- * cOm60 builds on the cGameObj record (0x5AC bytes). A thrown object keeps
+ * cOm60 builds on the cGameObj record (0x5B0 bytes). A thrown object keeps
  * its parent in `parent` (0 once it flies free), the throw direction in
  * `throwDir`, and a speed. setThrow detaches it, turns it to face the
  * direction and starts the throw effect and sound once.
@@ -21,7 +21,7 @@
 
 typedef struct cOm60 {
     cGameObj base;                      /* 0x000 */
-    char unk5AC[0x600 - 0x5AC];
+    char unk5B0[0x600 - 0x5B0];
     int parent;                         /* 0x600 nonzero while held; setThrow clears it */
     char unk604[0x2C];
     float speed;                        /* 0x630 */
@@ -34,6 +34,6 @@ typedef struct cOm60 {
     int seHandle;                       /* 0x668 */
 } cOm60;
 
-typedef char cOm60_size_check[(sizeof(cOm60) == 0x66C) ? 1 : -1];
+typedef char cOm60_size_check[(sizeof(cOm60) == 0x670) ? 1 : -1];  /* 0x66C of fields, 8-aligned by cGameObj */
 
 #endif

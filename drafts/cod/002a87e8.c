@@ -52,17 +52,17 @@ void func_002A87E8(cGameObj *self, cVec *ref)
         }
         if (!(camDist <= refDist) && !(fade >= 1.0f)) {
             if (fade < 0.15f) {
-                self->animRate = 0.0f;
+                self->tint.w = 0.0f;
                 self->objFlags &= ~GAMEOBJ_FADE;
             } else {
-                self->animRate = fade;
+                self->tint.w = fade;
                 self->objFlags |= GAMEOBJ_FADE;
             }
             return;
         }
     }
     self->objFlags &= ~GAMEOBJ_FADE;
-    self->animRate = 1.0f;
+    self->tint.w = 1.0f;
 }
 #else
 #include "include_asm.h"

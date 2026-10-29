@@ -26,7 +26,7 @@ typedef struct pl00VtEnt {
 
 typedef struct pl00 {
     cGameObj base;
-    char unk5AC[0x5D8 - 0x5AC];
+    char unk5B0[0x5D8 - 0x5B0];
     int unk5D8;                         /* 0x5D8 4 limits the catch search to GetTargetNear */
     float unk5DC;                       /* 0x5DC set with base.speedRate by the combo attacks */
     unsigned short comboSlot;           /* 0x5E0 combo slot being run (ComboObj.slot) */

@@ -27,7 +27,7 @@ void func_00271148(cEm00 *self)
         return;
     }
     from = Getplayer()->pos;
-    turn = Turn_dest(&from->x, &self->pos->x, Getplayer()->rot[1], 3.1415927f);
+    turn = Turn_dest(&from->x, &self->pos->x, Getplayer()->rot.y, 3.1415927f);
     turn = absf(turn);
     if (turn < 1.7453293f) {
         return;

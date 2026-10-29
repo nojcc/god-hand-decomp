@@ -50,7 +50,7 @@ void UiRecord_setDispSubs6to10(void *ui, int on) {
 /* A game object that owns one resource handle and two child objects. */
 typedef struct cKidOwner {
     cGameObj base;
-    char unk5AC[0x600 - sizeof(cGameObj)];
+    char unk5B0[0x600 - sizeof(cGameObj)];
     void *handle;                       /* 0x600 resource released with the object */
     cGameObj *kidA;                     /* 0x604 child object, told to end (mode 1) */
     cGameObj *kidB;                     /* 0x608 second child object */
@@ -66,7 +66,7 @@ typedef struct cKidOwner {
 /* Destructor: release the handle, send both children to mode 1, run the base destructor. */
 __attribute__((section(".text.cKidOwner_destruct")))
 void cKidOwner_destruct(cKidOwner *self, int flag) {
-    self->base.vt = (cGameObjVt *)&D_00428840;
+    self->base.vtable = (cVtEnt *)&D_00428840;
     if (self->handle != 0) {
         ClearAndResetFields_1FE278(D_00574380, self->handle);
         self->handle = 0;

@@ -177,10 +177,10 @@ int func_00284AF8(cEm00 *self, SET_EM_DATA *data, int arg)
         if (EMHAND_WEAPON(self) != 0) {
             CVEC_ZERO(held);
             CVEC_ZERO(ofs);
-            EMHAND_WEAPON(self)->vt->unk44((char *)EMHAND_WEAPON(self) + EMHAND_WEAPON(self)->vt->unk40Delta);
+            cGameObj_vt(EMHAND_WEAPON(self))->unk44((char *)EMHAND_WEAPON(self) + cGameObj_vt(EMHAND_WEAPON(self))->unk40Delta);
             cVec_copy3(EMHAND_WEAPON(self)->pos, self->pos);
             cVec_copy3(&EMHAND_WEAPON(self)->posA, self->pos);
-            vec3_set(EMHAND_WEAPON(self)->rot, 0.0f, 0.0f, 0.0f);
+            vec3_set(&EMHAND_WEAPON(self)->rot.x, 0.0f, 0.0f, 0.0f);
             held.x = -0.1f;
             held.y = 0.05f;
             held.z = 0.0f;

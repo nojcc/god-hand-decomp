@@ -29,8 +29,8 @@ typedef struct DoorReachFrame {
 
 /* The rotation getter in the 0x88 slot of cGameObjVt. */
 #define GAMEOBJ_GETROT(obj) \
-    (*(cVec *(**)(void *))((char *)(obj)->vt + 0x8C))( \
-        (char *)(obj) + *(short *)((char *)(obj)->vt + 0x88))
+    (*(cVec *(**)(void *))((char *)(obj)->vtable + 0x8C))( \
+        (char *)(obj) + *(short *)((char *)(obj)->vtable + 0x88))
 
 extern cActionButton D_00568288;
 extern unsigned int cOm4f_isActive(cOm4f *self);
@@ -51,11 +51,11 @@ void func_001A4650(cOm4f *self)
     float dy;
 
     if (cOm4f_isActive(self) == 0 && self->lock == 0) {
-        VU0_LQC2(4, ((cVec *(*)(void *))obj->vt->lockOn)((char *)obj + obj->vt->lockOnDelta), 0);
+        VU0_LQC2(4, ((cVec *(*)(void *))cGameObj_vt(obj)->lockOn)((char *)obj + cGameObj_vt(obj)->lockOnDelta), 0);
         VU0_SQC2(4, &f, DOORFRAME_OFFSET(me));
         {
             cGameObj *player = Getplayer();
-            VU0_LQC2(4, ((cVec *(*)(void *))player->vt->lockOn)((char *)player + player->vt->lockOnDelta), 0);
+            VU0_LQC2(4, ((cVec *(*)(void *))cGameObj_vt(player)->lockOn)((char *)player + cGameObj_vt(player)->lockOnDelta), 0);
         }
         VU0_SQC2(4, &f, DOORFRAME_OFFSET(pl));
         dy = __builtin_fabsf(f.me.y - f.pl.y);

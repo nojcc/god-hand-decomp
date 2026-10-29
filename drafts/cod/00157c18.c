@@ -58,13 +58,13 @@ int moveMotion(cObjBase *self)
         return 0;
     if (func_003A50B4(self->motion, D_0041EE40, 4) != 0)
         return 1;
-    Motion_seq_ctr(self, self->motionEnd);
+    Motion_seq_ctr(self, self->seqData);
     rate = D_007474A0.timeScale;
     if (D_007474A0.unk569 == 1)
         rate *= 0.5f;
-    step = self->motionSpeed * self->motionRate * rate;
+    step = self->motionStep * self->motionRate * rate;
 
-    if ((self->motionFlags & MOTION_F_NULLMOVE) && self->motionStart > 0.0f) {
+    if ((self->motionFlags & MOTION_F_NULLMOVE) && self->blendLeft > 0.0f) {
         child = cObjBase_childAt(self, frame, 0);
         if (child != 0)
             func_00150778(&child->anchor->x, &child->anchor->x, &self->unk310.x);
@@ -72,13 +72,13 @@ int moveMotion(cObjBase *self)
         self->unk310.y = 0.0f;
         self->unk310.z = 0.0f;
     }
-    t = self->motionStart - step;
+    t = self->blendLeft - step;
     if (t < 0.0f)
         t = 0.0f;
-    self->motionStart = t;
+    self->blendLeft = t;
     blend = 0.0f;
     if (t > 0.0f)
-        blend = t / self->motionLen;
+        blend = t / self->blendLen;
     func_00158328(self);
     self->blend = blend;
     if (self->motionFlags & MOTION_F_NULLMOVE) {
@@ -111,19 +111,19 @@ int moveMotion(cObjBase *self)
     CVEC_ASSIGN(self->unk380, &self->unk370);
 
     if (!(self->motionFlags & MOTION_F_HOLD)) {
-        self->motionBlend += step;
+        self->motionFrame += step;
         if (step == 1.0f)
-            self->motionBlend = (int)(self->motionBlend + 0.0001f);
+            self->motionFrame = (int)(self->motionFrame + 0.0001f);
     }
     flags = self->motionFlags;
     mtb = (cMtbHead *)self->motion;
     if (flags & MOTION_F_REVERSE) {
-        if (!(flags & MOTION_F_HOLD) ? !(self->motionBlend <= 0.0f) : !(self->motionBlend < 0.0f))
+        if (!(flags & MOTION_F_HOLD) ? !(self->motionFrame <= 0.0f) : !(self->motionFrame < 0.0f))
             return 0;
         if (!(mtb->flags & MTB_LOOP)) {
-            self->motionBlend = 0.0f;
+            self->motionFrame = 0.0f;
         } else if (flags & MOTION_F_ONCE) {
-            self->motionBlend = 0.0f;
+            self->motionFrame = 0.0f;
         } else {
             self->unk320.x = 0.0f;
             self->unk320.y = 0.0f;
@@ -131,20 +131,20 @@ int moveMotion(cObjBase *self)
             self->unk350.x = 0.0f;
             self->unk350.y = 0.0f;
             self->unk350.z = 0.0f;
-            self->motionBlend = (float)(mtb->frameNum - 1) - self->motionRate * rate;
+            self->motionFrame = (float)(mtb->frameNum - 1) - self->motionRate * rate;
         }
     } else {
         n = mtb->frameNum;
-        if (!(flags & MOTION_F_HOLD) ? self->motionBlend <= (float)(n - 1) : !((float)(n - 1) < self->motionBlend))
+        if (!(flags & MOTION_F_HOLD) ? self->motionFrame <= (float)(n - 1) : !((float)(n - 1) < self->motionFrame))
             return 0;
         if ((mtb->flags & MTB_LOOP) && !(flags & MOTION_F_ONCE)) {
-            t = self->motionBlend - (float)(n - 1);
+            t = self->motionFrame - (float)(n - 1);
             blend = mtb->frameNum - 1.0f;
             if (t < 0.0f)
                 t = 0.0f;
             if (t < blend)
                 blend = t;
-            self->motionBlend = blend;
+            self->motionFrame = blend;
             self->unk350.z = 0.0f;
             self->unk320.x = 0.0f;
             self->unk320.y = 0.0f;
@@ -152,7 +152,7 @@ int moveMotion(cObjBase *self)
             self->unk350.x = 0.0f;
             self->unk350.y = 0.0f;
         } else {
-            self->motionBlend = n - 1.0f;
+            self->motionFrame = n - 1.0f;
         }
     }
     if (self->seqSkip < 0xFF)

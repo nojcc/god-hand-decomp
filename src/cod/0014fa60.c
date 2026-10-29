@@ -36,7 +36,7 @@ void cObjBase_MoveByNullSpeed(cObjBase *self, float yaw, float scale) {
 __attribute__((section(".text.func_002A84A8")))
 void func_002A84A8(cGameObj *self)
 {
-    cGameObjEffectList *list = self->effList;
+    SEQ_DATA_HEADER_1 *list = self->seqData;
     cGameObjEffect *eff;
     unsigned int i;
 
@@ -60,7 +60,7 @@ void func_002A84A8(cGameObj *self)
 __attribute__((section(".text.func_002A8718")))
 void func_002A8718(cGameObj *self)
 {
-    cGameObjEffectList *list = self->effList;
+    SEQ_DATA_HEADER_1 *list = self->seqData;
     cGameObjEffect *eff;
     unsigned int i;
 

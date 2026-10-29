@@ -15,7 +15,6 @@ extern void cEmWrap_StartAction(void *wrap);
 extern int cRoomSave_clearEmDeadFlag(void *self, int id);
 extern cGameObj *GetJacket(void);
 extern char D_005FEE00[];
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float f12);
 extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 
 #define ARENA_PHASE_DEFEAT    0
@@ -61,7 +60,7 @@ void ColiseumBattle_stepEnemyWaves(ColiseumBattle *self)
 /* Call setSuspend(on) on obj through its method table. */
 #define PL00_FORWARD_SUSPEND(obj, on) \
     do { \
-        pl00VtEnt *ent_ = &((pl00VtEnt *)(obj)->vt)[PL00_VT_SETSUSPEND]; \
+        pl00VtEnt *ent_ = &((pl00VtEnt *)(obj)->vtable)[PL00_VT_SETSUSPEND]; \
         ent_->pfn((char *)(obj) + ent_->delta, (on)); \
     } while (0)
 
@@ -80,7 +79,7 @@ void pl00_setSuspend(pl00 *self, int on)
         self->base.scrFlags &= ~GAMEOBJ_SCR_SUSPEND;
     if (GetJacket() != 0) {
         cGameObj *jacket = GetJacket();
-        pl00VtEnt *ent = &((pl00VtEnt *)jacket->vt)[PL00_VT_SETSUSPEND];
+        pl00VtEnt *ent = &((pl00VtEnt *)jacket->vtable)[PL00_VT_SETSUSPEND];
         int arg = on;   /* a copy of on: puts the argument move ahead of the delta load, as in retail */
 
         ent->pfn((char *)jacket + ent->delta, arg);
@@ -107,7 +106,7 @@ typedef struct HitRec {
 /* A game object that can splash: past the base part it keeps a vertical speed and a once-only flag. */
 typedef struct SplashObj {
     cGameObj base;
-    char unk5AC[0x1710 - 0x5AC];
+    char unk5B0[0x1710 - 0x5B0];
     float fall;                         /* 0x1710 negative while falling */
     char unk1714[0x17C2 - 0x1714];
     unsigned char splashed;             /* 0x17C2 */
@@ -127,7 +126,7 @@ void cGameObj_checkWaterSplash(SplashObj *self)
     pos = self->base.pos;
     if (self->base.posA.y <= pos->y)
         return;
-    if ((self->base.motionFlags & 4) == 0 && !(self->fall < 0.0f))
+    if ((self->base.seqFlags & 4) == 0 && !(self->fall < 0.0f))
         return;
     {
         float *v = buf;
@@ -137,7 +136,7 @@ void cGameObj_checkWaterSplash(SplashObj *self)
         one = 1;
         if (ChkLine(&self->base.posA, pos, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
             && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, v, -1, 1.0f);
+            SetEffectPos(0, 0x55, 0, (cVec *)v, -1, 1.0f);
             cSnd_SeCall(D_005FEE00, 2, 0x50, self->base.pos, 0, 0);
             self->splashed = one;
         }
