@@ -43,16 +43,16 @@ void func_001C8930(cOmFlyPiece *self)
 
     switch (self->base.step) {
     case 0:
-        self->base.posPrev.x = -capVu0Atan2(self->vel.y,
+        self->base.rot.x = -capVu0Atan2(self->vel.y,
             __builtin_sqrtf(self->vel.x * self->vel.x + self->vel.z * self->vel.z));
-        self->base.posPrev.y = capVu0Atan2(self->vel.x, self->vel.z);
+        self->base.rot.y = capVu0Atan2(self->vel.x, self->vel.z);
         self->timer = FLY_FRAMES;
         self->base.step++;
-        self->base.posPrev.z = 0.0f;
+        self->base.rot.z = 0.0f;
     case 1:
         work = &f.work;
         if (child != 0) {
-            child->posPrev.x += rate * FLY_SPIN_STEP;
+            child->rot.x += rate * FLY_SPIN_STEP;
         }
         VU0_LQC2(4, &self->vel, 0);
         VU0_SQC2(4, &f, 0x20);

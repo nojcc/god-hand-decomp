@@ -48,7 +48,7 @@ void func_001C9AF0(cOmWeapon *self)
         /* fall through */
     case 1:
         if (body != 0) {
-            body->posPrev.x += rate * WEAPON_SPIN;
+            body->rot.x += rate * WEAPON_SPIN;
         }
         self->base.pos->y += self->fallSpeed * rate;
         self->fallSpeed -= rate * WEAPON_GRAVITY;
@@ -88,9 +88,9 @@ void func_001C9AF0(cOmWeapon *self)
             SetEffect(0, 0x2D, self, 0, -1, -1);
             self->base.step++;
             if (body != 0) {
-                body->posPrev.x = 0.0f;
-                body->posPrev.y = 0.0f;
-                body->posPrev.z = 0.0f;
+                body->rot.x = 0.0f;
+                body->rot.y = 0.0f;
+                body->rot.z = 0.0f;
             }
         }
         LineObj_checkWaterHit((struct LineObj *)self);
@@ -137,7 +137,7 @@ void func_001C9AF0(cOmWeapon *self)
         /* fall through */
     case 5:
         if (body != 0) {
-            body->posPrev.x += rate * WEAPON_SPIN;
+            body->rot.x += rate * WEAPON_SPIN;
         }
         self->base.pos->y += self->fallSpeed * rate;
         self->fallVel -= rate;

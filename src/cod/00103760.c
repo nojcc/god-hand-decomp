@@ -301,7 +301,7 @@ void FollowObj_snapToPlayer(FollowObj *self, int mode)
 {
     cVec_copy3(self->base.pos, Getplayer()->pos);
     cVec_copy3(&self->base.posA, self->base.pos);
-    cVec_copy3(&self->base.posPrev, &Getplayer()->posPrev);
+    cVec_copy3(&self->base.rot, &Getplayer()->rot);
     cModel_calcParts((cModel *)self);
     switch (mode) {
     default:

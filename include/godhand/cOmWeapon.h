@@ -28,7 +28,7 @@ typedef struct cOmWeapon {
     int parentIdx;                          /* 0x604 index of the held slot on the parent */
     char unk608[0x8];
     cVec heldPos;                           /* 0x610 */
-    cVec heldOfs;                           /* 0x620 */
+    cVec heldOfs;                           /* 0x620 the heldRot setParent gave the body */
     float fallSpeed;                        /* 0x630 */
     char unk634[0xC];
     cVec vel;                               /* 0x640 launch velocity */
@@ -59,8 +59,8 @@ typedef struct cOmWeapon {
 
 typedef char cOmWeapon_size_check[(sizeof(cOmWeapon) == 0x790) ? 1 : -1];
 
-/* Hangs the weapon on child idx of par, held at heldPos with offset heldOfs. */
-void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, cVec *heldOfs);
+/* Hangs the weapon on child idx of par, held at heldPos with its body turned by heldRot. */
+void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, cVec *heldRot);
 /* Throws the weapon with velocity pos and throw argument arg (state 0x11). */
 void func_001D0140(cOmWeapon *self, cVec *pos, int arg);
 

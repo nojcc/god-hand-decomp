@@ -109,9 +109,9 @@ void func_001AF230(cOmRiseTrap *self)
             {
                 cVec *from = self->base.pos;
 
-                self->base.posPrev.y += Turn_dest(&from->x, &Getplayer()->pos->x, self->base.posPrev.y, 3.1415927f);
+                self->base.rot.y += Turn_dest(&from->x, &Getplayer()->pos->x, self->base.rot.y, 3.1415927f);
             }
-            self->base.posPrev.y = Adjust_theta(self->base.posPrev.y);
+            self->base.rot.y = Adjust_theta(self->base.rot.y);
             self->se = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x106, self, 0, 0, 0, 0);
             get = &self->base.vtable[17];
             self->height = ((cVec *(*)(void *))get->pfn)((char *)self + get->delta)->z;

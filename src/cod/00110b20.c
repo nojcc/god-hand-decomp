@@ -98,17 +98,17 @@ void func_00110B20(pl00 *self)
 
                 if (w != 0) {
                     cVec heldPos;
-                    cVec heldOfs;
+                    cVec heldRot;
 
                     CVEC_ZERO(heldPos);
-                    CVEC_ZERO(heldOfs);
+                    CVEC_ZERO(heldRot);
                     w->vt->unk44((char *)w + w->vt->unk40Delta);
                     cVec_copy3(w->pos, self->base.pos);
                     cVec_copy3(&w->posA, self->base.pos);
                     vec3_set(w->rot, 0, 0, 0);
                     vec3_set(&heldPos.x, 0, 0, 0);
-                    vec3_set(&heldOfs.x, 0, 0, 0);
-                    cOmWeapon_setParent((cOmWeapon *)w, (cOmBase *)self->sub698, 2, &heldPos, &heldOfs);
+                    vec3_set(&heldRot.x, 0, 0, 0);
+                    cOmWeapon_setParent((cOmWeapon *)w, (cOmBase *)self->sub698, 2, &heldPos, &heldRot);
                     func_0012AFE8(self, (cOmWeapon *)w);
                     SetEffect(0, 0x67, self->sub698, 0, -1, 0xFFFFFFFF);
                 }

@@ -62,20 +62,20 @@ void func_002890A0(cEmBust *self)
     if (tilt < -EMBUST_MAX_TILT) {
         tilt = -EMBUST_MAX_TILT;
     }
-    bust->posPrev.x += tilt * 0.5f * self->base.speedRate;
-    bust->posPrev.x += self->bustSwing * self->base.speedRate;
-    if (bust->posPrev.x > EMBUST_MAX_TILT) {
-        bust->posPrev.x = EMBUST_MAX_TILT;
+    bust->rot.x += tilt * 0.5f * self->base.speedRate;
+    bust->rot.x += self->bustSwing * self->base.speedRate;
+    if (bust->rot.x > EMBUST_MAX_TILT) {
+        bust->rot.x = EMBUST_MAX_TILT;
         self->bustSwing = 0.0f;
     }
-    if (bust->posPrev.x < -EMBUST_MAX_TILT) {
-        bust->posPrev.x = -EMBUST_MAX_TILT;
+    if (bust->rot.x < -EMBUST_MAX_TILT) {
+        bust->rot.x = -EMBUST_MAX_TILT;
         self->bustSwing = 0.0f;
     }
     self->bustSwing *= 1.0f - self->base.speedRate * 0.2f;
     v.x = 0.0f;
     v.y = 0.0f;
-    self->bustSwing += -bust->posPrev.x * 0.5f * self->base.speedRate;
+    self->bustSwing += -bust->rot.x * 0.5f * self->base.speedRate;
     v.z = D_003C0460;
     sceVu0ApplyMatrix(&v, bust->mtx, &v);
     CVEC_ASSIGN_VEC(self->bustVel, v);

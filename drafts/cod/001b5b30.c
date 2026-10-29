@@ -63,7 +63,7 @@ void func_001B5B30(cOmTwin *self)
                 CVEC_FROM_RET(pos);
                 pos.z += 0.5f;
                 p = self->part[0];
-                CVCALL_FN(p, 15, void (*)(char *, cVec *))(CVCALL_THIS(p, 15), &self->base.posPrev);
+                CVCALL_FN(p, 15, void (*)(char *, cVec *))(CVCALL_THIS(p, 15), &self->base.rot);
                 CVEC_COPY(ret_, &pos);
                 CVEC_FROM_RET(PART_POS(self->part[0]));
             }
@@ -75,7 +75,7 @@ void func_001B5B30(cOmTwin *self)
                 CVEC_FROM_RET(pos);
                 pos.z += 0.5f;
                 p = self->part[1];
-                CVCALL_FN(p, 15, void (*)(char *, cVec *))(CVCALL_THIS(p, 15), &self->base.posPrev);
+                CVCALL_FN(p, 15, void (*)(char *, cVec *))(CVCALL_THIS(p, 15), &self->base.rot);
                 CVEC_COPY(ret_, &pos);
                 CVEC_FROM_RET(PART_POS(self->part[1]));
             }
