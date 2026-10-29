@@ -8,7 +8,7 @@
 
 /* 229 words against retail's 231. Still differs in the debris loop: retail
  * builds i + 1 and the child range flag in registers of their own and copies
- * them (two moves), and forms &body->posPrev for Adjust_theta_vec just before
+ * them (two moves), and forms &body->rot for Adjust_theta_vec just before
  * the add instead of before the scaled copy. */
 #ifdef NON_MATCHING
 
@@ -53,7 +53,7 @@ void func_001CC668(cOmWeapon *self)
             float z = rate * WEAPON_SWAY_Z;
             float x = rate * WEAPON_SWAY_X;
 
-            child->posPrev.x += spin;
+            child->rot.x += spin;
             child->anchor->z += z;
             child->anchor->x += x;
         }
@@ -63,7 +63,7 @@ void func_001CC668(cOmWeapon *self)
             float z = rate * WEAPON_SWAY_Z;
             float x = rate * WEAPON_SWAY_X;
 
-            child->posPrev.x += spin;
+            child->rot.x += spin;
             child->anchor->z -= z;
             child->anchor->x += x;
         }
@@ -73,7 +73,7 @@ void func_001CC668(cOmWeapon *self)
     default:
         child = cOmBase_childAt(&self->base, frame, 0);
         if (child != 0) {
-            child->posPrev.x += rate * WEAPON_SPIN;
+            child->rot.x += rate * WEAPON_SPIN;
         }
         self->base.pos->y += self->fallSpeed;
         self->fallSpeed -= WEAPON_GRAVITY;
@@ -89,7 +89,7 @@ void func_001CC668(cOmWeapon *self)
                 break;
             }
             p = &self->piece[i];
-            rot = &body->posPrev;
+            rot = &body->rot;
             {
                 cVec d;
 

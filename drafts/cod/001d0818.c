@@ -30,10 +30,10 @@ void cOmWeapon_SetBreak(cOmWeapon *self)
     body = cOmBase_childAt(&self->base, (int *)frame, 0);
     if (body == 0)
         return;
-    body->posPrev.z = 0.0f;
+    body->rot.z = 0.0f;
     body->owner = &self->base;
-    body->posPrev.x = 0.0f;
-    body->posPrev.y = 0.0f;
+    body->rot.x = 0.0f;
+    body->rot.y = 0.0f;
     cModel_calcParts(self);
     self->base.mode = 0;
     self->base.step = 0;
