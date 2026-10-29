@@ -44,11 +44,11 @@ typedef char cIDObj_size_check[sizeof(cIDObj) == 0x74 ? 1 : -1];
 /* Clear the load and state fields. */
 void ClearFields_1614D0(char *a0);                      /* as defined in 00138528.c */
 /* Read the id resource `name` once; returns it, 0 if the read failed. */
-int func_00161500(int a0, int a1);                      /* as defined in 0014ea28.c */
+int func_00161500(cIDObj *self, char *name);            /* as defined in 0014ea28.c */
 /* Free the id heap and forget the resource. */
 void func_00161590(char *a0);                           /* as defined in 00126770.c */
 /* Save GameWork's flags5D8/flags5E0 into the object. */
-void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(unsigned char *a0);  /* as defined in 000000.c */
+void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(cIDObj *self);  /* as defined in 000000.c */
 /* Put the saved flags5D8/flags5E0 back into GameWork. */
 void Obj0000_Set_D_007474A0_Fields_5D8_5E0(unsigned char *a0);  /* as defined in 000000.c */
 
