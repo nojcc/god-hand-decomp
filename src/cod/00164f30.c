@@ -25,10 +25,10 @@ void func_00164F30(cSubScrMenu *self)
     cGameObj *pl;
     unsigned int godNum;
 
-    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0((unsigned char *)&self->obj);
+    Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(&self->obj);
     cIDBase_initialize(&self->items, 1, 0xC);
     cIDBase_restartAnim(&self->items);
-    if (func_00161500((int)&self->obj, (int)D_0041F6A0) != 0) {
+    if (func_00161500(&self->obj, D_0041F6A0) != 0) {
         cIDManager_setIDData(*D_003C2384, SUBSCR_MENU_RES, self->obj.resHandle);
         cIDBase_initialize(&self->obj.base, SUBSCR_MENU_RES, 0);
         cIDBase_initialize(&self->status, SUBSCR_MENU_RES, 1);

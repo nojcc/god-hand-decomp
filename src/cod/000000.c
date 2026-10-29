@@ -4,6 +4,7 @@
 #include "godhand/cEma2.h"
 #include "godhand/objField.h"
 #include "godhand/cEm00.h"
+#include "godhand/cIDObj.h"
 
 /* ------------------------------------------------------------------ */
 /* Externs unified across the 7-function D_0044BED0 cluster.          */
@@ -984,9 +985,9 @@ typedef struct {
 extern CGUnk_007474A0_t D_007474A0;
 
 __attribute__((section(".text.Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0")))
-void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(unsigned char *a0) {
-    *(int *)(a0 + 0x68) = D_007474A0.field_5D8;
-    *(int *)(a0 + 0x6C) = D_007474A0.field_5E0;
+void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(cIDObj *self) {
+    self->flags5D8 = D_007474A0.field_5D8;
+    self->flags5E0 = D_007474A0.field_5E0;
 }
 
 extern unsigned char *D_003BD6E8;
@@ -1275,9 +1276,9 @@ void Tramp_func_0014EFA8_0012BBE0(void)
  do { cObjBase_KageDraw(); } while (0);
 }
 
-__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(void)
+__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(cIDBaseObj *self)
 {
- do { cIDBase_trans(); } while (0);
+ do { cIDBase_trans(self); } while (0);
 }
 
 

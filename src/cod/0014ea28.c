@@ -1,4 +1,5 @@
 #include "godhand/cObjBase.h"
+#include "godhand/cIDObj.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -17,7 +18,7 @@ extern void __malloc_unlock(int a0);
 extern int D_003C2388;
 extern int D_00583F20[];
 extern int D_00754230[];
-extern void cIDManager_getLocalFileName(int a0, void *a1, int a2, int a3);
+extern void cIDManager_getLocalFileName(int a0, void *a1, char *a2, int a3);
 extern int cDvd_ReadAlloc(void *a0, void *a1, void *a2, void *a3, int t0, int t1, int t2, int t3);
 extern int cDvd_CheckWait(void *a0, int a1);
 extern void func_0015EAC8(char *work);
@@ -89,17 +90,17 @@ int func_003A7C70(int a0)
 }
 
 __attribute__((section(".text.func_00161500")))
-int func_00161500(int a0, int a1)
+int func_00161500(cIDObj *self, char *name)
 {
     int local[16];
-    if (*(int*)((char*)a0+0x50) == 0) {
+    if (self->resHandle == 0) {
         int r;
-        cIDManager_getLocalFileName(D_003C2388, &local, a1, -1);
-        r = cDvd_ReadAlloc(D_00583F20, &local, (void*)((char*)a0+0x50), D_00754230, 0, 0, 0, 0);
-        *(int*)((char*)a0+0x54) = r;
+        cIDManager_getLocalFileName(D_003C2388, &local, name, -1);
+        r = cDvd_ReadAlloc(D_00583F20, &local, &self->resHandle, D_00754230, 0, 0, 0, 0);
+        self->readId = r;
         cDvd_CheckWait(D_00583F20, r);
     }
-    return *(int*)((char*)a0+0x50);
+    return (int)self->resHandle;
 }
 
 /* Remember the shadow data and its two work areas, and initialise each work
