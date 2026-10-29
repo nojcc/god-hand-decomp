@@ -20,7 +20,7 @@ enum { FADE_START, FADE_HOLD, FADE_OUT, FADE_DONE };
 /* A breakable map object that fades away after it is switched off. */
 typedef struct cOmFadeBreak {
     cGameObj base;
-    char unk5AC[0x600 - 0x5AC];
+    char unk5B0[0x600 - 0x5B0];
     short timer;                /* 0x600 */
 } cOmFadeBreak;
 

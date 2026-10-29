@@ -19,7 +19,7 @@
 /* A dying enemy body that spins, sinks, then fades out. */
 typedef struct cEmSink {
     cGameObj base;
-    char unk5AC[0x640 - 0x5AC];
+    char unk5B0[0x640 - 0x5B0];
     cVec vel;                   /* 0x640 drift per frame */
     char unk650[0x10];
     float timer;                /* 0x660 frames before the fade starts */
