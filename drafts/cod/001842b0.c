@@ -60,21 +60,21 @@ void func_001842B0(cOl40 *self)
         left = Adjust_theta(OL40_GETROT(&self->base)->y + -1.5707964f);
         from = &OL40_GETPOS(&self->base)->x;
         pl = Getplayer();
-        if (Dest_ck(from, &((cVec *(*)(void *))pl->vt->lockOn)((char *)pl + pl->vt->lockOnDelta)->x, front, 0.7853982f) != 0) {
+        if (Dest_ck(from, &((cVec *(*)(void *))cGameObj_vt(pl)->lockOn)((char *)pl + cGameObj_vt(pl)->lockOnDelta)->x, front, 0.7853982f) != 0) {
             if (self->broken[0] == 0) {
                 func_001B7EE0(self, 3.5f);
             }
         } else {
             from = &OL40_GETPOS(&self->base)->x;
             pl = Getplayer();
-            if (Dest_ck(from, &((cVec *(*)(void *))pl->vt->lockOn)((char *)pl + pl->vt->lockOnDelta)->x, right, 0.7853982f) != 0) {
+            if (Dest_ck(from, &((cVec *(*)(void *))cGameObj_vt(pl)->lockOn)((char *)pl + cGameObj_vt(pl)->lockOnDelta)->x, right, 0.7853982f) != 0) {
                 if (self->broken[3] == 0) {
                     func_001B7EE0(self, 3.5f);
                 }
             } else {
                 from = &OL40_GETPOS(&self->base)->x;
                 pl = Getplayer();
-                    if (Dest_ck(from, &((cVec *(*)(void *))pl->vt->lockOn)((char *)pl + pl->vt->lockOnDelta)->x, left, 0.7853982f) != 0) {
+                    if (Dest_ck(from, &((cVec *(*)(void *))cGameObj_vt(pl)->lockOn)((char *)pl + cGameObj_vt(pl)->lockOnDelta)->x, left, 0.7853982f) != 0) {
                     if (self->broken[2] == 0) {
                         func_001B7EE0(self, 3.5f);
                     }

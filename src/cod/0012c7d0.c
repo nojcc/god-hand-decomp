@@ -15,7 +15,6 @@ extern void cEmWrap_StartAction(void *wrap);
 extern int cRoomSave_clearEmDeadFlag(void *self, int id);
 extern cGameObj *GetJacket(void);
 extern char D_005FEE00[];
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float f12);
 extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 
 #define ARENA_PHASE_DEFEAT    0
@@ -137,7 +136,7 @@ void cGameObj_checkWaterSplash(SplashObj *self)
         one = 1;
         if (ChkLine(&self->base.posA, pos, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
             && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, v, -1, 1.0f);
+            SetEffectPos(0, 0x55, 0, (cVec *)v, -1, 1.0f);
             cSnd_SeCall(D_005FEE00, 2, 0x50, self->base.pos, 0, 0);
             self->splashed = one;
         }

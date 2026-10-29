@@ -29,8 +29,8 @@
                     (cGameObj_idInRange((self)->part[i_], 0x500, 0x600) & 0xFF))   \
                     actor_ = 1;                                                 \
                 if (actor_ == 1)                                                \
-                    (self)->part[i_]->vt->unk74((char *)(self)->part[i_] +      \
-                        (self)->part[i_]->vt->unk70Delta, (self)->part[i_]->pos); \
+                    cGameObj_vt((self)->part[i_])->unk74((char *)(self)->part[i_] +      \
+                        cGameObj_vt((self)->part[i_])->unk70Delta, (self)->part[i_]->pos); \
             }                                                                   \
         }                                                                       \
     }

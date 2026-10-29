@@ -30,7 +30,7 @@ int func_00273960(cEm00 *self, float reach)
 
     VU0_SQC2_VF0_MEM(&from, 0);
     VU0_SQC2_VF0_MEM(&to, 0);
-    MtxInitRotY(m, Getplayer()->rot[1]);
+    MtxInitRotY(m, Getplayer()->rot.y);
     from.x = 0;
     from.y = RAY_HEIGHT;
     from.z = 0;

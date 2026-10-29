@@ -74,7 +74,7 @@ cOmWeapon *func_0012A610(cGameObj *self)
             if (dy < PICKUP_BELOW)
                 break;
             if (Obj1D00_GetField_665(w) != 0) {
-                d = Turn_dest((float *)self->pos, (float *)w->base.pos, self->rot[1], 3.1415927f);
+                d = Turn_dest((float *)self->pos, (float *)w->base.pos, self->rot.y, 3.1415927f);
                 if (PICKUP_ARC < (d < 0.0f ? -d : d))
                     break;
             }

@@ -50,7 +50,7 @@ void func_001AF230(cOmRiseTrap *self)
 
     VU0_LQC2_SQC2_MEM(4, &d, ((cVec *(*)(void *))vt->pfn)((char *)self + vt->delta));
     pl = Getplayer();
-    target = ((cVec *(*)(void *))pl->vt->lockOn)((char *)pl + pl->vt->lockOnDelta);
+    target = ((cVec *(*)(void *))cGameObj_vt(pl)->lockOn)((char *)pl + cGameObj_vt(pl)->lockOnDelta);
     VU0_LQC2(4, &d, 0);
     VU0_LQC2(5, target, 0);
     VU0_VSUB_XYZ(4, 4, 5);

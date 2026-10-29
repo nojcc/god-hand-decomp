@@ -55,7 +55,7 @@ void func_00169358(ShopPanel *self)
     int known;
     unsigned int n;
 
-    CVEC_SET_XYZ(self->player->rot, 0.0f, 0.0f, 0.0f);
+    CVEC_SET_XYZ(&self->player->rot.x, 0.0f, 0.0f, 0.0f);
     D_00747A80 &= ~0x00800000;
     D_00747A80 &= ~0x80000000;
     D_00747A80 &= ~0x00200000;

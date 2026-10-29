@@ -75,14 +75,14 @@ void func_0011F810(cEm00 *self)
                 CVEC_ASSIGN(best, &pts[i]);
             }
             CVEC_PUT(pl->base.pos, best);
-            MtxInitRotY(mtx, pl->base.rot[1]);
+            MtxInitRotY(mtx, pl->base.rot.y);
             ofs.x = -0.2067f;
             ofs.z = 4.6215f;
             ofs.y = 0.0f;
             CVEC_APPLY(mtx, &ofs);
             CVEC_INIT_ADD(at, &ret_, pl->base.pos);
             CVEC_PUT(self->pos, at);
-            self->rot.y = pl->base.rot[1] + 3.1415927f;
+            self->rot.y = pl->base.rot.y + 3.1415927f;
             self->rot.y = Adjust_theta(self->rot.y);
         } else {
             CVEC_INIT_XYZ(at, -0.2067f, 0.0f, 4.6215f);

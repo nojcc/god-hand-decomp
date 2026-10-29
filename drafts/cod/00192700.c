@@ -26,7 +26,6 @@ typedef struct cOmFadeBreak {
 
 typedef struct cOmDamaged cOmDamaged;
 
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern void cOmDamaged_switchOff(cOmDamaged *self);
 extern void SetField5B0Bit2ClearBit8_1B7908(cOmBase *self);
 
@@ -41,7 +40,7 @@ void func_00192700(cOmFadeBreak *self)
     case FADE_START: {
         cVec *src;
         VU0_SQC2_VF0(&pos, 0);
-        src = ((cVec *(*)(void *))self->base.vt->lockOn)((char *)self + self->base.vt->lockOnDelta);
+        src = ((cVec *(*)(void *))cGameObj_vt(&self->base)->lockOn)((char *)self + cGameObj_vt(&self->base)->lockOnDelta);
         cVec_copy3(&pos, src);
         SetEffectPos(0, FADE_EFFECT, 0, &pos, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self, 0, 0, 0, 0);
@@ -62,7 +61,7 @@ void func_00192700(cOmFadeBreak *self)
         self->base.stepArg = 0;
         break;
     case FADE_OUT:
-        self->base.animRate = (float)--self->timer / 15.0f;
+        self->base.tint.w = (float)--self->timer / 15.0f;
         if (self->timer > 0) {
             break;
         }
@@ -77,7 +76,7 @@ void func_00192700(cOmFadeBreak *self)
         self->base.stepArg = 0;
         break;
     }
-    for (i = 0; i < FADE_CHILD_MAX && self->base.childNum != i; i++) {
+    for (i = 0; i < FADE_CHILD_MAX && self->base.partNum != i; i++) {
     }
 }
 #else

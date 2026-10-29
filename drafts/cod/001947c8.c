@@ -80,7 +80,7 @@ void func_001947C8(EmBoxFollow *self)
     part = cOmBase_childAt((cOmBase *)self, frame, 1);
     VU0_LQC2_SQC2_MEM(4, &pos, part->pos);
     pl = Getplayer();
-    VU0_LQC2_SQC2_MEM(4, &target, ((cVec *(*)(void *))pl->vt->lockOn)((char *)pl + pl->vt->lockOnDelta));
+    VU0_LQC2_SQC2_MEM(4, &target, ((cVec *(*)(void *))cGameObj_vt(pl)->lockOn)((char *)pl + cGameObj_vt(pl)->lockOnDelta));
     if (target.x < self->xMin - 1.0f || self->xMax + 1.0f < target.x
         || target.z < self->zMin - 1.0f || self->zMax + 1.0f < target.z) {
         cVec_copy3(&target, &self->home);

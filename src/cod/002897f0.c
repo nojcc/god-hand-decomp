@@ -28,7 +28,6 @@ static __inline__ void cMeshNode_show(cMeshNode *node) {
 extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern void cObjBase_KageInit(void *a, void *b, void *c);
 extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
 extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
@@ -108,7 +107,7 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     cCollisionSolidManage_SetActive(&D_00462FC0, self, 0);
     cVec_copy3(&self->escPos, self->base.pos);
     cParts_setRotationOrder((char *)self, 4);
-    cObjBase_KageInit(self, self->shadow, D_003C3F68);
+    cObjBase_KageInit((cObjBase *)self, self->shadow, D_003C3F68);
     self->damageTake = cDamageManage_CreateDamageTake(D_00574380, self, 1);
 
     /* Four damage spheres, each centred on a joint of the model. */

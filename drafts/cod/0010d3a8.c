@@ -32,13 +32,13 @@ extern int D_003BC7D0[][5];             /* combo table, 0x14 bytes per combo */
 /* Distance in the XZ plane from pos to the object the player is locked on to. */
 static __inline__ float pl00_targetDistXZ(cVec *pos, cGameObj *target)
 {
-    return capVu0MagnitudeXZ(pos, target->vt->getPos((char *)target + target->vt->getPosDelta));
+    return capVu0MagnitudeXZ(pos, cGameObj_vt(target)->getPos((char *)target + cGameObj_vt(target)->getPosDelta));
 }
 
 /* The same distance, squared. */
 static __inline__ float pl00_targetDistSqXZ(cVec *pos, cGameObj *target)
 {
-    return capVu0MagnitudeSqXZ(pos, target->vt->getPos((char *)target + target->vt->getPosDelta));
+    return capVu0MagnitudeSqXZ(pos, cGameObj_vt(target)->getPos((char *)target + cGameObj_vt(target)->getPosDelta));
 }
 
 /* A combo attack: start the next combo of the set, close in on the target,

@@ -48,12 +48,12 @@ void func_001C86E8(ThrownObj *self)
 
     switch (self->base.step) {
     case 0:
-        self->base.rot[0] = -capVu0Atan2(self->vel.y,
+        self->base.rot.x = -capVu0Atan2(self->vel.y,
             __builtin_sqrtf(self->vel.x * self->vel.x + self->vel.z * self->vel.z));
-        self->base.rot[1] = capVu0Atan2(self->vel.x, self->vel.z);
+        self->base.rot.y = capVu0Atan2(self->vel.x, self->vel.z);
         self->life = 90.0f;
         self->base.step++;
-        self->base.rot[2] = 0.0f;
+        self->base.rot.z = 0.0f;
     case 1:
         if (spin != 0)
             spin->rot.x += rate * 0.87266463f;

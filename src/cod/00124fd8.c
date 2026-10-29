@@ -14,7 +14,6 @@ extern void *SearchData(void *pack, void *name, int id);
 extern void cFont_setTextureAddr(cFont *self, int slot, void *tex0, void *tex1);
 extern int cEm00_ckDown(cGameObj *em);
 extern void func_002B4428(void *win, int a1, int a2);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 
 /* The part of the game state block D_007474A0 that names the resource pack. */
 typedef struct GameStatePack {

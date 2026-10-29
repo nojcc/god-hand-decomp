@@ -55,6 +55,6 @@ void cCollisionSolidManage_SetActive(int a0, int a1, int a2) {
 
 __attribute__((section(".text.cGameObj_SetTgtTurn")))
 void cGameObj_SetTgtTurn(cGameObj *self, cVec *target, float rate) {
-    float r = Turn_dest(&self->pos->x, &target->x, self->rot[1], rate * D_007479FC);
-    self->rot[1] = Adjust_theta(self->rot[1] + r);
+    float r = Turn_dest(&self->pos->x, &target->x, self->rot.y, rate * D_007479FC);
+    self->rot.y = Adjust_theta(self->rot.y + r);
 }

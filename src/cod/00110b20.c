@@ -36,35 +36,35 @@ void func_00110B20(pl00 *self)
         func_00124540(self, 4);
         if (self->sub698 != 0 && self->sub698->actorId == 0x3AF)
             Obj0000_Clear_Fields_640_648_124E58((char *)self);
-        start = MOTION_AT(self->base.motionData, 0x3CC);
-        end = MOTION_AT(self->base.motionData, 0x3D0);
+        start = MOTION_AT(self->base.pack, 0x3CC);
+        end = MOTION_AT(self->base.pack, 0x3D0);
         if (self->sub698 != 0) {
             switch (self->sub698->actorId) {
             default:
-                start = MOTION_AT(self->base.motionData, 0x3CC);
-                end = MOTION_AT(self->base.motionData, 0x3D0);
+                start = MOTION_AT(self->base.pack, 0x3CC);
+                end = MOTION_AT(self->base.pack, 0x3D0);
                 break;
             case 0x36D:
             case 0x377:
             case 0x378:
             case 0x3AA:
             case 0x3AB:
-                start = MOTION_AT(self->base.motionData, 0x91C);
-                end = MOTION_AT(self->base.motionData, 0x920);
+                start = MOTION_AT(self->base.pack, 0x91C);
+                end = MOTION_AT(self->base.pack, 0x920);
                 break;
             case 0x37B:
             case 0x390:
-                start = MOTION_AT(self->base.motionData, 0x3CC);
-                end = MOTION_AT(self->base.motionData, 0x3D0);
+                start = MOTION_AT(self->base.pack, 0x3CC);
+                end = MOTION_AT(self->base.pack, 0x3D0);
                 if (GetField_68C_1D0C10((char *)self->sub698) != 0) {
-                    start = MOTION_AT(self->base.motionData, 0x934);
-                    end = MOTION_AT(self->base.motionData, 0x938);
+                    start = MOTION_AT(self->base.pack, 0x934);
+                    end = MOTION_AT(self->base.pack, 0x938);
                     self->base.stepArg = 1;
                 }
                 break;
             case 0x3AF:
-                start = MOTION_AT(self->base.motionData, 0x8C0);
-                end = MOTION_AT(self->base.motionData, 0x8C4);
+                start = MOTION_AT(self->base.pack, 0x8C0);
+                end = MOTION_AT(self->base.pack, 0x8C4);
                 break;
             }
         }
@@ -87,7 +87,7 @@ void func_00110B20(pl00 *self)
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
         break;
     }
-    if ((self->base.motionFlags & 1) && self->unk15B0 != 0) {
+    if ((self->base.seqFlags & 1) && self->unk15B0 != 0) {
         int weapon;
 
         self->unk15B0 = 0;
@@ -102,10 +102,10 @@ void func_00110B20(pl00 *self)
 
                     CVEC_ZERO(heldPos);
                     CVEC_ZERO(heldRot);
-                    w->vt->unk44((char *)w + w->vt->unk40Delta);
+                    cGameObj_vt(w)->unk44((char *)w + cGameObj_vt(w)->unk40Delta);
                     cVec_copy3(w->pos, self->base.pos);
                     cVec_copy3(&w->posA, self->base.pos);
-                    vec3_set(w->rot, 0, 0, 0);
+                    vec3_set(&w->rot.x, 0, 0, 0);
                     vec3_set(&heldPos.x, 0, 0, 0);
                     vec3_set(&heldRot.x, 0, 0, 0);
                     cOmWeapon_setParent((cOmWeapon *)w, (cOmBase *)self->sub698, 2, &heldPos, &heldRot);

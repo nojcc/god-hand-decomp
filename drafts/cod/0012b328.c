@@ -67,7 +67,7 @@ cGameObj *func_0012B328(cGameObj *self)
         dy = self->pos->y - obj->pos->y;
         ady = (dy < 0.0f) ? -dy : dy;
         if (0.5f < ady) continue;
-        turn = Turn_dest(self->pos, obj->pos, self->rot[1], 3.14159274f);
+        turn = Turn_dest(self->pos, obj->pos, self->rot.y, 3.14159274f);
         aturn = (turn < 0.0f) ? -turn : turn;
         if (1.04719758f < aturn) continue;
         cVec_zero(&from);

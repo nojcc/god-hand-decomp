@@ -50,9 +50,9 @@ void func_00249770(cGameObj *self, float angle)
     VU0_VADD_XYZ_IP(&f.at, 0, &D_005850B0);
     self->pos->x = f.at.x;
     self->pos->z = f.at.z;
-    self->rot[1] += Turn_dest_dir(self->rot[1], Adjust_theta(angle + 3.1415927f),
+    self->rot.y += Turn_dest_dir(self->rot.y, Adjust_theta(angle + 3.1415927f),
                                   self->speedRate * ORBIT_TURN_STEP);
-    self->rot[1] = Adjust_theta(self->rot[1]);
+    self->rot.y = Adjust_theta(self->rot.y);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_00249770);

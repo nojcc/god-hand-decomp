@@ -57,14 +57,14 @@ void func_00115310(pl00 *self)
         self->base.unk580.z = 1.0f;
         sceVu0ApplyMatrix(&self->base.unk580, self->base.mtx, &self->base.unk580);
         CVEC_COPY(pos, self->base.pos);
-        target = func_00291010(&D_005864F0, &pos, self->base.rot[1], 40.0f, 3.1415927f, 0, 0, 0);
+        target = func_00291010(&D_005864F0, &pos, self->base.rot.y, 40.0f, 3.1415927f, 0, 0, 0);
         self->unk640 = target;
         if (target != 0) {
-            at = target->vt->getPos((char *)target + target->vt->getPosDelta);
+            at = cGameObj_vt(target)->getPos((char *)target + cGameObj_vt(target)->getPosDelta);
             CVEC_PUT(&self->base.unk580, *at);
             from = self->base.pos;
-            at = self->unk640->vt->getPos((char *)self->unk640 + self->unk640->vt->getPosDelta);
-            rel = Turn_dest((float *)from, (float *)at, self->base.rot[1], 3.1415927f);
+            at = cGameObj_vt(self->unk640)->getPos((char *)self->unk640 + cGameObj_vt(self->unk640)->getPosDelta);
+            rel = Turn_dest((float *)from, (float *)at, self->base.rot.y, 3.1415927f);
             if (rel < 0.0f)
                 off = -rel;
             else
@@ -72,27 +72,27 @@ void func_00115310(pl00 *self)
             if (2.3561945f < off)
                 back = 1;
         }
-        self->unk15C0 = self->base.rot[1];
+        self->unk15C0 = self->base.rot.y;
         if (back != 0) {
             cOm_attachThrown((struct ThrowerObj *)self);
             if (self->sub6A0 != 0) {
-                func_002A8578((int)self->sub6A0, motionBlock_at(self->base.motionData, 0x378),
-                              motionBlock_at(self->base.motionData, 0x394), 0, 0.0f, 0, 0);
+                func_002A8578((int)self->sub6A0, motionBlock_at(self->base.pack, 0x378),
+                              motionBlock_at(self->base.pack, 0x394), 0, 0.0f, 0, 0);
                 func_001331B8(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
             }
-            func_002A8578((int)self, motionBlock_at(self->base.motionData, 0x35C),
-                          motionBlock_at(self->base.motionData, 0x360), 0, 0.0f, 0, 0);
-            self->unk15C0 = self->base.rot[1] + 3.1415927f;
+            func_002A8578((int)self, motionBlock_at(self->base.pack, 0x35C),
+                          motionBlock_at(self->base.pack, 0x360), 0, 0.0f, 0, 0);
+            self->unk15C0 = self->base.rot.y + 3.1415927f;
             self->unk15C0 = Adjust_theta(self->unk15C0);
         } else {
             cOm_attachThrown((struct ThrowerObj *)self);
             if (self->sub6A0 != 0) {
-                func_002A8578((int)self->sub6A0, motionBlock_at(self->base.motionData, 0x6E8),
-                              motionBlock_at(self->base.motionData, 0x6EC), 0, 0.0f, 0, 0);
+                func_002A8578((int)self->sub6A0, motionBlock_at(self->base.pack, 0x6E8),
+                              motionBlock_at(self->base.pack, 0x6EC), 0, 0.0f, 0, 0);
                 func_001331B8(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
             }
-            func_002A8578((int)self, motionBlock_at(self->base.motionData, 0x6E0),
-                          motionBlock_at(self->base.motionData, 0x6E4), 0, 0.0f, 0, 0);
+            func_002A8578((int)self, motionBlock_at(self->base.pack, 0x6E0),
+                          motionBlock_at(self->base.pack, 0x6E4), 0, 0.0f, 0, 0);
         }
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->base.step++;
@@ -102,8 +102,8 @@ void func_00115310(pl00 *self)
             turn = Turn_dest((float *)self->base.pos, (float *)&self->base.unk580, self->unk15C0, 0.2244f);
             self->unk15C0 = self->unk15C0 + turn;
             self->unk15C0 = Adjust_theta(self->unk15C0);
-            self->base.rot[1] = self->base.rot[1] + turn;
-            self->base.rot[1] = Adjust_theta(self->base.rot[1]);
+            self->base.rot.y = self->base.rot.y + turn;
+            self->base.rot.y = Adjust_theta(self->base.rot.y);
         }
         if (moveMotion(self) != 0) {
             pl00_clearMotionCam(self, 1, 0);

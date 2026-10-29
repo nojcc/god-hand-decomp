@@ -26,7 +26,7 @@ void func_0014E818(cGameObj *self, cVec *target, float maxStep)
     VU0_ZERO_VSUB_XYZ_MEM(&f, (int)&((TurnFrame *)0)->work, target, self->pos);
     VU0_LQC2(4, &f.work, 0);
     VU0_SQC2(4, &f, 0);
-    diff = Adjust_theta(capVu0Atan2(f.dir.x, f.dir.z) - self->rot[1]);
+    diff = Adjust_theta(capVu0Atan2(f.dir.x, f.dir.z) - self->rot.y);
     if (diff < -maxStep) {
         step = -maxStep;
     } else if (maxStep < diff) {
@@ -34,8 +34,8 @@ void func_0014E818(cGameObj *self, cVec *target, float maxStep)
     } else {
         step = diff;
     }
-    self->rot[1] += step;
-    self->rot[1] = Adjust_theta(self->rot[1]);
+    self->rot.y += step;
+    self->rot.y = Adjust_theta(self->rot.y);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_0014E818);

@@ -72,7 +72,7 @@ void func_0028D7E8(EmMeshEnemy *self)
 
     /* retail builds an effect parameter block it never passes on */
     cEffectParam_init(&param);
-    param.size = self->obj.scale[1];
+    param.size = self->obj.scale.y;
     param.unk70 = 0;
     param.unk72 = 0;
     param.unk74 = 0;
@@ -167,7 +167,7 @@ void func_0028D7E8(EmMeshEnemy *self)
         self->obj.motionFlags |= 0x8000;
     }
 
-    if (self->obj.unk434 & 2) {
+    if (self->obj.motionFlags & 2) {
         n = MESH_PICK(self->obj.motionFlags, 0x80, 0x8000);
     } else {
         n = MESH_PICK(self->obj.motionFlags, 0x40, 0x4000);
@@ -204,7 +204,7 @@ void func_0028D7E8(EmMeshEnemy *self)
         }
     }
 
-    if (self->obj.unk434 & 2) {
+    if (self->obj.motionFlags & 2) {
         n = MESH_PICK(self->obj.motionFlags, 0x40, 0x4000);
     } else {
         n = MESH_PICK(self->obj.motionFlags, 0x80, 0x8000);

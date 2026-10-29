@@ -55,9 +55,9 @@ void func_001CE6C8(cEmSink *self)
         self->timer = SINK_HOLD_FRAMES;
         self->base.step++;
     case 1:
-        self->base.rot[0] += rate * SINK_SPIN;
-        self->base.rot[0] = Adjust_theta(self->base.rot[0]);
-        MtxInitRotVec(mtx, self->base.rot, 0);
+        self->base.rot.x += rate * SINK_SPIN;
+        self->base.rot.x = Adjust_theta(self->base.rot.x);
+        MtxInitRotVec(mtx, &self->base.rot.x, 0);
         drop.x = 0;
         drop.y = SINK_DROP;
         drop.z = 0;
@@ -68,8 +68,8 @@ void func_001CE6C8(cEmSink *self)
         VU0_VADD_XYZ_PTR(self->base.pos, self->base.pos, &step);
         self->timer -= rate;
         if (self->timer <= 0.0f) {
-            self->base.animRate -= rate * SINK_FADE;
-            if (self->base.animRate <= 0.0f) {
+            self->base.tint.w -= rate * SINK_FADE;
+            if (self->base.tint.w <= 0.0f) {
                 self->base.mode = 1;
                 self->base.phase = 0;
                 self->base.step = 0;
