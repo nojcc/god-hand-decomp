@@ -308,7 +308,7 @@ __attribute__((section(".text.MtxCopy")))
 void MtxCopy(void *dst, void *src) { func_0030A548(dst, src); }
 
 __attribute__((section(".text.MtxMultiply")))
-void MtxMultiply(void *dst, void *a, void *b) { func_0030A2E0(dst, a, b); }
+void MtxMultiply(void *dst, void *a, void *b) { sceVu0MulMatrix(dst, a, b); }
 
 __attribute__((section(".text.Tramp_func_0030A2B0_001508D8")))
 void Tramp_func_0030A2B0_001508D8(void *v0, void *m0, void *v1) { sceVu0ApplyMatrix(v0, m0, v1); }

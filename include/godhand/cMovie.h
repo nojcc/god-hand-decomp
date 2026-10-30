@@ -86,7 +86,7 @@ typedef struct cMovieClip {
     int f30;                            /* 0x1C copied to cMovieTrack.f30 */
     int f38;                            /* 0x20 copied to cMovieTrack.f38 */
     int level;                          /* 0x24 int read as a float into the track at 0x44 */
-    int level2;                         /* 0x28 the same, used instead when Obj0000_Get_D_0076A7A4_3756F0() is 2 */
+    int level2;                         /* 0x28 the same, used instead when SdeSystemOutModeGet() is 2 */
     unsigned int flags;                 /* 0x2C */
 } cMovieClip;                           /* 0x30 */
 

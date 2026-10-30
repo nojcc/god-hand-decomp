@@ -7,7 +7,7 @@
 #include "godhand/padWork.h"
 #include "godhand/menuKey.h"
 
-extern void SetGlobalToggle_375700(int mode);
+extern void SdeSystemOutModeSet(int mode);
 
 #define OPTION_ROWS      6
 

@@ -3,7 +3,7 @@
 extern char D_00580D40[];
 extern int cDvd_Check(int a0, int a1);
 extern int FindEntryValue_1FF9C0(char *table, char *name, int *size, char *key);
-extern void *EnsureInitThenForward_2A9538_30EE08(int size, int align, struct HeapArena *heap);
+extern void *_MemoryAlloc(int size, int align, struct HeapArena *heap);
 extern void cDvd_step(cDvd *self);
 
 /* Queue a read of a named file. Returns the job id, 0 on failure. size overrides the size in bytes. */

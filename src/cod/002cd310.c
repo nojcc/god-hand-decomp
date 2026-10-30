@@ -12,7 +12,7 @@ extern int cBgmData_GetHeadPtr(int data);
 extern int SetSequenceEntry_373158(cSndBgmNode *node, int reqNo);
 extern int UpdateSequenceEntry_373298(cSndBgmNode *node, int reqNo);
 extern void UpdateSequenceNodeWeighted_373560(cSndBgmNode *node, int a1, float w);
-extern void func_0030A538(float *pos, int mtx);
+extern void sceVu0CopyVector(float *pos, int mtx);
 
 /* Moves a fresh node from state 0 to 1, then releases it once its sequence has finished. */
 __attribute__((section(".text.cSndBgmNode_Update")))
