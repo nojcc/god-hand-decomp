@@ -13,7 +13,7 @@ extern int D_00752CF8;                  /* timer-0 counts MoveObj took */
 extern char D_00450AF8[];               /* the object count debug line */
 
 extern void cScrArray_move(void *a0);
-extern void DebugPrintfWrapper(int x, int y, int a2, int a3, char *fmt, ...);
+extern void printf_2E0DA8(int x, int y, int a2, int a3, char *fmt, ...);
 
 /* Move every registered object that isn't suspended or gone and clear the low two bits of its 0x2F0
  * word, then the actor-0 list; time it all with timer 0 and print the object count. */
@@ -47,5 +47,5 @@ void MoveObj(void)
     if (!(D_00747A78 & SYSFLAG_PAUSE))
         cScrArray_move(&D_00754C38);
     D_00752CF8 -= T0_COUNT;
-    DebugPrintfWrapper(100, 0x7C, 0, 4, D_00450AF8, D_00754C30.v ? D_00754C30.v->end - D_00754C30.v->begin : 0);
+    printf_2E0DA8(100, 0x7C, 0, 4, D_00450AF8, D_00754C30.v ? D_00754C30.v->end - D_00754C30.v->begin : 0);
 }

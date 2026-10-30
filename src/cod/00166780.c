@@ -24,7 +24,7 @@ void func_00166780(cSubScrOption *self)
     } else {
         self->ent[8]->flags &= ~IDENT_FLAG_NO_DRAW;
     }
-    switch (Obj0000_Get_D_0076A7A4_3756F0()) {
+    switch (SdeSystemOutModeGet()) {
     case 1:
         self->ent[10]->flags &= ~IDENT_FLAG_NO_DRAW;
         break;

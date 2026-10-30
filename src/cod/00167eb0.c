@@ -3,7 +3,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/padWork.h"
 
-extern void SetGlobalToggle_375700(int mode);
+extern void SdeSystemOutModeSet(int mode);
 
 /* Put the settings back to their defaults: save flag off, sound output 1, vibration on. self is not read. */
 __attribute__((section(".text.func_00167EB0")))

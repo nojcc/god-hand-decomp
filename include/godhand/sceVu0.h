@@ -20,7 +20,7 @@ typedef float sceVu0FMATRIX[4][4] __attribute__((aligned(16)));
 extern void func_0030A548(void *dst, void *src);
 
 /* dst = a * b for 4x4 matrices (MtxMultiply's callee). */
-extern void func_0030A2E0(void *dst, void *a, void *b);
+extern void sceVu0MulMatrix(void *dst, void *a, void *b);
 
 /* Integer screen position of v through the view-projection matrix m (x, y
  * and z in 12.4 fixed point). */

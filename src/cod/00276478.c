@@ -21,12 +21,12 @@ static __inline__ int Em_isScreenGhost(cEm00 *self)
     return self->emNo == EM_NO_SCREEN_GHOST;
 }
 
-/* Makes the enemy see-through and slow while the camera target is close to its head
+/* Makes the enemy see-through and slow while the camera eye is close to its head
  * child (or, when flagged, its ninth child); otherwise restores it. */
 __attribute__((section(".text.func_00276478")))
 void func_00276478(cEm00 *self)
 {
-    cVec target;
+    cVec eye;
     int frame[3];
     cOmBase *child;
     int flags;
@@ -46,16 +46,16 @@ void func_00276478(cEm00 *self)
                 if (D_005CAFF0 == 0) {
                     return;
                 }
-                VU0_SQC2_VF0_MEM(&target, 0);
-                cVec_copy3(&target, &D_005CAFF0->target);
+                VU0_SQC2_VF0_MEM(&eye, 0);
+                cVec_copy3(&eye, &D_005CAFF0->eye);
                 near = 0;
                 child = cOmBase_childAt((cOmBase *)self, frame, 16);
-                if (child != 0 && capVu0MagnitudeSqXZ(child->pos, &target) < GHOST_HEAD_NEAR_SQ) {
+                if (child != 0 && capVu0MagnitudeSqXZ(child->pos, &eye) < GHOST_HEAD_NEAR_SQ) {
                     near = 1;
                 }
                 if (self->emFlags & EMFLAG_SECOND_PART) {
                     child = cOmBase_childAt((cOmBase *)self, frame, 9);
-                    if (child != 0 && capVu0MagnitudeSqXZ(child->pos, &target) < GHOST_PART_NEAR_SQ) {
+                    if (child != 0 && capVu0MagnitudeSqXZ(child->pos, &eye) < GHOST_PART_NEAR_SQ) {
                         near = 1;
                     }
                 }
