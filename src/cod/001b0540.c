@@ -1,18 +1,13 @@
-/* sn-2.95.3-136, fp_hazard_rules sqrt */
-/* func_001B0540. Retail tests falling == 0 && rolling == 1 with one 64-bit
- * load of 0x620..0x627 and a mask; this C merges the two byte tests into one
- * lhu at 0x624 (bitfields give the same). The bytes may sit in an 8-byte
- * record at 0x620. 52 instructions differ, all from that test on. */
-#include "include_asm.h"
-#include "../vu0_pending.h"
+/* sn-2.95.3-136 */
 #include "godhand/cGameObj.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/gameWork.h"
 #include "godhand/cOmHitVolumeSetup.h"
+#include "godhand/capVu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/vu0.h"
 
-#ifdef NON_MATCHING
 /* The rolling object func_001B0980 starts; no header type yet. */
 typedef struct RollObj {
     cGameObj base;
@@ -26,8 +21,6 @@ typedef struct RollObj {
     unsigned char rolling;              /* 0x625 */
 } RollObj;
 
-extern float capVu0LengthSq(void *a0);
-extern float sqrtf(float x);
 extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
 extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 
@@ -41,7 +34,8 @@ void func_001B0540(RollObj *self)
     cVec hit;
     float k;
 
-    VU0_LQC2_SQC2_MEM(4, &flat, &self->vel);
+    VU0_LQC2(4, &self->vel, 0);
+    VU0_SQC2_MEM(4, &flat, 0);
     flat.y = 0.0f;
     if (__builtin_sqrtf(capVu0LengthSq(&flat)) < 0.03f)
         self->rolling = 0;
@@ -72,6 +66,7 @@ void func_001B0540(RollObj *self)
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 2, 0x92, -1, -1, 0, 0);
             }
         } else {
+            /* retail subtracts a zero here: dropping it changes the code */
             self->base.pos->y = hit.y - 0.0f;
         }
     }
@@ -80,11 +75,8 @@ void func_001B0540(RollObj *self)
         if (self->smokeWait > 0) {
             self->smokeWait--;
         } else {
-            SetEffect(1, 1, self, 0, -1, (void *)-1);
+            SetEffect(1, 1, self, 0, -1, 0xFFFFFFFF);
             self->smokeWait = 10;
         }
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_001B0540);
-#endif
