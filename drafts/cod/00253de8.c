@@ -95,8 +95,8 @@ void func_00253DE8(cEm00 *self)
         if (side == 0) {
             switch (self->emNo) {
             default:
-                motA = EM_RES_REC(self->resource, 0x5E0);
-                motB = EM_RES_REC(self->resource, 0x5E4);
+                motA = EM_RES_REC(EM_RES(self), 0x5E0);
+                motB = EM_RES_REC(EM_RES(self), 0x5E4);
                 break;
             case 0x20A:
             case 0x20B:
@@ -110,26 +110,26 @@ void func_00253DE8(cEm00 *self)
             case 0x24F:
             case 0x278:
             case 0x279:
-                motA = EM_RES_REC(self->resource, 0xABC);
-                motB = EM_RES_REC(self->resource, 0xAC0);
+                motA = EM_RES_REC(EM_RES(self), 0xABC);
+                motB = EM_RES_REC(EM_RES(self), 0xAC0);
                 break;
             case 0x250:
             case 0x251:
-                motA = EM_RES_REC(self->resource, 0xABC);
-                motB = EM_RES_REC(self->resource, 0xAC0);
+                motA = EM_RES_REC(EM_RES(self), 0xABC);
+                motB = EM_RES_REC(EM_RES(self), 0xAC0);
                 cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase((int *)self) + 0x23), self, 0, 0, 0, 0);
                 break;
             case 0x260:
-                motA = EM_RES_REC(self->resource, 0xABC);
-                motB = EM_RES_REC(self->resource, 0xAC0);
+                motA = EM_RES_REC(EM_RES(self), 0xABC);
+                motB = EM_RES_REC(EM_RES(self), 0xAC0);
                 break;
             case 0x264:
-                motA = EM_RES_REC(self->resource, 0x3300);
-                motB = EM_RES_REC(self->resource, 0x3304);
+                motA = EM_RES_REC(EM_RES(self), 0x3300);
+                motB = EM_RES_REC(EM_RES(self), 0x3304);
                 break;
             case 0x265:
-                motA = EM_RES_REC(self->resource, 0x3818);
-                motB = EM_RES_REC(self->resource, 0x381C);
+                motA = EM_RES_REC(EM_RES(self), 0x3818);
+                motB = EM_RES_REC(EM_RES(self), 0x381C);
                 break;
             case 0x20F:
             case 0x210:
@@ -140,8 +140,8 @@ void func_00253DE8(cEm00 *self)
             case 0x272:
             case 0x273:
             case 0x274:
-                motA = EM_RES_REC(self->resource, 0xEFC);
-                motB = EM_RES_REC(self->resource, 0xF00);
+                motA = EM_RES_REC(EM_RES(self), 0xEFC);
+                motB = EM_RES_REC(EM_RES(self), 0xF00);
                 break;
             case 0x205:
             case 0x206:
@@ -149,23 +149,23 @@ void func_00253DE8(cEm00 *self)
             case 0x208:
             case 0x224:
             case 0x241:
-                motA = EM_RES_REC(self->resource, 0x1750);
-                motB = EM_RES_REC(self->resource, 0x1754);
+                motA = EM_RES_REC(EM_RES(self), 0x1750);
+                motB = EM_RES_REC(EM_RES(self), 0x1754);
                 break;
             case 0x209:
             case 0x21F:
-                motA = EM_RES_REC(self->resource, 0x1750);
-                motB = EM_RES_REC(self->resource, 0x1754);
+                motA = EM_RES_REC(EM_RES(self), 0x1750);
+                motB = EM_RES_REC(EM_RES(self), 0x1754);
                 break;
             case 0x220:
             case 0x221:
             case 0x222:
-                motA = EM_RES_REC(self->resource, 0x5E0);
-                motB = EM_RES_REC(self->resource, 0x5E4);
+                motA = EM_RES_REC(EM_RES(self), 0x5E0);
+                motB = EM_RES_REC(EM_RES(self), 0x5E4);
                 break;
             case 0x223:
-                motA = EM_RES_REC(self->resource, 0x2E4C);
-                motB = EM_RES_REC(self->resource, 0x2E50);
+                motA = EM_RES_REC(EM_RES(self), 0x2E4C);
+                motB = EM_RES_REC(EM_RES(self), 0x2E50);
                 break;
             case 0x21A:
             case 0x21B:
@@ -184,8 +184,8 @@ void func_00253DE8(cEm00 *self)
             case 0x24E:
             case 0x252:
             case 0x25A:
-                motA = EM_RES_REC(self->resource, 0x1328);
-                motB = EM_RES_REC(self->resource, 0x132C);
+                motA = EM_RES_REC(EM_RES(self), 0x1328);
+                motB = EM_RES_REC(EM_RES(self), 0x132C);
                 break;
             }
             func_002A8578((int)self, motA, motB, 5, 0.0f, sel, 0);
@@ -193,8 +193,8 @@ void func_00253DE8(cEm00 *self)
         } else {
             switch (self->emNo) {
             default:
-                motA = EM_RES_REC(self->resource, 0x5E8);
-                motB = EM_RES_REC(self->resource, 0x5EC);
+                motA = EM_RES_REC(EM_RES(self), 0x5E8);
+                motB = EM_RES_REC(EM_RES(self), 0x5EC);
                 break;
             case 0x20A:
             case 0x20B:
@@ -208,26 +208,26 @@ void func_00253DE8(cEm00 *self)
             case 0x24F:
             case 0x278:
             case 0x279:
-                motA = EM_RES_REC(self->resource, 0xAC4);
-                motB = EM_RES_REC(self->resource, 0xAC8);
+                motA = EM_RES_REC(EM_RES(self), 0xAC4);
+                motB = EM_RES_REC(EM_RES(self), 0xAC8);
                 break;
             case 0x250:
             case 0x251:
-                motA = EM_RES_REC(self->resource, 0xAC4);
-                motB = EM_RES_REC(self->resource, 0xAC8);
+                motA = EM_RES_REC(EM_RES(self), 0xAC4);
+                motB = EM_RES_REC(EM_RES(self), 0xAC8);
                 cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase((int *)self) + 0x23), self, 0, 0, 0, 0);
                 break;
             case 0x260:
-                motA = EM_RES_REC(self->resource, 0xAC4);
-                motB = EM_RES_REC(self->resource, 0xAC8);
+                motA = EM_RES_REC(EM_RES(self), 0xAC4);
+                motB = EM_RES_REC(EM_RES(self), 0xAC8);
                 break;
             case 0x264:
-                motA = EM_RES_REC(self->resource, 0x3300);
-                motB = EM_RES_REC(self->resource, 0x3304);
+                motA = EM_RES_REC(EM_RES(self), 0x3300);
+                motB = EM_RES_REC(EM_RES(self), 0x3304);
                 break;
             case 0x265:
-                motA = EM_RES_REC(self->resource, 0x3818);
-                motB = EM_RES_REC(self->resource, 0x381C);
+                motA = EM_RES_REC(EM_RES(self), 0x3818);
+                motB = EM_RES_REC(EM_RES(self), 0x381C);
                 break;
             case 0x20F:
             case 0x210:
@@ -238,8 +238,8 @@ void func_00253DE8(cEm00 *self)
             case 0x272:
             case 0x273:
             case 0x274:
-                motA = EM_RES_REC(self->resource, 0xF04);
-                motB = EM_RES_REC(self->resource, 0xF08);
+                motA = EM_RES_REC(EM_RES(self), 0xF04);
+                motB = EM_RES_REC(EM_RES(self), 0xF08);
                 break;
             case 0x205:
             case 0x206:
@@ -247,23 +247,23 @@ void func_00253DE8(cEm00 *self)
             case 0x208:
             case 0x224:
             case 0x241:
-                motA = EM_RES_REC(self->resource, 0x1758);
-                motB = EM_RES_REC(self->resource, 0x175C);
+                motA = EM_RES_REC(EM_RES(self), 0x1758);
+                motB = EM_RES_REC(EM_RES(self), 0x175C);
                 break;
             case 0x209:
             case 0x21F:
-                motA = EM_RES_REC(self->resource, 0x1758);
-                motB = EM_RES_REC(self->resource, 0x175C);
+                motA = EM_RES_REC(EM_RES(self), 0x1758);
+                motB = EM_RES_REC(EM_RES(self), 0x175C);
                 break;
             case 0x220:
             case 0x221:
             case 0x222:
-                motA = EM_RES_REC(self->resource, 0x5E8);
-                motB = EM_RES_REC(self->resource, 0x5EC);
+                motA = EM_RES_REC(EM_RES(self), 0x5E8);
+                motB = EM_RES_REC(EM_RES(self), 0x5EC);
                 break;
             case 0x223:
-                motA = EM_RES_REC(self->resource, 0x2E4C);
-                motB = EM_RES_REC(self->resource, 0x2E50);
+                motA = EM_RES_REC(EM_RES(self), 0x2E4C);
+                motB = EM_RES_REC(EM_RES(self), 0x2E50);
                 break;
             case 0x21A:
             case 0x21B:
@@ -282,8 +282,8 @@ void func_00253DE8(cEm00 *self)
             case 0x24E:
             case 0x252:
             case 0x25A:
-                motA = EM_RES_REC(self->resource, 0x1330);
-                motB = EM_RES_REC(self->resource, 0x1334);
+                motA = EM_RES_REC(EM_RES(self), 0x1330);
+                motB = EM_RES_REC(EM_RES(self), 0x1334);
                 break;
             }
             func_002A8578((int)self, motA, motB, 5, 0.0f, sel, 0);
@@ -295,7 +295,7 @@ void func_00253DE8(cEm00 *self)
         /* fallthrough */
     case 1:
         if (moveMotion(self) != 0) {
-            if (self->vital <= 0) {
+            if (self->hp <= 0) {
                 Em_endFlinchDown(self);
                 break;
             }
@@ -306,12 +306,12 @@ void func_00253DE8(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if ((self->moveFlags & EMMOVE_FALL_FRAME) && self->vital <= 0) {
+        if ((self->seqFlags & EMMOVE_FALL_FRAME) && self->hp <= 0) {
             Em_endFlinchDown(self);
             break;
         }
-        if ((self->moveFlags & EMMOVE_COUNTER_FRAME) && self->timerA != 0 && func_0026F1D8(self) == 0
-            && self->vital > 0) {
+        if ((self->seqFlags & EMMOVE_COUNTER_FRAME) && self->timerA != 0 && func_0026F1D8(self) == 0
+            && self->hp > 0) {
             self->timerA = 0;
             counter = 0;
             if (cCoreSave_getGameLevel(&D_00569B70) >= 2) {
@@ -330,7 +330,7 @@ void func_00253DE8(cEm00 *self)
                     break;
                 }
             }
-            if (self->vital <= 0) {
+            if (self->hp <= 0) {
                 counter = 0;
             }
             if (counter != 0) {

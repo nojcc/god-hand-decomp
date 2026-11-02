@@ -48,7 +48,7 @@ int func_002937C0(cEmManage *self, cEm00 *em)
         other = (cEm00 *)self->specialEm[i];
         if (other == 0)
             continue;
-        if (other->vital <= 0)
+        if (other->hp <= 0)
             continue;
         if (other == em)
             continue;
@@ -60,7 +60,7 @@ int func_002937C0(cEmManage *self, cEm00 *em)
             continue;
         if (other->mode != 0)
             continue;
-        if (other->moveFlags & 0x90C)
+        if (other->seqFlags & 0x90C)
             continue;
 
         CVEC_ZERO(at);

@@ -1,11 +1,8 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136: newlib _strtoul_r. D_0045F039 is _ctype_ + 1 (bits: 1 upper, 2 lower, 4 digit, 8 space). */
+extern unsigned char D_0045F039[];
 
-#include "godhand/newlibStdio.h"
-#include "godhand/newlibStdlib.h"
+struct _reent { int _errno; };
 
-/* newlib libc/stdlib/strtoul.c. */
-
-/* _strtoul_r: convert a string to an unsigned long in the given base, setting errno on overflow. */
 __attribute__((section(".text.func_003A9018")))
 unsigned long func_003A9018(struct _reent *rptr, const char *nptr, char **endptr, int base)
 {

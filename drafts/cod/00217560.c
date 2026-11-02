@@ -30,37 +30,37 @@ void func_00217560(cEm00 *self)
         if (self->emNo != 0x256 && self->emNo != 0x27E) {
             if (0.0f < rel) {
                 if (self->unk17C3 != 0) {
-                    motA = EM_RES_REC(self->resource, 0x1670);
-                    motB = EM_RES_REC(self->resource, 0x1674);
+                    motA = EM_RES_REC(EM_RES(self), 0x1670);
+                    motB = EM_RES_REC(EM_RES(self), 0x1674);
                 } else {
-                    motA = EM_RES_REC(self->resource, 0x1660);
-                    motB = EM_RES_REC(self->resource, 0x1664);
+                    motA = EM_RES_REC(EM_RES(self), 0x1660);
+                    motB = EM_RES_REC(EM_RES(self), 0x1664);
                 }
             } else {
                 if (self->unk17C3 != 0) {
-                    motA = EM_RES_REC(self->resource, 0x1660);
-                    motB = EM_RES_REC(self->resource, 0x1664);
+                    motA = EM_RES_REC(EM_RES(self), 0x1660);
+                    motB = EM_RES_REC(EM_RES(self), 0x1664);
                 } else {
-                    motA = EM_RES_REC(self->resource, 0x1670);
-                    motB = EM_RES_REC(self->resource, 0x1674);
+                    motA = EM_RES_REC(EM_RES(self), 0x1670);
+                    motB = EM_RES_REC(EM_RES(self), 0x1674);
                 }
             }
         } else {
             if (0.0f < rel) {
                 if (self->unk17C3 != 0) {
-                    motA = EM_RES_REC(self->resource, 0x25BC);
-                    motB = EM_RES_REC(self->resource, 0x25C0);
+                    motA = EM_RES_REC(EM_RES(self), 0x25BC);
+                    motB = EM_RES_REC(EM_RES(self), 0x25C0);
                 } else {
-                    motA = EM_RES_REC(self->resource, 0x25C4);
-                    motB = EM_RES_REC(self->resource, 0x25C8);
+                    motA = EM_RES_REC(EM_RES(self), 0x25C4);
+                    motB = EM_RES_REC(EM_RES(self), 0x25C8);
                 }
             } else {
                 if (self->unk17C3 != 0) {
-                    motA = EM_RES_REC(self->resource, 0x25C4);
-                    motB = EM_RES_REC(self->resource, 0x25C8);
+                    motA = EM_RES_REC(EM_RES(self), 0x25C4);
+                    motB = EM_RES_REC(EM_RES(self), 0x25C8);
                 } else {
-                    motA = EM_RES_REC(self->resource, 0x25BC);
-                    motB = EM_RES_REC(self->resource, 0x25C0);
+                    motA = EM_RES_REC(EM_RES(self), 0x25BC);
+                    motB = EM_RES_REC(EM_RES(self), 0x25C0);
                 }
             }
         }
@@ -75,7 +75,7 @@ void func_00217560(cEm00 *self)
             func_002705D8(self);
         cObjBase_addNullSpeed_Rotation((struct cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
-        if (self->moveFlags & 0x10) {
+        if (self->seqFlags & 0x10) {
             if (self->emNo != 0x256 && self->emNo != 0x27E) {
                 cVec *from = Getplayer()->pos;
 
@@ -101,8 +101,8 @@ void func_00217560(cEm00 *self)
         from = Getplayer()->pos;
         /* retail computes the turn toward the player here and drops it */
         Turn_dest((float *)from, (float *)self->pos, Getplayer()->rot.y, 3.1415927f);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x1668),
-                      EM_RES_REC(self->resource, 0x166C), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x1668),
+                      EM_RES_REC(EM_RES(self), 0x166C), 3, 0.0f, sel, 0);
         self->step++;
     }
         /* fall through */
@@ -112,7 +112,7 @@ void func_00217560(cEm00 *self)
             func_002705D8(self);
         cObjBase_addNullSpeed_Rotation((struct cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
-        if ((self->moveFlags & 3) && self->unk1864 == 0) {
+        if ((self->seqFlags & 3) && self->unk1864 == 0) {
             self->unk1864 = 1;
             p = func_0026AA30((char *)self, 0x365);
             if (p != 0)

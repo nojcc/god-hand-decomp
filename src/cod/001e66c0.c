@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/Slot2.h"
-#include "godhand/cFont.h"
 
 /* Slot2 two-step pause screen: wait two updates, then return to the title
  * state. */
@@ -57,11 +56,11 @@ void cDamageUnit_SetDamageCollActive_1FD610(char *a0, int id, int on) {
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */
 __attribute__((section(".text.func_002A58D8")))
-void func_002A58D8(cFont *font, unsigned int v) {
+void func_002A58D8(char *a0, unsigned int v) {
     char *p;
     int s;
     if (v == 0xFFFFFFFFU) {
-        p = (char *)font + 0x28000;
+        p = a0 + 0x28000;
         s = *(int *)(p + 0x2060);
         switch (s) {
         default:
@@ -73,7 +72,7 @@ void func_002A58D8(cFont *font, unsigned int v) {
             break;
         }
     } else {
-        *(int *)((char *)font + 0x28000 + 0x2064) = v;
+        *(int *)(a0 + 0x28000 + 0x2064) = v;
     }
 }
 

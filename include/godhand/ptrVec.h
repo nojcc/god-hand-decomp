@@ -20,9 +20,6 @@ typedef struct PtrVecRef {
 extern PtrVecRef D_00754C30;            /* every registered object */
 extern PtrVecRef D_00754C58;            /* every other object */
 
-/* Append obj when the list has room; returns its slot, or 0 when full. */
-void **cObjPtrArrayWrapper_pushBack(PtrVecRef *list, void *obj);
-/* Insert *val at pos, growing the storage. */
-void func_00317FF0(PtrVec *v, void **pos, void **val);
+extern void func_003129D0(PtrVecRef *list, void *obj);
 
 #endif /* GODHAND_PTRVEC_H */

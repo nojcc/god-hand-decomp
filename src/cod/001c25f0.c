@@ -1,4 +1,3 @@
-#include "godhand/cObjBase.h"
 extern int D_00460D40;
 extern int D_0042C348;
 extern int D_00460D48;

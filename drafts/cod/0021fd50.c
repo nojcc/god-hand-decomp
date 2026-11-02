@@ -12,7 +12,7 @@
 #include "godhand/angle.h"
 #include "godhand/rand.h"
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* A weapon or combo attack: step 0 picks the first swing's motion, volumes,
  * turn time and effect for the enemy type, step 1 runs it; steps 2-3 swing
@@ -1166,12 +1166,12 @@ void func_0021FD50(cEm00 *self)
             cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         }
         if (self->emNo == 0x260) {
-            if ((self->moveFlags & 1) && func_00270DB0(self) != 0) {
+            if ((self->seqFlags & 1) && func_00270DB0(self) != 0) {
                 func_00129718(Getplayer(), self, 0xB);
                 cEm00_setState(self, 0, 0x5C, 0);
                 return;
             }
-            self->moveFlags &= 0xFFFE;
+            self->seqFlags &= 0xFFFE;
         }
         break;
     case 6:
@@ -1411,7 +1411,7 @@ void func_0021FD50(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if (self->moveFlags & 0x10) {
+        if (self->seqFlags & 0x10) {
             if (self->playerDist < 16.0f && self->playerDist > 6.25f && (irand() & 1)) {
                 if (irand() & 1) {
                     cEm00_setState(self, 0, 0x4B, 0);
@@ -1474,7 +1474,7 @@ void func_0021FD50(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if ((self->moveFlags & 0x10) && self->playerDist < 16.0f) {
+        if ((self->seqFlags & 0x10) && self->playerDist < 16.0f) {
             if (self->playerDist > 6.25f && (irand() & 1)) {
                 if ((unsigned int)irand() % 3 == 0) {
                     cEm00_setState(self, 0, 0x4B, 0);
@@ -1529,13 +1529,13 @@ void func_0021FD50(cEm00 *self)
     case 0x275:
     case 0x276:
         if (self->unk5F8 != 0) {
-            if (self->moveFlags & 2) {
+            if (self->seqFlags & 2) {
                 StoreMotionParamsBoth_2609A8((char *)self, 0x1E, 0x26, 0x38, 0, 0xF5);
             }
-            if (self->moveFlags & 1) {
+            if (self->seqFlags & 1) {
                 StoreMotionParamsBoth_2609A8((char *)self, 0x1E, 0x27, 0x38, 0, 0xF5);
             }
-            if ((self->moveFlags & 3) == 3) {
+            if ((self->seqFlags & 3) == 3) {
                 StoreMotionParamsBoth_2609A8((char *)self, 0x32, 0x28, 0x38, 0, 0xF5);
             }
         }
@@ -1545,10 +1545,10 @@ void func_0021FD50(cEm00 *self)
         func_00260B30(self);
     }
     if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(self) == 0 && self->unk1864 == 0
-        && (self->moveFlags & 0x10) && func_00262AA8(self) != 0) {
+        && (self->seqFlags & 0x10) && func_00262AA8(self) != 0) {
         return;
     }
-    if (self->moveFlags & 3) {
+    if (self->seqFlags & 3) {
         self->timerC = 1;
     }
     if (self->timerC != 0) {

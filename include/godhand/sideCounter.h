@@ -22,7 +22,6 @@ typedef struct SideCounter {
 } SideCounter;
 
 extern SideCounter D_00754C38;
-SideCounter *func_002C53A8(SideCounter *self);  /* constructor */
 
 /* Constructor: empty list, side state cleared. Returns self. */
 SideCounter *func_002C53A8(SideCounter *self);

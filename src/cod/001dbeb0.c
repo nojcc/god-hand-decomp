@@ -10,7 +10,7 @@
 /* Put all 52 cards back in the deck face down and empty the hand. */
 __attribute__((section(".text.Poker_resetDeck")))
 void Poker_resetDeck(Poker *self) {
-    int *flags = &self->deck[0].flags;
+    unsigned int *flags = &self->deck[0].flags;
     int i;
     int j;
     i = POKER_DECK_NUM - 1;

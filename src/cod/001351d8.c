@@ -1,5 +1,4 @@
 #include "godhand/cObjBase.h"
-#include "godhand/cGameObj.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
@@ -8,7 +7,7 @@ extern void VecRotVec(float *out, float *in, cVec *rot, int order);
 extern void Adjust_theta_vec(cVec *v);
 extern void SetNodeListFlag_134608(void *a0, int a1);
 extern float D_007479FC;
-extern float Turn_dest(void *pos, void *target, float angle, float rate);
+extern float Turn_dest(int a0, float f12, float f13);
 extern float Adjust_theta(float f12);
 
 #include "godhand/vu0.h"
@@ -54,7 +53,8 @@ void cCollisionSolidManage_SetActive(int a0, int a1, int a2) {
 }
 
 __attribute__((section(".text.cGameObj_SetTgtTurn")))
-void cGameObj_SetTgtTurn(cGameObj *self, cVec *target, float rate) {
-    float r = Turn_dest(&self->pos->x, &target->x, self->rot.y, rate * D_007479FC);
-    self->rot.y = Adjust_theta(self->rot.y + r);
+void cGameObj_SetTgtTurn(int a0, float f12) {
+    int s0 = a0;
+    float r = Turn_dest(*(int*)(s0 + 0xF0), *(float*)(s0 + 0x104), f12 * D_007479FC);
+    *(float*)(s0 + 0x104) = Adjust_theta(*(float*)(s0 + 0x104) + r);
 }

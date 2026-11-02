@@ -10,7 +10,7 @@
 #include "godhand/angle.h"
 #include "godhand/rand.h"
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* An attack: step 0 sets the attack's motion parameters and picks its motion
  * for the enemy type (at random for some, the level 5 alternate for most),
@@ -554,7 +554,7 @@ void func_0022FAE0(cEm00 *self)
     if (self->unk1864 == 0) {
         func_00260B30(self);
     }
-    if (self->moveFlags & 3) {
+    if (self->seqFlags & 3) {
         self->timerC = 1;
     }
     if (self->timerC != 0) {

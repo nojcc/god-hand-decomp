@@ -1,7 +1,4 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-#include "godhand/player.h"
-#include "godhand/cObj.h"
-#include "godhand/cObjBase.h"
 
 extern unsigned char D_003C3CFC;
 extern void func_0030ECF8(int a0);
@@ -18,30 +15,26 @@ void *_MemoryAlloc(int a0, int a1, int a2) {
 }
 
 __attribute__((section(".text.KillEffect")))
-void KillEffect(void *owner, int handle, int arg) {
-    /* The slot tables keep the owner as an int word. */
-    int key = (int)owner;
-
-    if (owner == 0 && handle == -1) {
+void KillEffect(int a0, int a1, int a2) {
+    if (a0 == 0 && a1 == -1) {
         return;
     }
-    switch (arg) {
+    switch (a2) {
     case 0:
-        Slots_runHandlerForAll(key, handle);
+        Slots_runHandlerForAll(a0, a1);
         break;
     case 1:
-        ForEachSlotRunHandler(key, handle);
+        ForEachSlotRunHandler(a0, a1);
         break;
     case 2:
-        ForEachSlotRunHandler(key, handle);
-        Slots_runHandlerForAll(key, handle);
+        ForEachSlotRunHandler(a0, a1);
+        Slots_runHandlerForAll(a0, a1);
         break;
     }
 }
 
-/* Makes the object of actor id kind from data id and registers it. */
 __attribute__((section(".text.CreateObj")))
-cGameObj *CreateObj(int kind, int id)
+int CreateObj(int a0)
 {
-    return (cGameObj *)func_0030FB20(kind, func_0030FAC8(kind, id));
+    return func_0030FB20(a0, func_0030FAC8(a0));
 }

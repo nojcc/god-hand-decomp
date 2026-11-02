@@ -1,5 +1,4 @@
-#include "godhand/seqNode.h"
-
+extern void func_0037BE98(void);
 extern void ClearPendingFlagEvents_376E38(void);
 extern void SndReq_runQueued(void);
 extern void func_003774A8(void);

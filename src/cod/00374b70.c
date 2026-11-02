@@ -9,6 +9,7 @@ typedef struct SndBankExt {
 } SndBankExt;
 
 extern SndBankExt *D_00773250[];
+extern int func_003758E8(int cmd);
 
 __attribute__((section(".text.func_00374B70")))
 void func_00374B70(short bank, SndBankHdr *hdr, int sysMem, int size, SndBankExt *ext)
@@ -17,7 +18,7 @@ void func_00374B70(short bank, SndBankHdr *hdr, int sysMem, int size, SndBankExt
     SndBankCmd *c;
     SndBankExt **e;
 
-    c = &D_0076A880.send.bank;
+    c = &D_0076A880;
     b = &D_0076DF10[bank];
     b->id = hdr->id;
     b->data = (char *)hdr + hdr->dataOfs;

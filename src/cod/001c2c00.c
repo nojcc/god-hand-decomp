@@ -1,4 +1,5 @@
-#include "godhand/cSnd.h"
+extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
+extern char D_005FEE00[];
 extern void CustomIDWork_SetColorAnimSin(void *p, int x, int y, int z);
 extern void CustomIDWork_ResetColorAnim(void *p);
 
@@ -8,7 +9,7 @@ void SetBlendField5F4_1C2C00(void *a0)
 
     int s = *(short *)((char *)a0 + 0x5F4);
     if (s >= 0) {
-        cSnd_SeCall_2CBA48((void *)&D_005FEE00, 2, s, a0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48((void *)D_005FEE00, 2, s, a0, 0, 0, 0, 0);
     }
 }
 
@@ -18,7 +19,7 @@ void SetBlendField5F6_1C2D60(void *a0)
 
     int s = *(short *)((char *)a0 + 0x5F6);
     if (s >= 0) {
-        cSnd_SeCall_2CBA48((void *)&D_005FEE00, 2, s, a0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48((void *)D_005FEE00, 2, s, a0, 0, 0, 0, 0);
     }
 }
 

@@ -12,8 +12,6 @@
 #ifndef GODHAND_SLOTUI_H
 #define GODHAND_SLOTUI_H
 
-#include "godhand/CustomIDWork.h"
-
 #define SLOTUI_MARK_NUM      10         /* entries at markBase */
 #define SLOTUI_BET_NUM       2          /* entries at betBase */
 #define SLOTUI_ENTRY_SIZE    0x7C       /* sizeof(CustomIDWork) */
@@ -26,24 +24,10 @@ typedef struct SlotUiHost {
 } SlotUiHost;
 
 typedef struct SlotUi {
-    char idBase[0x50];                  /* 0x000 the cIDBase part */
-    CustomIDWork mark[SLOTUI_MARK_NUM]; /* 0x050 its display entries */
-    char unk528[8];
+    char idBase[0x530];                 /* 0x000 the cIDBase part; the mark entries start at 0x50 */
     char idBase2[0x50];                 /* 0x530 second cIDBase */
     char betBase[0xF8];                 /* 0x580 the bet mark entries */
     int *node;                          /* 0x678 heap node, 0 when none; word -8 is its heap */
 } SlotUi;
-
-typedef char SlotUi_idBase2_check[(int)&((SlotUi *)0)->idBase2 == 0x530 ? 1 : -1];
-
-/* Counts a slot timer down one frame; 1 once it has run out. */
-static __inline__ unsigned char Slot_tick(int *timer)
-{
-    if (*timer != 0) {
-        *timer = *timer - 1;
-        return 0;
-    }
-    return 1;
-}
 
 #endif

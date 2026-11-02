@@ -44,8 +44,8 @@ void func_0023F028(cEm00 *self)
         self->unk1864 = 0;
         switch (self->emNo) {
         default:
-            motA = EM_RES_REC(self->resource, 0x41C);
-            motB = EM_RES_REC(self->resource, 0x420);
+            motA = EM_RES_REC(EM_RES(self), 0x41C);
+            motB = EM_RES_REC(EM_RES(self), 0x420);
             self->unk568 = 0;
             break;
         case 0x21A:
@@ -65,8 +65,8 @@ void func_0023F028(cEm00 *self)
         case 0x24E:
         case 0x252:
         case 0x25A:
-            motA = EM_RES_REC(self->resource, 0x1428);
-            motB = EM_RES_REC(self->resource, 0x142C);
+            motA = EM_RES_REC(EM_RES(self), 0x1428);
+            motB = EM_RES_REC(EM_RES(self), 0x142C);
             self->unk568 = 1;
             break;
         }
@@ -170,7 +170,7 @@ void func_0023F028(cEm00 *self)
         break;
     case 2:
         self->unk1864 = 0;
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x1430), EM_RES_REC(self->resource, 0x1434), 0xA, 0.0f, 0, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x1430), EM_RES_REC(EM_RES(self), 0x1434), 0xA, 0.0f, 0, 0);
         self->timerA = 1;
         self->emFlags &= ~EMFLAG_GUARD;
         self->step++;
@@ -191,7 +191,7 @@ void func_0023F028(cEm00 *self)
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     }
-    if (self->moveFlags & EMMOVE_HIT_FRAME) {
+    if (self->seqFlags & EMMOVE_HIT_FRAME) {
         if (self->timerA != 0) {
             self->timerA = 0;
             cEmManage_damageEma2Near(&D_005864F0, self->pos);

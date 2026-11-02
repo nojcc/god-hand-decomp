@@ -3,9 +3,8 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cRecordIndex.h"
 #include "godhand/cMessage.h"
-#include "godhand/cOmWeapon.h"
 
-extern int cOmWeapon_SetDamage(cOmWeapon *self, int dt);
+extern int cOmWeapon_SetDamage(void *weapon);
 extern void cOmWeapon_SetBreak(void *weapon);
 extern void func_002B2400(cMessageWin *win);
 extern void BufHolder_deletingDtor(void *entry, int mode);
@@ -32,9 +31,9 @@ typedef struct WeaponCarrier {
 
 /* Apply damage to the carried weapon; when that wrecks it, break it and let go. */
 __attribute__((section(".text.WeaponCarrier_damageHeldWeapon")))
-void WeaponCarrier_damageHeldWeapon(WeaponCarrier *self, int damage)
+void WeaponCarrier_damageHeldWeapon(WeaponCarrier *self)
 {
-    if (self->weapon != 0 && cOmWeapon_SetDamage(self->weapon, damage) != 0) {
+    if (self->weapon != 0 && cOmWeapon_SetDamage(self->weapon) != 0) {
         cOmWeapon_SetBreak(self->weapon);
         self->weapon = 0;
     }

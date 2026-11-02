@@ -39,12 +39,13 @@ void cEmSetParam_updateSetDataRot(float f) {
 }
 
 
-/* Stores how entry no's enemy appears. self is not read. */
+/* Stores how the current entry's enemy appears. */
 __attribute__((section(".text.cEmSetParam_updateSetDataAppPattern")))
-void cEmSetParam_updateSetDataAppPattern(cEmSetParam *self, unsigned int no, unsigned char pattern) {
-    cEmSetEntry *entry = cRoomSave_findEm(&D_005E8658, no);
+void cEmSetParam_updateSetDataAppPattern(int a, int b, unsigned char c) {
+    cEmSetEntry *entry = cRoomSave_findEm(&D_005E8658);
+    c = c & 0xFF;
     if (entry != 0) {
-        entry->appPattern = pattern;
+        entry->appPattern = c;
     }
 }
 

@@ -8,7 +8,7 @@
 #include "godhand/player.h"
 #include "godhand/rand.h"
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* A swing with the held weapon: step 0 picks one of two swings at random (enemy
  * 0x21C swaps the first for a third, and takes a fourth at random when the
@@ -149,11 +149,11 @@ void func_00233DD8(cEm00 *self)
         break;
     }
     func_00260B30(self);
-    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(self) == 0 && (self->moveFlags & 0x10)
+    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(self) == 0 && (self->seqFlags & 0x10)
         && self->unk1864 == 0 && func_00262AA8(self) != 0) {
         return;
     }
-    if (self->moveFlags & 3) {
+    if (self->seqFlags & 3) {
         self->timerC = 1;
     }
     if (self->timerC != 0) {

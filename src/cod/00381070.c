@@ -5,9 +5,8 @@ extern void AdjustRowScrollPosition();
 extern void func_003812B0();
 extern void func_003813C8();
 
-/* The caller also passes its context; it is not read. */
 __attribute__((section(".text.func_00381070")))
-void func_00381070(unsigned char *arg, void *ctx)
+void func_00381070(unsigned char *arg)
 {
     int pad;
 

@@ -1,4 +1,4 @@
-#include "godhand/cObjBase.h"
+extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 
 __attribute__((section(".text.func_0012C708")))
 void func_0012C708(char *self)

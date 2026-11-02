@@ -1,7 +1,3 @@
-/* sn-2.95.3-136 */
-#include "godhand/cIDBaseScreen.h"
-#include "godhand/criStm.h"
-#include "godhand/cIDBase.h"
 extern int D_0044EAB8;
 extern int D_0044EB70;
 extern int D_0044EC68;
@@ -210,16 +206,16 @@ __attribute__((section(".text.SetupFields10And14_13D3C0")))
 void SetupFields10And14_13D3C0(void *a0)
 {
     cIDBase_initialize(a0, 1, 3);
-    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xD0), 1, 0x20);
+    cIDBase_initialize((char *)a0 + 0xD0, 1, 0x20);
     *(short *)((char *)a0 + 0x92) = 0;
 }
 
-/* Copy the second id table in (listNum entries) and mark the list ready. */
 __attribute__((section(".text.SetFlagAfterCopy_145160")))
-void SetFlagAfterCopy_145160(cIDBaseScreen *self, const short *src)
+void SetFlagAfterCopy_145160(void *a0, int a1)
 {
-    func_003A5148(self->item2, src, self->listNum << 1);
-    self->flags |= SCR_FLAG_READY;
+    int r;
+    r = func_003A5148((char *)a0 + 0x3B4, a1, *(short *)((char *)a0 + 0x3B2) << 1);
+    *(int *)((char *)a0 + 0x90) |= 0x40000000;
 }
 
 __attribute__((section(".text.GetOrInitSingletonD_150638")))

@@ -68,37 +68,37 @@ void func_0024C3C8(cEm00 *self)
         case 0x240: case 0x242: case 0x243: case 0x244: case 0x24A:
         case 0x25B:
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x2D0);
-                mb = EM_RES_REC(self->resource, 0x2D4);
+                ma = EM_RES_REC(EM_RES(self), 0x2D0);
+                mb = EM_RES_REC(EM_RES(self), 0x2D4);
             } else {
-                ma = EM_RES_REC(self->resource, 0x2D8);
-                mb = EM_RES_REC(self->resource, 0x2DC);
+                ma = EM_RES_REC(EM_RES(self), 0x2D8);
+                mb = EM_RES_REC(EM_RES(self), 0x2DC);
             }
             break;
         case 0x256: case 0x27E:
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x26D8);
-                mb = EM_RES_REC(self->resource, 0x26DC);
+                ma = EM_RES_REC(EM_RES(self), 0x26D8);
+                mb = EM_RES_REC(EM_RES(self), 0x26DC);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x29F0);
-                mb = EM_RES_REC(self->resource, 0x29F4);
+                ma = EM_RES_REC(EM_RES(self), 0x29F0);
+                mb = EM_RES_REC(EM_RES(self), 0x29F4);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x29E8);
-                mb = EM_RES_REC(self->resource, 0x29EC);
+                ma = EM_RES_REC(EM_RES(self), 0x29E8);
+                mb = EM_RES_REC(EM_RES(self), 0x29EC);
                 break;
             }
             break;
         default:
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x774);
-                mb = EM_RES_REC(self->resource, 0x778);
+                ma = EM_RES_REC(EM_RES(self), 0x774);
+                mb = EM_RES_REC(EM_RES(self), 0x778);
             } else {
-                ma = EM_RES_REC(self->resource, 0x77C);
-                mb = EM_RES_REC(self->resource, 0x780);
+                ma = EM_RES_REC(EM_RES(self), 0x77C);
+                mb = EM_RES_REC(EM_RES(self), 0x780);
             }
             break;
         case 0x214: case 0x215: case 0x21A: case 0x21B: case 0x21C:
@@ -106,11 +106,11 @@ void func_0024C3C8(cEm00 *self)
         case 0x22E: case 0x22F: case 0x248: case 0x249: case 0x24C:
         case 0x24D: case 0x24E: case 0x252: case 0x25A:
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x1238);
-                mb = EM_RES_REC(self->resource, 0x123C);
+                ma = EM_RES_REC(EM_RES(self), 0x1238);
+                mb = EM_RES_REC(EM_RES(self), 0x123C);
             } else {
-                ma = EM_RES_REC(self->resource, 0x1240);
-                mb = EM_RES_REC(self->resource, 0x1244);
+                ma = EM_RES_REC(EM_RES(self), 0x1240);
+                mb = EM_RES_REC(EM_RES(self), 0x1244);
             }
             break;
         case 0x20A: case 0x20B: case 0x20C: case 0x20D: case 0x20E:
@@ -119,16 +119,16 @@ void func_0024C3C8(cEm00 *self)
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x9B0);
-                mb = EM_RES_REC(self->resource, 0x9B4);
+                ma = EM_RES_REC(EM_RES(self), 0x9B0);
+                mb = EM_RES_REC(EM_RES(self), 0x9B4);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x9B8);
-                mb = EM_RES_REC(self->resource, 0x9BC);
+                ma = EM_RES_REC(EM_RES(self), 0x9B8);
+                mb = EM_RES_REC(EM_RES(self), 0x9BC);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x9C0);
-                mb = EM_RES_REC(self->resource, 0x9C4);
+                ma = EM_RES_REC(EM_RES(self), 0x9C0);
+                mb = EM_RES_REC(EM_RES(self), 0x9C4);
                 break;
             }
             break;
@@ -136,16 +136,16 @@ void func_0024C3C8(cEm00 *self)
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x9B0);
-                mb = EM_RES_REC(self->resource, 0x9B4);
+                ma = EM_RES_REC(EM_RES(self), 0x9B0);
+                mb = EM_RES_REC(EM_RES(self), 0x9B4);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x9B8);
-                mb = EM_RES_REC(self->resource, 0x9BC);
+                ma = EM_RES_REC(EM_RES(self), 0x9B8);
+                mb = EM_RES_REC(EM_RES(self), 0x9BC);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x9C0);
-                mb = EM_RES_REC(self->resource, 0x9C4);
+                ma = EM_RES_REC(EM_RES(self), 0x9C0);
+                mb = EM_RES_REC(EM_RES(self), 0x9C4);
                 break;
             }
             cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase((int *)self) + 0x23), self,
@@ -155,16 +155,16 @@ void func_0024C3C8(cEm00 *self)
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x311C);
-                mb = EM_RES_REC(self->resource, 0x3120);
+                ma = EM_RES_REC(EM_RES(self), 0x311C);
+                mb = EM_RES_REC(EM_RES(self), 0x3120);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x3124);
-                mb = EM_RES_REC(self->resource, 0x3128);
+                ma = EM_RES_REC(EM_RES(self), 0x3124);
+                mb = EM_RES_REC(EM_RES(self), 0x3128);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x312C);
-                mb = EM_RES_REC(self->resource, 0x3130);
+                ma = EM_RES_REC(EM_RES(self), 0x312C);
+                mb = EM_RES_REC(EM_RES(self), 0x3130);
                 break;
             }
             break;
@@ -172,28 +172,28 @@ void func_0024C3C8(cEm00 *self)
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x3300);
-                mb = EM_RES_REC(self->resource, 0x3304);
+                ma = EM_RES_REC(EM_RES(self), 0x3300);
+                mb = EM_RES_REC(EM_RES(self), 0x3304);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x3308);
-                mb = EM_RES_REC(self->resource, 0x330C);
+                ma = EM_RES_REC(EM_RES(self), 0x3308);
+                mb = EM_RES_REC(EM_RES(self), 0x330C);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x3310);
-                mb = EM_RES_REC(self->resource, 0x3314);
+                ma = EM_RES_REC(EM_RES(self), 0x3310);
+                mb = EM_RES_REC(EM_RES(self), 0x3314);
                 break;
             }
             if (self->emFlags2 & 0x10000000) {
                 switch (irand() & 1) {
                 case 0:
                 default:
-                    ma = EM_RES_REC(self->resource, 0x3398);
-                    mb = EM_RES_REC(self->resource, 0x339C);
+                    ma = EM_RES_REC(EM_RES(self), 0x3398);
+                    mb = EM_RES_REC(EM_RES(self), 0x339C);
                     break;
                 case 1:
-                    ma = EM_RES_REC(self->resource, 0x33A0);
-                    mb = EM_RES_REC(self->resource, 0x33A4);
+                    ma = EM_RES_REC(EM_RES(self), 0x33A0);
+                    mb = EM_RES_REC(EM_RES(self), 0x33A4);
                     break;
                 }
             }
@@ -203,12 +203,12 @@ void func_0024C3C8(cEm00 *self)
                 switch (irand() & 1) {
                 case 0:
                 default:
-                    ma = EM_RES_REC(self->resource, 0x3928);
-                    mb = EM_RES_REC(self->resource, 0x392C);
+                    ma = EM_RES_REC(EM_RES(self), 0x3928);
+                    mb = EM_RES_REC(EM_RES(self), 0x392C);
                     break;
                 case 1:
-                    ma = EM_RES_REC(self->resource, 0x3930);
-                    mb = EM_RES_REC(self->resource, 0x3934);
+                    ma = EM_RES_REC(EM_RES(self), 0x3930);
+                    mb = EM_RES_REC(EM_RES(self), 0x3934);
                     break;
                 }
                 break;
@@ -216,22 +216,22 @@ void func_0024C3C8(cEm00 *self)
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x3890);
-                mb = EM_RES_REC(self->resource, 0x3894);
+                ma = EM_RES_REC(EM_RES(self), 0x3890);
+                mb = EM_RES_REC(EM_RES(self), 0x3894);
                 if (self->unk744 != 0) {
                     ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x20);
                 }
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x3888);
-                mb = EM_RES_REC(self->resource, 0x388C);
+                ma = EM_RES_REC(EM_RES(self), 0x3888);
+                mb = EM_RES_REC(EM_RES(self), 0x388C);
                 if (self->unk744 != 0) {
                     ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x1F);
                 }
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x3880);
-                mb = EM_RES_REC(self->resource, 0x3884);
+                ma = EM_RES_REC(EM_RES(self), 0x3880);
+                mb = EM_RES_REC(EM_RES(self), 0x3884);
                 if (self->unk744 != 0) {
                     ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x1E);
                 }
@@ -242,12 +242,12 @@ void func_0024C3C8(cEm00 *self)
             switch (irand() & 1) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x1680);
-                mb = EM_RES_REC(self->resource, 0x1684);
+                ma = EM_RES_REC(EM_RES(self), 0x1680);
+                mb = EM_RES_REC(EM_RES(self), 0x1684);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x1688);
-                mb = EM_RES_REC(self->resource, 0x168C);
+                ma = EM_RES_REC(EM_RES(self), 0x1688);
+                mb = EM_RES_REC(EM_RES(self), 0x168C);
                 break;
             }
             break;
@@ -255,12 +255,12 @@ void func_0024C3C8(cEm00 *self)
             switch (irand() & 1) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x3A84);
-                mb = EM_RES_REC(self->resource, 0x3A88);
+                ma = EM_RES_REC(EM_RES(self), 0x3A84);
+                mb = EM_RES_REC(EM_RES(self), 0x3A88);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x3A8C);
-                mb = EM_RES_REC(self->resource, 0x3A90);
+                ma = EM_RES_REC(EM_RES(self), 0x3A8C);
+                mb = EM_RES_REC(EM_RES(self), 0x3A90);
                 break;
             }
             break;
@@ -268,58 +268,58 @@ void func_0024C3C8(cEm00 *self)
             switch (irand() & 1) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x1680);
-                mb = EM_RES_REC(self->resource, 0x1684);
+                ma = EM_RES_REC(EM_RES(self), 0x1680);
+                mb = EM_RES_REC(EM_RES(self), 0x1684);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x1688);
-                mb = EM_RES_REC(self->resource, 0x168C);
+                ma = EM_RES_REC(EM_RES(self), 0x1688);
+                mb = EM_RES_REC(EM_RES(self), 0x168C);
                 break;
             }
             break;
         case 0x220: case 0x221: case 0x222:
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x1CF8);
-                mb = EM_RES_REC(self->resource, 0x1CFC);
+                ma = EM_RES_REC(EM_RES(self), 0x1CF8);
+                mb = EM_RES_REC(EM_RES(self), 0x1CFC);
             } else {
-                ma = EM_RES_REC(self->resource, 0x1D00);
-                mb = EM_RES_REC(self->resource, 0x1D04);
+                ma = EM_RES_REC(EM_RES(self), 0x1D00);
+                mb = EM_RES_REC(EM_RES(self), 0x1D04);
             }
             break;
         case 0x223:
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x2E34);
-                mb = EM_RES_REC(self->resource, 0x2E38);
+                ma = EM_RES_REC(EM_RES(self), 0x2E34);
+                mb = EM_RES_REC(EM_RES(self), 0x2E38);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x2E3C);
-                mb = EM_RES_REC(self->resource, 0x2E40);
+                ma = EM_RES_REC(EM_RES(self), 0x2E3C);
+                mb = EM_RES_REC(EM_RES(self), 0x2E40);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x2E44);
-                mb = EM_RES_REC(self->resource, 0x2E48);
+                ma = EM_RES_REC(EM_RES(self), 0x2E44);
+                mb = EM_RES_REC(EM_RES(self), 0x2E48);
                 break;
             }
             break;
         case 0x275: case 0x276:
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x2354);
-                mb = EM_RES_REC(self->resource, 0x2358);
+                ma = EM_RES_REC(EM_RES(self), 0x2354);
+                mb = EM_RES_REC(EM_RES(self), 0x2358);
             } else {
-                ma = EM_RES_REC(self->resource, 0x235C);
-                mb = EM_RES_REC(self->resource, 0x2360);
+                ma = EM_RES_REC(EM_RES(self), 0x235C);
+                mb = EM_RES_REC(EM_RES(self), 0x2360);
             }
             break;
         }
         if (self->unk6EC != 0) {
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x774);
-                mb = EM_RES_REC(self->resource, 0x778);
+                ma = EM_RES_REC(EM_RES(self), 0x774);
+                mb = EM_RES_REC(EM_RES(self), 0x778);
             } else {
-                ma = EM_RES_REC(self->resource, 0x77C);
-                mb = EM_RES_REC(self->resource, 0x780);
+                ma = EM_RES_REC(EM_RES(self), 0x77C);
+                mb = EM_RES_REC(EM_RES(self), 0x780);
             }
         }
         func_002A8578((int)self, ma, mb, 2, 0.0f, Obj0000_Get_Byte_17C3_NZ_2_276468(self), 0);
@@ -373,7 +373,7 @@ void func_0024C3C8(cEm00 *self)
             }
             break;
         }
-        self->unk434 |= 8;
+        self->motionFlags |= 8;
         if (self->stepArg != 0) {
             moveMotion(self);
             self->timer3 -= self->speedRate;
@@ -493,22 +493,22 @@ void func_0024C3C8(cEm00 *self)
         case 0x227: case 0x228: case 0x22B: case 0x23A: case 0x23B:
         case 0x240: case 0x242: case 0x243: case 0x244: case 0x24A:
         case 0x25B:
-            ma = EM_RES_REC(self->resource, 0x540);
-            mb = EM_RES_REC(self->resource, 0x544);
+            ma = EM_RES_REC(EM_RES(self), 0x540);
+            mb = EM_RES_REC(EM_RES(self), 0x544);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x256: case 0x27E:
-            ma = EM_RES_REC(self->resource, 0x2BEC);
-            mb = EM_RES_REC(self->resource, 0x2BF0);
+            ma = EM_RES_REC(EM_RES(self), 0x2BEC);
+            mb = EM_RES_REC(EM_RES(self), 0x2BF0);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         default:
-            ma = EM_RES_REC(self->resource, 0x540);
-            mb = EM_RES_REC(self->resource, 0x544);
+            ma = EM_RES_REC(EM_RES(self), 0x540);
+            mb = EM_RES_REC(EM_RES(self), 0x544);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
@@ -516,15 +516,15 @@ void func_0024C3C8(cEm00 *self)
         case 0x20A: case 0x20B: case 0x20C: case 0x20D: case 0x20E:
         case 0x218: case 0x245: case 0x246: case 0x247: case 0x24F:
         case 0x278: case 0x279:
-            ma = EM_RES_REC(self->resource, 0x9F0);
-            mb = EM_RES_REC(self->resource, 0x9F4);
+            ma = EM_RES_REC(EM_RES(self), 0x9F0);
+            mb = EM_RES_REC(EM_RES(self), 0x9F4);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x250: case 0x251:
-            ma = EM_RES_REC(self->resource, 0x9F0);
-            mb = EM_RES_REC(self->resource, 0x9F4);
+            ma = EM_RES_REC(EM_RES(self), 0x9F0);
+            mb = EM_RES_REC(EM_RES(self), 0x9F4);
             cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase((int *)self) + 0x23), self,
                                0, 0, 0, 0);
             if (irand() & 3) {
@@ -532,8 +532,8 @@ void func_0024C3C8(cEm00 *self)
             }
             break;
         case 0x260:
-            ma = EM_RES_REC(self->resource, 0x314C);
-            mb = EM_RES_REC(self->resource, 0x3150);
+            ma = EM_RES_REC(EM_RES(self), 0x314C);
+            mb = EM_RES_REC(EM_RES(self), 0x3150);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
@@ -542,28 +542,28 @@ void func_0024C3C8(cEm00 *self)
             switch ((unsigned int)irand() % 3) {
             case 0:
             default:
-                ma = EM_RES_REC(self->resource, 0x3300);
-                mb = EM_RES_REC(self->resource, 0x3304);
+                ma = EM_RES_REC(EM_RES(self), 0x3300);
+                mb = EM_RES_REC(EM_RES(self), 0x3304);
                 break;
             case 1:
-                ma = EM_RES_REC(self->resource, 0x3308);
-                mb = EM_RES_REC(self->resource, 0x330C);
+                ma = EM_RES_REC(EM_RES(self), 0x3308);
+                mb = EM_RES_REC(EM_RES(self), 0x330C);
                 break;
             case 2:
-                ma = EM_RES_REC(self->resource, 0x3310);
-                mb = EM_RES_REC(self->resource, 0x3314);
+                ma = EM_RES_REC(EM_RES(self), 0x3310);
+                mb = EM_RES_REC(EM_RES(self), 0x3314);
                 break;
             }
             if (self->emFlags2 & 0x10000000) {
                 switch (irand() & 1) {
                 case 0:
                 default:
-                    ma = EM_RES_REC(self->resource, 0x3398);
-                    mb = EM_RES_REC(self->resource, 0x339C);
+                    ma = EM_RES_REC(EM_RES(self), 0x3398);
+                    mb = EM_RES_REC(EM_RES(self), 0x339C);
                     break;
                 case 1:
-                    ma = EM_RES_REC(self->resource, 0x33A0);
-                    mb = EM_RES_REC(self->resource, 0x33A4);
+                    ma = EM_RES_REC(EM_RES(self), 0x33A0);
+                    mb = EM_RES_REC(EM_RES(self), 0x33A4);
                     break;
                 }
             }
@@ -573,61 +573,61 @@ void func_0024C3C8(cEm00 *self)
                 switch (irand() & 1) {
                 case 0:
                 default:
-                    ma = EM_RES_REC(self->resource, 0x3938);
-                    mb = EM_RES_REC(self->resource, 0x393C);
+                    ma = EM_RES_REC(EM_RES(self), 0x3938);
+                    mb = EM_RES_REC(EM_RES(self), 0x393C);
                     break;
                 case 1:
-                    ma = EM_RES_REC(self->resource, 0x3940);
-                    mb = EM_RES_REC(self->resource, 0x3944);
+                    ma = EM_RES_REC(EM_RES(self), 0x3940);
+                    mb = EM_RES_REC(EM_RES(self), 0x3944);
                     break;
                 }
                 break;
             }
             if (irand() & 1) {
-                ma = EM_RES_REC(self->resource, 0x3898);
-                mb = EM_RES_REC(self->resource, 0x389C);
+                ma = EM_RES_REC(EM_RES(self), 0x3898);
+                mb = EM_RES_REC(EM_RES(self), 0x389C);
                 if (self->unk744 != 0) {
                     ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x21);
                 }
             } else {
-                ma = EM_RES_REC(self->resource, 0x38A0);
-                mb = EM_RES_REC(self->resource, 0x38A4);
+                ma = EM_RES_REC(EM_RES(self), 0x38A0);
+                mb = EM_RES_REC(EM_RES(self), 0x38A4);
                 if (self->unk744 != 0) {
                     ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x22);
                 }
             }
             break;
         case 0x205: case 0x206: case 0x207: case 0x208: case 0x224:
-            ma = EM_RES_REC(self->resource, 0x16A8);
-            mb = EM_RES_REC(self->resource, 0x16AC);
+            ma = EM_RES_REC(EM_RES(self), 0x16A8);
+            mb = EM_RES_REC(EM_RES(self), 0x16AC);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x241:
-            ma = EM_RES_REC(self->resource, 0x3AAC);
-            mb = EM_RES_REC(self->resource, 0x3AB0);
+            ma = EM_RES_REC(EM_RES(self), 0x3AAC);
+            mb = EM_RES_REC(EM_RES(self), 0x3AB0);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x209: case 0x21F:
-            ma = EM_RES_REC(self->resource, 0x16A8);
-            mb = EM_RES_REC(self->resource, 0x16AC);
+            ma = EM_RES_REC(EM_RES(self), 0x16A8);
+            mb = EM_RES_REC(EM_RES(self), 0x16AC);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x220: case 0x221: case 0x222:
-            ma = EM_RES_REC(self->resource, 0x540);
-            mb = EM_RES_REC(self->resource, 0x544);
+            ma = EM_RES_REC(EM_RES(self), 0x540);
+            mb = EM_RES_REC(EM_RES(self), 0x544);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x223:
-            ma = EM_RES_REC(self->resource, 0x2EB4);
-            mb = EM_RES_REC(self->resource, 0x2EB8);
+            ma = EM_RES_REC(EM_RES(self), 0x2EB4);
+            mb = EM_RES_REC(EM_RES(self), 0x2EB8);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
@@ -636,15 +636,15 @@ void func_0024C3C8(cEm00 *self)
         case 0x21D: case 0x21E: case 0x225: case 0x22C: case 0x22D:
         case 0x22E: case 0x22F: case 0x248: case 0x249: case 0x24C:
         case 0x24D: case 0x24E: case 0x252: case 0x25A:
-            ma = EM_RES_REC(self->resource, 0x1268);
-            mb = EM_RES_REC(self->resource, 0x126C);
+            ma = EM_RES_REC(EM_RES(self), 0x1268);
+            mb = EM_RES_REC(EM_RES(self), 0x126C);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
             break;
         case 0x275: case 0x276:
-            ma = EM_RES_REC(self->resource, 0x236C);
-            mb = EM_RES_REC(self->resource, 0x2370);
+            ma = EM_RES_REC(EM_RES(self), 0x236C);
+            mb = EM_RES_REC(EM_RES(self), 0x2370);
             if (irand() & 3) {
                 self->timer3 = start = 10.0f;
             }
@@ -701,7 +701,7 @@ void func_0024C3C8(cEm00 *self)
                 }
             }
         }
-        if (self->moveFlags & 0x10) {
+        if (self->seqFlags & 0x10) {
             self->timerB = 0;
         }
         if (self->timerB != 0) {
@@ -764,8 +764,8 @@ void func_0024C3C8(cEm00 *self)
         }
         break;
     case 4:
-        ma = EM_RES_REC(self->resource, 0x3A70);
-        mb = EM_RES_REC(self->resource, 0x3A74);
+        ma = EM_RES_REC(EM_RES(self), 0x3A70);
+        mb = EM_RES_REC(EM_RES(self), 0x3A74);
         func_002A8578((int)self, ma, mb, 2, 0.0f, Obj0000_Get_Byte_17C3_NZ_2_276468(self), 0);
         cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase((int *)self), self, 0, 0, 0, 0);
         StoreMotionParamsBoth_2609A8(self, 0x1E, 0, 0x3E, -1, 0);

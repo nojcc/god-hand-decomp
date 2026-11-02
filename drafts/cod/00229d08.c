@@ -53,14 +53,14 @@ void func_00229D08(cEm00 *self)
         break;
     case 2:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        motA = EM_RES_REC(self->resource, 0x37AC);
+        motA = EM_RES_REC(EM_RES(self), 0x37AC);
         if (cCoreSave_getGameLevel(&D_00569B70) == GAME_LEVEL_HARDEST) {
-            motB = EM_RES_REC(self->resource, 0x37B0);
+            motB = EM_RES_REC(EM_RES(self), 0x37B0);
             if (self->unk744 != 0) {
                 ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x12);
             }
         } else {
-            motB = EM_RES_REC(self->resource, 0x37B4);
+            motB = EM_RES_REC(EM_RES(self), 0x37B4);
             if (self->unk744 != 0) {
                 ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x13);
             }

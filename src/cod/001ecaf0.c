@@ -1,8 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cRoomSave.h"
-#include "godhand/cIDBase.h"
 
+extern void cIDBase_initialize(void *p, int a, int b);
+extern void cIDBase_restartAnim(void *p);
+extern void *cIDBase_getIDWork(void *p, int i);
 extern void CustomIDWork_Initialize(void *p, void *w);
 extern void CustomIDWork_SetDisp(void *p, int f);
 extern void SetCustomIDDispOneOrAll_1F4778(void *p, int n, int f);
@@ -31,10 +33,10 @@ void InitUiIdWorksAndShowAll(char *p)
 {
     int i;
 
-    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x15, 0);
-    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
+    cIDBase_initialize(p + 0x10, 0x15, 0);
+    cIDBase_restartAnim(p + 0x10);
     for (i = 0; i < 0x6F; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
+        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
     }
     SetCustomIDDispOneOrAll_1F4778(p, 0x6F, 0);
 }
@@ -54,10 +56,10 @@ void InitDogRaceUiIdWorks(char *p)
 {
     int i;
 
-    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x14, 2);
-    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
+    cIDBase_initialize(p + 0x10, 0x14, 2);
+    cIDBase_restartAnim(p + 0x10);
     for (i = 0; i < 6; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
+        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
     }
     Panel_hideIcons(p);
     func_001EDC28(p, 0);
@@ -79,10 +81,10 @@ void InitDogRaceListIdWorks(char *p)
 {
     int i;
 
-    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x14, 1);
-    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
+    cIDBase_initialize(p + 0x10, 0x14, 1);
+    cIDBase_restartAnim(p + 0x10);
     for (i = 0; i < 0x1D; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
+        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
     }
     func_001EE2A8(p, 0);
     func_001EE2C8(p, 0);
@@ -105,10 +107,10 @@ void InitDogRaceResultIdWorks(char *p)
 {
     int i;
 
-    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x14, 0);
-    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
+    cIDBase_initialize(p + 0x10, 0x14, 0);
+    cIDBase_restartAnim(p + 0x10);
     for (i = 0; i < 0x2D; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
+        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
     }
     CustomIDWork_SetMessNo(p + 0xE6C, 0x101A);
     CustomIDWork_SetMessNo(p + 0x1534, 0x101A);

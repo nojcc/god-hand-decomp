@@ -52,45 +52,6 @@
         VU0_SQC2_MEM(4, &ret_, 0);                              \
     }
 
-/* len = (*a - *b).lengthSq(); (operator- into the return slot, then
- * lengthSq on the slot). The caller includes capVu0.h. */
-#define CVEC_SUB_LENGTH_SQ(len, a, b)                           \
-    {                                                           \
-        cVec *a_ = (a);                                         \
-        cVec *b_ = (b);                                         \
-        cVec *r_ = &ret_;                                       \
-                                                                \
-        VU0_ZERO_VSUB_XYZ_MEM(&tmp_, 0, a_, b_);                \
-        VU0_LQC2(4, &tmp_, 0);                                  \
-        VU0_SQC2_MEM(4, &ret_, 0);                              \
-        (len) = capVu0LengthSq(r_);                             \
-    }
-
-/* a + b; (operator+ into the return slot, for a caller that reads ret_) */
-#define CVEC_ADD(a, b)                                          \
-    {                                                           \
-        cVec *a_ = (a);                                         \
-        cVec *b_ = (b);                                         \
-                                                                \
-        VU0_LQC2(4, a_, 0);                                     \
-        VU0_SQC2_MEM(4, &tmp_, 0);                              \
-        VU0_VADD_XYZ_IP(&tmp_, 0, b_);                          \
-        VU0_LQC2(4, &tmp_, 0);                                  \
-        VU0_SQC2_MEM(4, &ret_, 0);                              \
-    }
-
-/* a->unit(); (the unit vector of *a, built in the temporary by cVec_unitOf,
- * into the return slot, for a caller that reads ret_). The caller includes
- * sceVu0.h. */
-#define CVEC_UNIT(a)                                            \
-    {                                                           \
-        cVec *a_ = (a);                                         \
-                                                                \
-        cVec_unitOf(&tmp_, a_);                                 \
-        VU0_LQC2(4, &tmp_, 0);                                  \
-        VU0_SQC2_MEM(4, &ret_, 0);                              \
-    }
-
 /* d = a - b; (operator- into the return slot, then operator=, xyz only) */
 #define CVEC_SET_SUB(d, a, b)                                   \
     {                                                           \

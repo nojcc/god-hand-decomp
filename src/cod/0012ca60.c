@@ -2,6 +2,7 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+extern void cModel_calcParts(void *a0);
 extern cModelNode *cModel_getMeshPtr(cModel *self, int idx);
 extern char *Getplayer(void);
 extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
@@ -80,7 +81,7 @@ void func_00279C20(char *a0)
     *(float *)(a0 + 0x24C) = 1.0f;
     *(int *)(a0 + 0x250) = *(int *)(a0 + 0x250) & 0xFFFFFFEF;
     *(int *)(a0 + 0x1580) = 0;
-    cModel_calcParts((cModel *)a0);
+    cModel_calcParts(a0);
 }
 
 /* sn-2.95.3-136 matched TU. */

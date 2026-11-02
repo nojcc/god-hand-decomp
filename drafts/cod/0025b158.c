@@ -24,14 +24,14 @@ void func_0025B158(cEm00 *self)
     self->objFlags |= 0x10000;
     switch (self->step) {
     case 0:
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x2374),
-                      EM_RES_REC(self->resource, 0x2378), 0, 0.0f, 0, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x2374),
+                      EM_RES_REC(EM_RES(self), 0x2378), 0, 0.0f, 0, 0);
         self->unk17CC = 0.0f;
         self->unk17A8 = 0;
         self->unk5B4 = 0;
-        self->vital -= 100;
-        if (self->vital <= 0) {
-            self->vital = 0;
+        self->hp -= 100;
+        if (self->hp <= 0) {
+            self->hp = 0;
         }
         self->unk17BE++;
         flags = self->emFlags2 & 0xFFFEFC7F;
@@ -60,8 +60,8 @@ void func_0025B158(cEm00 *self)
     case 1:
         self->unk617 = 1;
         self->hitFlash = 3.0f;
-        self->unk434 |= 8;
-        if (moveMotion(self) != 0 && self->vital <= 0) {
+        self->motionFlags |= 8;
+        if (moveMotion(self) != 0 && self->hp <= 0) {
             func_00273D30(self);
             cEm00_setState(self, 2, 2, 1);
             break;
@@ -69,15 +69,15 @@ void func_0025B158(cEm00 *self)
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         self->timer -= self->speedRate;
-        if (self->timer <= 0.0f && self->vital > 0) {
+        if (self->timer <= 0.0f && self->hp > 0) {
             self->step++;
         }
         break;
     case 2:
-        motA = EM_RES_REC(self->resource, 0x237C);
-        motB = EM_RES_REC(self->resource, 0x2380);
+        motA = EM_RES_REC(EM_RES(self), 0x237C);
+        motB = EM_RES_REC(EM_RES(self), 0x2380);
         if (cCoreSave_getGameLevel(&D_00569B70) >= GAME_LEVEL_HARD) {
-            motB = EM_RES_REC(self->resource, 0x2384);
+            motB = EM_RES_REC(EM_RES(self), 0x2384);
         }
         func_002A8578((int)self, motA, motB, 0, 0.0f, 0, 0);
         self->unk580.x = fRand1_1() * 0.2f;
@@ -104,8 +104,8 @@ void func_0025B158(cEm00 *self)
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     case 4:
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x2388),
-                      EM_RES_REC(self->resource, 0x238C), 0, 0.0f, 0, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x2388),
+                      EM_RES_REC(EM_RES(self), 0x238C), 0, 0.0f, 0, 0);
         self->step++;
         /* fallthrough */
     case 5:

@@ -55,6 +55,6 @@ extern void func_00349BA8(void);
 extern void func_00349BC8(void);
 extern void func_00349BE8(void);
 extern void func_00349C08(void);
-extern void TargetOwner_setLogScaleValue(void);
+extern void func_00349C28(void);
 
 #endif

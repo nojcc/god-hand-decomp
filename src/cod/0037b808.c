@@ -1,5 +1,3 @@
-#include "godhand/seqNode.h"
-
 typedef struct {
     short *val;
     char pad4[5];
@@ -25,6 +23,7 @@ typedef struct {
 } MenuValAct;
 
 extern MenuValEnt D_003F26E8[][6];
+extern int func_00374AE0(int id);
 
 __attribute__((section(".text.func_0037B808")))
 int func_0037B808(MenuValAct *a)

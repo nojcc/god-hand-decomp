@@ -1,5 +1,4 @@
 /* cygnus-2.96 matched TU. */
-#include "godhand/criStm.h"
 
 extern void NoOp_33E6A8(void);
 extern void func_00329AF0(void);
@@ -10,7 +9,7 @@ extern void Forward33B670_3403E0(void);
 extern void Obj33F8_NoOp_FCA0(void);
 extern void func_0032DBA0(int);
 extern void Obj33F8_NoOp_FCA8(void);
-extern void func_003B9AF8(void *adxt);
+extern void func_003B9AF8(void);
 extern void func_003298C0(int);
 extern void func_00357490(void);
 extern void func_00359800(int);
@@ -30,6 +29,7 @@ extern void Forward33E6A8_324880(void);
 extern void func_00323B80(void);
 extern void Forward33E6B0_324898(void);
 extern void func_003BA058(void);
+extern void func_003A52F0(int, int, int);
 extern void func_00338EC8(int);
 extern void func_0033A300(int);
 extern void PushGlobalD8478History_331C78(int);
@@ -51,7 +51,7 @@ extern void func_0036CF30(void);
 extern void func_0036CCC8(int, int, int);
 extern char D_00766D48[];
 extern void func_0033A140(void);
-extern void ADXT_ExecHndl(signed char *adxt);
+extern void ADXT_ExecHndl(int);
 extern void func_00335CD8(void);
 extern void LSC_ResetEntry(int);
 extern void func_00335CE0(void);
@@ -99,7 +99,7 @@ void func_0032DB70(int a0) {
 
 __attribute__((section(".text.func_00342A08")))
 void func_00342A08(int a0) {
-    func_003B9AF8((void *)a0);
+    func_003B9AF8();
     func_003298C0(a0);
 }
 
@@ -278,9 +278,9 @@ void func_0033A110(void) {
 }
 
 __attribute__((section(".text.func_0032CFC8")))
-void func_0032CFC8(signed char *adxt) {
+void func_0032CFC8(int a0) {
     NoOp_33E6A8();
-    ADXT_ExecHndl(adxt);
+    ADXT_ExecHndl(a0);
     NoOp_33E6B0();
 }
 

@@ -15,8 +15,7 @@ typedef struct cIDPanelHead {
     cIDBaseObj base;                    /* 0x00 */
     char unk48[0x5A - 0x48];
     signed char state;                  /* 0x5A */
-    signed char step;                   /* 0x5B the shops' draw step switches on it */
-    char unk5C[0x60 - 0x5C];
+    char unk5B[0x60 - 0x5B];
     int result;                         /* 0x60 */
 } cIDPanelHead;                         /* 0x64 */
 

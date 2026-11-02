@@ -7,6 +7,7 @@ extern cBgmData *cSnd_GetBgmData(cSnd *, int);
 extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
 extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
 extern void cBgmData_Reset(cBgmData *);
+extern char D_005FEE00[];
 extern char D_00580D40[];
 extern char D_0044D0B0[];
 extern char D_0044D0C0[];
@@ -25,7 +26,7 @@ extern int cDvd_ReadAlloc(char *, char *, void *, void *, int, int, int, int);
 __attribute__((section(".text.cSnd_BgmEvIsPlaying")))
 int cSnd_BgmEvIsPlaying(void *unused, int reqNo)
 {
-    return cSnd_FindBgmNode(&D_005FEE00, 0, reqNo) != 0;
+    return cSnd_FindBgmNode(D_005FEE00, 0, reqNo) != 0;
 }
 
 /* Allocate the decode buffer for the slot's table and register it; 1 on success. */

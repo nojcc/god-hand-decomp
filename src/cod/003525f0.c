@@ -22,9 +22,8 @@ void func_003525F0(SftimHn *hn, SftimInfo *info, int time, int update)
     }
 }
 
-/* The caller also passes the header; it is not read. */
 __attribute__((section(".text.func_00352B98")))
-void func_00352B98(SftimHn *hn, int *hdr)
+void func_00352B98(SftimHn *hn)
 {
     SftimRec *rec = &hn->tim.rec[0];
 

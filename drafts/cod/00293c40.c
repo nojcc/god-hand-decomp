@@ -48,13 +48,13 @@ int func_00293C40(cEmManage *self, int formation)
         em = (cEm00 *)self->specialEm[i];
         if (em == 0)
             continue;
-        if (em->vital <= 0)
+        if (em->hp <= 0)
             continue;
         if (Obj0000_IsSet_Field_16D4_Bit_4_26F308(em))
             return 0;
         if (em->mode != 0)
             return 0;
-        if (em->moveFlags & 0x90C)
+        if (em->seqFlags & 0x90C)
             return 0;
         if (em->hitFlash > 0.0f)
             return 0;
@@ -150,7 +150,7 @@ int func_00293C40(cEmManage *self, int formation)
             em = (cEm00 *)self->specialEm[i];
             if (em == 0)
                 continue;
-            if (em->vital <= 0)
+            if (em->hp <= 0)
                 continue;
             switch (em->emNo) {
             case 0x270:
@@ -186,7 +186,7 @@ int func_00293C40(cEmManage *self, int formation)
             em = (cEm00 *)self->specialEm[i];
             if (em == 0)
                 continue;
-            if (em->vital <= 0)
+            if (em->hp <= 0)
                 continue;
             em->hitFlash = 3.0f;
             switch (n) {

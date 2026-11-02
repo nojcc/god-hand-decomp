@@ -1,26 +1,24 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/regTbl.h"
+extern int patch(int, int, int);
 extern int strlen(const char *);
 extern int __svfscanf(void *, const char *, void *);
 extern int func_003A6CD8();
 extern void *D_003FA62C;
+extern void *D_003F852C;
 
-extern int func_003A5678(int a0, int a1);
-extern int func_003943D0(RegEnt *a0);
-
-/* Apply the relocations whose entry index is key, each relative to base; 0 if one fails. */
+struct E { int f0; unsigned int f4; int f8; };
 __attribute__((section(".text.func_00394290")))
-int func_00394290(RegReloc *rel, int count, int key, int base) {
-    unsigned int i; unsigned int info;
+int func_00394290(struct E *e, int count, int key, int base) {
+    unsigned int i; unsigned int f4;
     i = count - 1;
     if (count != 0) {
         do {
-            info = rel->info;
-            if ((info >> 8) == (unsigned)key) {
-                if (patch((unsigned char *)rel->where, info & 0xFF, base + rel->addend) == 0) return 0;
+            f4 = e->f4;
+            if ((f4 >> 8) == (unsigned)key) {
+                if (patch(e->f0, f4 & 0xFF, base + e->f8) == 0) return 0;
             }
-            rel++; i--;
+            e++; i--;
         } while (i != 0xFFFFFFFFu);
     }
     return 1;
@@ -77,28 +75,47 @@ int func_003A6CE0(const char *str, const char *fmt, ...) {
     return ret;
 }
 
-/* Return 1 if an active entry with the same id and name is already registered, else run the fallback pass. */
+struct Elem {
+    int field_0;
+    int field_4;
+    unsigned short field_8;
+    unsigned char field_A;
+    unsigned char field_B;
+};
+
+struct Node_00394290 {
+    char pad[0xC];
+    struct Elem *field_C;
+    int field_10;
+    char pad2[0x30 - 0x14];
+    struct Node_00394290 *field_30;
+};
+
+
+
+
+
 __attribute__((section(".text.func_003945C0")))
-int func_003945C0(RegEnt *ent) {
-    RegTbl *node;
-    RegEnt *elem;
+int func_003945C0(struct Elem *a0) {
+    struct Node_00394290 *node;
+    struct Elem *elem;
     int cnt;
-    node = D_003F852C;
+    node = (struct Node_00394290 *)D_003F852C;
     if (node != 0) {
         do {
-            cnt = node->count;
-            elem = node->ents;
+            cnt = node->field_10;
+            elem = node->field_C;
             if (cnt != 0) {
                 do {
-                    if (elem->active != 0 && elem->id == ent->id &&
-                        func_003A5678(elem->name, ent->name) == 0) {
+                    if (elem->field_B != 0 && elem->field_8 == a0->field_8 &&
+                        func_003A5678(elem->field_0, a0->field_0) == 0) {
                         return 1;
                     }
                     elem++;
                 } while (--cnt != 0);
             }
-            node = node->next;
+            node = node->field_30;
         } while (node != 0);
     }
-    return func_003943D0(ent);
+    return func_003943D0(a0);
 }

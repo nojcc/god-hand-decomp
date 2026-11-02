@@ -17,8 +17,10 @@
 
 /* One piece of debris. rot is the spin per frame, vel the launch velocity. */
 typedef struct cOmWeaponPiece {
-    cVec rot;                           /* 0x00 */
-    cVec vel;                           /* 0x10 */
+    float rot[3];                       /* 0x00 */
+    float unk0C;
+    float vel[3];                       /* 0x10 */
+    float unk1C;
 } cOmWeaponPiece;
 
 typedef struct cOmWeapon {
@@ -32,10 +34,7 @@ typedef struct cOmWeapon {
     float fallSpeed;                        /* 0x630 */
     char unk634[0xC];
     cVec vel;                               /* 0x640 launch velocity */
-    struct cDamageGive *give;               /* 0x650 damage volume of a thrown weapon, 0 when none */
-    int giveNode;                           /* 0x654 id of the node both volumes size */
-    struct cDamageGive *give2;              /* 0x658 second damage volume, 0 when none */
-    char unk65C[0x4];
+    char unk650[0x10];
     float life;                             /* 0x660 frames left before a dropped weapon breaks */
     unsigned char unk664;                   /* 0x664 */
     unsigned char unk665;                   /* 0x665 */
@@ -44,9 +43,7 @@ typedef struct cOmWeapon {
     float unk66C;                           /* 0x66C */
     int throwArg;                           /* 0x670 second argument of setThrow */
     float fallVel;                          /* 0x674 vertical speed while dropping */
-    float unk678;                           /* 0x678 */
-    float unk67C;                           /* 0x67C spin angle of a homing throw */
-    char unk680[0x10];
+    char unk678[0x18];
     int target;                             /* 0x690 object the weapon was thrown at */
     float spin;                             /* 0x694 */
     char unk698[0x8];
@@ -58,18 +55,5 @@ typedef struct cOmWeapon {
 } cOmWeapon;
 
 typedef char cOmWeapon_size_check[(sizeof(cOmWeapon) == 0x790) ? 1 : -1];
-
-/* Hangs the weapon on child idx of par, held at heldPos with its body turned by heldRot. */
-void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, cVec *heldRot);
-/* Throws the weapon with velocity pos and throw argument arg (state 0x11). */
-void func_001D0140(cOmWeapon *self, cVec *pos, int arg);
-
-
-/* Weapon state setters (001d00.c): each sets the four state bytes to one swing
- * or throw step of the weapon, with stepArg arg (1 on the hard level). */
-void Obj1D00_SetState6_Variant6_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_2_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_C_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_E_a1(cOmBase *self, int arg);
 
 #endif

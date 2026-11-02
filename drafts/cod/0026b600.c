@@ -44,7 +44,7 @@ void func_0026B600(cEm00 *self)
             if (rock == 0) {
                 return;
             }
-            cGameObj_vt(rock)->unk44((char *)rock + cGameObj_vt(rock)->unk40Delta);
+            cGameObj_vt(rock)->initial((char *)rock + cGameObj_vt(rock)->initialDelta);
             cVec_copy3(rock->pos, self->pos);
             switch (i & 7) {
             default:

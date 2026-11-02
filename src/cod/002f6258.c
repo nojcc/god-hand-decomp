@@ -1,4 +1,3 @@
-#include "godhand/cFxTrail.h"
 #include "godhand/vu0.h"
 
 extern void *func_002B6310(void *dst, void *node);

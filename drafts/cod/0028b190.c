@@ -20,9 +20,9 @@
 #define CEM00_WEAPON(self)  ((char **)((char *)(self) + 0x1638))
 #define CEM00_CHILD(self)   ((cGameObj **)((char *)(self) + 0x164C))
 
-#define MOTION(off) EM_RES_REC(self->resource, off)
+#define MOTION(off) EM_RES_REC(EM_RES(self), off)
 #define START_MOTION(off) func_002A8578((int)self, MOTION(off), 0, 0, 0.0f, 0, 0)
-#define SET_SCALE(s) (self->unk110 = self->unk114 = self->unk118 = (s))
+#define SET_SCALE(s) (self->scale.x = self->scale.y = self->scale.z = (s))
 
 /* Copies the room entry into the enemy (asm; its callers disagree on the types). */
 extern void func_0028EBF0(cEm00 *self, SET_EM_DATA *data, int arg);
@@ -354,7 +354,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
     if (self->emNo == 0x2FF) {
         CEM00_CHILD(self)[3] = CreateObj(0x101, 0xFFFF);
         if (CEM00_CHILD(self)[3] != 0) {
-            if (cGameObj_vt(CEM00_CHILD(self)[3])->unk44((char *)CEM00_CHILD(self)[3] + cGameObj_vt(CEM00_CHILD(self)[3])->unk40Delta)) {
+            if (cGameObj_vt(CEM00_CHILD(self)[3])->initial((char *)CEM00_CHILD(self)[3] + cGameObj_vt(CEM00_CHILD(self)[3])->initialDelta)) {
                 pl01__SetParent(CEM00_CHILD(self)[3], self, 0x11);
                 CEM00_CHILD(self)[3]->actorGroup &= 0x7FFFFFFF;
                 CEM00_CHILD(self)[3]->actorGroup |= 0x40000000;
@@ -367,7 +367,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
     if (self->emNo == 0x279) {
         CEM00_CHILD(self)[0] = CreateObj(0x27A, 0xFFFF);
         if (CEM00_CHILD(self)[0] != 0) {
-            if (cGameObj_vt(CEM00_CHILD(self)[0])->unk44((char *)CEM00_CHILD(self)[0] + cGameObj_vt(CEM00_CHILD(self)[0])->unk40Delta)) {
+            if (cGameObj_vt(CEM00_CHILD(self)[0])->initial((char *)CEM00_CHILD(self)[0] + cGameObj_vt(CEM00_CHILD(self)[0])->initialDelta)) {
                 func_00283BE8((char *)CEM00_CHILD(self)[0], (char *)self, 2);
             } else {
                 CEM00_CHILD(self)[0] = 0;
@@ -378,7 +378,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
     if (self->emNo == 0x252) {
         CEM00_CHILD(self)[1] = CreateObj(0x253, 0xFFFF);
         if (CEM00_CHILD(self)[1] != 0) {
-            if (cGameObj_vt(CEM00_CHILD(self)[1])->unk44((char *)CEM00_CHILD(self)[1] + cGameObj_vt(CEM00_CHILD(self)[1])->unk40Delta)) {
+            if (cGameObj_vt(CEM00_CHILD(self)[1])->initial((char *)CEM00_CHILD(self)[1] + cGameObj_vt(CEM00_CHILD(self)[1])->initialDelta)) {
                 cEm53_SetParent((char *)CEM00_CHILD(self)[1], (char *)self, 2);
             } else {
                 CEM00_CHILD(self)[1] = 0;
@@ -393,7 +393,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
             CEM00_CHILD(self)[2] = CreateObj(0x257, 0xFFFF);
         }
         if (CEM00_CHILD(self)[2] != 0) {
-            if (cGameObj_vt(CEM00_CHILD(self)[2])->unk44((char *)CEM00_CHILD(self)[2] + cGameObj_vt(CEM00_CHILD(self)[2])->unk40Delta)) {
+            if (cGameObj_vt(CEM00_CHILD(self)[2])->initial((char *)CEM00_CHILD(self)[2] + cGameObj_vt(CEM00_CHILD(self)[2])->initialDelta)) {
                 cEm57_SetParent((char *)CEM00_CHILD(self)[2], (char *)self, 0x11);
             } else {
                 CEM00_CHILD(self)[2] = 0;

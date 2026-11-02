@@ -1,18 +1,18 @@
-/* sn-2.95.3-136 */
-#include "godhand/cSubScrOption.h"
+/* sn-2.95.3-136 matched TU. */
 
-/* Draw the options panel: the second display too while it is open (modes 2 and 3). */
+extern void cIDBase_trans();
+
 __attribute__((section(".text.func_00166B60")))
-void func_00166B60(cSubScrOption *self) {
-    switch (self->obj.state) {
+void func_00166B60(char *a0) {
+    switch (*(signed char *)(a0 + 0x5A)) {
     case 2:
     case 3:
-        cIDBase_trans(&self->sub);
+        cIDBase_trans(a0 + 0xE0);
         /* fall through */
     case 0:
     case 1:
     case 4:
     default:
-        cIDBase_trans(&self->obj.base);
+        cIDBase_trans(a0);
     }
 }

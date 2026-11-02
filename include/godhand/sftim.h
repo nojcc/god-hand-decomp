@@ -178,9 +178,7 @@ typedef struct SfdWork {
     SfdFrmCfg cfg;              /* 0x004 */
     char unk028[0x30 - 0x28];
     char *frmBuf[16];           /* 0x030 each frame's buffer */
-    char unk070[0x74 - 0x70];
-    unsigned int skipLevel;     /* 0x074 picture-skip level */
-    char unk078[0x7C - 0x78];
+    char unk070[0x7C - 0x70];
     int f7C;                    /* 0x07C */
     char unk080[0x84 - 0x80];
     int f84;                    /* 0x084 */
@@ -220,7 +218,7 @@ extern SfdFrm *func_003555A8(SftimHn *hn);
 extern int D_00459730[];        /* picture/extension type by 3-bit code */
 extern int D_003EE2F0;          /* delimiter search error count */
 
-/* Timecode source info passed to Sftim_setTimecode. */
+/* Timecode source info passed to func_00352790. */
 typedef struct SftimInfo {
     char unk00[0x10];
     int rate;                   /* 0x10 */

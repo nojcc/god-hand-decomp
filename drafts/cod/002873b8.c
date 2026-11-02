@@ -20,7 +20,7 @@ static __inline__ float absf(float x)
     return x < 0.0f ? -x : x;
 }
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* The step machine of an enemy sent by a goto: it waits for the goto bit,
  * walks to gotoPos (steps 16 to 19 hold it while the kind 4 search finds
@@ -53,7 +53,7 @@ void func_002873B8(cEm00 *self)
         }
         break;
     case 2:
-        if (self->vital < self->vitalMax) {
+        if (self->hp < self->hpMax) {
             if (self->emNo != 0x2A7 && self->emNo != 0x2AB) {
                 func_002A8578((int)self, RES(0xB8), RES(0xBC), 10, 0.0f, 0, 0);
             } else {
@@ -126,7 +126,7 @@ void func_002873B8(cEm00 *self)
         }
         break;
     case 8:
-        if (self->vital < self->vitalMax) {
+        if (self->hp < self->hpMax) {
             if (self->emNo != 0x2A7 && self->emNo != 0x2AB) {
                 func_002A8578((int)self, RES(0xB8), RES(0xBC), 10, 0.0f, 0, 0);
             } else {

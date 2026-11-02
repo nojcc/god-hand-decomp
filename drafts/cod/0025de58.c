@@ -39,8 +39,8 @@ void func_0025DE58(cEm00 *self)
     switch (self->step) {
     case 0:
         ReleaseField6ECByTag564_26B1E8(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x39A0),
-                      EM_RES_REC(self->resource, 0x39A4), 0, 0.0f, 0, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x39A0),
+                      EM_RES_REC(EM_RES(self), 0x39A4), 0, 0.0f, 0, 0);
         if (self->unk744 != 0) {
             ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x19);
         }
@@ -58,8 +58,8 @@ void func_0025DE58(cEm00 *self)
         break;
     case 2:
         ReleaseField6ECByTag564_26B1E8(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x39A8),
-                      EM_RES_REC(self->resource, 0x39AC), 0, 0.0f, 0, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x39A8),
+                      EM_RES_REC(EM_RES(self), 0x39AC), 0, 0.0f, 0, 0);
         if (self->unk744 != 0) {
             ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x1A);
         }
@@ -78,8 +78,8 @@ void func_0025DE58(cEm00 *self)
         break;
     case 4:
         ReleaseField6ECByTag564_26B1E8(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x39B0),
-                      EM_RES_REC(self->resource, 0x39B4), 0, 0.0f, 0, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x39B0),
+                      EM_RES_REC(EM_RES(self), 0x39B4), 0, 0.0f, 0, 0);
         if (self->unk744 != 0) {
             ForwardAnimParamPairByIndex_27EA50((void *)self->unk744, 0x1B);
         }

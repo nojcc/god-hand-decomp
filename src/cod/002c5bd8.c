@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cScrSpriteDraw.h"
-#include "godhand/drawPrim.h"
 
 extern unsigned int func_0031ED08(float f12);
 extern void *Gp_draw_polyG4(void *verts, unsigned int *colors, int n, int colorNo, int fontNo);
@@ -54,9 +53,9 @@ extern int D_003C11B0;                  /* draw mode word passed to the packet b
  * the packed colour. TIM2 textures go through one builder, the rest through
  * the other. */
 __attribute__((section(".text.cScrSpriteDraw_drawTex")))
-void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex,
+void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex, unsigned int color,
                             float x, float y, float w, float h,
-                            float u0, float v0, float u1, float v1, unsigned int color) {
+                            float u0, float v0, float u1, float v1) {
     cScrVtx v[2];
     cScrTexCfg cfg;
     unsigned int a, b, g, r;

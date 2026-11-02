@@ -1,16 +1,12 @@
-/* sn-2.95.3-136 */
-#include "godhand/cSubScrOption.h"
-#include "godhand/cCoreSave.h"
-#include "godhand/padWork.h"
+extern char D_00569B70[];
+extern char D_005E85F8;
+extern void cCoreSave_clearStateBit0(void *);
+extern void SdeSystemOutModeSet(int);
 
-extern void SdeSystemOutModeSet(int mode);
-
-
-/* Put the settings back to their defaults: save flag off, sound output 1, vibration on. self is not read. */
 __attribute__((section(".text.func_001672F0")))
-void func_001672F0(cSubScrOption *self)
+void func_001672F0(void)
 {
-    cCoreSave_clearStateBit0(&D_00569B70);
+    cCoreSave_clearStateBit0(D_00569B70);
     SdeSystemOutModeSet(1);
-    D_005E8140[PAD_WORK_VIBRATION] = 1;
+    D_005E85F8 = 1;
 }

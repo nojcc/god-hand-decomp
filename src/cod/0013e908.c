@@ -5,13 +5,15 @@
 #include "godhand/cObjBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cFont.h"
-#include "godhand/sceVu0.h"
 
 extern void func_001B6FB8(cOm53 *self);
 extern void cOm53_setRiseWaitTime(cOm53 *self, int frames);
 extern void cOm53_setDownPos(cOm53 *self, float x);
 extern int cOmBase_checkDamage(cOmScripted *self, int record);
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
+extern void sceVu0ApplyMatrix(cVec *dst, float *mtx, cVec *src);
+extern void func_002A58A0(cFont *self, int a1);
+extern void func_002A58D8(cFont *self, unsigned int v);
 
 /* Offsets the cOm53 and cOmBase headers leave as padding. */
 #define COM53_SCRFLAGS(self) (*(int *)((char *)(self) + 0x5A0))
@@ -125,7 +127,7 @@ void IdHolder_releaseAnim(IdHolder *self) {
 
 /* Sets the text draw state: colour, layer, three scales; then runs the two state setters with a3 and t0. */
 __attribute__((section(".text.cFont_setDrawState")))
-void cFont_setDrawState(cFont *self, int colour, int layer, int a3, unsigned int t0, float scaleX, float f13, float f14) {
+void cFont_setDrawState(cFont *self, int colour, int layer, int a3, int t0, float scaleX, float f13, float f14) {
     self->state.colour = colour;
     self->state.layer = layer;
     self->state.scaleY = scaleX;

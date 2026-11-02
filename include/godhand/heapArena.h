@@ -2,22 +2,8 @@
 #ifndef GODHAND_HEAPARENA_H
 #define GODHAND_HEAPARENA_H
 
-struct HeapArena;
-
-/* The header at the start of an arena's block, as func_002A94F0 lays it out. */
-typedef struct HeapBlock {
-    struct HeapArena *arena;    /* 0x00 owner */
-    int unk04;                  /* 0x04 */
-    int unk08;                  /* 0x08 */
-    int size;                   /* 0x0C free bytes after the header */
-    int unk10;                  /* 0x10 0x20 after a reset */
-} HeapBlock;
-
 typedef struct HeapArena {
-    HeapBlock *block;           /* 0x00 start of the managed block, 0 if none */
-    int size;                   /* 0x04 size in bytes */
-    int user;                   /* 0x08 */
-    int unk0C;
+    int unk[4];
 } HeapArena;                    /* 0x10 */
 
 extern HeapArena *D_003C3CF0;   /* the default arena */

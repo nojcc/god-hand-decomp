@@ -102,7 +102,7 @@ void func_00110B20(pl00 *self)
 
                     CVEC_ZERO(heldPos);
                     CVEC_ZERO(heldRot);
-                    cGameObj_vt(w)->unk44((char *)w + cGameObj_vt(w)->unk40Delta);
+                    cGameObj_vt(w)->initial((char *)w + cGameObj_vt(w)->initialDelta);
                     cVec_copy3(w->pos, self->base.pos);
                     cVec_copy3(&w->posA, self->base.pos);
                     vec3_set(&w->rot.x, 0, 0, 0);

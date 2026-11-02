@@ -34,7 +34,7 @@ void func_00243408(cEm00 *self)
     switch (self->step) {
     case 0:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x2474), EM_RES_REC(self->resource, 0x2478), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x2474), EM_RES_REC(EM_RES(self), 0x2478), 3, 0.0f, sel, 0);
         self->timerA = 1;
         self->unk60C = 0.0f;
         self->step++;
@@ -46,14 +46,14 @@ void func_00243408(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if ((self->moveFlags & EMMOVE_HIT_FRAME) && self->timerA != 0) {
+        if ((self->seqFlags & EMMOVE_HIT_FRAME) && self->timerA != 0) {
             self->timerA = 0;
             func_0026B600(self);
         }
         break;
     case 2:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x247C), EM_RES_REC(self->resource, 0x2480), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x247C), EM_RES_REC(EM_RES(self), 0x2480), 3, 0.0f, sel, 0);
         self->unk568 = 2;
         self->timer = 90.0f;
         self->step++;
@@ -70,7 +70,7 @@ void func_00243408(cEm00 *self)
         break;
     case 4:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x2484), EM_RES_REC(self->resource, 0x2488), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x2484), EM_RES_REC(EM_RES(self), 0x2488), 3, 0.0f, sel, 0);
         self->timerA = 1;
         self->step++;
         /* fallthrough */
@@ -85,7 +85,7 @@ void func_00243408(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if (self->moveFlags & (EMMOVE_HIT_FRAME | EMMOVE_HIT_FRAME2)) {
+        if (self->seqFlags & (EMMOVE_HIT_FRAME | EMMOVE_HIT_FRAME2)) {
             if (self->timerA != 0) {
                 self->timerA = 0;
                 EmWeaponHolder_dropWeapons(self, 1, 0);
@@ -96,7 +96,7 @@ void func_00243408(cEm00 *self)
         break;
     case 6:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x247C), EM_RES_REC(self->resource, 0x2480), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x247C), EM_RES_REC(EM_RES(self), 0x2480), 3, 0.0f, sel, 0);
         self->timer = 45.0f;
         self->step++;
         /* fallthrough */
@@ -112,7 +112,7 @@ void func_00243408(cEm00 *self)
         break;
     case 8:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x248C), EM_RES_REC(self->resource, 0x2490), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x248C), EM_RES_REC(EM_RES(self), 0x2490), 3, 0.0f, sel, 0);
         self->timerA = 1;
         self->step++;
         /* fallthrough */
@@ -123,13 +123,13 @@ void func_00243408(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if (self->moveFlags & (EMMOVE_HIT_FRAME | EMMOVE_HIT_FRAME2)) {
+        if (self->seqFlags & (EMMOVE_HIT_FRAME | EMMOVE_HIT_FRAME2)) {
             if (self->timerA != 0) {
                 self->timerA = 0;
-                if (self->moveFlags & EMMOVE_HIT_FRAME) {
+                if (self->seqFlags & EMMOVE_HIT_FRAME) {
                     EmWeaponHolder_dropWeapons(self, 1, 0);
                 }
-                if (self->moveFlags & EMMOVE_HIT_FRAME2) {
+                if (self->seqFlags & EMMOVE_HIT_FRAME2) {
                     EmWeaponHolder_dropWeapons(self, 1, 0);
                 }
             }
@@ -139,7 +139,7 @@ void func_00243408(cEm00 *self)
         break;
     case 10:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x2464), EM_RES_REC(self->resource, 0x2468), 3, 0.0f, sel, 0);
+        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x2464), EM_RES_REC(EM_RES(self), 0x2468), 3, 0.0f, sel, 0);
         self->timer = 45.0f;
         self->step++;
         /* fallthrough */

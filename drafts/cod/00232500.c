@@ -10,7 +10,7 @@
 #include "godhand/angle.h"
 #include "godhand/rand.h"
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* An attack: step 0 sets the attack's motion parameters, picks its motion
  * for the enemy type (at random for some, the level 5 alternate for most)
@@ -364,13 +364,13 @@ void func_00232500(cEm00 *self)
             func_002705D8(self);
             return;
         }
-        self->stepVec.z *= self->timer3;
+        self->nullSpeed.z *= self->timer3;
         cObjBase_addNullSpeed_Rotation((struct cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
         break;
     }
-    if (self->emNo == 0x222 && (self->moveFlags & 2)) {
-        self->moveFlags &= ~2;
+    if (self->emNo == 0x222 && (self->seqFlags & 2)) {
+        self->seqFlags &= ~2;
         self->unk1865 = 2;
         self->unk17D4 = 6.0f;
     }
@@ -380,12 +380,12 @@ void func_00232500(cEm00 *self)
     }
     func_00260B30(self);
     if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(self) == 0
-        && (self->moveFlags & 0x10) && self->unk1864 == 0) {
+        && (self->seqFlags & 0x10) && self->unk1864 == 0) {
         if (func_00262AA8(self) != 0) {
             return;
         }
     }
-    if (self->emNo == 0x264 && (self->moveFlags & 1) && self->unk5F8 != 0) {
+    if (self->emNo == 0x264 && (self->seqFlags & 1) && self->unk5F8 != 0) {
         self->unk5F8 = 0;
         func_0026BEF0(self, 0x16, 0);
     }

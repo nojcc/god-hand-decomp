@@ -1,5 +1,4 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-#include "godhand/mtx.h"
 
 __attribute__((section(".text.CopyVec3ToField30_147C40")))
 void CopyVec3ToField30_147C40(float *a0, float *a1) {

@@ -10,7 +10,7 @@
 #include "godhand/angle.h"
 #include "godhand/rand.h"
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* An attack: step 0 picks the attack motion and its phase for the enemy type
  * (at random for some), step 1 turns toward the player while the turn timer
@@ -51,7 +51,7 @@ void func_002269F0(cEm00 *self)
         case 0x221:
         case 0x222:
         default:
-            if (self->vital <= self->vitalMax / 2) {
+            if (self->hp <= self->hpMax / 2) {
                 recA = RES(0x1CDC);
                 recB = RES(0x1CE0);
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
@@ -223,7 +223,7 @@ void func_002269F0(cEm00 *self)
             self->rot.y += angle;
             self->rot.y = Adjust_theta(self->rot.y);
         }
-        if ((self->moveFlags & 1) && self->timerB >= 0xB) {
+        if ((self->seqFlags & 1) && self->timerB >= 0xB) {
             self->timerB = 10;
         }
         if (self->timerB != 0) {
@@ -248,23 +248,23 @@ void func_002269F0(cEm00 *self)
     switch (self->stepArg) {
     case 0:
     default:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0, 0);
         }
         break;
     case 1:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 1, 0);
         }
         break;
     case 2:
-        if ((self->moveFlags & 3) && self->unk5F8 != 0) {
-            if (self->moveFlags & 1) {
+        if ((self->seqFlags & 3) && self->unk5F8 != 0) {
+            if (self->seqFlags & 1) {
                 func_0026BEF0(self, 2, 0);
             }
-            if (self->moveFlags & 2) {
+            if (self->seqFlags & 2) {
                 func_0026BEF0(self, 3, 0);
             }
             self->unk5F8 = 0;
@@ -273,7 +273,7 @@ void func_002269F0(cEm00 *self)
         }
         break;
     case 3:
-        if (self->moveFlags & 1) {
+        if (self->seqFlags & 1) {
             self->timer2 -= self->speedRate;
             if (self->timer2 <= 0.0f) {
                 self->unk5F8 = 0;
@@ -286,7 +286,7 @@ void func_002269F0(cEm00 *self)
         }
         break;
     case 4:
-        if (self->moveFlags & 1) {
+        if (self->seqFlags & 1) {
             self->timer2 -= self->speedRate;
             if (self->timer2 <= 0.0f) {
                 self->unk5F8 = 0;
@@ -296,7 +296,7 @@ void func_002269F0(cEm00 *self)
         }
         break;
     case 5:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0x11, 0);
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
@@ -306,7 +306,7 @@ void func_002269F0(cEm00 *self)
         }
         break;
     case 6:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0xE, 0);
             if (self->emNo == 0x27E) {
@@ -316,38 +316,38 @@ void func_002269F0(cEm00 *self)
         }
         break;
     case 7:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0xF, 0);
         }
         break;
     case 8:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0x14, 0);
         }
         break;
     case 9:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0x17, 0);
         }
         break;
     case 10:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0x18, 0);
         }
         break;
     case 11:
-        if ((self->moveFlags & 1) && self->unk5F8 != 0) {
+        if ((self->seqFlags & 1) && self->unk5F8 != 0) {
             self->unk5F8 = 0;
             func_0026BEF0(self, 0x1B, 0);
             func_0026BEF0(self, 0x1B, 1);
         }
         break;
     }
-    if (self->moveFlags & 3) {
+    if (self->seqFlags & 3) {
         self->timerC = 1;
     }
     if (self->timerC != 0) {

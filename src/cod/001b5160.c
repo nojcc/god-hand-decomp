@@ -2,9 +2,6 @@
 #include "godhand/cSnd.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEmManage.h"
-#include "godhand/sceVu0.h"
-#include "godhand/cIDObj.h"
-#include "godhand/mtx.h"
 
 extern int D_0077E6C0[];
 extern void cOmBase_dieCommon(void);
@@ -129,10 +126,9 @@ int func_002BE6C8(int *a0) {
     return func_00394F20(*a0);
 }
 
-/* The caller passes its object; it is not read. */
 __attribute__((section(".text.func_002BE6E8")))
-void func_002BE6E8(void *obj) {
-    func_00394D58(0);
+int func_002BE6E8(void) {
+    return func_00394D58(0);
 }
 
 __attribute__((section(".text.func_002BE818")))
@@ -296,22 +292,27 @@ int func_0031FFA0(void)
  * sibcall this shape, so the bare body is exact — and the six nearest
  * address-neighbours of these functions are 94% sn-2.95.3-136 already, so
  * the compiler key is a recovered setting, not a per-function invention. */
+extern void ClearFields_1614D0(void);
 extern void PostInc_D_00566E10_0015B0F0_15B0F0(void);
+extern void cIDBase_trans(void);
 extern void cObjBase_KageDraw(void);
 extern void func_0015FF10(void);
 extern void func_001BC0A0(void);
 extern void func_001BD6B0(void);
 extern void StateObj_runHandler(void);
 extern void cOmBase_tickModeTableSkip381(void);
+extern void sceVu0MulMatrix(void);
+extern void func_0030A548(void);
+extern void sceVu0ApplyMatrix(void);
 
 __attribute__((section(".text.MtxCopy")))
-void MtxCopy(void *dst, void *src) { func_0030A548(dst, src); }
+void MtxCopy(void) { func_0030A548(); }
 
 __attribute__((section(".text.MtxMultiply")))
-void MtxMultiply(void *dst, void *a, void *b) { sceVu0MulMatrix(dst, a, b); }
+void MtxMultiply(void) { sceVu0MulMatrix(); }
 
 __attribute__((section(".text.Tramp_func_0030A2B0_001508D8")))
-void Tramp_func_0030A2B0_001508D8(void *v0, void *m0, void *v1) { sceVu0ApplyMatrix(v0, m0, v1); }
+void Tramp_func_0030A2B0_001508D8(void) { sceVu0ApplyMatrix(); }
 
 __attribute__((section(".text.Tramp_func_0015B0F0_0015B080_15B080")))
 void Tramp_func_0015B0F0_0015B080_15B080(void) { PostInc_D_00566E10_0015B0F0_15B0F0(); }
@@ -320,22 +321,22 @@ __attribute__((section(".text.Tramp_func_0015FF10_001612A8_1612A8")))
 void Tramp_func_0015FF10_001612A8_1612A8(void) { func_0015FF10(); }
 
 __attribute__((section(".text.Tramp_func_002AAC28_00161970_161970")))
-void Tramp_func_002AAC28_00161970_161970(cIDBaseObj *self) { cIDBase_trans(self); }
+void Tramp_func_002AAC28_00161970_161970(void) { cIDBase_trans(); }
 
 __attribute__((section(".text.Tramp_func_001614D0_00161BB0_161BB0")))
-void Tramp_func_001614D0_00161BB0_161BB0(cIDObj *self) { ClearFields_1614D0(self); }
+void Tramp_func_001614D0_00161BB0_161BB0(void) { ClearFields_1614D0(); }
 
 __attribute__((section(".text.Tramp_func_002AAC28_00162278_162278")))
-void Tramp_func_002AAC28_00162278_162278(cIDBaseObj *self) { cIDBase_trans(self); }
+void Tramp_func_002AAC28_00162278_162278(void) { cIDBase_trans(); }
 
 __attribute__((section(".text.Tramp_func_001614D0_00166618_166618")))
-void Tramp_func_001614D0_00166618_166618(cIDObj *self) { ClearFields_1614D0(self); }
+void Tramp_func_001614D0_00166618_166618(void) { ClearFields_1614D0(); }
 
 __attribute__((section(".text.Tramp_func_001614D0_001673B0_1673B0")))
-void Tramp_func_001614D0_001673B0_1673B0(cIDObj *self) { ClearFields_1614D0(self); }
+void Tramp_func_001614D0_001673B0_1673B0(void) { ClearFields_1614D0(); }
 
 __attribute__((section(".text.Tramp_func_002AAC28_001682A8_1682A8")))
-void Tramp_func_002AAC28_001682A8_1682A8(cIDBaseObj *self) { cIDBase_trans(self); }
+void Tramp_func_002AAC28_001682A8_1682A8(void) { cIDBase_trans(); }
 
 __attribute__((section(".text.Tramp_func_001C29D0_0016F5E8_16F5E8")))
 void Tramp_func_001C29D0_0016F5E8_16F5E8(void) { cOmBase_tickModeTableSkip381(); }

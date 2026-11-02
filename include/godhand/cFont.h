@@ -22,9 +22,7 @@ typedef struct cFontState {
     int mode;                           /* 0x0C */
     int phase;                          /* 0x10 */
     int phaseArg;                       /* 0x14 */
-    float glyphW;                       /* 0x18 width of one glyph */
-    float glyphH;                       /* 0x1C height of one glyph */
-    int unk20;                          /* 0x20 */
+    char unk18[0xC];
     int colour;                         /* 0x24 packed RGBA, 0x80808080 is neutral */
     short layer;                        /* 0x28 */
     char unk2A[2];
@@ -38,23 +36,6 @@ typedef struct cFont {
     char unk000[CFONT_STATE_OFFSET];
     cFontState state;                   /* 0x2A050 */
 } cFont;
-
-extern cFont *D_003C2380;               /* the font */
-
-/* A state field read or written through a plain pointer at its offset. Retail
- * reloads D_003C2380 after each such store; with font->state.field the
- * compiler keeps the font pointer across them (cMessDrawFont_draw 4 words short). */
-#define CFONT_STATE_RAW(font, T, field) \
-    (*(T *)((char *)(font) + CFONT_STATE_OFFSET + (int)&((cFontState *)0)->field))
-
-void cFont_setDrawState(cFont *self, int colour, int layer, int a3, unsigned int t0, float scaleX, float f13, float f14);
-
-/* The font's GIF packet, built in the packet buffer 0x28000 bytes in. */
-void func_002A4FA0(cFont *font);                        /* start a packet: mode 5, cursor aligned to 16 */
-void func_002A52E8(cFont *font, unsigned int col);      /* the packet's RGBA colour */
-void func_002A58A0(cFont *font, int value);             /* the texture mode, then func_002A58D8(font, -1) */
-void func_002A58D8(cFont *font, unsigned int v);        /* the filter; -1 picks it from the texture mode */
-void BuildGifPacket_2A5930(cFont *font);                /* close the packet and send it */
 
 typedef char cFont_state_check[(sizeof(cFont) == CFONT_STATE_OFFSET + 0x3C) ? 1 : -1];
 

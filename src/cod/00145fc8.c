@@ -1,9 +1,34 @@
-/* sn-2.95.3-136: func_00145FC8, pop-in phase of the ID screen: shrink the scale each frame,
- * fade in colour 0 on every row, then colour 1 on the second row's fourth entry, then stop. */
-#include "godhand/cIDBaseScreen.h"
+/* sn-2.95.3-136: func_00145FC8, pop-in animation of a five-part HUD effect: shrink the scale each frame,
+ * fade in colour 0 on every part, then colour 1 on the second part's third entry, then stop. */
+#include "godhand/cIDBase.h"
+
+typedef struct EffPartSlot {
+    cIDBaseEnt *a;            /* 0x00 */
+    int pad04;
+    cIDBaseEnt *b;            /* 0x08 */
+    cIDBaseEnt *c;            /* 0x0C */
+    int pad10;
+} EffPartSlot;
+
+typedef struct EffPartObj {
+    char pad000[0x90];
+    unsigned int flags;         /* 0x090 */
+    EffPartSlot slot[5];       /* 0x094 */
+    char pad0F8[0x338 - 0xF8];
+    float scale;                /* 0x338 */
+    char pad33C[0x364 - 0x33C];
+    unsigned int col0;          /* 0x364 */
+    unsigned int col1;          /* 0x368 */
+    char pad36C[0x41E - 0x36C];
+    short f41E;                 /* 0x41E */
+    short step;                 /* 0x420 */
+} EffPartObj;
+
+extern float D_0041E880[];
+extern float D_0041E884;
 
 __attribute__((section(".text.func_00145FC8")))
-void func_00145FC8(cIDBaseScreen *self)
+void func_00145FC8(EffPartObj *self)
 {
     unsigned short i;
     float t;
@@ -14,34 +39,34 @@ void func_00145FC8(cIDBaseScreen *self)
     case 0:
         self->step++;
     case 1:
-        self->color0 += 0xE0000000;
-        if (self->color0 == 0x808080) {
+        self->col0 += 0xE0000000;
+        if (self->col0 == 0x808080) {
             self->scale = 1.0f;
             self->step++;
         }
-        for (i = 0; i < SCR_ROW_NUM; i++) {
-            self->tbl[i][2]->sclX = (t = D_0041E880[i]) * (1.0f - self->scale + 1.0f);
+        for (i = 0; i < 5; i++) {
+            self->slot[i].b->sclX = (t = D_0041E880[i]) * (1.0f - self->scale + 1.0f);
             t *= self->scale;
-            self->tbl[i][2]->sclY = t;
+            self->slot[i].b->sclY = t;
             if (i != 1)
-                self->tbl[i][0]->colorBase.word = self->color0;
+                self->slot[i].a->colorBase.word = self->col0;
         }
-        self->tbl[1][2]->colorBase.word = self->color0;
+        self->slot[1].b->colorBase.word = self->col0;
         break;
     case 2:
-        self->color1 += 0xF0000000;
-        if (self->color1 == 0x808080)
+        self->col1 += 0xF0000000;
+        if (self->col1 == 0x808080)
             self->step++;
-        self->tbl[1][3]->colorBase.word = self->color1;
-        u = D_0041E880[1];
-        self->tbl[1][3]->sclX = u * (1.0f - self->scale + 1.0f);
+        self->slot[1].c->colorBase.word = self->col1;
+        u = D_0041E884;
+        self->slot[1].c->sclX = u * (1.0f - self->scale + 1.0f);
         u *= self->scale;
-        self->tbl[1][3]->sclY = u;
+        self->slot[1].c->sclY = u;
         break;
     case 3:
-        self->flags &= ~SCR_FLAG_READY;
-        self->flags &= ~SCR_FLAG_SHOWN;
-        self->phase = 0;
+        self->flags &= ~0x40000000;
+        self->flags &= ~0x20000000;
+        self->f41E = 0;
         self->step = 0;
         break;
     }

@@ -1,5 +1,3 @@
-#include "godhand/seqNode.h"
-
 extern void ClearEventFlagsPending_375FA0(void);
 extern void ClearPendingEntries_376008(void);
 extern void SndSlot_updateAll(void);

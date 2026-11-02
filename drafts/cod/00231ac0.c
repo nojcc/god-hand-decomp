@@ -9,7 +9,7 @@
 #include "godhand/player.h"
 #include "godhand/angle.h"
 
-#define RES(off) EM_RES_REC(self->resource, off)
+#define RES(off) EM_RES_REC(EM_RES(self), off)
 
 /* A turn in place: step 0 picks the turn motion for the enemy type and sets the
  * facing to turn to, step 1 turns toward the player for a level-scaled number of
@@ -263,7 +263,7 @@ void func_00231AC0(cEm00 *self)
     if (self->unk1864 == 0) {
         func_00260B30(self);
     }
-    if (self->moveFlags & 3) {
+    if (self->seqFlags & 3) {
         self->timerC = 1;
     }
     if (self->timerC != 0) {

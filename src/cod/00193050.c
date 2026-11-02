@@ -12,8 +12,19 @@ extern void cHeap_free(int heap, int *node);
 extern cSnd D_005FEE00;
 extern void cSnd_CheckSeEnd(cSnd *snd, int handle);
 
-#define REC_SIZE 0x30
+/* The jump table: groups of 0x30-byte records, found through a header at the table address. */
+typedef struct RecGroup {
+    char unk00[2];
+    unsigned char count;                /* 0x02 records in the group */
+    unsigned char first;                /* 0x03 index of the group's first record */
+} RecGroup;
 
+typedef struct RecTable {
+    char unk00[8];
+    int recOfs;                         /* 0x08 byte offset of the record array */
+} RecTable;
+
+#define REC_SIZE 0x30
 
 
 
@@ -21,11 +32,11 @@ extern void cSnd_CheckSeEnd(cSnd *snd, int handle);
 __attribute__((section(".text.cRoomJump_getRecord")))
 void *cRoomJump_getRecord(cRoomJump *self, unsigned short group, unsigned char n)
 {
-    cRoomJumpGroup *grp = func_002BEAA8(self, group);
+    RecGroup *grp = func_002BEAA8(self, group);
     char *rec = 0;
     if (grp != 0 && n < grp->count) {
         char *tbl = (char *)self->tbl;
-        rec = tbl + ((cRoomJumpTbl *)tbl)->recOfs;
+        rec = tbl + ((RecTable *)tbl)->recOfs;
         rec += (grp->first + n) * REC_SIZE;
     }
     return rec;

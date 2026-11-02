@@ -1,9 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/menuCtl.h"
 
 /* sn-2.95.3-136: MixChan_stepPad, applies one pad step to the selected channel of a mixer record:
  * a negative flag word and bit 30 move the volume entry down and up by the step, bits 15 and 13
  * move the table index instead and reload the volume from the table. */
+typedef struct MixChan {
+    char unk00[2];
+    unsigned char sel;                  /* 0x02 selected channel */
+    char unk03;
+    short vol[5];                       /* 0x04 volume per channel */
+    short idx[5];                       /* 0x0E table index per channel */
+} MixChan;
+
 typedef struct MixPad {
     char unk00[0x2C];
     unsigned int flags;                 /* 0x2C bit 1: coarse step */
@@ -15,10 +22,12 @@ typedef struct MixPad {
 
 extern short D_003F2060[];
 
+extern void func_003820C0(void *mix, MixChan *chan);
+
 __attribute__((section(".text.MixChan_stepPad")))
 void MixChan_stepPad(char *mix, MixPad *pad)
 {
-    MenuSnd *c = (MenuSnd *)(mix + MIX_CHAN_OFFSET);
+    MixChan *c = (MixChan *)(mix + MIX_CHAN_OFFSET);
     short step = 1;
     int btn;
 
@@ -26,33 +35,33 @@ void MixChan_stepPad(char *mix, MixPad *pad)
         step = 10;
     btn = pad->btn;
     if (btn < 0) {
-        if (c->level[c->slot] >= step - 0x3C0)
-            c->level[c->slot] = c->level[c->slot] - step;
+        if (c->vol[c->sel] >= step - 0x3C0)
+            c->vol[c->sel] = c->vol[c->sel] - step;
         else
-            c->level[c->slot] = -0x3C0;
+            c->vol[c->sel] = -0x3C0;
         goto reidx;
     }
     if ((btn & 0x40000000) != 0) {
-        if (c->level[c->slot] <= -step)
-            c->level[c->slot] = c->level[c->slot] + step;
+        if (c->vol[c->sel] <= -step)
+            c->vol[c->sel] = c->vol[c->sel] + step;
         else
-            c->level[c->slot] = 0;
+            c->vol[c->sel] = 0;
 reidx: /* shared by the negative-flag and bit-30 arms, as in the matched sibling func_003851C0 */
-        c->index[c->slot] = func_003807E0(mix, c->level[c->slot]);
+        c->idx[c->sel] = func_003807E0(mix, c->vol[c->sel]);
     } else if ((btn & 0x8000) != 0) {
-        if (c->index[c->slot] >= step)
-            c->index[c->slot] = c->index[c->slot] - step;
+        if (c->idx[c->sel] >= step)
+            c->idx[c->sel] = c->idx[c->sel] - step;
         else
-            c->index[c->slot] = 0;
-        c->level[c->slot] = D_003F2060[c->index[c->slot]];
+            c->idx[c->sel] = 0;
+        c->vol[c->sel] = D_003F2060[c->idx[c->sel]];
     } else {
         if ((btn & 0x2000) == 0)
             return;
-        if (c->index[c->slot] <= 0x7F - step)
-            c->index[c->slot] = c->index[c->slot] + step;
+        if (c->idx[c->sel] <= 0x7F - step)
+            c->idx[c->sel] = c->idx[c->sel] + step;
         else
-            c->index[c->slot] = 0x7F;
-        c->level[c->slot] = D_003F2060[c->index[c->slot]];
+            c->idx[c->sel] = 0x7F;
+        c->vol[c->sel] = D_003F2060[c->idx[c->sel]];
     }
-    func_003820C0((MenuCtl *)mix, c);
+    func_003820C0(mix, c);
 }

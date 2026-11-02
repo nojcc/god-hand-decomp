@@ -57,17 +57,10 @@ __attribute__((section(".text.cSeData_IsBankIdle")))
 int cSeData_IsBankIdle(cSeData *d) { return func_00375128(d->bankIdS) == 0; }
 
 __attribute__((section(".text.cSeData_HeapAlloc")))
-int cSeData_HeapAlloc(cSeData *d, int size)
-{
-    /* The loaded bank image starts with its sound memory heap. */
-    return cSndMemHeap_Alloc((cSndMemHeap *)d->head, size);
-}
+int cSeData_HeapAlloc(cSeData *d) { return cSndMemHeap_Alloc((int)d->head); }
 
 __attribute__((section(".text.cSeData_HeapFree")))
-void cSeData_HeapFree(cSeData *d, int addr)
-{
-    cSndMemHeap_Free((cSndMemHeap *)d->head, addr);
-}
+int cSeData_HeapFree(int *a0) { return cSndMemHeap_Free(a0[3]); }
 
 /* Set load bits on a bgm data record; returns the new bits. */
 __attribute__((section(".text.cBgmData_AddLoadBits")))

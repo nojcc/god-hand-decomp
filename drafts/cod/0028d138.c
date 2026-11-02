@@ -18,7 +18,7 @@ void func_0028D138(cEm00 *self, cOmWeapon *weapon, int kind)
     }
     VU0_SQC2_VF0_MEM(&pos, 0);
     VU0_SQC2_VF0_MEM(&rot, 0);
-    CEM00_WEAPON_GRIP(self, kind, self->unk434 & 2, pos, rot, hand);
+    CEM00_WEAPON_GRIP(self, kind, self->motionFlags & 2, pos, rot, hand);
     cOmWeapon_setParent(weapon, (cOmBase *)self, hand, &pos, &rot);
     if (kind != 0x369) {
         self->unk1634 = weapon;

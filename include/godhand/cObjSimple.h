@@ -10,8 +10,6 @@
 #ifndef GODHAND_COBJSIMPLE_H
 #define GODHAND_COBJSIMPLE_H
 
-#include "godhand/cOmBase.h"
-
 #define COBJSIMPLE_STATE_ACTIVE  4   /* state at which the object's virtual hook runs */
 
 typedef struct cObjSimple cObjSimple;
@@ -113,31 +111,6 @@ struct cObjSimple {
     cObjSimpleVec3 parentOfsB;      /* 0x30D0 */
 };
 
-/* Child idx of the prop, 0 when idx is past the child count. The count is
- * stored to *frame first, as cOmBase_childAt does. */
-static __inline__ cObjSimpleChild *cObjSimple_childAt(cObjSimple *self, int *frame, int idx)
-{
-    int n;
-
-    *frame = n = self->childNum;
-    if (idx >= 0 && idx < n) {
-        return self->children[idx];
-    }
-    return 0;
-}
-
-/* cObjSimple_childAt with the range test built as a flag (cOmBase_childAtIdx). */
-static __inline__ cObjSimpleChild *cObjSimple_childAtIdx(cObjSimple *self, int *frame, int idx)
-{
-    int n;
-
-    *frame = n = self->childNum;
-    if (cOmBase_idxInRange(idx, 0, n) & 0xFF) {
-        return self->children[idx];
-    }
-    return 0;
-}
-
 /* Offset checks: a wrong pad makes one of these array sizes negative. */
 #define COBJSIMPLE_OFS(f) ((int)&((cObjSimple *)0)->f)
 typedef char cObjSimple_chk_parentPos[COBJSIMPLE_OFS(parentPos) == 0xF0 ? 1 : -1];
@@ -161,13 +134,5 @@ typedef char cObjSimple_chk_texIdx[COBJSIMPLE_OFS(texChangeIdx) == 0x4D4 ? 1 : -
 typedef char cObjSimple_chk_one[COBJSIMPLE_OFS(oneBodyFlag) == 0x4D8 ? 1 : -1];
 typedef char cObjSimple_chk_kage[COBJSIMPLE_OFS(kageObj) == 0x4DC ? 1 : -1];
 typedef char cObjSimple_chk_pendOn[COBJSIMPLE_OFS(pendulumOn) == 0x1390 ? 1 : -1];
-
-/* Node helpers (0x2B6xxx), on any object whose node record starts at 0. */
-void *StoreVecFromFieldB0_2B6160(void *dst, void *self);   /* world position of the node */
-void *CopyVec16From20_B62E0(void *dst, char *self);       /* the node's scale at 0x20 */
-void *func_002B60D0(void *dst, void *self);              /* the node's rotation angles */
-int CallThenReturnPlusB0_002B6420_2B61B0(int a0);         /* updates the world matrix, returns it (node + 0xB0) */
-void UpdateObjByIndexedOp_2FBE50(void *self);
-void func_002FBED0(void *self);
 
 #endif
