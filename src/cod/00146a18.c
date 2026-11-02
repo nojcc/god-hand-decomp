@@ -4,7 +4,10 @@
 
 #define IDPAIR_TOP       (-50.0f)       /* entry 0's start and exit position */
 
-/* The queued message the banner shows, a short in the message bank at D_003C23A4. */
+/* The queued message the banner shows, a short at 0xBEE in the message bank. D_003C23A4 is
+ * declared as the int handle the cMessage_* calls take (cMessDrawFontCode.h) and cMessage
+ * stops at 0xBDA, so there is no field to name; main's 00162c98.c and 001630e8.c write
+ * this short through the same offset. */
 #define MESS_BANNER_MSG(bank) (*(unsigned short *)((bank) + 0xBEE))
 
 /* func_00146A18: the banner step. Slide entry 0 down, grow entry 1, show the

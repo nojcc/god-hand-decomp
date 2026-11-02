@@ -13,6 +13,8 @@
 #define MENU_KEY_LEFT       0x0004000008000000L
 #define MENU_KEY_RIGHT      0x0008000004000000L
 #define MENU_KEY_LEFTRIGHT  (MENU_KEY_LEFT | MENU_KEY_RIGHT)
+/* LEFTRIGHT plus bits 46 and 47, whose input isn't known yet: the casino tables test left and right with it. */
+#define MENU_KEY_LEFTRIGHT_ALL  (MENU_KEY_LEFTRIGHT | 0xC00000000000L)
 #define MENU_KEY_PAGE_PREV  0x1000000000L
 #define MENU_KEY_PAGE_NEXT  0x10000000000L
 #define MENU_KEY_OK         0x10000000L

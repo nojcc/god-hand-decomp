@@ -38,7 +38,8 @@ void func_00165EB8(cSubScrMenu *self)
     }
     self->stageSel = self->stageSel < 0 ? self->stageNum
                : self->stageSel > self->stageNum ? 0 : self->stageSel;
-    /* retail tests this bit as (flags ^ bit) & bit: !(flags & bit) changes the code */
+    /* retail tests the bit with xori then andi: !(flags & bit), (flags & bit) == 0,
+     * (flags & bit) != bit and ~flags & bit all fold into a plain bit test (1-3 off) */
     if ((D_007474A0.trg & MENU_KEY_OK) && ((self->flags ^ SUBSCR_MENU_NOOK) & SUBSCR_MENU_NOOK)) {
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
         switch (self->obj.state) {

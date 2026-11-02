@@ -43,7 +43,7 @@ void func_001D8480(Poker *self)
         self->phase++;
         break;
     case 1:
-        self->hand[0]->obj->flags &= 0xFFFFFFFD;
+        self->hand[0]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
         self->unk302C = POKER_DEAL_FRAMES;
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[0]->obj, 0, 0, 0, 0);
         self->phase++;
@@ -53,7 +53,7 @@ void func_001D8480(Poker *self)
         if (self->unk302C != 0) {
             self->unk302C--;
         } else {
-            self->hand[1]->obj->flags &= 0xFFFFFFFD;
+            self->hand[1]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             self->unk302C = POKER_DEAL_FRAMES;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[1]->obj, 0, 0, 0, 0);
             self->phase++;
@@ -64,8 +64,7 @@ void func_001D8480(Poker *self)
         if (self->unk302C != 0) {
             self->unk302C--;
         } else {
-            /* from the third card on, retail restarts the timer after the sound */
-            self->hand[2]->obj->flags &= 0xFFFFFFFD;
+            self->hand[2]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[2]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
             self->phase++;
@@ -76,7 +75,7 @@ void func_001D8480(Poker *self)
         if (self->unk302C != 0) {
             self->unk302C--;
         } else {
-            self->hand[3]->obj->flags &= 0xFFFFFFFD;
+            self->hand[3]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[3]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
             self->phase++;
@@ -87,7 +86,7 @@ void func_001D8480(Poker *self)
         if (self->unk302C != 0) {
             self->unk302C--;
         } else {
-            self->hand[4]->obj->flags &= 0xFFFFFFFD;
+            self->hand[4]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[4]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
             self->phase++;

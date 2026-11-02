@@ -45,7 +45,7 @@ void func_001D94D0(Poker *self)
             if ((held >> 1 & 1) == 0) {
                 func_001DBE18(self, &self->hand[i]);
                 func_001D6EC8(self->hand[i], 0);
-                self->hand[i]->obj->flags |= 2;
+                self->hand[i]->obj->flags |= BLACKJACK_CARD_FACE_DOWN;
                 Poker_placeCard(self->hand[i]->obj, D_00568160);
             }
         }
@@ -57,7 +57,7 @@ void func_001D94D0(Poker *self)
         long held = (unsigned int)self->hand[0]->flags;
 
         if ((held >> 1 & 1) == 0) {
-            self->hand[0]->obj->flags &= 0xFFFFFFFD;
+            self->hand[0]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[0]->obj, 0, 0, 0, 0);
         }
         self->unk302C = POKER_DEAL_FRAMES;
@@ -83,7 +83,7 @@ void func_001D94D0(Poker *self)
         long held = (unsigned int)self->hand[1]->flags;
 
         if ((held >> 1 & 1) == 0) {
-            self->hand[1]->obj->flags &= 0xFFFFFFFD;
+            self->hand[1]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[1]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
         }
@@ -109,7 +109,7 @@ void func_001D94D0(Poker *self)
         long held = (unsigned int)self->hand[2]->flags;
 
         if ((held >> 1 & 1) == 0) {
-            self->hand[2]->obj->flags &= 0xFFFFFFFD;
+            self->hand[2]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[2]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
         }
@@ -135,7 +135,7 @@ void func_001D94D0(Poker *self)
         long held = (unsigned int)self->hand[3]->flags;
 
         if ((held >> 1 & 1) == 0) {
-            self->hand[3]->obj->flags &= 0xFFFFFFFD;
+            self->hand[3]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[3]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
         }
@@ -161,7 +161,7 @@ void func_001D94D0(Poker *self)
         long held = (unsigned int)self->hand[4]->flags;
 
         if ((held >> 1 & 1) == 0) {
-            self->hand[4]->obj->flags &= 0xFFFFFFFD;
+            self->hand[4]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[4]->obj, 0, 0, 0, 0);
             self->unk302C = POKER_DEAL_FRAMES;
         }

@@ -42,8 +42,8 @@ typedef struct cFont {
 extern cFont *D_003C2380;               /* the font */
 
 /* A state field read or written through a plain pointer at its offset. Retail
- * reloads D_003C2380 after each such store; the struct member spelling
- * lets the compiler keep the font pointer across them. */
+ * reloads D_003C2380 after each such store; with font->state.field the
+ * compiler keeps the font pointer across them (cMessDrawFont_draw 4 words short). */
 #define CFONT_STATE_RAW(font, T, field) \
     (*(T *)((char *)(font) + CFONT_STATE_OFFSET + (int)&((cFontState *)0)->field))
 

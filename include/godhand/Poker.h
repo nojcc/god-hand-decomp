@@ -45,7 +45,9 @@ typedef struct Poker {
     short cardId[POKER_HAND_NUM];       /* 0x3052 card ids, POKER_CARD_NONE = empty slot */
 } Poker;                                /* 0x305C */
 
-/* The table's UI record (a PanelObj) sits at 0x25B0 and is not typed in Poker yet. */
+/* The table's UI record (a PanelObj) sits at 0x25B0. PanelObj's layout and size aren't known
+ * yet, so Poker can't hold it as a member; its helpers (func_001DF528, PanelObj_setCursorMode,
+ * ...) take the record's address. */
 #define POKER_UI(self)  ((char *)(self) + 0x25B0)
 
 /* Sorted rank patterns of the nine non-royal straights (A-5 .. 9-K). */
