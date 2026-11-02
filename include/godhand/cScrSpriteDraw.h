@@ -50,13 +50,30 @@ typedef struct cScrSprite {
 /* The texture draw config the packet builders take: a mode word, then the
  * texel window. The callers keep the whole 0x50 bytes on the stack. */
 typedef struct cScrTexCfg {
-    int mode;
-    float u0;
-    float v0;
-    float u1;
-    float v1;
-    char unk14[0x50 - 0x14];
-} cScrTexCfg;
+    int mode;                           /* 0x00 SCR_TEX_* bits */
+    float u0;                           /* 0x04 */
+    float v0;                           /* 0x08 */
+    float u1;                           /* 0x0C */
+    float v1;                           /* 0x10 */
+    float u2;                           /* 0x14 SCR_TEX_CORNERS: (u0,v0) (u1,v1) (u2,v2) (u3,v3) */
+    float v2;                           /* 0x18 */
+    float u3;                           /* 0x1C */
+    float v3;                           /* 0x20 */
+    float cutX;                         /* 0x24 SCR_TEX_CUT0/1: fraction of the top edge kept */
+    float cutY;                         /* 0x28 */
+    char unk2C[4];
+    unsigned long alpha;                /* 0x30 SCR_TEX_ALPHA: ALPHA_1 register */
+    char unk38[8];
+    unsigned long clamp;                /* 0x40 SCR_TEX_CLAMP: CLAMP_1 register */
+    char unk48[8];
+} cScrTexCfg;                           /* 0x50 */
+
+#define SCR_TEX_RECT     0x01           /* texel rectangle (u0,v0)-(u1,v1) */
+#define SCR_TEX_CUT1     0x04           /* pull vertex 1 toward vertex 0 by cutX, cutY */
+#define SCR_TEX_CUT0     0x08           /* pull vertex 0 toward vertex 1 by cutX, cutY */
+#define SCR_TEX_CORNERS  0x10           /* one texel position per corner */
+#define SCR_TEX_ALPHA    0x20
+#define SCR_TEX_CLAMP    0x80
 
 typedef struct cScrVtx {
     float x;
@@ -85,8 +102,30 @@ unsigned int func_0031ED08(float f12);
 
 typedef char cScrSpriteDraw_size_check[(sizeof(cScrSpriteDraw) == 0x34) ? 1 : -1];
 
-extern void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex, unsigned int color,
+extern void cScrSpriteDraw_drawTex(cScrSpriteDraw *self, unsigned int tex,
                                    float x, float y, float w, float h,
-                                   float u0, float v0, float u1, float v1);
+                                   float u0, float v0, float u1, float v1, unsigned int color);
+void cScrSpriteDraw_drawTexCentered(cScrSpriteDraw *self, unsigned int tex,
+                                    float x, float y, float w, float h,
+                                    float u0, float v0, float u1, float v1, unsigned int color);
+
+/* One cell of a sprite sheet: its texture (-1 = the sheet's default) and its UV rectangle. */
+typedef struct cScrSheetCell {
+    int tex;                            /* 0x00 index into the system data file's offset table */
+    float u0;                           /* 0x04 */
+    float v0;                           /* 0x08 */
+    float u1;                           /* 0x0C */
+    float v1;                           /* 0x10 */
+} cScrSheetCell;                        /* 0x14 */
+
+typedef struct cScrSheet {
+    int tex;                            /* 0x00 default texture */
+    cScrSheetCell *cell;                /* 0x04 */
+} cScrSheet;
+
+/* Draw cell idx of a sheet over (x0, y0)-(x1, y1) (definition in 002b1f80.c). */
+void func_002B1F80(cScrSheet *sheet, int idx, unsigned int color, float x0, float y0, float x1, float y1);
+/* The same with a size instead of the far corner (definition in 002b2058.c). */
+void func_002B2058(cScrSheet *sheet, int idx, unsigned int color, float x, float y, float w, float h);
 
 #endif

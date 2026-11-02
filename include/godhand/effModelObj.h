@@ -45,4 +45,7 @@ typedef struct EffModelObj {
     float size;                         /* 0x300 */
 } EffModelObj;
 
+/* Builds the effect object's model; 0 when a step fails. */
+int func_002F1B60(EffModelObj *self);
+
 #endif
