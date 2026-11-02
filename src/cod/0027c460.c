@@ -5,6 +5,8 @@
 
 extern int moveMotion(void *a0);
 extern unsigned int irand(void);
+extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4, int a5, int a6, int a7);
+extern int D_005FEE00;
 
 /* Phase machine on the step byte, 7 case labels. Calls func_002A8578, moveMotion, irand,
  * cSnd_SeCall_2CBA48. */

@@ -4,14 +4,14 @@
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 #include "godhand/CustomIDWork.h"
-#include "godhand/cIDBase.h"
-#include "godhand/idPair.h"
 
 extern unsigned short D_00747A50;
 extern void func_0026ECD0(cEm00 *self, int flag);
 extern float ESLib_ESHermite(float t, float p0, float p1, float m0, float m1);
 extern char D_0044E960[];
 extern void cHeap_free(int heap, int *block);
+extern void cIDBase_initIDWork(void *part, int idx);
+extern CustomIDWork *cIDBase_getIDWork(void *part, int idx);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern float capVu0Length(void *a0);
 extern char *D_005CAFF0;
@@ -102,7 +102,19 @@ void BlockOwner_dtor(BlockOwner *self, int flags)
     func_002FBE28(self, flags);
 }
 
+#define IDPAIR_WORK_NUM  4
 #define IDPAIR_AMP       (-50.0f)       /* sine amplitude of the first element of each part */
+
+/* A display with two cIDBase parts, at 0 and 0xA0, and four state bytes at 0x79. */
+typedef struct IdPair {
+    char unk00[0x79];
+    unsigned char state[4];             /* 0x79 */
+    char unk7D[0x85];
+    short timer;                        /* 0x102 */
+} IdPair;
+
+
+
 
 /* Clear the state bytes, initialise the four elements of both parts, give
  * the first element of each part its sine amplitude and set the timer to 90. */
@@ -110,6 +122,7 @@ __attribute__((section(".text.IdPair_init")))
 void IdPair_init(IdPair *self)
 {
     unsigned short i;
+    char *part;
 
     i = 0;
     self->state[0] = 0;
@@ -117,17 +130,18 @@ void IdPair_init(IdPair *self)
     self->state[2] = 0;
     self->state[3] = 0;
     do {
-        cIDBase_initIDWork(&self->base, i);
+        cIDBase_initIDWork(self, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    ((CustomIDWork *)cIDBase_getIDWork(&self->base, 0))->offsAmp[0] = IDPAIR_AMP;
+    cIDBase_getIDWork(self, 0)->offsAmp[0] = IDPAIR_AMP;
     i = 0;
+    part = (char *)self + 0xA0;
     do {
-        cIDBase_initIDWork(&self->part2, i);
+        cIDBase_initIDWork(part, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    ((CustomIDWork *)cIDBase_getIDWork(&self->part2, 0))->offsAmp[0] = IDPAIR_AMP;
-    self->timer = IDPAIR_SHOW_TIME;
+    cIDBase_getIDWork(part, 0)->offsAmp[0] = IDPAIR_AMP;
+    self->timer = 0x5A;
 }
 
 /* A trigger object with a reach (a float at 0x2B8); 0 means it always fires. */

@@ -5,9 +5,12 @@
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern char *Getplayer(void);
+extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern int irand(void);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 
 /* Phase machine on the step byte, 14 case labels. Calls CheckSlotsShort2FEAndSetByte1864_262A10,
  * Obj0000_Get_Byte_17C3_NZ_2_276468, StoreMotionParamsBoth_2609A8, cCoreSave_getGameLevel,
@@ -61,7 +64,7 @@ __attribute__((section(".text.func_002289B8"))) void func_002289B8(cEm00 *self)
                 char *p;
                 self->timerA = self->timerA - 1;
                 p = Getplayer();
-                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(p + 0xF0), self->speedRate * 0.19634954f);
+                cGameObj_SetTgtTurn(self, *(int *)(p + 0xF0), self->speedRate * 0.19634954f);
             }
             if (moveMotion(self))
                 func_002705D8(self);
@@ -115,12 +118,12 @@ __attribute__((section(".text.func_002289B8"))) void func_002289B8(cEm00 *self)
                 char *p;
                 self->timerA = self->timerA - 1;
                 p = Getplayer();
-                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(p + 0xF0), self->speedRate * 0.19634954f);
+                cGameObj_SetTgtTurn(self, *(int *)(p + 0xF0), self->speedRate * 0.19634954f);
             }
             if (moveMotion(self))
                 func_002705D8(self);
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         default:
             break;

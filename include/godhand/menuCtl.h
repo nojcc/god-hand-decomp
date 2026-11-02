@@ -142,7 +142,7 @@ typedef char MenuPage_size_check[sizeof(MenuPage) == 0x100 ? 1 : -1];
 typedef struct SlotInfoA {
     char unk00[0x14];
     int info;                   /* 0x14 */
-    unsigned char mute[8];      /* 0x18 1 when muted: [0] the whole stream, [n] track n */
+    char unk18[0x20 - 0x18];
     int handle;                 /* 0x20 */
     int buf;                    /* 0x24 freed once the handle stops */
 } SlotInfoA;
@@ -161,8 +161,7 @@ typedef struct SlotInfoB {
 typedef struct SlotView {
     unsigned char unk00[3];
     unsigned char flags;        /* 0x03 */
-    unsigned char track;        /* 0x04 track the mute page shows, 1-based; 0 for the whole stream */
-    char unk05[0x30 - 0x05];
+    char unk04[0x30 - 0x04];
     int stat;                   /* 0x30 */
     SlotInfoB b;                /* 0x34 */
     char unk6C[0xA4 - 0x34 - sizeof(SlotInfoB)];
@@ -197,9 +196,6 @@ typedef struct FileSel {
 extern int GuardedCall_00329FD0_329F98(int handle);
 extern int func_00380AE8(MenuCtl *ctl, MenuInfo *info, MenuList *list);
 extern void func_00380EB0(MenuCtl *ctl, MenuInfo *info, MenuList *list);
-int func_00380F80(MenuCtl *ctl, MenuInfo *info, MenuList *list);
-int func_0032B0B0(int handle);          /* the stream's error code, under the ADX lock */
-void func_0032B118(int handle);         /* clear the stream's error code, under the ADX lock */
 extern int func_0037FD28(FileSel *sel, FileSelWork *work);
 extern void func_0037FC28(FileSel *self);
 extern void func_0037FF98(MenuCtl *ctl);
@@ -207,19 +203,14 @@ extern int func_00323918(int a0, int idx);
 
 /* One row of the option menu pages (D_003F21E8, D_003F2368, D_003F24D0). */
 typedef struct MenuRowEnt {
-    void *value;                        /* 0x00 the value the row edits, a char or a short by width */
+    short unk0;
+    short unk2;
     short unk4;
     short y;                            /* 0x06 */
-    signed char type;                   /* 0x08 value rows: 0 char, 1 short; flag rows: the bits toggled */
+    char unk8;
     signed char handler;                /* 0x09 index into D_003F2628 */
-    unsigned short min;                 /* 0x0A */
-    unsigned short max;                 /* 0x0C */
-    short step;                         /* 0x0E */
-    short fastStep;                     /* 0x10 with hold bit 8 */
-    char unk12[2];
+    char unkA[0xA];
 } MenuRowEnt;
-
-typedef char MenuRowEnt_size_check[sizeof(MenuRowEnt) == 0x14 ? 1 : -1];
 
 extern MenuRowEnt D_003F21E8[];
 extern MenuRowEnt D_003F2368[];
@@ -232,20 +223,6 @@ typedef struct SndTrkSet {
     char unk0C[0x20 - 0x0C];
     void *ply;                          /* 0x20 player handle */
 } SndTrkSet;
-
-/* A stream's mixer page: the track picked and a left and a right volume per
- * track, [0] being the whole stream. */
-typedef struct SndMixer {
-    char unk00[2];
-    unsigned char cur;                  /* 0x02 track picked, 0 for the whole stream */
-    char unk03[0x18 - 0x03];
-    short lvol[5];                      /* 0x18 */
-    short rvol[5];                      /* 0x22 */
-    char unk2C[0x30 - 0x2C];
-    SndTrkSet trk;                      /* 0x30 */
-} SndMixer;
-
-int func_00382520(void *ctx, SndMixer *mix, unsigned char right);
 
 /* The voice reference of a sound option (the handle at 0x30). */
 typedef struct SndVoiceRef {

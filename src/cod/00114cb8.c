@@ -6,6 +6,9 @@
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
+extern unsigned char D_005FEE00[];
 extern int D_00462FC0;
 extern void func_001268F0(void *a0);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
@@ -43,8 +46,8 @@ void func_0028A9E8(void *a0)
             *(unsigned char *)(s0 + 0x2F7) = 0;
         } else {
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(a0, one);
-            cObjBase_addNullSpeed(a0, one);
+            cObjBase_addNullSpeed_Rotation(s0, one);
+            cObjBase_addNullSpeed(s0, one);
         }
         break;
     }
@@ -81,8 +84,8 @@ void func_00114CB8(void *a0)
             *(char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     }
     if ((*(unsigned short *)(s0 + 0x3AC) & 1) && *(int *)(s0 + 0x698) == 0) {

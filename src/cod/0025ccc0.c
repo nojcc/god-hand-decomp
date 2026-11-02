@@ -8,12 +8,13 @@ extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 #include "godhand/motion.h"
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
 extern char D_00462FC0[];
 extern char D_005CB000[];
 
 #include "godhand/vu0.h"
-#include "godhand/cObjBase.h"
 
 __attribute__((section(".text.func_0025CCC0")))
 void func_0025CCC0(void *a0)
@@ -70,8 +71,8 @@ void func_0025CCC0(void *a0)
         if (moveMotion(s0) != 0) {
             (*(unsigned char *)(s0 + 0x2F6))++;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         break;
     }
     case 2:
@@ -100,8 +101,8 @@ void func_0025CCC0(void *a0)
         p0 = *(int *)(s0 + 0xF0);
         VU0_VADD_XYZ_IP(p0, 0, q);
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6);
         break;
     }
@@ -132,8 +133,8 @@ void func_0025CCC0(void *a0)
             *(unsigned char *)(s0 + 0x2F7) = 0;
             return;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         break;
     }
     default:

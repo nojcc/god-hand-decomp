@@ -5,14 +5,15 @@ extern float SetMotionStep(void *a0, float f12);
 #include "godhand/motion.h"
 extern int moveMotion(void *a0);
 extern float fRand1_1(void);
+extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
+extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern unsigned int irand(void);
 extern void func_0012C348(void *a0, int a1);
 extern char D_00462FC0[];
+extern char D_005FEE00[];
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
-#include "godhand/cSnd.h"
 
 
 
@@ -108,7 +109,7 @@ void func_0010B9C0(void *a0)
             sceVu0ApplyMatrix(fr, s0 + 0x80, fr);
             *(short *)(s0 + 0x568) = 0;
             SetEffectPos(0, 0x40, 0, fr, -1, 1.0f);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x111, s0, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x111, s0, 0, 0, 0, 0);
         }
         break;
     case 4: {

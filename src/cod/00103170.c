@@ -8,14 +8,16 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
 #include "godhand/motion.h"
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
+extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void cSnd_DieDemoStart(void *a0);
 extern void func_00124EC0(void *a0);
+extern unsigned char D_005FEE00[];
 extern int D_00747A24;
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cObjBase.h"
-#include "godhand/cSnd.h"
 __attribute__((section(".text.func_00103170")))
 void func_00103170(void *a0)
 {
@@ -54,8 +56,8 @@ void func_00103170(void *a0)
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     }
 }
@@ -76,8 +78,8 @@ void func_00122D18(void *a0)
             s2 = *(int *)(b + 0x16C) + b;
             s0 = *(int *)(b + 0x170) + b;
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD6, s1, 0, 0, 0, 0);
-        cSnd_DieDemoStart(&D_005FEE00);
+        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xD6, s1, 0, 0, 0, 0);
+        cSnd_DieDemoStart(D_005FEE00);
         cCoreSave_addGameLevelPoint(&D_00569B70, -1000);
         func_0012C348(s1, 3);
         func_002A8578(s1, s2, s0, 2, 0.0f, 0, 0);
@@ -95,8 +97,8 @@ void func_00122D18(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s1, one);
+        cObjBase_addNullSpeed(s1, one);
         break;
     case 2:
         break;

@@ -8,6 +8,9 @@ extern int GetSeqSEBase(void *a0);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
+extern void cObjBase_addNullSpeed(void *a0, float s);
+extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 candidate. */
 
@@ -89,8 +92,8 @@ __attribute__((section(".text.func_002311A8"))) void func_002311A8(cEm00 *self)
             if (moveMotion(s1) != 0) {
                 func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
             break;
     }
 }

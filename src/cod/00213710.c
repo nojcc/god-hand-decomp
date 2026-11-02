@@ -4,6 +4,7 @@
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int GetSeqSEBase(void *a0);
 extern int irand(void);
 extern int moveMotion(void *a0);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
@@ -13,6 +14,7 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern char *Getplayer(void);
 extern int cEmManage_CkPlCatched(void *a0);
+extern unsigned char D_005FEE00[];
 extern unsigned char D_005864F0[];
 
 /* sn-2.95.3-136 matched TU. */
@@ -294,11 +296,11 @@ void func_00213710(void *a0)
         float lim = 16.0f;
         int w;
 
-        cGameObj_SetTgtTurn(a0, (cVec *)(p + 0x16A0),
+        cGameObj_SetTgtTurn(p, (int)(p + 0x16A0),
                                          *(float *)(p + 0x5A8) * 0.2617994f);
         moveMotion(p);
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(p, one);
+        cObjBase_addNullSpeed(p, one);
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         default:
         case 1:

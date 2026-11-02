@@ -10,7 +10,6 @@
 #define GODHAND_CMESSDRAWFONTCODE_H
 
 #include "godhand/cMessDrawFont.h"
-#include "godhand/cMessCommon.h"
 
 extern float func_002B0A58(cMessDrawFont *self, unsigned short *text, float *scale);
 extern float func_002B0BE0(cMessDrawFont *self, unsigned short *text, float *scale);
@@ -19,6 +18,7 @@ extern int func_002A4BA0(int font, unsigned short code);
 extern int D_003C2380;          /* the font the metrics read */
 extern int D_003C23A4;          /* the message bank the metrics read */
 extern unsigned short *cMessage_getMessageAddr(int mess, unsigned short id);
+extern int cMessCommon_getCodeSize(unsigned short code);
 extern int func_002A4B20(int font, unsigned short code);
 
 struct MessWin;

@@ -1,7 +1,8 @@
 /* sn-2.95.3-136 */
-#include "godhand/cVec.h"
+#include "godhand/gameWork.h"
+#include "godhand/sceVu0.h"
 
-/* The class whose base constructor is func_002D50C0; the vtable pointer sits at 0x30. */
+/* The part at 0x1C of D_005FEB00: func_002D50C0's class, derived; its vtable pointer is at 0x30. */
 typedef struct StaticPart {
     char unk00[0x30];
     char *vtbl;                         /* 0x30 */
@@ -14,9 +15,8 @@ typedef struct StaticObj {
     StaticPart part;                    /* 0x1C */
 } StaticObj;
 
-extern void *func_002D50C0(void *a0);
 extern StaticObj D_005FEB00;
-extern char D_0044D1A8[];
+extern char D_0044D1A8[];               /* the derived class's vtable */
 
 /* The derived constructor: the base constructor, then the derived vtable. */
 static __inline__ void StaticPart_construct(StaticPart *self)
@@ -28,7 +28,7 @@ static __inline__ void StaticPart_construct(StaticPart *self)
 /* The object's constructor: a zeroed vector, then the part at 0x1C. */
 static __inline__ void StaticObj_construct(StaticObj *self)
 {
-    CVEC_ZERO(self->unk00);
+    cVec_zero(&self->unk00);
     StaticPart_construct(&self->part);
 }
 

@@ -70,8 +70,8 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             one = 1.0f;
             *(unsigned short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, one);
-            cObjBase_addNullSpeed((cObjBase *)s1, one);
+            cObjBase_addNullSpeed_Rotation(s1, one);
+            cObjBase_addNullSpeed(s1, one);
             if (*(short *)(s1 + 0x568) != 0) {
                 *(unsigned short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
             } else {
@@ -114,8 +114,8 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             cPartsCamera_SetParts(parts, s1, a2v, a3v);
             *(unsigned short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
             moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation((cObjBase *)s1, one);
-            cObjBase_addNullSpeed((cObjBase *)s1, one);
+            cObjBase_addNullSpeed_Rotation(s1, one);
+            cObjBase_addNullSpeed(s1, one);
             if (*(short *)(s1 + 0x568) != 0) {
                 *(unsigned short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
             } else {

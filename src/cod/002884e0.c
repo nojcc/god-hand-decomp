@@ -5,6 +5,8 @@
  * fields 0xD8/0xDC, mode 0xA) and advances; both phases step moveMotion then
  * refresh the vec3 copy and forward the 0x30A2B0 handler.  sn-2.95.3-136. */
 extern int moveMotion(void *a0);
+extern void cModel_calcNullPart(void *a0);
+extern void Add_nullspeed(void *a0);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion,
  * cModel_calcNullPart, Add_nullspeed. */
 __attribute__((section(".text.func_002884E0"))) void func_002884E0(cEm00 *self)
@@ -17,8 +19,8 @@ __attribute__((section(".text.func_002884E0"))) void func_002884E0(cEm00 *self)
             self->step = self->step + 1;
         case 1:
             moveMotion(self);
-            cModel_calcNullPart((cModel *)self);
-            Add_nullspeed((cGameObj *)self);
+            cModel_calcNullPart(self);
+            Add_nullspeed(self);
             break;
     }
 }

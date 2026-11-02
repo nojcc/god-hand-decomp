@@ -7,6 +7,8 @@
 #include "godhand/motion.h"
 
 extern int moveMotion(void *a0);
+extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
+extern int D_005FEE00[];
 extern cSaveRooms D_005E9CB8;
 extern cSaveTail D_00755880;
 extern cSaveWorld D_007474A0;

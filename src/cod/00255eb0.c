@@ -13,8 +13,12 @@ extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 
 
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
+extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
+extern unsigned char D_005FEE00[];
 extern unsigned char D_005CB010;
 extern unsigned char D_00747A2C[];
 
@@ -99,7 +103,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
             int b = EM_RES(self);
             ma = EM_RES_REC(b, 0xB4C);
             mb = EM_RES_REC(b, 0xB50);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
         }
             break;
         case 0x260:
@@ -197,7 +201,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
 
         if (c != 0) {
             self->timerA = c - 1;
-            cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
+            cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
         }
         self->pos->y = self->pos->y + self->home.y * self->speedRate;
         q = self->pos;
@@ -217,8 +221,8 @@ void cEm00_stepLeapAndLand(cEm00 *self)
             self->timerB |= 1;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
-        cObjBase_addNullSpeed((cObjBase *)self, one);
+        cObjBase_addNullSpeed_Rotation(self, one);
+        cObjBase_addNullSpeed(self, one);
         if (self->timerB == 3) {
             self->step += 1;
         }
@@ -361,7 +365,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
 
         if (c != 0) {
             self->timerA = c - 1;
-            cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
+            cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
         }
         if (self->seqFlags & 4) {
             cVec *q;
@@ -439,8 +443,8 @@ void cEm00_stepLeapAndLand(cEm00 *self)
         }
         self->motionFlags |= 8;
         moveMotion(self);
-        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
     }

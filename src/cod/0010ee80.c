@@ -17,6 +17,8 @@ extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern int  moveMotion(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern void func_0010A438(void *a0);
 
@@ -92,8 +94,8 @@ void func_0010EE80(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
             pl00_clearMotionCam(s1, 1, 0);
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {

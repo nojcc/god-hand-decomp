@@ -2,7 +2,6 @@
 
 #include "godhand/cCoreSave.h"
 #include "godhand/cActionButton.h"
-#include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
 #include "godhand/cVec.h"
 #include "godhand/cNode.h"
@@ -192,7 +191,7 @@ int getItemNumInRoom(void)
     for (p = D_00754C58->begin; p != D_00754C58->end; p++) {
         k = *(unsigned short *)(*p + 0x2FE);
         if (inrange(k, ACTOR_ITEM_FIRST, ACTOR_ITEM_END) & 0xFF) {
-            if (func_001B8030((cGameObj *)*p) == 1) {
+            if (func_001B8030(*p) == 1) {
                 n++;
             }
         }

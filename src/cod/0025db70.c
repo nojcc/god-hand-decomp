@@ -9,6 +9,8 @@ extern void *Getplayer(void);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void SetMotionStep(void *a0, float a1);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern void func_0027DC50(void *a0, int a1);
 extern char D_00462FC0[];
@@ -54,8 +56,8 @@ __attribute__((section(".text.func_0025DB70"))) void func_0025DB70(cEm00 *self)
                 VU0_VADD_XYZ_IP(p, 0, q);
             }
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             self->step = *(unsigned char *)(s1 + 0x2F6);
             break;
         case 4:
@@ -89,8 +91,8 @@ __attribute__((section(".text.func_0025DB70"))) void func_0025DB70(cEm00 *self)
                     self->stepArg = 0;
                 }
             }
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         case 6: {
             int p;
@@ -118,8 +120,8 @@ __attribute__((section(".text.func_0025DB70"))) void func_0025DB70(cEm00 *self)
             }
             if (moveMotion(self) != 0)
                 func_002705D8(self);
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         default:
             break;

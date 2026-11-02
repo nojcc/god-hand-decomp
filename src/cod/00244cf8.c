@@ -9,6 +9,8 @@ extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, int a1, int a2);
 
 extern void func_002705D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int D_007476B0;
 extern char D_00462FC0[];
@@ -79,8 +81,8 @@ __attribute__((section(".text.func_00244CF8"))) void func_00244CF8(cEm00 *self)
                 func_002705D8(self);
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
-            cObjBase_addNullSpeed((cObjBase *)self, one);
+            cObjBase_addNullSpeed_Rotation(self, one);
+            cObjBase_addNullSpeed(self, one);
             break;
     }
 }

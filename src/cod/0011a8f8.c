@@ -5,14 +5,18 @@
 extern void *cSnd_GetSeData(void *a0, int a1);
 extern int cSeData_IsAlive(void *p);
 extern void cSndSeVoice_Unlink(void *a0);
+extern char D_005FEE00[];
 extern unsigned int D_00747A84;
 extern int D_00747A78;
 extern unsigned int irand(void);
+extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 /* Updates one voice every frame: waits out its start delay, starts or retunes the sound, tracks the
    distance ratio, and frees the voice when its sound is gone. Each live frame ages the voice by one. */
@@ -31,7 +35,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
     if (cSndSeVoice_IsActive(voice) == 0) {
         return;
     }
-    snd = &D_005FEE00;
+    snd = (cSnd *)D_005FEE00;
     entry = cSnd_GetSeData(snd, voice->key0);
     if (cSeData_IsAlive(entry) == 0) {
         goto reset;
@@ -78,7 +82,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
         if (1.0f < ratio) {
             ratio = 1.0f;
         }
-        sndNow = &D_005FEE00;
+        sndNow = (cSnd *)D_005FEE00;
         sndNow->f9C = ratio;
     }
     state = func_003750E0(voice->handle);
@@ -164,8 +168,8 @@ void func_0011A8F8(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s1, one);
+        cObjBase_addNullSpeed(s1, one);
         f = *(float *)(s1 + 0x54C);
         break;
     default:

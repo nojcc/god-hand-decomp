@@ -1,6 +1,6 @@
 /* include/godhand/cOm60.h - cOm60, a map object that can be thrown.
  *
- * cOm60 builds on the cGameObj record (0x5B0 bytes). A thrown object keeps
+ * cOm60 builds on the cGameObj record (0x5AC bytes). A thrown object keeps
  * its parent in `parent` (0 once it flies free), the throw direction in
  * `throwDir`, and a speed. setThrow detaches it, turns it to face the
  * direction and starts the throw effect and sound once.

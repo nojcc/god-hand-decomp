@@ -13,6 +13,9 @@ extern void func_002726F8(void *a0);
 extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern int moveMotion(void *a0);
 extern void func_00274FE8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
+extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -243,7 +246,7 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                         *(unsigned char *)(s2 + 0x2F6) = 0;
                         *(unsigned char *)(s2 + 0x2F7) = 0;
                     } else {
-                        func_0025FE30(self, 0x1000000, 0);
+                        func_0025FE30(s2, 0x1000000, 0);
                         *(unsigned char *)(s2 + 0x2F4) = 2;
                         *(unsigned char *)(s2 + 0x2F5) = 2;
                         *(unsigned char *)(s2 + 0x2F6) = 0;
@@ -254,8 +257,8 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 }
             } else {
                 one = 1.0f;
-                cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
-                cObjBase_addNullSpeed((cObjBase *)self, one);
+                cObjBase_addNullSpeed_Rotation(s2, one);
+                cObjBase_addNullSpeed(s2, one);
             }
             break;
         }

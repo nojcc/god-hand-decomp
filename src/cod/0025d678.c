@@ -9,17 +9,19 @@ extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 #include "godhand/motion.h"
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float a2);
 extern float fRand1_1(void);
 extern float fRand0_1(void);
+extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
+extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern char D_00462FC0[];
 extern int D_005CB000;
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
-#include "godhand/cObjBase.h"
 
 
 
@@ -72,8 +74,8 @@ void func_0025D678(void *a0)
         if (moveMotion(s0) != 0) {
             (*(unsigned char *)(s0 + 0x2F6))++;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         break;
     case 2:
     {
@@ -97,8 +99,8 @@ void func_0025D678(void *a0)
         VU0_VADD_XYZ_IP(p0, 0, q);
     }
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         if (*(unsigned short *)(s0 + 0x3AC) & 1) {
             if (*(int *)(s0 + 0x5F0) != 0) {
                 char *vt;
@@ -163,8 +165,8 @@ void func_0025D678(void *a0)
             }
             func_002705D8(s0);
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         break;
     case 6:
     {
@@ -202,8 +204,8 @@ void func_0025D678(void *a0)
             *(signed char *)(s0 + 0x2F6) = 0;
             *(signed char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         break;
     }
 
@@ -225,7 +227,7 @@ void func_0025D678(void *a0)
                 f[5] = fRand1_1() * 0.1f + 0.1f;
                 f[6] = fRand0_1() * 0.1f + 0.2f;
                 { float *e = &f[4]; sceVu0ApplyMatrix(e, s1 + 0x80, e); e = 0; }
-                SetEffectPos(0, 0x4F, 0, (cVec *)(&f[4]), -1, 1.0f);
+                SetEffectPos(0, 0x4F, 0, &f[4], -1, 1.0f);
             }
         }
         *(short *)(s0 + 0x56A) = 0;

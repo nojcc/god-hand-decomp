@@ -7,11 +7,15 @@ extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1,
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void func_0010A438(void *a0);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern unsigned int irand(void);
+extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
+extern char D_005FEE00[];
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float a4);
@@ -26,6 +30,7 @@ extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern void func_00129578(void *a0);
 extern void func_00129630(void *a0);
+extern void cSnd_SeStop(void *a0, int a1);
 
 __attribute__((section(".text.func_001142E0")))
 void func_001142E0(void *a0)
@@ -56,8 +61,8 @@ void func_001142E0(void *a0)
             *(char *)(s0 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     }
     if (func_00123938(s0, 1) != 0) {
@@ -113,9 +118,9 @@ void func_0011AAA0(void *a0)
         }
         func_002A8578(s1, p1, p2, 1, 0.0f, 0, 0);
         if (irand() & 1) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
         } else {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD0, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xD0, s1, 0, 0, 0, 0);
         }
         func_0012C348(s1, 1);
         pl00_clearMotionCam(s1, 0, 0);
@@ -132,8 +137,8 @@ void func_0011AAA0(void *a0)
             *(char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s1, one);
+        cObjBase_addNullSpeed(s1, one);
         f = *(float *)(s1 + 0x54C);
         break;
     default:
@@ -221,8 +226,8 @@ void func_001209A0(void *a0)
                 *(char *)(s0 + 0x2F7) = 0;
             }
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
         break;
     default:
         break;
@@ -281,8 +286,8 @@ void func_00111210(void *a0)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     func_0010A438(s1);
@@ -290,11 +295,11 @@ void func_00111210(void *a0)
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {
-        cSnd *g = &D_005FEE00;
+        char *g = D_005FEE00;
         cSnd_SeStop(g, *(int *)(s1 + 0x161C));
         *(int *)(s1 + 0x161C) = 0;
-        g->flagsB0 &= 0xFFBFFFFF;
-        g->flagsAC &= 0xFFBFFFFF;
+        *(int *)(g + 0xB0) &= 0xFFBFFFFF;
+        *(int *)(g + 0xAC) &= 0xFFBFFFFF;
     }
     if (func_00123938(s1, 1) != 0) {
         func_00129630(s1);

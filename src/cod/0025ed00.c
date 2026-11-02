@@ -5,6 +5,7 @@
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int GetSeqSEBase(void *a0);
 extern int moveMotion(void *a0);
 extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int SetEffect(int a0, int a1, void *a2, void *a3, int t0, unsigned int t1);
@@ -272,7 +273,7 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
                 case 0x249:
                 case 0x24A:
                 case 0x24E:
-                    SetEffect(0x58, 0x9F, s3, (cEffectParam *)(&s), -1, 0xFFFFFFFF);
+                    SetEffect(0x58, 0x9F, s3, &s, -1, 0xFFFFFFFF);
                     cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x22), s3, 0, 0,
                                        0, 0);
                     break;
@@ -293,8 +294,8 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
                     *(signed char *)(s3 + 0x2F7) = 0;
                 }
             } else {
-                cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-                cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+                cObjBase_addNullSpeed_Rotation(s3, 1.0f);
+                cObjBase_addNullSpeed(s3, 1.0f);
             }
             break;
     }

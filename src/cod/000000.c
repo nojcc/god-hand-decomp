@@ -4,7 +4,6 @@
 #include "godhand/cEma2.h"
 #include "godhand/objField.h"
 #include "godhand/cEm00.h"
-#include "godhand/cIDObj.h"
 
 /* ------------------------------------------------------------------ */
 /* Externs unified across the 7-function D_0044BED0 cluster.          */
@@ -72,9 +71,8 @@ void SetField_104_13E3F8(char *arg0) { arg0[0x104] = 0; }
 __attribute__((section(".text.NoOp_133B98")))
 void NoOp_133B98(void) {}
 
-/* The caller passes its manager; it is not read. */
 __attribute__((section(".text.NoOp_1352F0")))
-void NoOp_1352F0(void *mgr) {}
+void NoOp_1352F0(void) {}
 
 __attribute__((section(".text.NoOp_13C750")))
 void NoOp_13C750(void) {}
@@ -107,8 +105,8 @@ void Obj0000_Set_Field_424_1595E8(int *arg0, int arg1) {
 }
 
 __attribute__((section(".text.GetSeqSEBase")))
-int GetSeqSEBase(void *obj) {
-    return *((int *)((char *)obj + 0x424));
+int GetSeqSEBase(int *arg0) {
+    return *((int *)((char *)arg0 + 0x424));
 }
 
 __attribute__((section(".text.Circle_line2")))
@@ -891,10 +889,11 @@ int *Obj0000_Set_Fields_00_01_D_00451038_31F488(int *a0, int a1) {
     return a0;
 }
 
+extern int D_003EB308[];
 
 __attribute__((section(".text.Obj0000_Get_D_003EB308_Plus10_By_Index_324808")))
 int Obj0000_Get_D_003EB308_Plus10_By_Index_324808(int a0) {
-    return (int)D_003EB308[a0]->fname;
+    return D_003EB308[a0] + 0x10;
 }
 
 extern long long D_003C8100;
@@ -985,9 +984,9 @@ typedef struct {
 extern CGUnk_007474A0_t D_007474A0;
 
 __attribute__((section(".text.Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0")))
-void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(cIDObj *self) {
-    self->flags5D8 = D_007474A0.field_5D8;
-    self->flags5E0 = D_007474A0.field_5E0;
+void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(unsigned char *a0) {
+    *(int *)(a0 + 0x68) = D_007474A0.field_5D8;
+    *(int *)(a0 + 0x6C) = D_007474A0.field_5E0;
 }
 
 extern unsigned char *D_003BD6E8;
@@ -1082,6 +1081,7 @@ void Tramp_003302B0_003302E0(void *a0) {
 
 __attribute__((section(".text.Tramp_003A52F0_00333AD8")))
 void Tramp_003A52F0_00333AD8(void) {
+    extern void func_003A52F0(void *a0, int a1, int a2);
     extern char D_003D9DC0[];
     func_003A52F0(D_003D9DC0, 0, 0x10);
 }
@@ -1276,9 +1276,9 @@ void Tramp_func_0014EFA8_0012BBE0(void)
  do { cObjBase_KageDraw(); } while (0);
 }
 
-__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(cIDBaseObj *self)
+__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(void)
 {
- do { cIDBase_trans(self); } while (0);
+ do { cIDBase_trans(); } while (0);
 }
 
 
@@ -2111,6 +2111,7 @@ void NoOp_280A08(void) {}
 __attribute__((section(".text.NoOp_280AE8")))
 void NoOp_280AE8(void) {}
 
+extern int func_003A52F0(int a0, int a1, int a2);
 __attribute__((section(".text.Forward3A52F0_332BE0")))
 int Forward3A52F0_332BE0(int a0) { return func_003A52F0(a0, 0, 0x48); }
 
@@ -2122,6 +2123,7 @@ extern int func_00331C98(void);
 __attribute__((section(".text.Forward331C98_333F60")))
 int Forward331C98_333F60(void) { return func_00331C98(); }
 
+extern int func_003A52F0(int a0, int a1, int a2);
 __attribute__((section(".text.Forward3A52F0_334500")))
 int Forward3A52F0_334500(int a0) { return func_003A52F0(a0, 0, 0x30); }
 
@@ -2149,6 +2151,7 @@ extern int func_003A9228(void);
 __attribute__((section(".text.Forward3A9228_336360")))
 int Forward3A9228_336360(void) { return func_003A9228(); }
 
+extern int func_003A52F0(int a0, int a1, int a2);
 __attribute__((section(".text.Forward3A52F0_336588")))
 int Forward3A52F0_336588(int a0) { return func_003A52F0(a0, 0, 0x38); }
 

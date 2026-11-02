@@ -9,6 +9,8 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float f);
 extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
+extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int Obj0000_Get_Byte_2F4_EQ_1_10B5B8(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
@@ -380,13 +382,13 @@ __attribute__((section(".text.func_002147D0"))) void func_002147D0(cEm00 *self)
             *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
         case 1: {
             char *q = (char *)Getplayer();
-            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(q + 0xF0), *(float *)(p + 0x5A8) * 0.0981747732f);
+            cGameObj_SetTgtTurn(p, *(int *)(q + 0xF0), *(float *)(p + 0x5A8) * 0.0981747732f);
         }
             if (moveMotion(p) != 0 && *(unsigned char *)(p + 0x2F7) != 2) {
                 func_002705D8(p);
             }
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(p, 1.0f);
+            cObjBase_addNullSpeed(p, 1.0f);
     }
     switch (*(int *)(p + 0x564)) {
         default: {

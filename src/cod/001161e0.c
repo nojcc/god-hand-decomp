@@ -1,4 +1,3 @@
-#include "godhand/cObjBase.h"
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern void func_001268F0(void *a0);
@@ -29,8 +28,8 @@ void UpdateAttackState2F6_1161E0(void *a0) {
         one = 1.0f;
         func_00124EC0(s0);
         moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     }
 }

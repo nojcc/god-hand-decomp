@@ -8,6 +8,8 @@ extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern char D_00462FC0[];
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
@@ -48,8 +50,8 @@ void func_001156D8(void *a0)
         if (moveMotion(s1) != 0) {
             *(unsigned char *)(s1 + 0x2F6) = 2;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     case 2: {
         int t;
@@ -82,8 +84,8 @@ void func_001156D8(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
 }
@@ -174,8 +176,8 @@ void func_001120A8(void *a0)
             *(char *)(s1 + 0x2F6) = 0;
             *(char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {

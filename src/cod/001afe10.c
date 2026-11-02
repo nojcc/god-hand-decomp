@@ -3,11 +3,11 @@
 /* Switch an object to its second pose: close the damage volume, hide meshes 0 to 3, show mesh 0x40, set the flag on parts 2 to 8 and clear the pickup bits, then place each part from the scaled offset vector. */
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
-#include "godhand/cModel.h"
 
 extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern void SetField380Bit2000ForTag_1B7300(void *a0, int a1, int a2);
+extern void cModel_calcParts(void *a0);
 extern void func_001AFBD0(char *a0, int a1, float *a2, float *a3);
 
 __attribute__((section(".text.SwitchToSecondPose")))
@@ -61,7 +61,7 @@ void SwitchToSecondPose(char *p)
         if (i < 9 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;

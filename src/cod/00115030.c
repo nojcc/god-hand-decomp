@@ -6,6 +6,7 @@ extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void func_001268F0(void *a0);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void MtxInitRotY(void *a0, float angle);
+extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void cOmWeapon_resetHold(void *a0);
 #include "godhand/motion.h"
 extern void func_00124EC0(void *a0);
@@ -13,6 +14,8 @@ extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012A8D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern int func_00123938(void *a0, int a1);
 extern char D_005864F0[];
 extern char D_00462FC0[];
@@ -32,8 +35,6 @@ extern char D_00462FC0[];
  */
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
-#include "godhand/cObjBase.h"
 
 
 
@@ -143,8 +144,8 @@ void func_00115030(void *a0) {
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(a0, 1.0f);
-        cObjBase_addNullSpeed(a0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     if (func_00123938(s1, 1) != 0) {

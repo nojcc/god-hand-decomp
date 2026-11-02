@@ -8,6 +8,8 @@ extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int D_00462FC0;
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
+extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_00281260(void *a0);
@@ -45,8 +47,8 @@ __attribute__((section(".text.func_002426A0"))) void func_002426A0(cEm00 *self)
         case 1:
             one = 1.0f;
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
-            cObjBase_addNullSpeed((cObjBase *)self, one);
+            cObjBase_addNullSpeed_Rotation(self, one);
+            cObjBase_addNullSpeed(self, one);
             if (0.0f < *(float *)((char *)self + 0x16C0)) {
                 func_002705D8(self);
             }
@@ -66,8 +68,8 @@ __attribute__((section(".text.func_002426A0"))) void func_002426A0(cEm00 *self)
                 self->step = 0;
             }
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
-            cObjBase_addNullSpeed((cObjBase *)self, one);
+            cObjBase_addNullSpeed_Rotation(self, one);
+            cObjBase_addNullSpeed(self, one);
             break;
     }
 }
@@ -108,8 +110,8 @@ __attribute__((section(".text.func_00249960"))) void func_00249960(cEm00 *self)
                 func_002495E0(self, 0.0f);
                 moveMotion(self);
                 one = 1.0f;
-                cObjBase_addNullSpeed_Rotation((cObjBase *)self, one);
-                cObjBase_addNullSpeed((cObjBase *)self, one);
+                cObjBase_addNullSpeed_Rotation(self, one);
+                cObjBase_addNullSpeed(self, one);
                 hs = (unsigned char *)D_005CB000;
                 break;
         } while (0);

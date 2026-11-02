@@ -7,6 +7,8 @@
  * (cSnd_SeCall_2CBA48 declared int-returning so SN keeps the record ptr in v1.) */
 
 extern int moveMotion(void *a0);
+extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
+extern int D_005FEE00[];
 
 /* Phase machine on the step byte, 2 case labels. Calls cSnd_SeCall_2CBA48, func_002A8578,
  * moveMotion. */

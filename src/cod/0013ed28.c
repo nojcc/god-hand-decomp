@@ -7,8 +7,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
 #include "godhand/cNowLoading.h"
-#include "godhand/cModel.h"
-#include "godhand/cIDBase.h"
 
 extern void func_002E8038(WaveObj *self, float width);
 extern void WaveObj_fillWaveTable(WaveObj *self, float step);
@@ -16,13 +14,20 @@ extern void *cSnd_GetSeData(cSnd *self, int idx);
 extern void cSeData_Release(void *data);
 extern void cSnd_releaseEmSeAll(cSnd *self);
 extern void cSndMemHeap_Close(void *heap);
+extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
 extern void cSndBgmNode_Release(cSndBgmNode *node);
 extern char D_006036A0[];
 extern char D_00603310[];
 extern void displayScrollLayer(int layer, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
+extern void cModel_calcParts(void *self);
 extern void cSnd_BgmEventStart(void *snd, int event, int a2, int a3);
+extern void func_001DF528(void *p, int a1, int a2);
 extern void func_001DEE40(void *p, int a1);
+extern char D_005FEE00[];
+extern void cIDBase_initIDWork(cNowLoading *self, int idx);
+extern cIDBaseEnt *cIDBase_getIDWork(cNowLoading *self, int idx);
+extern void cIDBase_restartAnim(cNowLoading *self);
 
 /* Copies the wave settings from the parameter block, clamps the entry count
  * to 1..32 (0 or less gives 25), builds the smoothing table from the squared
@@ -171,7 +176,7 @@ void cOmBase_updatePhaseAndCalcParts(cOmBase *self)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cModel_calcParts((cModel *)self);
+    cModel_calcParts(self);
     cVec_copy3(&self->posA, self->pos);
     cVec_copy3(&self->posB, &self->rot);
 }
@@ -201,7 +206,7 @@ void Poker_updateResultWait(Poker *self)
     case 1:
         if (!Poker_timerDone(self))
             return;
-        cSnd_BgmEventStart(&D_005FEE00, POKER_BGM_EVENT, 0, 0);
+        cSnd_BgmEventStart(D_005FEE00, POKER_BGM_EVENT, 0, 0);
         func_001DF528(POKER_UI(self), 1, 4);
         /* fall through */
     case 0:
@@ -232,16 +237,16 @@ void cNowLoading_setup(cNowLoading *self)
     cIDBaseEnt *barEnt;
     unsigned short i;
 
-    cIDBase_initIDWork(&self->base, 0);
-    cIDBase_initIDWork(&self->base, 1);
-    cIDBase_initIDWork(&self->base, 2);
-    cIDBase_initIDWork(&self->base, 3);
-    cIDBase_restartAnim(&self->base);
+    cIDBase_initIDWork(self, 0);
+    cIDBase_initIDWork(self, 1);
+    cIDBase_initIDWork(self, 2);
+    cIDBase_initIDWork(self, 3);
+    cIDBase_restartAnim(self);
     self->base.playing = 1;
-    ent[0] = cIDBase_getIDWork(&self->base, 0);
-    ent[1] = cIDBase_getIDWork(&self->base, 1);
-    barEnt = cIDBase_getIDWork(&self->base, 2);
-    ent[2] = cIDBase_getIDWork(&self->base, 3);
+    ent[0] = cIDBase_getIDWork(self, 0);
+    ent[1] = cIDBase_getIDWork(self, 1);
+    barEnt = cIDBase_getIDWork(self, 2);
+    ent[2] = cIDBase_getIDWork(self, 3);
     for (i = 0; i < NOWLOADING_SLOT_NUM; i++) {
         self->slot[i].one = NOWLOADING_SLOT_ONE;
         self->slot[i].two = NOWLOADING_SLOT_TWO;

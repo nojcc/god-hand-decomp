@@ -6,30 +6,25 @@
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
 
-/* cObjBase.h declares SetEffectPos with the handle before the size. This file's
- * calls only match with the size evaluated first, so it keeps its own declarations
- * of the functions in cObjBase.h, and in cGameObj.h (which includes it), until
- * that order is settled. */
-struct cObjBase;
-struct cGameObj;
-extern void cGameObj_SetTgtTurn(struct cGameObj *self, cVec *target, float rate);
-extern void InitRenderStruct_2A8608(struct cGameObj *self, int kind, void *no, int a3, int mode, void *follow);
-extern void cObjBase_addNullSpeed_Rotation(struct cObjBase *self, float scale);
-extern void cObjBase_addNullSpeed(struct cObjBase *self, float scale);
-extern void SetEffectPos(int kind, int id, void *owner, cVec *pos, float size, int handle);
 extern unsigned int irand(void);
 extern void *Getplayer(void);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
 extern float Adjust_theta(float f12);
+extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int moveMotion(void *a0);
 extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int GetSeqSEBase(void *a0);
 extern void ReleaseField6ECByTag564_26B1E8(void *a0);
+extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
 extern int cEmBase_checkDeadFlag(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
+extern void cObjBase_addNullSpeed(void *a0, float a1);
+extern void SetEffectPos(int a0, int a1, int a2, void *a3, float f12, int t0);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern void func_00262750(void *a0, int a1);
+extern unsigned char D_005FEE00[];
 
 /* Fields cEm00.h does not name yet. Offsets are from the record start. */
 #define EM_AT(T, self, off) (*(T *)((char *)(self) + (off)))
@@ -84,7 +79,7 @@ void func_00252070(void *a0)
                     if (tgt == Getplayer()) {
                         self->rot.y = Adjust_theta(((cEm00 *)Getplayer())->rot.y + 3.14159274f);
                     } else {
-                        cGameObj_SetTgtTurn((struct cGameObj *)self, *(void **)(tgt + 0xF0), 3.14159274f);
+                        cGameObj_SetTgtTurn(self, *(void **)(tgt + 0xF0), 3.14159274f);
                     }
                     if (d > 1.57079637f) {
                         self->stepArg = 1;
@@ -409,11 +404,11 @@ void func_00252070(void *a0)
         self->timerB = 0;
         self->home.y = 0.75f;
         self->timerA = 0x28;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0xC), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0xC), self, 0, 0, 0, 0);
         switch (self->emNo) {
         default:
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2B, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2E, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x2B, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 0, 0x2E, self, 0, 0, 0, 0);
             break;
         case 0x20F:
         case 0x210:
@@ -424,10 +419,10 @@ void func_00252070(void *a0)
         case 0x272:
         case 0x273:
         case 0x274:
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
             break;
         }
-        InitRenderStruct_2A8608((struct cGameObj *)self, 0x58, (void *)8, 0, 2, 0);
+        InitRenderStruct_2A8608(self, 0x58, 8, 0, 2, 0);
         cVec_copy3(EM_VEC(self, EM_TURNTO_OFFSET), (cVec *)self->pos);
         if (self->hp <= 0 && !(self->emFlags2 & 0x1000)
             && (func_00273D30(self), (self->emNo != 0x21F || !(self->emFlags2 & 0x100000)))) {

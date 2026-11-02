@@ -7,6 +7,8 @@
 extern char D_00462FC0[];
 extern void cCollisionSolidManage_SetActive(void *mgr, void *obj, int on);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cDamageUnit_SetDamageCollFlashActiveById(char *unit, int id, int on, short time);
 
 /* A gimmick that opens with a motion, flashes its damage volume and closes again. */
@@ -56,13 +58,13 @@ void func_001AB730(cOmOpenClose *self)
             func_002A8578(self, mot, 0, 0xA, 0.0f, 0, 0);
             self->base.step = self->base.step + 1;
         }
-        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 2:
         moveMotion(self);
-        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 3:
         if (moveMotion(self) != 0) {

@@ -2,8 +2,8 @@
 
 #include "godhand/cEm00.h"
 #include "godhand/CustomIDWork.h"
-#include "godhand/cModel.h"
 
+extern void cModel_setTextureExchange(void *model, int set, int rec, int flag);
 extern void SetCustomIDDispOneOrAll_1F4778(void *self, int sel, int on);
 extern void CustomIDWork_SetNumber(CustomIDWork *self, int number);
 extern void CustomIDWork_SetOffsetPosX(CustomIDWork *self, int x);

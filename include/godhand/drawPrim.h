@@ -4,15 +4,6 @@
 
 /* Queue a four-vertex polygon packet; returns the packet, or 0 when the queue is full. */
 extern void *Gp_draw_poly4(void *v, int color, int count, void *ctx, int a5, int a6);
-struct Tim2FileHdr;
-struct cScrVtx;
-struct cScrTexCfg;
-
-/* Textured quad: four vertices (screen positions when screen is set, else
- * world positions), the packed colour, the texture file loaded at tbp/cbp
- * and its draw config; queued in list kind at priority prio. */
-void *Gp_draw_polyFT4(struct cScrVtx *v, unsigned int color, int screen, struct Tim2FileHdr *tex, unsigned int tbp, int cbp,
-                      struct cScrTexCfg *cfg, int kind, int prio);
 
 /* Draw a line strip through n world-space points (cVec) in one colour. */
 extern void Draw_Line2(void *pts, int n, unsigned int color, int flag);
@@ -23,8 +14,5 @@ extern void Draw_Poly_sc(void *v, int color);
 /* A textured four-point polygon into the packet (assembly); returns the next packet position. */
 void *Gp_draw_polyFT4(void *v, unsigned int col, int n, void *tex,
                       int t0, int t1, void *cfg, int t3, int extra);
-
-/* Draw a line strip through n world-space points in one colour. */
-void Draw_Line2(void *pts, unsigned int n, unsigned int color, int flag);
 
 #endif /* GODHAND_DRAWPRIM_H */

@@ -4,7 +4,6 @@
 #include "godhand/sideCounter.h"
 #include "godhand/cSnd.h"
 #include "godhand/cOm1f.h"
-#include "godhand/sideCounter.h"
 
 extern int D_00747A0C;
 extern void TaskFnWork_runAndExit(void);

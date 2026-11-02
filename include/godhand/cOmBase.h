@@ -18,12 +18,6 @@
 
 #include "godhand/cGameObj.h"
 
-/* The squared distance between a and b (x, y and z). */
-static __inline__ float cVec_distSq(cVec *a, cVec *b) {
-    return (a->x - b->x) * (a->x - b->x) + (a->y - b->y) * (a->y - b->y)
-         + (a->z - b->z) * (a->z - b->z);
-}
-
 /* One node of the model's mesh list. A model owns a singly linked list of
  * nodes; each node carries the layer it belongs to. */
 typedef struct cMeshNode {
@@ -38,36 +32,19 @@ typedef struct cMeshNode {
     unsigned char layer;                /* 0x40C */
 } cMeshNode;
 
-/* Attack kinds, as stored in cDamageTake.kind. Retail switches on the kind
- * as this (signed) enum: with an int index gcc 2.95 weighs small case values
- * by character cost and builds a different compare tree. */
-typedef enum cDamageKind {
-    DAMAGE_KIND_NONE = -1
-} cDamageKind;
-
 /* The hit record that cOmBase_checkDamage receives. */
 typedef struct cDamageTake {
-    unsigned int opts;                  /* 0x00 bit 0: take hits without the line-of-sight check */
-    char unk04[0xC];
+    char unk00[0x10];
     cVec dir;                           /* 0x10 hit direction */
-    cVec hitPos;                        /* 0x20 where the attacking volume was */
-    struct cGameObj *victim;            /* 0x30 the object the record belongs to */
+    char unk20[0x14];
     char *attacker;                     /* 0x34 the object that dealt the hit */
-    char unk38[0x8];
-    int unk40;                          /* 0x40 copied from cDamageGive.unk40 */
-    short unk44;                        /* 0x44 copied from cDamageGive.unk44 */
+    char unk38[0xE];
     short kind;                         /* 0x46 attack kind */
     char unk48[4];
     int power;                          /* 0x4C */
     char unk50[0x10];
     unsigned int flags;                 /* 0x60 bit 0 must be set for the hit to count */
 } cDamageTake;
-
-/* The attack kind of a hit, as the cDamageKind that retail switches on. */
-static __inline__ cDamageKind cDamageTake_kind(cDamageTake *take)
-{
-    return take->kind;
-}
 
 /* Bits of cOmBase.hitFlags (0x5B4), set by the hit classifier. */
 #define COMBASE_HIT_STRONG    1
@@ -110,29 +87,5 @@ static __inline__ cOmBase *cOmBase_childAt(cOmBase *b, int *frame, int idx)
     }
     return 0;
 }
-
-/* cOmBase_childAt for an index that may be out of range either way. Retail
- * builds the range test as a flag and masks it with 0xFF where it tests it,
- * as cGameObj_idInRange does. */
-static __inline__ cOmBase *cOmBase_childAtIdx(cOmBase *b, int *frame, int idx)
-{
-    int n;
-    long in = 0;
-
-    *frame = n = b->childNum;
-    if (idx >= 0) {
-        int below = idx < n;
-
-        in = below;
-    }
-    if (in & 0xFF) {
-        return b->children[idx];
-    }
-    return 0;
-}
-void Obj1D00_ClearState_6(cOmBase *self);
-void Obj1D00_ClearState_7(cOmBase *self);
-/* 1 when the object is in mode 0 and phase 4. */
-int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(cOmBase *self);
 
 #endif

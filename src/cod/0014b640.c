@@ -10,10 +10,15 @@
 extern int moveMotion(void *a0);
 extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0, float f12, float f13, float f14);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
+extern void cModel_calcNullPart(void *a0);
+extern void Add_nullspeed(void *a0);
+extern void func_002A74E0(void *a0, void *a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern float fRand0_1(void);
+extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern unsigned char D_005864F0[];
 extern unsigned char D_00462FC0[];
+extern unsigned char D_005FEE00[];
 extern void *Getplayer(void);
 extern int cCoreSave_getGameLevel(void *a0);
 extern float capVu0Atan2(float y, float x);
@@ -88,8 +93,8 @@ void cEm00_updateKnockDrift(cEm00 *self)
             p2[2] = p2[2] * 0.99f + self->home.z * 0.01f;
         }
         moveMotion(self);
-        cModel_calcNullPart((cModel *)self);
-        Add_nullspeed((cGameObj *)self);
+        cModel_calcNullPart(self);
+        Add_nullspeed(self);
         if ((self->gotoFlags & 0x40) != 0) {
             break;
         }
@@ -109,7 +114,7 @@ void cEm00_updateKnockDrift(cEm00 *self)
         if (self->unk15BC <= 0.0f) {
             self->unk15BC = fRand0_1() * 90.0f + 90.0f;
             if (inFront != 0) {
-                cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5A, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x5A, self, 0, 0, 0, 0);
             }
         }
         break;
@@ -139,14 +144,14 @@ void cEm00_updateKnockDrift(cEm00 *self)
                 }
             }
             func_002A74E0(self, &self->unk1590, 1);
-            func_002A7CA0((cGameObj *)self, &self->unk1570);
+            func_002A7CA0(self, &self->unk1570);
             self->mode = 0;
             self->phase = 4;
             self->step = 0;
             self->stepArg = 0;
         }
-        cModel_calcNullPart((cModel *)self);
-        Add_nullspeed((cGameObj *)self);
+        cModel_calcNullPart(self);
+        Add_nullspeed(self);
         break;
     }
 }

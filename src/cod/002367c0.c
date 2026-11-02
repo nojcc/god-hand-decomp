@@ -8,6 +8,8 @@ extern char D_007474A0[];
 extern char *Getplayer(void);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002DB770(void);
 extern void func_00274FE8(void *a0);
 
@@ -69,8 +71,8 @@ __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
             self->hitFlash = 3.0f;
             if (moveMotion(self))
                 self->step = 2;
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             func_002DB770();
             g = D_007474A0;
             if ((*(int *)(g + 8) & 0xF0) != 0)
@@ -115,8 +117,8 @@ __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
                     *(unsigned char *)(s1 + 0x2F7) = 0;
                 }
             }
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             if (*(short *)(s1 + 0x54A) > 0 && self->unk568 <= 0) {
                 self->step = 6;
                 *(unsigned char *)(s1 + 0x2F6) = 6;
@@ -138,8 +140,8 @@ __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         case 6: {
             int w = EM_RES(self);
@@ -180,8 +182,8 @@ __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
                     func_00274FE8(self);
                 }
             }
-            cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
-            cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         default:
             break;

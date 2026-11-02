@@ -3,6 +3,7 @@
 extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern void SetField380Bit2000ForTag_1B7300(void *a0, int a1, int a2);
+extern void cModel_calcParts(void *a0);
 extern void func_001797B8(char *a0, int a1, float *a2, float *a3);
 extern void func_0017A528(char *a0, int a1, float *a2, float *a3);
 extern void func_0017CE38(char *a0, int a1, float *a2, float *a3);
@@ -25,7 +26,6 @@ extern void func_001B6218(char *a0, int a1, float *a2, float *a3);
 
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
-#include "godhand/cModel.h"
 
 __attribute__((section(".text.func_001799F8")))
 void func_001799F8(char *p)
@@ -70,7 +70,7 @@ void func_001799F8(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -148,7 +148,7 @@ void func_0017A778(char *p)
         if (i < 9 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -226,7 +226,7 @@ void func_0017D078(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -304,7 +304,7 @@ void func_00182280(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -382,7 +382,7 @@ void func_001873F0(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -460,7 +460,7 @@ void func_0018D8F8(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -538,7 +538,7 @@ void func_0018E6B0(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -616,7 +616,7 @@ void func_0018FE60(char *p)
         if (i < 7 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -694,7 +694,7 @@ void func_0019CFE0(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -772,7 +772,7 @@ void func_001A5D68(char *p)
         if (i < 7 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;
@@ -850,7 +850,7 @@ void func_001B6458(char *p)
         if (i < 6 && *(unsigned char *)(p + 0x2B4) != i) goto loop;
     }
 
-    cModel_calcParts((cModel *)p);
+    cModel_calcParts(p);
     VU0_LQC2(4, mesh, 0);
     VU0_SQC2(4, frame, 0x10);
     *(float *)(frame + 0x20) = 0.0f;

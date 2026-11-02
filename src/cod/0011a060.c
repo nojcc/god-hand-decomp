@@ -5,6 +5,8 @@
 
 extern unsigned int Rnd(void);
 extern int moveMotion(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern unsigned char D_00462FC0[];
 extern unsigned char D_005864F0[];
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
@@ -15,12 +17,14 @@ extern void func_0012B928(void *a0);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
+extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern float Adjust_theta(float f12);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cEmManage_SetSpeedRate(void *a0, float f12);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern void KillEffect(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
 
 __attribute__((section(".text.func_00278690")))
@@ -47,8 +51,8 @@ void func_00278690(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     case 2: {
         char *b = *(char **)(s0 + 0x304);
@@ -62,8 +66,8 @@ void func_00278690(void *a0)
             }
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     }
     f = *(float *)(s0 + 0x618);
@@ -76,7 +80,6 @@ void func_00278690(void *a0)
 }
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
 
 __attribute__((section(".text.func_0011A060")))
 void func_0011A060(void *a0)
@@ -127,8 +130,8 @@ void func_0011A060(void *a0)
             *(unsigned char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s1, one);
+        cObjBase_addNullSpeed(s1, one);
         break;
     }
     if (func_00123938(s1, 1) != 0) {
@@ -176,8 +179,8 @@ void func_00248FE0(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 2;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     case 2: {
         t = Obj0000_Get_Byte_17C3_NZ_2_276468(s0) & 0xFFFF;
@@ -214,8 +217,8 @@ void func_00248FE0(void *a0)
             func_002705D8(s0);
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(a0, one);
-        cObjBase_addNullSpeed(a0, one);
+        cObjBase_addNullSpeed_Rotation(s0, one);
+        cObjBase_addNullSpeed(s0, one);
         break;
     }
 }

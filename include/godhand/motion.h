@@ -37,9 +37,4 @@ int moveMotion(void *obj);
  * when keep is 0. */
 void func_002A8578(void *obj, int motA, int motB, int mode, float start, int sel, int keep);
 
-/* The int stored at byte ofs of the motion block, plus the block address. */
-static __inline__ int motionBlock_at(char *block, int ofs) {
-    return *(int *)(block + ofs) + (int)block;
-}
-
 #endif

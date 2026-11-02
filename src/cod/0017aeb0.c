@@ -1,4 +1,3 @@
-#include "godhand/cObjBase.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern char D_003BFB48[];
@@ -40,6 +39,8 @@ extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
 extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
+extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
+extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_002DC390(void *a0);
@@ -274,8 +275,8 @@ common:
         pl00_clearMotionCam(ptr, 0, 1);
         func_002705D8(p);
     }
-    cObjBase_addNullSpeed_Rotation((cObjBase *)p, 1.0f);
-    cObjBase_addNullSpeed((cObjBase *)p, 1.0f);
+    cObjBase_addNullSpeed_Rotation(p, 1.0f);
+    cObjBase_addNullSpeed(p, 1.0f);
 }
 
 __attribute__((section(".text.func_00271298")))

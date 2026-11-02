@@ -1,4 +1,3 @@
-#include "godhand/cObjBase.h"
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern int D_0041B598;

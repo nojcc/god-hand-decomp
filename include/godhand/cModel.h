@@ -83,9 +83,7 @@ typedef struct cMeshInfo {
     long name;                          /* 0x08 up to 8 chars packed low byte first */
     char unk10[0x24];
     unsigned int flags;                 /* 0x34 CMODEL_MESH_* */
-    char unk38[6];
-    unsigned short uvSpeed[2];          /* 0x3E uv scroll per frame, half floats */
-    char unk42;
+    char unk38[0xB];
     unsigned char layer;                /* 0x43 */
     char unk44[0x14];
     unsigned char alpha;                /* 0x58 nonzero: the node blends */
@@ -100,23 +98,9 @@ typedef struct cMeshData {
 /* One mesh of the model's mesh list. A node holds two draw packets, one per
  * frame parity, then its state. cOmBase.h's cMeshNode is the same record with
  * fewer fields named. */
-/* What a node hands the VU per frame parity: the transform with the fog
- * scale and offset in its last column, a parameter block (eye, uv scroll,
- * colour) and the world matrix. */
-typedef struct cModelNodeDraw {
-    char unk00[0x10];
-    float mtx[4][4];                    /* 0x10 [0][3] fog offset, [1][3] fog scale */
-    cVec eye;                           /* 0x50 xyz copied from the camera target */
-    char unk60[0x10];
-    float uv[4];                        /* 0x70 uv scroll, 0, 1 */
-    float color[4];                     /* 0x80 rgb, alpha */
-    float world[4][4];                  /* 0x90 */
-} cModelNodeDraw;                       /* 0xD0 */
-
 typedef struct cModelNode {
     char packet[2][0xB0];               /* 0x000 draw packet, index = frame parity */
-    cModelNodeDraw draw[2];             /* 0x160 index = frame parity */
-    char unk300[0x80];
+    char unk160[0x220];
     unsigned int dispFlags;             /* 0x380 CMODEL_NODE_* */
     unsigned char unk384;               /* 0x384 */
     char unk385;
@@ -360,55 +344,5 @@ static __inline__ void cMtxMulVu0(void *dst, void *a, void *b) {
     VU0_SQC2(14, dst, 0x20);
     VU0_SQC2(15, dst, 0x30);
 }
-
-void cObj_setMeshValue(cModel *self, int value);
-
-
-/* The float a half float holds (00156488.c). */
-float F16toF32(unsigned short half);
-
-
-/* Wraps each angle of an x, y, z rotation back into range. */
-void Adjust_theta_vec(cVec *v);
-
-/* Builds the world matrix of each part from the model's. */
-void cModel_calcWorldParts(cModel *self);
-
-/* Runs the model's inverse kinematics; ik is its work area (cGameObj.ik). */
-void IK_InverseKinematics(void *ik, void *self);
-
-/* Sets the order the parts' rotations are applied in. */
-void cParts_setRotationOrder(char *arg0, int arg1);
-
-/* Hides a mesh node, if the model has it. */
-static __inline__ void cModelNode_hide(cModelNode *node)
-{
-    if (node != 0)
-        node->dispFlags |= CMODEL_NODE_HIDE;
-}
-
-/* Shows a mesh node again, if the model has it. */
-static __inline__ void cModelNode_show(cModelNode *node)
-{
-    if (node != 0)
-        node->dispFlags &= ~CMODEL_NODE_HIDE;
-}
-/* Builds the model's world matrix and updates each part. */
-void cModel_calcParts(cModel *self);
-/* Updates the null part of the model. */
-void cModel_calcNullPart(cModel *self);
-/* The mesh node of the model named name, or 0. */
-cModelNode *cModel_getMeshPtr_14B730(cModel *self, char *name);
-/* A texture exchange table: a list of texture keys, then groups of
- * (slot, key index) pairs. Each group is a count byte and its pairs. */
-typedef struct cTexTable {
-    int magic;                          /* 0x00 D_0041EA80 */
-    unsigned short groupNum;            /* 0x04 */
-    unsigned short keyNum;              /* 0x06 */
-    long key[1];                        /* 0x08 keyNum keys, then the groups */
-} cTexTable;
-/* Fill the model's texture slot table from group n of tbl, looking each key
- * up in tex. Returns 1 when the table is valid and has that group. */
-int cModel_setTextureExchange(cModel *self, void *tex, cTexTable *tbl, int n);
 
 #endif
