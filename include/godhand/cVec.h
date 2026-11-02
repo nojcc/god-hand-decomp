@@ -372,4 +372,34 @@
         &(t);                                                   \
     })
 
+/* *dp = *sp; (operator= between two vectors reached through pointers: both
+ * pointers are bound and the copy goes through them, xyz only) */
+#define CVEC_PUT_PTR(dp, sp)                                    \
+    {                                                           \
+        cVec *d_ = (dp);                                        \
+        cVec *s_ = (sp);                                        \
+                                                                \
+        if (d_ != s_) {                                         \
+            d_->x = s_->x;                                      \
+            d_->y = s_->y;                                      \
+            d_->z = s_->z;                                      \
+        }                                                       \
+    }
+
+/* cVec r = *a * s; (operator* by a scalar, as CVEC_INIT_MUL, with s bound
+ * first and the returned copy read through t_, which retail forms before
+ * the pointer to *a) */
+#define CVEC_INIT_MUL_ST(r, a, s)                               \
+    {                                                           \
+        float s_ = (s);                                         \
+        cVec *a_ = (a);                                         \
+        cVec *t_ = &tmp_;                                       \
+                                                                \
+        VU0_LQC2(4, a_, 0);                                     \
+        VU0_SQC2_MEM(4, &tmp_, 0);                              \
+        VU0_VSCALE_XYZ_MEM(&tmp_, 0, s_);                       \
+        VU0_LQC2(4, t_, 0);                                     \
+        VU0_SQC2_MEM(4, &(r), 0);                               \
+    }
+
 #endif /* GODHAND_CVEC_H */

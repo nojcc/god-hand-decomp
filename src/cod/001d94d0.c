@@ -22,7 +22,7 @@ void func_001D94D0(Poker *self)
         int i;
 
         for (i = 0; i < POKER_HAND_NUM; i++) {
-            long held = self->hand[i]->flags;
+            long held = (unsigned int)self->hand[i]->flags;
 
             if ((held >> 1 & 1) == 0) {
                 self->hand[i]->obj->pos[0] =
@@ -40,7 +40,7 @@ void func_001D94D0(Poker *self)
         int i;
 
         for (i = 0; i < POKER_HAND_NUM; i++) {
-            long held = self->hand[i]->flags;
+            long held = (unsigned int)self->hand[i]->flags;
 
             if ((held >> 1 & 1) == 0) {
                 func_001DBE18(self, &self->hand[i]);
@@ -54,7 +54,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 3: {
-        long held = self->hand[0]->flags;
+        long held = (unsigned int)self->hand[0]->flags;
 
         if ((held >> 1 & 1) == 0) {
             self->hand[0]->obj->flags &= 0xFFFFFFFD;
@@ -65,7 +65,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 4: {
-        long held = self->hand[0]->flags;
+        long held = (unsigned int)self->hand[0]->flags;
 
         if ((held >> 1 & 1) == 0) {
             Poker_moveCard(self, 0);
@@ -80,7 +80,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 5: {
-        long held = self->hand[1]->flags;
+        long held = (unsigned int)self->hand[1]->flags;
 
         if ((held >> 1 & 1) == 0) {
             self->hand[1]->obj->flags &= 0xFFFFFFFD;
@@ -91,7 +91,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 6: {
-        long held = self->hand[1]->flags;
+        long held = (unsigned int)self->hand[1]->flags;
 
         if ((held >> 1 & 1) == 0) {
             Poker_moveCard(self, 1);
@@ -106,7 +106,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 7: {
-        long held = self->hand[2]->flags;
+        long held = (unsigned int)self->hand[2]->flags;
 
         if ((held >> 1 & 1) == 0) {
             self->hand[2]->obj->flags &= 0xFFFFFFFD;
@@ -117,7 +117,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 8: {
-        long held = self->hand[2]->flags;
+        long held = (unsigned int)self->hand[2]->flags;
 
         if ((held >> 1 & 1) == 0) {
             Poker_moveCard(self, 2);
@@ -132,7 +132,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 9: {
-        long held = self->hand[3]->flags;
+        long held = (unsigned int)self->hand[3]->flags;
 
         if ((held >> 1 & 1) == 0) {
             self->hand[3]->obj->flags &= 0xFFFFFFFD;
@@ -143,7 +143,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 10: {
-        long held = self->hand[3]->flags;
+        long held = (unsigned int)self->hand[3]->flags;
 
         if ((held >> 1 & 1) == 0) {
             Poker_moveCard(self, 3);
@@ -158,7 +158,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 11: {
-        long held = self->hand[4]->flags;
+        long held = (unsigned int)self->hand[4]->flags;
 
         if ((held >> 1 & 1) == 0) {
             self->hand[4]->obj->flags &= 0xFFFFFFFD;
@@ -169,7 +169,7 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 12: {
-        long held = self->hand[4]->flags;
+        long held = (unsigned int)self->hand[4]->flags;
 
         if ((held >> 1 & 1) == 0) {
             Poker_moveCard(self, 4);
@@ -188,7 +188,7 @@ void func_001D94D0(Poker *self)
         int i;
 
         for (i = 0; i < POKER_HAND_NUM; i++) {
-            long held = self->hand[i]->flags;
+            long held = (unsigned int)self->hand[i]->flags;
 
             if ((held >> 1 & 1) == 0) {
                 func_001D6DD0(self->hand[i], 1);
@@ -199,24 +199,24 @@ void func_001D94D0(Poker *self)
         break;
     }
     case 14: {
-        long shown = self->hand[0]->flags;
+        long shown = (unsigned int)self->hand[0]->flags;
 
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[1]->flags;
+        shown = (unsigned int)self->hand[1]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[2]->flags;
+        shown = (unsigned int)self->hand[2]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[3]->flags;
+        shown = (unsigned int)self->hand[3]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[4]->flags;
+        shown = (unsigned int)self->hand[4]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }

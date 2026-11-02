@@ -112,24 +112,24 @@ void func_001D8480(Poker *self)
         break;
     }
     case 8: {
-        long shown = self->hand[0]->flags;
+        long shown = (unsigned int)self->hand[0]->flags;
 
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[1]->flags;
+        shown = (unsigned int)self->hand[1]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[2]->flags;
+        shown = (unsigned int)self->hand[2]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[3]->flags;
+        shown = (unsigned int)self->hand[3]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }
-        shown = self->hand[4]->flags;
+        shown = (unsigned int)self->hand[4]->flags;
         if ((shown >> 3 & 1) == 0) {
             break;
         }

@@ -57,7 +57,7 @@ typedef struct BlackJackCardObj {
 
 typedef struct BlackJackCard {
     BlackJackCardObj *obj;              /* 0x0 cOmTrump object */
-    unsigned int flags;                 /* 0x4 bit 0 = card is out of the deck, bit 1 = card is on screen */
+    int flags;                          /* 0x4 bit 0 = card is out of the deck, bit 1 = card is on screen */
 } BlackJackCard;                        /* 0x8 */
 
 typedef struct BlackJack {

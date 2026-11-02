@@ -2,21 +2,15 @@
 
 #include "godhand/cFxTrail.h"
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 
 
 extern void *StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern float *CallThenReturnPlusB0_002B6420_2B61B0(void *node);
-extern void MtxCopy(void *dst, void *src);
-extern void CopyVec3ToField30_147C40(float *a0, float *a1);
-
-#define SEG(base, i)  ((FxTrailSeg *)((base) + ((i) << 6)))
-#define FXTRAIL_K60   0x3F80000080808080L   /* segment constant at 0x60 */
-#define FXTRAIL_K68   1L
-#define FXTRAIL_K0A8  2L
 
 /* Set the trail up: take the segment count from the parameters (16 when it is zero or too large), build the segment records with a fading width and end weights from the direction flags, and set the life. */
 __attribute__((section(".text.cFxTrail_setup")))
-int cFxTrail_setup(cFxTrail *self, void *arg)
+int cFxTrail_setup(cFxTrail *self, int arg)
 {
     cVec start;
     float m[16];
@@ -47,18 +41,18 @@ int cFxTrail_setup(cFxTrail *self, void *arg)
         if ((self->flags & FXTRAIL_FLIP_B) == 0) {
             wB = -1.0f;
         }
-        SEG(self->segA, i)->a0 = 0;
-        SEG(self->segA, i)->fade = wB * (float)i / (float)(self->segNum - 1) * self->width;
-        SEG(self->segA, i)->k0A8 = FXTRAIL_K0A8;
-        SEG(self->segA, i)->end0 = wA;
-        SEG(self->segA, i)->end1 = SEG(self->segA, i)->fade;
-        SEG(self->segA, i)->kC8 = FXTRAIL_K0A8;
-        SEG(self->segB, i)->a0 = 0;
-        SEG(self->segB, i)->fade = SEG(self->segA, i)->fade;
-        SEG(self->segB, i)->k0A8 = FXTRAIL_K0A8;
-        SEG(self->segB, i)->end0 = wA;
-        SEG(self->segB, i)->end1 = SEG(self->segA, i)->fade;
-        SEG(self->segB, i)->kC8 = FXTRAIL_K0A8;
+        FXTRAIL_SEG(self->segA, i)->a0 = 0;
+        FXTRAIL_SEG(self->segA, i)->fade = wB * (float)i / (float)(self->segNum - 1) * self->width;
+        FXTRAIL_SEG(self->segA, i)->k0A8 = FXTRAIL_K0A8;
+        FXTRAIL_SEG(self->segA, i)->end0 = wA;
+        FXTRAIL_SEG(self->segA, i)->end1 = FXTRAIL_SEG(self->segA, i)->fade;
+        FXTRAIL_SEG(self->segA, i)->kC8 = FXTRAIL_K0A8;
+        FXTRAIL_SEG(self->segB, i)->a0 = 0;
+        FXTRAIL_SEG(self->segB, i)->fade = FXTRAIL_SEG(self->segA, i)->fade;
+        FXTRAIL_SEG(self->segB, i)->k0A8 = FXTRAIL_K0A8;
+        FXTRAIL_SEG(self->segB, i)->end0 = wA;
+        FXTRAIL_SEG(self->segB, i)->end1 = FXTRAIL_SEG(self->segA, i)->fade;
+        FXTRAIL_SEG(self->segB, i)->kC8 = FXTRAIL_K0A8;
     }
     MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0(self));
     VU0_SQC2_VF0_MEM(&zero, 0);

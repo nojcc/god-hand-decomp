@@ -1,26 +1,22 @@
 /* sn-2.95.3-136 */
-/* NON_MATCHING func_00115310: retail moves Turn_dest's result to $f1 and
- * loads the 0.0 for the sign test into $f0, so the absolute value is
- * mov.s/neg.s from $f1; here the result stays in $f0 and the zero takes $f1.
- * Needs the pl00.h and motion.h overlays (motionBlock_at). */
 #include "godhand/pl00.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cVec.h"
 #include "godhand/angle.h"
+#include "godhand/cCamera.h"
 #include "godhand/motion.h"
 #include "godhand/sceVu0.h"
 
 struct ThrowerObj;
 
 extern char D_005CAE50[];
-extern void func_001268F0(void *a0);
+extern void func_001268F0(int *p);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void cOm_attachThrown(struct ThrowerObj *self);
 extern void func_001331B8(void *a0, long a1, int a2);
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern float Adjust_theta(float f12);
 
 /* The player's catch: step 0 aims unk580 straight ahead, looks for an enemy
  * within 40 and pi of the facing, and if one is found aims at it; the catch
@@ -34,7 +30,6 @@ void func_00115310(pl00 *self)
     cGameObj *target;
     cVec *from;
     cVec *at;
-    float rel;
     float turn;
     float off;
     int back;
@@ -50,7 +45,7 @@ void func_00115310(pl00 *self)
         self->comboSlot = 0;
         self->comboSet = 0;
         back = 0;
-        func_001268F0(self);
+        func_001268F0((int *)self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->base.unk580.x = 0.0f;
         self->base.unk580.y = 0.0f;
@@ -64,12 +59,9 @@ void func_00115310(pl00 *self)
             CVEC_PUT(&self->base.unk580, *at);
             from = self->base.pos;
             at = cGameObj_vt(self->unk640)->getPos((char *)self->unk640 + cGameObj_vt(self->unk640)->getPosDelta);
-            rel = Turn_dest((float *)from, (float *)at, self->base.rot.y, 3.1415927f);
-            if (rel < 0.0f)
-                off = -rel;
-            else
-                off = rel;
-            if (2.3561945f < off)
+            off = Turn_dest((float *)from, (float *)at, self->base.rot.y, 3.1415927f);
+            off = absf(off);
+            if (off > 2.3561945f)
                 back = 1;
         }
         self->unk15C0 = self->base.rot.y;
@@ -98,8 +90,8 @@ void func_00115310(pl00 *self)
         self->base.step++;
     case 1:
         func_00124EC0(self);
-        if (self->base.motionFlags & 0x10) {
-            turn = Turn_dest((float *)self->base.pos, (float *)&self->base.unk580, self->unk15C0, 0.2244f);
+        if (self->base.seqFlags & 0x10) {
+            turn = Turn_dest((float *)self->base.pos, (float *)&self->base.unk580, self->unk15C0, 0.22439948f);
             self->unk15C0 = self->unk15C0 + turn;
             self->unk15C0 = Adjust_theta(self->unk15C0);
             self->base.rot.y = self->base.rot.y + turn;

@@ -410,3 +410,13 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - **Builds:** the full build and the cold build both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail. Logs: build/scratch/b207/cp207_full.log, cp207_cold.log.
 - **Checks:** session_check: 19 pass, 6 skip, and dual_compiler_regress rc=126 in the combined run. Run alone in the container, dual_compiler_regress passed (935 s). nm_prune: 0 fully stale, 2 partially stale (NM closer's drafts 00156508, 00352790). nm_handoff: nothing solved.
 - **Stop condition:** no workable functions left. Every remaining non-CRI function outside the off-limits PRs has a logged blocker (batch 204 pool survey): the W-set prototypes, D-021 shared temporaries, vu0_pending.h macros, or forbidden constructs.
+
+## Checkpoint 212 (single-agent, batches 208-212) — 2026-11-02T02:14:35Z
+
+- **% matched code:** 59.1827% (1678620 / 2836336 code bytes, progress/report.json); 9487 / 10573 functions.
+- **Registered (9):** SdeSystemVolSet, func_001DAB00 (nm_handoff), func_002B1F80, func_00146A18, func_002F62F8, func_0012D970, func_0012D3C8, func_001191A0, func_0025B158. Config reasons are in batch_log.md.
+- **Headers:** sndTiming.h, drawPrim.h, cScrSpriteDraw.h, new idPair.h, cFxTrail.h, mtx.h, cGrid.h, cVec.h (CVEC_PUT_PTR, CVEC_INIT_MUL_ST). Callers updated in place: 0037ad88.c, 002009b0.c, 002b2058.c, 002b1890.c, 002c5bd8.c, 001468b0.c, 00146878.c, 001467e8.c, 002ebf98.c, 002f6258.c, 001212d0.c, 00147c40.c, 001334a8.c; all still match. Details in pending_headers.md under "Checkpoint 212 merge".
+- **Drafts:** 16 held drafts moved to drafts/cod; all compile with -DNON_MATCHING.
+- **Builds:** cold build in the container and the full rebuild after strip_data_nonmatching both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail. Logs: build/scratch/ck212/cold.log, full2.log.
+- **Checks:** session_check 18 pass, 6 skip; data_decls passes after strip_data_nonmatching (3 lines); dual_compiler_regress passes alone (1337 s). naming_sync consistent. nm_prune retired 1 fully stale draft.
+- **Still held:** 14 functions, listed in progress/held/README.md.

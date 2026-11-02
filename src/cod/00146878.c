@@ -1,11 +1,11 @@
-#include "godhand/cIDBase.h"
-extern void IdPair_init(void *);
+/* sn-2.95.3-136 */
+#include "godhand/idPair.h"
 
+/* Resets the banner, empties its queue and starts its animation. */
 __attribute__((section(".text.func_00146878")))
-void func_00146878(char *self)
+void func_00146878(IdPair *self)
 {
     IdPair_init(self);
-    *(short *)(self + 0x100) = 0;
-    cIDBase_restartAnim((cIDBaseObj *)self);
-    self[0x1C] = 1;
+    self->count = 0;
+    cIDBase_play(&self->base);
 }

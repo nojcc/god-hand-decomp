@@ -35,7 +35,7 @@ void func_002A87E8(cGameObj *self, cVec *ref)
         if (ref == 0) {
             ref = self->pos;
         }
-        cVec_copy3(&eye, &D_005CAFF0->target);
+        cVec_copy3(&eye, &D_005CAFF0->eye);
         camDist = __builtin_sqrtf((eye.x - player->pos->x) * (eye.x - player->pos->x)
                                   + (eye.z - player->pos->z) * (eye.z - player->pos->z));
         refDist = __builtin_sqrtf((eye.x - ref->x) * (eye.x - ref->x)

@@ -31,7 +31,7 @@ void BlackJack_UpdateDealDealerHandB(BlackJack *self)
         self->phase += 1;
         break;
     case 3: {
-        long f = self->handB[1]->flags;
+        long f = (unsigned int)self->handB[1]->flags;
 
         if (((f >> 1) & 1) == 0)
             break;

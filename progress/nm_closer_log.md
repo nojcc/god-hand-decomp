@@ -2600,3 +2600,118 @@ A rule such as `div2_unless_after(cvt.s.w|lwc1|div.s)` would need checking again
 ## 2026-10-27 23:55 full rescore (nm_work/rescore_1027.txt, header settings + jtbl_syms)
 - 374 drafts outside CRI and vu0_pending. func_00167518 is still the only MATCH (waits on the D_003BD9E9 symbol row, unanswered). The 1-5 off group (func_0026EF60, func_0028E0E0, cSceAtUnit_AreaSet, func_00162298, func_00178E18, func_001C2408, func_001EBB78, func_002BF420, func_00377AC0, func_001DF7D0, func_001F4530, func_0024BB68, func_0037CF00, cSceAtUnit_AtInit, func_0013D288, ...) scores as when each was parked; no new header fixes them. func_0037D298 (8) is #30's, off-limits. 40 drafts don't compile against today's headers (cGameObj.h/menuCtl.h edited 23:03); not mine to fix. Queue empty; waiting. PERM=0.
 - RECHECK 00:30 (three 10-min waits): no new drafts, header changes, decision answers or rejections. Paused the wait loop to ask Jon how to proceed. PERM=0.
+
+## Session 2026-11-01
+
+## 2026-11-01 rescore after the header restructuring (nm_work/rescore2_1101.txt, extract.py + jtbl_syms)
+- 408 NM blocks outside CRI and vu0_pending. 57 drafts are empty placeholders (`#ifdef NON_MATCHING` with no body; most of 0x208858..0x25DE58), not attempted. extract.py now tolerates a draft with no prelude.
+- Changed since 10-27: func_0026EF60 1 -> 4 (the draft reads `D_005CAFF0->target` meaning 0x210; with the cCamera swap that is `eye`, so its copy and subtraction now name the wrong fields: the local is the eye and the subtraction is target - eye. With the names fixed it is back to the old 1 (neg.s)). func_00167518 0 -> 1 (still waits on the D_003BD9E9 row anyway). func_0028D7E8 78 -> 171 (not investigated; it matched only with steering).
+- Tool note: nm_work/<fn>/ dirs with an old `godhand/` overlay subdir shadow include/ (quoted includes resolve next to the source first). func_0017F6C0's old m6.c "5" was against such an overlay. Use a fresh subdir.
+
+## SetEffect (draft 00306528): MATCH found, held for a decision
+- Draft 8 off: the -1/0xFF defaults of cObjBase.h's cEffectParam_init. With the inline's stores in field order (unk44, flags, unk4C, unk4D, unk4E, unk4F) it is MATCH 106 insns, 9 relocs (nm_work/SetEffect/s/solved.c with the cObjBase.h overlay). The five registered users of cEffectParam_init all still match with that order (unitcheck.py).
+- System words by name: `GAMEWORK_AT(flags5D8)` for D_00747A78 and `GAMEWORK_AT(flags5E4)` for D_00747A84 (gameWork.h's accessor); plain `D_007474A0.flags5D8` rebuilds the base (110 words).
+- Not handed off: cObjBase.h is #36's and two users are #30's files. decisions_needed.md row "cEffectParam_init store order".
+
+## func_00271810 (draft 00271810, W-set): 3 off with the same cObjBase.h order, held
+- With the field-order cEffectParam_init: 11 -> 3. Left: after the slot-wait SetEffectPos, retail loads D_005CB010 as `lui v1; lbu v0` (ours `lui v0; lbu v1`); the later occurrence of the same test has our registers in retail too. A static inline for the heat test (on the first use only) stays 3; an if-chain helper is 121 off. Parked; waits on the same row.
+
+## func_0017F6C0 (draft 0017f6c0): stays NM (2 off; needs a new cVec operator shape)
+- Rewritten in the CVEC_TEMPS form (`cVec target, ofs; CVEC_TEMPS;`, CVEC_SET_SUB(target, self->base.pos, &ofs), cOmSubGimmick.h prototypes): 9 off. Retail binds a_, b_, t_ (&tmp_, read back through it) and r_ before the subtraction, the binding CVEC_SET_MUL has. A scratch CVEC_SET_SUB with t_ gives 2: retail loads self->base.pos before forming &tmp_, ours after (all 24 bind orders 2-3; binding t_/r_ after the asm 8-9; a_ unbound 3). The same wall as func_0017F828. nm_work/func_0017F6C0/v2/c3.c.
+
+### func_001DAB00 — MATCH, handed off (progress/nm_solved/func_001DAB00/)
+- Rechecked the held handoff against current headers: MATCH 197 insns, 22 relocs (`extern_jtbl D_0042B380`, `fp_hazard_rules fdiv`, reasons in meta.json).
+- The cSnd.h section is dropped: cSnd.h already declares `cSnd_SeCall_2CBA48`.
+- header_changes.md: BlackJack.h `BlackJackCard.flags` becomes `int` (retail reads it with `lw`, and the solved function stores it as int). It also adds `(unsigned int)` on the `long` reads in 001d2ee0.c, 001d8480.c and 001d94d0.c (those were `lwu` reads of the old unsigned field; the maintainer's `long v = (unsigned int)x;` idiom keeps them identical), plus `int *` in 001dbeb0.c.
+- Every TU that includes BlackJack.h or Poker.h (38) was unitchecked against a full include/ copy with the change and the edited TUs: all OK. Without the casts, 001d8480 (5 off) and 001d94d0 (18 off) break. I simulated applying the 26 sections in order: each old text is unique, and the result equals the checked files.
+- New tool: tools/mkhc.py (makes unique-context sections). unitcheck.py now takes an edited copy of a TU from OVERLAY/edited/ when one exists.
+
+### func_00158328 — still NM (14 off)
+- 16 min of permuter work: the best score is 20, and it still adds a `new_var`. No clean improvement. PERM=0 confirmed.
+
+### SetEffect: header-change check
+- I confirmed the overlay is really what the 5 cEffectParam_init users compile against (an `#error` in the overlay copy fires in all 5), so the "all match with the reordered stores" result stands. Still waiting on the decisions row.
+
+### func_00115310 — MATCH, handed off (progress/nm_solved/func_00115310/)
+- Was 1 word short. The sign test is now `off = Turn_dest(...); off = absf(off); if (off > 2.3561945f)`, the form matched 0024c3c8.c uses. That gives retail's `mov.s $f1,$f0` and its register choice.
+- Two fixes for the current headers:
+  - step 1 tests `self->base.seqFlags & 0x10` (0x3AC; the draft's `motionFlags` is now 0x434);
+  - the turn limit is pi/14 (`0.22439948f`, 0x3E65C8FA), not 0.2244f.
+- MATCH: 242 insns, 32 relocs, sn, no meta.
+- header_changes.md:
+  - motionBlock_at moves into motion.h (adding a helper to a #30 header is allowed);
+  - 002897f0.c, its only other user, drops its local copy and includes motion.h;
+  - so 002897f0.c also drops its local `func_002A8578`/`moveMotion` prototypes, which conflict with motion.h, and its two calls take motion.h's order `((int)self, a, b, 0, 0.0f, 0, 0)`. The registers are identical, and 002897f0.c still matches.
+- All 19 TUs that include motion.h were unitchecked against the overlay: OK. tools/simhc.py applies header_changes.md the way nm_handoff.py parses it, and the result equals the checked files.
+- func_001268F0 is declared as its definition has it (`int *p`), with a cast at the call.
+
+### Compile-failing drafts after the prototype sweep (12:05)
+- 33 drafts outside the empty placeholders still fail to compile. In 12 of them the call sites pass more arguments than the prototypes (local or header) now declare, or fewer.
+- Scores with the call sites fixed both ways, in nm_work/<fn>/cf1101/: b.c follows the prototype, c.c follows the calls.
+
+| Draft | b.c | c.c | Note |
+|---|---|---|---|
+| ObjTrans | 124 | 7 | c.c gives func_00312DB8 a 4th argument; retail passes the iterator tag, so the std::find definition in 00312db8.c drops an argument its callers pass. Still raw offsets and PVec casts; remaining diffs are the reorg/delay-slot ones its header names. Parked. |
+| func_002B3D70 | 25 | 11 | Retail loads D_00586AF0 into a0 for cEvent_clearCutEntry, whose definition takes `void`. Remaining 11 are the D_003C2550 delay-slot schedule already logged. Parked. |
+| func_0030B420 | 57 | 30 | |
+| func_00386DE0 | 68 | 65 | |
+| func_001AA510 | 87 | — | |
+| func_002C9E78 | 33 | 36 | |
+
+- Every other draft in the group is still 90 or more off. Not pursued.
+- Possible definition fixes, worth a decision only if a caller gets close: func_00312DB8 (iterator-tag argument) and cEvent_clearCutEntry (callers pass the event pointer).
+
+### func_0025D0B8 (main agent's new draft, 8 off) — parked
+- Retail's CVEC_SET_MUL copy loads x and y, stores x through s1 and y through `&stepVec` (v0), then loads z.
+- Binding `cVec *d_ = &(d)` inside the operator gives retail's v0 stores, but all three loads still come first (10 off). Pointer reads of the return slot give 33.
+- Not the aliasing a C form reproduces, as far as I found. Variants are in nm_work/func_0025D0B8/v1.
+
+### func_002E7750 (main agent's draft, edited 11:47) — stays NM (D-021)
+- Layout bug in the draft: `cVec v20` at EspLightData 0x148 is 16 bytes, so every field after it sits 4 bytes late (0x154 is read as 0x158, and so on). With `cObjSimpleVec3 v20` (12 bytes) those reads match retail: 327 off becomes 309, nearly all of the rest from the 16-byte frame difference.
+- Retail stores cOmBase_childAt's child count at 0x70(sp), which is the slot of the local `v`. Its frame has no separate `int frame[3]`. That is the D-021 slot sharing, so the function stays NON_MATCHING.
+- func_0025D0B8: 15 min of permuter from the draft (base 450). Best 160, through a `cEm00 **new_var` alias; rejected. PERM=0.
+- func_00162298: rechecked (`--self->top`, `--self->sel`, store order, ternary clamp, split ifs): still 2 at best. Parked.
+
+### func_00217560 (main agent's new draft, 291 vs 264 words) — MATCH, handed off (progress/nm_solved/func_00217560/)
+- Step 0 picks the two motion record words in each branch (`motA`/`motB`) and makes one func_002A8578 call at the join. That gives retail's length: 243 off becomes 134.
+- Both enemy-kind tests are written `emNo != 0x256 && emNo != 0x27E` with the common enemies' arm first, which is retail's block order. That brings it to 80.
+- `rel = absf(rel); if (rel < pi/6)` is the same FP-register form as func_00115310. That brings it to 72.
+- Retail keeps self in s1 and the player position in s0. That comes from giving each case its own block-local `cVec *from` (cases 0, 1, 2) instead of one function-level local. MATCH: 264 insns, 28 relocs, sn, no meta, no header changes.
+- Case 2's Turn_dest result is unused in retail; a one-line comment says so.
+- func_00136030: rechecked the tail forms (`< eps` return 1, a direct return, `!(< eps)`, absf): best is still 5 (the draft and `!(< eps)`). Parked.
+- 13:45: the main agent changed drafts/cod/00217560.c at 13:35, after my handoff, and is working its own way toward the same function (259 vs 264). The handoff in progress/nm_solved/func_00217560/ matches byte for byte and needs no header changes, so it can replace that draft.
+- 14:20 register-only sweep. tools/regonly.py counts the diff lines that differ only in register names, over the same-length drafts 9 to 40 off. Mostly register-only: cSaveLoad_openSave 9/10, func_001D7560 11/11, cSndMemHeap_Alloc 13/16, func_00245538 14/18, func_00273960 16/20.
+  - func_001D7560: the payout forms `K * bet`, `bet == 0 ? K : K * bet` and `K * (bet ? bet : 1)` are all still 11. Its callee definitions are also still wrong.
+  - cSaveLoad_openSave: unchanged since its 10-22 entry.
+  - Both stay parked.
+- 14:58 idle rechecks at 14:38, 14:48 and 14:58: no new drafts, header changes or decision answers; the three handoffs are still unprocessed. PERM=0.
+- 15:28 idle rechecks at 15:08, 15:18 and 15:28: nothing new. PERM=0.
+- 16:08 idle rechecks at 15:38, 15:58 and 16:08: nothing new. PERM=0.
+- 16:49 idle rechecks at 16:19, 16:29, 16:39 and 16:49: nothing new. PERM=0.
+- 17:19 idle rechecks at 16:59, 17:09 and 17:19: nothing new. PERM=0.
+- 17:50 idle rechecks at 17:30, 17:40 and 17:50: nothing new. PERM=0.
+- 20:10 func_001DAB00 looks applied at 20:03 (src/cod/001dab00.c, registered in compile_config.json, the BlackJack.h and four sibling TU edits landed); the nm_solved folder and handoff_log.tsv are not updated yet. func_00115310 and func_00217560 are still pending. PERM=0.
+- 20:25 func_00115310 and func_00217560 were rejected at 20:11 for 'compiler unknown': neither had a meta.json, and the main agent's edits to the drafts dropped the NM header line that named the compiler. Re-verified against the current tree: func_00217560 MATCH 264/28; func_00115310 MATCH 242/32 with its header_changes.md (every section still applies exactly once), and all 20 motion.h users plus 002897f0.c pass unitcheck. Resubmitted both with meta.json {"compiler": "sn-2.95.3-136"}, the same solved.c, and for 00115310 the same header_changes.md. func_001DAB00 registered at 20:11. PERM=0.
+- 20:25 func_00115310 and func_00217560 were rejected at 20:11 for 'compiler unknown': neither had a meta.json, and the main agent's edits to the drafts dropped the NM header line that named the compiler. Re-verified against the current tree: func_00217560 MATCH 264/28; func_00115310 MATCH 242/32 with its header_changes.md (every section still applies exactly once), and all 20 motion.h users plus 002897f0.c pass unitcheck. Resubmitted both with meta.json {"compiler": "sn-2.95.3-136"}, the same solved.c, and for 00115310 the same header_changes.md. func_001DAB00 registered at 20:11. PERM=0.
+- 20:35 Correction to the 20:25 entry: the resubmission folders for func_00115310 and func_00217560 had already been recreated at 20:21 (identical solved.c, meta.json {"compiler": "sn-2.95.3-136"}). My command only re-copied 00115310's header_changes.md, which is byte-identical to the rejected one. Waiting for the handoff run. PERM=0.
+- 20:55-21:45 new and changed drafts since 20:11 (16 files, scored with tools/score_list.py):
+  - func_00245A18 (draft rewritten 20:27): byte-identical under -DNON_MATCHING, but step 4 still starts the lunge effect from two identical if/else arms. Retail (0x245E84..0x245ED0) really has two identical InitRenderStruct_2A8608(self, 0x77, 0xA, 0, 2, fx5) calls behind the level == 5 test. decisions_needed.md row (1) says no to identical arms, so it stays a draft. No form without identical arms found yet.
+  - cSndSeVoice_Setup (002cdff0.c, 13 off): the four limit-loop registers are permuted (retail: range s4, base s5, i s0, hi s2). Tried `short`/`unsigned char` types for hi/i/range/limit/base, eight placements of `i = 0`, and for/while/do loop shapes with the range guard inside or outside (13 at best, 18-226 otherwise). Permuter (15 min) reached 0, but only with `if (p.outMode) { i = 0; } else { i = 0; }`: identical arms, rejected. PARKED at 13.
+  - func_00259548 (00259548.c, 12 off; needs --extern-jtbl D_00442E30): writing `step = 0` inside each stay-down/get-up branch (both cases) and ordering each tail `step = 0; stepArg = 0;` gives 8 with plain C. It also drops the draft's phase-before-mode order in case 3, which only stopped the two stay-down copies from merging. The 8 left are two v0/v1 swaps: case 1's stepArg load (0x388) and case 3's emFlags/unk434 updates (0x480..0x4AC); the order of the three case 3 entry statements changes nothing. Work: nm_work/f259/q/90/d.c. Permuter running.
+  - The others are 1-60 words off or 100+ differing instructions (0012def0, 00154e98, 0016df38, 001e0ca8, 0020cd00, 00214de0, 00216078 (needs vu0_pending), 00231300, 00231ac0, 00242b68 (fdivdep), 0024bf20 (CVEC copy order, waiting on its decision row), 0039b3f0, 003b10d0).
+- 21:55 func_00259548: permuter (15 min, from the 8-off form) found nothing below its base. PARKED at 8 (two v0/v1 swaps). The plain-C form in nm_work/f259/q/90/d.c is better than the draft (8 vs 12, and without the phase-before-mode order); the main agent may want to take it into drafts/cod/00259548.c. PERM=0.
+- 22:05 func_00231AC0 (00231ac0.c, enemy turn-in-place phase machine, sn-2.95.3-136): SOLVED, handed off to nm_solved/func_00231AC0 (solved.c + meta.json: as sn, extern_jtbl D_004398E0 D_00439AB0 D_00439AD0, with reasons). Two fixes to the draft:
+  - The draft's "missing hazard nop" is the assembler: with as=sn the word count matches (655).
+  - The last difference was a float literal. Case 0x264 compares unk760 with 1.9198622f (retail 0x3FF5BE0B, 110 degrees in radians); the draft had 1.92f (0x3FF5C28F).
+  MATCH 655 insns, 86 relocs. Every callee is prototyped in cEm00.h, cGameObj.h, angle.h, cCamera.h or motion.h; -Wall is quiet; no identical arms. No header changes.
+- 22:20 cScrSpriteDraw_drawRectLine (002c6840.c, sn, needs fp_hazard_rules mtc1 + extern_jtbl D_0044C320): 2 off. Retail sets up the closing-vertex copy loop as dst (sp+0x40), counter 3, then src (sp); ours puts src before the counter. All six orders of the three assignments give 2 or 7. Eight other copy-loop forms (index for loops, `do`/`while` with `n-- > 0`, `n = 3`) all give 318 words: only `while (n--)` keeps retail's compare against -1. Permuter (15 min, wrap-arg fp-hazard mtc1): no improvement on base 60. PARKED at 2. Also, the draft's `float v[5][4]` vertex array may need a real vertex type under the placeholder-array rule, if it's ever closed.
+- New tool tools/draftsweep.py: scores every NON_MATCHING function in drafts/cod under ee/sn assemblers × none/fdiv/mtc1 hazard rules, with each function's retail jump tables. The first runs were broken: drafts without a section attribute, and the "(no jump tables)" text was passed through as table symbols. Both fixed; full rerun in progress. The broken first sn run still found func_00231AC0 (solved above) and drawRectLine.
+- 22:15 draftsweep full run (390 functions: 319 sn, 47 cygnus, 24 ee; 55 fail to build). Results in nm_work/dsweep_*.tsv. Matches: func_00245A18 (identical arms, blocked by its decision row), func_003BAFD0 (already known: carve-blocked by the D_003BAFE4 table). 1-8 off: all logged before (func_00167518 waiting on the D_003BD9E9 row, func_0028E0E0, func_00162298, func_00178E18, func_001C2408 vu0_pending, func_001EBB78, func_002BF420, Draw_Line_sc, func_001DF7D0, func_001F4530, func_0024BB68, cSceAtUnit_AtInit, func_0014E818, func_0026EF60, func_0012BAF0, func_00136030/00136458, func_002CABE8, func_001346C8, ...) or in the CRI range (func_00327A50, func_00347C80). The only new finds were func_00231AC0 (solved) and cScrSpriteDraw_drawRectLine (parked at 2). PERM=0.
+- 22:53 STOPPED on request. No function in progress (the last idle check at 22:38 found nothing new). Permuter killed: run_perm.sh reports PERM=0, and no permuter process is left in godhand-nix (checked through /proc). No draftsweep running on the host.
+  - Pending in nm_solved:
+    - func_00115310: solved.c, meta.json sn, header_changes.md for motion.h and 002897f0.c.
+    - func_00217560: solved.c, meta.json sn.
+    - func_00231AC0: solved.c, meta.json sn, as sn, three extern_jtbl.
+  - Registered today: func_001DAB00.
+  - Held on decisions: SetEffect (cEffectParam_init row, handoff ready in nm_work/SetEffect/s/) and func_00245A18 (identical arms).
+  - Parked today: cSndSeVoice_Setup 13, func_00259548 8 (better plain-C form in nm_work/f259/q/90/d.c), cScrSpriteDraw_drawRectLine 2.

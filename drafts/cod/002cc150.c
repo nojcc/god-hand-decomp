@@ -77,7 +77,7 @@ void cSnd_UpdateListener(cSnd *self)
     }
     switch (mode) {
     case LISTEN_AT_CAMERA:
-        *(u_long128 *)&self->listenPos = *(u_long128 *)&D_005CAFF0->target;
+        *(u_long128 *)&self->listenPos = *(u_long128 *)&D_005CAFF0->eye;
         func_0030A548(self->listenMtx, D_005CAFF0->mtx[5]);
         break;
     case LISTEN_AT_PLAYER:
@@ -109,7 +109,7 @@ void cSnd_UpdateListener(cSnd *self)
         sceVu0CameraMatrix(self->listenMtx, &eye, &d, &up);
         break;
     case LISTEN_BETWEEN:
-        sceVu0AddVector(&self->listenPos, &D_005CAFF0->target, pl->pos);
+        sceVu0AddVector(&self->listenPos, &D_005CAFF0->eye, pl->pos);
         sceVu0ScaleVectorXYZ(&self->listenPos, &self->listenPos, 0.5f);
         func_0030A548(self->listenMtx, D_005CAFF0->mtx[5]);
         break;

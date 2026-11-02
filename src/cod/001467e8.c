@@ -1,32 +1,26 @@
-#include "godhand/cIDBase.h"
-/* sn-2.95.3-136 matched TU. */
+/* sn-2.95.3-136 */
+#include "godhand/idPair.h"
 
-extern void IdPair_init(void *a);
 extern int cSceAtManager_getUnit(int a0, int a1);
 extern void func_002C1D68(int a0, int a1, int a2);
 extern int cArea_HitCheck_1F83E8(int a0, int a1);
 
-/* sn-2.95.3-136. Loop shape inherited verbatim from the matched
-   func_0013C220 in src/cod/001342b8.c (same dead-head class, wave 18 K3). */
-
-
-
-
-
+/* Sets up the banner's two parts (display ids 0x1D and 0x1E), points work at
+ * the first part's entries, empties the queue and resets it. */
 __attribute__((section(".text.func_001467E8")))
-void func_001467E8(void *a0) {
-    int *tbl;
+void func_001467E8(IdPair *self)
+{
     unsigned short i;
-    tbl = (int *)((char *)a0 + 0x90);
-    cIDBase_initialize(a0, 1, 0x1D);
-    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xA0), 1, 0x1E);
+
+    cIDBase_initialize(&self->base, 1, 0x1D);
+    cIDBase_initialize(&self->part2, 1, 0x1E);
     i = 0;
     do {
-        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
+        self->work[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
-    } while (i < 4);
-    *(short *)((char *)a0 + 0x100) = 0;
-    IdPair_init(a0);
+    } while (i < IDPAIR_WORK_NUM);
+    self->count = 0;
+    IdPair_init(self);
 }
 
 /* SN ProDG ee-gcc 2.95.3. House style inherited from the matched

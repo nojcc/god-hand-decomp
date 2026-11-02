@@ -40,7 +40,7 @@ void func_00137F38(PathHost *self, struct cPlCamera *cam)
             break;
         case 1:
             VU0_LQC2_SQC2_MEM(4, &ref, player->pos);
-            VU0_LQC2_SQC2_MEM(4, &rot, player->rot);
+            VU0_LQC2_SQC2_MEM(4, &rot, &player->rot);
             PathHost_calcTurn(self, &pathTurn, &pathDist, &ref, &rot);
             turn += (pathTurn - turn) * rec->rate;
             dist += (pathDist - dist) * rec->rate;

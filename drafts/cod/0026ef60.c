@@ -13,9 +13,9 @@
 #define VIEW_TURN_LIMIT  3.1415927f
 #define VIEW_MOVED_SQ    0.0009f
 
-/* The frame: the camera target, the view direction, and the eye-target difference. */
+/* The frame: the camera eye, the view direction, and the eye-target difference. */
 typedef struct ViewFrame {
-    cVec target;
+    cVec eye;
     cVec dir;
     cVec diff;
     cVec work;
@@ -36,10 +36,10 @@ int func_0026EF60(cGameObj *self)
     float angle;
     float off;
 
-    VU0_SQC2_VF0_MEM(&f.target, 0);
+    VU0_SQC2_VF0_MEM(&f.eye, 0);
     VU0_SQC2_VF0_MEM(&f.dir, 0);
-    cVec_copy3(&f.target, &D_005CAFF0->target);
-    VU0_ZERO_VSUB_XYZ_MEM(&f.work, 0, &D_005CAFF0->eye, &f.target);
+    cVec_copy3(&f.eye, &D_005CAFF0->eye);
+    VU0_ZERO_VSUB_XYZ_MEM(&f.work, 0, &D_005CAFF0->target, &f.eye);
     VU0_LQC2(4, &f.work, 0);
     VU0_SQC2(4, &f, VIEWFRAME_OFFSET(diff));
     f.dir.x = f.diff.x;
@@ -52,10 +52,10 @@ int func_0026EF60(cGameObj *self)
     if (self->mode == 1) {
         return 1;
     }
-    if (capVu0MagnitudeSqXZ(self->pos, &f.target) < VIEW_NEAR_SQ) {
+    if (capVu0MagnitudeSqXZ(self->pos, &f.eye) < VIEW_NEAR_SQ) {
         return 1;
     }
-    angle = Turn_dest(&f.target, self->pos, angle, VIEW_TURN_LIMIT);
+    angle = Turn_dest(&f.eye, self->pos, angle, VIEW_TURN_LIMIT);
     if (angle < 0.0f) {
         off = -angle;
     } else {

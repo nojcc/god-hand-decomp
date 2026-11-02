@@ -25,6 +25,7 @@ extern char D_00754240[];
 /* func_001212D0 — 0x001212D0, 760 B — sn-2.95.3-136.
  * +0x2F6 phase machine, 0x694 object family; template src/cod/0011c348.c. */
 #include "godhand/vu0.h"
+#include "godhand/cFxTrail.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
 

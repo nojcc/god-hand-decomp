@@ -1,4 +1,5 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/sndTiming.h"
 
 extern char D_00747A78[];
 extern char D_0076A7B8[];

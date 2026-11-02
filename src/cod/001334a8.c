@@ -1,6 +1,7 @@
 /* sn-2.95.3-136: func_001334A8, debug draw of a triangle or quad of world points in one colour; each corner goes
  * through the screen matrix and nothing is drawn if one falls behind the camera or off the 4096 by 4096 screen. */
 #include "godhand/cOmBase.h"
+#include "godhand/cGrid.h"
 #include "godhand/reachObj.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"

@@ -50102,6 +50102,7 @@ func_00163598 = 0x00163598; // type:func
 // The orphan keeps the old name and stays INCLUDE_ASM in monolithic.
 
 func_0012D3C8 = 0x0012D3C8; // type:func   (was inside func_0012D3A8)
+func_0012D970 = 0x0012D970; // type:func
 func_0012DEF0 = 0x0012DEF0; // type:func   (was inside func_0012DEC8)
 Forward150608_1506C8 = 0x001506C8; // type:func   (was inside func_00150678)
 GetSingletonA = 0x00190178; // type:func   (was inside func_00190158)
@@ -50645,6 +50646,7 @@ func_001DCEF0 = 0x001DCEF0; // type:func
 func_001E1D10 = 0x001E1D10; // type:func
 func_002998A0 = 0x002998A0; // type:func
 func_002B1C80 = 0x002B1C80; // type:func
+func_002B1F80 = 0x002B1F80; // type:func
 func_002C9950 = 0x002C9950; // type:func
 func_002DB0D0 = 0x002DB0D0; // type:func
 func_003092E0 = 0x003092E0; // type:func

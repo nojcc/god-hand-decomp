@@ -6,6 +6,7 @@
 #define GODHAND_CGRID_H
 
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
 
 typedef struct cGrid {
     char unk00[0x30];
@@ -41,10 +42,13 @@ typedef struct cGrid {
 
 /* One face of a collision body. */
 typedef struct cCollFace {
-    char unk0[2];
+    unsigned short unk0;                /* 0x0 picks the debug outline's colour */
     unsigned short kind;                /* 0x2 tested against cGrid.mask */
     int attr;                           /* 0x4 skipped when it shares a bit with cGrid.exclude */
-    char unk8[8];
+    unsigned short unk8;                /* 0x8 0xFFFF after the body's constructor copies the face */
+    unsigned char unkA;                 /* 0xA cleared by the constructor */
+    unsigned char unkB;                 /* 0xB cleared by the constructor */
+    char unkC[4];
 } cCollFace;
 
 #define CCOLLBODY_QUAD  1               /* one four-cornered face */
@@ -58,8 +62,15 @@ typedef struct cCollBody {
     char unk0C[4];
     cVec min;                           /* 0x10 bounds */
     cVec max;                           /* 0x20 */
-    int id;                             /* 0x30 */
-    char unk34[0x6C];
+    int id;                             /* 0x30 the owner object's address, stored by the constructors */
+    char unk34[0x20];                   /* 0x34 cleared */
+    int unk54;                          /* 0x54 cleared */
+    int param;                          /* 0x58 the constructor's flags argument */
+    const void *vt;                     /* 0x5C method table of the body type */
+    cVec pos;                           /* 0x60 copy of the owner's position */
+    cVec unk70;                         /* 0x70 */
+    cVec rot;                           /* 0x80 copy of the owner's rotation */
+    cVec unk90;                         /* 0x90 */
     union {
         struct {
             char unkA0[8];
@@ -68,7 +79,7 @@ typedef struct cCollBody {
             cVec corner[4];             /* 0xC0 */
         } quad;
         struct {
-            char unkA0[0x10];
+            cVec extent;                /* 0xA0 the size argument, each axis made positive */
             cCollFace face[6];          /* 0xB0 */
             cVec corner[8];             /* 0x110 */
         } box;
@@ -81,5 +92,26 @@ extern int D_0041D640[6][4];
 
 extern void func_00133948(void *self, void *boxMin, void *boxMax);
 extern int func_00133408(void *unused, float *min, float *max, float *boxMin, float *boxMax);
+
+/* Method tables of the base body and of the box body. */
+extern char D_0041D5A8[];
+extern char D_0041D558[];
+
+/* 1 << n for n = 0..31; the quad and box debug draws copy it to the stack. */
+typedef struct cBitMasks {
+    int bit[32];
+} cBitMasks;
+
+extern const cBitMasks D_0041D2E0;
+
+/* Debug draw of a quad body's outline, and with fill set its face filled. */
+void func_0012D3C8(cCollBody *self, int mode, int fill);
+
+/* Debug draw of pts[0..2], or pts[0..3] when quad is set, filled in one colour. */
+void func_001334A8(cVec *pts, int quad, int color);
+
+cCollBody *func_0012D970(cCollBody *self, cModel *owner, int param, cVec *v70, cVec *v90,
+                         cVec *size, cCollFace *f0, cCollFace *f1, cCollFace *f2,
+                         cCollFace *f3, cCollFace *f4, cCollFace *f5);
 
 #endif /* GODHAND_CGRID_H */

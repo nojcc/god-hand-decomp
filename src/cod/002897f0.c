@@ -8,11 +8,6 @@ extern void func_0028EBF0(cEma2 *self, SET_EM_DATA *data, void *arg);
 extern int func_0028AC58(cEma2 *self);
 extern int cDamageUnit_AddDamageCollSphere(int unit, void *joint, cVec *offset, float radius);
 
-/* The int stored at byte ofs of the motion block, plus the block address. */
-static __inline__ int motionBlock_at(char *block, int ofs) {
-    return *(int *)(block + ofs) + (int)block;
-}
-
 /* Hides a mesh node, if the model has it. */
 static __inline__ void cMeshNode_hide(cMeshNode *node) {
     if (node != 0)

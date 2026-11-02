@@ -109,4 +109,23 @@ void cScrSpriteDraw_drawTexCentered(cScrSpriteDraw *self, unsigned int tex,
                                     float x, float y, float w, float h,
                                     float u0, float v0, float u1, float v1, unsigned int color);
 
+/* One cell of a sprite sheet: its texture (-1 = the sheet's default) and its UV rectangle. */
+typedef struct cScrSheetCell {
+    int tex;                            /* 0x00 index into the system data file's offset table */
+    float u0;                           /* 0x04 */
+    float v0;                           /* 0x08 */
+    float u1;                           /* 0x0C */
+    float v1;                           /* 0x10 */
+} cScrSheetCell;                        /* 0x14 */
+
+typedef struct cScrSheet {
+    int tex;                            /* 0x00 default texture */
+    cScrSheetCell *cell;                /* 0x04 */
+} cScrSheet;
+
+/* Draw cell idx of a sheet over (x0, y0)-(x1, y1) (definition in 002b1f80.c). */
+void func_002B1F80(cScrSheet *sheet, int idx, unsigned int color, float x0, float y0, float x1, float y1);
+/* The same with a size instead of the far corner (definition in 002b2058.c). */
+void func_002B2058(cScrSheet *sheet, int idx, unsigned int color, float x, float y, float w, float h);
+
 #endif
