@@ -4438,7 +4438,6 @@
 !drafts/
 !drafts/cod/
 !drafts/cod/*.c
-!drafts/vu0_pending.h
 !src/cod/002a5bb8.c!src/cod/003033a8.c
 !include/godhand/emPhaseTable.h!include/godhand/newlibMalloc.h
 !src/cod/sa_00321288.c

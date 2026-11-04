@@ -2,7 +2,6 @@
 /* NON_MATCHING func_00137F38: matches byte for byte, but needs VU0_LQC2_SQC2_MEM, which vu0.h doesn't have.
  * Waiting on LucasPicoli (progress/decisions_needed.md, "vu0.h macros"). */
 #include "include_asm.h"
-#include "../vu0_pending.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cPlCamera.h"
 #include "godhand/pathRec.h"
