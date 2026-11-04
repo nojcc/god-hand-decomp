@@ -1,8 +1,8 @@
-/* NON_MATCHING Draw_Line2, Draw_Line_sc (sn-2.95.3-136, as sn).
+/* NON_MATCHING Draw_Line2 (sn-2.95.3-136, as sn).
  * Draw_Line2: 106 vs 103 words; retail rebuilds &v (addiu sp, 0x50) before each call where
  * this keeps it in a saved register, which costs one more saved register.
- * Draw_Line_sc: 3 words; retail sets up %hi(D_00586B80) before &v and &pts[-1] at the loop
- * entry. */
+ * Draw_Line_sc matches in src/cod/0015f0b8.c (#42); LineAttr and Gp_draw_line are now in
+ * drawPrim.h. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -57,40 +57,6 @@ void Draw_Line2(float (*pts)[4], unsigned int count, unsigned int color, int fla
     }
 }
 
-/* Draw a screen-space polyline: offset each point into GS window coordinates, flag points
- * outside the 0..4095.9 window and draw a segment only when both ends are inside. */
-void Draw_Line_sc(float (*pts)[4], unsigned int count, unsigned int color, int flat)
-{
-    LineAttr attr;
-    float v[4];
-    unsigned int i;
-    int out;
-    int prev;
-
-    if (D_00747A2C.unk00 & 0x40000000)
-        return;
-    attr.flags = 0;
-    if (!flat) {
-        attr.flags = 0x20;
-        attr.tex1 = 0x30000;
-    }
-    count++;
-    prev = 0;
-    for (i = 0; i < count; i++) {
-        v[0] = pts[i][0] + (float)(0x800 - D_003C1180 / 2);
-        v[1] = pts[i][1] + (float)D_00586B80;
-        v[2] = pts[i][2];
-        v[3] = 1.0f;
-        sceVu0DivVector(v, v, 1.0f);
-        out = 0;
-        if (v[0] < 0.0f || 4095.9f < v[0] || v[1] < 0.0f || 4095.9f < v[1])
-            out = 0x80;
-        if (i != 0 && out == 0 && prev == 0)
-            Gp_draw_line(&pts[i - 1], color, 1, 8, 2, &attr);
-        prev = out;
-    }
-}
 #else
 INCLUDE_ASM("asm/nonmatching", Draw_Line2);
-INCLUDE_ASM("asm/nonmatching", Draw_Line_sc);
 #endif

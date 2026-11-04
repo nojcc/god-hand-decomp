@@ -1,5 +1,4 @@
 /* sn-2.95.3-136 */
-#include "include_asm.h"
 #include "godhand/cSceAtManager.h"
 #include "godhand/cArea.h"
 #include "godhand/cIDManager.h"
@@ -28,21 +27,16 @@ typedef struct cSceAtJumpPointTbl {
     cSceAtJumpPoint ent[1];             /* 0x04 */
 } cSceAtJumpPointTbl;
 
-extern char D_0044C230[];
-extern cSceAtUnit *cSceAtManager_getUnitList(cSceAtManager *self);
-extern cSceAtUnit *cSceAtManager_getNextUnit(cSceAtManager *self, cSceAtUnit *e);
-extern void func_002C1D68(cSceAtManager *self, cArea *out, cSceAtUnit *e);
-extern int cArea_HitCheck_1F83E8(cArea *self, float *pt);
+#define JUMP_CM_TO_M     0.01f
+#define JUMP_DEG_TO_RAD  0.017453292f
 
 /* Find the placed jump point unit whose area holds pos; give its landing
  * point (cm to m) and heading (degrees to radians) from the room's jump
  * point table. 0 if pos is in no such area or the table entry is missing
  * or belongs to another room; a unit whose entry is for another room ends
  * the search.
- * Matches retail with -fmove-all-movables (not an allowed per-unit flag
- * yet) and the mtc1 hazard rule; without the flag the loop keeps fewer
- * invariants in saved registers. */
-#ifdef NON_MATCHING
+ * Takes -fmove-all-movables and the mtc1 hazard rule: without the flag the
+ * loop keeps fewer invariants in saved registers. */
 __attribute__((section(".text.cSceAtManager_findJumpPoint")))
 int cSceAtManager_findJumpPoint(cSceAtManager *self, cVec *pos, cVec *point, float *heading)
 {
@@ -77,12 +71,9 @@ int cSceAtManager_findJumpPoint(cSceAtManager *self, cVec *pos, cVec *point, flo
         if (e->room != D_007474A0.room) {
             break;
         }
-        vec3_set(&point->x, (float)e->x * 0.01f, (float)e->y * 0.01f, (float)e->z * 0.01f);
-        *heading = (float)e->heading * 0.017453292f;
+        vec3_set(&point->x, (float)e->x * JUMP_CM_TO_M, (float)e->y * JUMP_CM_TO_M, (float)e->z * JUMP_CM_TO_M);
+        *heading = (float)e->heading * JUMP_DEG_TO_RAD;
         return 1;
     }
     return 0;
 }
-#else
-INCLUDE_ASM("asm/nonmatching", cSceAtManager_findJumpPoint);
-#endif
