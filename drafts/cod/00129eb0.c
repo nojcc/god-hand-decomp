@@ -13,7 +13,6 @@
 #ifdef NON_MATCHING
 extern cMcObjList *D_00754C58;
 extern int cOm60_ckParent(cOm60 *self);
-extern void cOm60_setThrow(cOm60 *self, cVec *dir, float speed);
 extern void MtxInverse(void *dst, void *src);
 extern void capVu0ApplyMatrixXYZ(cVec *dst, float *mtx, cVec *v);
 

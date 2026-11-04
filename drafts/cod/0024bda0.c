@@ -9,6 +9,7 @@
 #include "godhand/gameWork.h"
 #include "godhand/cCamera.h"
 #include "godhand/vu0.h"
+#include "godhand/cSceAtManager.h"
 
 #define EM_NO_ANY_ROOM_LO   0x220
 #define EM_NO_ANY_ROOM_HI   0x223
@@ -25,10 +26,9 @@ typedef struct JumpFrame {
     float heading;
 } JumpFrame;
 
-extern char D_005FEA60[];
+extern cSceAtManager D_005FEA60;
 extern float Turn_dest(void *from, void *to, float angle, float limit);
 extern float Turn_dest_dir(float from, float to, float step);
-extern int cSceAtManager_findJumpPoint(void *a0, cVec *pos, cVec *point, float *heading);
 
 /* Starts a jump when the enemy faces its target and a jump point lies ahead of it.
  * Returns 1 when the jump starts. */
@@ -57,7 +57,7 @@ int func_0024BDA0(cEm00 *self)
     if (JUMP_FACE_LIMIT < off) {
         return 0;
     }
-    if (!cSceAtManager_findJumpPoint(D_005FEA60, self->pos, &f.point, &f.heading)) {
+    if (!cSceAtManager_findJumpPoint(&D_005FEA60, self->pos, &f.point, &f.heading)) {
         return 0;
     }
     turn = Turn_dest_dir(self->rot.y, f.heading, 3.1415927f);
