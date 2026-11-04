@@ -1994,6 +1994,7 @@
 !src/cod/002ff748.c
 !src/cod/00273d30.c
 !src/cod/002685d0.c
+!src/cod/0026a838.c
 !src/cod/001c0128.c
 !src/cod/0020cac8.c
 !src/cod/0023aad0.c
@@ -4403,9 +4404,9 @@
 !include/godhand/eeKernel.h
 !include/godhand/keySlot.h
 !include/godhand/libm.h
+!include/godhand/fpu.h
 !include/godhand/gsLoadImage.h
 !include/godhand/newlibStdio.h
-!include/godhand/newlibStdlib.h!include/godhand/vecInline.h
 !include/godhand/newlibStdlib.h
 !include/godhand/sceMpeg.h
 !include/godhand/sceTimer.h
