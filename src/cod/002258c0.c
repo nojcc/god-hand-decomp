@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cOmBase.h"
 #include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
@@ -6,14 +7,12 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
 extern void cObj_setupAimStep2(void *a0, void *a1, int a2, void *a3, void *a4);
 extern void SetField_2F6_1C2308(void *a0);
 extern void func_002705D8(void *a0);
-extern void cOmBase_dieCommon(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 

@@ -6,6 +6,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cDamageManage.h"
 #include "godhand/cEm00.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEmManage.h"
@@ -22,19 +23,20 @@
 #include "godhand/vecInline.h"
 
 /* This enemy keeps other records than the ones cEm00.h names at these
- * offsets: its room record copy over unk155C and unk1560, four damage
+ * offsets: its room record copy over unk155C and unk1560, its attack hit
+ * record at 0x670 (the base enemy's shadow work), four damage
  * sphere handles over unk678, its shadow work at 0x690, the eight hand and
  * mask meshes over hitWait, partYaw and hitPos, and its weapon in hitPos.w. */
 #define EMHAND_SET(self)     ((SET_EM_DATA *)((char *)(self) + 0x1530))
+#define EMHAND_ATKHIT(self)  (*(cDamageTake **)((char *)(self) + 0x670))
 #define EMHAND_SPHERE(self)  ((int *)((char *)(self) + 0x674))
 #define EMHAND_SHADOW(self)  ((char *)(self) + 0x690)
 #define EMHAND_MESH(self)    ((cModelNode **)((char *)(self) + 0x15CC))
 #define EMHAND_WEAPON(self)  (*(cGameObj **)((char *)(self) + 0x15EC))
 
-#define MOTION(off) ((char *)EM_RES_REC(self->resource, off))
+#define MOTION(off) ((char *)EM_RES_REC(EM_RES(self), off))
 
 extern unsigned char D_00747A50[];
-extern char D_00574380[];
 extern char D_003C3F68[];
 extern char D_00448A08[];
 extern char D_00448A18[];
@@ -72,28 +74,28 @@ int func_00284AF8(cEm00 *self, SET_EM_DATA *data, int arg)
     switch (D_00747A50[1]) {
     case 1:
     default:
-        self->vitalMax = self->vital = 500;
+        self->hpMax = self->hp = 500;
         break;
     case 2:
-        self->vitalMax = self->vital = 600;
+        self->hpMax = self->hp = 600;
         break;
     case 3:
-        self->vitalMax = self->vital = 700;
+        self->hpMax = self->hp = 700;
         break;
     case 4:
-        self->vitalMax = self->vital = 800;
+        self->hpMax = self->hp = 800;
         break;
     case 5:
-        self->vitalMax = self->vital = 900;
+        self->hpMax = self->hp = 900;
         break;
     case 6:
-        self->vitalMax = self->vital = 1000;
+        self->hpMax = self->hp = 1000;
         break;
     case 7:
-        self->vitalMax = self->vital = 1100;
+        self->hpMax = self->hp = 1100;
         break;
     case 8:
-        self->vitalMax = self->vital = 1200;
+        self->hpMax = self->hp = 1200;
         break;
     }
     switch (EMHAND_SET(self)->appPattern) {
@@ -155,8 +157,8 @@ int func_00284AF8(cEm00 *self, SET_EM_DATA *data, int arg)
         setMotionInfo((struct cObjBase *)self, MOTION(0x120), MOTION(0x124), 0, 1.0f, 0.0f, 0);
         break;
     case 8:
-        self->vitalMax = 200;
-        self->vital = 200;
+        self->hpMax = 200;
+        self->hp = 200;
         self->mode = 0;
         self->phase = 7;
         self->step = 0;
@@ -177,7 +179,7 @@ int func_00284AF8(cEm00 *self, SET_EM_DATA *data, int arg)
         if (EMHAND_WEAPON(self) != 0) {
             CVEC_ZERO(held);
             CVEC_ZERO(ofs);
-            cGameObj_vt(EMHAND_WEAPON(self))->unk44((char *)EMHAND_WEAPON(self) + cGameObj_vt(EMHAND_WEAPON(self))->unk40Delta);
+            cGameObj_vt(EMHAND_WEAPON(self))->initial((char *)EMHAND_WEAPON(self) + cGameObj_vt(EMHAND_WEAPON(self))->initialDelta);
             cVec_copy3(EMHAND_WEAPON(self)->pos, self->pos);
             cVec_copy3(&EMHAND_WEAPON(self)->posA, self->pos);
             vec3_set(&EMHAND_WEAPON(self)->rot.x, 0.0f, 0.0f, 0.0f);
@@ -239,11 +241,11 @@ int func_00284AF8(cEm00 *self, SET_EM_DATA *data, int arg)
     cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->ik, self);
     cModel_calcWorldParts((cModel *)self);
-    cCollisionSolidManage_SetActive((int)D_00462FC0, (int)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     cVec_copy3(&self->unk1590, self->pos);
     cParts_setRotationOrder((char *)self, 4);
     cObjBase_KageInit((struct cObjBase *)self, EMHAND_SHADOW(self), D_003C3F68);
-    self->atkHit = cDamageManage_CreateDamageTake(D_00574380, self, 1);
+    EMHAND_ATKHIT(self) = cDamageManage_CreateDamageTake(&D_00574380, self, 1);
 
     /* Four damage spheres, each centred on a joint of the model. */
     child = cOmBase_childAt((cOmBase *)self, (int *)&held, 1);
@@ -251,32 +253,32 @@ int func_00284AF8(cEm00 *self, SET_EM_DATA *data, int arg)
     held.y = 0.0f;
     held.z = 0.0f;
     held.w = 1.0f;
-    EMHAND_SPHERE(self)[0] = cDamageUnit_AddDamageCollSphere(self->atkHit, child->mtx, &held.x, 0.25f);
+    EMHAND_SPHERE(self)[0] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)(EMHAND_ATKHIT(self)), child->mtx, (cVec *)&held.x, 0.25f);
     child = cOmBase_childAt((cOmBase *)self, (int *)&held, 3);
     held.x = 0.0f;
     held.y = 0.0f;
     held.z = 0.0f;
     held.w = 1.0f;
-    EMHAND_SPHERE(self)[1] = cDamageUnit_AddDamageCollSphere(self->atkHit, child->mtx, &held.x, 0.25f);
+    EMHAND_SPHERE(self)[1] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)(EMHAND_ATKHIT(self)), child->mtx, (cVec *)&held.x, 0.25f);
     child = cOmBase_childAt((cOmBase *)self, (int *)&held, 0x13);
     held.x = 0.0f;
     held.y = 0.0f;
     held.z = 0.0f;
     held.w = 1.0f;
-    EMHAND_SPHERE(self)[2] = cDamageUnit_AddDamageCollSphere(self->atkHit, child->mtx, &held.x, 0.25f);
+    EMHAND_SPHERE(self)[2] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)(EMHAND_ATKHIT(self)), child->mtx, (cVec *)&held.x, 0.25f);
     child = cOmBase_childAt((cOmBase *)self, (int *)&held, 0x17);
     held.x = 0.0f;
     held.y = 0.0f;
     held.z = 0.0f;
     held.w = 1.0f;
-    EMHAND_SPHERE(self)[3] = cDamageUnit_AddDamageCollSphere(self->atkHit, child->mtx, &held.x, 0.25f);
+    EMHAND_SPHERE(self)[3] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)(EMHAND_ATKHIT(self)), child->mtx, (cVec *)&held.x, 0.25f);
 
-    cCollisionSolidManage_CreateUnit(D_00462FC0, self, 5, 0.2f);
+    cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)self, 5, 0.2f);
     held.x = 0.0f;
     held.y = 0.5f;
     held.z = 0.0f;
     held.w = 1.0f;
-    cCollisionSolidManage_CreateSphere((int)D_00462FC0, (int)self, (int)self->mtx, (int)&held, 0.5f);
+    cCollisionSolidManage_CreateSphere(&D_00462FC0, (struct cGameObj *)self, self->mtx, (cVec *)&held, 0.5f);
 
     self->stepVar.time = 0.02f;
     self->unk15B8 = 0;

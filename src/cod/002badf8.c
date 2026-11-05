@@ -1,8 +1,7 @@
 #include "godhand/heapArena.h"
-extern int _MemoryAlloc(void *, int, void *);
 
 __attribute__((section(".text.func_002BADF8")))
-int func_002BADF8(void *unused, void *p)
+void *func_002BADF8(void *unused, unsigned int size)
 {
-    return _MemoryAlloc(p, 0x10, D_003C3CF0);
+    return _MemoryAlloc(size, 0x10, D_003C3CF0);
 }

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136: enemy setup: flag every mesh, pick a random facing, then build the two damage-give volumes (a box on
  * the body at 0x600, a sphere on part 0 at 0x608), both inactive, with their hit kinds and hit vector. */
+#include "godhand/cDamageManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cOmHitVolumeSetup.h"
 
@@ -37,7 +38,6 @@ extern cMeshNode *cModel_getMeshPtr(void *p, unsigned int i);
 extern unsigned int cModel_getMeshNum(void *p);
 extern float fRand1_1(void);
 extern void cDamageGive_SetDmgGiveHitVec(void *slot, void *vec);
-extern char D_00574380[];
 extern char D_00747B00[];
 
 __attribute__((section(".text.func_001B90D0")))
@@ -60,7 +60,7 @@ int func_001B90D0(cEmTwoGive *self)
     self->base.unk580.y = 0;
     self->base.unk580.z = 0;
     self->facing = fRand1_1() * 3.1415927f;
-    d = cDamageManage_CreateDamageGive(D_00574380, 1, self);
+    d = cDamageManage_CreateDamageGive(&D_00574380, 1, self);
     self->box = d;
     if (d != 0) {
         g = &v[1];
@@ -77,8 +77,8 @@ int func_001B90D0(cEmTwoGive *self)
         h->z = 0.5f;
         h->y = 1.0f;
         h->w = 1.0f;
-        self->boxId = func_001FD9D8(d, self->base.mtx, v, g, h);
-        cDamageUnit_SetDamageCollActive(self->box, 0);
+        self->boxId = func_001FD9D8((cDamageUnit *)d, self->base.mtx, v, g, h);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)self->box, 0);
         self->box->kind = GIVE_BOX_KIND;
         self->box->power = GIVE_POWER;
         cDamageGive_SetDmgGiveHitVec(self->box, D_00747B00);
@@ -86,7 +86,7 @@ int func_001B90D0(cEmTwoGive *self)
         q->unk40 = -1;
         q->unk44 = 0;
     }
-    e = cDamageManage_CreateDamageGive(D_00574380, 0, self);
+    e = cDamageManage_CreateDamageGive(&D_00574380, 0, self);
     self->sphere = e;
     if (e != 0) {
         /* The child count lands in v[0].x first; the stores below overwrite it. */
@@ -99,8 +99,8 @@ int func_001B90D0(cEmTwoGive *self)
         v[0].x = 0.0f;
         v[0].y = 0.0f;
         v[0].z = 0.0f;
-        self->sphereId = cDamageUnit_AddDamageCollSphere(self->sphere, part->mtx, &v[0].x, 0.4f);
-        cDamageUnit_SetDamageCollActive(self->sphere, 0);
+        self->sphereId = cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->sphere, part->mtx, (cVec *)&v[0].x, 0.4f);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)self->sphere, 0);
         self->sphere->kind = GIVE_SPHERE_KIND;
         self->sphere->power = GIVE_POWER;
         cDamageGive_SetDmgGiveHitVec(self->sphere, D_00747B00);

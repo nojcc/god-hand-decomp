@@ -2,13 +2,10 @@
 #include "godhand/cEm00.h"
 typedef void (*Pfn)(void *self);
 
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern void ClearField630_SetField2F6_1C2318(void *a0);
 extern void func_001D0108(void *a0);
-extern void cEm_breakHeldWeapons(void *a0);
 extern void func_001D0408(void *a0);
-extern void Obj1D00_ClearState_6(void *a0);
-extern void Obj1D00_ClearState_7(void *a0);
+#include "godhand/cOmWeapon.h"
 extern void KillEffect(void *a0, int a1, int a2);
 extern cPmf D_003BF878[];
 
@@ -21,7 +18,7 @@ void func_0025E600(char *self)
 
     EmThrower_throwHeld((cEm00 *)self, 0, 0);
     EmThrower_throwHeld((cEm00 *)self, 1, 0);
-    ReleaseField6ECByTag564_26B1E8(self);
+    ReleaseField6ECByTag564_26B1E8((cEm00 *)self);
     if (*(void **)(self + 0x70C) != 0) {
         ClearField630_SetField2F6_1C2318(*(void **)(self + 0x70C));
         *(void **)(self + 0x70C) = 0;
@@ -30,16 +27,16 @@ void func_0025E600(char *self)
         func_001D0108(*(void **)(self + 0x730));
         *(void **)(self + 0x730) = 0;
     }
-    cEm_breakHeldWeapons(self);
+    cEm_breakHeldWeapons((cEm00 *)self);
     if (*(void **)(self + 0x738) != 0) {
         func_001D0408(*(void **)(self + 0x738));
         *(void **)(self + 0x738) = 0;
     }
     if (*(void **)(self + 0x6F0) != 0) {
-        Obj1D00_ClearState_6(*(void **)(self + 0x6F0));
+        Obj1D00_ClearState_6(&(*(cOmWeapon **)(self + 0x6F0))->base);
     }
     if (*(void **)(self + 0x708) != 0) {
-        Obj1D00_ClearState_7(*(void **)(self + 0x708));
+        Obj1D00_ClearState_7(&(*(cOmWeapon **)(self + 0x708))->base);
     }
     if (*(int *)(self + 0x16D4) & 0x20) {
         KillEffect(self, 1, 2);

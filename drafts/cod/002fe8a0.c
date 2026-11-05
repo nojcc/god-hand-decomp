@@ -6,12 +6,12 @@
  */
 #include "include_asm.h"
 #include "godhand/cNode.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 
 
 #ifdef NON_MATCHING
 extern float *func_002B6328(cNode *node);
-extern void MtxCopy(float *dst, float *src);
 
 extern int D_003C1180;                  /* screen width */
 extern int D_003C118C;                  /* screen height */

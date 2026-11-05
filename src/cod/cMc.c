@@ -3,11 +3,11 @@ extern void *D_003C23A4;
 extern void ObjTrans(void);
 extern void func_002AF028(void *);
 #include "godhand/cMc.h"
+#include "godhand/cCamera.h"
 
 extern void *D_005CAFF0;
 extern void *D_003BD6E8;
 extern cMcObjList *D_00754C58;
-extern void cCamera_move(void *cam);
 extern void MoveEffect(void);
 extern void cMessage_updateAll(void *p);
 extern void func_00140E58(void *p);

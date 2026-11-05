@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
 extern int write(int fd, const void *buf, int n);
 
@@ -160,7 +161,6 @@ typedef struct _Bigint {
 
 extern _Bigint *func_003AE818(void *ptr, int k);            /* _Balloc */
 extern void func_003AE8C0(void *ptr, _Bigint *v);           /* _Bfree  */
-extern void *func_003A5148(void *d, const void *s, int n);  /* memcpy  */
 
 __attribute__((section(".text.func_003AE8F8")))
 _Bigint *func_003AE8F8(void *ptr, _Bigint *b, int m, int a)

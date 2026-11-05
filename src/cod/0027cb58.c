@@ -8,7 +8,6 @@
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 
-extern void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size);
 
 #define RES(off) EM_RES_REC(EM_RES(self), off)
 
@@ -74,7 +73,7 @@ void func_0027CB58(cEm00 *self)
                 spark.y = fRand1_1() * 0.1f + 0.1f;
                 spark.z = fRand0_1() * 0.1f + 0.2f;
                 cVec_applyMatrix(&spark, part->mtx);
-                SetEffectPos(0, 0x4F, 0, &spark, -1, 1.0f);
+                SetEffectPos(0, 0x4F, 0, &spark, 1.0f, -1);
             }
         }
         if (target != 0) {

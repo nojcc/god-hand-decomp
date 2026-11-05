@@ -5,7 +5,6 @@
 #include "godhand/heapArena.h"
 #include "godhand/mdlPkt.h"
 
-extern void *EnsureInitThenForward_2A9538_30EE08(int a0, int a1, int a2);
 extern cModelNode *cModel_getMeshPtr(cModel *self, int n);
 extern void func_00155BE8(char *arg0, int arg1, int arg2);
 extern void func_00155AE8(MdlPktBuf *pkt, int id, int buf);
@@ -63,9 +62,9 @@ int func_0014BFE0(cModel *self)
     int size = MODEL_PART_QWC(n) * 32 + 0x3A0 + n * 4;
 
     if (self->arena != 0)
-        p = EnsureInitThenForward_2A9538_30EE08(size, 0x40, (int)self->arena);
+        p = _MemoryAlloc(size, 0x40, self->arena);
     else
-        p = EnsureInitThenForward_2A9538_30EE08(size, 0x40, (int)D_003C3CF0);
+        p = _MemoryAlloc(size, 0x40, D_003C3CF0);
     if (p == 0)
         return 0;
     self->alloc = p;

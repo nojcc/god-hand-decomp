@@ -4,20 +4,16 @@
  * for the 1 < n compare; a shared local gets CSE'd into the compare and literals are not hoisted. */
 #include "include_asm.h"
 #include "godhand/cModel.h"
+#include "godhand/cDamageUnit.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cDamageManage.h"
+#include "godhand/cCollisionSolid.h"
 extern int func_00277F80(char *a0);
 extern void func_0028EBF0(char *a0, void *a1, int a2);
 extern void func_002A8578(void *a0, int a1, int a2, float f, int a3, int t0, int t1);
 extern int moveMotion(void *a0);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
-extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
-extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 
-extern int D_00462FC0;
-extern char D_00574380[];
 struct sph { int a; float b; int c; float d; };
 
 __attribute__((section(".text.func_00277348")))
@@ -67,7 +63,7 @@ int func_00277348(char *a0, char *info, int arg)
         *(int *)(buf + 0x18) = 0;
         r->d = 1.0f;
         *(int *)(s1 + 0x674) = cDamageUnit_AddDamageCollSphere(
-            *(int *)(s1 + 0x670), base + 0x80, r, 0.25f);
+            (cDamageUnit *)(*(int *)(s1 + 0x670)), (void *)(base + 0x80), (cVec *)r, 0.25f);
     }
     cCollisionSolidManage_CreateUnit(&D_00462FC0, s1, 5, 0.2f);
     q = (struct sph *)(buf + 0x0);

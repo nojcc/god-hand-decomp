@@ -2,6 +2,7 @@
  * x term with 64-bit adds (daddiu/daddu) and shares the tail of the NTSC and PAL paths (interlaced
  * and non-interlaced each); here every mode keeps its own copy. func_00396560 (syscall 0x80) is
  * defined as void(void) in 00396560.c; it takes (mode, &dx, &dy, &dw, &dh). */
+#include "godhand/eeKernel.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -63,7 +64,6 @@ typedef struct {
 extern sceGsGParam *GetD003F8560_395388(void);
 extern int checkModelVersion(void);
 extern void func_00396560(int mode, int *dx, int *dy, int *dw, int *dh);
-extern void func_003B1F28(char *fmt);
 extern char D_0045DF60[];
 
 /* Fill a display environment for a w x h frame buffer of format psm shown at (dx, dy), using the

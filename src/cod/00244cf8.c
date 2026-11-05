@@ -1,19 +1,17 @@
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int moveMotion(void *a0);
 extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, int a1, int a2);
 
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int D_007476B0;
-extern char D_00462FC0[];
 
 /* Phase machine on the step byte, 4 case labels. Calls cCollisionSolidManage_SetActive,
  * Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578, moveMotion, func_002A74E0, Getplayer and 4
@@ -22,7 +20,7 @@ __attribute__((section(".text.func_00244CF8"))) void func_00244CF8(cEm00 *self)
 {
     float one;
 
-    cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
             int t0, b;
@@ -40,10 +38,10 @@ __attribute__((section(".text.func_00244CF8"))) void func_00244CF8(cEm00 *self)
             if ((*(int *)((char *)self + 0x1644) & 0x10008000) == 0) {
                 if (self->emFlags & 0x200000) {
                     if (self->playerDist < 64.0f &&
-                        (D_007476B0 & 7) == (*(int *)((char *)self + 0x17D0) & 7)) {
+                        (D_007476B0 & 7) == (self->unk17D0 & 7)) {
                         self->emFlags2 = self->emFlags2 & 0xF7FFFFFF;
                         func_002A74E0(self, *(int *)((char *)Getplayer() + 0xF0), 1);
-                        if (func_002A7CA0(self, &self->unk16A0) != 0) {
+                        if (func_002A7CA0((cGameObj *)self, &self->unk16A0) != 0) {
                             self->emFlags2 = self->emFlags2 | 0x8000000;
                         }
                         if (*(float *)((char *)self + 0x510) < 8.0f) {

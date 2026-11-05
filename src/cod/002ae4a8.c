@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/heapArena.h"
+#include "godhand/cDvd.h"
 #include "godhand/cMc.h"
 
 extern void func_0();
@@ -7,12 +9,8 @@ extern char cEvent_nullStr00[];
 extern unsigned int D_00747A30;
 extern char D_0044B0B0[];
 extern char D_0044B0E8[];
-extern char D_00583F20[];
-extern char D_00754230[];
 extern cMcTaskRef D_00752C00;
 extern void func_003A6C58(char *dst, char *src);
-extern int cDvd_ReadAlloc(void *dvd, char *name, void **out, void *heap, int a, int b, int c, int d);
-extern int cDvd_Check(void *dvd, int id);
 extern void cMc_Move(cMc *self);
 extern void cMc_Trans(cMc *self);
 extern void cTaskWork_sleep(void *task, int frames);
@@ -33,9 +31,9 @@ void cMc_DllLoad(cMc *self, int pump) {
     } else {
         func_003A6C58(name, D_0044B0E8);
     }
-    req = cDvd_ReadAlloc(D_00583F20, name, &self->dll, D_00754230, 0, 0, 0, 0);
+    req = cDvd_ReadAlloc(&D_00583F20, name, &self->dll, &D_00754230, 0, 0, 0, 0);
     if (req == 0) return;
-    while (cDvd_Check(D_00583F20, req) != 0) {
+    while (cDvd_Check(&D_00583F20, req) != 0) {
         if (pump == 1) {
             cMc_Move(self);
             cMc_Trans(self);

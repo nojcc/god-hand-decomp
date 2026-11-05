@@ -4,7 +4,6 @@
 /* func_00281D10 — +0x2F6 phase machine like func_0027F570, but the func_002A8578
  * "t0" argument is 2 when the +0x15B0 flag is set, else 0.  sn-2.95.3-136.
  * (t0's constant is held in a separate long so SN emits move/movn, not movz.) */
-extern int moveMotion(void *a0);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion. */
 __attribute__((section(".text.func_00281D10"))) void func_00281D10(cEm00 *self)
 {

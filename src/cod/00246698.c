@@ -1,22 +1,20 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cEmManage.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int moveMotion(void *a0);
 extern float fRand1_1(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int irand(void);
 extern void func_002744E0(void *a0);
 extern char *CreateObj(int a0, int a1);
-extern int cOmWeapon_setParent();
+#include "godhand/cOmWeapon.h"
 extern void func_001D0340(void *a0);
 extern void func_001D0408(void *a0);
 extern void func_002705D8(void *a0);
-extern int cEmManage_findEma2Near(void *a0, void *a1, float f);
-extern char D_005864F0[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -241,12 +239,12 @@ __attribute__((section(".text.func_00246698"))) void func_00246698(cEm00 *self)
                     *(int *)(p + 0x5F0) = 0;
                     func_002744E0(p);
                 }
-                if (func_00294A68(D_005864F0) != 0) {
+                if (func_00294A68(&D_005864F0) != 0) {
                     *(float *)(p + 0x600) = fRand1_1() * 300.0f + 150.0f;
                 } else {
                     *(float *)(p + 0x600) = *(float *)(p + 0x600) - *(float *)(p + 0x5A8);
                     if (*(float *)(p + 0x600) <= 0.0f) {
-                        D_005864F0[0x540] = 10;
+                        D_005864F0.unk540 = 10;
                         *(char *)(p + 0x2F6) = 2;
                     }
                 }
@@ -280,7 +278,7 @@ __attribute__((section(".text.func_00246698"))) void func_00246698(cEm00 *self)
             *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
         }
         case 3:
-            D_005864F0[0x540] = 10;
+            D_005864F0.unk540 = 10;
             if (moveMotion(p) != 0) {
                 *(char *)(p + 0x2F6) = 0;
             }
@@ -330,7 +328,7 @@ __attribute__((section(".text.func_00246698"))) void func_00246698(cEm00 *self)
                     buf[4] = 1.3f;
                     buf[5] = 0.0f;
                     buf[6] = 0.0f;
-                    cOmWeapon_setParent(*(int *)(p + 0x738), p, 10, buf, (char *)buf + 0x10);
+                    cOmWeapon_setParent((cOmWeapon *)(*(int *)(p + 0x738)), (cOmBase *)p, 10, (cVec *)buf, (cVec *)((char *)buf + 0x10));
                 }
             }
             if ((*(unsigned short *)(p + 0x3AC) & 2) != 0 && *(int *)(p + 0x738) != 0) {
@@ -339,7 +337,7 @@ __attribute__((section(".text.func_00246698"))) void func_00246698(cEm00 *self)
             }
             break;
     }
-    if (cEmManage_findEma2Near(D_005864F0, *(void **)(p + 0xF0), 10.0f) == 0) {
+    if (cEmManage_findEma2Near(&D_005864F0, *(cVec **)(p + 0xF0), 10.0f) == 0) {
         if (*(int *)(p + 0x738) != 0) {
             func_001D0408(*(void **)(p + 0x738));
             *(int *)(p + 0x738) = 0;

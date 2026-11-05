@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
+#include "godhand/espSys.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cDataManager.h"
@@ -7,15 +9,11 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEvent.h"
 #include "godhand/gameWork.h"
+#include "godhand/cSnd.h"
 
-extern int D_005FEE00;
-extern int cSnd_SeIsLoadOk(void *snd, int handle);
-extern char D_00462FC0[];
-extern void cCollisionSolidManage_SetActive(void *mgr, void *obj, int on);
 extern unsigned int D_00747A84;
 extern char D_00586AF0[];
 extern unsigned int cEvent_getCutNo();
-extern void UpdateObjByIndexedOp_2FBE50(void *slot);
 
 #define EM_HIT_FLASH_FULL  3.0f
 #define EM_FADE_STEP       0.1f
@@ -79,7 +77,7 @@ int cEm00_stepFadeIn(cEm00 *self) {
     if (EM_FADETIMER(self) <= 0.0f) {
         return 0;
     }
-    cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     t = EM_FADETIMER(self) - EM_FADETIMER_STEP;
     rate = 1.0f - t;
     EM_FADETIMER(self) = t;
@@ -196,7 +194,7 @@ void EspAllKill(void) {
         if ((D_0071B840[w] & mask) != 0) goto next;
         if ((D_0071B8C0[w] & mask) != 0) goto next;
         p = D_0061B7C0 + i * ESP_SLOT_SIZE;
-        UpdateObjByIndexedOp_2FBE50(p);
+        UpdateObjByIndexedOp_2FBE50((EspAnim *)p);
 next: ;
     }
 }

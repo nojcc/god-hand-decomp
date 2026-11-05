@@ -1,17 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cNode.h"
+#include "godhand/cIDBase.h"
+#include "godhand/heapArena.h"
+#include "godhand/cSnd.h"
 
 extern char D_0044BED0[];
 extern char D_00747AC0;
-extern char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
 extern char D_0044E300[];
-extern void cHeap_free(void *heap, void *p);
-extern void BlockOwner_dtor(void *self, int flags);
 extern unsigned short D_003BD70C;
-extern int cIDBase_initialize(void *self, int pack, int type);
 extern void func_00144C90(void *self);
 
 /* Constructor of a collision shape: set its vtable, zero the flags and the four
@@ -136,7 +135,7 @@ typedef struct StunObj {
 __attribute__((section(".text.StunObj_startStun")))
 void StunObj_startStun(StunObj *self) {
     float v;
-    cSnd_SeCall_2CBA48(D_005FEE00, 0, 10, self, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
     cOmBase_setMeshColorFromLayer(self, 0, 1.0f, 0.0f, 0.0f);
     self->state = STUN_STATE;
     if (self->timer == 0) {
@@ -179,7 +178,7 @@ void BufOwner_deletingDtor(BufOwner *self, int flags) {
     FREE_BUF(self->buf33C);
     FREE_BUF(self->buf324);
     FREE_BUF(self->buf30C);
-    BlockOwner_dtor(self, flags);
+    BlockOwner_dtor((struct BlockOwner *)self, flags);
 }
 
 /* Init the display: five entries of 0x50 bytes from 0x100 (pack 1, type 5),
@@ -198,11 +197,11 @@ __attribute__((section(".text.cIDBaseScreen_init")))
 void cIDBaseScreen_init(char *self) {
     unsigned short i = 0;
     do {
-        cIDBase_initialize(self + 0x100 + i * ENTRY_SIZE, 1, 5);
+        cIDBase_initialize((cIDBaseObj *)(self + 0x100 + i * ENTRY_SIZE), 1, 5);
         i = i + 1;
     } while (i < ENTRY_COUNT);
-    cIDBase_initialize(self + 0x430, 1, 0x19);
-    cIDBase_initialize(self + 0x480, 1, 0x1A);
+    cIDBase_initialize((cIDBaseObj *)(self + 0x430), 1, 0x19);
+    cIDBase_initialize((cIDBaseObj *)(self + 0x480), 1, 0x1A);
     *(int *)(self + 0x364) = 0x80808080;
     *(int *)(self + 0x368) = 0x80808080;
     func_00144C90(self);

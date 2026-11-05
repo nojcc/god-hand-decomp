@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
 extern unsigned char D_007474A0[];
 extern int D_007559A8[];
@@ -12,7 +13,6 @@ extern char D_0061B7C0[];
 extern char D_0071B7C0[];
 extern char D_0071B840[];
 extern char D_0071B8C0[];
-extern void func_003A52F0(void *a0, int a1, int a2);
 extern int D_00741940[];
 extern int D_00741960[];
 extern int D_00741980[];

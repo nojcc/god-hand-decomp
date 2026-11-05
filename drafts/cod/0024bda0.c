@@ -1,7 +1,7 @@
 /* NON_MATCHING func_0024BDA0 (sn-2.95.3-136): 89 differing words. gcc folds the
  * 0x220..0x222 range test into one unsigned compare where retail keeps two slti
  * branches, which shifts everything after it; the |turn| tests also negate the copy
- * (neg.s f1,f1) where retail negates the original. The int at 0x17D0 is not yet in cEm00. */
+ * (neg.s f1,f1) where retail negates the original. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -18,7 +18,6 @@
 #define JUMP_TURN_LIMIT     0.7853982f
 #define PHASE_JUMP          0x74
 
-#define EM_FRAME_PARITY(e)  (*(int *)((char *)(e) + 0x17D0))
 
 /* The frame: the jump point and its heading. */
 typedef struct JumpFrame {
@@ -28,7 +27,6 @@ typedef struct JumpFrame {
 
 extern cSceAtManager D_005FEA60;
 extern float Turn_dest(void *from, void *to, float angle, float limit);
-extern float Turn_dest_dir(float from, float to, float step);
 
 /* Starts a jump when the enemy faces its target and a jump point lies ahead of it.
  * Returns 1 when the jump starts. */
@@ -40,7 +38,7 @@ int func_0024BDA0(cEm00 *self)
     float off;
 
     if (self->emNo >= EM_NO_ANY_ROOM_HI || self->emNo < EM_NO_ANY_ROOM_LO) {
-        if ((D_007474A0.frame & 7) != (EM_FRAME_PARITY(self) & 7)) {
+        if ((D_007474A0.frame & 7) != (self->unk17D0 & 7)) {
             return 0;
         }
     }

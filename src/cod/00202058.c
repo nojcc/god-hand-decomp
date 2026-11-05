@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 
 extern void func_002A84A8(void *a0);
 extern void espSys_effDataRelease(void *a0, int a1);
 extern void func_00208858(void *a0);
-extern void func_0028EB88(void *a0, void *a1);
 extern char D_007419A0[];
 extern char D_004479C8[];
 
@@ -17,19 +17,19 @@ extern char D_004479C8[];
 
 
 __attribute__((section(".text.func_00202058")))
-void func_00202058(char *s1, void *s2) {
+void func_00202058(char *self, int flags) {
     int h;
 
-    *(int *)(s1 + 0x214) = (int)D_004479C8;
-    func_002A84A8(s1);
-    h = *(unsigned short *)(s1 + 0x2FE);
+    *(int *)(self + 0x214) = (int)D_004479C8;
+    func_002A84A8(self);
+    h = *(unsigned short *)(self + 0x2FE);
     if (h < 0x223) {
         if (h >= 0x220) {
             goto tail;
         }
     }
     {
-        switch (*(int *)(s1 + 0x564)) {
+        switch (*(int *)(self + 0x564)) {
         case 0x20C:
         case 0x24F:
             espSys_effDataRelease(D_007419A0, 0x64);
@@ -141,6 +141,6 @@ void func_00202058(char *s1, void *s2) {
         }
     }
 tail:
-    func_00208858(s1);
-    func_0028EB88(s1, s2);
+    func_00208858(self);
+    func_0028EB88((struct cGameObj *)self, flags);
 }

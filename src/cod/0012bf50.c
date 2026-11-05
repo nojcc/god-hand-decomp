@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
+#include "godhand/pl00.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cMc.h"
 #include "godhand/cEvent.h"
@@ -73,7 +75,6 @@ typedef struct Pl00 {
 } Pl00;
 
 
-extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(Pl00 *p);
 
 
 /* Nonzero if the player may start an attack action: alive, free, not caught, and the button flag is on. */
@@ -85,7 +86,7 @@ int pl00_ckAtkActBtnEnable(Pl00 *self) {
     if (self->hp <= 0) {
         return 0;
     }
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(self) != 0) {
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)self) != 0) {
         return 0;
     }
     if (cEmManage_CkPlCatched(&D_005864F0) != 0) {

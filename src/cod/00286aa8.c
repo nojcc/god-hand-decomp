@@ -1,11 +1,10 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cModel.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned char D_005864F0[];
-extern int moveMotion(void *a0);
-extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 extern void func_002A74E0(void *a0, void *a1, int a2);
 
@@ -94,7 +93,7 @@ __attribute__((section(".text.func_00286AA8"))) void func_00286AA8(cEm00 *self)
             }
             if (0.0f < self->tint.w) {
                 moveMotion(self);
-                cModel_calcNullPart(self);
+                cModel_calcNullPart((cModel *)self);
                 Add_nullspeed(self);
             }
             if (*(unsigned char *)((char *)self + 0x1560) != 5) {
@@ -109,7 +108,7 @@ __attribute__((section(".text.func_00286AA8"))) void func_00286AA8(cEm00 *self)
                 break;
         doit:
             func_002A74E0(self, &self->unk1590, 1);
-            func_002A7CA0(self, &self->unk1570);
+            func_002A7CA0((cGameObj *)self, &self->unk1570);
             self->stepArg = 0;
             self->mode = 0;
             self->step = 0;

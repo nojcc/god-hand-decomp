@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
 
 extern float cEmManage_GetSpeedRate(void *mgr);
 extern void SetMotionStep(void *self, float step);
@@ -10,14 +12,10 @@ extern void func_0027E228(void *self);
 extern void cModel_ScrollTexture(void *self, float f);
 extern void cObjBase_SetSeqEffect(void *self);
 extern void func_0027E950(void *self);
-extern void cModel_calcParts(void *self);
 extern void IK_InverseKinematics(void *ik, void *self);
-extern void cModel_calcWorldParts(void *self);
 extern void func_0027EDF0(void *self);
-extern void cCollisionSolidManage_SetActive(void *mgr, void *obj, int on);
 extern int D_00747A78;
 extern char D_005864F0[];
-extern char D_00462FC0[];
 
 #define SYSFLAG_FREEZE   0x40000000     /* bit of D_00747A78: the game is frozen */
 #define PHASE_OBJ_STATE  0x2F4
@@ -78,10 +76,10 @@ void EmPhase_updateNearPlayer(PhaseEm *self)
     fp((int)(s0 + arg));
     cObjBase_SetSeqEffect(self);
     func_0027E950(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(s0 + 0x448, self);
-    cModel_calcWorldParts(self);
+    cModel_calcWorldParts((cModel *)self);
     func_0027EDF0(self);
-    cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     cVec_copy3(&self->base.posA, self->base.pos);
 }

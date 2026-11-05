@@ -1,5 +1,6 @@
 /* sn-2.95.3-136: func_00144C90, set up the 5 x 5 table of ID works and place each entry on its column and row. */
 #include "godhand/cObjSimple.h"
+#include "godhand/cIDBase.h"
 typedef struct IdTblEnt {
     char pad0[0x1C];
     struct IdTblEnt *link;
@@ -19,6 +20,7 @@ typedef struct IdTblEnt {
     float w;
 } IdTblEnt;
 
+/* A cIDBaseObj in its 0x50-byte slot; only playing (0x1C) is read here. */
 typedef struct {
     char pad0[0x1C];
     unsigned char f1C;
@@ -49,10 +51,6 @@ typedef struct {
 
 extern cObjSimpleVec3 D_003BD880;
 extern float D_0041E880[];
-extern void cIDBase_initIDWork(void *w, int id);
-extern void cIDBase_restartAnim(void *w);
-extern IdTblEnt *cIDBase_getIDWork(void *w, int id);
-extern void cIDBase_move(void *w);
 
 static inline void vcpy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
 {
@@ -76,9 +74,9 @@ void func_00144C90(IdTblScreen *self)
     for (i = 0; i < 5; i++) {
         for (j = 0; j < 5; j++) {
             cIDBase_initIDWork(&self->ids[j], i);
-            cIDBase_restartAnim(&self->ids[j]);
+            cIDBase_restartAnim((cIDBaseObj *)&self->ids[j]);
             IDWORK_F1C(self, j) = 0;
-            self->tbl[j][i] = cIDBase_getIDWork(&self->ids[j], i);
+            self->tbl[j][i] = (IdTblEnt *)cIDBase_getIDWork((cIDBaseObj *)&self->ids[j], i);
         }
     }
     for (i = 0; i < 4; i++) {
@@ -115,6 +113,6 @@ void func_00144C90(IdTblScreen *self)
     self->f364 = 0x80808080;
     self->f368 = 0x80808080;
     for (k = 0; k < 5; k++) {
-        cIDBase_move(&self->ids[k]);
+        cIDBase_move((cIDBaseObj *)&self->ids[k]);
     }
 }

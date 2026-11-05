@@ -1,25 +1,18 @@
 /* SN ProDG ee-gcc 2.95.3: func_00138CA8, copies the selected camera state parts from src to dst: bit 0 the
- * vector at +0x210, bit 1 the vector at +0x200, bit 3 the 0x360-byte block at the start. */
-#include "godhand/cObjSimple.h"
+ * eye at +0x210, bit 1 the target at +0x200, bit 3 the whole 0x360-byte cCamera. */
+#include "godhand/cCamManager.h"
+#include "godhand/vecInline.h"
 typedef struct { int q[4]; } __attribute__((aligned(16))) CamQ;
 typedef struct { CamQ q[0x36]; } CamBlock;
 
-static inline void CamVec3_set(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
-{
-    if (d != s) {
-        d->x = s->x;
-        d->y = s->y;
-        d->z = s->z;
-    }
-}
 
 __attribute__((section(".text.func_00138CA8")))
-void func_00138CA8(void *a0, char *dst, char *src, unsigned char mask)
+void func_00138CA8(cCamManager *self, struct cCamera *dst, struct cCamera *src, unsigned char mask)
 {
     if (mask & 1)
-        CamVec3_set((cObjSimpleVec3 *)(dst + 0x210), (cObjSimpleVec3 *)(src + 0x210));
+        vec3_copy(&dst->eye.x, &src->eye.x);
     if (mask & 2)
-        CamVec3_set((cObjSimpleVec3 *)(dst + 0x200), (cObjSimpleVec3 *)(src + 0x200));
+        vec3_copy(&dst->target.x, &src->target.x);
     if (mask & 8)
         *(CamBlock *)dst = *(CamBlock *)src;
 }

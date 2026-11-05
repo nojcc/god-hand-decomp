@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
@@ -13,15 +12,11 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
 extern void cObjBase_addNullSpeed(void *a0, float f12);
 extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
-extern void cSnd_DieDemoStart(void *a0);
-extern void MtxInitRotY(void *a0, float angle);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern float Adjust_theta(float f12);
 extern unsigned int D_00747A24;
 extern unsigned short D_00747A50;
-extern char D_00462FC0[];
 extern char D_005864F0[];
-extern char D_005FEE00[];
 extern void cOmSub_setVibration(void *a0, int a1, int a2, float f12, float f13, float f14);
 extern int cOmSub_move(void *a0);
 extern char D_00585720[];
@@ -53,8 +48,12 @@ void func_002A2358(void *a0, char *d, char *s)
     *(unsigned short *)(d + 0x272) = 0;
 }
 
+#include "godhand/cCollisionSolid.h"
+#include "godhand/criStm.h"
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
 
 __attribute__((section(".text.func_0011ECB0")))
 void func_0011ECB0(void *a0)
@@ -68,7 +67,7 @@ void func_0011ECB0(void *a0)
     *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
     *(int *)(s1 + 0x15F4) = *(int *)(s1 + 0x15F4) | 0x2000;
     s3 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     cEmManage_SetPlCatched(D_005864F0);
     *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
     switch (*(unsigned char *)(s1 + 0x2F6)) {
@@ -88,7 +87,7 @@ void func_0011ECB0(void *a0)
             *(float *)(frame + 0x50) = 0.0f;
             *(float *)(frame + 0x54) = (*(float **)(s1 + 0xF0))[1];
             *(float *)(frame + 0x58) = 0.0f;
-            MtxInitRotY(frame, *(float *)(s1 + 0x104));
+            MtxInitRotY((float *)frame, *(float *)(s1 + 0x104));
             d = *(float **)(s3 + 0xF0);
             if (d != (float *)(frame + 0x50)) {
                 d[0] = *(float *)(frame + 0x50);
@@ -167,7 +166,7 @@ void func_0011ECB0(void *a0)
                 func_0012C0F8(s1, (int)(*(float *)(s3 + 0x76C) * 12.0f));
             if (*(short *)(s1 + 0x54A) <= 0) {
                 *(short *)(s1 + 0x54A) = 0;
-                cSnd_DieDemoStart(D_005FEE00);
+                cSnd_DieDemoStart(&D_005FEE00);
                 cCoreSave_addGameLevelPoint(&D_00569B70, -0x3E8);
                 *(short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
             }
@@ -181,8 +180,6 @@ extern void cOmSub_initMove1_pos(void *a0, void *a1, int a2, int a3, void *t0,
                                  float f12, float f13);
 
 
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4, int a5,
-                              int a6, int a7);
 
 
 __attribute__((section(".text.func_001AD0D0")))
@@ -312,7 +309,7 @@ void func_001AD0D0(void *a0)
             *(unsigned char *)(s1 + 0x2F6) = 0;
             *(unsigned char *)(s1 + 0x2F7) = 0;
             *(unsigned char *)(s1 + 0x2F5) = 3;
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x84, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x84, s1, 0, 0, 0, 0);
         }
         *(short *)(s1 + 0x61C) = *(unsigned short *)(s1 + 0x61C) - 1;
         break;

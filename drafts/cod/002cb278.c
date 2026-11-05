@@ -1,16 +1,13 @@
 /* NON_MATCHING func_002CB278: rest matches; retail keeps -1 in s3 (set after cSnd_EmSeFind) and compares the find result against it, while ours copies the find result into s3 (cse treats it as the -1) and recomputes -1 in v1; the early-out branch also lands before sd ra in ours.
 * Flat early-return forms score 20-32. */
 #include "include_asm.h"
+#include "godhand/cSnd.h"
+#include "godhand/cBgmData.h"
 
 #ifdef NON_MATCHING
 typedef struct cSnd cSnd;
 typedef struct cSeData cSeData;
 extern int D_00747A84;
-extern int cSnd_EmSeFind(cSnd *snd, int id);
-extern int cSnd_FindFreeSe(cSnd *snd);
-extern int cSnd_getEmSeGroupOwner(cSnd *snd, int id);
-extern cSeData *cSnd_GetSeData(cSnd *snd, int slot);
-extern int cSeData_LoadNumbered(cSeData *se, int slot, int owner);
 
 int func_002CB278(cSnd *snd, int id)
 {

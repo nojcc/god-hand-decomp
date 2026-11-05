@@ -3,7 +3,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int moveMotion(void *a0);
 extern void *Getplayer(void);
 extern float SetMotionStep(void *a0, float f);
 

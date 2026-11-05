@@ -1,6 +1,7 @@
 /* TU: cOmSub [object] - recovered C++ class. */
 #include "include_asm.h"
 #include "godhand/cOmSub.h"
+#include "godhand/cModel.h"
 
 struct cOmSub_move_entry { short off; short pad; int (*fn)(); };
 extern struct cOmSub_move_entry D_00429D80[3];
@@ -131,7 +132,6 @@ INCLUDE_ASM("nonmatching", cOmSub_setEndPos);
 
 extern void func_001C7138(cOmSub *self);
 extern void func_001C7310(cOmSub *self);
-extern void cModel_calcParts(void *model);
 
 __attribute__((section(".text.cOmSub_setReverse")))
 void cOmSub_setReverse(cOmSub *self, int reverse) {

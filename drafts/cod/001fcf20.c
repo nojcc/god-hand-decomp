@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cDamageGive.h"
+#include "godhand/cDamageManage.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cOmHitVolumeSetup.h"
@@ -21,7 +22,6 @@
 #define DAMAGE_LINE_KIND  7
 #define DAMAGE_LINE_MASK  0x34
 
-extern void SetField_ACD0_1FE348(int a0, int a1);
 extern int D_003BF190;          /* hit stop when the player lands a hit */
 extern int D_003BF194;          /* hit stop when the player takes one */
 
@@ -121,9 +121,9 @@ void func_001FCF20(cDamageGive *self)
             take->attacker = (char *)self->owner;
             self->lastHit = take->victim;
             if (Getplayer() == self->owner)
-                SetField_ACD0_1FE348((int)D_00574380, D_003BF190);
+                SetField_ACD0_1FE348(&D_00574380, D_003BF190);
             if (Getplayer() == victim)
-                SetField_ACD0_1FE348((int)D_00574380, D_003BF194);
+                SetField_ACD0_1FE348(&D_00574380, D_003BF194);
         }
     }
 }

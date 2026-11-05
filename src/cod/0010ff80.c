@@ -1,17 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/pl00.h"
 #include "godhand/motion.h"
 
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00126770(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float *cGameObj_findBurningPos(void *a0);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_0012A3C0(void *a0);
-extern void func_00123938(void *a0, int a1);
 
 __attribute__((section(".text.func_0010FF80")))
 void func_0010FF80(void *a0)
@@ -119,5 +118,5 @@ void func_0010FF80(void *a0)
         func_0012A3C0(s0);
     }
     *(unsigned short *)(s0 + 0x3AC) = *(unsigned short *)(s0 + 0x3AC) | 0x200;
-    func_00123938(s0, 1);
+    func_00123938((pl00 *)s0, 1);
 }

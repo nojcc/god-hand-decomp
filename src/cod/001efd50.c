@@ -10,8 +10,8 @@ __attribute__((section(".text.CustomIDWork_SetLocalPosXY")))
 void CustomIDWork_SetLocalPosXY(CustomIDWork *self, int x, int y) {
     if (self->obj != 0) {
         self->localFlags = 0;
-        self->obj->localPos[0] = (float)x;
-        self->obj->localPos[1] = (float)y;
+        self->obj->posX = (float)x;
+        self->obj->posY = (float)y;
     }
 }
 
@@ -57,8 +57,8 @@ __attribute__((section(".text.CustomIDWork_SetOffsetPosXY")))
 void CustomIDWork_SetOffsetPosXY(CustomIDWork *self, int x, int y) {
     if (self->obj != 0) {
         self->offsFlags = 0;
-        self->obj->offsetPos[0] = (float)x;
-        self->obj->offsetPos[1] = (float)y;
+        self->obj->offX = (float)x;
+        self->obj->offY = (float)y;
     }
 }
 

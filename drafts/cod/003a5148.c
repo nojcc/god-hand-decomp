@@ -1,5 +1,6 @@
 /* Closest under sn-2.95.3-136: memcpy is 1 word short (retail moves dst0 to t0 and
  * uses a0 for loop temporaries; quad copies use v1/v0); memmove 4 words long. */
+#include "godhand/criStm.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

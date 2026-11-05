@@ -1,21 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/CustomIDWork.h"
+#include "godhand/pl00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/BlackJack.h"
 #include "godhand/vu0.h"
+#include "godhand/cModel.h"
 
 extern int SetEffectParts(int kind, int id, void *owner, int part, float f12, float f13, float f14, float f15, int t0);
 extern void KillEffect(void *owner, int id, int arg);
-extern void cModel_calcParts(void *self);
-extern void cModel_calcWorldParts(void *self);
 extern cOmBase *Getplayer(void);
-extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(cOmBase *obj);
 extern void cPlayer_tryTrigger(void);
 extern void cActionButton_set(void *table, int kind, int lifeKind, int arg, void *callback, void *owner, int unused);
 extern int D_00568288;
-extern void CustomIDWork_SetOffsetPosX(void *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
 extern void SetFlagOnEntries7C_1D51B8(void *self, int entry, int on);
 #include "godhand/objField.h"
 extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);
@@ -95,8 +93,8 @@ void func_001ADD20(cOmBase *self)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cModel_calcParts(self);
-    cModel_calcWorldParts(self);
+    cModel_calcParts((cModel *)self);
+    cModel_calcWorldParts((cModel *)self);
 }
 
 /* Show the action prompt of an object: only while the player is alive, its 0x15F4 bit 22 is clear and no slot wait is pending; prompt 8 when the target test passes, else prompt 7. */
@@ -121,7 +119,7 @@ void PromptOwner_offerActionPrompt(PromptOwner *owner)
 {
     cOmBase *player = Getplayer();
     if (player->hp > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(player) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)player) == 0) {
             if (D_005864F0.slotWait <= 0) {
                 if (owner != 0) {
                     if (func_002DB7E0(owner->target) != 0) {
@@ -163,16 +161,16 @@ void BlackJack_slidePanel(BlackJack *self, unsigned short mode)
         goto scrollIn;
     }
 hidden:
-    CustomIDWork_SetOffsetPosX((char *)self + BLACKJACK_PANEL_WORK, PANEL_X_HIDDEN);
+    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), PANEL_X_HIDDEN);
     goto done;
 slideIn:
-    CustomIDWork_SetOffsetPosX((char *)self + BLACKJACK_PANEL_WORK, 0);
+    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), 0);
     goto done;
 scrollOut:
-    CustomIDWork_SetMoveOffsetPosX((char *)self + BLACKJACK_PANEL_WORK, PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
     goto done;
 scrollIn:
-    CustomIDWork_SetMoveOffsetPosX((char *)self + BLACKJACK_PANEL_WORK, 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
 done:
     SetFlagOnEntries7C_1D51B8(self, 5, 0);
     SetFlagOnEntries7C_1D51B8(self, 6, m != 0);

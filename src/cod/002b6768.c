@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cObjBase.h"
 
 extern void *SearchData(void *a, void *b, int c);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
-extern void cObjBase_KageInit(void *a, void *b, void *c);
 extern char D_0044B4A8[];
 extern char D_0044B4B0[];
 extern char D_0044B4B8[];
@@ -46,18 +46,18 @@ int func_002B6768(char *a0) {
     *(int *)(a0 + 0x4DC) = n;
     switch (n) {
     case 1:
-        cObjBase_KageInit(a0, a0 + 0x4F0, &D_003C3F68);
+        cObjBase_KageInit((cObjBase *)a0, a0 + 0x4F0, &D_003C3F68);
         break;
     case 2:
-        cObjBase_KageInit(a0, a0 + 0x4F0, &D_003C3F58);
+        cObjBase_KageInit((cObjBase *)a0, a0 + 0x4F0, &D_003C3F58);
         *(int *)(a0 + 0x4A8) = *(int *)(a0 + 0x4A8) | 0x40000000;
         break;
     case 3:
-        cObjBase_KageInit(a0, a0 + 0x4F0, &D_003C3F68);
+        cObjBase_KageInit((cObjBase *)a0, a0 + 0x4F0, &D_003C3F68);
         *(int *)(a0 + 0x4A8) = *(int *)(a0 + 0x4A8) | 0x20000000;
         break;
     case 4:
-        cObjBase_KageInit(a0, a0 + 0x4F0, &D_003C3FB0);
+        cObjBase_KageInit((cObjBase *)a0, a0 + 0x4F0, &D_003C3FB0);
         break;
     case 0:
         break;

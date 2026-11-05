@@ -1,9 +1,9 @@
 /* sn-2.95.3-136: func_001A3E10, enemy setup with a 1.6 x 2.2 damage-take cylinder, a radius 1.5 damage-give sphere,
  * 50 hit points and flags2 bits 7 and 8. */
 #include "godhand/cOmHitVolumeSetup.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cDamageGive.h"
 
-extern int cDamageUnit_AddDamageCollCylinder(void *unit, void *mtx, float *ofs, float *rot, float r, float h);
 
 __attribute__((section(".text.func_001A3E10")))
 int func_001A3E10(cOmHitVolume *em)
@@ -29,7 +29,7 @@ int func_001A3E10(cOmHitVolume *em)
     v[2].y = 0.0f;
     v[2].z = 0.0f;
     m->w = 1.0f;
-    slot = cDamageManage_CreateDamageTake(D_00574380, em, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, em, 2);
     em->damageTake = slot;
     if (slot != 0) {
         nv = &v[3];
@@ -40,7 +40,7 @@ int func_001A3E10(cOmHitVolume *em)
         cDamageUnit_AddDamageCollCylinder(slot, em->base.mtx, m, nv, v[1].y, v[1].x * 0.5f);
         *(int *)em->damageTake |= 1;
     }
-    give = cDamageManage_CreateDamageGive(D_00574380, 0, (char *)em);
+    give = cDamageManage_CreateDamageGive(&D_00574380, 0, (char *)em);
     em->damageGive = give;
     if (give != 0) {
         ov = &v[3];

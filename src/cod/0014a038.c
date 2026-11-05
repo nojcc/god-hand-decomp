@@ -1,28 +1,24 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/sceVu0.h"
+#include "godhand/mtx.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cModel.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/cEma2.h"
+#include "godhand/criStm.h"
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float f);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void func_0026B240(void *a0, int a1, int a2, int a3);
 extern unsigned char D_00747A50[];
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
-extern void MtxInverse(float *dst, float *src);
-extern void sceVu0MulMatrix(float *dst, float *a, float *b);
 extern void func_00156D70(cParts *dst, cParts *src, float *m, float blend);
 extern void func_001501D0(cParts *part, int flags);
 extern void Adjust_theta_vec(cVec *v);
-extern void MtxInitTransVec(cParts *part, cVec *trans);
-extern void MtxMulRotVec(cParts *dst, cParts *src, cVec *rot, int order);
-extern void MtxMulScaleVec(cParts *dst, cParts *src, cVec *scale);
-extern void MtxMultiply(float *dst, float *a, cParts *b);
 extern void func_002BEDC8(cEmSetTable *table, int arg);
 extern void func_002BEDE8(cEmSetTable *table, int entryNum, cEmSetEntry *entry);
 extern void cEmSetParam_resetRoom(cEmSetParam *self);
@@ -50,7 +46,7 @@ void cEm00_stepCircleTargetTurn(cEm00 *self)
     cEm00 *player;
     int res;
     int motion;
-    int r;
+    cOmWeapon *r;
 
     switch (self->step) {
     case 0:
@@ -202,7 +198,7 @@ void cModel_calcPartsInline(cModel *self) {
             Adjust_theta_vec(&rot);
             flags = part->partFlags;
             if (((flags >> 3) & 1) == 0) {
-                MtxInitTransVec(part, part->anchor);
+                MtxInitTransVec(part->mtxLocal, part->anchor);
                 MtxMulRotVec(part, part, &rot, 0);
                 MtxMulScaleVec(part, part, &part->scale);
             }

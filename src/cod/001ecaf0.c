@@ -1,12 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cRoomSave.h"
+#include "godhand/criStm.h"
+#include "godhand/cIDBase.h"
+#include "godhand/CustomIDWork.h"
 
-extern void cIDBase_initialize(void *p, int a, int b);
-extern void cIDBase_restartAnim(void *p);
-extern void *cIDBase_getIDWork(void *p, int i);
-extern void CustomIDWork_Initialize(void *p, void *w);
-extern void CustomIDWork_SetDisp(void *p, int f);
 extern void SetCustomIDDispOneOrAll_1F4778(void *p, int n, int f);
 extern void Panel_hideIcons(void *p);
 extern void func_001EDC28(void *p, int n);
@@ -14,10 +12,8 @@ extern void func_001ED700(void *p, int n, int f);
 extern void func_001EE2A8(void *p, int n);
 extern void func_001EE2C8(void *p, int n);
 extern void SetCustomIDDispOneOrAll_1EE1C0(void *p, int n, int f);
-extern void CustomIDWork_SetMessNo(void *p, int n);
 extern void CustomIDWork_setDispAllButEight(void *p, int a, int b);
 extern void func_001ED490(void *p, int a);
-extern void func_003A52F0(void *dst, int val, int n);
 extern cRoomSaveData D_005E9CB8[ROOMSAVE_PAGE_NUM];
 
 /* Build the 0x6F custom-ID works of a UI object, then show all of them. */
@@ -33,10 +29,10 @@ void InitUiIdWorksAndShowAll(char *p)
 {
     int i;
 
-    cIDBase_initialize(p + 0x10, 0x15, 0);
-    cIDBase_restartAnim(p + 0x10);
+    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x15, 0);
+    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
     for (i = 0; i < 0x6F; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
+        CustomIDWork_Initialize((CustomIDWork *)(p + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
     }
     SetCustomIDDispOneOrAll_1F4778(p, 0x6F, 0);
 }
@@ -56,10 +52,10 @@ void InitDogRaceUiIdWorks(char *p)
 {
     int i;
 
-    cIDBase_initialize(p + 0x10, 0x14, 2);
-    cIDBase_restartAnim(p + 0x10);
+    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x14, 2);
+    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
     for (i = 0; i < 6; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
+        CustomIDWork_Initialize((CustomIDWork *)(p + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
     }
     Panel_hideIcons(p);
     func_001EDC28(p, 0);
@@ -81,14 +77,14 @@ void InitDogRaceListIdWorks(char *p)
 {
     int i;
 
-    cIDBase_initialize(p + 0x10, 0x14, 1);
-    cIDBase_restartAnim(p + 0x10);
+    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x14, 1);
+    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
     for (i = 0; i < 0x1D; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
+        CustomIDWork_Initialize((CustomIDWork *)(p + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
     }
     func_001EE2A8(p, 0);
     func_001EE2C8(p, 0);
-    CustomIDWork_SetDisp(p + 0x60, 0);
+    CustomIDWork_SetDisp((CustomIDWork *)(p + 0x60), 0);
     SetCustomIDDispOneOrAll_1EE1C0(p, 0x1D, 0);
 }
 
@@ -107,16 +103,16 @@ void InitDogRaceResultIdWorks(char *p)
 {
     int i;
 
-    cIDBase_initialize(p + 0x10, 0x14, 0);
-    cIDBase_restartAnim(p + 0x10);
+    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x14, 0);
+    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
     for (i = 0; i < 0x2D; i++) {
-        CustomIDWork_Initialize(p + 0x60 + i * 0x7C, cIDBase_getIDWork(p + 0x10, i));
+        CustomIDWork_Initialize((CustomIDWork *)(p + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
     }
-    CustomIDWork_SetMessNo(p + 0xE6C, 0x101A);
-    CustomIDWork_SetMessNo(p + 0x1534, 0x101A);
-    CustomIDWork_SetMessNo(p + 0xEE8, 0x101B);
-    CustomIDWork_SetMessNo(p + 0x15B0, 0x101B);
-    CustomIDWork_SetDisp(p + 0x440, 0);
+    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0xE6C), 0x101A);
+    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0x1534), 0x101A);
+    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0xEE8), 0x101B);
+    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0x15B0), 0x101B);
+    CustomIDWork_SetDisp((CustomIDWork *)(p + 0x440), 0);
     CustomIDWork_setDispAllButEight(p, 0x2D, 0);
     func_001ED490(p, 0);
 }

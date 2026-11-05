@@ -73,9 +73,9 @@ void func_00231AC0(cEm00 *self)
             recB = RES(0x34EC);
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x34F0);
-                InitRenderStruct_2A8608((cGameObj *)self, 0x61, (void *)0x14, 0, 2, self->fx5);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x61, 0x14, 0, 2, self->fx5);
             } else {
-                InitRenderStruct_2A8608((cGameObj *)self, 0x61, (void *)0x13, 0, 2, self->fx5);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x61, 0x13, 0, 2, self->fx5);
             }
             self->timer3 = 16.0f;
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
@@ -163,7 +163,7 @@ void func_00231AC0(cEm00 *self)
             self->timer2 = 30.0f;
             break;
         }
-        func_002A8578((int)self, recA, recB, 3, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 3, 0.0f, sel, 0);
         self->timerA = 30;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         case 1:
@@ -216,11 +216,11 @@ void func_00231AC0(cEm00 *self)
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
             recB = RES(0x35A8);
         }
-        func_002A8578((int)self, recA, recB, 3, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 3, 0.0f, sel, 0);
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, (void *)0x18, 0, 2, self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0x18, 0, 2, self->fx5);
         } else {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, (void *)0x17, 0, 2, self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0x17, 0, 2, self->fx5);
         }
         self->timerA = 30;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {

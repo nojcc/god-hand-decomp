@@ -4,11 +4,10 @@
 #include "godhand/cObjPtrArrayWrapper.h"
 #include "godhand/SndSlotInit.h"
 #include "godhand/sync.h"
+#include "godhand/cSnd.h"
 
 extern volatile int D_00753D88;
 extern int D_00747A18;
-extern char D_005FEE00[];
-extern void func_002CA690(char *a0);
 
 /* Once the current slot's stream header is in, read its format into the slot info and rebuild the page. */
 __attribute__((section(".text.MenuCtl_readSlotStreamInfo")))
@@ -122,7 +121,7 @@ int IntrCtl_enableVblankStart(void)
 {
     D_00753D88++;
     if ((D_00747A18 ^ 1) == 0)
-        func_002CA690(D_005FEE00);
+        func_002CA690(&D_005FEE00);
     *EE_INTC_MASK |= INTC_VBLANK_START_MASK;
     GH_SYNC();
     GH_EI();

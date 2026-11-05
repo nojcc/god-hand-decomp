@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSceAtManager.h"
+#include "godhand/criStm.h"
 #include "godhand/cIDManager.h"
 
 extern void func_002C0E20(cSceAtUnit *unit);

@@ -1,14 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cCoreSave.h"
+#include "godhand/heapArena.h"
 #include "godhand/cRecordIndex.h"
 #include "godhand/cMessage.h"
+#include "godhand/cOmWeapon.h"
 
 extern int cOmWeapon_SetDamage(void *weapon);
-extern void cOmWeapon_SetBreak(void *weapon);
 extern void func_002B2400(cMessageWin *win);
 extern void BufHolder_deletingDtor(void *entry, int mode);
-extern void __builtin_delete(void *p);
 
 /* True when the skill that slot i of the index points at is at level 1.
  * False while the index has no table. */

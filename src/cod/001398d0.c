@@ -1,10 +1,13 @@
+#include "godhand/cSnd.h"
+#include "godhand/criStm.h"
+#include "godhand/seqNode.h"
+#include "godhand/cRelSys.h"
 extern int D_0041D930;
 extern int D_004283D8;
 extern int D_00568280;
 extern int D_0044ADD8[];
 extern int D_007474A0[];
 extern int D_0044BA68;
-extern int D_0044CEE8;
 extern int D_007419A0;
 extern int D_0044FB60;
 extern int D_0044E090;
@@ -80,7 +83,7 @@ int InitStructSubfieldsAndFloat_1E8798(int a0)
 __attribute__((section(".text.ColiseumEmSelect")))
 int ColiseumEmSelect(int a0)
 {
-    func_003A52F0(a0, 0, 0x54);
+    func_003A52F0((void *)a0, 0, 0x54);
     *(int *)(a0 + 0x54) = 0;
     func_001F45D8(a0 + 0x60);
     return a0;
@@ -108,15 +111,15 @@ int InitVtableEntry_2B8AE0(int a0)
 }
 
 __attribute__((section(".text.SetValueAndValidate_2BE630")))
-unsigned char SetValueAndValidate_2BE630(int *a0, int a1)
+unsigned char SetValueAndValidate_2BE630(cRelSlot *slot, void *data)
 {
 	int r;
-	*a0 = a1;
-	r = func_002BE6A0(a0);
-	*(char *)((char *)a0 + 4) = (char)r;
-	if (((unsigned int)r & 0xFF) == 0)
-		*a0 = 0;
-	return *(unsigned char *)((char *)a0 + 4);
+	slot->data = data;
+	r = func_002BE6A0(slot);
+	slot->ok = r;
+	if ((r & 0xFF) == 0)
+		slot->data = 0;
+	return slot->ok;
 }
 
 __attribute__((section(".text.InitSubBufferPool_2C3280")))
@@ -137,12 +140,12 @@ void InitSubsystemGroup_2CA518(void *a0)
 }
 
 __attribute__((section(".text.cSndBgmNode_Ctor")))
-void *cSndBgmNode_Ctor(void *a0)
+cSndBgmNode *cSndBgmNode_Ctor(cSndBgmNode *node)
 {
-	int r = Obj0000_Set_Field_80_372C68(a0);
-	*(int **)((char *)a0 + 0x80) = &D_0044CEE8;
-	cSndBgmNode_Init(a0);
-	return a0;
+	Obj0000_Set_Field_80_372C68((SndVoiceNode *)node);
+	node->vt = D_0044CEE8;
+	cSndBgmNode_Init(node);
+	return node;
 }
 
 __attribute__((section(".text.FreeResourceNode_2D3710")))

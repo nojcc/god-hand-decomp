@@ -21,7 +21,6 @@ typedef struct AreaList {
 } AreaList;
 
 extern int cArea_HitCheck(AreaEnt *self, float range, float *pt);
-extern int cArea_HitCheck_1F83E8(cArea *self, float *pt);
 
 int func_00137BB8(AreaList *list, float *pt)
 {

@@ -1,3 +1,4 @@
+#include "godhand/criStm.h"
 typedef struct { char pad[0x10]; int ofs; char pad2[0x0C]; } RelocEnt;
 typedef struct { int n0; int o4; int n8; int oC; int n10; int o14; } RelocHdr;
 typedef struct {
@@ -11,7 +12,6 @@ typedef struct {
     int n18;
 } RelocDst;
 
-extern void *func_003A5148(void *dst, void *src, int size);
 
 __attribute__((section(".text.func_0031C238")))
 void func_0031C238(RelocDst *d, RelocHdr *h, char *base)

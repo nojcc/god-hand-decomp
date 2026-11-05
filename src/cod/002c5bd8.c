@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cScrSpriteDraw.h"
+#include "godhand/drawPrim.h"
 
-extern unsigned int func_0031ED08(float f12);
 extern void *Gp_draw_polyG4(void *verts, unsigned int *colors, int n, int colorNo, int fontNo);
 
 extern int D_003C118C;                  /* screen height in pixels */

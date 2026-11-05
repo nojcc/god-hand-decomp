@@ -3,9 +3,8 @@
 #include "godhand/player.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cHeatSys.h"
 
-extern void cIDBase_restartAnim(cIDBaseObj *self);
-extern float cHeatSys_GetHeatRatio(cHeatSys *self);
 extern void func_002AC9B8(void *p, void *ent, int arg);
 
 #define HUD_GOD_ITEM_NUM  6             /* god-item marks */

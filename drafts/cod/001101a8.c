@@ -8,12 +8,9 @@
 #include "godhand/motion.h"
 
 /* Defined as int func_0010B2E8(BusyOwner *self, int flag); BusyOwner is its view of pl00. */
-extern int func_0010B2E8(pl00 *self, int flag);
 /* Defined with WeaponCarrier *self, 0012b2e0.c's view of pl00's weapon slot at 0x698. */
 extern void WeaponCarrier_damageHeldWeapon(pl00 *self, int damage);
-extern int func_00124540(void *a0, int a1);
 extern void func_0010A438(void *a0);
-extern int func_00123938(void *a0, int a1);
 extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
 
 /* Swing of the held weapon: wear the weapon, pick the swing motion and attack

@@ -1,16 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmBase.h"
+#include "godhand/criStm.h"
 #include "godhand/cSnd.h"
 #include "godhand/cGameObj.h"
 
 extern char *D_00754C38;
-extern void func_003A52F0(void *a0, int a1, int a2);
 extern char D_0061B7C0[];
 extern char D_0071B7C0[];
 extern char D_0071B840[];
 extern char D_0071B8C0[];
 extern void func_00307060(char *a0);
-extern void cOmBase_dieCommon(void *self);
 
 __attribute__((section(".text.setAlphaScrollLayer")))
 void setAlphaScrollLayer(int a0, float f12) {
@@ -124,14 +123,14 @@ __attribute__((section(".text.func_001B15A8")))
 void func_001B15A8(char *self)
 {
     self[0x531] = -1;
-    cOmBase_dieCommon(self);
+    cOmBase_dieCommon((cOmBase *)self);
 }
 
 __attribute__((section(".text.func_001CF140")))
 void func_001CF140(char *self)
 {
     self[0x531] = -1;
-    cOmBase_dieCommon(self);
+    cOmBase_dieCommon((cOmBase *)self);
 }
 
 /* Gives a chunk back to a heap: merges its block into the next one and marks the block unused. */

@@ -1,21 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/mtx.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 extern void func_00188798(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
-extern void cDamageUnit_SetDamageCollActive(void *a0, int a1);
-extern char D_005FEE00[];
 extern void func_001A5D68(void *a0);
 extern void SetField5B0Bit2ClearBit8_1B7908(void *a0);
-extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, int a2);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern void Adjust_theta_vec(float *p);
-extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
-extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
-extern int MtxCopy();
 #include "godhand/objField.h"
 extern char D_005864F0[];
 
@@ -39,7 +35,8 @@ void func_001A57A8(void *a0)
     switch (*(unsigned char *)(s1 + 0x2F5)) {
     case 0: {
         float *r;
-        int cnt, idx, tt;
+        int cnt, idx;
+        void *tt;
         unsigned char ok;
         VU0_SQC2_VF0(buf, 0x0);
         vt = *(struct VtEnt **)(s1 + 0x214);
@@ -54,8 +51,8 @@ void func_001A57A8(void *a0)
         idx = 1;
         do { } while (0);
         ok = ((*(int *)(buf + 0x10) = cnt), (idx >= 0 && idx < cnt));
-        if (ok) tt = *(int *)(*(int *)(s1 + 0x278) + idx * 4); else tt = 0;
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x95, s1, 0, tt, 0, 0);
+        if (ok) tt = *(void **)(*(int *)(s1 + 0x278) + idx * 4); else tt = 0;
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x95, s1, 0, tt, 0, 0);
         if (*(int *)(s1 + 0x620) != 0) {
             cDamageUnit_SetDamageCollActive(*(void **)(s1 + 0x620), 0);
         }
@@ -131,16 +128,16 @@ void func_001A57A8(void *a0)
             VU0_VADD_XYZ_IP(e10, 0, q10v);
             Adjust_theta_vec((float *)e10);
             m1 = buf + 0x40;
-            MtxInitRotVec(m1, e10, 0);
+            MtxInitRotVec(m1, (cVec *)e10, 0);
             m1 = 0;
             m2 = buf + 0x40;
             CopyVec3ToField30_147C40(m2, e);
             m2 = 0;
             m3 = buf + 0x40;
-            MtxMulScaleVec(m3, m3, e40);
+            MtxMulScaleVec(m3, m3, (cVec *)e40);
             m3 = 0;
             m4 = buf + 0x40;
-            MtxCopy(*(int *)(e10 + 0x40), m4);
+            MtxCopy(*(void **)(e10 + 0x40), m4);
             m4 = 0;
             *(float *)(e10 + 0x14) = *(float *)(e10 + 0x14) + *(float *)(e10 + 0x48) * rate;
             if (*(float *)(e10 + 0x14) < lim) {

@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 /* ee-2.9-991111 — SCE libcdvd 3.0.2, cdvd005.o :: sceCdRead */
 
@@ -39,7 +40,6 @@ extern char  _sceCd_cd_read_intr[];
 extern int  func_00398D08(void);            /* sceCdNcmdDiskReady */
 extern int  func_00398BB0(int cmd);         /* _sceCd_ncmd_prechk */
 extern void func_003B2850(void *p, int size);   /* sceSifWriteBackDCache */
-extern void func_003B1F28();                /* scePrintf */
 
 extern int  SignalSema(int sema);
 

@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
 #include "godhand/Slot2.h"
+#include "godhand/cSnd.h"
 
 extern void func_001E8E48(void *a, void *b);
-extern int cSnd_SeCall(void *a0, int a1, short a2, int a3, int a4, int a5);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -47,7 +46,7 @@ void Slot2_StartReels(Slot2 *self)
         VU0_SQC2_VF0(buf, 0);
         reel = &self->reel[0];
         func_001E8E48(reel, buf);
-        self->seId[0] = cSnd_SeCall(&D_005FEE00, 2, 1, (int)buf, 0, 0);
+        self->seId[0] = cSnd_SeCall(&D_005FEE00, 2, 1, buf, 0, 0);
         {
             long done = self->reel[0].doneFlag;
             if ((done & 1) == 0) goto skip118;

@@ -1,4 +1,5 @@
 /* TU: cEvent [event] - recovered C++ class. */
+#include "godhand/cDvd.h"
 #include "godhand/cEvent.h"
 extern unsigned int D_00747A84;
 extern int D_00586B34;
@@ -42,10 +43,8 @@ void cEvent_playStart(cEvent *self, int no) {
 
 extern int D_003C2F84;
 extern char D_0044A890[];
-extern char D_00583F20[];
 extern int func_002962A8(int);
 extern void func_003A6C58(void *, void *, int);
-extern int cDvd_FileExist(void *, void *);
 extern void cTaskWork_sleep(int, int);
 extern void cScenario_startSoftEvent(int, int);
 extern void cScenario__endSoftEvent(int);
@@ -55,11 +54,11 @@ extern void cEvent_playStart(cEvent *, int);
  * wait until it ends. */
 __attribute__((section(".text.cEvent_playStartWait")))
 void cEvent_playStartWait(cEvent *self, int no) {
-    int name[8];
+    char name[0x20];
     int id = func_002962A8(no);
     unsigned long a, b;
     func_003A6C58(name, D_0044A890, id);
-    if (cDvd_FileExist(D_00583F20, name) == 0) return;
+    if (cDvd_FileExist(&D_00583F20, name) == 0) return;
     while (a = D_00747A84, b = (a >> 4) & 1, b != 0) {
         cTaskWork_sleep(*(int *)(D_003C2F84 + 0x20), 1);
     }

@@ -1,25 +1,24 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDvd.h"
+#include "godhand/cNode.h"
+#include "godhand/cIDBase.h"
+#include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cObj.h"
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 extern void cDvd_pollJob(cDvd *self);
 extern void func_00201250(cDvd *self);
-extern void cHeap_free(void *heap, void *p);
-extern void BlockOwner_dtor(void *self, int flags);
 extern int D_0044F448;
-extern CustomIDObj *cIDBase_getIDWork(void *idBase, int idx);
 extern int func_001717C0(cOmBase *self, void *target, cVec *pos);
 extern void *InitFields_1B6E90(void *self);
 extern int D_00429B88;
 extern int D_004298B0;
 extern int D_00428B58;
-extern char D_005FEE00[];
 extern void KillEffect(void *obj, int a, int b);
-extern void cSnd_SeStop(void *snd, int handle);
 extern void SetField214PtrThenInit_1B6F38(void *obj, int flag);
 
 /* Run one step of the disc queue: start the next job, poll the running one, or idle, by the state at +0x1108. */
@@ -56,7 +55,7 @@ void cHeapOwner_deletingDtor(HeapOwner *self, int flags) {
     if (buf != 0) {
         cHeap_free(*(void **)(buf - 0x20), buf);
     }
-    BlockOwner_dtor(self, flags);
+    BlockOwner_dtor((struct BlockOwner *)self, flags);
 }
 
 #define IDWORK_HIGHLIGHT  10            /* index of the id work whose hide bit follows the mode byte */
@@ -73,11 +72,11 @@ typedef struct IdModeScreen {
 __attribute__((section(".text.CustomID_toggleBit29")))
 void CustomID_toggleBit29(IdModeScreen *self) {
     if (self->mode == 2) {
-        CustomIDObj *obj = cIDBase_getIDWork(self->idBase, IDWORK_HIGHLIGHT);
-        obj->flags &= ~CIDW_OBJ_HIDE;
+        cIDBaseEnt *obj = cIDBase_getIDWork((cIDBaseObj *)self->idBase, IDWORK_HIGHLIGHT);
+        obj->flags &= ~IDENT_FLAG_HIDDEN;
     } else {
-        CustomIDObj *obj = cIDBase_getIDWork(self->idBase, IDWORK_HIGHLIGHT);
-        obj->flags |= CIDW_OBJ_HIDE;
+        cIDBaseEnt *obj = cIDBase_getIDWork((cIDBaseObj *)self->idBase, IDWORK_HIGHLIGHT);
+        obj->flags |= IDENT_FLAG_HIDDEN;
     }
 }
 
@@ -153,7 +152,7 @@ void cGiveOwner_destructB(SeOwnerObj *self, int flag) {
     self->vtable = (void *)&D_00428B58;
     KillEffect(self, 0, 2);
     if (self->seHandle != 0) {
-        cSnd_SeStop(D_005FEE00, self->seHandle);
+        cSnd_SeStop(&D_005FEE00, self->seHandle);
     }
     self->seHandle = 0;
     SetField214PtrThenInit_1B6F38(self, flag);

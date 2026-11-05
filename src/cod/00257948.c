@@ -1,17 +1,15 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int irand(void);
-extern int moveMotion(void *a0);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -48,7 +46,7 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
             switch (*(int *)(s3 + 0x564)) {
                 default:
                     if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        if (func_0026F1D8(s3) != 0) {
+                        if (func_0026F1D8((cEm00 *)s3) != 0) {
                             int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x358);
                             s1 = EM_RES_REC(b, 0x35C);
@@ -82,7 +80,7 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x256:
                 case 0x27E:
                     if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        if (func_0026F1D8(s3) == 0) {
+                        if (func_0026F1D8((cEm00 *)s3) == 0) {
                             int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x2BA0);
                             s1 = EM_RES_REC(b, 0x2BA4);
@@ -93,7 +91,7 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                             s1 = EM_RES_REC(b, 0x2B9C);
                         }
                     } else {
-                        if (func_0026F1D8(s3) == 0) {
+                        if (func_0026F1D8((cEm00 *)s3) == 0) {
                             int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x262C);
                             s1 = EM_RES_REC(b, 0x2630);
@@ -313,7 +311,7 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
             /* fallthrough */
         case 1:
             if (moveMotion(s3) != 0) {
-                if (func_0026F1D8(s3) != 0) {
+                if (func_0026F1D8((cEm00 *)s3) != 0) {
                     func_00270C78(self);
                 } else {
                     func_002705D8(s3);

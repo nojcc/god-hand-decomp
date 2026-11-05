@@ -4,7 +4,6 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int moveMotion(void *a0);
 extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
@@ -79,7 +78,7 @@ __attribute__((section(".text.func_0023AAD0"))) void func_0023AAD0(cEm00 *self)
             if ((D_007476B0 & 7) == (*(int *)((char *)self + 0x17D0) & 7)) {
                 self->emFlags2 = self->emFlags2 & 0xF7FFFFFF;
                 func_002A74E0(self, *(int *)((char *)Getplayer() + 0xF0), 1);
-                if (func_002A7CA0(self, &self->unk16A0) != 0) {
+                if (func_002A7CA0((cGameObj *)self, &self->unk16A0) != 0) {
                     self->emFlags2 = self->emFlags2 | 0x8000000;
                 }
                 if (*(float *)((char *)self + 0x510) < 8.0f) {

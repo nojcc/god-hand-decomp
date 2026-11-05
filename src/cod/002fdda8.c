@@ -9,7 +9,6 @@ typedef struct ScreenPos {
 /* A cVec with the 16-byte alignment VU0 loads and stores need. */
 typedef cVec ViewVec __attribute__((aligned(16)));
 
-extern void sceVu0DivVector(void *a0, void *a1, float s);
 extern void sceVu0FTOI4Vector(void *a0, void *a1);
 
 /* Projects the origin of `m` to the screen. Writes a depth-based sort value

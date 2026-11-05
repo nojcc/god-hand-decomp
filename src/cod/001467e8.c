@@ -1,9 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSceAtManager.h"
+#include "godhand/cIDBase.h"
 
-extern int cIDBase_initialize();
-extern int cIDBase_getIDWork(void *a, int b);
 extern void IdPair_init(void *a);
 
 /* sn-2.95.3-136. Loop shape inherited verbatim from the matched
@@ -15,14 +14,14 @@ extern void IdPair_init(void *a);
 
 __attribute__((section(".text.func_001467E8")))
 void func_001467E8(void *a0) {
-    int *tbl;
+    cIDBaseEnt **tbl;
     unsigned short i;
-    tbl = (int *)((char *)a0 + 0x90);
+    tbl = (cIDBaseEnt **)((char *)a0 + 0x90);
     cIDBase_initialize(a0, 1, 0x1D);
-    cIDBase_initialize((char *)a0 + 0xA0, 1, 0x1E);
+    cIDBase_initialize((cIDBaseObj *)((char *)a0 + 0xA0), 1, 0x1E);
     i = 0;
     do {
-        *(int *)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
+        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
         i = i + 1;
     } while (i < 4);
     *(short *)((char *)a0 + 0x100) = 0;

@@ -3,11 +3,6 @@
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
-extern void cSnd_BgmEvFadeSet(cSnd *, int, int, float, float, float);
 
 /* Fade a bgm request over 15 with the default weight. */
 __attribute__((section(".text.cSnd_BgmEvFadeDefault")))

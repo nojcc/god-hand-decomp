@@ -1,9 +1,9 @@
 extern int D_00785C88;
 extern int D_00424948;
 extern int D_00785798;
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
 extern int D_00424960;
-extern int D_00574380;
 extern int D_00785C98;
 extern int D_00424A30;
 extern int D_00424A48;
@@ -56,7 +56,7 @@ int ResetField214FreeField600F_193A20(void *a0, int a1) {
     *(int **)((char*)a0 + 0x214) = &D_00424960;
     v1 = *(int *)((char*)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int *)((char*)a0 + 0x600) = 0;
     }
     return ResetField214FreeField180_1C2820(a0, a1);
@@ -77,7 +77,7 @@ int ResetField214FreeField600G_193CA8(void *a0, int a1) {
     *(int **)((char*)a0 + 0x214) = &D_00424A48;
     v1 = *(int *)((char*)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int *)((char*)a0 + 0x600) = 0;
     }
     return ResetField214FreeField180_1C2820(a0, a1);
@@ -99,12 +99,12 @@ void FreeMultiResource_193FD8(void *a0, int a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00424B68;
     v1 = *(int *)((char *)a0 + 0x604);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int *)((char *)a0 + 0x604) = 0;
     }
     v5 = *(int *)((char *)a0 + 0x608);
     if (v5 != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380, v5);
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)v5);
         *(int *)((char *)a0 + 0x608) = 0;
     }
     v5 = *(int *)((char *)a0 + 0x614);

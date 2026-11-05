@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 typedef unsigned int size_t;
 
@@ -6,7 +7,6 @@ typedef struct Obj {
     struct Obj *free_list_link;
 } Obj;
 
-extern void *func_003A7C70(size_t);   /* malloc */
 extern void *func_0031D6E8(size_t);   /* _S_oom_malloc */
 extern void *D_003C4030[16];          /* _S_free_list */
 extern char *D_003C4074;              /* _S_start_free */

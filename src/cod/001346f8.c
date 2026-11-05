@@ -3,7 +3,6 @@
 extern int D_003C2388;
 extern int D_003C11B0;
 extern void *cIDManager_getTexAddr(int a, int b, int c);
-extern void cIDBase_trans(void *p);
 extern void func_002BC6C8(void *a0, void *a1, void *pts);
 extern void func_002BB760(void *a0, void *a1, void *pts, float h);
 extern void *cModel_getMeshPtr(void *m, int i);
@@ -11,6 +10,9 @@ extern void *D_00754C38;
 extern void *D_00754C58;
 extern void *InitFields_1B6E90(void *this);
 #include "godhand/objField.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/heapArena.h"
+#include "godhand/cIDBase.h"
 extern unsigned char D_00424B68[];
 
 /* sn-2.95.3-136 candidate. */
@@ -82,7 +84,7 @@ void BlackJackId__Trans(char *self)
     if (r != 0) {
         *(long *)((char *)r + 0x1A0) = 0x3001D;
     }
-    cIDBase_trans(self + 0x10);
+    cIDBase_trans((cIDBaseObj *)(self + 0x10));
 }
 
 /* sn-2.95.3-136 candidate. */
@@ -418,41 +420,31 @@ void *func_00193EA8(unsigned char *this) {
 
 /* sn-2.95.3-136 candidate. */
 
-typedef struct Unit {
-    char pad[0x10];
-    struct Unit *next;
-} Unit;
-
-typedef struct {
-    Unit *head;
-    int count;
-} Mgr;
 
 
 
-extern Unit *func_00134430(void *mem, void *a, int b, float f);
 
 __attribute__((section(".text.cCollisionSolidManage_CreateUnit")))
-void cCollisionSolidManage_CreateUnit(Mgr *m, void *a, int b, float f)
+void cCollisionSolidManage_CreateUnit(cCollisionSolidManage *self, struct cGameObj *owner, int priority, float unk0C)
 {
-    Unit *p;
-    Unit *q;
+    cCollisionSolidUnit *p;
+    cCollisionSolidUnit *q;
 
-    if (a != 0) {
-        if (func_001346C8(m, a) == 0) {
-            if (m->head != 0) {
-                q = m->head;
+    if (owner != 0) {
+        if (func_001346C8(self, owner) == 0) {
+            if (self->first != 0) {
+                q = self->first;
                 while (q->next != 0) {
                     q = q->next;
                 }
-                p = func_00134430(func_0030F550(0x40), a, b, f);
+                p = func_00134430(func_0030F550(0x40), owner, priority, unk0C);
                 q->next = p;
             } else {
-                p = func_00134430(func_0030F550(0x40), a, b, f);
-                m->head = p;
+                p = func_00134430(func_0030F550(0x40), owner, priority, unk0C);
+                self->first = p;
             }
             if (p != 0) {
-                do { m->count = m->count + 1; } while (0);
+                do { self->unitNum = self->unitNum + 1; } while (0);
             }
         }
     }

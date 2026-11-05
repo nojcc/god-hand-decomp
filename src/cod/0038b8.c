@@ -1,4 +1,5 @@
 /* Struct: CGObj38B8_t */
+#include "godhand/libio.h"
 #include "include_asm.h"
 
 /* -- Forward declarations for called functions -------------------------------- */
@@ -9,7 +10,6 @@ extern unsigned int _IO_sgetn(void *fp, void *buf, unsigned int n);
 extern int _IO_padn(char *a0, int a1);
 extern void _IO_seekpos(char *a0);
 extern void _IO_seekoff(char *a0);
-extern void _IO_free_backup_area(void *fp);
 extern int *func_0038C168(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
 extern void func_0038AFB0(int a0);
@@ -176,9 +176,9 @@ char *Obj38B8_GetPtrField4B(char *a0) {
 
 /* streambuf::setg out-of-lined from gcc-2.95.2 streambuf.h. */
 __attribute__((section(".text.setg__9streambufPcT1T1")))
-void setg__9streambufPcT1T1(char *sb, char *eb, char *g, char *eg) {
-    if (*(int *)sb & 0x100) _IO_free_backup_area(sb);
-    *(char **)(sb + 0xC) = eb; *(char **)(sb + 0x4) = g; *(char **)(sb + 0x8) = eg;
+void setg__9streambufPcT1T1(struct _IO_FILE *sb, char *eb, char *g, char *eg) {
+    if (sb->_flags & _IO_IN_BACKUP) _IO_free_backup_area(sb);
+    sb->_IO_read_base = eb; sb->_IO_read_ptr = g; sb->_IO_read_end = eg;
 }
 /* func_0038BD40: the two do{}while(0) barriers keep the retail store order. */
 __attribute__((section(".text.func_0038BD40")))

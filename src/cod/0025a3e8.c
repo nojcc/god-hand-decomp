@@ -1,19 +1,16 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern int GetSeqSEBase(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00274FE8(void *a0);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -66,7 +63,7 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 }
             }
             s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            ReleaseField6ECByTag564_26B1E8(s1);
+            ReleaseField6ECByTag564_26B1E8((cEm00 *)s1);
             switch (*(int *)(s1 + 0x564)) {
                 case 0x256:
                 case 0x27E: {
@@ -203,7 +200,7 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 }
             }
             s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            ReleaseField6ECByTag564_26B1E8(s1);
+            ReleaseField6ECByTag564_26B1E8((cEm00 *)s1);
             {
                 int b = *(int *)(s1 + 0x304);
                 func_002A8578(s1, EM_RES_REC(b, 0xF84), EM_RES_REC(b, 0xF88), 0, 0.0f, s4, 0);

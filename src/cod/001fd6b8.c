@@ -1,20 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageUnit.h"
 
 extern unsigned int D_007476B0;
 
 __attribute__((section(".text.cDamageUnit_SetDamageCollFlashActiveById")))
-void cDamageUnit_SetDamageCollFlashActiveById(char *o, int id, int f, short val) {
-    char *n = *(char **)(o + 0x3C);
-    unsigned int *q;
+void cDamageUnit_SetDamageCollFlashActiveById(cDamageUnit *self, int id, int active, short flash) {
+    cDamageNode *n = self->nodes;
+    cDamageData *q;
     while (n != 0) {
-        if (*(short *)(n + 0x2C) == id) {
-            q = *(unsigned int **)(n + 0x28);
-            if (f == 1) *q = *q | 2;
-            else *q = *q & 0xFFFFFFFDU;
-            *(short *)(n + 0x30) = val;
+        if (n->id == id) {
+            q = n->data;
+            if (active == 1) q->flags = q->flags | DAMAGE_FLAG_ACTIVE;
+            else q->flags = q->flags & DAMAGE_MASK_INACTIVE;
+            n->flash = flash;
             return;
         }
-        n = *(char **)(n + 0x24);
+        n = n->next;
     }
 }
 

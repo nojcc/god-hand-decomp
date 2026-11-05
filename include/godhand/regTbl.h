@@ -22,7 +22,9 @@ typedef struct RegTbl {
     int handleB;                /* 0x08 */
     RegEnt *ents;               /* 0x0C */
     int count;                  /* 0x10 */
-    char unk14[0x30 - 0x14];
+    char unk14[0x1C - 0x14];
+    void (*fini)(void);         /* 0x1C called when the table is unregistered, if set */
+    char unk20[0x30 - 0x20];
     struct RegTbl *next;        /* 0x30 */
 } RegTbl;
 
@@ -42,5 +44,11 @@ typedef struct PairTbl {
 } PairTbl;
 
 extern PairTbl D_003F5520;
+
+/* Reset the paired-key table, store D_0040A420 in *out (if out is set) and
+ * mark each entry of the first table active by kind; 7 for an unknown kind. */
+int func_00394D58(int *out);
+/* Unlink tbl from the list and undo its entries; 5 if it isn't listed. */
+int func_00394F20(RegTbl *tbl);
 
 #endif /* GODHAND_REGTBL_H */

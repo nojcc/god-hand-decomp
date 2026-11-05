@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cIDBase.h"
+#include "godhand/criStm.h"
 
 extern int *D_003C2384;
 extern int D_003C2388;

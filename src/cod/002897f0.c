@@ -1,13 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cCollisionSolid.h"
 #include "godhand/vu0.h"
 #include "godhand/cEma2.h"
 #include "godhand/motion.h"
+#include "godhand/cModel.h"
 
 extern void func_0028EBF0(cEma2 *self, SET_EM_DATA *data, void *arg);
 extern int func_0028AC58(cEma2 *self);
-extern int cDamageUnit_AddDamageCollSphere(int unit, void *joint, cVec *offset, float radius);
-extern cMeshNode *cModel_getMeshPtr_14B730(void *model, char *name);
 
 /* The int stored at byte ofs of the motion block, plus the block address. */
 static __inline__ int motionBlock_at(char *block, int ofs) {
@@ -26,20 +28,11 @@ static __inline__ void cMeshNode_show(cMeshNode *node) {
         node->dispFlags &= ~1;
 }
 
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cParts_setRotationOrder(void *a0, int a1);
-extern void cObjBase_KageInit(void *a, void *b, void *c);
-extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
-extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 extern float fRand0_1(void);
 
 extern int Rnd(void);
-extern int D_00462FC0;
-extern char D_00574380[];
 extern char D_003C3F68[];
 extern char D_00448DB8[];
 extern char D_00448DC0[];
@@ -105,14 +98,14 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
         break;
     }
     moveMotion(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     IK_InverseKinematics(self->base.ik, self);
-    cModel_calcWorldParts(self);
-    cCollisionSolidManage_SetActive(&D_00462FC0, self, 0);
+    cModel_calcWorldParts((cModel *)self);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     cVec_copy3(&self->escPos, self->base.pos);
     cParts_setRotationOrder(self, 4);
-    cObjBase_KageInit(self, self->shadow, D_003C3F68);
-    self->damageTake = cDamageManage_CreateDamageTake(D_00574380, self, 1);
+    cObjBase_KageInit((cObjBase *)self, self->shadow, D_003C3F68);
+    self->damageTake = cDamageManage_CreateDamageTake(&D_00574380, self, 1);
 
     /* Four damage spheres, each centred on a joint of the model. */
     n = self->base.partNum;
@@ -177,25 +170,25 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     centre.w = 1.0f;
     self->hitSphere[3] = cDamageUnit_AddDamageCollSphere(self->damageTake, child->mtx, &centre, 0.25f);
 
-    cCollisionSolidManage_CreateUnit(&D_00462FC0, self, 5, 0.2f);
+    cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)self, 5, 0.2f);
     centre.w = 1.0f;
     centre.y = 0.5f;
     centre.x = 0;
     centre.z = 0;
-    cCollisionSolidManage_CreateSphere(&D_00462FC0, self, self->base.mtx, &centre, 0.5f);
+    cCollisionSolidManage_CreateSphere(&D_00462FC0, (struct cGameObj *)self, self->base.mtx, &centre, 0.5f);
 
     /* The goal's first word holds flags, its w the random wait. */
     *(int *)&self->goal.z = 0;
     self->goal.y = 0.02f;
     self->goal.w = fRand0_1() * 90.0f + 90.0f;
-    self->mesh[0] = cModel_getMeshPtr_14B730(self, D_00448DB8);
-    self->mesh[1] = cModel_getMeshPtr_14B730(self, D_00448DC0);
-    self->mesh[2] = cModel_getMeshPtr_14B730(self, D_00448DC8);
-    self->mesh[3] = cModel_getMeshPtr_14B730(self, D_00448DD0);
-    self->mesh[4] = cModel_getMeshPtr_14B730(self, D_00448DD8);
-    self->mesh[5] = cModel_getMeshPtr_14B730(self, D_00448DE0);
-    self->mesh[6] = cModel_getMeshPtr_14B730(self, D_00448DE8);
-    self->mesh[7] = cModel_getMeshPtr_14B730(self, D_00448DF0);
+    self->mesh[0] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DB8);
+    self->mesh[1] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DC0);
+    self->mesh[2] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DC8);
+    self->mesh[3] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DD0);
+    self->mesh[4] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DD8);
+    self->mesh[5] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DE0);
+    self->mesh[6] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DE8);
+    self->mesh[7] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DF0);
     cMeshNode_hide(self->mesh[0]);
     cMeshNode_hide(self->mesh[1]);
     cMeshNode_hide(self->mesh[2]);

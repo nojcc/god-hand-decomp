@@ -4,7 +4,6 @@
 /* func_0027CF40 — +0x2F6 phase machine; phase 0 picks func_002A8578 record fields
  * by the +0x2F7 sub-flag (0xB0/0xB4 when set, else 0xB8/0xBC; mode 3), advances;
  * both phases step moveMotion.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion. */
 __attribute__((section(".text.func_0027CF40"))) void func_0027CF40(cEm00 *self)
 {

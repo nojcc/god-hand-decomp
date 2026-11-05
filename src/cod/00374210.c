@@ -3,7 +3,6 @@
 
 #include "godhand/sndStream.h"
 
-extern void *func_0031C8E0(int size, int align, void *heap);
 extern void func_0031C928(void *block, void *heap);
 extern int func_0032D340(int a0, int a1, int a2, int a3);
 

@@ -22,9 +22,7 @@ typedef struct PauseOptionPanel {
     signed char answer;                 /* 0x131 0 = yes, 1 = no */
 } PauseOptionPanel;
 
-extern cSnd D_005FEE00;
 extern unsigned char D_005E8140[];
-extern int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
 extern void SdeSystemOutModeSet(int a0);
 extern void func_001672F0(void *self);
 

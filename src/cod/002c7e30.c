@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
-extern void func_003A5148(void *dst, void *src, int n);
 
 typedef struct MotionQuad {
     unsigned short a;

@@ -8,8 +8,6 @@
 #include "godhand/cDamageGive.h"
 #include "godhand/vu0.h"
 
-extern void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);
-extern void cDamageUnit_SetDamageCollOffset(cDamageUnit *self, void *offset);
 extern void ForwardEventToList_1FD820(void *a0, void *a1);
 extern void cDamageGive_SetDmgGiveHitVec(cDamageGive *self, cVec *dir);
 

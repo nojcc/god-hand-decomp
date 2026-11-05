@@ -7,27 +7,17 @@
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
 #include "godhand/cNowLoading.h"
+#include "godhand/cModel.h"
+#include "godhand/cBgmData.h"
+#include "godhand/cIDBase.h"
 
 extern void func_002E8038(WaveObj *self, float width);
 extern void WaveObj_fillWaveTable(WaveObj *self, float step);
-extern void *cSnd_GetSeData(cSnd *self, int idx);
-extern void cSeData_Release(void *data);
-extern void cSnd_releaseEmSeAll(cSnd *self);
 extern void cSndMemHeap_Close(void *heap);
-extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
-extern void cSndBgmNode_Release(cSndBgmNode *node);
 extern char D_006036A0[];
 extern char D_00603310[];
 extern void displayScrollLayer(int layer, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
-extern void cModel_calcParts(void *self);
-extern void cSnd_BgmEventStart(void *snd, int event, int a2, int a3);
-extern void func_001DF528(void *p, int a1, int a2);
-extern void func_001DEE40(void *p, int a1);
-extern char D_005FEE00[];
-extern void cIDBase_initIDWork(cNowLoading *self, int idx);
-extern cIDBaseEnt *cIDBase_getIDWork(cNowLoading *self, int idx);
-extern void cIDBase_restartAnim(cNowLoading *self);
 
 /* Copies the wave settings from the parameter block, clamps the entry count
  * to 1..32 (0 or less gives 25), builds the smoothing table from the squared
@@ -176,13 +166,11 @@ void cOmBase_updatePhaseAndCalcParts(cOmBase *self)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
     cVec_copy3(&self->posA, self->pos);
     cVec_copy3(&self->posB, &self->rot);
 }
 
-#define POKER_OFFSET_UI     0x25B0    /* the table's UI record is not typed yet */
-#define POKER_UI(self)      ((char *)(self) + POKER_OFFSET_UI)
 #define POKER_BGM_EVENT     0x28
 #define POKER_WAIT_FRAMES   0x1E
 #define POKER_STATE_IDLE    0x14      /* state the table returns to */
@@ -206,8 +194,8 @@ void Poker_updateResultWait(Poker *self)
     case 1:
         if (!Poker_timerDone(self))
             return;
-        cSnd_BgmEventStart(D_005FEE00, POKER_BGM_EVENT, 0, 0);
-        func_001DF528(POKER_UI(self), 1, 4);
+        cSnd_BgmEventStart(&D_005FEE00, POKER_BGM_EVENT, 0, 0);
+        func_001DF528(&self->ui, 1, 4);
         /* fall through */
     case 0:
         self->timer = POKER_WAIT_FRAMES;
@@ -215,7 +203,7 @@ void Poker_updateResultWait(Poker *self)
         break;
     case 2:
         if (Poker_timerDone(self)) {
-            char *ui = POKER_UI(self);
+            PanelObj *ui = &self->ui;
             self->bet = 0;
             func_001DEE40(ui, 0);
             func_001DF528(ui, 1, 3);
@@ -241,12 +229,12 @@ void cNowLoading_setup(cNowLoading *self)
     cIDBase_initIDWork(self, 1);
     cIDBase_initIDWork(self, 2);
     cIDBase_initIDWork(self, 3);
-    cIDBase_restartAnim(self);
+    cIDBase_restartAnim((cIDBaseObj *)self);
     self->base.playing = 1;
-    ent[0] = cIDBase_getIDWork(self, 0);
-    ent[1] = cIDBase_getIDWork(self, 1);
-    barEnt = cIDBase_getIDWork(self, 2);
-    ent[2] = cIDBase_getIDWork(self, 3);
+    ent[0] = cIDBase_getIDWork((cIDBaseObj *)self, 0);
+    ent[1] = cIDBase_getIDWork((cIDBaseObj *)self, 1);
+    barEnt = cIDBase_getIDWork((cIDBaseObj *)self, 2);
+    ent[2] = cIDBase_getIDWork((cIDBaseObj *)self, 3);
     for (i = 0; i < NOWLOADING_SLOT_NUM; i++) {
         self->slot[i].one = NOWLOADING_SLOT_ONE;
         self->slot[i].two = NOWLOADING_SLOT_TWO;

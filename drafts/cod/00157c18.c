@@ -5,6 +5,7 @@
  * frameNum - 1.0f, to 0x40(sp) without reading it back (a by-reference
  * min/max temporary). self and &unk310 trade s0/s1. */
 #include "godhand/cObjBase.h"
+#include "godhand/mtx.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/gameWork.h"
@@ -31,7 +32,6 @@ void Motion_seq_ctr(cObjBase *self, char *seq);
 void func_00158328(cObjBase *self);
 void func_00150778(float *d, float *a, float *b);
 void func_00150738(float *d, float *a, float *b);
-void VecRotVec(float *out, float *in, cVec *rot, int order);
 
 #ifdef NON_MATCHING
 /* Advance the object's mtb3 motion one frame: run its sequence, count down

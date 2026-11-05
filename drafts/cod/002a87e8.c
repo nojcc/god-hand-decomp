@@ -12,7 +12,6 @@
 #define SYS_NO_FADE_B 0x40000000
 
 extern unsigned int D_00747A84;
-extern char D_00463050[];               /* the camera manager; its first camera is the player camera */
 
 /* Fade the object out while it stands between the camera and the player:
  * animRate becomes the fade (cubed distance past 2.0) and objFlags bit 0x10 marks it. */
@@ -46,7 +45,7 @@ void func_002A87E8(cGameObj *self, cVec *ref)
             if (ref->y + 1.7f < eye.y) {
                 fade = 1.0f;
             }
-            if (D_005CAFF0 != (struct cCamera *)D_00463050) {
+            if (D_005CAFF0 != &D_00463050.player) {
                 fade = 1.0f;
             }
         }

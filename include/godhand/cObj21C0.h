@@ -27,10 +27,7 @@ typedef struct cObj21C0 {
 typedef char cObj21C0_size_check[sizeof(cObj21C0) == COBJ21C0_SIZE ? 1 : -1];
 
 extern int D_00747A34;
-extern char D_00754220[];
 extern char D_00447F70[];
-extern void *_MemoryAlloc(int size, int align, void *region);
-extern void *func_003A52F0(void *dst, int val, int len);
 extern void cGameObj(void *self);
 
 #endif

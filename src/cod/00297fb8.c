@@ -15,8 +15,8 @@ void func_002A7308(int a0) {
 
 __attribute__((section(".text.func_002A9528")))
 void func_002A9528(HeapArena *self) {
-    self->unk[0] = 0;
-    self->unk[1] = 0;
+    self->head = 0;
+    self->size = 0;
 }
 
 __attribute__((section(".text.func_00332378")))

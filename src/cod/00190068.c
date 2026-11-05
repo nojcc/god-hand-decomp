@@ -1,6 +1,6 @@
+#include "godhand/cDamageManage.h"
 extern int D_005CAE50;
 extern int D_00423F58;
-extern int D_00574380;
 extern int D_00785C48[];
 extern int D_004245A8;
 extern int D_00785798;
@@ -12,7 +12,7 @@ void SetStateDisabled_190068(void *a0) {
     v0 = (*(int*)((char*)a0 + 0x5B0) & -9) | 4;
     *(int*)((char*)a0 + 0x5B0) = v0;
     if (*(int*)((char*)a0 + 0x654) != 0) {
-        cDamageUnit_SetDamageCollActive(*(int*)((char*)a0 + 0x654), 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)(*(int*)((char*)a0 + 0x654)), 0);
     }
     func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
@@ -35,7 +35,7 @@ void FreeMultiSlotResources_190250(void *a0, void *a1) {
     }
     v = *(int *)((char *)a0 + 0x610);
     if (v != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380);
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)v);
         *(int *)((char *)a0 + 0x610) = 0;
     }
     SetField214PtrThenInit_1B6F38(a0, a1);
@@ -76,7 +76,7 @@ __attribute__((section(".text.SetSlotEntryBitFlag_191860")))
 void SetSlotEntryBitFlag_191860(void *a0, int a1) {
     int *ebase = (int *)((char *)a0 + 0x600);
     int *base;
-    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive(ebase[a1], 0);
+    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive((cDamageUnit *)ebase[a1], 0);
     base = (int *)((char *)a0 + 0xF80);
     base[(unsigned int)a1 >> 5] |= (unsigned int)0x80000000 >> (a1 & 0x1F);
 }

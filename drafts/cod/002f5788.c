@@ -7,16 +7,15 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cOmBase.h"
+#include "godhand/cNode.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cCamera.h"
 #include "godhand/heapArena.h"
 
 extern int func_002EBD10(void *a0, int a1, int n);
-extern void *EnsureInitThenForward_2A9538_30EE08(int a0, int a1, int a2);
 extern float func_0031D108(unsigned int *seed);
 extern void *StoreVecFromFieldB0_2B6160(void *a0, void *a1);
-extern int CallThenReturnPlusB0_002B6420_2B61B0(int a0);
-extern void MtxCopy(void *dst, void *src);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 
 #define GS_REG_RGBAQ 1
@@ -119,7 +118,7 @@ int func_002F5788(espRibbon *self, int arg)
         self->pointNum = 0x10;
     if (func_002EBD10(self, arg, self->pointNum) == 0)
         return 0;
-    self->work = EnsureInitThenForward_2A9538_30EE08(self->pointNum * 16, 16, (int)&D_00754240);
+    self->work = _MemoryAlloc(self->pointNum * 16, 16, &D_00754240);
     if (self->work == 0)
         return 0;
     for (i = 0; i < self->pointNum; i++)
@@ -166,7 +165,7 @@ int func_002F5788(espRibbon *self, int arg)
         self->pktB->col[i].st1.t = v / (self->pointNum - 1) * self->length;
         self->pktB->col[i].st1.addr = GS_REG_ST;
     }
-    MtxCopy(mtx, (void *)CallThenReturnPlusB0_002B6420_2B61B0((int)self));
+    MtxCopy(mtx, CallThenReturnPlusB0_002B6420_2B61B0((cNode *)self));
     cVec_zero(&zero);
     CopyVec3ToField30_147C40(mtx, (float *)&zero);
     return 1;

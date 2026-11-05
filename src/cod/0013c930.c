@@ -1,4 +1,5 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/mtx.h"
 
 __attribute__((section(".text.ResetBlendFields_13C930")))
 void ResetBlendFields_13C930(char *a0) {
@@ -10,7 +11,7 @@ void ResetBlendFields_13C930(char *a0) {
 }
 
 __attribute__((section(".text.MtxInitTransVec")))
-void MtxInitTransVec(float *a0, float *a1) {
+void MtxInitTransVec(float *a0, cVec *a1) {
     a0[1] = 0.0f;
     a0[0] = 1.0f;
     a0[2] = 0.0f;
@@ -23,8 +24,8 @@ void MtxInitTransVec(float *a0, float *a1) {
     a0[9] = 0.0f;
     a0[10] = 1.0f;
     a0[11] = 0.0f;
-    a0[12] = a1[0];
-    a0[13] = a1[1];
-    a0[14] = a1[2];
+    a0[12] = a1->x;
+    a0[13] = a1->y;
+    a0[14] = a1->z;
     a0[15] = 1.0f;
 }

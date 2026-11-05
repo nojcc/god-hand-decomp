@@ -5,17 +5,12 @@
 #include "godhand/cSnd.h"
 #include "godhand/cScenario.h"
 
-extern void CustomIDWork_SetMoveOffsetPosYSin(CustomIDWork *self, int amp, unsigned short frames);
 extern void CustomIDWork_ResetMoveOffsetPos(CustomIDWork *self);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern void func_0017C028(void *self, int pos, void *rot);
-extern int cSnd_SeFadeOut(cSnd *self, int handle, short fade);
 extern char D_0044C2B8[];
 extern char D_0044C2C0[];
-extern cSnd D_005FEE00;
 extern unsigned int D_00747A30;
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, int d, int e, int f, int g, int h);
-extern int cSnd_SeCall_2CB8A0(void *a0, int a1, short a2, int a3, int t0, int t1, int t2);
 
 /* Two CustomIDWork elements sit at 0x10D8 and 0x1154 of the owner. */
 #define OWNER_IDW_A(self) ((CustomIDWork *)((char *)(self) + 0x10D8))
@@ -114,9 +109,9 @@ int cScenario_getStrFromObjId(cScenario *self, char *buf, int objId)
 }
 
 /* cSnd_SeCallGlobal: play a sound effect on the global sound manager unless bit 1 of D_00747A30 is set;
- * with a nonzero a3 it takes the fixed-voice call, otherwise the default-voice call. */
+ * bound to obj when there is one, otherwise at the origin. unused is not read. */
 __attribute__((section(".text.cSnd_SeCallGlobal")))
-void cSnd_SeCallGlobal(int unused, int id, short slot, int voice)
+void cSnd_SeCallGlobal(void *unused, int id, short slot, void *obj)
 {
     unsigned long fl;
     unsigned long bit;
@@ -125,8 +120,8 @@ void cSnd_SeCallGlobal(int unused, int id, short slot, int voice)
     bit = fl >> 1;
     t = bit & 1;
     if (t == 0) {
-        if (voice != 0) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, id, slot, voice, 0, 0, 0, 0);
+        if (obj != 0) {
+            cSnd_SeCall_2CBA48(&D_005FEE00, id, slot, obj, 0, 0, 0, 0);
         } else {
             cSnd_SeCall_2CB8A0(&D_005FEE00, id, slot, -1, -1, 0, 0);
         }

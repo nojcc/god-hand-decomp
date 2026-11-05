@@ -1,4 +1,5 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/heapArena.h"
 
 extern unsigned short D_00747A50;
 extern int D_005FEA60;
@@ -6,7 +7,6 @@ extern void func_002DBE98(void);
 extern unsigned int D_00747A78;
 extern void func_00139180(int a0);
 extern char D_0041DCC8[];
-extern void __builtin_delete(void *a0);
 
 __attribute__((section(".text.IsSpecialConditionMet_12C758")))
 int IsSpecialConditionMet_12C758(char *a0) {

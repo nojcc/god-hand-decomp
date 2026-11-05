@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cNode.h"
 
 __attribute__((section(".text.Slot1_SetSlotLayer")))
 void Slot1_SetSlotLayer(int *dst, int *src) {
@@ -22,12 +23,12 @@ void func_001E8E88(int *p) {
 }
 
 __attribute__((section(".text.func_002B5E90")))
-void *func_002B5E90(void *obj, int n) {
-    void *p;
+cNode *func_002B5E90(cNode *self, int n) {
+    cNode *p;
 
-    p = *(void **)((char *)obj + 0x8);
+    p = self->child;
     while (n-- != 0) {
-        p = *(void **)((char *)p + 0x10);
+        p = p->next;
     }
     return p;
 }

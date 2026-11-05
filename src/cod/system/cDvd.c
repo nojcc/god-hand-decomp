@@ -1,23 +1,22 @@
 /* TU: cDvd [system] - recovered C++ class. */
 #include "godhand/cDvd.h"
-extern char D_00580D40[];
-extern int cDvd_Check(int a0, int a1);
+#include "godhand/heapArena.h"
 
-/* Queue a read of a named file. Returns the job id, 0 on failure. t1 overrides the size in bytes. */
+/* Queue a read of a named file. Returns the job id, 0 on failure. size, when not 0, overrides the size in bytes. */
 __attribute__((section(".text.cDvd_ReadAlloc")))
-int cDvd_ReadAlloc(cDvd *self, char *name, int *outBuf, int a3, int id, int t1, int arg70, int arg6C)
+int cDvd_ReadAlloc(cDvd *self, const char *name, void *outBuf, HeapArena *heap, int id, int size, int arg70, int arg6C)
 {
     cDvdJob *job;
 
-    *outBuf = 0;
+    *(void **)outBuf = 0;
     job = cDvd_takeFreeJob(self);
     if (job == 0)
         return 0;
 
     {
-        int fileNo = FindEntryValue_1FF9C0(D_00580D40, name, &job->size, job->unk0C);
+        int fileNo = FindEntryValue_1FF9C0(&D_00580D40, name, &job->size, job->unk0C);
         job->fileNo = fileNo;
-        job->align = a3;
+        job->align = heap;
         job->blockNum = (unsigned int)(job->size + 0x7FF) >> 11;
         if (fileNo < 0)
             return 0;
@@ -32,26 +31,23 @@ int cDvd_ReadAlloc(cDvd *self, char *name, int *outBuf, int a3, int id, int t1, 
     job->arg6C = arg6C;
     job->arg70 = arg70;
     job->buf = 0;
-    if (t1 != 0)
-        job->blockNum = (unsigned int)(t1 + 0x7FF) >> 11;
+    if (size != 0)
+        job->blockNum = (unsigned int)(size + 0x7FF) >> 11;
 
     {
-        void *r = _MemoryAlloc(job->blockNum << 11, 0x80, a3);
+        void *r = _MemoryAlloc(job->blockNum << 11, 0x80, heap);
         job->buf = r;
         if (r == 0) {
             func_00201228(self, job);
             return 0;
         }
-        *outBuf = (int)r;
+        *(void **)outBuf = r;
     }
 
     if (self->cur == 0)
         func_00201290(self);
     return job->id;
 }
-extern int FindEntryValue_1FF9C0(char *table, char *name, int *size, char *key);
-extern void *_MemoryAlloc(int size, int align, int a2);
-extern void cDvd_step(cDvd *self);
 /* Wait until the job with the given id is no longer pending. */
 __attribute__((section(".text.cDvd_CheckWait")))
 void cDvd_CheckWait(cDvd *self, int id)

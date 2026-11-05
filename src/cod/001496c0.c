@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cModel.h"
+#include "godhand/heapArena.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cOmSized.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
@@ -9,7 +11,6 @@
 #include "godhand/espSys.h"
 
 extern char D_0041EA90[];
-extern void cHeap_free(int, void *);
 extern void cModel_removeMesh(cModel *self);
 extern void func_00149E60(cModel *self);
 extern void cBoundingBox__dtor(cBox *box, int flags);
@@ -18,20 +19,17 @@ extern void func_001B6FB8(cOmSized *self);
 extern void cOmDoor_setObjCollisionCenterOnly(cOmSized *self);
 extern void SetFlagBit_1BD698(cOmSized *self);
 extern void *cCamera_getScreenPos(cVec *out, void *camera, cVec *world);
-extern void CustomIDWork_SetLocalPosXY(void *work, int x, int y);
 extern cScenario *D_003C2F84;
 extern void KeyStop(void);
-extern int cScenario_taskExec(cScenario *sc, void *fn, void *arg, int attr);
 extern void func_001BF8C8(void);
 extern unsigned int D_00747A84;
-extern void func_002FA350(float *frame);
 
 /* Destructor body of the model: installs its vtable, frees the packet block, drops meshes and parts, then runs the base destructor. */
 __attribute__((section(".text.cModel_destroy")))
 void cModel_destroy(cModel *self, int flags) {
     self->vtable = (void *)D_0041EA90;
     if (self->alloc != 0) {
-        cHeap_free(((int *)self->alloc)[-8], self->alloc);
+        cHeap_free(HEAP_OWNER(self->alloc), self->alloc);
     }
     cModel_removeMesh(self);
     func_00149E60(self);
@@ -99,7 +97,7 @@ void ScreenMarker_moveToWorldPos(char *self, cVec *world, int arg) {
         VU0_SQC2_VF0(&f, 0x0);
         cCamera_getScreenPos(&f.tmp, camera, world);
         cVec_copy3(&f.pos, &f.tmp);
-        CustomIDWork_SetLocalPosXY(self + MARKER_WORK_OFFSET, (int)f.pos.x, (int)f.pos.y);
+        CustomIDWork_SetLocalPosXY((CustomIDWork *)(self + MARKER_WORK_OFFSET), (int)f.pos.x, (int)f.pos.y);
         func_001ED700(self, 5, arg);
     }
 }

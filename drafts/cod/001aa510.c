@@ -1,4 +1,4 @@
-/* NON_MATCHING func_001AA510 (sn-2.95.3-136, 13 insns differ in the hit-sound call: retail stores the stack arg first and tests the kind with li 5 / slt on the unsigned byte, this source reloads it signed) */
+/* NON_MATCHING func_001AA510 (sn-2.95.3-136, 13 insns differ in the hit-sound call: retail stores the stack arg first and tests the kind with li 5 / slt on the unsigned byte, this source reloads it signed; retail also passes the kind as a ninth, stack argument that cSnd_SeCall_2CBA48 never reads) */
 #include "include_asm.h"
 #include "godhand/cSnd.h"
 
@@ -43,7 +43,7 @@ void func_001AA510(char *s0)
         }
         SetField_9E0_1AA500(s0);
         kind = *(unsigned char *)(s0 + 0x2B4);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x8C, s0, 0, (signed char)kind > 5 ? *(int *)(*(char **)(s0 + 0x278) + 0x14) : 0, 0, 0, kind);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x8C, s0, 0, (signed char)kind > 5 ? *(void **)(*(char **)(s0 + 0x278) + 0x14) : 0, 0, 0);
     }
 
     tbl = D_00427C68;

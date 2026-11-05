@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cNode.h"
 
 extern void Adjust_theta_vec(float *p);
 extern void capVu0AddVectorXYZ(void *a0, void *a1, void *a2);
-extern void func_002B6230(void *a0, void *a1);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -46,5 +46,5 @@ void func_00302E48(char *s)
         capVu0AddVectorXYZ(v, v, q);
         Adjust_theta_vec(v);
     }
-    func_002B6230(s, v);
+    func_002B6230((cNode *)s, (cVec *)v);
 }

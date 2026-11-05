@@ -2,14 +2,12 @@
 #include "godhand/gameWork.h"
 #include "godhand/classFADE.h"
 #include "godhand/cMovie.h"
-extern char D_005FEE00[];
+#include "godhand/cSnd.h"
 extern char D_005E79D0[];
 extern int D_00566E40;
 extern int D_00566E44;
 
 extern void KeyStop(void);
-extern void cSnd_BattleBgmAllPause(void *, float);
-extern void cSnd_BgmFlaggedNodeKick(void *, float);
 /* Two lock-flag words of the game work: 0x5D8 (D_00747A78, the system flags) and 0x5E0
  * (D_00747A80). They are written through the address because retail addresses both from
  * the word at 0x5E0; as GameWork fields or as their own symbols the code changes. */
@@ -37,7 +35,7 @@ int func_00160FF0(cEvMovie *self)
         id = self->movieNo + 2;
         hp = &D_00566E40;
         KeyStop();
-        cSnd_BattleBgmAllPause(D_005FEE00, 1.0f);
+        cSnd_BattleBgmAllPause(&D_005FEE00, 1.0f);
         GW_LOCKFLAGS |= 0x4000000;
         GW_LOCKFLAGS |= 0x2000000;
         GW_LOCKFLAGS |= 0x40000000;
@@ -65,7 +63,7 @@ int func_00160FF0(cEvMovie *self)
         if (cMovie_GetStatus(D_005E79D0, D_00566E40))
             return 0;
         cMovie_Stop(D_005E79D0, D_00566E40);
-        cSnd_BgmFlaggedNodeKick(D_005FEE00, 20.0f);
+        cSnd_BgmFlaggedNodeKick(&D_005FEE00, 20.0f);
         GW_LOCKFLAGS &= ~0x4000000;
         GW_LOCKFLAGS &= ~0x2000000;
         GW_LOCKFLAGS &= ~0x40000000;

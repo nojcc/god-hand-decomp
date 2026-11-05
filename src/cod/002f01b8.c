@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/espSys.h"
 
 /* A wobble effect record: three oscillators, each with an amplitude, an output, an angle and an angle step. */
 typedef struct EspWobble {
@@ -17,7 +18,6 @@ typedef struct EspWobble {
     float step2;                        /* 0x2DC */
 } EspWobble;
 
-extern void func_002FBED0(EspWobble *self);
 extern float capVu0Sin(float x);
 extern float capVu0Cos(float x);
 extern float Adjust_theta(float x);
@@ -25,7 +25,7 @@ extern float Adjust_theta(float x);
 /* Steps the three oscillators: the first uses sine, the other two cosine; an oscillator with a zero step is left alone. */
 __attribute__((section(".text.EspWobble_step")))
 void EspWobble_step(EspWobble *self) {
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
     if (self->step0 != 0.0f) {
         self->out0 = self->amp0 * capVu0Sin(self->ang0);
         self->ang0 = self->ang0 + self->step0;

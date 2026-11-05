@@ -1,17 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/Poker.h"
 
 extern float Adjust_theta(float);
 extern int moveMotion(int *);
 extern void cOm71_SetMotionRun(int *);
 extern void cObjBase_addNullSpeed_Rotation(int *, float);
 extern void cObjBase_addNullSpeed(int *, float);
-extern void Poker_resetDeck(void);
 extern void func_001DD340(char *a0);
 extern void CustomIDWork_SetNumber_1DD218(char *a0, int a1);
 extern void func_001DD238(char *a0, int a1);
 extern void SetCustomIDNumberIndexed_1DD648(char *a0, int a1, int a2);
-extern void func_001DEE60(char *a0, int a1, int a2);
 
 __attribute__((section(".text.func_001D0CE8")))
 void func_001D0CE8(int *a0) {
@@ -128,7 +127,7 @@ void func_001D7450(char *a0)
 
     *(int *)(a0 + 0x3034) = 0;
     *(int *)(a0 + 0x3038) = 0;
-    Poker_resetDeck();
+    Poker_resetDeck((Poker *)a0);
     func_001DD340(a0);
     CustomIDWork_SetNumber_1DD218(a0, *(int *)(a0 + 0x3034));
     func_001DD238(a0, cCoreSave_getGold(&D_00569B70));
@@ -140,7 +139,7 @@ void func_001D7450(char *a0)
     SetCustomIDNumberIndexed_1DD648(a0, 5, 8);
     SetCustomIDNumberIndexed_1DD648(a0, 6, 3);
     SetCustomIDNumberIndexed_1DD648(a0, 7, 2);
-    func_001DEE60(a0 + 0x25B0, 0x11, 0);
+    func_001DEE60(&((Poker *)a0)->ui, 0x11, 0);
 
     v = *(unsigned int *)(a0 + 0x3020);
     if (((v >> 3) & 1) == 0) {

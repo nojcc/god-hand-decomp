@@ -1,3 +1,4 @@
+#include "godhand/criStm.h"
 __attribute__((section(".text.FindAndForwardEntry_3059A8")))
 int FindAndForwardEntry_3059A8(void *a0, int a1, void *a2) {
     int sp[4];

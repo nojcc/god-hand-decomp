@@ -12,7 +12,6 @@ extern int Entry_releaseIfReady(void *self);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern int Rnd(void);
 extern char D_00427CD8[];
-extern void CustomIDWork_SetLocalPosY(CustomIDWork *work, int y);
 extern int D_0042BD40[5];
 extern int D_0042BD58[5];
 

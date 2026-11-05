@@ -4,13 +4,6 @@
 #include "godhand/cBgmData.h"
 #include "godhand/cDataManager.h"
 
-extern cSndSeVoice *cSnd_GetVoice(cSnd *self, int idx);
-extern void cSndSeVoice_Init(cSndSeVoice *voice);
-extern void *cSnd_GetSeData(cSnd *self, int idx);
-extern void cSeData_Release(void *data);
-extern void cSndBgmNode_Init(cSndBgmNode *node);
-extern cBgmData *cSnd_GetBgmData(cSnd *self, int idx);
-extern void cBgmData_Reset(cBgmData *data);
 
 /* Reset the whole sound manager: drop the playing-voice list and re-init all 0x40 voices, release all 0x34 sound-effect slots, drop the BGM node list and re-init all 0x10 nodes, and reset both BGM data records. */
 

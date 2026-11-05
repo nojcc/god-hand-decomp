@@ -1,12 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
+#include "godhand/criStm.h"
 
-extern char D_005FEE00[];
-extern int cSnd_GetBgmData(void *snd, int bank);
 extern void UpdateSequenceNode_373430(cSndBgmNode *node);
 extern void ResetNodeData_3733C8(cSndBgmNode *node);
-extern void cSndBgmNode_Unlink(cSndBgmNode *node);
 
 /* memset returns its pointer; declaring that keeps $v0 busy and puts the -1 in $v1 as retail does. */
 
@@ -39,7 +37,7 @@ __attribute__((section(".text.cSnd_BgmNodeStart")))
 int cSnd_BgmNodeStart(cSndBgmNode *node, int bank, int reqNo, int state, unsigned int param, int wordA, int wordB)
 {
     cSndBgmReq req;
-    if (cBgmData_IsReady((int *)cSnd_GetBgmData(D_005FEE00, bank)) == 0)
+    if (cBgmData_IsReady(cSnd_GetBgmData(&D_005FEE00, bank)) == 0)
         return 0;
     if (reqNo >= 0x38)
         return 0;

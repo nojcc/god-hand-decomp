@@ -1,26 +1,26 @@
 #include "godhand/cModel.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
-extern void cSndBgmNode_FadeOut(void *a0, float f12);
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
-extern void CustomIDWork_SetDisp(void *a0, int a1);
 extern void InitFields_1B6E90(void *a0);
 extern int D_00429C80;
 
+/* Fades every BGM node out over 180 frames for the death demo and raises the demo flag. */
 __attribute__((section(".text.cSnd_DieDemoStart")))
-void cSnd_DieDemoStart(void *a0)
+void cSnd_DieDemoStart(cSnd *self)
 {
-    char *p = (char *)a0;
-    char *s0 = *(char **)(p + 0x18);
-    while (s0 != 0) {
-        *(unsigned int *)(s0 + 0x98) = *(unsigned int *)(s0 + 0x98) | 0x10000;
-        cSndBgmNode_FadeOut(s0, 180.0f);
-        s0 = *(char **)(s0 + 0x88);
+    cSndBgmNode *node = self->bgmHead;
+    while (node != 0) {
+        node->flags |= 0x10000;
+        cSndBgmNode_FadeOut(node, 180.0f);
+        node = node->next;
     }
-    *(unsigned int *)(p + 0xB0) = *(unsigned int *)(p + 0xB0) | 0x100000;
-    *(unsigned int *)(p + 0xAC) = *(unsigned int *)(p + 0xAC) | 0x100000;
+    self->flagsB0 |= 0x100000;
+    self->flagsAC |= 0x100000;
 }
 
 /* Rebuild the model's matrix from its position, rotation and scale, and keep
@@ -81,21 +81,21 @@ void SetFlagOnEntries7C_1D51B8(char *base, int idx, int flag) {
         if (idx == 0x2D) {
             for (i = 0; i < 0x2D; i++) {
                 if (i != 0) {
-                    CustomIDWork_SetDisp(base + 0x60 + i * 0x7C, 1);
+                    CustomIDWork_SetDisp((CustomIDWork *)(base + 0x60 + i * 0x7C), 1);
                 }
             }
         } else if (idx != 0) {
-            CustomIDWork_SetDisp(base + (idx * 0x7C + 0x60), 1);
+            CustomIDWork_SetDisp((CustomIDWork *)(base + (idx * 0x7C + 0x60)), 1);
         }
     } else {
         if (idx == 0x2D) {
             for (i = 0; i < 0x2D; i++) {
                 if (i != 0) {
-                    CustomIDWork_SetDisp(base + 0x60 + i * 0x7C, 0);
+                    CustomIDWork_SetDisp((CustomIDWork *)(base + 0x60 + i * 0x7C), 0);
                 }
             }
         } else if (idx != 0) {
-            CustomIDWork_SetDisp(base + (idx * 0x7C + 0x60), 0);
+            CustomIDWork_SetDisp((CustomIDWork *)(base + (idx * 0x7C + 0x60)), 0);
         }
     }
 }

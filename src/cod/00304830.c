@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cNode.h"
 
 extern void func_002B62F8(float *v, void *s);
 extern float Adjust_theta(float a);
 extern void Adjust_theta_vec(float *p);
 extern void capVu0AddVectorXYZ(void *a0, void *a1, void *a2);
-extern void func_002B6230(void *a0, void *a1);
 
 /* Scale the object's rotation by its param record's damping factor, add the drift step per axis, wrap each angle, then store the rotation back. */
 __attribute__((section(".text.cGameObj_dampAndWrapRotation")))
@@ -32,5 +32,5 @@ void cGameObj_dampAndWrapRotation(char *s)
     q[3] = 1.0f;
     capVu0AddVectorXYZ(v, v, q);
     Adjust_theta_vec(v);
-    func_002B6230(s, v);
+    func_002B6230((cNode *)s, (cVec *)v);
 }

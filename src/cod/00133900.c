@@ -1,3 +1,4 @@
+#include "godhand/criStm.h"
 extern int D_0044EAB8;
 extern int D_0044EB70;
 extern int D_0044EC68;
@@ -211,11 +212,10 @@ void SetupFields10And14_13D3C0(void *a0)
 }
 
 __attribute__((section(".text.SetFlagAfterCopy_145160")))
-void SetFlagAfterCopy_145160(void *a0, int a1)
+void SetFlagAfterCopy_145160(void *self, void *src)
 {
-    int r;
-    r = func_003A5148((char *)a0 + 0x3B4, a1, *(short *)((char *)a0 + 0x3B2) << 1);
-    *(int *)((char *)a0 + 0x90) |= 0x40000000;
+    func_003A5148((char *)self + 0x3B4, src, *(short *)((char *)self + 0x3B2) << 1);
+    *(int *)((char *)self + 0x90) |= 0x40000000;
 }
 
 __attribute__((section(".text.GetOrInitSingletonD_150638")))

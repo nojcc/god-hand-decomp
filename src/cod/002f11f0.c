@@ -1,18 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern char D_007419A0[];
-extern void func_002D9F68(void *, int, ...);
+#include "godhand/espSys.h"
+#include "godhand/cNode.h"
+#include "godhand/mtx.h"
+
 extern int D_0061B674;
 extern unsigned char D_003C3BB0;
 extern int D_003C3BB4;
 extern unsigned char D_0061B670;
 extern int D_0044EC08;
 extern int D_0044EC28;
-extern void MtxCopy(void *mtx, void *src);
 extern void sceVu0ApplyMatrix(void *dst, void *m, void *src);
 extern char *D_005CAFF0;
-extern void cNode_setLocalTranslation(void *this, void *v);
-extern void func_002FBED0(void *this);
 
 /* sn-2.95.3-136 */
 
@@ -163,8 +162,8 @@ void func_002F6BB8(char *this) {
     VU0_LQC2(4, s, 0);
     VU0_SQC2(4, frame, 0x20);
     *(float *)(frame + 0x24) = *(float *)(this + 0x2B4);
-    cNode_setLocalTranslation(this, frame + 0x20);
-    func_002FBED0(this);
+    cNode_setLocalTranslation((cNode *)this, (cVec *)(frame + 0x20));
+    func_002FBED0((EspAnim *)this);
 }
 
 /* sn-2.95.3-136 matched TU. */

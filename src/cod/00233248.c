@@ -4,16 +4,13 @@
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void Obj1D00_ClearState_6(void *a0);
-extern void Obj1D00_ClearState_7(void *a0);
+#include "godhand/cOmWeapon.h"
 extern void *Getplayer(void);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -115,11 +112,11 @@ void func_00233248(void *arg0)
         {
             void *p = *(void **)(s1 + 0x6F0);
             if (p != 0) {
-                Obj1D00_ClearState_6(p);
+                Obj1D00_ClearState_6((cOmBase *)p);
             }
             p = *(void **)(s1 + 0x708);
             if (p != 0) {
-                Obj1D00_ClearState_7(p);
+                Obj1D00_ClearState_7((cOmBase *)p);
             }
         }
         *(float *)(s1 + 0x54C) = 5.0f;
@@ -166,13 +163,13 @@ void func_00233248(void *arg0)
         }
     }
     if (*(int *)(s1 + 0x564) == 0x208) {
-        void *p = *(void **)(s1 + 0x700);
-        if (p != 0 && Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(p) == 0) {
+        cOmWeapon *p = *(cOmWeapon **)(s1 + 0x700);
+        if (p != 0 && Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&p->base) == 0) {
             *(int *)(s1 + 0x16D0) |= 0x80000000;
         }
     }
     func_00260B30(arg0);
-    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(s1) == 0 &&
+    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8((cEm00 *)s1) == 0 &&
         (*(unsigned short *)(s1 + 0x3AC) & 0x10) != 0 &&
         *(unsigned char *)(s1 + 0x1864) == 0 && func_00262AA8(arg0) != 0) {
         return;

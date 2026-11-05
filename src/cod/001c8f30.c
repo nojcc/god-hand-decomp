@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cIDManager.h"
+#include "godhand/cNode.h"
 
 extern void func_0031EC48(float *, int *);
 extern int D_007476B0;
 extern void func_0014FF00(int a0, int a1, int a2, int a3);
-extern void func_002B6400(void *a0);
 extern int D_007858B8;
 extern unsigned char D_00429E90[];
 extern unsigned char D_00785878[];
@@ -37,15 +37,9 @@ void func_0031A600(char *a0, int a1, int a2, int a3) {
 }
 
 __attribute__((section(".text.func_002B6230")))
-void func_002B6230(char *a0, float *a1) {
-    float *v0;
-    func_002B6400(a0);
-    v0 = (float *)(a0 + 0x30);
-    if (v0 != a1) {
-        *(float *)(a0 + 0x30) = a1[0];
-        v0[1] = a1[1];
-        v0[2] = a1[2];
-    }
+void func_002B6230(cNode *self, cVec *v) {
+    func_002B6400(self);
+    cVec_copy3(&self->rot, v);
 }
 
 __attribute__((section(".text.func_001C8F30")))

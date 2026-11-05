@@ -15,13 +15,8 @@ extern void cTaskWork_kill(cTaskWork *self);
 extern char D_0041EAF0[];
 extern cDataManager D_005864E0;
 extern cDataManager D_00580D20;
-extern int cDataManager_isLoaded(cDataManager *self, int kind);
-extern void cDataManager_resetKind(cDataManager *self, int kind, int arg);
-extern void CustomIDWork_SetOffsetPosY(CustomIDWork *self, int y);
-extern void CustomIDWork_SetMoveOffsetPosY(CustomIDWork *self, int from, int to, int frames);
 extern void SetCustomIDDispOneOrAll_1DD258(void *self, int sel, int on);
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
-extern int IsEntryActive_1C2490(int entry);
 extern void displayScrollLayer(int id, int on);
 
 /* The sleep counter at 0xE sits in cTaskWork's unnamed span; the thread parameters start at 0x20. */
@@ -66,7 +61,7 @@ void cTaskWork_step(cTaskWork *self)
 /* cObj__dtor: the cObj part of the destructor. Put this class's vtable back, release the actor's data
  * kind from whichever manager holds it, then run the cModel part. */
 __attribute__((section(".text.cObj__dtor")))
-int cObj__dtor(cObjBase *self, int flag)
+void cObj__dtor(cObjBase *self, int flags)
 {
     self->vtable = (cVtEnt *)D_0041EAF0;
     if (self->actorId != 0) {
@@ -76,7 +71,7 @@ int cObj__dtor(cObjBase *self, int flag)
             cDataManager_resetKind(&D_00580D20, self->actorId, 0);
         }
     }
-    return cModel_destroy(self, flag);
+    cModel_destroy((cModel *)self, flags);
 }
 
 /* The element that slides in and out sits at 0xDC of the owner. */

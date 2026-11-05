@@ -3,8 +3,6 @@
 #include "godhand/gameWork.h"
 extern int D_007476C0[];
 extern void func_0030B870(int a0);
-extern void iFlushCache(int op);
-extern void FlushCache(int op);
 extern int sceGsSwapDBuff(void *db, int field);
 extern void func_0030CB30(void);
 

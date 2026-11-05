@@ -1,5 +1,7 @@
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -7,21 +9,14 @@ extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int Getplayer(void);
-extern int moveMotion(void *a0);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DAF0(int a0);
 extern void Obj2810_SetState_1_a1(int a0, int a1);
 extern void SetBytes2F4Mode1_283188(int a0, int a1);
-extern void Obj1D00_SetState_7_2(int a0);
-extern void Obj1D00_SetState_7_4(int a0);
-extern void Obj1D00_SetState_7_8(int a0);
-extern void Obj1D00_ClearState_7(int a0);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002705D8(void *a0);
 extern void func_002744E0(void *a0);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -651,7 +646,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
             p = *(int *)(s3 + 0x304);
             func_002A8578(s3, EM_RES_REC(p, 0x2F24), EM_RES_REC(p, 0x2F28), 0xA, 0.0f, nb, 0);
             if (*(int *)(s3 + 0x708) != 0) {
-                Obj1D00_SetState_7_2(*(int *)(s3 + 0x708));
+                Obj1D00_SetState_7_2(&(*(cOmWeapon **)(s3 + 0x708))->base);
             }
             *(int *)(s3 + 0x5F4) = 1;
             *(unsigned char *)(s3 + 0x2F6) += 1;
@@ -666,7 +661,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
             p = *(int *)(s3 + 0x304);
             func_002A8578(s3, EM_RES_REC(p, 0x2F9C), EM_RES_REC(p, 0x2FA0), 3, 0.0f, nb, 0);
             if (*(int *)(s3 + 0x708) != 0) {
-                Obj1D00_SetState_7_8(*(int *)(s3 + 0x708));
+                Obj1D00_SetState_7_8(&(*(cOmWeapon **)(s3 + 0x708))->base);
             }
             *(unsigned char *)(s3 + 0x2F6) += 1;
         }
@@ -694,7 +689,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
             p = *(int *)(s3 + 0x304);
             func_002A8578(s3, EM_RES_REC(p, 0x2F2C), EM_RES_REC(p, 0x2F30), 3, 0.0f, nb, 0);
             if (*(int *)(s3 + 0x708) != 0) {
-                Obj1D00_SetState_7_4(*(int *)(s3 + 0x708));
+                Obj1D00_SetState_7_4(&(*(cOmWeapon **)(s3 + 0x708))->base);
             }
             *(unsigned char *)(s3 + 0x2F6) += 1;
         }
@@ -708,7 +703,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
                 cObjBase_addNullSpeed(s3, 1.0f);
                 func_002705D8(s3);
                 if (*(int *)(s3 + 0x708) != 0) {
-                    Obj1D00_ClearState_7(*(int *)(s3 + 0x708));
+                    Obj1D00_ClearState_7(&(*(cOmWeapon **)(s3 + 0x708))->base);
                 }
                 return;
             }

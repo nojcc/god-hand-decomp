@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cDvd.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/FileLoadRec.h"
@@ -13,8 +14,6 @@ extern void func_001A6FB0(void *self);
 extern char *Getplayer(void);
 extern void func_001A70D8(void *self, cVec *pos, float radius);
 extern char *FileNameFromObjId(char *out, int objId);
-extern int cDvd_ReadAlloc(void *dvd, void *name, void *dst, void *arg, int a4, int a5, int a6, int a7);
-extern char D_00583F20[];
 extern unsigned char GetField_601_17B810(void *self);
 extern int cOmBase_checkDamage(void *self, int record);
 extern void cOl1b_setClose(void *self);
@@ -120,7 +119,7 @@ void *FileLoadRec_start(FileLoadRec *self, int objId, int arg)
     int result = func_003078E0(objId);
     self->arg = arg;
     FileNameFromObjId(name, objId);
-    self->handle = cDvd_ReadAlloc(D_00583F20, name, &self->data, (void *)self->arg, 0, 0, 0, 0);
+    self->handle = cDvd_ReadAlloc(&D_00583F20, name, &self->data, (void *)self->arg, 0, 0, 0, 0);
     if (self->handle != 0) {
         self->result = result;
         self->state = FILELOAD_STATE_READING;

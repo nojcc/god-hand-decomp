@@ -3,12 +3,11 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 
 extern int func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern void cDamageUnit_AddDamageCollCylinder(void *a0, void *a1, float *a2, float *a3, float f0, float f1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern int D_00574380;
 
 __attribute__((section(".text.func_00192270")))
 int func_00192270(char *p)
@@ -44,7 +43,7 @@ int func_00192270(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = 1.0f;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     cOmBase_setMeshDispFromLayer(p, 0, 1);
     cOmBase_setMeshDispFromLayer(p, 0x40, 0);

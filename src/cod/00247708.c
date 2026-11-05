@@ -6,7 +6,6 @@
  * t0 = low 16 bits of the 0x17C3 getter). The shared tail steps moveMotion (and
  * on completion runs func_002705D8) then adds the 1.0f-scaled vectors. sn-2.95.3-136. */
 
-extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);

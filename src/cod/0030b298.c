@@ -1,5 +1,8 @@
 /* sn-2.95.3-136: func_0030B298, boot setup of the game work: clear it, set the language and video mode,
  * pick the boot room, then start the graphics, data and sound systems. */
+#include "godhand/cRelSys.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 #include "godhand/gameWork.h"
 #include "godhand/criStm.h"
 
@@ -27,8 +30,6 @@ typedef struct BootWork {
 extern int D_003C3CCC;
 extern int D_00752D3C;
 extern char D_005E8140[];
-extern char D_005E8640[];
-extern char D_00580D40[];
 extern char D_004504D8[];
 
 extern void func_0030D258(void);
@@ -43,7 +44,6 @@ extern void func_0030B148(void);
 extern void func_00395F68(void (*fn)(void));
 extern void func_0030D1F8(void);
 extern int func_001FF858(void *a0, void *a1);
-extern void func_002BE6E8(void *obj);
 
 static inline int isPal(BootWork *s)
 {
@@ -92,7 +92,7 @@ void func_0030B298(void)
     }
     func_00395F68(func_0030B148);
     func_0030D1F8();
-    func_001FF858(D_00580D40, D_004504D8);
+    func_001FF858(&D_00580D40, D_004504D8);
     g->unk569 = 2;
     D_00752D3C = 0;
     func_002BE6E8(D_005E8640);

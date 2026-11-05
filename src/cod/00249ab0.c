@@ -13,7 +13,6 @@ extern void func_00281260(void *a0);
 extern void ClearBytes2F4To2F7_283170(void *a0);
 extern void func_002495E0(void *a0, float f12);
 extern float fRand0_1(void);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 

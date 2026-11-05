@@ -34,7 +34,9 @@ typedef struct pl00 {
     cGameObj *sub6A0;                   /* 0x6A0 */
     char unk6A4[4];
     cGameObj *sub6A8;                   /* 0x6A8 */
-    char unk6AC[0x1615 - 0x6AC];
+    char unk6AC[0x15F4 - 0x6AC];
+    int flags15F4;                      /* 0x15F4 */
+    char unk15F8[0x1615 - 0x15F8];
     signed char comboCount;             /* 0x1615 hits in the current combo */
     short comboTimer;                   /* 0x1616 frames left before the combo ends */
 } pl00;
@@ -42,7 +44,21 @@ typedef struct pl00 {
 typedef char pl00_chk_sub698[((int)&((pl00 *)0)->sub698 == 0x698) ? 1 : -1];
 typedef char pl00_chk_sub6A0[((int)&((pl00 *)0)->sub6A0 == 0x6A0) ? 1 : -1];
 typedef char pl00_chk_sub6A8[((int)&((pl00 *)0)->sub6A8 == 0x6A8) ? 1 : -1];
+typedef char pl00_chk_flags[((int)&((pl00 *)0)->flags15F4 == 0x15F4) ? 1 : -1];
 typedef char pl00_chk_combo[((int)&((pl00 *)0)->comboCount == 0x1615) ? 1 : -1];
 typedef char pl00_chk_timer[((int)&((pl00 *)0)->comboTimer == 0x1616) ? 1 : -1];
+
+/* 1 when the given bit of flags15F4 is set, else 0. */
+int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(pl00 *self);
+int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(pl00 *self);
+int Obj0000_IsSet_Field_15F4_Bit_100000_12CA48(pl00 *self);
+int Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8(pl00 *self);
+
+/* Spend heat gauge through cHeatSys and switch to heat mode when the flags allow; nonzero when it switched. */
+int func_00123938(pl00 *self, int mode);
+/* Pick the enemy the player catches (unk640); returns 1 and sets unk648 when one is found. */
+int func_00124540(pl00 *self, int kind);
+/* 1 when one of the five slots at 0x5B0 is in a busy motion, else 0. */
+int func_0010B2E8(pl00 *self, int flag);
 
 #endif

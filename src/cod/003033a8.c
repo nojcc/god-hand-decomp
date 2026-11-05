@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/cNode.h"
+extern void *StoreVecFromFieldB0_2B6160(void *a0, void *a1);
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
 
@@ -44,22 +46,12 @@ static __inline__ void vecSet(cVec *d, float x, float y, float z)
     d->w = 1.0f;
 }
 
-extern void sceVu0Normalize(void *a0, void *a1);
 extern void capVu0AddVectorXYZ(void *a0, void *a1, void *a2);
 extern void *func_002B6310(void *dst, void *node);
-extern void cNode_setLocalTranslation(void *self, void *v);
-extern void MtxCopy(void *dst, void *src);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 extern void *func_002B62F8(void *a0, char *a1);
-extern float *CallThenReturnPlusB0_002B6420_2B61B0(void *node);
 extern void func_00147C88(void *a0, void *a1, int a2);
-extern void func_002B6230(char *a0, float *a1);
-extern void func_002B5D58(void *arg, void *parent);
-extern void MtxMultiply(void *dst, void *a, void *b);
 extern void func_002B6350(void *node, void *m);
-extern void *func_002B6080(void *a0, void *a1);
-extern void *StoreVecFromFieldB0_2B6160(void *a0, void *a1);
-extern void cNode_setLocalScale(void *self, void *v);
 
 /* Push the position away from the origin, drop it, and add it to the velocity. */
 __attribute__((section(".text.func_003033A8")))
@@ -126,10 +118,10 @@ void func_003034A8(cFxDrift *self)
     self->pos[2] = p.z;
     func_002B62F8(&t, (char *)self);
     VU0_SQC2_VF0_MEM(&r, 0);
-    func_00147C88(&r, CallThenReturnPlusB0_002B6420_2B61B0(self), 0);
-    func_002B6230((char *)self, (float *)&t);
+    func_00147C88(&r, CallThenReturnPlusB0_002B6420_2B61B0(&self->base), 0);
+    func_002B6230(&self->base, &t);
     cNode_setTranslationFromParent(self, &r);
-    func_002B5D58(self, 0);
+    func_002B5D58(&self->base, 0);
     self->holder = 0;
 }
 
@@ -162,7 +154,7 @@ void func_00304940(cFxDrift *self)
     self->pos[0] = p.x;
     self->pos[1] = p.y;
     self->pos[2] = p.z;
-    cNode_setLocalTranslation(self, &v);
+    cNode_setLocalTranslation(&self->base, &v);
 }
 
 /* Count the release delay down; when it runs out, take the node out of the holder's frame into its own. */
@@ -184,19 +176,19 @@ void func_00304A48(cFxDrift *self)
         return;
     }
     self->delay = 0;
-    MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0(self));
+    MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0(&self->base));
     if (self->holder != 0) {
         MtxCopy(work, self->holder->mtx);
         MtxMultiply(m, work, m);
         func_002B6350(self, m);
     }
-    func_002B6080(&work[0], self);
+    func_002B6080(&work[0], &self->base);
     VU0_SQC2_VF0_MEM(&work[1], 0);
     func_00147C88(&work[1], m, 0);
     StoreVecFromFieldB0_2B6160(&work[2], self);
-    cNode_setLocalScale(self, &work[0]);
-    func_002B6230((char *)self, (float *)&work[1]);
-    cNode_setLocalTranslation(self, &work[2]);
+    cNode_setLocalScale(&self->base, &work[0]);
+    func_002B6230(&self->base, &work[1]);
+    cNode_setLocalTranslation(&self->base, &work[2]);
     vecSet(&work[3], self->pos[0], self->pos[1], self->pos[2]);
     VU0_SQC2_VF0_MEM(&z, 0);
     CopyVec3ToField30_147C40((float *)m, (float *)&z);
@@ -204,6 +196,6 @@ void func_00304A48(cFxDrift *self)
     self->pos[0] = work[3].x;
     self->pos[1] = work[3].y;
     self->pos[2] = work[3].z;
-    func_002B5D58(self, 0);
+    func_002B5D58(&self->base, 0);
     self->holder = 0;
 }

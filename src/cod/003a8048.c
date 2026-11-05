@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 extern int GetThreadId(void);
 extern int WaitSema(int sema);

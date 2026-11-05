@@ -16,24 +16,24 @@ void func_001EDC28(char *self, unsigned char step)
     switch (step) {
     default:
     case 0:
-        CustomIDWork_ResetColorAnim(self + PANEL_WORK_OFFSET);
-        CustomIDWork_SetOffsetPosX(self + PANEL_WORK_OFFSET, -PANEL_SLIDE_X);
+        CustomIDWork_ResetColorAnim((CustomIDWork *)(self + PANEL_WORK_OFFSET));
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), -PANEL_SLIDE_X);
         func_001ED700(self, 4, 0);
         break;
     case 1:
-        CustomIDWork_ResetColorAnim(self + PANEL_WORK_OFFSET);
-        CustomIDWork_SetOffsetPosX(self + PANEL_WORK_OFFSET, 0);
+        CustomIDWork_ResetColorAnim((CustomIDWork *)(self + PANEL_WORK_OFFSET));
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), 0);
         func_001ED700(self, 4, 1);
         break;
     case 2:
         from.a = 0x80; from.b = 0x80; from.g = 0x80; from.r = 0x80;
         to.r = 0xD0; to.g = 0xD0; to.b = 0xD0; to.a = 0x80;
-        CustomIDWork_SetColorAnimSin(self + PANEL_WORK_OFFSET, *(unsigned int *)&from, *(unsigned int *)&to, 6);
-        CustomIDWork_SetMoveOffsetPosX(self + PANEL_WORK_OFFSET, -PANEL_SLIDE_X, 0, 12);
+        CustomIDWork_SetColorAnimSin((CustomIDWork *)(self + PANEL_WORK_OFFSET), *(unsigned int *)&from, *(unsigned int *)&to, 6);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), -PANEL_SLIDE_X, 0, 12);
         func_001ED700(self, 4, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX(self + PANEL_WORK_OFFSET, 0, PANEL_SLIDE_X, 8);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), 0, PANEL_SLIDE_X, 8);
         func_001ED700(self, 4, 1);
         break;
     }

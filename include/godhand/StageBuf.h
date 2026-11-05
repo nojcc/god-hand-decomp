@@ -34,6 +34,5 @@ typedef struct StageBuf {
     char unk68[0x2C];
 } StageBuf;                             /* 0x94 */
 
-extern void func_003A52F0(void *dst, int val, int n);
 
 #endif

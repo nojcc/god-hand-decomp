@@ -1,4 +1,6 @@
 /* sn-2.95.3-136 */
+#include "godhand/cDvd.h"
+#include "godhand/criStm.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/gameWork.h"
@@ -14,7 +16,6 @@ typedef struct PolyCtx {
 
 struct cDvdState;
 
-extern char D_00583F20[];               /* cDvd state */
 extern float D_003C1184;                /* quad right edge */
 extern float D_003C1190;                /* quad bottom edge */
 extern unsigned char cDvd_stepState(struct cDvdState *self);
@@ -28,7 +29,7 @@ void func_002A6CA8(void *arg)
     cVec vt[4];
     PolyCtx ctx;
 
-    while (cDvd_stepState((struct cDvdState *)D_00583F20) == 1) {
+    while (cDvd_stepState((struct cDvdState *)&D_00583F20) == 1) {
         ctx.mode = 0;
         func_003A52F0(&ctx, 0, sizeof(ctx));
         ctx.mode |= 0x20;

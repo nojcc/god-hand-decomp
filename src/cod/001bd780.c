@@ -1,19 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmb2.h"
+#include "godhand/CustomIDWork.h"
+#include "godhand/cSnd.h"
 
 extern void cOmSub_initMove1_pos(void *move, void *obj, int idx, int frames, cVec *pos, float a, float b);
 extern void cOmSub_initMove3_y(void *move, void *obj, int idx, cVec *dir, float a, float b, float c);
 extern int cOmSub_move(void *move);
-extern int cSnd_SeCall_2CB8A0(char *snd, int slot, int key, int idA, int idB, int a5, int a6);
-extern char D_005FEE00[];
-extern void CustomIDWork_SetOffsetPosX(void *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
 extern void SetFlagOnEntries7C_1D51B8(void *obj, int entry, int on);
-extern void CustomIDWork_ResetColorAnim(void *work);
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(void *work, int from, int to, int frames);
-extern void CustomIDWork_SetColorAnimNormal_2D6898(void *work, int color, int frames);
-extern void CustomIDWork_SetNumber(void *work, int n);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *obj, int entry, int show);
 
 #define SLIDE_FRAMES   0x1E             /* frames of the slide-in */
@@ -54,7 +49,7 @@ void cOmb2_updateSlide(cOmb2Slide *self)
             v.w = 1.0f;
             cOmSub_initMove3_y(self->base.move, self, -1, &v, SLIDE_DECAY, -self->slideY, v.x);
         }
-        cSnd_SeCall_2CB8A0(D_005FEE00, 2, SLIDE_SE, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 2, SLIDE_SE, -1, -1, 0, 0);
         self->base.base.step = 0;
         self->playing = 1;
         self->base.base.phase = 1;
@@ -99,25 +94,25 @@ void IdPanel_setSlideState(char *p, unsigned short mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX(p + PANEL_WORK, PANEL_HIDDEN_X);
+    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + PANEL_WORK), PANEL_HIDDEN_X);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_A, 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_B, 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_C, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX(p + PANEL_WORK, 0);
+    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + PANEL_WORK), 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_A, 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_B, 1);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_C, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX(p + PANEL_WORK, PANEL_HIDDEN_X, 0, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + PANEL_WORK), PANEL_HIDDEN_X, 0, PANEL_SLIDE_FRAMES);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_A, 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_B, 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_C, 1);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX(p + PANEL_WORK, 0, PANEL_HIDDEN_X, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + PANEL_WORK), 0, PANEL_HIDDEN_X, PANEL_SLIDE_FRAMES);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_A, 0);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_B, 1);
     SetFlagOnEntries7C_1D51B8(p, PANEL_ENTRY_C, 1);
@@ -135,7 +130,7 @@ void IdGlow_setState(char *p, unsigned char mode, int c1, int c2, int c3)
 {
     switch (mode) {
     case 0:
-        CustomIDWork_ResetColorAnim(p + GLOW_WORK);
+        CustomIDWork_ResetColorAnim((CustomIDWork *)(p + GLOW_WORK));
         SetFlagOnEntries7C_1D51B8(p, GLOW_ENTRY, 0);
         break;
     case 1:
@@ -146,7 +141,7 @@ void IdGlow_setState(char *p, unsigned char mode, int c1, int c2, int c3)
         SetFlagOnEntries7C_1D51B8(p, GLOW_ENTRY, 1);
         break;
     case 2:
-        CustomIDWork_SetColorAnimNormal_2D6898(p + GLOW_WORK, GREY(c3) & ~0xFF000000, 2);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)(p + GLOW_WORK), GREY(c3) & ~0xFF000000, 2);
         SetFlagOnEntries7C_1D51B8(p, GLOW_ENTRY, 1);
         break;
     }
@@ -168,11 +163,11 @@ void IdNumbers_setAndTint(char *p, int show, int n0, int n1, int n2, int flag)
     char *wa = p + NUM_WORK_A;
     char *wb;
     char *wc;
-    CustomIDWork_SetNumber(wa, n0);
+    CustomIDWork_SetNumber((CustomIDWork *)wa, n0);
     wb = p + NUM_WORK_B;
-    CustomIDWork_SetNumber(wb, n1);
+    CustomIDWork_SetNumber((CustomIDWork *)wb, n1);
     wc = p + NUM_WORK_C;
-    CustomIDWork_SetNumber(wc, n2);
+    CustomIDWork_SetNumber((CustomIDWork *)wc, n2);
     SetCustomIDDispOneOrAll_1F29C0(p, 7, show);
     SetCustomIDDispOneOrAll_1F29C0(p, 8, show);
     SetCustomIDDispOneOrAll_1F29C0(p, 9, show);
@@ -181,9 +176,9 @@ void IdNumbers_setAndTint(char *p, int show, int n0, int n1, int n2, int flag)
         color = (((((cbuf[0] & -0x100) | 0x8A) & ~0xFF00) | 0x2600) & 0x268A);
         color |= 0x410000;
         color |= 0x80000000;
-        CustomIDWork_SetColorAnimNormal_2D6898(wa, color, COLOR_FRAMES);
-        CustomIDWork_SetColorAnimNormal_2D6898(wb, color, COLOR_FRAMES);
-        CustomIDWork_SetColorAnimNormal_2D6898(wc, color, COLOR_FRAMES);
-        CustomIDWork_SetColorAnimNormal_2D6898(p + LABEL_WORK, color, COLOR_FRAMES);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)wa, color, COLOR_FRAMES);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)wb, color, COLOR_FRAMES);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)wc, color, COLOR_FRAMES);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)(p + LABEL_WORK), color, COLOR_FRAMES);
     }
 }

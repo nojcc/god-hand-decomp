@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cPlCamera.h"
+#include "godhand/mtx.h"
 #include "godhand/cCamera.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
@@ -12,9 +13,7 @@ extern cPlCameraTarget *Getplayer(void);
 extern void func_00139FF8(struct cPlCamera *self);
 extern void func_0013AD90(struct cPlCamera *self);
 extern float capVu0Atan2(float y, float x);
-extern void MtxInitRotY(float *mtx, float angle);
 extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
-extern void cDamageUnit_SetDamageCollActive(cDamageUnit *unit, int active);
 extern void cOmBase_setMeshDispFromLayer(void *self, int layer, int on);
 extern void SetField380Bit2000ForTag_1B7300(void *self, int tag, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
@@ -24,7 +23,6 @@ extern void func_001DEDA8(void *);
 extern void func_001DD180(void *);
 extern char D_00567D70[];
 extern void NoOp_164978(void *p);
-extern void cIDBase_trans(cIDBaseObj *self);
 
 /* Follow the player: the normal chase, or the lock-on chase in state 4. */
 __attribute__((section(".text.cPlCamera_update")))

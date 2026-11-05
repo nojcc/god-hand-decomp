@@ -1,4 +1,5 @@
 /* cSnd_SetBgmTblNo: `func_002D0658(0.0f)` — forwarding call with a float arg. */
+#include "godhand/cNode.h"
 extern void func_002D0658(float);
 __attribute__((section(".text.cSnd_SetBgmTblNo")))
 void cSnd_SetBgmTblNo(void) { func_002D0658(0.0f); }
@@ -31,16 +32,15 @@ void *cEmWrap_getPos(void *a0) {
     return *(void **)(*(char **)((char *)a0 + 4) + 0xF0);
 }
 
-/* InitObjVtableAndRegister_2E76F8: constructor — store vtable at obj+0xF0, register via
- * cWorldLight_Del_LightData, then init via func_002FBE28(obj, a1). */
+/* Destructor: put back the method table at 0xF0, remove the object's light
+ * (cWorldLight_Del_LightData), then run the base destructor func_002FBE28. */
 extern int D_0044E640;
 extern int D_00604700;
 extern void cWorldLight_Del_LightData(void *a, unsigned short b, int c);
-extern void func_002FBE28(void *obj, void *a1);
 __attribute__((section(".text.InitObjVtableAndRegister_2E76F8")))
-void InitObjVtableAndRegister_2E76F8(void *obj, void *a1) {
-    *(int **)((char *)obj + 0xF0) = &D_0044E640;
-    cWorldLight_Del_LightData(&D_00604700, *(unsigned short *)((char *)obj + 0x2B2),
-                  *(int *)((char *)obj + 0x2B4));
-    func_002FBE28(obj, a1);
+void InitObjVtableAndRegister_2E76F8(cNode *self, int flags) {
+    self->vt = &D_0044E640;
+    cWorldLight_Del_LightData(&D_00604700, *(unsigned short *)((char *)self + 0x2B2),
+                  *(int *)((char *)self + 0x2B4));
+    func_002FBE28(self, flags);
 }

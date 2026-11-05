@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cActionButton.h"
+#include "godhand/espSys.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
@@ -11,22 +12,9 @@ extern unsigned char D_005CB010;
 extern char D_005FEA60[];
 extern int FindEntityAtPosition_2C2638(void *mgr, cVec *pos, cVec *center, float *extent);
 
-#define EM_NO_WEAPON_HOLDER  0x211      /* emNo of the enemy that holds the weapons */
-#define EM_WEAPON_NUM        8
-
-/* The enemy record: the number at 0x564 and the weapon handle array at 0x710. */
-typedef struct EmWeaponHolder {
-    char unk000[0x564];
-    int emNo;                           /* 0x564 */
-    char unk568[0x1A8];
-    void *weapon[EM_WEAPON_NUM];        /* 0x710 weapon handles, 0 = empty slot */
-} EmWeaponHolder;
-
-
-
 /* Enemy 0x211: drop up to `count` of its held weapons, in slot order, and forget their handles. */
 __attribute__((section(".text.EmWeaponHolder_dropWeapons")))
-void EmWeaponHolder_dropWeapons(EmWeaponHolder *self, unsigned int count, int arg)
+void EmWeaponHolder_dropWeapons(cEm00 *self, unsigned int count, int arg)
 {
     unsigned int i;
     unsigned int dropped;
@@ -36,10 +24,10 @@ void EmWeaponHolder_dropWeapons(EmWeaponHolder *self, unsigned int count, int ar
         dropped = 0;
         if (count != 0) {
             do {
-                if (self->weapon[i] != 0) {
+                if (self->heldWeapon[i] != 0) {
                     dropped++;
-                    func_001CFE88(self->weapon[i], arg);
-                    self->weapon[i] = 0;
+                    func_001CFE88(self->heldWeapon[i], arg);
+                    self->heldWeapon[i] = 0;
                 }
                 i++;
             } while (i < EM_WEAPON_NUM && dropped < count);
@@ -117,10 +105,6 @@ extern int PartHolder_markIfSequence(PartHolder *self);
 extern int SlotObj_markIfBothKinds(PartHolder *self);
 extern int PartHolder_markIfFound(PartHolder *self);
 
-
-
-
-
 /* Classify the holder: the first test that accepts it names its kind;
  * PART_KIND_NONE when none does. Each test marks the holder as a side effect. */
 __attribute__((section(".text.PartHolder_classify")))
@@ -149,11 +133,6 @@ int PartHolder_classify(PartHolder *self)
 
 #define EM_MODE_ROOM_HIT  0x700         /* D_00747A50 value this probe runs in */
 #define EM_PHASE_HIT_AIM  0x37
-
-
-
-
-
 
 /* In room mode 0x700, look for a hit unit at the enemy's position unless
  * the lock byte is set; when found, aim at its centre (unk580) and extent
@@ -238,7 +217,6 @@ typedef struct UvScroll {
     float dv;                           /* 0x2C4 per-call step of v */
 } UvScroll;
 
-extern void func_002FBED0(UvScroll *self);
 
 /* Step u and v by their speeds, fold both back into -2..2, then run the base update. */
 __attribute__((section(".text.UvScroll_step")))
@@ -254,5 +232,5 @@ void UvScroll_step(UvScroll *self)
         self->u += UV_WRAP;
     if (self->v < -UV_WRAP)
         self->v += UV_WRAP;
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
 }

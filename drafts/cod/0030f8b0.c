@@ -1,5 +1,6 @@
 /* NON_MATCHING func_0030F8B0 (sn-2.95.3-136): inline vector erase gets pos copied to $a0 early and
  * the C50/C58 memmove tails are not cross-jumped as in retail. */
+#include "godhand/cModel.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -18,7 +19,6 @@ extern ObjVec *D_00754C50;
 extern ObjVec *D_00754C58;
 extern char **func_00312DB8(char **first, char **last, char **value);
 extern void *func_003A51F4(void *d, const void *s, unsigned int n);
-extern void ReleaseObj(void *obj);
 
 static inline void VecErase30F8B0(ObjVec *v, char **pos)
 {
@@ -66,7 +66,7 @@ void func_0030F8B0(void)
             it++;
         }
         } else {
-            ReleaseObj(e);
+            ReleaseObj((struct cModel *)e);
         }
     }
 }

@@ -1,6 +1,5 @@
 #include "godhand/menuCtl.h"
 
-extern int GuardedCall_00329FD0_329F98(int);
 extern void func_003298C0(int);
 extern void func_0031C900(int);
 

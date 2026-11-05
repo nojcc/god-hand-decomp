@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/cEm00.h"
 
@@ -7,10 +9,7 @@ extern void cEmSetParam_setEm(cEmSetParam *param, int entry);
 extern void cEmWrap_StartAction(void *wrap);
 extern char D_0044BCA0[];
 extern int D_005CAE50;
-extern int D_00574380;
 extern void func_0012EC58(void *pool, void *handle);
-extern void ClearAndResetFields_1FE278(void *pool, void *handle);
-extern void cDamageManage_ReleaseDamageGive(void *mgr, void *give);
 
 /* Arena wave step: step 0 defeats every enemy and starts a 300 frame timer; step 1 waits until the ring is clear or the timer runs out, then sets the next enemy up and starts its action. */
 
@@ -76,8 +75,6 @@ typedef struct DmgObj {
     DmgPair pair[DMG_PAIR_NUM];         /* 0x5B0 */
 } DmgObj;
 
-extern void cDamageUnit_SetDamageCollActive(DmgUnit *unit, int active);
-extern void cDamageUnit_SetDamageCollRadius(DmgUnit *unit, int id, float radius);
 
 __attribute__((section(".text.DmgObj_stopDamageVolumes")))
 void DmgObj_stopDamageVolumes(DmgObj *self)
@@ -90,24 +87,24 @@ void DmgObj_stopDamageVolumes(DmgObj *self)
     if (self->pair[4].unit == 0) return;
     zero = 0.0f;
     self->pair[0].unit->kind = 0;
-    cDamageUnit_SetDamageCollActive(self->pair[0].unit, 0);
-    cDamageUnit_SetDamageCollRadius(self->pair[0].unit, self->pair[0].radiusId, zero);
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->pair[0].unit, 0);
+    cDamageUnit_SetDamageCollRadius((cDamageUnit *)self->pair[0].unit, self->pair[0].radiusId, zero);
     self->pair[0].unit->damage = 0;
     self->pair[1].unit->kind = 0;
-    cDamageUnit_SetDamageCollActive(self->pair[1].unit, 0);
-    cDamageUnit_SetDamageCollRadius(self->pair[1].unit, self->pair[1].radiusId, zero);
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->pair[1].unit, 0);
+    cDamageUnit_SetDamageCollRadius((cDamageUnit *)self->pair[1].unit, self->pair[1].radiusId, zero);
     self->pair[1].unit->damage = 0;
     self->pair[2].unit->kind = 0;
-    cDamageUnit_SetDamageCollActive(self->pair[2].unit, 0);
-    cDamageUnit_SetDamageCollRadius(self->pair[2].unit, self->pair[2].radiusId, zero);
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->pair[2].unit, 0);
+    cDamageUnit_SetDamageCollRadius((cDamageUnit *)self->pair[2].unit, self->pair[2].radiusId, zero);
     self->pair[2].unit->damage = 0;
     self->pair[3].unit->kind = 0;
-    cDamageUnit_SetDamageCollActive(self->pair[3].unit, 0);
-    cDamageUnit_SetDamageCollRadius(self->pair[3].unit, self->pair[3].radiusId, zero);
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->pair[3].unit, 0);
+    cDamageUnit_SetDamageCollRadius((cDamageUnit *)self->pair[3].unit, self->pair[3].radiusId, zero);
     self->pair[3].unit->damage = 0;
     self->pair[4].unit->kind = 0;
-    cDamageUnit_SetDamageCollActive(self->pair[4].unit, 0);
-    cDamageUnit_SetDamageCollRadius(self->pair[4].unit, self->pair[4].radiusId, zero);
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->pair[4].unit, 0);
+    cDamageUnit_SetDamageCollRadius((cDamageUnit *)self->pair[4].unit, self->pair[4].radiusId, zero);
     self->pair[4].unit->damage = 0;
 }
 

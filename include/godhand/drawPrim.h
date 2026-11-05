@@ -2,8 +2,20 @@
 #ifndef GODHAND_DRAWPRIM_H
 #define GODHAND_DRAWPRIM_H
 
+struct cScrVtx;
+struct cScrTexCfg;
+
 /* Queue a four-vertex polygon packet; returns the packet, or 0 when the queue is full. */
 extern void *Gp_draw_poly4(void *v, int color, int count, void *ctx, int a5, int a6);
+
+/* Queue a textured quad over the two corners v[0] and v[1] (screen positions when
+ * screen is set) from a raw texture image loaded at tbp/cbp, with the draw config cfg,
+ * in list kind at priority prio; returns the packet, or 0 when the queue is full. */
+void *func_0015D168(struct cScrVtx *v, unsigned int color, int screen, void *tex, unsigned int tbp, int cbp,
+                    struct cScrTexCfg *cfg, int kind, int prio);
+/* The same quad from a TIM2 texture file. */
+void *func_0015D6E8(struct cScrVtx *v, unsigned int color, int screen, void *tex, unsigned int tbp, int cbp,
+                    struct cScrTexCfg *cfg, int kind, int prio);
 
 /* The line drawing attributes Gp_draw_line reads: flags and a TEST register value. */
 typedef struct LineAttr {

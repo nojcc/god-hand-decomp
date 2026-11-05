@@ -1,4 +1,5 @@
 #include "godhand/cSnd.h"
+#include "godhand/criStm.h"
 __attribute__((section(".text.FreeEntrySlot_2B5BB8")))
 void FreeEntrySlot_2B5BB8(int a0, int a1, int a2)
 {
@@ -18,8 +19,8 @@ void FreeEntrySlot_2B5BB8(int a0, int a1, int a2)
 __attribute__((section(".text.ClearStructFields_2C8EB0")))
 void ClearStructFields_2C8EB0(int *a0) {
     a0[0] = 0;
-    func_003A52F0((int)((char *)a0 + 0x4), 0, 0xC);
-    func_003A52F0((int)((char *)a0 + 0x14), 0, 0x80);
+    func_003A52F0((char *)a0 + 0x4, 0, 0xC);
+    func_003A52F0((char *)a0 + 0x14, 0, 0x80);
 }
 
 /* Clears the active flag of a used BGM node and refreshes its state. */

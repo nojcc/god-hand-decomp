@@ -140,7 +140,7 @@ void func_00109928(pl00 *self)
     default:
         child = cOmBase_childAt((cOmBase *)self, frame, 4);
         if (child != 0) {
-            SetEffectPos(0, 3, 0, child->pos, -1, 1.0f);
+            SetEffectPos(0, 3, 0, child->pos, 1.0f, -1);
         }
         break;
     case 0x38:

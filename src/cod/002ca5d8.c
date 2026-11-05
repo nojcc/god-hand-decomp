@@ -2,8 +2,6 @@
 
 #include "godhand/cSnd.h"
 
-extern void cSndSeVoice_Update(cSndSeVoice *voice);
-extern void cSndSeVoice_Stop(cSndSeVoice *voice);
 
 #define CSND_F_SE_PENDING  0x04000000   /* bit of flagsAC / flagsB0: sound effects wait to be flushed */
 #define CSND_VOICE_STOP_BIT 2           /* voice flag bit that marks it for stopping */

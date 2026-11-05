@@ -1,49 +1,15 @@
 /* sn-2.95.3-136 */
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cCollisionSolid.h"
 
 #define CSOLID_FLAG_ACTIVE  0x1
 #define CSOLID_FLAG_HIT     0x2         /* set on both solids of a touching pair */
 #define CSOLID_KIND_SPHERE  1
 #define CSOLID_KIND_BOX     3
-#define CSOLID_HIT_MAX      32
 #define CSOLID_BOUND        10000.0f
 
-typedef struct cCollisionSolidVt {
-    char unk00[0x18];
-    short calcBoundsDelta;              /* 0x18 */
-    short pad1A;
-    void (*calcBounds)(void *self);     /* 0x1C refresh min/max */
-} cCollisionSolidVt;
 
-typedef struct cCollisionSolidBody {
-    struct cCollisionSolidBody *next;   /* 0x00 next solid of the unit */
-    int kind;                           /* 0x04 CSOLID_KIND_* */
-    unsigned int flags;                 /* 0x08 CSOLID_FLAG_* */
-    char unk0C[4];
-    cVec min;                           /* 0x10 */
-    cVec max;                           /* 0x20 */
-    cCollisionSolidVt *vt;              /* 0x30 */
-} cCollisionSolidBody;
-
-typedef struct cCollisionSolidUnit {
-    cGameObj *owner;                    /* 0x00 */
-    cCollisionSolidBody *first;         /* 0x04 */
-    char unk08[8];
-    struct cCollisionSolidUnit *next;   /* 0x10 */
-    char unk14[0xC];
-    cVec min;                           /* 0x20 bounds of all its solids */
-    cVec max;                           /* 0x30 */
-} cCollisionSolidUnit;
-
-typedef struct cCollisionSolidManage {
-    cCollisionSolidUnit *first;         /* 0x00 */
-    char unk04[4];
-    cGameObj *hits[CSOLID_HIT_MAX];     /* 0x08 owners hit by the last check */
-    unsigned int hitNum;                /* 0x88 */
-} cCollisionSolidManage;
-
-extern cCollisionSolidUnit *func_001346C8(cCollisionSolidManage *self, cGameObj *obj);
 extern int func_00135250(void *unused, float *a1, float *a2, float *a3, float *t0);
 extern int func_00134CB0(cCollisionSolidManage *self, cCollisionSolidUnit *ua, cCollisionSolidBody *a,
                          cCollisionSolidUnit *ub, cCollisionSolidBody *b);

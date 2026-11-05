@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cOmHitVolume.h"
 
 extern void func_00383708(void *self);
 extern void func_003837E8(void *self);
 extern void func_00383848(void *self);
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void cDamageUnit_AddDamageCollCylinder(void *unit, void *pos, float *a, float *b, float height, float radius);
-extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *size);
 
 /* Phases of the object: 0, 1 and 2 each run their own update. */
 #define OBJ_PHASE_A 0
@@ -41,7 +40,6 @@ void PhaseObj_updatePhase(PhaseObj *self)
 
 
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -73,7 +71,7 @@ int cOmHitVolume_setupCylinderH3(cOmHitVolume *self)
         f[5] = 0.0f;
         f[6] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, f, nv, CYL_HEIGHT, CYL_RADIUS);
+        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, (cVec *)f, (cVec *)nv, CYL_HEIGHT, CYL_RADIUS);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -93,7 +91,6 @@ int cOmHitVolume_setupCylinderH3(cOmHitVolume *self)
 
 
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -125,7 +122,7 @@ int cOmHitVolume_setupCylinderH4(cOmHitVolume *self)
         f[5] = 0.0f;
         f[6] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, f, nv, CYL_HEIGHT, CYL_RADIUS);
+        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, (cVec *)f, (cVec *)nv, CYL_HEIGHT, CYL_RADIUS);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -141,7 +138,6 @@ int cOmHitVolume_setupCylinderH4(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -183,7 +179,7 @@ int cOmHitVolume_setupBox_20(cOmHitVolume *self)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->unk5E8 = 0;
     self->unk5E4 = 0;

@@ -3,13 +3,13 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cScenario.h"
+#include "godhand/cSnd.h"
+#include "godhand/BlackJack.h"
 
 extern unsigned char D_005864F0[];
 extern void cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern int D_005E8658;
 extern void func_002BECB0();
-extern unsigned char D_005FEE00[];
-extern int cSnd_SeCall(void *a0, int a1, short a2, int a3, int a4, int a5);
 extern int D_00747470;
 extern void classFADE_kill(void *p);
 extern void cGameObjSortEnt_unguardedLinearInsert();
@@ -186,34 +186,34 @@ void func_001D0D90(int a0, int a1)
 }
 
 __attribute__((section(".text.func_001D6DD0")))
-void func_001D6DD0(unsigned char *a0, int a1)
+void func_001D6DD0(BlackJackCard *card, int animate)
 {
-    long v0 = *(unsigned int *)(a0 + 0x4);
+    long v = (unsigned int)card->flags;
 
-    if (((v0 >> 3) & 1) == 0 && ((v0 >> 4) & 1) == 0) {
-        if (a1 != 0) {
-            *(int *)(a0 + 0x4) |= 0x10;
+    if (((v >> 3) & 1) == 0 && ((v >> 4) & 1) == 0) {
+        if (animate != 0) {
+            card->flags |= 0x10;
         } else {
-            *(int *)(*(int *)a0 + 0x104) = 0;
-            *(int *)(a0 + 0x4) |= 8;
+            card->obj->rot.y = 0.0f;
+            card->flags |= 8;
         }
     }
 }
 
 __attribute__((section(".text.func_001D6EC8")))
-void func_001D6EC8(char *a0, int a1) {
+void func_001D6EC8(BlackJackCard *card, int animate) {
     long v;
 
-    v = *(unsigned int *)(a0 + 4);
+    v = (unsigned int)card->flags;
     if (((v >> 3) & 1) == 0) {
         return;
     }
     if (((v >> 4) & 1) == 0) {
-        if (a1 != 0) {
-            *(int *)(a0 + 4) = *(int *)(a0 + 4) | 0x10;
+        if (animate != 0) {
+            card->flags = card->flags | 0x10;
         } else {
-            *(float *)(*(int *)(a0 + 0) + 0x104) = 3.14159265358979f;
-            *(int *)(a0 + 4) = *(int *)(a0 + 4) & ~8;
+            card->obj->rot.y = 3.14159265358979f;
+            card->flags = card->flags & ~8;
         }
     }
 }
@@ -265,7 +265,7 @@ void func_001EC820(int a0)
             if ((v >> 2 & 1) == 0) {
                 return;
             }
-            *(int *)(a0 + 0x2A08) = cSnd_SeCall(&D_005FEE00, 2, 3, *(int *)(a0 + 0x200) + 0x210, 0, 0);
+            *(int *)(a0 + 0x2A08) = cSnd_SeCall(&D_005FEE00, 2, 3, *(char **)(a0 + 0x200) + 0x210, 0, 0);
             *(int *)(a0 + 0x54) |= 0x800;
         }
     }

@@ -4,7 +4,6 @@
 /* func_002477F0 — sets +0x54C=3.0f, ORs 0x20000 into +0x16D0, then a +0x2F6 phase
  * machine (record fields 0x23F8/0x23FC, mode 0; t0 = low 16 bits of the 0x17C3
  * getter) stepping moveMotion and adding the 1.0f-scaled vectors.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);

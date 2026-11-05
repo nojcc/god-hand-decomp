@@ -30,7 +30,7 @@ int func_0016F4A8(cOmHitVolume *self)
     v[2].y = 0.0f;
     v[2].z = 0.0f;
     m->w = 1.0f;
-    slot = cDamageManage_CreateDamageTake(D_00574380, self, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damageTake = slot;
     if (slot != 0) {
         nv = &v[3];

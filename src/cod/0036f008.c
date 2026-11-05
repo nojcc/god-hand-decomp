@@ -1,4 +1,4 @@
-extern int func_003A5148(int, int, int);
+#include "godhand/criStm.h"
 
 __attribute__((section(".text.func_0036F008")))
 void func_0036F008(char *object, void *source, int count)
@@ -11,5 +11,5 @@ void func_0036F008(char *object, void *source, int count)
     if (count < remaining)
         remaining = count;
     *(int *)(header + 8) = offset + remaining;
-    func_003A5148((int)((char *)base + offset), (int)source, remaining);
+    func_003A5148((char *)base + offset, source, remaining);
 }

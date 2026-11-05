@@ -100,6 +100,14 @@ typedef struct SndVoiceNode {
 
 extern SndVoiceNode D_0076A600[3];
 
+/* SndVoiceNode's own method table. */
+extern char D_003BAFE0[];
+/* Constructor: store SndVoiceNode's method table; returns self. */
+SndVoiceNode *Obj0000_Set_Field_80_372C68(SndVoiceNode *self);
+/* Destructor: put back SndVoiceNode's method table, then free self when
+ * flags bit 0 is set. */
+void func_00372C80(SndVoiceNode *self, int flags);
+
 /* A sound channel (0xA0 bytes); flags is nonzero while it is in use. */
 typedef struct SndCh {
     unsigned short flags;       /* 0x00 */

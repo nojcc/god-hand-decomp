@@ -5,18 +5,14 @@
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/cSnd.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *src);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
-extern void func_001DF528(void *p, int a1, int a2);
-extern void cSnd_SetBgmState(void *snd, int state);
 extern long D_00747640;
-extern char D_005FEE00[];
-extern void CustomIDWork_ResetColorAnim(CustomIDWork *work);
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(CustomIDWork *work, int from, int to, int frames);
-extern void CustomIDWork_SetColorAnimNormal_2D6898(CustomIDWork *work, int color, int frames);
 extern void func_001E7470(void *self, int entry, int on);
 
 #define OM_OFFSET_MODE  0x2F4           /* mode byte, read through the raw offset as retail does */
@@ -86,8 +82,6 @@ void cOmOffsetObj_updateWorldOffset(cOmOffsetObj *self)
     func_001B76D8(self);
 }
 
-#define POKER_OFFSET_UI     0x25B0    /* the table's UI record is not typed yet */
-#define POKER_UI(self)      ((char *)(self) + POKER_OFFSET_UI)
 #define POKER_WAIT_A        0x3C      /* frames before the first UI animation */
 #define POKER_WAIT_B        0x78
 #define POKER_WAIT_C        0x1E
@@ -118,7 +112,7 @@ void Poker_updateIntro(Poker *self)
     case 1:
         if (!Poker_timerDone(self))
             return;
-        func_001DF528(POKER_UI(self), 1, 4);
+        func_001DF528(&self->ui, 1, 4);
         self->timer = POKER_WAIT_B;
         self->phase = self->phase + 1;
         break;
@@ -127,13 +121,13 @@ void Poker_updateIntro(Poker *self)
             if (!Poker_timerDone(self))
                 return;
         }
-        func_001DF528(POKER_UI(self), 1, 3);
+        func_001DF528(&self->ui, 1, 3);
         self->timer = POKER_WAIT_C;
         self->phase = self->phase + 1;
         break;
     case 3:
         if (Poker_timerDone(self)) {
-            cSnd_SetBgmState(D_005FEE00, 0);
+            cSnd_SetBgmState(&D_005FEE00, 0);
             self->phase = 0;
             self->state = POKER_STATE_NEXT;
         }

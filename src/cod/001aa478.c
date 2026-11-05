@@ -1,14 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cObj.h"
+#include "godhand/criStm.h"
+#include "godhand/pl00.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cDvd.h"
+#include "godhand/cModel.h"
 
 extern void func_001C2378(void *self);
-extern void cModel_calcParts(void *self);
 extern void cOmBase_setMeshColorFromLayer(void *self, int layer, float r, float g, float b);
 extern cOmBase *Getplayer(void);
-extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *obj);
 extern int D_00586A04;
 extern char D_0044D420[];
 extern void func_001C24E8(void *self);
@@ -34,7 +35,7 @@ void cObj_setupAimStep2(AimObj *self, int a, int b, cVec *from, cVec *to) {
     cVec_copy3(&self->to, to);
     self->step = 2;
     func_001C2378(self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
 }
 
 /* A node of a list of sequences. */
@@ -103,18 +104,19 @@ void cOmBase_blinkTick(BlinkObj *self) {
     cOmBase_setMeshColorFromLayer(self, BLINK_LAYER, 1.0f, 1.0f, 1.0f);
 }
 
-#define COMBASE_UNK4AC(o)  (*(int *)((char *)(o) + 0x4AC))
+/* cObjBase.kindName; cOmBase.h leaves 0x4AC unnamed. */
+#define COMBASE_KIND_NAME(o)  (*(const char **)((char *)(o) + 0x4AC))
 
 /* When the player is alive, free and not caught, and self is not flagged off, run func_001C24E8 unless the table lookup hits. */
 __attribute__((section(".text.cPlayer_tryTrigger")))
 void cPlayer_tryTrigger(cOmBase *self) {
     cOmBase *player = Getplayer();
     if (player->hp > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(player) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)player) == 0) {
             if (D_00586A04 <= 0) {
                 if (self != 0) {
                     if (self->objFlags >= 0) {
-                        if (func_003A5678(D_0044D420, COMBASE_UNK4AC(self)) == 0) {
+                        if (func_003A5678(D_0044D420, COMBASE_KIND_NAME(self)) == 0) {
                             func_001C24E8(self);
                         }
                     }

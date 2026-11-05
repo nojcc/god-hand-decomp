@@ -1,25 +1,21 @@
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
 #include "godhand/motion.h"
+#include "godhand/cEmManage.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
-extern int moveMotion(void *a0);
 extern int irand(void);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, void *a1, int a2);
-extern int cEmManage_ckEnemyActiveNear(void *a0, void *a1, float f12);
-extern int cEmManage_ckEmNear(void *a0, void *a1, void *a2, float f12);
 extern void cEm00_clearSetFlags(int a0);
-extern char D_00462FC0[];
 extern unsigned short D_00747A50;
 extern char D_007474A0[];
-extern char D_005864F0[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -1070,7 +1066,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
             }
             func_002A8578(s1, s2v, s0v, 0, fv, gb, 0);
             if ((p1 ^ 0x4E2) != 0) {
-                InitRenderStruct_2A8608(s1, p1, p2, 0, 2, 0);
+                InitRenderStruct_2A8608((cGameObj *)s1, p1, p2, 0, 2, 0);
             }
             {
                 float *dst = (float *)(s1 + 0x5C0);
@@ -1112,7 +1108,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
             }
             if (*(int *)(s1 + 0x1644) & 0x10008000) {
                 if (*(int *)(s1 + 0x1644) & 0x10000000) {
-                    cCollisionSolidManage_SetActive(D_00462FC0, s1, 0);
+                    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
                     *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x1000;
                 }
                 if (*(int *)(s1 + 0x16EC) != 0) {
@@ -1134,7 +1130,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) & 0xF7FFFFFF;
                             h = Getplayer();
                             func_002A74E0(s1, *(void **)((char *)h + 0xF0), 1);
-                            if (func_002A7CA0(s1, s1 + 0x16A0) != 0) {
+                            if (func_002A7CA0((cGameObj *)s1, (cVec *)(s1 + 0x16A0)) != 0) {
                                 *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) | 0x8000000;
                             }
                             if (*(float *)(s1 + 0x510) < 8.0f) {
@@ -1149,10 +1145,10 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                 if (*(int *)(s1 + 0x16D0) & 0x200000) {
                     char *g = D_007474A0;
                     if ((*(int *)(g + 0x210) & 7) == (*(int *)(s1 + 0x17D0) & 7)) {
-                        if (cEmManage_ckEnemyActiveNear(D_005864F0, *(void **)(s1 + 0xF0), 4.0f) != 0) {
+                        if (cEmManage_ckEnemyActiveNear(&D_005864F0, *(cVec **)(s1 + 0xF0), 4.0f) != 0) {
                             *(unsigned char *)(s1 + 0x2F6) = 2;
                         }
-                        if (cEmManage_ckEmNear(D_005864F0, *(void **)(s1 + 0xF0), s1, 3.0f) != 0) {
+                        if (cEmManage_ckEmNear(&D_005864F0, *(cVec **)(s1 + 0xF0), (cEmActor *)s1, 3.0f) != 0) {
                             *(unsigned char *)(s1 + 0x2F6) = 2;
                         }
                     }

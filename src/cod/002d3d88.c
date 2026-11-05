@@ -31,7 +31,6 @@ typedef struct {
 } MovieImgHdr;
 
 extern char D_0044D188[];
-extern void *_MemoryAlloc(int size, int align, void *region);
 extern void func_003A5DA0(void *dst, void *src, int n);
 extern int mwPlyCalcWorkCprmSfd(void *cp);
 extern void func_003B0640(void *start, void *end);

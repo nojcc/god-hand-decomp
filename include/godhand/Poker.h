@@ -10,6 +10,7 @@
 #define GODHAND_POKER_H
 
 #include "godhand/BlackJack.h"   /* BlackJackCard, BlackJackCardObj, BlackJackVtEnt */
+#include "godhand/PanelObj.h"
 
 #define POKER_DECK_NUM   52
 #define POKER_HAND_NUM   5
@@ -19,7 +20,9 @@
 #define POKER_CARD_RESET 0x9    /* BlackJackCard.flags of every card after a deck reset */
 
 typedef struct Poker {
-    char unk0000[0x2E60];
+    char unk0000[0x25B0];
+    PanelObj ui;                        /* 0x25B0 */
+    char unk2E4C[0x2E60 - 0x2E4C];
     int level;                          /* 0x2E60 table level, 0..3 */
     BlackJackCard deck[POKER_DECK_NUM]; /* 0x2E64 */
     BlackJackCard *hand[POKER_HAND_NUM]; /* 0x3004 */
@@ -45,8 +48,6 @@ typedef struct Poker {
     short cardId[POKER_HAND_NUM];       /* 0x3052 card ids, POKER_CARD_NONE = empty slot */
 } Poker;                                /* 0x305C */
 
-/* The table's UI record (a PanelObj) sits at 0x25B0 and is not typed in Poker yet. */
-#define POKER_UI(self)  ((char *)(self) + 0x25B0)
 
 /* Sorted rank patterns of the nine non-royal straights (A-5 .. 9-K). */
 typedef struct PokerStraightTbl {
@@ -61,6 +62,9 @@ typedef struct PokerStraightTbl10 {
 } PokerStraightTbl10;                   /* 0xC8 */
 
 extern PokerStraightTbl10 D_0042B4D0;
+
+void Poker_resetDeck(Poker *self);
+int Casino_randRange(void *self, int lo, int hi);
 
 /* The hand as the hand-ranking helpers (0x1DC980..) see it, with the slot flags as an int. */
 #define POKER_HAND_F_MARK   0x4         /* PokerHandSlot.flags: card belongs to the scored group */
@@ -79,5 +83,8 @@ typedef struct PokerHandView {
     char unk0000[0x3004];
     PokerHandSlot *slot[POKER_HAND_NUM]; /* 0x3004 Poker.hand */
 } PokerHandView;
+
+/* Release the table's display ID and its ID screen, then clear the host's words at 0x90 and 0x94. */
+void Poker_releaseIds(Poker *self);
 
 #endif

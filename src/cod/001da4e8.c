@@ -10,7 +10,6 @@ extern void PanelWork_setModeB(char *a0, unsigned char a1);
 extern void CustomIDOwner_setSlideStateB(void *a0, unsigned char a1);
 extern void PokerUi_slidePanel(void *a0, int a1);
 extern void Panel_slideSidePanelArrows(void *a0, int a1);
-extern void func_001DEE40(void *a0, int a1);
 extern void UiPanel_setSlideMode(char *a0, unsigned char a1);
 
 static inline unsigned char DecCount(int *p)
@@ -46,20 +45,20 @@ void func_001DA4E8(Poker *self)
         self->phase += 1;
         break;
     case 2: {
-        char *ui;
+        PanelObj *ui;
         int v;
 
         if (DecCount(&self->timer) == 0) {
             break;
         }
-        ui = POKER_UI(self);
+        ui = &self->ui;
         CustomIDOwner_setSlideStateB(ui, 2);
         PokerUi_slidePanel(ui, 2);
         Panel_slideSidePanelArrows(ui, 2);
         v = self->payout;
         self->bet = v;
         func_001DEE40(ui, v);
-        UiPanel_setSlideMode(ui, 2);
+        UiPanel_setSlideMode((char *)ui, 2);
         self->phase = 0;
         self->state = 0xD;
         break;

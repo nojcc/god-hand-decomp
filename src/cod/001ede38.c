@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/CustomIDWork.h"
 
 extern void cIDBase(void *a0);
-extern void CustomIDWork(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -21,7 +21,7 @@ void *func_001EDE38(void *a0) {
     /* `i != -1`, not `i >= 0`: retail materialises -1 in a register and closes
        this call-loop with `bne`. The idiom picks the branch instruction. */
     for (i = 0x1C; i != -1; i--) {
-        CustomIDWork(q);
+        CustomIDWork__ctor((CustomIDWork *)q);
         q += 0x7C;
     }
     return p;

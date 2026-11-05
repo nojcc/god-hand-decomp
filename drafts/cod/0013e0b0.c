@@ -43,7 +43,7 @@ void func_0013E0B0(IdOwner *o)
                 break;
         }
         w->value += (D_0041DFF8[j + 1] - D_0041DFF8[j]) / (float)(D_0041E010[j + 1] - D_0041E010[j]);
-        cIDBase_move(&o->sub[i]);
+        cIDBase_move((cIDBaseObj *)&o->sub[i]);
         o->timer[i]++;
     }
 }

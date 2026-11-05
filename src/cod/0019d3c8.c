@@ -1,16 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 
 extern char D_00425D48[];
 extern int ResetActorState_1BBF00();
 extern int cOmBase_checkDamage();
-extern int ClearAndResetFields_1FE278();
 extern char D_00426D50[];
-extern char D_00574380[];
 extern int ResetField214FreeField180_1C2820();
 extern char D_00426E78[];
 extern int SetField214PtrThenInit_1B6F38();
-extern int cDamageManage_ReleaseDamageGive();
-extern int cDamageUnit_SetDamageCollActive();
 extern char D_00427060[];
 extern char D_00427400[];
 
@@ -90,7 +88,7 @@ void func_001A0DF0(void *a0, void *a1) {
     }
     v = *(int *)((char *)a0 + 0x608);
     if (v != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380);
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)v);
         *(int *)((char *)a0 + 0x608) = 0;
     }
     SetField214PtrThenInit_1B6F38(a0, a1);
@@ -137,7 +135,7 @@ __attribute__((section(".text.func_001A2350")))
 void func_001A2350(void *a0, int a1) {
     int *ebase = (int *)((char *)a0 + 0x600);
     int *base;
-    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive(ebase[a1], 0);
+    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive((cDamageUnit *)ebase[a1], 0);
     base = (int *)((char *)a0 + 0xD90);
     base[(unsigned int)a1 >> 5] |= (unsigned int)0x80000000 >> (a1 & 0x1F);
 }
@@ -183,7 +181,7 @@ __attribute__((section(".text.func_001A37F0")))
 void func_001A37F0(void *a0, int a1) {
     int *ebase = (int *)((char *)a0 + 0x600);
     int *base;
-    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive(ebase[a1], 0);
+    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive((cDamageUnit *)ebase[a1], 0);
     base = (int *)((char *)a0 + 0xD90);
     base[(unsigned int)a1 >> 5] |= (unsigned int)0x80000000 >> (a1 & 0x1F);
 }

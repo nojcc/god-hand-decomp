@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/Slot2.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cMessDrawFont.h"
 #include "godhand/cCoreSave.h"
 
@@ -24,7 +25,6 @@ extern void Slot2_updateLineMark3(Slot2 *a0);
 extern void Slot2_blinkMarkSet(Slot2 *a0);
 extern void func_001E79E8(void *a0);
 extern void func_001E8830(void *a0);
-extern void CustomIDWork_SetNumber(void *a0, int a1);
 extern void func_001E73C0(void *a0);
 extern void func_001E7440(void *a0);
 extern void func_001E6938(Slot2 *a0);
@@ -130,7 +130,7 @@ void Slot2_update(Slot2 *self) {
     func_001E8830(&self->reel[1]);
     func_001E8830(&self->reel[2]);
     t = cCoreSave_getGold(&D_00569B70);
-    CustomIDWork_SetNumber(self->customId, t);
+    CustomIDWork_SetNumber((CustomIDWork *)self->customId, t);
     func_001E73C0(layer);
     func_001E7440(layer);
     if (D_00747A2C & 0x200) {

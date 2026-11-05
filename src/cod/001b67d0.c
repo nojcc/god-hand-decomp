@@ -1,8 +1,8 @@
 /* sn-2.95.3-136: func_001B67D0, enemy setup with a three-sphere (radius 0.25) damage-give volume along z, the give attributes 0x41/0x14/0xF0 and a forward direction. */
+#include "godhand/cDamageManage.h"
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/vecInline.h"
-extern char D_00574380[];
 
 /* An enemy whose attack is a damage-give volume of three spheres along z. */
 typedef struct cOmGiveSpheres {
@@ -43,13 +43,13 @@ int func_001B67D0(cOmGiveSpheres *self)
     f[13] = 0.0f;
     t[2] = 1.0f;
     t[3] = 1.0f;
-    give = cDamageManage_CreateDamageGive(D_00574380, 2, self);
+    give = cDamageManage_CreateDamageGive(&D_00574380, 2, self);
     self->give = give;
     if (give != 0) {
-        cDamageUnit_AddDamageCollSphere(give, self->base.mtx, f, 0.25f);
-        cDamageUnit_AddDamageCollSphere(self->give, self->base.mtx, a, 0.25f);
-        cDamageUnit_AddDamageCollSphere(self->give, self->base.mtx, b, 0.25f);
-        cDamageUnit_SetDamageCollActive(self->give, 0);
+        cDamageUnit_AddDamageCollSphere(give, self->base.mtx, (cVec *)f, 0.25f);
+        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, self->base.mtx, (cVec *)a, 0.25f);
+        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, self->base.mtx, (cVec *)b, 0.25f);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)self->give, 0);
         self->give->flags |= 1;
         self->give->unk46 = 0x41;
         self->give->activeTime = 0x14;

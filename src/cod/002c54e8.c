@@ -1,4 +1,5 @@
 #include "godhand/cScrSpriteDraw.h"
+#include "godhand/criStm.h"
 
 /* cygnus-2.96 matched TU. */
 
@@ -10,7 +11,6 @@ extern int ADXF_ReadNw(int a0, int a1, int a2);
 extern int Forward33E6B0_324898(void);
 extern void func_00328368(void);
 extern void func_00328018(char *a0);
-extern void func_003A52F0(char *a0, int a1, int a2);
 extern void Obj3290_Tramp_0033E6A8_9070(void);
 extern int Obj3290_Tramp_0033E6B0_9088(void);
 extern void NoOp_33E6A8(void);

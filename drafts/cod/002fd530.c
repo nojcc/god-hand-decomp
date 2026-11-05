@@ -1,4 +1,5 @@
 /* NON_MATCHING func_002FD530: retail keeps the dest vector pointer in a pseudo (v0, copied to s1) and folds the source loads to s0 offsets; ours is the mirror image (source pointer pseudo, dest folded) with inline vset */
+#include "godhand/cNode.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -22,7 +23,6 @@ extern int D_00747A84;
 extern float D_00741DC0;
 extern float D_00747A14;
 extern void func_002B62F8(float *, VecOwner *);
-extern void func_002B6230(VecOwner *, float *);
 extern void sceVu0ScaleVector(float *, float *, float);
 extern void capVu0AddVectorXYZ(float *, float *, float *);
 extern void Adjust_theta_vec(float *);
@@ -51,7 +51,7 @@ void func_002FD530(VecOwner *o)
     }
     capVu0AddVectorXYZ(pos, pos, pv);
     Adjust_theta_vec(pos);
-    func_002B6230(o, pos);
+    func_002B6230((cNode *)o, (cVec *)pos);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_002FD530);

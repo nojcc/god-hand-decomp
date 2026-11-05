@@ -1,5 +1,6 @@
 /* NON_MATCHING func_003B3650 (ee-2.9-991111): req and pkt get s1/s0 swapped versus retail
  * (no declaration order or register keyword moves them); the final DMA slot stores schedule differently. */
+#include "godhand/eeKernel.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -39,7 +40,6 @@ extern void func_003B2850(void *addr, int size);
 extern int func_003B63A0(void);
 extern void *_sceRpcGetFPacket2(void *data, int rid);
 extern void *func_003B2B90(void *data);
-extern int EIntr(void);
 extern int sceSifSendCmd(unsigned int cmd, void *pkt, int size, void *src, void *dest, int dsize);
 extern unsigned int func_003B2148(SifDmaT *dma, int n);
 

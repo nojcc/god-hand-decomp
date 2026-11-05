@@ -2,17 +2,16 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cOmWeapon.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern unsigned int irand(void);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
 extern void func_002705D8(void *a0);
 extern void func_0026B4E8(void *a0);
 
@@ -178,7 +177,7 @@ __attribute__((section(".text.func_00216B58"))) void func_00216B58(cEm00 *self)
                 v0 = *(char **)(s1 + 0x304);
                 s2v = EM_RES_REC((int)v0, 0x15A4);
                 s0v = EM_RES_REC((int)v0, 0x15A8);
-                SetOrientByType_26AF20(s1, *(int *)(s1 + 0x700), 1);
+                SetOrientByType_26AF20((cOmBase *)s1, *(cOmWeapon **)(s1 + 0x700), 1);
             }
             goto a4_end;
         a4_hit:
@@ -186,7 +185,7 @@ __attribute__((section(".text.func_00216B58"))) void func_00216B58(cEm00 *self)
                 char *v0 = *(char **)(s1 + 0x304);
                 s2v = EM_RES_REC((int)v0, 0x1524);
                 s0v = EM_RES_REC((int)v0, 0x1528);
-                SetOrientByType_26AF20(s1, *(int *)(s1 + 0x700), 3);
+                SetOrientByType_26AF20((cOmBase *)s1, *(cOmWeapon **)(s1 + 0x700), 3);
             }
         a4_end:
             *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x80000000;
@@ -217,10 +216,10 @@ __attribute__((section(".text.func_00216B58"))) void func_00216B58(cEm00 *self)
                 if (t == 0x22F)
                     goto a6_hit;
             a6_def:
-                SetOrientByType_26AF20(s1, *(int *)(s1 + 0x700), 0);
+                SetOrientByType_26AF20((cOmBase *)s1, *(cOmWeapon **)(s1 + 0x700), 0);
                 goto a6_end;
             a6_hit:
-                SetOrientByType_26AF20(s1, *(int *)(s1 + 0x700), 2);
+                SetOrientByType_26AF20((cOmBase *)s1, *(cOmWeapon **)(s1 + 0x700), 2);
             a6_end:
                 func_002705D8(s1);
             }

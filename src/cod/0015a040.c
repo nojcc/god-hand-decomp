@@ -1,26 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cIDBase.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cOmBase.h"
 
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
 extern void cIDBase_resetAnim(void *self);
-extern int cIDBase_setPackedMessData(void *self, int kind, int arg);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041F378[];
 extern void **D_003C2384;
 extern cTaskManager D_00752C00;
 extern void cTaskWork_sleep(cTaskWork *task, int frames);
 extern float capVu0Sin(float rad);
 extern float capVu0Cos(float rad);
-extern void CustomIDWork_SetMoveOffsetPosXSin(void *work, int kind, int frames);
 extern void CustomIDWork_ResetMoveOffsetPos(void *work);
-extern void CustomIDWork_SetColorAnimSin(void *work, int from, int to, int frames);
-extern void CustomIDWork_ResetColorAnim(void *work);
 extern char D_00747B00[];
 extern char D_0044BD60[];
 
@@ -66,10 +61,10 @@ void IdDispObj_construct(IdDispObj *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041F378) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ_KIND, 0);
+        cIDBase_initialize((cIDBaseObj *)self, IDOBJ_KIND, 0);
         cIDBase_resetAnim(self);
         self->base.playing = 1;
-        cIDBase_setPackedMessData(self, IDOBJ_KIND, 1);
+        cIDBase_setPackedMessData((cIDBaseObj *)self, IDOBJ_KIND, 1);
         self->b5A = 0;
         self->state = 2;
         self->b5B = 0;
@@ -77,7 +72,7 @@ void IdDispObj_construct(IdDispObj *self)
         self->b5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
     }
     self->bEC = 0;
     self->bED = 0;
@@ -238,13 +233,13 @@ void MarkObj_setPulse(MarkObj *self, int on)
     int from;
     int to;
     if (on) {
-        CustomIDWork_SetMoveOffsetPosXSin(self->moveWork, 3, 0x10);
+        CustomIDWork_SetMoveOffsetPosXSin((CustomIDWork *)self->moveWork, 3, 0x10);
         from = (((((((base & ~0xFF) | 0x80) & ~0xFF00) | 0x8000) & ~0xFF0000) | 0x800000) & ~0xFF000000) | 0x80000000;
         to = (((((((peak & ~0xFF) | 0xC0) & ~0xFF00) | 0xC000) & ~0xFF0000) | 0xC00000) & ~0xFF000000) | 0x80000000;
-        CustomIDWork_SetColorAnimSin(self->colorWork, from, to, 4);
+        CustomIDWork_SetColorAnimSin((CustomIDWork *)self->colorWork, from, to, 4);
     } else {
         CustomIDWork_ResetMoveOffsetPos(self->moveWork);
-        CustomIDWork_ResetColorAnim(self->colorWork);
+        CustomIDWork_ResetColorAnim((CustomIDWork *)self->colorWork);
     }
 }
 

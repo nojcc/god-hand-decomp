@@ -4,7 +4,6 @@
 /* func_0027FB48 — +0x2F6 phase machine (record fields 0x78/0x7C, mode 5): phase 0
  * fires func_002A8578, sets +0x5F0=1 and advances; both phases step moveMotion and
  * clear the 0x2F4..0x2F7 phase block when it reports done.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion. */
 __attribute__((section(".text.func_0027FB48"))) void func_0027FB48(cEm00 *self)
 {

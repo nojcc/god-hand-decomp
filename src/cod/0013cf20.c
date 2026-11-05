@@ -1,18 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cCoreSave.h"
+#include "godhand/cIDBase.h"
 #include "godhand/cActionButton.h"
 #include "godhand/vu0.h"
 #include "godhand/cVec.h"
 #include "godhand/cNode.h"
 
-extern void cIDBase_trans(void *p);
 extern void displayScrollLayer(int id, int on);
 extern int Rnd(void);
 extern void func_001F7820(void *mgr, void *ent);
-extern void cNode_clearActiveRecursive(void *self);
-extern void func_002B60D0(void *dst, void *src);
-extern void func_002B6230(void *self, void *v);
 extern long func_001B8030(void *obj);
 
 #define DRAW_FLAG_ENABLED  0x20000000   /* IdDrawObj.flags: the display is switched on */
@@ -55,7 +52,7 @@ void IdDrawObj_transIfShown(IdDrawObj *self)
     if (self->owner->hp == 0) return;
     if ((self->flags & DRAW_FLAG_ENABLED) == 0) return;
     if (cCoreSave_getStateBit0(&D_00569B70) != 0) return;
-    cIDBase_trans(self);
+    cIDBase_trans((cIDBaseObj *)self);
 }
 
 #define LAYER_A  0x1E

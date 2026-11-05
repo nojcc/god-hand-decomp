@@ -1,19 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/criStm.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
+#include "godhand/heapArena.h"
 #include "godhand/vu0.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cMovie.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, cVec *pos, float radius);
 extern void cOm4f_setOpenCloseRot(void *self, float a, float b);
 extern void cOm4f_setCloseFix(void *self);
 extern void cOm4f_setEventMode(void *self, int mode);
-extern int D_00574380;
 extern void displayScrollLayer(int layer, int show);
-extern void cHeap_free(void *heap, void *p);
 extern void Forward342910_342888(int handle);
 extern void Obj3260_Tramp_00337C88_D208(void);
 extern void Forward3443E0_3443C8(int handle);
@@ -26,7 +26,6 @@ extern char D_0044CD80[];
 extern char D_0044CDA0[];
 extern char D_0044CDA8[];
 extern char D_0044CDC8[];
-extern int IsEntryActive_1C2490(int entry);
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern void cEmSetParam_setEm(void *param, int slot);
 extern void cEmWrap_StartAction(void *act);

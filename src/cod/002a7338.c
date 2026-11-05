@@ -5,9 +5,7 @@
 #include "godhand/cVec.h"
 #include "godhand/vu0.h"
 
-extern char D_0044AE28[];
 extern char D_0044ADF0[];
-extern struct cObjBase *cObjBase(struct cObjBase *self);
 
 /* Construct the object: the cObjBase base, this class's method table and
  * class name, the stored position (0, 0, 0, 1), the velocity and the vectors

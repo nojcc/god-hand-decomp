@@ -18,19 +18,9 @@
 
 #include "godhand/cGameObj.h"
 
-/* One node of the model's mesh list. A model owns a singly linked list of
- * nodes; each node carries the layer it belongs to. */
-typedef struct cMeshNode {
-    char unk000[0x380];
-    unsigned int dispFlags;             /* 0x380 bit 0 hides, bit 13 is set per tag */
-    char unk384[0x1C];
-    float color[3];                     /* 0x3A0 r, g, b */
-    float alpha;                        /* 0x3AC */
-    char unk3B0[0x54];
-    struct cMeshNode *next;             /* 0x404 */
-    char unk408[4];
-    unsigned char layer;                /* 0x40C */
-} cMeshNode;
+/* One node of the model's mesh list (cModel.h's cModelNode): a model owns a
+ * singly linked list of nodes; each node carries the layer it belongs to. */
+typedef cModelNode cMeshNode;
 
 /* The hit record that cOmBase_checkDamage receives. */
 typedef struct cDamageTake {
@@ -88,7 +78,38 @@ static __inline__ cOmBase *cOmBase_childAt(cOmBase *b, int *frame, int idx)
     return 0;
 }
 
+/* cOmBase_childAt for an index that may be out of range either way. Retail
+ * builds the range test as a flag and masks it with 0xFF where it tests it,
+ * as cGameObj_idInRange does. */
+static __inline__ cOmBase *cOmBase_childAtIdx(cOmBase *b, int *frame, int idx)
+{
+    int n;
+    long in = 0;
+
+    *frame = n = b->partNum;
+    if (idx >= 0) {
+        int below = idx < n;
+
+        in = below;
+    }
+    if (in & 0xFF) {
+        return b->children[idx];
+    }
+    return 0;
+}
+
 /* The anchor point objects are placed and turned around (func_00249770, cGameObj_placeBeforeAnchor). */
 extern cVec D_005850B0;
+
+/* The cOm classes' common death: release the object. */
+void cOmBase_dieCommon(cOmBase *self);
+/* Call the current mode's method from the mode table, then the post step
+ * (skipped for actor ACTOR_NO_POST) and func_001B76D8. */
+void cOmBase_tickModeTableSkip381(cOmBase *self);
+/* State-table dispatchers: call the handler for the state at 0x2F4, then
+ * func_001B76D8. */
+void StateObj_runHandler(void *a0);
+void func_001BC0A0(void *a0);
+void func_001BD6B0(void *a0);
 
 #endif

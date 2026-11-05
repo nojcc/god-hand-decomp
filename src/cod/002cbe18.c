@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
 
-extern void cSndSeVoice_Detach(void *a0, void *a1);
 
 /* sn-2.95.3-136 matched TU. */
 

@@ -1,5 +1,6 @@
+#include "godhand/mtx.h"
+#include "godhand/criStm.h"
 extern int D_0076A7A4;
-extern void MtxMultiply(int a, int b, void *buf);
 
 __attribute__((section(".text.SdeSystemOutModeSet")))
 void SdeSystemOutModeSet(int a0) {
@@ -28,8 +29,8 @@ void InitStructDefaults_137AA0(char *a0) {
 }
 
 __attribute__((section(".text.MtxMulTransVec")))
-void MtxMulTransVec(int a0, int a1, int a2) {
-    int buf[16];
-    MtxInitTransVec(buf, a2);
-    MtxMultiply(a0, a1, buf);
+void MtxMulTransVec(void *dst, void *src, cVec *pos) {
+    float m[4][4];
+    MtxInitTransVec(m[0], pos);
+    MtxMultiply(dst, src, m);
 }

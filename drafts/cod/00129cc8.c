@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOm60.h"
 #include "godhand/ptrVec.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cVec.h"
 
-extern void MtxInverse(float *dst, float *src);
 extern int cOm60_ckParent(cOm60 *self);
 extern void SetActionKickBomb(void);
 

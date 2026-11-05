@@ -6,20 +6,18 @@
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
+#include "godhand/cModel.h"
+#include "godhand/cSnd.h"
 
-extern int moveMotion(void *a0);
 extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0, float f12, float f13, float f14);
 extern int IsEntryActive_1C2490(int a0);
-extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 extern void *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float f);
 extern int irand(void);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void cObj_setupAimStep2(void *a0, void *a1, int a2, void *a3, void *a4);
 extern unsigned char D_005864F0[];
-extern unsigned char D_005FEE00[];
 extern int D_007476B0;
 
 __attribute__((section(".text.cEm00_stepPatrolAttackDrop")))
@@ -58,7 +56,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         if (moveMotion(self) != 0) {
             self->step = self->step + 1;
         }
-        cModel_calcNullPart(self);
+        cModel_calcNullPart((cModel *)self);
         Add_nullspeed(self);
         break;
     case 2: {
@@ -71,7 +69,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         self->gotoFlags = self->gotoFlags | 1;
         if (0.0f < self->tint.w) {
             moveMotion(self);
-            cModel_calcNullPart(self);
+            cModel_calcNullPart((cModel *)self);
             Add_nullspeed(self);
         }
         if ((self->gotoFlags & 0x40) != 0) {
@@ -111,7 +109,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
                 self->step = 6;
             }
         }
-        cModel_calcNullPart(self);
+        cModel_calcNullPart((cModel *)self);
         Add_nullspeed(self);
         break;
     case 6: {
@@ -149,7 +147,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
             }
             }
         }
-        cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x5D, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5D, self, 0, 0, 0, 0);
         func_002A8578(self, rec, rec, 0xA, 0.0f, 0, 0);
         self->step = self->step + 1;
     }
@@ -161,7 +159,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
             return;
         }
         moveMotion(self);
-        cModel_calcNullPart(self);
+        cModel_calcNullPart((cModel *)self);
         Add_nullspeed(self);
         break;
     case 8: {
@@ -176,7 +174,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         if (moveMotion(self) != 0) {
             self->step = self->step + 1;
         }
-        cModel_calcNullPart(self);
+        cModel_calcNullPart((cModel *)self);
         Add_nullspeed(self);
         if ((self->seqFlags & 1) == 0) {
             return;
@@ -210,7 +208,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         player = Getplayer();
         cGameObj_SetTgtTurn(self, player->pos, self->speedRate * 0.049087386f);
         moveMotion(self);
-        cModel_calcNullPart(self);
+        cModel_calcNullPart((cModel *)self);
         Add_nullspeed(self);
         if (self->unk15C4 != 0) {
             return;
@@ -229,7 +227,7 @@ void cEm00_stepPatrolAttackDrop(cEm00 *self)
         if (moveMotion(self) != 0) {
             self->step = 6;
         }
-        cModel_calcNullPart(self);
+        cModel_calcNullPart((cModel *)self);
         Add_nullspeed(self);
         break;
     }

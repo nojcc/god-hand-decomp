@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/pl00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
@@ -9,7 +11,6 @@ extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00129578(void *a0);
 extern void func_00124EC0(void *a0);
-extern int moveMotion(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -23,7 +24,6 @@ extern unsigned int D_00747A78;
 extern unsigned int D_00747A80;
 extern int D_003C2F84;
 extern char D_00747470[];
-extern int D_005FEE00;
 extern int D_005FEA60;
 extern void cScenario_startSoftEvent(int a0, int a1);
 extern void cScenario__endSoftEvent(int a0);
@@ -34,7 +34,6 @@ extern void cTaskWork_sleep(void *p, int a);
 extern void DogRace_Load(void *p);
 extern void Slot2_dispatchStep(void *p);
 extern void DogRace_Release(void *p);
-extern void cSnd_BgmFlaggedNodeKick(void *p, float f);
 extern void cSceAtManager_SetEnable_2C2950(void *p, int a);
 
 /* sn-2.95.3-136 matched TU. */
@@ -106,7 +105,7 @@ void func_00113F68(void *a0)
             cCoreSave_setGameLevel(&D_00569B70, 0);
         }
     }
-    if (func_00123938(s1, 1) != 0) {
+    if (func_00123938((pl00 *)s1, 1) != 0) {
         func_00129630(s1);
         pl00_clearMotionCam(s1, 0, 0);
     }
@@ -176,7 +175,7 @@ void func_00114460(void *a0)
         }
         break;
     }
-    func_00123938(s0, 1);
+    func_00123938((pl00 *)s0, 1);
 }
 
 /* sn-2.95.3-136 matched TU. */

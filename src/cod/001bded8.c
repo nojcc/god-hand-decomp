@@ -1,15 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cOmBase.h"
 
 extern int D_00586AF0;
 extern void func_00297B20(void *a, void *b);
 extern void func_00297B40(void *a, void *b);
 extern void ScrollLayer_hideAtEnd(void);
 extern void func_00298460(void);
-extern char D_00462FC0[];
-extern void cCollisionSolidManage_ReleaseUnit(void *manager, void *unit);
-extern void cOmBase_dieCommon(void *obj);
 extern int D_004294F0;
 extern char D_007419A0[];
 extern void espSys_effDataRelease(void *sys, int effNo);
@@ -38,7 +37,7 @@ typedef struct ChildOwner {
 __attribute__((section(".text.ChildOwner_releaseChild")))
 void ChildOwner_releaseChild(ChildOwner *self)
 {
-    cCollisionSolidManage_ReleaseUnit(D_00462FC0, self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (struct cGameObj *)self);
     if (self->child != 0) {
         cOmBase_dieCommon(self->child);
         self->child = 0;

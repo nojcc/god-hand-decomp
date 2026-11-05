@@ -2,9 +2,9 @@
  * the record type gets another name for this file. */
 #define Slot1 Slot1Obj
 #include "godhand/Slot1.h"
+#include "godhand/criStm.h"
 #undef Slot1
 
-extern void func_003A52F0(void *dst, int val, int len);
 extern void InitStructSubfieldsAndFloatB(void *reel);
 extern void InitStructZeroedFields_1E7960(void *panel);
 extern void *func_001E7118(void *ui);   /* returns a pointer (int return also matches) */

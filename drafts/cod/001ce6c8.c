@@ -6,6 +6,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cGameObj.h"
+#include "godhand/mtx.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cCamera.h"
 #include "godhand/sceVu0.h"
@@ -25,7 +26,6 @@ typedef struct cEmSink {
     float timer;                /* 0x660 frames before the fade starts */
 } cEmSink;
 
-extern void MtxInitRotVec(void *a0, float *a1, unsigned char order);
 
 /* out = in * s (xyz), through a work vector. */
 static __inline__ void cVec_scale3(cVec *out, cVec *in, float s)
@@ -57,7 +57,7 @@ void func_001CE6C8(cEmSink *self)
     case 1:
         self->base.rot.x += rate * SINK_SPIN;
         self->base.rot.x = Adjust_theta(self->base.rot.x);
-        MtxInitRotVec(mtx, &self->base.rot.x, 0);
+        MtxInitRotVec(mtx, &self->base.rot, 0);
         drop.x = 0;
         drop.y = SINK_DROP;
         drop.z = 0;

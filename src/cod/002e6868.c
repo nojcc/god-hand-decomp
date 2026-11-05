@@ -1,5 +1,7 @@
 /* sn-2.95.3-136: func_002E6868, object ground-mode step, then sync the node position and scale. */
 #include "godhand/cObjSimple.h"
+#include "godhand/espSys.h"
+#include "godhand/cNode.h"
 
 #define GROUND_FADE_DEFAULT  0x1E       /* fade length when fadeInit is 0 */
 #define LINK_SCALES          2          /* link flags bit: the link's factor scales the fade */
@@ -39,16 +41,12 @@ typedef struct cObjGround {
     unsigned char fadeInit;             /* 0x2E5 fade length, 0 for the default */
 } cObjGround;
 
-extern void func_002FBED0(void *self);
 extern void *StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void *CopyVec16From20_B62E0(void *dst, char *self);
-extern void cNode_setLocalScale(void *self, void *v);
-extern void *func_002B60D0(void *dst, void *self);
 extern int func_00307118(void *p);
 extern void Pos_followGroundB(char *self);
 extern void cOmBase_dropTest(void *self);
 extern void func_002E7098(void *self);
-extern void UpdateObjByIndexedOp_2FBE50(void *self);
 extern int func_002FB060(char *self);
 
 static inline void vcopy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
@@ -88,7 +86,7 @@ void func_002E6868(cObjGround *self)
     float scale;
     cObjLink *q;
 
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
     if (notGround(self)) {
         switch (self->groundMode) {
         case 0:
@@ -101,7 +99,7 @@ void func_002E6868(cObjGround *self)
             func_002E7098(self);
             break;
         default:
-            UpdateObjByIndexedOp_2FBE50(self);
+            UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
             return;
         }
     } else if (self->ground & 4) {
@@ -117,8 +115,8 @@ void func_002E6868(cObjGround *self)
         vcopy(o->parentPos, &v);
         CopyVec16From20_B62E0(&v, (char *)self);
         v.z = v.x;
-        cNode_setLocalScale(self, &v);
-        func_002B60D0(&w, self);
+        cNode_setLocalScale((cNode *)self, (cVec *)&v);
+        func_002B60D0((cVec *)&w, (cNode *)self);
         vcopy(&self->mot->rot, &w);
         vcopy(&self->mot->scale, &v);
         self->mot->vec240.x = self->color[0];

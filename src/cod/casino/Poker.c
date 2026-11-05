@@ -94,8 +94,8 @@ void Poker_Initialize(Poker *self, int level)
 }
 
 __attribute__((section(".text.Poker_Release")))
-void Poker_Release(void) {
-    Poker_releaseIds();
+void Poker_Release(Poker *self) {
+    Poker_releaseIds(self);
 }
 
 

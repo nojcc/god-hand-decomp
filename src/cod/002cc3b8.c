@@ -1,14 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cSnd.h"
+#include "godhand/cBgmData.h"
 
-extern void cSeData_Init(void *a0);
-extern void cBgmData_Init(void *a0);
 extern void cSndSeVoice_Ctor(void *a0);
-extern void cSndBgmNode_Ctor(void *a0);
-extern char D_005FEE00[];
-extern char D_005FEFF0[];
-extern char D_005FFCF0[];
-extern char D_005FFD80[];
-extern char D_00601180[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -24,41 +18,44 @@ extern char D_00601180[];
 
 
 
+/* Static constructor of the sound object: sets up its pools, then builds every slot, record, voice and node. */
 __attribute__((section(".text.cSnd_StaticInit")))
-void cSnd_StaticInit(void *a0, int a1) {
-    char *p;
-    char *q;
+void cSnd_StaticInit(int initialize, int priority) {
+    cSeData *p;
+    cBgmData *d;
+    cSndSeVoice *v;
+    cSndBgmNode *n;
     int i;
     int j;
 
-    if (a1 != 0xFFFF) return;
-    if (a0 == 0) return;
+    if (priority != 0xFFFF) return;
+    if (initialize == 0) return;
 
-    func_002C9C88(D_005FEE00);
+    func_002C9C88(&D_005FEE00);
 
     p = D_005FEFF0;
     /* `i != -1` (retail materialises -1 and closes with `bne`), not `i >= 0`:
        the idiom picks the branch instruction. */
     for (i = 0x33; i != -1; i--) {
         cSeData_Init(p);
-        p += 0x40;
+        p++;
     }
 
-    q = D_005FFCF0;
+    d = D_005FFCF0;
     for (j = 1; j != -1; j--) {
-        cBgmData_Init(q);
-        q += 0x44;
+        cBgmData_Init(d);
+        d++;
     }
 
-    q = D_005FFD80;
+    v = D_005FFD80;
     for (j = 0x3F; j != -1; j--) {
-        cSndSeVoice_Ctor(q);
-        q += 0x50;
+        cSndSeVoice_Ctor(v);
+        v++;
     }
 
-    q = D_00601180;
+    n = D_00601180;
     for (j = 0xF; j != -1; j--) {
-        cSndBgmNode_Ctor(q);
-        q += 0xDC;
+        cSndBgmNode_Ctor(n);
+        n++;
     }
 }

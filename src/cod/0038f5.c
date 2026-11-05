@@ -2,6 +2,7 @@
  * Shares one _Bigint fiction with field widths chosen to reproduce retail's
  * exact load/store widths (Bfree guards on a signed short @0xC; Bcopy short-
  * copies @0xE and word-copies on the int count @0x10). */
+#include "godhand/newlibMalloc.h"
 
 typedef struct _Bigint {
     struct _Bigint *_next;   /* 0x00 */
@@ -13,8 +14,6 @@ typedef struct _Bigint {
     unsigned int _x[1];      /* 0x14 */
 } _Bigint;
 
-extern void *func_003A7C70(unsigned int);             /* malloc */
-extern void  UpdateGlobalPtrWithParam_3A7CC0(void *); /* free   */
 extern _Bigint *Balloc(int k);
 
 __attribute__((section(".text.func_0038F548")))

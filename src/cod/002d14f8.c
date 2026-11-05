@@ -3,13 +3,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
-extern void cSndBgmNode_SetFlagsFade(cSndBgmNode *, int, int, float);
 extern char D_0044D100[];
-extern void cSndBgmNode_Init(int);
 
 /* Fire cSndBgmNode_SetFlagsFade on every live node whose flag 0x100000 is set. */
 __attribute__((section(".text.cSnd_BgmFlaggedNodeKick")))
@@ -48,7 +42,7 @@ float cSnd_GetBgmHitScale(cSnd *self)
 
 /* Claim the first unused bgm node slot out of 16 and return it, or 0. */
 __attribute__((section(".text.cSnd_AllocBgmNode")))
-int cSnd_AllocBgmNode(cSnd *self)
+cSndBgmNode *cSnd_AllocBgmNode(cSnd *self)
 {
     int i;
     for (i = 0; i < 0x10; i++) {

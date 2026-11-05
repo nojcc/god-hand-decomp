@@ -5,7 +5,6 @@ extern void *InitFields_1B6E90(void *a0);
 extern int D_00428928;
 extern void func_00380E88(void *, void *, void *);
 extern void func_0031C900(int);
-extern void cSnd_SetBgmState(void *, int);
 extern void func_00144C90(void *);
 extern void BuildObjEntry_387160(int, void *);
 
@@ -21,6 +20,7 @@ void func_001F3260(char *a0) {
 }
 
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 /* func_001B6710 — sn-2.95.3-136 */
 
 

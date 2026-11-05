@@ -1,8 +1,8 @@
 /* NON_MATCHING func_00140638: retail loads 0x80000000 into v1 in the preceding block and tests with and/beqz (ours folds to bgez); child base addiu lands in beqz delay without copy */
+#include "godhand/cIDBase.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern void cIDBase_trans(void *a0);
 extern int cCoreSave_getStateBit0(void *a0);
 extern int D_00747A24[];
 extern char D_00569B70[];
@@ -34,7 +34,7 @@ void func_00140638(ChildFlagObj *self)
     for (i = 0; i < self->nchild && self->child[i] != 0; i++) {
         cIDBase_trans(self->child[i]);
     }
-    cIDBase_trans(self);
+    cIDBase_trans((cIDBaseObj *)self);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_00140638);

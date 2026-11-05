@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cSnd.h"
 
-extern char D_005FEE00[];
-extern int cSnd_SeFadeOut(void *snd, int handle, short fade);
 extern float Adjust_theta(float theta);
-extern void MtxInitRotY(float *mtx, float angle);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *src);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E6B88(void *obj, float y);
@@ -38,11 +37,11 @@ __attribute__((section(".text.SeEmitter_update")))
 void SeEmitter_update(SeEmitter *self)
 {
     /* (flags ^ 1) & 1 is the "off" test; retail keeps the xori, `!(flags & 1)` drops it. */
-    if (((self->flags ^ 1) & 1) || func_002CB198(D_005FEE00) == 1) {
+    if (((self->flags ^ 1) & 1) || func_002CB198(&D_005FEE00) == 1) {
         if (self->handle != 0) {
             self->state = SEEMITTER_STATE_STOP;
             if (self->delay == 0)
-                cSnd_SeFadeOut(D_005FEE00, self->handle, SEEMITTER_FADE_FRAMES);
+                cSnd_SeFadeOut(&D_005FEE00, self->handle, SEEMITTER_FADE_FRAMES);
             self->handle = 0;
         }
     } else if (self->mode == 0) {

@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
-extern float capVu0Length(void *a0);
 extern char *D_005CAFF0;
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 /* sn-2.95.3-136 matched TU. */
 

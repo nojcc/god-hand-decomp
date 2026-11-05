@@ -7,6 +7,7 @@
  * field-zeroing stores (two `sh` + one `sw`); the trailing array begins at
  * the offset retail's allocation size implies (maxwds*4 + 0x14 header).
  */
+#include "godhand/newlibMalloc.h"
 
 typedef struct _Bigint {
     struct _Bigint *_next;
@@ -15,7 +16,6 @@ typedef struct _Bigint {
     unsigned int _x[1];
 } _Bigint;
 
-extern void *func_003A7C70(unsigned int);   /* malloc */
 
 __attribute__((section(".text.Balloc")))
 _Bigint * Balloc(int k) {

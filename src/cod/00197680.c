@@ -1,6 +1,6 @@
 extern int D_00424F28;
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern int D_00574380;
 extern int D_00785CF8;
 extern int D_00424FD8;
 extern int D_00785878;
@@ -47,14 +47,14 @@ void *FreeObjSlotArrayB_197708(void *a0, void *a1) {
     *(int **)((char *)a0 + 0x214) = &D_00424F28;
     do {
         if (*p != 0) {
-            ClearAndResetFields_1FE278(&D_00574380, *p);
+            ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*p));
             *p = 0;
         }
         p++;
         i--;
     } while (i >= 0);
     if (*(int *)((char *)a0 + 0x604) != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380, *(int *)((char *)a0 + 0x604));
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)(*(int *)((char *)a0 + 0x604)));
         *(int *)((char *)a0 + 0x604) = 0;
     }
     return SetField214PtrThenInit_1B6F38(a0, a1);
@@ -94,7 +94,7 @@ __attribute__((section(".text.SetSlotDeadBitB_198A58")))
 void SetSlotDeadBitB_198A58(int a0, unsigned int a1) {
     int *p = (int *)(a0 + a1 * 4 + 0x600);
     if (*p != 0) {
-        cDamageUnit_SetDamageCollActive(*p, 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)(*p), 0);
     }
     {
         unsigned int *base = (unsigned int *)(a0 + 0x9D0);
@@ -122,7 +122,7 @@ __attribute__((section(".text.FreeObjSlotC_198CE0")))
 void *FreeObjSlotC_198CE0(void *a0, int a1) {
     *(int **)((char *)a0 + 0x214) = &D_00425000;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, *(int *)((char *)a0 + 0x600));
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*(int *)((char *)a0 + 0x600)));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     return func_001BFB00(a0, a1);
@@ -164,7 +164,7 @@ void FreeObjSlotD_199040(void *a0, int a1) {
     *(int **)((char*)a0 + 0x214) = &D_004250F0;
     v1 = *(int *)((char*)a0 + 0x650);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int *)((char*)a0 + 0x650) = 0;
     }
     func_001C7DE0(a0, a1);

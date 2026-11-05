@@ -1,4 +1,5 @@
 #include "godhand/vu0.h"
+#include "godhand/cCamManager.h"
 
 /* func_00138BE8 — composite object constructor: run the base constructors for
  * the object and its sub-objects (cPlCamera, cCamera at 0x530 and
@@ -9,7 +10,6 @@ extern void *cPlCamera(void *);
 extern void *cCamera(void *);
 extern void InitObjectFields364_1398D0(void *);
 extern void func_00137A48(void *);
-extern void func_00138C70(void *);
 extern int D_0041D8F8;
 
 __attribute__((section(".text.func_00138BE8")))

@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/vu0.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cOmBase.h"
@@ -7,17 +9,11 @@
 extern void displayScrollLayer(int layer, int on);
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
 extern void cIDBase_resetAnim(void *self);
-extern int cIDBase_setPackedMessData(void *self, int kind, int arg);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041FA90[];
 extern void **D_003C2384;
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *box);
 extern void cOmDoor_setObjCollision(void *self);
-extern int D_00574380;
 
 /* Enemy constructor: base setup, method table, aim lock byte, zeroed vectors and the type name. */
 
@@ -190,10 +186,10 @@ void IdDispObj_constructKind8(IdDispObj *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041FA90) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ_KIND, 0);
+        cIDBase_initialize((cIDBaseObj *)self, IDOBJ_KIND, 0);
         cIDBase_resetAnim(self);
-        cIDBase_setPackedMessData(self, IDOBJ_KIND, 2);
-        cIDBase_initialize(self->sub, IDOBJ_KIND, 1);
+        cIDBase_setPackedMessData((cIDBaseObj *)self, IDOBJ_KIND, 2);
+        cIDBase_initialize((cIDBaseObj *)self->sub, IDOBJ_KIND, 1);
         cIDBase_resetAnim(self->sub);
         self->b5A = 0;
         self->state = 4;
@@ -202,7 +198,7 @@ void IdDispObj_constructKind8(IdDispObj *self)
         self->b5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
     }
     self->b130 = 0;
     self->b131 = 0;
@@ -275,7 +271,7 @@ int DoorBox_initWithBoxC(DoorLikeObj *self) {
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->base.hpMax = OBJ_LIFE;
     self->base.hp = OBJ_LIFE;

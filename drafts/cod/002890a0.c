@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 #include "godhand/cOmBase.h"
+#include "godhand/mtx.h"
 #include "godhand/capVu0.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cVec.h"
 
-extern void MtxInverse(void *dst, void *src);
 extern float D_003C0460;                /* the bust spring's rest offset along z */
 
 #define EMBUST_KIND_A    0x2A7

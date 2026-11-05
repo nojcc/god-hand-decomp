@@ -2,11 +2,11 @@
 
 /* ee-2.9-991111 */
 #include "godhand/ehFrameSort.h"
+#include "godhand/newlibMalloc.h"
 
 extern void func_003A7B48(void) __attribute__((noreturn));   /* abort */
 extern void func_00322748(fde_vector *linear, fde_vector *erratic);   /* fde_split */
 extern void func_003219D0(fde_vector *v1, fde_vector *v2);            /* fde_merge */
-extern void UpdateGlobalPtrWithParam_3A7CC0(void *p);                 /* free */
 
 /* gcc frame.c end_fde_sort, with frame_heapsort inlined. */
 __attribute__((section(".text.end_fde_sort")))

@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 */
 /* func_00276DC8: take the push direction from the link's heading (sn-2.95.3-136) */
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cEmLinked.h"
 
-extern int func_002744B8(unsigned char *obj);
-extern void MtxInitRotY(void *mtx, float angle);
 
 /* Take the push direction from the link's heading when it can push, then run the step. */
 __attribute__((section(".text.func_00276DC8")))
@@ -17,7 +16,7 @@ void func_00276DC8(cEmLinked *self)
 
     self->mode = EMLINK_MODE_FREE;
     link = self->link;
-    if (link != 0 && func_002744B8(link) != 0) {
+    if (link != 0 && func_002744B8((cEm00 *)link) != 0) {
         struct {
             float mtx[4][4];            /* 0x00 */
             cVec v;                     /* 0x40 */
@@ -32,5 +31,5 @@ void func_00276DC8(cEmLinked *self)
         cVec_copy3(&self->push, &f.v);
         self->mode = EMLINK_MODE_HELD;
     }
-    func_00104010(self, self->work, &self->base.unk5B0);
+    func_00104010(self, &self->work, &self->base.unk5B0);
 }

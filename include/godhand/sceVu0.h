@@ -15,12 +15,22 @@ extern void sceVu0DivVector(void *v0, void *v1, float q);
 /* v0 = m0 * v1 (v0 may be v1). */
 extern void sceVu0ApplyMatrix(void *v0, void *m0, void *v1);
 
+/* v0 = v1 (all four components). */
+void sceVu0CopyVector(void *v0, void *v1);
 /* out = a + b (all four components). */
 void sceVu0AddVector(void *out, void *a, void *b);
 /* out = in * s in x, y and z; w copied. */
 void sceVu0ScaleVectorXYZ(void *out, void *in, float s);
+/* v0 = v1 - v2 (all four components). */
+void sceVu0SubVector(void *v0, void *v1, void *v2);
+/* v0 = v1 * s (all four components). */
+void sceVu0ScaleVector(void *v0, void *v1, float s);
+/* v0 = v1 scaled to unit length in x, y and z. */
+void sceVu0Normalize(void *v0, void *v1);
 /* out = the view matrix of a camera at p looking along zd with up yd. */
 void sceVu0CameraMatrix(void *out, void *p, void *zd, void *yd);
+/* dst = a * b (4x4 matrices). */
+void sceVu0MulMatrix(void *dst, void *a, void *b);
 /* dst = the matrix src (sceVu0CopyMatrix). */
 void func_0030A548(void *dst, void *src);
 
@@ -35,7 +45,10 @@ static __inline__ void cVec_zero(cVec *v) {
 }
 
 /* Length of v (x, y, z). */
+float capVu0Length(void *a0);
 extern float Tramp_001F7DF8_00101E28(void *v);
+/* sceVu0CopyVector(dst, src). */
+void func_001506F0(cVec *dst, cVec *src);
 
 /* *out = v scaled to length 1, or zero when v has no length. */
 static __inline__ void cVec_unitOf(cVec *out, cVec *v)

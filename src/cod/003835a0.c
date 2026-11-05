@@ -1,6 +1,7 @@
 /* sn-2.95.3-136: file-select menu states and slot info refresh (0x3835A0..). */
 
 #include "godhand/menuCtl.h"
+#include "godhand/heapArena.h"
 
 extern int func_0032DC58(int handle);
 extern int func_0032DCD0(int handle, int a1);
@@ -8,7 +9,6 @@ extern void func_0032A160(int handle, int *info, void *buf);
 extern int func_0032B6E0(int handle);
 extern float func_0032AE10(int handle);
 extern int func_0032D0C0(int handle);
-extern void *func_0031C8B8(int size, int align);
 extern int func_003A6A20(const char *fmt, ...);
 extern int func_00323E80(int a0, int a1, int a2);
 extern int func_003244C8(int req);

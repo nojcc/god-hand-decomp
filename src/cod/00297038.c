@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEvent.h"
+#include "godhand/criStm.h"
 
-extern int cEvent_nullHookI();
 extern void func_0();
-extern void func_003A52F0(void *, int, int);
 extern void func_00297CB0(void *, char *);
 extern void func_00297CF8(void *, char *);
 extern void func_00297D40(void *, char *);

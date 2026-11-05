@@ -1,9 +1,9 @@
 /* ee-2.9-991111 matched TU. */
 
 #include "godhand/ehFrameObj.h"
+#include "godhand/newlibMalloc.h"
 
 extern void func_003A7B48(void);
-extern void UpdateGlobalPtrWithParam_3A7CC0(void *);
 
 /* gcc frame.c: unlink the object registered with `begin`, free its sorted FDE array, return it. */
 __attribute__((section(".text.__deregister_frame_info")))

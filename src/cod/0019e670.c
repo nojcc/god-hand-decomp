@@ -7,9 +7,8 @@ extern void GetOrInitGlobal785798_1C3BE8(void);
 extern void SetField_0_4_8_31EEA8(void *, unsigned char *, unsigned char *);
 extern int D_00426438;
 extern void InitVtable214_429C80_1C27E8(void *);
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern char D_00574380[];
-extern void ClearAndResetFields_1FE278(void *, int);
 extern void ResetField214FreeField180_1C2820(void *, int);
 extern int D_00785E78;
 extern int D_00426508;
@@ -56,7 +55,7 @@ __attribute__((section(".text.ResetObjVtableAndFree_19E748")))
 void ResetObjVtableAndFree_19E748(void *a0, int a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00426438;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(D_00574380, *(int *)((char *)a0 + 0x600));
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*(int *)((char *)a0 + 0x600)));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);
@@ -102,7 +101,7 @@ void ResetObjVtableAndFree_19E9C0(void *a0, int a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00426520;
     v = *(int *)((char *)a0 + 0x600);
     if (v != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v);
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);

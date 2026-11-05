@@ -112,7 +112,7 @@ void func_001E0840(Slot1 *self)
             cVec_zero(&pos);
             first = &self->reel[0];
             func_001E8E48((int)first, (int)&pos);
-            self->seStart = cSnd_SeCall(&D_005FEE00, 2, 1, (int)&pos, 0, 0);
+            self->seStart = cSnd_SeCall(&D_005FEE00, 2, 1, &pos, 0, 0);
             {
                 long ready = self->reel[0].doneFlag;
                 long go = ready & 1;

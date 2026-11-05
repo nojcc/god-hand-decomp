@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern void cDamageUnit_AddDamageCollCylinder(void *a0, void *a1, float *a2, float *a3, float f0, float f1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern int D_00574380;
 
 /* sn-2.95.3-136, -f=-fno-gcse */
 
@@ -52,7 +51,7 @@ int func_00173AD8(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -122,7 +121,7 @@ int func_0017C708(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -192,7 +191,7 @@ int func_00186A80(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -262,7 +261,7 @@ int func_0018CF88(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -332,7 +331,7 @@ int func_0018DD40(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -402,7 +401,7 @@ int func_0019C670(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;

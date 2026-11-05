@@ -5,6 +5,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cPlCamera.h"
+#include "godhand/mtx.h"
 #include "godhand/gameWork.h"
 #include "godhand/player.h"
 #include "godhand/vu0.h"
@@ -21,7 +22,6 @@ typedef struct PlState {
     long stateWord;                     /* 0x2F0 low word unknown, high word holds mode and phase */
 } PlState;
 
-extern void MtxInitRotVec(void *mtx, cVec *dir, int roll);
 extern float capVu0Sin(float x);
 
 static __inline__ void vecSet(cVec *d, float x, float y, float z)

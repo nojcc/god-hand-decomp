@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 /* ee-2.9-991111 — SCE libcdvd 3.0.2, cdvd000.o :: sceCdLayerSearchFile */
 
@@ -30,7 +31,6 @@ extern void cmd_sem_init(void);
 extern int  PollSema(int sema);
 extern int  SignalSema(int sema);
 extern void sceSifInitRpc(int mode);
-extern void func_003B1F28();          /* scePrintf */
 extern int  func_00398DA0(int mode);  /* sceCdSync */
 extern int  func_003B2F48(void *cd, unsigned int sid, int mode);  /* sceSifBindRpc */
 extern void func_003B2850(void *p, int size);  /* sceSifWriteBackDCache */

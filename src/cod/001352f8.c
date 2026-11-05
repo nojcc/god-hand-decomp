@@ -1,6 +1,5 @@
-extern int D_00462FC0;
-extern int D_005CAFF0;
-extern int D_00463050;
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cCamManager.h"
 
 __attribute__((section(".text.func_001352F8")))
 void func_001352F8(int a0, int a1) {
@@ -15,8 +14,8 @@ void Forward1352F8_135328(void) {
 }
 
 __attribute__((section(".text.func_00138F98")))
-void func_00138F98(void *a0) {
-    if (*(int *)((char *)a0 + 0x1028) & 4) {
+void func_00138F98(cCamManager *self) {
+    if (self->mode & CAMMGR_MODE_NO_MOVE) {
         cCamera_move(D_005CAFF0);
     }
 }

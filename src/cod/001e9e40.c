@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/heapArena.h"
 
 extern void ClearObjRef_1EE9A0(void *a0);
 extern void func_001EDF60(void *a0);
 extern void func_001ED660(void *a0);
 extern void func_001ECBD0(void *a0);
-extern void cHeap_free(void *a0, void *a1);
 extern void func_001EB9F8(void *a0);
 extern void **D_003C2384;
 

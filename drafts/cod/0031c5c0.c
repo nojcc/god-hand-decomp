@@ -1,18 +1,17 @@
 #include "include_asm.h"
 #include "godhand/gameWork.h"
+#include "godhand/mtx.h"
 #include "godhand/player.h"
 #include "godhand/cModel.h"
+#include "godhand/cCamManager.h"
 
 typedef struct cVecQ {
     float x, y, z, w;
 } __attribute__((aligned(16))) cVecQ;
 
-extern char D_00463050[];
 
 int ChkLine(void *a0, void *a1, void *a2, void *a3, int a4, int a5, int a6,
             int a7, int a8, int a9, int a10, int a11, int a12);
-void MtxInitTransVec(float *mtx, cVec *pos);
-void MtxMulRotVec(float *dst, float *src, float *rot, unsigned char order);
 void cPlCamera_SetNormalZoomOutMode(void *cam, void *pose, int snap);
 
 #ifdef NON_MATCHING
@@ -66,9 +65,9 @@ void func_0031C5C0(void)
     ((cVec *)pl->unk000)[3].y = pos.y;
     ((cVec *)pl->unk000)[3].z = pos.z;
     MtxInitTransVec(pl->mtx, pl->pos);
-    MtxMulRotVec(pl->mtx, pl->mtx, pl->rot, *((unsigned char *)pl + 0x140));
+    MtxMulRotVec(pl->mtx, pl->mtx, &pl->rot, *((unsigned char *)pl + 0x140));
     cModel_calcParts(pl);
-    cPlCamera_SetNormalZoomOutMode(D_00463050, 0, 0);
+    cPlCamera_SetNormalZoomOutMode(&D_00463050, 0, 0);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_0031C5C0);

@@ -2,7 +2,6 @@
 
 /* sn-2.95.3-136 */
 
-extern void MtxInitRotY(void *a0, float angle);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern int D_00747A0C;
 extern char D_0042CA40[];
@@ -33,6 +32,7 @@ extern char D_00446678[];
 extern char D_00446680[];
 
 #include "godhand/cModel.h"
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
 
 __attribute__((section(".text.func_002726F8")))
@@ -90,7 +90,7 @@ void func_002726F8(void *a0)
     *(int *)(s2 + 0x154) |= CPARTS_NO_MOTION_POS | CPARTS_NO_PARENT | CPARTS_NO_LOCAL;
     VU0_SQC2_VF0(frame, 0x50);
     m = frame + 0x10;
-    MtxInitRotY(m, *(float *)(s3 + 0x104));
+    MtxInitRotY((float *)m, *(float *)(s3 + 0x104));
     tmp = frame + 0x70;
     *(float *)(frame + 0x54) = 0.4f;
     *(float *)(frame + 0x58) = -0.1f;

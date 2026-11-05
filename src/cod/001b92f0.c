@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageUnit.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_001B76D8(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern char D_005864F0[];
-extern void cDamageUnit_SetDamageCollActive(int unit, int on);
 
 #define PHASE_OBJ_STATE   0x2F4         /* state byte: index into the phase table */
 #define PHASE_OBJ_RATE    0x5A8         /* speed rate float */
@@ -35,10 +35,10 @@ void EmPhaseCollOff_update(void *a0)
     int type; int arg; int (*fp)(int); long entry;
     if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
     if (*(int *)(s0 + PHASE_OBJ_COLL_A) != 0) {
-        cDamageUnit_SetDamageCollActive(*(int *)(s0 + PHASE_OBJ_COLL_A), 0);
+        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(s0 + PHASE_OBJ_COLL_A), 0);
     }
     if (*(int *)(s0 + PHASE_OBJ_COLL_B) != 0) {
-        cDamageUnit_SetDamageCollActive(*(int *)(s0 + PHASE_OBJ_COLL_B), 0);
+        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(s0 + PHASE_OBJ_COLL_B), 0);
     }
     rate = cEmManage_GetSpeedRate(D_005864F0);
     *(float *)(s0 + PHASE_OBJ_RATE) = rate;

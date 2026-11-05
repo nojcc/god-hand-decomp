@@ -1,11 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDvd.h"
 
 extern void FileNameFromObjId(char *buf, int id);
-extern int GetBuiltPackedAddr_1FFA28(void *a0, char *a1);
-extern void cDvd_CheckWaitFrame(void *a0, int a1);
 extern int D_00752C38[];
-extern char D_00580D40[];
-extern char D_00583F20[];
 
 /* sn-2.95.3-136 candidate. */
 
@@ -47,11 +44,11 @@ void func_0030D8E0(int objid)
     }
 
     FileNameFromObjId(buf, objid);
-    GetBuiltPackedAddr_1FFA28(D_00580D40, buf);
-    r = cDvd_ReadToBuffer(D_00583F20, buf, D_00752C38[0], 0, 0, 0, 0);
-    cDvd_CheckWaitFrame(D_00583F20, r);
+    GetBuiltPackedAddr_1FFA28(&D_00580D40, buf);
+    r = cDvd_ReadToBuffer(&D_00583F20, buf, D_00752C38[0], 0, 0, 0, 0);
+    cDvd_CheckWaitFrame(&D_00583F20, r);
     FileNameFromObjId(buf, id2);
-    GetBuiltPackedAddr_1FFA28(D_00580D40, buf);
-    cDvd_ReadToBuffer(D_00583F20, buf, D_00752C38[1], r, 0, 0, 0);
-    cDvd_CheckWaitFrame(D_00583F20, r);
+    GetBuiltPackedAddr_1FFA28(&D_00580D40, buf);
+    cDvd_ReadToBuffer(&D_00583F20, buf, D_00752C38[1], r, 0, 0, 0);
+    cDvd_CheckWaitFrame(&D_00583F20, r);
 }

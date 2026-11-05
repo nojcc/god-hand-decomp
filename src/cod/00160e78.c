@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/objField.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
@@ -7,7 +8,6 @@
 extern float fRand1_1(void);
 extern float fRand0_1(void);
 extern void func_00147C88(void *a0, void *a1, int a2);
-extern void *cSnd_GetSeData(void *a0, int a1);
 extern int D_0044CE48[];
 extern int cSaveLoad_openSave(void *p, int a1);
 extern char D_00747A24[];
@@ -19,7 +19,6 @@ extern void func_003A6A20(char *a0);
 extern void func_0031C900(int a0);
 extern char D_0045C7A0[];
 extern char D_0045C7D0[];
-extern void CustomIDWork_SetLocalPosY(char *a0, int a1);
 extern int ChangeThreadPriority(int tid, int prio);
 extern int SignalSema(int sema);
 extern void ExitDeleteThread(void);
@@ -91,7 +90,7 @@ int cSnd_EmSeFind(cSnd *self, int objId)
     int owner;
     int *slot;
     unsigned int i;
-    cSndSeEntry *e;
+    cSeData *e;
 
     owner = cSnd_getEmSeGroupOwner(self, objId);
     if (owner <= 0)
@@ -195,7 +194,7 @@ void func_001EE6C8(char *a0, unsigned short a1) {
     Blk1EE buf;
     if (a1 < 5) {
         buf = D_0042BDD8;
-        CustomIDWork_SetLocalPosY(a0 + 0xDF0, buf.w[a1]);
+        CustomIDWork_SetLocalPosY((CustomIDWork *)(a0 + 0xDF0), buf.w[a1]);
     }
 }
 

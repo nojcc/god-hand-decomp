@@ -1,7 +1,7 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/criStm.h"
 
 extern void func_00320280(void);
-extern void func_003A52F0(void *p, int v, int n);
 
 __attribute__((section(".text.func_003202E0")))
 void *func_003202E0(void) {

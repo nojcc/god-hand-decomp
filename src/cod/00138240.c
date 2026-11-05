@@ -1,25 +1,23 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cPlCamera.h"
 #include "godhand/cCamera.h"
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void Obj1D00_SetState_7_16(void *a0);
 extern char *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026EC60(void *a0);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern unsigned char D_00462FC0[];
 extern void cCamera_resetVib(struct cCamera *self);
 extern void cCamera__calcRotation(cVec *out, struct cCamera *self, cVec *a, cVec *b);
-extern void MtxInitRotVec(void *mtx, cVec *dir, int roll);
 
 /* Phase machine of the enemy that turns toward its target: it starts the motion, turns toward the
  * 0x17A0 object while the motion runs, then runs the end-of-motion bookkeeping. */
@@ -41,11 +39,11 @@ __attribute__((section(".text.cEm00_stepTurnToLinkedObject"))) void cEm00_stepTu
                 a2v = *(int *)(v0 + 0x1BC) + ((int)v0);
             } else {
                 int v1 = EM_RES(self);
-                void *o = (void *)self->fx6;
+                cOmWeapon *o = self->fx6;
                 a1v = *(int *)(v1 + 0x2F6C) + ((int)v1);
                 a2v = *(int *)(v1 + 0x2F70) + ((int)v1);
                 if (o != 0) {
-                    Obj1D00_SetState_7_16(o);
+                    Obj1D00_SetState_7_16(&o->base);
                 }
             }
             func_002A8578(self, a1v, a2v, 5, 0.0f, gb, 0);
@@ -85,7 +83,7 @@ __attribute__((section(".text.cEm00_stepTurnToLinkedObject"))) void cEm00_stepTu
         self->unk17A0 = 0;
     }
     if ((self->seqFlags & 0x20) != 0) {
-        cCollisionSolidManage_SetActive(&D_00462FC0, self, 0);
+        cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     }
     if ((self->seqFlags & 1) != 0) {
         StoreMotionParamsBoth_2609A8(self, 0x1E, 2, 0x3E, -1, 0);

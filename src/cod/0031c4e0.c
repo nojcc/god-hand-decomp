@@ -1,9 +1,9 @@
 /* sn-2.95.3-136: player object creation at stage start (0x31C4E0). */
 #include "godhand/gameWork.h"
+#include "godhand/heapArena.h"
 #include "godhand/player.h"
 
 void func_0031C5C0(void);
-int func_0030F550(int size);
 void *func_00107E40(int arg);
 
 __attribute__((section(".text.func_0031C4E0")))

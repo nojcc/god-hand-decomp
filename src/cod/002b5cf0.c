@@ -1,15 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cNode.h"
 
-extern void func_002B5D58(void *a0, void *a1);
-extern void func_002B5EC0(void *a0);
-
+/* func_002B5D58 leaves a child that has a parent where it is, so with a
+ * non-null parent the loop only ends when the node has no children. */
 __attribute__((section(".text.func_002B5CF0")))
-void func_002B5CF0(void *a0, void *a1) {
-    char *s0 = (char *)a0;
-
-    while (*(void **)(s0 + 8)) {
-        func_002B5D58(*(void **)(s0 + 8), a1);
+void func_002B5CF0(cNode *self, cNode *parent) {
+    while (self->child) {
+        func_002B5D58(self->child, parent);
     }
-    *(void **)(s0 + 8) = 0;
-    func_002B5EC0(s0);
+    self->child = 0;
+    func_002B5EC0(self);
 }

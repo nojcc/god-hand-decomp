@@ -4,14 +4,12 @@
 
 extern void *Getplayer(void);
 extern void SetMotionStep(void *a0, float f12);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
+#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
-extern int moveMotion(void *a0);
+#include "godhand/cEm00.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
-extern char D_00462FC0[];
 extern char D_005CB000[];
 
 #include "godhand/vu0.h"
@@ -29,7 +27,7 @@ void func_0025CCC0(void *a0)
     *(float *)(s0 + 0x5A8) = v;
     SetMotionStep(s0, v);
     *(float *)(s0 + 0x54C) = 3.0f;
-    cCollisionSolidManage_SetActive(D_00462FC0, s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
 
     t = *(float *)(s0 + 0x770);
     if (t > 0.0f) {
@@ -43,7 +41,7 @@ void func_0025CCC0(void *a0)
     {
         int p;
 
-        ReleaseField6ECByTag564_26B1E8(s0);
+        ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
         p = *(int *)(s0 + 0x304);
         func_002A8578(s0, *(int *)(p + 0x14C0) + p, *(int *)(p + 0x14C4) + p,
                       0, 0.0f, 0, 0);

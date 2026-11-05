@@ -1,6 +1,7 @@
 /* NON_MATCHING func_003B2080: int buf[32][4] form.
 * Only the addiu %lo(D_00460040) and the lw %lo(D_0077E520) are swapped.
 * The DmaEnt-struct form sinks the data store (17); the order of the source stores makes no difference. */
+#include "godhand/criStm.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -13,7 +14,6 @@ typedef struct {
 
 extern char D_00460040[];
 extern int D_0077E520;
-extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern int SifSetDma(DmaEnt *list, int n);
 extern int isceSifSetDma(DmaEnt *list, int n);
 

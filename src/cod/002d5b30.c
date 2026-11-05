@@ -1,8 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/regTbl.h"
 
-extern int D_003F5520[];
 extern int D_0040A420;
-extern char *D_003F852C;
 extern char *D_00754C38;
 extern char D_0061B7C0[];
 extern char D_0071B7C0[];
@@ -15,32 +14,32 @@ extern char D_0071B8C0[];
 
 
 __attribute__((section(".text.func_00394D58")))
-int func_00394D58(int *a0) {
-    char *p;
+int func_00394D58(int *out) {
+    RegEnt *p;
     int n;
-    D_003F5520[1] = 0x31415926;
-    D_003F5520[0] = 0;
-    if (a0 != 0) {
-        *a0 = D_0040A420;
+    D_003F5520.check = 0x31415926;
+    D_003F5520.count = 0;
+    if (out != 0) {
+        *out = D_0040A420;
     }
-    n = *(int *)(D_003F852C + 0x10);
-    p = *(char **)(D_003F852C + 0xC);
+    n = D_003F852C->count;
+    p = D_003F852C->ents;
     if (n != 0) {
         do {
-            switch (*(unsigned char *)(p + 0xA)) {
+            switch (p->kind) {
             default:
                 return 7;
             case 0:
             case 1:
-                *(char *)(p + 0xB) = 0;
+                p->active = 0;
                 break;
             case 2:
             case 3:
             case 4:
-                *(char *)(p + 0xB) = 1;
+                p->active = 1;
                 break;
             }
-            p += 0xC;
+            p++;
         } while (--n != 0);
     }
     return 0;

@@ -63,7 +63,6 @@ typedef struct cAreaFxFrame {
 
 #define AREAFX_FRAME_OFFSET(field) ((int)&((cAreaFxFrame *)0)->field)
 
-extern int cArea_HitCheck_1F83E8(cArea *self, float *pt);
 extern void func_00305E88(cAreaFx *self, int no);
 extern void func_00305F58(void *self, int no);
 

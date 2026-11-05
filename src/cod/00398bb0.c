@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 extern char D_0045E260[];
 extern char D_0045E288[];
@@ -22,7 +23,6 @@ extern int  D_003F9810[];    /* _sceCd_cd_ncmd (sceSifClientData) */
 
 
 
-extern void func_003B1F28();                /* scePrintf */
 extern int  func_00398DA0(int mode);        /* sceCdSync */
 
 extern int  func_003B2F48(void *cd, unsigned int sid, int mode);  /* sceSifBindRpc */
@@ -78,7 +78,6 @@ extern int  D_003FA1C0[];    /* _sceCd_cd_scmd (sceSifClientData) */
 
 
 
-extern void func_003B1F28();                /* scePrintf */
 extern int  sceCdSyncS(int mode);           /* sceCdSyncS */
 
 extern int  func_003B2F48(void *cd, unsigned int sid, int mode);  /* sceSifBindRpc */

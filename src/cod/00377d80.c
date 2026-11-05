@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
-extern void func_003A52F0(void *dst, int c, int n);
 extern char D_0076E510[];
 extern char D_0076E590[];
 extern char D_0076E910[];

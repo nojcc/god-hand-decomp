@@ -60,17 +60,17 @@ void func_0025D0B8(cEm00 *self)
                 self->unk17C3 = 0;
         }
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x14D8), EM_RES_REC(self->resource, 0x14DC),
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x14D8), EM_RES_REC(EM_RES(self), 0x14DC),
                       2, 0.0f, sel, 0);
         cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0xC), self, 0, 0, 0, 0);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2B, self, 0, 0, 0, 0);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2E, self, 0, 0, 0, 0);
-        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)4, 0, 2, 0);
-        InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)8, 0, 2, 0);
+        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 4, 0, 2, 0);
+        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 8, 0, 2, 0);
         self->step++;
         /* fall through */
     case 1:
-        self->unk434 |= 8;
+        self->motionFlags |= 8;
         if (moveMotion(self) != 0) {
             self->step = 2;
             if (cEm00_startHitUnitAim(self) != 0) {
@@ -81,7 +81,7 @@ void func_0025D0B8(cEm00 *self)
                 break;
             }
         }
-        CVEC_SET_MUL(self->stepVec, &self->home, self->speedRate);
+        CVEC_SET_MUL(self->nullSpeed, &self->home, self->speedRate);
         cObjBase_addNullSpeed_Rotation((struct cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
         self->hitFlash = 15.0f;
@@ -90,13 +90,13 @@ void func_0025D0B8(cEm00 *self)
         break;
     case 2:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x14E0), EM_RES_REC(self->resource, 0x14E4),
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x14E0), EM_RES_REC(EM_RES(self), 0x14E4),
                       5, 0.0f, sel, 0);
         self->step++;
         /* fall through */
     case 3:
         if (moveMotion(self) != 0) {
-            if (self->vital <= 0) {
+            if (self->hp <= 0) {
                 if (self->emFlags2 & 0x100000)
                     cEm00_setState(self, 2, 2, 0);
                 else if (self->flags1644 & 0x800000)
@@ -111,10 +111,10 @@ void func_0025D0B8(cEm00 *self)
             break;
         }
         self->home.z *= 0.92f;
-        CVEC_ASSIGN_P(&self->stepVec, &self->home);
+        CVEC_ASSIGN_P(&self->nullSpeed, &self->home);
         cObjBase_addNullSpeed_Rotation((struct cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
-        if ((self->moveFlags & 0x10) && self->vital <= 0) {
+        if ((self->seqFlags & 0x10) && self->hp <= 0) {
             if (self->flags1644 & 0x800000)
                 cEm00_setState(self, 2, 3, 0);
             else if (func_0025FE30(self, 0x1000000, 0) != 0)
@@ -128,9 +128,9 @@ void func_0025D0B8(cEm00 *self)
         self->step++;
         /* fall through */
     case 5:
-        self->unk434 |= 8;
+        self->motionFlags |= 8;
         moveMotion(self);
-        CVEC_SET_MUL(self->stepVec, &self->home, self->speedRate);
+        CVEC_SET_MUL(self->nullSpeed, &self->home, self->speedRate);
         cObjBase_addNullSpeed_Rotation((struct cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
         if (self->stepArg == 0) {

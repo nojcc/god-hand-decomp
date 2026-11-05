@@ -21,7 +21,7 @@ int func_0019AA80(cOmHitVolume *em)
     cVec_setW(&size, 1.0f);
     ofs.x = 0.0f; ofs.y = 0.0f; ofs.z = 0.0f;
     cVec_setW(&ofs, 1.0f);
-    em->damageTake = cDamageManage_CreateDamageTake(D_00574380, em, 2);
+    em->damageTake = cDamageManage_CreateDamageTake(&D_00574380, em, 2);
     if (em->damageTake != 0) {
         rot.x = 0.0f; rot.y = 0.0f; rot.z = 0.0f;
         cVec_setW(&rot, 1.0f);

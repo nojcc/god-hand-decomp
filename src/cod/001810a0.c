@@ -1,15 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/cRelSys.h"
+#include "godhand/heapArena.h"
 #include "godhand/cEvent.h"
 #include "godhand/cDataManager.h"
 #include "godhand/cDvd.h"
+#include "godhand/espSys.h"
 
 extern int cOmBase_checkDamage(cOmBase *self, int take);
-extern unsigned char D_005E8640[];
-extern void cRelSys_unlinkNoFree(void *a0, int a1);
-extern void cHeap_free(int heap, int *node);
-extern void func_00297660(cEvent *self);
 extern void cDataSlot_resetSeHandles(cDataSlot *slot);
 extern float fRand1_1(void);
 
@@ -54,7 +53,7 @@ void cEvent_freeData(cEvent *self)
         cRelSys_unlinkNoFree(D_005E8640, 2);
     node = (int *)self->resData;
     if (node != 0)
-        cHeap_free(node[-8], node);
+        cHeap_free(HEAP_OWNER(node), node);
     self->resData = 0;
     func_00297660(self);
 }
@@ -86,48 +85,25 @@ int cDataManager_retireSlot(cDataSlot *slot)
     return 1;
 }
 
-/* Call virtual method 16 (the lock-on hook) of an object that has a linked partner, unless it is hidden. */
-typedef struct LinkVtEnt {
-    short delta;                        /* this adjust */
-    short index;
-    void *pfn;
-} LinkVtEnt;
-
-typedef struct LinkPartner {
-    char unk00[0x250];
-    unsigned int objFlags;              /* 0x250 */
-} LinkPartner;
-
-typedef struct LinkObj {
-    char unk00[0xF0];
-    LinkVtEnt *vt;                      /* 0xF0 */
-    char unkF4[0x20];
-    LinkPartner *partner;               /* 0x114 */
-    char unk118[4];
-    int flags;                          /* 0x11C */
-} LinkObj;
-
-#define LINKOBJ_F_SKIP      0x800000    /* flags bit 23: no hook call */
-#define LINKOBJ_F_VISIBLE_BIT 7         /* flags bit 7 */
-#define LINKPARTNER_F_HIDE  0x2         /* objFlags bit 1 */
 #define LINKVT_HOOK         16          /* vtable entry 16, byte offset 0x80 */
 
+/* Call virtual method 16 (the lock-on hook) unless the effect is hidden, or its owner has CMODEL_F_SHOWN and the effect lacks bit 7. */
 __attribute__((section(".text.LinkObj_callLockOn")))
-void LinkObj_callLockOn(LinkObj *self)
+void LinkObj_callLockOn(EspAnim *self)
 {
     unsigned long f = self->flags;
     unsigned long bit;
-    LinkVtEnt *vt;
-    if (f & LINKOBJ_F_SKIP)
+    cVtEnt *vt;
+    if (f & ESP_ANIM_HIDE)
         return;
-    if (self->partner != 0) {
-        if (self->partner->objFlags & LINKPARTNER_F_HIDE) {
-            bit = (f >> LINKOBJ_F_VISIBLE_BIT) & 1;
+    if (self->owner != 0) {
+        if (self->owner->objFlags & CMODEL_F_SHOWN) {
+            bit = (f >> ESP_ANIM_KEEP_HOOK_BIT) & 1;
             if (bit == 0)
                 return;
         }
     }
-    vt = self->vt;
+    vt = self->vtable;
     ((void (*)(void *))vt[LINKVT_HOOK].pfn)((char *)self + vt[LINKVT_HOOK].delta);
 }
 

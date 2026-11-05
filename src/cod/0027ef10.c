@@ -1,21 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cCollisionSolid.h"
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
+#include "godhand/cModel.h"
 
 extern void func_0028EBF0(char *a0, void *a1, int a2);
-extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cParts_setRotationOrder(void *a0, int a1);
-extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
-extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
-extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 extern void cWorldLight_Init_SatanLight(void *a0, void *a1);
-extern int D_00462FC0;
-extern char D_00574380[];
 extern char D_00604700[];
 struct sph { int a; float b; int c; float d; };
 __attribute__((section(".text.func_0027EF10")))
@@ -48,20 +43,20 @@ int func_0027EF10(char *a0)
     *(int *)(s1 + 0x1584) = 0;
     func_002A8578(s1, *(int *)(v0 + 0xC) + v0, *(int *)(v0 + 0x10) + v0, 0, 0.0f, 0, 0);
     moveMotion(s1);
-    cModel_calcParts(s1);
+    cModel_calcParts((cModel *)s1);
     IK_InverseKinematics(s1 + 0x448, s1);
-    cModel_calcWorldParts(s1);
+    cModel_calcWorldParts((cModel *)s1);
     *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
     *(short *)(s1 + 0x2AE) = 0x1770;
     *(unsigned char *)(s1 + 0x616) = 1;
     *(char *)(s1 + 0x531) = -1;
-    cCollisionSolidManage_SetActive(&D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     cParts_setRotationOrder(s1, 4);
     *(short *)(s1 + 0x54A) = *(short *)(s1 + 0x548) = 1;
     *(int *)(s1 + 0x670) = 0;
     if (*(int *)(s1 + 0x564) != 0x26B) {
         struct sph *r;
-        *(int *)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
+        *(cDamageUnit **)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
         n = *(unsigned char *)(s1 + 0x2B4);
         *(int *)(buf + 0x40) = n;
         {
@@ -78,15 +73,15 @@ int func_0027EF10(char *a0)
         *(int *)(buf + 0x58) = 0;
         r->d = 1.0f;
         *(int *)(s1 + 0x674) = cDamageUnit_AddDamageCollSphere(
-            *(int *)(s1 + 0x670), base + 0x80, r, 0.25f);
+            *(cDamageUnit **)(s1 + 0x670), (void *)(base + 0x80), (cVec *)r, 0.25f);
     }
-    cCollisionSolidManage_CreateUnit(&D_00462FC0, s1, 5, 0.2f);
+    cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)s1, 5, 0.2f);
     q = (struct sph *)(buf + 0x40);
     *(int *)(buf + 0x40) = 0;
     q->b = 0.5f;
     *(int *)(buf + 0x48) = 0;
     q->d = 1.0f;
-    cCollisionSolidManage_CreateSphere(&D_00462FC0, s1, s1 + 0x80, q, 0.5f);
+    cCollisionSolidManage_CreateSphere(&D_00462FC0, (struct cGameObj *)s1, s1 + 0x80, (cVec *)q, 0.5f);
     *(int *)(s1 + 0x2D0) = *(int *)(s1 + 0x2D0) & 0xBFFFFFFF;
     cWorldLight_Init_SatanLight(D_00604700, s1);
     *(char *)(s1 + 0x617) = 1;

@@ -1,16 +1,15 @@
 #include "godhand/cEm00.h"
+#include "godhand/cCamManager.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern void *Getplayer(void);
-extern void cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void cCamManager_setPartsCamera(void *cam, int mode);
 extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern int D_00463050;
 
 /* Phase machine on the step byte, 19 case labels. Calls Getplayer, func_002A8578, func_0025FE30,
  * cDamageUnit_SetDamageCollActive, moveMotion, cObjBase_addNullSpeed_Rotation and 4 more. */
@@ -23,7 +22,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
     int v0;
     int p;
     float one;
-    char *base;
+    cCamManager *mgr;
     int a2v;
     int a3v;
     int b;
@@ -91,9 +90,9 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             *(short *)(s1 + 0x568) = 0x11D;
             *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         case 3:
-            base = (char *)&D_00463050;
-            cCamManager_setPartsCamera(base, 0);
-            parts = base + 0x920;
+            mgr = &D_00463050;
+            cCamManager_setPartsCamera(mgr, 0);
+            parts = &mgr->parts;
             b = *(unsigned char *)(s1 + 0x2B4);
             spill[0] = b;
             lim = 0x1B;

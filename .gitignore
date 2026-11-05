@@ -210,6 +210,7 @@
 !src/cod/0012cd70.c
 !src/cod/0012ce20.c
 !src/cod/0012cf.c
+!src/cod/0012d3c8.c
 !src/cod/0012e5c8.c
 !src/cod/001337e0.c
 !src/cod/00133810.c
@@ -225,6 +226,7 @@
 !src/cod/00134430.c
 !src/cod/001347e8.c
 !src/cod/00134880.c
+!src/cod/00135040.c
 !src/cod/001351d8.c
 !src/cod/001352f8.c
 !src/cod/00137a48.c
@@ -416,8 +418,10 @@
 !src/cod/001f7e80.c
 !src/cod/001f7eb0.c
 !src/cod/001f7ed8.c
+!src/cod/001f8140.c
 !src/cod/001f8350.c
 !src/cod/001f83e8.c
+!src/cod/001f8810.c
 !src/cod/001fa820.c
 !src/cod/001fa870.c
 !src/cod/001fa908.c
@@ -450,7 +454,11 @@
 !src/cod/00244610.c
 !src/cod/00247708.c
 !src/cod/002477f0.c
+!src/cod/00269b50.c
+!src/cod/0026a3d8.c
+!src/cod/0026ab20.c
 !src/cod/0026af20.c
+!src/cod/0026bbd0.c
 !src/cod/0026e7a0.c
 !src/cod/0026ea28.c
 !src/cod/0026ec60.c
@@ -488,6 +496,7 @@
 !src/cod/00289038.c
 !src/cod/0028b0.c
 !src/cod/0028e0.c
+!src/cod/0028d138.c
 !src/cod/0028fdd0.c
 !src/cod/0028fe28.c
 !src/cod/00290028.c
@@ -517,6 +526,7 @@
 !src/cod/002a4b88.c
 !src/cod/002a5b00.c
 !src/cod/002a7280.c
+!src/cod/002a7338.c
 !src/cod/002a8608.c
 !src/cod/002a9420.c
 !src/cod/002a9790.c
@@ -533,6 +543,7 @@
 !src/cod/002af698.c
 !src/cod/002af720.c
 !src/cod/002afc08.c
+!src/cod/002b1f80.c
 !src/cod/002b22e0.c
 !src/cod/002b2580.c
 !src/cod/002b28.c
@@ -627,6 +638,7 @@
 !src/cod/002d9bd8.c
 !src/cod/002d9d40.c
 !src/cod/002d9d48.c
+!src/cod/002daf68.c
 !src/cod/002e0ad8.c
 !src/cod/002e13d8.c
 !src/cod/002e81d8.c
@@ -645,6 +657,7 @@
 !src/cod/002fbec8.c
 !src/cod/002febd8.c
 !src/cod/002febe0.c
+!src/cod/002febe8.c
 !src/cod/002fec30.c
 !src/cod/002ffa68.c
 !src/cod/002ffad0.c
@@ -972,6 +985,7 @@
 !src/cod/0036e378.c
 !src/cod/00373158.c
 !src/cod/003749d8.c
+!src/cod/00375630.c
 !src/cod/00375ef8.c
 !src/cod/00376508.c
 !src/cod/003766f8.c
@@ -3000,6 +3014,7 @@
 !include/godhand/cOmBase.h
 !include/godhand/cOmbb.h
 !include/godhand/cOmWeapon.h
+!include/godhand/cEmWeaponSpawn.h
 !include/godhand/cSaveLoad.h
 !include/godhand/cSceAtManager.h
 !include/godhand/cSceAtUnit.h
@@ -3013,6 +3028,7 @@
 !include/godhand/DogRace.h
 !include/godhand/JukeBox.h
 !include/godhand/Poker.h
+!include/godhand/PanelObj.h
 !include/godhand/Slot2.h
 !include/godhand/cModel.h
 !include/godhand/cEmSetParam.h
@@ -3141,6 +3157,7 @@
 !include/godhand/cE3.h
 !include/godhand/cDoor.h
 !include/godhand/cDamageGive.h
+!include/godhand/cDamageManage.h
 !include/godhand/cCockTutorial.h
 !include/godhand/cCamera.h
 !include/godhand/cActionButton.h
@@ -4171,6 +4188,7 @@
 !include/godhand/cEmLinked.h
 !include/godhand/sndBank.h
 !include/godhand/regTbl.h
+!include/godhand/cRelSys.h
 !include/godhand/iopReq.h
 !include/godhand/devObj.h
 !include/godhand/mwPly.h
@@ -4433,6 +4451,10 @@
 !include/godhand/cPathMover.h
 !include/godhand/cShopPanel.h
 !include/godhand/tim2.h
+!include/godhand/typeInfo.h
+!include/godhand/libio.h
+!include/godhand/sceDma.h
+!include/godhand/libpad.h
 
 # NON_MATCHING drafts: never compiled into the build, kept out of src/
 !drafts/

@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
 
 extern void func_00383438(void *, void *);
 extern void func_0031C900(int);
@@ -64,8 +65,8 @@ int InitStructSubfieldsAndFloatB(int a0)
 __attribute__((section(".text.ClearHeadAndSubblocksReturnSelf")))
 int *ClearHeadAndSubblocksReturnSelf(int *a0) {
     a0[0] = 0;
-    func_003A52F0((int)((char *)a0 + 0x4), 0, 0xC);
-    func_003A52F0((int)((char *)a0 + 0x14), 0, 0x80);
+    func_003A52F0((char *)a0 + 0x4, 0, 0xC);
+    func_003A52F0((char *)a0 + 0x14, 0, 0x80);
     return a0;
 }
 

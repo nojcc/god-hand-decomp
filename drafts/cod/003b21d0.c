@@ -2,6 +2,7 @@
 * Only scheduling of
  * the cmd-data init (a3=0x20 / lui hi(D_0077E500) one slot off) and the v0/v1 swap of the
  * packet/pktbuf addresses before the final sceSifSendCmd remain. */
+#include "godhand/eeKernel.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -38,11 +39,9 @@ extern SifCmdHandler D_0077E540[];
 extern unsigned int D_0077E6C0[];
 
 extern int func_003B63A0(void);
-extern void EIntr(void);
 extern void FlushCache(int op);
 extern void SifSetDChain(void);
 extern int AddDmacHandler(int ch, int (*fn)(int), int next);
-extern int func_003B0810(int chan);
 extern unsigned int SifGetReg(unsigned int reg);
 extern void SifSetReg(unsigned int reg, unsigned int val);
 extern int sceSifSendCmd(unsigned int cmd, void *pkt, int size, void *src, void *dest, int dsize);

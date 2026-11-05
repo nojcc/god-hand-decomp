@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/CustomIDWork.h"
 
 extern char D_003BE0B0[];
 extern int D_00747A2C;
@@ -14,7 +15,6 @@ extern void Slot2_updateMarkAt4C0(int a0);
 extern void func_001E4610(int a0);
 extern void func_001E79E8(int a0);
 extern void func_001E7EA0(int a0);
-extern void CustomIDWork_SetNumber(int a0, int a1);
 extern void func_001E73C0(int a0);
 extern void func_001E7440(int a0);
 extern void func_001E33B0(int a0);
@@ -42,7 +42,7 @@ void func_001E0210(int a0)
     func_001E7EA0(a0 + 0x160);
     func_001E7EA0(a0 + 0x268);
     v = cCoreSave_getGold(&D_00569B70);
-    CustomIDWork_SetNumber(a0 + 0x520, v);
+    CustomIDWork_SetNumber((CustomIDWork *)(a0 + 0x520), v);
     func_001E73C0(p);
     func_001E7440(p);
     if (D_00747A2C & 0x200)

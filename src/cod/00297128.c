@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEvent.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cCoreSave.h"
 
 extern char D_0044A960[];
-extern char D_00583F20[];
-extern int D_003C3CF0;
-extern int cDvd_ReadAlloc(void *, void *, void *, void *, int, int, int, int);
 extern int D_003C2F84;
 extern int D_003C2558;
 extern unsigned int D_00747A84[];
@@ -17,13 +16,11 @@ extern unsigned char D_00604700[];
 extern short D_005CAE40;
 extern char D_00747470[];
 extern void cEvent_releaseWork(cEvent *);
-extern void cHeap_free(int, void *);
 extern char *Getplayer(void);
 extern char *GetJacket(void);
 extern void cScenario_moveObjPos(int, char *, float, float, float, float);
 extern void func_0();
 extern void ClearDisplayText_2974F0(cEvent *);
-extern void func_00297660(cEvent *);
 extern void cEmSetParam_setEmAll(char *);
 extern void Set_bg_mode(int, int, int, int);
 extern void classFADE_start(char *, int, int, int, int, int, int);
@@ -33,12 +30,12 @@ extern void cNowLoading_exitTask(int);
  * pointer has been filled in. */
 __attribute__((section(".text.cEvent_startLoadText")))
 void cEvent_startLoadText(cEvent *self) {
-    int name[8];
+    char name[0x20];
     char *fmt = D_0044A960;
     func_003A6C58(name, fmt, func_00297B80(self));
     /* raw store: the typed member lets the D_003C3CF0 load float above it */
     *(int *)((char *)self + CEVENT_OFFSET(textData)) = 0;
-    self->loadHandle = cDvd_ReadAlloc(D_00583F20, name, &self->textData, (void *)D_003C3CF0, 0, 0, 0, 0);
+    self->loadHandle = cDvd_ReadAlloc(&D_00583F20, name, &self->textData, (void *)D_003C3CF0, 0, 0, 0, 0);
     if (self->textData != 0) {
         self->flags |= CEVENT_F_TEXT_DATA;
     }
@@ -68,7 +65,7 @@ void cEvent_endPlay(cEvent *self) {
     cEvent_releaseWork(self);
     text = self->textData;
     if (text != 0) {
-        cHeap_free(((int *)text)[-8], text);
+        cHeap_free(HEAP_OWNER(text), text);
     }
     D_00569B70.data->flags &= ~0x40000000;
     player = Getplayer();
@@ -95,7 +92,7 @@ void cEvent_endPlay(cEvent *self) {
         ClearDisplayText_2974F0(self);
         res = (char *)self->resData;
         if (res != 0) {
-            cHeap_free(((int *)res)[-8], res);
+            cHeap_free(HEAP_OWNER(res), res);
         }
         self->resData = 0;
     }

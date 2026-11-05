@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cMovie.h"
+#include "godhand/regTbl.h"
+#include "godhand/heapArena.h"
 #include "godhand/cE3.h"
 #include "godhand/cOm53.h"
 #include "godhand/cMc.h"
@@ -14,9 +16,6 @@ extern void *Getplayer(void);
 extern unsigned int D_00747A84;
 extern void func_0();
 extern char cEvent_nullStr00[];
-extern void func_00394F20(void *dll);
-extern void cHeap_free(void *heap, void *block);
-extern char D_00754230[];
 
 /* 1 while the track holds a player. The unsigned char result is what makes
  * the compiler build the 0/1 with a branch, as retail does. */
@@ -127,7 +126,7 @@ void cMc_DllRelease(cMc *self) {
         self->loaded = 0;
     }
     if (self->dll != 0) {
-        cHeap_free(D_00754230, self->dll);
+        cHeap_free(&D_00754230, self->dll);
         self->dll = 0;
     }
 }

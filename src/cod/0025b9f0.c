@@ -5,7 +5,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 
-extern int moveMotion(void *a0);
 extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_00281470(int a0, unsigned char a1);

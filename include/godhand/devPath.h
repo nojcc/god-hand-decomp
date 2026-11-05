@@ -9,7 +9,6 @@
 #define DEVPATH_SEP   ':'
 
 extern unsigned int strlen(const char *s);
-extern void *func_003A5148(void *dst, const void *src, unsigned int n);
 extern void toUpperStr(unsigned char *str);
 
 #endif

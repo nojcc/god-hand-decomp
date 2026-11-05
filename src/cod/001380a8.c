@@ -8,7 +8,6 @@
  * sn-2.95.3-136. */
 
 extern int D_0041D8B8;
-extern void cCamera_reset(struct cCamera *self);
 
 /* Constructor: set the vtable, zero the vectors, lay seven identity
  * matrices (each in its own scope so the base pointer alternates as in

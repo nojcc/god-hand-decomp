@@ -1,15 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cIDBase.h"
 #include "godhand/cOmDoor.h"
 #include "godhand/cSceAtManager.h"
+#include "godhand/cSnd.h"
 
 extern void *D_003C264C;
-extern char D_005FEE00[];
 extern void cSaveManager_stageClear(void *self);
 extern void func_002CABE0(void *bus);
 extern unsigned int D_00747A78;
-extern void cIDBase_trans(void *self);
 
 extern char D_005CAE50[];           /* collision list */
 extern char D_00429290[];           /* six unit vectors of the door box */
@@ -59,7 +59,7 @@ void cOmDoor_setObjCollision(cOmDoor *self) {
 __attribute__((section(".text.GameLoop_stageClearToState3")))
 void GameLoop_stageClearToState3(char *state) {
     cSaveManager_stageClear(D_003C264C);
-    func_002CABE0(D_005FEE00);
+    func_002CABE0(&D_005FEE00);
     *state = 3;
 }
 
@@ -110,9 +110,9 @@ void IdDrawObj_transDual(IdDrawObj *self) {
     if (mode >= 0) {
         if (mode >= 2) {
             if (mode < 4) {
-                cIDBase_trans(self->sub);
+                cIDBase_trans((cIDBaseObj *)self->sub);
             }
         }
     }
-    cIDBase_trans(self);
+    cIDBase_trans((cIDBaseObj *)self);
 }

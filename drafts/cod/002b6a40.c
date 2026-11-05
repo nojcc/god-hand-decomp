@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 #include "godhand/cObjSimple.h"
+#include "godhand/mtx.h"
 #include "godhand/capVu0.h"
 #include "godhand/cutCmd.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cVec.h"
 #include "godhand/vecInline.h"
 
-extern void MtxInverse(void *dst, void *src);
 extern char D_00586AF0[];               /* cEvent */
 
 #define BUST_CHILD     29

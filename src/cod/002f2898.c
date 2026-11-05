@@ -1,5 +1,6 @@
 /* sn-2.95.3-136: func_002F2898, enemy action setup from its parameter block: copies counts, range and offsets, resolves the start position. */
 #include "godhand/cObjSimple.h"
+#include "godhand/cNode.h"
 #include "godhand/cOmBase.h"
 typedef struct {
     char pad0[0x13C];

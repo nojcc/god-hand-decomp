@@ -1,4 +1,4 @@
-extern void cHeap_free(void *heap, void *p);
+#include "godhand/heapArena.h"
 
 __attribute__((section(".text.func_002BE4E8")))
 void func_002BE4E8(char *object)

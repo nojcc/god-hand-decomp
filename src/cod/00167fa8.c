@@ -9,9 +9,6 @@ extern int func_002B04C0(cMessDrawFont *self, unsigned short *text, float *arg);
 extern float func_002B0BE0(cMessDrawFont *self, unsigned short *text, float *arg);
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
-extern void cIDBase_restartAnim(void *self);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041FC50[];
 extern void **D_003C2384;
 extern float Curve_sample(void *a0, int a1, int a2, int a3);
@@ -75,12 +72,12 @@ void IdDispObj16_construct(IdDispObj16 *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041FC50) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ16_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ16_KIND, 0);
-        cIDBase_restartAnim(self);
+        cIDBase_initialize((cIDBaseObj *)self, IDOBJ16_KIND, 0);
+        cIDBase_restartAnim((cIDBaseObj *)self);
         self->state = IDOBJ16_PLAYING;
     }
     for (i = 0; i < IDOBJ16_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
     }
     if (self->variant == 1) {
         IdDispLink *link;

@@ -1,27 +1,23 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float a4);
 extern void cEm00_GetPlMotion(void *a0, int a1, float a2, float a3);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_00124EC0(void *a0);
-extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0012C0F8(void *a0, int a1);
-extern void cSnd_DieDemoStart(void *a0);
 extern void func_0012C348(void *a0, int a1);
-extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4, int a5, int a6, int a7);
 extern int D_00747A24;
-extern char D_00462FC0[];
 extern char D_005864F0[];
-extern char D_005FEE00[];
 extern void *Getplayer(void);
+#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
+#include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float a2);
 extern void func_00274FE8(void *a0);
 extern void func_00262750(void *a0, int a1);
@@ -67,7 +63,7 @@ void func_0011CEE8(void *a0)
     *(float *)(s1 + 0x54C) = 5.0f;
     *(int *)(s1 + 0x250) |= 0x10000;
     s0 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     cEmManage_SetPlCatched(D_005864F0);
     switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0:
@@ -120,7 +116,7 @@ void func_0011CEE8(void *a0)
                 func_0012C0F8(s1, (int)(*(float *)(s0 + 0x76C) * 50.0f));
             }
             if (*(short *)(s1 + 0x54A) <= 0) {
-                char *g = D_005FEE00;
+                cSnd *g = &D_005FEE00;
 
                 *(short *)(s1 + 0x54A) = 0;
                 cSnd_SeCall_2CBA48(g, 0, 0xD6, s1, 0, 0, 0, 0);
@@ -128,7 +124,7 @@ void func_0011CEE8(void *a0)
                 cCoreSave_addGameLevelPoint(&D_00569B70, -0x3E8);
                 *(unsigned short *)(s1 + 0x434) |= 8;
             } else {
-                cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xD7, s1, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD7, s1, 0, 0, 0, 0);
             }
             func_0012C348(s1, 2);
         }
@@ -168,8 +164,6 @@ void func_0011CEE8(void *a0)
 
 
 
-extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int a4,
-                               int a5, int a6, int a7);
 
 #include "godhand/vu0.h"
 
@@ -183,7 +177,7 @@ void func_00122140(void *a0)
 
     *(float *)(s1 + 0x54C) = 5.0f;
     s0 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     cEmManage_SetPlCatched(D_005864F0);
     *(int *)(s1 + 0x250) |= 0x10000;
     switch (*(unsigned char *)(s1 + 0x2F6)) {
@@ -240,7 +234,7 @@ void func_00122140(void *a0)
             if (s0 != 0)
                 func_0012C0F8(s1, (int)(*(float *)(s0 + 0x76C) * 30.0f));
             if (*(short *)(s1 + 0x54A) <= 0) {
-                char *g = D_005FEE00;
+                cSnd *g = &D_005FEE00;
 
                 *(short *)(s1 + 0x54A) = 0;
                 cSnd_SeCall_2CBA48(g, 0, 0xD6, s1, 0, 0, 0, 0);
@@ -248,7 +242,7 @@ void func_00122140(void *a0)
                 cCoreSave_addGameLevelPoint(s2, -0x3E8);
                 *(unsigned short *)(s1 + 0x434) |= 8;
             } else {
-                cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xD7, s1, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD7, s1, 0, 0, 0, 0);
             }
             func_0012C348(s1, 2);
         }
@@ -279,14 +273,14 @@ void func_0025C010(void *a0)
     char *s0 = (char *)a0;
     char *s1 = (char *)Getplayer();
 
-    cCollisionSolidManage_SetActive(D_00462FC0, s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
     *(float *)(s0 + 0x54C) = 3.0f;
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
     {
         int p;
 
-        ReleaseField6ECByTag564_26B1E8(s0);
+        ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
         p = *(int *)(s0 + 0x304);
         func_002A8578(s0, *(int *)(p + 0x1074) + p, *(int *)(p + 0x1078) + p,
                       0, 0.0f, 0, 0);

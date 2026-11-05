@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/espSys.h"
 
 typedef struct StepRec {
     int unk00;
@@ -19,8 +20,6 @@ typedef struct StepObj {
 } StepObj;
 
 extern unsigned int D_00747A84;
-extern void func_002FA350(float *time);
-extern void UpdateObjByIndexedOp_2FBE50(StepObj *self);
 
 /* Hold the time when the step is held (D_00747A84 bit 0x20000, or a held object), else advance it by 1.0. */
 #define STEP_TIME(self) \
@@ -54,7 +53,7 @@ int StepObj_advanceFrame(StepObj *self)
                     self->frame = self->limit;
                 }
             } else {
-                UpdateObjByIndexedOp_2FBE50(self);
+                UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
                 return 1;
             }
         }

@@ -3,6 +3,7 @@
 #include "godhand/Slot2.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/Poker.h"
 
 extern void ModeObj_pollInputBits(void *self);
 extern void func_00164238(void *self);
@@ -116,7 +117,7 @@ extern int D_0061A990;                  /* a counter that changes every frame */
 
 
 /* A pseudo-random number in lo..hi, mixed from the frame counter, the gold
- * and a random draw. */
+ * and a random draw. self is not read. */
 __attribute__((section(".text.Casino_randRange")))
 int Casino_randRange(void *self, int lo, int hi)
 {

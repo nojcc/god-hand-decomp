@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
-extern void func_003A52F0(void *a0, int a1, int a2);
 extern void ClearFields00And30_1EE768(void *a0);
 extern void func_001ECA80(void *a0);
 extern void func_001ED548(void *a0);

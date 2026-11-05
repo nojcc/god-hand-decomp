@@ -1,46 +1,44 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/CustomIDWork.h"
+#include "godhand/cCamManager.h"
 
-extern int CustomIDWork_SetNumber();
-extern char D_00463050[];
-extern int cCamManager_setSubScrCamera();
-extern int cCamManager_setPlCamera();
 extern int cIDBase_release();
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7848")))
-void func_001E7848(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x1C4); }
+void func_001E7848(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x1C4), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7868")))
-void func_001E7868(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x240); }
+void func_001E7868(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x240), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7888")))
-void func_001E7888(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x2BC); }
+void func_001E7888(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x2BC), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78A8")))
-void func_001E78A8(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x338); }
+void func_001E78A8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x338), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78C8")))
-void func_001E78C8(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x3B4); }
+void func_001E78C8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x3B4), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78E8")))
-void func_001E78E8(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x430); }
+void func_001E78E8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x430), number); }
 
 /* clone */
 
@@ -51,9 +49,9 @@ void func_001EB718(int a0, float *a1, float *a2) {
     float *dst1;
     float *dst2;
 
-    cCamManager_setSubScrCamera(D_00463050, 0);
-    *(int *)(a0 + 0x200) = (int)(D_00463050 + 0xC90);
-    dst1 = (float *)(D_00463050 + 0xEA0);
+    cCamManager_setSubScrCamera(&D_00463050, 0);
+    *(int *)(a0 + 0x200) = (int)&D_00463050.subScr;
+    dst1 = &D_00463050.subScr.eye.x;
     if (a1 != dst1) {
         dst1[0] = a1[0];
         dst1[1] = a1[1];
@@ -73,7 +71,7 @@ void func_001EB718(int a0, float *a1, float *a2) {
 
 __attribute__((section(".text.func_001EB9F8")))
 void func_001EB9F8(void) {
-    cCamManager_setPlCamera(D_00463050, 0);
+    cCamManager_setPlCamera(&D_00463050, 0);
 }
 
 /* clone */
@@ -86,4 +84,4 @@ void func_001ECBD0(void *a0) { cIDBase_release((char *)a0 + 0x10); }
 
 
 __attribute__((section(".text.func_001ED490")))
-void func_001ED490(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x124C); }
+void func_001ED490(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x124C), number); }

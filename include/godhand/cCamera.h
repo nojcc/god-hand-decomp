@@ -57,6 +57,12 @@ struct cCamera {
 
 /* The type is only ever written `struct cCamera`: the constructor function has the same name. */
 
+/* Aim the camera from its default eye at its default target and clear the vibration. */
+void cCamera_reset(struct cCamera *self);
+/* Run the vtable's move step, then stepVib, then update. */
+void cCamera_move(struct cCamera *self);
+/* cCamera_reset, then clear 0x1C0. */
+void func_00139090(struct cCamera *self);
 extern float Adjust_theta(float angle);
 /* The signed step from now toward dest: at most spd, the shorter way round. */
 float Turn_dest_dir(float now, float dest, float spd);

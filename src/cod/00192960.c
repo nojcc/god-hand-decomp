@@ -2,8 +2,8 @@ extern int D_00785C28;
 extern char D_004243D8[];
 extern char D_00785878[];
 extern char D_004243F0[];
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern int D_00574380;
 extern int D_00785C38;
 extern int D_004244C0;
 extern int D_00785798;
@@ -136,7 +136,7 @@ void *ResetField214FreeField600D_192FF0(void *a0, int a1) {
     *(int **)((char *)a0 + 0x214) = &D_004245C0;
     v1 = *(int *)((char *)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int *)((char *)a0 + 0x600) = 0;
     }
     return ResetField214FreeField180_1C2820(a0, a1);

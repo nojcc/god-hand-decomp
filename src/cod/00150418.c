@@ -2,8 +2,6 @@
 #include "godhand/heapArena.h"
 #include "godhand/heapList.h"
 
-extern void cHeap_free(int heap, int *node);
-extern void *_MemoryAlloc(int a0, int a1, int a2);
 extern void func_002B2080(void *node);
 extern void func_002B22E8(void *node, void *prev, void *next, int key, unsigned short serial);
 
@@ -39,7 +37,7 @@ void List_destroyChildren(HeapList *self)
     block = self->block;
     func_002A9790(self);
     if (block != 0) {
-        cHeap_free(block[-8], block);
+        cHeap_free(HEAP_OWNER(block), block);
     }
 }
 
@@ -51,7 +49,7 @@ void func_001504B0(HeapList *self, int num)
 
     List_destroyChildren(self);
     size = func_002A96C0(LIST_CHILD_SIZE, num, LIST_ALIGN);
-    func_002A96D8((int *)self, (int)_MemoryAlloc(size, LIST_ALIGN, (int)D_003C3CF0),
+    func_002A96D8((int *)self, (int)_MemoryAlloc(size, LIST_ALIGN, D_003C3CF0),
                   LIST_CHILD_SIZE, num, LIST_ALIGN);
     self->unk18 = num;
     self->unk1C = num;

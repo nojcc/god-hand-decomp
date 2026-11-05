@@ -1,8 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cDvd.h"
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/cSnd.h"
 
 extern unsigned int D_00747A84;
 extern void func_0028E858(void);
@@ -13,17 +18,11 @@ extern unsigned int D_00747A78;
 extern char *D_005CAFF0;
 extern void func_001582A0(void *self, void *link, float f12, float f13, int a2, int a3, int t0);
 extern void cParts_setRotationOrder(void *self, int order);
-extern void cModel_calcParts(void *self);
-extern char D_00574380[];
 extern char D_00747AC0[];
-extern int cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, void *ofs, float radius);
-extern void cDamageUnit_SetDamageCollActive(void *unit, int active);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E28F0(void *obj, float y);
 extern char D_0044C048[];
 extern char D_0044C068[];
-extern char D_00583F20[];
-extern char D_005FEE00[];
 extern char D_005E79D0[];
 extern char D_005E6900[];
 extern void FileLoader_readWholeFile(void *self);
@@ -132,7 +131,7 @@ void PartObj_refresh(PartObj *self) {
             }
             cParts_setRotationOrder(self, 4);
         }
-        cModel_calcParts(self);
+        cModel_calcParts((cModel *)self);
     }
 }
 
@@ -159,7 +158,6 @@ typedef struct GiveOwner {
 
 
 
-extern DmgGive *cDamageManage_CreateDamageGive(void *mgr, int kind, void *obj);
 
 
 
@@ -170,16 +168,16 @@ void GiveOwner_createGiveVolumes(GiveOwner *self) {
     do {
         float v[4];
         i++;
-        *slot = cDamageManage_CreateDamageGive(D_00574380, GIVE_KIND, 0);
+        *slot = cDamageManage_CreateDamageGive(&D_00574380, GIVE_KIND, 0);
         if (*slot != 0) {
             v[0] = 0.0f;
             v[1] = 0.0f;
             v[2] = 0.0f;
             v[3] = 1.0f;
-            cDamageUnit_AddDamageCollSphere(*slot, D_00747AC0, v, 1.0f);
+            cDamageUnit_AddDamageCollSphere((cDamageUnit *)(*slot), D_00747AC0, (cVec *)v, 1.0f);
             (*slot)->hitA = GIVE_HIT_A;
             (*slot)->hitB = GIVE_HIT_B;
-            cDamageUnit_SetDamageCollActive(*slot, 0);
+            cDamageUnit_SetDamageCollActive((cDamageUnit *)(*slot), 0);
             (*slot)->flags |= 1;
         }
         slot++;
@@ -278,8 +276,8 @@ void System_bringUp(void *arg) {
     else
         sceGsResetGraph(0, 1, 2, 0);
     sceGsSyncV(0);
-    cDvd_init(D_00583F20);
-    func_002C9D20(D_005FEE00);
+    cDvd_init(&D_00583F20);
+    func_002C9D20(&D_005FEE00);
     MoviePool_init(D_005E79D0);
     SlotIds_sendSetup(D_005E6900);
     func_0031A718(arg);

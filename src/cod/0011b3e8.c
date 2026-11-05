@@ -2,16 +2,14 @@
 
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
-extern unsigned char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
 extern float capVu0Atan2(float y, float x);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_00124EC0(void *a0);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 #include "godhand/vu0.h"
@@ -22,13 +20,13 @@ __attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLi
 {
     char buf[0x30] __attribute__((aligned(16)));
     int s2v, s1v;
-    char *g;
+    cSnd *g;
 
     switch (self->step) {
         case 0: {
             int v0 = EM_RES(self);
             char *p;
-            g = (char *)&D_005FEE00;
+            g = &D_005FEE00;
             s2v = EM_RES_REC(v0, 0x270);
             s1v = EM_RES_REC(v0, 0x274);
             cSnd_SeCall_2CBA48(g, 0, 0xCF, self, 0, 0, 0, 0);

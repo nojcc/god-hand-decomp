@@ -1,4 +1,4 @@
-extern void cDamageUnit_SetDamageCollActive(void *, int);
+#include "godhand/cDamageUnit.h"
 
 __attribute__((section(".text.func_0018A3B8")))
 void func_0018A3B8(char *self, int index)

@@ -1,4 +1,5 @@
 /* NON_MATCHING func_001F3118: sn; switch tree fixed by an empty case 2; remaining: lw vs lwu on the 64-bit flag test, case-0 b/a masks not folded to andi 0x7373, and case-1 uninitialized CidColor locals land in a3 instead of t0 (retail register = phantom by-value param pattern under checkpoint-90 review) */
+#include "godhand/CustomIDWork.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -14,7 +15,6 @@ typedef struct CidPanel {
 } CidPanel;
 
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(void *work, int a1, CidColor col, int frames);
-extern void CustomIDWork_SetColorAnimSin(void *work, CidColor from, CidColor to, int frames);
 extern void SetCustomIDDispOneOrAll_1F29C0(CidPanel *self, int id, int disp);
 
 void func_001F3118(CidPanel *self)
@@ -51,7 +51,7 @@ void func_001F3118(CidPanel *self)
         to.g = 0xA8;
         to.b = 0xA8;
         to.a = 0x80;
-        CustomIDWork_SetColorAnimSin(self->frame, from, to, 3);
+        CustomIDWork_SetColorAnimSin((CustomIDWork *)self->frame, *(unsigned int *)&from, *(unsigned int *)&to, 3);
         self->state++;
         break;
     case 2:

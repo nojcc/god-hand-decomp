@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cObjBase.h"
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEma2.h"
 
 extern unsigned int D_00747A84;
-extern void VecRotVec(float *out, float *in, float *rot, int order);
 extern void KillEffect(void *obj, int effNo, int mode);
 extern cGameObj *Getplayer(void);
 extern float capVu0Atan2(float x, float z);
@@ -15,18 +15,18 @@ extern float capVu0Atan2(float x, float z);
 __attribute__((section(".text.cObjBase_MoveByNullSpeed")))
 void cObjBase_MoveByNullSpeed(cObjBase *self, float yaw, float scale) {
     float v[4] __attribute__((aligned(16)));
-    float r[4] __attribute__((aligned(16)));
-    float *rp;
+    cVec r __attribute__((aligned(16)));
+    cVec *rp;
     if (!(D_00747A84 & 0x20000000)) {
         VU0_SQC2_VF0(v, 0);
         v[0] = self->nullSpeed.x * self->scale.x * scale;
         v[1] = self->nullSpeed.y * self->scale.y * scale;
         v[2] = self->nullSpeed.z * self->scale.z * scale;
-        rp = r;
-        r[0] = 0;
-        r[1] = yaw;
-        r[2] = 0;
-        rp[3] = 1.0f;
+        rp = &r;
+        r.x = 0;
+        r.y = yaw;
+        r.z = 0;
+        rp->w = 1.0f;
         VecRotVec(v, v, rp, 4);
         self->pos->x += v[0];
         self->pos->y += v[1];

@@ -5,7 +5,6 @@
  * fires func_002A8578 and advances, phases 0/1 step moveMotion and add the
  * 1.0f-scaled vectors. Every phase then runs func_002DDAB0 on the +0xF0 object
  * (scale 10.0f) and re-arms 0x2F5=2 when it reports done.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int func_002DDAB0(void *a0, int a1, float f);

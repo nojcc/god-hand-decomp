@@ -5,6 +5,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cOmBase.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 
 typedef struct CornerBound {
@@ -26,9 +27,6 @@ typedef struct CornerBound {
 } CornerBound;
 
 extern cVec D_00462F40[8];
-extern void MtxInitTransVec(float *dst, cVec *pos);
-extern void MtxMulRotVec(float *dst, float *src, cVec *rot, unsigned char order);
-extern void MtxMulTransVec(float *dst, float *src, cVec *t);
 
 __attribute__((section(".text.func_0012DCB8")))
 void func_0012DCB8(CornerBound *self)

@@ -13,7 +13,6 @@ extern void func_00381010(MenuCtl *a0, MenuPad *a1, unsigned char a2);
 extern void func_00381070(void *a0, void *a1);
 extern void func_00381478(void *a0);
 extern void func_00380678(void *a0, int a1, int a2, int a3, int a4);
-extern int GuardedCall_00329FD0_329F98(int a0);
 extern void func_0032A160(int a0, int *a1, void *a2);
 extern int func_0032B6E0(int a0);
 extern float func_0032AE10(int a0);

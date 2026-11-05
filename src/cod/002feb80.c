@@ -1,8 +1,8 @@
-extern void UpdateObjByIndexedOp_2FBE50(void *, int, int);
+#include "godhand/espSys.h"
 
 __attribute__((section(".text.func_002FEB80")))
-void func_002FEB80(int *p, int a, int b)
+void func_002FEB80(EspAnim *self, int a, int b)
 {
-    if (a == p[0x42] && b == p[0x43])
-        UpdateObjByIndexedOp_2FBE50(p, a, b);
+    if (a == self->unk108 && b == self->unk10C)
+        UpdateObjByIndexedOp_2FBE50(self);
 }

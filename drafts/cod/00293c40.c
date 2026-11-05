@@ -1,4 +1,8 @@
-/* sn-2.95.3-136 */
+/* NON_MATCHING func_00293C40 (sn-2.95.3-136): 188 differing words with CVEC_ASSIGN(d, &s) for the
+ * operator= copies; the draft matches with cvec_pending.h's CVEC_ASSIGN_VEC, which waits on a decision. */
+#include "include_asm.h"
+
+#ifdef NON_MATCHING
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cCamera.h"
@@ -8,7 +12,7 @@
 #include "godhand/rand.h"
 #include "godhand/sceVu0.h"
 #include "godhand/mtx.h"
-#include "godhand/cVec.h"
+#include "../cvec_pending.h"
 
 /* Sends the special enemies into a joint attack when at least two are alive
  * and all of those are idle, ready and not flashing. The spot is 12 ahead of
@@ -243,3 +247,6 @@ int func_00293C40(cEmManage *self, int formation)
     }
     }
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_00293C40);
+#endif

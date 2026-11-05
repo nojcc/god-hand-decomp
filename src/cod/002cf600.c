@@ -1,26 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
+#include "godhand/cDvd.h"
 #include "godhand/cBgmData.h"
 
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
 extern int D_00747A2C;
 extern char D_0044CF68[];
-extern char D_00583F20[];
-extern void cSeData_Release(cSeData *);
-extern void cSeData_SelectHeap(cSeData *);
-extern int cDvd_FileExist(char *, char *);
-extern int cDvd_ReadAlloc(char *, char *, void *, void *, int, int, int, int);
-extern void cSeData_AddLoadBits(cSeData *, int);
 extern char D_00603A40[];
 extern char D_0044CFB8[];
 
-/* Load bank bankId from the file named by arg; 1 when the data arrived. */
+/* Load bank bankId from the file named fileName; 1 when the data arrived. */
 __attribute__((section(".text.cSeData_LoadFile")))
-int cSeData_LoadFile(cSeData *d, int bankId, int arg)
+int cSeData_LoadFile(cSeData *d, int bankId, char *fileName)
 {
     char name[0x40];
 
@@ -31,11 +22,11 @@ int cSeData_LoadFile(cSeData *d, int bankId, int arg)
     }
     d->bankId = bankId;
     d->state = 1;
-    d->f3C = 0x7FFFFFFF;
+    d->owner = 0x7FFFFFFF;
     cSeData_SelectHeap(d);
-    func_003A6C58(name, D_0044CF68, arg);
-    if (cDvd_FileExist(D_00583F20, name) == 0 ||
-        (d->f38 = cDvd_ReadAlloc(D_00583F20, name, &d->buf, d->pool, 0, 0, 0, 0)) == 0 ||
+    func_003A6C58(name, D_0044CF68, fileName);
+    if (cDvd_FileExist(&D_00583F20, name) == 0 ||
+        (d->f38 = cDvd_ReadAlloc(&D_00583F20, name, &d->buf, d->pool, 0, 0, 0, 0)) == 0 ||
         d->buf == 0) {
         cSeData_Release(d);
         return 0;
@@ -77,8 +68,8 @@ int cSeData_CheckImage(cSeData *d)
     }
     b = d->buf;
     d->f14 = b->f10;
-    if (d->f3C == 0x7FFFFFFF)
-        d->f3C = b->f08;
+    if (d->owner == 0x7FFFFFFF)
+        d->owner = b->f08;
     d->f28 = d->bankId + 0x82;
     d->f20 = d->buf->f18;
     cSeData_AddLoadBits(d, 4);

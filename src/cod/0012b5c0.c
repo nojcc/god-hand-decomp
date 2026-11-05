@@ -12,7 +12,6 @@ extern void func_001B6FB8(void *self);
 extern int cMessCommon_isPageEndCode(int code);
 extern void cOmThrow_SetParent(void *thrown, void *owner);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
-extern void CustomIDWork_SetNumber(CustomIDWork *self, int number);
 
 /* An actor with four VU0 quadwords (0x610, 0x620, 0x640, 0x650) past cObj. */
 typedef struct VuFxObj {

@@ -17,7 +17,6 @@
 #define ROOM_CATCH_FIXED     0x602  /* the catch happens at a fixed point */
 
 extern void CallWithAndClearField698_12AC28(char *a0);
-extern void cCollisionSolidManage_SetActive(int mgr, int obj, int on);
 extern void func_0012B928(char *a0);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_002DB7A8(void);

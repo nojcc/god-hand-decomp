@@ -4,7 +4,6 @@
 
 extern void *Getplayer(void);
 extern void func_001D0408(void *a0);
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern int irand(void);
 extern int getItemNumInRoom(void);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
@@ -47,7 +46,7 @@ void func_002705D8(void *a0)
         int w = *(int *)(s0 + 0x564);
 
         if (w == 0x279) {
-            ReleaseField6ECByTag564_26B1E8(s0);
+            ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
             w = *(int *)(s0 + 0x564);
         }
         if (w == 0x26A) {
@@ -82,7 +81,7 @@ void func_002705D8(void *a0)
     if (func_00274F50(s0) != 0) {
         return;
     }
-    if (cEm00_startHitUnitAim(s0) != 0) {
+    if (cEm00_startHitUnitAim((cEm00 *)s0) != 0) {
         return;
     }
     if (*(unsigned char *)(s0 + 0x1864) != 0) {

@@ -1,13 +1,18 @@
-/* sn-2.95.3-136 */
+/* NON_MATCHING func_0012D970 (sn-2.95.3-136): 126 differing words. With CVEC_ASSIGN for
+ * the four operator= copies; retail binds each destination before its source, and the
+ * draft matches with cvec_pending.h's CVEC_PUT_PTR, which waits on a decision. */
+#include "include_asm.h"
+
+#ifdef NON_MATCHING
 #include "godhand/cGrid.h"
-#include "godhand/cVec.h"
+#include "../cvec_pending.h"
 #include "godhand/criStm.h"
 
-/* Box collision body constructor: the base body's clear, then the owner, its
+/* Box collision body constructor: the base body's clear, then the owner, its matrix,
  * position and rotation, the two vectors, the size made positive per axis, the
  * six faces (each marked unset), and flags 5. */
 __attribute__((section(".text.func_0012D970")))
-cCollBody *func_0012D970(cCollBody *self, cModel *owner, int param, cVec *v70, cVec *v90,
+cCollBody *func_0012D970(cCollBody *self, cModel *owner, float *mtx, cVec *v70, cVec *v90,
                          cVec *size, cCollFace *f0, cCollFace *f1, cCollFace *f2,
                          cCollFace *f3, cCollFace *f4, cCollFace *f5)
 {
@@ -19,8 +24,8 @@ cCollBody *func_0012D970(cCollBody *self, cModel *owner, int param, cVec *v70, c
     self->flags = 0;
     CVEC_ZERO(self->min);
     CVEC_ZERO(self->max);
-    self->param = 0;
-    self->id = 0;
+    self->mtx = 0;
+    self->owner = 0;
     self->next = 0;
     self->unk54 = 0;
     func_003A52F0(self->unk34, 0, 0x20);
@@ -37,9 +42,9 @@ cCollBody *func_0012D970(cCollBody *self, cModel *owner, int param, cVec *v70, c
         CVEC_ZERO(*p);
         p++;
     } while (--i != -1);
-    self->param = param;
+    self->mtx = mtx;
     self->type = CCOLLBODY_BOX;
-    self->id = (int)owner;
+    self->owner = owner;
     CVEC_PUT_PTR(&self->pos, owner->pos);
     CVEC_PUT_PTR(&self->unk70, v70);
     CVEC_PUT_PTR(&self->rot, &owner->rot);
@@ -83,3 +88,6 @@ cCollBody *func_0012D970(cCollBody *self, cModel *owner, int param, cVec *v70, c
     self->flags |= 5;
     return self;
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_0012D970);
+#endif

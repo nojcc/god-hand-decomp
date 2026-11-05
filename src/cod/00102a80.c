@@ -1,14 +1,13 @@
+#include "godhand/cCollisionSolid.h"
+#include "godhand/pl00.h"
 #include "godhand/cEm00.h"
+#include "godhand/cOmBase.h"
 #include "godhand/motion.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int func_002DDAB0(void *a0, int a1, float f);
-extern int moveMotion(void *a0);
-extern void cOmBase_dieCommon(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern char D_00462FC0;
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern float Adjust_theta(float f12);
@@ -17,7 +16,6 @@ extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void func_00260438(void *a0);
 extern void func_002705D8(void *a0);
 extern unsigned short D_00747A50;
-extern void func_00124540(void *a0, int a1);
 extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_0012B618(void *a0);
@@ -60,7 +58,7 @@ void func_00246F40(void *a0)
     float one;
     int v0, t;
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
     *(int *)(s0 + 0x16D0) |= 0x20000;
     *(int *)(s0 + 0x16D0) |= 0x10000;
     switch (*(unsigned char *)(s0 + 0x2F6)) {
@@ -236,7 +234,7 @@ void func_00110E98(void *a0)
     case 0:
         *(short *)(s0 + 0x5E0) = 0;
         *(short *)(s0 + 0x5E2) = 0;
-        func_00124540(s0, 4);
+        func_00124540((pl00 *)s0, 4);
         if (*(int *)(s0 + 0x6A0) != 0) {
             v = *(char **)(s0 + 0x304);
             func_002A8578(*(void **)(s0 + 0x6A0), *(int *)(v + 0x37C) + (int)v, *(int *)(v + 0x398) + (int)v, 3, 0.0f, 0, 0);
@@ -265,7 +263,7 @@ void func_00110E98(void *a0)
     if (*(unsigned short *)(s0 + 0x3AC) & 1) {
         func_0012B618(s0);
     }
-    if (func_00123938(s0, 1) != 0) {
+    if (func_00123938((pl00 *)s0, 1) != 0) {
         Obj0000_Clear_Fields_640_648_124E58(s0);
     }
 }

@@ -1,6 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
+#include "godhand/criStm.h"
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
 #include "godhand/cRoomSave.h"
 #include "godhand/motion.h"
@@ -13,13 +16,9 @@ extern void func_00161590(int a0);
 extern char **D_003C2384;
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float fRand1_1(void);
-extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern char D_00462FC0[];
 
 /* Fill the 11 trail-sprite records of the table at D_00585240: each is a 0x30-byte record holding two kind bytes, a position pair and two vectors with the same Y. */
 
@@ -191,15 +190,15 @@ __attribute__((section(".text.cEm00_stepHopAway"))) void cEm00_stepHopAway(cEm00
                 case 0x220:
 
                 default:
-                    InitRenderStruct_2A8608(self, 0xC2, 0x14, 0, 2, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0xC2, 0x14, 0, 2, 0);
                     break;
 
                 case 0x221:
-                    InitRenderStruct_2A8608(self, 0xC2, 0x1A, 0, 2, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0xC2, 0x1A, 0, 2, 0);
                     break;
 
                 case 0x222:
-                    InitRenderStruct_2A8608(self, 0xC2, 0x18, 0, 2, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0xC2, 0x18, 0, 2, 0);
                     break;
             }
 
@@ -207,7 +206,7 @@ __attribute__((section(".text.cEm00_stepHopAway"))) void cEm00_stepHopAway(cEm00
 
         case 1:
             self->emFlags |= 0x30000;
-            cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
+            cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
             if (0.0f < self->timer2) {
                 self->timer2 = self->timer2 - self->speedRate;
                 self->hitFlash = 3.0f;
@@ -261,15 +260,15 @@ __attribute__((section(".text.cEm00_stepHopAway"))) void cEm00_stepHopAway(cEm00
                 case 0x220:
 
                 default:
-                    InitRenderStruct_2A8608(self, 0xC2, 0x15, 0, 2, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0xC2, 0x15, 0, 2, 0);
                     break;
 
                 case 0x221:
-                    InitRenderStruct_2A8608(self, 0xC2, 0x1B, 0, 2, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0xC2, 0x1B, 0, 2, 0);
                     break;
 
                 case 0x222:
-                    InitRenderStruct_2A8608(self, 0xC2, 0x19, 0, 2, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0xC2, 0x19, 0, 2, 0);
                     break;
             }
 

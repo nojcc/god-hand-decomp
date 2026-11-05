@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cCollisionSolid.h"
@@ -36,7 +37,7 @@ void func_00216078(cEm00 *self)
     unsigned short sel;
     int motA;
     int motB;
-    char *rec;
+    cOmWeapon *rec;
 
     VU0_LQC2_SQC2_MEM(4, &from, pos);
     VU0_LQC2_SQC2_MEM(4, &to, pos);
@@ -46,9 +47,9 @@ void func_00216078(cEm00 *self)
     case 0:
         self->unk17D0 = (unsigned int)irand() % 5;
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        motA = EM_RES_REC(self->resource, 0x161C);
-        motB = EM_RES_REC(self->resource, 0x1620);
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        motA = EM_RES_REC(EM_RES(self), 0x161C);
+        motB = EM_RES_REC(EM_RES(self), 0x1620);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->unk5F8 = 0;
         self->timerC = 0;
         self->step++;
@@ -63,9 +64,9 @@ void func_00216078(cEm00 *self)
         break;
     case 2:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        motA = EM_RES_REC(self->resource, 0x1624);
-        motB = EM_RES_REC(self->resource, 0x1628);
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        motA = EM_RES_REC(EM_RES(self), 0x1624);
+        motB = EM_RES_REC(EM_RES(self), 0x1628);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->home.x = 0.0f;
         self->home.y = 0.112f;
         self->home.z = 0.0f;
@@ -97,16 +98,16 @@ void func_00216078(cEm00 *self)
         self->emFlags |= EMFLAG_AIRBORNE;
         player = Getplayer();
         cGameObj_SetTgtTurn((char *)self, player->pos, self->speedRate * 0.19634955f);
-        self->unk434 |= 8;
+        self->motionFlags |= 8;
         moveMotion(self);
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     case 4:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        motA = EM_RES_REC(self->resource, 0x162C);
-        motB = EM_RES_REC(self->resource, 0x1630);
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        motA = EM_RES_REC(EM_RES(self), 0x162C);
+        motB = EM_RES_REC(EM_RES(self), 0x1630);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->step++;
     case 5:
         if (moveMotion(self) != 0) {
@@ -117,14 +118,14 @@ void func_00216078(cEm00 *self)
         break;
     case 6:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        motA = EM_RES_REC(self->resource, 0x1634);
-        motB = EM_RES_REC(self->resource, 0x1638);
+        motA = EM_RES_REC(EM_RES(self), 0x1634);
+        motB = EM_RES_REC(EM_RES(self), 0x1638);
         self->unk5F8 = 1;
         self->timerC = 1;
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->step++;
     case 7:
-        if (self->moveFlags & 0x10) {
+        if (self->seqFlags & 0x10) {
             self->pos->y += self->home.y * self->speedRate;
             self->home.y -= self->speedRate * 0.007f;
             if (self->home.y <= 0.0f) {
@@ -150,29 +151,29 @@ void func_00216078(cEm00 *self)
         }
         self->emFlags |= EMFLAG_AIRBORNE;
         cGameObj_SetTgtTurn((char *)self, &self->unk16A0, self->speedRate * 0.19634955f);
-        self->unk434 |= 8;
+        self->motionFlags |= 8;
         moveMotion(self);
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     }
-    if (self->moveFlags & 1) {
+    if (self->seqFlags & 1) {
         if (self->unk5F8 != 0) {
             self->unk5F8 = 0;
-            rec = func_0026AA30((char *)self, SE_JUMP_STEP);
+            rec = func_0026AA30(self, SE_JUMP_STEP);
             if (rec != 0) {
-                func_0026B240(self, (int)rec, SE_JUMP_STEP, 0xA);
+                func_0026B240(self, rec, SE_JUMP_STEP, 0xA);
             }
         }
     } else {
         self->unk5F8 = 1;
     }
-    if (self->moveFlags & 2) {
+    if (self->seqFlags & 2) {
         if (self->timerC != 0) {
             self->timerC = 0;
-            rec = func_0026AA30((char *)self, SE_JUMP_STEP);
+            rec = func_0026AA30(self, SE_JUMP_STEP);
             if (rec != 0) {
-                func_0026B240(self, (int)rec, SE_JUMP_STEP, 0x10);
+                func_0026B240(self, rec, SE_JUMP_STEP, 0x10);
             }
         }
     } else {

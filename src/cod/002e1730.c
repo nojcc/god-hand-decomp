@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern void CopyVec16From20_B62E0(void *dst, void *self);
-extern void cNode_setLocalScale(void *self, void *v);
 extern float capVu0Sin(float f12);
 
 #include "godhand/vu0.h"
+#include "godhand/cNode.h"
 
 struct VtEnt { short delta; short index; void *pfn; };
 typedef struct { char b[0x10]; } C16;
@@ -46,7 +46,7 @@ void func_002E1730(void *a0)
         t = h * 0.0500000007f + 1.0f;
         *(float *)(buf + 0x20) = *(float *)(buf + 0x20) * t;
         *(float *)(buf + 0x24) = *(float *)(buf + 0x24) * t;
-        cNode_setLocalScale(s0, buf + 0x20);
+        cNode_setLocalScale((cNode *)s0, (cVec *)(buf + 0x20));
         {
             char *p = *(char **)(s0 + 0x110);
 
@@ -79,7 +79,7 @@ void func_002E1730(void *a0)
                 *(float *)(s0 + 0x194) = a * (float)*(unsigned char *)(p + 0x29B) * 0.00392156886f;
         }
         VCALL16(s0);
-        cNode_setLocalScale(s0, buf);
+        cNode_setLocalScale((cNode *)s0, (cVec *)buf);
         *(C16 *)(s0 + 0x188) = *(C16 *)(buf + 0x10);
         *(unsigned char *)(s0 + 0x247) = s1;
         *(int *)(s0 + 0x118) = s2;

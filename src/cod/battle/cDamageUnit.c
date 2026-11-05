@@ -2,9 +2,6 @@
 #include "godhand/vu0.h"
 #include "godhand/cDamageUnit.h"
 
-#define DAMAGE_FLAG_ACTIVE 2
-#define DAMAGE_MASK_INACTIVE 0xFFFFFFFD  /* written out: ~2 compiles to a different insn */
-
 /* Turn the hit volume of every node on (active == 1) or off. */
 __attribute__((section(".text.cDamageUnit_SetDamageCollActive")))
 void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active) {

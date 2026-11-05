@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 
 extern void ColiseumBattle_DefeatAllEnemies(void);
 extern unsigned char D_00447BA0[];
 extern void func_002A84A8(void *p);
 extern void cCollisionSolidManage_ReleaseUnit_277540(void *p);
-extern void func_0028EB88(void *p, int f);
 
 __attribute__((section(".text.func_001F0778")))
 void func_001F0778(int a0)

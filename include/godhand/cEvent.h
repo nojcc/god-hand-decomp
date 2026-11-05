@@ -126,4 +126,7 @@ extern cEventWork cEvent_work;
 /* An empty stub in retail: it takes the event and a cut number and calls nothing real. */
 int func_00297BA8(void *ev, int cut);
 
+/* Put the record back to its idle state: counters, flags and data pointers cleared. */
+void func_00297660(cEvent *self);
+
 #endif

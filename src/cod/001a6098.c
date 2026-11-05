@@ -1,19 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
+#include "godhand/CustomIDWork.h"
+#include "godhand/PanelObj.h"
 #include "godhand/cOm60.h"
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/capVu0.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void cDamageUnit_AddDamageCollCylinder(void *unit, void *mtx, float *pos, float *dir, float radius, float half);
-extern int D_00574380;
 extern float fRand1_1(void);
-extern void CustomIDWork_SetOffsetPosX(void *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
-extern void func_001DEE60(void *self, int element, int show);
 
 /* Set the object up: 40 life, a 1.6 by 2.24 hit cylinder through the damage manager, no flag byte. */
 
@@ -67,7 +65,7 @@ int DamagedObj_setupHitCylinder(DamagedObj *self) {
         f[13] = 0.0f;
         f[14] = 0.0f;
         dir[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, pos, dir, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, (cVec *)pos, (cVec *)dir, f[5], f[4] * 0.5f);
     }
     self->flag604 = 0;
     self->base.hpMax = OBJ_LIFE;
@@ -130,24 +128,24 @@ void UiPanel_setSlideMode(char *self, unsigned char mode) {
     switch (mode) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosX(self + PANEL_WORK_OFFSET, PANEL_OFF_X);
-        func_001DEE60(self, PANEL_ELEM_A, 0);
-        func_001DEE60(self, PANEL_ELEM_B, 0);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), PANEL_OFF_X);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_A, 0);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_B, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosX(self + PANEL_WORK_OFFSET, 0);
-        func_001DEE60(self, PANEL_ELEM_A, 1);
-        func_001DEE60(self, PANEL_ELEM_B, 1);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), 0);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_A, 1);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_B, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosX(self + PANEL_WORK_OFFSET, PANEL_OFF_X, 0, PANEL_SLIDE_FRAMES);
-        func_001DEE60(self, PANEL_ELEM_A, 1);
-        func_001DEE60(self, PANEL_ELEM_B, 1);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), PANEL_OFF_X, 0, PANEL_SLIDE_FRAMES);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_A, 1);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_B, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX(self + PANEL_WORK_OFFSET, 0, PANEL_OFF_X, PANEL_SLIDE_FRAMES);
-        func_001DEE60(self, PANEL_ELEM_A, 1);
-        func_001DEE60(self, PANEL_ELEM_B, 1);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(self + PANEL_WORK_OFFSET), 0, PANEL_OFF_X, PANEL_SLIDE_FRAMES);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_A, 1);
+        func_001DEE60((PanelObj *)self, PANEL_ELEM_B, 1);
         break;
     }
 }

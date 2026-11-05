@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *size);
 extern void cOmDoor_setObjCollision(void *self);
-extern int D_00574380;
 
 /* Set up a door-like object: 1 life, a 2.13 by 3.78 by 0.2 hit box through the damage manager, the box size kept at 0x610, its collision object and the second body at 0x650. */
 #define DOORBOX_RING_OFFSET  0x650      /* second body inside the object */
@@ -65,7 +64,7 @@ int DoorBoxObj_constructWide(DoorBoxObj *self)
         *(int *)&f[13] = 0;
         *(int *)&f[14] = 0;
         nv[3] = one;
-        func_001FD9D8(slot, (char *)self + 0x80, m, nv, t);
+        func_001FD9D8(slot, (char *)self + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     hp = 1;
     self->base.hpMax = hp;

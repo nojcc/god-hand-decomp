@@ -26,17 +26,14 @@ extern char D_003C0200[];
 extern char D_003C02A0[];
 extern char D_003C0340[];
 extern char D_00585720[];
-extern char D_005FEE00[];
-extern int cSnd_SeCall_2CB8A0(char *a0, int a1, int a2, int a3, int t0, int t1, int t2);
 extern float fRand1_1(void);
-extern char D_00463050[];
 extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 #include "godhand/motion.h"
-extern void Obj1D00_SetState_7_1C(int a0);
-extern void cCamManager_setPartsCamera(void *cam, int mode);
+#include "godhand/cCamManager.h"
+#include "godhand/cOmWeapon.h"
+#include "godhand/cSnd.h"
 extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
-extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -188,7 +185,7 @@ void func_0017AEB0(char *p)
     if (*(short *)(p + 0x606) == 0) return;
     if (*(unsigned char *)(p + 0x2F4) == 0) {
         *(short *)(p + 0x606) = *(unsigned short *)(p + 0x606) - 1;
-        cSnd_SeCall_2CB8A0(D_005FEE00, 2, 0x1E, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 2, 0x1E, -1, -1, 0, 0);
         if (*(short *)(p + 0x606) != 0) {
             if (((*(int *)frame = b = *(unsigned char *)(p + 0x2B4)), (0 < b)))
                 o = *(int *)(*(int *)(p + 0x278));
@@ -235,8 +232,8 @@ void func_00247588(char *p)
     void *ptr;
     int b, o1, o2, i1, i2, r;
     char *q;
-    char *cam;
-    char *parts;
+    cCamManager *mgr;
+    struct cCamera *parts;
     unsigned char st;
 
     ptr = Getplayer();
@@ -253,13 +250,13 @@ blockA:
         q = *(char **)(p + 0x304);
         func_002A8578(p, *(int *)(q + 0x2FB4) + (int)q, *(int *)(q + 0x2FB8) + (int)q,
                       0, 0.0f, r & 0xFFFF, 0);
-        Obj1D00_SetState_7_1C(*(int *)(p + 0x708));
+        Obj1D00_SetState_7_1C(&(*(cOmWeapon **)(p + 0x708))->base);
         *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
     }
 common:
-    cam = D_00463050;
-    cCamManager_setPartsCamera(cam, 0);
-    parts = cam + 0x920;
+    mgr = &D_00463050;
+    cCamManager_setPartsCamera(mgr, 0);
+    parts = &mgr->parts;
     i1 = 0x1B;
     if (((*(int *)frame = b = *(unsigned char *)(p + 0x2B4)), (i1 < b)))
         o1 = *(int *)(*(int *)(p + 0x278) + i1 * 4);

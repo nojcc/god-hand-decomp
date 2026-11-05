@@ -1,4 +1,6 @@
 #include "godhand/cEmManage.h"
+#include "godhand/criStm.h"
+#include "godhand/cGameObj.h"
 
 extern int D_00448CA0;
 extern int D_00448E20;
@@ -13,7 +15,7 @@ void ResetStateVtable_284A90(int a0, int a1) {
         *(int *)((char *)a0 + 0x15C4) = 0;
     }
     ChildOwner_releaseChild(a0);
-    func_0028EB88(a0, a1);
+    func_0028EB88((struct cGameObj *)a0, a1);
 }
 
 /* 1 if either of the two actors the manager keeps in slots 0 and 1 is firing. */
@@ -41,7 +43,7 @@ void ResetAltStateVtable_289788(int a0, int a1) {
         *(int *)((char *)a0 + 0x15B0) = 0;
     }
     cCollisionSolidManage_ReleaseUnit_289E10(a0);
-    func_0028EB88(a0, a1);
+    func_0028EB88((struct cGameObj *)a0, a1);
 }
 
 __attribute__((section(".text.BuildGifPacket_2A5930")))
@@ -59,7 +61,7 @@ void BuildGifPacket_2A5930(int a0) {
 
 __attribute__((section(".text.cIDManager_systemInit")))
 void cIDManager_systemInit(int a0, int a1) {
-    func_003A52F0(a0 + 0x100, 0, 0x640);
+    func_003A52F0((void *)(a0 + 0x100), 0, 0x640);
     *(int *)((char *)a0 + 0x1B544) = 0;
     *(int *)((char *)a0 + 0x740) = 0;
     func_002ACCD8(a0);

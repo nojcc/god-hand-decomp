@@ -16,10 +16,10 @@ typedef struct GripBuf {
     float pad1C;
 } GripBuf;
 
-extern int cOmWeapon_setParent();
+#include "godhand/cOmWeapon.h"
 
 __attribute__((section(".text.cOmBase_attachWeaponGrip")))
-void cOmBase_attachWeaponGrip(cOmBase *self, void *weapon, int left)
+void cOmBase_attachWeaponGrip(cOmBase *self, cOmWeapon *weapon, int left)
 {
     GripBuf grip;
     int idx;
@@ -62,5 +62,5 @@ void cOmBase_attachWeaponGrip(cOmBase *self, void *weapon, int left)
             grip.rot[2] = turn;
         }
     }
-    cOmWeapon_setParent(weapon, self, idx, &grip, &grip.rot[0]);
+    cOmWeapon_setParent(weapon, self, idx, (cVec *)&grip, (cVec *)&grip.rot[0]);
 }

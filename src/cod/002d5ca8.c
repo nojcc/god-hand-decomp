@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/heapArena.h"
 
 extern char D_0044D1C8[];
-extern void __builtin_delete(void *a0);
 
 /* func_002D5CA8 -- DEAD-HEAD BOUNDARY DEFECT.
  * The declared span starts 48 B too early; the TRUE entry is 0x002D5CA8.

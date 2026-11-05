@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cNode.h"
 
 extern char D_0044E238[];
 extern char D_0044E6D8[];
@@ -15,9 +16,9 @@ extern char D_0044F6D8[];
 
 
 __attribute__((section(".text.func_002E3458")))
-int func_002E3458(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044E238;
-    return func_002FBE28(a0);
+void func_002E3458(cNode *self, int flags) {
+    self->vt = D_0044E238;
+    func_002FBE28(self, flags);
 }
 
 /* clone */
@@ -25,9 +26,9 @@ int func_002E3458(void *a0) {
 
 
 __attribute__((section(".text.func_002E9B40")))
-int func_002E9B40(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044E6D8;
-    return func_002FBE28(a0);
+void func_002E9B40(cNode *self, int flags) {
+    self->vt = D_0044E6D8;
+    func_002FBE28(self, flags);
 }
 
 /* clone */
@@ -35,9 +36,9 @@ int func_002E9B40(void *a0) {
 
 
 __attribute__((section(".text.func_002EA8E0")))
-int func_002EA8E0(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044E770;
-    return func_002FBE28(a0);
+void func_002EA8E0(cNode *self, int flags) {
+    self->vt = D_0044E770;
+    func_002FBE28(self, flags);
 }
 
 /* clone */
@@ -45,9 +46,9 @@ int func_002EA8E0(void *a0) {
 
 
 __attribute__((section(".text.func_002EBF70")))
-int func_002EBF70(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044E8C8;
-    return BlockOwner_dtor(a0);
+void func_002EBF70(cNode *self, int flags) {
+    self->vt = D_0044E8C8;
+    BlockOwner_dtor((struct BlockOwner *)self, flags);
 }
 
 /* clone */
@@ -55,9 +56,9 @@ int func_002EBF70(void *a0) {
 
 
 __attribute__((section(".text.func_002F3E40")))
-int func_002F3E40(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044F078;
-    return func_002FBE28(a0);
+void func_002F3E40(cNode *self, int flags) {
+    self->vt = D_0044F078;
+    func_002FBE28(self, flags);
 }
 
 /* clone */
@@ -65,9 +66,9 @@ int func_002F3E40(void *a0) {
 
 
 __attribute__((section(".text.func_002F5328")))
-int func_002F5328(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044F308;
-    return func_002FBE28(a0);
+void func_002F5328(cNode *self, int flags) {
+    self->vt = D_0044F308;
+    func_002FBE28(self, flags);
 }
 
 /* clone */
@@ -75,9 +76,9 @@ int func_002F5328(void *a0) {
 
 
 __attribute__((section(".text.func_002F6230")))
-int func_002F6230(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044F4F8;
-    return BlockOwner_dtor(a0);
+void func_002F6230(cNode *self, int flags) {
+    self->vt = D_0044F4F8;
+    BlockOwner_dtor((struct BlockOwner *)self, flags);
 }
 
 /* clone */
@@ -85,9 +86,9 @@ int func_002F6230(void *a0) {
 
 
 __attribute__((section(".text.func_002F6CD0")))
-int func_002F6CD0(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044F598;
-    return func_002FBE28(a0);
+void func_002F6CD0(cNode *self, int flags) {
+    self->vt = D_0044F598;
+    func_002FBE28(self, flags);
 }
 
 /* clone */
@@ -95,9 +96,9 @@ int func_002F6CD0(void *a0) {
 
 
 __attribute__((section(".text.func_002F7178")))
-int func_002F7178(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044F6D8;
-    return BlockOwner_dtor(a0);
+void func_002F7178(cNode *self, int flags) {
+    self->vt = D_0044F6D8;
+    BlockOwner_dtor((struct BlockOwner *)self, flags);
 }
 
 /* clone */

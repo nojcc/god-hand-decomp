@@ -3,7 +3,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int moveMotion(void *a0);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion. */
 __attribute__((section(".text.func_00282460"))) void func_00282460(cEm00 *self)
 {

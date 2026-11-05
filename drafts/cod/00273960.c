@@ -2,6 +2,7 @@
  * retail keeps self in s0 and &from in s2, here they are swapped (20 instructions differ). */
 #include "include_asm.h"
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/player.h"
 #include "godhand/sceVu0.h"
@@ -15,7 +16,6 @@
 
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
-extern void MtxInitRotY(void *a0, float angle);
 extern void cEm00_setGoto(cEm00 *self, cVec *pos, int a2, int a3, float f);
 
 /* Cast three rays from the player at half height in its heading frame (ahead, ahead-right, ahead-left,

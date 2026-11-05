@@ -1,26 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDvd.h"
+#include "godhand/criStm.h"
 #include "godhand/cSnd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cBgmData.h"
 
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
-extern void cSndBgmNode_FadeOut(cSndBgmNode *, float);
-extern cSnd D_005FEE00;
-extern char D_00583F20[];
-extern void cSnd_SeVoiceCallAll(cSnd *, int, int);
-extern void cDvd_cancel(char *, int);
 extern void func_00322F58(void);
-extern void cHeap_free(int, void *);
 extern void func_00375A78(int);
 extern void Tramp_sceSifFreeSysMemory_3B5A50(int);
 extern void cSeData_HeapFree(cSeData *, int);
-extern void cSeData_Release(cSeData *);
 extern void cSeData_SetFailed(cSeData *);
-extern void cSeData_AddLoadBits(cSeData *, int);
-extern void cSeData_RegisterBank(cSeData *);
 
 /* fields cSnd.h does not name yet; see cSnd_fields.h */
 #define CSND_FLAGS_AC(s) (*(unsigned int*)((char *)(s) + 0xac))
@@ -88,15 +78,15 @@ void cSeData_Release(cSeData *d)
 {
     cSnd_SeVoiceCallAll(&D_005FEE00, d->bankId, 0);
     if (cSeData_IsReadDone(d) == 0)
-        cDvd_cancel(D_00583F20, d->f38);
+        cDvd_cancel(&D_00583F20, d->f38);
     if (cSeData_HasLoadBits(d, 4) == 1 && cSeData_HasLoadBits(d, 8) == 0 && func_00323000(d->f28) == 2)
         func_00322F58();
     if (d->buf != 0) {
         if (cSeData_HasLoadBits(d, 0x100) == 0) {
             void *b = d->buf;
-            void *pool = d->pool;
+            struct HeapArena *pool = d->pool;
             if (b != 0)
-                cHeap_free((int)pool, b);
+                cHeap_free(pool, b);
         }
         func_00375A78(d->bankIdS);
     }
@@ -105,10 +95,10 @@ void cSeData_Release(cSeData *d)
     if (d->f1C != 0)
         cSeData_HeapFree(d, d->f1C);
     if (d->f24 != 0)
-        cHeap_free((int)d->pool, (void *)d->f24);
+        cHeap_free(d->pool, (void *)d->f24);
     func_003A52F0(d, 0, 0x40);
     d->f28 = -1;
-    d->f3C = -1;
+    d->owner = -1;
 }
 
 /* Step the sound-effect slot's load state machine once. */

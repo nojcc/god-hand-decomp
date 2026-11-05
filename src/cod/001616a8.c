@@ -1,20 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
+#include "godhand/CustomIDWork.h"
+#include "godhand/PanelObj.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cEm00.h"
 
 extern void displayScrollLayer(int layer, int show);
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_initialize(void *self, int kind, int arg);
 extern void cIDBase_resetAnim(void *self);
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern char D_0041F1F0[];
 extern void **D_003C2384;
-extern void CustomIDWork_SetOffsetPosX(void *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
-extern void func_001DEE60(void *ui, int sub, int on);
 
 /* Enemy constructor: base setup, method table, aim lock byte, zeroed vectors and the type name. */
 
@@ -95,8 +93,6 @@ void Slot2_updateMarkAt4C0(Slot2Mark *self) {
 }
 
 /* sn-2.95.3-136 */
-extern void *func_003A52F0(void *d, int c, unsigned int n);   /* memset */
-extern void *func_003A5148(void *d, const void *s, unsigned int n);   /* memcpy */
 
 /* Read a 12 byte effect record: zeroed unless `valid` is 1, in which case it is copied from `src`. Returned by value. */
 typedef struct MotionEffectData {
@@ -152,7 +148,7 @@ void IdDispObj_constructKind9(IdDispObj *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041F1F0) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(self, IDOBJ_KIND, 0);
+        cIDBase_initialize((cIDBaseObj *)self, IDOBJ_KIND, 0);
         cIDBase_resetAnim(self);
         self->base.playing = 1;
         self->state = 6;
@@ -162,7 +158,7 @@ void IdDispObj_constructKind9(IdDispObj *self)
         self->b5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork(self, i);
+        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
     }
     self->bBC = 0;
 }
@@ -235,22 +231,22 @@ void Panel_slideSidePanelArrows(void *ui, int mode)
     switch (mode & 0xFF) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosX(s0 + PANEL_OFFSET_WORK, PANEL_OFF_X);
-        func_001DEE60(s0, PANEL_SUB_A, 0);
-        func_001DEE60(s0, PANEL_SUB_B, 0);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + PANEL_OFFSET_WORK), PANEL_OFF_X);
+        func_001DEE60((PanelObj *)s0, PANEL_SUB_A, 0);
+        func_001DEE60((PanelObj *)s0, PANEL_SUB_B, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosX(s0 + PANEL_OFFSET_WORK, 0);
-        func_001DEE60(s0, PANEL_SUB_A, 0);
-        func_001DEE60(s0, PANEL_SUB_B, 1);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + PANEL_OFFSET_WORK), 0);
+        func_001DEE60((PanelObj *)s0, PANEL_SUB_A, 0);
+        func_001DEE60((PanelObj *)s0, PANEL_SUB_B, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosX(s0 + PANEL_OFFSET_WORK, PANEL_OFF_X, 0, PANEL_SLIDE_FRAMES);
-        func_001DEE60(s0, PANEL_SUB_A, 0);
-        func_001DEE60(s0, PANEL_SUB_B, 1);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + PANEL_OFFSET_WORK), PANEL_OFF_X, 0, PANEL_SLIDE_FRAMES);
+        func_001DEE60((PanelObj *)s0, PANEL_SUB_A, 0);
+        func_001DEE60((PanelObj *)s0, PANEL_SUB_B, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX(s0 + PANEL_OFFSET_WORK, 0, PANEL_OFF_X, PANEL_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + PANEL_OFFSET_WORK), 0, PANEL_OFF_X, PANEL_SLIDE_FRAMES);
         break;
     }
 }

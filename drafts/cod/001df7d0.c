@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 */
+#include "godhand/CustomIDWork.h"
 /* Retail tests the language as three branches (== 0, < 0, < 7); this C
  * folds the last two into one unsigned compare (3 instructions differ). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 extern int D_00747A0C;
-extern void CustomIDWork_SetLocalPosX(void *work, int x);
 
 static inline int langBad(int lang)
 {
@@ -27,7 +27,7 @@ void func_001DF7D0(char *self, int alt)
     } else {
         x = alt ? -0x4F : 0x19;
     }
-    CustomIDWork_SetLocalPosX(self + 0x440, x);
+    CustomIDWork_SetLocalPosX((CustomIDWork *)(self + 0x440), x);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_001DF7D0);

@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/CustomIDWork.h"
+#include "godhand/cIDBase.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0();
-extern int CustomIDWork_SetNumber();
 extern int SetFlagOnEntries7C_1D51B8();
 extern int cIDBase_release();
-extern void cIDBase_trans(void *self);
 
 /* clone */
 
@@ -20,19 +20,19 @@ void func_001C90B0(void *a0) {
 
 
 __attribute__((section(".text.func_001D5780")))
-void func_001D5780(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x250); }
+void func_001D5780(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x250), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001D6A30")))
-void func_001D6A30(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0xD74); }
+void func_001D6A30(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0xD74), number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001D6A50")))
-void func_001D6A50(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0xE6C); }
+void func_001D6A50(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0xE6C), number); }
 
 /* clone */
 
@@ -60,13 +60,13 @@ void func_001DD180(void *a0) { cIDBase_release((char *)a0 + 0x10); }
 
 
 __attribute__((section(".text.func_001DD1F8")))
-void func_001DD1F8(void *a0) { cIDBase_trans((char *)a0 + 0x10); }
+void func_001DD1F8(void *a0) { cIDBase_trans((cIDBaseObj *)((char *)a0 + 0x10)); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001DD238")))
-void func_001DD238(void *a0) { CustomIDWork_SetNumber((char *)a0 + 0x820); }
+void func_001DD238(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x820), number); }
 
 /* clone */
 

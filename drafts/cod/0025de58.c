@@ -11,7 +11,6 @@
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 
-extern void cCollisionSolidManage_SetActive(int mgr, int obj, int on);
 
 #define EM_HELD_SPARK_CHILD     4
 #define EM_HELD_SPARK_EFFECT    0x4F
@@ -100,7 +99,7 @@ void func_0025DE58(cEm00 *self)
                 spark.y = fRand1_1() * 0.1f + 0.1f;
                 spark.z = fRand0_1() * 0.1f + 0.2f;
                 cVec_applyMatrix(&spark, child->mtx);
-                SetEffectPos(0, EM_HELD_SPARK_EFFECT, 0, &spark, -1, 1.0f);
+                SetEffectPos(0, EM_HELD_SPARK_EFFECT, 0, &spark, 1.0f, -1);
             }
             CEM00_VCALL(self, hit, (int)(self->timer * EM_HELD_DAMAGE_PER_TICK), player, 0, 0);
             cHeatSys_AddHeatGage(&D_005CB000, 0, self->timer);

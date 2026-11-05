@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 /* ee-2.9-991111 — SCE libcdvd 3.0.2, cdvd017.o :: sceCdStatus */
 
@@ -14,7 +15,6 @@ extern int func_00398EB0(int cmd);   /* _sceCd_scmd_prechk */
 extern int func_003B3128(void *cd, int rno, int mode, void *sbuf, int ssize,
                          void *rbuf, int rsize, void *efunc, void *epara); /* sceSifCallRpc */
 extern int SignalSema(int sema);
-extern void func_003B1F28(const char *fmt);   /* scePrintf */
 
 __attribute__((section(".text.func_00399A68")))
 int func_00399A68(void)

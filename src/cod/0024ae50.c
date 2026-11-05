@@ -11,7 +11,6 @@ extern void func_00281368(void *a0, int a1);
 extern void func_002832A0(void *a0, int a1);
 extern void cGameObj_placeBeforeAnchor(void *a0, float a1);
 extern float fRand1_1(void);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026DB00(void *a0, int a1, int a2);

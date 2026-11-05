@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
@@ -6,9 +7,7 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
-extern void func_0026B240(void *a0, int a1, int a2, int a3);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void cEmManage_ReleaseEm(void *a0, void *a1);
@@ -20,7 +19,8 @@ __attribute__((section(".text.func_0022A258"))) void func_0022A258(cEm00 *self)
 {
     char *v;
     float one;
-    int r, t;
+    cOmWeapon *r;
+    int t;
 
     self->unk186A = 2;
     switch (self->step) {

@@ -4,6 +4,7 @@
  * both invariants into saved registers and the element lives in one. */
 #include "include_asm.h"
 #include "godhand/cGameObj.h"
+#include "godhand/mtx.h"
 #include "godhand/cOm60.h"
 #include "godhand/cMc.h"
 #include "godhand/sceVu0.h"
@@ -13,7 +14,6 @@
 #ifdef NON_MATCHING
 extern cMcObjList *D_00754C58;
 extern int cOm60_ckParent(cOm60 *self);
-extern void MtxInverse(void *dst, void *src);
 extern void capVu0ApplyMatrixXYZ(cVec *dst, float *mtx, cVec *v);
 
 #define KNOCK_ACTOR_ID  0x364

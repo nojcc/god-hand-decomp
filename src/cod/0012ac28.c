@@ -2,8 +2,6 @@
 
 extern int D_00428A20;
 extern int D_004289F0;
-extern void cOmWeapon_setFall(int arg);
-extern void ReleaseObj(int);
 extern int D_00785878;
 extern int D_00428AD0;
 extern int D_007854D8;
@@ -11,6 +9,8 @@ extern void cGameObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
 
 #include "godhand/vu0.h"
+#define CGAMEOBJ_NO_TYPEDEF
+#include "godhand/cOmWeapon.h"
 
 
 
@@ -51,7 +51,7 @@ char *InitFields_1B6E90(char *a0) {
 
 __attribute__((section(".text.CallWithAndClearField698_12AC28")))
 void CallWithAndClearField698_12AC28(char *a0) {
-    int v = *(int*)(a0 + 0x698);
+    cOmWeapon *v = *(cOmWeapon **)(a0 + 0x698);
     if (v) {
         cOmWeapon_setFall(v);
         *(int*)(a0 + 0x698) = 0;
@@ -59,8 +59,8 @@ void CallWithAndClearField698_12AC28(char *a0) {
 }
 
 __attribute__((section(".text.cOmBase_dieCommon")))
-void cOmBase_dieCommon(int a0) {
-    ReleaseObj(a0);
+void cOmBase_dieCommon(cOmBase *self) {
+    ReleaseObj((struct cModel *)self);
 }
 
 __attribute__((section(".text.GetOrInitGlobal785878_1B8058")))

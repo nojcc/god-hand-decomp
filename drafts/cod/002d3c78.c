@@ -2,6 +2,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/seqNode.h"
 typedef struct {
     int unk0;
     unsigned short s4, s6, s8, sA, sC, sE;
@@ -20,7 +21,6 @@ typedef struct {
     int i58, i5C, i60;
 } TailObj;
 
-extern int Obj0000_Get_D_0076A7A4_3756F0(void);
 extern int func_002D3D88(TailObj *a0);
 extern void func_00345F48(int a0, int a1);
 
@@ -39,7 +39,7 @@ int func_002D3C78(TailObj *o, TailSrc *s)
     o->i30 = s->i1C;
     o->i34 = s->i10;
     o->i38 = s->i20;
-    if (Obj0000_Get_D_0076A7A4_3756F0() == 2) {
+    if (SdeSystemOutModeGet() == 2) {
         o->f44 = f = (float)s->i28;
     } else {
         o->f44 = f = (float)s->i24;

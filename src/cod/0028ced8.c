@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cEm00.h"
 
 extern int cDataManager_addPinnedData(void *a0, int a1, int a2);
 extern char D_005864E0[];
@@ -10,8 +11,8 @@ extern char D_005864E0[];
 
 
 __attribute__((section(".text.func_0028CED8")))
-void func_0028CED8(void *a0) {
-    char *s1 = (char *)a0;
+void func_0028CED8(cEm00 *self) {
+    char *s1 = (char *)self;
     switch (*(int *)(s1 + 0x564)) {
     case 0x279: {
         int v = *(int *)(s1 + 0x304);

@@ -1,4 +1,5 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/criStm.h"
 
 extern unsigned short D_0076A7D4[];
 extern void *memcpy(void *dst, const void *src, unsigned int n);

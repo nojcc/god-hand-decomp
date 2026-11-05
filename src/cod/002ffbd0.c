@@ -1,9 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/heapArena.h"
+#include "godhand/cNode.h"
+
 extern int Setup_Fields_2B0_2F56C0();
 extern int Setup_Field_2B0_2F61C8();
 extern char D_0044FCF8[];
-extern int cHeap_free();
 
 /* clone */
 
@@ -87,17 +89,17 @@ void *func_00304D48(void *a0) {
 
 
 __attribute__((section(".text.func_00304F58")))
-int func_00304F58(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044FCF8;
-    return func_003028E8(a0);
+void func_00304F58(cNode *self, int flags) {
+    self->vt = D_0044FCF8;
+    func_003028E8(self, flags);
 }
 
 /* clone */
 
 
 __attribute__((section(".text.__builtin_vec_delete")))
-void __builtin_vec_delete(int *a0) {
-    if (a0) {
-        cHeap_free(*(int*)((char*)a0 - 0x20), a0);
+void __builtin_vec_delete(void *p) {
+    if (p) {
+        cHeap_free(((HeapBlk *)p - 1)->heap, p);
     }
 }

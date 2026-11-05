@@ -1,15 +1,13 @@
 /* sn-2.95.3-136: func_001AB730, gimmick open/close step: play the open motion with the solid
  * collision off, flash its damage collision when the motion ends, then close it again. */
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
-extern char D_00462FC0[];
-extern void cCollisionSolidManage_SetActive(void *mgr, void *obj, int on);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void cDamageUnit_SetDamageCollFlashActiveById(char *unit, int id, int on, short time);
 
 /* A gimmick that opens with a motion, flashes its damage volume and closes again. */
 typedef struct cOmOpenClose {
@@ -35,7 +33,7 @@ void func_001AB730(cOmOpenClose *self)
     switch (self->base.step) {
     case 0:
         self->flags |= OPENCLOSE_OPENING;
-        cCollisionSolidManage_SetActive(D_00462FC0, self, 0);
+        cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
         {
             int v0 = (int)self->base.pack;
 
@@ -53,7 +51,7 @@ void func_001AB730(cOmOpenClose *self)
             give = self->give;
             if (give != 0) {
                 give->activeTime = 0x3C;
-                cDamageUnit_SetDamageCollFlashActiveById((char *)self->give, self->giveId, 1, 0x3C);
+                cDamageUnit_SetDamageCollFlashActiveById((cDamageUnit *)self->give, self->giveId, 1, 0x3C);
             }
             func_002A8578(self, mot, 0, 0xA, 0.0f, 0, 0);
             self->base.step = self->base.step + 1;
@@ -69,7 +67,7 @@ void func_001AB730(cOmOpenClose *self)
     case 3:
         if (moveMotion(self) != 0) {
             self->timer = 0x1E;
-            cCollisionSolidManage_SetActive(D_00462FC0, self, 1);
+            cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 1);
             self->base.mode = 0;
             self->base.phase = 0;
             self->base.step = 0;

@@ -5,6 +5,7 @@
  * are passed the door; func_002006B8 is defined on SavePointWork, a view of cDoor. */
 #include "include_asm.h"
 #include "godhand/cDoor.h"
+#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cScenario.h"
 #include "godhand/classFADE.h"
@@ -31,8 +32,6 @@ extern int func_002006B8(cDoor *self);
 extern void func_00200638(cDoor *self);
 extern void InitSlotParams_200658(cDoor *self);
 extern int Obj0000_Get_Low16_2006B0(int id);
-extern void MtxInitTransVec(float *mtx, float *trans);
-extern void MtxMulRotVec(float *dst, float *src, float *rot, int order);
 extern void pl00_reset(void *pl);
 extern void func_002D9D48(int *a0, int a1);
 
@@ -76,8 +75,8 @@ void func_002000F8(cDoor *self)
         case 0:
             cScenario_moveObjPos(D_003C2F84, (char *)pl, self->point[0].pos[0], self->point[0].pos[1],
                                  self->point[0].pos[2], self->point[0].angle);
-            MtxInitTransVec(pl->mtx, &pl->pos->x);
-            MtxMulRotVec(pl->mtx, pl->mtx, pl->rot, GAMEOBJ_ROT_ORDER(pl));
+            MtxInitTransVec(pl->mtx, pl->pos);
+            MtxMulRotVec(pl->mtx, pl->mtx, &pl->rot, GAMEOBJ_ROT_ORDER(pl));
             pl00_reset(Getplayer());
             cScenario_resetCam(D_003C2F84);
             self->wait = CDOOR_WAIT;

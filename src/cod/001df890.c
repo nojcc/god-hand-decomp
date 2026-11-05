@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/heapArena.h"
+#include "godhand/cDvd.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cEm00.h"
@@ -11,18 +13,13 @@ extern void ColiseumEmSelect_close(void);
 extern void ColiseumUi_StartFade(void *self, int mode);
 extern void func_001F44E0(void *self);
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
-extern int IsEntryActive_1C2490(int entry);
 extern int cIDManager_getLocalFileName();
-extern int cDvd_ReadAlloc();
-extern void cDvd_CheckWait();
 extern void cIDManager_setIDData();
 extern void func_001DD0D8(void *self);
 extern void func_001DECE0(void *work);
 extern int D_003C2388;
 extern int *D_003C2384;
 extern char D_0042B6E8[];
-extern char D_00583F20[];
-extern char D_00754220[];
 extern char D_005E8040[];
 extern void KeySlotTable_set(char *slot, int a1, int a2);
 extern unsigned short D_00747A50;
@@ -99,9 +96,9 @@ void IdScreen_loadIdData(char *self)
     int r;
 
     cIDManager_getLocalFileName(D_003C2388, name, D_0042B6E8, -1);
-    r = cDvd_ReadAlloc(D_00583F20, name, &size, D_00754220, 0, 0, 0, 0);
+    r = cDvd_ReadAlloc(&D_00583F20, name, &size, &D_00754220, 0, 0, 0, 0);
     if (r != 0) {
-        cDvd_CheckWait(D_00583F20, r);
+        cDvd_CheckWait(&D_00583F20, r);
         cIDManager_setIDData(*D_003C2384, 0x12, size);
         func_001DD0D8(self);
         func_001DECE0(self + 0x25B0);

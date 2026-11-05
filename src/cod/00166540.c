@@ -1,16 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cGameObj.h"
+#include "godhand/cCamManager.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
 
-extern void cHeap_free(int heap, int *block);
-extern int cDvd_ReadAlloc(char *dvd, const char *name, void *outBuf, char *heap, int a4, int a5, int a6, int a7);
-extern void cDvd_CheckWait(char *dvd, int id);
 extern unsigned int D_00747A78;
-extern char D_00463050[];
 extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);
-extern void cCamManager_setSubScrCamera(void *cam, int mode);
 
 /* A holder that keeps one file read in memory: the block at 0x298 and the disc job id at 0x29C. */
 typedef struct FileHolder {
@@ -19,8 +17,6 @@ typedef struct FileHolder {
     int jobId;                          /* 0x29C disc job that filled it */
 } FileHolder;
 
-extern char D_00583F20[];               /* cDvd */
-extern char D_00754230[];               /* heap the file is read into */
 
 
 
@@ -29,10 +25,10 @@ extern char D_00754230[];               /* heap the file is read into */
 __attribute__((section(".text.FileHolder_reload")))
 void FileHolder_reload(FileHolder *self, const char *name) {
     if (self->data != 0) {
-        cHeap_free(self->data[-8], self->data);
+        cHeap_free(HEAP_OWNER(self->data), self->data);
     }
-    self->jobId = cDvd_ReadAlloc(D_00583F20, name, &self->data, D_00754230, 0, 0, 0, 0);
-    cDvd_CheckWait(D_00583F20, self->jobId);
+    self->jobId = cDvd_ReadAlloc(&D_00583F20, name, &self->data, &D_00754230, 0, 0, 0, 0);
+    cDvd_CheckWait(&D_00583F20, self->jobId);
 }
 
 /* A game object that keeps a "camera on" byte at 0x763. */
@@ -91,8 +87,8 @@ void cGameObjCam_startSubCamera(cGameObjCam *self)
             *(float *)(buf + 0x14) = y;
             *(float *)(buf + 0x18) = z;
         }
-        cCamManager_setSubScrCamera(D_00463050, 0);
-        cVec_copy3((cVec *)(D_00463050 + 0xE90), (cVec *)buf);
-        cVec_copy3((cVec *)(D_00463050 + 0xEA0), (cVec *)(buf + 0x10));
+        cCamManager_setSubScrCamera(&D_00463050, 0);
+        cVec_copy3(&D_00463050.subScr.target, (cVec *)buf);
+        cVec_copy3(&D_00463050.subScr.eye, (cVec *)(buf + 0x10));
     }
 }

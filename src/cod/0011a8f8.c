@@ -1,20 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/pl00.h"
 #include "godhand/motion.h"
 
-extern void *cSnd_GetSeData(void *a0, int a1);
-extern int cSeData_IsAlive(void *p);
-extern void cSndSeVoice_Unlink(void *a0);
-extern char D_005FEE00[];
 extern unsigned int D_00747A84;
 extern int D_00747A78;
 extern unsigned int irand(void);
-extern void cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -24,7 +19,7 @@ __attribute__((section(".text.cSndSeVoice_Update")))
 void cSndSeVoice_Update(cSndSeVoice *voice)
 {
     char buf[0x30] __attribute__((aligned(16)));
-    cSndSeEntry *entry;
+    cSeData *entry;
     cSnd *snd;
     cSnd *sndNow;
     int found, total, played, state;
@@ -35,7 +30,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
     if (cSndSeVoice_IsActive(voice) == 0) {
         return;
     }
-    snd = (cSnd *)D_005FEE00;
+    snd = (cSnd *)&D_005FEE00;
     entry = cSnd_GetSeData(snd, voice->key0);
     if (cSeData_IsAlive(entry) == 0) {
         goto reset;
@@ -82,7 +77,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
         if (1.0f < ratio) {
             ratio = 1.0f;
         }
-        sndNow = (cSnd *)D_005FEE00;
+        sndNow = (cSnd *)&D_005FEE00;
         sndNow->f9C = ratio;
     }
     state = func_003750E0(voice->handle);
@@ -149,7 +144,7 @@ void func_0011A8F8(void *a0)
             break;
         }
         func_002A8578(s1, p1, p2, 1, 0.0f, 0, 0);
-        cSnd_SeCall_2CBA48(D_005FEE00, 0, 0xCE, s1, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCE, s1, 0, 0, 0, 0);
         func_0012C348(s1, 0);
         pl00_clearMotionCam(s1, 0, 0);
         CallWithAndClearField698_12AC28(s1);
@@ -159,7 +154,7 @@ void func_0011A8F8(void *a0)
         /* fallthrough */
     case 1:
         if (moveMotion(s1) != 0) {
-            if (func_00123938(s1, 1) != 0) {
+            if (func_00123938((pl00 *)s1, 1) != 0) {
                 return;
             }
             *(char *)(s1 + 0x2F4) = 0;
@@ -179,5 +174,5 @@ void func_0011A8F8(void *a0)
     if (f <= 1.0f) {
         *(unsigned short *)(s1 + 0x3AC) |= 0x40;
     }
-    func_00123938(s1, 1);
+    func_00123938((pl00 *)s1, 1);
 }

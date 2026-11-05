@@ -1,23 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/criStm.h"
+#include "godhand/espSys.h"
+#include "godhand/heapArena.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/gameWork.h"
 
-extern void func_002FBED0(void *self);
 extern void Pos_followGround(void *self);
 extern void cOmBase_dropTestB(void *self);
 extern void func_002E2E00(void *self);
-extern void UpdateObjByIndexedOp_2FBE50(void *self);
-extern void *_MemoryAlloc(int size, int align, void *region);
 extern void func_002D5768(void *entry, int src, int id, void *owner);
 extern int CreateSema(void *param);
-extern char D_00754200[];
 extern void cEm00_swapTextureAndShowMesh(void *self);
 extern void cModel_setTextureExchange(void *model, int texSet, int tex, int arg);
 extern void func_00194558(void *self);
 extern unsigned int cEvent_getCutNo();
 extern float cEvent_getCutFrame(void *ev);
-extern void CustomIDWork_SetDisp(char *work, int on);
 
 #define MODE_FLAG_PAUSED   0x1          /* modeFlags: the state machine is held */
 #define MODE_FLAG_SET_RATE 0x4          /* modeFlags: copy rateByte into animRate once */
@@ -38,7 +37,7 @@ typedef struct ModeObj {
 __attribute__((section(".text.ModeObj_update")))
 void ModeObj_update(ModeObj *self)
 {
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
     /* retail reads the held bit as a byte and flips it with xori; a plain mask gives a different branch layout */
     if ((*(unsigned char *)&self->modeFlags ^ 1) & 1) {
         switch ((unsigned int)self->mode) {
@@ -52,7 +51,7 @@ void ModeObj_update(ModeObj *self)
             func_002E2E00(self);
             return;
         default:
-            UpdateObjByIndexedOp_2FBE50(self);
+            UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
             return;
         }
     } else if (self->modeFlags & MODE_FLAG_SET_RATE) {
@@ -93,7 +92,7 @@ void EntTable_init(EntTable *self, int num, int src, int firstId)
 
     self->firstId = firstId;
     self->num = num;
-    self->entry = _MemoryAlloc(num * ENTRY_SIZE, 0x10, D_00754200);
+    self->entry = _MemoryAlloc(num * ENTRY_SIZE, 0x10, &D_00754200);
     func_003A52F0(self->entry, 0, num * ENTRY_SIZE);
     for (i = 0; i < self->num; i++) {
         func_002D5768(self->entry + i * ENTRY_SIZE, src, (unsigned short)(self->firstId + i), self);
@@ -255,19 +254,19 @@ void CustomIDWork_setDispAllButEight(char *self, int id, int on)
         if (id == IDWORK_ALL) {
             for (i = 0; i < IDWORK_ALL; i++) {
                 if (i != IDWORK_SKIP)
-                    CustomIDWork_SetDisp(self + IDWORK_FIRST + i * IDWORK_SIZE, 1);
+                    CustomIDWork_SetDisp((CustomIDWork *)(self + IDWORK_FIRST + i * IDWORK_SIZE), 1);
             }
         } else if (id != IDWORK_SKIP) {
-            CustomIDWork_SetDisp(self + (id * IDWORK_SIZE + IDWORK_FIRST), 1);
+            CustomIDWork_SetDisp((CustomIDWork *)(self + (id * IDWORK_SIZE + IDWORK_FIRST)), 1);
         }
     } else {
         if (id == IDWORK_ALL) {
             for (i = 0; i < IDWORK_ALL; i++) {
                 if (i != IDWORK_SKIP)
-                    CustomIDWork_SetDisp(self + IDWORK_FIRST + i * IDWORK_SIZE, 0);
+                    CustomIDWork_SetDisp((CustomIDWork *)(self + IDWORK_FIRST + i * IDWORK_SIZE), 0);
             }
         } else if (id != IDWORK_SKIP) {
-            CustomIDWork_SetDisp(self + (id * IDWORK_SIZE + IDWORK_FIRST), 0);
+            CustomIDWork_SetDisp((CustomIDWork *)(self + (id * IDWORK_SIZE + IDWORK_FIRST)), 0);
         }
     }
 }

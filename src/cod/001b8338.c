@@ -5,7 +5,6 @@
 
 extern float cEmManage_GetSpeedRate(void *a0);
 extern float SetMotionStep(void *a0, float f);
-extern int moveMotion(void *a0);
 extern int D_005864F0;
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */

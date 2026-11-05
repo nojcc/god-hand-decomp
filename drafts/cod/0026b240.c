@@ -1,9 +1,10 @@
-/* NON_MATCHING func_0026B240 (sn-2.95.3-136): the child index test and register use differ. Retail masks the 0/1 result of the index test with andi 0xFF before branching (the same pattern as func_00285C58), and keeps &tmp in s3 across the calls, saving five registers in a 0xC0 frame; ours saves four in 0xB0. */
+/* NON_MATCHING func_0026B240 (sn-2.95.3-136): register use differs. Retail keeps &tmp in s3 across the calls, saving five registers in a 0xC0 frame; ours saves four in 0xB0, so every stack offset after the prologue differs. */
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 #include "godhand/vu0.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cEm00.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cCoreSave.h"
@@ -13,20 +14,12 @@
 extern float fRand1_1(void);
 extern void cOmWeapon_setThrow(cOmWeapon *self, cVec *v, int n);
 
-static __inline__ unsigned char hasChild(cOmBase *b, int *frame, int idx)
-{
-    int n;
-
-    *frame = n = b->childNum;
-    return idx >= 0 && idx < n;
-}
-
 /* Throw weapon at the player from the enemy's child idx: aim at a jittered point 1.5 above the player, with a
- * faster throw on game level 5. id is the weapon's model id and is not read. */
+ * faster throw on game level 5. type is the weapon's model id and is not read. */
 __attribute__((section(".text.func_0026B240")))
-void func_0026B240(cOmBase *self, cOmWeapon *weapon, int id, int idx)
+void func_0026B240(cEm00 *self, cOmWeapon *weapon, int type, int idx)
 {
-    char frame[16]; /* cOmBase_childAt stores the child count here, a dead store retail keeps */
+    int frame[3];
     cVec target;
     cVec dir;
     cVec copy;
@@ -37,11 +30,7 @@ void func_0026B240(cOmBase *self, cOmWeapon *weapon, int id, int idx)
     if (weapon == 0) {
         return;
     }
-    if (hasChild(self, (int *)frame, idx)) {
-        hand = self->children[idx];
-    } else {
-        hand = 0;
-    }
+    hand = cOmBase_childAtIdx((cOmBase *)self, frame, idx);
     if (hand == 0) {
         return;
     }

@@ -1,44 +1,43 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern int KeyFollower_attachScaled(int a0, int a1, int a2, int a3, float f, int a5);
+#include "godhand/cDamageUnit.h"
 
+extern int KeyFollower_attachScaled(cDamageNode *node, int group, void *mtx, cVec *ofs, float radius, cDamageUnit *owner);
+
+/* Append a sphere volume at ofs in mtx's space; its id, or -1. */
 __attribute__((section(".text.cDamageUnit_AddDamageCollSphere")))
-int cDamageUnit_AddDamageCollSphere(int a0, int a1, int a2, float f) {
-    int desc;
-    int node;
-    int *head;
-    int *last;
+int cDamageUnit_AddDamageCollSphere(cDamageUnit *self, void *mtx, cVec *ofs, float radius) {
+    const cDamageVtEnt *ent;
+    cDamageNode *node;
+    cDamageNode *last;
     int result;
-    int (*fn)(int);
 
-    if (*(char *)(a0 + 0x49) == 0) {
+    if (self->type == CDAMAGE_TYPE_SPARE) {
         return -1;
     }
-    desc = *(int *)(a0 + 0x50);
-    fn = *(int (**)(int))(desc + 0x14);
-    node = fn(a0 + *(short *)(desc + 0x10));
+    ent = &self->vt[CDAMAGE_UNIT_NEWNODE];
+    node = ((cDamageNode *(*)(void *))ent->pfn)((char *)self + ent->delta);
     if (node == 0) {
         return -1;
     }
-    if (func_001FD908(a0) == 0) {
+    if (func_001FD908(self) == 0) {
         return -1;
     }
-    result = KeyFollower_attachScaled(node, func_001FD908(a0), a1, a2, f, a0);
+    result = KeyFollower_attachScaled(node, func_001FD908(self), mtx, ofs, radius, self);
     if (result == -1) {
         return -1;
     }
-    head = *(int **)(a0 + 0x3C);
-    if (head != 0) {
-        last = head;
-        if (*(int **)((char *)last + 0x24) != 0) {
+    if (self->nodes != 0) {
+        last = self->nodes;
+        if (last->next != 0) {
             do {
-                last = *(int **)((char *)last + 0x24);
-            } while (*(int **)((char *)last + 0x24) != 0);
+                last = last->next;
+            } while (last->next != 0);
         }
-        *(int **)((char *)last + 0x24) = (int *)node;
-        *(int *)(node + 0x20) = (int)last;
+        last->next = node;
+        node->prev = last;
     } else {
-        *(int **)(a0 + 0x3C) = (int *)node;
+        self->nodes = node;
     }
     return result;
 }

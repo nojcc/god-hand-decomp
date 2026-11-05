@@ -21,7 +21,6 @@ typedef struct LineAttr {
 
 extern int D_00586B80;
 extern int D_003C1180;
-extern void sceVu0DivVector(void *a0, void *a1, float s);
 extern void *Gp_draw_line(float (*pts)[4], unsigned int color, int a2, int a3, int a4, LineAttr *attr);
 
 /* Draw a world-space polyline: project each point with the current camera and draw a

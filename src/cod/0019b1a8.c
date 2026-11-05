@@ -3,6 +3,7 @@
 /* Phase tick: run the handler picked by the state byte, then for each live part (up to 12) update its scrolling vectors from the speed rate, rotate and scale the model matrix and retire a part that drifts below -1000; finish with the sync step. */
 
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
 extern void func_002A87E8(void *a0, int a1);
@@ -10,10 +11,7 @@ extern void func_001B76D8(void *a0);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern void Adjust_theta_vec(float *p);
-extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
-extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
-extern int MtxCopy();
 #include "godhand/objField.h"
 extern char D_005864F0[];
 extern char D_00425800[];
@@ -98,16 +96,16 @@ void UpdatePartsScrollAndRetire(void *a0)
             VU0_VADD_XYZ_IP(e10, 0, q10v);
             Adjust_theta_vec((float *)e10);
             m1 = frame + 0x40;
-            MtxInitRotVec(m1, e10, 0);
+            MtxInitRotVec(m1, (cVec *)e10, 0);
             m1 = 0;
             m2 = frame + 0x40;
             CopyVec3ToField30_147C40(m2, e);
             m2 = 0;
             m3 = frame + 0x40;
-            MtxMulScaleVec(m3, m3, e40);
+            MtxMulScaleVec(m3, m3, (cVec *)e40);
             m3 = 0;
             m4 = frame + 0x40;
-            MtxCopy(*(int *)(e10 + 0x40), m4);
+            MtxCopy(*(void **)(e10 + 0x40), m4);
             m4 = 0;
             *(float *)(e10 + 0x14) = *(float *)(e10 + 0x14) + *(float *)(e10 + 0x48) * rate;
             if (*(float *)(e10 + 0x14) < lim) {

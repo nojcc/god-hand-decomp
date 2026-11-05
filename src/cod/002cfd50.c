@@ -1,9 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/heapArena.h"
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
-extern char D_00754210[];
-extern char D_00754220[];
 extern char D_00602F80[];
 extern char D_00603310[];
 extern char D_006036A0[];
@@ -14,11 +13,11 @@ __attribute__((section(".text.cSeData_SelectHeap")))
 void cSeData_SelectHeap(cSeData *d) {
     switch (d->bankId) {
     case 0:
-        d->pool = D_00754210;
+        d->pool = &D_00754210;
         d->head = (cSeBuf *)D_00602F80;
         break;
     case 3:
-        d->pool = D_00754210;
+        d->pool = &D_00754210;
         d->head = (cSeBuf *)D_00602F80;
         break;
     case 1:
@@ -35,9 +34,9 @@ void cSeData_SelectHeap(cSeData *d) {
     case 19:
         if (D_00747A50 == 0x504 || D_00747A50 == 0x506 || D_00747A50 == 0x801 ||
             D_00747A50 == 0x4F || D_00747A50 == 0x4E) {
-            d->pool = D_00754220;
+            d->pool = &D_00754220;
         } else {
-            d->pool = D_00754210;
+            d->pool = &D_00754210;
         }
         d->head = (cSeBuf *)D_006036A0;
         break;
@@ -48,7 +47,7 @@ void cSeData_SelectHeap(cSeData *d) {
     case 14:
     case 15:
     default:
-        d->pool = D_00754210;
+        d->pool = &D_00754210;
         d->head = (cSeBuf *)D_00603310;
         break;
     }

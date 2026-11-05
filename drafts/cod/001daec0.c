@@ -26,7 +26,7 @@ void func_001DAEC0(Poker *self)
     case 1:
         if (Poker_tick(&self->timer)) {
             cSnd_SetBgmState(&D_005FEE00, 2);
-            func_001DF528(POKER_UI(self), 0, 4);
+            func_001DF528(&self->ui, 0, 4);
             self->timer = 30;
             self->unk302C = self->bet / 10;
             self->phase++;
@@ -36,7 +36,7 @@ void func_001DAEC0(Poker *self)
         if (Poker_tick(&self->timer)) {
             if ((D_00747640 & (MENU_KEY_OK | MENU_KEY_BACK)) != 0 || self->unk302C == 0) {
                 self->bet += self->unk302C * 10;
-                func_001DEE40(POKER_UI(self), self->bet);
+                func_001DEE40(&self->ui, self->bet);
                 if (self->unk3045 < 2) {
                     self->timer = 30;
                     self->phase++;
@@ -48,16 +48,16 @@ void func_001DAEC0(Poker *self)
             } else {
                 self->unk302C--;
                 self->bet += 10;
-                func_001DEE40(POKER_UI(self), self->bet);
+                func_001DEE40(&self->ui, self->bet);
             }
         }
         break;
     case 3:
         if (Poker_tick(&self->timer)) {
             self->choice = 0;
-            UiRecord_setDispSubs6to10(POKER_UI(self), 1);
-            func_001DF7D0(POKER_UI(self), 1);
-            func_001DF820(POKER_UI(self), 1);
+            UiRecord_setDispSubs6to10(&self->ui, 1);
+            func_001DF7D0(&self->ui, 1);
+            func_001DF820(&self->ui, 1);
             self->timer = 5;
             self->phase++;
         }
@@ -71,19 +71,19 @@ void func_001DAEC0(Poker *self)
         if (D_007474A0.rep & MENU_KEY_LEFTRIGHT_ALL) {
             if (self->choice == 0) {
                 self->choice = 1;
-                func_001DF7D0(POKER_UI(self), 0);
+                func_001DF7D0(&self->ui, 0);
             } else {
                 self->choice = 0;
-                func_001DF7D0(POKER_UI(self), 1);
+                func_001DF7D0(&self->ui, 1);
             }
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
         } else if (D_007474A0.trg & MENU_KEY_BACK) {
             self->choice = 1;
-            func_001DF7D0(POKER_UI(self), 0);
+            func_001DF7D0(&self->ui, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
         } else if (D_007474A0.trg & MENU_KEY_OK) {
             if (self->choice == 0) {
-                func_001DF528(POKER_UI(self), 0, 3);
+                func_001DF528(&self->ui, 0, 3);
                 self->timer = 30;
                 self->phase++;
             } else {
@@ -91,8 +91,8 @@ void func_001DAEC0(Poker *self)
                 self->unk302C = self->bet / 10;
                 self->phase += 3;
             }
-            UiRecord_setDispSubs6to10(POKER_UI(self), 0);
-            func_001DF820(POKER_UI(self), 0);
+            UiRecord_setDispSubs6to10(&self->ui, 0);
+            func_001DF820(&self->ui, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
         }
         break;
@@ -121,15 +121,15 @@ void func_001DAEC0(Poker *self)
         if ((D_00747640 & (MENU_KEY_OK | MENU_KEY_BACK)) != 0 || self->unk302C == 0) {
             cCoreSave_addGold(&D_00569B70, self->unk302C * 10, 0);
             self->bet = 0;
-            func_001DEE40(POKER_UI(self), 0);
-            func_001DF528(POKER_UI(self), 0, 3);
+            func_001DEE40(&self->ui, 0);
+            func_001DF528(&self->ui, 0, 3);
             self->timer = 30;
             self->phase++;
         } else {
             self->unk302C--;
             cCoreSave_addGold(&D_00569B70, 10, 0);
             self->bet -= 10;
-            func_001DEE40(POKER_UI(self), self->bet);
+            func_001DEE40(&self->ui, self->bet);
         }
         break;
     case 9:

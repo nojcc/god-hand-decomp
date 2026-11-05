@@ -3,14 +3,8 @@
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
-extern void cSndBgmNode_FadeTo(cSndBgmNode *, float, float);
 extern float GetSequenceBlendWeight_373938(cSndBgmNode *, int);
 extern void UpdateSequenceNodeWeighted_373560(cSndBgmNode *, int, float);
-extern void cSndBgmNode_FadeOut(cSndBgmNode *, float);
 
 __attribute__((section(".text.cSnd_SeCheckParam")))
 int cSnd_SeCheckParam(void *self, short a, short b, int c)
@@ -54,7 +48,7 @@ void cSnd_BgmFadeOutAll(cSnd *self, int bgmPt, int keepReq, float time)
 __attribute__((section(".text.cSnd_BgmEvIsReady")))
 int cSnd_BgmEvIsReady(cSnd *self, int bgmPt, int reqNo)
 {
-    int node = cSnd_FindBgmNode(self, bgmPt, reqNo);
+    cSndBgmNode *node = cSnd_FindBgmNode(self, bgmPt, reqNo);
     if (node != 0 && cSndBgmNode_IsDone(node) == 0)
         return 0;
     return 1;

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136: func_0030B728, game system start-up: clears the shared system block, initialises the subsystems and queues the boot tasks. */
 #include "godhand/classFADE.h"
+#include "godhand/criStm.h"
 #include "godhand/gameWork.h"
 extern int cTaskManager_execute(void *task, void *entry, int slot);
 extern char D_00450518[];
@@ -13,7 +14,6 @@ extern char D_00585038[];
 extern void *D_003C2558;
 
 extern int func_003A6A20(const char *fmt, ...);
-extern void *func_003A52F0(void *p, int c, int n);
 extern void func_00299348(void *p);
 extern void func_0031A338(void *p);
 extern void func_00306D10(void);

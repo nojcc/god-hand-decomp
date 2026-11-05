@@ -68,7 +68,7 @@ void func_002269F0(cEm00 *self)
             self->stepArg = 2;
             break;
         case 0x252:
-            if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530((char *)player) == 0) {
+            if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530((pl00 *)player) == 0) {
                 pick = (unsigned int)irand() % 3;
             } else {
                 pick = irand() & 1;

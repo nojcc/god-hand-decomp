@@ -76,6 +76,8 @@ void func_003B2D10(void *pkt, void *data);  /* _request_rdata */
 unsigned int _sceSifSendCmd(unsigned int fid, int mode, void *pkt, int pktsize, void *src, void *dest, int size);
 void sceSifInitRpc(int mode);
 unsigned int sceSifSendCmd(unsigned int fid, void *pkt, int pktsize, void *src, void *dest, int size);
+/* sceSifCallRpc: call function rno of the client's server; negative on failure. */
+int func_003B3128(void *cd, int rno, int mode, void *sbuf, int ssize, void *rbuf, int rsize, void *efunc, void *epara);
 
 /* The next receive-data slot of the RPC tables, cycling through rdataTableLen slots. */
 void *func_003B2B90(sceSifRpcState *s);

@@ -44,7 +44,7 @@ int func_0020D140(void *a0)
     if (t == 0) goto ret0;
     if (t != 1) goto ret0;
     if (D_005CB010 != 0) return 0;
-    if (func_0026F1D8(s0) != 0) return 0;
+    if (func_0026F1D8((cEm00 *)s0) != 0) return 0;
     if ((*(unsigned short *)(s0 + 0x3AC) & 0x100) != 0) return 0;
     if (*(int *)(s0 + 0x17AC) <= 0) return 0;
     switch (cCoreSave_getGameLevel(&D_00569B70)) {

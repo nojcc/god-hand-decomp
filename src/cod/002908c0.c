@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEmManage.h"
+#include "godhand/cModel.h"
 
-extern void ReleaseObj(void *a0);
 /* The game object list: begin and end of an array of object pointers. */
 typedef struct ObjList {
     int unk0;
@@ -26,7 +26,7 @@ void cEmManage_ReleaseEmAll(cEmManage *self) {
     p = D_00754C58->begin;
     while (p != D_00754C58->end) {
         obj = *p;
-        if (obj->actorId == 0x364) ReleaseObj(obj);
+        if (obj->actorId == 0x364) ReleaseObj((struct cModel *)obj);
         p++;
     }
 }

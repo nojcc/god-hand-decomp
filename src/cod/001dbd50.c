@@ -1,21 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cCamManager.h"
+#include "godhand/heapArena.h"
+#include "godhand/CustomIDWork.h"
 
-extern int __builtin_delete();
-extern char D_00463050[];
-extern int cCamManager_setSubScrCamera();
 
 /* clone */
 
-__attribute__((section(".text.CustomIDWork")))
-int CustomIDWork(int a0) {
-    *(int*)((char*)a0 + 0x0) = 0;
-    *(int*)((char*)a0 + 0x8) = 0;
-    *(int*)((char*)a0 + 0x28) = 0;
-    *(int*)((char*)a0 + 0x48) = 0;
-    *(int*)((char*)a0 + 0x5C) = 0;
-    *(int*)((char*)a0 + 0x4) = 0;
-    return a0;
+/* Constructor: no object, every animation stopped. */
+__attribute__((section(".text.CustomIDWork__ctor")))
+CustomIDWork *CustomIDWork__ctor(CustomIDWork *self) {
+    self->unk00 = 0;
+    self->localFlags = 0;
+    self->offsFlags = 0;
+    self->colorFlags = 0;
+    self->scaleFlags = 0;
+    self->obj = 0;
+    return self;
 }
 
 /* clone */
@@ -38,10 +39,11 @@ void CustomIDWork_SetColorAnimNormal_2D68D8(int a0, int a1, int a2, int a3) {
 /* clone */
 
 
+/* Destructor: frees self when bit 0 of the flags is set. */
 __attribute__((section(".text.CustomIDWork__dtor")))
-void CustomIDWork__dtor(int a0, int a1) {
-    if (a1 & 1) {
-        __builtin_delete();
+void CustomIDWork__dtor(CustomIDWork *self, int flags) {
+    if (flags & 1) {
+        __builtin_delete(self);
     }
 }
 
@@ -54,9 +56,9 @@ void Poker_SetPokerCamera(int a0, float *a1, float *a2) {
     float *dst1;
     float *dst2;
 
-    cCamManager_setSubScrCamera(D_00463050, 0);
-    *(int *)(a0 + 0x304C) = (int)(D_00463050 + 0xC90);
-    dst1 = (float *)(D_00463050 + 0xEA0);
+    cCamManager_setSubScrCamera(&D_00463050, 0);
+    *(int *)(a0 + 0x304C) = (int)&D_00463050.subScr;
+    dst1 = &D_00463050.subScr.eye.x;
     if (a1 != dst1) {
         dst1[0] = a1[0];
         dst1[1] = a1[1];

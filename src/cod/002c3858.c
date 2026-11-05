@@ -1,15 +1,13 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cScenario.h"
+#include "godhand/cCamera.h"
+#include "godhand/cCamManager.h"
 
 extern void cTaskPool_killAll(cTaskManager *task);
 extern void cTaskWork_sleep(cTaskWork *work, int a1);
 extern unsigned int D_00747A78;
-extern char D_00463050[];
-extern void cCamManager_setMotCamera(void *a0, int a1);
 extern void cMotCamera_setMotion(void *a0, int a1, int a2, int a3, float f12, int t0, int t1);
-extern void cCamera_move(void *a0);
 extern void cPlCamera_setCamUpdate(void *a0, int a1);
-extern void cCamManager_setPlCamera(void *a0, int a1);
 extern void pl00_clearMotionCam(int a0, int a1, int a2);
 extern int D_003C23A4;
 extern void cMessage_deleteMessNo(int a0, int a1);
@@ -27,17 +25,16 @@ void cScenario_release(cScenario *self) {
 __attribute__((section(".text.cScenario_startCamMotion")))
 /* Play camera data on the motion camera. 0 when there is no data. */
 int cScenario_startCamMotion(cScenario *self, int camData) {
-    char *s0;
+    struct cCamera *cam;
     if (camData == 0) {
         return 0;
     }
     D_00747A78 = D_00747A78 | 0x200000;
-    s0 = D_00463050;
-    cCamManager_setMotCamera(s0, 0);
-    s0 = D_00463050 + 0x530;
-    cMotCamera_setMotion(s0, camData, 0, 0, 0.0f, 0, 0);
-    *(float *)(s0 + 0x3A8) = 0.0f;
-    cCamera_move(s0);
+    cCamManager_setMotCamera(&D_00463050, 0);
+    cam = &D_00463050.motion;
+    cMotCamera_setMotion(cam, camData, 0, 0, 0.0f, 0, 0);
+    *(float *)((char *)cam + 0x3A8) = 0.0f;
+    cCamera_move(cam);
     self->camOn = 1;
     return 1;
 }
@@ -45,13 +42,13 @@ int cScenario_startCamMotion(cScenario *self, int camData) {
 __attribute__((section(".text.cScenario_resetCam")))
 /* Give the camera back to the player. */
 void cScenario_resetCam(cScenario *self) {
-    char *s0;
+    cCamManager *mgr;
     D_00747A78 = D_00747A78 & 0xFFDFFFFF;
-    s0 = D_00463050;
-    if (s0) {
-        cPlCamera_setCamUpdate(s0, 0);
+    mgr = &D_00463050;
+    if (mgr) {
+        cPlCamera_setCamUpdate(mgr, 0);
     }
-    cCamManager_setPlCamera(s0, 0);
+    cCamManager_setPlCamera(mgr, 0);
     pl00_clearMotionCam(Getplayer(), 0, 1);
     self->camOn = 0;
 }

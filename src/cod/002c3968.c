@@ -1,5 +1,5 @@
 #include "godhand/cScenario.h"
-extern void *func_003A52F0(void *, int, int);
+#include "godhand/criStm.h"
 
 __attribute__((section(".text.cScenario_clearTaskData")))
 void cScenario_clearTaskData(cScenario *scenario, int index)

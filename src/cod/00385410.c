@@ -31,4 +31,3 @@ void func_00385410(char *self, char *ctrl)
     }
 }
 
-void BlockOwner_dtor(char *self, void *arg);

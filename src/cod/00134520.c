@@ -1,29 +1,26 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *cCollisionSolid_constructSphere(void *mem, int a, int b, float f);
+#include "godhand/cCollisionSolid.h"
+#include "godhand/heapArena.h"
+
 extern int D_00460D18;
 
-typedef struct Node {
-    struct Node *next;
-    struct Node *child;
-} Node;
-
 __attribute__((section(".text.func_00134520")))
-void func_00134520(Node *n, int a, int b, float f) {
-    Node *p;
-    Node *q;
+void func_00134520(cCollisionSolidUnit *unit, void *body, cVec *center, float radius) {
+    cCollisionSolidBody *p;
+    cCollisionSolidBody *q;
 
-    if (n->next != 0) {
-        if (n->child != 0) {
-            q = n->child;
+    if (unit->owner != 0) {
+        if (unit->first != 0) {
+            q = unit->first;
             while (q->next != 0) {
                 q = q->next;
             }
-            p = (Node *)cCollisionSolid_constructSphere(func_0030F550(0x80), a, b, f);
+            p = (cCollisionSolidBody *)cCollisionSolid_constructSphere(func_0030F550(0x80), body, center, radius);
             q->next = p;
         } else {
-            p = (Node *)cCollisionSolid_constructSphere(func_0030F550(0x80), a, b, f);
-            n->child = p;
+            p = (cCollisionSolidBody *)cCollisionSolid_constructSphere(func_0030F550(0x80), body, center, radius);
+            unit->first = p;
         }
         if (p != 0) {
             D_00460D18 = D_00460D18 + 1;

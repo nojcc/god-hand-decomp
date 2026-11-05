@@ -2,6 +2,7 @@
 #include "godhand/BlackJack.h"
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cCamManager.h"
 
 extern void func_001D0CE8();
 extern void func_001D0DF8();
@@ -10,11 +11,10 @@ extern void BlackJackId_Move();
 extern void BlackJackId__Trans();
 
 __attribute__((section(".text.BlackJack_Release")))
-void BlackJack_Release(void) {
-    func_001D4F48();
+void BlackJack_Release(BlackJack *self) {
+    func_001D4F48((char *)self);
 }
 
-extern char D_00463050[];
 
 
 typedef struct BlackJackStateEnt {
@@ -88,9 +88,9 @@ void BlackJack_SetBlackJackCamera(BlackJack *self, float *a1, float *a2) {
     float *dst1;
     float *dst2;
 
-    cCamManager_setSubScrCamera(D_00463050, 0);
-    self->camera = D_00463050 + 0xC90;
-    dst1 = (float *)(D_00463050 + 0xEA0);
+    cCamManager_setSubScrCamera(&D_00463050, 0);
+    self->camera = (char *)&D_00463050.subScr;
+    dst1 = &D_00463050.subScr.eye.x;
     if (a1 != dst1) {
         dst1[0] = a1[0];
         dst1[1] = a1[1];
@@ -107,5 +107,5 @@ void BlackJack_SetBlackJackCamera(BlackJack *self, float *a1, float *a2) {
 
 __attribute__((section(".text.BlackJack_ClearBlackJackCamera")))
 void BlackJack_ClearBlackJackCamera(void) {
-    cCamManager_setPlCamera(D_00463050, 0);
+    cCamManager_setPlCamera(&D_00463050, 0);
 }

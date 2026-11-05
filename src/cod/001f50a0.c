@@ -3,8 +3,6 @@
 #include "godhand/CustomIDWork.h"
 
 extern void SetCustomIDDispOneOrAll_1F4778(void *self, int entry, int on);
-extern void CustomIDWork_SetNumber(CustomIDWork *work, int n);
-extern void CustomIDWork_SetMessNo(CustomIDWork *work, int messNo);
 extern int ReturnOne_1F6FA0(void *self);
 extern int GetNextAnimIndex_1451E0(void *table);
 extern void BlendSetup_load(void *table, int a, int b, int c, int d, int e);

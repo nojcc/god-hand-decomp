@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 */
 #include "godhand/menuCtl.h"
+#include "godhand/heapArena.h"
 
 extern const char D_0045C270[];
 extern int func_00323000(int ptid);
 extern void func_00323A70(int adxf);
 extern int func_00323E80(int a0, int a1, int a2);
-extern void *func_0031C8B8(int size, int align);
 extern void func_003A6A20(const char *s);
 
 /* Once the partition has loaded, opens the selected file and starts reading

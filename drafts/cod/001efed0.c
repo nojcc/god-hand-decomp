@@ -4,10 +4,8 @@
 
 #ifdef NON_MATCHING
 extern void cDamageGive_SetDmgGiveHitVec(void *self, void *dir);
-extern void cDamageUnit_SetDamageCollFlashActive(char *self, int active, short val);
-extern void cDamageUnit_SetDamageCollOffset(void *self, void *offset);
-extern int cSnd_SeCall(void *self, int slot, short key1, int mtx, int idA, int idB);
 #include "godhand/cSnd.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/vu0.h"
@@ -25,9 +23,7 @@ typedef struct cHitSet {
     unsigned int next;                  /* 0xBC8 the unit armed next */
 } cHitSet;
 
-extern cSnd D_005FEE00;
 
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 
 /* Arm the next damage unit at pos with hit direction dir: flash, two sounds and the unit's offset and push. */
 void func_001EFED0(cHitSet *self, cVec *pos, cVec *dir)
@@ -36,14 +32,14 @@ void func_001EFED0(cHitSet *self, cVec *pos, cVec *dir)
 
     if (self->next < HITSET_NUM) {
         if (self->unit[self->next] != 0) {
-            SetEffectPos(0, HITSET_EFFECT, 0, pos, -1, 1.0f);
+            SetEffectPos(0, HITSET_EFFECT, 0, pos, 1.0f, -1);
             VU0_LQC2(4, pos, 0);
             VU0_SQC2(4, &at, 0);
-            cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_A, (int)&at, 0, 0);
-            cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_B, (int)&at, 0, 0);
+            cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_A, &at, 0, 0);
+            cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_B, &at, 0, 0);
             cDamageUnit_SetDamageCollOffset((void *)self->unit[self->next], pos);
             cDamageGive_SetDmgGiveHitVec(self->unit[self->next], dir);
-            cDamageUnit_SetDamageCollFlashActive((char *)self->unit[self->next], 1, 1);
+            cDamageUnit_SetDamageCollFlashActive((cDamageUnit *)self->unit[self->next], 1, 1);
         }
         self->next++;
     }

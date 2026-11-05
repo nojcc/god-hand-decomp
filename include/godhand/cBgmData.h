@@ -44,7 +44,7 @@ typedef struct cSeBuf {
 typedef struct cSeData {
     int state;                  /* 0x00 CSEDATA_STATE_* */
     unsigned int flags;         /* 0x04 load progress bits */
-    void *pool;                 /* 0x08 allocator the bank is read into */
+    struct HeapArena *pool;     /* 0x08 allocator the bank is read into */
     cSeBuf *head;               /* 0x0C */
     cSeBuf *buf;                /* 0x10 the bank image */
     int f14;                    /* 0x14 */
@@ -60,7 +60,7 @@ typedef struct cSeData {
     int f30;                    /* 0x30 */
     int f34;                    /* 0x34 */
     int f38;                    /* 0x38 */
-    int f3C;                    /* 0x3C */
+    int owner;                  /* 0x3C object id the bank is loaded for */
 } cSeData;                      /* 0x40 */
 
 /* Header of a loaded BGM table. */
@@ -77,7 +77,8 @@ typedef struct cBgmTbl {
     unsigned char type;         /* 0x0B CBGM_TBL_UNUSED = empty */
     char unk0C[5];
     unsigned char reqNo;        /* 0x11 */
-    char unk12[0xE];
+    unsigned char f12;          /* 0x12 */
+    char unk13[0xD];
 } cBgmTbl;                      /* 0x20 */
 
 /* One BGM data record. */
@@ -86,9 +87,9 @@ typedef struct cBgmData {
     signed char f01;            /* 0x01 */
     char unk02[2];
     int state;                  /* 0x04 bit flags, CBGMDATA_STATE_READY when loaded */
-    void *pool;                 /* 0x08 allocator the data is read into */
+    struct HeapArena *pool;     /* 0x08 allocator the data is read into */
     cBgmHead *head;             /* 0x0C */
-    void *tbl;                  /* 0x10 */
+    cBgmTbl *tbl;               /* 0x10 */
     void *f14;                  /* 0x14 */
     int f18;                    /* 0x18 -1 = none */
     int f1C;                    /* 0x1C */
@@ -120,5 +121,37 @@ typedef struct cBgmHit {
     float scale;                /* 0x0C */
     cBgmHitEnt ent[1];          /* 0x10 */
 } cBgmHit;
+
+/* The BGM and sound-effect data API, as defined. */
+cBgmHead *cBgmData_GetHeadPtr(cBgmData *d);
+cBgmTbl *cBgmData_GetTblPtr(cBgmData *d, int n);
+cBgmData *cBgmData_Init(cBgmData *d);
+int cBgmData_IsReadDone(cBgmData *d);
+int cBgmData_LoadNamed(cBgmData *d, int kind, char *fileName);
+int cBgmData_LoadNumbered(cBgmData *d, int kind, int req);
+int cBgmData_PrepareDecode(cBgmData *d);
+void cBgmData_Relocate(cBgmData *d);
+void cBgmData_Reset(cBgmData *d);
+void cBgmData_UpdateLoad(cBgmData *d);
+void cSeData_AddLoadBits(cSeData *d, int bits);
+int cSeData_AllocSysMem(cSeData *d);
+int cSeData_CheckImage(cSeData *d);
+int cSeData_HasBankKeys(cSeData *d);
+cSeData *cSeData_Init(cSeData *d);
+int cSeData_IsReadDone(cSeData *d);
+int cSeData_LoadFile(cSeData *d, int bankId, char *fileName);
+int cSeData_LoadFromBuf(cSeData *d, int bankId, cSeBuf *buf, int owner);
+int cSeData_LoadNumbered(cSeData *d, int bankId, int arg);
+int cSeData_PrepareDecode(cSeData *d);
+void cSeData_RegisterBank(cSeData *d);
+void cSeData_Release(cSeData *d);
+int cSeData_ResolveBank(cSeData *d);
+void cSeData_SelectHeap(cSeData *d);
+void cSeData_Update(cSeData *d);
+int cSeData_IsAlive(cSeData *d);
+int cSeData_IsFailed(cSeData *d);
+int cSeData_IsFree(cSeData *d);
+int cBgmData_IsReady(cBgmData *d);
+int cBgmData_IsEmpty(cBgmData *d);
 
 #endif /* GODHAND_CBGMDATA_H */

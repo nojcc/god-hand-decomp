@@ -135,7 +135,7 @@ struct cIDBaseEnt {
     float f6C;                  /* 0x6C */
     float f70[4];               /* 0x70 */
     float f80;                  /* 0x80 */
-    unsigned int seed;          /* 0x84 */
+    int seed;                   /* 0x84 also the number a number entry shows */
     unsigned char kind;         /* 0x88 IDENT_KIND_* */
     unsigned char b89;          /* 0x89 */
     unsigned char b8A;          /* 0x8A */
@@ -174,11 +174,24 @@ typedef struct cIDBase {
     unsigned char mode;         /* 0x46 starts at 6: draw with the entry's own colour number */
 } cIDBaseObj;
 
+/* Draw the visible entries, layer 4 first and layer -4 last. */
+void cIDBase_trans(cIDBaseObj *self);
+/* cIDBase_trans(self). */
+void Forward2AAC28_13F070(cIDBaseObj *self);
+
 /* Advance every entry of the display one frame. */
 void cIDBase_move(cIDBaseObj *self);
+
+/* Re-initialise entry idx of an ID work (the record type is not known yet). */
+void cIDBase_initIDWork(void *self, int idx);
 
 typedef char cIDBaseEnt_size_check[sizeof(cIDBaseEnt) == IDBASE_ENT_SIZE ? 1 : -1];
 typedef char cIDBaseSrc_size_check[sizeof(cIDBaseSrc) == IDBASE_SRC_SIZE ? 1 : -1];
 typedef char cIDBaseDraw_size_check[sizeof(cIDBaseDraw) == 0x40 ? 1 : -1];
+
+int cIDBase_initialize(cIDBaseObj *self, int resNo, int id);
+int cIDBase_setPackedMessData(cIDBaseObj *self, int resNo, int arg);
+cIDBaseEnt *cIDBase_getIDWork(cIDBaseObj *self, int id);
+void cIDBase_restartAnim(cIDBaseObj *self);
 
 #endif

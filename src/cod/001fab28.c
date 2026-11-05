@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEmManage.h"
+#include "godhand/cNode.h"
 
 extern char D_0076A880[];
 
@@ -79,23 +80,13 @@ void func_003A62D8(unsigned char *dst, unsigned char *src, unsigned int n) {
     }
 }
 
-typedef struct Node {
-    char pad0[0x10];
-    struct Node *next;
-} Node;
-
-typedef struct Owner {
-    char pad0[0x8];
-    Node *head;
-} Owner;
-
 __attribute__((section(".text.func_002B5E58")))
-int func_002B5E58(Owner *this) {
-    Node *p;
+int func_002B5E58(cNode *self) {
+    cNode *p;
     int n;
 
     n = 0;
-    p = this->head;
+    p = self->child;
     if (p != 0) {
         n = 1;
         for (p = p->next; p != 0; p = p->next) {

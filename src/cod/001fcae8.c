@@ -1,18 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cCamManager.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cDamageUnit.h"
 
-extern char D_00574380[];
 extern char D_00568240[];
 extern void cWorldTime_gameInit(void *w);
-extern void cCamManager_setPlCamera(void *cam, int on);
 extern void cEmManage_reset(void *m);
 extern void func_001FDEA8(void *p);
 extern void cHeatSys_Initialize(void *h);
 extern void Obj0000_Clear_Fields_00_08_0C_0E_10_12_1F6CF8(void *p);
-extern int cDamageUnit_SetDamageCollActive(cDamageUnit *unit, int on);
 extern int KeySlotTable_set(void *tbl, int key, int value);
 extern void func_002A87E8(void *self, int arg);
 
@@ -38,7 +37,6 @@ int cOmBase_countGroupsInAction211(cOmBase *self)
 }
 
 extern char D_0061A990[];               /* cWorldTime */
-extern char D_00463050[];               /* cCamManager */
 extern char D_005864F0[];               /* cEmManage */
 
 extern char D_005CB000[];               /* cHeatSys */
@@ -66,57 +64,48 @@ void GameInitObj_start(GameInitObj *self)
 {
     cWorldTime_gameInit(D_0061A990);
     D_00747A24 |= SYS_FLAG_NEW_GAME;
-    cCamManager_setPlCamera(D_00463050, 0);
+    cCamManager_setPlCamera(&D_00463050, 0);
     self->started = 1;
     cEmManage_reset(D_005864F0);
-    func_001FDEA8(D_00574380);
+    func_001FDEA8(&D_00574380);
     cHeatSys_Initialize(D_005CB000);
     Obj0000_Clear_Fields_00_08_0C_0E_10_12_1F6CF8(D_00568240);
     cCoreSave_gameInit(&D_00569B70);
     self->rate = 0.5f;
 }
 
-/* The unit past its node list: the two hit values. */
-typedef struct DamageUnitHit {
-    cDamageUnit base;                   /* 0x00 */
-    char unk40[6];
-    short hitA;                         /* 0x46 */
-    char unk48[4];
-    int hitB;                           /* 0x4C */
-} DamageUnitHit;
-
 typedef struct DamageFiveObj {
     char unk000[0x670];
-    DamageUnitHit *unit0;               /* 0x670 */
+    cDamageGive *unit0;                 /* 0x670 */
     char unk674[4];
-    DamageUnitHit *unit1;               /* 0x678 */
+    cDamageGive *unit1;                 /* 0x678 */
     char unk67C[4];
-    DamageUnitHit *unit2;               /* 0x680 */
+    cDamageGive *unit2;                 /* 0x680 */
     char unk684[4];
-    DamageUnitHit *unit3;               /* 0x688 */
+    cDamageGive *unit3;                 /* 0x688 */
     char unk68C[4];
-    DamageUnitHit *unit4;               /* 0x690 */
+    cDamageGive *unit4;                 /* 0x690 */
 } DamageFiveObj;
 
 /* Switch all five damage units off: clear their hit values and deactivate every node. */
 __attribute__((section(".text.DamageFiveObj_clearHits")))
 void DamageFiveObj_clearHits(DamageFiveObj *self)
 {
-    self->unit0->hitA = 0;
-    self->unit0->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unit0->base, 0);
-    self->unit1->hitA = 0;
-    self->unit1->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unit1->base, 0);
-    self->unit2->hitA = 0;
-    self->unit2->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unit2->base, 0);
-    self->unit3->hitA = 0;
-    self->unit3->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unit3->base, 0);
-    self->unit4->hitA = 0;
-    self->unit4->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unit4->base, 0);
+    self->unit0->unk46 = 0;
+    self->unit0->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit0, 0);
+    self->unit1->unk46 = 0;
+    self->unit1->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit1, 0);
+    self->unit2->unk46 = 0;
+    self->unit2->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit2, 0);
+    self->unit3->unk46 = 0;
+    self->unit3->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit3, 0);
+    self->unit4->unk46 = 0;
+    self->unit4->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit4, 0);
 }
 
 typedef struct Vec3 {

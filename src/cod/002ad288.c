@@ -1,10 +1,10 @@
+#include "godhand/heapArena.h"
 typedef struct {
     char pad[0x10];
     int f10;
     int f14;
 } ResHolder;
 
-extern void __builtin_delete(void *);
 
 __attribute__((section(".text.func_002AD288")))
 void func_002AD288(ResHolder *object, int flags)

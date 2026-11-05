@@ -8,7 +8,6 @@ extern int D_0041D580;
 extern int D_003C2388;
 extern int D_003C11B0;
 extern void *cIDManager_getTexAddr(int a, int b, int c);
-extern void cIDBase_trans(void *p);
 
 /* sn-2.95.3-136 candidate. */
 
@@ -129,6 +128,8 @@ void func_00308BC0(char *a0)
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
+#include "godhand/cIDBase.h"
 
 typedef struct { char b[0x10]; } Blob16;
 
@@ -272,5 +273,5 @@ void func_001ECC48(char *self)
     if (r != 0) {
         *(long *)((char *)r + 0x1A0) = 0x3001D;
     }
-    cIDBase_trans(self + 0x10);
+    cIDBase_trans((cIDBaseObj *)(self + 0x10));
 }

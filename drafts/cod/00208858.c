@@ -1,13 +1,10 @@
 #ifdef NON_MATCHING
-s32 ClearAndResetFields_1FE278(char *, s32);           /* extern */
+#include "godhand/cDamageManage.h"
+#include "godhand/cCollisionSolid.h"
 void NoOp_208260(void);                                    /* extern */
 void ReleaseObj(s32);                                  /* extern */
-void cCollisionSolidManage_ReleaseUnit(char *, void *);   /* extern */
-s32 cDamageManage_ReleaseDamageGive(char *, s32);      /* extern */
 void cOmBase_dieCommon(s32);                           /* extern */
 void func_002714B0(char *);                            /* extern */
-extern void D_00462FC0;
-extern void D_00574380;
 
 __attribute__((section(".text.func_00208858")))
 void func_00208858(char *arg0) {

@@ -1,16 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/SlotUi.h"
+#include "godhand/cIDBase.h"
+#include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/DispMgr.h"
 
 extern void func_001E7470(SlotUi *self, int mark, int show);
 extern void func_001E7538(SlotUi *self, int mark, int show);
-extern void cHeap_free(int heap, int *node);
-extern void __builtin_delete(void *p);
-extern void CustomIDWork_SetDisp(CustomIDWork *self, int show);
 extern int FindFreeSlotIndex_140C58(DispMgr *mgr);
-extern void cIDBase_trans(void *idBase);
 
 /* Show or hide marks: index SLOTUI_MARK_NUM (or SLOTUI_BET_NUM for the bet
  * group) means every entry of the group. */
@@ -68,7 +66,7 @@ void func_002D5708(Obj2D5708 *self, int flags)
 {
     self->vt = D_0044D1E8;
     if (self->node != 0) {
-        cHeap_free(self->node[-8], self->node);
+        cHeap_free(HEAP_OWNER(self->node), self->node);
     }
     if (flags & 1) {
         __builtin_delete(self);
@@ -144,9 +142,9 @@ void Ui_transIdBases(Ui13E6E0 *self)
         return;
     }
     if (D_00747A24.showMain) {
-        cIDBase_trans(self);
+        cIDBase_trans((cIDBaseObj *)self);
     }
     if (self->hasSub) {
-        cIDBase_trans(self->subBase);
+        cIDBase_trans((cIDBaseObj *)self->subBase);
     }
 }

@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern void func_002BD078(void *a0, void *a1, void *pts);
-extern void func_003A52F0(void *d, int c, int n);
 extern void func_0015FCB8(void *a0, void *a1, int idx);
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
 
 
 

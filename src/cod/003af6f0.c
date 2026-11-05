@@ -1,4 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
+#include "godhand/criStm.h"
 
 /* newlib mprec __ratio (0x003AF6F0). */
 typedef struct _Bigint {
@@ -34,10 +36,6 @@ double func_003AF6F0(_Bigint *a, _Bigint *b)
 }
 
 /* newlib mallocr cALLOc / _calloc_r (0x003AF7B8). */
-typedef unsigned int INTERNAL_SIZE_T;
-
-extern void *func_003AC2F8(void *r, unsigned int n);         /* _malloc_r */
-extern void *func_003A52F0(void *s, int c, unsigned int n);  /* memset    */
 
 #define SIZE_SZ    (sizeof(INTERNAL_SIZE_T))
 #define mem2chunk(mem) ((char *)(mem) - 2 * SIZE_SZ)

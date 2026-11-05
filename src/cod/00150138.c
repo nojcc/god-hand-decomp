@@ -1,33 +1,29 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
 #include "godhand/cOm1f.h"
 #include "godhand/motion.h"
+#include "godhand/espSys.h"
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern void func_001FD9D8(void *a0, void *a1, float *a2, float *a3, float *t0);
 extern void func_001BFB28(void *a0);
-extern int D_00574380;
 extern int D_0071B7C0[];
 extern int D_0071B840[];
 extern int D_0071B8C0[];
 extern unsigned char D_0061B7C0[];
-extern void func_002FEB80(char *p, int a0, int a1);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_00262750(void *a0, int a1);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026E7A8(void *a0, int a1);
 extern float fRand0_1(void);
 extern void func_002705D8(void *a0);
 extern void Adjust_theta_vec(cVec *v);
-extern void MtxInitTransVec(cParts *part, cVec *trans);
-extern void MtxMulRotVec(cParts *dst, cParts *src, cVec *rot, int order);
-extern void MtxMulScaleVec(cParts *dst, cParts *src, cVec *scale);
 
 /* Spawn the damage-take volume of an object: build the three float vectors and register them, then set the two shorts at +0x548 and +0x54A. */
 
@@ -73,7 +69,7 @@ int SpawnDamageTakeVolumeF(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, m, nv, t);
+        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -125,7 +121,7 @@ int SpawnDamageTakeVolumeG(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, m, nv, t);
+        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -158,7 +154,7 @@ void ForEachSlotRunHandler(int a0, int a1)
         p = (char *)D_0061B7C0 + i * 0x400;
         if (*(int *)(p + 0x10C) != a1) goto next;
         if (*(int *)(p + 0x108) != a0) goto next;
-        func_002FEB80(p, a0, a1);
+        func_002FEB80((EspAnim *)p, a0, a1);
 next: ;
     }
 }
@@ -293,7 +289,7 @@ void cParts_calcLocal(cParts *part) {
     rot.z = part->rot.z + part->rotAdd.z;
     rot.w = 1.0f;
     Adjust_theta_vec(&rot);
-    MtxInitTransVec(part, part->anchor);
+    MtxInitTransVec(part->mtxLocal, part->anchor);
     MtxMulRotVec(part, part, &rot, 0);
     MtxMulScaleVec(part, part, &part->scale);
 }

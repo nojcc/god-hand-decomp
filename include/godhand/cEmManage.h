@@ -166,6 +166,12 @@ int cEmManage_findFreeSlot(cEmManage *self);
 int cEmManage_countKind(cEmManage *self, int kind);
 int cEmManage_ChkActiveEm(cEmManage *self, cEmActor *em);
 int func_002919C0(cEmManage *self, int unused, int emNo);
+/* The nearest listed enemy within range and angle of dir from pos, other than skip (mode 0 or 2 selects which kinds count). */
+cEmActor *cEmManage_GetTargetNear(cEmManage *self, cVec *pos, float dir, float range, float angle, cEmActor *skip, int mode);
+int cEmManage_ckEnemyActiveNear(cEmManage *self, cVec *pos, float radius);
+int cEmManage_ckEmNear(cEmManage *self, cVec *pos, cEmActor *skip, float radius);
+void cEmManage_damageEma2Near(cEmManage *self, cVec *pos);
+struct cEma2 *cEmManage_findEma2Near(cEmManage *self, cVec *pos, float radius);
 int cEmManage_DarkWorldCk(cEmManage *self);
 int func_00291FD8(cEmManage *self);
 void func_00291FE8(cEmManage *self, cVec *pos, int wait);

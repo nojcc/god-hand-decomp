@@ -1,5 +1,9 @@
 /* NON_MATCHING func_001F2D60 (sn-2.95.3-136): same CidColor family as 001f3118.c */
 #include "include_asm.h"
+#include "godhand/cSnd.h"
+#include "godhand/CustomIDWork.h"
+#include "godhand/cCamManager.h"
+#include "godhand/cCamera.h"
 
 #ifdef NON_MATCHING
 typedef struct { unsigned int r:8, g:8, b:8, a:8; } CidColor;
@@ -14,15 +18,8 @@ typedef struct {
     int timer;
 } CidWork;
 
-extern char D_005FEE00[];
-extern char *D_005CAFF0;
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(void *work, CidColor from, CidColor to, unsigned short frames);
-extern void CustomIDWork_SetColorAnimSin(void *work, CidColor from, CidColor to, int frames);
-extern void CustomIDWork_SetColorAnimNormal_2D6898(void *work, int color, int frames);
-extern void CustomIDWork_ResetColorAnim(void *work);
-extern void CustomIDWork_SetScaleAnimNormal(void *work, float from, float to, int frames);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int id, int disp);
-extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 
 static inline void setCol(CidColor *c, int r, int g, int b, int a)
 {
@@ -70,7 +67,7 @@ void func_001F2D60(CidWork *self)
         from.a = 0x80;
         to.a = 0x80;
         self->timer = 30;
-        CustomIDWork_SetColorAnimSin(self->frameB, to, from, 6);
+        CustomIDWork_SetColorAnimSin((CustomIDWork *)self->frameB, *(unsigned int *)&to, *(unsigned int *)&from, 6);
         self->state++;
         break;
     case 2:
@@ -78,12 +75,12 @@ void func_001F2D60(CidWork *self)
             self->timer--;
             break;
         }
-        CustomIDWork_SetColorAnimNormal_2D6898(self->frameA, 0xFFFFFF, 10);
-        CustomIDWork_ResetColorAnim(self->frameB);
-        CustomIDWork_SetColorAnimNormal_2D6898(self->frameB, 0xFFFFFF, 10);
-        CustomIDWork_SetScaleAnimNormal(self->frameA, 1.0f, 2.5f, 10);
-        CustomIDWork_SetScaleAnimNormal(self->frameB, 1.0f, 2.0f, 10);
-        cSnd_SeCall(D_005FEE00, 2, 0x105, D_005CAFF0 + 0x210, 0, 0);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)self->frameA, 0xFFFFFF, 10);
+        CustomIDWork_ResetColorAnim((CustomIDWork *)self->frameB);
+        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)self->frameB, 0xFFFFFF, 10);
+        CustomIDWork_SetScaleAnimNormal((CustomIDWork *)self->frameA, 1.0f, 2.5f, 10);
+        CustomIDWork_SetScaleAnimNormal((CustomIDWork *)self->frameB, 1.0f, 2.0f, 10);
+        cSnd_SeCall(&D_005FEE00, 2, 0x105, &D_005CAFF0->eye, 0, 0);
         self->timer = 10;
         self->state++;
         break;

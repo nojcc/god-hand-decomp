@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cScenario.h"
+#include "godhand/criStm.h"
 
 extern int D_003C2FB0;
 extern int D_003C23A4;
@@ -19,7 +20,6 @@ extern unsigned char D_0071B940[];
 extern unsigned char D_00741940[];
 extern unsigned char D_00741960[];
 extern unsigned char D_00741980[];
-extern void func_003A52F0(void *, int, int);
 
 __attribute__((section(".text.func_00302930")))
 void func_00302930(void *a0, int a1, int a2) {

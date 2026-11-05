@@ -507,9 +507,9 @@ void func_0022FAE0(cEm00 *self)
             self->timerA = 0x23;
             break;
         }
-        func_002A8578((int)self, recA, recB, mode, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, mode, 0.0f, sel, 0);
         if (fxKind_isSet(fxKind)) {
-            InitRenderStruct_2A8608((cGameObj *)self, fxKind, (void *)fxNo, 0, fxMode, fxFollow);
+            InitRenderStruct_2A8608((cGameObj *)self, fxKind, fxNo, 0, fxMode, fxFollow);
         }
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         case 1:

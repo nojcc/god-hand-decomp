@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageUnit.h"
 #include "godhand/Slot2.h"
 
 /* Slot2 two-step pause screen: wait two updates, then return to the title
@@ -39,18 +40,18 @@ void func_001E8DF0(char *a0, void *src, int *tbl, int n) {
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */
 __attribute__((section(".text.cDamageUnit_SetDamageCollActive_1FD610")))
-void cDamageUnit_SetDamageCollActive_1FD610(char *a0, int id, int on) {
-    char *p;
-    char *q;
-    p = *(char **)(a0 + 0x3C);
+void cDamageUnit_SetDamageCollActive_1FD610(cDamageUnit *self, int id, int active) {
+    cDamageNode *p;
+    cDamageData *q;
+    p = self->nodes;
     while (p != 0) {
-        if (*(short *)(p + 0x2C) == id) {
-            q = *(char **)(p + 0x28);
-            if (on == 1) *(unsigned int *)q |= 2;
-            else *(unsigned int *)q &= 0xFFFFFFFDU;
+        if (p->id == id) {
+            q = p->data;
+            if (active == 1) q->flags |= DAMAGE_FLAG_ACTIVE;
+            else q->flags &= DAMAGE_MASK_INACTIVE;
             return;
         }
-        p = *(char **)(p + 0x24);
+        p = p->next;
     }
 }
 

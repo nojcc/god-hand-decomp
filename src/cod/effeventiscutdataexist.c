@@ -1,10 +1,9 @@
 /* EffEventIsCutDataExist — return whether cut-event data (group 6) is registered
- * for the object at a0+1 in the effect manager D_007419A0.  sn-2.95.3-136. */
+ * for id+1 in the effect manager D_007419A0.  sn-2.95.3-136. */
 
-extern int func_00306030(void *, int, void *);
-extern char D_007419A0;
+#include "godhand/espSys.h"
 
 __attribute__((section(".text.EffEventIsCutDataExist")))
-int EffEventIsCutDataExist(void *a0) {
-    return func_00306030(&D_007419A0, 6, (char *)a0 + 1) != 0;
+int EffEventIsCutDataExist(unsigned int id) {
+    return func_00306030(D_007419A0, 6, id + 1) != 0;
 }

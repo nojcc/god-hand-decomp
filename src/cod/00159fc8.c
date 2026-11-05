@@ -4,12 +4,10 @@
 #include "godhand/cObj.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cBgmData.h"
 
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern int D_0044CE48[];
-extern void cSndSeVoice_CheckEnd(cSnd *self, int slot);
-extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int slot);
-extern void cSeData_Release(cSndSeEntry *e);
 extern char D_003BD6E8[];
 extern void KeyStop(void);
 extern float capVu0Cos(float rad);

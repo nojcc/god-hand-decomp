@@ -1,15 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern int cDamageManage_CreateDamageGive(int a0, int a1, int a2);
-extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, int a2, float f);
-extern void cDamageUnit_SetDamageCollActive(int a0, int a1);
 extern void cDamageGive_SetDmgGiveHitVec(char *a0, float *a1);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned int t1);
 extern int espSys_effDataRegist(void *a0, int a1, void *a2);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern char *CreateObj(int a0, int a1);
-extern int cOmWeapon_setParent();
-extern int D_00574380;
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cOmWeapon.h"
+#include "godhand/cObjBase.h"
 extern int D_00747B00;
 extern int D_007419A0;
 
@@ -114,7 +112,7 @@ int func_001C9268(char *p)
         break;
     }
 
-    *(int *)(p + 0x650) = cDamageManage_CreateDamageGive((int)&D_00574380, 1, (int)p);
+    *(cDamageGive **)(p + 0x650) = cDamageManage_CreateDamageGive(&D_00574380, 1, p);
     flag = *(unsigned char *)(p + 0x2B4);
     *(int *)buf = flag;
     if (flag) {
@@ -127,11 +125,11 @@ int func_001C9268(char *p)
     buf[6] = 0.0f;
     sph = buf + 4;
     sph[3] = 1.0f;
-    *(int *)(p + 0x654) = cDamageUnit_AddDamageCollSphere(*(int *)(p + 0x650), n + 0x80,
-                                                          (int)sph, 0.3f);
-    cDamageUnit_SetDamageCollActive(*(int *)(p + 0x650), 0);
+    *(int *)(p + 0x654) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x650), (void *)(n + 0x80),
+                                                          (cVec *)sph, 0.3f);
+    cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x650), 0);
 
-    *(int *)(p + 0x658) = cDamageManage_CreateDamageGive((int)&D_00574380, 0, (int)p);
+    *(cDamageGive **)(p + 0x658) = cDamageManage_CreateDamageGive(&D_00574380, 0, p);
     if (*(int *)(p + 0x658) != 0) {
         int flag2 = *(unsigned char *)(p + 0x2B4);
         int n2;
@@ -145,9 +143,9 @@ int func_001C9268(char *p)
         buf[0] = 0.0f;
         buf[1] = 0.0f;
         buf[2] = 0.0f;
-        *(int *)(p + 0x65C) = cDamageUnit_AddDamageCollSphere(*(int *)(p + 0x658), n2 + 0x80,
-                                                              (int)buf, 0.4f);
-        cDamageUnit_SetDamageCollActive(*(int *)(p + 0x658), 0);
+        *(int *)(p + 0x65C) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x658), (void *)(n2 + 0x80),
+                                                              (cVec *)buf, 0.4f);
+        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x658), 0);
         *(short *)(*(int *)(p + 0x658) + 0x46) = 0x2F;
         *(int *)(*(int *)(p + 0x658) + 0x4C) = 0x32;
         cDamageGive_SetDmgGiveHitVec(*(char **)(p + 0x658), (float *)&D_00747B00);
@@ -280,7 +278,7 @@ int func_001C9268(char *p)
             buf[8] = 0.0f;
             buf[9] = 0.0f;
             buf[10] = 0.0f;
-            cOmWeapon_setParent(*(int *)(p + 0x68C), p, 2, buf, (char *)buf + 0x20);
+            cOmWeapon_setParent((cOmWeapon *)(*(int *)(p + 0x68C)), (cOmBase *)p, 2, (cVec *)buf, (cVec *)((char *)buf + 0x20));
         }
     }
 

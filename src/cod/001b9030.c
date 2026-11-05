@@ -1,22 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/criStm.h"
+#include "godhand/cRelSys.h"
 
 #include "godhand/cEmSetParam.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cScenario.h"
 #include "godhand/Slot2.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cMessage.h"
+#include "godhand/cSnd.h"
 
 extern int D_00747A24;
 extern void Slot2_hideLayerIds(Slot2 *self);
 extern void displayScrollLayer(int id, int on);
-extern int cDvd_ReadAlloc(void *dvd, const char *name, void *outBuf, void *heap, int a4, int a5, int a6, int a7);
-extern void cDvd_CheckWaitFrame(void *dvd, int id);
-extern void cHeap_free(int heap, int *node);
-extern int cDamageManage_ReleaseDamageGive(void *mgr, void *give);
 extern void KillEffect(void *obj, int a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *obj, void *arg);
-extern char D_005FEE00[];
-extern void cSndSeVoice_CheckEnd(void *snd, int handle);
 extern void func_002AEF98(void *pool);
 
 /* Room init of the placement list: unless the scenario is in its fixed mode, clear the 0x30 byte scratch area and reset the room number. */
@@ -89,14 +89,7 @@ MotionSeData Motion_seq_readSeData(const void *src, unsigned char valid)
 }
 
 /* Load a resource file into slot->data, wait for the read, then run the link step; on failure free the data again. Returns the link result. */
-typedef struct cRelSlot {
-    void *data;                         /* 0x00 file contents, 0 when none */
-    unsigned char ok;                   /* 0x04 link result */
-    char pad05[3];
-} cRelSlot;                             /* 0x08 */
 
-extern char D_00583F20[];               /* the disc reader */
-extern char D_00754220[];               /* heap the file is read into */
 
 
 
@@ -105,13 +98,13 @@ extern char D_00754220[];               /* heap the file is read into */
 __attribute__((section(".text.cRelSys_loadSlot")))
 unsigned char cRelSys_loadSlot(cRelSlot *slot, const char *name)
 {
-    int id = cDvd_ReadAlloc(D_00583F20, name, slot, D_00754220, 0, 0, 0, 0);
-    cDvd_CheckWaitFrame(D_00583F20, id);
+    int id = cDvd_ReadAlloc(&D_00583F20, name, slot, &D_00754220, 0, 0, 0, 0);
+    cDvd_CheckWaitFrame(&D_00583F20, id);
     slot->ok = func_002BE6A0(slot);
     if (slot->ok == 0) {
         int *node = (int *)slot->data;
         if (node != 0)
-            cHeap_free(node[-8], node);
+            cHeap_free(HEAP_OWNER(node), node);
         slot->data = 0;
     }
     return slot->ok;
@@ -134,7 +127,6 @@ typedef struct cOmTwoGive {
 } cOmTwoGive;
 
 extern char D_004290C8[];               /* this class's vtable */
-extern char D_00574380[];               /* damage manager */
 
 
 
@@ -143,11 +135,11 @@ __attribute__((section(".text.cOmTwoGive_destroy")))
 void cOmTwoGive_destroy(cOmTwoGive *self, void *arg)
 {
     *(void **)((char *)self + OM_OFFSET_VTABLE) = D_004290C8;
-    if (cDamageManage_ReleaseDamageGive(D_00574380, self->ref[0].give) != 0) {
+    if (cDamageManage_ReleaseDamageGive(&D_00574380, self->ref[0].give) != 0) {
         self->ref[0].give = 0;
         self->ref[0].id = -1;
     }
-    if (cDamageManage_ReleaseDamageGive(D_00574380, self->ref[1].give) != 0) {
+    if (cDamageManage_ReleaseDamageGive(&D_00574380, self->ref[1].give) != 0) {
         self->ref[1].give = 0;
         self->ref[1].id = -1;
     }
@@ -189,7 +181,7 @@ void cMessageWin_close(MessWin *self)
     if ((self->flags & MWIN_FLAG_OPEN) == 0)
         return;
     if (self->voice != 0)
-        cSndSeVoice_CheckEnd(D_005FEE00, self->voiceId);
+        cSndSeVoice_CheckEnd(&D_005FEE00, self->voiceId);
     /* int views of the two voice words: a struct member store would let the D_003C23A4 load schedule above them. */
     *(int *)&self->voice = 0;
     *(int *)&self->voiceId = -1;

@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cMessage.h"
+#include "godhand/criStm.h"
+#include "godhand/heapArena.h"
 #include "godhand/cIDBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cCollisionSolid.h"
@@ -12,7 +14,6 @@ extern unsigned short D_003BD70C;
 extern void cIDBase_resetAnim(void *id);
 extern unsigned int D_007474A8;
 extern cCollisionSolidObj *cCollisionSolid(cCollisionSolidObj *self);
-extern void *_MemoryAlloc(int size, int align, int heap);
 extern int cMessCommon_getCodeSize(int code);
 
 /* Update every open message window unless the lock bit is set; a window of kind 7 is deleted. */
@@ -184,12 +185,10 @@ typedef struct FileLoader {
 } FileLoader;
 
 extern char D_0044C0B8[];               /* file path */
-extern int D_003C3CF0;                  /* heap the buffer comes from */
 extern int func_00398B90(CdFile *file, const char *path);       /* sceCdSearchFile */
 extern int sceCdRead(unsigned int lsn, unsigned int sectors, void *buf, CdRMode *mode);
 extern int func_00398DA0(int mode);                             /* sceCdSync */
 
-extern void *func_003A52F0(void *dst, int val, int n);          /* memset */
 
 __attribute__((section(".text.FileLoader_readWholeFile")))
 void FileLoader_readWholeFile(FileLoader *self) {

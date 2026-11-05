@@ -1,6 +1,7 @@
 /* NON_MATCHING func_003B3F50 (ee-2.9-991111): code shape matches; retail computes the
  * D_00781740 address into s0/s1 before sceSifInitRpc (this swaps s0/s1), and the split asm pairs the delay loop's
  * lui 0x10 / addiu -1 as %hi/%lo of the auto symbol D_FFFFF, which no C source reproduces. */
+#include "godhand/eeKernel.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -41,7 +42,6 @@ extern void _sceFs_Rcv_Intr(void);
 extern void _sceFs_Poff_Intr(int a0, PoffCb *cb);
 extern void sceSifInitRpc(unsigned int mode);
 extern int func_003B63A0(void);
-extern int EIntr(void);
 extern void func_003B2488(unsigned int cmd, void (*fn)(void), void *data);
 extern int func_003B2F48(FsCdRpc *cd, unsigned int num, int mode);
 extern void func_003B3858(void);

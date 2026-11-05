@@ -6,7 +6,6 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float capVu0Atan2(float y, float x);
 extern float Turn_dest_dir(float f12, float f13, float f14);
-extern int moveMotion(void *a0);
 extern void Obj2810_SetState_E_a1(void *a0, int a1);
 extern void SetBytes2F4Mode11_283360(void *a0, int a1);
 extern void ClearBytes2F4To2F7_283170(void *a0);

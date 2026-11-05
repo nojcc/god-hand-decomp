@@ -86,7 +86,7 @@ void func_0023F028(cEm00 *self)
         if (self->unk568 != 0) {
             start = 0.0f;
         }
-        func_002A8578((int)self, motA, motB, 0xA, start, sel, 0);
+        func_002A8578(self, motA, motB, 0xA, start, sel, 0);
         self->timerA = 1;
         self->emFlags &= ~EMFLAG_GUARD;
         self->step++;
@@ -170,7 +170,7 @@ void func_0023F028(cEm00 *self)
         break;
     case 2:
         self->unk1864 = 0;
-        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x1430), EM_RES_REC(EM_RES(self), 0x1434), 0xA, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x1430), EM_RES_REC(EM_RES(self), 0x1434), 0xA, 0.0f, 0, 0);
         self->timerA = 1;
         self->emFlags &= ~EMFLAG_GUARD;
         self->step++;

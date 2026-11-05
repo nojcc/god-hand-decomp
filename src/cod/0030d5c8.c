@@ -1,18 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
+#include "godhand/cSnd.h"
 
-extern void cSnd_LoadStartupBanks(void *a0);
-extern int cDvd_ReadAlloc(void *a0, void *a1, void *a2, void *a3, int t0, int t1, int t2, int t3);
-extern void cDvd_CheckWaitFrame(void *a0, int a1);
 extern void FileNameFromObjId(char *buf, int id);
-extern int _MemoryAlloc(void *, int, void *);
 extern void func_0030D8E0(int a0);
 extern void cTaskWork_exit(int a0);
 extern int D_00747A24;
-extern char D_005FEE00[];
 extern int D_003C3BC8[];
-extern char D_00583F20[];
-extern char D_00754200[];
 extern int *D_003C3CC4;
 extern char D_00752C38[];
 extern char D_00752C00[];
@@ -51,7 +47,7 @@ void func_0030D5C8(void) {
         a |= 0x4000;
         D_00747A24 = a;
         if ((a & 0x40000) == 0) {
-            cSnd_LoadStartupBanks(D_005FEE00);
+            cSnd_LoadStartupBanks(&D_005FEE00);
         }
     }
     {
@@ -59,12 +55,12 @@ void func_0030D5C8(void) {
         D_00747A24 = b & 0xFFFBFFFF;
         h = 0;
         if ((b & 0x2000) == 0) {
-        h = cDvd_ReadAlloc(D_00583F20, (void *)D_003C3BC8[1],
-                           (char *)&D_00747A24 - 0x34, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, h);
-        cDvd_CheckWaitFrame(D_00583F20, h);
-        h = cDvd_ReadAlloc(D_00583F20, (void *)D_003C3BC8[10],
-                           (char *)&D_00747A24 + 0x20, D_00754200, h, 0, 0, 0);
+        h = cDvd_ReadAlloc(&D_00583F20, (void *)D_003C3BC8[1],
+                           (char *)&D_00747A24 - 0x34, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, h);
+        cDvd_CheckWaitFrame(&D_00583F20, h);
+        h = cDvd_ReadAlloc(&D_00583F20, (void *)D_003C3BC8[10],
+                           (char *)&D_00747A24 + 0x20, &D_00754200, h, 0, 0, 0);
         }
     }
     {
@@ -76,20 +72,20 @@ void func_0030D5C8(void) {
         i = 0;
         if (p[0] != 0xFFFF) {
             do {
-                cDvd_CheckWaitFrame(D_00583F20, h);
+                cDvd_CheckWaitFrame(&D_00583F20, h);
                 i++;
                 FileNameFromObjId(buf, p[0]);
-                h = cDvd_ReadAlloc(D_00583F20, buf, D_00752C38 + (p[1] << 2),
-                                   D_00754200, h, 0, 0, 0);
+                h = cDvd_ReadAlloc(&D_00583F20, buf, D_00752C38 + (p[1] << 2),
+                                   &D_00754200, h, 0, 0, 0);
                 p = D_003C3CC4 + i * 2;
             } while (p[0] != 0xFFFF);
         }
-        cDvd_CheckWaitFrame(D_00583F20, h);
+        cDvd_CheckWaitFrame(&D_00583F20, h);
         }
     }
     if ((D_00747A24 & 0x10000) == 0) {
-        *(int *)D_00752C38 = _MemoryAlloc((void *)0x1E6800, 0x40, D_00754200);
-        *(int *)(D_00752C38 + 4) = _MemoryAlloc((void *)0x19800, 0x40, D_00754200);
+        *(int *)D_00752C38 = _MemoryAlloc(0x1E6800, 0x40, &D_00754200);
+        *(int *)(D_00752C38 + 4) = _MemoryAlloc(0x19800, 0x40, &D_00754200);
         switch (cCoreSave_getCostumeNo(&D_00569B70)) {
         case 0:
         default:

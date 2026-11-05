@@ -1,26 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/comboObj.h"
+#include "godhand/mtx.h"
 #include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/Slot2.h"
+#include "godhand/cNode.h"
 
 extern void func_002CAF28(cSnd *self);
 extern void cSnd_BgmControl(cSnd *self);
 extern void Forward33F690_325DD8(void);
-extern void cSnd_flushPendingSe(cSnd *self);
 extern void func_00375380(void);
 extern void func_00375500(void);
-extern void cSnd_updateLoads(cSnd *self);
 extern void Ring_stepToAccepted(void *p);
-extern int cSnd_SeFadeOut(cSnd *self, int handle, short fade);
 extern char D_00603A40[];
-extern void cNode_clearActiveRecursive(void *self);
-extern int CallThenReturnPlusB0_002B6420_2B61B0(void *parent);
-extern void MtxInverse(void *dst, void *src);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
-extern void cNode_setLocalTranslation(void *self, void *v);
 extern int strlen(const char *s);
 extern char D_0044B060[];
 extern char D_0044B090[];
@@ -31,7 +26,6 @@ extern void SetFlagAfterCopy_145160(void *self, void *src);
 extern char D_003BD6F8[];
 extern unsigned short D_003BD70C;
 extern void func_001269E0(void *self, int combo, int arg);
-extern void cSnd_BgmEventFade(void *snd, int reqNo, float time, float level, float weight);
 extern void displayScrollLayer(int id, int on);
 extern void func_00143A90(char *p);
 extern char *D_003BD6E8;
@@ -74,7 +68,7 @@ void cNode_setTranslationFromWorld(void *self, float *pos)
     cNode_clearActiveRecursive(self);
     parent = func_002B5E50(self);
     if (parent != 0) {
-        MtxInverse(frame, (void *)CallThenReturnPlusB0_002B6420_2B61B0(parent));
+        MtxInverse((float *)frame, CallThenReturnPlusB0_002B6420_2B61B0(parent));
         vec = frame + 0x50;
     } else {
         VU0_VMOVE_XYZW(4, 0);
@@ -92,7 +86,7 @@ void cNode_setTranslationFromWorld(void *self, float *pos)
     sceVu0ApplyMatrix(vec, frame, vec);
     VU0_LQC2(4, vec, 0);
     VU0_SQC2(4, frame, 0x40);
-    cNode_setLocalTranslation(self, frame + 0x40);
+    cNode_setLocalTranslation(self, (cVec *)(frame + 0x40));
 }
 
 extern char D_005E8140[];               /* request queue */
@@ -180,7 +174,6 @@ int ComboObj_startNext(ComboObj *self)
     return combo;
 }
 
-extern char D_005FEE00[];               /* cSnd */
 
 
 #define BGM_REQ_A   0x25
@@ -192,8 +185,8 @@ void Slot2_endGameFade(Slot2 *self)
 {
     switch (self->step) {
     case 0:
-        cSnd_BgmEventFade(D_005FEE00, BGM_REQ_A, 15.0f, 0.0f, -1.0f);
-        cSnd_BgmEventFade(D_005FEE00, BGM_REQ_B, 15.0f, 0.0f, -1.0f);
+        cSnd_BgmEventFade(&D_005FEE00, BGM_REQ_A, 15.0f, 0.0f, -1.0f);
+        cSnd_BgmEventFade(&D_005FEE00, BGM_REQ_B, 15.0f, 0.0f, -1.0f);
         displayScrollLayer(1, 0);
         func_00143A90(D_003BD6E8 + 0x1AE0);
         self->endFlag |= 1;

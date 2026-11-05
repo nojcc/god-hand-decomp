@@ -3,7 +3,6 @@
 #include "godhand/heapArena.h"
 #include "godhand/sndStream.h"
 
-extern void *func_0031C8E0(int size, int align, void *heap);
 extern void func_0031C928(void *mem, void *heap);
 extern void *func_00329438(int nch, void *mem, int size);
 extern void *func_003297A8(void *mem, int size);

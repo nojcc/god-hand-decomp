@@ -1,5 +1,6 @@
 /* ee-2.9-991111: func_00321E08, libgcc frame.c frame_init: counts the object's FDEs, sorts them
  * into a single array and records the covered pc range. */
+#include "godhand/newlibMalloc.h"
 typedef struct Fde Fde;
 
 typedef struct FrameObject {
@@ -20,7 +21,6 @@ typedef struct FdeAccumulator {
     FdeVector erratic;
 } FdeAccumulator;
 
-extern void *func_003A7C70(unsigned int n);
 extern unsigned int func_00321D38(Fde *f);
 extern void func_00321D80(Fde *f, FdeAccumulator *accu, void **beg_ptr, void **end_ptr);
 extern Fde **end_fde_sort(FdeAccumulator *accu, unsigned int count);

@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/cDvd.h"
 #include "godhand/cBgmData.h"
 #define CSND_ATTR(s)     (*(int *)((char *)(s) + 0x50))
 #define CSND_DEF_ATTR(s) (*(int *)((char *)(s) + 0x58))
 
 extern int SdeSystemOutModeGet(int);
-extern int cDvd_Check();
-extern char D_00583F20[];
 
 __attribute__((section(".text.func_002CF258")))
 short func_002CF258(int a0, short *obj)
@@ -115,7 +114,7 @@ __attribute__((section(".text.cSeData_IsReadDone")))
 int cSeData_IsReadDone(cSeData *d) {
     int req = d->f38;
     if (req == 0) return 1;
-    return cDvd_Check(D_00583F20, req) == 0;
+    return cDvd_Check(&D_00583F20, req) == 0;
 }
 
 /* Is the bgm data's disc request finished (or absent)? */
@@ -123,7 +122,7 @@ __attribute__((section(".text.cBgmData_IsReadDone")))
 int cBgmData_IsReadDone(cBgmData *d) {
     int req = d->f1C;
     if (req == 0) return 1;
-    return cDvd_Check(D_00583F20, req) == 0;
+    return cDvd_Check(&D_00583F20, req) == 0;
 }
 
 /* Set the default attribute word and make it current. */
@@ -140,9 +139,9 @@ int cSnd_ClearBgmDefAttr(cSnd *self, int bits) { CSND_DEF_ATTR(self) &= ~bits; r
 
 /* Entry n of the bgm table of a loaded record, or 0. */
 __attribute__((section(".text.cBgmData_GetTblPtr")))
-int cBgmData_GetTblPtr(cBgmData *d, int n) {
+cBgmTbl *cBgmData_GetTblPtr(cBgmData *d, int n) {
     if (!cBgmData_IsReady(d)) return 0;
-    return (int)d->tbl + (n << 5);
+    return &d->tbl[n];
 }
 
 extern int D_00603A40;
@@ -191,12 +190,12 @@ int cSeData_AllocSysMem(cSeData *d)
 __attribute__((section(".text.cSeData_LoadNumbered")))
 int cSeData_LoadNumbered(cSeData *d, int bankId, int arg)
 {
-    int buf[16];
+    char name[0x40];
     int r;
-    cSeData_MakeFileName(d, bankId, arg, buf);
-    r = cSeData_LoadFile(d, bankId, buf);
+    cSeData_MakeFileName(d, bankId, arg, name);
+    r = cSeData_LoadFile(d, bankId, name);
     if (r == 1)
-        d->f3C = arg;
+        d->owner = arg;
     return r;
 }
 
@@ -214,7 +213,7 @@ void cBgmData_Relocate(cBgmData *d)
         }
         h->relocated = 1;
     }
-    d->tbl = (void *)d->head->tblOfs;
+    d->tbl = (cBgmTbl *)d->head->tblOfs;
     cBgmData_AddLoadBits(d, 2);
 }
 

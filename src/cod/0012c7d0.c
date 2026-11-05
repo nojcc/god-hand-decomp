@@ -1,10 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/ColiseumBattle.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/pl00.h"
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cSnd.h"
 
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern int ColiseumBattle_CountLiveEnemies(ColiseumBattle *self);
@@ -14,9 +16,6 @@ extern void cEmWrap_SetVital(void *wrap, int vital);
 extern void cEmWrap_StartAction(void *wrap);
 extern int cRoomSave_clearEmDeadFlag(void *self, int id);
 extern cGameObj *GetJacket(void);
-extern char D_005FEE00[];
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float f12);
-extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 
 #define ARENA_PHASE_DEFEAT    0
 #define ARENA_PHASE_WAVES     1
@@ -137,8 +136,8 @@ void cGameObj_checkWaterSplash(SplashObj *self)
         one = 1;
         if (ChkLine(&self->base.posA, pos, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
             && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, v, -1, 1.0f);
-            cSnd_SeCall(D_005FEE00, 2, 0x50, self->base.pos, 0, 0);
+            SetEffectPos(0, 0x55, 0, (cVec *)v, 1.0f, -1);
+            cSnd_SeCall(&D_005FEE00, 2, 0x50, self->base.pos, 0, 0);
             self->splashed = one;
         }
     }

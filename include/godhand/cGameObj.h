@@ -86,7 +86,10 @@ typedef struct cGameObj cGameObj;
 #endif
 #define CGAMEOBJ_FIELDS \
     COBJBASE_FIELDS \
-    char unk4D0[0x520 - 0x4D0]; \
+    int unk4D0;                         /* 0x4D0 0xFFFF after construction */ \
+    char unk4D4[0x510 - 0x4D4]; \
+    int unk510;                         /* 0x510 cleared by the constructor */ \
+    char unk514[0x520 - 0x514]; \
     cVec stored;                        /* 0x520 position remembered with storedWait (w is 1.0) */ \
     unsigned char storedWait;           /* 0x530 */ \
     signed char unk531;                 /* 0x531 -1 after construction */ \
@@ -115,6 +118,17 @@ typedef struct cGameObj cGameObj;
 struct cGameObj {
     CGAMEOBJ_FIELDS
 };                                      /* 0x5B0: the longs at 0x538 make it 8-aligned */
+
+/* cGameObj's own method table, which its constructor and destructor store at 0x214. */
+extern char D_0044AE28[];
+
+/* cGameObj's part of the destructor: put its method table back, then run
+ * cObjBase__dtor. */
+void cGameObj__dtor(struct cGameObj *self, int flags);
+/* Destructor of the cGameObj subclass with method table D_0044A660: leave
+ * the damage manager and the solid-collision manager, then run
+ * cGameObj__dtor. */
+void func_0028EB88(struct cGameObj *self, int flags);
 
 /* The typed method table behind cGameObj's g++ vtable (0x214). */
 static __inline__ cGameObjVt *cGameObj_vt(const struct cGameObj *self)
@@ -192,5 +206,11 @@ static __inline__ unsigned char cGameObjSortEnt_less(const cGameObjSortEnt *a, c
 
 
 extern void func_002831C8(struct cGameObj *self, unsigned int kind, unsigned char arg);
+int func_00273C38(struct cGameObj *self);
+int func_00275888(struct cGameObj *self, float dist);
+unsigned char func_002A7CA0(struct cGameObj *self, cVec *out);
+
+/* Start effect id for self with the default parameters and kill it with self. */
+void InitRenderStruct_2A8608(struct cGameObj *self, int kind, int id, int handle, int killMode, void *owner);
 
 #endif /* GODHAND_CGAMEOBJ_H */

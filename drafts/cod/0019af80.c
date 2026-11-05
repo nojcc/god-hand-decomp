@@ -4,14 +4,13 @@
 * Damage-take volume, mesh
  * layers, then flags parts in the D_004258D8 (start, count) ranges 2 and 3 with 0x8 and 0x10. */
 #include "godhand/cOmBase.h"
+#include "godhand/cDamageUnit.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cDamageManage.h"
 extern int func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern int func_001FD9D8(void *unit, void *mtx, cVec *ofs, cVec *rot, cVec *size);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern int D_00574380;
 extern unsigned char D_004258D8[];
 
 __attribute__((section(".text.func_0019AF80")))

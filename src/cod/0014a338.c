@@ -1,14 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cModel.h"
 
 extern void func_00143A90(void *);
 extern char *D_003BD6E8;
-extern void cHeap_free(void *a0, void *a1);
-extern void __builtin_delete(void *a0);
 extern void func_00375050(void *, int);
-extern void cSndSeVoice_Unlink(void *);
 extern void func_002B22E0(void *, int);
 
 /* func_001DBCF8 — sn-2.95.3-136 */
@@ -52,7 +50,6 @@ void cSndSeVoice_Stop(cSndSeVoice *v) {
 
 /* cModel_setMeshDisplay — sn-2.95.3-136 */
 
-extern cModelNode *cModel_getMeshPtr_14B730(cModel *self, char *name);
 /* Show or hide the mesh called name. Returns 0 when the model has no such
  * mesh. */
 __attribute__((section(".text.cModel_setMeshDisplay")))

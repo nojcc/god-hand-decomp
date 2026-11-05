@@ -3,8 +3,8 @@ extern int D_00785EB8;
 extern int D_004268B0;
 extern int D_007858B8;
 extern int D_004268C8;
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern int D_00574380;
 extern int D_00785EC8;
 extern char D_00426998[];
 extern char D_00785798[];
@@ -18,7 +18,7 @@ void ClearDamageCollAndState_19FD50(void *a0) {
     int v0 = *(int*)((char*)a0 + 0x5B0);
     int x = *(int*)((char*)a0 + 0x650);
     *(int*)((char*)a0 + 0x5B0) = (v0 & -9) | 4;
-    if (x != 0) cDamageUnit_SetDamageCollActive(x, 0);
+    if (x != 0) cDamageUnit_SetDamageCollActive((cDamageUnit *)x, 0);
     func_001331B8(D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
 }
@@ -63,7 +63,7 @@ void FreeActorResources_19FF30(void *a0, int a1) {
     *(int **)((char*)a0 + 0x214) = &D_004268C8;
     v1 = *(int*)((char*)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int*)((char*)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);
@@ -158,7 +158,7 @@ void FreeActorResourcesD_1A0418(void *a0, void *a1)
 {
     *(int *)((char *)a0 + 0x214) = (int)&D_00426A98;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, *(int *)((char *)a0 + 0x600));
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*(int *)((char *)a0 + 0x600)));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);

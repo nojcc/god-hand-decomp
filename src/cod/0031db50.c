@@ -1,8 +1,8 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/libio.h"
 
 extern int D_00755BC8;
 extern void __do_global_ctors(void);
-extern void _IO_free_backup_area(int);
 extern void _sceMpegWaitIpuIdle(int);
 
 __attribute__((section(".text.func_0031DB50")))
@@ -13,13 +13,14 @@ void func_0031DB50(void) {
     }
 }
 
+/* libio genops.c :: _IO_unsave_markers */
 __attribute__((section(".text.func_0038D140")))
-void func_0038D140(int a0) {
-    if (*(int *)((char *)a0 + 0x30) != 0) {
-        *(int *)((char *)a0 + 0x30) = 0;
+void func_0038D140(struct _IO_FILE *fp) {
+    if (fp->_markers != 0) {
+        fp->_markers = 0;
     }
-    if (*(int *)((char *)a0 + 0x24) != 0) {
-        _IO_free_backup_area(a0);
+    if (fp->_IO_save_base != 0) {
+        _IO_free_backup_area(fp);
     }
 }
 

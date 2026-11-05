@@ -5,19 +5,14 @@
 
 extern void func_002799B8(char *a0);
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
-extern void cModel_calcParts(void *a0);
+#include "godhand/cModel.h"
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern void cModel_calcWorldParts(void *a0);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cParts_setRotationOrder(void *a0, int a1);
-extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
-extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
-extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 
-extern int D_00462FC0;
-extern char D_00574380[];
 extern char D_00447CB8[];
 extern char D_00447CC0[];
 
@@ -51,18 +46,18 @@ int func_00278110(char *a0, char *a1, void *a2)
     v0 = *(int *)(s1 + 0x304);
     func_002A8578(s1, *(int *)(v0 + 0xC) + v0, *(int *)(v0 + 0x10) + v0, 0, 0.0f, 0, 0);
     moveMotion(s1);
-    cModel_calcParts(s1);
+    cModel_calcParts((cModel *)s1);
     IK_InverseKinematics(s1 + 0x448, s1);
-    cModel_calcWorldParts(s1);
+    cModel_calcWorldParts((cModel *)s1);
     *(unsigned char *)(s1 + 0x616) = 1;
     *(char *)(s1 + 0x531) = -1;
-    cCollisionSolidManage_SetActive(&D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     cParts_setRotationOrder(s1, 4);
     *(short *)(s1 + 0x54A) = *(short *)(s1 + 0x548) = 1;
     *(int *)(s1 + 0x670) = 0;
     if (*(int *)(s1 + 0x564) != 0x232) {
         struct sph *r;
-        *(int *)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
+        *(cDamageUnit **)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
         n = *(unsigned char *)(s1 + 0x2B4);
         *(int *)(buf + 0x0) = n;
         {
@@ -79,17 +74,17 @@ int func_00278110(char *a0, char *a1, void *a2)
         *(int *)(buf + 0x18) = 0;
         r->d = 1.0f;
         *(int *)(s1 + 0x674) = cDamageUnit_AddDamageCollSphere(
-            *(int *)(s1 + 0x670), base + 0x80, r, 0.25f);
+            *(cDamageUnit **)(s1 + 0x670), (void *)(base + 0x80), (cVec *)r, 0.25f);
     }
-    cCollisionSolidManage_CreateUnit(&D_00462FC0, s1, 5, 0.2f);
+    cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)s1, 5, 0.2f);
     q = (struct sph *)(buf + 0x0);
     *(int *)(buf + 0x0) = 0;
     q->b = 0.5f;
     *(int *)(buf + 0x8) = 0;
     q->d = 1.0f;
-    cCollisionSolidManage_CreateSphere(&D_00462FC0, s1, s1 + 0x80, q, 0.5f);
-    *(void **)(s1 + 0x156C) = cModel_getMeshPtr_14B730(s1, D_00447CB8);
-    *(void **)(s1 + 0x1570) = cModel_getMeshPtr_14B730(s1, D_00447CC0);
+    cCollisionSolidManage_CreateSphere(&D_00462FC0, (struct cGameObj *)s1, s1 + 0x80, (cVec *)q, 0.5f);
+    *(void **)(s1 + 0x156C) = cModel_getMeshPtr_14B730((cModel *)s1, D_00447CB8);
+    *(void **)(s1 + 0x1570) = cModel_getMeshPtr_14B730((cModel *)s1, D_00447CC0);
     p = *(char **)(s1 + 0x156C);
     if (p != 0) {
         *(int *)(p + 0x380) |= 1;

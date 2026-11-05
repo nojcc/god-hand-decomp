@@ -2,13 +2,12 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cCamManager.h"
 
 extern void *Getplayer(void);
 extern int cCamManager_isCk_CamClass(void *mgr, int cls);
 extern void func_001325A0(void *self, cVec *pos);
-extern char D_00463050[];
 extern char D_00747A2C[];
-extern char *D_005CAFF0;
 
 typedef struct VtEnt {
     short delta;
@@ -37,7 +36,6 @@ typedef struct ListOwner {
 
 #define SYSFLAG_FOLLOW_CAM   0x8000000  /* D_00747A2C word 2 */
 #define CAMCLASS_FOLLOW      0x10
-#define CAM_FOCUS_OFFSET     0x200
 
 /* Run method 3 of every listed child; when the follow flag is set, point the owner at the camera focus (or the player) and run method 2 of every child. */
 __attribute__((section(".text.ListOwner_updateFollowFocus")))
@@ -61,9 +59,9 @@ void ListOwner_updateFollowFocus(ListOwner *self)
         pos.y = 0.0f;
         pos.z = 0.0f;
         pos.w = 1.0f;
-        if (cCamManager_isCk_CamClass(D_00463050, CAMCLASS_FOLLOW) != 0) {
+        if (cCamManager_isCk_CamClass(&D_00463050, CAMCLASS_FOLLOW) != 0) {
             if (D_005CAFF0 != 0) {
-                cVec_copy3(&pos, (cVec *)(D_005CAFF0 + CAM_FOCUS_OFFSET));
+                cVec_copy3(&pos, &D_005CAFF0->target);
             }
         } else if (pl != 0) {
             src = *(cVec **)((char *)pl + 0xF0);

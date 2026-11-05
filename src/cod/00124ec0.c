@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCamManager.h"
 
-extern int D_00463050;
 
 typedef unsigned char unsigned char;
 
@@ -21,12 +21,11 @@ typedef struct Obj_00124ec0 {
 
 
 
-void cCamManager_setPartsCamera(void *cam, int mode);
 void cPartsCamera_SetParts(void *parts, Obj_00124ec0 *obj, int a2, int a3);
 
 __attribute__((section(".text.func_00124EC0")))
 void func_00124EC0(Obj_00124ec0 *obj) {
-    unsigned char *base;
+    cCamManager *mgr;
     void *parts;
     int a2v;
     int a3v;
@@ -34,9 +33,9 @@ void func_00124EC0(Obj_00124ec0 *obj) {
     int lim;
     int spill[2];
 
-    base = (unsigned char *)&D_00463050;
-    cCamManager_setPartsCamera(base, 0);
-    parts = base + 0x920;
+    mgr = &D_00463050;
+    cCamManager_setPartsCamera(mgr, 0);
+    parts = &mgr->parts;
 
     b = obj->unk2B4;
     spill[0] = b;

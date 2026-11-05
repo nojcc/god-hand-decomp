@@ -5,7 +5,7 @@
 
 /* Start an effect at pos with the default parameters and the given size. */
 __attribute__((section(".text.SetEffectPos")))
-void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size)
+void SetEffectPos(int kind, int id, void *owner, cVec *pos, float size, int handle)
 {
     cEffectParam param;
 

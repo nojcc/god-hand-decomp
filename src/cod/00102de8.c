@@ -1,18 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
+#include "godhand/pl00.h"
 #include "godhand/motion.h"
-extern int moveMotion(void *a0);
+#include "godhand/cEm00.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
 extern char *func_002DDAB0(int a0, float f, int a1);
-extern void func_0026AB20(void *a0, char *a1, int a2);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int D_00462FC0;
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void func_00123938(void *a0, int a1);
 extern float D_003BD488;
 
 __attribute__((section(".text.func_00102DE8")))
@@ -50,7 +48,7 @@ void func_0023F970(void *a0){ char *s2=(char*)a0; int v0,p1,p2,t0;
  if(*(int*)(s2+0x6EC)==0){
   if(*(unsigned short*)(s2+0x3AC)&1){
    char *a=func_002DDAB0(*(int*)(s2+0xF0),1.5f,1);
-   if(a!=0) func_0026AB20(s2,a,*(unsigned short*)(a+0x2FE)); } } }
+   if(a!=0) func_0026AB20((cEm00 *)s2,(struct cOmWeapon *)a,*(unsigned short*)(a+0x2FE)); } } }
 
 typedef struct { int w[3]; } T3;
 __attribute__((section(".text.func_001AB8F8")))
@@ -79,7 +77,7 @@ void func_001AB8F8(void *a0){ char *s0=(char*)a0; char *g; T3 c; T3 t;
 
 __attribute__((section(".text.func_00237F98")))
 void func_00237F98(void *a0){ char *s0=(char*)a0; int v0;
- cCollisionSolidManage_SetActive(&D_00462FC0,s0,0);
+ cCollisionSolidManage_SetActive(&D_00462FC0,(struct cGameObj *)s0,0);
  *(float*)(s0+0x54C)=3.0f;
  switch(*(unsigned char*)(s0+0x2F6)){
  case 0: v0=*(int*)(s0+0x304);
@@ -115,11 +113,11 @@ void func_0010CB10(void *a0){ char *s0=(char*)a0; char *t0; int p1,p2; void *fl;
    *(unsigned char*)(s0+0x2F6)=0; *(unsigned char*)(s0+0x2F7)=0; }
   cObjBase_addNullSpeed_Rotation(s0,1.0f);
   cObjBase_addNullSpeed(s0,1.0f);
-  func_00123938(s0,1); break; } }
+  func_00123938((pl00 *)s0,1); break; } }
 
 __attribute__((section(".text.func_00236ED0")))
 void func_00236ED0(void *a0){ char *s0=(char*)a0; int v0;
- cCollisionSolidManage_SetActive(&D_00462FC0,s0,0);
+ cCollisionSolidManage_SetActive(&D_00462FC0,(struct cGameObj *)s0,0);
  *(int*)(s0+0x16D0)=*(int*)(s0+0x16D0)|0x20000;
  *(float*)(s0+0x54C)=3.0f;
  *(int*)(s0+0x250)=*(int*)(s0+0x250)|0x10000;

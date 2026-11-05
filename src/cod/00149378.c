@@ -1,23 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/espSys.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 #include "godhand/vu0.h"
 #include "godhand/heapArena.h"
 #include "godhand/heapList.h"
 
-extern int cDamageUnit_SetDamageCollActive(void *unit, int on);
 extern cMeshNode *cModel_getMeshPtr(void *model, int idx);
-extern void *cSnd_GetSeData(cSnd *self, int i);
-extern cBgmData *cSnd_GetBgmData(cSnd *self, int i);
-extern void cSeData_Update(void *se);
-extern void cBgmData_UpdateLoad(cBgmData *bgm);
-extern void SetEffectPos(int kind, int effNo, int a2, void *pos, int a4, float scale);
-extern void func_002FBED0(void *self);
 extern void BufHolder_deletingDtor(int entry, int mode);
-extern void cHeap_free(int heap, int *node);
-extern void *_MemoryAlloc(int a0, int a1, int a2);
 extern void func_001DBF18(void *self, unsigned short *a, unsigned short *b, unsigned short *c, unsigned short *d);
 
 #define MESH_DISP_HIDE      0x0001      /* node is not drawn */
@@ -73,16 +67,16 @@ typedef struct EffObj {
 __attribute__((section(".text.EffObj_startEffectAtPos")))
 void EffObj_startEffectAtPos(EffObj *self)
 {
-    float pos[4] __attribute__((aligned(16)));
+    cVec pos;
     float *p;
-    VU0_SQC2_VF0(pos, 0);
+    VU0_SQC2_VF0(&pos, 0);
     p = (*(GetPosFn *)(self->vt + VT_GETPOS_FN))((char *)self + *(short *)(self->vt + VT_GETPOS_DELTA));
-    if (pos != p) {
-        pos[0] = p[0];
-        pos[1] = p[1];
-        pos[2] = p[2];
+    if (&pos.x != p) {
+        pos.x = p[0];
+        pos.y = p[1];
+        pos.z = p[2];
     }
-    SetEffectPos(1, self->effNo, 0, pos, -1, 1.0f);
+    SetEffectPos(1, self->effNo, 0, &pos, 1.0f, -1);
 }
 
 typedef struct ScrollObj {
@@ -96,7 +90,7 @@ __attribute__((section(".text.ScrollObj_advanceScroll")))
 void ScrollObj_advanceScroll(ScrollObj *self)
 {
     float speed;
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
     speed = self->speed;
     if (speed != 0.0f) {
         self->scroll += speed;
@@ -127,7 +121,7 @@ void EntList_destroy(HeapList *self)
     block = self->block;
     func_002A9790(self);
     if (block != 0) {
-        cHeap_free(block[-8], block);
+        cHeap_free(HEAP_OWNER(block), block);
     }
 }
 
@@ -139,7 +133,7 @@ void func_00149400(HeapList *self, int num)
 
     EntList_destroy(self);
     size = func_002A96C0(ENTLIST_ENTRY_SIZE, num, ENTLIST_ALIGN);
-    func_002A96D8((int *)self, (int)_MemoryAlloc(size, ENTLIST_ALIGN, (int)D_003C3CF0),
+    func_002A96D8((int *)self, (int)_MemoryAlloc(size, ENTLIST_ALIGN, D_003C3CF0),
                   ENTLIST_ENTRY_SIZE, num, ENTLIST_ALIGN);
     self->unk18 = num;
     self->unk1C = num;

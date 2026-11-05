@@ -1,15 +1,14 @@
 /* sn-2.95.3-136 */
 #include "godhand/cOmBase.h"
+#include "godhand/espSys.h"
+extern void *StoreVecFromFieldB0_2B6160(void *a0, void *a1);
+#include "godhand/cNode.h"
+#include "godhand/mtx.h"
 #include "godhand/cModel.h"
 #include "godhand/cCamera.h"
 
-extern void UpdateObjByIndexedOp_2FBE50(void *a0);
-extern void func_002FBED0(int a0);
 extern int func_002FB060(char *a0);
 extern void *CopyVec16From20_B62E0(void *a0, char *a1);
-extern void cNode_setLocalScale(int a0, int a1);
-extern void *StoreVecFromFieldB0_2B6160(void *a0, void *a1);
-extern void *func_002B60D0(void *a0, void *a1);
 extern int func_00307118(void *p);
 extern int cModel_getMeshNum(cModel *self);
 extern float capVu0Sin(float f12);
@@ -17,7 +16,6 @@ extern float capVu0Cos(float f12);
 extern void func_00148200(void *a0, float x, float y);
 extern void func_00148250(void *a0, float a, float b);
 extern void Mtx4_setRotZ(float *m, float a);
-extern void MtxMultiply(void *dst, void *a, void *b);
 extern void func_001491D0(void *a0, void *a1);
 
 /* The object an effect follows. */
@@ -92,21 +90,21 @@ void func_002F2250(espModel *self)
     unsigned int i;
 
     if (self->model == 0) {
-        UpdateObjByIndexedOp_2FBE50(self);
+        UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
         return;
     }
-    func_002FBED0((int)self);
+    func_002FBED0((EspAnim *)self);
     if (func_002FB060((char *)self) != 0) {
         CopyVec16From20_B62E0(&scale, (char *)self);
         scale.z = scale.x;
-        cNode_setLocalScale((int)self, (int)&scale);
+        cNode_setLocalScale((cNode *)self, &scale);
         {
             cModel *model = self->model;
 
             StoreVecFromFieldB0_2B6160(&v, self);
             cVec_copy3(model->pos, &v);
         }
-        func_002B60D0(&v, self);
+        func_002B60D0(&v, (cNode *)self);
         cVec_copy3(&self->model->rot, &v);
         cVec_copy3(&self->model->scale, &scale);
         alpha = 1.0f;

@@ -1,22 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cModel.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
-extern void cModel_calcParts(void *);
-extern void cModel_calcWorldParts(void *);
-extern void cCollisionSolidManage_ChkHit(void *, void *);
-extern char D_00462FC0[];
 extern void func_001C0450(void *);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern char D_005864F0[];
 extern void cModel_ScrollTexture(void *a0, float f);
 extern char D_003C0480[];
-extern int D_00574380;
 extern int D_005CAE50;
 extern int D_00420EF0;
-extern void ClearAndResetFields_1FE278(void *a, void *b);
-extern void cDamageManage_ReleaseDamageGive(void *a, int b);
 extern void func_0012EC58(void *a, int b);
 extern void *SetField214PtrThenInit_1B6F38(void *a, void *b);
 
@@ -58,8 +54,8 @@ void UpdatePhaseThenCalcPartsB(void *a0)
     fp((int)(s0 + arg));
     func_002A87E8(s0, 0);
     func_001B76D8(s0);
-    cModel_calcParts(s0);
-    cModel_calcWorldParts(s0);
+    cModel_calcParts((cModel *)s0);
+    cModel_calcWorldParts((cModel *)s0);
 }
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
@@ -98,7 +94,7 @@ void UpdatePhaseWithHitCheck(void *a0)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cCollisionSolidManage_ChkHit(D_00462FC0, s0);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s0);
     func_002A87E8(s0, 0);
     func_001B76D8(s0);
 }
@@ -188,7 +184,7 @@ void UpdatePhaseWithScroll(void *a0)
     rate = cEmManage_GetSpeedRate(D_005864F0);
     *(float *)(s0 + 0x5A8) = rate;
     cModel_ScrollTexture(s0, rate);
-    cCollisionSolidManage_ChkHit(D_00462FC0, s0);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s0);
     func_002A87E8(s0, 0);
     func_001B76D8(s0);
 }
@@ -247,7 +243,7 @@ void *ReleaseObjSlotsAndEffect(void *a0, void *a1) {
         i--;
     } while (i >= 0);
     if (*(int *)((char *)a0 + 0x604) != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380, *(int *)((char *)a0 + 0x604));
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)(*(int *)((char *)a0 + 0x604)));
         *(int *)((char *)a0 + 0x604) = 0;
     }
     if (*(int *)((char *)a0 + 0xDA8) != 0) {

@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 
 extern unsigned char D_00447D48[];
 extern void func_002A84A8(void *p);
 extern void cCollisionSolidManage_ReleaseUnit_278368(void *p);
-extern void func_0028EB88(void *p, int f);
 extern unsigned char D_004481A8[];
 extern void EnemyOwner_releaseChild(void *p);
 extern unsigned char D_00448598[];

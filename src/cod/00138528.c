@@ -1,5 +1,6 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cIDObj.h"
 extern char D_003C532F;
 
 __attribute__((section(".text.ClearWordPair_201AD0")))

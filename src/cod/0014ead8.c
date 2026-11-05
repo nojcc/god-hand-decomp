@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cObjBase.h"
+#include "godhand/sceVu0.h"
 
 extern unsigned int func_0031ED08(float f);
 extern int moveMotion(cObjBase *self);
 extern void Quaternion_GetEulerXYZ(float *quat, cVec *euler);
-extern void func_001506F0(cVec *pos, cVec *v);
 
 extern int setMotionInfo(cObjBase *self, char *motion, SEQ_DATA_HEADER_1 *seqData, unsigned int blendLen,
                          float step, float start, int flags);

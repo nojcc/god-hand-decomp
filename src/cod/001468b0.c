@@ -1,19 +1,20 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/cNode.h"
+#include "godhand/heapArena.h"
+#include "godhand/PanelObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/cIDBase.h"
+#include "godhand/sceVu0.h"
 
 extern unsigned short D_00747A50;
 extern void func_0026ECD0(cEm00 *self, int flag);
 extern float ESLib_ESHermite(float t, float p0, float p1, float m0, float m1);
 extern char D_0044E960[];
-extern void cHeap_free(int heap, int *block);
-extern void cIDBase_initIDWork(void *part, int idx);
-extern CustomIDWork *cIDBase_getIDWork(void *part, int idx);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
-extern float capVu0Length(void *a0);
 extern char *D_005CAFF0;
 
 #define EMFLAGS_NO_REACT   0x40000      /* emFlags: the enemy ignores the trigger */
@@ -76,11 +77,9 @@ typedef struct BlockOwner {
     int *blockD0;                       /* 0x2D0 */
 } BlockOwner;
 
-#define BLOCK_HEAP(b)  ((b)[-8])        /* heap handle kept in front of the block */
 
 
 
-extern void func_002FBE28(BlockOwner *self, int flags);
 
 /* Destructor: reset the method table, free the six blocks, then run the base destructor. */
 __attribute__((section(".text.BlockOwner_dtor")))
@@ -88,22 +87,22 @@ void BlockOwner_dtor(BlockOwner *self, int flags)
 {
     self->vt = D_0044E960;
     if (self->blockCC != 0)
-        cHeap_free(BLOCK_HEAP(self->blockCC), self->blockCC);
+        cHeap_free(HEAP_OWNER(self->blockCC), self->blockCC);
     if (self->blockD0 != 0)
-        cHeap_free(BLOCK_HEAP(self->blockD0), self->blockD0);
+        cHeap_free(HEAP_OWNER(self->blockD0), self->blockD0);
     if (self->blockC4 != 0)
-        cHeap_free(BLOCK_HEAP(self->blockC4), self->blockC4);
+        cHeap_free(HEAP_OWNER(self->blockC4), self->blockC4);
     if (self->blockC8 != 0)
-        cHeap_free(BLOCK_HEAP(self->blockC8), self->blockC8);
+        cHeap_free(HEAP_OWNER(self->blockC8), self->blockC8);
     if (self->blockBC != 0)
-        cHeap_free(BLOCK_HEAP(self->blockBC), self->blockBC);
+        cHeap_free(HEAP_OWNER(self->blockBC), self->blockBC);
     if (self->blockC0 != 0)
-        cHeap_free(BLOCK_HEAP(self->blockC0), self->blockC0);
-    func_002FBE28(self, flags);
+        cHeap_free(HEAP_OWNER(self->blockC0), self->blockC0);
+    func_002FBE28((cNode *)self, flags);
 }
 
 #define IDPAIR_WORK_NUM  4
-#define IDPAIR_AMP       (-50.0f)       /* sine amplitude of the first element of each part */
+#define IDPAIR_POS_Y     (-50.0f)       /* y position of the first element of each part */
 
 /* A display with two cIDBase parts, at 0 and 0xA0, and four state bytes at 0x79. */
 typedef struct IdPair {
@@ -133,14 +132,14 @@ void IdPair_init(IdPair *self)
         cIDBase_initIDWork(self, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork(self, 0)->offsAmp[0] = IDPAIR_AMP;
+    cIDBase_getIDWork((cIDBaseObj *)self, 0)->posY = IDPAIR_POS_Y;
     i = 0;
     part = (char *)self + 0xA0;
     do {
         cIDBase_initIDWork(part, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork(part, 0)->offsAmp[0] = IDPAIR_AMP;
+    cIDBase_getIDWork((cIDBaseObj *)part, 0)->posY = IDPAIR_POS_Y;
     self->timer = 0x5A;
 }
 
@@ -183,10 +182,6 @@ int ReachObj_isWithinReach(ReachObj *self)
 #define PANEL_STEP_RIGHT   0x12
 #define PANEL_STEP_SAME    0x13
 
-typedef struct PanelObj {
-    char unk00[4];
-} PanelObj;
-
 /* The record a competitor points to: its ranking key at 0x604 (0 = default). */
 typedef struct Competitor {
     char unk000[0x604];
@@ -202,7 +197,7 @@ typedef struct CompetitorRef {
 typedef struct PanelOwner {
     char unk0000[0x25B0];
     PanelObj panel;                     /* 0x25B0 */
-    char unk25B4[0xA50];
+    char unk2E4C[0x3004 - 0x2E4C];
     CompetitorRef *left;                /* 0x3004 */
     CompetitorRef *right;               /* 0x3008 */
     char unk300C[0x18];
@@ -212,8 +207,6 @@ typedef struct PanelOwner {
     unsigned char reversed;             /* 0x3044 */
 } PanelOwner;
 
-extern void PanelObj_setCursorMode(PanelObj *self, unsigned char mode);
-extern void PanelObj_setArrowMode(PanelObj *self, unsigned char mode);
 
 /* Move to a step and restart its sub-step. Written as a helper so that every
  * arm ends in the same store pair, in retail's order (sub first). */

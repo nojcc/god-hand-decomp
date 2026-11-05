@@ -2,11 +2,10 @@
  * timer, run the current phase handler, update the model, keep the follow positions in step and
  * die when the object falls out of the stage. */
 #include "godhand/cEmManage.h"
+#include "godhand/cOmBase.h"
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
 extern void cModel_ScrollTexture(void *a0, float f);
 extern void func_001CF3A8(char *self);
-extern void cModel_calcParts(void *a0);
-extern void cOmBase_dieCommon(void *a0);
 
 #include "godhand/cModel.h"
 #include "godhand/emPhaseTable.h"
@@ -43,12 +42,12 @@ void func_001C9860(cOmFallGimmick *self)
     if (self->give0 != 0) {
         self->give0->unk46 = 0;
         self->give0->activeTime = 0;
-        cDamageUnit_SetDamageCollActive(self->give0, 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)self->give0, 0);
     }
     if (self->give1 != 0) {
         self->give1->unk46 = 0;
         self->give1->activeTime = 0;
-        cDamageUnit_SetDamageCollActive(self->give1, 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)self->give1, 0);
     }
     rate = cEmManage_GetSpeedRate(&D_005864F0);
     self->base.speedRate = rate;
@@ -59,12 +58,12 @@ void func_001C9860(cOmFallGimmick *self)
 
     cModel_ScrollTexture(self, self->base.speedRate);
     func_001CF3A8((char *)self);
-    cModel_calcParts(self);
+    cModel_calcParts((cModel *)self);
 
     vec3_copy(&self->base.posA.x, &self->base.pos->x);
     vec3_copy(&self->base.posB.x, &self->base.rot.x);
     if (self->unk600 == 0 && self->base.pos->y < -1000.0f)
-        cOmBase_dieCommon(self);
+        cOmBase_dieCommon(&self->base);
     if (self->base.actorId == 0x390)
         self->unk668 = 0x3E7;
 }

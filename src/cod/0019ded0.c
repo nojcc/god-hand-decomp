@@ -2,9 +2,8 @@
 
 extern int D_00426180;
 extern void InitVtable214_429C80_1C27E8(void *a);
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern int D_00574380;
-extern void ClearAndResetFields_1FE278(void *a, void *b);
 extern void ResetField214FreeField180_1C2820(void *a, int b);
 extern int D_00785E48;
 extern int D_00426250;
@@ -94,7 +93,7 @@ void ResetObjVtableAndFree_19E248(void *a0, int a1) {
     *(int **)((char *)a0 + 0x214) = &D_00426268;
     v1 = *(int *)((char *)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);

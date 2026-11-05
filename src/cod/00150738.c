@@ -175,7 +175,6 @@ SideCounter *func_002C53A8(SideCounter *self)
 /* cygnus-2.96 */
 
 
-extern cSnd D_005FEE00;
 /* Puts a BGM node at the head of the active list. */
 __attribute__((section(".text.cSndBgmNode_Link")))
 void cSndBgmNode_Link(cSndBgmNode *node)
@@ -219,18 +218,18 @@ void cSndSeVoice_Link(cSndSeVoice *voice)
 }
 
 __attribute__((section(".text.cSeData_Init")))
-char *cSeData_Init(char *p) {
-    *(int *)(p + 0x0) = 0;
-    *(int *)(p + 0x4) = 0;
-    *(int *)(p + 0x10) = 0;
-    *(int *)(p + 0x14) = 0;
-    *(int *)(p + 0x18) = 0;
-    *(int *)(p + 0x1C) = 0;
-    *(int *)(p + 0x20) = 0;
-    *(int *)(p + 0x24) = 0;
-    *(int *)(p + 0x28) = -1;
-    *(int *)(p + 0x3C) = -1;
-    return p;
+cSeData *cSeData_Init(cSeData *d) {
+    d->state = 0;
+    d->flags = 0;
+    d->buf = 0;
+    d->f14 = 0;
+    d->sysMem = 0;
+    d->f1C = 0;
+    d->f20 = 0;
+    d->f24 = 0;
+    d->f28 = -1;
+    d->owner = -1;
+    return d;
 }
 
 __attribute__((section(".text.func_002D5918")))

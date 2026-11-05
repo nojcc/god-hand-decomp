@@ -1,20 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 /* newlib mallocr.c :: malloc_extend_top  -> func_003AC090 */
 
-typedef unsigned int INTERNAL_SIZE_T;
-
-struct malloc_chunk {
-    INTERNAL_SIZE_T prev_size;
-    INTERNAL_SIZE_T size;
-    struct malloc_chunk *fd;
-    struct malloc_chunk *bk;
-};
-
-typedef struct malloc_chunk *mchunkptr;
-typedef struct malloc_chunk *mbinptr;
-
-extern mbinptr D_003FA9D0[];      /* __malloc_av_ */
 extern unsigned long D_003FADE0;  /* __malloc_top_pad */
 extern char *D_003FADE8;          /* __malloc_sbrk_base */
 extern unsigned long D_003FADF0;  /* __malloc_max_sbrked_mem */
@@ -22,7 +10,6 @@ extern unsigned long D_003FADF8;  /* __malloc_max_total_mem */
 extern int D_003FAE00;            /* __malloc_current_mallinfo.arena */
 
 extern void *func_003AE0C8(void *reent, int size); /* _sbrk_r */
-extern void func_003ACA28(void *reent, void *mem); /* _free_r */
 
 #define SIZE_SZ 4
 #define MALLOC_ALIGNMENT 16

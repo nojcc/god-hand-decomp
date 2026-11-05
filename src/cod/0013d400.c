@@ -16,12 +16,7 @@ typedef struct IDPanelScreen {
     char unk38C;                /* 0x38C */
 } IDPanelScreen;
 
-extern void cIDBase_initIDWork(void *self, int idx);
-extern cIDBaseEnt *cIDBase_getIDWork(void *self, int idx);
-extern void cIDBase_restartAnim(void *self);
 extern void func_002AC9B8(void *self, cIDBaseEnt *w, int a2);
-extern void CustomIDWork_Initialize(CustomIDWork *cw, cIDBaseEnt *w);
-extern void CustomIDWork_SetDisp(CustomIDWork *cw, int on);
 extern void CustomIDWork_Main(CustomIDWork *cw);
 
 __attribute__((section(".text.func_0013D400")))
@@ -33,10 +28,10 @@ void func_0013D400(IDPanelScreen *obj)
     obj->unk92 = 0;
     for (i = 0; i < 11; i++) {
         cIDBase_initIDWork(obj, i);
-        obj->ent[i] = cIDBase_getIDWork(obj, i);
+        obj->ent[i] = cIDBase_getIDWork((cIDBaseObj *)obj, i);
         func_002AC9B8(obj, obj->ent[i], 0);
     }
-    cIDBase_restartAnim(obj);
+    cIDBase_restartAnim((cIDBaseObj *)obj);
     obj->on = 1;
     obj->ent[4]->f70[2] = 0.0f;
     obj->ent[4]->sclX = 0.0f;

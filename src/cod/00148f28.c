@@ -1,5 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cDataManager.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/vu0.h"
@@ -7,18 +10,13 @@
 #include "godhand/cOl21.h"
 #include "godhand/cEma2.h"
 #include "godhand/cGame.h"
+#include "godhand/cSnd.h"
 
 extern int D_00747A3C;
 extern char D_003BD718[];
 extern void func_001F8A88(void *a0, float x0, float x1, float y0, float y1, float z0, float z1);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
-extern unsigned char D_005FEE00[];
-extern int cDamageManage_CreateDamageTake(int a0, int a1, int a2);
-extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, int a2, float f);
 extern void cModel_setLayerDisplay(int a0, int a1, int a2);
-extern int D_00574380;
 extern int D_003BD880;
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern void SetField380Bit2000ForTag_1B7300(void *a0, int a1, int a2);
@@ -162,12 +160,12 @@ void cOl2b_setInit(char *p)
 
 /* Binds the element to a screen object and remembers its resting values. */
 __attribute__((section(".text.CustomIDWork_Initialize")))
-void CustomIDWork_Initialize(CustomIDWork *self, CustomIDObj *obj) {
+void CustomIDWork_Initialize(CustomIDWork *self, cIDBaseEnt *obj) {
     if (obj != 0) {
         self->obj = obj;
-        self->restPos[0] = obj->localPos[0];
-        self->restPos[1] = obj->localPos[1];
-        *(int *)self->restColor = *(int *)obj->color;
+        self->restPos[0] = obj->posX;
+        self->restPos[1] = obj->posY;
+        *(int *)self->restColor = obj->colorBase.word;
         self->unk78 = *(unsigned char *)((char *)obj + 0x2B);
     }
 }
@@ -176,23 +174,23 @@ void CustomIDWork_Initialize(CustomIDWork *self, CustomIDObj *obj) {
 __attribute__((section(".text.CustomIDWork_ResetScaleAnim")))
 void CustomIDWork_ResetScaleAnim(CustomIDWork *self)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj != 0) {
         self->scaleFlags = 0;
-        obj->scale[0] = self->restScale;
-        self->obj->scale[1] = self->restScale;
+        obj->sclX = self->restScale;
+        self->obj->sclY = self->restScale;
     }
 }
 
 /* Blends the colour from its current value to `color` over `frames` frames. */
 __attribute__((section(".text.CustomIDWork_SetColorAnimNormal_2D6898")))
 void CustomIDWork_SetColorAnimNormal_2D6898(CustomIDWork *self, int color, unsigned short frames) {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj != 0) {
         self->colorFlags = CIDW_ANIM_ON | CIDW_ANIM_LINEAR;
-        *(int *)self->colorFrom = *(int *)obj->color;
+        *(int *)self->colorFrom = obj->colorBase.word;
         *(int *)self->colorTo = color;
         self->colorTotal = frames;
         if (frames == 0) {
@@ -206,15 +204,15 @@ void CustomIDWork_SetColorAnimNormal_2D6898(CustomIDWork *self, int color, unsig
 __attribute__((section(".text.CustomIDWork_SetNoDisp")))
 void CustomIDWork_SetNoDisp(CustomIDWork *self, int hide)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj == 0) {
         return;
     }
     if (hide) {
-        obj->flags |= CIDW_OBJ_HIDE_ALL;
+        obj->flags |= IDENT_FLAG_NO_DRAW;
     } else {
-        obj->flags &= ~CIDW_OBJ_HIDE_ALL;
+        obj->flags &= ~IDENT_FLAG_NO_DRAW;
     }
 }
 
@@ -377,12 +375,12 @@ int func_001B2548(char *p)
     unsigned char frame[0x20] __attribute__((aligned(16)));
     int flag;
     int n;
-    int dg;
+    cDamageUnit *dg;
     int sph;
 
     func_001B6FB8(p);
-    dg = cDamageManage_CreateDamageTake((int)&D_00574380, (int)p, 1);
-    *(int *)(p + 0x600) = dg;
+    dg = cDamageManage_CreateDamageTake(&D_00574380, p, 1);
+    *(cDamageUnit **)(p + 0x600) = dg;
     if (dg != 0) {
         flag = *(unsigned char *)(p + 0x2B4);
         *(int *)frame = flag;
@@ -395,7 +393,7 @@ int func_001B2548(char *p)
         sph = (int)(frame + 0x10);
         VU0_LQC2(4, &D_003BD880, 0);
         VU0_SQC2(4, frame, 0x10);
-        cDamageUnit_AddDamageCollSphere(*(int *)(p + 0x600), n, sph, 2.25f);
+        cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x600), (void *)n, (cVec *)sph, 2.25f);
         *(int *)(*(int *)(p + 0x600)) |= 1;
     }
     *(short *)(p + 0x548) = 0x3E8;

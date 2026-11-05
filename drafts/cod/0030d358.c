@@ -3,6 +3,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/heapArena.h"
 #include "godhand/gameWork.h"
 #include "godhand/cSnd.h"
 #include "godhand/cDvd.h"
@@ -12,9 +13,6 @@
 struct FontWork;
 struct MenuObj;
 
-extern void cSnd_LoadStartupBanks(cSnd *self);
-extern int cDvd_ReadAlloc(cDvd *self, char *name, int *outBuf, int a3, int id, int t1, int arg70, int arg6C);
-extern void cDvd_CheckWaitFrame(int a0, int a1);
 extern void func_002A4970(struct FontWork *font);
 extern void cMenu_loadDataTables(struct MenuObj *self);
 extern void cIDManager_systemInit(int a0, int a1);
@@ -24,9 +22,6 @@ extern void cMc_taskBody(void);
 extern void func_002A5998(void);
 extern void func_0030D5C8(void);
 
-extern cSnd D_005FEE00;
-extern cDvd D_00583F20;
-extern char D_00754200[];
 extern char *D_003C3BC8[];          /* data file names: [2] system, [3..9] one language file each */
 extern int D_003C2380;
 extern int D_003C23A4;
@@ -43,32 +38,32 @@ void func_0030D358(void)
 
     D_007474A0.flags |= 0x44000;
     cSnd_LoadStartupBanks(&D_005FEE00);
-    handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[2], (int *)&D_007474A0.sysData, (int)D_00754200, 0, 0, 0, 0);
-    cDvd_CheckWaitFrame((int)&D_00583F20, handle);
+    handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[2], &D_007474A0.sysData, &D_00754200, 0, 0, 0, 0);
+    cDvd_CheckWaitFrame(&D_00583F20, handle);
     switch (D_007474A0.language) {
     case 0:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[3], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[3], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     case 1:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[4], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[4], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     case 2:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[5], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[5], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     case 3:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[7], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[7], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     case 4:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[6], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[6], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     case 5:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[9], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[9], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     case 6:
-        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[8], (int *)&D_007474A0.langData, (int)D_00754200, 0, 0, 0, 0);
+        handle = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[8], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
         break;
     }
-    cDvd_CheckWaitFrame((int)&D_00583F20, handle);
+    cDvd_CheckWaitFrame(&D_00583F20, handle);
     func_002A4970((struct FontWork *)D_003C2380);
     cMenu_loadDataTables((struct MenuObj *)D_003C23A4);
     *D_003C2384 = D_003C2388;

@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 */
+#include "godhand/mtx.h"
 
 /* Build the rotation matrix m of the unit quaternion q (x, y, z, w). */
 __attribute__((section(".text.MtxInitRotQuaternion")))

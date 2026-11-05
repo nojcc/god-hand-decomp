@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cGameObj.h"
+#include "godhand/cModel.h"
 #include "godhand/cEma2.h"
 #include "godhand/cEmSetParam.h"
 
@@ -11,7 +12,6 @@ extern int Obj0000_IsSet_Field_16D0_Bit_1_26ECC0(cGameObj *obj);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 extern void func_002956F0(cEmSetParam *setParam, cEmActor *em);
 extern void cEmSetParam_storeVital(cEmSetParam *setParam, cEmActor *em);
-extern void ReleaseObj(cEmActor *em);
 
 /* STL __partial_sort: heap the first [first, middle) entries, then let every
  * entry in [middle, last) that sorts before the heap's top replace the top.
@@ -87,7 +87,7 @@ int cEmManage_ReleaseEm(cEmManage *self, cEmActor *em)
         if (slot->em != em)
             continue;
         cEmSetParam_storeVital(&D_00586AB0, em);
-        ReleaseObj(em);
+        ReleaseObj((struct cModel *)em);
         cEmList_unlink(&self->list, slot);
         kind = slot->kind;
         cEmManage_clearSlot(slot);

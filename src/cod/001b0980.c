@@ -2,18 +2,16 @@
 
 extern float capVu0LengthSq(void *a0);
 extern float sqrtf(float x);
-extern void cDamageUnit_SetDamageCollActive(int a0, int a1);
-extern int D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cSnd.h"
 
 
 
 
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g,
-                              int h);
 
 
 __attribute__((section(".text.func_001B0980")))
@@ -51,12 +49,12 @@ void func_001B0980(void *a0) {
             *(unsigned char *)(s0 + 0x624) = on;
             coll = *(int *)(s0 + 0x600);
             if (coll != 0) {
-                cDamageUnit_SetDamageCollActive(coll, 0);
+                cDamageUnit_SetDamageCollActive((cDamageUnit *)coll, 0);
             }
         }
         *(short *)(s0 + 0x622) = 0;
         *(unsigned char *)(s0 + 0x625) = 1;
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x30, s0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x30, s0, 0, 0, 0, 0);
         *(unsigned char *)(s0 + 0x2F6) = 1;
         *(unsigned char *)(s0 + 0x2F7) = 0;
     case 1:

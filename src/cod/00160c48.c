@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/espSys.h"
 #include "godhand/cNode.h"
 
 extern float Adjust_theta(float f12);
 extern float capVu0Sin(float f12);
 extern float capVu0Cos(float f12);
-extern void func_002FBED0(cNode *node);
 extern void StoreVecFromFieldB0_2B6160(void *dst, cNode *node);
 extern void *cCamera_getScreenPos(void *out, void *cam, void *vec);
 extern void *D_005CAFF0;
@@ -93,7 +93,7 @@ void cScreenNode_updateScreenPos(cScreenNode *self) {
     float world[4] __attribute__((aligned(16)));
     float scr[4] __attribute__((aligned(16)));
 
-    func_002FBED0(&self->base);
+    func_002FBED0((EspAnim *)self);
     StoreVecFromFieldB0_2B6160(world, &self->base);
     cCamera_getScreenPos(scr, D_005CAFF0, world);
     D_0061B644 = 1;

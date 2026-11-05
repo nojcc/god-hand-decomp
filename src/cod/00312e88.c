@@ -19,7 +19,6 @@ typedef struct cObjVec2 {
 #define OBJ_ALIGN  0x10
 
 extern cVtEnt D_00450CE8[];
-extern void *_MemoryAlloc(int a0, int a1, int a2);
 extern cObj *cObj__ctor(cObj *self);
 
 /* Allocate one from the D_00754C20 arena and construct it; 0 when the arena
@@ -29,7 +28,7 @@ cObjVec2 *func_00312E88(void)
 {
     cObjVec2 *self;
 
-    self = _MemoryAlloc(sizeof(cObjVec2), OBJ_ALIGN, (int)&D_00754C20);
+    self = _MemoryAlloc(sizeof(cObjVec2), OBJ_ALIGN, &D_00754C20);
     if (self == 0) {
         return 0;
     }

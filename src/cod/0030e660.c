@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 */
+#include "godhand/eeKernel.h"
 
 typedef unsigned char u_char;
 typedef unsigned int  u_int;
@@ -22,7 +23,6 @@ typedef struct GsStoreImageWords {
     long           trxdiraddr;
 } GsStoreImageWords;
 
-extern void func_003B1F28(char *fmt, ...);
 extern unsigned long Tramp_GsGetIMR_3964A0(void);
 extern u_long func_00396008(u_long newMask);
 extern char D_00450808[];

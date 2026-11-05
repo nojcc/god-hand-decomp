@@ -149,10 +149,33 @@ struct cObjBase {
  * COBJBASE_NO_TYPEDEF before this include and writes struct cObjBase. */
 #ifndef COBJBASE_NO_TYPEDEF
 typedef struct cObjBase cObjBase;
+#else
+struct cObjBase *cObjBase(struct cObjBase *self);
 #endif
+
+void cObjBase_KageInit(struct cObjBase *self, char *work, void *shadowData);
+/* Draw the object's shadow. */
+void cObjBase_KageDraw(struct cObjBase *self);
+/* Run the object's scenario step. */
+void cObjBase_R0_scenario(struct cObjBase *self);
+
+/* cObj's part of the destructor: put cObj's method table back, release the
+ * actor's data kind, then run cModel_destroy. */
+void cObj__dtor(struct cObjBase *self, int flags);
+/* cObjBase's part of the destructor: put its method table back, then run
+ * cObj__dtor. */
+void cObjBase__dtor(struct cObjBase *self, int flags);
 
 /* Byte offset of a cObjBase field, for the few bodies that must form the
  * address by hand to match retail. */
 #define COBJBASE_OFFSET(field) ((int)&((struct cObjBase *)0)->field)
+
+/* Start effect id of the given kind on owner (param 0: the defaults). follow is
+ * the object the effect follows, 0xFFFFFFFF for owner itself. Returns 0 when the
+ * effect file is missing, otherwise 1 or the started count. */
+int SetEffect(int kind, int id, void *owner, struct cEffectParam *param, int handle, unsigned int follow);
+
+/* Start effect id at pos with the default parameters and the given size. */
+void SetEffectPos(int kind, int id, void *owner, cVec *pos, float size, int handle);
 
 #endif

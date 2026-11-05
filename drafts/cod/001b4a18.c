@@ -26,9 +26,7 @@ typedef struct cOmPieceObj {
 
 extern void SetField5B0Bit2ClearBit8_1B7908(cOmBase *self);
 extern unsigned char GetField_54_173900(unsigned char *a0);
-extern void MtxInitRotVec(void *a0, float *a1, unsigned char order);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
-extern void MtxMulScaleVec(int a0, int a1, int a2);
 extern void func_001B4F48(char *p);
 
 /* Break the object: switch its damage volumes off, wait 30 frames, fade it
@@ -102,7 +100,7 @@ void func_001B4A18(cOmPieceObj *self)
         Adjust_theta_vec(&pc->rot);
         MtxInitRotVec(mtx, &pc->rot.x, 0);
         CopyVec3ToField30_147C40(mtx, &pc->pos.x);
-        MtxMulScaleVec((int)mtx, (int)mtx, (int)&pc->scale);
+        MtxMulScaleVec(mtx, mtx, &pc->scale);
         MtxCopy(pc->mtx, mtx);
         pc->vel.y += pc->gravity * rate;
         if (pc->vel.y < -1000.0f)

@@ -1,9 +1,10 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cDvd.h"
+#include "godhand/criStm.h"
+#include "godhand/heapArena.h"
+#include "godhand/cSnd.h"
 
-extern int D_005FEE00;
 extern int D_00580D80;
-extern int D_00754200;
-extern int D_00580D40;
 extern int D_00747A78[];
 
 __attribute__((section(".text.IsSlotArrayValid_1FF540")))
@@ -56,20 +57,21 @@ int AllocSlotEntry_1FFC60(int a0, int a1) {
     return s2;
 }
 
+/* Read the named file into dest and wait for it (table is not read). */
 __attribute__((section(".text.LoadEntryByValue_1FFD00")))
-int LoadEntryByValue_1FFD00(int a0, int a1, int a2) {
-    int sp0;
-    int v0;
-    int s0;
-    v0 = FindEntryValue_1FF9C0(&D_00580D40, a1, &sp0, 0);
-    if (v0 < 0)
-        return v0;
-    s0 = func_00323918(0, v0);
-    func_00323E80(s0, sp0, a2);
-    while (func_003244C8(s0) != 3) {
+int LoadEntryByValue_1FFD00(PathTable *table, const char *name, void *dest) {
+    int size;
+    int fileNo;
+    int fd;
+    fileNo = FindEntryValue_1FF9C0(&D_00580D40, name, &size, 0);
+    if (fileNo < 0)
+        return fileNo;
+    fd = func_00323918(0, fileNo);
+    func_00323E80(fd, size, dest);
+    while (func_003244C8(fd) != 3) {
         sceGsSyncV(0);
     }
-    return func_00323A70(s0);
+    return func_00323A70(fd);
 }
 
 __attribute__((section(".text.SetColorRgba_1FFE60")))

@@ -1,8 +1,8 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 extern void func_003B6820(int);
 extern void func_00320280(void);
-extern void func_003B1F28(char *fmt, ...);
 extern char D_0045E630[];
 extern void func_0039EC20(char *a0, unsigned int a1);
 extern void _sceMpegError(int a0, int a1);

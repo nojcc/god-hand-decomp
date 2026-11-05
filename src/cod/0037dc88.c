@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 extern void *D_003C4030[16];
 extern void InitObjectFull_3806D8(void *);
@@ -45,7 +46,6 @@ typedef struct Sub {
 } Sub;
 
 
-extern void UpdateGlobalPtrWithParam_3A7CC0(void *);                /* free */
 extern void __builtin_delete(void *);              /* operator delete */
 
 

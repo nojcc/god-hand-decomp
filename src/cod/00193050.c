@@ -1,16 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cDoor.h"
+#include "godhand/heapArena.h"
 #include "godhand/cOmHitVolume.h"
 #include "godhand/cDataManager.h"
 #include "godhand/cSnd.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void func_001FD9D8(void *unit, void *pos, float *m, float *nv, float *t);
-extern void cHeap_free(int heap, int *node);
-extern cSnd D_005FEE00;
-extern void cSnd_CheckSeEnd(cSnd *snd, int handle);
 
 /* The jump table: groups of 0x30-byte records, found through a header at the table address. */
 typedef struct RecGroup {
@@ -42,7 +40,6 @@ void *cRoomJump_getRecord(cRoomJump *self, unsigned short group, unsigned char n
     return rec;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -94,7 +91,7 @@ int cOmHitVolume_setupBox08x17x08(cOmHitVolume *self)
         origin2[1] = 0.0f;
         origin2[2] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -110,7 +107,6 @@ int cOmHitVolume_setupBox08x17x08(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -162,7 +158,7 @@ int cOmHitVolume_setupBox15x11x12(cOmHitVolume *self)
         origin2[1] = 0.0f;
         origin2[2] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -178,7 +174,6 @@ int cOmHitVolume_setupBox15x11x12(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -230,7 +225,7 @@ int cOmHitVolume_setupBox13x19x08(cOmHitVolume *self)
         origin2[1] = 0.0f;
         origin2[2] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -275,7 +270,7 @@ void cDataSlot_resetSeHandles(cDataSlotSe *self)
     self->useCount = 0;
     self->flags = 0;
     if (self->data != 0) {
-        cHeap_free(self->data[-8], self->data);
+        cHeap_free(HEAP_OWNER(self->data), self->data);
     }
     self->data = 0;
     self->unk0C = -1;

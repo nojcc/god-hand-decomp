@@ -1,18 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/PanelObj.h"
 #include "godhand/vu0.h"
 
 /* sn-2.95.3-136 */
 /* Show or hide the two arrow elements: mode 0 hides the first and shows the second, mode 1 shows both, any other mode leaves them. */
 #define PANEL_ELEM_UP     4
 #define PANEL_ELEM_DOWN   5
-
-typedef struct PanelObj {
-    char unk00[4];
-} PanelObj;
-
-extern void func_001DEE60(PanelObj *self, int element, int show);
 
 __attribute__((section(".text.PanelObj_setArrowMode")))
 void PanelObj_setArrowMode(PanelObj *self, unsigned char mode)

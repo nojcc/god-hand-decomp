@@ -1,8 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 extern int setMotionInfo(cObjBase *self, char *motion, SEQ_DATA_HEADER_1 *seqData, unsigned int blendLen,
 
@@ -11,10 +13,6 @@ float step, float start, int flags);
 extern unsigned int func_0031ED08(float f);
 extern void func_0014E818(cObjBase *self, float maxTurn, cVec *target);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern int D_00462FC0;
-extern char D_005FEE00[];
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern unsigned int irand(void);
 extern void *Getplayer(void);
@@ -60,7 +58,7 @@ void func_00288A58(void *a0)
     int v0;
     float one;
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
     *(float *)(s0 + 0x54C) = 3.0f;
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
@@ -68,7 +66,7 @@ void func_00288A58(void *a0)
         cCoreSave_addKillNpcNum(&D_00569B70);
         v0 = *(int *)(s0 + 0x304);
         func_002A8578(s0, *(int *)(v0 + 0x90) + v0, *(int *)(v0 + 0x94) + v0, 5, 0.0f, 0, 0);
-        cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x5F, s0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5F, s0, 0, 0, 0, 0);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         if (moveMotion(s0) != 0) {

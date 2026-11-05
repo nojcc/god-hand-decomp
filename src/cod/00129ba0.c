@@ -1,21 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cNode.h"
+#include "godhand/cModel.h"
+#include "godhand/heapArena.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cSnd.h"
 
-extern void cHeap_free(void *heap, void *p);
-extern void __builtin_delete(void *p);
 extern char D_0044E538[];
-extern void ReleaseObj(void *obj);
-extern void func_002FBE28(void *self, int flags);
 extern char D_0044A528[];
 extern char D_007419A0[];
-extern char D_005FEE00[];
 extern void func_002A84A8(void *);
 extern void espSys_effDataRelease(void *, int);
-extern void cSnd_SeStop(void *, int);
 extern void NoOp_28E418(void *);
-extern void func_0028EB88(void *, int);
 extern char D_00580D20[];
 extern void cDataManager_addPinnedData(void *mgr, int id, void *data);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *v);
@@ -84,7 +82,7 @@ void OwnerObj_destroyOwned(OwnerObj *self, int flags) {
     self->vt = D_0044E538;
     if (self->owned != 0)
         ReleaseObj(self->owned);
-    func_002FBE28(self, flags);
+    func_002FBE28((cNode *)self, flags);
 }
 
 /* Tear down an effect object: restore its vtable, release the effect data,
@@ -114,9 +112,9 @@ void EffObj_teardown(EffObj *self, int flag) {
     func_002A84A8(self);
     espSys_effDataRelease(D_007419A0, EFFDATA_SLOT);
     if (self->seHandle != 0)
-        cSnd_SeStop(D_005FEE00, self->seHandle);
+        cSnd_SeStop(&D_005FEE00, self->seHandle);
     NoOp_28E418(self);
-    func_0028EB88(self, flag);
+    func_0028EB88((struct cGameObj *)self, flag);
 }
 
 /* Spawn the effect object 0x3BF at the owner: pin the data block (the record

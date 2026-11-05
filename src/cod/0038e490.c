@@ -1,23 +1,18 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/libio.h"
+#include "godhand/eeKernel.h"
+#include "godhand/sceDma.h"
 
-extern void _IO_free_backup_area(int *a0);
-extern void WaitDma(void *a0);
-extern void DIntr(void);
-extern void EIntr(void);
 
 /* MATCH via ee-2.9-991111. */
 
 
 __attribute__((section(".text._IO_seekpos")))
-void _IO_seekpos(int *a0, int a1, int a2)
+void _IO_seekpos(struct _IO_FILE *fp, int pos, int mode)
 {
-    int vt;
-    void (*fn)(int *, int, int);
-    if (a0[9] != 0)
-        _IO_free_backup_area(a0);
-    vt = a0[0x14];
-    fn = (void (*)(int *, int, int))((int *)vt)[0x13];
-    fn(a0, a1, a2);
+    if (fp->_IO_save_base != 0)
+        _IO_free_backup_area(fp);
+    ((void (*)(struct _IO_FILE *, int, int))fp->vtable->__seekpos.pfn)(fp, pos, mode);
 }
 
 /* MATCH via ee-2.9-991111. */
@@ -25,14 +20,14 @@ void _IO_seekpos(int *a0, int a1, int a2)
 
 
 __attribute__((section(".text.func_003973E8")))
-void func_003973E8(int *a0, int a1)
+void func_003973E8(sceDmaChan *chan, void *tag)
 {
-    int s1 = func_003970A0(a1);
-    WaitDma(a0);
-    if ((unsigned int)a0[0xC] != 0xFFFFFFFFU)
-        a0[0xC] = s1;
-    a0[8] = 0;
-    a0[0] = (a0[0] & ~0xC) | 0x105;
+    unsigned int addr = func_003970A0((unsigned int)tag);
+    WaitDma(chan);
+    if ((unsigned int)chan->tadr != 0xFFFFFFFFU)
+        chan->tadr = (void *)addr;
+    chan->qwc = 0;
+    chan->chcr = (chan->chcr & ~0xC) | 0x105;
 }
 
 /* MATCH via ee-2.9-991111. */

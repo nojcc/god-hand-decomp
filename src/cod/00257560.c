@@ -1,21 +1,18 @@
 #include "godhand/cEm00.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int irand(void);
 extern void Obj0000_Set_Bytes_2F4_2F7_2F5_2F6_27DCD0(int a0, int a1);
 extern int GetSeqSEBase(void *a0);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_002726F8(void *a0);
-extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
-extern int moveMotion(void *a0);
 extern void func_00274FE8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -55,7 +52,7 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
         case 0: {
             int s3;
 
-            ReleaseField6ECByTag564_26B1E8(s2);
+            ReleaseField6ECByTag564_26B1E8((cEm00 *)s2);
             s3 = Obj0000_Get_Byte_17C3_NZ_2_276468(s2) & 0xFFFF;
             switch (*(int *)(s2 + 0x564)) {
                 default:

@@ -29,7 +29,7 @@ typedef struct cEma2 {
     char unk5B0[0x616 - 0x5B0];
     unsigned char unk616;               /* 0x616 set to 1 by the constructor */
     char unk617[0x670 - 0x617];
-    int damageTake;                     /* 0x670 handle from cDamageManage_CreateDamageTake */
+    struct cDamageUnit *damageTake;     /* 0x670 from cDamageManage_CreateDamageTake */
     int hitSphere[4];                   /* 0x674 damage spheres on four joints */
     char unk684[0x690 - 0x684];
     char shadow[0x10];                  /* 0x690 shadow record handed to KageInit, size not known */
@@ -59,5 +59,7 @@ typedef char cEma2_chk_mesh[EMA2_OFFSET(mesh) == 0x15B4 ? 1 : -1];
 
 /* The name every cEma2 carries in cGameObj.kindName; cEmManage compares it. */
 extern char D_0044A7A8[];
+
+int cEma2_startHitCooldown(cEma2 *self);
 
 #endif /* GODHAND_CEMA2_H */

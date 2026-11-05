@@ -11,8 +11,8 @@ void func_001ED050(char *self, unsigned short slot, int n)
     if (slot < 5) {
         if (n >= 1000) n = 999;
         tbl = D_0042BD70;
-        CustomIDWork_SetNumber(self + (tbl.w[slot][0] * 0x7C + 0x60), n / 10);
-        CustomIDWork_SetNumber(self + (tbl.w[slot][1] * 0x7C + 0x60), n - n / 10 * 10);
+        CustomIDWork_SetNumber((CustomIDWork *)(self + (tbl.w[slot][0] * 0x7C + 0x60)), n / 10);
+        CustomIDWork_SetNumber((CustomIDWork *)(self + (tbl.w[slot][1] * 0x7C + 0x60)), n - n / 10 * 10);
     }
 }
 

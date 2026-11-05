@@ -6,7 +6,6 @@
 #include "godhand/cEmManage.h"
 
 extern int D_0044B310;
-extern void func_002B5D58(cNode *self, cNode *parent);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 
 /* Construct a node: set its name and method table, clear its links, scale it to 1, give both matrices the identity and attach it to parent. */

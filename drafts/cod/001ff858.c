@@ -26,7 +26,6 @@ extern char D_0042C6B0[];
 extern char D_0042C6B8[];
 extern char D_0042C6C8[];
 
-extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern void LoadAndWaitReady_1FFBF0(PackHdr *self, char *name);
 extern char *AllocSlotEntry_1FFC60(PackHdr *self, char *name);
 

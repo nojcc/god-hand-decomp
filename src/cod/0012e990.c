@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
 #include "godhand/cWorldLight.h"
 
 extern int D_003C2388;
@@ -11,7 +12,6 @@ extern char D_0041ED28[];
 extern char D_0041ED48[];
 extern void printf_2E0DA8(int x, int y, int a2, int a3, char *fmt, ...);
 extern void func_002D9458(void *dst, void *src);
-extern void func_003A52F0(void *d, int c, int n);
 extern void *sceSifAllocIopHeap(int size);
 extern int Tramp_sceSifFreeSysMemory_3B5A50(void *p);
 

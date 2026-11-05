@@ -1,13 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 extern float fRand0_1(void);
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -15,11 +16,6 @@ extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern char *Getplayer(void);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
 extern float Adjust_theta(float f12);
-extern void Obj1D00_SetState_7_E_a1(void *a0, int a1);
-extern void Obj1D00_SetState_7_10(void *a0);
-extern void Obj1D00_SetState_7_12(void *a0);
-extern void Obj1D00_SetState_7_14(void *a0);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -29,8 +25,6 @@ extern unsigned char D_005FEE00[];
 
 
 
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f,
-                               int g, int h);
 
 
 
@@ -369,21 +363,21 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
         case 8:
             if (*(unsigned short *)(s1 + 0x3AC) & 0x200) {
                 int b = *(int *)(s1 + 0x304);
-                char *o = *(char **)(s1 + 0x708);
+                cOmWeapon *o = *(cOmWeapon **)(s1 + 0x708);
 
                 p1 = EM_RES_REC(b, 0x2F74);
                 p2 = EM_RES_REC(b, 0x2F78);
                 if (o != 0) {
-                    Obj1D00_SetState_7_E_a1(o, 1);
+                    Obj1D00_SetState_7_E_a1(&o->base, 1);
                 }
             } else {
                 int b = *(int *)(s1 + 0x304);
-                char *o = *(char **)(s1 + 0x708);
+                cOmWeapon *o = *(cOmWeapon **)(s1 + 0x708);
 
                 p1 = EM_RES_REC(b, 0x2F7C);
                 p2 = EM_RES_REC(b, 0x2F80);
                 if (o != 0) {
-                    Obj1D00_SetState_7_E_a1(o, 0);
+                    Obj1D00_SetState_7_E_a1(&o->base, 0);
                 }
             }
             func_002A8578(s1, p1, p2, 3, 0.0f, 0, 0);
@@ -399,12 +393,12 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             break;
         case 10: {
             int b = *(int *)(s1 + 0x304);
-            char *o;
+            cOmWeapon *o;
 
             func_002A8578(s1, EM_RES_REC(b, 0x2F94), EM_RES_REC(b, 0x2F98), 3, 0.0f, 0, 0);
-            o = *(char **)(s1 + 0x708);
+            o = *(cOmWeapon **)(s1 + 0x708);
             if (o != 0) {
-                Obj1D00_SetState_7_14(o);
+                Obj1D00_SetState_7_14(&o->base);
             }
             *(unsigned char *)(s1 + 0x2F6) += 1;
         }
@@ -419,13 +413,13 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             break;
         case 12: {
             int b = *(int *)(s1 + 0x304);
-            char *o;
+            cOmWeapon *o;
 
             func_002A8578(s1, EM_RES_REC(b, 0x2F84), EM_RES_REC(b, 0x2F88), 3, 0.0f, 0, 0);
             *(short *)(s1 + 0x568) = 5;
-            o = *(char **)(s1 + 0x708);
+            o = *(cOmWeapon **)(s1 + 0x708);
             if (o != 0) {
-                Obj1D00_SetState_7_10(o);
+                Obj1D00_SetState_7_10(&o->base);
             }
             *(float *)(s1 + 0x600) = 3.0f;
             switch (cCoreSave_getGameLevel(&D_00569B70) - 1) {
@@ -470,12 +464,12 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
         }
         case 14: {
             int b = *(int *)(s1 + 0x304);
-            char *o;
+            cOmWeapon *o;
 
             func_002A8578(s1, EM_RES_REC(b, 0x2F8C), EM_RES_REC(b, 0x2F90), 3, 0.0f, 0, 0);
-            o = *(char **)(s1 + 0x708);
+            o = *(cOmWeapon **)(s1 + 0x708);
             if (o != 0) {
-                Obj1D00_SetState_7_12(o);
+                Obj1D00_SetState_7_12(&o->base);
             }
             *(unsigned char *)(s1 + 0x2F6) += 1;
         }

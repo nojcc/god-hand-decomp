@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 */
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
+#include "godhand/cEmLinked.h"
 #include "godhand/sceVu0.h"
 
-extern void MtxInitRotY(void *a0, float angle);
-extern void func_00104010(void *self, void *work, void *model);
 
 #define EM_CLOTH_DRIFT_FIRST  0x270     /* enemy numbers 0x270..0x274 */
 #define EM_CLOTH_DRIFT_LAST   0x274
@@ -27,7 +27,7 @@ void EmClothMove(int emNo, cEm00 *self, void *model, EmCloth *cloth)
     cVec_zero(&drift);
     if (emNo <= EM_CLOTH_DRIFT_LAST) {
         if (emNo >= EM_CLOTH_DRIFT_FIRST) {
-            MtxInitRotY(mtx, self->rot.y);
+            MtxInitRotY(mtx[0], self->rot.y);
             drift.x = 0.02f;
             drift.y = 0.02f;
             drift.z = -0.02f;

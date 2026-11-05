@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cEm00.h"
 
 extern void EmClothInit(int, char *, char *, char *);
 
@@ -8,9 +9,9 @@ extern void EmClothInit(int, char *, char *, char *);
 
 
 __attribute__((section(".text.func_0028CDD0")))
-void func_0028CDD0(char *arg)
+void func_0028CDD0(cEm00 *self)
 {
-    switch (*(int *)(arg + 0x564)) {
+    switch (self->emNo) {
     case 0x214:
     case 0x215:
     case 0x21C:
@@ -42,9 +43,9 @@ void func_0028CDD0(char *arg)
             VU0_SQC2_VF0(q, 0x80);
             q += 0xA0;
         }
-        *(char **)(arg + 0x1630) = p;
+        *(char **)((char *)self + 0x1630) = p;
         if (p != 0) {
-            EmClothInit(*(int *)(arg + 0x564), arg, p, arg + 0x15B0);
+            EmClothInit(self->emNo, (char *)self, p, (char *)self + 0x15B0);
         }
         break;
     }

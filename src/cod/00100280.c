@@ -2,9 +2,6 @@
 
 extern int D_0041B598;
 extern int D_0041B590;
-extern int D_00462FC0;
-extern void cCollisionSolidManage_ReleaseUnit(void *, void *);
-extern void cGameObj__dtor(void *, void *);
 extern int D_007854C8;
 extern int D_0041B638;
 extern int D_007854D8;
@@ -15,7 +12,10 @@ extern int D_0041B710;
 extern int D_007854F8;
 extern void cObjBase__tf(void);
 extern float D_003BC7C0;
+#define CGAMEOBJ_NO_TYPEDEF
+#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 extern void cObjBase_addNullSpeed_Rotation(void *, float);
 extern void cObjBase_addNullSpeed(void *, float);
 
@@ -41,10 +41,10 @@ void *cPlBase(void *a0) {
 }
 
 __attribute__((section(".text.cPlBase__dtor")))
-void cPlBase__dtor(void *a0, void *a1) {
-    *(int **)((char*)a0 + 0x214) = &D_0041B598;
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, a0);
-    cGameObj__dtor(a0, a1);
+void cPlBase__dtor(struct cGameObj *self, int flags) {
+    self->vtable = (cVtEnt *)&D_0041B598;
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, self);
+    cGameObj__dtor(self, flags);
 }
 
 __attribute__((section(".text.cPlBase__tf")))

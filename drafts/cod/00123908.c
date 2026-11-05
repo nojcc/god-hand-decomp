@@ -7,9 +7,10 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cCamManager.h"
+
 extern void func_001F88A8(void *o, float *s, unsigned char t, float x, float y, float z);
 extern int cCamManager_isCk_CamClass(void *mgr, int cls);
-extern char D_00463050[];
 extern int func_0030F348(void);
 
 __attribute__((section(".text.func_00307118")))
@@ -34,11 +35,7 @@ void cSceAtUnit_AreaSet(void *u, float *v, int n, float a, float b)
 __attribute__((section(".text.func_00123908")))
 int func_00123908(void)
 {
-    char *s0 = D_00463050;
-    int r;
-
-    r = cCamManager_isCk_CamClass(s0, 1);
-    return r;
+    return cCamManager_isCk_CamClass(&D_00463050, 1);
 }
 
 __attribute__((section(".text.func_0030F518")))

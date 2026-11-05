@@ -1,12 +1,12 @@
 #include "godhand/cObj.h"
+#include "godhand/seqNode.h"
+#include "godhand/heapArena.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern void flush__7ostream(void *a0);
 extern void __as__22_IO_ostream_withassignR7ostream(void *a0, void *a1);
 extern void __as__22_IO_istream_withassignR7istream(void *a0, void *a1);
-extern int D_003BAFE0[];
-extern void __builtin_delete(void);
 extern void func_003B9DE0(void *);
 extern int D_00460AA8;
 extern void func_001495A0(cObj *self);
@@ -40,10 +40,10 @@ void Tramp___as__22_IO_istream_withassignR7istream_389960(void *a0, void *a1) {
 }
 
 __attribute__((section(".text.func_00372C80")))
-void func_00372C80(int *a0, int a1) {
-    *(int **)((char *)a0 + 0x80) = D_003BAFE0;
-    if (a1 & 1) {
-        __builtin_delete();
+void func_00372C80(SndVoiceNode *self, int flags) {
+    self->vt = (struct cVtEnt *)D_003BAFE0;
+    if (flags & 1) {
+        __builtin_delete(self);
     }
 }
 

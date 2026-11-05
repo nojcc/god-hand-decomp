@@ -1,6 +1,6 @@
 /* sn-2.95.3-136: func_00377ED0, clears and numbers the three SFX object pools. */
 #include "godhand/seqNode.h"
-extern void *func_003A52F0(void *p, int c, int n);
+#include "godhand/criStm.h"
 
 __attribute__((section(".text.func_00377ED0")))
 void func_00377ED0(void)

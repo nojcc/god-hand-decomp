@@ -1,4 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/heapArena.h"
+#include "godhand/cDvd.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cCoreSave.h"
 
@@ -7,11 +9,8 @@ extern int D_003C2388;
 extern int *D_003C2384;
 extern char D_005864F0[];
 extern char D_0042BE30[];
-extern char D_00583F20[];
-extern char D_00754220[];
 extern char D_007474A0[];
 extern void cIDManager_getLocalFileName(int a, void *b, void *c, int d);
-extern void cDvd_CheckWait(void *a, void *b);
 extern void cIDManager_setIDData(int a, int b, int c);
 extern void IdUi_initWorks(void *a);
 extern void CustomID_showDisplays(void *a, int b);
@@ -39,8 +38,6 @@ extern Blob28 D_003BE8B0[];
 
 
 
-extern void *cDvd_ReadAlloc(void *a, void *b, void *c, void *d,
-                            int t0, int t1, int t2, int t3);
 
 
 
@@ -61,7 +58,7 @@ void ColiseumBattle_Initialize(ColiseumBattle *self)
     char name[0x40];
     int info[4];
     int *q;
-    void *h;
+    int h;
     int n;
     int t;
     char *g;
@@ -75,8 +72,8 @@ void ColiseumBattle_Initialize(ColiseumBattle *self)
     for (n = 0x1D; n >= 0; n--) q[n] = 0;
     D_005864F0[0x5B5] = 1;
     cIDManager_getLocalFileName(D_003C2388, name, D_0042BE30, -1);
-    h = cDvd_ReadAlloc(D_00583F20, name, info, D_00754220, 0, 0, 0, 0);
-    cDvd_CheckWait(D_00583F20, h);
+    h = cDvd_ReadAlloc(&D_00583F20, name, info, &D_00754220, 0, 0, 0, 0);
+    cDvd_CheckWait(&D_00583F20, h);
     cIDManager_setIDData(*D_003C2384, 0x15, info[0]);
     IdUi_initWorks(self->ui);
     CustomID_showDisplays(self->ui, self->ring.timeLimit != 0);

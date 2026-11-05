@@ -2,6 +2,7 @@
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
 
 typedef struct { int w[0x14A0 / 4]; } __attribute__((aligned(16))) SaveBlob;

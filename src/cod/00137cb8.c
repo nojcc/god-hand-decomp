@@ -1,22 +1,20 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
 #include "godhand/Slot2.h"
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
+#include "godhand/cSnd.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *box);
 extern void cOmDoor_setObjCollision(void *self);
-extern int D_00574380;
-extern void cSnd_SeCall_2CB8A0(char *snd, int a1, int a2, int a3, int t0, int t1, int t2);
 extern void SlotList_selectPrev(void *self);
 extern void func_001F6AF8(void *self);
-extern char D_005FEE00[];
 extern char D_007474A0[];
 extern char D_00585040[];
 extern void displayScrollLayer(int id, int on);
-extern float sceVu0Normalize(void *dst, void *src);
 extern float sceVu0InnerProduct(void *a, void *b);
 extern float capVu0Acos(float x);
 
@@ -86,7 +84,7 @@ int cOmDoor_initWithBox(DoorLikeObj *self) {
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->base.hpMax = OBJ_LIFE;
     self->base.hp = OBJ_LIFE;
@@ -137,7 +135,7 @@ void MenuInput_stepPad(void *a0)
         s0->step = 0;
         s0->state = 2;
         s0->stepArg = 0;
-        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
         return;
     }
     b = *(long *)(pad + PAD_OFFSET_PRESS);
@@ -146,19 +144,19 @@ void MenuInput_stepPad(void *a0)
         s0->entry = 0;
         s0->step = 0;
         s0->stepArg = 0;
-        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_LAST) {
         s0->entry = 5;
         s0->mode = 1;
         s0->step = 0;
         s0->stepArg = 0;
-        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_PAGE_PREV) {
         SlotList_selectPrev(s0);
-        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_PAGE_NEXT) {
         func_001F6AF8(s0);
-        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     }
 }
 

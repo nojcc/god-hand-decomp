@@ -1,19 +1,25 @@
 #define COBJBASE_NO_TYPEDEF
+#include "godhand/cDamageManage.h"
+#include "godhand/criStm.h"
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cObjBase.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cDvd.h"
+#include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
+#include "godhand/heapArena.h"
+#include "godhand/cCamManager.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern char D_0041EBE8[];
 extern char D_0041EB80[];
 extern void *cObj__ctor(void *self);
-extern void func_003A52F0(void *dst, int val, int n);
 extern int D_007854F8;
 extern int D_0041EC58;
 extern int D_007856E8;
 extern void cObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
-extern int D_00754230;
-extern void func_002A94F0(void *a0);
 extern int D_004292F0;
 extern void *InitFields_1B6E90(void *a0);
 extern int D_007859B8;
@@ -22,23 +28,13 @@ extern int D_00785878;
 extern void GetOrInitGlobal785878_1B8058(void);
 extern int D_007854D8;
 extern int D_0044AEC8;
-extern void *cIDBase_getIDWork(void *self, int idx);
 extern void cIDBase_initEntry(void *a0, int a1, void *a2);
 extern void func_002B64C0(int a0);
 extern char D_0045C470[];
 extern char D_0045C4A0[];
-extern char D_005FEE00[];
 extern void SetCustomIDDispOneOrAll_1DD258(int a0, int a1, int a2);
 extern void cScenario_sleepFrames(int a0);
-extern int cDvd_Check(int a0, int a1);
 extern int D_0044A660;
-extern int D_00574380;
-extern int D_00462FC0;
-extern void func_001FE370(int *a0, int a1);
-extern void cCollisionSolidManage_ReleaseUnit(int *a0, int a1);
-extern void cGameObj__dtor(int a0, int a1);
-extern void *D_005CAFF0;
-extern void func_00138CA8(void *a0, void *a1, void *a2, int a3);
 
 __attribute__((section(".text.func_001D6D20")))
 void func_001D6D20(int a0, int a1) {
@@ -153,11 +149,11 @@ void *cGameObj__tf(void)
 }
 
 __attribute__((section(".text.cIDBase_initIDWork")))
-void cIDBase_initIDWork(void *a0, int idx)
+void cIDBase_initIDWork(void *self, int idx)
 {
-    void *v0 = cIDBase_getIDWork(a0, idx);
-    if (v0 != 0) {
-        cIDBase_initEntry(a0, *(int*)((char*)v0 + 0x1C), v0);
+    void *work = cIDBase_getIDWork(self, idx);
+    if (work != 0) {
+        cIDBase_initEntry(self, *(int*)((char*)work + 0x1C), work);
     }
 }
 
@@ -191,7 +187,7 @@ int func_00380AE8(int a0, int a1) {
 __attribute__((section(".text.func_00126770")))
 void func_00126770(char *a0) {
     char *s1 = a0;
-    char *s0;
+    cSnd *snd;
     int v0, v1;
     int x;
     x = *(int *)(s1 + 0x165C);
@@ -199,16 +195,16 @@ void func_00126770(char *a0) {
         cActionButtonUnit_setExit(x);
         *(int *)(s1 + 0x165C) = 0;
     }
-    s0 = D_005FEE00;
-    cSnd_SeStop(s0, *(int *)(s1 + 0x161C));
+    snd = &D_005FEE00;
+    cSnd_SeStop(snd, *(int *)(s1 + 0x161C));
     *(int *)(s1 + 0x161C) = 0;
-    v0 = *(int *)(s0 + 0xB0);
-    v1 = *(int *)(s0 + 0xAC);
+    v0 = snd->flagsB0;
+    v1 = snd->flagsAC;
     v0 &= 0xFFBFFFFF;
     v1 &= 0xFFBFFFFF;
-    *(int *)(s0 + 0xB0) = v0;
-    *(int *)(s0 + 0xAC) = v1;
-    cSnd_SeStop(s0, *(int *)(s1 + 0x1620));
+    snd->flagsB0 = v0;
+    snd->flagsAC = v1;
+    cSnd_SeStop(snd, *(int *)(s1 + 0x1620));
     *(int *)(s1 + 0x1620) = 0;
 }
 
@@ -235,19 +231,19 @@ void func_001DD5A0(int a0, int a1) {
 }
 
 __attribute__((section(".text.cDvd_CheckWaitFrame")))
-void cDvd_CheckWaitFrame(int a0, int a1) {
-    while (cDvd_Check(a0, a1) != 0) {
+void cDvd_CheckWaitFrame(cDvd *self, int id) {
+    while (cDvd_Check(self, id) != 0) {
         cScenario_sleepFrames(1);
     }
     cScenario_sleepFrames(1);
 }
 
 __attribute__((section(".text.func_0028EB88")))
-void func_0028EB88(int a0, int a1) {
-    *(int **)((char *)a0 + 0x214) = &D_0044A660;
-    func_001FE370(&D_00574380, a0);
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, a0);
-    cGameObj__dtor(a0, a1);
+void func_0028EB88(struct cGameObj *self, int flags) {
+    self->vtable = (cVtEnt *)&D_0044A660;
+    func_001FE370(&D_00574380, self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, self);
+    cGameObj__dtor(self, flags);
 }
 
 __attribute__((section(".text.func_002B4768")))
@@ -259,23 +255,17 @@ void func_002B4768(int a0, int a1, int a2) {
     *(int *)a2 = *(int *)a2 + (v0 << 1);
 }
 
+/* Make the parts camera current, saving the previous camera and mode. */
 __attribute__((section(".text.cCamManager_setPartsCamera")))
-void cCamManager_setPartsCamera(void *a0, int a1)
+void cCamManager_setPartsCamera(cCamManager *self, unsigned char blend)
 {
-    void *s0 = a0;
-    int a3 = a1 & 0xFF;
-    int v1 = *(int*)((char*)s0 + 0x1028);
-    void *s2;
-    if (v1 == 0x40)
-        return;
-    if (v1 == 0x10)
-        return;
-    s2 = (char*)s0 + 0x920;
-    if (a3 != 0) {
-        func_00138CA8(s0, s2, D_005CAFF0, a3);
+    if (self->mode != CAMMGR_MODE_PARTS && self->mode != CAMMGR_MODE_HOLD) {
+        if (blend) {
+            func_00138CA8(self, &self->parts, D_005CAFF0, blend);
+        }
+        self->prevMode = self->mode;
+        self->prevCamera = (struct cCamera *)CAMMGR_CUR_CAMERA_WORD;
+        D_005CAFF0 = &self->parts;
+        self->mode = CAMMGR_MODE_PARTS;
     }
-    *(int*)((char*)s0 + 0x102C) = *(int*)((char*)s0 + 0x1028);
-    *(void**)((char*)s0 + 0xFF0) = D_005CAFF0;
-    D_005CAFF0 = s2;
-    *(int*)((char*)s0 + 0x1028) = 0x40;
 }

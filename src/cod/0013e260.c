@@ -1,17 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cIDBase.h"
+#include "godhand/PanelObj.h"
 #include "godhand/cGameObj.h"
 
 extern float fRand1_1(void);
-extern void func_001DEE60(void *ui, int sub, int on);
 extern int D_00428840;
-extern char D_00574380[];
-extern void ClearAndResetFields_1FE278(void *pool, void *handle);
 extern void SetField214PtrThenInit_1B6F38(void *self, int flag);
 extern char D_00754C80[];
 extern void func_0031A600(void *queue, int kind, int id, void *packet);
-extern void cIDBase_trans(void *rec);
 extern char D_003BDE50[];
 
 #define OMSHAKE_JITTER  0.015f
@@ -37,14 +36,14 @@ void cOmShake_updateHeight(cOmShakeHigh *self)
     }
 }
 
-/* Show or hide sub-elements 6 to 10 of a UI record. */
+/* Show or hide elements 6 to 10 of a panel. */
 __attribute__((section(".text.UiRecord_setDispSubs6to10")))
-void UiRecord_setDispSubs6to10(void *ui, int on) {
-    func_001DEE60(ui, 6, on);
-    func_001DEE60(ui, 7, on);
-    func_001DEE60(ui, 8, on);
-    func_001DEE60(ui, 9, on);
-    func_001DEE60(ui, 10, on);
+void UiRecord_setDispSubs6to10(PanelObj *self, int on) {
+    func_001DEE60(self, 6, on);
+    func_001DEE60(self, 7, on);
+    func_001DEE60(self, 8, on);
+    func_001DEE60(self, 9, on);
+    func_001DEE60(self, 10, on);
 }
 
 /* A game object that owns one resource handle and two child objects. */
@@ -68,7 +67,7 @@ __attribute__((section(".text.cKidOwner_destruct")))
 void cKidOwner_destruct(cKidOwner *self, int flag) {
     self->base.vtable = (cVtEnt *)&D_00428840;
     if (self->handle != 0) {
-        ClearAndResetFields_1FE278(D_00574380, self->handle);
+        ClearAndResetFields_1FE278(&D_00574380, self->handle);
         self->handle = 0;
     }
     if (self->kidA != 0) {
@@ -121,7 +120,7 @@ void func_0013E260(MarkerSet *self) {
     unsigned short i;
     for (i = 0; i < MARKER_NUM; i++) {
         if (self->id[i] != MARKER_NONE) {
-            cIDBase_trans(self->rec[i]);
+            cIDBase_trans((cIDBaseObj *)self->rec[i]);
             if (self->id[i] >= MARKER_LIFE) {
                 self->id[i] = MARKER_NONE;
             }

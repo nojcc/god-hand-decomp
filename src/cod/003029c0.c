@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cGameObj.h"
+#include "godhand/mtx.h"
 #include "godhand/cNode.h"
 #include "godhand/objField.h"
 #include "godhand/vu0.h"
@@ -30,20 +31,8 @@ typedef struct espEmitVt {
 } espEmitVt;
 
 extern void func_00302918(int *a0);
-extern void MtxCopy(void *dst, void *src);
-extern void MtxMultiply(void *dst, void *a, void *b);
-extern void MtxInitRotVec(void *a0, float *a1, unsigned char order);
-extern void MtxInitTransVec(float *a0, float *a1);
-extern int CallThenReturnPlusB0_002B6420_2B61B0(int a0);
 extern void func_00147C88(void *a0, void *a1, int a2);
-extern void func_002B6230(char *a0, float *a1);
-extern void cNode_setLocalTranslation(int a0, int a1);
-extern void func_002FA350(float *time);
 extern void *PullEsp(int a0);
-extern void UpdateObjByIndexedOp_2FBE50(void *a0);
-extern int func_002B5E58(void *self);
-extern void func_002B5CF0(void *a0, void *a1);
-extern int func_002B5E50(void *a0);
 extern void func_003005D8(char *p);
 extern int func_003035D0(espEmitter *self);
 
@@ -96,25 +85,25 @@ void func_003029C0(espEmitter *self)
                 } else {
                     MtxCopy(m, self->parent->mtx);
                 }
-                MtxInitRotVec(rm, &self->rot.x, 0);
-                MtxInitTransVec(tm[0], &self->trans.x);
+                MtxInitRotVec(rm, &self->rot, 0);
+                MtxInitTransVec(tm[0], &self->trans);
                 MtxMultiply(rm, tm, rm);
                 MtxMultiply(m, m, rm);
             } else {
-                MtxCopy(m, (void *)CallThenReturnPlusB0_002B6420_2B61B0((int)self));
+                MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0(&self->base));
             }
             VU0_SQC2_VF0_MEM(&v, 0);
             func_00147C88(&v, m, 0);
-            func_002B6230((char *)self, &v.x);
+            func_002B6230(&self->base, &v);
             VU0_SQC2_VF0_MEM(rm, 0);
             ForwardVec3At30_147C60(rm, m[0]);
-            cNode_setLocalTranslation((int)self, (int)rm);
+            cNode_setLocalTranslation(&self->base, (cVec *)rm);
         }
         self->flags |= 0x800000;
     }
     if (self->flags & 0x40000000) {
-        if (func_002B5E58(self) == 0) {
-            func_002B5CF0(self, (void *)func_002B5E50(self));
+        if (func_002B5E58(&self->base) == 0) {
+            func_002B5CF0(&self->base, func_002B5E50(&self->base));
             func_003005D8((char *)self);
         }
         return;
@@ -143,7 +132,7 @@ void func_003029C0(espEmitter *self)
                 ((espEmitVt *)self->base.vt)->add((char *)self + ((espEmitVt *)self->base.vt)->addDelta, esp);
                 evt = (espEmitVt *)esp->vt;
                 if (evt->emit((char *)esp + evt->emitDelta, &self->emitPos) == 0)
-                    UpdateObjByIndexedOp_2FBE50(esp);
+                    UpdateObjByIndexedOp_2FBE50((EspAnim *)esp);
             }
         }
     }

@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
 
 /* sn-2.95.3-136, -f=-fno-gcse */
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern void cDamageUnit_AddDamageCollCylinder(void *a0, void *a1, float *a2, float *a3, float f0, float f1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern int D_00574380;
 
 __attribute__((section(".text.func_00179E40")))
 int func_00179E40(char *p)
@@ -34,7 +33,7 @@ int func_00179E40(char *p)
         f[5] = 0.0f;
         f[6] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, f, nv, one, 0.600000024f);
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)f, (cVec *)nv, one, 0.600000024f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;

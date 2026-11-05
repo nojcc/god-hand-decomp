@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cEm00.h"
 
 extern int cModel_setTextureExchange(void *self, void *tex, void *tbl, int n);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
@@ -9,9 +10,9 @@ extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
 
 
 __attribute__((section(".text.func_0028C400")))
-int func_0028C400(void *a0)
+int func_0028C400(cEm00 *self)
 {
-    char *s0 = (char *)a0;
+    char *s0 = (char *)self;
     int s1;
     int s2;
 

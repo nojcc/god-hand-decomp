@@ -1,9 +1,12 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
+#include "godhand/cOmWeapon.h"
 
 #include "godhand/cEm00.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEmManage.h"
+#include "godhand/cEmLinked.h"
+#include "godhand/cloth.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cModel.h"
 #include "godhand/motion.h"
@@ -17,11 +20,11 @@
 #define CEM00_SET(self)     ((SET_EM_DATA *)((char *)(self) + 0x1510))
 #define CEM00_SHADOW(self)  ((char *)(self) + 0x670)
 #define CEM00_MESH(self)    ((cModelNode **)((char *)(self) + 0x1550))
-#define CEM00_WEAPON(self)  ((char **)((char *)(self) + 0x1638))
+#define CEM00_WEAPON(self)  ((cOmWeapon **)((char *)(self) + 0x1638))
 #define CEM00_CHILD(self)   ((cGameObj **)((char *)(self) + 0x164C))
 
 #define MOTION(off) EM_RES_REC(EM_RES(self), off)
-#define START_MOTION(off) func_002A8578((int)self, MOTION(off), 0, 0, 0.0f, 0, 0)
+#define START_MOTION(off) func_002A8578(self, MOTION(off), 0, 0, 0.0f, 0, 0)
 #define SET_SCALE(s) (self->scale.x = self->scale.y = self->scale.z = (s))
 
 /* Copies the room entry into the enemy (asm; its callers disagree on the types). */
@@ -303,51 +306,51 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
     CEM00_WEAPON(self)[3] = 0;
     switch (self->emNo) {
     case 0x205: case 0x207: case 0x224:
-        CEM00_WEAPON(self)[0] = func_0028D048((char *)self, 0x365);
+        CEM00_WEAPON(self)[0] = func_0028D048(self, 0x365);
         cOmBase_attachWeaponGrip((cOmBase *)self, CEM00_WEAPON(self)[0], 0);
-        CEM00_WEAPON(self)[1] = func_0028D048((char *)self, 0x365);
+        CEM00_WEAPON(self)[1] = func_0028D048(self, 0x365);
         cOmBase_attachWeaponGrip((cOmBase *)self, CEM00_WEAPON(self)[1], 1);
         break;
     case 0x225: case 0x24D:
-        CEM00_WEAPON(self)[0] = func_0028D048((char *)self, 0x37D);
+        CEM00_WEAPON(self)[0] = func_0028D048(self, 0x37D);
         cOmBase_attachWeaponGrip((cOmBase *)self, CEM00_WEAPON(self)[0], 0);
-        CEM00_WEAPON(self)[1] = func_0028D048((char *)self, 0x37D);
+        CEM00_WEAPON(self)[1] = func_0028D048(self, 0x37D);
         cOmBase_attachWeaponGrip((cOmBase *)self, CEM00_WEAPON(self)[1], 1);
         break;
     case 0x208:
-        CEM00_WEAPON(self)[2] = func_0028D048((char *)self, 0x367);
-        cOmWeapon_loadEffectParamsByType(self, (int)CEM00_WEAPON(self)[2], 0);
+        CEM00_WEAPON(self)[2] = func_0028D048(self, 0x367);
+        cOmWeapon_loadEffectParamsByType((cOmBase *)self, CEM00_WEAPON(self)[2], 0);
         break;
     case 0x21E:
-        CEM00_WEAPON(self)[2] = func_0028D048((char *)self, 0x36C);
-        cOmWeapon_loadEffectParamsByType(self, (int)CEM00_WEAPON(self)[2], 2);
+        CEM00_WEAPON(self)[2] = func_0028D048(self, 0x36C);
+        cOmWeapon_loadEffectParamsByType((cOmBase *)self, CEM00_WEAPON(self)[2], 2);
         break;
     case 0x22F:
-        CEM00_WEAPON(self)[2] = func_0028D048((char *)self, 0x370);
-        cOmWeapon_loadEffectParamsByType(self, (int)CEM00_WEAPON(self)[2], 2);
+        CEM00_WEAPON(self)[2] = func_0028D048(self, 0x370);
+        cOmWeapon_loadEffectParamsByType((cOmBase *)self, CEM00_WEAPON(self)[2], 2);
         break;
     case 0x217:
-        CEM00_WEAPON(self)[3] = func_0028D048((char *)self, 0x36F);
-        cOmWeapon_loadEffectParamsByType(self, (int)CEM00_WEAPON(self)[3], 5);
+        CEM00_WEAPON(self)[3] = func_0028D048(self, 0x36F);
+        cOmWeapon_loadEffectParamsByType((cOmBase *)self, CEM00_WEAPON(self)[3], 5);
         if (CEM00_WEAPON(self)[3] != 0) {
             Obj1D00_ClearState_7((cOmBase *)CEM00_WEAPON(self)[3]);
         }
         break;
     case 0x213:
-        CEM00_WEAPON(self)[3] = func_0028D048((char *)self, 0x37A);
-        cOmWeapon_loadEffectParamsByType(self, (int)CEM00_WEAPON(self)[3], 5);
+        CEM00_WEAPON(self)[3] = func_0028D048(self, 0x37A);
+        cOmWeapon_loadEffectParamsByType((cOmBase *)self, CEM00_WEAPON(self)[3], 5);
         if (CEM00_WEAPON(self)[3] != 0) {
             Obj1D00_ClearState_7((cOmBase *)CEM00_WEAPON(self)[3]);
         }
         break;
     }
     if (CEM00_SET(self)->flags & 0x100) {
-        CEM00_WEAPON(self)[2] = func_0028D048((char *)self, 0x37F);
-        cOmWeapon_loadEffectParamsByType(self, (int)CEM00_WEAPON(self)[2], 10);
+        CEM00_WEAPON(self)[2] = func_0028D048(self, 0x37F);
+        cOmWeapon_loadEffectParamsByType((cOmBase *)self, CEM00_WEAPON(self)[2], 10);
     }
     CEM00_WEAPON(self)[4] = 0;
     if (CEM00_SET(self)->flags & 0x200) {
-        func_0028D138(self, (struct cOmWeapon *)func_0028D048((char *)self, 0x369), 0x369);
+        func_0028D138(self, (struct cOmWeapon *)func_0028D048(self, 0x369), 0x369);
     }
 
     CEM00_CHILD(self)[3] = 0;
@@ -355,7 +358,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
         CEM00_CHILD(self)[3] = CreateObj(0x101, 0xFFFF);
         if (CEM00_CHILD(self)[3] != 0) {
             if (cGameObj_vt(CEM00_CHILD(self)[3])->initial((char *)CEM00_CHILD(self)[3] + cGameObj_vt(CEM00_CHILD(self)[3])->initialDelta)) {
-                pl01__SetParent(CEM00_CHILD(self)[3], self, 0x11);
+                pl01__SetParent((pl01 *)CEM00_CHILD(self)[3], (cGameObj *)self, 0x11);
                 CEM00_CHILD(self)[3]->actorGroup &= 0x7FFFFFFF;
                 CEM00_CHILD(self)[3]->actorGroup |= 0x40000000;
             } else {
@@ -368,7 +371,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
         CEM00_CHILD(self)[0] = CreateObj(0x27A, 0xFFFF);
         if (CEM00_CHILD(self)[0] != 0) {
             if (cGameObj_vt(CEM00_CHILD(self)[0])->initial((char *)CEM00_CHILD(self)[0] + cGameObj_vt(CEM00_CHILD(self)[0])->initialDelta)) {
-                func_00283BE8((char *)CEM00_CHILD(self)[0], (char *)self, 2);
+                func_00283BE8((cEmLinked *)CEM00_CHILD(self)[0], (cGameObj *)self, 2);
             } else {
                 CEM00_CHILD(self)[0] = 0;
             }
@@ -379,7 +382,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
         CEM00_CHILD(self)[1] = CreateObj(0x253, 0xFFFF);
         if (CEM00_CHILD(self)[1] != 0) {
             if (cGameObj_vt(CEM00_CHILD(self)[1])->initial((char *)CEM00_CHILD(self)[1] + cGameObj_vt(CEM00_CHILD(self)[1])->initialDelta)) {
-                cEm53_SetParent((char *)CEM00_CHILD(self)[1], (char *)self, 2);
+                cEm53_SetParent((cEmLinked *)CEM00_CHILD(self)[1], (cGameObj *)self, 2);
             } else {
                 CEM00_CHILD(self)[1] = 0;
             }
@@ -394,7 +397,7 @@ int func_0028B190(cEm00 *self, SET_EM_DATA *data, int arg)
         }
         if (CEM00_CHILD(self)[2] != 0) {
             if (cGameObj_vt(CEM00_CHILD(self)[2])->initial((char *)CEM00_CHILD(self)[2] + cGameObj_vt(CEM00_CHILD(self)[2])->initialDelta)) {
-                cEm57_SetParent((char *)CEM00_CHILD(self)[2], (char *)self, 0x11);
+                cEm57_SetParent((cEmLinked *)CEM00_CHILD(self)[2], (cGameObj *)self, 0x11);
             } else {
                 CEM00_CHILD(self)[2] = 0;
             }

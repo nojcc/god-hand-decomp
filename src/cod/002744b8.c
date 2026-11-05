@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cEm00.h"
 
 extern int D_00747A10;
 
@@ -28,11 +29,11 @@ unsigned int func_0031D098(unsigned int *p) {
 }
 
 __attribute__((section(".text.func_002744B8")))
-int func_002744B8(unsigned char *p) {
+int func_002744B8(cEm00 *em) {
     unsigned int t;
-    if ((*(int *)(p + 0x564) ^ 0x211) != 0) {
+    if ((em->emNo ^ 0x211) != 0) {
         return 0;
     }
-    t = *(unsigned int *)(p + 0x16D4) & 0x20;
+    t = (unsigned int)em->emFlags2 & 0x20;
     return 0 < t;
 }

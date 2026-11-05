@@ -5,13 +5,11 @@
 #include "godhand/cEmManage.h"
 #include "godhand/CustomIDWork.h"
 
-extern cMeshNode *cModel_getMeshPtr_14B730(void *self, void *name);
 extern char D_00428AF0[];
 extern void *SearchData(void *pack, void *name, int which);
 extern int D_007474A0;
 extern char D_0044B100[];
 extern char *D_003C23A4;
-extern void CustomIDWork_SetNumber(CustomIDWork *work, int number);
 extern void CustomIDWork_setDispAllButEight(void *self, int id, int on);
 
 /* Set the bomb up hidden and unlit, hand it to the enemy manager, hide the mesh D_00428AF0 (CMODEL_NODE_HIDE) and clear the hiss handle. Returns 1. */
@@ -25,7 +23,7 @@ int cObj_hideAndFlagMesh(cOmbb *self) {
     self->bombKind = 0;
     self->base.objFlags = flags | CMODEL_F_HIDDEN;
     func_00294898(&D_005864F0, self);
-    mesh = cModel_getMeshPtr_14B730(self, D_00428AF0);
+    mesh = cModel_getMeshPtr_14B730((cModel *)self, D_00428AF0);
     if (mesh != 0) {
         mesh->dispFlags |= CMODEL_NODE_HIDE;
     }

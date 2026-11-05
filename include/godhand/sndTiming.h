@@ -6,6 +6,13 @@
 #ifndef GODHAND_SNDTIMING_H
 #define GODHAND_SNDTIMING_H
 
+/* The system volumes SdeSystemVolSet takes and SdeSystemVolGet returns. */
+typedef struct SndSystemVol {
+    short master[2];            /* 0x0 0..0x7F */
+    short unk4;                 /* 0x4 */
+    short sub[5];               /* 0x6 0..0x7F, sub[i] is scaled by master[(i + 1) & 1] */
+} SndSystemVol;                 /* 0x10 */
+
 typedef struct SndTiming {
     char name[14];              /* 0x00 */
     char unk0E[2];
@@ -19,7 +26,9 @@ typedef struct SndTiming {
     unsigned char nKind2;       /* 0x25 kind 2 */
     unsigned char nKind4;       /* 0x26 kind 4 */
     unsigned char nTotal;       /* 0x27 */
-    char unk28[0x84 - 0x28];
+    SndSystemVol vol;           /* 0x28 */
+    short level[6];             /* 0x38 level[i + 1] = sub[i] times its master, 0..0x7F00; level[0] is 0 */
+    char unk44[0x84 - 0x44];
     int unk84;                  /* 0x84 */
     char unk88[4];
     unsigned int time;          /* 0x8C */

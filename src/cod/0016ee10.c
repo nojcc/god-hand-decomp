@@ -1,4 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cRelSys.h"
+#include "godhand/cCamera.h"
+#include "godhand/cObjBase.h"
 
 typedef struct {
     char pad0[0x80];
@@ -18,7 +21,6 @@ typedef struct {
 extern char D_005FEC58[];
 extern Tbl D_0041F250;
 extern int D_00747A0C;
-extern void cCamera_reset(void *self);
 extern void ClearFields_1614D0(void *self);
 extern void EmClothInit(int id, void *self, void *data, void *anchor);
 extern void EmClothMove(int id, void *self, void *data, void *anchor);
@@ -29,9 +31,6 @@ extern void func_002B4528(void *self, int value);
 extern void func_002D5918(void *self);
 extern void func_002D5990(void *self);
 extern int func_00394DD8(void *value, int mode);
-extern int SetEffect(
-    int effect, int resource, void *owner, int arg3,
-    int arg4, unsigned int arg5);
 
 __attribute__((section(".text.func_0031AF70")))
 int func_0031AF70(int value)
@@ -106,10 +105,10 @@ void func_0027EDF0(char *self)
 }
 
 __attribute__((section(".text.func_00139090")))
-void func_00139090(char *self)
+void func_00139090(struct cCamera *self)
 {
     cCamera_reset(self);
-    *(int *)(self + 0x1C0) = 0;
+    self->unk1C0 = 0;
 }
 
 __attribute__((section(".text.func_00146EF0")))
@@ -158,9 +157,9 @@ int func_002B3050(char *self)
 }
 
 __attribute__((section(".text.func_002BE6A0")))
-int func_002BE6A0(void **self)
+int func_002BE6A0(cRelSlot *slot)
 {
-    return func_00394DD8(*self, 0) == 0;
+    return func_00394DD8(slot->data, 0) == 0;
 }
 
 __attribute__((section(".text.func_001627A0")))

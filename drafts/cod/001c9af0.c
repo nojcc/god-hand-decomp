@@ -105,7 +105,7 @@ void func_001C9AF0(cOmWeapon *self)
     case 2:
         if (--self->base.unk56A <= 0) {
             self->base.unk56A = 60;
-            SetEffectPos(0, 0x1B, 0, self->base.pos, -1, 1.0f);
+            SetEffectPos(0, 0x1B, 0, self->base.pos, 1.0f, -1);
         }
         self->unk664 = 1;
         self->base.pos->y += self->fallSpeed * rate;

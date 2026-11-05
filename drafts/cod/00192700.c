@@ -42,7 +42,7 @@ void func_00192700(cOmFadeBreak *self)
         VU0_SQC2_VF0(&pos, 0);
         src = ((cVec *(*)(void *))cGameObj_vt(&self->base)->lockOn)((char *)self + cGameObj_vt(&self->base)->lockOnDelta);
         cVec_copy3(&pos, src);
-        SetEffectPos(0, FADE_EFFECT, 0, &pos, -1, 1.0f);
+        SetEffectPos(0, FADE_EFFECT, 0, &pos, 1.0f, -1);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self, 0, 0, 0, 0);
         cOmDamaged_switchOff((cOmDamaged *)self);
         SetField5B0Bit2ClearBit8_1B7908((cOmBase *)self);

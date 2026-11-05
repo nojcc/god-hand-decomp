@@ -1,13 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/pl00.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -24,9 +25,7 @@ extern void func_00124EC0(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0010A438(void *a0);
-extern void cSnd_SeStop(void *a0, int a1);
 extern char D_005864F0[];
-extern char D_005FEE00[];
 
 __attribute__((section(".text.func_002256C8")))
 void func_002256C8(void *a0)
@@ -104,7 +103,7 @@ void func_001114B0(void *a0)
     *(int *)(s1 + 0x15F4) |= 0x200;
     if (*(unsigned char *)(s1 + 0x2F6) != 0 &&
         *(unsigned char *)(s1 + 0x649) == 0 &&
-        func_0010B2E8(s1, 1) != 0) {
+        func_0010B2E8((pl00 *)s1, 1) != 0) {
         *(char *)(s1 + 0x649) = 1;
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
@@ -147,13 +146,13 @@ void func_001114B0(void *a0)
         cEmManage_SetSpeedRate(D_005864F0, 0.05f);
     }
     if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {
-        char *g = D_005FEE00;
+        cSnd *g = &D_005FEE00;
         cSnd_SeStop(g, *(int *)(s1 + 0x161C));
         *(int *)(s1 + 0x161C) = 0;
-        *(int *)(g + 0xB0) &= 0xFFBFFFFF;
-        *(int *)(g + 0xAC) &= 0xFFBFFFFF;
+        g->flagsB0 &= 0xFFBFFFFF;
+        g->flagsAC &= 0xFFBFFFFF;
     }
-    if (func_00123938(s1, 1) != 0) {
+    if (func_00123938((pl00 *)s1, 1) != 0) {
         func_00129630(s1);
         pl00_clearMotionCam(s1, 0, 0);
     } else {
@@ -174,7 +173,7 @@ void func_001125A0(void *a0)
     *(int *)(s1 + 0x15F4) |= 0x200;
     if (*(unsigned char *)(s1 + 0x2F6) != 0 &&
         *(unsigned char *)(s1 + 0x649) == 0 &&
-        func_0010B2E8(s1, 1) != 0) {
+        func_0010B2E8((pl00 *)s1, 1) != 0) {
         *(char *)(s1 + 0x649) = 1;
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
@@ -216,7 +215,7 @@ void func_001125A0(void *a0)
     if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
     }
-    if (func_00123938(s1, 1) != 0) {
+    if (func_00123938((pl00 *)s1, 1) != 0) {
         func_00129630(s1);
         pl00_clearMotionCam(s1, 1, 0);
     } else {

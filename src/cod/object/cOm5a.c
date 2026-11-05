@@ -1,4 +1,5 @@
 /* TU: cOm5a [object] - recovered C++ class. */
+#include "godhand/cDamageUnit.h"
 #include "godhand/vu0.h"
 #include "include_asm.h"
 
@@ -72,7 +73,7 @@ void cOm5a_setFaceClose(int *a0) {
     a0[0x181] = 0;
     p = a0[0x189];
     if (p != 0) {
-        cDamageUnit_SetDamageCollActive(p, 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)p, 0);
     }
 }
 

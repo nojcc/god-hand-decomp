@@ -1,7 +1,8 @@
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 #include "godhand/cSnd.h"
 #include "godhand/cRoomSave.h"
-extern void MtxMultiply(void *, int, void *);
+#include "godhand/cBgmData.h"
 extern unsigned char D_00747A50[];
 extern unsigned char D_00586AB0;
 extern int D_00747A24;
@@ -16,7 +17,7 @@ void UpdateObjWithVtableDispatch_2BB1F0(void *a0)
     long a0v = v1 & 1;
     int *v0;
     if (a0v == 1 && ((v1 >> 1) & 1) == a0v) {
-        MtxMultiply(s0 + 0x80, *(int *)(s0 + 0x8), s0 + 0x10);
+        MtxMultiply(s0 + 0x80, *(void **)(s0 + 0x8), s0 + 0x10);
     }
     v0 = *(int **)(s0 + 0x100);
     (*(void (**)(void *))((char *)v0 + 0x4C))(s0 + *(short *)((char *)v0 + 0x48));

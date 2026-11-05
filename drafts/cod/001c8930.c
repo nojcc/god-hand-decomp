@@ -28,7 +28,6 @@ typedef struct FlyFrame {
 
 extern float capVu0Atan2(float y, float x);
 extern void func_001C8DD8(char *a0);
-extern void cOmBase_dieCommon(void *self);
 
 /* Fly the piece: face it along its velocity on the first frame, then spin the
  * collision body, move by the velocity under gravity and remove the piece when
@@ -64,7 +63,7 @@ void func_001C8930(cOmFlyPiece *self)
         self->vel.y -= rate * FLY_GRAVITY;
         if (self->timer <= 0.0f) {
             func_001C8DD8((char *)self);
-            cOmBase_dieCommon(self);
+            cOmBase_dieCommon(&self->base);
         }
         break;
     }

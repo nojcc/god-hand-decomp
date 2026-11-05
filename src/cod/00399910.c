@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/sif.h"
 
 /* ee-2.9-991111 — SCE libcdvd 3.0.2, cdvd014.o :: sceCdGetDiskType2 */
 
@@ -9,8 +10,6 @@ extern int  D_003F9840[];    /* _sceCd_scmdrdata */
 extern int  D_003F866C;      /* _sceCd_scmd_semid */
 
 extern int func_00398EB0(int cmd);   /* _sceCd_scmd_prechk */
-extern int func_003B3128(void *cd, int rno, int mode, void *sbuf, int ssize,
-                         void *rbuf, int rsize, void *efunc, void *epara); /* sceSifCallRpc */
 extern int SignalSema(int sema);
 
 __attribute__((section(".text.func_00399910")))

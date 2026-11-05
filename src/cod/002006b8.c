@@ -4,6 +4,7 @@
 #include "godhand/cScenario.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cSubScr.h"
+#include "godhand/cSnd.h"
 
 #define GAMEWORK_FLAG_BIT6  6
 #define GAMEWORK_SUBSCR_ON  0x8000000   /* flags5E4: the sub screen is still open */
@@ -36,10 +37,8 @@ typedef struct SavePointWork {
 extern int D_00747A2C[];
 extern int D_00747A24;
 extern unsigned int D_00747A84;         /* D_007474A0.flags5E4 under its own symbol */
-extern char D_005FEE00[];
 extern cVec D_00583F00[];
 extern float D_003BF198[];
-extern void cSnd_SetBgmState(void *snd, int state);
 
 __attribute__((section(".text.func_002006B8")))
 int func_002006B8(SavePointWork *self)
@@ -67,7 +66,7 @@ int func_002006B8(SavePointWork *self)
             if (v != 0 && v != ROOM_NOPLAYER)
                 self->save = self->cur;
         }
-        cSnd_SetBgmState(D_005FEE00, 0);
+        cSnd_SetBgmState(&D_005FEE00, 0);
         cSubScr_SubScrOn(D_003BD930, 3, 2, 0x11);
         cScenario_release(D_003C2F84);
         self->step++;

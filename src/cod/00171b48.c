@@ -1,18 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 
 extern char D_00420D68[];
 extern int InitField214WithPtr429420_1BD650();
-extern int cDamageUnit_SetDamageCollActive();
-extern int ClearAndResetFields_1FE278();
 extern char D_00420FE0[];
-extern char D_00574380[];
 extern int cOmBase_checkDamage();
 extern int ClearStateAndFlag_1C7E08();
 extern char D_005CAE50[];
 extern char D_004210D0[];
 extern char D_004211D8[];
 extern int SetField214PtrThenInit_1B6F38();
-extern int cDamageManage_ReleaseDamageGive();
 
 /* clone */
 
@@ -31,7 +29,7 @@ __attribute__((section(".text.func_00173638")))
 void func_00173638(void *a0, int a1) {
     int *ebase = (int *)((char *)a0 + 0x600);
     int *base;
-    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive(ebase[a1], 0);
+    if (ebase[a1] != 0) cDamageUnit_SetDamageCollActive((cDamageUnit *)ebase[a1], 0);
     base = (int *)((char *)a0 + 0xD90);
     base[(unsigned int)a1 >> 5] |= (unsigned int)0x80000000 >> (a1 & 0x1F);
 }
@@ -90,7 +88,7 @@ void func_00174650(void *a0) {
     v0 = (*(int*)((char*)a0 + 0x5B0) & -9) | 4;
     *(int*)((char*)a0 + 0x5B0) = v0;
     if (*(int*)((char*)a0 + 0x650) != 0) {
-        cDamageUnit_SetDamageCollActive(*(int*)((char*)a0 + 0x650), 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)(*(int*)((char*)a0 + 0x650)), 0);
     }
     func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
@@ -150,7 +148,7 @@ void func_00175450(void *a0) {
     v0 = (*(int*)((char*)a0 + 0x5B0) & -9) | 4;
     *(int*)((char*)a0 + 0x5B0) = v0;
     if (*(int*)((char*)a0 + 0x650) != 0) {
-        cDamageUnit_SetDamageCollActive(*(int*)((char*)a0 + 0x650), 0);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)(*(int*)((char*)a0 + 0x650)), 0);
     }
     func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
@@ -180,7 +178,7 @@ void func_00175630(void *a0, void *a1) {
     }
     v = *(int *)((char *)a0 + 0x608);
     if (v != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380);
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)v);
         *(int *)((char *)a0 + 0x608) = 0;
     }
     SetField214PtrThenInit_1B6F38(a0, a1);

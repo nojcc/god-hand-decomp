@@ -1,13 +1,13 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cOmBase.h"
+#include "godhand/heapArena.h"
 
 extern int D_00747A84;
 extern char D_005E8658[];
 extern char D_005CAE50[];
-extern char D_00462FC0[];
 extern void func_002BECB0(void *a0, long a1);
 extern void func_001331B8(void *a0, long a1, int a2);
-extern void cCollisionSolidManage_ReleaseUnit(void *a0, void *a1);
 extern void func_001B7BB8(void *a0);
 extern int *D_003C2384;
 extern void cIDBase_clear(int a0);
@@ -24,31 +24,25 @@ void SetField5B0Bit2ClearBit8_1B7908(cOmBase *self) {
     }
     func_002BECB0(D_005E8658, self->name);
     func_001331B8(D_005CAE50, self->modelHandle, 0);
-    cCollisionSolidManage_ReleaseUnit(D_00462FC0, self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (struct cGameObj *)self);
     func_001B7BB8(self);
     self->flags0 = (self->flags0 | COMBASE_F0_GONE) & ~8;
 }
 
-struct node {
-    char pad0[4];
-    struct node *prev;   /* 0x4 */
-    struct node *next;   /* 0x8 */
-    int c;               /* 0xC */
-    int d;               /* 0x10 */
-};
 
+/* Give the block at p back to the block before it (heap is not read). */
 __attribute__((section(".text.cHeap_free")))
-void cHeap_free(int a0, struct node *a1) {
-    struct node *p;
-    struct node *q;
-    if (a1 != 0) {
-        p = (struct node *)((char *)a1 - 0x20);
-        q = p->prev;
-        q->next = p->next;
-        q->c = q->c + (p->d + p->c);
-        p = p->next;
-        if (p != 0) {
-            p->prev = q;
+void cHeap_free(HeapArena *heap, void *p) {
+    HeapBlk *blk;
+    HeapBlk *prev;
+    if (p != 0) {
+        blk = (HeapBlk *)p - 1;
+        prev = blk->prev;
+        prev->next = blk->next;
+        prev->freeSize = prev->freeSize + (blk->usedSize + blk->freeSize);
+        blk = blk->next;
+        if (blk != 0) {
+            blk->prev = prev;
         }
     }
 }

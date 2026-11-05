@@ -2,8 +2,8 @@ extern int D_00785EE8;
 extern int D_00426B68;
 extern int D_00785798;
 extern int D_00426B80;
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern int D_00574380;
 extern int D_00785EF8;
 extern int D_00426C50;
 extern int D_00426C68;
@@ -55,7 +55,7 @@ void FreeActorResourcesE_1A0690(void *a0, void *a1)
 {
     *(int *)((char *)a0 + 0x214) = (int)&D_00426B80;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, *(int *)((char *)a0 + 0x600));
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*(int *)((char *)a0 + 0x600)));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);

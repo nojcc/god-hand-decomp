@@ -1,9 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern char D_00462FC0[];
 extern unsigned char D_005864F0[];
 extern int D_007474A8;
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
@@ -17,9 +15,10 @@ extern float SetMotionStep(void *a0, float f);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
 extern void cObjBase_addNullSpeed(void *a0, float f12);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int t0, float f12);
 
+#include "godhand/cCollisionSolid.h"
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cCoreSave.h"
 
 
@@ -54,7 +53,7 @@ void func_001179C8(char *s1)
     *(float *)(s1 + 0x54C) = 5.0f;
     *(int *)(s1 + 0x250) |= 0x10000;
     s2 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     s0 = (char *)&D_005864F0;
     cEmManage_SetPlCatched(s0);
     cEmManage_SetSlotWait(s0, 2);
@@ -237,7 +236,7 @@ void func_001179C8(char *s1)
                 e = 0;
             }
             if (e != 0) {
-                SetEffectPos(0, 0x4F, 0, *(void **)(e + 0xF0), -1, 1.0f);
+                SetEffectPos(0, 0x4F, 0, *(void **)(e + 0xF0), 1.0f, -1);
             }
             *(short *)(s1 + 0x56A) = 0;
         } else {

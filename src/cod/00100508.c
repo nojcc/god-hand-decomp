@@ -1,4 +1,5 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cObjBase.h"
 
 extern char D_0041B6A0[];
 extern char D_0041B730[];
@@ -24,9 +25,9 @@ short GetNextAnimIndex_1451E0(char *a0) {
 }
 
 __attribute__((section(".text.InitVtableAndForwardSetup_100508")))
-int InitVtableAndForwardSetup_100508(void *a0) {
-    *(char**)((char*)a0+0x214) = D_0041B6A0;
-    return cObjBase__dtor(a0);
+void InitVtableAndForwardSetup_100508(struct cObjBase *self, int flags) {
+    self->vtable = (cVtEnt *)D_0041B6A0;
+    cObjBase__dtor(self, flags);
 }
 
 __attribute__((section(".text.Forward100FB8_101E98")))

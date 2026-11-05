@@ -8,8 +8,6 @@ cSndSeVoice *cSnd_GetVoice(cSnd *self, int idx) {
 }
 
 __attribute__((section(".text.func_002D2DB0")))
-int func_002D2DB0(int a0, int a1) {
-    int v0 = *(int*)((char*)a0 + 0x38);
-    int t = a1 * 0xDC;
-    return v0 + t;
+cSndBgmNode *func_002D2DB0(cSnd *self, int idx) {
+    return &self->bgmPool[idx];
 }

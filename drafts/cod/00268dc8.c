@@ -90,7 +90,7 @@ void func_00268DC8(cEm00 *self)
     unsigned int pose;
 
     cEffectParam_init(&param);
-    param.size = self->unk114;
+    param.size = self->scale.y;
     param.unk70 = 0;
     param.unk72 = 0;
     param.unk74 = 0;
@@ -110,7 +110,7 @@ void func_00268DC8(cEm00 *self)
         if (self->emFlags2 & EM_FLAGS2_TEX_SWAP) {
             self->texFlags |= CMODEL_TEX_EXCHANGE;
             cModel_setTextureExchange((cModel *)self, (void *)self->texSet,
-                                      (cTexTable *)EM_RES_REC(self->resource, 0x84), 0);
+                                      (cTexTable *)EM_RES_REC(EM_RES(self), 0x84), 0);
             if (!(self->emFlags2 & EM_FLAGS2_SWAP_FX)) {
                 self->emFlags2 |= EM_FLAGS2_SWAP_FX;
                 SetEffect(0xAE, 1, self, &param, 1, -1);
@@ -127,7 +127,7 @@ void func_00268DC8(cEm00 *self)
         if (self->emFlags2 & EM_FLAGS2_TEX_SWAP) {
             self->texFlags |= CMODEL_TEX_EXCHANGE;
             cModel_setTextureExchange((cModel *)self, (void *)self->texSet,
-                                      (cTexTable *)EM_RES_REC(self->resource, 0x90), 0);
+                                      (cTexTable *)EM_RES_REC(EM_RES(self), 0x90), 0);
             if (!(self->emFlags2 & EM_FLAGS2_SWAP_FX)) {
                 self->emFlags2 |= EM_FLAGS2_SWAP_FX;
                 SetEffect(0, 0x72, self, &param, 1, -1);
@@ -234,16 +234,16 @@ void func_00268DC8(cEm00 *self)
     pose = 1;
     if (cEm00_firstHandFree(self)) {
         if (self->unk17C3 != 0) {
-            if (!(self->moveFlags & EM_HAND_A_LO))
+            if (!(self->seqFlags & EM_HAND_A_LO))
                 pose = 0;
-            if (self->moveFlags & EM_HAND_A_HI)
+            if (self->seqFlags & EM_HAND_A_HI)
                 pose = 2;
             if ((EM_MOVE_WORD(self) & EM_HAND_A_BOTH) == EM_HAND_A_BOTH)
                 pose = 3;
         } else {
-            if (!(self->moveFlags & EM_HAND_B_LO))
+            if (!(self->seqFlags & EM_HAND_B_LO))
                 pose = 0;
-            if (self->moveFlags & EM_HAND_B_HI)
+            if (self->seqFlags & EM_HAND_B_HI)
                 pose = 2;
             if ((EM_MOVE_WORD(self) & EM_HAND_B_BOTH) == EM_HAND_B_BOTH)
                 pose = 3;
@@ -283,16 +283,16 @@ void func_00268DC8(cEm00 *self)
     pose = 1;
     if (!(self->emFlags2 & EM_FLAGS2_HANDS_OFF)) {
         if (self->unk17C3 != 0) {
-            if (!(self->moveFlags & EM_HAND_B_LO))
+            if (!(self->seqFlags & EM_HAND_B_LO))
                 pose = 0;
-            if (self->moveFlags & EM_HAND_B_HI)
+            if (self->seqFlags & EM_HAND_B_HI)
                 pose = 2;
             if ((EM_MOVE_WORD(self) & EM_HAND_B_BOTH) == EM_HAND_B_BOTH)
                 pose = 3;
         } else {
-            if (!(self->moveFlags & EM_HAND_A_LO))
+            if (!(self->seqFlags & EM_HAND_A_LO))
                 pose = 0;
-            if (self->moveFlags & EM_HAND_A_HI)
+            if (self->seqFlags & EM_HAND_A_HI)
                 pose = 2;
             if ((EM_MOVE_WORD(self) & EM_HAND_A_BOTH) == EM_HAND_A_BOTH)
                 pose = 3;

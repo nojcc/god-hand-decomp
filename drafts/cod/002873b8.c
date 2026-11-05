@@ -12,7 +12,6 @@
 #include "godhand/rand.h"
 #include "godhand/cVec.h"
 
-extern void cCollisionSolidManage_SetActive(int mgr, int obj, int on);
 
 /* |x| */
 static __inline__ float absf(float x)

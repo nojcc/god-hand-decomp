@@ -1,13 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/espSys.h"
+#include "godhand/cNode.h"
 #include "godhand/vu0.h"
+#include "godhand/cDamageUnit.h"
 
 extern void func_002B6310(cVec *out, void *node);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *node);
 extern void cCamera_getScreenPos(cVec *out, void *camera, cVec *pos);
-extern void cNode_setLocalTranslation(void *node, cVec *v);
-extern void LinkObj_callLockOn(void *node);
 extern void *D_005CAFF0;
 extern float cEmManage_GetSpeedRate(void *manager);
 extern void func_0031A0B8(void *obj, int a);
@@ -36,10 +37,10 @@ void cNode_lockOnScreen(LockNode *node) {
     cCamera_getScreenPos(&screen, D_005CAFF0, &field);
     if (0.0f < screen.z) {
         node->flags &= ~NODE_LOCKED;
-        cNode_setLocalTranslation(node, &screen);
-        LinkObj_callLockOn(node);
+        cNode_setLocalTranslation((cNode *)node, &screen);
+        LinkObj_callLockOn((EspAnim *)node);
         node->flags |= NODE_LOCKED;
-        cNode_setLocalTranslation(node, &orig);
+        cNode_setLocalTranslation((cNode *)node, &orig);
     }
 }
 
@@ -160,30 +161,17 @@ void cNode_updateLiftedPos(LiftNode *self) {
     cVec_copy3(&self->pos, &buf[1]);
 }
 
-/* A node of a doubly linked list. */
-typedef struct LinkNode {
-    char unk00[0x20];
-    struct LinkNode *prev;              /* 0x20 */
-    struct LinkNode *next;              /* 0x24 */
-} LinkNode;
-
-/* An owner whose list head is at 0x3C. */
-typedef struct LinkOwner {
-    char unk00[0x3C];
-    LinkNode *head;                     /* 0x3C */
-} LinkOwner;
-
 /* Release every node on the list: unlink the head from its neighbours and clear it. Returns 0 if one cannot be released. */
 __attribute__((section(".text.cDvd_releaseAll")))
-int cDvd_releaseAll(LinkOwner *self) {
-    LinkNode *node;
-    if ((node = self->head) != 0) {
+int cDvd_releaseAll(cDamageUnit *self) {
+    cDamageNode *node;
+    if ((node = self->nodes) != 0) {
         do {
-            if (func_001FCBA0(self->head) == 0) {
+            if (func_001FCBA0(self->nodes) == 0) {
                 return 0;
             }
-            node = self->head;
-            self->head = node->next;
+            node = self->nodes;
+            self->nodes = node->next;
             if (node->prev != 0) {
                 node->prev->next = node->next;
             }
@@ -191,7 +179,7 @@ int cDvd_releaseAll(LinkOwner *self) {
                 node->next->prev = node->prev;
             }
             ClearFields_20_24_28_30_1FC7F8(node);
-        } while (self->head != 0);
+        } while (self->nodes != 0);
     }
     return 1;
 }

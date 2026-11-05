@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 */
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/player.h"
 #include "godhand/sceVu0.h"
 #include "godhand/motion.h"
 
-extern void MtxInitRotY(void *a0, float angle);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 extern int ChkLine(void *a0, void *a1, void *a2, void *a3, int a4, int a5, void *a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
@@ -14,7 +14,6 @@ extern int Rnd(void);
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cGameObj_SetTgtTurn(char *self, void *target, float rate);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);

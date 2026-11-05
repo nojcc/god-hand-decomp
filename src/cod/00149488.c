@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/criStm.h"
 
 extern float cEmManage_GetSpeedRate(void *manager);
 extern unsigned short GetField_BEE_2B1290(void);

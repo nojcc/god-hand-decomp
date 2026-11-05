@@ -3,22 +3,21 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
 
-extern int cOmWeapon_setParent();
+#include "godhand/cOmWeapon.h"
 
-/* Weapon-effect parameter loader, same shape as SetOrientByType_26AF20: a type (a2) picks six or fewer
- * floats, a count and zeroed slots in a 7 word stack vector, then cOmWeapon_setParent runs. No-op when a1 is 0.
+/* Weapon-effect parameter loader, same shape as SetOrientByType_26AF20: a type picks six or fewer
+ * floats, a count and zeroed slots in a 7 word stack vector, then cOmWeapon_setParent runs. No-op without a weapon.
  * The floats are block-local per case, which is what gives retail's $f0 to $f5 order. */
 __attribute__((section(".text.cOmWeapon_loadEffectParamsByType")))
-void cOmWeapon_loadEffectParamsByType(void *a0, int a1, unsigned int a2) {
-    void *a3 = a0;
+void cOmWeapon_loadEffectParamsByType(cOmBase *parent, cOmWeapon *weapon, unsigned int type) {
     float buf[7];   /* sp[0..0x18] */
     int count;
-    if (a1 == 0) {
+    if (weapon == 0) {
         return;
     }
     VU0_SQC2_VF0(buf, 0x0);
     VU0_SQC2_VF0(buf, 0x10);
-    switch (a2) {
+    switch (type) {
     case 0:
     default:
         {
@@ -148,5 +147,5 @@ void cOmWeapon_loadEffectParamsByType(void *a0, int a1, unsigned int a2) {
             break;
         }
     }
-    cOmWeapon_setParent(a1, a3, count, buf, (char *)buf + 0x10);
+    cOmWeapon_setParent(weapon, parent, count, (cVec *)buf, (cVec *)((char *)buf + 0x10));
 }

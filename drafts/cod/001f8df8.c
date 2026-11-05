@@ -4,12 +4,12 @@
  * counts down. */
 #include "include_asm.h"
 #include "godhand/cOmBase.h"
+#include "godhand/mtx.h"
 #include "godhand/cCamManager.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 
 #ifdef NON_MATCHING
-extern void MtxCopy(void *dst, void *src);
 
 /* An object's bounding box in model space: its centre and half extents. */
 typedef struct cBoundBox {

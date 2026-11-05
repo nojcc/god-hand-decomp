@@ -1,19 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
+#include "godhand/sceVu0.h"
+#include "godhand/cBgmData.h"
 
 extern void ClearFlagBits_373858(cSndBgmNode *node, int bits);
 extern int IsSequenceFlagSet_3737C8(cSndBgmNode *node, int bits);
 extern int GetSequenceResult_373770(cSndBgmNode *node);
-extern void cSndBgmNode_Unlink(cSndBgmNode *node);
 extern void UpdateSequenceNode_373430(cSndBgmNode *node);
 extern void ResetNodeData_3733C8(cSndBgmNode *node);
-extern int cBgmData_GetHeadPtr(int data);
 extern int SetSequenceEntry_373158(cSndBgmNode *node, int reqNo);
 extern int UpdateSequenceEntry_373298(cSndBgmNode *node, int reqNo);
 extern void UpdateSequenceNodeWeighted_373560(cSndBgmNode *node, int a1, float w);
-extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
-extern void sceVu0CopyVector(float *pos, int mtx);
 
 /* Moves a fresh node from state 0 to 1, then releases it once its sequence has finished. */
 __attribute__((section(".text.cSndBgmNode_Update")))
@@ -86,9 +84,9 @@ int cSndSeVoice_Bind(cSndSeVoice *v, short key0, short key1, char *obj, char *pa
     } else {
         v->kind = 2;
         if (part == 0)
-            sceVu0CopyVector(v->pos, *(int *)(obj + OBJ_MTX_OFFSET));
+            sceVu0CopyVector(v->pos, *(void **)(obj + OBJ_MTX_OFFSET));
         else
-            sceVu0CopyVector(v->pos, *(int *)(part + OBJ_MTX_OFFSET));
+            sceVu0CopyVector(v->pos, *(void **)(part + OBJ_MTX_OFFSET));
         v->pos[1] += 1.3f;
     }
     return cSndSeVoice_Setup(v, key0, key1, a5, a6);
@@ -96,13 +94,13 @@ int cSndSeVoice_Bind(cSndSeVoice *v, short key0, short key1, char *obj, char *pa
 
 /* Binds a free voice to a fixed matrix (0 = the global origin), places it there, then starts it. */
 __attribute__((section(".text.cSndSeVoice_BindMtx")))
-int cSndSeVoice_BindMtx(cSndSeVoice *v, short key0, short key1, int mtx, int a5, int a6)
+int cSndSeVoice_BindMtx(cSndSeVoice *v, short key0, short key1, void *pos, int a5, int a6)
 {
     if (cSndSeVoice_IsActive(v) == 1)
         return 0;
     v->obj = 0;
     v->part = 0;
-    if (mtx == 0) {
+    if (pos == 0) {
         v->kind = 0;
         v->scale = 1.0f;
         v->pos[0] = 0;
@@ -110,7 +108,7 @@ int cSndSeVoice_BindMtx(cSndSeVoice *v, short key0, short key1, int mtx, int a5,
         v->pos[2] = 0;
     } else {
         v->kind = 2;
-        sceVu0CopyVector(v->pos, mtx);
+        sceVu0CopyVector(v->pos, pos);
         v->pos[1] += 1.3f;
     }
     return cSndSeVoice_Setup(v, key0, key1, a5, a6);

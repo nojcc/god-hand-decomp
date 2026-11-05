@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/pl00.h"
 
 extern char *Getplayer(void);
-extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
 extern int cEmManage_CkPlCatched(void *p);
 extern void cActionButton_set(void *a0, int a1, int a2, int a3, void *t0, void *t1, int t2);
 extern void func_002DBA88();
@@ -23,7 +23,7 @@ void SetActionKickBomb(void)
 
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -44,7 +44,7 @@ void SetActionStamp(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -63,7 +63,7 @@ void func_002DBB08(void)
 
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -82,7 +82,7 @@ void func_002DBE98(void)
 
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -103,7 +103,7 @@ void func_002DC260(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -124,7 +124,7 @@ void func_002DC390(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -145,7 +145,7 @@ void func_002DC4B8(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -166,7 +166,7 @@ void func_002DC5E0(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {

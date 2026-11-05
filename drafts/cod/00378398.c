@@ -57,7 +57,7 @@ int func_00378398(short x, SndCurveUser *user, unsigned short *out)
     }
     tbl = (SndCurveTbl *)D_0076DF10[user->bank].tbl;
     set = (signed char *)tbl + tbl->setOfs + user->curveSet * 4;
-    if (Obj0000_Get_D_0076A7A4_3756F0() == 2) {
+    if (SdeSystemOutModeGet() == 2) {
         curveNo = set[3];
     } else {
         curveNo = set[1];

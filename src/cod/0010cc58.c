@@ -1,8 +1,8 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 #include "godhand/motion.h"
+#include "godhand/pl00.h"
 extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
-extern void func_00123938(void *a0, int a1);
 extern float D_003BD48C;
 
 __attribute__((section(".text.UpdateStatePhase2F6_10CC58")))
@@ -34,5 +34,5 @@ void UpdateStatePhase2F6_10CC58(void *a0) {
         }
         break;
     }
-    func_00123938(s0, 1);
+    func_00123938((pl00 *)s0, 1);
 }

@@ -1,4 +1,5 @@
 #include "godhand/cEm00.h"
+#include "godhand/cGameObj.h"
 #include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
@@ -7,8 +8,6 @@
 
 extern float cEmManage_GetSpeedRate(void *a0);
 extern void SetMotionStep(void *a0, float f);
-extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
-extern int moveMotion(void *a0);
 extern int D_005864F0;
 
 /* Phase machine on the step byte, 30 case labels. Calls cEmManage_GetSpeedRate, SetMotionStep,
@@ -50,7 +49,7 @@ __attribute__((section(".text.func_001CB400"))) void func_001CB400(cEm00 *self)
         case 8: {
             int v = EM_RES(self);
             func_002A8578(self, EM_RES_REC(v, 0x44), 0, 0, 0.0f, 0, 0);
-            InitRenderStruct_2A8608(self, 0x6F, 0xC, 0, 2, 0);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x6F, 0xC, 0, 2, 0);
         }
             self->step++;
             goto L_mm;
@@ -68,11 +67,11 @@ __attribute__((section(".text.func_001CB400"))) void func_001CB400(cEm00 *self)
             if (self->stepArg != 0) {
                 int v = EM_RES(self);
                 func_002A8578(self, EM_RES_REC(v, 0x24), EM_RES_REC(v, 0x28), 0, 0.0f, 0, 0);
-                InitRenderStruct_2A8608(self, 0x6F, 0xB, 0, 2, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x6F, 0xB, 0, 2, 0);
             } else {
                 int v = EM_RES(self);
                 func_002A8578(self, EM_RES_REC(v, 0x24), 0, 0, 0.0f, 0, 0);
-                InitRenderStruct_2A8608(self, 0x6F, 0xA, 0, 2, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x6F, 0xA, 0, 2, 0);
             }
             self->step++;
             goto L_rs;
@@ -133,11 +132,11 @@ __attribute__((section(".text.func_001CB400"))) void func_001CB400(cEm00 *self)
             if (self->stepArg != 0) {
                 int v = EM_RES(self);
                 func_002A8578(self, EM_RES_REC(v, 0x48), EM_RES_REC(v, 0x4C), 0, 0.0f, 0, 0);
-                InitRenderStruct_2A8608(self, 0x6F, 0xF, 0, 2, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x6F, 0xF, 0, 2, 0);
             } else {
                 int v = EM_RES(self);
                 func_002A8578(self, EM_RES_REC(v, 0x48), 0, 0, 0.0f, 0, 0);
-                InitRenderStruct_2A8608(self, 0x6F, 0xE, 0, 2, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x6F, 0xE, 0, 2, 0);
             }
             self->step++;
             goto L_rs;

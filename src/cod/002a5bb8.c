@@ -1,4 +1,5 @@
 /* sn-2.95.3-136: func_002A5BB8, game start-up step: wait for the boot flag, load the two system resource blocks and initialise the ID, pad, menu, display and object managers. */
+#include "godhand/heapArena.h"
 #include "godhand/gameWork.h"
 #include "godhand/cSubScr.h"
 extern char D_004664A0[];
@@ -15,7 +16,6 @@ extern char D_00583EC0[];
 extern void *D_003C2648;
 extern char D_00580D20[];
 extern char D_005864E0[];
-extern char D_00754220[];
 extern char D_005FEC58[];
 
 extern int func_00150C10(void *a0, void *blk, int a2);
@@ -55,7 +55,7 @@ void func_002A5BB8(unsigned char *step)
     NoOp_1FFE00(D_00583EC0);
     func_002BF130(D_003C2648);
     ResetSlotArray_1FE6C8(D_00580D20, 0);
-    ResetSlotArray_1FE6C8(D_005864E0, D_00754220);
+    ResetSlotArray_1FE6C8(D_005864E0, &D_00754220);
     func_002C8EF8(D_005FEC58);
     *step = 2;
 }

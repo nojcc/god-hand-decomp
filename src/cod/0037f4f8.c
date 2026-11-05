@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 extern unsigned int strlen(const char *);
 extern void *D_003C4030[16];
@@ -38,7 +39,6 @@ typedef struct String {
 
 extern char *func_003BB058(void *);                                                         /* Rep::clone */
 extern void *func_003BB178(void *, unsigned int, unsigned int, const char *, unsigned int); /* replace */
-extern void UpdateGlobalPtrWithParam_3A7CC0(void *);                                        /* free */
 
 
 

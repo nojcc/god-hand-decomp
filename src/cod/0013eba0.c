@@ -1,19 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
 #include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
+#include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
 
-extern void cIDBase_trans(void *p);
 extern char D_00747A24[];
-extern int cDamageManage_ReleaseDamageGive(void *m, void *d);
 extern void KillEffect(void *p, int a, int b);
 extern void espSys_effDataRelease(void *a, int b);
-extern void cOmBase_dieCommon(void *p);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern char D_0042AA98[];
-extern char D_00574380[];
 extern char D_007419A0[];
-extern int cSnd_GetBgmData(int a0, int a1);
-extern int D_005FEE00;
 extern int cSaveLoad_openLoad(void *p);
 extern char D_00747A2C[];
 extern char D_00747A88[];
@@ -41,7 +38,7 @@ void func_0013EBA0(char *p)
     if ((*(int *)(p + 0xA0) & 0x20000000) == 0) return;
     if (cCoreSave_getStateBit0(&D_00569B70) != 0) return;
     if ((*(int *)(g + 0x60) & 0x80000) != 0) return;
-    cIDBase_trans(p);
+    cIDBase_trans((cIDBaseObj *)p);
 }
 
 typedef void (*Fn)(void *, int);
@@ -82,7 +79,7 @@ void func_001C91B0(char *p, void *arg)
 
     d = *(void **)(p + 0x650);
     if (d != 0) {
-        if (cDamageManage_ReleaseDamageGive((void *)D_00574380, d) != 0) {
+        if (cDamageManage_ReleaseDamageGive((void *)&D_00574380, d) != 0) {
             *(int *)(p + 0x650) = 0;
             *(int *)(p + 0x654) = -1;
         }
@@ -106,11 +103,11 @@ typedef struct { int f0; int f4; int f8; unsigned short fC; unsigned short fE; }
 
 /* Starts a BGM request on a node if the bank's data is ready. */
 __attribute__((section(".text.cSnd_BgmNodeSet")))
-int cSnd_BgmNodeSet(cSndBgmNode *node, int bank, int reqNo, int state, int param, int wordA, int wordB)
+int cSnd_BgmNodeSet(cSndBgmNode *node, int bank, int reqNo, int state, unsigned int param, int wordA, int wordB)
 {
     cSndBgmReq req;
 
-    if (cBgmData_IsReady(cSnd_GetBgmData((int)&D_005FEE00, bank)) == 0) return 0;
+    if (cBgmData_IsReady(cSnd_GetBgmData(&D_005FEE00, bank)) == 0) return 0;
     req.reqNo = reqNo;
     req.state = state;
     req.param = param;

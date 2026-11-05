@@ -3,7 +3,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int moveMotion(void *a0);
 
 /* func_0027CA50 — +0x2F6 phase machine, twin of func_0027C620. sn-2.95.3-136. */
 

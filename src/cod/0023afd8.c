@@ -1,5 +1,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -7,17 +8,12 @@ extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int Getplayer(void);
-extern int moveMotion(void *a0);
-extern void cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
-extern void ReleaseField6ECByTag564_26B1E8(void *a0);
-extern void Obj1D00_ClearState_6(int a0);
-extern void Obj1D00_ClearState_7(int a0);
+#include "godhand/cOmWeapon.h"
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026EE40(void *a0, int a1, int a2);
 extern void func_002705D8(void *a0);
-extern unsigned char D_005FEE00[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -114,7 +110,7 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 case 68:
                 case 119: {
                     int p;
-                    ReleaseField6ECByTag564_26B1E8(s3);
+                    ReleaseField6ECByTag564_26B1E8((cEm00 *)s3);
                     p = *(int *)(s3 + 0x304);
                     s2 = EM_RES_REC(p, 0x3C1C);
                     s1 = EM_RES_REC(p, 0x3C20);
@@ -231,10 +227,10 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 *(float *)(s3 + 0x604) = -0.3f;
             }
             if (*(int *)(s3 + 0x6F0) != 0) {
-                Obj1D00_ClearState_6(*(int *)(s3 + 0x6F0));
+                Obj1D00_ClearState_6(&(*(cOmWeapon **)(s3 + 0x6F0))->base);
             }
             if (*(int *)(s3 + 0x708) != 0) {
-                Obj1D00_ClearState_7(*(int *)(s3 + 0x708));
+                Obj1D00_ClearState_7(&(*(cOmWeapon **)(s3 + 0x708))->base);
             }
             *(int *)(s3 + 0x5F0) = 5;
             *(float *)(s3 + 0x600) = 15.0f;

@@ -5,21 +5,11 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
+#include "godhand/cBgmData.h"
 
 extern char D_0044CE28[];
 extern char D_0044CE30[];
-extern void *cSnd_GetSeData(cSnd *self, int bank);
-extern void *cSnd_GetBgmData(cSnd *self, int bank);
-extern void cSeData_Release(void *seData);
-extern void cSnd_SeLoadFile(cSnd *self, int bank, char *name);
-extern int cSnd_SeIsLoaded(cSnd *self, int bank);
-extern void cBgmData_Reset(void *bgm);
-extern int cBgmData_LoadNumbered(void *bgm, int a1, int a2);
-extern int cBgmData_IsEmpty(void *bgm);
-extern int cBgmData_IsReady(void *bgm);
 extern void cScenario_sleepFrames(int frames);
-extern char D_00580D40[];
-extern int FindEntryValue_1FF9C0(char *table, char *name, int *size, char *key);
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollisionCenterOnly(void *self);
 extern void SetFlagBit_1BD698(void *self);
@@ -57,7 +47,7 @@ void cSnd_LoadStartupBanks(cSnd *self)
 /* cDvd_ReadToBuffer: queue a read of a named file into a caller buffer (rounded up to 64 bytes). id 0 takes
  * the next job id; size overrides the size in bytes. Returns the job id, 0 on failure. */
 __attribute__((section(".text.cDvd_ReadToBuffer")))
-int cDvd_ReadToBuffer(cDvd *self, char *name, unsigned int buf, int id, int size, int arg70, int arg6C)
+int cDvd_ReadToBuffer(cDvd *self, const char *name, unsigned int buf, int id, int size, int arg70, int arg6C)
 {
     cDvdJob *job;
     int fileNo;
@@ -69,7 +59,7 @@ int cDvd_ReadToBuffer(cDvd *self, char *name, unsigned int buf, int id, int size
     if (job == 0) {
         return 0;
     }
-    fileNo = FindEntryValue_1FF9C0(D_00580D40, name, &job->size, job->unk0C);
+    fileNo = FindEntryValue_1FF9C0(&D_00580D40, name, &job->size, job->unk0C);
     job->fileNo = fileNo;
     job->align = 0;
     job->blockNum = (unsigned int)(job->size + 0x7FF) >> 11;

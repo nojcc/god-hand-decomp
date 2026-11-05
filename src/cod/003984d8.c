@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 extern int  sceSifCheckStatRpc(void *cd);
 extern void _sceCd_Poff_Intr(void *a, void *b);
@@ -9,7 +10,6 @@ extern char D_0045E1A8[];
 extern char D_0045E1B8[];
 extern char D_0045E1C8[];
 extern char D_0045E1D8[];
-extern int CreateSema(struct SemaParam *p);
 
 /* ee-2.9-991111 — SCE libcdvd 3.0.2, cdvd000.o :: sceCdSyncS */
 
@@ -17,7 +17,6 @@ extern char D_003FA1C0;      /* _sceCd_cd_scmd (sceSifClientData; pass &) */
 extern int  D_003F8640[];    /* D_003F8640[4] == SCE_CD_debug */
 extern char D_0045E2B0[];    /* the scePrintf format string */
 
-extern void func_003B1F28(const char *fmt);      /* scePrintf */
 extern void DelayThread(int usec);             /* DelayThread */
 
 
@@ -41,7 +40,6 @@ extern int  D_003F8674;      /* _sceCd_ncmd_num */
 extern int  D_003F8640[];    /* D_003F8640[4] == SCE_CD_debug */
 extern char D_0045E2A0[];    /* the scePrintf format string */
 
-extern void func_003B1F28(const char *fmt);      /* scePrintf */
 extern void DelayThread(int usec);             /* DelayThread */
 
 
@@ -66,8 +64,6 @@ extern int D_003F8664;       /* the interrupt-lock flag */
 extern int D_003F8688;       /* the power-off-callback-installed flag */
 
 
-extern int  DIntr(void);
-extern int  EIntr(void);                       /* EIntr */
 extern int  func_003B2488(int fid, void (*fn)(void *, void *), void *data); /* sceSifAddCmdHandler */
 
 __attribute__((section(".text.PowerOffCB")))
@@ -96,8 +92,6 @@ extern int D_003F8670;       /* the third semaphore id */
 
 
 
-extern int DIntr(void);
-extern int EIntr(void);          /* EIntr */
 extern int func_003B2500(int fid);       /* sceSifRemoveCmdHandler */
 
 __attribute__((section(".text.cdvd_exit")))
@@ -159,6 +153,8 @@ struct SemaParam {
     unsigned int attr;
     unsigned int option;
 };
+
+extern int CreateSema(struct SemaParam *p);
 
 extern volatile int D_003F8668;      /* _sceCd_ncmd_semid */
 extern volatile int D_003F866C;      /* _sceCd_scmd_semid */

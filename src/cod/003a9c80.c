@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
 extern int write(int fd, const void *buf, int n);
 
@@ -42,7 +43,6 @@ int func_003A9C80(int fd, const char *b, unsigned int len, int flush)
 /* func_003AAEA0 -- thousands-separator insert. Decompiled from the monolith;
  * no upstream name recovered. */
 
-extern void *func_003A5148(void *dst, const void *src, int n);	/* memcpy */
 
 __attribute__((section(".text.func_003AAEA0")))
 char *func_003AAEA0(char *dst, const char *start, const char *end, int *outlen)

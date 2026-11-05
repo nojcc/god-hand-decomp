@@ -1,26 +1,8 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
+#include "godhand/libpad.h"
 
 /* ee-2.9-991111 */
-
-typedef struct {
-    unsigned char b[0x58];
-    int           frame;
-    unsigned char c[0x24];
-} PadData;
-
-typedef struct {
-    PadData *buf;
-    int      f4;
-    int      f8;
-    int      dmaid;
-    int      open;
-    int      f14;
-    int      f18;
-} PadInfoT;
-
-extern PadInfoT D_0077C110[2][4];
-
-
 
 extern void SyncDCache(void *start, void *end);
 

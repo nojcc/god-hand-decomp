@@ -2,10 +2,9 @@
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cSnd.h"
 
 
-extern int D_005FEE00;
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
 extern float fRand1_1(void);
 extern void cObjBase_MoveByNullSpeed(void *a0, float f12, float f13);
 

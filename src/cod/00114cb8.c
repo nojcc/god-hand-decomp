@@ -1,15 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
+#include "godhand/pl00.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern unsigned char D_005FEE00[];
-extern int D_00462FC0;
 extern void func_001268F0(void *a0);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00126770(void *a0);
@@ -22,7 +20,7 @@ void func_0028A9E8(void *a0)
 {
     char *s0 = (char *)a0;
     float one;
-    cCollisionSolidManage_SetActive(&D_00462FC0, s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
     *(float *)(s0 + 0x54C) = 3.0f;
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0: {
@@ -91,5 +89,5 @@ void func_00114CB8(void *a0)
     if ((*(unsigned short *)(s0 + 0x3AC) & 1) && *(int *)(s0 + 0x698) == 0) {
         func_0012A8D8(s0);
     }
-    func_00123938(s0, 1);
+    func_00123938((pl00 *)s0, 1);
 }

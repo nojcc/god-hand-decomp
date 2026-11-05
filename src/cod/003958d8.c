@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 /* sceGsExecStoreImage - libgraph graphdev.c */
 
@@ -44,7 +45,6 @@ typedef struct {
     long           trxdiraddr;
 } sceGsStoreImage;
 
-extern void  func_003B1F28(char *fmt);
 extern u_int GsGetIMR(void);           /* u_int here: the syscall's 64-bit return adds an instruction to this body */
 extern u_int GsPutIMR(u_int imr);
 extern char  D_0045DD80[];

@@ -3,6 +3,7 @@
 extern void SdeSystemOutModeSet(int);
 
 #include "godhand/cCoreSave.h"
+#include "godhand/criStm.h"
 
 
 

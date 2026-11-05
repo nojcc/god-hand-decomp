@@ -8,6 +8,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cVec.h"
+#include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cIDManager.h"
 #include "godhand/cRecordIndex.h"

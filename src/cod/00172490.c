@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/Slot2.h"
+#include "godhand/CustomIDWork.h"
+#include "godhand/PanelObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cMessDrawFont.h"
 #include "godhand/cMessCommon.h"
 
 extern void displayScrollLayer(int id, int on);
-extern void CustomIDWork_SetOffsetPosX(void *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
-extern void func_001DEE60(void *ui, int sub, int on);
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *take);
 extern void func_002B0480(cMessDrawFont *self, float *frame);
 extern unsigned short *cMessDrawFont_measureText(cMessDrawFont *self, unsigned short *text, float *frame, float *w, float *h);
@@ -123,22 +122,22 @@ void PokerUi_slidePanel(void *ui, int mode)
     switch (mode & 0xFF) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosX(s0 + POKERUI_OFFSET_PANEL, POKERUI_PANEL_OFF_X);
-        func_001DEE60(s0, POKERUI_SUB_A, 0);
-        func_001DEE60(s0, POKERUI_SUB_B, 0);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), POKERUI_PANEL_OFF_X);
+        func_001DEE60((PanelObj *)s0, POKERUI_SUB_A, 0);
+        func_001DEE60((PanelObj *)s0, POKERUI_SUB_B, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosX(s0 + POKERUI_OFFSET_PANEL, 0);
-        func_001DEE60(s0, POKERUI_SUB_A, 0);
-        func_001DEE60(s0, POKERUI_SUB_B, 1);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), 0);
+        func_001DEE60((PanelObj *)s0, POKERUI_SUB_A, 0);
+        func_001DEE60((PanelObj *)s0, POKERUI_SUB_B, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosX(s0 + POKERUI_OFFSET_PANEL, POKERUI_PANEL_OFF_X, 0, POKERUI_SLIDE_FRAMES);
-        func_001DEE60(s0, POKERUI_SUB_A, 0);
-        func_001DEE60(s0, POKERUI_SUB_B, 1);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), POKERUI_PANEL_OFF_X, 0, POKERUI_SLIDE_FRAMES);
+        func_001DEE60((PanelObj *)s0, POKERUI_SUB_A, 0);
+        func_001DEE60((PanelObj *)s0, POKERUI_SUB_B, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX(s0 + POKERUI_OFFSET_PANEL, 0, POKERUI_PANEL_OFF_X, POKERUI_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), 0, POKERUI_PANEL_OFF_X, POKERUI_SLIDE_FRAMES);
         break;
     }
 }

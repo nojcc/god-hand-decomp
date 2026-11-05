@@ -1,5 +1,7 @@
 /* ee-2.9-991111. Differs from retail: retail has a 0x150 frame (0x100 bytes of locals before the saved registers, only the 16-byte DMA record used) and recomputes the [port][slot] address after SifDmaStat; ours has a 0x60 frame and keeps the address in a saved register. */
+#include "godhand/eeKernel.h"
 #ifdef NON_MATCHING
+#include "godhand/libpad.h"
 
 typedef struct {
     unsigned int  data;
@@ -8,28 +10,11 @@ typedef struct {
     unsigned int  mode;
 } PadDma;
 
-typedef struct {
-    int           count;
-    unsigned char rest[0x1C];
-} PadCmd;
-
-typedef struct {
-    void          *buf;
-    PadCmd        *cmd;
-    unsigned int  iopCmd;
-    int           dmaid;
-    int           open;
-    int           f14;
-    int           f18;
-} PadInfoT;
-
-extern PadInfoT D_0077C110[2][4];
 extern int D_003F85CC;
 extern char D_0045E088[];
 extern int SifDmaStat(unsigned int id);
 extern void SyncDCache(void *start, void *end);
 extern unsigned int func_003B2148(PadDma *dma, int n);
-extern void func_003B1F28(char *fmt);
 
 /* Sends the slot's 0x20-byte command block to the IOP, alternating between its two buffers. Returns 1 once the DMA is queued. */
 __attribute__((section(".text.func_003978C8")))

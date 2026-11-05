@@ -1,9 +1,9 @@
 /* NON_MATCHING func_002B4028 (sn-2.95.3-136): 41 insns; wrap clamp compiles to movz where retail branches.
 * PadState struct global fixes the address pattern. */
 #include "include_asm.h"
+#include "godhand/cSnd.h"
 
 #ifdef NON_MATCHING
-extern void cSnd_SeCallGlobal(unsigned char *, int, int, int);
 extern void func_002B4768(unsigned char *, unsigned char *, unsigned char *);
 typedef struct {
     char pad[0x1A0];

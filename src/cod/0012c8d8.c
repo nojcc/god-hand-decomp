@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern char *CreateObj(int a0, int a1);
-extern int cOmWeapon_setParent();
+#include "godhand/cOmWeapon.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -81,7 +81,7 @@ void pl00_setPaper(void *a0) {
             buf[4] = 0.0f;
             buf[5] = 0.0f;
             buf[6] = 0.0f;
-            cOmWeapon_setParent(*(int *)(s0 + 0x6A8), s0, 2, buf, (char *)buf + 0x10);
+            cOmWeapon_setParent((cOmWeapon *)(*(int *)(s0 + 0x6A8)), (cOmBase *)s0, 2, (cVec *)buf, (cVec *)((char *)buf + 0x10));
         }
     }
 }

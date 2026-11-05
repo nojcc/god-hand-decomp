@@ -21,4 +21,9 @@ typedef struct cOm4f {
     void *door;                 /* 0x790 partner cOmDoor2, or 0 */
 } cOm4f;
 
+/* Start opening unless locked or already open. */
+void cOm4f_setOpen(cOm4f *self);
+/* Start closing unless locked or already shut. */
+void cOm4f_setClose(cOm4f *self);
+
 #endif

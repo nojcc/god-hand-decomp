@@ -1,5 +1,9 @@
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/criStm.h"
+#include "godhand/cIDBase.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 
 /* ──────────────────────────── small picks ─────────────────────────────── */
 
@@ -61,7 +65,6 @@ void *GetPilotClassDesc2_2BA948(void) {
 /* ResetAnimState_1F5EF8: jal cIDBase_restartAnim + 4-arg jal classFADE_start + 1-arg jal
  *                cTaskWork_sleep via vtable; sets bytes 0..3 of $a0 struct;
  *                29 insns, 116 B. */
-extern void cIDBase_restartAnim(void *);
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, int f, int g);
 extern void cTaskWork_sleep(void *p, int a);
 extern int D_00747470;
@@ -69,7 +72,7 @@ extern void *D_003C2F84;
 
 __attribute__((section(".text.ResetAnimState_1F5EF8")))
 void ResetAnimState_1F5EF8(unsigned char *this) {
-    cIDBase_restartAnim(this + 0x30);
+    cIDBase_restartAnim((cIDBaseObj *)(this + 0x30));
     this[0] = 1;
     this[1] = 1;
     this[2] = 0;
@@ -80,9 +83,6 @@ void ResetAnimState_1F5EF8(unsigned char *this) {
 
 /* AllocZeroedBlock_313E50: 28 insns, 112 B — sq-prologue, no VU0, no jumptable. */
 extern int D_00747A34;
-extern int D_00754C10;
-extern void *_MemoryAlloc(int size, int align, void *region);
-extern void func_003A52F0(void *p, int v, int size);
 extern int func_0018B290(void *p);
 
 __attribute__((section(".text.AllocZeroedBlock_313E50")))
@@ -128,8 +128,6 @@ int BuildObjEntry_387160(short arg1, const void *src) {
 typedef struct { char b[0x28]; } EmEntry;
 
 extern void cIDManager_getLocalFileName();
-extern int cDvd_ReadAlloc();
-extern void cDvd_CheckWait();
 extern void cIDManager_setIDData();
 extern void InitUiIdWorksAndShowAll();
 extern void func_001F4B78();
@@ -144,8 +142,6 @@ extern short D_00568240[];
 extern EmEntry D_003BE8B0[];
 extern int D_003C2388;
 extern char D_0042BF40[];
-extern char D_00583F20[];
-extern char D_00754220[];
 extern int *D_003C2384;
 extern int D_00747A2C;
 
@@ -167,8 +163,8 @@ void ColiseumEmSelect__Initialize(char *a0)
     *(short *)(a0 + 0x37D2) = a - b;
     *(EmEntry *)(a0 + 0x37A8) = D_003BE8B0[a];
     cIDManager_getLocalFileName(D_003C2388, buf, D_0042BF40, -1);
-    r = cDvd_ReadAlloc(D_00583F20, buf, a0 + 0x37D8, D_00754220, 0, 0, 0, 0);
-    cDvd_CheckWait(D_00583F20, r);
+    r = cDvd_ReadAlloc(&D_00583F20, buf, a0 + 0x37D8, &D_00754220, 0, 0, 0, 0);
+    cDvd_CheckWait(&D_00583F20, r);
     cIDManager_setIDData(*D_003C2384, 0x15, *(int *)(a0 + 0x37D8));
     InitUiIdWorksAndShowAll(a0 + 0x60);
     func_001F4B78(a0 + 0x60, cCoreSave_getGold(&D_00569B70));

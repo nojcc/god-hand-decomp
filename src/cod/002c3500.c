@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cNode.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cScenario.h"
 #include "godhand/cSceAtManager.h"
-
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
-extern void cNode_setLocalTranslation(void *self, cVec *v);
+
 extern int ChkLine(cVec *from, cVec *to, cVec *hit, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
 extern int D_007474A0;
 extern int D_00747A2C;
@@ -78,7 +78,7 @@ int ProbeNode_dropToGround(ProbeNode *self)
     } else {
         cVec_copy3(&hit, &pos);
     }
-    cNode_setLocalTranslation(self, &hit);
+    cNode_setLocalTranslation((cNode *)self, &hit);
     return 1;
 }
 

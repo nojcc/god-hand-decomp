@@ -1,11 +1,11 @@
 #include "godhand/cModel.h"
+#include "godhand/cIDBase.h"
+#include "godhand/heapArena.h"
 #include "godhand/cCockTutorial.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern char D_0041DCC8[];
-extern void __builtin_delete(void);
-extern void cIDBase_trans(void *);
 
 /* Start a tutorial message once the pack is loaded: remember the message
  * number, raise the flag byte and hide entries 5 and 6. */
@@ -41,7 +41,7 @@ __attribute__((section(".text.InitPtrField80AndForward_146748")))
 void InitPtrField80AndForward_146748(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete();
+        __builtin_delete(a0);
     }
 }
 
@@ -51,9 +51,9 @@ void ForwardTransBySubState_146E20(char *a0) {
     if (v1 == 0) return;
     if (v1 == 6) return;
     if (*(unsigned short *)(a0 + 0xF8) == 0) {
-        cIDBase_trans(a0);
+        cIDBase_trans((cIDBaseObj *)a0);
     } else {
-        cIDBase_trans(a0 + 0xA0);
+        cIDBase_trans((cIDBaseObj *)(a0 + 0xA0));
     }
 }
 
@@ -61,7 +61,7 @@ __attribute__((section(".text.InitPtrField80AndForward_146E70")))
 void InitPtrField80AndForward_146E70(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete();
+        __builtin_delete(a0);
     }
 }
 
@@ -69,6 +69,6 @@ __attribute__((section(".text.InitPtrField80AndForward_146F98")))
 void InitPtrField80AndForward_146F98(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete();
+        __builtin_delete(a0);
     }
 }

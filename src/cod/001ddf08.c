@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEma2.h"
+#include "godhand/criStm.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cSnd.h"
@@ -8,28 +9,15 @@
 #include "godhand/CustomIDWork.h"
 
 extern unsigned short D_00747A50;
-extern cEma2 *cEmManage_findEma2Near(cEmManage *self, cVec *pos, float radius);
 extern void cEm00_setGoto(cEm00 *self, cVec *pos, int a2, int a3, float f);
 extern char D_0061B7C0[];
 extern int D_0071B7C0[];
 extern int D_0071B840[];
 extern int D_0071B8C0[];
-extern void func_003A52F0(void *a0, int a1, int a2);
 extern void *func_002FACA8(int slot, int a1);
-extern void cSnd_SeFadeVoicesByKey(cSnd *self, int key, int frames);
-extern void cSndSeVoice_Stop(cSndSeVoice *voice);
-extern void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
-extern void cSndBgmNode_SetFlagsFadeOut(cSndBgmNode *node, int flags, float time);
 extern void func_002CB070(cSnd *self);
 extern float frand(float lo, float hi);
-extern void CustomIDWork_SetLocalPosXY(CustomIDWork *work, int x, int y);
 extern void SetCustomIDDispOneOrAll_1DD258(void *self, int entry, int on);
-extern void CustomIDWork_SetOffsetPosX(CustomIDWork *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(CustomIDWork *work, int from, int to, int frames);
-extern void CustomIDWork_ResetColorAnim(CustomIDWork *work);
-extern void CustomIDWork_SetNoDisp(CustomIDWork *work, int hide);
-extern void CustomIDWork_SetChildNoDisp(CustomIDWork *work, int hide);
-extern void CustomIDWork_SetColorAnimNormal_2D6898(CustomIDWork *work, int color, unsigned short frames);
 
 #define ROOM_ARENA        0x501       /* D_00747A50 value of the room where this applies */
 #define EM_FLAG_16D8_ANY  0           /* unk16D8 must be nonzero */

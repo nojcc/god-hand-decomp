@@ -128,7 +128,7 @@ void func_001AF230(cOmRiseTrap *self)
             if (--self->motionDelay == 0) {
                 int res = self->base.texKey;
 
-                func_002A8578((int)self, *(int *)(res + 0xC) + res, 0, 0, 0.0f, 0, 0);
+                func_002A8578(self, *(int *)(res + 0xC) + res, 0, 0, 0.0f, 0, 0);
             }
         } else {
             moveMotion(self);

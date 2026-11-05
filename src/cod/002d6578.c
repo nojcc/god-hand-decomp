@@ -5,11 +5,11 @@
 __attribute__((section(".text.CustomIDWork_SetLocalPosX")))
 void CustomIDWork_SetLocalPosX(CustomIDWork *self, int v)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj != 0) {
         self->localFlags = 0;
-        obj->localPos[0] = (float)v;
+        obj->posX = (float)v;
     }
 }
 
@@ -17,11 +17,11 @@ void CustomIDWork_SetLocalPosX(CustomIDWork *self, int v)
 __attribute__((section(".text.CustomIDWork_SetLocalPosY")))
 void CustomIDWork_SetLocalPosY(CustomIDWork *self, int v)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj != 0) {
         self->localFlags = 0;
-        obj->localPos[1] = (float)v;
+        obj->posY = (float)v;
     }
 }
 
@@ -29,11 +29,11 @@ void CustomIDWork_SetLocalPosY(CustomIDWork *self, int v)
 __attribute__((section(".text.CustomIDWork_SetOffsetPosX")))
 void CustomIDWork_SetOffsetPosX(CustomIDWork *self, int v)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj != 0) {
         self->offsFlags = 0;
-        obj->offsetPos[0] = (float)v;
+        obj->offX = (float)v;
     }
 }
 
@@ -41,11 +41,11 @@ void CustomIDWork_SetOffsetPosX(CustomIDWork *self, int v)
 __attribute__((section(".text.CustomIDWork_SetOffsetPosY")))
 void CustomIDWork_SetOffsetPosY(CustomIDWork *self, int v)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj != 0) {
         self->offsFlags = 0;
-        obj->offsetPos[1] = (float)v;
+        obj->offY = (float)v;
     }
 }
 

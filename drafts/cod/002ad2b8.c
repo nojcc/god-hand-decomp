@@ -67,7 +67,6 @@ static __inline__ void cVec_clear3(cVec *v)
 
 extern float D_003C2390;
 extern float D_003C2394;
-extern float capVu0Length(void *a0);
 
 /* Set up a spring mesh: weight the listed points (mass scaled by total / count), reset every point's motion,
  * and join the listed springs with default stiffness and damping at their current length. */

@@ -1,6 +1,7 @@
 /* cygnus-2.96 matched TU. */
 
 #include "godhand/criSj.h"
+#include "godhand/criStm.h"
 
 /* A buffered source: `data` is copied into the stream joint at `sj`. */
 typedef struct SjFeed {
@@ -14,7 +15,6 @@ typedef struct SjFeed {
 #define SJ_ID_FREE    0
 #define SJ_ID_FULL    1
 
-extern void *func_003A5148(void *dst, const void *src, int n);  /* memcpy */
 extern void func_003B9DE0(char *msg);
 extern char D_00460A70[];
 

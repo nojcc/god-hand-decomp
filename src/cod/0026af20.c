@@ -1,10 +1,10 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 /* src/cod/0026af.c — SetOrientByType_26AF20: 11-way effect-parameter loader.
  *
- * switch(a2) over a small set (0..10, case 0 == default) fills a 7-word stack
+ * switch(type) over a small set (0..10, case 0 == default) fills a 7-word stack
  * buffer (2x sqc2 $vf0 zero at 0x0/0x10) with per-case float literals (decoded
- * inline) + a count, then calls cOmWeapon_setParent(a1, a0, count, buf, buf+0x10).
- * Early-out when a1 == 0.
+ * inline) + a count, then calls cOmWeapon_setParent(weapon, parent, count, buf, buf+0x10).
+ * Early-out without a weapon.
  *
  * Byte-exact under sn-2.95.3-136 (per-case float locals + complete per-case
  * stores → cc1 tail-merge reproduces the shared .L tails).  The switch
@@ -14,20 +14,19 @@
  * (.L0026AF5C) is kept as a raw word via config/jtbl_extern_words.txt. */
 #include "godhand/vu0.h"
 
-extern int cOmWeapon_setParent();
+#include "godhand/cOmWeapon.h"
 
 __attribute__((section(".text.SetOrientByType_26AF20")))
-void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2) {
-    void *a3 = a0;
+void SetOrientByType_26AF20(cOmBase *parent, cOmWeapon *weapon, unsigned int type) {
     float buf[7];   /* sp[0..0x18] */
     int count;
     float f0, f1, f2, f3, f4;
-    if (a1 == 0) {
+    if (weapon == 0) {
         return;
     }
     VU0_SQC2_VF0(buf, 0x0);
     VU0_SQC2_VF0(buf, 0x10);
-    switch (a2) {
+    switch (type) {
     case 0:
     default:
         f4 = -0.36f;
@@ -136,5 +135,5 @@ void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2) {
         *(int *)((char *)buf + 0x18) = 0;
         break;
     }
-    cOmWeapon_setParent(a1, a3, count, buf, (char *)buf + 0x10);
+    cOmWeapon_setParent(weapon, parent, count, (cVec *)buf, (cVec *)((char *)buf + 0x10));
 }

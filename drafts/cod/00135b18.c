@@ -1,6 +1,11 @@
-/* sn-2.95.3-136 */
+/* NON_MATCHING SphereTriangle (sn-2.95.3-136): 131 differing words with b bound in
+ * operator+ (the standard shape); the draft matches with cvec_pending.h's CVEC_INIT_ADD,
+ * which leaves b unbound and waits on a decision. */
+#include "include_asm.h"
+
+#ifdef NON_MATCHING
 #include "godhand/cCollisionSolid.h"
-#include "godhand/cVec.h"
+#include "../cvec_pending.h"
 
 /* The larger of a and b. */
 static __inline__ float maxf(float a, float b)
@@ -46,3 +51,6 @@ int SphereTriangle(cVec *center, float radius, cVec *a, cVec *b, cVec *c, cVec *
     }
     return 0;
 }
+#else
+INCLUDE_ASM("asm/nonmatching", SphereTriangle);
+#endif

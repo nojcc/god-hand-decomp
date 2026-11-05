@@ -47,7 +47,7 @@ void func_0013C318(SubPartOwner *o)
     o->req &= ~0x40000000;
     o->req &= ~0x20000000;
     o->req &= ~0x10000000;
-    cIDBase_move(o);
+    cIDBase_move((cIDBaseObj *)o);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_0013C318);

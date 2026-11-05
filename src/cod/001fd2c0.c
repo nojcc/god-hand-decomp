@@ -1,11 +1,14 @@
+#include "godhand/cDamageGive.h"
+#include "godhand/cDamageUnit.h"
+
 __attribute__((section(".text.SetObjTargetAndActivate_1FD2C0")))
-int SetObjTargetAndActivate_1FD2C0(char *a0, int a1, int a2)
+int SetObjTargetAndActivate_1FD2C0(cDamageGive *self, int kind, void *owner)
 {
-    if (*(signed char *)(a0 + 0x49) == 0)
+    if (self->type == CDAMAGE_TYPE_SPARE)
         return 1;
-    *(int *)(a0 + 0x34) = 0;
-    *(int *)(a0 + 0x30) = a2;
-    func_001FD988();
-    *(signed char *)(a0 + 0x4A) = 1;
+    self->unk34 = 0;
+    self->owner = owner;
+    func_001FD988((cDamageUnit *)self, kind);
+    self->live = 1;
     return 1;
 }

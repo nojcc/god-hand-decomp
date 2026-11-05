@@ -20,7 +20,6 @@
 
 extern cMcObjList *D_00754C58;
 extern int cOmWeapon_ckGetEnable(cOmWeapon *self);
-extern int Obj1D00_GetField_665(cOmWeapon *self);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 extern float Turn_dest(float *from, float *to, float cur, float max);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,

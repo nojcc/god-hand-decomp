@@ -1,8 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern void *D_00426608;
-extern char D_00574380[];
-extern void ClearAndResetFields_1FE278(void *heap, void *p);
 extern void ResetField214FreeField180_1C2820(void *a0, int a1);
 extern void *D_00785E98;
 extern char D_004266D8[];
@@ -11,6 +9,7 @@ extern void GetOrInitGlobal785798_1C3BE8(void);
 extern void SetField_0_4_8_31EEA8(void *p, void *vtbl, void *name);
 extern void *D_004266F0;
 extern void InitVtable214_429C80_1C27E8(void *);
+#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
 extern int D_00785EA8;
 extern int D_004267C0;

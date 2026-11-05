@@ -4,7 +4,6 @@
 /* func_0027E438 — +0x2F6 phase machine (record fields 0x190/0x194, mode 0): phase
  * 0 fires func_002A8578 and advances; both phases step moveMotion then add a unit
  * (1.0f) scaled vector into the +0x100 and +0xF0 fields.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion,

@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/CustomIDWork.h"
 
-extern void CustomIDWork_SetOffsetPosX(void *a0, int a1);
-extern void CustomIDWork_SetMoveOffsetPosX(void *a0, int a1, int a2, int a3);
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(void *a0, int a1, int a2, int a3);
 extern void SetFlagOnEntries7C_1D51B8(void *a0, int a1, int a2);
 
@@ -18,19 +17,19 @@ void func_001D65B0(void *a0, int a1, int a2, int a3) {
     switch (a1 & 0xFFFF) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosX(s0 + 0xB08, -0x1C2);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + 0xB08), -0x1C2);
         SetFlagOnEntries7C_1D51B8(s0, 0x16, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosX(s0 + 0xB08, 0);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + 0xB08), 0);
         SetFlagOnEntries7C_1D51B8(s0, 0x16, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosX(s0 + 0xB08, -0x1C2, 0, 0x14);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + 0xB08), -0x1C2, 0, 0x14);
         SetFlagOnEntries7C_1D51B8(s0, 0x16, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX(s0 + 0xB08, 0, 0x1C2, 0x14);
+        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + 0xB08), 0, 0x1C2, 0x14);
         SetFlagOnEntries7C_1D51B8(s0, 0x16, 1);
         break;
     case 4: {
@@ -39,7 +38,7 @@ void func_001D65B0(void *a0, int a1, int a2, int a3) {
             (((((((a3 & ~0x00FF0000) | 0x00800000) & ~0x0000FF00) | 0x00008000) & ~0x000000FF) | 0x00000080) & ~0xFF000000),
             (((((((a2 & ~0x00FF0000) | 0x00800000) & ~0x0000FF00) | 0x00008000) & ~0x000000FF) | 0x00000080) & ~0xFF000000) | 0x80000000,
             8);
-        CustomIDWork_SetOffsetPosX(p, 0);
+        CustomIDWork_SetOffsetPosX((CustomIDWork *)p, 0);
         SetFlagOnEntries7C_1D51B8(s0, 0x16, 1);
         break;
     }

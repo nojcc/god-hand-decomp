@@ -26,7 +26,7 @@ int func_00182690(cOmHitVolume *em)
     v[2].y = 0.0f;
     v[2].z = 0.0f;
     m->w = 1.0f;
-    take = cDamageManage_CreateDamageTake(D_00574380, em, 2);
+    take = cDamageManage_CreateDamageTake(&D_00574380, em, 2);
     em->damageTake = take;
     if (take != 0) {
         cVec *nv = &v[3];
@@ -36,7 +36,7 @@ int func_00182690(cOmHitVolume *em)
         nv->w = 1.0f;
         func_001FD9D8(take, em->base.mtx, m, nv, t);
     }
-    give = cDamageManage_CreateDamageGive(D_00574380, 0, (char *)em);
+    give = cDamageManage_CreateDamageGive(&D_00574380, 0, (char *)em);
     em->damageGive = give;
     if (give != 0) {
         cVec *nv = &v[3];

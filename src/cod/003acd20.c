@@ -1,7 +1,5 @@
 /* sn-2.95.3-136 TU. */
 
-extern void __malloc_lock(void *reent);
-extern void __malloc_unlock(void *reent);
 
 /* newlib mallocr.c :: _malloc_trim_r -> func_003ACD20 */
 

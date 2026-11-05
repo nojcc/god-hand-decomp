@@ -1,6 +1,5 @@
 #include "godhand/seqNode.h"
 #include "godhand/cModel.h"
-extern void *Obj0000_Set_Field_80_372C68(void *arg0);
 
 
 __attribute__((section(".text.func_003757A0")))

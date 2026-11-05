@@ -188,8 +188,8 @@ void func_00253DE8(cEm00 *self)
                 motB = EM_RES_REC(EM_RES(self), 0x132C);
                 break;
             }
-            func_002A8578((int)self, motA, motB, 5, 0.0f, sel, 0);
-            InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x2F, 0, 2, 0);
+            func_002A8578(self, motA, motB, 5, 0.0f, sel, 0);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x2F, 0, 2, 0);
         } else {
             switch (self->emNo) {
             default:
@@ -286,8 +286,8 @@ void func_00253DE8(cEm00 *self)
                 motB = EM_RES_REC(EM_RES(self), 0x1334);
                 break;
             }
-            func_002A8578((int)self, motA, motB, 5, 0.0f, sel, 0);
-            InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x30, 0, 2, 0);
+            func_002A8578(self, motA, motB, 5, 0.0f, sel, 0);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x30, 0, 2, 0);
         }
         cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase((int *)self), self, 0, 0, 0, 0);
         self->timerA = 1;

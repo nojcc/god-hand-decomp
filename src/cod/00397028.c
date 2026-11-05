@@ -1,15 +1,11 @@
 /* ee-2.9-991111 matched TU. */
-
-typedef struct {
-    volatile unsigned int chcr;
-} sceDmaChan;
+#include "godhand/sceDma.h"
+#include "godhand/eeKernel.h"
 
 extern char D_0045DFC8[];
 
-extern int sceDmaPause(sceDmaChan *chan);
-
 __attribute__((section(".text.WaitDma")))
-void WaitDma(sceDmaChan *chan)
+void WaitDma(volatile sceDmaChan *chan)
 {
     int i = 0x1000000;
 

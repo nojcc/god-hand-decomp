@@ -2,16 +2,16 @@
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/espSys.h"
+extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
+#include "godhand/cNode.h"
+#include "godhand/mtx.h"
 
-extern void func_002FBED0(void *self);
 extern char *cWorldLight_Get_LightData2(void *a0, int a1, int a2);
 extern void cWorldLight_Del_LightData(void *a0, int a1, int a2);
 extern void cWorldLight_Set_LightData(void *a0, void *a1);
 extern float Adjust_theta(float f12);
-extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
-extern void cNode_setLocalTranslation(void *self, void *v);
-extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern char D_00604700[];
 
 __attribute__((section(".text.func_002E7E10")))
@@ -27,7 +27,7 @@ void func_002E7E10(char *p)
     float *e;
     float fa, fb, fc;
 
-    func_002FBED0(p);
+    func_002FBED0((EspAnim *)p);
     if (*(unsigned char *)(p + 0x2CA) != 0) {
         VU0_LQC2(4, p + 0x2F0, 0x0);
         VU0_SQC2(4, buf, 0x0);
@@ -35,7 +35,7 @@ void func_002E7E10(char *p)
         if (l == 0) return;
         m = p + 0x310;
         *(float *)(p + 0x304) = Adjust_theta(*(float *)(p + 0x304) + (float)*(unsigned char *)(p + 0x2CC) * 0.0174532924f);
-        MtxInitRotVec(m, p + 0x300, 0);
+        MtxInitRotVec(m, (cVec *)(p + 0x300), 0);
         sceVu0ApplyMatrix(buf, m, buf);
         q = *(char **)(p + 0x350);
         x = &buf[8];
@@ -59,7 +59,7 @@ void func_002E7E10(char *p)
             d[1] = buf[5];
             d[2] = buf[6];
         }
-        cNode_setLocalTranslation(p, buf);
+        cNode_setLocalTranslation((cNode *)p, (cVec *)buf);
     } else if (*(unsigned char *)(p + 0x2CD) != 0) {
         StoreVecFromFieldB0_2B6160(buf, p);
         e = (float *)(p + 0x370);

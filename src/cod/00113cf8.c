@@ -7,7 +7,7 @@ extern void Owner_spawnEffect(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 #include "godhand/motion.h"
-extern int moveMotion(void *a0);
+#include "godhand/pl00.h"
 extern void func_00124EC0(void *a0);
 
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
@@ -73,7 +73,7 @@ void func_00113CF8(void *a0)
         one = 1.0f;
         cObjBase_addNullSpeed_Rotation(s1, one);
         cObjBase_addNullSpeed(s1, one);
-        if (func_00123938(s1, 1) != 0) {
+        if (func_00123938((pl00 *)s1, 1) != 0) {
             pl00_clearMotionCam(s1, 0, 0);
         }
         break;

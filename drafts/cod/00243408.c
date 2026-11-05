@@ -8,7 +8,6 @@
 #include "godhand/player.h"
 #include "godhand/motion.h"
 
-extern void cCollisionSolidManage_SetActive(int mgr, int obj, int on);
 
 #define EMFLAG_NO_SOLID         0x10000
 #define EMMOVE_HIT_FRAME        0x1

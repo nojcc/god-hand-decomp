@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/pl00.h"
 #include "godhand/motion.h"
 
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
@@ -7,7 +8,6 @@ extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1,
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void func_0012B928(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cHeatSys_SetHeatMode(void *a0, int a1);
@@ -64,7 +64,7 @@ void func_00114120(void *a0)
         }
     }
     func_0010A438(s1);
-    if (func_00123938(s1, 1) == 0) {
+    if (func_00123938((pl00 *)s1, 1) == 0) {
         *(unsigned short *)(s1 + 0x3AC) |= 0x800;
         *(float *)(s1 + 0x674) = 0.05f;
     }
@@ -119,7 +119,7 @@ void func_00111010(void *a0)
     if (*(unsigned short *)(s0 + 0x3AC) & 0x100) {
         cEmManage_SetSpeedRate(D_005864F0, 0.05f);
     }
-    if (func_00123938(s0, 1) != 0) {
+    if (func_00123938((pl00 *)s0, 1) != 0) {
         pl00_clearMotionCam(s0, 1, 0);
     }
 }

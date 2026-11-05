@@ -1,9 +1,9 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/heapArena.h"
+#include "godhand/cIDBase.h"
 
-extern void cIDBase_trans(void *);
 extern void func_00155AE8(int pkt, int id, int buf);
 extern char D_0041DCC8[];
-extern void __builtin_delete(void);
 extern int D_007476B0;
 extern int D_00466448[];
 extern int D_00747A34;
@@ -15,14 +15,14 @@ void ForwardIfStateActive_147460(char *a0) {
     v1 = a0[0xB8];
     if (v1 >= 5) return;
     if (v1 <= 0) return;
-    cIDBase_trans(a0);
+    cIDBase_trans((cIDBaseObj *)a0);
 }
 
 __attribute__((section(".text.InitPtrField80AndForward_1474A0")))
 void InitPtrField80AndForward_1474A0(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete();
+        __builtin_delete(a0);
     }
 }
 

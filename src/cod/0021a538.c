@@ -52,6 +52,8 @@
 #define INCLUDE_ASM_USE_MACRO_INC 1
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/pl00.h"
+#include "godhand/cOmWeapon.h"
 /* No cEm00.h: the guarded body passes 4 of the motion setters' 6 arguments. */
 
 typedef signed char        s8;
@@ -86,16 +88,16 @@ void func_0021A538(void *arg0) {
     f32 temp_f1_2;
     f32 temp_f1_3;
     f32 var_f20;
-    s32 temp_a0_11;
-    s32 temp_a0_2;
+    cOmWeapon *temp_a0_11;
+    cOmWeapon *temp_a0_2;
     s32 temp_a0_4;
     s32 temp_a0_5;
     s32 temp_a0_6;
     s32 temp_a0_7;
     s32 temp_a0_8;
     s32 temp_a0_9;
-    s32 temp_a1_150;
-    s32 temp_a2;
+    cOmWeapon *temp_a1_150;
+    cOmWeapon *temp_a2;
     s32 temp_a2_2;
     s32 temp_s0_2;
     s32 temp_v0_147;
@@ -907,15 +909,15 @@ block_307:
                 temp_a1_12 = (*(s32 *)((u8 *)(temp_v0_28) + 0x2F60));
                 var_s1 = (*(s32 *)((u8 *)(temp_v0_28) + 0x2F64)) + temp_v0_28;
                 var_s3 = temp_a1_12 + temp_v0_28;
-                temp_a0_2 = (*(s32 *)((u8 *)(arg0) + 0x708));
+                temp_a0_2 = (*(cOmWeapon **)((u8 *)(arg0) + 0x708));
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                     temp_v1_9 = (*(s32 *)((u8 *)(arg0) + 0x304));
                     var_s1 = (*(s32 *)((u8 *)(temp_v1_9) + 0x2F68)) + temp_v1_9;
                     if (temp_a0_2 != 0) {
-                        Obj1D00_SetState_7_C_a1(temp_a0_2, 1);
+                        Obj1D00_SetState_7_C_a1(&temp_a0_2->base, 1);
                     }
                 } else if (temp_a0_2 != 0) {
-                    Obj1D00_SetState_7_C_a1(temp_a0_2, 0);
+                    Obj1D00_SetState_7_C_a1(&temp_a0_2->base, 0);
                 }
                 break;
             case 0x242:                             /* switch 2 */
@@ -1235,7 +1237,7 @@ block_224:
                     break;
                 }
                 (*(s32 *)((u8 *)(arg0) + 0x5F0)) = 0x32;
-                if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530(temp_fp) != 0) {
+                if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530((pl00 *)temp_fp) != 0) {
                     if (irand() & 1) {
                         StoreMotionParamsBoth_2609A8(arg0, 5, 3, 0x37);
                         temp_v0_49 = (*(s32 *)((u8 *)(arg0) + 0x304));
@@ -1566,12 +1568,12 @@ block_289:
             case 0x208:                             /* switch 2 */
                 StoreMotionParamsBoth_2609A8(arg0, 0x14, 0, 0x37);
                 temp_v0_74 = (*(s32 *)((u8 *)(arg0) + 0x304));
-                temp_a2 = (*(s32 *)((u8 *)(arg0) + 0x700));
+                temp_a2 = (*(cOmWeapon **)((u8 *)(arg0) + 0x700));
                 var_s3 = (*(s32 *)((u8 *)(temp_v0_74) + 0x15DC)) + temp_v0_74;
                 (*(s32 *)((u8 *)(arg0) + 0x5F0)) = 0xF;
                 var_s1 = (*(s32 *)((u8 *)(temp_v0_74) + 0x15E0)) + temp_v0_74;
                 if (temp_a2 != 0) {
-                    if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(temp_a2, 0xF, temp_a2) == 0) {
+                    if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&temp_a2->base) == 0) {
                         StoreMotionParamsBoth_2609A8(arg0, 0x14, 0, 0x37);
                         temp_v0_75 = (*(s32 *)((u8 *)(arg0) + 0x304));
                         temp_a1_54 = (*(s32 *)((u8 *)(temp_v0_75) + 0x1E74));
@@ -1581,7 +1583,7 @@ block_289:
                             temp_v1_20 = (*(s32 *)((u8 *)(arg0) + 0x304));
                             var_s1 = (*(s32 *)((u8 *)(temp_v1_20) + 0x1E78)) + temp_v1_20;
                         }
-                        SetOrientByType_26AF20(arg0, (*(s32 *)((u8 *)(arg0) + 0x700)), 1);
+                        SetOrientByType_26AF20(arg0, (*(cOmWeapon **)((u8 *)(arg0) + 0x700)), 1);
                     }
                 }
                 goto block_307;
@@ -3361,13 +3363,13 @@ block_778:
                 }
             }
             if ((*(s32 *)((u8 *)(arg0) + 0x564)) == 0x208) {
-                temp_a0_11 = (*(s32 *)((u8 *)(arg0) + 0x700));
-                if ((temp_a0_11 != 0) && (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(temp_a0_11) == 0)) {
+                temp_a0_11 = (*(cOmWeapon **)((u8 *)(arg0) + 0x700));
+                if ((temp_a0_11 != 0) && (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&temp_a0_11->base) == 0)) {
                     (*(s32 *)((u8 *)(arg0) + 0x16D0)) = (s32) ((*(s32 *)((u8 *)(arg0) + 0x16D0)) | 0x80000000);
                 }
             }
             if ((*(s32 *)((u8 *)(arg0) + 0x564)) == 0x224) {
-                temp_a1_150 = (*(s32 *)((u8 *)(arg0) + 0x704));
+                temp_a1_150 = (*(cOmWeapon **)((u8 *)(arg0) + 0x704));
                 if (temp_a1_150 != 0) {
                     if ((*(u16 *)((u8 *)(arg0) + 0x3AC)) & 2) {
                         SetOrientByType_26AF20(arg0, temp_a1_150, 9);
@@ -3383,7 +3385,7 @@ block_778:
             }
             func_00260B30(arg0);
             if ((cCoreSave_getGameLevel(&D_00569B70) >= 3) && ((*(u16 *)((u8 *)(arg0) + 0x3AC)) & 0x10)) {
-                if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530(temp_fp) != 0) {
+                if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530((pl00 *)temp_fp) != 0) {
                     goto block_799;
                 }
                 if ((*(s32 *)((u8 *)(arg0) + 0x564)) == 0x25B) {
@@ -3412,7 +3414,7 @@ block_810:
         } else {
             cObjBase_addNullSpeed_Rotation(arg0, 0x3F800000);
             cObjBase_addNullSpeed(arg0, 0x3F800000);
-            if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530(temp_fp) == 0) {
+            if (Obj0000_IsSet_Field_15F4_Bit_1000_12C530((pl00 *)temp_fp) == 0) {
                 func_002705D8(arg0);
             } else {
 block_799:

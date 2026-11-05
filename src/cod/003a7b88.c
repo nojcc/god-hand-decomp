@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 /* newlib libc/stdio -- transcribed. */
 
-extern void *func_003A7C70(unsigned int);	/* malloc */
 
 struct _reent;
 

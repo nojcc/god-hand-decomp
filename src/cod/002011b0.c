@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDvd.h"
 
-extern void cDvd_step(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 

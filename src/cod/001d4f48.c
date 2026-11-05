@@ -1,3 +1,5 @@
+#include "godhand/BlackJack.h"
+
 typedef struct {
     char pad[0x98];
     int f98;

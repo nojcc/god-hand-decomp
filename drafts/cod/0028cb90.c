@@ -4,6 +4,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 
@@ -25,7 +26,6 @@ typedef struct HeadFrame {
 #define HEADFRAME_OFFSET(field) ((int)&((HeadFrame *)0)->field)
 
 extern float sqrtf(float x);
-extern void MtxInverse(float *dst, float *src);
 extern float capVu0Atan2(float y, float x);
 
 /* Tilts the head of the enemies that have one toward the look target at 0x1590 with a damped spring, then moves the target along the head. */

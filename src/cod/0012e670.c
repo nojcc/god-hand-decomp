@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
 
 extern void *SearchData(void *a, void *b, int c);
@@ -24,13 +25,11 @@ extern void func_002AF720(void *a0, float x);
 extern void cEmManage_EntryEm(void *, void *, int, void *);
 extern int irand(void);
 extern unsigned char D_005864F0[];
-extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern float fRand1_1(void);
-extern void Obj1D00_SetState_6_E_a1(void *a0, int a1);
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
@@ -393,7 +392,7 @@ void func_00247050(void *a0)
         func_002A8578(s0, *(int *)(v1 + 0x11A8) + v1, *(int *)(v1 + 0x11B4) + v1,
                       0xA, 0.0f, t0, 0);
         if (*(void **)(s0 + 0x6F0) != 0) {
-            Obj1D00_SetState_6_E_a1(*(void **)(s0 + 0x6F0), 0);
+            Obj1D00_SetState_6_E_a1(&(*(cOmWeapon **)(s0 + 0x6F0))->base, 0);
         }
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 3:

@@ -2,6 +2,7 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"
@@ -10,7 +11,6 @@
 
 extern float fRand1_1(void);
 extern float capVu0Atan2(float x, float z);
-extern void MtxInitRotY(void *a0, float angle);
 
 /* cOmBase.h does not name 0x20 of the hit record yet: where the hit landed. */
 #define TAKE_HITPOS(take) ((cVec *)((char *)(take) + 0x20))

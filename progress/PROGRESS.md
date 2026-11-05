@@ -420,3 +420,105 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - **Builds:** cold build in the container and the full rebuild after strip_data_nonmatching both gave ELF `1742f95bef65bdb2…` and overlay `ea59932301345e48…`, matching retail. Logs: build/scratch/ck212/cold.log, full2.log.
 - **Checks:** session_check 18 pass, 6 skip; data_decls passes after strip_data_nonmatching (3 lines); dual_compiler_regress passes alone (1337 s). naming_sync consistent. nm_prune retired 1 fully stale draft.
 - **Still held:** 14 functions, listed in progress/held/README.md.
+
+## Batch 214 (port of the 51 drafts, non-W-set part) — 2026-11-04T17:31:46Z
+
+- **Registered (8):** SdeSystemVolSet, cGameObj, func_0026A3D8 (as: sn), func_0028D138, func_0026AB20, func_002B1F80, func_0012D3C8, func_0026BBD0. Config reasons in batch_log.md.
+- **Parked (5, match only with drafts/cvec_pending.h):** func_0012D970, SphereTriangle, func_00186398, func_002937C0, func_00293C40. They wait on the operator= binding row and the CVEC_SET_ADD binding row.
+- **Skipped:** func_001BF5E0, func_002F62F8, cMessDrawFont_draw (prototype passes, new row); func_00166780, func_001FDEA8 (unanswered rows); the 33 W-set drafts (prototypes not on this tree, new row).
+- **Builds:** full build after the header changes and after strip_data_nonmatching: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+## Batch 215 (FPU_SQRT_S candidates, section 3 re-opens) — 2026-11-04T17:42:39Z
+
+- Registered 4: func_002DAF68, func_00135040, func_001F8810, capVu0Acos. Each uses `FPU_SQRT_S` with `fp_hazard_rules: sqrt` (retail pads two nops before `sqrt.s`; the default rule is 2 words short per root).
+- `sceVu0SubVector`, `sceVu0ScaleVector`, `sceVu0Normalize` now declared once in `sceVu0.h`; six files dropped their local copies.
+- Stay drafts: MtxGetScaleVec, the five trial drafts, Motion_seq_ctr, func_002E7750 (record offsets off by 4), func_00158328 (14 register-choice instructions).
+- Not started: func_0018F858 and func_001BC748 (W-set callees), func_0016C730 (earlier scratch C lost; needs a rewrite).
+- Checks: both hashes match after dropping capVu0Acos's leftover monolith line and adding func_001F8810's symbol entry. `score` fails against the pre-rebase high-water report (1610004 < 1692112 bytes, from the 51 returned drafts); report.prev.json not touched.
+
+## Batch 216 (re-sweeps, sections 4 and 5) — 2026-11-04T19:47:03Z
+
+- Score baseline reset: progress/report.prev.json is now a copy of progress/report.json.
+- The W-set decision row now lists each missing prototype, where it is defined and what is unclear.
+- Registered 2: func_00269B50 (`as: sn`, the hazard nop after `mtc1`), func_002FEBE8 (split out of drafts/cod/00156508.c; prototype in espSys.h).
+- Re-sweeps of the cvt.w.s, cVec, jump-table/64-bit and 401-800-byte pools: nothing else matched (closest 3-6 off, register choice or blocked on rows).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+- Checks: session_check 19 pass in the container; dual_compiler_regress passes alone (1174 s). Stopped: no workable functions left outside the blocked rows.
+
+## Batch 217 (W-set typing passes, one header at a time) — 2026-11-04T23:08:09Z
+
+- Header passes, each its own batch_log entry for its own PR: cModel.h (cModel_calc*), cOmWeapon.h, cEm00.h (weapon release), cSnd.h (cSnd_SeCall_2CB8A0), cSnd.h + cBgmData.h (sound API; cSndSeEntry merged into cSeData), cSnd.h (D_005FEE00 and the cSnd methods), sceVu0.h (sceVu0CopyVector).
+- Definitions corrected to retail's callers: cSndBgmNode_SetFlagsFade's argument order, cSnd_BgmNodeSet's unsigned parameter, func_002CA690's unread self, the cOmWeapon loaders' parent/weapon order, and the typed returns (cSnd_AllocBgmNode, FindBgmNode, GetBgmData).
+- Every function in each touched unit still matches (match_check per unit, the rest by the full build). The sound passes remove 282 -Wall warnings and add none.
+- Builds: BUILD 217a and 217b give ELF `1742f95bef65bdb2…` and r207 `ea59932301345e48…`, matching retail. session_check: 19 pass; dual_compiler_regress passes alone (962 s).
+- New decision row: cSnd's trailing pools overlap D_005FEFF0/D_005FFCF0/D_005FFD80/D_00601180.
+- Later passes, each with its own batch_log entry:
+  - one-caller list: cEmManage.h (*Near queries), cGameObj.h, cHeatSys.h, cEma2.h, cObjBase.h, Poker.h, cIDBase.h, cEm00.h (heldWeapon), cOmWeapon.h (the Obj1D00 state family), cEm00.h (func_0026F1D8), BlackJack.h (card turn functions), pl00.h (flags15F4 queries);
+  - new header PanelObj.h (the menu panel record, Poker.ui);
+  - CustomIDWork.h (the 22 typed CustomIDWork_* methods).
+- Header fields added on retail evidence:
+  - BlackJackCardObj `cVec rot` at 0x100 (swc1 of pi);
+  - BlackJackCard.flags is `int` (masks built with addiu);
+  - pl00 `flags15F4`;
+  - PanelObj's CustomIDWork elements from 0x60;
+  - cEm00 `heldWeapon[8]`.
+- More definitions corrected: func_001DEE40 and 14 CustomIDWork_SetNumber forwarders now take and pass the number their callers give; SetCustomIDNumberIndexed_1DD648 is void; func_0026F1D8 and the pl00 flag queries take their records.
+- Builds: BUILD 217c and 217d match retail. CHECK 217d: session_check 19 pass; dual_compiler_regress passes alone (967 s).
+- New decision row: the CustomIDWork constructor's symbol is the type's name, so 001f20.c keeps its local declarations.
+- Still deferred:
+  - func_001DBE18: the loop form;
+  - SetField_56_1DEBE8: Poker+0x56 isn't typed;
+  - the panel slide/arrow methods and func_001DF048/0F0;
+  - the untyped CustomIDWork methods;
+  - D_007474A0/D_00747640, the pad globals several drafts need;
+  - drafts using cEm00 names that no longer exist (vital, moveFlags).
+- Passes since CHECK 217d (each logged in batch_log):
+  - the CustomIDWork__ctor rename (decision row answered), cEmLinked.h (the cEm12/53/57 and func_00283BE8/002844C0 setters, `cEmLinkStep`), the weapon spawn functions in cEm00.h (`CEM00_CREATE_WEAPON` in cEmWeaponSpawn.h), pl01__SetParent in cloth.h, strcmp in criStm.h;
+  - SetEffect and InitRenderStruct_2A8608 (cObjBase.h, cGameObj.h); 11 local effect-parameter records became `cEffectParam`; func_00306030 and EffEventIsCutDataExist in espSys.h;
+  - SetEffectPos in cObjBase.h, as `(…, float size, int handle)`: with that order every caller matches, including 00252070. Five `float[4]` placeholders became `cVec`;
+  - heapArena.h: one `HeapArena` record (merged with 0017e058's `Arena`), one `HeapBlk` block header (merged with two local views), `HEAP_OWNER`, every allocator and wrapper prototyped, 62 local arena declarations removed.
+- Drafts ported from the old cEm00 names: 00216078, 00245a18, 0025d0b8, 00268dc8, 00271810, 00284af8, 00253de8, 00231ac0. Drafts ported from the old allocator name: 00148420, 0014bfe0, 002f7e30, 002f5788, 002d6a60, 003132d0.
+- Builds 231 to 234 (231 failed on a prototype, fixed): ELF and r207 match retail. CHECK 217g: session_check 19 pass, dual_compiler_regress passes alone (964 s).
+- New decision row: cDvdJob 0x7C is named `align` but holds the arena.
+- Still deferred: the 18 breakable-object copies keep their `char buf[0x70]` (typed locals cost 5 words); func_002B4FE8 has no header; cBoundingBox has two types; the cDvd_ReadAlloc declarations (next pass).
+- Passes since CHECK 217g:
+  - cDvd.h: the reader, check and file-table functions prototyped, PathNode/PathTable moved in, `D_00583F20` typed `cDvd` once (build 235);
+  - mtx.h: MtxInitRotY and MtxInverse; VecRotY corrected to `(cVec *dst, cVec *src, float angle)` (it dropped the angle) (build 236).
+- Builds 235 and 236: ELF and r207 match retail.
+- Deferred from these passes: cDvd_releaseAll undeclared in 001c25f0 and cDamageManage.c; 001b5160's zero-argument matrix trampolines; VecRotVec's int parameters; drafts 002890a0/002b6a40 need `sceVu0FMATRIX` and `CVEC_APPLY`, which don't exist.
+- mtx.h matrix family (build 237): every Mtx* builder, multiply wrapper and forwarder prototyped once; MtxBuildTransRotScale, func_002B6350 and the 001b5160 forwarders corrected to pass the arguments retail passes; func_001503B8 is `void`.
+- Next: the 001b5160 `(void)` forwarders, one callee per pass (cOmBase_dieCommon first: 46 forwarders, and four files declare it four ways).
+- cOmBase_dieCommon (cOmBase.h) and ReleaseObj (cModel.h) (build 238): the 73 die forwarders pass self; new decision row on ReleaseObj's `hi` local.
+- cOmBase_tickModeTableSkip381 (build 239); cRelSys.h, the module slots, with regTbl.h's two functions (build 240): one `cRelSlot` type for three local views.
+- CHECK 217h (after build 240): session_check 19 pass, 6 skip; dual_compiler_regress fails only on "Argument list too long" inside session_check and passes alone (965 s).
+- cIDBase.h: cIDBase_trans and its forwarders typed `cIDBaseObj *` (build 241, 71 units OK).
+- cIDBase.h: initialize, setPackedMessData, getIDWork and restartAnim prototyped from their definitions (build 242, 48 units OK); IdPair_init's store is posY, not offsAmp.
+- cIDBaseEnt.seed is `int` (answered row); CustomIDObj merged into cIDBaseEnt (build 243, 126/127 units OK by unitcheck, full build matches).
+- 0013bc28's IdWork merged into cIDBaseEnt (build 244); IdTblEnt's 0x24 waits on a decision row.
+- cNode destructor chain typed `(cNode *self, int flags)` with 27 forwarders (build 245, 18 units OK).
+- SndVoiceNode/cSndBgmNode constructor and destructor typed; cSndBgmNode.vt at 0x80 (build 246).
+- cGameObj destructor chain void `(self, int flags)` from cModel_destroy up, 12 forwarders, cEm00.unk1630 (build 247).
+- cCollisionSolidManage records and API in cCollisionSolid.h, D_00462FC0 typed in 155 files, owner arguments upcast (build 248, 162 units OK).
+- session_check after build 248: all pass (data_decls after strip_data_nonmatching, build 249 matches; dual_compiler_regress run alone).
+- cDamageManage.h: manager record, D_00574380 and API typed; five one-argument ReleaseDamageGive calls fixed (build 250).
+- cDamageUnit.h: the nine unit methods and func_001FD908 typed, bodies on typed fields (build 251).
+- Damage record setters and resets typed; func_001FD988 gets its arguments from SetObjTargetAndActivate (build 252).
+- Argument-less forwarders to the state dispatchers, KageDraw/R0_scenario, capVu0Length and sceVu0CopyVector take and pass their callee's arguments (build 253).
+- cNode tree helpers (parent, attach, detach, children) typed in cNode.h (build 254).
+- cNode local setters, world getters and the world-matrix getter typed in cNode.h; StoreVecFromFieldB0_2B6160's header prototype waits on a decision row (build 256).
+- Effect frame and indexed updates typed on EspAnim in espSys.h, with the 0x11C flag word and its bits named (build 257).
+- session_check after build 257: all pass (dual_compiler_regress run alone).
+- LinkObj view merged into EspAnim (LinkObj_callLockOn typed in espSys.h); func_00297660 typed in cEvent.h (build 258).
+- Camera manager setters typed on cCamManager with its four cameras; cOm4f, Poker and BlackJack release forwarders typed (build 259).
+- D_00463050 typed once as the cCamManager in cCamManager.h; users take field addresses (build 260).
+- func_002FBE88 typed on EspAnim; type_info destructor and its ten forwarders typed in new typeInfo.h (build 261).
+- libio.h: the libio records shared by the 40 ee-2.9 stdio C units, replacing 40 identical local copies (build 262).
+- libio.h prototypes for the eleven libio functions whose definitions agree; _IO_putc and _IO_link_in typed on _IO_FILE (build 263).
+- malloc/free, libio backup-area functions and the EE DMA sends typed (newlibMalloc.h, libio.h, new sceDma.h) (build 264).
+- DIntr, EIntr and scePrintf declared once in eeKernel.h for the non-CRI units (build 265).
+- EE pad library records and prototypes in new libpad.h; sceSifCallRpc in sif.h (build 266).
+- session_check after build 266: all pass after the data_decls refresh (tools/strip_data_nonmatching.py stripped 1 nonmatching line for a newly declared data symbol; build 267 matches both hashes); dual_compiler_regress run alone (978 s).
+- memcpy declared once in criStm.h for the non-CRI units (build 268, cold).
+- memset declared once in criStm.h for the non-CRI units; func_002BAE40 typed as the three-argument method retail is (build 269, cold).
+- Removed 365 local declarations that repeated an included header prototype (build 270, cold).
+- func_00123938, func_00124540 and func_0010B2E8 declared in pl00.h for the player units (build 271, cold). Stopped here on request.

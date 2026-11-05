@@ -4,6 +4,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cModel.h"
 #include "godhand/cOmBase.h"
 #include "godhand/sceVu0.h"
@@ -26,7 +27,6 @@ typedef struct EmSwingFrame {
     cVec move;                          /* 0x70 */
 } EmSwingFrame;
 
-extern void MtxInverse(void *dst, void *src);
 extern float capVu0Atan2(float y, float x);
 
 /* Swings a hanging part: the body's movement pushes the swing vector, which tilts the part

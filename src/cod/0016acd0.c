@@ -1,17 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cIDBase.h"
 
-extern int cIDBase_getIDWork(void *self, int idx);
-extern void cIDBase_move(void *a0);
-extern void cIDBase_trans(void *a0);
-extern unsigned char D_005FEE00[];
 extern unsigned char D_005864F0[];
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void func_0019BA08(void *a0, int a1, int a2);
 extern void SetField5B0Bit2ClearBit8_1B7908(int a0);
 extern float capVu0Atan2(float y, float x);
-extern int SetEffect();
 extern void DamageObj_disableDamage(void *a0);
 extern void func_00373FA0(void *a0);
 extern void func_0032BDC0(void *a0, int a1, int a2);
@@ -43,31 +37,33 @@ void func_0016ACD0(void *a0)
             if (*q != 0) {
                 int ids;
                 int k;
-                char *w1 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
-                char *w2 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
+                char *w1 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
+                char *w2 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
                 char *w3;
                 char *w4;
                 int t;
                 *(float *)(w1 + 0x3C) =
                     *(float *)(*(int *)(w2 + 0x1C) + 0xC) - (float)(i * 26);
-                w3 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
+                w3 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
                 *(char *)(w3 + 0x4F) = (int)((float)*q / 20.0f * 256.0f);
-                w4 = (char *)cIDBase_getIDWork(s4 + 0x210, 0);
+                w4 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
                 k = i * 4;
                 ids = (int)(s4 + 0x26C);
                 t = *(int *)(ids + k);
                 *(int *)(w4 + 0x84) = t;
-                cIDBase_move(s4 + 0x210);
-                cIDBase_trans(s4 + 0x210);
+                cIDBase_move((cIDBaseObj *)(s4 + 0x210));
+                cIDBase_trans((cIDBaseObj *)(s4 + 0x210));
             }
         }
     }
-    cIDBase_trans(s4 + 0xD0);
-    cIDBase_trans(s4);
+    cIDBase_trans((cIDBaseObj *)(s4 + 0xD0));
+    cIDBase_trans((cIDBaseObj *)s4);
 }
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 
 
 
@@ -81,7 +77,7 @@ __attribute__((section(".text.func_0019B580")))
 void func_0019B580(void *a0)
 {
     char *s0 = (char *)a0;
-    float buf[4] __attribute__((aligned(16)));
+    cVec buf;
 
     switch (*(unsigned char *)(s0 + 0x2F5)) {
     case 0: {
@@ -89,17 +85,17 @@ void func_0019B580(void *a0)
         short off;
         float *(*fp)();
         float *src;
-        VU0_SQC2_VF0(buf, 0);
+        VU0_SQC2_VF0(&buf, 0);
         vt = *(char **)(s0 + 0x214);
         off = *(short *)(vt + 0x80);
         fp = *(float *(**)())(vt + 0x84);
         src = fp(s0 + off);
-        if (buf != src) {
-            buf[0] = src[0];
-            buf[1] = src[1];
-            buf[2] = src[2];
+        if (&buf.x != src) {
+            buf.x = src[0];
+            buf.y = src[1];
+            buf.z = src[2];
         }
-        SetEffectPos(0, 0xCC, 0, buf, -1, 1.0f);
+        SetEffectPos(0, 0xCC, 0, &buf, 1.0f, -1);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s0, 0, 0, 0, 0);
         if (*(char *)(s0 + 0xA92) == 0) {
             func_0019BA08(s0, 0, 2);
@@ -167,38 +163,10 @@ typedef struct Vec4 {
     float w;
 } Vec4;
 
-typedef struct S {
-    float f00;            /* 0x00 */
-    float f04;
-    float f08;
-    float f0C;
-    Vec4 v10;             /* 0x10 sqc2 */
-    Vec4 v20;             /* 0x20 sqc2 */
-    float f30;            /* 0x30 */
-    float f34;
-    float f38;
-    float f3C;
-    float f40;            /* 0x40 */
-    int i44;
-    int i48;
-    signed char b4C;      /* 0x4C */
-    signed char b4D;
-    signed char b4E;
-    unsigned char b4F;
-    int i50;              /* 0x50 */
-    char pad54[0xC];
-    char q60[0x10];       /* 0x60 sqc2 */
-    short h70;            /* 0x70 */
-    short h72;
-    signed char b74;      /* 0x74 */
-    char pad75[3];
-    int i78;              /* 0x78 */
-    char pad7C[4];
-} S;
 
 typedef struct Frame {
     Vec4 a;               /* 0x00 */
-    S s;                  /* 0x10 */
+    cEffectParam s;                  /* 0x10 */
 } Frame;
 
 __attribute__((section(".text.func_001BFD28")))
@@ -206,7 +174,7 @@ void func_001BFD28(void *a0)
 {
     char *s0 = (char *)a0;
     Frame fr;
-    S *e;
+    cEffectParam *e;
     float ang;
 
     switch (*(unsigned char *)(s0 + 0x2F5)) {
@@ -227,39 +195,39 @@ void func_001BFD28(void *a0)
             fr.a.z = src[2];
         }
         e = &fr.s;
-        e->f00 = 1.0f;
-        e->f04 = 1.0f;
-        e->f08 = 1.0f;
-        e->f0C = 1.0f;
+        e->color.x = 1.0f;
+        e->color.y = 1.0f;
+        e->color.z = 1.0f;
+        e->color.w = 1.0f;
         VU0_SQC2_VF0(&fr, 0x20);
         VU0_SQC2_VF0(&fr, 0x30);
         {
-            float *q = &e->f30;
+            float *q = &e->scale.x;
             q[0] = 1.0f;
             q[1] = 1.0f;
             q[2] = 1.0f;
             q[3] = 1.0f;
         }
-        e->f40 = 1.0f;
-        fr.s.i44 = 0;
-        fr.s.i48 = 0;
-        e->b4C = -1;
-        fr.s.b4D = 0;
-        fr.s.b4E = 0;
-        e->b4F = 0xFF;
-        fr.s.i50 = 0;
+        e->size = 1.0f;
+        fr.s.unk44 = 0;
+        fr.s.flags = 0;
+        e->unk4C = -1;
+        fr.s.unk4D = 0;
+        fr.s.unk4E = 0;
+        e->unk4F = 0xFF;
+        fr.s.unk50 = 0;
         VU0_SQC2_VF0(&fr, 0x70);
-        fr.s.v10.y = ang;
-        fr.s.h70 = 0;
-        fr.s.h72 = 0;
-        fr.s.b74 = 0;
-        fr.s.i78 = 0;
-        if ((void *)&fr.s.v20 != (void *)&fr.a) {
-            fr.s.v20.x = fr.a.x;
-            fr.s.v20.y = fr.a.y;
-            fr.s.v20.z = fr.a.z;
+        fr.s.unk10.y = ang;
+        fr.s.unk70 = 0;
+        fr.s.unk72 = 0;
+        fr.s.unk74 = 0;
+        fr.s.unk78 = 0;
+        if ((void *)&fr.s.unk20 != (void *)&fr.a) {
+            fr.s.unk20.x = fr.a.x;
+            fr.s.unk20.y = fr.a.y;
+            fr.s.unk20.z = fr.a.z;
         }
-        fr.s.f40 = 1.0f;
+        fr.s.size = 1.0f;
         SetEffect(0, 0x1C, 0, &fr.s, -1, 0xFFFFFFFF);
         {
             char *vt2 = *(char **)(s0 + 0x214);

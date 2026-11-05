@@ -1,6 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDvd.h"
+#include "godhand/criStm.h"
 #include "godhand/cEm00.h"
+#include "godhand/heapArena.h"
 #include "godhand/Slot2.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
@@ -9,8 +12,6 @@
 extern char D_0044E030[];
 extern char D_0044E040[];
 extern unsigned int D_00747A34;
-extern void *_MemoryAlloc(int size, int align, void *heap);
-extern int LoadEntryByValue_1FFD00(char *table, char *name, void *dest);
 extern void displayScrollLayer(int id, int on);
 extern void func_0013ECF0(void *p);
 extern void Obj0000_Clear_Fields_94_9C_13C808(void *p);
@@ -19,7 +20,6 @@ extern void ClearFields94And9C_13E7D8(void *p);
 extern void ClearFields_B0_AC_147018(void *p);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
 extern char D_0042CAB8[];
-extern void *cModel_getMeshPtr_14B730(void *obj, char *name);
 
 /* Reset a hit-flash driver: drop its nine state flags, clear its fields, and (unless bit 31 of the system flags is set) fade its target's hit flash down by speed * frame rate, not below the driver's floor. */
 
@@ -92,8 +92,6 @@ typedef struct FileBuf {
 } FileBuf;
 
 extern FileBuf D_0061B280;
-extern int D_00754200;                  /* heap */
-extern char D_00580D40[];               /* entry table */
 
 
 
@@ -109,9 +107,9 @@ void FileBuf_init(void)
     fb->kindB = 8;
     fb->buf = _MemoryAlloc(0x1000, 0x40, &D_00754200);
     if ((D_00747A34 & FILEBUF_SYS_ALT) == 0) {
-        LoadEntryByValue_1FFD00(D_00580D40, D_0044E030, fb->buf);
+        LoadEntryByValue_1FFD00(&D_00580D40, D_0044E030, fb->buf);
     } else {
-        LoadEntryByValue_1FFD00(D_00580D40, D_0044E040, fb->buf);
+        LoadEntryByValue_1FFD00(&D_00580D40, D_0044E040, fb->buf);
     }
 }
 
@@ -281,7 +279,7 @@ __attribute__((section(".text.cEm00_setMeshHookDisplay")))
 void cEm00_setMeshHookDisplay(cEm00 *self) {
     cModelNode *mesh;
     if (EM_MESHHOOK(self) != 0) {
-        mesh = cModel_getMeshPtr_14B730(self, D_0042CAB8);
+        mesh = cModel_getMeshPtr_14B730((cModel *)self, D_0042CAB8);
         if ((self->emFlags & EMFLAGS_SHOW_HOOK) != 0) {
             EM_MESHHOOK(self)->dispFlags &= ~CMODEL_NODE_HIDE;
             if (mesh != 0) {

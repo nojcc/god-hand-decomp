@@ -1,10 +1,16 @@
 #include "godhand/cCoreSave.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/seqNode.h"
 #include "godhand/cObjSimple.h"
 #include "include_asm.h"
 #include "godhand/cEma2.h"
 #include "godhand/objField.h"
 #include "godhand/cEm00.h"
 #include "godhand/cOmbb.h"
+#include "godhand/pl00.h"
+#include "godhand/sceVu0.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cIDBase.h"
 
 /* ------------------------------------------------------------------ */
 /* Externs unified across the 7-function D_0044BED0 cluster.          */
@@ -64,7 +70,7 @@ __attribute__((section(".text.SetField_2F4_10BE10")))
 void SetField_2F4_10BE10(char *arg0) { arg0[0x2F4] = 0; }
 
 __attribute__((section(".text.Obj0000_Set_Field_8_134648")))
-void Obj0000_Set_Field_8_134648(int *arg0, int arg1) { *((int *)((char *)arg0 + 0x8)) = arg1; }
+void Obj0000_Set_Field_8_134648(cCollisionSolidUnit *unit, int priority) { unit->priority = priority; }
 
 __attribute__((section(".text.SetField_104_13E3F8")))
 void SetField_104_13E3F8(char *arg0) { arg0[0x104] = 0; }
@@ -849,12 +855,10 @@ void Obj0000_Set_D_003EE340_Args_0_1_35F958(int a0, int a1) {
     D_003EE340[1] = a1;
 }
 
-extern unsigned char D_003BAFE0[];
-
 __attribute__((section(".text.Obj0000_Set_Field_80_372C68")))
-void *Obj0000_Set_Field_80_372C68(void *arg0) {
-    *(void **)((unsigned char *)arg0 + 0x80) = (void *)D_003BAFE0;
-    return arg0;
+SndVoiceNode *Obj0000_Set_Field_80_372C68(SndVoiceNode *self) {
+    self->vt = (struct cVtEnt *)D_003BAFE0;
+    return self;
 }
 
 extern int D_003FC7AC;
@@ -1262,30 +1266,32 @@ void Obj0000_Set_D_003FAE30_Field_10_Zero(void) {
     *(int *)(D_003FAE30 + 0x10) = 0;
 }
 
-__attribute__((section(".text.Tramp_001F7DF8_00101E28"))) void Tramp_001F7DF8_00101E28(void)
+__attribute__((section(".text.Tramp_001F7DF8_00101E28"))) float Tramp_001F7DF8_00101E28(void *v)
 {
- do { capVu0Length(); } while (0);
+ do { return capVu0Length(v); } while (0);
 }
 
-__attribute__((section(".text.Tramp_cObjBase_R0_scenario_10B760"))) void Tramp_cObjBase_R0_scenario_10B760(void)
+__attribute__((section(".text.Tramp_cObjBase_R0_scenario_10B760"))) void Tramp_cObjBase_R0_scenario_10B760(struct cObjBase *self)
 {
- do { cObjBase_R0_scenario(); } while (0);
+ do { cObjBase_R0_scenario(self); } while (0);
 }
 
 __attribute__((section(".text.Tramp_func_0014EFA8_0012BBE0")))
-void Tramp_func_0014EFA8_0012BBE0(void)
+void Tramp_func_0014EFA8_0012BBE0(struct cObjBase *self)
 {
- do { cObjBase_KageDraw(); } while (0);
+ do { cObjBase_KageDraw(self); } while (0);
 }
 
-__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(void)
+__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(cIDBaseObj *self)
 {
- do { cIDBase_trans(); } while (0);
+ do { cIDBase_trans(self); } while (0);
 }
 
 
 
 
+
+extern void func_0015B0C0(void);
 
 __attribute__((section(".text.Tramp_func_0015B0C0_0015B0A0")))
 void Tramp_func_0015B0C0_0015B0A0(void)
@@ -1638,8 +1644,8 @@ int Obj0000_Get_Byte_2F4_EQ_1_10B5B8(char *a0) {
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_400000_10B698")))
-int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(char *a0) {
-    int v = *(int*)(a0 + 0x15F4) & 0x400000;
+int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(pl00 *self) {
+    int v = self->flags15F4 & 0x400000;
     return v != 0;
 }
 
@@ -1660,20 +1666,20 @@ void pl00_setEventWait(char *a0) {
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_1000_12C530")))
-int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(char *a0) {
-    int v = *(int*)(a0 + 0x15F4) & 0x1000;
+int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(pl00 *self) {
+    int v = self->flags15F4 & 0x1000;
     return v != 0;
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_100000_12CA48")))
-int Obj0000_IsSet_Field_15F4_Bit_100000_12CA48(char *a0) {
-    int v = *(int*)(a0 + 0x15F4) & 0x100000;
+int Obj0000_IsSet_Field_15F4_Bit_100000_12CA48(pl00 *self) {
+    int v = self->flags15F4 & 0x100000;
     return v != 0;
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8")))
-int Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8(char *a0) {
-    int v = *(int*)(a0 + 0x15F4) & 0x1000000;
+int Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8(pl00 *self) {
+    int v = self->flags15F4 & 0x1000000;
     return v != 0;
 }
 
@@ -2353,8 +2359,6 @@ INCLUDE_ASM("nonmatching", cObj_setId);
 
 
 INCLUDE_ASM("nonmatching", cOmSub_setVibration);
-
-INCLUDE_ASM("nonmatching", capVu0Acos);
 
 /* Starts the poison state machine: mode 0, phase 5, step 0. */
 __attribute__((section(".text.cEma2_SetPoison")))

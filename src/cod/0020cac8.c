@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cEm00.h"
 
 extern void *Getplayer(void);
 extern int irand(void);
@@ -27,7 +28,7 @@ arm1:
 body:
     if (D_005CB010 != 0) return 0;
     if (Obj0000_Get_Field_5FC_NE_Zero_12C748(s1) != 0) return 0;
-    if (func_0026F1D8(s0) != 0) return 0;
+    if (func_0026F1D8((cEm00 *)s0) != 0) return 0;
     v1 = *(unsigned short *)(s0 + 0x3AC);
     if ((v1 & 0x100) != 0) return 0;
     if (*(int *)(s0 + 0x17AC) <= 0) return 0;

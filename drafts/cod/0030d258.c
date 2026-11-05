@@ -1,4 +1,6 @@
 #include "include_asm.h"
+#include "godhand/cSnd.h"
+#include "godhand/cDvd.h"
 
 typedef unsigned int u_int;
 typedef struct { unsigned char data[0x60]; } sceGsLoadImage;
@@ -15,6 +17,7 @@ extern int func_00395758(sceGsLoadImage *lp, void *src);
 extern int func_003950F8(int mode, int timeout);
 
 #ifdef NON_MATCHING
+#include "godhand/heapArena.h"
 /* Retail leaves the AddIntcHandler delay slot empty;
 * SN fills it with the T0_MODE store. */
 #else
@@ -63,9 +66,6 @@ typedef struct cTaskWorkRef {
 
 extern GameWorkBoot D_007474A0;
 extern char *D_003C3BC8[];      /* data file paths */
-extern char D_005FEE00[];
-extern char D_00583F20[];       /* the DVD reader */
-extern char D_00754200[];       /* the load heap */
 extern int D_003C2380;
 extern void *D_003C23A4;
 extern void **D_003C2384;
@@ -73,9 +73,6 @@ extern void *D_003C2388;
 extern char D_00450540[];
 extern cTaskWorkRef D_00752C00;
 
-extern void cSnd_LoadStartupBanks(void *a0);
-extern int cDvd_ReadAlloc(void *dvd, char *path, void **out, void *heap, int t0, int t1, int t2, int t3);
-extern void cDvd_CheckWaitFrame(void *dvd, int req);
 extern void func_002A4970(int font);
 extern void cMenu_loadDataTables(void *a0);
 extern int SearchData(void *data, void *name, int a2);
@@ -94,37 +91,37 @@ void func_0030D358(void)
     int req;
 
     D_007474A0.flags |= 0x44000;
-    cSnd_LoadStartupBanks(D_005FEE00);
-    req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[2], &D_007474A0.sysData, D_00754200, 0, 0, 0, 0);
-    cDvd_CheckWaitFrame(D_00583F20, req);
+    cSnd_LoadStartupBanks(&D_005FEE00);
+    req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[2], &D_007474A0.sysData, &D_00754200, 0, 0, 0, 0);
+    cDvd_CheckWaitFrame(&D_00583F20, req);
     switch (D_007474A0.language) {
     case 0:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[3], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[3], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     case 1:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[4], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[4], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     case 2:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[5], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[5], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     case 3:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[7], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[7], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     case 4:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[6], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[6], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     case 5:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[9], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[9], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     case 6:
-        req = cDvd_ReadAlloc(D_00583F20, D_003C3BC8[8], &D_007474A0.langData, D_00754200, 0, 0, 0, 0);
-        cDvd_CheckWaitFrame(D_00583F20, req);
+        req = cDvd_ReadAlloc(&D_00583F20, D_003C3BC8[8], &D_007474A0.langData, &D_00754200, 0, 0, 0, 0);
+        cDvd_CheckWaitFrame(&D_00583F20, req);
         break;
     }
     func_002A4970(D_003C2380);

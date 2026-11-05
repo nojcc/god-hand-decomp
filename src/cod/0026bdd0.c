@@ -1,4 +1,6 @@
 /* sn-2.95.3-136 */
+#include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cOmWeapon.h"
@@ -17,7 +19,6 @@ typedef struct DropFrame {
     cVec vel;
 } DropFrame;
 
-extern void MtxInitRotY(void *a0, float angle);
 extern void func_001D0240(cOmWeapon *self, cVec *pos, int arg);
 
 /* Puts the weapon at the enemy's hand and lets it go straight ahead. */

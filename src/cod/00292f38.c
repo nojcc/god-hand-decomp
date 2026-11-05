@@ -1,26 +1,26 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cEmManage.h"
+#include "godhand/cNode.h"
+#include "godhand/espSys.h"
+#include "godhand/newlibStdio.h"
+#include "godhand/newlibMalloc.h"
 
 extern void PushEsp(void *a0);
-extern int D_003FA62C;
-extern void __malloc_lock(int a0);
-extern void func_003ACA28(int a0, int a1);
-extern void __malloc_unlock(int a0);
 extern float D_00741DC0;
 extern float D_00754C48;
 
 __attribute__((section(".text.UpdateObjByIndexedOp_2FBE50")))
-void UpdateObjByIndexedOp_2FBE50(void *a0) {
-    int r;
-    r = func_002B5E50(a0);
-    func_002B5CF0(a0, r);
-    PushEsp(a0);
+void UpdateObjByIndexedOp_2FBE50(EspAnim *self) {
+    cNode *parent;
+    parent = func_002B5E50((cNode *)self);
+    func_002B5CF0((cNode *)self, parent);
+    PushEsp(self);
 }
 
 __attribute__((section(".text.UpdateGlobalPtrWithParam_3A7CC0")))
-void UpdateGlobalPtrWithParam_3A7CC0(int a0) {
+void UpdateGlobalPtrWithParam_3A7CC0(void *p) {
     __malloc_lock(D_003FA62C);
-    func_003ACA28(D_003FA62C, a0);
+    func_003ACA28(D_003FA62C, p);
     __malloc_unlock(D_003FA62C);
 }
 

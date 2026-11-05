@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
@@ -13,22 +12,20 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
-extern void cSnd_DieDemoStart(void *a0);
 extern int  D_00747A24;
-extern char D_00462FC0[];
 extern char D_005864F0[];
-extern char D_005FEE00[];
 extern unsigned short D_003F2060[];
 extern void func_0032A9F0(int a0, int a1);
 extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void func_002BB868(void *a0, void *a1, float f);
-extern int _MemoryAlloc(int a0, int a1, void *a2);
-extern char D_00754240[];
 
 /* func_001212D0 — 0x001212D0, 760 B — sn-2.95.3-136.
  * +0x2F6 phase machine, 0x694 object family; template src/cod/0011c348.c. */
+#include "godhand/cCollisionSolid.h"
 #include "godhand/vu0.h"
+#include "godhand/heapArena.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
 
 
 
@@ -62,7 +59,7 @@ void func_001212D0(void *a0)
     *(float *)(s0 + 0x54C) = 5.0f;
     *(int *)(s0 + 0x250) |= 0x10000;
     s1 = *(char **)(s0 + 0x694);
-    cCollisionSolidManage_SetActive(D_00462FC0, s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
     cEmManage_SetPlCatched(D_005864F0);
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
@@ -134,7 +131,7 @@ void func_001212D0(void *a0)
                 }
                 if (*(short *)(s0 + 0x54A) <= 0) {
                     *(short *)(s0 + 0x54A) = 0;
-                    cSnd_DieDemoStart(D_005FEE00);
+                    cSnd_DieDemoStart(&D_005FEE00);
                     cCoreSave_addGameLevelPoint(&D_00569B70, -0x3E8);
                     *(unsigned short *)(s0 + 0x434) |= 8;
                 }
@@ -358,7 +355,7 @@ int func_002EBD10(void *a0, int a1, int n)
     char *q;
 
     if (*(int *)(s1 + 0x2E0) & 8) {
-        char *d = D_00754240;
+        HeapArena *d = &D_00754240;
 
         sz = n * 0x60 + 0xF0;
         p = _MemoryAlloc(sz, 0x10, d);
@@ -369,7 +366,7 @@ int func_002EBD10(void *a0, int a1, int n)
         p = _MemoryAlloc(sz, 0x10, d);
         *(int *)(s1 + 0x2D0) = p;
     } else {
-        char *d = D_00754240;
+        HeapArena *d = &D_00754240;
 
         sz = n * 0x40 + 0xF0;
         sz2 = sz;
@@ -385,7 +382,7 @@ int func_002EBD10(void *a0, int a1, int n)
         return 0;
     }
     sz2 = n * 0x10;
-    p = _MemoryAlloc(sz2, 0x10, D_00754240);
+    p = _MemoryAlloc(sz2, 0x10, &D_00754240);
     *(int *)(s1 + 0x2BC) = p;
     if (p == 0) {
         return 0;
@@ -398,7 +395,7 @@ int func_002EBD10(void *a0, int a1, int n)
         *(float *)(q + 0xC) = 1.0f;
     }
     if (*(int *)(s1 + 0x2E0) & 4) {
-        p = _MemoryAlloc(n * 0x10, 0x10, D_00754240);
+        p = _MemoryAlloc(n * 0x10, 0x10, &D_00754240);
         *(int *)(s1 + 0x2C0) = p;
         if (p == 0) {
             return 0;

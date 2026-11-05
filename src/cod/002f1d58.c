@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cNode.h"
 
 extern int D_0044EDC0;
 extern int D_0044EDE8;
 extern int D_00741DC8;
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void CopyVec16From20_B62E0(void *dst, void *self);
-extern void cNode_setLocalScale(void *self, void *v);
-extern void func_002B60D0(void *dst, void *self);
 extern void ForwardToAllNodes_14D700(void *a0, long a1, int a2);
 extern void cObj_setMeshValue(void *a0, long a1);
 extern void func_002D9F68(void *, int, ...);
@@ -88,7 +87,7 @@ int func_002F1D58(char *o, char *src) {
     }
     CopyVec16From20_B62E0(v, o);
     v[2] = v[0];
-    cNode_setLocalScale(o, v);
+    cNode_setLocalScale((cNode *)o, (cVec *)v);
     {
         char *d = *(char **)(o + 0x2B0);
         float *dst = (float *)(d + 0x110);
@@ -98,7 +97,7 @@ int func_002F1D58(char *o, char *src) {
             dst[2] = v[2];
         }
     }
-    func_002B60D0(v2, o);
+    func_002B60D0((cVec *)v2, (cNode *)o);
     {
         char *d = *(char **)(o + 0x2B0);
         float *dst = (float *)(d + 0x100);

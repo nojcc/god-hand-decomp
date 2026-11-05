@@ -1,4 +1,5 @@
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 /* capVu0Length — 3D length of vector a0: sqrt(x*x + y*y + z*z) via the VU0
  * Q/sqrt pipeline. vsqrt emitted as its exact .word (ee-as encodes it

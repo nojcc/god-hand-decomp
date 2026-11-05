@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 /* ee-2.9-991111 */
 
@@ -16,7 +17,6 @@ extern char D_0045E060[];
 
 extern int  scePadGetModVersion(void);
 
-extern void func_003B1F28(const char *fmt, ...);
 
 __attribute__((section(".text.func_00397630")))
 int func_00397630(int mode)

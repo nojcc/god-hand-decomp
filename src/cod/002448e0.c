@@ -1,19 +1,16 @@
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern unsigned char D_00462FC0[];
-extern unsigned char D_005FEE00[];
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand0_1(void);
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 extern void func_002705D8(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
@@ -39,7 +36,7 @@ extern void func_002705D8(void *a0);
  * cObjBase_addNullSpeed and 7 more. */
 __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
 {
-    cCollisionSolidManage_SetActive(&D_00462FC0, self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
             int gb;
@@ -96,7 +93,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             }
             self->timer2 = self->timer2 - self->speedRate;
             if (self->timer2 <= 0.0f) {
-                SetEffectPos(0x58, 0x9C, 0, (void *)self->pos, -1, 1.0f);
+                SetEffectPos(0x58, 0x9C, 0, (void *)self->pos, 1.0f, -1);
                 self->timer2 = 6.0f;
             }
             if (*(int *)((char *)self + 0x474) != 1 && *(int *)((char *)self + 0x474) != 9) {

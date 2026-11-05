@@ -2,10 +2,7 @@
 #include "godhand/cSnd.h"
 
 extern void SetSequenceBlendWeight_3739A0(void *a0, int a1, float f);
-extern void cSndBgmNode_Fade(void *a0);
 extern void func_002CCD80(void *a0);
-extern void cSndBgmNode_Run(void *a0);
-extern void cSndBgmNode_Update(void *a0);
 extern void func_00372CB0(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
@@ -21,7 +18,6 @@ extern void func_00372CB0(void *a0);
 
 
 
-extern cSnd D_005FEE00;
 /* Runs one update of a used BGM node: blends its channels, steps its state machine, then clears its update flag. */
 __attribute__((section(".text.cSndBgmNode_StepState")))
 void cSndBgmNode_StepState(cSndBgmNode *node) {

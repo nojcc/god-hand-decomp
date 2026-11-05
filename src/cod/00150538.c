@@ -1,16 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/criStm.h"
+#include "godhand/cNode.h"
+#include "godhand/heapArena.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmSized.h"
 
-extern void func_003A52F0(void *dst, int val, int len);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern void Esp_killByGroup(int a0);
 extern void func_00300C00(int a0, int a1);
-extern void cHeap_free(void *heap, void *p);
-extern void BlockOwner_dtor(void *self, int flags);
 extern char D_0044F7D0[];
 extern void func_001B6FB8(cOmSized *self);
 extern void cOmDoor_setObjCollisionCenterOnly(cOmSized *self);
@@ -67,7 +67,7 @@ void cOmEffectHolderB_syncEffectPos(cOmEffectHolderB *self) {
     src = ((cVec *(*)(void *))self->vtable[16].pfn)((char *)self + self->vtable[16].delta);
     cVec_copy3(&pos, src);
     if (self->effect != 0) {
-        SetEffectPos(0, self->effect, 0, &pos, -1, 1.0f);
+        SetEffectPos(0, self->effect, 0, &pos, 1.0f, -1);
     }
 }
 
@@ -112,7 +112,7 @@ void BufOwner2_deletingDtor(BufOwner2 *self, int flags) {
     FREE_BUF(self->buf36C);
     FREE_BUF(self->buf370);
     FREE_BUF(self->buf360);
-    BlockOwner_dtor(self, flags);
+    BlockOwner_dtor((struct BlockOwner *)self, flags);
 }
 
 /* Init: base setup, extent 4.0 x 4.1 x 0.2, then the shared setters and the 4.2 effect; returns 1. */

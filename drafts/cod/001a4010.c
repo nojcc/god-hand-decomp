@@ -3,13 +3,13 @@
  * already in v0, so the scale's lqc2/sqc2 use 0(v0). */
 #include "include_asm.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cObjBase.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
 
 
 #ifdef NON_MATCHING
-extern void SetEffectPos(int kind, int effNo, int a2, void *pos, int a4, float scale);
 
 /* The method table of cOm49 (D_00427148); the pair at 0x80 is cGameObj_getPos. */
 typedef struct cOm49Vt {
@@ -79,7 +79,7 @@ void func_001A4010(cOm49 *self)
     VU0_LQC2_SQC2_MEM(4, &w.ret, &w.unit);
     cVec_copy3(&step, &w.ret);
     VU0_VADD_XYZ_IP(&pos, 0, &step);
-    SetEffectPos(1, self->effNo, 0, &pos, -1, 1.0f);
+    SetEffectPos(1, self->effNo, 0, &pos, 1.0f, -1);
     cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
 }
 #else

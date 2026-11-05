@@ -1,12 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cSnd.h"
 
-extern void cSndSeVoice_Stop(void *node);
-extern void cSndBgmNode_Release(void *node);
-extern void func_002CB070(void *this);
+extern void func_002CB070(cSnd *self);
 extern void func_00375050(int a, int b);
-extern void cSnd_update(void *this);
 extern void sceGsSyncV(int a);
-extern void cSnd_resetAll(void *this);
 extern void cSndMemHeap_Close(void *a);
 extern void func_0032D250(void);
 extern void func_00324AC8(void);
@@ -33,37 +30,38 @@ extern char D_00602F80[];
 
 
 
+/* Shuts the sound object down: stops every voice and node, waits for the driver, then closes the heaps. */
 __attribute__((section(".text.func_002CA040")))
-void func_002CA040(void *this) {
-    char *base = (char *)this;
-    char *node;
+void func_002CA040(cSnd *self) {
+    cSndSeVoice *v;
+    cSndBgmNode *node;
 
-    node = *(char **)(base + 0x1C);
-    if (node != 0) {
+    v = self->voiceHead;
+    if (v != 0) {
         do {
-            cSndSeVoice_Stop(node);
-            node = *(char **)(node + 0x4);
-        } while (node != 0);
+            cSndSeVoice_Stop(v);
+            v = v->next;
+        } while (v != 0);
     }
-    node = *(char **)(base + 0x18);
+    node = self->bgmHead;
     if (node != 0) {
         do {
             cSndBgmNode_Release(node);
-            node = *(char **)(node + 0x88);
+            node = node->next;
         } while (node != 0);
     }
-    *(int *)(base + 0xAC) = 0;
+    self->flagsAC = 0;
 
-    *(int *)(base + 0xB0) = 0;
-    *(int *)(base + 0x30) = 0;
-    *(int *)(base + 0xA8) = 0;
-    func_002CB070(this);
+    self->flagsB0 = 0;
+    self->f30 = 0;
+    self->fA8 = 0;
+    func_002CB070(self);
     func_00375050(0, 0);
     while (func_00375180() == 1) {
-        cSnd_update(this);
+        cSnd_update(self);
         sceGsSyncV(0);
     }
-    cSnd_resetAll(this);
+    cSnd_resetAll(self);
     cSndMemHeap_Close(D_006036A0);
     cSndMemHeap_Close(D_00603310);
     cSndMemHeap_Close(D_00602F80);

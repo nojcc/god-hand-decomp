@@ -1,10 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/cNode.h"
+#include "godhand/cModel.h"
 
 extern int SearchData(int a0, void *a1, int a2);
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
-extern void ReleaseObj(void *a0);
 extern void cOmBase_setTexChange(void *a0, int a1);
 extern void cParts_setRotationOrder(void *a0, int a1);
 extern int D_004289F8;
@@ -12,8 +13,6 @@ extern int D_00428A00;
 extern int D_00428A08;
 extern int D_00428A10;
 extern int D_003BD6E8;
-extern void ReleaseField6ECByTag564_26B1E8(void *);
-extern void cNode_updateWorldMatrix(void *a0);
 extern void func_00147C88(void *a0, void *a1, int a2);
 
 __attribute__((section(".text.func_001B6FB8")))
@@ -78,7 +77,7 @@ void func_00270C78(cEm00 *self) {
         *(unsigned char *)(s0 + 0x2F4) = 0;
     } else {
         if (*(int *)(s0 + 0x564) == 0x279) {
-            ReleaseField6ECByTag564_26B1E8(s0);
+            ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
         }
         *(unsigned char *)(s0 + 0x2F4) = 1;
         *(unsigned char *)(s0 + 0x2F5) = 0xF;
@@ -93,16 +92,16 @@ void func_00270C78(cEm00 *self) {
 
 
 __attribute__((section(".text.func_002B60D0")))
-void *func_002B60D0(void *a0, void *a1) {
-    unsigned char buf[16] __attribute__((aligned(16)));
-    cNode_updateWorldMatrix(a1);
-    VU0_SQC2_VF0(buf, 0);
-    if (*(float *)((char *)a1 + 0x20) != 0.0f &&
-        *(float *)((char *)a1 + 0x24) != 0.0f &&
-        *(float *)((char *)a1 + 0x28) != 0.0f) {
-        func_00147C88(buf, (char *)a1 + 0xB0, 0);
+cVec *func_002B60D0(cVec *dst, cNode *self) {
+    cVec rot;
+    cNode_updateWorldMatrix(self);
+    VU0_SQC2_VF0(&rot, 0);
+    if (self->scale.x != 0.0f &&
+        self->scale.y != 0.0f &&
+        self->scale.z != 0.0f) {
+        func_00147C88(&rot, self->matWorld, 0);
     }
-    VU0_LQC2(4, buf, 0);
-    VU0_SQC2(4, a0, 0);
-    return a0;
+    VU0_LQC2(4, &rot, 0);
+    VU0_SQC2(4, dst, 0);
+    return dst;
 }

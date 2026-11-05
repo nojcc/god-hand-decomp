@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/Slot2.h"
+#include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
 
 extern void displayScrollLayer(int a0, int a1);
 extern void InitAllocBuffer_14FE08(void *a0, int a1);
-extern void func_003A52F0(void *d, int c, int n);
 extern void func_0031A300(void *a0, int a1, void *a2);
 extern void func_0031A320(void *a0, int a1);
 extern void SetCustomIDSlotNumber_1F4C40(void *a0, int a1, int a2);

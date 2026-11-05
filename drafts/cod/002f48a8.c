@@ -3,15 +3,14 @@
  * (no gcse carry), ours keeps MOT(self) live in a0.  linkOn() inline shape fixed the flag. */
 #include "include_asm.h"
 #include "godhand/cObjSimple.h"
+#include "godhand/espSys.h"
+#include "godhand/cNode.h"
 
 #ifdef NON_MATCHING
-extern void func_002FBED0(void *self);
 extern int setMotionInfo(void *a0, int a1, int a2, int a3, float f12, float f13, int t0);
 extern int moveMotion(void *a0);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void CopyVec16From20_B62E0(void *dst, void *self);
-extern void cNode_setLocalScale(void *self, void *v);
-extern void func_002B60D0(void *dst, void *self);
 extern int func_00307118(void *p);
 
 static inline void vcopy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
@@ -51,7 +50,7 @@ void func_002F48A8(char *self)
     char *q;
     float scale;
 
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
     n = 0;
     F(self, 0x2D8) += F(self, 0x2C0);
     F(self, 0x2C0) += F(self, 0x2C4);
@@ -69,8 +68,8 @@ void func_002F48A8(char *self)
     vcopy(*(cObjSimpleVec3 **)(o + 0xF0), &v);
     CopyVec16From20_B62E0(&v, self);
     v.z = v.x;
-    cNode_setLocalScale(self, &v);
-    func_002B60D0(&w, self);
+    cNode_setLocalScale((cNode *)self, (cVec *)&v);
+    func_002B60D0((cVec *)&w, (cNode *)self);
     vcopy((cObjSimpleVec3 *)(MOT(self) + 0x100), &w);
     vcopy((cObjSimpleVec3 *)(MOT(self) + 0x110), &v);
     F(MOT(self), 0x240) = F(self, 0x188);

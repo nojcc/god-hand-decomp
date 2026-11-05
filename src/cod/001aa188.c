@@ -1,24 +1,20 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
+#include "godhand/cModel.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
-extern int cCollisionSolidManage_ChkHit(void *a0, void *a1);
 extern void SetMotionStep(void *a0, float f12);
 extern float D_00747A14;
-extern char D_00462FC0[];
 extern void cOmBase_blinkTick(void *a0);
 extern void func_001AADE0(void *a0);
 extern void cObjBase_SetSeqEffect(void *a0);
-extern void cModel_calcParts(void *a0);
-extern void cModel_calcWorldParts(void *a0);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern void Adjust_theta_vec(float *p);
-extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
-extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
-extern int MtxCopy();
 #include "godhand/objField.h"
 extern char D_005864F0[];
 extern char D_00427C50[];
@@ -54,7 +50,7 @@ void func_001AA188(void *a0)
     if (ClearField5B4IfFlagUnset_1B76B0(s2) == 0) {
         return;
     }
-    cCollisionSolidManage_ChkHit(D_00462FC0, s2);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s2);
     pr = cEmManage_GetSpeedRate(D_005864F0) * D_00747A14;
     *(float *)(s2 + 0x5A8) = pr;
     SetMotionStep(s2, pr);
@@ -111,16 +107,16 @@ void func_001AA188(void *a0)
             VU0_VADD_XYZ_IP(e10, 0, q10v);
             Adjust_theta_vec((float *)e10);
             m1 = frame + 0x40;
-            MtxInitRotVec(m1, e10, 0);
+            MtxInitRotVec(m1, (cVec *)e10, 0);
             m1 = 0;
             m2 = frame + 0x40;
             CopyVec3ToField30_147C40(m2, e);
             m2 = 0;
             m3 = frame + 0x40;
-            MtxMulScaleVec(m3, m3, e40);
+            MtxMulScaleVec(m3, m3, (cVec *)e40);
             m3 = 0;
             m4 = frame + 0x40;
-            MtxCopy(*(int *)(e10 + 0x40), m4);
+            MtxCopy(*(void **)(e10 + 0x40), m4);
             m4 = 0;
             *(float *)(e10 + 0x14) = *(float *)(e10 + 0x14) + *(float *)(e10 + 0x48) * rate;
             if (*(float *)(e10 + 0x14) < lim) {
@@ -130,6 +126,6 @@ void func_001AA188(void *a0)
         }
     }
     cObjBase_SetSeqEffect(s2);
-    cModel_calcParts(s2);
-    cModel_calcWorldParts(s2);
+    cModel_calcParts((cModel *)s2);
+    cModel_calcWorldParts((cModel *)s2);
 }

@@ -8,7 +8,6 @@
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
 
-extern void func_0030A548(void *dst, void *src);
 
 #define CBOX_FLAG_DIRTY  0x2            /* cleared once the world corners are rebuilt */
 

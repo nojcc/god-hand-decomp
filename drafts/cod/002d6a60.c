@@ -2,6 +2,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
+#include "godhand/heapArena.h"
 typedef struct { float m[28]; } Light70;
 typedef struct { unsigned char c[4]; } Tag4;
 typedef struct {
@@ -21,11 +22,9 @@ extern int D_00747A4C;
 extern char D_0044D248[];
 extern char D_0044D250[];
 extern char D_0044D258[];
-extern char D_00754220[];
 extern char *SearchData(int, char *, int);
 extern int func_003A5678(char *, char *);
 extern int func_003A50B4(void *, char *, int);
-extern void *EnsureInitThenForward_2A9538_30EE08(int, int, void *);
 
 int LightData_Load(LightData *d)
 {
@@ -55,7 +54,7 @@ body:
         *(Tag4 *)&(*(LightEnt *)((char *)d->e + off)).n = *(Tag4 *)(s + 0x174);
         s += 0x178;
         if ((*(LightEnt *)((char *)d->e + off)).arr == 0 && (*(LightEnt *)((char *)d->e + off)).n > 0) {
-            (*(LightEnt *)((char *)d->e + off)).arr = EnsureInitThenForward_2A9538_30EE08((*(LightEnt *)((char *)d->e + off)).n * 0x70, 0x10, D_00754220);
+            (*(LightEnt *)((char *)d->e + off)).arr = _MemoryAlloc((*(LightEnt *)((char *)d->e + off)).n * 0x70, 0x10, &D_00754220);
             if ((*(LightEnt *)((char *)d->e + off)).arr == 0)
                 goto done;
         }

@@ -1,21 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern unsigned char D_00462FC0[];
 extern unsigned char D_005864F0[];
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float f12);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
-extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern unsigned char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
 extern void KillEffect(void *a0, int a1, int a2);
 extern void KillEffectWithFlag(void *a0, int a1, int a2, int a3);
 extern void func_001AAB10(void *a0);
@@ -23,21 +17,23 @@ extern void SetField5B0Bit2ClearBit8_1B7908(int a0);
 extern void func_001268F0(void *a0);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00126770(void *a0);
+#include "godhand/cCollisionSolid.h"
+#include "godhand/pl00.h"
+#include "godhand/heapArena.h"
+#include "godhand/cIDBase.h"
+#include "godhand/cDvd.h"
 #include "godhand/motion.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cOmWeapon.h"
+#include "godhand/cSnd.h"
 extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern char *CreateObj(int a0, int a1);
 extern void func_0012A8D8(void *a0);
 extern void cIDManager_getLocalFileName();
-extern int cDvd_ReadAlloc();
-extern void cDvd_CheckWait();
 extern void cIDManager_setIDData();
-extern void cIDBase_initialize();
 extern void cIDBase_resetAnim();
-extern char *cIDBase_getIDWork();
 extern int D_003C2388;
 extern char D_0041E190[];
-extern char D_00583F20[];
-extern char D_00754220[];
 extern int *D_003C2384;
 extern void SetMotionStep(void *a0, float f12);
 extern float D_003BDE70;
@@ -46,9 +42,7 @@ extern float D_003BDE78;
 extern float D_003BDE7C;
 extern float D_003BDE80;
 extern float D_003BDE84;
-extern int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -77,25 +71,25 @@ void func_001215C8(void *a0)
 {
     char *s1 = (char *)a0;
     char *s2;
-    float buf[4] __attribute__((aligned(16)));
+    cVec buf;
     float v;
 
     *(float *)(s1 + 0x54C) = 5.0f;
     *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
     s2 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(&D_00462FC0, s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
     cEmManage_SetPlCatched(&D_005864F0);
 
     switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0:
         CallWithAndClearField698_12AC28(s1);
         func_0012B928(s1);
-        buf[0] = -0.257099986f;
-        buf[1] = 0.0f;
-        buf[2] = 1.64129996f;
-        buf[3] = 1.0f;
-        v = buf[1];
-        func_001299F0(s1, s2, buf, 0, v);
+        buf.x = -0.257099986f;
+        buf.y = 0.0f;
+        buf.z = 1.64129996f;
+        buf.w = 1.0f;
+        v = buf.y;
+        func_001299F0(s1, s2, &buf, 0, v);
         cEm00_GetPlMotion(s2, 0x2D, v, v);
         *(int *)(s1 + 0x15B0) = 1;
         *(short *)(s1 + 0x56E) = 0xF;
@@ -122,7 +116,7 @@ void func_001215C8(void *a0)
         cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
-    if (func_00123938(s1, 1)) {
+    if (func_00123938((pl00 *)s1, 1)) {
         pl00_clearMotionCam(s1, 0, 0);
     }
 }
@@ -142,7 +136,7 @@ __attribute__((section(".text.func_001AA6C0")))
 void func_001AA6C0(void *a0)
 {
     char *s1 = (char *)a0;
-    float buf[4] __attribute__((aligned(16)));
+    cVec buf;
     int hold[4];
 
     switch (*(unsigned char *)(s1 + 0x2F5)) {
@@ -152,24 +146,24 @@ void func_001AA6C0(void *a0)
         float *(*fp)();
         float *src;
         int b;
-        int part;
+        void *part;
         KillEffect(s1, 0xB, 0);
         KillEffectWithFlag(s1, 3, 2, 0x1E);
-        VU0_SQC2_VF0(buf, 0);
+        VU0_SQC2_VF0(&buf, 0);
         vt = *(char **)(s1 + 0x214);
         off = *(short *)(vt + 0x80);
         fp = *(float *(**)())(vt + 0x84);
         src = fp(s1 + off);
-        if (buf != src) {
-            buf[0] = src[0];
-            buf[1] = src[1];
-            buf[2] = src[2];
+        if (&buf.x != src) {
+            buf.x = src[0];
+            buf.y = src[1];
+            buf.z = src[2];
         }
-        SetEffectPos(0, 7, 0, buf, -1, 1.0f);
+        SetEffectPos(0, 7, 0, &buf, 1.0f, -1);
         {
             int i = 5;
             if ((hold[0] = b = *(unsigned char *)(s1 + 0x2B4)), i < b)
-                part = *(int *)(*(int *)(s1 + 0x278) + i * 4);
+                part = *(void **)(*(int *)(s1 + 0x278) + i * 4);
             else
                 part = 0;
         }
@@ -177,7 +171,7 @@ void func_001AA6C0(void *a0)
         {
             int i = 5;
             if ((hold[0] = b = *(unsigned char *)(s1 + 0x2B4)), i < b)
-                part = *(int *)(*(int *)(s1 + 0x278) + i * 4);
+                part = *(void **)(*(int *)(s1 + 0x278) + i * 4);
             else
                 part = 0;
         }
@@ -313,7 +307,7 @@ void func_00114E28(void *a0)
             func_0012A8D8(s1);
         }
     }
-    func_00123938(s1, 1);
+    func_00123938((pl00 *)s1, 1);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -360,18 +354,18 @@ void cCockMiddleBoss_roomInit(MiddleBoss *a0) {
     do {
         if (a0->fA0 == 0) {
             cIDManager_getLocalFileName(D_003C2388, buf, D_0041E190, -1);
-            r = cDvd_ReadAlloc(D_00583F20, buf, &a0->fA0, D_00754220, 0, 0, 0, 0);
+            r = cDvd_ReadAlloc(&D_00583F20, buf, &a0->fA0, &D_00754220, 0, 0, 0, 0);
             a0->fA4 = r;
-            cDvd_CheckWait(D_00583F20, r);
+            cDvd_CheckWait(&D_00583F20, r);
             cIDManager_setIDData(*D_003C2384, 0xD, a0->fA0);
-            cIDBase_initialize(a0, 0xD, 0);
+            cIDBase_initialize((cIDBaseObj *)a0, 0xD, 0);
             cIDBase_resetAnim(a0);
-            *(float *)(cIDBase_getIDWork(a0, 0) + 0x38) = -100.0f;
+            cIDBase_getIDWork((cIDBaseObj *)a0, 0)->posX = -100.0f;
             a0->f90 = 0;
             for (i = 0; i < 5; i++) {
                 IDBase50 *id = &a0->id[i];
-                char *w;
-                cIDBase_initialize(id, 0xD, 1);
+                cIDBaseEnt *w;
+                cIDBase_initialize((cIDBaseObj *)id, 0xD, 1);
                 cIDBase_resetAnim(id);
                 a0->f2C0[i] = 1.0f;
                 a0->f2D4[i] = 1.0f;
@@ -379,8 +373,8 @@ void cCockMiddleBoss_roomInit(MiddleBoss *a0) {
                 a0->f2FC[i] = 0;
                 a0->f370[i] = 0;
                 a0->fA8[i] = 0;
-                w = cIDBase_getIDWork(id, 0);
-                *(float *)(w + 0x3C) = *(float *)(cIDBase_getIDWork(a0, 0) + 0x3C);
+                w = cIDBase_getIDWork((cIDBaseObj *)id, 0);
+                w->posY = cIDBase_getIDWork((cIDBaseObj *)a0, 0)->posY;
             }
         }
     } while (0);
@@ -487,29 +481,29 @@ void func_00273748(char *s0)
     if (o == 0) return;
     switch (*(int *)(s0 + 0x564)) {
     case 0x208:
-        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(o)) {
+        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08((cOmBase *)o)) {
             if ((*(long *)(s0 + 0x2F0) & 0xFFFF00000000) == 0xE0000000000) return;
             if (!(capVu0MagnitudeSqXZ(*(char **)(*(char **)(s0 + 0x700) + 0xF0), *(char **)(s0 + 0xF0)) < 0.360000014f)) return;
-            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 0);
+            SetOrientByType_26AF20((cOmBase *)s0, *(cOmWeapon **)(s0 + 0x700), 0);
         } else if (*(int *)(s0 + 0x16D0) < 0) {
-            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 1);
+            SetOrientByType_26AF20((cOmBase *)s0, *(cOmWeapon **)(s0 + 0x700), 1);
         } else {
-            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 0);
+            SetOrientByType_26AF20((cOmBase *)s0, *(cOmWeapon **)(s0 + 0x700), 0);
         }
         return;
     case 0x22F:
         big = 1;
-        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(o)) {
+        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08((cOmBase *)o)) {
             if ((*(long *)(s0 + 0x2F0) & 0xFFFF00000000) != 0xE0000000000) {
                 if (capVu0MagnitudeSqXZ(*(char **)(*(char **)(s0 + 0x700) + 0xF0), *(char **)(s0 + 0xF0)) < 0.360000014f) {
-                    SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 2);
+                    SetOrientByType_26AF20((cOmBase *)s0, *(cOmWeapon **)(s0 + 0x700), 2);
                 }
             }
         } else if (*(int *)(s0 + 0x16D0) < 0) {
-            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 3);
+            SetOrientByType_26AF20((cOmBase *)s0, *(cOmWeapon **)(s0 + 0x700), 3);
         } else {
             big = 0;
-            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 2);
+            SetOrientByType_26AF20((cOmBase *)s0, *(cOmWeapon **)(s0 + 0x700), 2);
         }
         o = *(char **)(s0 + 0x700);
         {

@@ -1,26 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDvd.h"
+#include "godhand/criStm.h"
 #include "godhand/cSnd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cBgmData.h"
 
-extern char D_00583F20[];
 extern unsigned char D_0044D070;
-extern void cDvd_cancel(char *, int);
 extern void func_00322F58(void);
-extern void cHeap_free(int, void *);
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
-extern void cBgmData_Relocate(cBgmData *);
 extern void cBgmData_AddLoadBits(cBgmData *, int);
 extern char D_00603A40[];
 extern char D_0044CF78[];
 extern unsigned int D_00747A34;
 extern void func_003A6A20(char *, int, int, int);
-extern void cSeData_AddLoadBits(cSeData *, int);
-extern void cSeData_Release(cSeData *);
-extern void cSeData_SelectHeap(cSeData *);
 extern void cSeData_SetFailed(cSeData *);
 
 /* Release everything a bgm data slot holds and reset it. */
@@ -28,13 +20,13 @@ __attribute__((section(".text.cBgmData_Reset")))
 void cBgmData_Reset(cBgmData *d)
 {
     if (cBgmData_IsReadDone(d) == 0)
-        cDvd_cancel(D_00583F20, d->f1C);
+        cDvd_cancel(&D_00583F20, d->f1C);
     if (cBgmData_HasLoadBits(d, 4) == 1 && cBgmData_HasLoadBits(d, 8) == 0 && func_00323000(d->f18) == 2)
         func_00322F58();
     if (d->head != 0)
-        cHeap_free((int)d->pool, d->head);
+        cHeap_free(d->pool, d->head);
     if (d->f14 != 0)
-        cHeap_free((int)d->pool, d->f14);
+        cHeap_free(d->pool, d->f14);
     func_003A52F0(d, 0, 0x44);
     d->f20 = -1;
     d->f18 = -1;
@@ -73,7 +65,7 @@ int cSeData_ResolveBank(cSeData *d)
         if (d->f1C == 0)
             return 0;
         if ((D_00747A34 & 0x10000000) != 0)
-            func_003A6A20(D_0044CF78, d->f3C, d->bankId, d->buf->f2C);
+            func_003A6A20(D_0044CF78, d->owner, d->bankId, d->buf->f2C);
         d->f34 = func_002D30E0(D_00603A40, base, d->f1C, d->buf->f2C);
     }
     cSeData_AddLoadBits(d, 0x20);
@@ -82,12 +74,12 @@ int cSeData_ResolveBank(cSeData *d)
 
 /* Start loading bank bankId from buffer buf into the slot; 1 when it is usable. */
 __attribute__((section(".text.cSeData_LoadFromBuf")))
-int cSeData_LoadFromBuf(cSeData *d, int bankId, cSeBuf *buf, int f3C)
+int cSeData_LoadFromBuf(cSeData *d, int bankId, cSeBuf *buf, int owner)
 {
     if (d->state != 0)
         cSeData_Release(d);
     d->bankId = bankId;
-    d->f3C = f3C;
+    d->owner = owner;
     d->state = 1;
     cSeData_SelectHeap(d);
     d->buf = buf;

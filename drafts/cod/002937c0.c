@@ -1,4 +1,9 @@
-/* sn-2.95.3-136 */
+/* NON_MATCHING func_002937C0 (sn-2.95.3-136): 156 differing words with CVEC_ASSIGN(d, &s) for the
+ * operator= copy (7 with the SN assembler, which retail needs for the nop before an add.s);
+ * the draft matches with cvec_pending.h's CVEC_ASSIGN_VEC and the SN assembler, which waits on a decision. */
+#include "include_asm.h"
+
+#ifdef NON_MATCHING
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cCamera.h"
@@ -7,7 +12,7 @@
 #include "godhand/player.h"
 #include "godhand/sceVu0.h"
 #include "godhand/mtx.h"
-#include "godhand/cVec.h"
+#include "../cvec_pending.h"
 
 /* 1 once the float at 0x1720 has run down to 0. */
 int func_00273EB8(cEm00 *self);
@@ -142,3 +147,6 @@ int func_002937C0(cEmManage *self, cEm00 *em)
     }
     return 0;
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_002937C0);
+#endif

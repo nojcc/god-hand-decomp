@@ -21,7 +21,7 @@ loop:
     } while (0);
     CARD_OF_FLAGS(flags)->obj->flags |= BLACKJACK_CARD_FACE_DOWN;
     *flags = POKER_CARD_RESET;
-    CARD_OF_FLAGS(flags)->obj->unk104 = 0;
+    CARD_OF_FLAGS(flags)->obj->rot.y = 0.0f;
     flags += sizeof(BlackJackCard) / sizeof(*flags);
     if (--i >= 0) goto loop;
     for (j = POKER_HAND_NUM - 1; j >= 0; j--) {

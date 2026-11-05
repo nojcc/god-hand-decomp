@@ -1,5 +1,5 @@
 /* include/godhand/cVecType.h - the four-float vector every record uses,
- * and its two plain helpers. cVec.h has the vector macros. */
+ * and its plain helpers. cVec.h has the vector macros. */
 #ifndef GODHAND_CVECTYPE_H
 #define GODHAND_CVECTYPE_H
 
@@ -23,6 +23,12 @@ static __inline__ void cVec_set4(cVec *v, float x, float y, float z, float w) {
     v->y = y;
     v->z = z;
     v->w = w;
+}
+
+/* The squared distance between a and b (x, y and z). */
+static __inline__ float cVec_distSq(cVec *a, cVec *b) {
+    return (a->x - b->x) * (a->x - b->x) + (a->y - b->y) * (a->y - b->y)
+         + (a->z - b->z) * (a->z - b->z);
 }
 
 #endif

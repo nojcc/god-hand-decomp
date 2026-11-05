@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/ColiseumBattle.h"
+#include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/vu0.h"
 
 extern char D_005F3970[];
-extern void func_003A52F0(void *, int, int);
 extern void func_001F2708(void *);
 extern void cGameObj(void *);
 extern int D_0044A660;

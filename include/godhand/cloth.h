@@ -11,6 +11,7 @@
 
 #include "godhand/cVec.h"
 #include "godhand/criStm.h"          /* memset (func_003A52F0) */
+#include "godhand/cEmLinked.h"
 
 typedef struct ClothSphere {
     unsigned short unk00;               /* 0x00 1: boneA's point only, no blend */
@@ -44,5 +45,18 @@ extern ClothSphere D_004613A0[12];
         CVEC_INIT_XYZ((s)->ofsA, fx, fy, fz)                    \
         CVEC_INIT_XYZ((s)->ofsB, ux, uy, uz)                    \
     }
+
+/* The costume cloth object: its step work and link sit 0xE0 below where
+ * cEmLinked keeps them. */
+typedef struct pl01 {
+    char unk0000[0x2050];
+    cEmLinkStep work;                   /* 0x2050 */
+    char unk20AC[0x20D0 - 0x20AC];
+    cGameObj *link;                     /* 0x20D0 */
+    int linkChild;                      /* 0x20D4 */
+} pl01;
+
+/* Hang the costume cloth object from child idx of parent. */
+void pl01__SetParent(pl01 *self, cGameObj *parent, int idx);
 
 #endif /* GODHAND_CLOTH_H */

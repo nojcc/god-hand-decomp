@@ -43,9 +43,7 @@ extern int GetField_54_173900(void *rec);
 extern int cEmManage_CreateItem(void *self, cVec *pos, int kind, int mode);
 extern void func_00195620(char *p);
 extern void SetField5B0Bit2ClearBit8_1B7908(cOmBase *self);
-extern void MtxInitRotVec(float *mtx, cVec *rot, unsigned char order);
 extern void CopyVec3ToField30_147C40(float *mtx, cVec *pos);
-extern void MtxMulScaleVec(float *dst, float *src, cVec *scale);
 
 /* Break sequence: stop the sound, start the break effect and sound at child 2,
  * drop an item and throw the pieces; wait 150 frames, then 15, then go back
@@ -71,7 +69,7 @@ void func_00195068(cOmBreakObj *self)
         ForwardVec3At30_147C60(&pos, cOmBase_childAt(&self->base, frame, 2)->mtx);
         SetEffect(0x177, 2, self, 0, -1, 0xFFFFFFFF);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x87, self, 0,
-                           (int)cOmBase_childAt(&self->base, frame, 2), 0, 0);
+                           cOmBase_childAt(&self->base, frame, 2), 0, 0);
         KillEffect((int)self, 1, 2);
         cEmManage_CreateItem(&D_005864F0, &pos, 0xFFFF, 0);
         func_00195620((char *)self);
@@ -104,7 +102,7 @@ void func_00195068(cOmBreakObj *self)
         break;
     }
 
-    for (i = 3; i < 9 && self->base.childNum != i; i++) {
+    for (i = 3; i < 9 && self->base.partNum != i; i++) {
         pc = &self->piece[i];
         if (GetField_54_173900(pc) != 1)
             continue;

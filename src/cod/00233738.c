@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
 extern int irand(void);
 extern void *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern int moveMotion(void *a0);
 extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -66,9 +65,9 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     *(int *)(s1 + 0x5F0) = 0x14;
                     StoreMotionParamsBoth_2609A8(self, 0x3C, 0x13, 0x3B, 0, 0x111);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7E, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7E, 0, 2, *(void **)(s1 + 0x6EC));
                     } else {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x79, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x79, 0, 2, *(void **)(s1 + 0x6EC));
                     }
                 } else if ((irand() & 1) != 0 || *(unsigned char *)(s1 + 0x2F7) != 0) {
                     char *pb = *(char **)(s1 + 0x304);
@@ -122,9 +121,9 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     StoreMotionParamsBoth_2609A8(self, 0x28, 0x12, 0x38, 0, 0x112);
                 bend:;
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7F, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7F, 0, 2, *(void **)(s1 + 0x6EC));
                     } else {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7A, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7A, 0, 2, *(void **)(s1 + 0x6EC));
                     }
                 } else {
                     char *pc = *(char **)(s1 + 0x304);
@@ -176,9 +175,9 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     StoreMotionParamsBoth_2609A8(self, 0x3C, 0x12, 0x39, 0, 0x112);
                 cend:;
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x80, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x80, 0, 2, *(void **)(s1 + 0x6EC));
                     } else {
-                        InitRenderStruct_2A8608(s1, 0x58, 0x7B, 0, 2, *(int *)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7B, 0, 2, *(void **)(s1 + 0x6EC));
                     }
                 }
             }
@@ -222,7 +221,7 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
             break;
     }
     func_00260B30(self);
-    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(s1) == 0 &&
+    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8((cEm00 *)s1) == 0 &&
         (*(unsigned short *)(s1 + 0x3AC) & 0x10) != 0 && *(unsigned char *)(s1 + 0x1864) == 0 &&
         func_00262AA8(self) != 0) {
         return;

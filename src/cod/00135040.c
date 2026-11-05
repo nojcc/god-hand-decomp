@@ -1,25 +1,20 @@
-/* NON_MATCHING func_00135040 (sn-2.95.3-136, -ffast-math, sqrt hazard rule): push-out against
- * a solid's reference point. Retail keeps nothing in the sqrt.s pad, so the reach load and the
- * zero constant follow the root and the return test is a plain bc1t; ours schedules them into
- * the pad and inverts the test into bc1fl. */
-#include "include_asm.h"
-
-#ifdef NON_MATCHING
+/* sn-2.95.3-136 */
+#include "godhand/fpu.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCollisionSolid.h"
+#include "godhand/sceVu0.h"
 
 extern int func_00136A88(cVec *a, cVec *b, float *reach);
-extern void sceVu0SubVector(void *a0, void *a1, void *a2);
-extern void sceVu0Normalize(void *a0, void *a1);
-extern void sceVu0ScaleVector(void *dst, void *src, float s);
 
 static __inline__ float cVec_dist(cVec *a, cVec *b)
 {
     float dx = b->x - a->x;
     float dy = b->y - a->y;
     float dz = b->z - a->z;
+    float d;
 
-    return __builtin_sqrtf(dx * dx + dy * dy + dz * dz);
+    FPU_SQRT_S(d, dx * dx + dy * dy + dz * dz);
+    return d;
 }
 
 /* One collision unit in the manager's list. */
@@ -38,7 +33,11 @@ typedef struct cCollisionSolidPt {
     cVec point;                         /* 0x180 */
 } cCollisionSolidPt;
 
-/* Push unit a's owner out of unit b's solid in the ground plane; 0 when they do not touch. */
+/* Push unit a's owner out of unit b's solid in the ground plane; 0 when they do not touch. The
+ * root in cVec_dist is FPU_SQRT_S: with __builtin_sqrtf cc1 schedules the reach load and the
+ * zero into the root's pad and inverts the return test. mgr, the collision manager its callers
+ * pass, is not read. */
+__attribute__((section(".text.func_00135040")))
 int func_00135040(void *mgr, cCollUnit *ua, cCollisionSolidPt *sa, cCollUnit *ub,
                   cCollisionSolidPt *sb)
 {
@@ -73,6 +72,3 @@ int func_00135040(void *mgr, cCollUnit *ua, cCollisionSolidPt *sa, cCollUnit *ub
     ua->owner->pos->z += push.z - push.z * (1.0f - keep);
     return 1;
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00135040);
-#endif

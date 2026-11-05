@@ -1,7 +1,12 @@
-/* sn-2.95.3-136 */
+/* NON_MATCHING func_00186398 (sn-2.95.3-136): 32 differing words with CVEC_ASSIGN for the
+ * two operator= copies; the draft matches with cvec_pending.h's CVEC_PUT and
+ * CVEC_ASSIGN_ARG, which wait on a decision. */
+#include "include_asm.h"
+
+#ifdef NON_MATCHING
 #include "godhand/cOl40.h"
 #include "godhand/cModel.h"
-#include "godhand/cVec.h"
+#include "../cvec_pending.h"
 #include "godhand/vecInline.h"
 #include "godhand/capVu0.h"
 #include "godhand/cCamera.h"
@@ -47,3 +52,6 @@ void func_00186398(cOl40 *self)
         CVEC_ASSIGN_ARG(part->rot, rot);
     }
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_00186398);
+#endif

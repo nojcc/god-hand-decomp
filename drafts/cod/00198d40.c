@@ -56,7 +56,7 @@ int func_00198D40(cOmHitVolume *self)
     }
     cVec_set4(&f.half, f.base.x, f.base.y, f.base.z, 1.0f);
     cVec_set4(&f.ofs, 0.0f, f.base.y * -0.5f, 0.0f, 1.0f);
-    unit = cDamageManage_CreateDamageTake(D_00574380, self, 2);
+    unit = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damageTake = unit;
     if (unit != 0) {
         cVec_set4(&f.v, 0.0f, 0.0f, 0.0f, 1.0f);

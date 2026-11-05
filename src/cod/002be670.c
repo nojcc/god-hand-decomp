@@ -1,14 +1,11 @@
-typedef struct {
-    int f0;
-    unsigned char f4;
-} ReleaseEnt;
+/* sn-2.95.3-136 */
+#include "godhand/cRelSys.h"
 
-extern int func_002BE6C8(void *);
-
+/* Unregister and clear one loaded table holder. */
 __attribute__((section(".text.func_002BE670")))
-void func_002BE670(ReleaseEnt *entry)
+void func_002BE670(cRelSlot *entry)
 {
     func_002BE6C8(entry);
-    entry->f4 = 0;
-    entry->f0 = 0;
+    entry->ok = 0;
+    entry->data = 0;
 }

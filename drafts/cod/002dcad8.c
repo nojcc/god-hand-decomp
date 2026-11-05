@@ -18,7 +18,6 @@ typedef struct LineHitFace {
     int flags;                          /* 0x4 */
 } LineHitFace;
 
-extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
 extern void cActionButton_set(cActionButton *self, int priority, int life, int a3, int a4, int a5, int kind);
 extern cActionButton D_00568288;
 extern void func_002DCCD0(void);

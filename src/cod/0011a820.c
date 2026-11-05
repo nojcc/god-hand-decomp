@@ -1,25 +1,20 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/CustomIDWork.h"
+#include "godhand/cDvd.h"
 #include "godhand/cMovie.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/espSys.h"
+#include "godhand/cSnd.h"
 
-extern void CustomIDWork_SetScaleAnimSin(CustomIDWork *work, unsigned short frames, float from, float to);
-extern void CustomIDWork_ResetScaleAnim(CustomIDWork *work);
 extern int SetEffectParts(int kind, int id, void *owner, int part, float f12, float f13, float f14, float f15, int t0);
 extern void KillEffect(void *owner, int id, int arg);
 extern unsigned int D_00747A84;
-extern void func_002FA350(float *frame);
-extern char D_00580D40[];
 extern void func_003A57C4(void *dst, const void *src);
 extern void FreeResourceNode_2D3710(cMovieTrack *track);
-extern int FindEntryValue_1FF9C0(char *table, char *name, int *size, char *key);
 extern void func_00347BC0(int handle, int a1, int found);
 extern void func_00346078(int handle, int a1, int found);
-extern char D_005FEE00[];
-extern int cSnd_SeCall_2CBA48(void *snd, int b, int c, void *obj, int e, int f, int g, int h);
 extern float Turn_dest_dir(float cur, float dest, float speed);
 extern float Adjust_theta(float f12);
 
@@ -82,7 +77,6 @@ void ChargeObj_updateAuraEffect(ChargeObj *self) {
 
 /* EspAnim, EspData and their flags come from espSys.h. */
 
-extern void UpdateObjByIndexedOp_2FBE50(EspAnim *self);
 
 /* Advances the frame counter by one tick (or through func_002FA350), stores the frame index, and runs the indexed update once the index has reached the frame count. */
 __attribute__((section(".text.EspAnim_step")))
@@ -92,7 +86,7 @@ int EspAnim_step(EspAnim *self) {
     if (self->frameNum == 0) {
         return 0;
     }
-    if ((self->data->flags & ESP_DATA_PAUSE) == 0 && (self->lockFlags & 1) != 0) {
+    if ((self->data->flags & ESP_DATA_PAUSE) == 0 && (((unsigned char *)&self->flags)[1] & 1) != 0) {
         func_002FA350(&self->frame);
     } else if ((D_00747A84 & SYSFLAG_SLOWMO) != 0) {
         func_002FA350(&self->frame);
@@ -140,7 +134,7 @@ int cMovieTrack_start(cMovieTrack *track, const char **clip) {
         FreeResourceNode_2D3710(track);
         return 0;
     }
-    found = FindEntryValue_1FF9C0(D_00580D40, name, 0, 0);
+    found = FindEntryValue_1FF9C0(&D_00580D40, name, 0, 0);
     if ((MOVIE_TRACK_FLAGS(track) & MOVIE_TRACK_LOOP) != 0) {
         func_00347BC0(track->handle, 0, found);
     } else {
@@ -173,7 +167,7 @@ void cGameObjTurn_stepTurn(cGameObjTurn *self) {
     switch (self->base.step) {
     case 0:
         if (self->base.actorId != ACTOR_ID_A && self->base.actorId != ACTOR_ID_B) {
-            cSnd_SeCall_2CBA48(D_005FEE00, 2, 3, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 3, self, 0, 0, 0, 0);
         }
         self->base.stepArg = 0;
         self->base.step = 1;

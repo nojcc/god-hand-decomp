@@ -3,10 +3,10 @@
  * A CustomIDWork wraps a screen object (obj, 0x04) and animates four of its
  * properties. Each animation has a flag word and its own frame counter:
  *
- *   local position  flags 0x08, frames 0x24/0x26   obj->localPos[2]
- *   offset position flags 0x28, frames 0x44/0x46   obj->offsetPos[2]
- *   colour          flags 0x48, frames 0x58/0x5A   obj->color[4]
- *   scale           flags 0x5C, frames 0x74/0x76   obj->scale[2]
+ *   local position  flags 0x08, frames 0x24/0x26   obj->posX/posY
+ *   offset position flags 0x28, frames 0x44/0x46   obj->offX/offY
+ *   colour          flags 0x48, frames 0x58/0x5A   obj->colorBase
+ *   scale           flags 0x5C, frames 0x74/0x76   obj->sclX/sclY
  *
  * Flag bit 0 = running, bit 1 = linear blend, bit 2 = sine blend; the offset
  * animation has two more bits (3 and 4) for the Y axis. A blend runs for
@@ -18,6 +18,8 @@
 #ifndef GODHAND_CUSTOMIDWORK_H
 #define GODHAND_CUSTOMIDWORK_H
 
+#include "godhand/cIDBase.h"
+
 #define CIDW_ANIM_ON        0x01
 #define CIDW_ANIM_LINEAR    0x02
 #define CIDW_ANIM_SINE      0x04
@@ -26,28 +28,9 @@
 #define CIDW_SINE_PERIOD    0xB4    /* sine phase wraps at 180 */
 #define CIDW_DEG_TO_RAD     0.017453292f
 
-#define CIDW_OBJ_HIDE_ALL    0x08000000  /* flags: element and children hidden */
-#define CIDW_OBJ_HIDE_CHILD  0x00000008  /* flags: children hidden */
-#define CIDW_OBJ_HIDE        0x20000000  /* flags: element hidden */
-
-typedef struct CustomIDObj {
-    char unk00[0x2B];
-    unsigned char unk2B;
-    unsigned int flags;         /* 0x2C CIDW_OBJ_* */
-    float offsetPos[2];         /* 0x30 */
-    float localPos[2];          /* 0x38 */
-    float scale[2];             /* 0x40 */
-    char unk48[4];
-    unsigned char color[4];     /* 0x4C */
-    char unk50[0x34];
-    int number;                 /* 0x84 */
-    char unk88[8];
-    short messNo;               /* 0x90 */
-} CustomIDObj;
-
 typedef struct CustomIDWork {
     int unk00;
-    CustomIDObj *obj;           /* 0x04 */
+    cIDBaseEnt *obj;            /* 0x04 */
     unsigned int localFlags;    /* 0x08 */
     float restPos[2];           /* 0x0C copied from the object on Initialize */
     float localFrom[2];         /* 0x14 */
@@ -74,5 +57,31 @@ typedef struct CustomIDWork {
     unsigned short scaleCount;  /* 0x76 */
     unsigned char unk78;        /* 0x78 */
 } CustomIDWork;
+
+CustomIDWork *CustomIDWork__ctor(CustomIDWork *self);
+/* Destructor: frees self when flags bit 0 is set. */
+void CustomIDWork__dtor(CustomIDWork *self, int flags);
+void CustomIDWork_Initialize(CustomIDWork *self, cIDBaseEnt *obj);
+void CustomIDWork_SetDisp(CustomIDWork *self, int show);
+void CustomIDWork_SetNumber(CustomIDWork *self, int number);
+void CustomIDWork_SetMessNo(CustomIDWork *self, int messNo);
+void CustomIDWork_SetNoDisp(CustomIDWork *self, int hide);
+void CustomIDWork_SetChildNoDisp(CustomIDWork *self, int hide);
+void CustomIDWork_SetLocalPosX(CustomIDWork *self, int v);
+void CustomIDWork_SetLocalPosY(CustomIDWork *self, int v);
+void CustomIDWork_SetLocalPosXY(CustomIDWork *self, int x, int y);
+void CustomIDWork_SetOffsetPosX(CustomIDWork *self, int v);
+void CustomIDWork_SetOffsetPosY(CustomIDWork *self, int v);
+void CustomIDWork_SetOffsetPosXY(CustomIDWork *self, int x, int y);
+void CustomIDWork_SetMoveOffsetPosX(CustomIDWork *self, int from, int to, unsigned short frames);
+void CustomIDWork_SetMoveOffsetPosY(CustomIDWork *self, int from, int to, unsigned short frames);
+void CustomIDWork_SetMoveOffsetPosXSin(CustomIDWork *self, int amp, unsigned short frames);
+void CustomIDWork_SetMoveOffsetPosYSin(CustomIDWork *self, int amp, unsigned short frames);
+void CustomIDWork_SetColorAnimSin(CustomIDWork *self, int from, int to, int frames);
+void CustomIDWork_SetColorAnimNormal_2D6898(CustomIDWork *self, int color, unsigned short frames);
+void CustomIDWork_ResetColorAnim(CustomIDWork *self);
+void CustomIDWork_SetScaleAnimNormal(CustomIDWork *self, unsigned short frames, float from, float to);
+void CustomIDWork_SetScaleAnimSin(CustomIDWork *self, unsigned short frames, float from, float to);
+void CustomIDWork_ResetScaleAnim(CustomIDWork *self);
 
 #endif

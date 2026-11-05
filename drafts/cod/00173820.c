@@ -1,4 +1,6 @@
-/* NON_MATCHING cOl0e_setFake (sn-2.95.3-136): body matches; retail keeps the constant 1 of the gone test in v1 and reuses it for the fake == 1 test, ours loads it again. */
+/* NON_MATCHING cOl0e_setFake (sn-2.95.3-136): 39 differing words, the same body one word longer: retail
+ * keeps the constant 1 of the gone test in v1 and reuses it for the fake == 1 test (ours loads it
+ * again), and stores the rate after the state bytes. */
 /* sn-2.95.3-136: cOl0e_setFake, switch the object into the fake state (fake == 1: damage volumes off, hit
  * entry inactive, mode 1) or back out of it, unless the object is gone; either way the state bytes after
  * the mode are cleared and the animation rate goes back to 1. */
@@ -6,8 +8,8 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cOl0e.h"
+#include "godhand/cDamageUnit.h"
 
-extern void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);
 
 __attribute__((section(".text.cOl0e_setFake")))
 void cOl0e_setFake(cOl0e *self, int fake)
@@ -35,7 +37,7 @@ void cOl0e_setFake(cOl0e *self, int fake)
         self->base.phase = 0;
         self->base.step = 0;
         self->base.stepArg = 0;
-        self->base.animRate = 1.0f;
+        self->base.tint.w = 1.0f;
     }
 }
 #else

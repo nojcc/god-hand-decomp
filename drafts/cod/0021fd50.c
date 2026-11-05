@@ -700,9 +700,9 @@ void func_0021FD50(cEm00 *self)
             break;
         }
         self->timerC = 0;
-        func_002A8578((int)self, recA, recB, mode, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, mode, 0.0f, sel, 0);
         if (fxKind_isSet(fxKind)) {
-            InitRenderStruct_2A8608((cGameObj *)self, fxKind, (void *)fxNo, 0, fxMode, fxFollow);
+            InitRenderStruct_2A8608((cGameObj *)self, fxKind, fxNo, 0, fxMode, fxFollow);
         }
         self->timer = self->rot.y;
         self->step++;
@@ -911,7 +911,7 @@ void func_0021FD50(cEm00 *self)
             }
         }
         self->timerC = 0;
-        func_002A8578((int)self, recA, recB, 5, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 5, 0.0f, sel, 0);
         self->timer = self->rot.y;
         self->step++;
         /* fallthrough */
@@ -943,11 +943,11 @@ void func_0021FD50(cEm00 *self)
         if (self->unk6EC != 0) {
             recA = RES(0x4CC);
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                func_002A8578((int)self, recA, RES(0x4D0), 2, 0.0f, sel, 0);
-                InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x81, 0, 2, self->unk6EC);
+                func_002A8578(self, recA, RES(0x4D0), 2, 0.0f, sel, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x81, 0, 2, self->unk6EC);
             } else {
-                func_002A8578((int)self, recA, RES(0x4D0), 2, 0.0f, sel, 0);
-                InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7C, 0, 2, self->unk6EC);
+                func_002A8578(self, recA, RES(0x4D0), 2, 0.0f, sel, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7C, 0, 2, self->unk6EC);
             }
         } else {
             switch (self->emNo) {
@@ -1058,9 +1058,9 @@ void func_0021FD50(cEm00 *self)
                 }
                 break;
             }
-            func_002A8578((int)self, recA, recB, 2, 0.0f, sel, 0);
+            func_002A8578(self, recA, recB, 2, 0.0f, sel, 0);
             if (fxKind_isSet(fxKind)) {
-                InitRenderStruct_2A8608((cGameObj *)self, fxKind, (void *)fxNo, 0, fxMode, fxFollow);
+                InitRenderStruct_2A8608((cGameObj *)self, fxKind, fxNo, 0, fxMode, fxFollow);
             }
         }
         self->unk568 = 1;
@@ -1185,22 +1185,22 @@ void func_0021FD50(cEm00 *self)
             case 0x380:
             case 0x3B7:
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    func_002A8578((int)self, recA, RES(0x4E4), 2, 0.0f, sel, 0);
-                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x82, 0, 2, self->unk6EC);
+                    func_002A8578(self, recA, RES(0x4E4), 2, 0.0f, sel, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x82, 0, 2, self->unk6EC);
                 } else {
-                    func_002A8578((int)self, recA, RES(0x4E4), 2, 0.0f, sel, 0);
-                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7D, 0, 2, self->unk6EC);
+                    func_002A8578(self, recA, RES(0x4E4), 2, 0.0f, sel, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7D, 0, 2, self->unk6EC);
                 }
                 break;
             case 0x362:
             case 0x368:
             case 0x379:
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    func_002A8578((int)self, recA, RES(0x4E8), 2, 0.0f, sel, 0);
-                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x82, 0, 2, self->unk6EC);
+                    func_002A8578(self, recA, RES(0x4E8), 2, 0.0f, sel, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x82, 0, 2, self->unk6EC);
                 } else {
-                    func_002A8578((int)self, recA, RES(0x4E8), 2, 0.0f, sel, 0);
-                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, (void *)0x7D, 0, 2, self->unk6EC);
+                    func_002A8578(self, recA, RES(0x4E8), 2, 0.0f, sel, 0);
+                    InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7D, 0, 2, self->unk6EC);
                 }
                 break;
             }
@@ -1310,9 +1310,9 @@ void func_0021FD50(cEm00 *self)
                 }
                 break;
             }
-            func_002A8578((int)self, recA, recB, 2, 0.0f, sel, 0);
+            func_002A8578(self, recA, recB, 2, 0.0f, sel, 0);
             if (fxKind_isSet(fxKind)) {
-                InitRenderStruct_2A8608((cGameObj *)self, fxKind, (void *)fxNo, 0, fxMode, fxFollow);
+                InitRenderStruct_2A8608((cGameObj *)self, fxKind, fxNo, 0, fxMode, fxFollow);
             }
         }
         self->timerA = 0xA;
@@ -1395,7 +1395,7 @@ void func_0021FD50(cEm00 *self)
             self->timerA = 0x32;
             StoreMotionParamsBoth_2609A8((char *)self, 0xF, 0, 0x3D, -1, 0);
         }
-        func_002A8578((int)self, recA, recB, 3, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 3, 0.0f, sel, 0);
         self->step++;
         /* fallthrough */
     case 9:
@@ -1458,7 +1458,7 @@ void func_0021FD50(cEm00 *self)
             }
             self->timerA = 0x32;
         }
-        func_002A8578((int)self, recA, recB, 3, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 3, 0.0f, sel, 0);
         self->step++;
         /* fallthrough */
     case 11:
@@ -1507,7 +1507,7 @@ void func_0021FD50(cEm00 *self)
             }
             self->timerA = 0x32;
         }
-        func_002A8578((int)self, recA, recB, 3, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 3, 0.0f, sel, 0);
         self->step++;
         /* fallthrough */
     case 13:

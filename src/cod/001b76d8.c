@@ -12,8 +12,6 @@
 
 extern unsigned int D_00747A84;
 extern void cModel_ScrollTexture(cModel *self, float f);
-extern void cModel_calcParts(cModel *self);
-extern void cOmBase_dieCommon(int a0);
 
 static inline long cOmBase_flag2Bit(cOmBase *self, int bit)
 {
@@ -45,6 +43,6 @@ void func_001B76D8(cOmBase *self)
     vec3_copy(&self->posA.x, &self->pos->x);
     vec3_copy(&self->posB.x, &self->rot.x);
     if (self->pos->y < FALL_OUT_Y) {
-        cOmBase_dieCommon((int)self);
+        cOmBase_dieCommon(self);
     }
 }

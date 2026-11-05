@@ -13,8 +13,6 @@ typedef struct IDSlotScreen {
     unsigned char on[16];       /* 0x1B0 */
 } IDSlotScreen;
 
-extern void cIDBase_trans(void *self);
-extern cIDBaseEnt *cIDBase_getIDWork(void *self, int idx);
 
 __attribute__((section(".text.func_00143998")))
 void func_00143998(IDSlotScreen *obj)
@@ -22,7 +20,7 @@ void func_00143998(IDSlotScreen *obj)
     unsigned short i;
     cIDBaseEnt *w;
 
-    cIDBase_trans(obj);
+    cIDBase_trans((cIDBaseObj *)obj);
     i = 0;
     w = cIDBase_getIDWork(&obj->base2, 0);
     for (; i < 16; i++) {

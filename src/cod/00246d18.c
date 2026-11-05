@@ -3,7 +3,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002744E0(void *a0);
 

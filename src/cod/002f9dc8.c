@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
+#include "godhand/espSys.h"
+#include "godhand/cNode.h"
+#include "godhand/mtx.h"
 
-extern void UpdateObjByIndexedOp_2FBE50(void *a0);
-extern void cNode_setLocalTranslation(void *self, void *v);
-extern void func_002FBED0(void *self);
-extern void MtxCopy(void *a, void *b);
 extern int D_0076B580[];
 
 /* sn-2.95.3-136 */
@@ -27,14 +26,14 @@ void func_002F9DC8(char *p)
 
     o = *(char **)(p + 0x114);
     if (o == 0) {
-        UpdateObjByIndexedOp_2FBE50(p);
+        UpdateObjByIndexedOp_2FBE50((EspAnim *)p);
         return;
     }
     idx = *(int *)(p + 0x2B4);
     ok = ((*(int *)frame = b = *(unsigned char *)(o + 0x2B4)), (idx >= 0 && idx < b));
     if (ok) obj = *(int *)(*(int *)(o + 0x278) + idx * 4); else obj = 0;
     if (obj == 0) {
-        UpdateObjByIndexedOp_2FBE50(p);
+        UpdateObjByIndexedOp_2FBE50((EspAnim *)p);
         return;
     }
     v = (float *)(frame + 0x10);
@@ -43,8 +42,8 @@ void func_002F9DC8(char *p)
     *(float *)(frame + 0x18) = 0.0f;
     fa = 1.0f;
     v[3] = fa;
-    cNode_setLocalTranslation(p, v);
-    func_002FBED0(p);
+    cNode_setLocalTranslation((cNode *)p, (cVec *)v);
+    func_002FBED0((EspAnim *)p);
 }
 
 __attribute__((section(".text.func_00302988")))

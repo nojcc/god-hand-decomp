@@ -1,10 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cRelSys.h"
+#include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
+#include "godhand/seqNode.h"
+#include "godhand/cNode.h"
+#include "godhand/heapArena.h"
 #include "godhand/cScenario.h"
+#include "godhand/mtx.h"
 
 extern char D_0044A408[];
-extern int MtxCopy();
 extern int cTaskManager_execute_2D54F0(cTaskManager *task, void *entry, void *arg, int slot);
-extern char D_0044CEE8[];
 extern char D_0044E090[];
 
 /* clone */
@@ -13,21 +18,21 @@ extern char D_0044E090[];
 
 
 __attribute__((section(".text.func_0028B148")))
-void func_0028B148(int a0, int a1) {
-    *(int *)((char *)a0 + 0x214) = (int)D_0044A408;
-    func_0028BEA8(a0);
-    func_0028EB88(a0, a1);
+void func_0028B148(cEm00 *self, int flags) {
+    self->vtable = (cVtEnt *)D_0044A408;
+    func_0028BEA8(self);
+    func_0028EB88((struct cGameObj *)self, flags);
 }
 
 /* clone */
 
 
 __attribute__((section(".text.func_0028CE70")))
-void func_0028CE70(char *a0) {
-    int v = *(int*)(a0 + 0x1630);
+void func_0028CE70(cEm00 *self) {
+    void *v = self->unk1630;
     if (v) {
         __builtin_vec_delete(v);
-        *(int*)(a0 + 0x1630) = 0;
+        self->unk1630 = 0;
     }
 }
 
@@ -57,7 +62,7 @@ void func_002AF6E0(char *arg0, int arg1) {
 
 
 __attribute__((section(".text.func_002B6350")))
-void func_002B6350(void *a0) { MtxCopy((char *)a0 + 0xB0); }
+void func_002B6350(void *node, void *src) { MtxCopy((char *)node + 0xB0, src); }
 
 /* clone */
 
@@ -74,9 +79,10 @@ void func_002BDBD0(int *a0) {
 
 
 __attribute__((section(".text.func_002BE858")))
-void func_002BE858(void *a0, int a1) {
-    void *p = (void *)(a1 * 8 + (int)a0);
-    if (*(unsigned char *)((char *)p + 0x4) == 1)
+void func_002BE858(cRelSlot *slots, int idx) {
+    /* an int sum: &slots[idx] adds the two operands the other way round */
+    cRelSlot *p = (cRelSlot *)(idx * 8 + (int)slots);
+    if (p->ok == 1)
         HeapBuf_release(p);
 }
 
@@ -99,9 +105,9 @@ int cScenario_taskExec_2C38D8(cScenario *self, void *entry, void *arg, int slot)
 
 
 __attribute__((section(".text.cSndBgmNode_Dtor")))
-int cSndBgmNode_Dtor(void *a0) {
-    *(char**)((char*)a0+0x80) = D_0044CEE8;
-    return func_00372C80(a0);
+void cSndBgmNode_Dtor(cSndBgmNode *node, int flags) {
+    node->vt = D_0044CEE8;
+    func_00372C80((SndVoiceNode *)node, flags);
 }
 
 /* clone */
@@ -109,7 +115,7 @@ int cSndBgmNode_Dtor(void *a0) {
 
 
 __attribute__((section(".text.func_002E16B0")))
-int func_002E16B0(void *a0) {
-    *(char**)((char*)a0+0xF0) = D_0044E090;
-    return func_002FBE28(a0);
+void func_002E16B0(cNode *self, int flags) {
+    self->vt = D_0044E090;
+    func_002FBE28(self, flags);
 }

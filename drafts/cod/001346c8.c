@@ -4,31 +4,17 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-#include "godhand/cOmBase.h"
-
-/* One collision unit in the manager's list. */
-typedef struct cCollUnit {
-    cOmBase *owner;                     /* 0x00 */
-    int unk04;                          /* 0x04 */
-    int priority;                       /* 0x08 */
-    float share;                        /* 0x0C */
-    struct cCollUnit *next;             /* 0x10 */
-} cCollUnit;
-
-typedef struct cCollUnitList {
-    cCollUnit *head;                    /* 0x00 */
-    int count;                          /* 0x04 */
-} cCollUnitList;
+#include "godhand/cCollisionSolid.h"
 
 /* The unit owned by owner, or 0. */
-cCollUnit *func_001346C8(cCollUnitList *list, cOmBase *owner)
+cCollisionSolidUnit *func_001346C8(cCollisionSolidManage *self, struct cGameObj *owner)
 {
-    cCollUnit *u;
+    cCollisionSolidUnit *u;
 
     if (owner == 0) {
         return 0;
     }
-    for (u = list->head; u != 0; u = u->next) {
+    for (u = self->first; u != 0; u = u->next) {
         if (u->owner == owner) {
             break;
         }

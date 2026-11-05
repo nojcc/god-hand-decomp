@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern int cOmWeapon_setParent();
+#include "godhand/cOmWeapon.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/vu0.h"
@@ -168,5 +168,5 @@ void func_0012A8D8(void *a0) {
         }
         break;
     }
-    cOmWeapon_setParent(*(int *)(s0 + 0x698), s0, 0xA, buf, (char *)buf + 0x10);
+    cOmWeapon_setParent((cOmWeapon *)(*(int *)(s0 + 0x698)), (cOmBase *)s0, 0xA, (cVec *)buf, (cVec *)((char *)buf + 0x10));
 }

@@ -5,6 +5,7 @@ extern int D_0042AA98;
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/cDamageUnit.h"
 
 
 
@@ -32,37 +33,33 @@ void *func_001C9140(void *a0)
     return s0;
 }
 
-/* sn-2.95.3-136 candidate. */
+extern int SpawnRec_create(cDamageNode *node, int group, void *mtx, cVec *pos, cVec *dir, cDamageUnit *owner,
+                         float height, float radius);
 
-struct VtEnt { short delta; short index; void *pfn; };
-
-
-extern int SpawnRec_create(void *obj, int r, int p2, int p3, int p4, void *self,
-                         float f12, float f13);
-
+/* Append a cylinder volume from pos along dir; its id, or -1. */
 __attribute__((section(".text.cDamageUnit_AddDamageCollCylinder")))
-int cDamageUnit_AddDamageCollCylinder(char *self, int a1, int a2, int a3,
-                                      float f12, float f13)
+int cDamageUnit_AddDamageCollCylinder(cDamageUnit *self, void *mtx, cVec *pos, cVec *dir,
+                                      float height, float radius)
 {
-    struct VtEnt *vt;
-    char *obj;
-    char *p;
+    const cDamageVtEnt *ent;
+    cDamageNode *node;
+    cDamageNode *p;
     int r;
 
-    if (*(signed char *)(self + 0x49) == 0) return -1;
-    vt = *(struct VtEnt **)(self + 0x50);
-    obj = (char *)((int (*)(void *))vt[2].pfn)(self + vt[2].delta);
-    if (obj == 0) return -1;
+    if (self->type == CDAMAGE_TYPE_SPARE) return -1;
+    ent = &self->vt[CDAMAGE_UNIT_NEWNODE];
+    node = ((cDamageNode *(*)(void *))ent->pfn)((char *)self + ent->delta);
+    if (node == 0) return -1;
     if (func_001FD908(self) == 0) return -1;
-    r = SpawnRec_create(obj, func_001FD908(self), a1, a2, a3, self, f12, f13);
+    r = SpawnRec_create(node, func_001FD908(self), mtx, pos, dir, self, height, radius);
     if (r == -1) return r;
-    if (*(char **)(self + 0x3C) != 0) {
-        p = *(char **)(self + 0x3C);
-        while (*(char **)(p + 0x24) != 0) p = *(char **)(p + 0x24);
-        *(char **)(p + 0x24) = obj;
-        *(char **)(obj + 0x20) = p;
+    if (self->nodes != 0) {
+        p = self->nodes;
+        while (p->next != 0) p = p->next;
+        p->next = node;
+        node->prev = p;
     } else {
-        *(char **)(self + 0x3C) = obj;
+        self->nodes = node;
     }
     return r;
 }

@@ -1,32 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
+#include "godhand/cDvd.h"
+#include "godhand/heapArena.h"
 #include "godhand/cBgmData.h"
 
-extern cBgmData *cSnd_GetBgmData(cSnd *, int);
-extern cBgmHead *cBgmData_GetHeadPtr(cBgmData *);
-extern cBgmTbl *cBgmData_GetTblPtr(cBgmData *, int);
-extern void cBgmData_Reset(cBgmData *);
-extern char D_005FEE00[];
-extern char D_00580D40[];
 extern char D_0044D0B0[];
 extern char D_0044D0C0[];
 extern char D_0044D0D8[];
-extern void *_MemoryAlloc(int, int, void *);
-extern int FindEntryValue_1FF9C0(char *, char *, int, int);
 extern void cBgmData_AddLoadBits(cBgmData *, int);
-extern int cBgmData_LoadNumbered(cBgmData *, int, int);
-extern char D_00754210[];
-extern char D_00583F20[];
 extern char D_0044D0A0[];
-extern int cDvd_FileExist(char *, char *);
-extern int cDvd_ReadAlloc(char *, char *, void *, void *, int, int, int, int);
 
 /* Is the request reqNo of bgm part 0 playing? */
 __attribute__((section(".text.cSnd_BgmEvIsPlaying")))
 int cSnd_BgmEvIsPlaying(void *unused, int reqNo)
 {
-    return cSnd_FindBgmNode(D_005FEE00, 0, reqNo) != 0;
+    return cSnd_FindBgmNode(&D_005FEE00, 0, reqNo) != 0;
 }
 
 /* Allocate the decode buffer for the slot's table and register it; 1 on success. */
@@ -50,7 +39,7 @@ int cBgmData_PrepareDecode(cBgmData *d)
             func_003A6C58(name, D_0044D0D8, d->name);
         break;
     }
-    key = FindEntryValue_1FF9C0(D_00580D40, name, 0, 0);
+    key = FindEntryValue_1FF9C0(&D_00580D40, name, 0, 0);
     if (func_00322A68(d->f18, 0, key, d->f14) != 0)
         return 0;
     cBgmData_AddLoadBits(d, 4);
@@ -59,24 +48,24 @@ int cBgmData_PrepareDecode(cBgmData *d)
 
 /* Like cBgmData_LoadNumbered for a named table; 1 when the data arrived. */
 __attribute__((section(".text.cBgmData_LoadNamed")))
-int cBgmData_LoadNamed(cBgmData *d, int kind, int req)
+int cBgmData_LoadNamed(cBgmData *d, int kind, char *fileName)
 {
     char name[0x40];
 
     d->f18 = kind + 0x80;
     d->f20 = -1;
-    d->pool = D_00754210;
-    func_003A57C4(d->name, req);
+    d->pool = &D_00754210;
+    func_003A57C4(d->name, fileName);
     switch (d->f18) {
     case 0x80:
         return 0;
     case 0x81:
-        func_003A6C58(name, D_0044D0A0, req);
+        func_003A6C58(name, D_0044D0A0, fileName);
         break;
     }
-    if (cDvd_FileExist(D_00583F20, name) == 0)
+    if (cDvd_FileExist(&D_00583F20, name) == 0)
         return 0;
-    d->f1C = cDvd_ReadAlloc(D_00583F20, name, &d->head, d->pool, 0, 0, 0, 0);
+    d->f1C = cDvd_ReadAlloc(&D_00583F20, name, &d->head, d->pool, 0, 0, 0, 0);
     if (d->f1C == 0 || d->head == 0) {
         cBgmData_Reset(d);
         return 0;

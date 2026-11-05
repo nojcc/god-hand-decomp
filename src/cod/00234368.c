@@ -1,26 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cSnd.h"
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void Obj1D00_SetState_7_2(int a0);
-extern void Obj1D00_SetState_7_A_a1(int a0, int a1);
-extern void Obj1D00_SetState_7_6(int a0);
-extern void Obj1D00_SetState_7_4(int a0);
-extern void Obj1D00_SetState_7_8(int a0);
-extern void Obj1D00_SetState_7_18(int a0);
-extern void Obj1D00_ClearState_7(int a0);
 extern int Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002705D8(void *a0);
 extern void func_002744E0(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern char D_005FEE00[];
 
 /* Phase machine on the step byte, 14 case labels. Calls irand,
  * CheckSlotsShort2FEAndSetByte1864_262A10, Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578,
@@ -36,14 +28,14 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         case 0: {
             int t;
             int w;
-            int p;
+            cOmWeapon *p;
             self->unk1864 = 0;
             t = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             w = EM_RES(self);
             func_002A8578(self, EM_RES_REC(w, 0x2F24), EM_RES_REC(w, 0x2F28), 0xA, 0.0f, t, 0);
-            p = *(int *)((char *)self + 0x708);
+            p = *(cOmWeapon **)((char *)self + 0x708);
             if (p != 0)
-                Obj1D00_SetState_7_2(p);
+                Obj1D00_SetState_7_2(&p->base);
             self->timerB = 1;
             self->step++;
         }
@@ -70,11 +62,11 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
                 default:
                 case 0: {
                     int w = EM_RES(self);
-                    int p = *(int *)((char *)self + 0x708);
+                    cOmWeapon *p = *(cOmWeapon **)((char *)self + 0x708);
                     lo = EM_RES_REC(w, 0x2F4C);
                     hi = EM_RES_REC(w, 0x2F50);
                     if (p != 0)
-                        Obj1D00_SetState_7_6(p);
+                        Obj1D00_SetState_7_6(&p->base);
                     break;
                 }
                 case 1: {
@@ -82,15 +74,15 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
                     lo = EM_RES_REC(w, 0x2F54);
                     hi = EM_RES_REC(w, 0x2F58);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        int p = *(int *)((char *)self + 0x708);
+                        cOmWeapon *p = *(cOmWeapon **)((char *)self + 0x708);
                         int w2 = EM_RES(self);
                         hi = EM_RES_REC(w2, 0x2F5C);
                         if (p != 0)
-                            Obj1D00_SetState_7_A_a1(p, 1);
+                            Obj1D00_SetState_7_A_a1(&p->base, 1);
                     } else {
-                        int p = *(int *)((char *)self + 0x708);
+                        cOmWeapon *p = *(cOmWeapon **)((char *)self + 0x708);
                         if (p != 0)
-                            Obj1D00_SetState_7_A_a1(p, 0);
+                            Obj1D00_SetState_7_A_a1(&p->base, 0);
                     }
                     break;
                 }
@@ -132,27 +124,27 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         case 4: {
             int t;
             int w;
-            int p;
+            cOmWeapon *p;
             self->unk1864 = 0;
             t = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             w = EM_RES(self);
             func_002A8578(self, EM_RES_REC(w, 0x2F2C), EM_RES_REC(w, 0x2F30), 3, 0.0f, t, 0);
-            p = *(int *)((char *)self + 0x708);
+            p = *(cOmWeapon **)((char *)self + 0x708);
             if (p != 0)
-                Obj1D00_SetState_7_4(p);
+                Obj1D00_SetState_7_4(&p->base);
             self->step++;
         }
         /* fallthrough */
         case 5:
             cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self)) {
-                int p;
+                cOmWeapon *p;
                 cObjBase_addNullSpeed_Rotation(self, 1.0f);
                 cObjBase_addNullSpeed(self, 1.0f);
                 func_002705D8(self);
-                p = *(int *)((char *)self + 0x708);
+                p = *(cOmWeapon **)((char *)self + 0x708);
                 if (p != 0)
-                    Obj1D00_ClearState_7(p);
+                    Obj1D00_ClearState_7(&p->base);
             } else {
                 cObjBase_addNullSpeed_Rotation(self, 1.0f);
                 cObjBase_addNullSpeed(self, 1.0f);
@@ -161,14 +153,14 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         case 6: {
             int t;
             int w;
-            int p;
+            cOmWeapon *p;
             self->unk1864 = 0;
             t = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             w = EM_RES(self);
             func_002A8578(self, EM_RES_REC(w, 0x2F9C), EM_RES_REC(w, 0x2FA0), 3, 0.0f, t, 0);
-            p = *(int *)((char *)self + 0x708);
+            p = *(cOmWeapon **)((char *)self + 0x708);
             if (p != 0)
-                Obj1D00_SetState_7_8(p);
+                Obj1D00_SetState_7_8(&p->base);
             self->timerA = 1;
             self->step++;
         }
@@ -187,14 +179,14 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         case 8: {
             int t;
             int w;
-            int p;
+            cOmWeapon *p;
             self->unk1864 = 0;
             t = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             w = EM_RES(self);
             func_002A8578(self, EM_RES_REC(w, 0x2F40), EM_RES_REC(w, 0x2F44), 0xA, 0.0f, t, 0);
-            p = *(int *)((char *)self + 0x708);
+            p = *(cOmWeapon **)((char *)self + 0x708);
             if (p != 0)
-                Obj1D00_SetState_7_18(p);
+                Obj1D00_SetState_7_18(&p->base);
             self->timerB = 1;
             self->step++;
         }
@@ -213,7 +205,7 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
                 goto set5F4;
             if (self->timerB != 0) {
                 self->timerB = 0;
-                cSnd_SeCall_2CBA48(D_005FEE00, 1, 0x25, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x25, self, 0, 0, 0, 0);
                 if (self->seqFlags & 2) {
                 call13:
                     func_0026BEF0(self, 0x13, 0);

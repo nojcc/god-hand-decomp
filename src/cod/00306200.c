@@ -1,17 +1,17 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/heapArena.h"
 
 extern unsigned char D_003C3CFC;
 extern void func_0030ECF8(int a0);
-extern void *cHeap_allocFirstFit(int a0, int a1, int a2);
 extern void Slots_runHandlerForAll(int a0, int a1);
 extern void ForEachSlotRunHandler(int a0, int a1);
 
 __attribute__((section(".text._MemoryAlloc")))
-void *_MemoryAlloc(int a0, int a1, int a2) {
+void *_MemoryAlloc(unsigned int size, unsigned int align, HeapArena *heap) {
     if (D_003C3CFC == 0) {
         func_0030ECF8(0);
     }
-    return cHeap_allocFirstFit(a2, a0, a1);
+    return cHeap_allocFirstFit(heap, size, align);
 }
 
 __attribute__((section(".text.KillEffect")))

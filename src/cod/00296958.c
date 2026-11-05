@@ -1,22 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEvent.h"
+#include "godhand/cSnd.h"
 
-extern int D_005FEE00;
 extern int D_003C2558;
-extern void cSnd_SeFadeVoicesByKey(int *, int, int);
 extern void LoadResourceEntry_297378();
-extern void cSnd_BgmEvDataInit();
 extern void LoadDisplayText_297450();
 extern void cEvent_clearSystem();
 extern void cEvent_startLoadText();
-extern int cSnd_BgmEvDataCheck();
-extern void cSnd_BgmEvCutSet();
-extern int cSnd_BgmEvCutCheck();
 extern void cEvent_setTextSections();
 extern void cEvent_startCreateWork();
 extern int cEvent_isEndCreateWork();
 extern int func_0();
-extern void cSnd_BgmEvFadeDefault();
 extern void cNowLoading_exitTask();
 
 extern int cEvent_isLoadEnd(cEvent *);

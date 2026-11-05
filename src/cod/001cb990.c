@@ -3,7 +3,6 @@
 
 /* func_001CB990 — refresh speed-rate field then a +0x2F6 phase machine (record field 0xC,
  * mode 0) stepping moveMotion.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern float SetMotionStep(void *a0, float f);
 extern int D_005864F0;

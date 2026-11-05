@@ -1,18 +1,17 @@
 #ifdef NON_MATCHING
 
 #include "godhand/vu0.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 
-extern unsigned char D_005850B0[];
 extern float Adjust_theta(float);
-extern void MtxInitRotY(void *, float);
 extern float capVu0Atan2(float, float);
 extern float Turn_dest_dir(float, float, float);
 
 __attribute__((section(".text.func_002299C0")))
 void func_002299C0(char *s0, float f20)
 {
-    char *s1 = (char *)D_005850B0;
+    char *s1 = (char *)&D_005850B0;
     char frame[0xB0] __attribute__((aligned(16)));
     void *pos;
     float th, t1, step;
@@ -25,7 +24,7 @@ void func_002299C0(char *s0, float f20)
     VU0_SQC2(4, frame, 0x50);
     th = Adjust_theta(capVu0Atan2(*(float *)(frame + 0x50), *(float *)(frame + 0x58)) + f20);
     f20 = th;
-    MtxInitRotY(frame, f20);
+    MtxInitRotY((float *)frame, f20);
     *(int *)(frame + 0x40) = 0;
     *(float *)(frame + 0x48) = 26.0f;
     *(int *)(frame + 0x44) = 0;

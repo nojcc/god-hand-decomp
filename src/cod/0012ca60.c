@@ -1,19 +1,17 @@
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cModel.h"
+#include "godhand/pl00.h"
 #include "godhand/cOmbb.h"
 #include "godhand/cSceAtManager.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void cModel_calcParts(void *a0);
 extern cModelNode *cModel_getMeshPtr(cModel *self, int idx);
 extern char *Getplayer(void);
-extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
 extern int cEmManage_CkPlCatched(void *p);
 extern int D_005864F0;
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
-extern int D_00462FC0;
-extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void func_00129718(void *a, void *b, int c);
 extern cSceAtManager D_005FEA60;
 extern int D_00568288;
@@ -83,7 +81,7 @@ void func_00279C20(char *a0)
     *(float *)(a0 + 0x24C) = 1.0f;
     *(int *)(a0 + 0x250) = *(int *)(a0 + 0x250) & 0xFFFFFFEF;
     *(int *)(a0 + 0x1580) = 0;
-    cModel_calcParts(a0);
+    cModel_calcParts((cModel *)a0);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -150,7 +148,7 @@ void func_002DC670(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -181,7 +179,7 @@ void func_002DD6C0(void *arg)
         return;
     }
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -195,7 +193,7 @@ void func_002DD6C0(void *arg)
                     s0[0x2F7] = 0;
                     s0[0x2F4] = 1;
                     s0[0x2F5] = 0x22;
-                    cCollisionSolidManage_SetActive(&D_00462FC0, s0, 0);
+                    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
                     func_00129718(r, s0, 0x22);
                 }
             }
@@ -218,7 +216,7 @@ void SetActionJumpUp(void)
     s0 = Getplayer();
     VU0_SQC2_VF0(buf, 0);
     if (*((short *) (s0 + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(s0) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)s0) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -262,7 +260,7 @@ void func_002DC740(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {

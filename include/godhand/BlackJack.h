@@ -12,6 +12,8 @@
 #ifndef GODHAND_BLACKJACK_H
 #define GODHAND_BLACKJACK_H
 
+#include "godhand/cVecType.h"
+
 #define BLACKJACK_DECK_NUM   52
 #define BLACKJACK_HAND_NUM   5      /* card slots per hand */
 #define BLACKJACK_SUIT_NUM   4
@@ -40,9 +42,8 @@ typedef struct BlackJackVtEnt {
 typedef struct BlackJackCardObj {
     char unk000[0xF0];
     float *pos;                         /* 0x0F0 -> x of the card position */
-    char unk0F4[0x10];
-    int unk104;                         /* 0x104 cleared by Poker_resetDeck */
-    char unk108[8];
+    char unk0F4[0xC];
+    cVec rot;                           /* 0x100 x pitch, y heading: 0 face up, pi face down */
     float scale[3];                     /* 0x110 */
     char unk11C[0xF8];
     BlackJackVtEnt *vtbl;               /* 0x214 g++ 2.x vtable pointer */
@@ -55,7 +56,8 @@ typedef struct BlackJackCardObj {
 
 typedef struct BlackJackCard {
     BlackJackCardObj *obj;              /* 0x0 cOmTrump object */
-    unsigned int flags;                 /* 0x4 bit 0 = card is out of the deck, bit 1 = card is on screen */
+    int flags;                          /* 0x4 bit 0 = card is out of the deck, bit 1 = card is on screen,
+                                           bit 3 = face up, bit 4 = turning face up */
 } BlackJackCard;                        /* 0x8 */
 
 typedef struct BlackJack {
@@ -78,5 +80,12 @@ typedef struct BlackJack {
     short cardIdA[BLACKJACK_HAND_NUM];  /* 0x1822 card ids dealt to hand A */
     short cardIdB[BLACKJACK_HAND_NUM];  /* 0x182C card ids dealt to hand B */
 } BlackJack;                            /* 0x1836 */
+
+/* Turns the card face up (heading 0, bit 3), or with animate set starts the turn (bit 4) func_001D6E20 steps; nothing while either bit is set. */
+void func_001D6DD0(BlackJackCard *card, int animate);
+/* Turns a face-up card face down (heading pi, clears bit 3), or with animate set marks it turning (bit 4); nothing unless bit 3 is set and bit 4 clear. */
+void func_001D6EC8(BlackJackCard *card, int animate);
+/* Release the table's ID base (at 0x10) and clear the host's words at 0x98 and 0x9C. */
+void func_001D4F48(char *self);
 
 #endif

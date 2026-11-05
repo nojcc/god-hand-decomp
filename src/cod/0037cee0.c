@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/sceDma.h"
 
 extern char D_0076C8C0[];
 extern char D_0076CF20[];
@@ -52,13 +53,13 @@ void func_0037D728(char *p) {
 
 /* sn-2.95.3-136 */
 __attribute__((section(".text.func_003970A0")))
-unsigned int func_003970A0(unsigned int x)
+unsigned int func_003970A0(unsigned int addr)
 {
-    if ((x >> 28) == 7) {
-        x &= 0xFFFFFFF;
-        x |= 0x80000000;
+    if ((addr >> 28) == 7) {
+        addr &= 0xFFFFFFF;
+        addr |= 0x80000000;
     }
-    return x;
+    return addr;
 }
 
 __attribute__((section(".text.init__3iosP9streambufP7ostream")))

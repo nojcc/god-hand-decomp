@@ -1,15 +1,12 @@
 /* sn-2.95.3-136: cBgmData_LoadNumbered, read bgm data file number req of part kind into the slot;
  * 1 when the data arrived. */
 #include "godhand/heapArena.h"
+#include "godhand/cDvd.h"
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
-extern void cBgmData_Reset(cBgmData *);
 extern int cBgmData_AddLoadBits(cBgmData *, int);
 extern int func_003A6C58(char *buf, const char *fmt, ...);
-extern int cDvd_FileExist(char *, char *);
-extern int cDvd_ReadAlloc(char *, char *, void *, void *, int, int, int, int);
-extern char D_00583F20[];
 extern char D_0044D078[];
 extern char D_0044D088[];
 
@@ -29,9 +26,9 @@ int cBgmData_LoadNumbered(cBgmData *d, int kind, int req)
         func_003A6C58(name, D_0044D088, req);
         break;
     }
-    if (cDvd_FileExist(D_00583F20, name) == 0)
+    if (cDvd_FileExist(&D_00583F20, name) == 0)
         return 0;
-    d->f1C = cDvd_ReadAlloc(D_00583F20, name, &d->head, d->pool, 0, 0, 0, 0);
+    d->f1C = cDvd_ReadAlloc(&D_00583F20, name, &d->head, d->pool, 0, 0, 0, 0);
     if (d->f1C == 0 || d->head == 0) {
         cBgmData_Reset(d);
         return 0;

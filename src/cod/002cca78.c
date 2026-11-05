@@ -36,7 +36,7 @@ void cSndBgmNode_FadeOut(cSndBgmNode *node, float time)
 
 /* Stores a fade time, sets and clears node flags, resets the node state if the sequence reports 1, then fades in. */
 __attribute__((section(".text.cSndBgmNode_SetFlagsFade")))
-void cSndBgmNode_SetFlagsFade(cSndBgmNode *node, float time, unsigned int setBits, unsigned int clearBits)
+void cSndBgmNode_SetFlagsFade(cSndBgmNode *node, unsigned int setBits, unsigned int clearBits, float time)
 {
     node->fadeTime = time;
     node->flags = (node->flags | setBits) & ~clearBits;

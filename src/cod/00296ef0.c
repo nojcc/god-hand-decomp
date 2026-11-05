@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEvent.h"
+#include "godhand/cDvd.h"
 
 extern int D_00747A84;
 extern void func_0();
-extern char D_00583F20[];
-extern int cDvd_Check(char *, int);
 
 /* End a move scene: run the stripped teardown hooks, remember whether the
  * scene can be skipped, and clear the running flags. */
@@ -43,13 +42,13 @@ void cEvent_movePlayQuit(cEvent *self) {
 /* Nonzero when the cutscene data read has finished. */
 __attribute__((section(".text.cEvent_isLoadEnd")))
 int cEvent_isLoadEnd(cEvent *self) {
-    return cDvd_Check(D_00583F20, self->loadHandle) == 0;
+    return cDvd_Check(&D_00583F20, self->loadHandle) == 0;
 }
 
 /* Nonzero when the data read has finished (same body as cEvent_isLoadEnd). */
 __attribute__((section(".text.cEvent_isLoadEndAfterCut")))
 int cEvent_isLoadEndAfterCut(cEvent *self) {
-    return cDvd_Check(D_00583F20, self->loadHandle) == 0;
+    return cDvd_Check(&D_00583F20, self->loadHandle) == 0;
 }
 
 /* Frame the current cut is on. */

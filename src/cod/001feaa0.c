@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDataManager.h"
 
-extern void cScenario_sleepFrames(int a0);
 extern unsigned short D_00747A50;
 
 /* sn-2.95.3-136 matched TU. */

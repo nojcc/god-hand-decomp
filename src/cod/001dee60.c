@@ -1,29 +1,30 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/PanelObj.h"
+#include "godhand/CustomIDWork.h"
 
-extern void CustomIDWork_SetDisp(void *a0, int a1);
 
 __attribute__((section(".text.func_001DEE60")))
-void func_001DEE60(char *a0, int a1, int a2) {
+void func_001DEE60(PanelObj *self, int element, int show) {
     int i;
-    if (a2) {
-        if (a1 == 0x11) {
-            for (i = 0; i < 0x11; i++) {
+    if (show) {
+        if (element == PANEL_ELEM_ALL) {
+            for (i = 0; i < PANEL_ELEM_NUM; i++) {
                 if (i != 0) {
-                    CustomIDWork_SetDisp(a0 + 0x60 + i * 0x7C, 1);
+                    CustomIDWork_SetDisp(&self->elem[i], 1);
                 }
             }
-        } else if (a1 != 0) {
-            CustomIDWork_SetDisp(a1 * 0x7C + 0x60 + a0, 1);
+        } else if (element != 0) {
+            CustomIDWork_SetDisp(&self->elem[element], 1);
         }
     } else {
-        if (a1 == 0x11) {
-            for (i = 0; i < 0x11; i++) {
+        if (element == PANEL_ELEM_ALL) {
+            for (i = 0; i < PANEL_ELEM_NUM; i++) {
                 if (i != 0) {
-                    CustomIDWork_SetDisp(a0 + 0x60 + i * 0x7C, 0);
+                    CustomIDWork_SetDisp(&self->elem[i], 0);
                 }
             }
-        } else if (a1 != 0) {
-            CustomIDWork_SetDisp(a1 * 0x7C + 0x60 + a0, 0);
+        } else if (element != 0) {
+            CustomIDWork_SetDisp(&self->elem[element], 0);
         }
     }
 }

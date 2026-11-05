@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/pl00.h"
 #include "godhand/motion.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
@@ -11,7 +12,6 @@ extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, i
 extern void func_00129578(void *a0);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern void func_00124EC0(void *a0);
-extern int moveMotion(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
@@ -32,7 +32,7 @@ void func_00113228(void *a0)
     *(int *)(s1 + 0x15F4) |= 0x200;
     if (*(unsigned char *)(s1 + 0x2F6) != 0 &&
         *(unsigned char *)(s1 + 0x649) == 0 &&
-        func_0010B2E8(s1, 1) != 0) {
+        func_0010B2E8((pl00 *)s1, 1) != 0) {
         *(char *)(s1 + 0x649) = 1;
         cCoreSave_useGodItem(&D_00569B70);
     }
@@ -85,7 +85,7 @@ void func_00113228(void *a0)
     if (*(unsigned short *)(s1 + 0x3AC) & 0x100) {
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);
     }
-    if (func_00123938(s1, 1) != 0) {
+    if (func_00123938((pl00 *)s1, 1) != 0) {
         func_00129630(s1);
         pl00_clearMotionCam(s1, 1, 0);
     } else {

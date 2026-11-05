@@ -1,4 +1,4 @@
-extern void *func_003A5148(void *d, const void *s, unsigned int n);
+#include "godhand/criStm.h"
 
 __attribute__((section(".text.func_001451A0")))
 void func_001451A0(char *self, void *src)

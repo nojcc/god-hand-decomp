@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cFxTrail.h"
+#include "godhand/cNode.h"
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
-
-
 extern void *StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
-extern float *CallThenReturnPlusB0_002B6420_2B61B0(void *node);
-extern void MtxCopy(void *dst, void *src);
+
+
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 
 #define SEG(base, i)  ((FxTrailSeg *)((base) + ((i) << 6)))
@@ -60,7 +60,7 @@ int cFxTrail_setup(cFxTrail *self, void *arg)
         SEG(self->segB, i)->end1 = SEG(self->segA, i)->fade;
         SEG(self->segB, i)->kC8 = FXTRAIL_K0A8;
     }
-    MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0(self));
+    MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0(&self->base));
     VU0_SQC2_VF0_MEM(&zero, 0);
     CopyVec3ToField30_147C40(m, (float *)&zero);
     prm = self->param;

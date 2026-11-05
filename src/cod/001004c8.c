@@ -1,5 +1,8 @@
 #include "godhand/cCoreSave.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cDamageManage.h"
 extern int D_005CAFF0;
 extern int D_007476B0;
 extern char *D_00566E10;
@@ -26,13 +29,13 @@ void SetField2F5IfField615Active_1A7A08(int a0) {
 }
 
 __attribute__((section(".text.SetField_ACD0_1FE348")))
-void SetField_ACD0_1FE348(int a0, int a1) {
-    *(int*)(a0 + 0xACD0) = a1;
+void SetField_ACD0_1FE348(cDamageManage *self, int frames) {
+    self->hitStop = frames;
 }
 
 __attribute__((section(".text.cDamageManage_CkHitStop")))
-int cDamageManage_CkHitStop(int a0) {
-    return *(int*)(a0 + 0xACD0) != 0;
+int cDamageManage_CkHitStop(cDamageManage *self) {
+    return self->hitStop != 0;
 }
 
 __attribute__((section(".text.IsStateVal6_10B5C8")))
@@ -85,21 +88,21 @@ void SetFirstFreeSlot_Field_1644_1268B0(int a0, int a1) {
 }
 
 __attribute__((section(".text.SetNodeListFlag_134608")))
-void SetNodeListFlag_134608(int a0, int a1) {
-    int *node = *(int **)((char *)a0 + 4);
-    if (node == 0) {
+void SetNodeListFlag_134608(cCollisionSolidUnit *unit, int active) {
+    cCollisionSolidBody *body = unit->first;
+    if (body == 0) {
         return;
     }
     do {
-        int v = *(int *)((char *)node + 8);
-        if (a1 == 1) {
+        int v = body->flags;
+        if (active == 1) {
             v = v | 1;
         } else {
             v = v & -2;
         }
-        *(int *)((char *)node + 8) = v;
-        node = *(int **)node;
-    } while (node != 0);
+        body->flags = v;
+        body = body->next;
+    } while (body != 0);
 }
 
 __attribute__((section(".text.AddToActiveList_138F40")))

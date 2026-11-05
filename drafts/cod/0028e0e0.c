@@ -107,7 +107,7 @@ int func_0028E0E0(char *self, InitArg *arg, int a2)
     *(unsigned int *)(self + 0x258) |= 0x80000000;
     cParts_setRotationOrder(self, 4);
     *(unsigned char *)(self + 0x531) = 0;
-    cObjBase_KageInit(self, self + 0x670, D_003C3F68);
+    cObjBase_KageInit((cObjBase *)self, self + 0x670, D_003C3F68);
     SetEffect(0xD7, 1, self, 0, -1, 0xFFFFFFFF);
     *(int *)(self + 0x1550) = 0;
     return 1;

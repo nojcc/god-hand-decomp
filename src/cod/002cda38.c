@@ -1,7 +1,7 @@
 /* cygnus-2.96 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/criStm.h"
 
-extern void *func_003A5148(void *dst, const void *src, int n);
 extern int func_0034C2D0(void *, void *, void *, int);
 
 __attribute__((section(".text.func_00356358")))

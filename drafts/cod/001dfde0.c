@@ -7,6 +7,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/Slot1.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/MarkPanel.h"
 #include "godhand/classFADE.h"
 #include "godhand/cCoreSave.h"
@@ -18,15 +19,11 @@
 
 typedef struct Slot2Marks Slot2Marks;
 
-extern void cSnd_BattleBgmAllPause(cSnd *self, float time);
-extern void cSnd_BgmEventStart(cSnd *self, int reqNo, int a2, int a3);
-extern void cSnd_BgmFlaggedNodeKick(cSnd *self, float arg);
 extern void Slot2_setMarkLayersAt464(Slot2Marks *self, int show, int startLit);
 extern void Slot2_setMarkLayersAt46C(Slot2Marks *self, int show, int startLit);
 extern void Slot2_setMarkLayers(Slot2Marks *self, int show, int startLit);
 extern void func_001E3D78(void *a0, int a1, int a2);
 extern void func_001E71B8(char *a0, int a1);
-extern void CustomIDWork_SetNumber(CustomIDWork *self, int number);
 extern void func_001E73C0(void *a0);
 extern void func_001E7440(char *self);
 extern void Scroll_showLayerBySelector(char *self, int sel);

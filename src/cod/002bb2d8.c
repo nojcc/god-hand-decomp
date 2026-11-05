@@ -1,3 +1,4 @@
+#include "godhand/mtx.h"
 typedef struct XformNode {
     char unk00[4];
     unsigned char flags;        /* 0x04 bit 0: has a local transform, bit 1: use the world matrix */
@@ -14,7 +15,6 @@ typedef struct XformNode {
 } XformNode;
 
 extern float capVu0LengthSq(float *v);
-extern void MtxInitRotVec(void *m, float *v, unsigned int a2);
 extern void CopyVec3ToField30_147C40(void *m, float *v);
 
 __attribute__((section(".text.func_002BB2D8")))
@@ -37,6 +37,6 @@ void func_002BB2D8(XformNode *n)
         n->pos = n->parent[3];
         n->mtx = n->parent;
     }
-    MtxInitRotVec(n->local, n->scale, 0);
+    MtxInitRotVec(n->local, (cVec *)n->scale, 0);
     CopyVec3ToField30_147C40(n->local, n->rot);
 }

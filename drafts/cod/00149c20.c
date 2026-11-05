@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 */
 /* NON_MATCHING: retail keeps hdr in a stack slot at sp+0 and reloads it for every part-table access (frame 0xE0, pos at sp+0x10); this C keeps it in a callee-saved register, so 139 instructions differ. */
 #include "godhand/cModel.h"
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
 
 
 #ifdef NON_MATCHING
 extern int func_001500C0(void);
 extern cParts *cModel_getPart(cModel *self, int n);
-extern void MtxInverse(void *dst, void *src);
 
 /* Build the model's part list from the script header: allocate each part, place it,
  * hook up its parent and link, then store each part's inverse world position.

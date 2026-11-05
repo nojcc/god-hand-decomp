@@ -90,7 +90,7 @@ void func_001947C8(EmBoxFollow *self)
         if (self->se == 0) {
             cOmBase *src = cOmBase_childAt((cOmBase *)self, frame, 1);
 
-            self->se = cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xB5, self, 0, (int)src, 0, 0);
+            self->se = cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xB5, self, 0, src, 0, 0);
         }
         self->timer = 30;
         self->obj.step = 1;

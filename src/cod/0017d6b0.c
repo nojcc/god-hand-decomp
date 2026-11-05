@@ -10,8 +10,6 @@ extern int D_003C264C;
 extern int D_00747A24;
 extern void func_002BFC80(int a0);
 extern void cScenario_beginRoomJump_2C4548(cScenario *self, int room, float angle, void *pos, int a3, unsigned int t0, int t1);
-extern void CustomIDWork_SetMessNo(CustomIDWork *work, int messNo);
-extern void CustomIDWork_SetLocalPosY(CustomIDWork *work, int y);
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_001B76D8(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);

@@ -1,21 +1,20 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cIDBase.h"
+#include "godhand/heapArena.h"
 
-extern void cIDBase_trans(void);
 extern int D_0041DCC8[];
-extern void __builtin_delete(void);
-extern void cIDBase_move(void *);
 
 __attribute__((section(".text.Forward2AAC28_13F070")))
-void Forward2AAC28_13F070(void)
+void Forward2AAC28_13F070(cIDBaseObj * self)
 {
-    cIDBase_trans();
+    cIDBase_trans(self);
 }
 
 __attribute__((section(".text.SetVtable80WithConditionalForward_13F090")))
 void SetVtable80WithConditionalForward_13F090(void *a0, int a1) {
     *(int **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete();
+        __builtin_delete(a0);
     }
 }
 

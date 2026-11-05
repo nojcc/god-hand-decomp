@@ -1,14 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
-
-extern void func_00135348(cVec *out, cVec *p, cVec *a, cVec *b, cVec *c);
-
-static __inline__ float cVec_distSq(cVec *a, cVec *b)
-{
-    return (a->x - b->x) * (a->x - b->x) + (a->y - b->y) * (a->y - b->y)
-         + (a->z - b->z) * (a->z - b->z);
-}
+#include "godhand/cCollisionSolid.h"
 
 /* Whether the sphere at center touches the quad a b c d, tested as the triangles a b d and
  * b c d. On a hit the nearer closest point goes to hit (if given). */

@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/heapArena.h"
+#include "godhand/cNode.h"
 
 extern float capVu0LengthSq(void *a0);
 extern float sqrtf(float x);
 extern void func_002BCF28(void *a0, float f12, float f13, void *a1, float f14, float f15);
-extern void cNode_clearActiveRecursive(void *self);
-extern void cHeap_free(void *heap, void *p);
 
 typedef void (*UpdateFn)(void *self);
 
@@ -45,9 +45,9 @@ void func_002BAB00(char *self, float value)
 }
 
 __attribute__((section(".text.func_002B6400")))
-void func_002B6400(char *self)
+void func_002B6400(cNode *self)
 {
-    self[0x16] = 0;
+    self->flagC = 0;
     cNode_clearActiveRecursive(self);
 }
 

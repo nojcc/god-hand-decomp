@@ -1,24 +1,18 @@
 /* sn-2.95.3-136: func_0010CD38, enemy thrown-down step. */
 
 #include "godhand/cEm00.h"
+#include "godhand/pl00.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/motion.h"
 
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned int t1);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, void *t0, int t1, int t2, int t3);
-extern void cSnd_SeStop(cSnd *self, int handle);
-extern int func_00124540(void *a0, int a1);
 extern void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12);
 extern void Obj0000_Clear_Fields_640_648_124E58(char *a0);
 extern void func_001268F0(int *p);
-extern int func_00123938(void *a0, int a1);
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
-extern cSnd D_005FEE00;
 
 /* The object held at 0x640, read as a pointer as 0010f4b8.c and 00124e68.c do. cEm00.h
  * names the same word's low half entryNo, so the pointer stays a raw read. It is not
@@ -67,7 +61,7 @@ void func_0010CD38(cEm00 *self)
             break;
         case 2:
             self->hitFlash = 5.0f;
-            func_00124540(self, 5);
+            func_00124540((pl00 *)self, 5);
             p1 = EM_RES_REC(EM_RES(self), 0x40);
             p2 = EM_RES_REC(EM_RES(self), 0x44);
             SetEffect(0, 0x16, self, 0, -1, 0xFFFFFFFF);
@@ -76,7 +70,7 @@ void func_0010CD38(cEm00 *self)
             break;
         case 3:
             self->hitFlash = 5.0f;
-            func_00124540(self, 5);
+            func_00124540((pl00 *)self, 5);
             p1 = EM_RES_REC(EM_RES(self), 0x38);
             p2 = EM_RES_REC(EM_RES(self), 0x3C);
             SetEffect(0, 0x15, self, 0, -1, 0xFFFFFFFF);
@@ -100,7 +94,7 @@ void func_0010CD38(cEm00 *self)
         case 2:
         case 3:
             if (EM00_HELD(self) == 0) {
-                func_00124540(self, 5);
+                func_00124540((pl00 *)self, 5);
             }
             break;
         }
@@ -123,5 +117,5 @@ void func_0010CD38(cEm00 *self)
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     }
-    func_00123938(self, 1);
+    func_00123938((pl00 *)self, 1);
 }

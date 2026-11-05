@@ -3,6 +3,7 @@
 #include "godhand/cModel.h"
 #include "godhand/cOmBase.h"
 #include "godhand/capVu0.h"
+#include "godhand/heapArena.h"
 
 extern void sceVu0InversMatrix(float *dst, float *src);
 extern void func_001501D0(cParts *part, int objFlags);
@@ -45,23 +46,9 @@ void cModel_aimIkPart(cOmBase *model, cParts *part, cVec *target) {
 #define HEAP_HDR_SIZE  0x20
 #define HEAP_LOCK      0x80000          /* D_00747A34 bit: allocation refused */
 
-/* One block header: a used part, then free space up to the next block. */
-typedef struct HeapBlk {
-    char unk00[8];
-    struct HeapBlk *next;               /* 0x08 */
-    unsigned int freeSize;              /* 0x0C free bytes after the used part */
-    unsigned int usedSize;              /* 0x10 header plus user bytes */
-} HeapBlk;
-
-typedef struct Heap {
-    HeapBlk *head;                      /* 0x00 */
-} Heap;
-
-
-extern void func_002A9620(Heap *heap, HeapBlk *blk, HeapBlk *after);      /* link blk after `after` */
 
 __attribute__((section(".text.cHeap_allocFirstFit")))
-void *cHeap_allocFirstFit(Heap *heap, unsigned int size, unsigned int align) {
+void *cHeap_allocFirstFit(HeapArena *heap, unsigned int size, unsigned int align) {
     HeapBlk *blk;
     HeapBlk *fresh;
     unsigned int need;

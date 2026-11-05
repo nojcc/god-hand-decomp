@@ -8,6 +8,7 @@
 #include "godhand/cOmBase.h"
 
 #ifdef NON_MATCHING
+#include "godhand/heapArena.h"
 
 /* The effect record an esp ring effect is set up from. */
 typedef struct espRingRec {
@@ -57,11 +58,9 @@ typedef struct espRing {
 } espRing;
 
 extern cVec D_00747B00;
-extern char D_00754240[];
 extern char D_0044F788[];
 extern char D_0044F7A8[];
 
-extern void *EnsureInitThenForward_2A9538_30EE08(int a0, int a1, int a2);
 extern void func_002D9F68(void *a0, int a1, ...);
 
 static __inline__ int cVec_equal(cVec *a, cVec *b)
@@ -100,13 +99,13 @@ int func_002F7E30(espRing *self)
     self->unk308 = 0x10;
     self->unk30C = 8;
     self->unk304 = 0x30;
-    if ((self->buf0 = EnsureInitThenForward_2A9538_30EE08(0x6F0, 0x10, (int)D_00754240)) == 0)
+    if ((self->buf0 = _MemoryAlloc(0x6F0, 0x10, &D_00754240)) == 0)
         return 0;
-    if ((self->buf1 = EnsureInitThenForward_2A9538_30EE08(0x6F0, 0x10, (int)D_00754240)) == 0)
+    if ((self->buf1 = _MemoryAlloc(0x6F0, 0x10, &D_00754240)) == 0)
         return 0;
-    if ((self->strip = EnsureInitThenForward_2A9538_30EE08(self->segNum * self->stripNum * 0x10, 0x10, (int)D_00754240)) == 0)
+    if ((self->strip = _MemoryAlloc(self->segNum * self->stripNum * 0x10, 0x10, &D_00754240)) == 0)
         return 0;
-    if ((self->ring = EnsureInitThenForward_2A9538_30EE08((self->segNum + 2) * 0x10, 0x10, (int)D_00754240)) == 0)
+    if ((self->ring = _MemoryAlloc((self->segNum + 2) * 0x10, 0x10, &D_00754240)) == 0)
         return 0;
     if (self->innerH == 0.0f)
         self->innerH = 0.1f;

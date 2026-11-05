@@ -1,9 +1,9 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/heapArena.h"
 
 extern void *memcpy(void *, const void *, unsigned int);
 extern void func_003745C0(void *, int, float, int);
 extern void func_00373FF0(void *, int, float);
-extern char D_00754210[];
 
 __attribute__((section(".text.SetSequenceEntry_373158")))
 int SetSequenceEntry_373158(void *a0, int a1) {
@@ -232,7 +232,7 @@ void FreeSequenceNode_373D48(int *a0) {
     int *s0 = a0;
     if (s0[0] != 0) {
         func_003298C0(s0[0]);
-        func_0031C928(s0[1], D_00754210);
+        func_0031C928(s0[1], &D_00754210);
     }
 }
 
@@ -241,6 +241,6 @@ void ClearSequenceNode_374318(int *a0) {
     int *s0 = a0;
     if (s0[0] != 0) {
         func_0032D6F0(s0[0]);
-        func_0031C928(s0[1], D_00754210);
+        func_0031C928(s0[1], &D_00754210);
     }
 }

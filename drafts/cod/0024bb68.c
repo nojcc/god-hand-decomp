@@ -5,12 +5,11 @@
  * it; through cVec_add the vadd goes through $v1. */
 #include "include_asm.h"
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/gameWork.h"
 #include "godhand/sceVu0.h"
 
 #ifdef NON_MATCHING
-/* cEm00 0x17D0 is padding in cEm00.h; its low 3 bits pick the frame the check runs on. */
-#define EM_CHECK_SLOT(self) (*(int *)((char *)(self) + 0x17D0))
 
 typedef struct HitPoly {
     int unk0;
@@ -21,7 +20,6 @@ extern float Turn_dest(float *from, float *to, float cur, float max);
 extern int ChkLine(void *a0, void *a1, void *a2, void *a3, int a4, int a5, void *a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern float capVu0Atan2(float y, float x);
-extern void MtxInitRotY(void *a0, float angle);
 
 /* d.xyz += s.xyz, in place. */
 static __inline__ void cVec_add(cVec *d, cVec *s)
@@ -52,7 +50,7 @@ int func_0024BB68(cEm00 *self)
     case 0x222:
         break;
     default:
-        if ((D_007474A0.frame & 7) != (EM_CHECK_SLOT(self) & 7))
+        if ((D_007474A0.frame & 7) != (self->unk17D0 & 7))
             return 0;
         break;
     }

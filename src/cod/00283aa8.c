@@ -46,5 +46,5 @@ void func_00283AA8(cEmLinked *self)
         cVec_copy3(&self->push, &f.v);
         self->mode = EMLINK_MODE_HELD;
     }
-    func_00104010(self, self->work, &self->base.unk5B0);
+    func_00104010(self, &self->work, &self->base.unk5B0);
 }

@@ -18,7 +18,6 @@ typedef struct cOmGimmick {
 } cOmGimmick;
 
 extern EmPhaseTable D_003BDCE0;
-extern char D_00462FC0[];
 
 extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
@@ -41,7 +40,7 @@ void func_001B1C78(cOmGimmick *self)
         long solids = self->checks;
 
         if (((solids >> 6) & 1) == 1) {
-            cCollisionSolidManage_ChkHit(D_00462FC0, self);
+            cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)self);
         }
     }
     {

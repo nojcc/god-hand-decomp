@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/espSys.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cPlCamera.h"
 #include "godhand/cEm00.h"
@@ -9,10 +11,7 @@ extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E28F0(void *obj, float y);
 extern char D_003C03F8[];
 extern void func_002A87E8(void *obj, int arg);
-extern void CustomIDWork_SetOffsetPosX(void *work, int x);
-extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
 extern void SetFlagOnEntries7C_1D51B8(void *self, int entry, int on);
-extern void UpdateObjByIndexedOp_2FBE50(void *slot);
 
 /* sn-2.95.3-136 */
 
@@ -116,16 +115,16 @@ void PanelHost_slideSidePanel(PanelHost *self, unsigned short mode)
         goto scrollIn;
     }
 hidden:
-    CustomIDWork_SetOffsetPosX((char *)self + PANEL_WORK, PANEL_X_HIDDEN);
+    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), PANEL_X_HIDDEN);
     goto done;
 slideIn:
-    CustomIDWork_SetOffsetPosX((char *)self + PANEL_WORK, 0);
+    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), 0);
     goto done;
 scrollOut:
-    CustomIDWork_SetMoveOffsetPosX((char *)self + PANEL_WORK, PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
     goto done;
 scrollIn:
-    CustomIDWork_SetMoveOffsetPosX((char *)self + PANEL_WORK, 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
 done:
     SetFlagOnEntries7C_1D51B8(self, 7, 0);
     SetFlagOnEntries7C_1D51B8(self, 8, m != 0);
@@ -250,7 +249,7 @@ void Esp_killByGroupNumber(int group) {
         if ((D_0071B8C0[w] & bit) != 0) goto next;
         p = D_0061B7C0 + i * ESP_SLOT_SIZE;
         if (*(short *)(p + ESP_SLOT_GROUP) != group) goto next;
-        UpdateObjByIndexedOp_2FBE50(p);
+        UpdateObjByIndexedOp_2FBE50((EspAnim *)p);
 next: ;
     }
 }

@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/criStm.h"
 
 extern int D_00755C08;
 extern unsigned char D_00755BF8[];

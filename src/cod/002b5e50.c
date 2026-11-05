@@ -1,5 +1,6 @@
 /* cygnus-2.96 matched TU. */
 #include "godhand/CustomIDWork.h"
+#include "godhand/cNode.h"
 
 extern void Obj3290_Tramp_0033E6A8_9070(void *);
 extern void func_00328488(void *, void *);
@@ -12,8 +13,8 @@ extern void func_003A53A8(void *, void *);
 extern void Forward33B790_340AE8(void *);
 
 __attribute__((section(".text.func_002B5E50")))
-int func_002B5E50(void *a0) {
-    return *(int *)((char *)a0 + 4);
+cNode *func_002B5E50(cNode *self) {
+    return self->parent;
 }
 
 __attribute__((section(".text.func_00373A50")))
@@ -24,7 +25,7 @@ int func_00373A50(void *a0) {
 /* Stops the colour animation and restores the resting colour. */
 __attribute__((section(".text.CustomIDWork_ResetColorAnim")))
 void CustomIDWork_ResetColorAnim(CustomIDWork *self) {
-    CustomIDObj *obj;
+    cIDBaseEnt *obj;
     int rest;
 
     obj = self->obj;
@@ -33,7 +34,7 @@ void CustomIDWork_ResetColorAnim(CustomIDWork *self) {
     }
     rest = *(int *)self->restColor;
     self->colorFlags = 0;
-    *(int *)obj->color = rest;
+    obj->colorBase.word = rest;
 }
 
 __attribute__((section(".text.func_00328448")))

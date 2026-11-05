@@ -1,7 +1,7 @@
 /* TU: Slot2 - recovered C++ class. */
+#include "godhand/criStm.h"
 #include "include_asm.h"
 
-extern void func_003A52F0(void *a0, int a1, int a2);
 extern void InitStructSubfieldsAndFloat_1E8798(void *a0);
 extern void InitStructZeroedFields_1E7960(void *a0);
 extern void func_001E7118(void *a0);

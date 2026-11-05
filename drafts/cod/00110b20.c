@@ -7,14 +7,12 @@
 #include "godhand/player.h"
 #include "godhand/vecInline.h"
 
-extern int func_00124540(pl00 *self, int kind);
 extern void Obj0000_Clear_Fields_640_648_124E58(char *a0);
 extern int GetField_68C_1D0C10(char *a0);
 extern void Obj0000_Set_Field_68C_Zero_1D0C18(int *a0);
 extern void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12);
 extern void func_0012AFE8(pl00 *self, cOmWeapon *weapon);
 extern void func_0012AC98(pl00 *self);
-extern int func_00123938(void *self, int mode);
 
 /* Address of the motion whose offset sits at off in the model data block. */
 #define MOTION_AT(data, off) (*(int *)((data) + (off)) + (int)(data))
@@ -68,7 +66,7 @@ void func_00110B20(pl00 *self)
                 break;
             }
         }
-        func_002A8578((int)self, start, end, 3, 0.0f, 0, 0);
+        func_002A8578(self, start, end, 3, 0.0f, 0, 0);
         self->unk15B0 = 1;
         self->base.step++;
     }

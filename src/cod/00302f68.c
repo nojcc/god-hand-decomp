@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 */
 #include "godhand/cOmBase.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 
 extern void capVu0AddVectorXYZ(void *a0, void *a1, void *a2);
 extern void sceVu0MulVector(void *a0, void *a1, void *a2);
 extern int func_002B6328(int a0);
 extern void cNode_setTranslationFromWorld(void *self, float *pos);
-extern void MtxCopy(void *dst, void *src);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 
 /* The particle's resource record: the phases of its life, as fractions of it. */

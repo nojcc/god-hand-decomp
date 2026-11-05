@@ -1,24 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void __malloc_lock(void *reent);
-extern void __malloc_unlock(void *reent);
+#include "godhand/newlibMalloc.h"
 
 /* newlib mallocr.c :: _malloc_r  -> func_003AC2F8 */
 
-typedef unsigned int INTERNAL_SIZE_T;
 typedef unsigned int size_t;
-
-struct malloc_chunk {
-    INTERNAL_SIZE_T prev_size;
-    INTERNAL_SIZE_T size;
-    struct malloc_chunk *fd;
-    struct malloc_chunk *bk;
-};
-
-typedef struct malloc_chunk *mchunkptr;
-typedef struct malloc_chunk *mbinptr;
-
-extern mbinptr D_003FA9D0[]; /* __malloc_av_ */
 
 
 

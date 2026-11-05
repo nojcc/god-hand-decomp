@@ -62,30 +62,8 @@ int func_001C2328(unsigned char *a0)
     return 0;
 }
 
-/* Set the frame the animation ends at, `len` frames after the current one:
- * always for mode 1, for mode 0 only when that lengthens the run. Differs from
- * retail only in which of v0/v1 holds the end frame and the constant 1. */
-__attribute__((section(".text.func_002FEBE8")))
-void func_002FEBE8(EspAnim *self, unsigned short len, int mode)
-{
-    int end = self->frameEnd;
-    int idx;
-    int left;
-
-    if (end == 0) {
-        self->frameEnd = len;
-        return;
-    }
-    idx = self->frameIdx;
-    left = end - idx;
-    if (mode == 1 || (mode == 0 && left < len)) {
-        self->frameEnd = len + idx;
-    }
-}
-
 #else
 INCLUDE_ASM("asm/nonmatching", func_0037D298);
 INCLUDE_ASM("asm/nonmatching", func_00156508);
 INCLUDE_ASM("asm/nonmatching", func_001C2328);
-INCLUDE_ASM("asm/nonmatching", func_002FEBE8);
 #endif

@@ -1,16 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/BlackJack.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
 
 extern void CustomIDWork_SetNumber_1D5760(void *a0, int a1);
 extern void SetLinkedObjField2B_1D6D68(void *a0, int a1);
-extern void cSnd_BgmEventStart(void *a0, int a1, int a2, int a3);
 extern void func_001D49E0(void *a0, int a1);
 extern void func_001D4AA8(void *a0, int a1);
 extern void func_001D6700(void *a0, int a1);
 extern void IdGlow_setState(void *a0, int a1);
 extern void func_001D6D20(void *a0, int a1);
-extern char D_005FEE00[];
 extern long D_00747640;
 
 /* sn-2.95.3-136 matched TU. */
@@ -51,7 +50,7 @@ void BlackJack_UpdateBlackJackWin(BlackJack *self) {
         break;
     case 2:
         if (self->timer == 0) {
-            cSnd_BgmEventStart(D_005FEE00, 0x29, 0, 0);
+            cSnd_BgmEventStart(&D_005FEE00, 0x29, 0, 0);
             func_001D6700(self, 4);
             self->timer = 0x1E;
             self->phase = self->phase + 1;

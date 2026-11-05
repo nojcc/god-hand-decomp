@@ -15,7 +15,6 @@
 
 #define NECK_PART 31
 
-extern float Turn_dest_dir(float f12, float f13, float f14);
 
 /* Enemy 0x20D: tilt the neck part toward the player while bit 17 of emFlags2 is set, else back to level. */
 void func_00274D18(cEm00 *self)

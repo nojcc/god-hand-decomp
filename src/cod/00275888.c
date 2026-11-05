@@ -2,12 +2,12 @@
 #include "include_asm.h"
 
 #include "godhand/cGameObj.h"
+#include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 
 #define EYE_HEIGHT      0.5f
 #define LINE_HIT_MASK   0x124
 
-extern void MtxInitRotY(void *a0, float angle);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);

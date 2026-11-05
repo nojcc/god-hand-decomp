@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 extern unsigned int strlen(const char *);
 extern void *D_003C4030[16];
@@ -7,7 +8,6 @@ extern char D_0077BE80[] __attribute__((aligned(8)));
 extern const char D_0045C208[];
 extern void func_003A53A8(char *, const char *);
 extern void func_0032D9B8(void *, char *, int);
-extern void UpdateGlobalPtrWithParam_3A7CC0(void *);
 extern void func_002E0DE8(int, int, int, const char *, ...);
 extern char D_0076E910[];
 extern char D_0076B340[];

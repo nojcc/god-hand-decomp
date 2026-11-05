@@ -1,16 +1,16 @@
+#include "godhand/PanelObj.h"
+#include "godhand/CustomIDWork.h"
 extern void *func_001DD068(void *);
 extern void *func_001DEC70(void *);
-extern void CustomIDWork_SetMoveOffsetPosXSin(
-    void *, int, unsigned short);
 extern void CustomIDWork_ResetMoveOffsetPos(void *);
 
 __attribute__((section(".text.func_001DF820")))
-void func_001DF820(char *self, int enabled)
+void func_001DF820(PanelObj *self, int enabled)
 {
     if (enabled)
-        CustomIDWork_SetMoveOffsetPosXSin(self + 0x440, 4, 8);
+        CustomIDWork_SetMoveOffsetPosXSin(&self->elem[8], 4, 8);
     else
-        CustomIDWork_ResetMoveOffsetPos(self + 0x440);
+        CustomIDWork_ResetMoveOffsetPos(&self->elem[8]);
 }
 
 __attribute__((section(".text.func_001DF858")))

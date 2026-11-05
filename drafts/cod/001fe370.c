@@ -2,31 +2,13 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-typedef struct {
-    char pad0[0x30];
-    void *owner; /* 0x30 */
-    char pad34[0x4A - 0x34];
-    unsigned char live; /* 0x4A */
-    char pad4B[0x60 - 0x4B];
-} DmgGive;
-typedef struct {
-    char pad0[0x30];
-    void *owner; /* 0x30 */
-    char pad34[0x4A - 0x34];
-    unsigned char live; /* 0x4A */
-    char pad4B[0x70 - 0x4B];
-} DmgRecv;
-typedef struct {
-    DmgGive give[160]; /* 0x0000 */
-    DmgRecv recv[256]; /* 0x3C00 */
-} DmgMgr;
-extern int cDamageManage_ReleaseDamageGive(DmgMgr *mgr, DmgGive *give);
-extern int ClearAndResetFields_1FE278(DmgMgr *mgr, DmgRecv *recv);
+#include "godhand/cDamageManage.h"
 
-void func_001FE370(DmgMgr *mgr, void *owner)
+/* Release every give and take record owner holds. */
+void func_001FE370(cDamageManage *mgr, void *owner)
 {
-    DmgGive *g;
-    DmgRecv *r;
+    cDamageGive *g;
+    cDamageUnit *r;
     unsigned int i;
 
     g = mgr->give;
@@ -36,9 +18,9 @@ void func_001FE370(DmgMgr *mgr, void *owner)
         if (g->owner != owner)
             continue;
         cDamageManage_ReleaseDamageGive(mgr, g);
-    } while (++g < &mgr->give[160]);
-    r = mgr->recv;
-    for (i = 0; i < 256; i++, r++) {
+    } while (++g < &mgr->give[CDAMAGE_GIVE_MAX]);
+    r = mgr->take;
+    for (i = 0; i < CDAMAGE_TAKE_MAX; i++, r++) {
         if (r->live == 0)
             continue;
         if (r->owner != owner)

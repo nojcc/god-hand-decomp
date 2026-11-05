@@ -9,6 +9,7 @@
 #include "godhand/player.h"
 #include "godhand/angle.h"
 #include "godhand/rand.h"
+#include "godhand/cOmWeapon.h"
 
 #define RES(off) EM_RES_REC(EM_RES(self), off)
 
@@ -154,7 +155,7 @@ void func_00232500(cEm00 *self)
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                     recB = RES(0x1E78);
                 }
-                SetOrientByType_26AF20(self, (int)self->fx4, 1);
+                SetOrientByType_26AF20((cOmBase *)self, self->fx4, 1);
             }
             /* retail sets the turn time again after the weapon check */
             self->timerA = 0xF;
@@ -251,7 +252,7 @@ void func_00232500(cEm00 *self)
             self->timer2 = 32.0f;
             self->timerA = 0x14;
             if (self->subA != 0) {
-                func_0027DD10((void *)self->subA, 60.0f);
+                func_0027DD10((cEm00 *)self->subA, 60.0f);
             }
             break;
         case 0x220:
@@ -337,9 +338,9 @@ void func_00232500(cEm00 *self)
         case 5:
             break;
         }
-        func_002A8578((int)self, recA, recB, 10, 0.0f, sel, 0);
+        func_002A8578(self, recA, recB, 10, 0.0f, sel, 0);
         if (fxKind_isSet(fxKind)) {
-            InitRenderStruct_2A8608((cGameObj *)self, fxKind, (void *)fxNo, 0, fxMode, fxFollow);
+            InitRenderStruct_2A8608((cGameObj *)self, fxKind, fxNo, 0, fxMode, fxFollow);
         }
         self->timer = self->rot.y;
         self->step++;

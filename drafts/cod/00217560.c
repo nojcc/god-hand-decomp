@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cObjBase.h"
 #include "godhand/angle.h"
@@ -16,7 +17,7 @@ void func_00217560(cEm00 *self)
 {
     unsigned short sel;
     float rel;
-    char *p;
+    cOmWeapon *p;
     int motA;
     int motB;
 
@@ -64,7 +65,7 @@ void func_00217560(cEm00 *self)
                 }
             }
         }
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->hitFlash = 5.0f;
         self->step++;
     }
@@ -101,7 +102,7 @@ void func_00217560(cEm00 *self)
         from = Getplayer()->pos;
         /* retail computes the turn toward the player here and drops it */
         Turn_dest((float *)from, (float *)self->pos, Getplayer()->rot.y, 3.1415927f);
-        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x1668),
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x1668),
                       EM_RES_REC(EM_RES(self), 0x166C), 3, 0.0f, sel, 0);
         self->step++;
     }
@@ -114,12 +115,12 @@ void func_00217560(cEm00 *self)
         cObjBase_addNullSpeed((struct cObjBase *)self, 1.0f);
         if ((self->seqFlags & 3) && self->unk1864 == 0) {
             self->unk1864 = 1;
-            p = func_0026AA30((char *)self, 0x365);
+            p = func_0026AA30(self, 0x365);
             if (p != 0)
-                func_0026B240(self, (int)p, 0x365, 10);
-            p = func_0026AA30((char *)self, 0x365);
+                func_0026B240(self, p, 0x365, 10);
+            p = func_0026AA30(self, 0x365);
             if (p != 0)
-                func_0026B240(self, (int)p, 0x365, 0x10);
+                func_0026B240(self, p, 0x365, 0x10);
         }
         break;
     }

@@ -6,7 +6,6 @@
 #include "godhand/motion.h"
 
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
-extern int moveMotion(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);

@@ -76,7 +76,7 @@ int func_002F62F8(cFxTrail *self, int arg)
         FXTRAIL_SEG(self->segB, i)->end1 = FXTRAIL_SEG(self->segA, i)->fade;
         FXTRAIL_SEG(self->segB, i)->kC8 = FXTRAIL_K0A8;
     }
-    MtxCopy(m, (void *)CallThenReturnPlusB0_002B6420_2B61B0((int)self));
+    MtxCopy(m, CallThenReturnPlusB0_002B6420_2B61B0((cNode *)self));
     VU0_SQC2_VF0_MEM(&zero, 0);
     CopyVec3ToField30_147C40(m, (float *)&zero);
     self->life = self->param->life + 1;

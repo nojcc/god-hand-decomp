@@ -22,9 +22,9 @@ void func_001DEB08(char *self, unsigned char slot, int on, int base)
             from.c.g = 0x80;
             from.c.r = 0x80;
             to.v = from.v | 0xFFFFFF;
-            CustomIDWork_SetColorAnimSin(self + (buf.w[slot] * 0x7C + 0x60), from.v, to.v, 0xC);
+            CustomIDWork_SetColorAnimSin((CustomIDWork *)(self + (buf.w[slot] * 0x7C + 0x60)), from.v, to.v, 0xC);
         } else {
-            CustomIDWork_ResetColorAnim(self + (buf.w[slot] * 0x7C + 0x60));
+            CustomIDWork_ResetColorAnim((CustomIDWork *)(self + (buf.w[slot] * 0x7C + 0x60)));
         }
     }
 }

@@ -4,7 +4,6 @@
 /* func_00278878 — sets +0x54C=3.0f, then a +0x2F6 phase machine (record fields
  * 0x1C/0x20, mode 2); on moveMotion completion it re-arms the phase block to
  * 0x2F5=2, then adds the 1.0f-scaled vectors.  sn-2.95.3-136. */
-extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion,

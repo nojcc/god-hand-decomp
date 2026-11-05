@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cNode.h"
 
 extern unsigned char D_00747A50[];
 
@@ -98,23 +99,22 @@ void func_002A4ED8(char *base)
 }
 
 __attribute__((section(".text.func_002B5EC0")))
-void func_002B5EC0(char *n)
+void func_002B5EC0(cNode *self)
 {
-    char *q;
+    cNode *q;
 
-    if (*(char **)(n + 4) == 0) return;
-    q = *(char **)(n + 0x10);
+    if (self->parent == 0) return;
+    q = self->next;
     if (q != 0) {
-        *(char **)(q + 0xC) = *(char **)(n + 0xC);
+        q->prev = self->prev;
     }
-    q = *(char **)(n + 0xC);
+    q = self->prev;
     if (q != 0) {
-        *(char **)(q + 0x10) = *(char **)(n + 0x10);
+        q->next = self->next;
     } else {
-        q = *(char **)(n + 4);
-        *(char **)(q + 8) = *(char **)(n + 0x10);
+        self->parent->child = self->next;
     }
-    *(char **)(n + 0x10) = 0;
-    *(char **)(n + 0xC) = 0;
-    *(char **)(n + 4) = 0;
+    self->next = 0;
+    self->prev = 0;
+    self->parent = 0;
 }

@@ -12,6 +12,7 @@
 #include "godhand/classFADE.h"
 #include "godhand/gameWork.h"
 #include "godhand/CustomIDPanel.h"
+#include "godhand/cSnd.h"
 
 #ifdef NON_MATCHING
 
@@ -23,12 +24,7 @@
 #define FADE_BLACK         0xFF000000
 
 extern unsigned int D_00747A78;
-extern char D_005FEE00[];
 extern char D_005FEA60[];
-extern void cSnd_BattleBgmAllPause(void *snd, float time);
-extern void cSnd_BgmEventStart(void *snd, int no, int a2, int a3);
-extern void cSnd_BgmEventFade(void *snd, int no, float time, float level, float weight);
-extern void cSnd_BgmFlaggedNodeKick(void *snd, float time);
 extern void cTaskWork_exit(struct cTaskWork *task);
 extern int cSceAtManager_SetEnable_2C2950(void *mgr, unsigned short id);
 extern void Slot2_setLineMark(Slot2 *self, int on, int lit);
@@ -55,12 +51,12 @@ void Slot2_Execute(Slot2 *self)
 
     cScenario_startSoftEvent(D_003C2F84, 0);
     D_00747A78 &= ~SYS_F_PAD_LOCK;
-    cSnd_BattleBgmAllPause(D_005FEE00, SLOT2_BGM_FADE);
+    cSnd_BattleBgmAllPause(&D_005FEE00, SLOT2_BGM_FADE);
     classFADE_start(&D_00747470, 0, 10, 0, 0, FADE_BLACK, SLOT2_FADE_TIME);
     while (!FADE_DONE()) {
         cTaskWork_sleep(D_003C2F84->task.cur, 1);
     }
-    cSnd_BgmEventStart(D_005FEE00, SLOT2_BGM, 0, 0);
+    cSnd_BgmEventStart(&D_005FEE00, SLOT2_BGM, 0, 0);
     D_007474A0.unk569 = 1;
     self->endFlag = 0;
     self->state = 0;
@@ -72,7 +68,7 @@ void Slot2_Execute(Slot2 *self)
     func_001E6D48(self, 0, 0);
     func_001E6E10(self, 0, 0);
     func_001E71B8(self->layer, 1);
-    CustomIDWork_SetNumber(self->customId, cCoreSave_getGold(&D_00569B70));
+    CustomIDWork_SetNumber((CustomIDWork *)self->customId, cCoreSave_getGold(&D_00569B70));
     Slot2_showMarkLayers(self, 1);
     eye.x = 1.5f;
     eye.y = 113.59f;
@@ -94,7 +90,7 @@ void Slot2_Execute(Slot2 *self)
         Slot2_update(self);
         cTaskWork_sleep(D_003C2F84->task.cur, 1);
     }
-    cSnd_BgmEventFade(D_005FEE00, SLOT2_BGM, 15.0f, 0.0f, -1.0f);
+    cSnd_BgmEventFade(&D_005FEE00, SLOT2_BGM, 15.0f, 0.0f, -1.0f);
     classFADE_start(&D_00747470, 0, 10, 0, 0, FADE_BLACK, SLOT2_FADE_TIME);
     while (!FADE_DONE()) {
         func_001E73C0(self->layer);
@@ -102,7 +98,7 @@ void Slot2_Execute(Slot2 *self)
         cTaskWork_sleep(D_003C2F84->task.cur, 1);
     }
     D_007474A0.unk569 = 2;
-    cSnd_BgmFlaggedNodeKick(D_005FEE00, SLOT2_BGM_FADE);
+    cSnd_BgmFlaggedNodeKick(&D_005FEE00, SLOT2_BGM_FADE);
     SlotUi_release((SlotUi *)self->layer);
     cCoreSave_initAddGold(&D_00569B70);
     Slot2_showMarkLayers(self, 0);

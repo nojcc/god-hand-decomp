@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/newlibMalloc.h"
 
 extern void *D_003C4030[16];
 extern void func_002E0DE8(int, int, int, const char *, ...);
@@ -36,7 +37,6 @@ extern char D_0045C3C0[];   /* "AFS : %s" */
 extern char D_0045C3D0[];   /* "ACX : %s" */
 
 extern char *func_003BB058(void *);                    /* Rep::clone */
-extern void UpdateGlobalPtrWithParam_3A7CC0(void *);   /* free */
 
 
 __attribute__((section(".text.func_00380280")))

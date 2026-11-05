@@ -36,7 +36,7 @@ void func_0013DB50(IconScreen *self)
 
             col.r = 0x80; col.g = 0x80; col.b = 0x80; col.a = 0x80;
             CustomIDWork_SetColorAnimNormal_2D6898(&self->panel[4], *(unsigned int *)&col, 1);
-            CustomIDWork_SetDisp((char *)&self->panel[4], 1);
+            CustomIDWork_SetDisp((CustomIDWork *)((char *)&self->panel[4]), 1);
             self->flashStep++;
         } else {
             self->flashTimer--;
@@ -44,8 +44,8 @@ void func_0013DB50(IconScreen *self)
         break;
     case 2:
         self->flashTimer = 0x14;
-        CustomIDWork_SetDisp((char *)&self->panel[0], 1);
-        CustomIDWork_SetDisp((char *)&self->panel[2], 1);
+        CustomIDWork_SetDisp((CustomIDWork *)((char *)&self->panel[0]), 1);
+        CustomIDWork_SetDisp((CustomIDWork *)((char *)&self->panel[2]), 1);
         func_002D69A8((int)&self->panel[2], self->flashTimer, 1.0f, 0.0f);
         self->flashStep++;
         break;
@@ -56,7 +56,7 @@ void func_0013DB50(IconScreen *self)
             from.r = 0x80; from.g = 0x80; from.b = 0x80; from.a = 0x80;
             to.r = 0xD0; to.g = 0xD0; to.b = 0xD0; to.a = 0;
             CustomIDWork_SetColorAnimNormal_2D68D8(&self->panel[4], *(unsigned int *)&from, *(unsigned int *)&to, 0xF);
-            CustomIDWork_SetDisp((char *)&self->panel[1], 1);
+            CustomIDWork_SetDisp((CustomIDWork *)((char *)&self->panel[1]), 1);
             on.r = 0x80; on.g = 0x80; on.b = 0x80; on.a = 0x80;
             CustomIDWork_SetColorAnimNormal_2D68D8(&self->panel[1], 0, *(unsigned int *)&on, 6);
             self->flashTimer = 6;
@@ -85,7 +85,7 @@ void func_0013DB50(IconScreen *self)
     case 6: {
         CustomIDColor from, to;
 
-        CustomIDWork_SetDisp((char *)&self->panel[3], 1);
+        CustomIDWork_SetDisp((CustomIDWork *)((char *)&self->panel[3]), 1);
         from.r = 0x80; from.g = 0x80; from.b = 0x80; from.a = 0;
         to.r = 0x80; to.g = 0x80; to.b = 0x80; to.a = 0x80;
         CustomIDWork_SetColorAnimNormal_2D68D8(&self->panel[3], *(unsigned int *)&from, *(unsigned int *)&to, 0x1E);

@@ -105,7 +105,7 @@ static __inline__ void cEm00_guardBreak(cEm00 *self)
         spot.y = 0.0f;
         sceVu0ApplyMatrix(&spot, mtx, &spot);
         VU0_VADD_XYZ_IP(&spot, 0, part->pos);
-        SetEffectPos(0, 0x4C, 0, &spot, -1, 1.0f);
+        SetEffectPos(0, 0x4C, 0, &spot, 1.0f, -1);
     }
     cCoreSave_addGameLevelPoint(&D_00569B70, 100);
 }
@@ -565,7 +565,7 @@ int func_0020A178(cEm00 *self)
                 spot.y = 0.0f;
                 sceVu0ApplyMatrix(&spot, mtx, &spot);
                 VU0_VADD_XYZ_IP(&spot, 0, part->pos);
-                SetEffectPos(0, 0x4C, 0, &spot, -1, 1.0f);
+                SetEffectPos(0, 0x4C, 0, &spot, 1.0f, -1);
             }
             cCoreSave_addGameLevelPoint(&D_00569B70, 100);
         }

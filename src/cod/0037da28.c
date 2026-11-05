@@ -1,4 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/heapArena.h"
+#include "godhand/criStm.h"
 
 /* sn-2.95.3-136 candidate. */
 
@@ -20,8 +22,6 @@ extern char D_0045C130[];
 extern void *D_003F2878[];
 
 extern char *func_003BB058(void *);            /* Rep::clone */
-extern void *func_003A52F0(void *, int, int);   /* memset */
-extern void *func_0030F550(int);               /* operator new */
 
 
 __attribute__((section(".text.func_0037DA28")))

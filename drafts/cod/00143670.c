@@ -91,7 +91,7 @@ void func_00143670(GoldScreen *self)
         self->label2->msg = 0x3010;
     }
     self->flags &= ~3;
-    cIDBase_move(self);
+    cIDBase_move((cIDBaseObj *)self);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_00143670);

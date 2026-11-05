@@ -41,6 +41,7 @@ typedef struct cBox {
 #define CPARTS_NO_MOTION_ROT    0x100    /* skip the rotation channels (3..5) */
 #define CPARTS_NO_MOTION_POS    0x200    /* skip the translation channels (0..2) */
 #define CPARTS_NO_MOTION_SCALE  0x400    /* skip the scale channels (6..8) */
+#define CPARTS_UNK150_SET       0x800    /* set while unk150 holds a nonzero angle (func_0026A3D8) */
 #define CPARTS_ZERO_UNKEYED_ROT 0x8000   /* zero each rotation component no channel keys this frame */
 #define CPARTS_NO_BLEND         0x100000 /* leave the part out of the blend */
 
@@ -240,7 +241,7 @@ struct cParts;
     struct cParts *next;                /* 0x144 on a model the first part, on a part the next */ \
     struct cParts *parent;              /* 0x148 */ \
     struct cParts *link;                /* 0x14C */ \
-    char unk150[0x4]; \
+    float unk150;                       /* 0x150 an enemy copies its unk16FC angle here (CPARTS_UNK150_SET) */ \
     int partFlags;                      /* 0x154 CPARTS_* */ \
     char unk158[0xBC]; \
     cVtEnt *vtable;                     /* 0x214 */ \
@@ -306,6 +307,9 @@ typedef struct cModel cModel;
 
 typedef char cModel_size_check[(sizeof(struct cModel) == 0x2E4) ? 1 : -1];
 
+/* Release obj once (no-op for 0 or an object already released). */
+void ReleaseObj(struct cModel *obj);
+
 /* The model's overall alpha: the tint alpha scaled by the three alpha bytes.
  * 1.0 means fully opaque, which lets a node sort with the opaque ones. */
 static __inline__ float cModel_alpha(struct cModel *self) {
@@ -344,5 +348,14 @@ static __inline__ void cMtxMulVu0(void *dst, void *a, void *b) {
     VU0_SQC2(14, dst, 0x20);
     VU0_SQC2(15, dst, 0x30);
 }
+
+void cModel_calcParts(struct cModel *self);
+void cModel_calcWorldParts(struct cModel *self);
+void cModel_calcNullPart(struct cModel *self);
+cModelNode *cModel_getMeshPtr_14B730(struct cModel *self, char *name);
+
+/* The model's part of the destructor: put cModel's method table back, free
+ * the packet block, drop the meshes and parts, then run the base part. */
+void cModel_destroy(cModel *self, int flags);
 
 #endif

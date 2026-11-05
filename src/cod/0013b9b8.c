@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cPlCamera.h"
+#include "godhand/mtx.h"
 #include "godhand/vu0.h"
 
 extern int D_005CAFF0;                  /* the camera manager's live camera */
-extern void MtxInitRotVec(float *mtx, float *rot, int roll);
 extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
 extern void Adjust_theta_vec(cVec *v);
 
@@ -42,7 +42,7 @@ void cPlCamera_setCamUpdate(struct cPlCamera *self, int snap) {
         return;
     }
     VU0_SQC2_VF0(&f, 0x40);
-    MtxInitRotVec(f.mtx, &self->pose.obj->rot.x, 0);
+    MtxInitRotVec(f.mtx, &self->pose.obj->rot, 0);
     f.mtx[12] = self->pose.obj->pos->x;
     f.mtx[13] = self->pose.obj->pos->y;
     f.mtx[14] = self->pose.obj->pos->z;
@@ -53,7 +53,7 @@ void cPlCamera_setCamUpdate(struct cPlCamera *self, int snap) {
     plcam_vec(&f.rot, self->pose.obj->rot.x + self->pose.rotOfs.x,
               self->pose.obj->rot.y + self->pose.rotOfs.y, self->pose.obj->rot.z, 1.0f);
     Adjust_theta_vec(&f.rot);
-    MtxInitRotVec(f.mtx, (float *)&f.rot, 0);
+    MtxInitRotVec(f.mtx, &f.rot, 0);
     f.mtx[12] = f.out.x;
     f.mtx[13] = f.out.y;
     f.mtx[14] = f.out.z;

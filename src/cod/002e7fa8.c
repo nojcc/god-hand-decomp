@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/espSys.h"
 
 /* cygnus-2.96 matched TU. */
 
@@ -9,12 +10,11 @@ typedef struct {
     unsigned char req;                    /* +0x2CB */
 } Obj;
 
-extern void LinkObj_callLockOn(Obj *p);
 
 __attribute__((section(".text.func_002E7FA8")))
 void func_002E7FA8(Obj *p)
 {
     if (p->flags & 0x800000) return;
     if (p->req == 0) return;
-    LinkObj_callLockOn(p);
+    LinkObj_callLockOn((EspAnim *)p);
 }

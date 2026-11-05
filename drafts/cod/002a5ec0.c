@@ -7,8 +7,15 @@
  * func_00299860, cNowLoading_executeTask, cNowLoading_exitTask and
  * cEmSetParam_setEmData do not take; they are declared here as called. */
 #include "include_asm.h"
+#include "godhand/cSnd.h"
+#include "godhand/criStm.h"
+#include "godhand/cRelSys.h"
 
 #ifdef NON_MATCHING
+#include "godhand/cDamageManage.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/heapArena.h"
+#include "godhand/cCamManager.h"
 
 #include "godhand/player.h"
 #include "godhand/cIDManager.h"
@@ -36,7 +43,6 @@ typedef struct OmSetBuf {
     int b;
 } OmSetBuf;
 
-extern void *func_003A52F0(void *dst, int val, int len);
 extern int cDataManager_addPinnedData(void *self, int kind, void *buf);
 extern void cNowLoading_executeTask(int task);
 extern void cNowLoading_exitTask(int task);
@@ -50,12 +56,9 @@ extern int cMovie_isIdle(void *self);
 extern void InitEspWork(void);
 extern void InitEmitterWork(void);
 extern void func_002A6C78(void *self);
-extern void func_002A94F0(char *self);
 extern void func_0031CC48(void);
 extern void System_initPools(void *scene, int room);
-extern void func_002BE708(void *self, int arg);
 extern void ClearInputState_2C33D8(void *a0);
-extern void func_002CABE8(char *p);
 extern void func_002B8B50(void *p);
 extern void func_00305A68(void *self);
 extern void func_002993A0(void *self);
@@ -89,7 +92,6 @@ extern void ResetActorState_2C3440(void *a0);
 extern void func_0031BE78(void *a0);
 extern void func_0031C1D0(void *dest, char *src);
 extern void cWorldLight_Light_curent_set(void *wl, int a1);
-extern void cSnd_BgmStageChange(void *self);
 
 extern char *D_003BD6E8;
 extern PinnedEnt *D_003C3CC4;
@@ -97,24 +99,18 @@ extern void *D_00752C38[];
 extern char D_00580D20[];
 extern int D_003C2558;
 extern char *D_003C2F84;
-extern char *D_005CAFF0;
 extern char *D_003C2648;
 extern char *D_003C264C;
 extern char *D_003BD930;
 extern int D_003C2380;
 extern int D_003C23A4;
 extern char D_0061A990[];
-extern char D_005FEE00[];
 extern char D_005E79D0[];
-extern char D_00754220[];
-extern char D_005E8640[];
 extern char D_005E8040[];
 extern char D_007419A0[];
 extern char D_00586C00[];
 extern char D_00604700[];
 extern char D_004664A0[];
-extern char D_00574380[];
-extern int D_00462FC0[];
 extern char D_005CAE50[];
 extern char D_00747B20[];
 extern char D_005FEA60[];
@@ -122,7 +118,6 @@ extern char D_00568288[];
 extern char D_00583EC0[];
 extern char D_005864F0[];
 extern char D_00586AB0[];
-extern char D_00463050[];
 extern char D_0044AD68[];
 extern char D_0044AD70[];
 extern char D_0044AD78[];
@@ -200,28 +195,28 @@ void func_002A5EC0(StageScene *self)
     D_007474A0.playerObj = 0;
     func_002D9BC8(D_0061A990);
     func_002C32F0(D_003C2F84);
-    ForwardVtableCall_138210(D_005CAFF0);
-    func_002CA8C8(D_005FEE00);
+    ForwardVtableCall_138210((char *)D_005CAFF0);
+    func_002CA8C8(&D_005FEE00);
     func_002BF150(D_003C2648);
     while (!cMovie_isIdle(D_005E79D0))
         cTaskWork_sleep(D_00752C00.task, 1);
     InitEspWork();
     InitEmitterWork();
     func_002A6C78(self);
-    func_002A94F0(D_00754220);
+    func_002A94F0(&D_00754220);
     func_0031CC48();
     System_initPools(self, D_007474A0.room);
     func_002BE708(D_005E8640, D_007474A0.room);
     ClearInputState_2C33D8(D_003C2F84);
-    func_002CABE8(D_005FEE00);
+    func_002CABE8(&D_005FEE00);
     func_002B8B50(D_005E8040);
     func_00305A68(D_007419A0);
     func_002993A0(D_00586C00);
     func_002D6F40(D_00604700);
     func_001509A0(D_004664A0);
     cHookList_callAll(D_003BD6E8);
-    func_001FDF88(D_00574380);
-    func_00134690(D_00462FC0);
+    func_001FDF88(&D_00574380);
+    func_00134690(&D_00462FC0);
     func_002A71B0();
     func_0031D1B0();
     func_0012E670(D_005CAE50);
@@ -256,7 +251,7 @@ void func_002A5EC0(StageScene *self)
         func_002A7308((int)&om);
         cOmSetParam_setOmData(&om, SearchData(D_007474A0.pack, D_0044AD70, 0));
     }
-    cAreaCamManager_SetData((int)(D_00463050 + 0xFF4), (int)SearchData(D_007474A0.pack, D_0044AD78, 0));
+    cAreaCamManager_SetData((int)D_00463050.unkFF4, (int)SearchData(D_007474A0.pack, D_0044AD78, 0));
     ResetActorState_2C3440(D_003C2F84);
     func_0031BE78(light);
     if (!(D_007474A0.flags598 & 0x80000))
@@ -269,7 +264,7 @@ void func_002A5EC0(StageScene *self)
         cNowLoading_exitTask(D_003C2558);
     D_007474A0.flags = D_007474A0.flags & ~0x10 & ~0x100;
     cWorldLight_Light_curent_set(D_00604700, 0);
-    cSnd_BgmStageChange(D_005FEE00);
+    cSnd_BgmStageChange(&D_005FEE00);
     self->unk1B0 = 0xF;
     if (D_007474A0.room != 0x20)
         Getplayer()->hitFlash = 30.0f;

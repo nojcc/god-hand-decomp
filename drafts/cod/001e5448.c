@@ -3,14 +3,13 @@
  * reels' done-flag loads go through the reel pointer instead of self (retail's 001e5268.c shape, a reel pointer plus a
  * read through self, fixes the loads but swaps s0 and s1). */
 #include "include_asm.h"
+#include "godhand/cSnd.h"
 
 #ifdef NON_MATCHING
 #include "godhand/Slot2.h"
 
 extern float frand(float a0, float a1);
 extern int irand(void);
-extern void cSnd_SeStop(void *a0, int a1);
-extern char D_005FEE00[];
 
 #define SLOT2_LINE_NONE    9         /* no prize line drawn: the reels stop freely */
 
@@ -172,7 +171,7 @@ void Slot2_StopReels(Slot2 *self)
     case 4:
         if (Slot2Reel_doneBit(&self->reel[0], 2) != 0 && Slot2Reel_doneBit(&self->reel[1], 2) != 0
             && Slot2Reel_doneBit(&self->reel[2], 2) != 0) {
-            cSnd_SeStop(D_005FEE00, self->seId[0]);
+            cSnd_SeStop(&D_005FEE00, self->seId[0]);
             self->step = self->step + 1;
         }
         break;

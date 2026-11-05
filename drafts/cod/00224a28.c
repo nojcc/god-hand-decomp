@@ -9,7 +9,6 @@
 #include "godhand/motion.h"
 #include "godhand/player.h"
 
-extern void cCollisionSolidManage_SetActive(int mgr, int obj, int on);
 
 #define EMFLAG_GUARDED      0x800000
 #define EMFLAG_HIT          0x1000
@@ -53,7 +52,7 @@ void func_00224A28(cEm00 *self)
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
             motB = EM_RES_REC(EM_RES(self), 0x1E1C);
         }
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->timerC = 0;
         self->timer = 15.0f;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -95,7 +94,7 @@ void func_00224A28(cEm00 *self)
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
             motB = EM_RES_REC(EM_RES(self), 0x1E28);
         }
-        func_002A8578((int)self, motA, motB, 3, 0.0f, sel, 0);
+        func_002A8578(self, motA, motB, 3, 0.0f, sel, 0);
         self->timerA = 8;
         self->step++;
         /* fallthrough */
@@ -155,7 +154,7 @@ void func_00224A28(cEm00 *self)
         break;
     case 4:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x96C), EM_RES_REC(EM_RES(self), 0x970), 3, 0.0f, sel, 0);
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x96C), EM_RES_REC(EM_RES(self), 0x970), 3, 0.0f, sel, 0);
         SetEffect(FX_KIND_ENEMY, FX_GRAB_MISS, self, &prm, -1, 0xFFFFFFFF);
         self->step++;
         /* fallthrough */
@@ -168,7 +167,7 @@ void func_00224A28(cEm00 *self)
         break;
     case 6:
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
-        func_002A8578((int)self, EM_RES_REC(EM_RES(self), 0x1E2C), EM_RES_REC(EM_RES(self), 0x1E30), 3, 0.0f, sel, 0);
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x1E2C), EM_RES_REC(EM_RES(self), 0x1E30), 3, 0.0f, sel, 0);
         SetEffect(FX_KIND_ENEMY, FX_GRAB_MISS, self, &prm, -1, 0xFFFFFFFF);
         self->step++;
         /* fallthrough */

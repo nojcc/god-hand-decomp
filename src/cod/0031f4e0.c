@@ -1,4 +1,5 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/criStm.h"
 
 extern void func_00324C50(void);
 extern void func_0032AF88(void);
@@ -136,8 +137,9 @@ int func_00360D50(void) {
 }
 
 __attribute__((section(".text.func_0031F4E0")))
-int func_0031F4E0(int *a0, int *a1) {
-    return (unsigned int)func_003A5678(*a0, *a1) >> 31;
+/* Nonzero when string *a sorts before string *b. */
+int func_0031F4E0(char **a, char **b) {
+    return (unsigned int)func_003A5678(*a, *b) >> 31;
 }
 
 __attribute__((section(".text.func_003342E8")))

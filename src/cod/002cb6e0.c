@@ -1,24 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
+#include "godhand/cBgmData.h"
 
-extern int cSnd_FindFreeSeSlot(cSnd *self);
-extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int idx);
-extern void cSnd_SeVoiceCallAll(cSnd *self, int idx, int flag);
-extern void cSndSeVoice_Stop(cSndSeVoice *v);
 extern void cSndMemHeap_Free(cSndMemHeap *parent, int addr);
 
-/* Returns the slot already playing this id; failing that, claims an active slot for it. -1 if none. */
+/* Returns the slot already holding this bank image; failing that, claims an active slot for it. -1 if none. */
 __attribute__((section(".text.cSnd_ReserveSeSlot")))
-int cSnd_ReserveSeSlot(cSnd *self, int id)
+int cSnd_ReserveSeSlot(cSnd *self, cSeBuf *buf)
 {
     int slot;
-    slot = cSnd_FindSeSlotById(self, id);
+    slot = cSnd_FindSeSlotById(self, buf);
     if (slot != -1)
         return slot;
     slot = cSnd_FindFreeSeSlot(self);
     if (slot != -1) {
-        if (cSeData_LoadFromBuf(cSnd_GetSeData(self, slot), slot, id, 0x7FFFFFFF) == 0)
+        if (cSeData_LoadFromBuf(cSnd_GetSeData(self, slot), slot, buf, 0x7FFFFFFF) == 0)
             return -1;
     }
     return slot;

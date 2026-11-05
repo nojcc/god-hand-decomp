@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cGameObj.h"
+#include "godhand/mtx.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/cCamera.h"
 #include "godhand/player.h"
@@ -18,7 +19,6 @@ typedef struct cEmCarrier {
 } cEmCarrier;
 
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
-extern void MtxInitRotY(void *a0, float angle);
 extern void func_001CFB28(cOmWeapon *self, cVec *pos, int arg);
 
 /* Throws the carried weapon toward the player, turned at most 60 degrees from the enemy's heading. */

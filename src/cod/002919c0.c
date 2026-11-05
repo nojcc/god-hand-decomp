@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEmManage.h"
+#include "godhand/heapArena.h"
 
 extern char D_0044BAB0[];
 extern int D_00747A88;
@@ -83,26 +84,28 @@ void func_002A4FA0(char *base) {
     *(int *)(p + 0x2050) = v;
 }
 
+/* Make the arena's memory one free block. */
 __attribute__((section(".text.func_002A94F0")))
-void func_002A94F0(char *self) {
-    *(int *)(*(char **)self + 0x8) = 0;
-    *(int *)(*(char **)self + 0x4) = 0;
-    *(int *)(*(char **)self + 0x10) = 0x20;
-    *(int *)(*(char **)self + 0xC) = *(int *)(self + 0x4) - 0x20;
-    *(char **)(*(char **)self + 0x0) = self;
+void func_002A94F0(HeapArena *self) {
+    self->head->next = 0;
+    self->head->prev = 0;
+    self->head->usedSize = 0x20;
+    self->head->freeSize = self->size - 0x20;
+    self->head->heap = self;
 }
 
 /* sn-2.95.3-136 */
+/* Link blk after `after` and mark it as heap's. */
 __attribute__((section(".text.func_002A9620")))
-void func_002A9620(int a, char *n, char *h)
+void func_002A9620(HeapArena *heap, HeapBlk *blk, HeapBlk *after)
 {
-    *(char **)(n + 0x8) = *(char **)(h + 0x8);
-    *(int *)(n + 0x0) = a;
-    *(char **)(n + 0x4) = h;
-    if (*(char **)(h + 0x8) != 0) {
-        *(char **)(*(char **)(h + 0x8) + 0x4) = n;
+    blk->next = after->next;
+    blk->heap = heap;
+    blk->prev = after;
+    if (after->next != 0) {
+        after->next->prev = blk;
     }
-    *(char **)(h + 0x8) = n;
+    after->next = blk;
 }
 
 __attribute__((section(".text.func_002A9860")))

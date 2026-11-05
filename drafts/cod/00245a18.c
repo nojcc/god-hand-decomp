@@ -39,9 +39,9 @@ void func_00245A18(cEm00 *self)
     switch (self->step) {
     case 0:
         self->unk1864 = 0;
-        func_002A8578((int)self, EM_RES_REC(self->resource, 0x3538),
-                      EM_RES_REC(self->resource, 0x353C), 3, 0.0f, 0, 0);
-        InitRenderStruct_2A8608((cGameObj *)self, 0x77, (void *)8, 0, 2, (void *)self->fx5);
+        func_002A8578(self, EM_RES_REC(EM_RES(self), 0x3538),
+                      EM_RES_REC(EM_RES(self), 0x353C), 3, 0.0f, 0, 0);
+        InitRenderStruct_2A8608((cGameObj *)self, 0x77, 8, 0, 2, (void *)self->fx5);
         self->timer = 15.0f;
         self->step++;
         /* fallthrough */
@@ -53,7 +53,7 @@ void func_00245A18(cEm00 *self)
         }
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
-        if (self->moveFlags & 1) {
+        if (self->seqFlags & 1) {
             if (self->playerDist < EM_NEAR && (irand() & 1)) {
                 self->step = 4;
                 break;
@@ -129,7 +129,7 @@ void func_00245A18(cEm00 *self)
             break;
         }
         if (self->emFlags2 & EMFLAG_SPIN_FX) {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, (void *)9, 0, 2, (void *)self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 9, 0, 2, (void *)self->fx5);
         }
         self->timer2 = 30.0f;
         self->step++;
@@ -138,10 +138,10 @@ void func_00245A18(cEm00 *self)
         cGameObj_SetTgtTurn((char *)self, Getplayer()->pos, self->speedRate * TURN_SLOW);
         self->hitFlash = 3.0f;
         if (moveMotion(self) != 0) {
-            func_002A8578((int)self, EM_RES_REC(self->resource, 0x3418),
-                          EM_RES_REC(self->resource, 0x341C), 3, 0.0f, 0, 0);
+            func_002A8578(self, EM_RES_REC(EM_RES(self), 0x3418),
+                          EM_RES_REC(EM_RES(self), 0x341C), 3, 0.0f, 0, 0);
         }
-        self->stepVec.x = self->timer * self->speedRate;
+        self->nullSpeed.x = self->timer * self->speedRate;
         cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
         cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         self->timer2 -= self->speedRate;
@@ -150,16 +150,16 @@ void func_00245A18(cEm00 *self)
         }
         break;
     case 4:
-        motA = EM_RES_REC(self->resource, 0x3544);
-        motB = EM_RES_REC(self->resource, 0x3548);
+        motA = EM_RES_REC(EM_RES(self), 0x3544);
+        motB = EM_RES_REC(EM_RES(self), 0x3548);
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-            motB = EM_RES_REC(self->resource, 0x354C);
+            motB = EM_RES_REC(EM_RES(self), 0x354C);
         }
-        func_002A8578((int)self, motA, motB, 3, 0.0f, 0, 0);
+        func_002A8578(self, motA, motB, 3, 0.0f, 0, 0);
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, (void *)0xA, 0, 2, (void *)self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0xA, 0, 2, (void *)self->fx5);
         } else {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, (void *)0xA, 0, 2, (void *)self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0xA, 0, 2, (void *)self->fx5);
         }
         self->timerA = 15;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -201,7 +201,7 @@ void func_00245A18(cEm00 *self)
         }
         break;
     }
-    if (self->moveFlags & 3) {
+    if (self->seqFlags & 3) {
         self->timerC = 1;
     }
     if (self->timerC != 0) {

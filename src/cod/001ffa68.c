@@ -1,16 +1,5 @@
 /* sn-2.95.3-136: func_001FFA68, look a path up in a node table: normalise it to lower-case backslash form, then walk it one strtok component at a time. */
-typedef struct PathNode {
-    unsigned char type;                 /* 0x0 1 = directory, 2 = file, 3 = end of list, 0 = none */
-    char unk1[3];
-    char *name;                         /* 0x4 */
-    struct PathNode *child;       /* 0x8 */
-} PathNode;                       /* 0xC */
-
-typedef struct PathTable {
-    PathNode *root;               /* 0x00 */
-    char unk04[0x15];
-    char alias[1];                      /* 0x19 */
-} PathTable;
+#include "godhand/cDvd.h"
 
 /* newlib ctype: the class table one past its base; bit 0 is upper case. */
 extern unsigned char D_0045F039[];
@@ -57,7 +46,7 @@ PathNode *func_001FFA68(PathTable *self, const char *path)
                     return n;
             } else if (n->type == 1) {
                 if (func_003A5678(n->name, tok) == 0 || func_003A5678(self->alias, tok) == 0) {
-                    n = n->child;
+                    n = n->u.child;
                     break;
                 }
             }

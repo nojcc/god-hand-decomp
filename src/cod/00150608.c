@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDvd.h"
 #include "godhand/cEmManage.h"
+#include "godhand/cOmBase.h"
 
 extern void SetFlagOnEntries7C_1D51B8(void *a0, int a1, int a2);
 extern void SetCustomIDDispOneOrAll_1DD258(void *a0, int a1, int a2);
@@ -11,9 +13,7 @@ extern int D_00566E50;
 extern void func_001612C8(void *);
 extern int D_00568240;
 extern void ClearField00_1F6CE0(void *);
-extern int D_00580D40;
 extern void InitSlotTable_1FF800(void *);
-extern int D_00583F20;
 extern void GetSelf_200AB0(void *);
 extern int D_00586AB0;
 extern void cEmSetParam_roomInit(void *);

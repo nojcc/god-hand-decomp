@@ -1,24 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/Slot2.h"
+#include "godhand/cIDBase.h"
+#include "godhand/cOmBase.h"
+#include "godhand/mtx.h"
 
-extern void MtxInitRotY(void *a0);
-extern void Tramp_func_0030A2B0_001508D8(int, void *, int);
-extern void cIDBase_move(void *p);
 extern void displayScrollLayer(int id, int on);
 extern char D_003BE528[];
 extern void func_001EC088(void *self);
 extern void cTaskWork_exit(void *work);
 
-struct buf_00150888 { char b[0x40]; };
-
-/* Build a Y-axis rotation matrix from the angle and hand it to the matrix trampoline. */
+/* dst = src rotated by angle about y. */
 __attribute__((section(".text.VecRotY")))
-void VecRotY(int a0, int angle)
+void VecRotY(cVec *dst, cVec *src, float angle)
 {
-    struct buf_00150888 buf;
-    MtxInitRotY(&buf);
-    Tramp_func_0030A2B0_001508D8(a0, &buf, angle);
+    float m[4][4];
+    MtxInitRotY(m[0], angle);
+    Tramp_func_0030A2B0_001508D8(dst, m, src);
 }
 
 #define ICONSCREEN_SUB_FLAG_DONE 0x400  /* the child object finished its animation */
@@ -39,7 +37,7 @@ __attribute__((section(".text.IconScreen_waitChildDone")))
 void IconScreen_waitChildDone(IconScreen *self)
 {
     if (self->child->flags & ICONSCREEN_SUB_FLAG_DONE) {
-        cIDBase_move(self);
+        cIDBase_move((cIDBaseObj *)self);
         self->step++;
     }
 }

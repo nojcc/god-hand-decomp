@@ -1,6 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/CustomIDWork.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cNode.h"
 #include "godhand/cMessCommon.h"
+#include "godhand/cSnd.h"
+#include "godhand/cBgmData.h"
 
 extern int D_0044FAD0;
 extern unsigned int D_007476B0;
@@ -11,10 +15,8 @@ extern void NodeList_clear(int *a0);
 extern void NodeList_deletingDtor(int *a0, int a1);
 
 __attribute__((section(".text.cSnd_GetBgmData")))
-int cSnd_GetBgmData(int a0, int a1) {
-    int v0 = *(int*)((char*)a0 + 0x40);
-    int t = a1 * 0x44;
-    return v0 + t;
+struct cBgmData *cSnd_GetBgmData(cSnd *self, int bank) {
+    return &self->bgm[bank];
 }
 
 /* Size in 16-bit codes of the code at the stream head: 1 for a printable
@@ -29,9 +31,9 @@ int cMessCommon_getCodeSize(unsigned int code) {
 }
 
 __attribute__((section(".text.func_002FBE28")))
-void func_002FBE28(int a0) {
-    *(int **)((char*)a0 + 0xF0) = &D_0044FAD0;
-    func_002FBDD8(a0);
+void func_002FBE28(cNode *self, int flags) {
+    self->vt = &D_0044FAD0;
+    func_002FBDD8(self, flags);
 }
 
 __attribute__((section(".text.func_00151368")))
@@ -92,37 +94,37 @@ int func_001BFB28(int a0){
 }
 
 __attribute__((section(".text.cCollisionSolidManage_ReleaseUnit")))
-void cCollisionSolidManage_ReleaseUnit(int *a0, int a1){
-    int *node;
-    int *prev;
-    int *head;
-    int next;
+void cCollisionSolidManage_ReleaseUnit(cCollisionSolidManage *self, struct cGameObj *owner){
+    cCollisionSolidUnit *node;
+    cCollisionSolidUnit *prev;
+    cCollisionSolidUnit *head;
+    cCollisionSolidUnit *next;
 
     prev = 0;
-    if (a1 == 0) {
+    if (owner == 0) {
         return;
     }
-    head = *(int **)a0;
+    head = self->first;
     node = head;
     while (node != 0) {
-        if (*node == a1) {
+        if (node->owner == owner) {
             break;
         }
         prev = node;
-        node = *(int **)((char *)node + 0x10);
+        node = node->next;
     }
     if (node == 0) {
         return;
     }
-    next = *(int *)((char *)node + 0x10);
+    next = node->next;
     if (node != head) {
-        *(int *)((char *)prev + 0x10) = next;
+        prev->next = next;
     } else {
-        *(int *)a0 = next;
+        self->first = next;
     }
-    NodeList_clear(node);
+    NodeList_clear((int *)node);
     if (node != 0) {
-        NodeList_deletingDtor(node, 3);
+        NodeList_deletingDtor((int *)node, 3);
     }
-    *(int *)((char *)a0 + 0x4) = *(int *)((char *)a0 + 0x4) - 1;
+    self->unitNum = self->unitNum - 1;
 }

@@ -2,6 +2,7 @@
 #include "include_asm.h"
 
 #include "godhand/cGameObj.h"
+#include "godhand/mtx.h"
 #include "godhand/cCamera.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
@@ -10,7 +11,6 @@
 #define HOLD_FACE_HOLDER  1
 
 extern float Turn_dest(void *from, void *to, float cur, float max);
-extern void MtxInitRotY(void *mtx, float angle);
 
 /* dst = m * v, through a work copy. */
 static __inline__ void cVec_transform(cVec *dst, cVec *v, float *m)

@@ -1,15 +1,14 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 #include "godhand/objField.h"
+#include "godhand/cCamManager.h"
 #include "godhand/rand.h"
-extern int D_00463050;
 extern void cPlCamera_setCamUpdate(void *a0);
-extern void cCamManager_setPlCamera(void *a0, int a1);
 extern void func_00150710(float a, float b, float c);
 
 __attribute__((section(".text.pl00_clearMotionCam")))
 void pl00_clearMotionCam(void *a0, int a1, int a2) {
-    void *s0;
+    cCamManager *mgr;
     if (((a2 ^ 1) & 1) != 0) {
         int v1 = *(int*)((char*)a0 + 0x15F4);
         if ((v1 & 2) == 0) {
@@ -17,11 +16,11 @@ void pl00_clearMotionCam(void *a0, int a1, int a2) {
         }
         *(int*)((char*)a0 + 0x15F4) = v1 & ~2;
     }
-    s0 = &D_00463050;
-    if (s0 != 0) {
-        cPlCamera_setCamUpdate(s0);
+    mgr = &D_00463050;
+    if (mgr != 0) {
+        cPlCamera_setCamUpdate(mgr);
     }
-    cCamManager_setPlCamera(s0, 0);
+    cCamManager_setPlCamera(mgr, 0);
 }
 
 __attribute__((section(".text.fRand0_1")))

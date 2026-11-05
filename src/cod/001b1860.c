@@ -1,11 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDamageUnit.h"
+#include "godhand/cDamageGive.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cDvd.h"
+#include "godhand/cOmWeapon.h"
+#include "godhand/cEm00.h"
 
-extern void CustomIDWork_SetMessNo(void *work, int messNo);
-extern void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);
-extern void cOmWeapon_SetBreak(int weapon);
 
 /* cCollisionShape: copy the position vector in, then call the shape's virtual update (vt[10]). */
 
@@ -49,7 +50,7 @@ extern void func_001E7538(UiPanel *self, int no, int on);   /* show or hide elem
 
 __attribute__((section(".text.UiPanel_setMessAndShow")))
 void UiPanel_setMessAndShow(UiPanel *self, int messNo, int on) {
-    CustomIDWork_SetMessNo(&self->work[1], messNo);
+    CustomIDWork_SetMessNo((CustomIDWork *)&self->work[1], messNo);
     func_001E7538(self, 0, on);
     func_001E7538(self, 1, on);
 }
@@ -57,31 +58,20 @@ void UiPanel_setMessAndShow(UiPanel *self, int messNo, int on) {
 /* Switch both damage units off: clear their hit values and deactivate every node. */
 
 
-/* The unit past its node list: the two hit values the init sets to 0x30/0x48 and 0x32. */
-typedef struct DamageUnitHit {
-    cDamageUnit base;                   /* 0x00 */
-    char unk40[6];
-    short hitA;                         /* 0x46 */
-    char unk48[4];
-    int hitB;                           /* 0x4C */
-} DamageUnitHit;
-
 typedef struct DamagePairObj {
     char unk000[0x66C];
-    DamageUnitHit *unitA;               /* 0x66C */
-    DamageUnitHit *unitB;               /* 0x670 */
+    cDamageGive *unitA;                 /* 0x66C */
+    cDamageGive *unitB;                 /* 0x670 */
 } DamagePairObj;
-
-
 
 __attribute__((section(".text.DamagePairObj_clearHits")))
 void DamagePairObj_clearHits(DamagePairObj *self) {
-    self->unitA->hitA = 0;
-    self->unitA->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unitA->base, 0);
-    self->unitB->hitA = 0;
-    self->unitB->hitB = 0;
-    cDamageUnit_SetDamageCollActive(&self->unitB->base, 0);
+    self->unitA->unk46 = 0;
+    self->unitA->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unitA, 0);
+    self->unitB->unk46 = 0;
+    self->unitB->activeTime = 0;
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unitB, 0);
 }
 
 /* cDvd: give all 32 jobs back, then reset the running job, the id counter and the queue length. */
@@ -101,28 +91,15 @@ void cDvd_init(cDvd *self) {
 }
 
 /* Enemy 0x211: break each of its 8 held weapons and forget the handles. */
-#define EM_NO_WEAPON_HOLDER  0x211      /* emNo of the enemy that holds the weapons */
-#define EM_WEAPON_NUM        8
-
-/* The enemy record: the number at 0x564 and the weapon handle array at 0x710. */
-typedef struct EmWeaponHolder {
-    char unk000[0x564];
-    int emNo;                           /* 0x564 */
-    char unk568[0x1A8];
-    int weapon[EM_WEAPON_NUM];          /* 0x710 weapon handles, 0 = empty slot */
-} EmWeaponHolder;
-
-
-
 __attribute__((section(".text.cEm_breakHeldWeapons")))
-void cEm_breakHeldWeapons(EmWeaponHolder *self) {
+void cEm_breakHeldWeapons(cEm00 *self) {
     unsigned int i;
     /* The xor spelling is what gives retail's xori + bnez; a plain == gives li + bne. */
     if ((self->emNo ^ EM_NO_WEAPON_HOLDER) == 0) {
         for (i = 0; i < EM_WEAPON_NUM; i++) {
-            if (self->weapon[i] != 0) {
-                cOmWeapon_SetBreak(self->weapon[i]);
-                self->weapon[i] = 0;
+            if (self->heldWeapon[i] != 0) {
+                cOmWeapon_SetBreak(self->heldWeapon[i]);
+                self->heldWeapon[i] = 0;
             }
         }
     }

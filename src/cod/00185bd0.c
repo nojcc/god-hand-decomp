@@ -1,18 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cSnd.h"
+#include "godhand/cObjBase.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
 extern void func_001B76D8(void *a0);
-extern void cCollisionSolidManage_ChkHit(void *, void *);
-extern char D_00462FC0[];
-extern void cOmBase_setMeshDispFromLayer(int a0, int a1, int a2);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, int a3, int a4, int a5, int a6, int a7);
-extern void SetEffect(int a0, int a1, int a2, int a3, int a4, unsigned int a5);
-extern int D_005FEE00;
+extern void cOmBase_setMeshDispFromLayer(void *model, int layer, int show);
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
-extern void func_001FD9D8(void *a0, void *a1, float *a2, float *a3, float *t0);
 extern void func_001BFB28(void *a0);
-extern int D_00574380;
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
 struct Entry_func_00194480 { short f0; short f2; short f4; short f6; };
@@ -49,7 +46,7 @@ void UpdatePhaseWithHitCheckB(void *a0)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cCollisionSolidManage_ChkHit(D_00462FC0, s0);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s0);
     func_001B76D8(s0);
 }
 
@@ -88,7 +85,7 @@ void UpdatePhaseWithHitCheckC(void *a0)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    cCollisionSolidManage_ChkHit(D_00462FC0, s0);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s0);
     func_001B76D8(s0);
 }
 
@@ -99,20 +96,20 @@ void UpdatePhaseWithHitCheckC(void *a0)
 
 
 __attribute__((section(".text.SetMeshLayerAndPlayEffect")))
-void SetMeshLayerAndPlayEffect(int arg0, int arg1)
+void SetMeshLayerAndPlayEffect(void *self, int arg1)
 {
-    cOmBase_setMeshDispFromLayer(arg0, 0x28, 0);
-    cOmBase_setMeshDispFromLayer(arg0, 0x29, 0);
+    cOmBase_setMeshDispFromLayer(self, 0x28, 0);
+    cOmBase_setMeshDispFromLayer(self, 0x29, 0);
     switch (arg1) {
     case 0:
-        cOmBase_setMeshDispFromLayer(arg0, 0x28, 1);
+        cOmBase_setMeshDispFromLayer(self, 0x28, 1);
         break;
     case 1:
-        cOmBase_setMeshDispFromLayer(arg0, 0x29, 1);
+        cOmBase_setMeshDispFromLayer(self, 0x29, 1);
         break;
     case 4:
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, arg0, 0, 0, 0, 0);
-        SetEffect(0x298, 4, arg0, 0, -1, 0xFFFFFFFF);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, self, 0, 0, 0, 0);
+        SetEffect(0x298, 4, self, 0, -1, 0xFFFFFFFF);
         break;
     }
 }
@@ -161,7 +158,7 @@ int SpawnDamageTakeVolumeC(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, m, nv, t);
+        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -213,7 +210,7 @@ int SpawnDamageTakeVolumeD(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, m, nv, t);
+        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -265,7 +262,7 @@ int SpawnDamageTakeVolumeE(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, m, nv, t);
+        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;

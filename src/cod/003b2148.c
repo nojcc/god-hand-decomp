@@ -1,12 +1,12 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
 extern int D_003FAE50;
-extern void EIntr();
 extern int SifSetDma(int, int);
 
 __attribute__((section(".text.func_003B2148")))
 int func_003B2148(int a, int b) {
-    int res = DIntr(a, b);
+    int res = DIntr();
     if (D_003FAE50 != 0) {
         if (res != 0) {
             EIntr();

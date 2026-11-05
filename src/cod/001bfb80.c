@@ -1,11 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/criStm.h"
+#include "godhand/espSys.h"
+#include "godhand/heapArena.h"
+#include "godhand/cObjBase.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cSnd.h"
 
-extern char D_005FEE00[];
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float f12);
-extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 extern int ClearField5B4IfFlagUnset_1B76B0(int self);
 extern void func_001B76D8(void *self);
 extern char D_0044AD60[];
@@ -13,21 +15,14 @@ extern char D_00754C30[];
 extern char D_00754C38[];
 extern char D_00754C50[];
 extern char D_00754C58[];
-extern char D_00754C20[];
-extern char D_00754240[];
-extern char D_00754C10[];
-extern int D_003C3CF0;
 extern void *SearchData(void *a, void *b, int c);
 extern void func_003127B0(void *counter, int value);
-extern void *_MemoryAlloc(int size, int align, int heap);
-extern void Arena_init(void *arena, void *mem, int size, int flags);
 extern void func_00150098(int step);
 extern void Forward149400_1492E8(int step);
 extern char D_005E7E30[];
-extern void func_003A52F0(void *dst, int val, int n);
 extern void func_00346B78(int arg);
 extern void mwPlySetMallocFn(void *alloc, void *free, void *obj);
-extern void func_002B48A0(void);
+extern void *func_002B48A0(int a0, unsigned int size);
 extern void func_002B48C8(void);
 extern void FreeResourceNode_2D3710(void *node);
 extern void func_002D34A8(char *rec);
@@ -35,7 +30,6 @@ extern int func_002D3210(char *rec);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void func_002F5588(void *dst, void *self);
 extern void cNode_setTranslationFromWorld(void *self, void *v);
-extern void LinkObj_callLockOn(void *self);
 
 /* Once per object (flag byte 0x688): cast a line from the object's position
  * (0x490) along a zeroed direction; when the hit surface (flags at hit+4)
@@ -75,8 +69,8 @@ void LineObj_checkWaterHit(LineObj *self) {
         one = 1;
         if (ChkLine(self->pos, self->owner, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
             && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, v, -1, 1.0f);
-            cSnd_SeCall(D_005FEE00, 2, 0x50, self->owner, 0, 0);
+            SetEffectPos(0, 0x55, 0, (cVec *)v, 1.0f, -1);
+            cSnd_SeCall(&D_005FEE00, 2, 0x50, self->owner, 0, 0);
             self->done = one;
         }
     }
@@ -185,9 +179,9 @@ void System_initPools(void) {
     func_003127B0(D_00754C50, SIZE_BUF);
     func_003127B0(D_00754C58, info->extra);
     n = info->count * ENTRY_SIZE + ENTRY_HEADER;
-    Arena_init(D_00754C20, _MemoryAlloc(n, POOL_ALIGN, D_003C3CF0), n, 0);
-    Arena_init(D_00754240, _MemoryAlloc(info->sizeA, POOL_ALIGN, D_003C3CF0), info->sizeA, 0);
-    Arena_init(D_00754C10, _MemoryAlloc(info->sizeB, POOL_ALIGN, D_003C3CF0), info->sizeB, 0);
+    Arena_init(&D_00754C20, _MemoryAlloc(n, POOL_ALIGN, D_003C3CF0), n, 0);
+    Arena_init(&D_00754240, _MemoryAlloc(info->sizeA, POOL_ALIGN, D_003C3CF0), info->sizeA, 0);
+    Arena_init(&D_00754C10, _MemoryAlloc(info->sizeB, POOL_ALIGN, D_003C3CF0), info->sizeB, 0);
     func_00150098(info->stepA);
     Forward149400_1492E8(info->stepB);
 }

@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cSnd.h"
+#include "godhand/cNode.h"
+#include "godhand/cModel.h"
+#include "godhand/cOmBase.h"
+#include "godhand/heapArena.h"
 
-extern char D_00462FC0[];
-extern void cCollisionSolidManage_ReleaseUnit(void *manager, void *unit);
-extern void cOmBase_dieCommon(void *obj);
-extern void __builtin_delete(void *p);
-extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int idx);
-extern int cSndSeVoice_CheckEnd(cSnd *self, int idx);
 extern char D_0044EE38[];
 extern unsigned short *cMessage_getMessageAddr(void *table, int id);
 
@@ -24,7 +23,7 @@ typedef struct EnemyOwner {
 __attribute__((section(".text.EnemyOwner_releaseChild")))
 void EnemyOwner_releaseChild(EnemyOwner *self)
 {
-    cCollisionSolidManage_ReleaseUnit(D_00462FC0, self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (struct cGameObj *)self);
     if (self->child != 0) {
         cOmBase_dieCommon(self->child);
         self->child = 0;
@@ -77,8 +76,6 @@ typedef struct HolderObj {
 #define OBJ_F_HIDE  0x2                 /* objFlags bit 1 */
 
 
-extern void ReleaseObj(OwnedObj *obj);
-extern void func_002FBE28(HolderObj *self, int flag);
 
 __attribute__((section(".text.HolderObj_destroyOwned")))
 void HolderObj_destroyOwned(HolderObj *self, int flag)
@@ -86,9 +83,9 @@ void HolderObj_destroyOwned(HolderObj *self, int flag)
     self->vt = D_0044EE38;
     if (self->owned != 0) {
         self->owned->objFlags |= OBJ_F_HIDE;
-        ReleaseObj(self->owned);
+        ReleaseObj((struct cModel *)self->owned);
     }
-    func_002FBE28(self, flag);
+    func_002FBE28((cNode *)self, flag);
 }
 
 /* 1 when the character code is one of the 10 codes listed in message 4, else 0. */

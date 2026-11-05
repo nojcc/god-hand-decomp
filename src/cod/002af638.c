@@ -2,6 +2,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cScenario.h"
 #include "godhand/cRoomSave.h"
+#include "godhand/cNode.h"
 
 __attribute__((section(".text.cMessDrawFont_setRubyData")))
 void cMessDrawFont_setRubyData(int *a0, int a1, int a2) {
@@ -34,8 +35,8 @@ void func_002B5AE8(int *a0) {
 }
 
 __attribute__((section(".text.func_002B6510")))
-int func_002B6510(char *a0) {
-    return *(int*)(a0 + 0x90) != 0;
+int func_002B6510(cNode *self) {
+    return self->unk90 != 0;
 }
 
 __attribute__((section(".text.func_002BAC88")))

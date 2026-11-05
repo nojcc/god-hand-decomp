@@ -1,5 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/cOmHitVolume.h"
@@ -8,21 +10,13 @@
 extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);
 extern float LengthPositionToGivenLine(void *line, void *pos, void *dir, int *flag);
 extern int D_00427CF0;
-extern int D_00574380;
 extern int D_005CAE50;
-extern void ClearAndResetFields_1FE278(void *a, void *b);
-extern void cDamageManage_ReleaseDamageGive(void *a, int b);
 extern void func_0012EC58(void *a, int b);
 extern void KillEffect(void *a0, int a1, int a2);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern float D_00747B00[];
-extern void cDamageUnit_SetDamageCollRadius(void *unit, int id, float radius);
-extern void cDamageUnit_SetDamageCollActive(void *unit, int on);
 extern void cDamageGive_SetDmgGiveHitVec(void *give, float *dir);
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
-extern void cDamageUnit_AddDamageCollCylinder(void *unit, void *pos, float *a, float *b, float height, float radius);
-extern void func_001FD9D8(void *unit, void *pos, float *a, float *b, float *size);
 
 /* True when the distance from the line, taken from the matrix position along its turned offset vector, is at most k. */
 __attribute__((section(".text.LengthFromLineAtTurnedOffset")))
@@ -83,7 +77,7 @@ void EffectOwner_destruct(EffectOwner *self, void *flag)
         self->slot = 0;
     }
     if (self->damageGive != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380, self->damageGive);
+        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)self->damageGive);
         self->damageGive = 0;
     }
     for (i = 0; i < 3; i++) {
@@ -129,9 +123,9 @@ void cEm00_armAttackVolume(cEm00 *self)
         EM_ATK_REC(self)->unk46 = 0x49;
         radius = 3.0f;
     }
-    cDamageUnit_SetDamageCollRadius(EM_ATK_REC(self), EM_ATK_NEXT(self), radius);
+    cDamageUnit_SetDamageCollRadius((cDamageUnit *)(EM_ATK_REC(self)), EM_ATK_NEXT(self), radius);
     EM_ATK_REC(self)->unk4C = 0;
-    cDamageUnit_SetDamageCollActive(EM_ATK_REC(self), 1);
+    cDamageUnit_SetDamageCollActive((cDamageUnit *)(EM_ATK_REC(self)), 1);
     dir = D_00747B00;
     cDamageGive_SetDmgGiveHitVec(EM_ATK_REC(self), dir);
     rec = EM_ATK_REC(self);
@@ -140,7 +134,6 @@ void cEm00_armAttackVolume(cEm00 *self)
     rec->unk44 = 0;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 #define CYL_HEIGHT  4.0f
 #define CYL_RADIUS  0.8f
@@ -169,7 +162,7 @@ int cOmHitVolume_setupCylinder(cOmHitVolume *self)
         f[5] = 0.0f;
         f[6] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, f, nv, CYL_HEIGHT, CYL_RADIUS);
+        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, (cVec *)f, (cVec *)nv, CYL_HEIGHT, CYL_RADIUS);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -185,7 +178,6 @@ int cOmHitVolume_setupCylinder(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 #define VOL_HALF_X  2.4f
 #define VOL_HALF_Y  1.1f
@@ -230,7 +222,7 @@ int cOmHitVolume_setupThinBox(cOmHitVolume *self)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -283,7 +275,7 @@ __attribute__((section(".text.cOmHitVolume_setupBox"))) int cOmHitVolume_setupBo
     f[13] = 0.0f;
     f[14] = 0.0f;
     nv[3] = one;
-    func_001FD9D8(slot, self->base.mtx, m, nv, t);
+    func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
   }
   self->unk5E8 = 0;
   self->unk5E4 = 0;

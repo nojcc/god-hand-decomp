@@ -18,14 +18,11 @@
 #ifdef NON_MATCHING
 
 /* Defined as int func_0010B2E8(BusyOwner *self, int flag); BusyOwner is its view of pl00. */
-extern int func_0010B2E8(pl00 *self, int flag);
 extern int ComboObj_startNext(ComboObj *self);
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
 extern void func_00124EC0(void *obj);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern int func_00124540(void *a0, int a1);
 extern void func_0010A438(void *a0);
-extern int func_00123938(void *a0, int a1);
 extern void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12);
 extern int D_003BC7D0[][5];             /* combo table, 0x14 bytes per combo */
 
@@ -100,11 +97,11 @@ void func_0010D3A8(pl00 *self)
         case 0x6F:
         case 0x70:
         case 0x71:
-            InitRenderStruct_2A8608(&self->base, 0, (void *)0x26, 2, 2, 0);
+            InitRenderStruct_2A8608(&self->base, 0, 0x26, 2, 2, 0);
             break;
         case 0x44:
             self->base.unk56A = 999;
-            InitRenderStruct_2A8608(&self->base, 0, (void *)0x43, 2, 2, 0);
+            InitRenderStruct_2A8608(&self->base, 0, 0x43, 2, 2, 0);
             break;
         }
         self->unk1598 = 0.5f;
@@ -156,7 +153,7 @@ void func_0010D3A8(pl00 *self)
                 case 0x2E:
                 case 0x44:
                 case 0x63:
-                    InitRenderStruct_2A8608(&self->base, 0, (void *)0x26, 2, 2, 0);
+                    InitRenderStruct_2A8608(&self->base, 0, 0x26, 2, 2, 0);
                     break;
                 }
             }

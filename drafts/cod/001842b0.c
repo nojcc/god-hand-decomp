@@ -24,8 +24,6 @@ extern void func_001850B0(void *a0);
 extern void func_00185180(unsigned char *self);
 extern int GetField_54_173900(void *a0);
 extern void CopyVec3ToField30_147C40(float *a0, float *a1);
-extern void MtxInitRotVec(void *a0, float *a1, unsigned char order);
-extern void MtxMulScaleVec(int a0, int a1, int a2);
 
 #define OL40_GETPOS(o)  CVCALL_FN(o, 16, cVec *(*)(char *))(CVCALL_THIS(o, 16))
 #define OL40_GETROT(o)  CVCALL_FN(o, 17, cVec *(*)(char *))(CVCALL_THIS(o, 17))
@@ -106,9 +104,9 @@ void func_001842B0(cOl40 *self)
             CVEC_INIT_MUL(ret_, &p->rotVel, rate);
             CVEC_ADD_TO(p->rot, &ret_);
             Adjust_theta_vec(&p->rot);
-            MtxInitRotVec(m, &p->rot.x, 0);
+            MtxInitRotVec(m, &p->rot, 0);
             CopyVec3ToField30_147C40(m, &p->pos.x);
-            MtxMulScaleVec((int)m, (int)m, (int)&p->scale);
+            MtxMulScaleVec(m, m, &p->scale);
             MtxCopy(p->mtx, m);
             p->vel.y += p->gravity * rate;
             if (p->vel.y < -1000.0f) {

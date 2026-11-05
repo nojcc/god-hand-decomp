@@ -11,7 +11,6 @@
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 
-extern float capVu0Length(void *v);
 extern int func_0012ED60(void *db, cVec *from, cVec *to, void *hit, int a4, int a5, int a6, void *a7,
                          int a8, int a9, int a10, int a11, int a12, int stepped);
 extern char D_005CAE50[];

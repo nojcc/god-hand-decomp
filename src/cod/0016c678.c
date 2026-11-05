@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
+#include "godhand/cCamManager.h"
 
 extern void Obj0000_Set_D_007474A0_Fields_5D8_5E0(void *self);
 extern void AddToActiveList_138F40(void *list, int arg);
@@ -8,7 +9,6 @@ extern void pl00_SubscreenMode(void *player, int mode);
 extern int cIDBase_release(void *idBase);
 extern void func_00161590(void *self);
 extern void Forward2D9458_2D98A0(void *p);
-extern char D_00463050[];
 extern char D_00604700[];
 extern char **D_003C2384;
 
@@ -39,7 +39,7 @@ void Screen_closeAndRestorePlayer(Screen16C678 *self)
 {
     char *host;
     Obj0000_Set_D_007474A0_Fields_5D8_5E0(self);
-    AddToActiveList_138F40(D_00463050, 0);
+    AddToActiveList_138F40(&D_00463050, 0);
     cVec_copy3(&self->player->turnTo, &self->target);
     self->player->state = PLAYER_STATE_FREE;
     pl00_SubscreenMode(self->player, 0);

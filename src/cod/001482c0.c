@@ -7,7 +7,6 @@
 
 extern char D_0042CAC8[];
 extern void cModel_setTextureExchange(void *model, int set, int rec, int flag);
-extern void *cModel_getMeshPtr_14B730(void *obj, char *name);
 extern float capVu0LengthSq(void *v);
 
 #define EM_NO_TEX_SWAP      0x251
@@ -33,7 +32,7 @@ void cEm00_swapTextureAndShowMesh(cEm00 *self)
         self->emFlags2 |= EM_FLAGS2_SWAPPED;
         EM_FLAGS254(self) |= EM_FLAG254_TEXHIDE;
         cModel_setTextureExchange(self, EM_TEXSET(self), EM_RES_REC(EM_RES(self), 0x60), 0);
-        mesh = cModel_getMeshPtr_14B730(self, D_0042CAC8);
+        mesh = cModel_getMeshPtr_14B730((cModel *)self, D_0042CAC8);
         if (mesh != 0)
             mesh->dispFlags &= ~CMODEL_NODE_HIDE;
     }

@@ -1,13 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cRelSys.h"
+#include "godhand/criStm.h"
 
 #include "godhand/cMovie.h"
+#include "godhand/heapArena.h"
 
 extern void func_00345F48(int handle, int mode);
-extern void cHeap_free(int, int *);
 extern void displayScrollLayer(int a0, int a1);
 extern char D_00420CA0[];
 extern void func_002AD288(void *sub, int mode);
-extern void func_003A52F0(void *dst, int value, int size);
 
 /* cPadVib init: points the table at the default vibration data and stops any running sequence. */
 typedef struct cPadVib {
@@ -40,23 +41,15 @@ void cMovieTrack_stop(cMovieTrack *track) {
     }
 }
 
-/* Heap-owned buffer holder: releases the buffer (block header word at -0x20 holds the heap handle). */
-typedef struct HeapBuf {
-    int *buf;        /* 0x00 heap block, or NULL */
-    char flag;       /* 0x04 */
-} HeapBuf;
-
-extern void func_002BE6C8(HeapBuf *self);
-
 
 __attribute__((section(".text.HeapBuf_release")))
-void HeapBuf_release(HeapBuf *self) {
+void HeapBuf_release(cRelSlot *self) {
     func_002BE6C8(self);
-    if (self->buf != 0) {
-        cHeap_free(self->buf[-8], self->buf);
+    if (self->data != 0) {
+        cHeap_free(HEAP_OWNER(self->data), self->data);
     }
-    self->flag = 0;
-    self->buf = 0;
+    self->ok = 0;
+    self->data = 0;
 }
 
 /* Callback: when value is 0 and mode is 0 or 4, hides scroll layers 0x1E and 0x1F. */

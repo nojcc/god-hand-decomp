@@ -28,6 +28,8 @@ extern int *func_003058D8(void *sys, int kind);
 extern int FindAndForwardEntry_3059A8(void *sys, int kind, void *arg);
 extern void *func_00305FB0(void *sys, int idx);
 extern void *espSys_getEffT32Addr(void *sys, int kind, int idx);
+extern void *func_00306030(void *sys, int kind, int idx);
+extern int EffEventIsCutDataExist(unsigned int id);
 extern char D_007419A0[];               /* the effect system */
 
 /* Print an effect error: the message at msg with the effect's kind and number
@@ -39,6 +41,12 @@ extern void func_00306FC0(char *self, espMemNode *node);
  * the clock function func_002FA350, and runs its indexed update when the
  * frame index reaches the end. */
 #define ESP_DATA_PAUSE   0x2000         /* EspData.flags: advance through the clock function */
+#define ESP_DATA_HIDE_WHEN_CLEAR 0x800  /* EspData.flags: hidden while D_00741DB8 is 0 */
+#define ESP_DATA_HIDE_WHEN_SET   0x400  /* EspData.flags: hidden while D_00741DB8 is set */
+#define ESP_ANIM_CLOCK   0x100          /* EspAnim.flags (byte 0x11D bit 0): advance by the clock function */
+#define ESP_ANIM_HIDE    0x800000       /* EspAnim.flags: not drawn */
+#define ESP_ANIM_SKIP_METHOD2 0x10000   /* EspAnim.flags: func_002FBE88 does not call virtual method 2 */
+#define ESP_ANIM_KEEP_HOOK_BIT 7    /* EspAnim.flags bit 7: the hook still runs when the owner has CMODEL_F_SHOWN */
 #define SYSFLAG_SLOWMO   0x20000        /* bit of GameWork.flags5E4 */
 
 typedef struct EspData {
@@ -49,11 +57,14 @@ typedef struct EspData {
 typedef struct EspAnim {
     char unk000[0xF0];
     cVtEnt *vtable;                     /* 0x0F0 */
-    char unk0F4[0x110 - 0xF4];
+    char unk0F4[0x108 - 0xF4];
+    int unk108;                         /* 0x108 */
+    int unk10C;                         /* 0x10C */
     EspData *data;                      /* 0x110 */
-    char unk114[0x11D - 0x114];
-    unsigned char lockFlags;            /* 0x11D bit 0: advance by the clock function */
-    char unk11E[0x124 - 0x11E];
+    cGameObj *owner;                    /* 0x114 the object the effect belongs to */
+    char unk118[0x11C - 0x118];
+    int flags;                          /* 0x11C ESP_ANIM_CLOCK, ESP_ANIM_KEEP_HOOK_BIT, ESP_ANIM_HIDE */
+    char unk120[0x124 - 0x120];
     float pos[3];                       /* 0x124 */
     float unk130;
     float vel[3];                       /* 0x134 */
@@ -115,5 +126,20 @@ typedef char espEmitter_size_check[sizeof(espEmitter) == 0x260 ? 1 : -1];
 
 void func_002FA350(float *frame);
 int EspAnim_step(EspAnim *self);
+/* Run the indexed update when the owner has been released (the sign bit of
+ * its objFlags), step the frame timer (func_002FBFB0), then hide or show the
+ * effect by D_00741DB8 as its data asks. */
+void func_002FBED0(EspAnim *self);
+void func_002FBFB0(EspAnim *self);
+/* Hand the effect's children to its parent and unlink it, then PushEsp it. */
+void UpdateObjByIndexedOp_2FBE50(EspAnim *self);
+/* UpdateObjByIndexedOp_2FBE50 when a and b are the effect's words at 0x108 and 0x10C. */
+void func_002FEB80(EspAnim *self, int a, int b);
+/* Call vtable entry 16 (the lock-on hook) unless the effect is hidden, or its
+ * owner has CMODEL_F_SHOWN and the effect lacks ESP_ANIM_KEEP_HOOK_BIT. */
+void LinkObj_callLockOn(EspAnim *self);
+/* Call virtual method 2 unless the effect has ESP_ANIM_SKIP_METHOD2. */
+void func_002FBE88(EspAnim *self);
+void func_002FEBE8(EspAnim *self, unsigned short len, int mode);
 
 #endif

@@ -1,5 +1,6 @@
 #include "godhand/cOm60.h"
 #include "godhand/cCockTutorial.h"
+#include "godhand/cDvd.h"
 
 __attribute__((section(".text.ClearBytesAt74And79To7C_13C618")))
 void ClearBytesAt74And79To7C_13C618(char *a0) {
@@ -171,12 +172,13 @@ int SetFields_4_And_8_1FE6B8(int a0, int a1, int a2) {
     return a0;
 }
 
+/* A file entry's size in bytes (table is not read). */
 __attribute__((section(".text.BuildPackedAddr_1FFD98")))
-int BuildPackedAddr_1FFD98(int a0, unsigned char *a1)
+int BuildPackedAddr_1FFD98(PathTable *table, PathNode *node)
 {
-    unsigned int v1 = a1[1];
-    unsigned short v0 = *(unsigned short *)(a1 + 2);
-    return ((unsigned int)v0 + (v1 << 16)) << 4;
+    unsigned int hi = node->sizeHi;
+    unsigned short lo = node->sizeLo;
+    return ((unsigned int)lo + (hi << 16)) << 4;
 }
 
 __attribute__((section(".text.NoOp_1FFE00")))

@@ -12,6 +12,8 @@
 #include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
+#include "godhand/cNode.h"
+#include "godhand/espSys.h"
 
 static __inline__ void cVec_copy(cVec *d, cVec *s)
 {
@@ -93,7 +95,7 @@ void func_002EFD20(cEffEmitter *self)
                 param.unk20.y = hit.y;
                 param.unk20.z = hit.z;
             }
-            MtxCopy(mtx, (void *)CallThenReturnPlusB0_002B6420_2B61B0((int)self));
+            MtxCopy(mtx, CallThenReturnPlusB0_002B6420_2B61B0(self));
             cVec_zero(&pos);
             func_00147C88(&pos, mtx, 0);
             if (self->data[0x197] == 0) {
@@ -118,9 +120,9 @@ void func_002EFD20(cEffEmitter *self)
         }
     }
     if (self->interval == 0) {
-        UpdateObjByIndexedOp_2FBE50(self);
+        UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
     }
-    func_002FBED0(self);
+    func_002FBED0((EspAnim *)self);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_002EFD20);

@@ -1,18 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cDamageManage.h"
+#include "godhand/criStm.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cSnd.h"
 
 extern int SearchData(int a0, void *a1, int a2);
 extern void cModel_setTextureExchange(void *a0, int a1, int a2, int a3);
 extern int D_00428A18;
-extern void func_003A52F0(void *a0, int a1, int a2);
 extern void cSndMemHeap_ResetFirstBlk(void *);
 extern void MessWin_closeIfNoEndCode(void *);
 extern void func_002B45E8(void *);
 extern char *D_003C23A4;
-extern int cDamageManage_ReleaseDamageGive(void *a, void *b);
-extern void cOmBase_dieCommon(void *a0);
-extern int D_00574380;
 extern void func_003870E0(int);
 
 /* cOmBase_setTexChange — sn-2.95.3-136 */
@@ -76,7 +74,7 @@ void func_001C8DD8(char *a0) {
         }
     }
     if (*(unsigned char *)(a0 + 0x640) != 0) {
-        cOmBase_dieCommon(a0);
+        cOmBase_dieCommon((cOmBase *)a0);
         return;
     }
     vt = *(struct VtEnt **)(a0 + 0x214);

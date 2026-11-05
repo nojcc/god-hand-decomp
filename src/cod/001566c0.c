@@ -1,8 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern float capVu0Length(void *a0);
 extern float capVu0LengthSq(void *a0);
-extern float Tramp_001F7DF8_00101E28(void *a0);
 extern void func_001565A0(void *a0, void *a1, void *a2, void *a3);
 extern float sqrtf(float x);
 
@@ -15,6 +13,7 @@ extern float sqrtf(float x);
 
 
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 __attribute__((section(".text.LengthPositionToGivenLine")))
 float LengthPositionToGivenLine(void *a0, void *a1, void *a2, int *a3) {

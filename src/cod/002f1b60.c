@@ -14,7 +14,6 @@ extern char D_0044ED80[];               /* "esp20: EFF_TEX setup failed." */
 extern char D_0044EDA0[];               /* "esp20: model setup failed." */
 
 extern int cModel_setupModel(void *model, void *mdl, void *tex, int a3, int a4);
-extern int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, unsigned int follow);
 
 /* Build the effect object's model: look up its model data, create the model
  * object and set it up (with the effect's T32 table in the modes that use
@@ -38,25 +37,25 @@ int func_002F1B60(EffModelObj *self)
     }
     if (cGameObj_vt(self->model)->initial((char *)self->model + cGameObj_vt(self->model)->initialDelta) == 0) {
         func_002D9F68(self, (int)D_0044ED48);
-        ReleaseObj((char *)self->model);
+        ReleaseObj((struct cModel *)self->model);
         return 0;
     }
     if (self->mode >= EFFOBJ_MODE_MAX) {
         func_002D9F68(self, (int)D_0044ED68);
-        ReleaseObj((char *)self->model);
+        ReleaseObj((struct cModel *)self->model);
         return 0;
     }
     if (self->mode & EFFOBJ_MODE_T32) {
         tex = espSys_getEffT32Addr(D_007419A0, self->rec->t32Kind, self->t32Idx);
         if (tex == 0) {
             func_002D9F68(self, (int)D_0044ED80);
-            ReleaseObj((char *)self->model);
+            ReleaseObj((struct cModel *)self->model);
             return 0;
         }
     }
     if (cModel_setupModel(self->model, mdl, tex, 0, 0) == 0) {
         func_002D9F68(self, (int)D_0044EDA0);
-        ReleaseObj((char *)self->model);
+        ReleaseObj((struct cModel *)self->model);
         return 0;
     }
     if (self->effGroup != 0) {

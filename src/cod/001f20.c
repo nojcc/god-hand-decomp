@@ -1,6 +1,7 @@
+#include "godhand/CustomIDWork.h"
+#include "godhand/cIDBase.h"
 
 extern void cIDBase(void *);
-extern void CustomIDWork(void *);
 
 /* -- PERMANENT (bnel/beql) — stay in monolithic asm/cod/000000 ------------ */
 /* func_001F20F8 (beql+bnel, 0x324 B) stays in monolithic — PERMANENT.      */
@@ -65,7 +66,7 @@ void *func_001F2708(void *a0) {
     p = this + 0x60;
     /* `i != -1`, not `i >= 0`: retail materialises -1 and closes with bne. */
     for (i = 0x11; i != -1; i--) {
-        CustomIDWork(p);
+        CustomIDWork__ctor((CustomIDWork *)p);
         p += 0x7C;
     }
 
@@ -73,18 +74,13 @@ void *func_001F2708(void *a0) {
 
     p = this + 0x980;
     for (i = 2; i != -1; i--) {
-        CustomIDWork(p);
+        CustomIDWork__ctor((CustomIDWork *)p);
         p += 0x7C;
     }
 
     return this;
 }
 
-extern void cIDBase_initialize(void *p, int a, int b);
-extern void cIDBase_restartAnim(void *p);
-extern void *cIDBase_getIDWork(void *p, int i);
-extern void CustomIDWork_Initialize(void *p, void *w);
-extern void CustomIDWork_SetMessNo(void *p, int n);
 extern void SetCustomIDDispOneOrAll_1F29C0(void *p, int n, int f);
 extern void CustomIDOwner_setPanelState(void *p, int a);
 
@@ -106,17 +102,17 @@ void IdUi_initWorks(char *p)
     int i;
     int j;
 
-    cIDBase_initialize(p + UI_MAIN_IDBASE, UI_IDDATA_KIND, 1);
-    cIDBase_restartAnim(p + UI_MAIN_IDBASE);
+    cIDBase_initialize((cIDBaseObj *)(p + UI_MAIN_IDBASE), UI_IDDATA_KIND, 1);
+    cIDBase_restartAnim((cIDBaseObj *)(p + UI_MAIN_IDBASE));
     for (i = 0; i < UI_MAIN_WORK_NUM; i++) {
-        CustomIDWork_Initialize(p + UI_MAIN_WORKS + i * UI_WORK_SIZE, cIDBase_getIDWork(p + UI_MAIN_IDBASE, i));
+        CustomIDWork_Initialize((CustomIDWork *)(p + UI_MAIN_WORKS + i * UI_WORK_SIZE), cIDBase_getIDWork((cIDBaseObj *)(p + UI_MAIN_IDBASE), i));
     }
     SetCustomIDDispOneOrAll_1F29C0(p, 0x12, 0);
-    cIDBase_initialize(p + UI_SUB_IDBASE, UI_IDDATA_KIND, 2);
-    cIDBase_restartAnim(p + UI_SUB_IDBASE);
+    cIDBase_initialize((cIDBaseObj *)(p + UI_SUB_IDBASE), UI_IDDATA_KIND, 2);
+    cIDBase_restartAnim((cIDBaseObj *)(p + UI_SUB_IDBASE));
     for (j = 0; j < UI_SUB_WORK_NUM; j++) {
-        CustomIDWork_Initialize(p + UI_SUB_WORKS + j * UI_WORK_SIZE, cIDBase_getIDWork(p + UI_SUB_IDBASE, j));
+        CustomIDWork_Initialize((CustomIDWork *)(p + UI_SUB_WORKS + j * UI_WORK_SIZE), cIDBase_getIDWork((cIDBaseObj *)(p + UI_SUB_IDBASE), j));
     }
-    CustomIDWork_SetMessNo(p + UI_SUB_TITLE, UI_TITLE_MESS);
+    CustomIDWork_SetMessNo((CustomIDWork *)(p + UI_SUB_TITLE), UI_TITLE_MESS);
     CustomIDOwner_setPanelState(p, 0);
 }

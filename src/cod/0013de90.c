@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/CustomIDWork.h"
+#include "godhand/heapArena.h"
 
 #define IDBANK_WORK_NUM 5
 
@@ -14,8 +15,6 @@ typedef struct IdBank {
 } IdBank;
 
 extern int D_0041DCC8[];                /* vtable of the base class */
-extern void CustomIDWork__dtor(CustomIDWork *work, int flags);
-extern void __builtin_delete(void *p);
 
 /* Destructor: destroy the five elements last to first, restore the base
  * vtable and free the object when bit 0 of flags is set. */

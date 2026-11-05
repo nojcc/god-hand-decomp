@@ -2,24 +2,20 @@
 
 extern unsigned int Rnd(void);
 #include "godhand/motion.h"
-extern int moveMotion(void *a0);
+#include "godhand/cDamageUnit.h"
+#include "godhand/mtx.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cSnd.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void func_00279C20(void *a0);
 extern char *D_00586A7C;
 extern void func_00188798(void *a0);
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern char D_005FEE00[];
 extern void SetField5B0Bit2ClearBit8_1B7908(void *a0);
-extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, int a2);
 extern int GetField_54_173900(void *a0);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern void Adjust_theta_vec(float *p);
-extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
-extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
-extern int MtxCopy();
 #include "godhand/objField.h"
 extern char D_005864F0[];
 
@@ -111,8 +107,8 @@ void func_001881F0(void *a0)
             ((float *)buf)[1] = r[1];
             ((float *)buf)[2] = r[2];
         }
-        SetEffectPos(0, 7, 0, buf, -1, 1.0f);
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0, s1, 0, 0, 0, 0);
+        SetEffectPos(0, 7, 0, (cVec *)buf, 1.0f, -1);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s1, 0, 0, 0, 0);
         func_00188798(s1);
         SetField5B0Bit2ClearBit8_1B7908(s1);
         if (*(int *)(s1 + 0x608) != 0) {
@@ -188,16 +184,16 @@ void func_001881F0(void *a0)
             VU0_VADD_XYZ_IP(e10, 0, q10v);
             Adjust_theta_vec((float *)e10);
             m1 = buf + 0x30;
-            MtxInitRotVec(m1, e10, 0);
+            MtxInitRotVec(m1, (cVec *)e10, 0);
             m1 = 0;
             m2 = buf + 0x30;
             CopyVec3ToField30_147C40(m2, e);
             m2 = 0;
             m3 = buf + 0x30;
-            MtxMulScaleVec(m3, m3, e40);
+            MtxMulScaleVec(m3, m3, (cVec *)e40);
             m3 = 0;
             m4 = buf + 0x30;
-            MtxCopy(*(int *)(e10 + 0x40), m4);
+            MtxCopy(*(void **)(e10 + 0x40), m4);
             m4 = 0;
             *(float *)(e10 + 0x14) = *(float *)(e10 + 0x14) + *(float *)(e10 + 0x48) * rate;
             if (*(float *)(e10 + 0x14) < lim) {

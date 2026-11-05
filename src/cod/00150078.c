@@ -1,6 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cSnd.h"
+#include "godhand/criStm.h"
+#include "godhand/newlibMalloc.h"
+#include "godhand/libio.h"
+#include "godhand/typeInfo.h"
 
-extern void UpdateGlobalPtrWithParam_3A7CC0(int a0);
 extern int read__7istreamPci(void);
 extern void get__7istreamRc(void);
 extern void __ls__7ostreamd(void);
@@ -8,11 +12,9 @@ extern void __ls__7ostreami(void);
 extern int __ls__7ostreamPCc(void);
 extern int write__7ostreamPCci(void);
 extern int _IO_un_link(void);
-extern int _IO_link_in(void);
 extern void func_0038D070(void);
 extern void _IO_marker_delta(void);
 extern void func_0038D0B8(void);
-extern void func_0038D140(void);
 extern void func_0038CFA0(void);
 extern void _IO_file_init(void);
 extern void func_003B0390(int);
@@ -31,58 +33,63 @@ extern void func_001FFDB0(int a0, int a1);
 extern void func_00298000(int a, int b);
 extern void func_002A48A8(int a, int b);
 extern void func_002A72C8(int a, int b);
-extern void func_003A52F0(int a, int b);
 extern void func_002BA428(int a, int b);
 extern void func_002BE510(int a, int b);
 extern void func_002BE8E8(int a, int b);
 extern void func_002BF820(int a, int b);
 extern void func_002C0A28(int a, int b);
 
-void func_0031EE10(void);
 
+/* A derived type-info record's destructor: only type_info's. */
+/* A derived type-info record's destructor: only type_info's. */
 __attribute__((section(".text.func_00320010")))
-void func_00320010(void) {
-    func_0031EE10();
+void func_00320010(TypeInfo *self, int flags) {
+    func_0031EE10(self, flags);
 }
 
-void func_0031EE10(void);
 
+/* A derived type-info record's destructor: only type_info's. */
+/* A derived type-info record's destructor: only type_info's. */
 __attribute__((section(".text.func_00320080")))
-void func_00320080(void) {
-    func_0031EE10();
+void func_00320080(TypeInfo *self, int flags) {
+    func_0031EE10(self, flags);
 }
 
-void func_0031EE10(void);
 
+/* A derived type-info record's destructor: only type_info's. */
+/* A derived type-info record's destructor: only type_info's. */
 __attribute__((section(".text.func_003200F0")))
-void func_003200F0(void) {
-    func_0031EE10();
+void func_003200F0(TypeInfo *self, int flags) {
+    func_0031EE10(self, flags);
 }
 
-void func_0031EE10(void);
 
+/* A derived type-info record's destructor: only type_info's. */
+/* A derived type-info record's destructor: only type_info's. */
 __attribute__((section(".text.func_00320160")))
-void func_00320160(void) {
-    func_0031EE10();
+void func_00320160(TypeInfo *self, int flags) {
+    func_0031EE10(self, flags);
 }
 
-void func_0031EE10(void);
 
+/* A derived type-info record's destructor: only type_info's. */
+/* A derived type-info record's destructor: only type_info's. */
 __attribute__((section(".text.func_003201D0")))
-void func_003201D0(void) {
-    func_0031EE10();
+void func_003201D0(TypeInfo *self, int flags) {
+    func_0031EE10(self, flags);
 }
 
-void func_0031EE10(void);
 
+/* A derived type-info record's destructor: only type_info's. */
+/* A derived type-info record's destructor: only type_info's. */
 __attribute__((section(".text.func_00320240")))
-void func_00320240(void) {
-    func_0031EE10();
+void func_00320240(TypeInfo *self, int flags) {
+    func_0031EE10(self, flags);
 }
 
 __attribute__((section(".text.Tramp_UpdateGlobalPtrWithParam_3A7CC0_3212E8")))
-void Tramp_UpdateGlobalPtrWithParam_3A7CC0_3212E8(int a0) {
-    UpdateGlobalPtrWithParam_3A7CC0(a0);
+void Tramp_UpdateGlobalPtrWithParam_3A7CC0_3212E8(void *p) {
+    UpdateGlobalPtrWithParam_3A7CC0(p);
 }
 
 __attribute__((section(".text.func_00389DA0")))
@@ -159,8 +166,8 @@ int Tramp__IO_un_link_38B030(void) {
 }
 
 __attribute__((section(".text.Tramp__IO_link_in_38B050")))
-int Tramp__IO_link_in_38B050(void) {
-    return _IO_link_in();
+void Tramp__IO_link_in_38B050(struct _IO_FILE *fp) {
+    _IO_link_in(fp);
 }
 
 __attribute__((section(".text.func_0038B5E8")))
@@ -179,8 +186,8 @@ void func_0038B628(void) {
 }
 
 __attribute__((section(".text.func_0038B648")))
-void func_0038B648(void) {
-	func_0038D140();
+void func_0038B648(struct _IO_FILE *sb) {
+	func_0038D140(sb);
 }
 
 __attribute__((section(".text.func_0038B6C0")))
@@ -475,9 +482,10 @@ int func_002B5C00(void) {
     return func_002B5028(1, 0xFFFF);
 }
 
+/* Clear n bytes at dst; self is not read. */
 __attribute__((section(".text.func_002BAE40")))
-void func_002BAE40(int a0, int a1) {
-    func_003A52F0(a1, 0);
+void func_002BAE40(void *self, void *dst, int n) {
+	func_003A52F0(dst, 0, n);
 }
 
 __attribute__((section(".text.func_002BB020")))
@@ -516,8 +524,8 @@ int func_002C9C68(void) {
 }
 
 __attribute__((section(".text.cSnd_GlobalCtor")))
-int cSnd_GlobalCtor(void) {
-    return cSnd_StaticInit(1, 0xFFFF);
+void cSnd_GlobalCtor(void) {
+    cSnd_StaticInit(1, 0xFFFF);
 }
 
 __attribute__((section(".text.cSndMemHeap_GlobalCtor")))

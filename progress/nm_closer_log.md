@@ -2715,3 +2715,188 @@ A rule such as `div2_unless_after(cvt.s.w|lwc1|div.s)` would need checking again
   - Registered today: func_001DAB00.
   - Held on decisions: SetEffect (cEffectParam_init row, handoff ready in nm_work/SetEffect/s/) and func_00245A18 (identical arms).
   - Parked today: cSndSeVoice_Setup 13, func_00259548 8 (better plain-C form in nm_work/f259/q/90/d.c), cScrSpriteDraw_drawRectLine 2.
+
+## Session 2026-11-04
+- 11:28 start. func_00115310, func_00217560 and func_00231AC0 (pending at the 11-02 stop) are all in nm_solved/done/. Queue: drafts changed since 11-02 plus queuecheck's 9 unlogged drafts; scored in nm_work/s1104/today.tsv.
+- vu0.h now has VU0_LQC2_SQC2_MEM, VU0_VSUB_XYZ_IP and VU0_ZERO_VSUB_XYZ_TO (#42), so the drafts that waited on vu0_pending.h can be rescored.
+- func_00137F38 (00137f38.c, path-area camera ease): MATCH 92 insns, 3 relocs, sn, no flags, no header changes; -Wall quiet. The draft already matched; it was only waiting on VU0_LQC2_SQC2_MEM. Handed off: nm_solved/func_00137F38 (solved.c, meta.json {"compiler": "sn-2.95.3-136"}). func_00137BB8 has no C definition (its draft types the same record as `AreaList *` and `float *`), so the local `int func_00137BB8(PathHost *, cVec *)` prototype stays.
+- func_001A4010 (001a4010.c): the draft doesn't compile on main. No header declares D_005FEE00 or cSnd_SeCall_2CBA48. Declared them locally, as the definition (src/cod/002cba48.c) and the 17 cSnd users have them; then it is 2 off (fdiv), as the draft says.
+  - The scale inline (VU0_LQC2_SQC2_MEM then VU0_VSCALE_XYZ_MEM on w.unit) gets retail's 0x50(sp) addressing, but the 0.2f load moves after the copy: 5 off.
+  - A helper on the whole work record: 133 words.
+  - A cVec.h rewrite (CVEC_TEMPS, CVEC_SET_SUB, a scalar-binding operator): 136 words, two more saved registers.
+  - MATCH only with the scalar bound before the copy: `{ float s_ = 0.2f; VU0_LQC2_SQC2_MEM(4, &w.unit, &w.diff); VU0_VSCALE_XYZ_MEM(&w.unit, 0, s_); }` (nm_work/s1104/f1a4/c.c, 129 insns). That's a constant in a local unless it is a cVec.h operator that binds its arguments (operator*(Vec, float): copy, scale in place). Retail also reuses the 0x50 slot for both the unit() result and the operator's result, which is D-021-like.
+  - Parked at 2. Needs a decision on a CVEC operator* macro before it can go in.
+- func_00262750 (00262750.c, extern_jtbl D_004440E0): 4 off (v0/v1 swap in the subtract).
+  - CVEC_SET_SUB(hit, ...) gets retail's registers but adds the self-check (retail copies the slot without it, so it isn't operator=): 25 off.
+  - CVEC_SUB, then a plain hit = ret_ copy: 4 off. Also tried cVec_copy3 for the copy (4), the zero after the sub (11), and VU0_ZERO_VSUB_XYZ_TO (4).
+  - Permuter (from the CVEC_SUB form) hit 0 at iteration 319, but only by wrapping CVEC_SUB's VU0_LQC2 in `do { } while (0)`, a forbidden scheduling fence. Rejected.
+  - Parked at 4. The CVEC_SUB + plain-copy form (nm_work/s1104/f262/b.c) drops the draft's dir/delta locals at the same score.
+- func_001EB7B8: skipped: off-limits (calls #38's func_001EC388; the prototype waits on #38). Retail also uses the subtraction temporary's slot (sp+0x10) for the later `pos` local (D-021).
+- func_002C45A8: unchanged since its 10-22 PARK (s0/s1 swap). Not retried.
+- func_00129EB0: draft doesn't compile on main (D_005FEE00 undeclared). Its own header blames loop-invariant hoisting (151 vs 150 words). Not pursued.
+- func_0012AFE8 (0012afe8.c, fdiv, pl00 weapon throw): MATCH in one-form cVec.h C, but HELD on two decisions. Ready file: nm_work/s1104/cf/afe8_final.c (190 insns, 7 relocs, -Wall quiet).
+  - The draft doesn't compile on main: no header declares D_005FEE00 / cSnd_SeCall_2CBA48. Declared locally, as the definition in 002cba48.c has them.
+  - Rewrite: the pl00ThrowFrame record becomes `int frame[3]` (cOmBase_childAt's count), cVec dir/from/to, then CVEC_TEMPS. That is retail's layout exactly (ret_ 0x40, tmp_ 0x50).
+  - The subtract with the stock CVEC_SUB, then cVec_copy3(&dir, &ret_) (retail has no self-check, so it isn't operator=): 6 off. Retail forms &tmp_ in s0 before the vsub; ours forms it after.
+  - MATCH with CVEC_SUB binding `cVec *t_ = &tmp_;` after a_/b_ and loading through t_, the same as CVEC_SET_APPLY already does.
+  - Putting that binding into CVEC_SUB itself breaks cNode_setTranslationFromParent (0013cf20.c, the reference match): 6 off. Checked with a patched copy of cVec.h in nm_work/s1104/inc; 0013cf20.c's other five functions are unchanged.
+  - So retail has both timings for operator-. Here tmp_ is reused right after (as cVec_unitOf's out); in cNode it isn't. A second macro for the same operator is a second form. Decision 1: may CVEC_SUB get a t_-binding sibling?
+  - Decision 2: pl00.h leaves 0x640 as padding. The draft's local pl00ThrowView names it lockOn (cGameObj *), and the ported drafts 0010d3a8/001101a8/00110b20/00115310 read it as unk640, a pointer. pl00.h needs the field named once.
+  - capVu0ApplyMatrixXYZ now comes from capVu0.h instead of the draft's local `void *` prototype.
+  - Same early-address family, per the draft headers (not rescored with the t_ form): 0012a610, 001329c0, 00136458, 0017f6c0, 001a4650, 001c86e8, 001eb7b8, 0026b240, 002ad2b8.
+- func_001C2408 (001c2408.c, gold payout display): MATCH 34 insns, 7 relocs, sn, -Wall quiet. Handed off: nm_solved/func_001C2408 (solved.c, meta.json sn, header_changes.md).
+  - The draft's 2 off (D_003BD6E8 built in v0, not v1) goes with VU0_LQC2_SQC2_MEM(4, &pos, self->pos) in place of the VU0_LQC2/VU0_SQC2 pair, as the 10-24 note predicted. That macro is on main now.
+  - GOLD_KIND's raw 0x2AC is CMODEL_FIELDS's `short id` now: `self->id`.
+  - cCockGetPoint_setData was defined `void (void) {}`, but retail's callers pass four arguments (andi 0xFFFF on the amount, lh on the kind). header_changes.md corrects the definition in src/cod/casino/cCockGetPoint.c (cygnus-2.96, glob-built) to `(struct cCockGetPoint *self, cVec *pos, unsigned short point, short kind)`, with one line saying the empty body reads none of them. Still MATCH (2 insns), checked in nm_work/s1104/cgp; simhc.py: OK.
+  - The callee's prototype stays local: it has no header, and this is its only registered caller. drafts/cod/001a6af8.c declares it with `int point`, which will need `unsigned short` when that draft is ported.
+  - D_003BD6E8 is `char *`, the most common of its six declarations in the tree (9 files).
+- func_0014E818 (0014e818.c, turn toward a point): 4 off, the same v0/v1 swap as func_00262750 (self->pos in v1, the temporary's address in v0).
+  - CVEC_TEMPS + CVEC_SUB(target, self->pos), with ret_ read as the direction: 4 off. That is retail's layout (ret_ 0x00, tmp_ 0x10) without the draft's TurnFrame record.
+  - Binding t_ = &tmp_ (the 0012AFE8 form): 11 off; for func_00262750, 9.
+  - b_ bound before a_ in CVEC_SUB (patched copy in nm_work/s1104/inc2): func_0014E818 still 4, func_00262750 6, cNode_setTranslationFromParent still matches. No use.
+  - Permuter: 15 min from the CVEC_SUB form (nm_work/perm/func_0014E818).
+- draftsweep rerun, 307 sn functions (nm_work/s1104/dsweep_sn.tsv). Matches: func_00137F38 (handed off above). New since the 11-02 sweep:
+  - func_001C2408: handed off above.
+  - func_0031A6B0 (6 off): retail converts in place (cvt.w.s $f0, $f0). Tried `(int)depth`, an early return, a ternary, the product inlined and an int level (6-25). fpu.h on main has only FPU_SQRT_S, and the rules don't allow adding FPU_CVT_W_S. Parked: waiting: an in-place cvt.w.s macro in fpu.h.
+  - create (002ba300.c, 6 off): ee/sn × call_loop_pad all give 6 (the short-loop pad and the shared return block). Parked as before.
+  - Everything else 1-12 off was logged before and scores as it did then.
+  - Permuter result: nothing below the base (20) in 15 min. Parked at 4. PERM=0.
+- 11:58 queue worked through: handed off func_00137F38 and func_001C2408; held func_0012AFE8 (two decisions); parked func_001A4010 2, func_00262750 4, func_0014E818 4, func_0031A6B0 6. Waiting 10 min. PERM=0.
+- 12:08 recheck. The main agent added CVEC_ASSIGN to cVec.h and drafts/cvec_pending.h (CVEC_INIT_ADD, CVEC_INIT_MUL, CVEC_PUT_PTR, CVEC_PUT, CVEC_ASSIGN_ARG). Those make func_00186398, func_0012D970 and SphereTriangle match as drafts (MATCH under -DNON_MATCHING), pending decisions; that's main-agent work.
+  - Both handoffs re-verified against today's headers: func_00137F38 MATCH 92/3, func_001C2408 MATCH 34/7, cCockGetPoint_setData MATCH 2/0. -Wall quiet.
+  - For the pending list: func_0012AFE8 needs a CVEC_SUB that binds `cVec *t_ = &tmp_;` after a_/b_ and loads through t_, the way CVEC_INIT_ADD/CVEC_INIT_MUL already bind t_. See the func_0012AFE8 entry; ready file nm_work/s1104/cf/afe8_final.c.
+  - func_001A4010 doesn't fit CVEC_INIT_MUL. Retail uses three slots: the subtract goes through 0x40 to 0x30, and the scale through 0x50 to 0x40 to 0x30. CVEC_TEMPS can't place the subtract's pair. Stays parked at 2. PERM=0.
+- 12:35 func_0017F6C0 (0017f6c0.c, cOmSlider slide; draft says 9 off).
+  - Rewritten with real locals: cVec target/ofs, then CVEC_TEMPS, which is retail's layout (tmp_ at 0x30). D_005FEE00 / cSnd_SeCall_2CBA48 declared locally as for 001a4010.
+  - Retail has the operator= self-check here (beq sp, a0), so this one is CVEC_SET_SUB: 13 off.
+  - With CVEC_SET_SUB binding `cVec *t_ = &tmp_;` (loaded through t_): 2 off. Retail does `lw v0, pos` then `addiu v1, sp, 0x30`; ours swaps the two. All 24 orders of the a_/b_/t_/r_ bindings give 2 or 3; VU0_LQC2_SQC2_MEM inside the operator gives 5 (with t_) or 9 (without).
+  - Putting t_ into CVEC_SET_SUB itself (patched copy, nm_work/s1104/inc3) breaks func_0012A578 (11 off) and Sphere_overlapTest (7 off).
+  - So the early-address timing is a second operator- shape. It closes func_0012AFE8 and brings func_0017F6C0 to 2, but it needs a decision before it can go in. Permuter from the 2-off form is running (15 min).
+  - Permuter (15 min): nothing below the base (60). Parked at 2; best form nm_work/s1104/f17f/e.c (needs the decision above). PERM=0.
+- 12:47 recheck. decisions_needed.md gained the batch 214 rows ("cVec.h operator=: one binding form or several", W-set prototypes, smaller prototype passes). No answers yet.
+  - The operator- early-address shape (func_0012AFE8 MATCH, func_0017F6C0 2 off) is the operator- sibling of the operator= row. The main agent may want it in that row and in drafts/cvec_pending.h. As CVEC_SUB / CVEC_SET_SUB with `cVec *t_ = &tmp_;` bound after a_/b_ and loaded through t_, it fits the CVEC_INIT_ADD/CVEC_INIT_MUL pattern already there.
+  - Both handoffs still MATCH after today's sceVu0.h/cObjBase.h edits. cOl0e_setFake: 39 off, unchanged (main agent's). PERM=0.
+- 13:20 func_00136458 looked at again: its subtractions use shifting slot pairs (0x30 to 0x20, 0x40 to 0x30, 0x30 to 0x20), the same three-slot layout as func_001A4010, so CVEC_TEMPS can't express it. Not pursued. PERM=0.
+- 13:38 idle rechecks at 12:57, 13:18, 13:28 and 13:38: no new drafts, header edits or decision answers; the two handoffs are still unprocessed. PERM=0.
+- 14:09 changed drafts: func_002D3C78 (no section attribute; header blames tail scheduling), func_00167518 (4 off, waits on the D_003BD9E9 row), func_003781F8 / func_00378398 (main agent's cvt.w.s pair).
+  - func_003781F8: retail needs the mtc1 hazard pads; with them ours is 106 vs 104 words (drop-reorder and as=sn change nothing).
+  - Retail falls into the loop and puts the -1 return, the interpolation and the exact-point body after it. The exact-point and last-point bodies share one `sh v0, 0(s3)`.
+  - Tried the last-point test inverted so the loop is the then-arm (108 words), and the same with a break plus an `i == num` test (110). Both worse; left to the main agent. PERM=0.
+- 14:21 new draft drafts/cod/00156508.c (three functions, scratch in nm_work/s1104/f37d/). All parked:
+  - func_00156508: retail has a handwritten `add` (C would emit `addu`), so it can't come from C. Skipped.
+  - func_0037D298: only registers differ, 8 off on sn and ee-2.9 (cygnus is a word short). The draft form, a `char` parameter and a direct call all give 8 off.
+    - Permuter, 10 min: base 70, best 50, reached only with `new_var` pointer temporaries (steering). Not 0.
+  - func_001C2328: a switch (cases 2/3/6/7 return 1) is the closest form: 18 words vs 17, 11 off on sn.
+    - Two things are left: retail puts a nop between the first `slti` and its `bnez`, and it shares one `return 0` tail with the early exit.
+    - The draft's if-ladder: 16 off. as=sn, drop-reorder, both fp hazard rules, -fno-gcse, -fmove-all-movables and -O0 don't help; -fno-align-jumps fails to build. PERM=0.
+- espSys.h changed at 14:21. Neither handoff includes it, so there is nothing to re-verify.
+- 14:54 decisions_needed.md changed (main agent's batch 216 prototype notes); nothing answered for func_0012AFE8, func_001A4010 or the parked items. Snapshot saved to nm_work/s1104/decisions_snapshot.md for diffing.
+- 15:04, 15:25, 15:35 idle checks: no new or changed drafts, headers, src units, decisions or nm_solved entries. PERM=0.
+- 15:45, 15:55, 16:05 idle checks: nothing new. PERM=0.
+- 16:15 the main agent's typing pass is under way: cModel.h, cOmBase.h and about 30 src units changed. Jon answered three rows: the five operator= functions stay parked, the W-set typing pass is done here, and the smaller prototype passes come after it.
+  - Re-verified under -Wall: func_00137F38 MATCH 92, func_001C2408 MATCH 34, held func_0012AFE8 MATCH 190 (it needs --fp-hazard-rules fdiv; without it the div.s nop pads are missing).
+  - When the pass puts cSnd_SeCall_2CBA48 or D_005FEE00 in a header, take func_0012AFE8's local declarations out. No header declares either yet.
+- 16:15 the main agent's typing pass is under way: cModel.h, cOmBase.h and about 30 src units changed. Jon answered three rows: the five operator= functions stay parked, the W-set typing pass is done here, and the smaller prototype passes come after it.
+  - Re-verified under -Wall: func_00137F38 MATCH 92, func_001C2408 MATCH 34, held func_0012AFE8 MATCH 190 (it needs --fp-hazard-rules fdiv; without it the div.s nop pads are missing).
+  - When the pass puts cSnd_SeCall_2CBA48 or D_005FEE00 in a header, take func_0012AFE8's local declarations out. No header declares either yet.
+- 16:36 cSnd.h now declares cSnd_SeCall_2CB8A0 (func_0012AFE8 uses 2CBA48, still local). Re-verified: func_0012AFE8, func_00137F38 and func_001C2408 still MATCH.
+- 16:36 cSnd.h now declares cSnd_SeCall_2CB8A0 (func_0012AFE8 uses 2CBA48, still local). Re-verified: func_0012AFE8, func_00137F38 and func_001C2408 still MATCH.
+- 16:57 cSnd.h now declares D_005FEE00. I removed func_0012AFE8's local extern in the scratch file; it still MATCHES 190 (fdiv, -Wall quiet). cSnd_SeCall_2CBA48 is still local.
+  - The typing pass touched drafts 002cb278.c, 001efed0.c and 001e0840.c. All three were worked before: func_002CB278 GAVE UP at 12, func_001EFED0 parked at 17, func_001E0840 skipped at 32.
+  - 002cb278.c doesn't compile right now: it redefines cSnd/cSeData, which are now in cSnd.h/cBgmData.h. 001efed0.c has no section attribute. Both look mid-edit; left to the main agent.
+- 17:07 cSnd.h now declares cSnd_SeCall_2CBA48 with its definition's signature. The scratch file func_0012AFE8 (nm_work/s1104/cf/afe8_final.c) now has no local callee declarations: MATCH 190 (fdiv, -Wall quiet). It is still held on its two decisions.
+  - The typing pass touched 0011e1e0.c, 0011e748.c and 0011f810.c (the CVEC_SET_ADD family) plus 001f2d60.c and 002cabe8.c.
+  - The 0011E1E0 family doesn't compile yet: the fields catchPl/followTimer and the global D_00462FC0 are missing from the headers (the decision row's list). Waiting on the pass.
+  - func_001F2D60 is unreproducible (it reads uninitialised a2/a3) and func_002CABE8 was seen in the earlier sweep. Neither is retried.
+- 17:18 the typing pass touched 001947c8.c, 002b4028.c, 0030b420.c and 00195068.c.
+  - func_001947C8 compiles now that VU0_LQC2_SQC2_MEM is on main: 312 vs 313 words, 179 off (offset drift after the early-exit delay slot at 0x44). The same with fdiv, as=sn and drop-reorder.
+  - Wrapping the body in `if (childAt != 0)` instead of the early return gives the same result (nm_work/s1104/f194/b.c). The draft also casts lockOn's function pointer (waiting on the cGameObjVt row). Main agent's draft; not pursued.
+  - func_002B4028 (GAVE UP, movz if-conversion) and func_00195068 (steering childAt read, per the #39 answer) aren't retried. func_0030B420 was 30 in the old sweep; also left.
+- 17:29 the typing pass touched 001aa510.c (was 87 off) and 002a5ec0.c (498 vs 500 words, 477 off); both far, not retried. Re-verified after the cSnd.h edit: func_00137F38, func_001C2408 and func_0012AFE8 still MATCH.
+- 17:40, 17:50 idle checks: no new drafts, headers or handoffs (one src unit touched by the pass). PERM=0.
+- 18:00, 18:10 idle checks. New decision row (cSnd's trailing pools, batch 217); it doesn't affect my handoffs or held work. PERM=0.
+- 18:00, 18:10 idle checks. New decision row (cSnd's trailing pools, batch 217); it doesn't affect my handoffs or held work. PERM=0.
+- 18:31 BlackJack.h, cEm00.h, cOmWeapon.h and draft 0012a610.c changed (typing pass). Re-verified: func_00137F38, func_001C2408 and func_0012AFE8 still MATCH. func_0012A610 (frame 0x10 short, stack-vector pointer kept in s4) was seen before; retyping only, not retried. PERM=0.
+- 18:41 pl00.h changed, but 0x640 is still unnamed (unk640[0x698 - 0x640]), so func_0012AFE8 stays held. New drafts: SetActionJumpDown (002dcad8.c) doesn't compile yet and waits on the inline-operator "+m" row; func_002269F0 (002269f0.c) has parse errors (mid-edit by the pass). Neither worked. PERM=0.
+- 18:52 the typing pass touched 001daec0.c, 001dfde0.c (neither compiles yet), 001df7d0.c, 001f2d60.c, 001f3118.c and 001f32a0.c (all seen before).
+  - func_001DF7D0 with the current headers: 3 off. Retail tests the language word three times (`beqz`, `bltz`, `slti 7`); every short-circuit spelling of `lang < 0 || lang >= 7` folds to `sltiu 7; xori` instead.
+  - Tried in nm_work/s1104/f1df/ (16 forms):
+    - Flat conditions (`== 0 || < 0 || >= 7`, `<= 0 || >= 7`, a negated &&): 19 words, 19 off (the zero test folds in as well).
+    - Inline langBad as ||, |, !(&&), if/else, a flag local, or !langOk: all 3 off (the same range fold).
+    - Statement-form inlines (separate ifs, nested ifs, a ternary): 21-23 words.
+    - ee-2.9 and cygnus are both worse.
+  - Permuter, 10 min from the inline || form: base 600, best 525 (the if inverted). By mc that's 21 words, 15 off, so worse. PARKED at 3 off.
+- 19:14 idle check. New decision row (the CustomIDWork constructor's name, batch 217); not mine. PERM=0.
+- 19:24, 19:34 idle checks: nothing new. PERM=0.
+- 19:45, 19:55 idle checks: nothing new. PERM=0.
+- 19:45, 19:55 idle checks: nothing new. PERM=0.
+- 20:16, 20:26 idle checks: nothing new. PERM=0.
+- 20:36 CustomIDWork.h changed; func_001DF7D0's scratch form is still 3 off. PERM=0.
+- 20:47 the typing pass touched cEm00.h, cEmLinked.h, cEmWeaponSpawn.h and draft 0028b190.c. func_0028B190 is 769 vs 837 words and still calls work-only names (SET_EM_DATA_copy, cModelNode_hide); not near a match. Jon answered the CustomIDWork__ctor row (done in batch 217); not mine. PERM=0.
+- 20:57 the typing pass touched criStm.h, cEm00.h, cloth.h and drafts 0023f028, 0024bda0, 00216078, 0026b240, 00232500, 00217560, 0028b190 and 0024bb68. Rescored all of them on sn:
+  - func_0024BB68 is still 3 off, as parked on 10-22. The differences are `neg.s $f1,$f0` and the in-place vadd (retail addresses 0xB0($sp); ours goes through v1). That waits on the "+m" VU0_VADD_XYZ_IP row.
+  - The others are far: func_0024BDA0 93/95 words, 87 off; func_0026B240 166/169, 168 off; func_0023F028 359/360, 229 off; func_00216078 and func_00217560 are size mismatches that still call unresolved names; 00232500.c doesn't compile. None worked. PERM=0.
+- 21:07 cGameObj.h and cObjBase.h changed. Re-verified: func_00137F38, func_001C2408 and func_0012AFE8 still MATCH. Nine touched drafts (00245a18, 0010d3a8, 00268dc8, 0025d0b8, 0021fd50, 00231ac0, 00232500, 0022fae0, 00253de8) don't compile right now: their local D_00462FC0 declarations were removed before a header declares it (mid-pass). I'll rescore them once it settles. PERM=0.
+- 21:18 the typing pass touched 25 drafts plus espSys.h, cEm00.h and cGameObj.h; D_00462FC0 is now in cOmb0.h. Results are in nm_work/s1104/rescore_2118.txt.
+  - Re-verified: func_00137F38, func_001C2408 and func_0012AFE8 still MATCH.
+  - 14 of the 25 drafts don't compile yet (mid-pass). Close ones: func_001C9AF0 6 off (an unresolved symbol; handed off on 10-26, now being ported), SetEffect 8 off, func_002EFD20 10 off. The rest are 100+ off or size mismatches.
+  - SetEffect (held on the "cEffectParam_init store order" row, still unanswered): the old handoff in nm_work/SetEffect/s/ had gone stale (GAMEWORK_AT is gone, and its cObjBase.h overlay is from before today's pass).
+    - Refreshed it as nm_work/SetEffect/s2/: solved.c is today's draft 00306528.c without its NON_MATCHING scaffold. godhand/cObjBase.h is main's header with cEffectParam_init's six byte/word stores in field order (unk44, flags, unk4C, unk4D, unk4E, unk4F); that's the only diff.
+    - MATCH 106 insns, 9 relocs; -Wall quiet. The include path has to be repo-relative: --inc progress/nm_work/SetEffect/s2.
+    - Dependents with the overlay: InitRenderStruct_2A8608, func_002F1B60, func_00305E88, SetEffectPos and SetEffectParts all still MATCH, the same as on main.
+    - The decision row's "progress/nm_work/SetEffect/s/" should now read s2/.
+  - func_00271810 (the other function in that row) doesn't compile right now (mid-pass). PERM=0.
+- 21:31 cObjBase.h changed again. Regenerated SetEffect's overlay (nm_work/SetEffect/s2/godhand/cObjBase.h = main's header plus the store order): still MATCH 106. func_001A4010's draft is still 2 off (fdiv; the in-place 0.2 scale goes through 0(v0), not 0x50(sp)). func_00285C58 is still blocked on the bool masking question and doesn't compile right now. func_001EFED0 is parked. PERM=0.
+- 21:42 heapArena.h, cObj21C0.h and draft 00148420.c changed. func_00148420 (parked 10-23) is 95/96 words and has an unresolved callee mid-pass; not retried. PERM=0.
+- 21:52 the typing pass touched nine drafts (002f5788, 002f7e30, 002d6a60, 002a5ec0, 0030d358, 0030d258, 003132d0, 00148420, 0014bfe0) and cDvd/cBgmData/heapArena/CustomIDWork/cObj21C0.h. Rescored: everything that compiles is 61+ off or a size mismatch; 002a5ec0 and 003132d0 don't compile; 002d6a60 has no section attribute. None worked. PERM=0.
+- 22:02, 22:13 idle checks: no new drafts, headers or handoffs. PERM=0.
+- 22:02, 22:13 idle checks: no new drafts, headers or handoffs. PERM=0.
+- 22:44 cDvd.h and drafts 0030b420/0030d258/0030d358 changed (typing pass). func_0030B420 doesn't compile right now; the other two are still 61+ off. New decision row (cDvdJob 0x7C name); not mine. PERM=0.
+- 22:54 the same cDvd drafts are still being edited; I'll recheck once they settle. PERM=0.
+- 23:04 mtx.h, sceVu0.h and 16 drafts changed (typing pass).
+  - Re-verified: func_00137F38, func_001C2408, func_0012AFE8 and SetEffect (s2 overlay) all still MATCH.
+  - Rescored 15 drafts; func_0012A3C0 is #38, so off-limits and not scored.
+    - Closest: func_0024BB68 3 off (unchanged; waits on the "+m" row) and func_00273960 20 off (register-only s0/s2 swap, parked before).
+    - The rest are 97+ off or size mismatches; 0011f810, 0011e748, 0011e1e0, 002890a0 and 002b6a40 don't compile yet.
+  - None worked. PERM=0.
+- 23:15 mtx.h and ten drafts changed (typing pass). Best: func_001CE6C8 21 off (on the cGameObj sizeof row's list) and func_0012D1A8 62; the rest are 117+ off or don't compile (001b4a18, moveMotion, 0031c5c0); 0013b5f0 has no section attribute. None worked. PERM=0.
+- 23:25 cModel.h, player.h and cOmBase.h changed. Re-verified: func_00137F38, func_001C2408, func_0012AFE8 and SetEffect still MATCH. Drafts: func_0030F8B0 doesn't compile right now; func_001C8930 100/95 words, 68 off. PERM=0.
+- 23:36 cOmBase.h changed; all four (func_00137F38, func_001C2408, func_0012AFE8, SetEffect) still MATCH. New decision row (ReleaseObj's constant local); not mine. PERM=0.
+- 23:46 heapArena.h, regTbl.h, cRelSys.h and drafts 00394f20/002a5ec0/0030b420 changed. func_00394F20 is parked (short-loop pad: retail nop+bne vs our bnel; the draft has no section attribute now); the other two don't compile right now. PERM=0.
+- 23:57, 00:18 idle checks: no new drafts, headers or handoffs. PERM=0.
+- 23:57, 00:18 idle checks: no new drafts, headers or handoffs. PERM=0.
+- 00:39 cIDBase.h, cObjBase.h and drafts 0013e0b0/00143670/0013c318/00140638 changed. Regenerated SetEffect's overlay; all four (func_00137F38, func_001C2408, func_0012AFE8, SetEffect) still MATCH. Drafts: func_0013E0B0 49 off (size mismatch), func_0013C318 90, func_00143670 170; 00140638 has no section attribute. None worked. PERM=0.
+- 00:50, 01:00 cIDBase.h changed (typing pass); none of my four matches include it. No new drafts or handoffs. PERM=0.
+- 01:10 CustomIDWork_Main (drafts/cod/002d5de0.c; typing pass). The draft's header says "no hazard rule reproduces" retail's divide pads, but --as sn --fp-hazard-rules fdivdep does: 428 words, the same as retail (as sn alone 424, as sn + fdiv 432). #37 is merged, so fdivdep may be selected.
+  - 55 off left:
+    - The result of each div.s lands in $f3 where retail uses $f2, with v0/v1 swaps on the flag re-reads.
+    - At 0x2E8 retail has an in-place cvt.w.s (`.word 0x46000824`) where ours is trunc.w.s. That needs an FPU_CVT_W_S macro, which fpu.h doesn't allow, so this blocks the function in any case.
+  - Not pursued. For the main agent: the draft's fp_hazard setting should be fdivdep, and its header note is wrong.
+- 01:21 cNode.h changed. New decision row (cIDBaseEnt 0x24); not mine. PERM=0.
+- 01:31 cSnd.h and seqNode.h changed; all four of my matches still MATCH. PERM=0.
+- 01:41 cModel.h, cEm00.h, cGameObj.h and cObjBase.h changed. Regenerated SetEffect's overlay; all four still MATCH. PERM=0.
+- 01:41 cModel.h, cEm00.h, cGameObj.h and cObjBase.h changed. Regenerated SetEffect's overlay; all four still MATCH. PERM=0.
+- 02:02 cCollisionSolid.h and nine drafts changed (cEm00 ports: 002873b8, 0025de58, 002a5ec0, 00243408, 001191a0, 00277348, 001346c8, 00208858, 00224a28). None compiles yet: the catchPl field isn't in the header (mid-pass). My matches still MATCH. PERM=0.
+- 02:13 the background draft sweep finished; it ended 11:42 local, and dsweep_sn.tsv was already used this morning. No MATCH rows. The 02:02 batch (eight drafts plus cCollisionSolid.h) doesn't compile yet (catchPl missing, mid-pass); func_00137F38, func_001C2408 and func_0012AFE8 still MATCH. PERM=0.
+## Session 2026-11-05
+- 07:41 Resumed. Last night (after the 02:13 notification) I ended the turn instead of sleeping. Nothing was running and no handoffs or answers arrived in the gap.
+- Overnight: 37 drafts, cDamageManage.h (new), BlackJack.h, criStm.h and 462 src units changed. Regenerated SetEffect's overlay (inline unchanged). Re-verified under -Wall: func_00137F38 92, func_001C2408 34, func_0012AFE8 190 (fdiv) and SetEffect 106 all still MATCH.
+- Rescored the 34 changed functions (nm_work/s1104/rescore_0741.txt); 9 don't compile (mid-pass). The close ones:
+  - cSceAtUnit_AreaSet (now in drafts/cod/00123908.c): 2 off, the same andi/mov.s swap around the jal as when it was GIVEN UP.
+    - With func_001F88A8's real prototype (cArea *, unsigned char) the plain call forms (an int param, the cast, an unsigned char param; nm_work/s1105/area/a1-a3) are all 2 off.
+    - as=sn, drop-reorder and mtc1 don't help; cygnus and ee-2.9 are worse. Still given up; the draft's `t = (unsigned char)n` local is steering besides.
+  - func_00178E18: 2 off, the same 0x5F4/0x5F6 sh swap; parked before with the helper and explicit-order analysis. Unchanged.
+  - func_00262750: 6 off with an unresolved symbol (was 4; mid-pass).
+  - Small functions in 00123908.c: func_00307118, func_00123908 and func_0030F518 are size mismatches (6/9, 9/12, 14/13 words).
+  - Everything else is 20+ off.
+- None worked. PERM=0.
+- 07:53 the typing pass touched CRI headers (criStm, mwsfsvr, SjRing, sftrnHn) and cIDManager/Obj33C8/StageBuf/devPath/cObj21C0.h. Drafts 002a5ec0, 00169358 and 003132d0 don't compile yet (mid-pass). None of my matches include these headers. PERM=0.
+- 08:13 the typing pass touched nine drafts. Rescored: func_003B21D0 13 off (ee-2.9), func_0024BDA0 87; 002a5ec0 and 00169358 don't compile; the rest have no section attribute.
+  - Prototype conflict for the main agent: the draft of func_00137BB8 (drafts/cod/00137bb8.c) declares `int func_00137BB8(AreaList *list, float *pt)` with file-local AreaList/AreaEnt.
+    - My handoff func_00137F38 declares `extern int func_00137BB8(PathHost *self, cVec *pos);`, using pathRec.h's PathHost.
+    - It's the same memory: AreaList.cur at 0x30 is PathHost.rec, and AreaEnt is the record PathRec views.
+    - Following the one-type-per-record rule, the draft's AreaList should become PathHost (pathRec.h), with the 0x00/0x0C fields added there. The prototype then goes into pathRec.h once func_00137BB8 matches.
+    - The handoff still MATCHES (92) and is unchanged.
+- PERM=0.
+- 08:24 pl00.h changed: 0x640 is still padding (unk640[0x698 - 0x640]), but a new comment calls unk640 the enemy the player catches, with unk648 set when one is found. func_0012AFE8's scratch view names 0x640 lockOn (a cGameObj *); when the header names it, use that name instead. Drafts: func_0010B2E8 171/179 words, 159 off; 00110b20, 0010d3a8 and 001101a8 don't compile (mid-pass). PERM=0.
+- 08:26 STOP requested. Killed permuters (PERM=0) and any mc.py/draftsweep processes. Session ended.

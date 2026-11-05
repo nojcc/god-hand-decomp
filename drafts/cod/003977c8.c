@@ -1,4 +1,5 @@
 /* NON_MATCHING func_003977C8 (ee-2.9-991111): rpc buffer word 4 = 0 store is scheduled after the arg store (retail: before cmd); insensitive to statement order, int[] buffer, volatile, call prototype */
+#include "godhand/eeKernel.h"
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -31,7 +32,6 @@ extern int func_003B3128(SifRpcClientData *cd, int fno, int mode, void *send, in
                          int rsize, void *end, void *earg);
 extern int func_003B63A0(void);
 extern void func_003B2488(unsigned int cause, void *handler, void *arg);
-extern void EIntr(void);
 extern void _pad_intr_hdr(void);
 extern SifRpcClientData D_0077C0C0[2];
 extern PadState D_0077C110;

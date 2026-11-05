@@ -1,4 +1,5 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/criStm.h"
 
 /* ee-2.9-991111 candidate: _sceSifLoadModuleBuffer (libkernl eeloadfile.c) */
 
@@ -13,7 +14,6 @@ typedef struct {
 
 
 
-extern void *func_003A5148(void *d, const void *s, unsigned int n);   /* memcpy */
 
 
 extern LoadReq D_00781980;

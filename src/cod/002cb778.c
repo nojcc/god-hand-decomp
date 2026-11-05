@@ -1,10 +1,9 @@
+#include "godhand/heapArena.h"
+#include "godhand/criStm.h"
 #include "godhand/cSnd.h"
 #include "include_asm.h"
 
 extern int D_00747A34;
-extern char D_00754C10[];
-extern char D_00754220[];
-extern void func_003A52F0(void *, int, int);
 extern void cSndMemHeap_ResetFirstBlk(void *);
 extern int cSndMemHeap_Alloc(int, int);
 
@@ -12,7 +11,7 @@ extern int cSndMemHeap_Alloc(int, int);
 __attribute__((section(".text.cSnd_SeIsLoaded")))
 int cSnd_SeIsLoaded(cSnd *self, int slot)
 {
-    cSndSeEntry *e;
+    cSeData *e;
     if (slot == -1) return 1;
     e = cSnd_GetSeData(self, slot);
     if (e->owner == -1) return 1;
@@ -59,7 +58,7 @@ void *AllocAndInitSystem_312F00(void)
     void *p;
     if (!(D_00747A34 & 0x10000))
     {
-        p = _MemoryAlloc(0x1690, 0x10, D_00754C10);
+        p = _MemoryAlloc(0x1690, 0x10, &D_00754C10);
         if (p != 0)
         {
             func_003A52F0(p, 0, 0x1690);
@@ -75,7 +74,7 @@ void *AllocZeroedAndInit_3130E0(void)
     void *p;
     if (!(D_00747A34 & 0x100000))
     {
-        p = _MemoryAlloc(0x1980, 0x10, D_00754220);
+        p = _MemoryAlloc(0x1980, 0x10, &D_00754220);
         if (p != 0)
         {
             func_003A52F0(p, 0, 0x1980);

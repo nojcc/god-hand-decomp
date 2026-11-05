@@ -1,6 +1,6 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/eeKernel.h"
 
-extern void func_003B1F28(char *fmt);
 extern char D_0045DD40[];
 
 typedef unsigned int  u_int;

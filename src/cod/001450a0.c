@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cMc.h"
+#include "godhand/criStm.h"
 #include "godhand/cEvent.h"
 #include "godhand/Slot2.h"
 
@@ -29,7 +30,6 @@ typedef struct BlendWork {
 #define BLENDWORK_TABLE_READY 0x40000000        /* flags: the table holds fresh data */
 #define BLENDWORK_TABLE_MAX   0x23
 
-extern void *func_003A5148(void *d, const void *s, int n); /* memcpy */
 
 /* Copy num halfwords from src into the table (clamped to the table size) and mark the table ready. */
 __attribute__((section(".text.BlendWork_copyShortTable")))

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cEm00.h"
+#include "godhand/mtx.h"
 #include "godhand/cCamera.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
@@ -18,13 +19,11 @@
 
 extern void CallWithAndClearField698_12AC28(char *a0);
 extern void func_0012B928(char *a0);
-extern void MtxInitRotY(void *a0, float angle);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *obj);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern short func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(int a0, unsigned int a1);
-extern void cSnd_DieDemoStart(void *a0);
 
 /* A two-hit catch of the player: step 0 puts the enemy 2.8 behind the catch
  * point (the player's position, or a fixed point in three rooms) and the

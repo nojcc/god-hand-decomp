@@ -3,9 +3,9 @@
 __attribute__((section(".text.CustomIDWork_SetMessNo")))
 void CustomIDWork_SetMessNo(CustomIDWork *self, int messNo)
 {
-    CustomIDObj *obj = self->obj;
+    cIDBaseEnt *obj = self->obj;
 
     if (obj) {
-        obj->messNo = messNo;
+        obj->msg = messNo;
     }
 }

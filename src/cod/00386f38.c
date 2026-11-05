@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/criStm.h"
 
 extern int a1();
 extern int buffered__8stdiobufi();

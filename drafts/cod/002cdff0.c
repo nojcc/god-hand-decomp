@@ -22,19 +22,15 @@ typedef struct cSndSeParam {
     char unk27[0x30 - 0x27];
 } cSndSeParam;                  /* 0x30 */
 
-extern cSnd D_005FEE00;
 extern int D_00747A84;
 
 extern int cSnd_SeCheckParam(void *self, short a, short b, int c);
 extern unsigned int irand(void);
 extern int func_002CBD10(cSnd *self, short id, short code, int key, short lo, short hi, int n);
-extern void cSnd_SeRecentPush(cSnd *self, int a, int b, int tick);
 extern cSndSeVoice *func_002CBF78(cSnd *self, cSndSeVoice *skip, short a, short b, int mode, int maxPri);
 extern float capVu0LengthAB(void *a0, void *a1);
-extern void cSndSeVoice_Unlink(cSndSeVoice *voice);
 extern int SdeSystemOutModeGet(void);
 extern int func_00377FF8(void);
-extern void cSndSeVoice_Link(cSndSeVoice *voice);
 
 /* Starts a voice: looks up its sound-effect entry, picks a variant, drops it
  * when too many of the same play or a closer one wins, sets the output kind
