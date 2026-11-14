@@ -24,7 +24,7 @@ extern int SFCON_IsSystemEndcodeSkip(char *sfd);
 extern void func_0034F4A8(char *sfd);
 extern void sfmps_SkipNext(char *sfd, char *buf, int len, int *nskip);
 extern void func_0034F658(char *sfd, int *st);
-extern int func_0034E9B0(char *sfd, char *buf, int len, int *n, int *st);
+extern int StreamReadBlock(char *sfd, char *buf, int len, int *n, int *st);
 
 __attribute__((section(".text.func_0034E4B0")))
 int func_0034E4B0(char *sfd, char *buf, int len, int *nread, int *nskip, int p6)
@@ -111,7 +111,7 @@ int func_0034E4B0(char *sfd, char *buf, int len, int *nread, int *nskip, int p6)
         *nskip = n;
         return v.ret;
     }
-    v.ret = func_0034E9B0(sfd, buf + v.hl, len - v.hl, &v.n2, &v.st2);
+    v.ret = StreamReadBlock(sfd, buf + v.hl, len - v.hl, &v.n2, &v.st2);
     if (v.st2 == 1)
         *nread = v.hl + v.n2;
     w->pos = -1;

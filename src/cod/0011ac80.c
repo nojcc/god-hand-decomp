@@ -13,7 +13,6 @@ extern void func_0012C348(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void func_002705D8(void *a0);
 extern void func_00262750(void *a0, int a1);
 
 #include "godhand/vu0.h"

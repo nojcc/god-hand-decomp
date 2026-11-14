@@ -7,7 +7,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int irand(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern void func_002705D8(void *a0);
 
 /* Enemy wait step: steps 0 and 1 play the wait motion (two variants by move flag 0x200) for a random 5 or 30..119
  * frames, steps 2 and 3 play the end motion and then hand over, with sound 0x8C when the 0x17CC timer still runs. */

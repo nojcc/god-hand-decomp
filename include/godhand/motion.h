@@ -37,4 +37,8 @@ int moveMotion(void *obj);
  * when keep is 0. */
 void func_002A8578(void *obj, int motA, int motB, int mode, float start, int sel, int keep);
 
+/* Pick an enemy's next action after its motion ends: release the handle at
+ * obj+0x738, then write the next state to the bytes at obj+0x2F4..0x2F7. */
+void func_002705D8(void *obj);
+
 #endif

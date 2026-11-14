@@ -16,7 +16,6 @@ extern void SetBytes2F4Mode1_283188(int a0, int a1);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void func_002705D8(void *a0);
 extern void func_002744E0(void *a0);
 
 /* sn-2.95.3-136 matched TU. */

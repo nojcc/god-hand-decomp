@@ -7,7 +7,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_0026EE40(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void func_002705D8(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 

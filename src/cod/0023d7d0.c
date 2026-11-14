@@ -20,7 +20,6 @@ extern void cEm00_armAttackVolume(void *a0);
 
 
 
-extern void func_002705D8(void *a0);
 
 /* Fields cEm00.h does not name yet. Offsets are from the record start. */
 #define EM_AT(T, self, off) (*(T *)((char *)(self) + (off)))

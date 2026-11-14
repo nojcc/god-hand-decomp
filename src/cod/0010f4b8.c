@@ -11,7 +11,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int irand(void);
 extern void Obj2810_SetState_D_a1(void *a0, int a1);
 extern void SetBytes2F4Mode10_2833C0(void *a0, int a1);
-extern void func_002705D8(void *a0);
 extern void func_0027D670(void *a0, int a1, int a2);
 extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);

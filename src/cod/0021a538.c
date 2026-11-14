@@ -54,7 +54,8 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/pl00.h"
 #include "godhand/cOmWeapon.h"
-/* No cEm00.h: the guarded body passes 4 of the motion setters' 6 arguments. */
+/* No cEm00.h: the guarded body passes 4 of the motion setters' 6 arguments.
+ * No motion.h: it passes 5 of func_002A8578's 7. */
 
 typedef signed char        s8;
 typedef unsigned char      u8;

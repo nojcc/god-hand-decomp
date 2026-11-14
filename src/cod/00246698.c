@@ -14,7 +14,6 @@ extern char *CreateObj(int a0, int a1);
 #include "godhand/cOmWeapon.h"
 extern void func_001D0340(void *a0);
 extern void func_001D0408(void *a0);
-extern void func_002705D8(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 

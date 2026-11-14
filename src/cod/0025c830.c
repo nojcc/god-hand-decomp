@@ -9,7 +9,6 @@ extern unsigned char D_005CB000[];
 extern char *Getplayer(void);
 extern void SetMotionStep(void *a0, float f12);
 extern void cHeatSys_AddHeatGage(void *a0, int a1, float f12);
-extern void func_002705D8(void *a0);
 
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);

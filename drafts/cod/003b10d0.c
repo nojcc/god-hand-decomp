@@ -35,7 +35,7 @@ extern const char D_0045FE8E[];
 extern const char D_0045FEA8[];         /* "0123456789ABCDEF" */
 
 extern float dptofp(double d);
-extern int func_003B0EF8(int (*put)(void *arg, int *pn, int c), void *arg, int *pn, double d);
+extern int printfloat(int (*put)(void *arg, int *pn, int c), void *arg, int *pn, double d);
 
 __attribute__((section(".text._sceSnprintf")))
 int _sceSnprintf(int (*put)(void *arg, int *pn, int c), void *arg, int n, const char *fmt, va_list ap)
@@ -238,7 +238,7 @@ int _sceSnprintf(int (*put)(void *arg, int *pn, int c), void *arg, int n, const 
                     if (f == 0.0f)
                         total += put(arg, &n, '0');
                     else
-                        total += func_003B0EF8(put, arg, &n, f);
+                        total += printfloat(put, arg, &n, f);
                     break;
                 case 's':
                     s = va_arg(ap, char *);

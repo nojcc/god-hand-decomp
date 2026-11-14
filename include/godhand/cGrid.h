@@ -72,7 +72,7 @@ extern unsigned char D_0041D558[];
 
 /* Construct a box body for owner (its position and rotation copied, mtx its
  * matrix) with the two vectors, the size and the six faces. */
-cCollBody *func_0012D970(cCollBody *self, cModel *owner, float *mtx, cVec *v70, cVec *v90,
+cCollBody *cHitRec_constructSixBlob(cCollBody *self, cModel *owner, float *mtx, cVec *v70, cVec *v90,
                          cVec *size, cCollFace *f0, cCollFace *f1, cCollFace *f2,
                          cCollFace *f3, cCollFace *f4, cCollFace *f5);
 

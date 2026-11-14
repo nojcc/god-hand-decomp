@@ -35,7 +35,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 #include "godhand/cSnd.h"
 extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);

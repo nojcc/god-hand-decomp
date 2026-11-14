@@ -12,7 +12,6 @@ extern unsigned int irand(void);
 extern int GetSeqSEBase(void *a0);
 extern char *Getplayer(void);
 extern int cEmManage_CkPlCatched(void *a0);
-extern void func_002705D8(void *a0);
 extern unsigned char D_005864F0[];
 
 /* sn-2.95.3-136 matched TU. */

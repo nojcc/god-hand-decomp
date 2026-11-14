@@ -8,7 +8,6 @@ extern void *Getplayer(void);
 extern void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DCE8(char *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void func_002705D8(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 

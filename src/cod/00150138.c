@@ -22,7 +22,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026E7A8(void *a0, int a1);
 extern float fRand0_1(void);
-extern void func_002705D8(void *a0);
 extern void Adjust_theta_vec(cVec *v);
 
 /* Spawn the damage-take volume of an object: build the three float vectors and register them, then set the two shorts at +0x548 and +0x54A. */

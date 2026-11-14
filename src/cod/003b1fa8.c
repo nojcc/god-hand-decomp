@@ -4,6 +4,7 @@
 extern int func_003B1E68();
 extern void _sceSnprintf();
 
+/* printf through func_003B1E68's output, with interrupts disabled while it formats. */
 __attribute__((section(".text.func_003B1FA8")))
 void func_003B1FA8(char *fmt, ...) {
     int ctx;

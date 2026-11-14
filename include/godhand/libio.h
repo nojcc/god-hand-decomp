@@ -1,12 +1,17 @@
 /* include/godhand/libio.h - the libio records the ee-2.9 stdio units share.
  *
- * _IO_FILE is the 0x54-byte stream: the get, put and reserve areas, the
- * backup area, the marker list, the list link, the file number, the 64-bit
- * offset and the jump table at 0x50. EE `long` is 64 bit, so _IO_ssize_t
+ * _IO_FILE is the stream, 0x58 bytes with its tail padding: the get, put and
+ * reserve areas, the backup area, the marker list, the list link, the file
+ * number, the 64-bit offset and the jump table at 0x50. EE `long` is 64 bit, so _IO_ssize_t
  * and _IO_pos_t are too. An _IO_marker records a position in a stream.
  */
 #ifndef GODHAND_LIBIO_H
 #define GODHAND_LIBIO_H
+
+/* _IO_FILE._flags bits. */
+#define _IO_USER_BUF   0x01     /* the reserve area is not the stream's own */
+#define _IO_LINKED     0x80     /* on _IO_list_all */
+#define _IO_IN_BACKUP  0x100    /* the get area is the backup area */
 
 typedef unsigned int _IO_size_t;
 typedef long _IO_ssize_t;
@@ -77,13 +82,11 @@ struct _IO_marker {
     int _pos;                   /* 0x08 */
 };
 
-#define _IO_USER_BUF   0x0001           /* the reserve area is not the stream's own */
-#define _IO_IN_BACKUP  0x0100           /* reading from the backup area */
-
 extern struct _IO_FILE *D_003F50F8;     /* _IO_list_all */
 
 /* Leave put mode: flush pending output and make the get area current. */
 int _IO_switch_to_get_mode(struct _IO_FILE *fp);
+/* Copy n bytes of data into the put area, overflowing as it fills; the count written. */
 _IO_size_t _IO_default_xsputn(struct _IO_FILE *f, const void *data, _IO_size_t n);
 /* Write to_do bytes of data through the jump table and reset the put area. */
 int _IO_do_write(struct _IO_FILE *fp, const char *data, _IO_size_t to_do);
@@ -93,13 +96,20 @@ void _IO_flush_all_linebuffered(void);
 int func_0038C3F0(struct _IO_FILE *f, int ch);
 /* _IO_doallocbuf: give the stream a buffer unless it has one. */
 void func_0038C7F0(struct _IO_FILE *fp);
+/* __uflow: the next character, moving the get pointer past it. */
 int func_0038C688(struct _IO_FILE *fp);
 /* _IO_ungetc. */
 int func_0038EAB0(int c, struct _IO_FILE *fp);
+/* The next character without moving the get pointer; EOF at the end. */
 int __underflow(struct _IO_FILE *fp);
+/* Copy the get area from the oldest marker into the backup area; 0, or EOF when out of memory. */
 int save_for_backup(struct _IO_FILE *fp);
 /* Put the stream at the head of _IO_list_all unless it is linked already. */
 void _IO_link_in(struct _IO_FILE *fp);
+/* Take the stream out of _IO_list_all when it is linked. */
+void _IO_un_link(struct _IO_FILE *fp);
+/* Put c in the put area, or hand it to __overflow when the area is full. */
+int _IO_putc(int c, struct _IO_FILE *fp);
 /* Swap the get area with the backup area (save base and end) and set the flag or clear it. */
 void _IO_switch_to_backup_area(struct _IO_FILE *fp);
 void _IO_switch_to_main_get_area(struct _IO_FILE *fp);

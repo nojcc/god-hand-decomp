@@ -9,7 +9,6 @@ extern int Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void func_002705D8(void *a0);
 
 /* Phase machine on the step byte, 7 case labels. Calls CheckSlotsShort2FEAndSetByte1864_262A10,
  * Obj0000_Get_Byte_17C3_NZ_2_276468, cCoreSave_getGameLevel, func_002A8578,

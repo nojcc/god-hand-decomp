@@ -593,3 +593,4 @@ asm/data/cod/31B580.rodata.s 0026AB78
 asm/data/cod/31B580.rodata.s 0026ADB0
 asm/data/cod/31B580.rodata.s 0012D72C
 asm/data/cod/31B580.rodata.s 0012D7A8
+asm/data/cod/31B580.rodata.s 0025DED8

@@ -11,7 +11,6 @@ extern void *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002DB770(void);
-extern void func_002705D8(void *a0);
 extern char D_007474A0[];
 
 #include "godhand/vu0.h"

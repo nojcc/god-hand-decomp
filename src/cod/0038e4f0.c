@@ -23,7 +23,6 @@ extern const char D_0045D7F0[16];   /* zeroes */
 #define _IO_INTERNAL 010
 #define _IO_SHOWPOINT 0400
 
-extern int _IO_putc(int c, struct _IO_FILE *fp);
 extern _IO_ssize_t _IO_padn(struct _IO_FILE *fp, int pad, _IO_ssize_t count);
 extern char *_IO_dtoa(double d, int mode, int ndigits, int *decpt,
 			   int *sign, char **rve);            /* _IO_dtoa */

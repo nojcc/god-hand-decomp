@@ -32,7 +32,7 @@ typedef struct SfdAudHn {
 
 extern int D_00459920[];
 
-extern long func_00352258(int n, int rate);
+extern long Sftim_toClock90M(int n, int rate);
 extern int func_003A50B4(const void *a, const void *b, int n);
 
 __attribute__((section(".text.func_003520D8")))
@@ -48,7 +48,7 @@ long func_003520D8(SfdAudHn *s, SfdTimeCnt *tc, SfdAudInfo *info, SfdTimeStamp *
     unit = info->unit;
     base = s->base;
     if (base < 0) {
-        base = ts->time - func_00352258(unit, rate);
+        base = ts->time - Sftim_toClock90M(unit, rate);
         if (base < 0)
             base = 0;
         s->base = base;
@@ -72,7 +72,7 @@ long func_003520D8(SfdAudHn *s, SfdTimeCnt *tc, SfdAudInfo *info, SfdTimeStamp *
     }
     n = unit - tc->unit;
     tc->run = (n < tc->run) ? tc->run : n;
-    t += func_00352258(tc->base + n, rate);
+    t += Sftim_toClock90M(tc->base + n, rate);
     if (t < 0)
         t = 0;
     return t;

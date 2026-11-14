@@ -11,7 +11,6 @@ extern void __ls__7ostreamd(void);
 extern void __ls__7ostreami(void);
 extern int __ls__7ostreamPCc(void);
 extern int write__7ostreamPCci(void);
-extern int _IO_un_link(void);
 extern void func_0038D070(void);
 extern void _IO_marker_delta(void);
 extern void func_0038D0B8(void);
@@ -161,8 +160,8 @@ int Tramp_write__7ostreamPCci_38A608(void) {
 }
 
 __attribute__((section(".text.Tramp__IO_un_link_38B030")))
-int Tramp__IO_un_link_38B030(void) {
-    return _IO_un_link();
+void Tramp__IO_un_link_38B030(struct _IO_FILE *fp) {
+    _IO_un_link(fp);
 }
 
 __attribute__((section(".text.Tramp__IO_link_in_38B050")))

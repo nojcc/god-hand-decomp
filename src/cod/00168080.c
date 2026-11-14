@@ -16,7 +16,6 @@ extern void func_00161590(int a0);
 extern char **D_003C2384;
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float fRand1_1(void);
-extern void func_002705D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 

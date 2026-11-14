@@ -7,6 +7,7 @@ extern int D_00460108;
 extern int CreateSema();
 extern void _clearEach();
 
+/* iStartTimerCounter(a0) with interrupts disabled; its result. */
 __attribute__((section(".text.func_003B7380")))
 int func_003B7380(int a0) {
     int r1, r2;
@@ -53,7 +54,7 @@ void func_003BA9F0(int a0) {
 
 __attribute__((section(".text.func_003BAD08")))
 void func_003BAD08(int a0) {
-    int r = (int)DIntr();
+    int r = DIntr();
     *(volatile unsigned int *)0x1000F590 = *(volatile unsigned int *)0x1000F520 | 0x10000;
     *(volatile unsigned int *)0x1000B400 = a0;
     *(volatile unsigned int *)0x1000F590 = *(volatile unsigned int *)0x1000F520 & 0xFFFEFFFF;
