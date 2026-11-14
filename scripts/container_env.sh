@@ -14,6 +14,12 @@ if [[ "$(uname -m)" == "aarch64" ]]; then
         exit 1
     fi
     export QEMU_LD_PREFIX="$SYSROOT"
+    # qemu-i386's default CPU model (max) misruns ee-as 2.10 here: the first
+    # `lw/sw rt,sym(base)` macro in a file gets its lui encoded as the final
+    # op (StreamReadBlock, 0x34EAC4). Native x86 and these older models emit
+    # the lui. Both qemu routes read it: the flake's wrappers (cc1, cpp0) and
+    # the kernel's binfmt handler (ee-as).
+    export QEMU_CPU="${QEMU_CPU:-pentium3}"
     # The persistent container keeps /lib. Copy the i386 loader once so later
     # calls, including parallel scratch compiles, do not rewrite it.
     if [[ ! -f /lib/i386-linux-gnu/libc.so.6 || ! -e /lib/ld-linux.so.2 ]]; then

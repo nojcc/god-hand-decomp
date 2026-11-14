@@ -736,6 +736,10 @@ def _tool_digest(cfg: Config) -> str:
     digest.update(os.environ.get("MIPSEL_AS_REAL", "").encode())
     digest.update(b"\0GH_SN_GCCLIB=")
     digest.update(os.environ.get("GH_SN_GCCLIB", "").encode())
+    # The emulated CPU model changes ee-as output under qemu-i386
+    # (scripts/container_env.sh), so objects built under another model are stale.
+    digest.update(b"\0QEMU_CPU=")
+    digest.update(os.environ.get("QEMU_CPU", "").encode())
     return digest.hexdigest()
 
 
