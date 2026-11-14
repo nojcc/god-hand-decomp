@@ -78,6 +78,7 @@ void func_00278C30(void *a0)
 }
 
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 struct VtEnt { short delta; short index; void *pfn; };
 
@@ -107,7 +108,7 @@ void func_001881F0(void *a0)
             ((float *)buf)[1] = r[1];
             ((float *)buf)[2] = r[2];
         }
-        SetEffectPos(0, 7, 0, (cVec *)buf, 1.0f, -1);
+        SetEffectPos(0, 7, 0, (cVec *)buf, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s1, 0, 0, 0, 0);
         func_00188798(s1);
         SetField5B0Bit2ClearBit8_1B7908(s1);

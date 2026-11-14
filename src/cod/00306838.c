@@ -2,10 +2,11 @@
 #include "godhand/cObjBase.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/effectPos.h"
 
 /* Start an effect at pos with the default parameters and the given size. */
 __attribute__((section(".text.SetEffectPos")))
-void SetEffectPos(int kind, int id, void *owner, cVec *pos, float size, int handle)
+void SetEffectPos(int kind, int id, void *owner, cVec *pos, int handle, float size)
 {
     cEffectParam param;
 

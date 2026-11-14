@@ -9,6 +9,7 @@
 #include "godhand/vu0.h"
 #include "godhand/heapArena.h"
 #include "godhand/heapList.h"
+#include "godhand/effectPos.h"
 
 extern cMeshNode *cModel_getMeshPtr(void *model, int idx);
 extern void BufHolder_deletingDtor(int entry, int mode);
@@ -76,7 +77,7 @@ void EffObj_startEffectAtPos(EffObj *self)
         pos.y = p[1];
         pos.z = p[2];
     }
-    SetEffectPos(1, self->effNo, 0, &pos, 1.0f, -1);
+    SetEffectPos(1, self->effNo, 0, &pos, -1, 1.0f);
 }
 
 typedef struct ScrollObj {

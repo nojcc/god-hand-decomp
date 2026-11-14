@@ -10,6 +10,7 @@
 #include "godhand/cEmManage.h"
 #include "godhand/gameWork.h"
 #include "godhand/rand.h"
+#include "godhand/effectPos.h"
 #include "include_asm.h"
 
 extern char D_0041B940[]; /* "cEm00" */
@@ -140,7 +141,7 @@ void func_00109928(pl00 *self)
     default:
         child = cOmBase_childAt((cOmBase *)self, frame, 4);
         if (child != 0) {
-            SetEffectPos(0, 3, 0, child->pos, 1.0f, -1);
+            SetEffectPos(0, 3, 0, child->pos, -1, 1.0f);
         }
         break;
     case 0x38:

@@ -8,6 +8,7 @@
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmSized.h"
+#include "godhand/effectPos.h"
 
 extern void Esp_killByGroup(int a0);
 extern void func_00300C00(int a0, int a1);
@@ -67,7 +68,7 @@ void cOmEffectHolderB_syncEffectPos(cOmEffectHolderB *self) {
     src = ((cVec *(*)(void *))self->vtable[16].pfn)((char *)self + self->vtable[16].delta);
     cVec_copy3(&pos, src);
     if (self->effect != 0) {
-        SetEffectPos(0, self->effect, 0, &pos, 1.0f, -1);
+        SetEffectPos(0, self->effect, 0, &pos, -1, 1.0f);
     }
 }
 

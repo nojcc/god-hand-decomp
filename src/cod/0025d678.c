@@ -19,6 +19,7 @@ extern int D_005CB000;
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 
 
@@ -224,7 +225,7 @@ void func_0025D678(void *a0)
                 f[5] = fRand1_1() * 0.1f + 0.1f;
                 f[6] = fRand0_1() * 0.1f + 0.2f;
                 { float *e = &f[4]; sceVu0ApplyMatrix(e, s1 + 0x80, e); e = 0; }
-                SetEffectPos(0, 0x4F, 0, (cVec *)&f[4], 1.0f, -1);
+                SetEffectPos(0, 0x4F, 0, (cVec *)&f[4], -1, 1.0f);
             }
         }
         *(short *)(s0 + 0x56A) = 0;

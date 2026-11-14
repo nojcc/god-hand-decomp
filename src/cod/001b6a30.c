@@ -15,6 +15,7 @@ extern char D_005864F0[];
 #include "godhand/mtx.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 
 #define FRAME ((char *)mtx - 0x30)
 
@@ -60,7 +61,7 @@ void func_001B6A30(void *a0)
             break;
         }
         if (*(short *)(s1 + 0x628) <= 0) {
-        SetEffectPos(1, 1, 0, (cVec *)(s1 + 0x600), 1.0f, -1);
+        SetEffectPos(1, 1, 0, (cVec *)(s1 + 0x600), -1, 1.0f);
         v0 = s1 + 0x610;
         v2 = s1 + 0x100;
         SetEffect(1, 2, s1, 0, 1, 0xFFFFFFFFu);
@@ -145,7 +146,7 @@ void func_001B6A30(void *a0)
         }
         KillEffect(s1, 1, 2);
         if (eff != 0) {
-            SetEffectPos(1, 3, 0, (cVec *)mtx, 1.0f, -1);
+            SetEffectPos(1, 3, 0, (cVec *)mtx, -1, 1.0f);
         }
         d = *(int *)(s1 + 0x620);
         if (d != 0) {

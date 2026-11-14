@@ -11,6 +11,7 @@ extern float cEmManage_GetSpeedRate(void *a0);
 extern void Adjust_theta_vec(float *p);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
 #include "godhand/objField.h"
+#include "godhand/effectPos.h"
 extern char D_005864F0[];
 extern void func_0018CB18(void *a0);
 
@@ -42,7 +43,7 @@ void func_0018C580(void *a0)
             ((float *)buf)[1] = r[1];
             ((float *)buf)[2] = r[2];
         }
-        SetEffectPos(0, 7, 0, (cVec *)buf, 1.0f, -1);
+        SetEffectPos(0, 7, 0, (cVec *)buf, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s1, 0, 0, 0, 0);
         func_0018CB18(s1);
         SetField5B0Bit2ClearBit8_1B7908(s1);

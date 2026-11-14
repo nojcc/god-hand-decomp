@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
 #include "godhand/cObjBase.h"
+#include "godhand/effectPos.h"
 
 extern void LayerScreen_hideLayers(char *a0, int a1);
 extern void Slot2_selectMark(char *a0, int a1, int a2, int a3);
@@ -110,7 +111,7 @@ void func_0027BDD8(char *a0)
     else
         obj = 0;
     if (obj != 0)
-        SetEffectPos(0x58, 0x10, 0, (void *)*(int *)(obj + 0xF0), 1.0f, -1);
+        SetEffectPos(0x58, 0x10, 0, (void *)*(int *)(obj + 0xF0), -1, 1.0f);
 
     *(float *)(a0 + 0x54C) = 3.0f;
     if (*(short *)(a0 + 0x548) <= 0)

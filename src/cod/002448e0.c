@@ -3,6 +3,7 @@
 #include "godhand/cObjBase.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -92,7 +93,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             }
             self->timer2 = self->timer2 - self->speedRate;
             if (self->timer2 <= 0.0f) {
-                SetEffectPos(0x58, 0x9C, 0, (void *)self->pos, 1.0f, -1);
+                SetEffectPos(0x58, 0x9C, 0, (void *)self->pos, -1, 1.0f);
                 self->timer2 = 6.0f;
             }
             if (*(int *)((char *)self + 0x474) != 1 && *(int *)((char *)self + 0x474) != 9) {

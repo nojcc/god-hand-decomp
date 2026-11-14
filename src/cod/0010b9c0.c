@@ -11,6 +11,7 @@ extern unsigned int irand(void);
 extern void func_0012C348(void *a0, int a1);
 
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 
 
@@ -105,7 +106,7 @@ void func_0010B9C0(void *a0)
             fr.z = fRand1_1() * k + 0.5f;
             sceVu0ApplyMatrix(&fr, s0 + 0x80, &fr);
             *(short *)(s0 + 0x568) = 0;
-            SetEffectPos(0, 0x40, 0, &fr, 1.0f, -1);
+            SetEffectPos(0, 0x40, 0, &fr, -1, 1.0f);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x111, s0, 0, 0, 0, 0);
         }
         break;

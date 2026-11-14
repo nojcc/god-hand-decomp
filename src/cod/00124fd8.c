@@ -8,6 +8,7 @@
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
 #include "godhand/cEmManage.h"
+#include "godhand/effectPos.h"
 
 extern char D_0044ACE0[];
 extern char D_0044ACE8[];
@@ -119,7 +120,7 @@ void cOmEffectHolder_syncEffectPos(cOmEffectHolder *self) {
     src = ((cVec *(*)(void *))self->vtable[16].pfn)((char *)self + self->vtable[16].delta);
     cVec_copy3(&pos, src);
     if (self->effect != 0) {
-        SetEffectPos(0, self->effect, 0, &pos, 1.0f, -1);
+        SetEffectPos(0, self->effect, 0, &pos, -1, 1.0f);
     }
 }
 

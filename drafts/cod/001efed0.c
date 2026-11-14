@@ -9,6 +9,7 @@ extern void cDamageGive_SetDmgGiveHitVec(void *self, void *dir);
 #include "godhand/cDamageUnit.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 #define HITSET_NUM      6
 #define HITSET_EFFECT   0x57
@@ -32,7 +33,7 @@ void func_001EFED0(cHitSet *self, cVec *pos, cVec *dir)
 
     if (self->next < HITSET_NUM) {
         if (self->unit[self->next] != 0) {
-            SetEffectPos(0, HITSET_EFFECT, 0, pos, 1.0f, -1);
+            SetEffectPos(0, HITSET_EFFECT, 0, pos, -1, 1.0f);
             VU0_LQC2(4, pos, 0);
             VU0_SQC2(4, &at, 0);
             cSnd_SeCall(&D_005FEE00, HITSET_SE_SLOT, HITSET_SE_A, &at, 0, 0);

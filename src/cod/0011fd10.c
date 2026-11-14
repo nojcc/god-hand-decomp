@@ -5,6 +5,7 @@
 #include "godhand/cObjBase.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 
 extern unsigned char D_005864F0[];
 extern int D_007474A8;
@@ -142,7 +143,7 @@ void func_0011FD10(void *a0)
                     e = 0;
                 }
                 if (e != 0) {
-                    SetEffectPos(0x58, 0x10, 0, *(void **)(e + 0xF0), 1.0f, -1);
+                    SetEffectPos(0x58, 0x10, 0, *(void **)(e + 0xF0), -1, 1.0f);
                 }
             }
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, s0, 0, 0, 0, 0);
@@ -255,7 +256,7 @@ void func_0011FD10(void *a0)
         buf[1] = fRand1_1() * 0.200000003f + 1.29999995f;
         buf[2] = fRand1_1() * 0.200000003f + 0.600000024f;
         sceVu0ApplyMatrix(buf, s0 + 0x80, buf);
-        SetEffectPos(0, 0x40, 0, (cVec *)buf, 1.0f, -1);
+        SetEffectPos(0, 0x40, 0, (cVec *)buf, -1, 1.0f);
         break;
     case 4: {
         buf[1] = 0.0f;

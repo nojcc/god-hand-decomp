@@ -175,7 +175,5 @@ void cObjBase__dtor(struct cObjBase *self, int flags);
  * effect file is missing, otherwise 1 or the started count. */
 int SetEffect(int kind, int id, void *owner, struct cEffectParam *param, int handle, unsigned int follow);
 
-/* Start effect id at pos with the default parameters and the given size. */
-void SetEffectPos(int kind, int id, void *owner, cVec *pos, float size, int handle);
 
 #endif

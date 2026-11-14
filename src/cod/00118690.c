@@ -20,6 +20,7 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 #include "godhand/vu0.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/effectPos.h"
 
 
 
@@ -203,7 +204,7 @@ void func_00118690(void *a0)
             else
                 obj = 0;
             if (obj != 0)
-                SetEffectPos(0, 0x4F, 0, *(void **)(obj + 0xF0), 1.0f, -1);
+                SetEffectPos(0, 0x4F, 0, *(void **)(obj + 0xF0), -1, 1.0f);
             *(short *)(s1 + 0x56A) = 0;
         } else {
             *(short *)(s1 + 0x56A) = 1;

@@ -4469,6 +4469,7 @@
 !include/godhand/typeInfo.h
 !include/godhand/sceDma.h
 !include/godhand/libpad.h
+!include/godhand/effectPos.h
 
 # NON_MATCHING drafts: never compiled into the build, kept out of src/
 !drafts/

@@ -123,6 +123,7 @@ void func_001215C8(void *a0)
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 
 
@@ -159,7 +160,7 @@ void func_001AA6C0(void *a0)
             buf.y = src[1];
             buf.z = src[2];
         }
-        SetEffectPos(0, 7, 0, &buf, 1.0f, -1);
+        SetEffectPos(0, 7, 0, &buf, -1, 1.0f);
         {
             int i = 5;
             if ((hold[0] = b = *(unsigned char *)(s1 + 0x2B4)), i < b)

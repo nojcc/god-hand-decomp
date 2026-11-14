@@ -5,6 +5,7 @@
 #include "godhand/CustomIDWork.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollision(void *self);
@@ -100,7 +101,7 @@ void LineObjB_checkWaterHit(LineObjB *self) {
         one = 1;
         if (ChkLine(self->pos, self->owner, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
             && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, (cVec *)v, 1.0f, -1);
+            SetEffectPos(0, 0x55, 0, (cVec *)v, -1, 1.0f);
             cSnd_SeCall(&D_005FEE00, 2, 0x50, self->owner, 0, 0);
             self->done = one;
         }

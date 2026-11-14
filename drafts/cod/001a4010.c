@@ -7,6 +7,7 @@
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 
 
 #ifdef NON_MATCHING
@@ -79,7 +80,7 @@ void func_001A4010(cOm49 *self)
     VU0_LQC2_SQC2_MEM(4, &w.ret, &w.unit);
     cVec_copy3(&step, &w.ret);
     VU0_VADD_XYZ_IP(&pos, 0, &step);
-    SetEffectPos(1, self->effNo, 0, &pos, 1.0f, -1);
+    SetEffectPos(1, self->effNo, 0, &pos, -1, 1.0f);
     cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
 }
 #else

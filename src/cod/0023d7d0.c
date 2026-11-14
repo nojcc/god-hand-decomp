@@ -11,6 +11,7 @@
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 #include "godhand/cOmWeapon.h"
+#include "godhand/effectPos.h"
 extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -163,7 +164,7 @@ void cEm00_idleChooseNext(void *a0)
                 e = 0;
             }
             if (e != 0) {
-                SetEffectPos(0x58, 0x11, 0, *(void **)(e + 0xF0), 1.0f, -1);
+                SetEffectPos(0x58, 0x11, 0, *(void **)(e + 0xF0), -1, 1.0f);
             }
         }
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xF6, self, 0, 0, 0, 0);

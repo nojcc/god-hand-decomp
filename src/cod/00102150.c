@@ -2,6 +2,7 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
+#include "godhand/effectPos.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
@@ -196,7 +197,7 @@ void func_00102418(void *a0)
         else
             obj = 0;
         if (obj != 0)
-            SetEffectPos(0, 3, 0, *(void **)(obj + 0xF0), 1.0f, -1);
+            SetEffectPos(0, 3, 0, *(void **)(obj + 0xF0), -1, 1.0f);
         break;
     }
     case 0x4A:

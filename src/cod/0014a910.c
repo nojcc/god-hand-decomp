@@ -5,6 +5,7 @@
 #include "godhand/vu0.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cEma2.h"
+#include "godhand/effectPos.h"
 
 extern int D_007476B0;
 extern char D_00754C80[];
@@ -133,7 +134,7 @@ void cObjBase_SetSeqEffect(cObjBase *self) {
         owner = (flags & SEQEFF_OWNED) ? self : 0;
         if (part == 0xFF) {
             if (flags & SEQEFF_AT_POS) {
-                SetEffectPos(kind, id, 0, self->pos, 1.0f, -1);
+                SetEffectPos(kind, id, 0, self->pos, -1, 1.0f);
             } else if (self->motionFlags & 2) {
                 param.flags |= EFFECT_PARAM_LOOP;
                 SetEffect(kind, id, owner, &param, handle, (unsigned int)owner);

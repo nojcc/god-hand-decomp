@@ -6,6 +6,7 @@ extern void func_00126770(void *a0);
 #include "godhand/cObjBase.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void func_0012C348(void *a0, int a1);
 extern void FollowObj_snapToPlayer(void *a0, int a1);
@@ -18,7 +19,7 @@ __attribute__((section(".text.func_0012C540"))) void func_0012C540(void *a0, int
   float t = 15.0f;
   int v0;
   *((float *) (s0 + 0x54C)) = t;
-  SetEffectPos(0xAA, 0xB, 0, *((void **) (s0 + 0xF0)), 1.0f, -1);
+  SetEffectPos(0xAA, 0xB, 0, *((void **) (s0 + 0xF0)), -1, 1.0f);
   cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xD1, s0, 0, 0, 0, 0);
   func_0012C348(s0, 0);
   switch (a1)

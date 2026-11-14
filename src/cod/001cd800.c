@@ -3,6 +3,7 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cEmManage.h"
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 #define DROP_GRAVITY     0.065f
 #define DROP_LIFE        300.0f
@@ -43,12 +44,12 @@ void func_001CD800(cOmWeapon *self)
     cVec_copy3(&to, self->base.pos);
     if (ChkLine(&from, &to, &hit, 0, DROP_HIT_MASK, DROP_HIT_KIND, 0, 0, 0, 0, 0, 0, 1)) {
         cVec_copy3(self->base.pos, &hit);
-        SetEffectPos(EFF_WEAPON_BREAK, 0xC, 0, self->base.pos, 1.0f, -1);
+        SetEffectPos(EFF_WEAPON_BREAK, 0xC, 0, self->base.pos, -1, 1.0f);
         cOmWeapon_SetBreak(self);
     }
     self->life -= rate;
     if (self->life <= 0.0f) {
         cOmWeapon_SetBreak(self);
-        SetEffectPos(EFF_WEAPON_BREAK, 0xC, 0, self->base.pos, 1.0f, -1);
+        SetEffectPos(EFF_WEAPON_BREAK, 0xC, 0, self->base.pos, -1, 1.0f);
     }
 }

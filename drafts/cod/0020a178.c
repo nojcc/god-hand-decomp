@@ -24,6 +24,7 @@
 #include "godhand/rand.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 /* Fields cEm00.h still covers with padding (it is off-limits while #25-#37 are open). */
 #define EM00_770(self) (*(float *)((char *)(self) + 0x770))
@@ -105,7 +106,7 @@ static __inline__ void cEm00_guardBreak(cEm00 *self)
         spot.y = 0.0f;
         sceVu0ApplyMatrix(&spot, mtx, &spot);
         VU0_VADD_XYZ_IP(&spot, 0, part->pos);
-        SetEffectPos(0, 0x4C, 0, &spot, 1.0f, -1);
+        SetEffectPos(0, 0x4C, 0, &spot, -1, 1.0f);
     }
     cCoreSave_addGameLevelPoint(&D_00569B70, 100);
 }
@@ -565,7 +566,7 @@ int func_0020A178(cEm00 *self)
                 spot.y = 0.0f;
                 sceVu0ApplyMatrix(&spot, mtx, &spot);
                 VU0_VADD_XYZ_IP(&spot, 0, part->pos);
-                SetEffectPos(0, 0x4C, 0, &spot, 1.0f, -1);
+                SetEffectPos(0, 0x4C, 0, &spot, -1, 1.0f);
             }
             cCoreSave_addGameLevelPoint(&D_00569B70, 100);
         }

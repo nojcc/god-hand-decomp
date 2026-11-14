@@ -64,6 +64,7 @@ void func_0016ACD0(void *a0)
 #include "godhand/vu0.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 
 
 
@@ -95,7 +96,7 @@ void func_0019B580(void *a0)
             buf.y = src[1];
             buf.z = src[2];
         }
-        SetEffectPos(0, 0xCC, 0, &buf, 1.0f, -1);
+        SetEffectPos(0, 0xCC, 0, &buf, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s0, 0, 0, 0, 0);
         if (*(char *)(s0 + 0xA92) == 0) {
             func_0019BA08(s0, 0, 2);

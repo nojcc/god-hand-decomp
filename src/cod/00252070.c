@@ -18,6 +18,9 @@ extern int GetSeqSEBase(void *a0);
 extern int cEmBase_checkDeadFlag(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
+/* Not effectPos.h: the second hit-spark call below matches retail only with
+ * the size evaluated before the handle, as this order gives it. */
+extern void SetEffectPos(int a0, int a1, int a2, void *a3, float f12, int t0);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern void func_00262750(void *a0, int a1);

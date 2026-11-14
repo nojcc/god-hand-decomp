@@ -16,6 +16,7 @@ extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
 extern char D_005CB000[];
 
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 
 
@@ -115,7 +116,7 @@ void func_0025E248(void *a0)
             buf.y = fRand1_1() * 0.1f + 1.5f;
             buf.z = fRand0_1() * 0.1f + 0.7f;
             sceVu0ApplyMatrix(&buf, s1 + 0x80, &buf);
-            SetEffectPos(0, 0x4F, 0, &buf, 1.0f, -1);
+            SetEffectPos(0, 0x4F, 0, &buf, -1, 1.0f);
         }
         if (*(short *)(s0 + 0x56A) != 0) {
             if (*(unsigned short *)(s0 + 0x3AC) & 1) {

@@ -5,6 +5,7 @@ extern void pl00_reset(void);
 #include "godhand/cObjBase.h"
 
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 extern void func_001C8D48(void *obj);
 
@@ -74,7 +75,7 @@ void pl00_SetCannonDamage(unsigned char *p)
             e = 0;
         }
         if (e != 0) {
-            SetEffectPos(0, 3, 0, *((void **) (e + 0xF0)), 1.0f, -1);
+            SetEffectPos(0, 3, 0, *((void **) (e + 0xF0)), -1, 1.0f);
         }
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x123, p, 0, 0, 0, 0);
         n = *((unsigned short *) (p + 0x54A)) - 10;

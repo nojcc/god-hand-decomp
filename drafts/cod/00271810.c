@@ -15,6 +15,7 @@
 #include "godhand/rand.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
+#include "godhand/effectPos.h"
 
 extern void func_00271518(cEm00 *self, cVec *pos);
 
@@ -103,7 +104,7 @@ void func_00271810(cEm00 *self)
             pos.x += fRand1_1() * 0.1f;
             pos.y += fRand1_1() * 0.1f;
             pos.z += fRand1_1() * 0.1f;
-            SetEffectPos(0, 0xC, 0, &pos, 1.0f, -1);
+            SetEffectPos(0, 0xC, 0, &pos, -1, 1.0f);
             break;
         case 0x260:
         case 0x264:
@@ -113,14 +114,14 @@ void func_00271810(cEm00 *self)
             pos.y = fRand1_1() * 0.2f + 1.5f;
             pos.z = fRand1_1() * 0.3f + 0.5f;
             sceVu0ApplyMatrix(&pos, pl->mtx, &pos);
-            SetEffectPos(0, 0xC, 0, &pos, 1.0f, -1);
+            SetEffectPos(0, 0xC, 0, &pos, -1, 1.0f);
             break;
         }
         return;
     }
     func_00271518(self, &pos);
     if (D_005864F0.slotWait > 0) {
-        SetEffectPos(0, 0xC, 0, &pos, 1.0f, -1);
+        SetEffectPos(0, 0xC, 0, &pos, -1, 1.0f);
         if (D_005CB010 != 0 || Obj0000_Get_Field_5FC_NE_Zero_12C748((char *)pl))
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x121, self, 0, 0, 0, 0);
         return;
@@ -128,15 +129,15 @@ void func_00271810(cEm00 *self)
     if (self->seqFlags & 0x100) {
         if ((D_007474A0.unk590 & 0x800) == 0 && (self->emFlags2 & 0x8000) == 0) {
             if (cEmManage_CkBigHitEffWait(&D_005864F0) == 0)
-                SetEffectPos(0x58, 0x12, 0, &pos, 1.0f, -1);
+                SetEffectPos(0x58, 0x12, 0, &pos, -1, 1.0f);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 1, self, 0, 0, 0, 0);
         }
-        SetEffectPos(0, 0x40, 0, &pos, 1.0f, -1);
+        SetEffectPos(0, 0x40, 0, &pos, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x121, self, 0, 0, 0, 0);
         return;
     }
     if (D_005CB010 != 0 || Obj0000_Get_Field_5FC_NE_Zero_12C748((char *)pl)) {
-        SetEffectPos(0, 0x40, 0, &pos, 1.0f, -1);
+        SetEffectPos(0, 0x40, 0, &pos, -1, 1.0f);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x121, self, 0, 0, 0, 0);
         return;
     }
@@ -145,14 +146,14 @@ void func_00271810(cEm00 *self)
     case 3:
     case 5:
     case 7:
-        SetEffectPos(0, 0x40, 0, &pos, 1.0f, -1);
+        SetEffectPos(0, 0x40, 0, &pos, -1, 1.0f);
         break;
     case 0:
     case 2:
     case 4:
     case 6:
     default:
-        SetEffectPos(0x58, 0x10, 0, &pos, 1.0f, -1);
+        SetEffectPos(0x58, 0x10, 0, &pos, -1, 1.0f);
         break;
     }
 }

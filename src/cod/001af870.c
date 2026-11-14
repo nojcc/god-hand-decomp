@@ -11,6 +11,7 @@ extern float cEmManage_GetSpeedRate(void *a0);
 extern void Adjust_theta_vec(float *p);
 extern void CopyVec3ToField30_147C40(void *a0, void *a1);
 #include "godhand/objField.h"
+#include "godhand/effectPos.h"
 extern char D_005864F0[];
 extern void cGameObj_pickDropItem(void *a0);
 extern void SwitchToSecondPose(void *a0);
@@ -43,7 +44,7 @@ void func_001AF870(void *a0)
             ((float *)buf)[1] = r[1];
             ((float *)buf)[2] = r[2];
         }
-        SetEffectPos(0, 0xCC, 0, (cVec *)buf, 1.0f, -1);
+        SetEffectPos(0, 0xCC, 0, (cVec *)buf, -1, 1.0f);
         if (*(int *)(s1 + 0xAF4) != 0) {
             cSnd_SeStop(&D_005FEE00, *(int *)(s1 + 0xAF4));
             *(int *)(s1 + 0xAF4) = 0;
