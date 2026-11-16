@@ -8,7 +8,6 @@ extern int *D_003C2384;
 extern void cIDBase_clear(cIDBaseObj *self);
 extern void *func_002ACD78(int a0, int a1, int a2);
 extern int cIDBase_setWorkFromData(cIDBaseObj *self, void *data);
-extern void cIDBase_resetAnim(cIDBaseObj *self);
 /* Load resource `resNo` and build the entry table from it. 1 on success. */
 __attribute__((section(".text.cIDBase_initialize")))
 int cIDBase_initialize(cIDBaseObj *self, int resNo, int id)

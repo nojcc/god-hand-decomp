@@ -7,97 +7,61 @@ extern int moveMotion(int *);
 extern void cOm71_SetMotionRun(int *);
 extern void cObjBase_addNullSpeed_Rotation(int *, float);
 extern void cObjBase_addNullSpeed(int *, float);
-extern void func_001DD340(char *a0);
-extern void CustomIDWork_SetNumber_1DD218(char *a0, int a1);
-extern void func_001DD238(char *a0, int a1);
-extern void SetCustomIDNumberIndexed_1DD648(char *a0, int a1, int a2);
 
 __attribute__((section(".text.func_001D0CE8")))
-void func_001D0CE8(int *a0) {
-    int *s0 = a0;
-    long f = *(unsigned int *)((char *)s0 + 4);
-    int p1, p2, p3, p4;
-    float r;
+void func_001D0CE8(BlackJackCard *card) {
+    long f = (unsigned int)card->flags;
     if (((f >> 1) & 1) == 0) {
         if (((f >> 2) & 1) == 0) return;
-        p1 = s0[0];
-        *(float *)(p1 + 0x104) += 0.15707963705062866f;
-        p2 = s0[0];
-        r = Adjust_theta(*(float *)(p2 + 0x104));
-        p3 = s0[0];
-        *(float *)(p3 + 0x104) = r;
-        p4 = s0[0];
-        if (0.0f <= *(float *)(p4 + 0x104)) {
-            *(float *)(p4 + 0x104) = 0.0f;
-            *(int *)((char *)s0 + 4) = (*(int *)((char *)s0 + 4) | 2) & -5;
+        card->obj->rot.y += 0.15707963705062866f;
+        card->obj->rot.y = Adjust_theta(card->obj->rot.y);
+        if (0.0f <= card->obj->rot.y) {
+            card->obj->rot.y = 0.0f;
+            card->flags = (card->flags | 2) & -5;
         }
     }
 }
 
 __attribute__((section(".text.func_001D6E20")))
-void func_001D6E20(int *a0) {
-    int *s0 = a0;
-    long f = *(unsigned int *)((char *)s0 + 4);
-    int p1, p2, p3, p4;
-    float r;
+void func_001D6E20(BlackJackCard *card) {
+    long f = (unsigned int)card->flags;
     if (((f >> 3) & 1) == 0) {
         if (((f >> 4) & 1) == 0) return;
-        p1 = s0[0];
-        *(float *)(p1 + 0x104) += 0.20943951606750488f;
-        p2 = s0[0];
-        r = Adjust_theta(*(float *)(p2 + 0x104));
-        p3 = s0[0];
-        *(float *)(p3 + 0x104) = r;
-        p4 = s0[0];
-        if (0.0f <= *(float *)(p4 + 0x104)) {
-            *(float *)(p4 + 0x104) = 0.0f;
-            *(int *)((char *)s0 + 4) = (*(int *)((char *)s0 + 4) | 8) & -0x11;
+        card->obj->rot.y += 0.20943951606750488f;
+        card->obj->rot.y = Adjust_theta(card->obj->rot.y);
+        if (0.0f <= card->obj->rot.y) {
+            card->obj->rot.y = 0.0f;
+            card->flags = (card->flags | 8) & -0x11;
         }
     }
 }
 
 __attribute__((section(".text.func_001D0DF8")))
-void func_001D0DF8(int *a0) {
-    int *s0 = a0;
-    long f = *(unsigned int *)((char *)s0 + 4);
-    int p1, p2, p3, p4;
-    float r;
+void func_001D0DF8(BlackJackCard *card) {
+    long f = (unsigned int)card->flags;
     if (((f >> 1) & 1) == 0) return;
     if (((f >> 2) & 1) == 0) return;
-    p1 = s0[0];
-    *(float *)(p1 + 0x104) += 0.15707963705062866f;
-    p2 = s0[0];
-    if (3.1415927410125732f <= *(float *)(p2 + 0x104)) {
-        *(float *)(p2 + 0x104) = 3.1415927410125732f;
-        *(int *)((char *)s0 + 4) &= -3;
-        *(int *)((char *)s0 + 4) &= -5;
+    card->obj->rot.y += 0.15707963705062866f;
+    if (3.1415927410125732f <= card->obj->rot.y) {
+        card->obj->rot.y = 3.1415927410125732f;
+        card->flags &= -3;
+        card->flags &= -5;
     }
-    p3 = s0[0];
-    r = Adjust_theta(*(float *)(p3 + 0x104));
-    p4 = s0[0];
-    *(float *)(p4 + 0x104) = r;
+    card->obj->rot.y = Adjust_theta(card->obj->rot.y);
 }
 
 __attribute__((section(".text.func_001D6F30")))
-void func_001D6F30(int *a0) {
-    int *s0 = a0;
-    long f = *(unsigned int *)((char *)s0 + 4);
-    int p1, p2, p3, p4;
-    float r;
+void func_001D6F30(BlackJackCard *card) {
+    long f = (unsigned int)card->flags;
     if (((f >> 3) & 1) == 0) return;
     if (((f >> 4) & 1) == 0) return;
-    p1 = s0[0];
-    *(float *)(p1 + 0x104) += 0.20943951606750488f;
-    p2 = s0[0];
-    if (3.1415927410125732f <= *(float *)(p2 + 0x104)) {
-        *(float *)(p2 + 0x104) = 3.1415927410125732f;
-        *(int *)((char *)s0 + 4) &= -9;
-        *(int *)((char *)s0 + 4) &= -0x11;
+    card->obj->rot.y += 0.20943951606750488f;
+    if (3.1415927410125732f <= card->obj->rot.y) {
+        card->obj->rot.y = 3.1415927410125732f;
+        card->flags &= -9;
+        card->flags &= -0x11;
     }
-    p3 = s0[0];
-    r = Adjust_theta(*(float *)(p3 + 0x104));
-    p4 = s0[0];
-    *(float *)(p4 + 0x104) = r;
+    card->obj->rot.y = Adjust_theta(card->obj->rot.y);
 }
 
 __attribute__((section(".text.func_001B1E30")))
@@ -121,33 +85,33 @@ void func_001B1E30(int *a0) {
 }
 
 __attribute__((section(".text.func_001D7450")))
-void func_001D7450(char *a0)
+void func_001D7450(Poker *self)
 {
     long v;
 
-    *(int *)(a0 + 0x3034) = 0;
-    *(int *)(a0 + 0x3038) = 0;
-    Poker_resetDeck((Poker *)a0);
-    func_001DD340(a0);
-    CustomIDWork_SetNumber_1DD218(a0, *(int *)(a0 + 0x3034));
-    func_001DD238(a0, cCoreSave_getGold(&D_00569B70));
-    SetCustomIDNumberIndexed_1DD648(a0, 0, 0x32);
-    SetCustomIDNumberIndexed_1DD648(a0, 1, 0x14);
-    SetCustomIDNumberIndexed_1DD648(a0, 2, 0xF);
-    SetCustomIDNumberIndexed_1DD648(a0, 3, 0xA);
-    SetCustomIDNumberIndexed_1DD648(a0, 4, 8);
-    SetCustomIDNumberIndexed_1DD648(a0, 5, 8);
-    SetCustomIDNumberIndexed_1DD648(a0, 6, 3);
-    SetCustomIDNumberIndexed_1DD648(a0, 7, 2);
-    func_001DEE60(&((Poker *)a0)->ui, 0x11, 0);
+    self->bet = 0;
+    self->payout = 0;
+    Poker_resetDeck(self);
+    func_001DD340(self);
+    CustomIDWork_SetNumber_1DD218(self, self->bet);
+    func_001DD238(self, cCoreSave_getGold(&D_00569B70));
+    SetCustomIDNumberIndexed_1DD648(self, 0, 0x32);
+    SetCustomIDNumberIndexed_1DD648(self, 1, 0x14);
+    SetCustomIDNumberIndexed_1DD648(self, 2, 0xF);
+    SetCustomIDNumberIndexed_1DD648(self, 3, 0xA);
+    SetCustomIDNumberIndexed_1DD648(self, 4, 8);
+    SetCustomIDNumberIndexed_1DD648(self, 5, 8);
+    SetCustomIDNumberIndexed_1DD648(self, 6, 3);
+    SetCustomIDNumberIndexed_1DD648(self, 7, 2);
+    func_001DEE60(&self->ui, 0x11, 0);
 
-    v = *(unsigned int *)(a0 + 0x3020);
+    v = (unsigned int)self->flags;
     if (((v >> 3) & 1) == 0) {
-        *(a0 + 0x3025) = 0;
-        *(a0 + 0x3024) = 1;
+        self->phase = 0;
+        self->state = 1;
     } else {
-        *(a0 + 0x3025) = 0;
-        *(a0 + 0x3024) = 2;
+        self->phase = 0;
+        self->state = 2;
     }
-    *(int *)(a0 + 0x3020) = 0;
+    self->flags = 0;
 }

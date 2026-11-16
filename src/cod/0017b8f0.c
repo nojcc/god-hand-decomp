@@ -2,7 +2,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/ScenarioCursor.h"
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
 #include "godhand/cGameObj.h"
 
 extern unsigned int D_00747A84[];
@@ -12,10 +12,10 @@ extern void cTaskManager_execute(void *, void *, int);
 extern void cScenarioCursor_reinit(ScenarioCursor *self);
 extern void func_002BF420(ScenarioCursor *self);
 extern void displayScrollLayer(int id, int on);
-extern int D_00427A58;
+extern cVtEnt D_00427A58[];
 extern void func_002AD288(void *sub, int mode);
 extern void SetField214PtrThenInit_1B6F38(cGameObj *self, int flags);
-extern int D_00421BB8;
+extern cVtEnt D_00421BB8[];
 
 /* Start the second memory card load/run/release task: set the pending flag
  * (bit 31) in the system flags, then register the task with the caller's arg. */
@@ -60,17 +60,14 @@ void ScenarioCursor_runStep(ScenarioCursor *self)
     }
 }
 
-#define SLOT2_OFFSET_BANK_LAYER_IDS  0x400   /* second scroll layer id table, not named in Slot2.h */
-#define SLOT2_BANK_LAYER_ID_NUM      35
-
-/* Hide every scroll layer of the machine's second layer id table. */
+/* Hide every scroll layer of the first slot machine. */
 __attribute__((section(".text.Slot2_hideBankLayerIds")))
-void Slot2_hideBankLayerIds(Slot2 *self)
+void Slot2_hideBankLayerIds(Slot1 *self)
 {
-    int *id = (int *)((char *)self + SLOT2_OFFSET_BANK_LAYER_IDS);
+    int *id = self->scrollLayer;
     int i;
 
-    for (i = SLOT2_BANK_LAYER_ID_NUM - 1; i >= 0; i--) {
+    for (i = SLOT1_LAYER_NUM - 1; i >= 0; i--) {
         displayScrollLayer(*id++, 0);
     }
 }
@@ -80,7 +77,7 @@ void Slot2_hideBankLayerIds(Slot2 *self)
 /* Destructor of a game object subclass: set its method table, shut the sub-object, run the base destructor. */
 __attribute__((section(".text.cGameObj_destructWithSubE40")))
 void cGameObj_destructWithSubE40(cGameObj *self, int flags) {
-    self->vtable = (cVtEnt *)&D_00427A58;
+    self->vtable = D_00427A58;
     func_002AD288((char *)self + SUBOBJ_OFFSET, 2);
     SetField214PtrThenInit_1B6F38(self, flags);
 }
@@ -90,7 +87,7 @@ void cGameObj_destructWithSubE40(cGameObj *self, int flags) {
 /* Destructor of a game object subclass: set its method table, shut the sub-object, run the base destructor. */
 __attribute__((section(".text.cGameObj_destructWithSubD80")))
 void cGameObj_destructWithSubD80(cGameObj *self, int flags) {
-    self->vtable = (cVtEnt *)&D_00421BB8;
+    self->vtable = D_00421BB8;
     func_002AD288((char *)self + SUBOBJ_OFFSET, 2);
     SetField214PtrThenInit_1B6F38(self, flags);
 }

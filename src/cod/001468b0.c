@@ -8,6 +8,7 @@
 #include "godhand/vu0.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cIDBase.h"
+#include "godhand/idPair.h"
 #include "godhand/sceVu0.h"
 
 extern unsigned short D_00747A50;
@@ -63,19 +64,6 @@ cVec *Hermite3_interpolate(cVec *ret, cVec *tmp, float *p0, float *p1, float t)
     return ret;
 }
 
-/* An object that owns six heap blocks; each block's heap handle is stored
- * 0x20 bytes before it. */
-typedef struct BlockOwner {
-    char unk000[0xF0];
-    void *vt;                           /* 0xF0 */
-    char unkF4[0x1C8];
-    int *blockBC;                       /* 0x2BC */
-    int *blockC0;                       /* 0x2C0 */
-    int *blockC4;                       /* 0x2C4 */
-    int *blockC8;                       /* 0x2C8 */
-    int *blockCC;                       /* 0x2CC */
-    int *blockD0;                       /* 0x2D0 */
-} BlockOwner;
 
 
 
@@ -85,7 +73,7 @@ typedef struct BlockOwner {
 __attribute__((section(".text.BlockOwner_dtor")))
 void BlockOwner_dtor(BlockOwner *self, int flags)
 {
-    self->vt = D_0044E960;
+    self->base.vt = D_0044E960;
     if (self->blockCC != 0)
         cHeap_free(HEAP_OWNER(self->blockCC), self->blockCC);
     if (self->blockD0 != 0)
@@ -98,19 +86,11 @@ void BlockOwner_dtor(BlockOwner *self, int flags)
         cHeap_free(HEAP_OWNER(self->blockBC), self->blockBC);
     if (self->blockC0 != 0)
         cHeap_free(HEAP_OWNER(self->blockC0), self->blockC0);
-    func_002FBE28((cNode *)self, flags);
+    func_002FBE28(&self->base, flags);
 }
 
-#define IDPAIR_WORK_NUM  4
 #define IDPAIR_POS_Y     (-50.0f)       /* y position of the first element of each part */
 
-/* A display with two cIDBase parts, at 0 and 0xA0, and four state bytes at 0x79. */
-typedef struct IdPair {
-    char unk00[0x79];
-    unsigned char state[4];             /* 0x79 */
-    char unk7D[0x85];
-    short timer;                        /* 0x102 */
-} IdPair;
 
 
 
@@ -121,7 +101,7 @@ __attribute__((section(".text.IdPair_init")))
 void IdPair_init(IdPair *self)
 {
     unsigned short i;
-    char *part;
+    cIDBaseObj *part;
 
     i = 0;
     self->state[0] = 0;
@@ -132,15 +112,15 @@ void IdPair_init(IdPair *self)
         cIDBase_initIDWork(self, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork((cIDBaseObj *)self, 0)->posY = IDPAIR_POS_Y;
+    cIDBase_getIDWork(&self->base, 0)->posY = IDPAIR_POS_Y;
     i = 0;
-    part = (char *)self + 0xA0;
+    part = &self->part2;
     do {
         cIDBase_initIDWork(part, i);
         i = i + 1;
     } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork((cIDBaseObj *)part, 0)->posY = IDPAIR_POS_Y;
-    self->timer = 0x5A;
+    cIDBase_getIDWork(part, 0)->posY = IDPAIR_POS_Y;
+    self->timer = IDPAIR_SHOW_TIME;
 }
 
 /* A trigger object with a reach (a float at 0x2B8); 0 means it always fires. */

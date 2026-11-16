@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cObjBase.h"
 
-extern char D_00450B28[];
-extern char D_00450C38[];
-extern char D_00450CE8[];
+extern cVtEnt D_00450B28[];
+extern cVtEnt D_00450C38[];
+extern cVtEnt D_00450CE8[];
 extern char D_00454D68[];
 extern char D_0076A790[];
 
@@ -13,7 +13,7 @@ extern char D_0076A790[];
 
 __attribute__((section(".text.func_00318418")))
 void func_00318418(struct cObjBase *self, int flags) {
-    self->vtable = (cVtEnt *)D_00450B28;
+    self->vtable = D_00450B28;
     cObjBase__dtor(self, flags);
 }
 
@@ -23,7 +23,7 @@ void func_00318418(struct cObjBase *self, int flags) {
 
 __attribute__((section(".text.func_00318518")))
 void func_00318518(struct cObjBase *self, int flags) {
-    self->vtable = (cVtEnt *)D_00450C38;
+    self->vtable = D_00450C38;
     cObjBase__dtor(self, flags);
 }
 
@@ -33,7 +33,7 @@ void func_00318518(struct cObjBase *self, int flags) {
 
 __attribute__((section(".text.func_0031A018")))
 void func_0031A018(struct cObjBase *self, int flags) {
-    self->vtable = (cVtEnt *)D_00450CE8;
+    self->vtable = D_00450CE8;
     cObj__dtor(self, flags);
 }
 

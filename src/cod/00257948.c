@@ -34,28 +34,27 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
  */
 __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
 {
-    char *s3 = (char *)self;
     int s2;
     int s1;
 
-    switch (*(unsigned char *)(s3 + 0x2F6)) {
+    switch (self->step) {
         case 0: {
-            int nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s3) & 0xFFFF;
+            int nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
 
-            switch (*(int *)(s3 + 0x564)) {
+            switch (self->emNo) {
                 default:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        if (func_0026F1D8((cEm00 *)s3) != 0) {
-                            int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        if (func_0026F1D8(self) != 0) {
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0x358);
                             s1 = EM_RES_REC(b, 0x35C);
                         } else {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0x368);
                             s1 = EM_RES_REC(b, 0x36C);
                         }
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x360);
                         s1 = EM_RES_REC(b, 0x364);
                     }
@@ -66,37 +65,37 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x229:
                 case 0x22A:
                 case 0x24B:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x7A4);
                         s1 = EM_RES_REC(b, 0x7A8);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x7AC);
                         s1 = EM_RES_REC(b, 0x7B0);
                     }
                     break;
                 case 0x256:
                 case 0x27E:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        if (func_0026F1D8((cEm00 *)s3) == 0) {
-                            int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        if (func_0026F1D8(self) == 0) {
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0x2BA0);
                             s1 = EM_RES_REC(b, 0x2BA4);
                             StoreMotionParamsBoth_2609A8(self, 0x1E, 0x1B, 0x37, -1, 0);
                         } else {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0x2B98);
                             s1 = EM_RES_REC(b, 0x2B9C);
                         }
                     } else {
-                        if (func_0026F1D8((cEm00 *)s3) == 0) {
-                            int b = *(int *)(s3 + 0x304);
+                        if (func_0026F1D8(self) == 0) {
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0x262C);
                             s1 = EM_RES_REC(b, 0x2630);
                             StoreMotionParamsBoth_2609A8(self, 0x1E, 0x1B, 0x37, -1, 0);
                         } else {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0x360);
                             s1 = EM_RES_REC(b, 0x364);
                         }
@@ -114,71 +113,71 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x24F:
                 case 0x278:
                 case 0x279:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
+                    if (self->seqFlags & 0x200) {
                         if (irand() & 1) {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0xB04);
                             s1 = EM_RES_REC(b, 0xB08);
                         } else {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0xB14);
                             s1 = EM_RES_REC(b, 0xB18);
                         }
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0xB0C);
                         s1 = EM_RES_REC(b, 0xB10);
                     }
                     break;
                 case 0x250:
                 case 0x251:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
+                    if (self->seqFlags & 0x200) {
                         if (irand() & 1) {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0xB04);
                             s1 = EM_RES_REC(b, 0xB08);
                         } else {
-                            int b = *(int *)(s3 + 0x304);
+                            int b = (int)self->pack;
                             s2 = EM_RES_REC(b, 0xB14);
                             s1 = EM_RES_REC(b, 0xB18);
                         }
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0xB0C);
                         s1 = EM_RES_REC(b, 0xB10);
                     }
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x23), s3, 0, 0,
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0,
                                        0, 0);
                     break;
                 case 0x260:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0xB04);
                         s1 = EM_RES_REC(b, 0xB08);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0xB0C);
                         s1 = EM_RES_REC(b, 0xB10);
                     }
                     break;
                 case 0x264:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x326C);
                         s1 = EM_RES_REC(b, 0x3270);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x326C);
                         s1 = EM_RES_REC(b, 0x3270);
                     }
                     break;
                 case 0x265:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x3724);
                         s1 = EM_RES_REC(b, 0x3728);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x3724);
                         s1 = EM_RES_REC(b, 0x3728);
                     }
@@ -188,35 +187,35 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x207:
                 case 0x208:
                 case 0x224:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1788);
                         s1 = EM_RES_REC(b, 0x178C);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1790);
                         s1 = EM_RES_REC(b, 0x1794);
                     }
                     break;
                 case 0x241:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x3ADC);
                         s1 = EM_RES_REC(b, 0x3AE0);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x3AE4);
                         s1 = EM_RES_REC(b, 0x3AE8);
                     }
                     break;
                 case 0x209:
                 case 0x21F:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1788);
                         s1 = EM_RES_REC(b, 0x178C);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1790);
                         s1 = EM_RES_REC(b, 0x1794);
                     }
@@ -230,12 +229,12 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x272:
                 case 0x273:
                 case 0x274:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0xF34);
                         s1 = EM_RES_REC(b, 0xF38);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0xF3C);
                         s1 = EM_RES_REC(b, 0xF40);
                     }
@@ -243,23 +242,23 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x220:
                 case 0x221:
                 case 0x222:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1D40);
                         s1 = EM_RES_REC(b, 0x1D44);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1D48);
                         s1 = EM_RES_REC(b, 0x1D4C);
                     }
                     break;
                 case 0x223:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x2E7C);
                         s1 = EM_RES_REC(b, 0x2E80);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x2E7C);
                         s1 = EM_RES_REC(b, 0x2E80);
                     }
@@ -281,56 +280,56 @@ __attribute__((section(".text.func_00257948"))) void func_00257948(cEm00 *self)
                 case 0x24E:
                 case 0x252:
                 case 0x25A:
-                    if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                        int b = *(int *)(s3 + 0x304);
+                    if (self->seqFlags & 0x200) {
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1360);
                         s1 = EM_RES_REC(b, 0x1364);
                     } else {
-                        int b = *(int *)(s3 + 0x304);
+                        int b = (int)self->pack;
                         s2 = EM_RES_REC(b, 0x1368);
                         s1 = EM_RES_REC(b, 0x136C);
                     }
                     break;
             }
-            if (*(int *)(s3 + 0x6EC) != 0) {
-                if (*(unsigned short *)(s3 + 0x3AC) & 0x200) {
-                    int b = *(int *)(s3 + 0x304);
+            if (self->unk6EC != 0) {
+                if (self->seqFlags & 0x200) {
+                    int b = (int)self->pack;
                     s2 = EM_RES_REC(b, 0x7A4);
                     s1 = EM_RES_REC(b, 0x7A8);
                 } else {
-                    int b = *(int *)(s3 + 0x304);
+                    int b = (int)self->pack;
                     s2 = EM_RES_REC(b, 0x7AC);
                     s1 = EM_RES_REC(b, 0x7B0);
                 }
             }
-            func_002A8578(s3, s2, s1, 0xA, 0.0f, nb, 0);
+            func_002A8578(self, s2, s1, 0xA, 0.0f, nb, 0);
             func_0026F120(self);
-            *(unsigned char *)(s3 + 0x2F6) += 1;
+            self->step += 1;
         }
             /* fallthrough */
         case 1:
-            if (moveMotion(s3) != 0) {
-                if (func_0026F1D8((cEm00 *)s3) != 0) {
+            if (moveMotion(self) != 0) {
+                if (func_0026F1D8(self) != 0) {
                     func_00270C78(self);
                 } else {
-                    func_002705D8(s3);
+                    func_002705D8(self);
                 }
             }
-            cObjBase_addNullSpeed_Rotation(s3, 1.0f);
-            cObjBase_addNullSpeed(s3, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
     }
-    if (*(int *)(s3 + 0x564) == 0x256 || *(int *)(s3 + 0x564) == 0x27E) {
+    if (self->emNo == 0x256 || self->emNo == 0x27E) {
         func_00260B30(self);
     }
-    if (*(unsigned short *)(s3 + 0x3AC) & 8) {
-        int t = *(int *)(s3 + 0x564);
+    if (self->seqFlags & 8) {
+        int t = self->emNo;
 
         if (t == 0x250 || t == 0x251 || t == 0x260) {
-            *(int *)(s3 + 0x16D0) |= 0x800000;
+            self->emFlags |= 0x800000;
         }
     }
-    if (*(unsigned short *)(s3 + 0x3AC) & 0x10) {
+    if (self->seqFlags & 0x10) {
         func_00262AA8(self);
     }
 }

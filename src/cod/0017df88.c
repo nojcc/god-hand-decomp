@@ -15,10 +15,6 @@ extern void classFADE_kill(void *p);
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void ColiseumBattle_KillFade(ColiseumBattle *self);
 extern void ColiseumBattle_StartFade(ColiseumBattle *self, unsigned char mode);
-extern void func_001F28C0(void *ui);
-extern void func_001F28F0(void *ui);
-extern void func_001F2990(void *ui);
-extern void func_001F3260(void *ui);
 extern void NoOp_1F0490(ColiseumBattle *self);
 
 /* Release every collision shape this object holds back to the collision manager. */
@@ -64,7 +60,7 @@ void ColiseumBattle_StepUiIntro(ColiseumBattle *self)
 
     switch (self->state) {
     case 0:
-        func_001F3260(self->ui);
+        func_001F3260(&self->ui);
         self->timer = 0x3C;
         self->state = self->state + 1;
         break;
@@ -85,8 +81,8 @@ void ColiseumBattle_StepUiIntro(ColiseumBattle *self)
         break;
     }
     NoOp_1F0490(self);
-    func_001F28F0(self->ui);
-    func_001F2990(self->ui);
+    func_001F28F0(&self->ui);
+    func_001F2990(&self->ui);
 }
 
 /* sn-2.95.3-136 */
@@ -113,7 +109,7 @@ void ColiseumBattle_ResetUi(ColiseumBattle *self)
 {
     char *obj;
 
-    func_001F28C0(self->ui);
+    func_001F28C0(&self->ui);
     obj = *D_003C2384;
     *(int *)(obj + 0xAC) = 0;
     *(int *)(obj + 0xA8) = 0;

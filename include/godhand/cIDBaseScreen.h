@@ -82,6 +82,21 @@ extern const float D_0041E840[4][4];
 /* Start value of cIDBaseScreen.timer. */
 extern short D_003BD70C;
 
+void cIDBaseScreen_init(cIDBaseScreen *self);
+void func_00144C90(cIDBaseScreen *self);
+void func_00145238(cIDBaseScreen *self);
+void func_00145410(cIDBaseScreen *self);
+void func_00145460(cIDBaseScreen *self);
+void func_00145810(cIDBaseScreen *self);
+void func_00145FC8(cIDBaseScreen *self);
+void func_00146190(cIDBaseScreen *self);
+void BlendWork_copyTable(cIDBaseScreen *self, void **src, short num);
+void BlendWork_copyShortTable(cIDBaseScreen *self, short *src, short num);
+void SetFlagAfterCopy_145160(cIDBaseScreen *self, short *src);
+void func_001451A0(cIDBaseScreen *self, unsigned char *src, short num);
+void BlendSetup_load(cIDBaseScreen *self, void **tex, short *item, unsigned char *attr, short num,
+                     unsigned short start);
+
 
 
 

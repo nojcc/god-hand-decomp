@@ -1,7 +1,9 @@
-extern unsigned char D_0041D7E0[];
+/* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
 
+/* Sphere destructor: put the sphere table back, then run the base destructor. */
 __attribute__((section(".text.InitVtableField30Alt_133A80")))
-void InitVtableField30Alt_133A80(int *a0, int a1) {
-    *(int *)((char *)a0 + 0x30) = (int)D_0041D7E0;
-    cCollisionSolid__dtor(a0, a1);
+void InitVtableField30Alt_133A80(cCollisionSolidObj *self, int flags) {
+    self->base.vt = &D_0041D7E0;
+    cCollisionSolid__dtor(&self->base, flags);
 }

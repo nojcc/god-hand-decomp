@@ -8,6 +8,7 @@ extern void *cMessage_getRubyAddr(void *mgr, int id);
 
 #include "godhand/vu0.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cCockPrintData.h"
 #include "godhand/cCoreSave.h"
 
 
@@ -60,40 +61,26 @@ void *func_0017E0F8(void *a0) {
     return a0;
 }
 
-typedef struct S143598 {
-    char pad00[0x94];
-    cIDBaseEnt *work[4];
-    char pad1[0x10C];
-    char bytes[0x10];
-} S143598;
-
-
-
-
-
-
-
-
+/* Start the gold counter: show the saved gold, look up its entries, clear the popups and hide the label. */
 __attribute__((section(".text.func_00143598")))
-void func_00143598(void *self) {
+void func_00143598(cCockPrintData *self) {
     unsigned short i;
 
-    cIDBase_restartAnim(self);
-    *(char *)((char *)self + 0x1C) = 1;
-    *(int *)((char *)self + 0x90) = cCoreSave_getGold(&D_00569B70);
+    cIDBase_restartAnim(&self->base);
+    self->base.playing = 1;
+    self->gold = cCoreSave_getGold(&D_00569B70);
 
-    for (i = 0; i < 4; i++) {
-        ((S143598 *)self)->work[i] = cIDBase_getIDWork(self, i);
+    for (i = 0; i < COCKPRINT_ENT_NUM; i++) {
+        self->ent[i] = cIDBase_getIDWork(&self->base, i);
     }
-    for (i = 0; i < 0x10; i++) {
-        ((S143598 *)self)->bytes[i] = 0;
+    for (i = 0; i < COCKPRINT_POPUP_NUM; i++) {
+        self->on[i] = 0;
     }
 
-    *(int *)(*(char **)((char *)self + 0x9C) + 0x2C) |= 0x8000000;
-    *(int *)(*(char **)((char *)self + 0x94) + 0x84) =
-        *(int *)((char *)self + 0x90);
+    self->ent[COCKPRINT_LABEL]->flags |= IDENT_FLAG_NO_DRAW;
+    self->ent[COCKPRINT_COUNTER]->seed = self->gold;
     cCoreSave_initAddGold(&D_00569B70);
-    *(char *)((char *)self + 0x1C0) = 0;
+    self->mode = 0;
 }
 
 typedef struct S2B21F0 {

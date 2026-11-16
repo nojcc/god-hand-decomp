@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/CustomIDWork.h"
+#include "godhand/Poker.h"
+#include "godhand/BlackJack.h"
 
-extern void SetFlagOnEntries7C_1D51B8(void *a0, int a1, int a2);
-extern void SetCustomIDDispOneOrAll_1DD258(void *a0, int a1, int a2);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -10,7 +10,7 @@ extern void SetCustomIDDispOneOrAll_1DD258(void *a0, int a1, int a2);
 
 
 __attribute__((section(".text.func_001D5C38")))
-void func_001D5C38(char *p, unsigned short mode)
+void func_001D5C38(BlackJack *self, unsigned short mode)
 {
     int m = mode;
     if (m == 1) {
@@ -26,25 +26,25 @@ void func_001D5C38(char *p, unsigned short mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x5B4), -0x140);
-    SetFlagOnEntries7C_1D51B8(p, 0xB, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xC, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0x23, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0xB], -0x140);
+    SetFlagOnEntries7C_1D51B8(self, 0xB, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xC, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0x23, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x5B4), 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xB, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xC, 1);
-    SetFlagOnEntries7C_1D51B8(p, 0x23, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0xB], 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xB, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xC, 1);
+    SetFlagOnEntries7C_1D51B8(self, 0x23, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x5B4), -0x140, 0, 0xA);
-    SetFlagOnEntries7C_1D51B8(p, 0xB, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xC, 1);
-    SetFlagOnEntries7C_1D51B8(p, 0x23, 0);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0xB], -0x140, 0, 0xA);
+    SetFlagOnEntries7C_1D51B8(self, 0xB, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xC, 1);
+    SetFlagOnEntries7C_1D51B8(self, 0x23, 0);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x5B4), 0, -0x140, 0xA);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0xB], 0, -0x140, 0xA);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -53,7 +53,7 @@ c3:
 
 
 __attribute__((section(".text.func_001D5D20")))
-void func_001D5D20(char *p, unsigned short mode)
+void func_001D5D20(BlackJack *self, unsigned short mode)
 {
     int m = mode;
     if (m == 1) {
@@ -69,25 +69,25 @@ void func_001D5D20(char *p, unsigned short mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x4BC), -0x140);
-    SetFlagOnEntries7C_1D51B8(p, 0x9, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xA, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0x24, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x9], -0x140);
+    SetFlagOnEntries7C_1D51B8(self, 0x9, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xA, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0x24, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x4BC), 0);
-    SetFlagOnEntries7C_1D51B8(p, 0x9, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xA, 1);
-    SetFlagOnEntries7C_1D51B8(p, 0x24, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x9], 0);
+    SetFlagOnEntries7C_1D51B8(self, 0x9, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xA, 1);
+    SetFlagOnEntries7C_1D51B8(self, 0x24, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x4BC), -0x140, 0, 0xA);
-    SetFlagOnEntries7C_1D51B8(p, 0x9, 0);
-    SetFlagOnEntries7C_1D51B8(p, 0xA, 1);
-    SetFlagOnEntries7C_1D51B8(p, 0x24, 0);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x9], -0x140, 0, 0xA);
+    SetFlagOnEntries7C_1D51B8(self, 0x9, 0);
+    SetFlagOnEntries7C_1D51B8(self, 0xA, 1);
+    SetFlagOnEntries7C_1D51B8(self, 0x24, 0);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x4BC), 0, -0x140, 0xA);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x9], 0, -0x140, 0xA);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -96,7 +96,7 @@ c3:
 
 
 __attribute__((section(".text.func_001DE088")))
-void func_001DE088(char *p, unsigned char mode)
+void func_001DE088(Poker *self, unsigned char mode)
 {
     int m = mode;
     if (m == 1) {
@@ -112,25 +112,25 @@ void func_001DE088(char *p, unsigned char mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x1D4), 0xFA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x3, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x4, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x5, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x3], 0xFA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x3, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x4, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x5, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x1D4), 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x3, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x4, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x5, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x3], 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x3, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x4, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x5, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x1D4), 0xFA, 0, 0xA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x3, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x4, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x5, 0);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x3], 0xFA, 0, 0xA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x3, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x4, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x5, 0);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x1D4), 0, 0xFA, 0xA);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x3], 0, 0xFA, 0xA);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -139,7 +139,7 @@ c3:
 
 
 __attribute__((section(".text.func_001DE170")))
-void func_001DE170(char *p, unsigned char mode)
+void func_001DE170(Poker *self, unsigned char mode)
 {
     int m = mode;
     if (m == 1) {
@@ -155,25 +155,25 @@ void func_001DE170(char *p, unsigned char mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x348), 0xFA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x6, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x7, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x8, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x6], 0xFA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x6, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x7, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x8, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x348), 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x6, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x7, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x8, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x6], 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x6, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x7, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x8, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x348), 0xFA, 0, 0xA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x6, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x7, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x8, 0);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x6], 0xFA, 0, 0xA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x6, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x7, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x8, 0);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x348), 0, 0xFA, 0xA);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x6], 0, 0xFA, 0xA);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -182,7 +182,7 @@ c3:
 
 
 __attribute__((section(".text.func_001DE258")))
-void func_001DE258(char *p, unsigned char mode)
+void func_001DE258(Poker *self, unsigned char mode)
 {
     int m = mode;
     if (m == 1) {
@@ -198,25 +198,25 @@ void func_001DE258(char *p, unsigned char mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x4BC), 0xFA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x9, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xA, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xB, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x9], 0xFA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x9, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xA, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xB, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x4BC), 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x9, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xA, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xB, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0x9], 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x9, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xA, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xB, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x4BC), 0xFA, 0, 0xA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0x9, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xA, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xB, 0);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x9], 0xFA, 0, 0xA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x9, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xA, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xB, 0);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x4BC), 0, 0xFA, 0xA);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0x9], 0, 0xFA, 0xA);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -225,7 +225,7 @@ c3:
 
 
 __attribute__((section(".text.func_001DE340")))
-void func_001DE340(char *p, unsigned char mode)
+void func_001DE340(Poker *self, unsigned char mode)
 {
     int m = mode;
     if (m == 1) {
@@ -241,23 +241,23 @@ void func_001DE340(char *p, unsigned char mode)
         goto c3;
     }
 def:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x630), 0xFA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xC, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xD, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xE, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0xC], 0xFA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xC, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xD, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xE, 0);
     return;
 c1:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)(p + 0x630), 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xC, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xD, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xE, 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[0xC], 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xC, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xD, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xE, 0);
     return;
 c2:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x630), 0xFA, 0, 0xA);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xC, 0);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xD, 1);
-    SetCustomIDDispOneOrAll_1DD258(p, 0xE, 0);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0xC], 0xFA, 0, 0xA);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xC, 0);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xD, 1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0xE, 0);
     return;
 c3:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(p + 0x630), 0, 0xFA, 0xA);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[0xC], 0, 0xFA, 0xA);
 }

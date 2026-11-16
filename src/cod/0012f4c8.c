@@ -7,7 +7,6 @@
 
 extern void func_002D4C20(void *a0, int a1, int a2, int a3);
 extern void func_001E87E0(void *dst, void *a, void *b, int n);
-extern void InitClearStructAndSet_1E79A8(int *a0, int a1);
 extern void Slot2_showMarkLayers(void *a0, int a1);
 extern void cOmBase_setMeshDispFromLayer(void *model, int layer, int show);
 extern void func_00186038(char *a0, int a1);
@@ -66,7 +65,7 @@ void Slot2_Initialize(Slot2 *self, unsigned short id, void *p0, void *p1,
     func_001E87E0(&self->reel[0], p0, p1, n);
     func_001E87E0(&self->reel[1], p2, p3, n);
     func_001E87E0(&self->reel[2], p4, p5, n);
-    InitClearStructAndSet_1E79A8((int *)&self->panel, last);
+    InitClearStructAndSet_1E79A8(&self->panel, last);
     self->slotId = id;
     Slot2_showMarkLayers(self, 0);
     self->markFlag[0] = 0;

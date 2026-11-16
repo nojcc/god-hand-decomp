@@ -208,6 +208,7 @@ void cMessDrawFont_setEnvInit(void *p)
 
 
 #include "godhand/vu0.h"
+#include "godhand/cEm00.h"
 
 typedef struct EmParam {
     /* 0x00 */ int f00;
@@ -358,48 +359,47 @@ void func_002464E0(void *a0)
 
 
 __attribute__((section(".text.func_00247050")))
-void func_00247050(void *a0)
+void func_00247050(cEm00 *self)
 {
-    char *s0 = (char *)a0;
     int v1;
     int t0;
 
-    *(char *)(s0 + 0x617) = 1;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    self->unk617 = 1;
+    switch (self->step) {
     case 0:
-        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(s0) & 0xFFFF;
-        v1 = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(v1 + 0x10A8) + v1, *(int *)(v1 + 0x10AC) + v1,
+        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+        v1 = EM_RES(self);
+        func_002A8578(self, *(int *)(v1 + 0x10A8) + v1, *(int *)(v1 + 0x10AC) + v1,
                       0xA, 0.0f, t0, 0);
-        *(float *)(s0 + 0x600) = fRand1_1() * 150.0f + 150.0f;
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        self->timer = fRand1_1() * 150.0f + 150.0f;
+        self->step = self->step + 1;
     case 1:
-        moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
-        *(float *)(s0 + 0x600) = *(float *)(s0 + 0x600) - *(float *)(s0 + 0x5A8);
-        if (*(float *)(s0 + 0x600) <= 0.0f) {
-            *(unsigned char *)(s0 + 0x2F6) = 2;
+        moveMotion(self);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
+        self->timer = self->timer - self->speedRate;
+        if (self->timer <= 0.0f) {
+            self->step = 2;
         }
-        if (0.0f < *(float *)(s0 + 0x16C0)) {
-            func_002705D8(s0);
+        if (0.0f < self->slideTime) {
+            func_002705D8(self);
         }
         break;
     case 2:
-        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(s0) & 0xFFFF;
-        v1 = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(v1 + 0x11A8) + v1, *(int *)(v1 + 0x11B4) + v1,
+        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+        v1 = EM_RES(self);
+        func_002A8578(self, *(int *)(v1 + 0x11A8) + v1, *(int *)(v1 + 0x11B4) + v1,
                       0xA, 0.0f, t0, 0);
-        if (*(void **)(s0 + 0x6F0) != 0) {
-            Obj1D00_SetState_6_E_a1(&(*(cOmWeapon **)(s0 + 0x6F0))->base, 0);
+        if (self->fx0 != 0) {
+            Obj1D00_SetState_6_E_a1(&self->fx0->base, 0);
         }
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        self->step = self->step + 1;
     case 3:
-        if (moveMotion(s0) != 0) {
-            *(unsigned char *)(s0 + 0x2F6) = 0;
+        if (moveMotion(self) != 0) {
+            self->step = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
 }

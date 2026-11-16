@@ -10,7 +10,6 @@ extern int *Obj0000_Get_D_003FA62C_3A4FB8(void);                    /* __errno *
 #define EBADF 9
 #define ESPIPE 29
 
-extern void _IO_un_link(struct _IO_FILE *fp);
 #define _IO_do_flush(_f) _IO_do_write(_f, (_f)->_IO_write_base, (_f)->_IO_write_ptr-(_f)->_IO_write_base)
 
 /* libio fileops.c :: _IO_file_close_it */

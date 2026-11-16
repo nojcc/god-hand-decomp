@@ -1,4 +1,5 @@
 /* cEma6 constructor: base setup, then its method table, aim lock byte, three zeroed vectors and the type name. */
+#include "godhand/cModel.h"
 #include "godhand/vu0.h"
 
 #define CEMA6_VEC_A_OFFSET   0x1520     /* cEma6.vecA, for the VU0 store */
@@ -24,7 +25,7 @@ typedef struct cEma6 {
     cEma6Aim aim;                       /* 0x1510 */
 } cEma6;
 
-extern const unsigned char D_0044A408[];    /* method table */
+extern cVtEnt D_0044A408[];    /* method table */
 extern const char D_00448F30[];             /* "cEma6" */
 extern void *func_0028EB00(void *self);     /* enemy base constructor */
 

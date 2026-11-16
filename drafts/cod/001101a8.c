@@ -11,7 +11,6 @@
 /* Defined with WeaponCarrier *self, 0012b2e0.c's view of pl00's weapon slot at 0x698. */
 extern void WeaponCarrier_damageHeldWeapon(pl00 *self, int damage);
 extern void func_0010A438(void *a0);
-extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
 
 /* Swing of the held weapon: wear the weapon, pick the swing motion and attack
  * parameters for the weapon type and side (stepArg), then play it out. */

@@ -32,7 +32,9 @@ typedef struct EffDataHdr {
 typedef struct GameWork {
     char pad000[0x08];
     int padBtn;                 /* 0x08 face-button bits, 0x10-0x80 */
-    char pad00C[0x1A0 - 0x0C];
+    char pad00C[4];
+    int unk10;                  /* 0x10 1 while the jukebox screen runs (JukeBox_Load, JukeBox_Release) */
+    char pad014[0x1A0 - 0x14];
     long trg;                   /* 0x1A0 pad trigger bits */
     long unk1A8;                /* 0x1A8 */
     long rep;                   /* 0x1B0 pad repeat bits */

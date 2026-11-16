@@ -2,9 +2,12 @@
 #include "godhand/cSnd.h"
 #include "godhand/cIDBase.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/DispMgr.h"
+#include "godhand/DogRace.h"
+#include "godhand/JukeBox.h"
+#include "godhand/Slot1.h"
 
 extern short D_005CAE40;
-extern void func_001415E8(void *self, int arg);
 extern void displayScrollLayer(int layer, int on);
 extern long D_007474A0[];
 
@@ -25,94 +28,68 @@ extern HookEnt D_003BF0E0[];
 #define SCREEN_STATE_ENTRY_RUN 10
 
 __attribute__((section(".text.Entry_runHookAndDraw")))
-void Entry_runHookAndDraw(unsigned char *self) {
-    int type = self[0];
+void Entry_runHookAndDraw(JukeBoxObj *self) {
+    int type = self->unk00;
     int delta = D_003BF0E0[type].delta;
-    D_003BF0E0[type].pfn(self + delta);
+    D_003BF0E0[type].pfn((char *)self + delta);
     D_005CAE40 = SCREEN_STATE_ENTRY_RUN;
-    cIDBase_move((cIDBaseObj *)(self + 0x30));
-    cIDBase_trans((cIDBaseObj *)(self + 0x30));
+    cIDBase_move(&self->idBase);
+    cIDBase_trans(&self->idBase);
 }
 
-/* Set message `messNo` on the two work records of display slot `slot`
- * (slot < 5): one in the first bank at 0x4BC, one in the second at 0x12C8,
- * both banks with a stride of one CustomIDWork (0x7C). */
+/* Set message `messNo` on row `slot` (slot < 5) of the result screen's two
+ * message columns, elements 9..13 and 38..42. */
 #define SLOT_COUNT      5
-#define WORK_SIZE       0x7C            /* sizeof(CustomIDWork) */
-#define BANK_A_OFFSET   0x4BC
-#define BANK_B_OFFSET   0x12C8
+#define COLUMN_A        9
+#define COLUMN_B        38
 
 
 
 __attribute__((section(".text.CustomIDWork_setSlotMessNo")))
-void CustomIDWork_setSlotMessNo(char *self, unsigned short slot, int messNo) {
+void CustomIDWork_setSlotMessNo(DogRaceResult *self, unsigned short slot, int messNo) {
     if (slot < SLOT_COUNT) {
-        int off = slot * WORK_SIZE;
-        CustomIDWork_SetMessNo((CustomIDWork *)(self + (off + BANK_A_OFFSET)), messNo);
-        CustomIDWork_SetMessNo((CustomIDWork *)(self + (off + BANK_B_OFFSET)), messNo);
+        CustomIDWork_SetMessNo(&self->elem[COLUMN_A + slot], messNo);
+        CustomIDWork_SetMessNo(&self->elem[COLUMN_B + slot], messNo);
     }
 }
 
-/* Call the virtual hook (vt entry 3) of each of the 17 listed objects
- * (12-byte records from 0x22F4, object pointer first), clear the busy byte
- * at 0x23BC and run func_001415E8. */
-typedef struct HookVt {
-    char unk00[0x18];
-    short delta;                        /* 0x18 */
-    short index;
-    void (*pfn)(void *self);            /* 0x1C */
-} HookVt;
-
-typedef struct HookObj {
-    char unk00[0x80];
-    HookVt *vt;                         /* 0x80 */
-} HookObj;
-
-typedef struct ListRec {
-    HookObj *obj;
-    int unk4, unk8;
-} ListRec;                              /* 0xC */
+/* Run the hook method (vtable entry 3) of every registered sub-record, clear
+ * ready, then mark every sub-record with value 0 (func_001415E8). */
 
 
 
 __attribute__((section(".text.cHookList_callAll")))
-void cHookList_callAll(char *self) {
-    ListRec *rec = (ListRec *)(self + 0x22F4);
+void cHookList_callAll(DispMgr *self) {
     int i;
-    for (i = 16; i >= 0; i--, rec++) {
-        HookObj *obj = rec->obj;
+    for (i = 0; i < DISPMGR_SLOT_NUM; i++) {
+        DispMgrSub *obj = self->slot[i].obj;
         if (obj != 0)
-            obj->vt->pfn((char *)obj + obj->vt->delta);
+            obj->vt[DISPMGR_SUB_HOOK].pfn((char *)obj + obj->vt[DISPMGR_SUB_HOOK].delta);
     }
-    *(unsigned char *)(self + 0x23BC) = 0;
+    self->ready = 0;
     func_001415E8(self, 0);
 }
 
 /* Set the mark flag word of scroll mark `mark` (0 to 2): `lit` writes the
  * mark number into bits 11 up and sets bit 15; otherwise clear it and, for
  * marks 0 and 1, hide the line layer. */
-typedef struct MarkObj {
-    char unk000[0x480];
-    int lineLayer;                      /* 0x480 */
-    char unk484[0x3C];
-    unsigned short markFlag;            /* 0x4C0 */
-} MarkObj;
+#define KEEP_LAYER  32               /* scrollLayer[] index of the keep mark's layer */
 
 
 
 __attribute__((section(".text.MarkObj_setMarkFlag")))
-void MarkObj_setMarkFlag(MarkObj *self, unsigned short mark, int lit) {
+void MarkObj_setMarkFlag(Slot1 *self, unsigned short mark, int lit) {
     if (mark < 3) {
         if (lit) {
-            self->markFlag = (mark << 11) | 0x8000;
+            self->keepFlag = (mark << 11) | 0x8000;
         } else {
-            self->markFlag = 0;
+            self->keepFlag = 0;
             switch (mark) {
             case 0:
-                displayScrollLayer(self->lineLayer, 0);
+                displayScrollLayer(self->scrollLayer[KEEP_LAYER], 0);
                 break;
             case 1:
-                displayScrollLayer(self->lineLayer, 0);
+                displayScrollLayer(self->scrollLayer[KEEP_LAYER], 0);
                 break;
             }
         }
@@ -150,9 +127,8 @@ void ModeObj_pollInputBits(ModeObj *self) {
 #define ENTRY_COUNT 13
 
 typedef struct IdScreen {
-    char unk00[0x1C];
-    unsigned char started;              /* 0x1C */
-    char unk1D[0x73];
+    cIDBaseObj base;                    /* 0x00 */
+    char unk48[0x90 - sizeof(cIDBaseObj)];
     int unk90;                          /* 0x90 */
     unsigned char sel0;                 /* 0x94 */
     unsigned char sel1;                 /* 0x95 */
@@ -167,10 +143,10 @@ __attribute__((section(".text.IdScreen_refillEntries")))
 void IdScreen_refillEntries(IdScreen *self) {
     unsigned short i = 0;
     self->unk90 = 0;
-    cIDBase_restartAnim((cIDBaseObj *)self);
-    self->started = 1;
+    cIDBase_restartAnim(&self->base);
+    self->base.playing = 1;
     do {
-        self->ent[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->ent[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
     } while (i < ENTRY_COUNT);
     self->sel0 = 0;

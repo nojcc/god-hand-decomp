@@ -1,7 +1,7 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cObjBase.h"
 
-extern char D_0041B6A0[];
+extern cVtEnt D_0041B6A0[];
 extern char D_0041B730[];
 extern void cActionButtonUnit_setOk(int x);
 extern void ClearLinkedNodeList_12ECF0(void *p);
@@ -26,7 +26,7 @@ short GetNextAnimIndex_1451E0(char *a0) {
 
 __attribute__((section(".text.InitVtableAndForwardSetup_100508")))
 void InitVtableAndForwardSetup_100508(struct cObjBase *self, int flags) {
-    self->vtable = (cVtEnt *)D_0041B6A0;
+    self->vtable = D_0041B6A0;
     cObjBase__dtor(self, flags);
 }
 

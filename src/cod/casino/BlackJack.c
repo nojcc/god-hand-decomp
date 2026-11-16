@@ -4,15 +4,9 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cCamManager.h"
 
-extern void func_001D0CE8();
-extern void func_001D0DF8();
-extern void func_001D5780();
-extern void BlackJackId_Move();
-extern void BlackJackId__Trans();
-
 __attribute__((section(".text.BlackJack_Release")))
 void BlackJack_Release(BlackJack *self) {
-    func_001D4F48((char *)self);
+    func_001D4F48(self);
 }
 
 

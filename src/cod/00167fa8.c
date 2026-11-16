@@ -72,12 +72,12 @@ void IdDispObj16_construct(IdDispObj16 *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041FC50) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ16_KIND, self->resHandle);
-        cIDBase_initialize((cIDBaseObj *)self, IDOBJ16_KIND, 0);
-        cIDBase_restartAnim((cIDBaseObj *)self);
+        cIDBase_initialize(&self->base, IDOBJ16_KIND, 0);
+        cIDBase_restartAnim(&self->base);
         self->state = IDOBJ16_PLAYING;
     }
     for (i = 0; i < IDOBJ16_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->work[i] = cIDBase_getIDWork(&self->base, i);
     }
     if (self->variant == 1) {
         IdDispLink *link;

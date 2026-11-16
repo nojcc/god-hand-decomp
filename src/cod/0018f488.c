@@ -18,8 +18,6 @@ extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
 extern unsigned short D_003F2060[];
 extern void func_0032A9F0(int a0, int a1);
-extern void Slot2_selectMark(Slot1 *a0, int a1, int a2, int a3);
-extern void func_001E3D78(Slot1 *a0, int a1, int a2);
 extern void func_001E8E48(void *a0, void *a1);
 extern long D_00747650;
 

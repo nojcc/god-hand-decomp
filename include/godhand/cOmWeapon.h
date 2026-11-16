@@ -54,6 +54,10 @@ typedef struct cOmWeapon {
     cOmWeaponPiece piece[COMWEAPON_PIECE_NUM];/* 0x6B0 debris pieces spawned when it breaks */
 } cOmWeapon;
 
+/* The nearest weapon within radius of pos that can be picked up. With any == 0
+ * it also skips the weapons func_001D0AE0 rejects. */
+cOmWeapon *func_002DDAB0(cVec *pos, int any, float radius);
+
 typedef char cOmWeapon_size_check[(sizeof(cOmWeapon) == 0x790) ? 1 : -1];
 
 /* Attaches the weapon to body part idx of par with the hold offsets heldPos and heldRot, and starts the held state. */

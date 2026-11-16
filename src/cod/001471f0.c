@@ -1,119 +1,78 @@
-/* sn-2.95.3-136 matched TU. */
-#include "godhand/cIDBase.h"
+/* sn-2.95.3-136 */
+#include "godhand/cCockTutorial.h"
 
-
-/* sn-2.95.3-136 matched TU. */
-
-
-
-
+/* Tutorial panel steps: grow the frame to its full size and show the message, fill in the page for the
+ * message, shrink the frame away, then forget the message. */
 __attribute__((section(".text.func_001471F0")))
-void func_001471F0(char *s0) {
+void func_001471F0(cCockTutorial *self) {
     char st;
 
-    if (*(int *)(s0 + 0xB0) != 0) {
-        st = *(unsigned char *)(s0 + 0xB8) - 1;
+    if (self->data != 0) {
+        st = self->unkB8 - 1;
         switch (st) {
         case 0:
-            cIDBase_restartAnim((cIDBaseObj *)s0);
-            s0[0x1C] = 1;
-            s0[0xB8] = 2;
+            cIDBase_restartAnim(&self->base);
+            self->base.playing = 1;
+            self->unkB8 = 2;
         case 1:
-            {
-            char *p1 = *(char **)(s0 + 0x90);
-            char *p2;
-            char *p3;
-            char *q;
-            *(float *)(p1 + 0x40) = *(float *)(p1 + 0x40) + 0.1f;
-            p2 = *(char **)(s0 + 0x90);
-            *(float *)(p2 + 0x44) = *(float *)(p2 + 0x44) + 0.1f;
-            p3 = *(char **)(s0 + 0x90);
-            q = *(char **)(p3 + 0x1C);
-            if (*(float *)(q + 0x28) < *(float *)(p3 + 0x40)) {
-                char *r;
-                char *rq;
-                char *t1;
-                char *t2;
-                *(float *)(p3 + 0x40) = *(float *)(q + 0x28);
-                r = *(char **)(s0 + 0x90);
-                rq = *(char **)(r + 0x1C);
-                *(float *)(r + 0x44) = *(float *)(rq + 0x2C);
-                t1 = *(char **)(s0 + 0x94);
-                *(unsigned short *)(t1 + 0x90) = *(unsigned short *)(s0 + 0xAC);
-                t2 = *(char **)(s0 + 0x98);
-                *(unsigned short *)(t2 + 0x90) = *(unsigned short *)(s0 + 0xAC);
-                s0[0xB8] = 3;
-            }
+            self->ent[0]->sclX = self->ent[0]->sclX + 0.1f;
+            self->ent[0]->sclY = self->ent[0]->sclY + 0.1f;
+            if (self->ent[0]->src->sclX < self->ent[0]->sclX) {
+                self->ent[0]->sclX = self->ent[0]->src->sclX;
+                self->ent[0]->sclY = self->ent[0]->src->sclY;
+                self->ent[1]->msg = self->curMsg;
+                self->ent[2]->msg = self->curMsg;
+                self->unkB8 = 3;
             }
             break;
         case 2:
-            {
-            char *a = *(char **)(s0 + 0x94);
-            char *b;
-            *(int *)(a + 0x2C) = *(int *)(a + 0x2C) & 0xF7FFFFFFU;
-            b = *(char **)(s0 + 0x98);
-            *(int *)(b + 0x2C) = *(int *)(b + 0x2C) & 0xF7FFFFFFU;
-            switch (*(unsigned short *)(s0 + 0xAC)) {
+            self->ent[1]->flags = self->ent[1]->flags & ~IDENT_FLAG_NO_DRAW;
+            self->ent[2]->flags = self->ent[2]->flags & ~IDENT_FLAG_NO_DRAW;
+            switch (self->curMsg) {
             case 0x2000:
-                *(short *)(*(char **)(s0 + 0x9C) + 0x90) = 0x2006;
-                *(short *)(*(char **)(s0 + 0xA0) + 0x90) = 0x2006;
-                *(int *)(*(char **)(s0 + 0xA4) + 0x2C) =
-                    *(int *)(*(char **)(s0 + 0xA4) + 0x2C) & 0xF7FFFFFFU;
+                self->ent[3]->msg = 0x2006;
+                self->ent[4]->msg = 0x2006;
+                self->ent[5]->flags = self->ent[5]->flags & ~IDENT_FLAG_NO_DRAW;
                 break;
             case 0x2001:
-                *(short *)(*(char **)(s0 + 0x9C) + 0x90) = 0x2007;
-                *(short *)(*(char **)(s0 + 0xA0) + 0x90) = 0x2007;
+                self->ent[3]->msg = 0x2007;
+                self->ent[4]->msg = 0x2007;
                 break;
             case 0x2002:
-                *(short *)(*(char **)(s0 + 0x9C) + 0x90) = 0x2008;
-                *(short *)(*(char **)(s0 + 0xA0) + 0x90) = 0x2008;
+                self->ent[3]->msg = 0x2008;
+                self->ent[4]->msg = 0x2008;
                 break;
             case 0x2003:
-                *(short *)(*(char **)(s0 + 0x9C) + 0x90) = 0x2009;
-                *(short *)(*(char **)(s0 + 0xA0) + 0x90) = 0x2009;
+                self->ent[3]->msg = 0x2009;
+                self->ent[4]->msg = 0x2009;
                 break;
             case 0x2004:
-                *(short *)(*(char **)(s0 + 0x9C) + 0x90) = 0x200A;
-                *(short *)(*(char **)(s0 + 0xA0) + 0x90) = 0x200A;
-                *(int *)(*(char **)(s0 + 0xA8) + 0x2C) =
-                    *(int *)(*(char **)(s0 + 0xA8) + 0x2C) & 0xF7FFFFFFU;
+                self->ent[3]->msg = 0x200A;
+                self->ent[4]->msg = 0x200A;
+                self->ent[6]->flags = self->ent[6]->flags & ~IDENT_FLAG_NO_DRAW;
                 break;
             case 0x2005:
-                *(short *)(*(char **)(s0 + 0x9C) + 0x90) = 0x200B;
-                *(short *)(*(char **)(s0 + 0xA0) + 0x90) = 0x200B;
+                self->ent[3]->msg = 0x200B;
+                self->ent[4]->msg = 0x200B;
                 break;
-            }
             }
             break;
         case 3:
-            {
-            char *c = *(char **)(s0 + 0x94);
-            char *d;
-            char *e1;
-            char *e2;
-            char *e3;
-            *(int *)(c + 0x2C) = *(int *)(c + 0x2C) | 0x8000000;
-            d = *(char **)(s0 + 0x98);
-            *(int *)(d + 0x2C) = *(int *)(d + 0x2C) | 0x8000000;
-            e1 = *(char **)(s0 + 0x90);
-            *(float *)(e1 + 0x40) = *(float *)(e1 + 0x40) - 0.1f;
-            e2 = *(char **)(s0 + 0x90);
-            *(float *)(e2 + 0x44) = *(float *)(e2 + 0x44) - 0.1f;
-            e3 = *(char **)(s0 + 0x90);
-            if (*(float *)(e3 + 0x40) < 0.0f) {
-                char *f1;
-                *(float *)(e3 + 0x40) = 0.0f;
-                f1 = *(char **)(s0 + 0x90);
-                *(float *)(f1 + 0x44) = 0.0f;
-                s0[0xB8] = 5;
-            }
+            self->ent[1]->flags = self->ent[1]->flags | IDENT_FLAG_NO_DRAW;
+            self->ent[2]->flags = self->ent[2]->flags | IDENT_FLAG_NO_DRAW;
+            self->ent[0]->sclX = self->ent[0]->sclX - 0.1f;
+            self->ent[0]->sclY = self->ent[0]->sclY - 0.1f;
+            if (self->ent[0]->sclX < 0.0f) {
+                self->ent[0]->sclX = 0.0f;
+                self->ent[0]->sclY = 0.0f;
+                self->unkB8 = 5;
             }
             break;
         case 4:
-            s0[0xB8] = 0;
-            *(unsigned short *)(s0 + 0xAC) = 0xFFFF;
+            self->unkB8 = 0;
+            self->curMsg = COCKTUT_MSG_NONE;
             break;
         }
-        cIDBase_move((cIDBaseObj *)s0);
+        cIDBase_move(&self->base);
     }
 }

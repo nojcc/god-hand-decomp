@@ -8,7 +8,7 @@
 #include "godhand/cScenario.h"
 #include "godhand/mtx.h"
 
-extern char D_0044A408[];
+extern cVtEnt D_0044A408[];
 extern int cTaskManager_execute_2D54F0(cTaskManager *task, void *entry, void *arg, int slot);
 extern char D_0044E090[];
 
@@ -19,7 +19,7 @@ extern char D_0044E090[];
 
 __attribute__((section(".text.func_0028B148")))
 void func_0028B148(cEm00 *self, int flags) {
-    self->vtable = (cVtEnt *)D_0044A408;
+    self->vtable = D_0044A408;
     func_0028BEA8(self);
     func_0028EB88((struct cGameObj *)self, flags);
 }
@@ -106,8 +106,8 @@ int cScenario_taskExec_2C38D8(cScenario *self, void *entry, void *arg, int slot)
 
 __attribute__((section(".text.cSndBgmNode_Dtor")))
 void cSndBgmNode_Dtor(cSndBgmNode *node, int flags) {
-    node->vt = D_0044CEE8;
-    func_00372C80((SndVoiceNode *)node, flags);
+    node->base.vt = D_0044CEE8;
+    func_00372C80(&node->base, flags);
 }
 
 /* clone */

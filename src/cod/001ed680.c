@@ -1,19 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cIDBase.h"
+#include "godhand/DogRace.h"
 
-extern void func_001ED848(void *a0);
 extern void CustomIDWork_Main(void *a0);
 
 __attribute__((section(".text.func_001ED680")))
-void func_001ED680(void *a0) {
-    char *p;
+void func_001ED680(DogRaceUi *self) {
+    CustomIDWork *p;
     int i;
 
-    func_001ED848(a0);
-    p = (char *)a0 + 0x60;
+    func_001ED848(self);
+    p = self->elem;
     for (i = 5; i >= 0; i--) {
         CustomIDWork_Main(p);
-        p += 0x7C;
+        p++;
     }
-    cIDBase_move((cIDBaseObj *)((char *)a0 + 0x10));
+    cIDBase_move(&self->id);
 }

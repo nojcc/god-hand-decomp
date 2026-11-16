@@ -91,9 +91,8 @@ void Effect_killByModeB(int a0, int a1) {
 
 /* An object with a method table at 0xF0 that owns five heap buffers. */
 typedef struct BufOwner2 {
-    char unk000[0xF0];
-    void *vt;                           /* 0xF0 */
-    char unkF4[0x26C];
+    BlockOwner base;                    /* 0x000 */
+    char unk2D4[0x360 - 0x2D4];
     void *buf360;                       /* 0x360 */
     void *buf364;                       /* 0x364 */
     void *buf368;                       /* 0x368 */
@@ -107,13 +106,13 @@ typedef struct BufOwner2 {
  * 0x368, 0x36C, 0x370 and 0x360, then run the base destructor. */
 __attribute__((section(".text.BufOwner2_deletingDtor")))
 void BufOwner2_deletingDtor(BufOwner2 *self, int flags) {
-    self->vt = D_0044F7D0;
+    self->base.base.vt = D_0044F7D0;
     FREE_BUF(self->buf364);
     FREE_BUF(self->buf368);
     FREE_BUF(self->buf36C);
     FREE_BUF(self->buf370);
     FREE_BUF(self->buf360);
-    BlockOwner_dtor((struct BlockOwner *)self, flags);
+    BlockOwner_dtor(&self->base, flags);
 }
 
 /* Init: base setup, extent 4.0 x 4.1 x 0.2, then the shared setters and the 4.2 effect; returns 1. */

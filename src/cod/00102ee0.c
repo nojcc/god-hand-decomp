@@ -7,6 +7,7 @@ extern char D_0041B7D0[];
 extern char D_007854C8[];
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
+#include "godhand/DispMgr.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
@@ -90,18 +91,14 @@ void ForwardVtableCall_138210(char *a0) {
     fn(a0 + *(short *)((char *)p + 8));
 }
 
+/* Index of the first slot with no object, or -1 when all are taken. */
 __attribute__((section(".text.FindFreeSlotIndex_140C58")))
-int FindFreeSlotIndex_140C58(char *a0) {
-    int v1 = 0;
-    a0 += 0x22F4;
-    while (1) {
-        if (*(int*)a0 == 0) {
-            return v1;
+int FindFreeSlotIndex_140C58(DispMgr *mgr) {
+    int no;
+    for (no = 0; no < DISPMGR_SLOT_NUM; no++) {
+        if (mgr->slot[no].obj == 0) {
+            return no;
         }
-        v1++;
-        if (v1 >= 0x11) {
-            return -1;
-        }
-        a0 += 0xC;
     }
+    return -1;
 }

@@ -6,10 +6,11 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cMc.h"
 #include "godhand/cEvent.h"
+#include "godhand/cIDBaseScreen.h"
 
 extern cGameObj *InitFields_1B6E90(cGameObj *self);
 #include "godhand/objField.h"
-extern int D_00427400;
+extern cVtEnt D_00427400[];
 extern int D_005864F0;
 extern int cEmManage_CkPlCatched(void *p);
 extern void func_0();
@@ -24,7 +25,7 @@ __attribute__((section(".text.cGameObj_constructSubclassA")))
 cGameObj *cGameObj_constructSubclassA(cGameObj *self) {
     char *blk;
     InitFields_1B6E90(self);
-    self->vtable = (cVtEnt *)&D_00427400;
+    self->vtable = D_00427400;
     VU0_SQC2_VF0(self, 0x610);
     VU0_SQC2_VF0(self, 0x620);
     blk = (char *)self + 0x630;
@@ -37,62 +38,34 @@ cGameObj *cGameObj_constructSubclassA(cGameObj *self) {
     return self;
 }
 
-/* Motion blend record: a table of up to 0x23 words copied in from a source table. */
-typedef struct BlendWork {
-    char unk00[0x90];
-    unsigned int flags;                 /* 0x90 */
-    char unk94[0x2A8 - 0x94];
-    int table[0x23];                    /* 0x2A8 copied from the source table */
-    short tableNum;                     /* 0x334 words in use, at most 0x23 */
-} BlendWork;
-
-#define BLENDWORK_TABLE_READY 0x40000000        /* flags: the table holds fresh data */
-#define BLENDWORK_TABLE_MAX   0x23
-
-
-
-/* Copy num words from src into the table (clamped to the table size) and mark the table ready. */
+/* Copy num texture addresses from src into the screen (clamped to SCR_LIST_MAX) and mark it ready. */
 __attribute__((section(".text.BlendWork_copyTable")))
-void BlendWork_copyTable(BlendWork *self, void *src, short num) {
-    if (num >= BLENDWORK_TABLE_MAX + 1) {
-        self->tableNum = BLENDWORK_TABLE_MAX;
+void BlendWork_copyTable(cIDBaseScreen *self, void **src, short num) {
+    if (num >= SCR_LIST_MAX + 1) {
+        self->texNum = SCR_LIST_MAX;
     } else {
-        self->tableNum = num;
+        self->texNum = num;
     }
-    func_003A5148(self->table, src, self->tableNum << 2);
-    self->flags |= BLENDWORK_TABLE_READY;
+    func_003A5148(self->tex, src, self->texNum << 2);
+    self->flags |= SCR_FLAG_READY;
 }
-
-/* The player object (pl00): the fields the attack-button check reads. */
-typedef struct Pl00 {
-    char unk000[0x54A];
-    short hp;                           /* 0x54A */
-    char unk54C[0x6A0 - 0x54C];
-    int actionLock;                     /* 0x6A0 nonzero while an action blocks the attack button */
-    char unk6A4[0x15F4 - 0x6A4];
-    char unk15F4;                       /* 0x15F4 low byte of the flag word */
-    unsigned char btnFlags;             /* 0x15F5 bit 0: the attack button is enabled (bit 8 of the 0x15F4 word) */
-} Pl00;
-
-
-
 
 /* Nonzero if the player may start an attack action: alive, free, not caught, and the button flag is on. */
 __attribute__((section(".text.pl00_ckAtkActBtnEnable")))
-int pl00_ckAtkActBtnEnable(Pl00 *self) {
-    if (self->actionLock != 0) {
+int pl00_ckAtkActBtnEnable(pl00 *self) {
+    if (self->sub6A0 != 0) {
         return 0;
     }
-    if (self->hp <= 0) {
+    if (self->base.hp <= 0) {
         return 0;
     }
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)self) != 0) {
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(self) != 0) {
         return 0;
     }
     if (cEmManage_CkPlCatched(&D_005864F0) != 0) {
         return 0;
     }
-    return self->btnFlags & 1;
+    return ((unsigned char *)&self->flags15F4)[1] & 1;
 }
 
 /* Load the memory card module, run its two stripped log hooks, release it and end the calling task. */

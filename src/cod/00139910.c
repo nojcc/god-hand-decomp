@@ -2,14 +2,13 @@
 
 #include "godhand/cDvd.h"
 #include "godhand/cOmBase.h"
-#include "godhand/CustomIDWork.h"
+#include "godhand/CustomIDPanel.h"
 
 extern void *sceSifAllocIopHeap(int size);
 extern int Tramp_sceSifFreeSysMemory_3B5A50(void *p);
 extern int Forward2D2F78_2D3020(int a, int b, int c, int d);
 extern int Obj3290_Tramp_003313E0_9298(void *self);
 extern int Entry_releaseIfReady(void *self);
-extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern int Rnd(void);
 extern char D_00427CD8[];
 extern int D_0042BD40[5];
@@ -110,10 +109,10 @@ void cOmBase_copyTargetPositions(TrackObj *self) {
     }
 }
 
-/* Hide display 0x12, show displays 5 and 6, and show 7..10 too when full is set. */
+/* Hide every work, show works 5 and 6, and show 7..10 too when full is set. */
 __attribute__((section(".text.CustomID_showDisplays")))
-void CustomID_showDisplays(void *self, int full) {
-    SetCustomIDDispOneOrAll_1F29C0(self, 0x12, 0);
+void CustomID_showDisplays(CustomIDPanel *self, int full) {
+    SetCustomIDDispOneOrAll_1F29C0(self, CIDPANEL_WORK_NUM, 0);
     SetCustomIDDispOneOrAll_1F29C0(self, 5, 1);
     SetCustomIDDispOneOrAll_1F29C0(self, 6, 1);
     if (full != 0) {

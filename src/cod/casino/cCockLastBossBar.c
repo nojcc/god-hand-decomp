@@ -20,13 +20,13 @@ void cCockLastBossBar_roomInit(cCockLastBossBar *self)
         self->readId = cDvd_ReadAlloc(&D_00583F20, name, &self->data, &D_00754220, 0, 0, 0, 0);
         cDvd_CheckWait(&D_00583F20, self->readId);
         cIDManager_setIDData(*(void **)D_003C2384, COCKLASTBOSSBAR_MSG_PACK, self->data);
-        cIDBase_initialize((cIDBaseObj *)self, COCKLASTBOSSBAR_MSG_PACK, 0);
+        cIDBase_initialize(&self->base, COCKLASTBOSSBAR_MSG_PACK, 0);
     }
-    cIDBase_restartAnim((cIDBaseObj *)self);
+    cIDBase_restartAnim(&self->base);
     self->unkA0 = 0x20000000;
     self->unkA4 = 1.0f;
     for (i = 0; i < COCKLASTBOSSBAR_ENT_NUM; i++) {
-        self->ent[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->ent[i] = cIDBase_getIDWork(&self->base, i);
     }
     self->flag79 = 0;
     self->flag7A = 0;

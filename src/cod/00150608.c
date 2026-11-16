@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDvd.h"
+#include "godhand/Poker.h"
+#include "godhand/BlackJack.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cOmBase.h"
 
-extern void SetFlagOnEntries7C_1D51B8(void *a0, int a1, int a2);
-extern void SetCustomIDDispOneOrAll_1DD258(void *a0, int a1, int a2);
 extern int D_00466470;
 extern void func_002A9790(void *);
 extern int D_004664A0;
@@ -63,22 +63,22 @@ extern struct Table_001BF518 D_003BDE30;
 
 
 __attribute__((section(".text.func_001D5360")))
-void func_001D5360(void *a0, unsigned char a1) {
+void func_001D5360(BlackJack *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetFlagOnEntries7C_1D51B8(a0, 0xB, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0xC, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x23, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xB, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xC, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x23, 1);
         break;
     case 1:
-        SetFlagOnEntries7C_1D51B8(a0, 0xB, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xC, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x23, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xB, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xC, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x23, 1);
         break;
     case 2:
-        SetFlagOnEntries7C_1D51B8(a0, 0xB, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xC, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0x23, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xB, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xC, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0x23, 1);
         break;
     default:
         break;
@@ -90,22 +90,22 @@ void func_001D5360(void *a0, unsigned char a1) {
 
 
 __attribute__((section(".text.func_001D5430")))
-void func_001D5430(void *a0, unsigned char a1) {
+void func_001D5430(BlackJack *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetFlagOnEntries7C_1D51B8(a0, 0x9, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0xa, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x24, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x9, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xa, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x24, 1);
         break;
     case 1:
-        SetFlagOnEntries7C_1D51B8(a0, 0x9, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xa, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x24, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x9, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xa, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x24, 1);
         break;
     case 2:
-        SetFlagOnEntries7C_1D51B8(a0, 0x9, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xa, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0x24, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x9, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xa, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0x24, 1);
         break;
     default:
         break;
@@ -117,22 +117,22 @@ void func_001D5430(void *a0, unsigned char a1) {
 
 
 __attribute__((section(".text.func_001D5500")))
-void func_001D5500(void *a0, unsigned char a1) {
+void func_001D5500(BlackJack *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetFlagOnEntries7C_1D51B8(a0, 0xd, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0xe, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0xf, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xd, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xe, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xf, 1);
         break;
     case 1:
-        SetFlagOnEntries7C_1D51B8(a0, 0xd, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xe, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0xf, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xd, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xe, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xf, 1);
         break;
     case 2:
-        SetFlagOnEntries7C_1D51B8(a0, 0xd, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xe, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0xf, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0xd, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xe, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0xf, 1);
         break;
     default:
         break;
@@ -144,22 +144,22 @@ void func_001D5500(void *a0, unsigned char a1) {
 
 
 __attribute__((section(".text.func_001D5690")))
-void func_001D5690(void *a0, unsigned char a1) {
+void func_001D5690(BlackJack *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetFlagOnEntries7C_1D51B8(a0, 0x10, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x11, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x12, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x10, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x11, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x12, 1);
         break;
     case 1:
-        SetFlagOnEntries7C_1D51B8(a0, 0x10, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0x11, 1);
-        SetFlagOnEntries7C_1D51B8(a0, 0x12, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x10, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0x11, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x12, 1);
         break;
     case 2:
-        SetFlagOnEntries7C_1D51B8(a0, 0x10, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0x11, 0);
-        SetFlagOnEntries7C_1D51B8(a0, 0x12, 1);
+        SetFlagOnEntries7C_1D51B8(self, 0x10, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0x11, 0);
+        SetFlagOnEntries7C_1D51B8(self, 0x12, 1);
         break;
     default:
         break;
@@ -171,22 +171,22 @@ void func_001D5690(void *a0, unsigned char a1) {
 
 
 __attribute__((section(".text.func_001DD770")))
-void func_001DD770(void *a0, unsigned char a1) {
+void func_001DD770(Poker *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x3, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x4, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x5, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x3, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x4, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x5, 1);
         break;
     case 1:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x3, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x4, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x5, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x3, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x4, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x5, 1);
         break;
     case 2:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x3, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x4, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x5, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x3, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x4, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x5, 1);
         break;
     default:
         break;
@@ -198,22 +198,22 @@ void func_001DD770(void *a0, unsigned char a1) {
 
 
 __attribute__((section(".text.func_001DD840")))
-void func_001DD840(void *a0, unsigned char a1) {
+void func_001DD840(Poker *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x6, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x7, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x8, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x6, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x7, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x8, 1);
         break;
     case 1:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x6, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x7, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x8, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x6, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x7, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x8, 1);
         break;
     case 2:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x6, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x7, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0x8, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x6, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x7, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0x8, 1);
         break;
     default:
         break;
@@ -225,22 +225,22 @@ void func_001DD840(void *a0, unsigned char a1) {
 
 
 __attribute__((section(".text.func_001DD9E0")))
-void func_001DD9E0(void *a0, unsigned char a1) {
+void func_001DD9E0(Poker *self, unsigned char a1) {
     switch (a1) {
     case 0:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xc, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xd, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xe, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xc, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xd, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xe, 1);
         break;
     case 1:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xc, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xd, 1);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xe, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xc, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xd, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xe, 1);
         break;
     case 2:
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xc, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xd, 0);
-        SetCustomIDDispOneOrAll_1DD258(a0, 0xe, 1);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xc, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xd, 0);
+        SetCustomIDDispOneOrAll_1DD258(self, 0xe, 1);
         break;
     default:
         break;

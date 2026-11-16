@@ -9,7 +9,7 @@ extern void cOmItem_setScrCheck(void *a0, int a1);
 __attribute__((section(".text.func_001C0128")))
 int func_001C0128(void *a0)
 {
-    float buf[4];
+    cVec buf;
     char *s3 = (char *)a0;
     cDamageGive *d;
     long bits;
@@ -53,11 +53,11 @@ int func_001C0128(void *a0)
         d = cDamageManage_CreateDamageGive(&D_00574380, 3, s3);
         *(cDamageGive **)(s3 + 0x680) = d;
         if (d != 0) {
-            *(int *)&buf[0] = 0;
-            *(int *)&buf[1] = 0;
-            *(int *)&buf[2] = 0;
-            buf[3] = 1.0f;
-            cDamageUnit_AddDamageCollSphere((cDamageUnit *)d, (void *)(s3 + 0x80), (cVec *)buf, 2.5f);
+            *(int *)&buf = 0;
+            *(int *)&buf.y = 0;
+            *(int *)&buf.z = 0;
+            buf.w = 1.0f;
+            cDamageUnit_AddDamageCollSphere((cDamageUnit *)d, (void *)(s3 + 0x80), &buf, 2.5f);
             *(short *)(*(int *)(s3 + 0x680) + 0x46) = 0x52;
             *(int *)(*(int *)(s3 + 0x680) + 0x4C) = 0x50;
             cDamageUnit_SetDamageCollActive(*(void **)(s3 + 0x680), 0);

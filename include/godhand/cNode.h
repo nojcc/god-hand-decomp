@@ -38,6 +38,15 @@ typedef struct cNode {
     void *vt;                           /* 0xF0 method table */
 } cNode;
 
+/* A cNode subclass that owns one model at 0x2B0; its destructors
+ * (OwnerObj_destroyOwned, OwnerObj_destroyOwned2, HolderObj_destroyOwned)
+ * release the model, then run func_002FBE28. */
+typedef struct cNodeOwner {
+    cNode base;                         /* 0x000 */
+    char unkF4[0x2B0 - 0xF4];
+    struct cModel *owned;               /* 0x2B0 released with ReleaseObj */
+} cNodeOwner;
+
 /* The node's parent. */
 cNode *func_002B5E50(cNode *self);
 /* Unlink the node from its parent's child list and clear its links. */
@@ -92,8 +101,20 @@ void func_002FBDD8(cNode *self, int flags);
 void func_003028E8(cNode *self, int flags);
 /* Destructor of the cNode subclass whose method table is D_0044FAD0. */
 void func_002FBE28(cNode *self, int flags);
-/* Destructor of the cNode subclass that owns six heap blocks (001468b0.c). */
-struct BlockOwner;
-void BlockOwner_dtor(struct BlockOwner *self, int flags);
+/* A cNode subclass that owns six heap blocks; each block's heap handle is
+ * stored 0x20 bytes before it. */
+typedef struct BlockOwner {
+    cNode base;                         /* 0x000 */
+    char unkF4[0x2BC - 0xF4];
+    int *blockBC;                       /* 0x2BC */
+    int *blockC0;                       /* 0x2C0 */
+    int *blockC4;                       /* 0x2C4 */
+    int *blockC8;                       /* 0x2C8 */
+    int *blockCC;                       /* 0x2CC */
+    int *blockD0;                       /* 0x2D0 */
+} BlockOwner;
+
+/* BlockOwner's destructor: free the six blocks, then run func_002FBE28. */
+void BlockOwner_dtor(BlockOwner *self, int flags);
 
 #endif

@@ -7,10 +7,8 @@
 #include "godhand/player.h"
 #include "godhand/vecInline.h"
 
-extern void Obj0000_Clear_Fields_640_648_124E58(char *a0);
 extern int GetField_68C_1D0C10(char *a0);
 extern void Obj0000_Set_Field_68C_Zero_1D0C18(int *a0);
-extern void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12);
 extern void func_0012AFE8(pl00 *self, cOmWeapon *weapon);
 extern void func_0012AC98(pl00 *self);
 
@@ -33,7 +31,7 @@ void func_00110B20(pl00 *self)
         self->comboSet = 0;
         func_00124540(self, 4);
         if (self->sub698 != 0 && self->sub698->actorId == 0x3AF)
-            Obj0000_Clear_Fields_640_648_124E58((char *)self);
+            Obj0000_Clear_Fields_640_648_124E58(self);
         start = MOTION_AT(self->base.pack, 0x3CC);
         end = MOTION_AT(self->base.pack, 0x3D0);
         if (self->sub698 != 0) {
@@ -73,9 +71,9 @@ void func_00110B20(pl00 *self)
     case 1:
         if (self->unk640 != 0)
             self->unk648 = 0x14;
-        InvokeVirtualAtField214AndForward_124E68((char *)self, 0.19634955f);
+        InvokeVirtualAtField214AndForward_124E68(self, 0.19634955f);
         if (moveMotion(self) != 0) {
-            Obj0000_Clear_Fields_640_648_124E58((char *)self);
+            Obj0000_Clear_Fields_640_648_124E58(self);
             self->base.mode = 0;
             self->base.phase = 0;
             self->base.step = 0;
@@ -122,5 +120,5 @@ void func_00110B20(pl00 *self)
     if (self->base.stepArg != 0)
         self->flags15F4 |= 0x1000000;
     if (func_00123938(self, 1) != 0)
-        Obj0000_Clear_Fields_640_648_124E58((char *)self);
+        Obj0000_Clear_Fields_640_648_124E58(self);
 }

@@ -1,30 +1,16 @@
-typedef struct {
-    char pad[0x75];
-    char f75;
-    char f76;
-} MarkObj;
+/* sn-2.95.3-136 matched TU. */
+#include "godhand/DispMgr.h"
 
-typedef struct {
-    MarkObj *obj;
-    int a;
-    int b;
-} MarkEnt;
-
-typedef struct {
-    char pad[0x22F4];
-    MarkEnt e[17];
-} MarkOwner;
-
-
+/* Set unk75 and unk76 = value on every registered sub-record. */
 __attribute__((section(".text.func_001415E8")))
-void func_001415E8(MarkOwner *p, int value)
+void func_001415E8(DispMgr *mgr, int value)
 {
     int i;
-    for (i = 0; i < 17; i++) {
-        MarkObj *obj = p->e[i].obj;
+    for (i = 0; i < DISPMGR_SLOT_NUM; i++) {
+        DispMgrSub *obj = mgr->slot[i].obj;
         if (obj != 0) {
-            obj->f75 = 1;
-            obj->f76 = value;
+            obj->unk75 = 1;
+            obj->unk76 = value;
         }
     }
 }

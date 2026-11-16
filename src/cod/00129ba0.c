@@ -8,8 +8,8 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cSnd.h"
 
-extern char D_0044E538[];
-extern char D_0044A528[];
+extern cVtEnt D_0044E538[];
+extern cVtEnt D_0044A528[];
 extern char D_007419A0[];
 extern void func_002A84A8(void *);
 extern void espSys_effDataRelease(void *, int);
@@ -66,23 +66,17 @@ void BufHolder_deletingDtor(BufHolder *self, int flags) {
 
 /* Destructor of the object with vtable D_0044E538: reset the vtable, release
  * the owned object at +0x2B0 if any, then run the base destructor. */
-typedef struct OwnerObj {
-    char unk000[0xF0];
-    void *vt;                           /* 0xF0 */
-    char unkF4[0x1BC];
-    void *owned;                        /* 0x2B0 */
-} OwnerObj;
 
 
 
 
 
 __attribute__((section(".text.OwnerObj_destroyOwned")))
-void OwnerObj_destroyOwned(OwnerObj *self, int flags) {
-    self->vt = D_0044E538;
+void OwnerObj_destroyOwned(cNodeOwner *self, int flags) {
+    self->base.vt = D_0044E538;
     if (self->owned != 0)
         ReleaseObj(self->owned);
-    func_002FBE28((cNode *)self, flags);
+    func_002FBE28(&self->base, flags);
 }
 
 /* Tear down an effect object: restore its vtable, release the effect data,

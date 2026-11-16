@@ -9,6 +9,7 @@
 #ifdef NON_MATCHING
 #include "godhand/cDamageManage.h"
 #include "godhand/cDvd.h"
+#include "godhand/cMovie.h"
 typedef struct GameWork {
     char pad000[0x584];
     unsigned int flags;         /* 0x584 */
@@ -24,7 +25,6 @@ extern GameWork D_007474A0;
 extern char D_004504F0[];
 extern char D_00450508[];
 extern char *D_00752C00;
-extern char D_005E79D0[];
 extern char D_005E6900[];
 extern char D_005E8040[];
 extern char D_005E8140[];
@@ -74,10 +74,10 @@ void func_0030B420(void)
     cTaskWork_kill(D_00752C00 + 0x58);
     cTaskWork_kill(D_00752C00 + 0xB0);
     cTaskWork_kill(D_00752C00 + 0x108);
-    cMovie_stopAllTracks(D_005E79D0);
-    while (!cMovie_isIdle(D_005E79D0))
+    cMovie_stopAllTracks(&D_005E79D0);
+    while (!cMovie_isIdle(&D_005E79D0))
         sceGsSyncV(0);
-    func_002B4A30(D_005E79D0);
+    func_002B4A30(&D_005E79D0);
     GFLAGS &= ~0x02000000;
     GFLAGS &= ~2;
     GFLAGS &= ~8;
@@ -92,7 +92,7 @@ void func_0030B420(void)
     sceGsSyncV(0);
     func_002C9F58(&D_005FEE00);
     cDvd_init(&D_00583F20);
-    MoviePool_init(D_005E79D0);
+    MoviePool_init(&D_005E79D0);
     func_002BE818(D_005E8640);
     cEvent_freeData(D_00586AF0);
     ClearActorList_2C32C0(D_003C2F84);

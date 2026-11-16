@@ -5,7 +5,6 @@
 
 extern void InitNode_1D0C78(void *o);
 
-extern void func_001D4D80(BlackJack *o);
 /* Constructor: set up the 52 deck nodes, then clear state, bet and both hands. */
 __attribute__((section(".text.BlackJack__ctor")))
 BlackJack *BlackJack__ctor(BlackJack *self)

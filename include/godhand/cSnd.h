@@ -16,6 +16,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/cBgmData.h"
+#include "godhand/sndVoiceNode.h"
 
 /* A cVec on a quadword boundary: a struct assignment copies it with lq/sq. */
 typedef struct cVec cVecQuad __attribute__((aligned(16)));
@@ -71,15 +72,10 @@ typedef struct cSndBgmReq {
     unsigned short wordB;       /* 0xE */
 } cSndBgmReq;                   /* 0x10 */
 
-/* One BGM sequence node. The sequence state sits first, then our fields. */
+/* One BGM sequence node: a SndVoiceNode (its constructor and destructor run
+ * the voice node's first), then our fields. */
 typedef struct cSndBgmNode {
-    char unk00[0x5E];
-    unsigned char started;      /* 0x5E */
-    unsigned char unk5F;        /* 0x5F */
-    unsigned char started60;    /* 0x60 */
-    unsigned char unk61;        /* 0x61 */
-    char unk62[0x1E];
-    void *vt;                   /* 0x80 method table, D_0044CEE8 */
+    SndVoiceNode base;          /* 0x00 method table D_0044CEE8 */
     struct cSndBgmNode *prev;   /* 0x84 */
     struct cSndBgmNode *next;   /* 0x88 */
     int bank;                   /* 0x8C bgm bank, biased by 0x80 */
@@ -211,7 +207,7 @@ void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
 void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
 void cSndBgmNode_Init(cSndBgmNode *node);
 /* cSndBgmNode's method table. */
-extern char D_0044CEE8[];
+extern struct cVtEnt D_0044CEE8[];
 /* Constructor: build the SndVoiceNode part, set cSndBgmNode's method table
  * and initialise the node; returns node. */
 cSndBgmNode *cSndBgmNode_Ctor(cSndBgmNode *node);

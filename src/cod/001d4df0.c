@@ -2,21 +2,16 @@
 #include "godhand/heapArena.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cDvd.h"
-#include "godhand/CustomIDWork.h"
+#include "godhand/BlackJack.h"
 extern int D_003C2388;
 extern char **D_003C2384;
 extern char D_0042B190[];
 
 extern int cIDManager_getLocalFileName(int mgr, char *buf, char *name, int lang);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void CustomIDWork_SetNumber_1D5760(char *self, int n);
-extern void func_001D5780(void *self, int n);
-extern void func_001D6A30(void *self, int n);
-extern void func_001D6A50(void *self, int n);
-extern void BlackJackId_SetDefaultDisp(void *self);
 
 __attribute__((section(".text.func_001D4DF0")))
-void func_001D4DF0(char *self)
+void func_001D4DF0(BlackJack *self)
 {
     char buf[0x40];
     int res;
@@ -28,11 +23,11 @@ void func_001D4DF0(char *self)
     if (r != 0) {
         cDvd_CheckWait(&D_00583F20, r);
         cIDManager_setIDData(*D_003C2384, 0x13, res);
-        cIDBase_initialize((cIDBaseObj *)(self + 0x10), 0x13, 0);
-        cIDBase_restartAnim((cIDBaseObj *)(self + 0x10));
-        for (i = 0; i < 45; i++)
-            CustomIDWork_Initialize((CustomIDWork *)(self + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(self + 0x10), i));
-        CustomIDWork_SetDisp((CustomIDWork *)(self + 0x60), 0);
+        cIDBase_initialize(&self->id, 0x13, 0);
+        cIDBase_restartAnim(&self->id);
+        for (i = 0; i < BLACKJACK_ELEM_NUM; i++)
+            CustomIDWork_Initialize(&self->elem[i], cIDBase_getIDWork(&self->id, i));
+        CustomIDWork_SetDisp(&self->elem[0x0], 0);
         CustomIDWork_SetNumber_1D5760(self, 0);
         func_001D5780(self, 0);
         func_001D6A30(self, 0);

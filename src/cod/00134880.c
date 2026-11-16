@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/motion.h"
+#include "godhand/BlackJack.h"
 #include "godhand/cNode.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/mtx.h"
@@ -40,8 +41,8 @@ void cCollisionSolidManage_CreateSphere(cCollisionSolidManage *self, struct cGam
 }
 
 __attribute__((section(".text.CustomIDWork_SetNumber_1D5760")))
-void CustomIDWork_SetNumber_1D5760(char *a0, int number) {
-    CustomIDWork_SetNumber((CustomIDWork *)(a0 + 0x158), number);
+void CustomIDWork_SetNumber_1D5760(BlackJack *self, int number) {
+    CustomIDWork_SetNumber(&self->elem[0x2], number);
 }
 
 __attribute__((section(".text.func_002998D8")))

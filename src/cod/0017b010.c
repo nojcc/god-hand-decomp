@@ -5,8 +5,8 @@
 #include "godhand/cEmManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/FileLoadRec.h"
+#include "godhand/ColiseumEmSelect.h"
 
-extern void SetCustomIDDispOneOrAll_1F4778(void *self, int no, int show);
 extern void *InitFields_1B6E90(void *self);
 #include "godhand/objField.h"
 extern void sceVu0InversMatrix(float *dst, float *src);
@@ -29,7 +29,7 @@ extern void func_001B7EE0(void *self, float f12);
 /* Hides both marks of slot `no` and, if `lit`, shows one of them: the left
  * one when `right` is 0, the right one otherwise. */
 __attribute__((section(".text.Panel_showSlotMark")))
-void Panel_showSlotMark(void *self, unsigned short no, int right, int lit)
+void Panel_showSlotMark(ColiseumEmDisp *self, unsigned short no, int right, int lit)
 {
     if (no < MARK_NUM) {
         SetCustomIDDispOneOrAll_1F4778(self, no + MARK_A_BASE, 0);

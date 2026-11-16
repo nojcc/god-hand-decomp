@@ -10,7 +10,7 @@
 extern void cEm00_setEm65Separate(cEmActor *em);
 extern void cScenario_startSoftEvent(int scenario, int arg);
 extern void cScenario__endSoftEvent(int scenario);
-extern int D_004282F0;
+extern cVtEnt D_004282F0[];
 extern void KillEffect(void *obj, int a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *obj, int flag);
 
@@ -90,7 +90,7 @@ typedef struct cGiveOwner {
 /* Destructor: install the class method table, stop the sound, release both damage-give records, kill the effects and run the base destructor. */
 __attribute__((section(".text.cGiveOwner_destruct")))
 void cGiveOwner_destruct(cGiveOwner *self, int flag) {
-    self->base.vtable = (cVtEnt *)&D_004282F0;
+    self->base.vtable = D_004282F0;
     if (self->seHandle != 0) {
         cSnd_SeStop(&D_005FEE00, self->seHandle);
         self->seHandle = 0;

@@ -9,26 +9,15 @@
 #include "godhand/player.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/CustomIDPanel.h"
+#include "godhand/ColiseumEmSelect.h"
 
 #ifdef NON_MATCHING
-/* The ring select screen as this step sees it. */
-typedef struct RingSelect {
-    char unk00[0x60];
-    char ui[0x37A8 - 0x60];     /* 0x60 status panel owner */
-    ColiseumRing ring;          /* 0x37A8 the ring under the cursor */
-} RingSelect;
-
-typedef struct CustomIDOwner CustomIDOwner;
-
-extern int func_001F4530(RingSelect *self, short ringNo, unsigned short unlock);
-extern void func_001F5650(CustomIDOwner *self, unsigned char mode, short gauge0, short gauge1, short gauge2,
-                          short gauge3, short num, short lit);
 
 /* Shows the ring's rules on the status panel: life and heat gauge sizes and
  * starting amounts (the player's own where the ring leaves them alone), reel
  * items and god items. A locked ring shows only the frame. */
 __attribute__((section(".text.func_001F4248")))
-void func_001F4248(RingSelect *self)
+void func_001F4248(ColiseumEmSelect *self)
 {
     short vitalMax;
     short vital;
@@ -37,7 +26,7 @@ void func_001F4248(RingSelect *self)
     float pct;
     int num;
 
-    if (func_001F4530(self, self->ring.ringNo, *(unsigned short *)((char *)&self->ring + 4)) != 0) {
+    if (func_001F4530(self, self->ring.ringNo, self->ring.unk04) != 0) {
         if (self->ring.vitalLv != -1) {
             vitalMax = self->ring.vitalLv * 20 + 100;
             vital = self->ring.vitalPct;
@@ -64,10 +53,10 @@ void func_001F4248(RingSelect *self)
         if (num == -1) {
             num = cCoreSave_getReelItem(&D_00569B70);
         }
-        func_001F5650((CustomIDOwner *)self->ui, 2, vitalMax, vital, heatMax, heat, num,
+        func_001F5650(&self->idBase, 2, vitalMax, vital, heatMax, heat, num,
                       self->ring.godItemNum);
     } else {
-        func_001F5650((CustomIDOwner *)self->ui, 1, 0, 0, 0, 0, 0, 0);
+        func_001F5650(&self->idBase, 1, 0, 0, 0, 0, 0, 0);
     }
 }
 #else

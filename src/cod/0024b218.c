@@ -22,39 +22,38 @@ extern void func_0026DB00(void *a0, int a1, int a2);
  * 2 more. */
 __attribute__((section(".text.func_0025FCF8"))) void func_0025FCF8(cEm00 *self)
 {
-    char *s1 = (char *)self;
-    void *self;
-    int p;
+    cDamageUnit *du;
+    cGameObjVt *vt;
     int nb;
     int b;
     int o;
     float one;
 
-    p = *(int *)(s1 + 0x214);
-    self = (*(void *(**)(void *))(p + 0xB4))(s1 + *(short *)(p + 0xB0));
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    vt = cGameObj_vt((cGameObj *)self);
+    du = vt->getDamageUnit((char *)self + vt->damageUnitDelta);
+    switch (self->step) {
         case 0:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            b = *(int *)(s1 + 0x304);
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            b = (int)self->pack;
             o = EM_RES_REC(b, 0x108C);
-            func_002A8578(s1, o, o, 3, 0.0f, nb, 0);
-            cDamageUnit_SetDamageCollActive(self, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s1) + 8), s1, 0, 0, 0, 0);
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            func_002A8578(self, o, o, 3, 0.0f, nb, 0);
+            cDamageUnit_SetDamageCollActive(du, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 8), self, 0, 0, 0, 0);
+            self->step = self->step + 1;
         case 1:
-            if (moveMotion(s1) != 0) {
-                *(unsigned char *)(s1 + 0x2F6) = 0;
-                *(unsigned char *)(s1 + 0x2F4) = 2;
-                *(unsigned char *)(s1 + 0x2F5) = 2;
-                *(unsigned char *)(s1 + 0x2F7) = 0;
+            if (moveMotion(self) != 0) {
+                self->step = 0;
+                self->mode = 2;
+                self->phase = 2;
+                self->stepArg = 0;
             } else {
                 one = 1.0f;
-                cObjBase_addNullSpeed_Rotation(s1, one);
-                cObjBase_addNullSpeed(s1, one);
+                cObjBase_addNullSpeed_Rotation(self, one);
+                cObjBase_addNullSpeed(self, one);
             }
             break;
     }
-    *(unsigned short *)(s1 + 0x3AC) = *(unsigned short *)(s1 + 0x3AC) | 0x400;
+    self->seqFlags = self->seqFlags | 0x400;
 }
 
 /* Phase machine on the step byte, 2 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,

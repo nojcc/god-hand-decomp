@@ -3139,8 +3139,12 @@
 !include/godhand/cFlagList.h
 !include/godhand/cCockLastBossBar.h
 !include/godhand/cCockBossBar.h
+!include/godhand/cCockItem.h
+!include/godhand/cCockLoading.h
+!include/godhand/cCockGetPoint.h
+!include/godhand/cCockPrintData.h
+!include/godhand/cCockEmBar.h
 !include/godhand/WaveObj.h
-!include/godhand/MarkPanel.h
 !include/godhand/cOmHitVolume.h
 !include/godhand/cRecordIndex.h
 !include/godhand/cOl2b.h
@@ -3479,6 +3483,7 @@
 !include/godhand/pack.h
 !include/godhand/player.h
 !include/godhand/seqNode.h
+!include/godhand/sndVoiceNode.h
 !include/godhand/sftim.h
 !include/godhand/sfxlib.h
 !include/godhand/sndTiming.h
@@ -4454,6 +4459,8 @@
 !include/godhand/sceTimer.h
 !include/godhand/scrollLayer.h
 !include/godhand/idPair.h
+!include/godhand/IDPanelScreen.h
+!include/godhand/IdScreen4.h
 !include/godhand/sif.h
 !include/godhand/texWork.h
 !include/godhand/sndCmd.h

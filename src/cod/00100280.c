@@ -1,7 +1,8 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cModel.h"
 
-extern int D_0041B598;
-extern int D_0041B590;
+extern cVtEnt D_0041B598[];
+extern const char D_0041B590[];
 extern int D_007854C8;
 extern int D_0041B638;
 extern int D_007854D8;
@@ -13,6 +14,7 @@ extern int D_007854F8;
 extern void cObjBase__tf(void);
 extern float D_003BC7C0;
 #define CGAMEOBJ_NO_TYPEDEF
+#include "godhand/cModel.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
 #include "godhand/cGameObj.h"
@@ -30,19 +32,18 @@ int IsStateByteIdle_10B5F0(unsigned char *a0) {
     return 1;
 }
 
+/* Constructor: build the cGameObj, then set cPlBase's method table and class name. */
 __attribute__((section(".text.cPlBase")))
-void *cPlBase(void *a0) {
-    void *r;
-    cGameObj(a0);
-    *(int **)((char*)a0 + 0x214) = &D_0041B598;
-    r = a0;
-    *(int **)((char*)a0 + 0x4AC) = &D_0041B590;
-    return r;
+struct cGameObj *cPlBase(struct cGameObj *self) {
+    cGameObj(self);
+    self->vtable = D_0041B598;
+    self->kindName = D_0041B590;
+    return self;
 }
 
 __attribute__((section(".text.cPlBase__dtor")))
 void cPlBase__dtor(struct cGameObj *self, int flags) {
-    self->vtable = (cVtEnt *)&D_0041B598;
+    self->vtable = D_0041B598;
     cCollisionSolidManage_ReleaseUnit(&D_00462FC0, self);
     cGameObj__dtor(self, flags);
 }

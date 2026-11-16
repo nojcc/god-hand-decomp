@@ -1,7 +1,5 @@
-#include "godhand/PanelObj.h"
+#include "godhand/Poker.h"
 #include "godhand/CustomIDWork.h"
-extern void *func_001DD068(void *);
-extern void *func_001DEC70(void *);
 extern void CustomIDWork_ResetMoveOffsetPos(void *);
 
 __attribute__((section(".text.func_001DF820")))
@@ -14,10 +12,10 @@ void func_001DF820(PanelObj *self, int enabled)
 }
 
 __attribute__((section(".text.func_001DF858")))
-void *func_001DF858(char *p)
+Poker *func_001DF858(Poker *self)
 {
-    func_001DD068(p);
-    func_001DEC70(p + 0x25B0);
-    *(int *)(p + 0x2E50) = 0;
-    return p;
+    func_001DD068(self);
+    func_001DEC70(&self->ui);
+    self->unk2E50 = 0;
+    return self;
 }

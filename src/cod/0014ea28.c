@@ -8,7 +8,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int D_0041EBE8;
 extern void (*D_003C4908)(void);
 extern void func_00329EA8(int a0);
 extern void func_0032B300(int a0, int a1);
@@ -25,13 +24,13 @@ extern void func_002D5440(int a0, int a1);
  * the cObj destructor. */
 __attribute__((section(".text.cObjBase__dtor")))
 void cObjBase__dtor(struct cObjBase *self, int flags) {
-    self->vtable = (cVtEnt *)&D_0041EBE8;
+    self->vtable = D_0041EBE8;
     cObj__dtor(self, flags);
 }
 
 __attribute__((section(".text.cGameObj__dtor")))
 void cGameObj__dtor(struct cGameObj *self, int flags) {
-    self->vtable = (cVtEnt *)D_0044AE28;
+    self->vtable = D_0044AE28;
     cObjBase__dtor((struct cObjBase *)self, flags);
 }
 

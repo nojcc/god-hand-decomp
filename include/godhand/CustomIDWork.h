@@ -83,5 +83,15 @@ void CustomIDWork_ResetColorAnim(CustomIDWork *self);
 void CustomIDWork_SetScaleAnimNormal(CustomIDWork *self, unsigned short frames, float from, float to);
 void CustomIDWork_SetScaleAnimSin(CustomIDWork *self, unsigned short frames, float from, float to);
 void CustomIDWork_ResetScaleAnim(CustomIDWork *self);
+/* Animate the object's X scale linearly from `from` to `to` over `frames` frames, holding Y at its sclY. */
+void func_002D69A8(CustomIDWork *self, unsigned short frames, float from, float to);
+/* Set the object's f68 to v. */
+void func_002D6578(CustomIDWork *self, int v);
+/* Set the object's f6C to v. */
+void func_002D65A0(CustomIDWork *self, int v);
+/* Read the object's f6C into *out when there is an object and out is set. */
+void func_002D65D0(CustomIDWork *self, float *out);
+/* Set the object's four f70 floats. */
+void func_002D65F8(CustomIDWork *self, float x, float y, float z, float w);
 
 #endif

@@ -21,7 +21,8 @@ typedef struct IdOwner {
 } IdOwner;
 
 typedef struct IdDrawObj {
-    char unk00[0x94];
+    cIDBaseObj base;                    /* 0x00 */
+    char unk48[0x94 - sizeof(cIDBaseObj)];
     void *child;                        /* 0x94 */
     char unk98[4];
     IdOwner *owner;                     /* 0x9C */
@@ -52,7 +53,7 @@ void IdDrawObj_transIfShown(IdDrawObj *self)
     if (self->owner->hp == 0) return;
     if ((self->flags & DRAW_FLAG_ENABLED) == 0) return;
     if (cCoreSave_getStateBit0(&D_00569B70) != 0) return;
-    cIDBase_trans((cIDBaseObj *)self);
+    cIDBase_trans(&self->base);
 }
 
 #define LAYER_A  0x1E

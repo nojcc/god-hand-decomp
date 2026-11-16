@@ -2,6 +2,7 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
+#include "godhand/cEm00.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -39,22 +40,22 @@ void func_0014EC88(cObjBase *self) {
 }
 
 __attribute__((section(".text.func_00237E90")))
-void func_00237E90(void *a0){ char *s0=(char*)a0; int v0; float one;
- cCollisionSolidManage_SetActive(&D_00462FC0,(struct cGameObj *)s0,0);
- *(int*)(s0+0x16D0)=*(int*)(s0+0x16D0)|0x20000;
- *(float*)(s0+0x54C)=3.0f;
- switch(*(unsigned char*)(s0+0x2F6)){
- case 0: v0=*(int*)(s0+0x304);
-  *(char*)(s0+0x1864)=0;
-  func_002A8578(s0,*(int*)(v0+0x1550)+v0,*(int*)(v0+0x1554)+v0,0,0.0f,0,0);
-  if(*(int*)(s0+0x6F0)!=0) Obj1D00_SetState_6_A(&(*(cOmWeapon **)(s0 + 0x6F0))->base);
-  *(unsigned char*)(s0+0x2F6)=*(unsigned char*)(s0+0x2F6)+1;
+void func_00237E90(cEm00 *self){ int v0; float one;
+ cCollisionSolidManage_SetActive(&D_00462FC0,(struct cGameObj *)self,0);
+ self->emFlags=self->emFlags|0x20000;
+ self->hitFlash=3.0f;
+ switch(self->step){
+ case 0: v0=EM_RES(self);
+  self->unk1864=0;
+  func_002A8578(self,*(int*)(v0+0x1550)+v0,*(int*)(v0+0x1554)+v0,0,0.0f,0,0);
+  if(self->fx0!=0) Obj1D00_SetState_6_A(&self->fx0->base);
+  self->step=self->step+1;
  case 1:
-  if(moveMotion(s0)!=0){ *(unsigned char*)(s0+0x2F4)=0; *(unsigned char*)(s0+0x2F5)=0x6C;
-   *(unsigned char*)(s0+0x2F6)=0; *(unsigned char*)(s0+0x2F7)=0; }
+  if(moveMotion(self)!=0){ self->mode=0; self->phase=0x6C;
+   self->step=0; self->stepArg=0; }
   one=1.0f;
-  cObjBase_addNullSpeed_Rotation(s0,one);
-  cObjBase_addNullSpeed(s0,one); break; } }
+  cObjBase_addNullSpeed_Rotation(self,one);
+  cObjBase_addNullSpeed(self,one); break; } }
 
 __attribute__((section(".text.func_001ABA20")))
 void func_001ABA20(void *a0){ char *s0=(char*)a0; int v0; float one;

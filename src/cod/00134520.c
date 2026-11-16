@@ -7,7 +7,7 @@ extern int D_00460D18;
 
 __attribute__((section(".text.func_00134520")))
 void func_00134520(cCollisionSolidUnit *unit, void *body, cVec *center, float radius) {
-    cCollisionSolidBody *p;
+    cCollisionSolidObj *p;
     cCollisionSolidBody *q;
 
     if (unit->owner != 0) {
@@ -16,11 +16,11 @@ void func_00134520(cCollisionSolidUnit *unit, void *body, cVec *center, float ra
             while (q->next != 0) {
                 q = q->next;
             }
-            p = (cCollisionSolidBody *)cCollisionSolid_constructSphere(func_0030F550(0x80), body, center, radius);
-            q->next = p;
+            p = cCollisionSolid_constructSphere(func_0030F550(0x80), body, center, radius);
+            q->next = &p->base;
         } else {
-            p = (cCollisionSolidBody *)cCollisionSolid_constructSphere(func_0030F550(0x80), body, center, radius);
-            unit->first = p;
+            p = cCollisionSolid_constructSphere(func_0030F550(0x80), body, center, radius);
+            unit->first = &p->base;
         }
         if (p != 0) {
             D_00460D18 = D_00460D18 + 1;

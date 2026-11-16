@@ -3,21 +3,6 @@
 #include "godhand/Poker.h"
 
 extern void func_001DBE18(void *a0, void *a1);
-extern void SetField_56_1DEBE8(void *a0, int a1);
-extern float D_00568160[];
-extern float D_005681C0[];
-
-/* sn-2.95.3-136 matched TU. */
-
-
-
-
-
-
-
-
-
-
 
 static __inline__ unsigned char TickDown(int *p) {
     if (*p == 0) {
@@ -27,89 +12,75 @@ static __inline__ unsigned char TickDown(int *p) {
     return 0;
 }
 
+/* Poker deal-one-card step machine: double the payout and reset the deck, deal a card face up and slide it
+ * from the deck to the two-card row, turn it over, wait for it to face up, then go to state 14. */
 __attribute__((section(".text.func_001DA670")))
-void func_001DA670(char *s0) {
+void func_001DA670(Poker *self) {
     unsigned char ok;
 
-    switch (*(unsigned char *)(s0 + 0x3025)) {
+    switch (self->phase) {
     case 0:
-        *(int *)(s0 + 0x3038) = *(int *)(s0 + 0x3038) * 2;
-        Poker_resetDeck((Poker *)s0);
-        *(int *)(s0 + 0x3028) = 30;
-        *(unsigned char *)(s0 + 0x3025) = *(unsigned char *)(s0 + 0x3025) + 1;
+        self->payout = self->payout * 2;
+        Poker_resetDeck(self);
+        self->timer = 30;
+        self->phase = self->phase + 1;
         break;
     case 1:
-        ok = TickDown((int *)(s0 + 0x3028));
+        ok = TickDown(&self->timer);
         if (ok) {
-            char *g1;
-            char *ob;
-            char *vt;
-            void (*fp)();
-            *(int *)(s0 + 0x3020) = *(int *)(s0 + 0x3020) & ~0x10;
-            func_001DBE18(s0, s0 + 0x3004);
-            func_001D6EC8(((Poker *)s0)->hand[0], 0);
-            g1 = *(char **)*(char **)(s0 + 0x3004);
-            *(int *)(g1 + 0x250) = *(int *)(g1 + 0x250) | 2;
-            ob = *(char **)*(char **)(s0 + 0x3004);
-            vt = *(char **)(ob + 0x214);
-            fp = *(void (**)())(vt + 0x74);
-            fp(ob + *(short *)(vt + 0x70), D_00568160);
-            *(unsigned char *)(s0 + 0x3025) = *(unsigned char *)(s0 + 0x3025) + 1;
+            self->flags = self->flags & ~0x10;
+            func_001DBE18(self, &self->hand[0]);
+            func_001D6EC8(self->hand[0], 0);
+            self->hand[0]->obj->flags = self->hand[0]->obj->flags | 2;
+            self->hand[0]->obj->vtbl[14].pfn((char *)self->hand[0]->obj + self->hand[0]->obj->vtbl[14].delta, &D_00568160.x);
+            self->phase = self->phase + 1;
         }
         break;
     case 2:
-        {
-        char *g2 = *(char **)*(char **)(s0 + 0x3004);
-        *(int *)(g2 + 0x250) = *(int *)(g2 + 0x250) & 0xFFFFFFFDU;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, *(char **)*(char **)(s0 + 0x3004), 0, 0, 0, 0);
-        SetField_56_1DEBE8(s0, 0);
-        *(int *)(s0 + 0x302C) = 10;
-        *(unsigned char *)(s0 + 0x3025) = *(unsigned char *)(s0 + 0x3025) + 1;
-        }
+        self->hand[0]->obj->flags = self->hand[0]->obj->flags & ~2;
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->hand[0]->obj, 0, 0, 0, 0);
+        SetField_56_1DEBE8(self, 0);
+        self->unk302C = 10;
+        self->phase = self->phase + 1;
         break;
     case 3:
         {
-        float t = (10.0f - (float)*(int *)(s0 + 0x302C)) / 10.0f;
+        float t = (10.0f - (float)self->unk302C) / 10.0f;
         float r0;
         float r1;
-        char *d1;
         int n;
-        r0 = t * (D_005681C0[0] - D_00568160[0]) + D_00568160[0];
-        r1 = t * (D_005681C0[1] - D_00568160[1]) + D_00568160[1];
-        d1 = *(char **)(*(char **)*(char **)(s0 + 0x3004) + 0xF0);
-        *(float *)d1 = r0;
-        {
-        char *d2 = *(char **)(*(char **)*(char **)(s0 + 0x3004) + 0xF0);
-        *(float *)(d2 + 4) = r1;
-        }
-        n = *(int *)(s0 + 0x302C);
+        r0 = t * (D_005681C0[0].x - D_00568160.x) + D_00568160.x;
+        r1 = t * (D_005681C0[0].y - D_00568160.y) + D_00568160.y;
+        self->hand[0]->obj->pos[0] = r0;
+        self->hand[0]->obj->pos[1] = r1;
+        n = self->unk302C;
         if (n == 0) {
-            *(int *)(s0 + 0x3028) = 30;
-            *(unsigned char *)(s0 + 0x3025) = *(unsigned char *)(s0 + 0x3025) + 1;
+            self->timer = 30;
+            self->phase = self->phase + 1;
         } else {
-            *(int *)(s0 + 0x302C) = n - 1;
+            self->unk302C = n - 1;
         }
         }
         break;
     case 4:
-        ok = TickDown((int *)(s0 + 0x3028));
+        ok = TickDown(&self->timer);
         if (ok) {
-            func_001D6DD0(((Poker *)s0)->hand[0], 1);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 1, *(char **)*(char **)(s0 + 0x3004), 0, 0, 0, 0);
-            *(unsigned char *)(s0 + 0x3025) = *(unsigned char *)(s0 + 0x3025) + 1;
+            func_001D6DD0(self->hand[0], 1);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 1, self->hand[0]->obj, 0, 0, 0, 0);
+            self->phase = self->phase + 1;
         }
         break;
     case 5:
         {
-        long f = *(unsigned int *)(*(char **)(s0 + 0x3004) + 4);
+        long f = (unsigned int)self->hand[0]->flags;
         if (((f >> 3) & 1) == 1) {
-            *(unsigned char *)(s0 + 0x3025) = *(unsigned char *)(s0 + 0x3025) + 1;
+            self->phase = self->phase + 1;
         }
         }
         break;
     case 6:
-        *(unsigned char *)(s0 + 0x3025) = 0;
-        *(unsigned char *)(s0 + 0x3024) = 14;
+        self->phase = 0;
+        self->state = 14;
         break;
     }
 }

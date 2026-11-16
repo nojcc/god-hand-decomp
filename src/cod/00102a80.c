@@ -15,8 +15,6 @@ extern void func_001034E0(void *a0);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void func_00260438(void *a0);
 extern unsigned short D_00747A50;
-extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_0012B618(void *a0);
 
 __attribute__((section(".text.func_00277C48")))
@@ -222,47 +220,46 @@ void func_00246088(void *a0)
 }
 
 __attribute__((section(".text.func_00110E98")))
-void func_00110E98(void *a0)
+void func_00110E98(pl00 *self)
 {
-    char *s0 = (char *)a0;
     char *v;
     float one;
 
-    *(int *)(s0 + 0x15F4) |= 0x100000;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    self->flags15F4 |= 0x100000;
+    switch (self->base.step) {
     case 0:
-        *(short *)(s0 + 0x5E0) = 0;
-        *(short *)(s0 + 0x5E2) = 0;
-        func_00124540((pl00 *)s0, 4);
-        if (*(int *)(s0 + 0x6A0) != 0) {
-            v = *(char **)(s0 + 0x304);
-            func_002A8578(*(void **)(s0 + 0x6A0), *(int *)(v + 0x37C) + (int)v, *(int *)(v + 0x398) + (int)v, 3, 0.0f, 0, 0);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        func_00124540(self, 4);
+        if (self->sub6A0 != 0) {
+            v = self->base.pack;
+            func_002A8578(self->sub6A0, *(int *)(v + 0x37C) + (int)v, *(int *)(v + 0x398) + (int)v, 3, 0.0f, 0, 0);
         }
-        v = *(char **)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(v + 0x364) + (int)v, *(int *)(v + 0x368) + (int)v, 3, 0.0f, 0, 0);
-        *(int *)(s0 + 0x15B0) = 1;
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        v = self->base.pack;
+        func_002A8578(self, *(int *)(v + 0x364) + (int)v, *(int *)(v + 0x368) + (int)v, 3, 0.0f, 0, 0);
+        self->unk15B0 = 1;
+        self->base.step = self->base.step + 1;
     case 1:
-        if (*(int *)(s0 + 0x640) != 0) {
-            *(unsigned char *)(s0 + 0x648) = 0x14;
+        if (self->unk640 != 0) {
+            self->unk648 = 0x14;
         }
-        InvokeVirtualAtField214AndForward_124E68(s0, 0.19634954f);
-        if (moveMotion(s0) != 0) {
-            Obj0000_Clear_Fields_640_648_124E58(s0);
-            *(unsigned char *)(s0 + 0x2F4) = 0;
-            *(unsigned char *)(s0 + 0x2F5) = 0;
-            *(unsigned char *)(s0 + 0x2F6) = 0;
-            *(unsigned char *)(s0 + 0x2F7) = 0;
+        InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
+        if (moveMotion(self) != 0) {
+            Obj0000_Clear_Fields_640_648_124E58(self);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        cObjBase_addNullSpeed_Rotation(self, one);
+        cObjBase_addNullSpeed(self, one);
         break;
     }
-    if (*(unsigned short *)(s0 + 0x3AC) & 1) {
-        func_0012B618(s0);
+    if (self->base.seqFlags & 1) {
+        func_0012B618(self);
     }
-    if (func_00123938((pl00 *)s0, 1) != 0) {
-        Obj0000_Clear_Fields_640_648_124E58(s0);
+    if (func_00123938(self, 1) != 0) {
+        Obj0000_Clear_Fields_640_648_124E58(self);
     }
 }

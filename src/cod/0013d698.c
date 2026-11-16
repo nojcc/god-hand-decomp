@@ -2,19 +2,13 @@
 
 #include "godhand/cIDBase.h"
 #include "godhand/cOmBase.h"
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/cEmManage.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
-extern void LayerScreen_hideLayers(Slot2 *self, int a1);
-extern void Slot2_selectMark(Slot2 *self, int a1, int a2, int a3);
-extern void func_001E3E40(Slot2 *self, unsigned short a1, int a2, int a3);
-extern void Slot2_setMarkLayersAt464(Slot2 *self, int a1, int a2);
-extern void Slot2_setMarkLayersAt46C(Slot2 *self, int a1, int a2);
-extern void Slot2_setMarkLayers(Slot2 *self, int a1, int a2);
 extern float Curve_sample(cIDBaseObj *obj, int frame, int recNo, int a3);
 extern int func_002AC6E0(cIDBaseObj *obj, float t, float *x, float *y, cIDBaseEnt *ent);
 extern int func_002AC878(cIDBaseObj *obj, float t, float *x, float *y, cIDBaseEnt *ent);
@@ -114,41 +108,29 @@ void cOmBase_tickModeTable(cOmBase *self) {
     func_001B76D8(self);
 }
 
-/* Slot2 intro stage: phase 0 resets the lamp state, phase 1 shows the panels and starts a 60 frame wait, phase 2 hides
+/* Slot1 intro stage: phase 0 resets the pay mode, phase 1 shows the panels and starts a 60 frame wait, phase 2 hides
  * them when the wait is over, phase 3 returns to the first state. */
 
 
-#define SLOT2_INTRO_WAIT  0x3C
-#define SLOT2_END_NOLAMP  0x100         /* endFlag bit cleared by phase 0 */
-#define SLOT2_LAMP_STATE_OFFSET   0x490 /* int the header leaves in customId */
-#define SLOT2_LAMP_SEL_OFFSET     0x494 /* unsigned short, same */
-#define SLOT2_LAMP_FRAME_OFFSET   0x4C2 /* short */
-#define SLOT2_FIELD(self, type, off)  (*(type *)((char *)(self) + (off)))
-
-
-
-
-
-
-
+#define SLOT1_INTRO_WAIT  0x3C
 
 __attribute__((section(".text.Slot2_introStage")))
-void Slot2_introStage(Slot2 *self)
+void Slot2_introStage(Slot1 *self)
 {
     int done;
 
     switch (self->phase) {
     case 0:
-        SLOT2_FIELD(self, int, SLOT2_LAMP_STATE_OFFSET) = 9;
-        SLOT2_FIELD(self, short, SLOT2_LAMP_FRAME_OFFSET) = 0;
-        self->endFlag = (int)self->endFlag & ~SLOT2_END_NOLAMP;
+        self->payMode = 9;
+        self->blinkTimer = 0;
+        self->flags &= ~SLOT1_F_DRIFT_SET;
         LayerScreen_hideLayers(self, 0);
         self->phase = self->phase + 1;
         break;
     case 1:
-        Slot2_selectMark(self, SLOT2_FIELD(self, unsigned short, SLOT2_LAMP_SEL_OFFSET), 1, 1);
-        func_001E3E40(self, SLOT2_FIELD(self, unsigned short, SLOT2_LAMP_SEL_OFFSET), 1, 1);
-        self->timer = SLOT2_INTRO_WAIT;
+        Slot2_selectMark(self, self->slotId, 1, 1);
+        func_001E3E40(self, self->slotId, 1, 1);
+        self->timer = SLOT1_INTRO_WAIT;
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -162,8 +144,8 @@ void Slot2_introStage(Slot2 *self)
             Slot2_setMarkLayersAt464(self, 0, 0);
             Slot2_setMarkLayersAt46C(self, 0, 0);
             Slot2_setMarkLayers(self, 0, 0);
-            Slot2_selectMark(self, SLOT2_FIELD(self, unsigned short, SLOT2_LAMP_SEL_OFFSET), 0, 0);
-            func_001E3E40(self, SLOT2_FIELD(self, unsigned short, SLOT2_LAMP_SEL_OFFSET), 0, 0);
+            Slot2_selectMark(self, self->slotId, 0, 0);
+            func_001E3E40(self, self->slotId, 0, 0);
             self->phase = self->phase + 1;
         }
         break;

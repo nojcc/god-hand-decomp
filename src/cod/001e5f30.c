@@ -6,7 +6,6 @@
 
 extern void func_001E6ED8(void *a0, int a1, int a2);
 extern void func_001E6D48(void *a0, int a1, int a2);
-extern void UiPanel_setMessAndShow(void *a0, int a1, int a2);
 extern char D_003BD6E8[];
 extern char D_007474A0[];
 
@@ -65,9 +64,9 @@ void Slot2_PayoutTicket(Slot2 *self) {
                 save->flags = f | SLOT2_CASINO_FLAG;
                 if (GAMEWORK_FLAG(g) == 0 ||
                     GAMEWORK_STAGE(g) == 5) {
-                    UiPanel_setMessAndShow(self->layer, 0x1001, 1);
+                    UiPanel_setMessAndShow(&self->layer, 0x1001, 1);
                 } else if (GAMEWORK_STAGE(g) == 6) {
-                    UiPanel_setMessAndShow(self->layer, 0x1001, 1);
+                    UiPanel_setMessAndShow(&self->layer, 0x1001, 1);
                 }
                 self->phase = self->phase + 1;
             } else {
@@ -86,9 +85,9 @@ void Slot2_PayoutTicket(Slot2 *self) {
             self->timer = 0x1E;
             if (GAMEWORK_FLAG(g) == 0 ||
                 GAMEWORK_STAGE(g) == 5) {
-                UiPanel_setMessAndShow(self->layer, 0x1001, 0);
+                UiPanel_setMessAndShow(&self->layer, 0x1001, 0);
             } else if (GAMEWORK_STAGE(g) == 6) {
-                UiPanel_setMessAndShow(self->layer, 0x1001, 0);
+                UiPanel_setMessAndShow(&self->layer, 0x1001, 0);
             }
             self->phase = self->phase + 1;
         }
@@ -111,9 +110,9 @@ void Slot2_PayoutTicket(Slot2 *self) {
             char *g = D_007474A0;
             if (GAMEWORK_FLAG(g) == 0 ||
                 GAMEWORK_STAGE(g) == 5) {
-                UiPanel_setMessAndShow(self->layer, 0x1002, 1);
+                UiPanel_setMessAndShow(&self->layer, 0x1002, 1);
             } else if (GAMEWORK_STAGE(g) == 6) {
-                UiPanel_setMessAndShow(self->layer, 0x1003, 1);
+                UiPanel_setMessAndShow(&self->layer, 0x1003, 1);
             }
             }
             self->phase = self->phase + 1;
@@ -126,9 +125,9 @@ void Slot2_PayoutTicket(Slot2 *self) {
         if ((GAMEWORK_PAD(g) & GAMEWORK_ANYBTN) != 0) {
             if (GAMEWORK_FLAG(g) == 0 ||
                 GAMEWORK_STAGE(g) == 5) {
-                UiPanel_setMessAndShow(self->layer, 0x1002, 0);
+                UiPanel_setMessAndShow(&self->layer, 0x1002, 0);
             } else if (GAMEWORK_STAGE(g) == 6) {
-                UiPanel_setMessAndShow(self->layer, 0x1003, 0);
+                UiPanel_setMessAndShow(&self->layer, 0x1003, 0);
             }
             self->phase = self->phase + 1;
         }

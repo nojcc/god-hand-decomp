@@ -35,7 +35,7 @@ void cSnd_BgmControl(cSnd *self)
     if (D_00747A84 & 0x80000) {
 fade:
         for (node = self->bgmHead; node != 0; node = node->next) {
-            if (node->state2 != 2 && node->started60 && func_00373A78(node) == 0)
+            if (node->state2 != 2 && node->base.started60 && func_00373A78(node) == 0)
                 cSndBgmNode_FadeOut(node, 30.0f);
         }
         self->f128 = -2;

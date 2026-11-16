@@ -4,10 +4,10 @@
 #include "godhand/cIDBase.h"
 #include "godhand/cOmBase.h"
 #include "godhand/mtx.h"
+#include "godhand/DogRace.h"
 
 extern void displayScrollLayer(int id, int on);
-extern char D_003BE528[];
-extern void func_001EC088(void *self);
+extern void func_001EC088(DogRace *self);
 extern void cTaskWork_exit(void *work);
 
 /* dst = src rotated by angle about y. */
@@ -27,7 +27,8 @@ typedef struct IconScreenSub {
 } IconScreenSub;
 
 typedef struct IconScreen {
-    char unk00[0x92];
+    cIDBaseObj base;                    /* 0x00 */
+    char unk48[0x92 - sizeof(cIDBaseObj)];
     unsigned short step;                /* 0x92 */
     IconScreenSub *child;               /* 0x94 */
 } IconScreen;
@@ -37,7 +38,7 @@ __attribute__((section(".text.IconScreen_waitChildDone")))
 void IconScreen_waitChildDone(IconScreen *self)
 {
     if (self->child->flags & ICONSCREEN_SUB_FLAG_DONE) {
-        cIDBase_move((cIDBaseObj *)self);
+        cIDBase_move(&self->base);
         self->step++;
     }
 }
@@ -57,19 +58,14 @@ void Slot2_hideLayerIds(Slot2 *self)
     }
 }
 
-typedef struct StepObj {
-    int unk00;
-    int step;                           /* 0x04 index into the handler table */
-} StepObj;
-
-/* Call the handler for the current step (8 byte entries: short delta, handler at +4), then run the shared update. */
+/* Call the race's handler for the current step (with its `this` adjust), then run the shared update. */
 __attribute__((section(".text.Slot2_dispatchStep")))
-void Slot2_dispatchStep(StepObj *self)
+void Slot2_dispatchStep(DogRace *self)
 {
     int i = self->step;
-    short off = *(short *)(D_003BE528 + i * 8);
-    void (*fn)() = *(void (**)())(D_003BE528 + i * 8 + 4);
-    fn((int)self + off);
+    short off = D_003BE528[i].delta;
+    void (*fn)(void *self) = D_003BE528[i].fn;
+    fn((char *)self + off);
     func_001EC088(self);
 }
 

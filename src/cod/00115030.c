@@ -3,7 +3,6 @@
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(char *a0);
 extern void func_001268F0(void *a0);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void cOmWeapon_resetHold(void *a0);
 #include "godhand/cCollisionSolid.h"
@@ -11,7 +10,6 @@ extern void cOmWeapon_resetHold(void *a0);
 #include "godhand/motion.h"
 #include "godhand/mtx.h"
 extern void func_00124EC0(void *a0);
-extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012A8D8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -54,100 +52,97 @@ extern char D_005864F0[];
 
 
 
-#define OTHER (*(char **)(s1 + 0x698))
-
 __attribute__((section(".text.func_00115030")))
-void func_00115030(void *a0) {
-    char *s1 = (char *)a0;
+void func_00115030(pl00 *self) {
     float mv[20]; /* mv[0..15]: rotation matrix; mv[16..19]: direction vector */
-    float *d;
-    float *s;
-    float *d2;
-    float *s2;
-    char *o;
+    cVec *d;
+    cVec *s;
+    cVec *d2;
+    cVec *s2;
+    cGameObj *o;
     int t;
     int tt;
     int p1;
     int p2;
 
-    *(float *)(s1 + 0x54C) = 5.0f;
+    self->base.hitFlash = 5.0f;
     cEmManage_SetSlotWait(D_005864F0, 2);
     cEmManage_SetPlCatched(D_005864F0);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
+    switch (self->base.step) {
     case 0:
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        func_001268F0(s1);
-        Obj0000_Clear_Fields_640_648_124E58(s1);
-        t = *(int *)(s1 + 0x304);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        func_001268F0(self);
+        Obj0000_Clear_Fields_640_648_124E58(self);
+        t = (int)self->base.pack;
         p1 = *(int *)(t + 0x8C8) + t;
         p2 = *(int *)(t + 0x8CC) + t;
-        o = *(char **)(s1 + 0x69C);
-        *(char **)(s1 + 0x698) = o;
+        o = self->unk69C;
+        self->sub698 = o;
         if (o != 0) {
             VU0_SQC2_VF0(mv, 0x40);
-            MtxInitRotY(mv, *(float *)(s1 + 0x104));
+            MtxInitRotY(mv, self->base.rot.y);
             mv[16] = 0.0f;
             mv[17] = 0.0f;
             mv[18] = -1.0f;
             sceVu0ApplyMatrix(&mv[16], mv, &mv[16]);
-            (*(float **)(s1 + 0xF0))[0] = (*(float **)(OTHER + 0xF0))[0] + mv[16];
-            (*(float **)(s1 + 0xF0))[2] = (*(float **)(OTHER + 0xF0))[2] + mv[18];
-            cOmWeapon_resetHold(OTHER);
-            d = *(float **)(OTHER + 0xF0);
-            s = *(float **)(s1 + 0xF0);
+            self->base.pos->x = self->sub698->pos->x + mv[16];
+            self->base.pos->z = self->sub698->pos->z + mv[18];
+            cOmWeapon_resetHold(self->sub698);
+            d = self->sub698->pos;
+            s = self->base.pos;
             if (d != s) {
-                d[0] = s[0];
-                d[1] = s[1];
-                d[2] = s[2];
+                d->x = s->x;
+                d->y = s->y;
+                d->z = s->z;
             }
-            d = (float *)(OTHER + 0x100);
-            s = (float *)(s1 + 0x100);
+            d = &self->sub698->rot;
+            s = &self->base.rot;
             if (d != s) {
-                d[0] = s[0];
-                d[1] = s[1];
-                d[2] = s[2];
+                d->x = s->x;
+                d->y = s->y;
+                d->z = s->z;
             }
-            tt = *(int *)(s1 + 0x304);
-            func_002A8578(OTHER, *(int *)(tt + 0x900) + tt, 0, 0, 0.0f, 0, 0);
+            tt = (int)self->base.pack;
+            func_002A8578(self->sub698, *(int *)(tt + 0x900) + tt, 0, 0, 0.0f, 0, 0);
         }
-        func_002A8578(s1, p1, p2, 0, 0.0f, 0, 0);
-        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+        func_002A8578(self, p1, p2, 0, 0.0f, 0, 0);
+        self->base.step = self->base.step + 1;
         /* fallthrough */
     case 1:
-        func_00124EC0(s1);
-        if (OTHER != 0) {
-            d2 = *(float **)(OTHER + 0xF0);
-            s2 = *(float **)(s1 + 0xF0);
+        func_00124EC0(self);
+        if (self->sub698 != 0) {
+            d2 = self->sub698->pos;
+            s2 = self->base.pos;
             if (d2 != s2) {
-                d2[0] = s2[0];
-                d2[1] = s2[1];
-                d2[2] = s2[2];
+                d2->x = s2->x;
+                d2->y = s2->y;
+                d2->z = s2->z;
             }
-            d = (float *)(OTHER + 0x100);
-            s = (float *)(s1 + 0x100);
+            d = &self->sub698->rot;
+            s = &self->base.rot;
             if (d != s) {
-                d[0] = s[0];
-                d[1] = s[1];
-                d[2] = s[2];
+                d->x = s->x;
+                d->y = s->y;
+                d->z = s->z;
             }
         }
-        InvokeVirtualAtField214AndForward_124E68(s1, 0.19634954f);
-        if (moveMotion(s1) != 0) {
-            pl00_clearMotionCam(s1, 0, 0);
-            func_0012A8D8(s1);
-            *(unsigned char *)(s1 + 0x2F4) = 0;
-            *(unsigned char *)(s1 + 0x2F5) = 0;
-            *(unsigned char *)(s1 + 0x2F6) = 0;
-            *(unsigned char *)(s1 + 0x2F7) = 0;
+        InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
+        if (moveMotion(self) != 0) {
+            pl00_clearMotionCam(self, 0, 0);
+            func_0012A8D8(self);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
-    if (func_00123938((pl00 *)s1, 1) != 0) {
-        pl00_clearMotionCam(s1, 0, 0);
-        func_0012A8D8(s1);
+    if (func_00123938(self, 1) != 0) {
+        pl00_clearMotionCam(self, 0, 0);
+        func_0012A8D8(self);
     }
 }

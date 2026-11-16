@@ -12,7 +12,6 @@ struct ThrowerObj;
 
 extern char D_005CAE50[];
 extern void func_001268F0(int *p);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void cOm_attachThrown(struct ThrowerObj *self);
 extern void func_001331B8(void *a0, long a1, int a2);
 extern void func_00124EC0(void *a0);

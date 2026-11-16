@@ -8,6 +8,7 @@
 #include "godhand/vu0.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cMovie.h"
+#include "godhand/Slot1.h"
 
 extern void func_001B6FB8(void *self);
 extern void cOm4f_setOpenCloseRot(void *self, float a, float b);
@@ -86,17 +87,11 @@ int cOm4f_construct(Om4fObj *self)
 typedef struct { int w[SLOT2_MARK_NUM]; } MarkTbl;
 
 /* The mark layer ids and the blink word of the Slot2 object. */
-typedef struct Slot2Marks {
-    char unk000[0x400];
-    int layer[0x2B];                    /* 0x400 mark layer ids, indexed through the mark table */
-    unsigned short blink;               /* 0x4AC */
-} Slot2Marks;
-
 extern MarkTbl D_0042B8D0;              /* layer index of each mark */
 
-/* Select a mark: store the selector (index below 5) in the blink word, arm the blink when armFlag is set, then show only the selected mark layer (showAll) or hide all five. */
+/* Select a mark: store the selector (index below 5) in selFlag, arm the blink when armFlag is set, then show only the selected mark layer (showAll) or hide all five. */
 __attribute__((section(".text.Slot2_selectMark")))
-void Slot2_selectMark(Slot2Marks *self, unsigned int sel, int showAll, int armFlag)
+void Slot2_selectMark(Slot1 *self, unsigned int sel, int showAll, int armFlag)
 {
     MarkTbl tbl;
     int i;
@@ -104,22 +99,22 @@ void Slot2_selectMark(Slot2Marks *self, unsigned int sel, int showAll, int armFl
     sel = sel & 0xFFFF;
     tbl = D_0042B8D0;
     if (sel < SLOT2_MARK_NUM) {
-        self->blink = sel << SLOT2_SEL_SHIFT;
+        self->selFlag = sel << SLOT2_SEL_SHIFT;
         if (armFlag) {
-            self->blink |= BLINK_ARMED;
+            self->selFlag |= BLINK_ARMED;
         }
         if (showAll) {
-            self->blink |= BLINK_ON;
+            self->selFlag |= BLINK_ON;
             i = 0;
             p = tbl.w;
             for (; i < SLOT2_MARK_NUM; i++) {
-                displayScrollLayer(self->layer[*p], i == sel);
+                displayScrollLayer(self->scrollLayer[*p], i == sel);
                 p++;
             }
         } else {
             p = tbl.w;
             for (i = SLOT2_MARK_NUM - 1; i >= 0; i--) {
-                displayScrollLayer(self->layer[*p], 0);
+                displayScrollLayer(self->scrollLayer[*p], 0);
                 p++;
             }
         }

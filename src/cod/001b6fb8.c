@@ -68,22 +68,21 @@ int func_001B6FB8(void *a0)
 
 __attribute__((section(".text.func_00270C78")))
 void func_00270C78(cEm00 *self) {
-    char *s0 = (char *)self;
     int t;
-    if (*(int *)(s0 + 0x564) == 0x265 && (*(int *)(s0 + 0x16D4) & 0x20000000)) {
+    if (self->emNo == 0x265 && (self->emFlags2 & 0x20000000)) {
         t = 0x9F;
-        *(unsigned char *)(s0 + 0x2F7) = 1;
-        *(unsigned char *)(s0 + 0x2F5) = t;
-        *(unsigned char *)(s0 + 0x2F4) = 0;
+        self->stepArg = 1;
+        self->phase = t;
+        self->mode = 0;
     } else {
-        if (*(int *)(s0 + 0x564) == 0x279) {
-            ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
+        if (self->emNo == 0x279) {
+            ReleaseField6ECByTag564_26B1E8(self);
         }
-        *(unsigned char *)(s0 + 0x2F4) = 1;
-        *(unsigned char *)(s0 + 0x2F5) = 0xF;
-        *(unsigned char *)(s0 + 0x2F7) = 0;
+        self->mode = 1;
+        self->phase = 0xF;
+        self->stepArg = 0;
     }
-    *(unsigned char *)(s0 + 0x2F6) = 0;
+    self->step = 0;
 }
 
 #include "godhand/vu0.h"

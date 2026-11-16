@@ -1,9 +1,11 @@
-extern unsigned char D_0041D808[];
+/* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
 
+/* Base destructor: put the base table back, then free the body when flags bit 0 is set. */
 __attribute__((section(".text.cCollisionSolid__dtor")))
-void cCollisionSolid__dtor(int *a0, int a1) {
-    *(int *)((char *)a0 + 0x30) = (int)D_0041D808;
-    if (a1 & 1) {
-        __builtin_delete(a0);
+void cCollisionSolid__dtor(cCollisionSolidBody *self, int flags) {
+    self->vt = &D_0041D808;
+    if (flags & 1) {
+        __builtin_delete(self);
     }
 }

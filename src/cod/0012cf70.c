@@ -130,6 +130,7 @@ void func_00308BC0(char *a0)
 #include "godhand/vu0.h"
 #include "godhand/criStm.h"
 #include "godhand/cIDBase.h"
+#include "godhand/DogRace.h"
 
 typedef struct { char b[0x10]; } Blob16;
 
@@ -229,8 +230,9 @@ static __inline__ void CopyVec3(float *d, float *s)
     d[2] = s[2];
 }
 
+/* Draw the dog race result screen's full-screen backing polygon, then transform its ID base. */
 __attribute__((section(".text.func_001ECC48")))
-void func_001ECC48(char *self)
+void func_001ECC48(DogRaceResult *self)
 {
     char cfg[0x50];
     float v[4][4];
@@ -273,5 +275,5 @@ void func_001ECC48(char *self)
     if (r != 0) {
         *(long *)((char *)r + 0x1A0) = 0x3001D;
     }
-    cIDBase_trans((cIDBaseObj *)(self + 0x10));
+    cIDBase_trans(&self->id);
 }

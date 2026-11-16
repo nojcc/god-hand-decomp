@@ -2,6 +2,7 @@
 
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
+#include "godhand/cOmWeapon.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
@@ -10,7 +11,6 @@ extern void KillEffect(void *a0, int a1, int a2);
 extern void *Getplayer(void);
 extern void cGameObj_SetTgtTurn(void *a0, int a1, float f);
 extern unsigned int Rnd(void);
-extern int func_002DDAB0(void *a0, int a1, float f);
 extern void func_0026EE40(void *a0, int a1, int a2);
 
 __attribute__((section(".text.func_00279750")))

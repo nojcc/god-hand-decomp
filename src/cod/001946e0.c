@@ -5,6 +5,7 @@
 #include "godhand/espSys.h"
 #include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/DogRace.h"
 #include "godhand/gameWork.h"
 
 extern void Pos_followGround(void *self);
@@ -239,34 +240,31 @@ int CutFrameCmd_resolveBefore(CutFrameCmd *self)
     }
 }
 
-#define IDWORK_ALL    0x2D              /* id meaning every work entry */
-#define IDWORK_SKIP   8                 /* the entry that "all" leaves out */
-#define IDWORK_FIRST  0x60              /* offset of entry 0 */
-#define IDWORK_SIZE   0x7C
+#define IDWORK_SKIP   8                 /* the element that "all" leaves out */
 
-/* Show or hide one entry of the work table, or all of them except entry 8 when id is 0x2D. Entry 8 alone is never touched. */
+/* Show or hide one element, or all of them except element 8 when id is DOGRACE_RESULT_ELEM_NUM. Element 8 alone is never touched. */
 __attribute__((section(".text.CustomIDWork_setDispAllButEight")))
-void CustomIDWork_setDispAllButEight(char *self, int id, int on)
+void CustomIDWork_setDispAllButEight(DogRaceResult *self, int id, int on)
 {
     int i;
 
     if (on != 0) {
-        if (id == IDWORK_ALL) {
-            for (i = 0; i < IDWORK_ALL; i++) {
+        if (id == DOGRACE_RESULT_ELEM_NUM) {
+            for (i = 0; i < DOGRACE_RESULT_ELEM_NUM; i++) {
                 if (i != IDWORK_SKIP)
-                    CustomIDWork_SetDisp((CustomIDWork *)(self + IDWORK_FIRST + i * IDWORK_SIZE), 1);
+                    CustomIDWork_SetDisp(&self->elem[i], 1);
             }
         } else if (id != IDWORK_SKIP) {
-            CustomIDWork_SetDisp((CustomIDWork *)(self + (id * IDWORK_SIZE + IDWORK_FIRST)), 1);
+            CustomIDWork_SetDisp(&self->elem[id], 1);
         }
     } else {
-        if (id == IDWORK_ALL) {
-            for (i = 0; i < IDWORK_ALL; i++) {
+        if (id == DOGRACE_RESULT_ELEM_NUM) {
+            for (i = 0; i < DOGRACE_RESULT_ELEM_NUM; i++) {
                 if (i != IDWORK_SKIP)
-                    CustomIDWork_SetDisp((CustomIDWork *)(self + IDWORK_FIRST + i * IDWORK_SIZE), 0);
+                    CustomIDWork_SetDisp(&self->elem[i], 0);
             }
         } else if (id != IDWORK_SKIP) {
-            CustomIDWork_SetDisp((CustomIDWork *)(self + (id * IDWORK_SIZE + IDWORK_FIRST)), 0);
+            CustomIDWork_SetDisp(&self->elem[id], 0);
         }
     }
 }

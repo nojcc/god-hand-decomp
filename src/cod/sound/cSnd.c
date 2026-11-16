@@ -136,7 +136,7 @@ void cSnd_BgmEventStart(cSnd *self, int reqNo, int a2, int a3)
     }
     self->flagsB0 |= 0x10000000;
     self->flagsAC |= 0x10000000;
-    if (node->started != 0)
+    if (node->base.started != 0)
         return;
     /* Taking the address of `active` keeps the constant 1 in a register for the test. */
     active = 1;

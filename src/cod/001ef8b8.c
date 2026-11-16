@@ -13,10 +13,6 @@ extern void classFADE_kill(void *p);
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void ColiseumBattle_KillFade(ColiseumBattle *self);
 extern void ColiseumBattle_StartFade(ColiseumBattle *self, unsigned char mode);
-extern void func_001F28C0(void *ui);
-extern void func_001F28F0(void *ui);
-extern void func_001F2990(void *ui);
-extern void func_001F3260(void *ui);
 extern void NoOp_1F0490(ColiseumBattle *self);
 
 /* sn-2.95.3-136 */

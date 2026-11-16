@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/criStm.h"
-#include "godhand/cIDBase.h"
+#include "godhand/cCockItem.h"
 
 extern void func_00326020(int a0);
 extern void func_003A6A20(const char *s);
@@ -78,8 +78,10 @@ void func_002CA220(void)
         func_0032BA30(1);
 }
 
+/* Show the key card and key counts (an entry is hidden at 0) and move the count display;
+ * with a ticket loaded, show its entries with the ticket seed and move the ticket display. */
 __attribute__((section(".text.func_0013E4F0")))
-void func_0013E4F0(char *p)
+void func_0013E4F0(cCockItem *self)
 {
     char *g;
     unsigned long fl;
@@ -90,35 +92,35 @@ void func_0013E4F0(char *p)
     if (bit) return;
     g = D_00747A24;
     if (*(int *)(g + 0x8) < 0) return;
-    if (*(int *)(p + 0x9C) == 0) return;
+    if (self->ent[0] == 0) return;
     if (cCoreSave_getKeyCardNum(&D_00569B70) > 0) {
-        *(int *)(*(char **)(p + 0x9C) + 0x2C) &= ~0x08000000;
-        *(int *)(*(char **)(p + 0x9C) + 0x84) = cCoreSave_getKeyCardNum(&D_00569B70);
+        self->ent[0]->flags &= ~IDENT_FLAG_NO_DRAW;
+        self->ent[0]->seed = cCoreSave_getKeyCardNum(&D_00569B70);
     } else {
-        *(int *)(*(char **)(p + 0x9C) + 0x2C) |= 0x08000000;
+        self->ent[0]->flags |= IDENT_FLAG_NO_DRAW;
     }
     if (cCoreSave_getKeyNum(&D_00569B70) > 0) {
-        *(int *)(*(char **)(p + 0xA0) + 0x2C) &= ~0x08000000;
-        *(int *)(*(char **)(p + 0xA0) + 0x84) = cCoreSave_getKeyNum(&D_00569B70);
+        self->ent[1]->flags &= ~IDENT_FLAG_NO_DRAW;
+        self->ent[1]->seed = cCoreSave_getKeyNum(&D_00569B70);
     } else {
-        *(int *)(*(char **)(p + 0xA0) + 0x2C) |= 0x08000000;
+        self->ent[1]->flags |= IDENT_FLAG_NO_DRAW;
     }
-    cIDBase_move((cIDBaseObj *)p);
-    if (*(int *)(p + 0x90) == 0) return;
-    if (*(int *)(p + 0x100) != 0) {
-        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 0)->flags &= ~IDENT_FLAG_NO_DRAW;
-        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 0)->seed = *(int *)(p + 0x100);
+    cIDBase_move(&self->base);
+    if (self->ticket == 0) return;
+    if (self->ticketSeed != 0) {
+        cIDBase_getIDWork(&self->ticketBase, 0)->flags &= ~IDENT_FLAG_NO_DRAW;
+        cIDBase_getIDWork(&self->ticketBase, 0)->seed = self->ticketSeed;
     } else {
-        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 0)->flags |= IDENT_FLAG_NO_DRAW;
+        cIDBase_getIDWork(&self->ticketBase, 0)->flags |= IDENT_FLAG_NO_DRAW;
     }
-    cIDBase_move((cIDBaseObj *)(p + 0xB0));
-    if (*(unsigned char *)(p + 0x104) == 1) {
-        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 1)->flags &= ~IDENT_FLAG_NO_DRAW;
-        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 1)->seed = *(int *)(p + 0x100);
+    cIDBase_move(&self->ticketBase);
+    if (self->showSecond == 1) {
+        cIDBase_getIDWork(&self->ticketBase, 1)->flags &= ~IDENT_FLAG_NO_DRAW;
+        cIDBase_getIDWork(&self->ticketBase, 1)->seed = self->ticketSeed;
     } else {
-        cIDBase_getIDWork((cIDBaseObj *)(p + 0xB0), 1)->flags |= IDENT_FLAG_NO_DRAW;
+        cIDBase_getIDWork(&self->ticketBase, 1)->flags |= IDENT_FLAG_NO_DRAW;
     }
-    cIDBase_move((cIDBaseObj *)(p + 0xB0));
+    cIDBase_move(&self->ticketBase);
 }
 
 __attribute__((section(".text.func_002FBA60")))

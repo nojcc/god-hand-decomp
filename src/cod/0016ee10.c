@@ -2,6 +2,7 @@
 #include "godhand/cRelSys.h"
 #include "godhand/cCamera.h"
 #include "godhand/cObjBase.h"
+#include "godhand/ColiseumEmSelect.h"
 
 typedef struct {
     char pad0[0x80];
@@ -25,7 +26,6 @@ extern void ClearFields_1614D0(void *self);
 extern void EmClothInit(int id, void *self, void *data, void *anchor);
 extern void EmClothMove(int id, void *self, void *data, void *anchor);
 extern void Obj0000_Clear_Fields_50_To_7C_13C5C8(void *self);
-extern void SetCustomIDDispOneOrAll_1F4778(void *self, int id, int on);
 extern void func_002949C8(void *self);
 extern void func_002B4528(void *self, int value);
 extern void func_002D5918(void *self);
@@ -126,7 +126,7 @@ void func_0016C238(char *self)
 }
 
 __attribute__((section(".text.func_001F5278")))
-void func_001F5278(void *self, unsigned short value, int on)
+void func_001F5278(ColiseumEmDisp *self, unsigned short value, int on)
 {
     if (value < 7) {
         SetCustomIDDispOneOrAll_1F4778(self, value + 0x49, on);

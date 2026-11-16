@@ -1,6 +1,6 @@
 /* TU: cCockItem [casino] - recovered C++ class. */
 #include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
+#include "godhand/cCockItem.h"
 #include "godhand/cDvd.h"
 #include "include_asm.h"
 
@@ -10,22 +10,23 @@ extern int D_003C2388;
 extern char D_0041E030[];
 extern int *D_003C2384;
 
+/* Read the ticket's message pack once, hand it to the ID manager and start the ticket display. */
 __attribute__((section(".text.cCockItem_LoadTicket")))
-void cCockItem_LoadTicket(char *a0) {
+void cCockItem_LoadTicket(cCockItem *self) {
     char buf[0x40];
-    char *id;
+    cIDBaseObj *id;
     int r;
 
-    if (*(int *)(a0 + 0x90) != 0) {
+    if (self->ticket != 0) {
         return;
     }
     cIDManager_getLocalFileName(D_003C2388, buf, D_0041E030, -1);
-    id = a0 + 0xB0;
-    r = cDvd_ReadAlloc(&D_00583F20, buf, a0 + 0x90, &D_00754220, 0, 0, 0, 0);
-    *(int *)(a0 + 0x94) = r;
+    id = &self->ticketBase;
+    r = cDvd_ReadAlloc(&D_00583F20, buf, &self->ticket, &D_00754220, 0, 0, 0, 0);
+    self->readId = r;
     cDvd_CheckWait(&D_00583F20, r);
-    cIDManager_setIDData(*D_003C2384, 0x19, *(int *)(a0 + 0x90));
-    cIDBase_initialize((cIDBaseObj *)id, 0x19, 0);
-    cIDBase_restartAnim((cIDBaseObj *)id);
-    *(char *)(id + 0x1C) = 1;
+    cIDManager_setIDData(*D_003C2384, 0x19, self->ticket);
+    cIDBase_initialize(id, 0x19, 0);
+    cIDBase_restartAnim(id);
+    id->playing = 1;
 }

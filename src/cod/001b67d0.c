@@ -14,41 +14,41 @@ typedef struct cOmGiveSpheres {
 __attribute__((section(".text.func_001B67D0")))
 int func_001B67D0(cOmGiveSpheres *self)
 {
-    float f[16];
-    float *t;
-    float *a;
-    float *b;
+    cVec v[4];
+    cVec *t;
+    cVec *a;
+    cVec *b;
     void *give;
     cDamageGive *u;
 
     func_001B6FB8((cOmHitVolume *)self);
-    f[0] = 0.0f;
-    f[1] = 0.0f;
-    f[2] = 0.5f;
-    f[3] = 1.0f;
-    t = &f[4];
+    v[0].x = 0.0f;
+    v[0].y = 0.0f;
+    v[0].z = 0.5f;
+    v[0].w = 1.0f;
+    t = &v[1];
     a = t;
-    f[4] = 0.0f;
-    a[1] = 0.0f;
-    a[2] = 0.0f;
-    a[3] = 1.0f;
-    t = &f[8];
+    v[1].x = 0.0f;
+    a->y = 0.0f;
+    a->z = 0.0f;
+    a->w = 1.0f;
+    t = &v[2];
     b = t;
-    f[8] = 0.0f;
-    b[1] = 0.0f;
-    b[2] = -0.5f;
-    b[3] = 1.0f;
-    t = &f[12];
-    f[12] = 0.0f;
-    f[13] = 0.0f;
-    t[2] = 1.0f;
-    t[3] = 1.0f;
+    v[2].x = 0.0f;
+    b->y = 0.0f;
+    b->z = -0.5f;
+    b->w = 1.0f;
+    t = &v[3];
+    v[3].x = 0.0f;
+    v[3].y = 0.0f;
+    t->z = 1.0f;
+    t->w = 1.0f;
     give = cDamageManage_CreateDamageGive(&D_00574380, 2, self);
     self->give = give;
     if (give != 0) {
-        cDamageUnit_AddDamageCollSphere(give, self->base.mtx, (cVec *)f, 0.25f);
-        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, self->base.mtx, (cVec *)a, 0.25f);
-        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, self->base.mtx, (cVec *)b, 0.25f);
+        cDamageUnit_AddDamageCollSphere(give, self->base.mtx, &v[0], 0.25f);
+        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, self->base.mtx, a, 0.25f);
+        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, self->base.mtx, b, 0.25f);
         cDamageUnit_SetDamageCollActive((cDamageUnit *)self->give, 0);
         self->give->flags |= 1;
         self->give->unk46 = 0x41;
@@ -56,7 +56,7 @@ int func_001B67D0(cOmGiveSpheres *self)
         u = self->give;
         u->unk44 = 0xF0;
         u->unk40 = 0;
-        vec3_copy(&self->give->hitVec.x, &f[12]);
+        vec3_copy(&self->give->hitVec.x, &v[3].x);
     }
     self->base.flags2 &= ~1;
     return 1;

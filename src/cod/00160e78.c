@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/DogRace.h"
+#include "godhand/CustomIDPanel.h"
 #include "godhand/objField.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
@@ -185,16 +187,16 @@ int func_00381B38(int a0, int a1) {
 
 /* sn-2.95.3-136 matched TU. */
 
-typedef struct { int w[5]; } Blk1EE;
-extern Blk1EE D_0042BDD8;
+extern CustomIDSlotTbl D_0042BDD8;
 
 
+/* Place element 28 at the row of slot 0..4. */
 __attribute__((section(".text.func_001EE6C8")))
-void func_001EE6C8(char *a0, unsigned short a1) {
-    Blk1EE buf;
-    if (a1 < 5) {
+void func_001EE6C8(DogRaceList *self, unsigned short slot) {
+    CustomIDSlotTbl buf;
+    if (slot < 5) {
         buf = D_0042BDD8;
-        CustomIDWork_SetLocalPosY((CustomIDWork *)(a0 + 0xDF0), buf.w[a1]);
+        CustomIDWork_SetLocalPosY(&self->elem[28], buf.w[slot]);
     }
 }
 

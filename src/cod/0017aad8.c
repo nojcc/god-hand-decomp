@@ -3,14 +3,13 @@
 extern int D_003C2388;
 extern int D_003C11B0;
 extern void *cIDManager_getTexAddr(int a, int b, int c);
-extern void func_001DEE20(void *p);
-extern void func_001DD1F8(void *p);
 extern int InitFields_1B6E90(void *);
 extern char D_00428650[];
 extern char D_00421A08[];
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
+#include "godhand/Poker.h"
 
 
 
@@ -36,7 +35,7 @@ static __inline__ void CopyVec3(float *d, float *s)
 }
 
 __attribute__((section(".text.PokerId__Trans")))
-void PokerId__Trans(char *self)
+void PokerId__Trans(Poker *self)
 {
     char cfg[0x50];
     float v[4][4];
@@ -48,7 +47,7 @@ void PokerId__Trans(char *self)
     char *z;
     int i;
 
-    func_001DEE20(self + 0x25B0);
+    func_001DEE20(&self->ui);
     func_001DD1F8(self);
 
     *(int *)(cfg + 0x0) = 1;

@@ -7,8 +7,8 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/ColiseumEmSelect.h"
 
-extern void SetCustomIDDispOneOrAll_1F4778(char *self, int id, int on);
 extern void StoreVecFromFieldB0_2B6160(float *out, void *obj);
 extern void cNode_setTranslationFromWorld(void *self, float *pos);
 extern int cOmBase_checkDamage(void *self, void *damage);
@@ -24,18 +24,18 @@ typedef struct { int w[POS_NUM]; } PosTbl;
 extern PosTbl D_0042BFB0;               /* local Y of the first work entry per index */
 extern PosTbl D_0042BFD0;               /* local Y of the second work entry per index */
 
-/* Place the two work entries at the Y values of position `idx` (0..6) and set the visibility of ids 8 and 9. */
+/* Place elements 8 and 9 at the Y values of position `idx` (0..6) and set their visibility. */
 __attribute__((section(".text.CustomIDWork_placeByIndex")))
-void CustomIDWork_placeByIndex(char *self, unsigned short idx, int on)
+void CustomIDWork_placeByIndex(ColiseumEmDisp *self, unsigned short idx, int on)
 {
     PosTbl a;
     PosTbl b;
 
     if (idx < POS_NUM) {
         a = D_0042BFB0;
-        CustomIDWork_SetLocalPosY((CustomIDWork *)(self + 0x440), a.w[idx]);
+        CustomIDWork_SetLocalPosY(&self->elem[8], a.w[idx]);
         b = D_0042BFD0;
-        CustomIDWork_SetLocalPosY((CustomIDWork *)(self + 0x4BC), b.w[idx]);
+        CustomIDWork_SetLocalPosY(&self->elem[9], b.w[idx]);
         SetCustomIDDispOneOrAll_1F4778(self, 8, on);
         SetCustomIDDispOneOrAll_1F4778(self, 9, on);
     }

@@ -4,8 +4,8 @@
 #include "godhand/cIDBase.h"
 #include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/cMovie.h"
 
-extern char D_0044B288[];
 extern char *Obj0000_Get_Field_20_Plus_A1_Shifted3_1333B8(void *p, unsigned short i);
 extern int cScrArray_SearchScroll(void *p, long v);
 extern void HideModelMgr_ClearHiddenModelList(void *p);
@@ -14,26 +14,27 @@ extern char D_00754C38[];
 extern void func_001FC810(void *n, void *buf, int cnt);
 
 typedef struct { HeapArena *heap[2]; } ArenaPair;
+extern ArenaPair D_0044B288;
 
 /* size bytes, 128-byte aligned, from the first of D_0044B288's two arenas with room;
- * the block and its arena go in a0's record (a1 is not read). */
+ * the block and its arena go in a free slot of the movie object (a1 is not read). */
 __attribute__((section(".text.func_002B5AF8")))
-void *func_002B5AF8(void *a0, int a1, unsigned int size)
+void *func_002B5AF8(cMovie *self, int unused, unsigned int size)
 {
     ArenaPair buf;
-    char *res;
+    cMovieAlloc *res;
     int i;
     void *v;
 
-    buf = *(ArenaPair *)D_0044B288;
-    res = func_002B4FE8(a0, 0);
+    buf = D_0044B288;
+    res = func_002B4FE8(self, 0);
     if (res == 0) return 0;
 
     for (i = 0; i < 2; i++) {
         v = _MemoryAlloc(size, 0x80, buf.heap[i]);
         if (v != 0) {
-            *(void **)(res + 0x0) = v;
-            *(HeapArena **)(res + 0x4) = buf.heap[i];
+            res->block = v;
+            res->heap = buf.heap[i];
             return v;
         }
     }
@@ -41,20 +42,20 @@ void *func_002B5AF8(void *a0, int a1, unsigned int size)
 }
 
 __attribute__((section(".text.func_001DECE0")))
-void func_001DECE0(char *p)
+void func_001DECE0(PanelObj *p)
 {
     int i;
 
-    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x12, 1);
-    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
-    for (i = 0; i < 0x11; i++) {
-        CustomIDWork_Initialize((CustomIDWork *)(p + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
+    cIDBase_initialize(&p->id, 0x12, 1);
+    cIDBase_restartAnim(&p->id);
+    for (i = 0; i < PANEL_ELEM_NUM; i++) {
+        CustomIDWork_Initialize(&p->elem[i], cIDBase_getIDWork(&p->id, i));
     }
-    CustomIDWork_SetDisp((CustomIDWork *)(p + 0x60), 0);
-    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0x3C4), 0x1000);
-    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0x4BC), 0x1001);
-    CustomIDWork_SetMessNo((CustomIDWork *)(p + 0x538), 0x1002);
-    func_001DEE60((PanelObj *)p, 0x11, 0);
+    CustomIDWork_SetDisp(&p->elem[0], 0);
+    CustomIDWork_SetMessNo(&p->elem[7], 0x1000);
+    CustomIDWork_SetMessNo(&p->elem[9], 0x1001);
+    CustomIDWork_SetMessNo(&p->elem[10], 0x1002);
+    func_001DEE60(p, PANEL_ELEM_ALL, 0);
 }
 
 __attribute__((section(".text.func_00307A60")))

@@ -6,7 +6,6 @@
 #include "godhand/cSceAtManager.h"
 
 extern ColiseumHost **D_003C2384;
-extern void func_001F46E0(void *idBase);
 
 /* Set the radius of the hit volume with the given id (first match only). */
 __attribute__((section(".text.cDamageUnit_SetDamageCollRadius")))
@@ -30,7 +29,7 @@ __attribute__((section(".text.ColiseumEmSelect_close")))
 void ColiseumEmSelect_close(ColiseumEmSelect *self)
 {
     ColiseumHost *host;
-    func_001F46E0(self->idBase);
+    func_001F46E0(&self->idBase);
     host = *D_003C2384;
     host->pickB = 0;
     host->pickA = 0;

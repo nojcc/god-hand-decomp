@@ -165,6 +165,8 @@ void cObj__dtor(struct cObjBase *self, int flags);
 /* cObjBase's part of the destructor: put its method table back, then run
  * cObj__dtor. */
 void cObjBase__dtor(struct cObjBase *self, int flags);
+/* cObjBase's own method table, which its destructor stores at 0x214. */
+extern cVtEnt D_0041EBE8[];
 
 /* Byte offset of a cObjBase field, for the few bodies that must form the
  * address by hand to match retail. */

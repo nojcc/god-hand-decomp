@@ -6,6 +6,7 @@ extern float Adjust_theta(float f12);
 extern void *Getplayer(void);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 #include "godhand/motion.h"
+#include "godhand/pl00.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -60,42 +61,41 @@ void func_00103170(void *a0)
 }
 
 __attribute__((section(".text.func_00122D18")))
-void func_00122D18(void *a0)
+void func_00122D18(pl00 *self)
 {
-    char *s1 = (char *)a0;
     int s2;
     int s0;
     float one;
 
-    *(float *)(s1 + 0x54C) = 30.0f;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    self->base.hitFlash = 30.0f;
+    switch (self->base.step) {
     case 0:
         {
-            int b = *(int *)(s1 + 0x304);
+            int b = (int)self->base.pack;
             s2 = *(int *)(b + 0x16C) + b;
             s0 = *(int *)(b + 0x170) + b;
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD6, s1, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD6, self, 0, 0, 0, 0);
         cSnd_DieDemoStart(&D_005FEE00);
         cCoreSave_addGameLevelPoint(&D_00569B70, -1000);
-        func_0012C348(s1, 3);
-        func_002A8578(s1, s2, s0, 2, 0.0f, 0, 0);
-        *(int *)(s1 + 0x15B0) = 0x82;
-        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+        func_0012C348(self, 3);
+        func_002A8578(self, s2, s0, 2, 0.0f, 0, 0);
+        self->unk15B0 = 0x82;
+        self->base.step = self->base.step + 1;
     case 1:
-        func_00124EC0(s1);
-        if (*(int *)(s1 + 0x15B0) != 0) {
-            *(int *)(s1 + 0x15B0) = *(int *)(s1 + 0x15B0) - 1;
+        func_00124EC0(self);
+        if (self->unk15B0 != 0) {
+            self->unk15B0 = self->unk15B0 - 1;
         } else {
             D_00747A24 = D_00747A24 | 8;
         }
-        if (moveMotion(s1) != 0) {
+        if (moveMotion(self) != 0) {
             D_00747A24 = D_00747A24 | 8;
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->base.step = self->base.step + 1;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(self, one);
+        cObjBase_addNullSpeed(self, one);
         break;
     case 2:
         break;

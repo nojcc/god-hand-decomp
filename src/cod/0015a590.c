@@ -3,18 +3,14 @@
 #include "godhand/cObjBase.h"
 #include "godhand/espSys.h"
 #include "godhand/vu0.h"
+#include "godhand/ColiseumEmSelect.h"
 
-extern void SetCustomIDDispOneOrAll_1F4778(void *self, int id, int on);
-extern void CustomIDOwner_setAllShown(void *self, int on);
-extern void func_001F4928(void *self, int on);
 extern void Effect_killByModeB(int a0, int a1);
-
-#define DISP_ALL  0x6F                  /* id that stands for every element */
 
 /* Opens the display: hides everything, shows elements 0..9 one by one, then starts the two animations. */
 __attribute__((section(".text.DispMenu_open")))
-void DispMenu_open(void *self) {
-    SetCustomIDDispOneOrAll_1F4778(self, DISP_ALL, 0);
+void DispMenu_open(ColiseumEmDisp *self) {
+    SetCustomIDDispOneOrAll_1F4778(self, COLISEUMEM_ELEM_NUM, 0);
     SetCustomIDDispOneOrAll_1F4778(self, 0, 1);
     SetCustomIDDispOneOrAll_1F4778(self, 1, 1);
     SetCustomIDDispOneOrAll_1F4778(self, 2, 1);

@@ -1,28 +1,27 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/CustomIDWork.h"
+#include "godhand/SlotUi.h"
 
 extern void cIDBase(void *a0);
 
+/* Construct both id bases and the twelve marks; returns self. */
 __attribute__((section(".text.func_001E7118")))
-void *func_001E7118(void *a0) {
-    char *p = (char *)a0;
-    char *q;
+SlotUi *func_001E7118(SlotUi *self) {
+    CustomIDWork *q;
     int i;
 
-    cIDBase(p);
-    q = p + 0x50;
-    /* closes with bne against a -1 register -> i != -1 */
+    cIDBase(&self->id);
+    q = self->mark;
     for (i = 9; i != -1; i--) {
-        CustomIDWork__ctor((CustomIDWork *)q);
-        q += 0x7C;
+        CustomIDWork__ctor(q);
+        q++;
     }
 
-    cIDBase(p + 0x530);
-    q = p + 0x580;
+    cIDBase(&self->id2);
+    q = self->bet;
     for (i = 1; i != -1; i--) {
-        CustomIDWork__ctor((CustomIDWork *)q);
-        q += 0x7C;
+        CustomIDWork__ctor(q);
+        q++;
     }
 
-    return p;
+    return self;
 }

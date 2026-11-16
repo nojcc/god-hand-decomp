@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cModel.h"
+#include "godhand/DogRace.h"
 #include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cOmSized.h"
@@ -10,7 +11,7 @@
 #include "godhand/cTaskWork.h"
 #include "godhand/espSys.h"
 
-extern char D_0041EA90[];
+extern cVtEnt D_0041EA90[];
 extern void cModel_removeMesh(cModel *self);
 extern void func_00149E60(cModel *self);
 extern void cBoundingBox__dtor(cBox *box, int flags);
@@ -27,7 +28,7 @@ extern unsigned int D_00747A84;
 /* Destructor body of the model: installs its vtable, frees the packet block, drops meshes and parts, then runs the base destructor. */
 __attribute__((section(".text.cModel_destroy")))
 void cModel_destroy(cModel *self, int flags) {
-    self->vtable = (void *)D_0041EA90;
+    self->vtable = D_0041EA90;
     if (self->alloc != 0) {
         cHeap_free(HEAP_OWNER(self->alloc), self->alloc);
     }
@@ -79,13 +80,12 @@ int cOmSized_startLarge(cOmSized *self) {
 extern void *D_005CAFF0;                /* the camera */
 
 
-extern void func_001ED700(void *self, int n, int f);
 
-#define MARKER_WORK_OFFSET  0x2CC       /* the marker's CustomIDWork */
+#define MARKER_ELEM         5           /* the marker */
 
-/* Moves the marker to the screen position of a world point, then runs its step 5. */
+/* Moves the marker to the screen position of a world point, then shows (on set) or hides it. */
 __attribute__((section(".text.ScreenMarker_moveToWorldPos")))
-void ScreenMarker_moveToWorldPos(char *self, cVec *world, int arg) {
+void ScreenMarker_moveToWorldPos(DogRaceUi *self, cVec *world, int on) {
     struct {
         cVec pos;
         cVec tmp;                       /* 0x10 */
@@ -97,8 +97,8 @@ void ScreenMarker_moveToWorldPos(char *self, cVec *world, int arg) {
         VU0_SQC2_VF0(&f, 0x0);
         cCamera_getScreenPos(&f.tmp, camera, world);
         cVec_copy3(&f.pos, &f.tmp);
-        CustomIDWork_SetLocalPosXY((CustomIDWork *)(self + MARKER_WORK_OFFSET), (int)f.pos.x, (int)f.pos.y);
-        func_001ED700(self, 5, arg);
+        CustomIDWork_SetLocalPosXY(&self->elem[MARKER_ELEM], (int)f.pos.x, (int)f.pos.y);
+        func_001ED700(self, MARKER_ELEM, on);
     }
 }
 

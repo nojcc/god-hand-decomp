@@ -1,18 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cIDBase.h"
+#include "godhand/Poker.h"
 
 extern void CustomIDWork_Main(void *a0);
 
 __attribute__((section(".text.func_001DD1A0")))
-void func_001DD1A0(void *a0) {
-    char *p = (char *)a0;
-    char *q;
+void func_001DD1A0(Poker *self) {
+    CustomIDWork *q;
     int i;
 
-    q = p + 0x60;
+    q = self->elem;
     for (i = 0x4C; i >= 0; i--) {
         CustomIDWork_Main(q);
-        q += 0x7C;
+        q++;
     }
-    cIDBase_move((cIDBaseObj *)(p + 0x10));
+    cIDBase_move(&self->id);
 }

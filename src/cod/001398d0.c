@@ -1,7 +1,9 @@
 #include "godhand/cSnd.h"
+#include "godhand/BlackJack.h"
 #include "godhand/criStm.h"
 #include "godhand/seqNode.h"
 #include "godhand/cRelSys.h"
+#include "godhand/Slot2.h"
 extern int D_0041D930;
 extern int D_004283D8;
 extern int D_00568280;
@@ -48,27 +50,29 @@ void func_001BB508(void *a0) {
 }
 
 __attribute__((section(".text.SetFlagEntries21And22_1D55D0")))
-void SetFlagEntries21And22_1D55D0(void *a0, int a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x21, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x22, 1);
+void SetFlagEntries21And22_1D55D0(BlackJack *self, int a1) {
+    SetFlagOnEntries7C_1D51B8(self, 0x21, a1);
+    SetFlagOnEntries7C_1D51B8(self, 0x22, 1);
 }
 
 __attribute__((section(".text.SetFlagEntries7And8_1D5610")))
-void SetFlagEntries7And8_1D5610(void *a0, int a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x7, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x8, 1);
+void SetFlagEntries7And8_1D5610(BlackJack *self, int a1) {
+    SetFlagOnEntries7C_1D51B8(self, 0x7, a1);
+    SetFlagOnEntries7C_1D51B8(self, 0x8, 1);
 }
 
 __attribute__((section(".text.SetFlagEntries5And6_1D5650")))
-void SetFlagEntries5And6_1D5650(void *a0, int a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x5, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x6, 1);
+void SetFlagEntries5And6_1D5650(BlackJack *self, int a1) {
+    SetFlagOnEntries7C_1D51B8(self, 0x5, a1);
+    SetFlagOnEntries7C_1D51B8(self, 0x6, 1);
 }
 
+#define SLOT2PANEL_CLEAR_SIZE  0x54
+
 __attribute__((section(".text.InitClearStructAndSet_1E79A8")))
-void InitClearStructAndSet_1E79A8(int *a0, int a1) {
-    func_003A52F0(a0, 0, 0x54);
-    *a0 = a1;
+void InitClearStructAndSet_1E79A8(Slot2Panel *self, int id) {
+    func_003A52F0(self, 0, SLOT2PANEL_CLEAR_SIZE);
+    self->unk00 = id;
 }
 
 __attribute__((section(".text.InitStructSubfieldsAndFloat_1E8798")))
@@ -142,8 +146,8 @@ void InitSubsystemGroup_2CA518(void *a0)
 __attribute__((section(".text.cSndBgmNode_Ctor")))
 cSndBgmNode *cSndBgmNode_Ctor(cSndBgmNode *node)
 {
-	Obj0000_Set_Field_80_372C68((SndVoiceNode *)node);
-	node->vt = D_0044CEE8;
+	Obj0000_Set_Field_80_372C68(&node->base);
+	node->base.vt = D_0044CEE8;
 	cSndBgmNode_Init(node);
 	return node;
 }

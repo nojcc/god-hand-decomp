@@ -2,6 +2,8 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cIDBase.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/DogRace.h"
+#include "godhand/ColiseumEmSelect.h"
 
 extern int cIDBase_release();
 
@@ -9,42 +11,42 @@ extern int cIDBase_release();
 
 
 __attribute__((section(".text.func_001ED660")))
-void func_001ED660(void *a0) { cIDBase_release((char *)a0 + 0x10); }
+void func_001ED660(DogRaceUi *self) { cIDBase_release(&self->id); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001ED6E0")))
-void func_001ED6E0(void *a0) { cIDBase_trans((cIDBaseObj *)((char *)a0 + 0x10)); }
+void func_001ED6E0(DogRaceUi *self) { cIDBase_trans(&self->id); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001ED700")))
-void func_001ED700(char *a0, int a1, int a2)
+void func_001ED700(DogRaceUi *self, int id, int on)
 {
-	char *p;
+	CustomIDWork *p;
 	int i;
 
-	if (a2 != 0) {
-		if (a1 == 0x6) {
-			p = a0 + 0x60;
+	if (on != 0) {
+		if (id == DOGRACE_UI_ELEM_NUM) {
+			p = self->elem;
 			for (i = 0x5; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 1);
-				p += 0x7C;
+				CustomIDWork_SetDisp(p, 1);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 1);
+			CustomIDWork_SetDisp(&self->elem[id], 1);
 		}
 	} else {
-		if (a1 == 0x6) {
-			p = a0 + 0x60;
+		if (id == DOGRACE_UI_ELEM_NUM) {
+			p = self->elem;
 			for (i = 0x5; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 0);
-				p += 0x7C;
+				CustomIDWork_SetDisp(p, 0);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 0);
+			CustomIDWork_SetDisp(&self->elem[id], 0);
 		}
 	}
 }
@@ -53,37 +55,37 @@ void func_001ED700(char *a0, int a1, int a2)
 
 
 __attribute__((section(".text.func_001EDF60")))
-void func_001EDF60(void *a0) { cIDBase_release((char *)a0 + 0x10); }
+void func_001EDF60(DogRaceList *self) { cIDBase_release(&self->id); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001EE2A8")))
-void func_001EE2A8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x918), number); }
+void func_001EE2A8(DogRaceList *self, int number) { CustomIDWork_SetNumber(&self->elem[0x12], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001EE2C8")))
-void func_001EE2C8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0xA10), number); }
+void func_001EE2C8(DogRaceList *self, int number) { CustomIDWork_SetNumber(&self->elem[0x14], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001F46E0")))
-void func_001F46E0(void *a0) { cIDBase_release((char *)a0 + 0x10); }
+void func_001F46E0(ColiseumEmDisp *self) { cIDBase_release(&self->id); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001F4758")))
-void func_001F4758(void *a0) { cIDBase_trans((cIDBaseObj *)((char *)a0 + 0x10)); }
+void func_001F4758(ColiseumEmDisp *self) { cIDBase_trans(&self->id); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001F4B78")))
-void func_001F4B78(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x158), number); }
+void func_001F4B78(ColiseumEmDisp *self, int number) { CustomIDWork_SetNumber(&self->elem[2], number); }
 
 /* clone */
 

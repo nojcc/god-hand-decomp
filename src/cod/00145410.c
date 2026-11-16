@@ -1,22 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void SetCustomIDDispOneOrAll_1F29C0(void *, int, int);
+#include "godhand/cIDBaseScreen.h"
+#include "godhand/CustomIDPanel.h"
 extern void *InitFields_1B6E90(void *a0);
 extern int D_00428928;
 extern void func_00380E88(void *, void *, void *);
 extern void func_0031C900(int);
-extern void func_00144C90(void *);
 extern void BuildObjEntry_387160(int, void *);
 
-/* func_001F3260 — sn-2.95.3-136 */
-
+/* func_001F3260: hide work 4 and restart its blink animation (anim[2]). */
 
 __attribute__((section(".text.func_001F3260")))
-void func_001F3260(char *a0) {
-    SetCustomIDDispOneOrAll_1F29C0(a0, 4, 0);
-    *(int *)a0 |= 4;
-    *(int *)(a0 + 0x92C) = 0;
-    *(int *)(a0 + 0x928) = 0;
+void func_001F3260(CustomIDPanel *self) {
+    SetCustomIDDispOneOrAll_1F29C0(self, 4, 0);
+    self->flags |= CIDPANEL_ANIM2;
+    self->anim[2].timer = 0;
+    self->anim[2].state = 0;
 }
 
 #include "godhand/vu0.h"
@@ -60,13 +59,14 @@ void func_002CA8C8(void *a0) {
     *(int *)((char *)a0 + 0xAC) &= 0xFFBFFFFF;
 }
 
-/* func_00145410 — sn-2.95.3-136 */
+/* func_00145410: once a table load has made the screen ready, cache the row entries and
+ * clear SCR_FLAG_SETUP. */
 
 __attribute__((section(".text.func_00145410")))
-void func_00145410(char *a0) {
-    if ((*(int *)(a0 + 0x90) & 0x40000000) != 0) {
-        func_00144C90(a0);
-        *(int *)(a0 + 0x90) &= 0xEFFFFFFF;
+void func_00145410(cIDBaseScreen *self) {
+    if ((self->flags & SCR_FLAG_READY) != 0) {
+        func_00144C90(self);
+        self->flags &= ~SCR_FLAG_SETUP;
     }
 }
 

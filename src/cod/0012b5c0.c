@@ -4,14 +4,13 @@
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
 #include "godhand/cOmBase.h"
-#include "godhand/CustomIDWork.h"
+#include "godhand/CustomIDPanel.h"
 
 extern void *InitFields_1B6E90(void *self);
-extern int D_004282F0;
+extern cVtEnt D_004282F0[];
 extern void func_001B6FB8(void *self);
 extern int cMessCommon_isPageEndCode(int code);
 extern void cOmThrow_SetParent(void *thrown, void *owner);
-extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 
 /* An actor with four VU0 quadwords (0x610, 0x620, 0x640, 0x650) past cObj. */
 typedef struct VuFxObj {
@@ -30,7 +29,7 @@ typedef struct VuFxObj {
 __attribute__((section(".text.cObj_initVuFields610")))
 VuFxObj *cObj_initVuFields610(VuFxObj *self) {
     InitFields_1B6E90(self);
-    self->vtable = (void *)&D_004282F0;
+    self->vtable = D_004282F0;
     VU0_SQC2_VF0(self, VUFX_OFFSET(vecA));
     VU0_SQC2_VF0(self, VUFX_OFFSET(vecB));
     VU0_SQC2_VF0(self, VUFX_OFFSET(vecC));
@@ -102,16 +101,10 @@ void cOm_attachThrown(ThrowerObj *self) {
     cOmThrow_SetParent(self->held, self);
 }
 
-/* An ID screen with a number element at 0x348. */
-typedef struct IdNumberScreen {
-    char unk000[0x348];
-    CustomIDWork number;                /* 0x348 */
-} IdNumberScreen;
-
-/* Set the number element, then show or hide displays 6 and 5. */
+/* Set the number in work 6, then show or hide works 6 and 5. */
 __attribute__((section(".text.CustomID_setNumberAndShow")))
-void CustomID_setNumberAndShow(IdNumberScreen *self, int number, int on) {
-    CustomIDWork_SetNumber(&self->number, number);
+void CustomID_setNumberAndShow(CustomIDPanel *self, int number, int on) {
+    CustomIDWork_SetNumber(&self->work[6], number);
     SetCustomIDDispOneOrAll_1F29C0(self, 6, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 5, on);
 }

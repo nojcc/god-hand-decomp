@@ -8,11 +8,7 @@ extern void func_00299908(int a0);
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);
 extern unsigned char D_003BD758[];
 extern char D_004A6980[];
-extern void func_001D5360(void *a0, int a1);
-extern void func_001D5500(void *a0, int a1);
-extern void SetBlendField6AC_1D58F0(void *a0, int a1);
-extern void CustomIDWork_SetNumber_1D5760(void *a0, int a1);
-extern void func_001D5430(void *a0, int a1);
+extern void SetBlendField6AC_1D58F0(BlackJack *self, int on);
 extern int D_007474A0;
 
 __attribute__((section(".text.func_00299BA0")))

@@ -2,10 +2,7 @@
 #include "godhand/BlackJack.h"
 
 extern void func_001D4670(BlackJack *self);
-extern void BlackJackId_SetDefaultDisp(BlackJack *self);
-extern void CustomIDWork_SetNumber_1D5760(BlackJack *self, int n);
 extern int cCoreSave_getGold(void *save);
-extern void func_001D5780(BlackJack *self, int gold);
 extern char D_00569B70[];
 
 /* Start a new round: clear the bet and payout and the slots being dealt, reset the display, show

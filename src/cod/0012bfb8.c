@@ -2,6 +2,8 @@
 
 #include "godhand/cEm00.h"
 #include "godhand/debugPrint.h"
+#include "godhand/Slot1.h"
+#include "godhand/scrollLayer.h"
 
 extern void func_002E0C80(int x, int y, int arg2, int arg3, int zero, const char *fmt, char *args);
 extern void SetActionJumpUp(cEm00 *self);
@@ -11,8 +13,6 @@ extern void MtxInitCoord(void *a0, int a1, int a2, int a3, int t0);
 extern int D_00422A80;
 extern void func_002AD288(void *a0, int a1);
 extern void SetField214PtrThenInit_1B6F38(void *a0, void *a1);
-extern void Slot2_hideBankLayerIds(void *a0);
-extern void displayScrollLayer(int id, int on);
 
 /* Variadic wrapper: forwards the first four arguments and the format
  * to func_002E0C80, plus a pointer to the register save area that holds the
@@ -93,14 +93,14 @@ void cObj_initWithSubRecord(char *self, void *arg)
     SetField214PtrThenInit_1B6F38(self, arg);
 }
 
-/* Scroll_showLayerBySelector: run the shared setup, then turn on one of two scroll layers (0x400 or 0x404). */
+/* Scroll_showLayerBySelector: hide every scroll layer of the first slot machine, then show layer 0 (sel) or layer 1. */
 __attribute__((section(".text.Scroll_showLayerBySelector")))
-void Scroll_showLayerBySelector(char *self, int sel)
+void Scroll_showLayerBySelector(Slot1 *self, int sel)
 {
     Slot2_hideBankLayerIds(self);
     if (sel != 0) {
-        displayScrollLayer(*(int *)(self + 0x400), 1);
+        displayScrollLayer(self->scrollLayer[0], 1);
     } else {
-        displayScrollLayer(*(int *)(self + 0x404), 1);
+        displayScrollLayer(self->scrollLayer[1], 1);
     }
 }

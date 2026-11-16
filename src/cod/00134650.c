@@ -3,11 +3,11 @@
 #include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/vu0.h"
+#include "godhand/cModel.h"
 
 extern char D_005F3970[];
-extern void func_001F2708(void *);
 extern void cGameObj(void *);
-extern int D_0044A660;
+extern cVtEnt D_0044A660[];
 extern int D_0044A630;
 
 __attribute__((section(".text.func_00134650")))
@@ -77,7 +77,7 @@ void *ColiseumBattle__ctor(ColiseumBattle *self) {
 
     func_003A52F0(self, 0, 0x54);
     self->flags = 0;
-    func_001F2708(self->ui);
+    func_001F2708(&self->ui);
     self->deadMask = 0;
     p = self->vec[0];
     for (i = 8; i != -1; i--) {
@@ -98,7 +98,7 @@ void *func_0028EB00(void *a0) {
     int i;
 
     cGameObj(a0);
-    *(int **)((char *)a0 + 0x214) = &D_0044A660;
+    *(cVtEnt **)((char *)a0 + 0x214) = D_0044A660;
     p = (char *)a0 + 0x5C0;
     for (i = 1; i != -1; i--) {
         VU0_SQC2_VF0(p, 0x0);

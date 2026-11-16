@@ -1,21 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cTaskWork.h"
+#include "godhand/Poker.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cDataManager.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cGameObj.h"
+#include "godhand/Slot1.h"
 
 extern int CreateThread(void *param);
 extern void func_003B0BA8(int tid, cTaskWork *self);
 extern void WakeupThread(int tid);
 extern void WaitSema(int sema);
 extern void cTaskWork_kill(cTaskWork *self);
-extern char D_0041EAF0[];
+extern cVtEnt D_0041EAF0[];
 extern cDataManager D_005864E0;
 extern cDataManager D_00580D20;
-extern void SetCustomIDDispOneOrAll_1DD258(void *self, int sel, int on);
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern void displayScrollLayer(int id, int on);
 
@@ -63,7 +64,7 @@ void cTaskWork_step(cTaskWork *self)
 __attribute__((section(".text.cObj__dtor")))
 void cObj__dtor(cObjBase *self, int flags)
 {
-    self->vtable = (cVtEnt *)D_0041EAF0;
+    self->vtable = D_0041EAF0;
     if (self->actorId != 0) {
         if (cDataManager_isLoaded(&D_005864E0, self->actorId) == 1) {
             cDataManager_resetKind(&D_005864E0, self->actorId, 0);
@@ -75,30 +76,30 @@ void cObj__dtor(cObjBase *self, int flags)
 }
 
 /* The element that slides in and out sits at 0xDC of the owner. */
-#define OWNER_SLIDE_IDW(self) ((CustomIDWork *)((char *)(self) + 0xDC))
+#define SLIDE_ELEM      1               /* the sliding element */
 #define SLIDE_HIDDEN_Y  (-0x46)
 
 /* CustomIDOwner_setSlideState: place or slide the element in (sel 2: down from hidden to shown over 10 frames; sel 3:
  * the way back; sel 1: shown at once; others: hidden). */
 __attribute__((section(".text.CustomIDOwner_setSlideState")))
-void CustomIDOwner_setSlideState(void *self, unsigned char sel)
+void CustomIDOwner_setSlideState(Poker *self, unsigned char sel)
 {
     switch (sel) {
     case 0:
     default:
-        CustomIDWork_SetOffsetPosY(OWNER_SLIDE_IDW(self), SLIDE_HIDDEN_Y);
+        CustomIDWork_SetOffsetPosY(&self->elem[SLIDE_ELEM], SLIDE_HIDDEN_Y);
         SetCustomIDDispOneOrAll_1DD258(self, 1, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosY(OWNER_SLIDE_IDW(self), 0);
+        CustomIDWork_SetOffsetPosY(&self->elem[SLIDE_ELEM], 0);
         SetCustomIDDispOneOrAll_1DD258(self, 1, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosY(OWNER_SLIDE_IDW(self), SLIDE_HIDDEN_Y, 0, 10);
+        CustomIDWork_SetMoveOffsetPosY(&self->elem[SLIDE_ELEM], SLIDE_HIDDEN_Y, 0, 10);
         SetCustomIDDispOneOrAll_1DD258(self, 1, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosY(OWNER_SLIDE_IDW(self), 0, SLIDE_HIDDEN_Y, 10);
+        CustomIDWork_SetMoveOffsetPosY(&self->elem[SLIDE_ELEM], 0, SLIDE_HIDDEN_Y, 10);
         SetCustomIDDispOneOrAll_1DD258(self, 1, 1);
         break;
     }
@@ -184,47 +185,35 @@ Box *Box_growToContain(Box *self, Box *other)
     return self;
 }
 
-/* A screen that owns eight scroll layers and two game objects (0x4B0 and 0x4B4). */
-typedef struct LayerScreen {
-    char unk000[0x54];
-    int flags;                  /* 0x054 bit 0x200: layers shown */
-    char unk058[0x454 - 0x58];
-    int layer454;               /* 0x454 scroll layer ids */
-    int layer458;
-    int layer45C;
-    int layer460;
-    char unk464[0x484 - 0x464];
-    int layer484;
-    int layer488;
-    char unk48C[0x4B0 - 0x48C];
-    cGameObj *objA;             /* 0x4B0 */
-    cGameObj *objB;             /* 0x4B4 */
-} LayerScreen;
-
-
+#define DRIFT_LAYER_0  21      /* scrollLayer[] indices of the drift layers */
+#define DRIFT_LAYER_1  22
+#define DRIFT_LAYER_2  23
+#define DRIFT_LAYER_3  24
+#define DRIFT_LAYER_4  33
+#define DRIFT_LAYER_5  34
 
 /* LayerScreen_hideLayers: with both objects present, hide every layer and clear the shown flag; for sel 1 also
  * zero the objects' x positions and show the two main layers again. */
 __attribute__((section(".text.LayerScreen_hideLayers")))
-void LayerScreen_hideLayers(LayerScreen *self, unsigned char sel)
+void LayerScreen_hideLayers(Slot1 *self, unsigned char sel)
 {
     if (sel < 2) {
-        if (self->objA == 0) return;
-        if (self->objB == 0) return;
-        displayScrollLayer(self->layer454, 0);
-        displayScrollLayer(self->layer458, 0);
-        displayScrollLayer(self->layer45C, 0);
-        displayScrollLayer(self->layer460, 0);
-        displayScrollLayer(self->layer484, 0);
-        displayScrollLayer(self->layer488, 0);
-        self->flags &= ~0x200;
+        if (self->drift[0] == 0) return;
+        if (self->drift[1] == 0) return;
+        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_0], 0);
+        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_1], 0);
+        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_2], 0);
+        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_3], 0);
+        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_4], 0);
+        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_5], 0);
+        self->flags &= ~SLOT1_F_DRIFT;
         if (sel == 0) return;
         if (sel == 1) {
-            self->objA->pos->x = 0.0f;
-            self->objB->pos->x = 0.0f;
-            displayScrollLayer(self->layer454, 1);
-            displayScrollLayer(self->layer484, 1);
-            self->flags |= 0x200;
+            self->drift[0]->pos->x = 0.0f;
+            self->drift[1]->pos->x = 0.0f;
+            displayScrollLayer(self->scrollLayer[DRIFT_LAYER_0], 1);
+            displayScrollLayer(self->scrollLayer[DRIFT_LAYER_4], 1);
+            self->flags |= SLOT1_F_DRIFT;
         }
     }
 }

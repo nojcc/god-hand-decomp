@@ -19,7 +19,6 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
  * Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578, moveMotion, func_002705D8 and 7 more. */
 __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
 {
-    char *s1 = (char *)self;
     cEffectParam s;
     void *s2;
     cCamManager *mgr;
@@ -55,135 +54,135 @@ __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
     s.unk50 = 0;
     VU0_SQC2_VF0(&s, 0x60);
     s.unk70 = 0;
-    s.size = *(float *)(s1 + 0x114);
+    s.size = self->scale.y;
     s.unk72 = 0;
     s.unk74 = 0;
     s.unk78 = 0;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->step) {
         case 0:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            switch (*(int *)(s1 + 0x564)) {
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            switch (self->emNo) {
                 case 0x220:
                 case 0x221:
                 case 0x222:
                 default: {
-                    int v0 = *(int *)(s1 + 0x304);
-                    func_002A8578(s1, EM_RES_REC(v0, 0x1D08), EM_RES_REC(v0, 0x1D0C), 3, 0.0f, nb,
+                    int v0 = EM_RES(self);
+                    func_002A8578(self, EM_RES_REC(v0, 0x1D08), EM_RES_REC(v0, 0x1D0C), 3, 0.0f, nb,
                                   0);
                 } break;
                 case 0x223: {
-                    int v0 = *(int *)(s1 + 0x304);
-                    func_002A8578(s1, EM_RES_REC(v0, 0x2E4C), EM_RES_REC(v0, 0x2E50), 3, 0.0f, nb,
+                    int v0 = EM_RES(self);
+                    func_002A8578(self, EM_RES_REC(v0, 0x2E4C), EM_RES_REC(v0, 0x2E50), 3, 0.0f, nb,
                                   0);
                 } break;
                 case 0x209: {
-                    int v0 = *(int *)(s1 + 0x304);
-                    func_002A8578(s1, EM_RES_REC(v0, 0x34F4), EM_RES_REC(v0, 0x34F8), 3, 0.0f, nb,
+                    int v0 = EM_RES(self);
+                    func_002A8578(self, EM_RES_REC(v0, 0x34F4), EM_RES_REC(v0, 0x34F8), 3, 0.0f, nb,
                                   0);
                 } break;
             }
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->step = self->step + 1;
         case 1:
-            if (moveMotion(s1) != 0) {
-                func_002705D8(s1);
+            if (moveMotion(self) != 0) {
+                func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             return;
         case 2:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             {
-                int v0 = *(int *)(s1 + 0x304);
-                func_002A8578(s1, EM_RES_REC(v0, 0x1D78), EM_RES_REC(v0, 0x1D7C), 0, 0.0f, nb, 0);
+                int v0 = EM_RES(self);
+                func_002A8578(self, EM_RES_REC(v0, 0x1D78), EM_RES_REC(v0, 0x1D7C), 0, 0.0f, nb, 0);
             }
-            *(unsigned char *)(s1 + 0x616) = 1;
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->active = 1;
+            self->step = self->step + 1;
         case 3:
             mgr = &D_00463050;
             cCamManager_setPartsCamera(mgr, 0);
             parts = &mgr->parts;
-            b = *(unsigned char *)(s1 + 0x2B4);
+            b = self->partNum;
             spill[0] = b;
             lim = 0x1B;
             if (lim < b) {
-                a2v = *(int *)(*(int *)(s1 + 0x278) + 0x6C);
+                a2v = *(int *)((int)self->children + 0x6C);
             } else {
                 a2v = 0;
             }
-            b = *(unsigned char *)(s1 + 0x2B4);
+            b = self->partNum;
             spill[0] = b;
             lim = 0x1C;
             if (lim < b) {
-                a3v = *(int *)(*(int *)(s1 + 0x278) + 0x70);
+                a3v = *(int *)((int)self->children + 0x70);
             } else {
                 a3v = 0;
             }
-            cPartsCamera_SetParts(parts, s1, a2v, a3v);
-            *(float *)(s1 + 0x54C) = 3.0f;
-            if (moveMotion(s1) != 0) {
+            cPartsCamera_SetParts(parts, self, a2v, a3v);
+            self->hitFlash = 3.0f;
+            if (moveMotion(self) != 0) {
                 pl00_clearMotionCam(s2, 0, 1);
-                func_002705D8(s1);
-                *(unsigned char *)(s1 + 0x616) = 0;
+                func_002705D8(self);
+                self->active = 0;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             return;
         case 4:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             {
-                int v0 = *(int *)(s1 + 0x304);
-                func_002A8578(s1, EM_RES_REC(v0, 0x2EE4), EM_RES_REC(v0, 0x2EE8), 0, 0.0f, nb, 0);
+                int v0 = EM_RES(self);
+                func_002A8578(self, EM_RES_REC(v0, 0x2EE4), EM_RES_REC(v0, 0x2EE8), 0, 0.0f, nb, 0);
             }
-            SetEffect(0x7B, 0xB9, s1, 0, -1, 0xFFFFFFFFu);
-            *(unsigned char *)(s1 + 0x616) = 1;
-            if (*(int *)(s1 + 0x6F4) != 0) {
-                Obj1D00_ClearState_9(&(*(cOmWeapon **)(s1 + 0x6F4))->base);
+            SetEffect(0x7B, 0xB9, self, 0, -1, 0xFFFFFFFFu);
+            self->active = 1;
+            if (self->fx1 != 0) {
+                Obj1D00_ClearState_9(&self->fx1->base);
             }
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->step = self->step + 1;
         case 5:
-            *(float *)(s1 + 0x54C) = 3.0f;
-            if (moveMotion(s1) != 0) {
-                SetEffect(0x7B, 0xB7, s1, &s, 1, 0xFFFFFFFFu);
-                func_002705D8(s1);
-                *(unsigned char *)(s1 + 0x616) = 0;
+            self->hitFlash = 3.0f;
+            if (moveMotion(self) != 0) {
+                SetEffect(0x7B, 0xB7, self, &s, 1, 0xFFFFFFFFu);
+                func_002705D8(self);
+                self->active = 0;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             return;
         case 6:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             {
-                int v0 = *(int *)(s1 + 0x304);
-                func_002A8578(s1, EM_RES_REC(v0, 0x3418), EM_RES_REC(v0, 0x341C), 3, 0.0f, nb, 0);
+                int v0 = EM_RES(self);
+                func_002A8578(self, EM_RES_REC(v0, 0x3418), EM_RES_REC(v0, 0x341C), 3, 0.0f, nb, 0);
             }
-            *(unsigned char *)(s1 + 0x616) = 1;
-            *(float *)(s1 + 0x600) = 30.0f;
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->active = 1;
+            self->timer = 30.0f;
+            self->step = self->step + 1;
         case 7:
-            *(float *)(s1 + 0x54C) = 3.0f;
-            moveMotion(s1);
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
-            *(float *)(s1 + 0x600) = *(float *)(s1 + 0x600) - *(float *)(s1 + 0x5A8);
-            if (*(float *)(s1 + 0x600) <= 0.0f) {
-                *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->hitFlash = 3.0f;
+            moveMotion(self);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
+            self->timer = self->timer - self->speedRate;
+            if (self->timer <= 0.0f) {
+                self->step = self->step + 1;
             }
             break;
         case 8:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             {
-                int v0 = *(int *)(s1 + 0x304);
-                func_002A8578(s1, EM_RES_REC(v0, 0x3420), EM_RES_REC(v0, 0x3424), 3, 0.0f, nb, 0);
+                int v0 = EM_RES(self);
+                func_002A8578(self, EM_RES_REC(v0, 0x3420), EM_RES_REC(v0, 0x3424), 3, 0.0f, nb, 0);
             }
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->step = self->step + 1;
         case 9:
-            *(float *)(s1 + 0x54C) = 3.0f;
-            if (moveMotion(s1) != 0) {
-                func_002705D8(s1);
-                *(unsigned char *)(s1 + 0x616) = 0;
+            self->hitFlash = 3.0f;
+            if (moveMotion(self) != 0) {
+                func_002705D8(self);
+                self->active = 0;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
     }
 }

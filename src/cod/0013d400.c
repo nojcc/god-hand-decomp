@@ -1,37 +1,23 @@
-#include "godhand/cIDBase.h"
-#include "godhand/CustomIDWork.h"
-
-/* A cIDBase display with 11 entries and a second display at 0xD0 driven by five CustomIDWorks. */
-typedef struct IDPanelScreen {
-    cIDBaseObj base;            /* 0x000 */
-    char unk48[0x90 - 0x48];
-    unsigned char on;           /* 0x090 */
-    char unk91;
-    short unk92;                /* 0x092 */
-    cIDBaseEnt *ent[11];        /* 0x094 */
-    char unkC0[0x10];
-    cIDBaseObj base2;           /* 0x0D0 */
-    char unk118[0x120 - 0x118];
-    CustomIDWork cw[5];         /* 0x120 */
-    char unk38C;                /* 0x38C */
-} IDPanelScreen;
+#include "godhand/IDPanelScreen.h"
 
 extern void func_002AC9B8(void *self, cIDBaseEnt *w, int a2);
 extern void CustomIDWork_Main(CustomIDWork *cw);
 
+/* Start the panel: cache and reset its 11 entries, hide entry 4, then start the five
+ * CustomIDWorks on the second display. */
 __attribute__((section(".text.func_0013D400")))
 void func_0013D400(IDPanelScreen *obj)
 {
     unsigned short i;
     int j, k;
 
-    obj->unk92 = 0;
+    obj->step = 0;
     for (i = 0; i < 11; i++) {
         cIDBase_initIDWork(obj, i);
-        obj->ent[i] = cIDBase_getIDWork((cIDBaseObj *)obj, i);
+        obj->ent[i] = cIDBase_getIDWork(&obj->base, i);
         func_002AC9B8(obj, obj->ent[i], 0);
     }
-    cIDBase_restartAnim((cIDBaseObj *)obj);
+    cIDBase_restartAnim(&obj->base);
     obj->on = 1;
     obj->ent[4]->f70[2] = 0.0f;
     obj->ent[4]->sclX = 0.0f;
@@ -44,5 +30,5 @@ void func_0013D400(IDPanelScreen *obj)
     for (k = 0; k < 5; k++)
         CustomIDWork_Main(&obj->cw[k]);
     cIDBase_move(&obj->base2);
-    obj->unk38C = 0;
+    obj->flashStep = 0;
 }

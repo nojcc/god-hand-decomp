@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/CustomIDWork.h"
+#include "godhand/DogRace.h"
 
 extern void cIDBase(void *a0);
 
@@ -9,20 +9,19 @@ extern void cIDBase(void *a0);
 
 
 __attribute__((section(".text.func_001EDE38")))
-void *func_001EDE38(void *a0) {
-    char *p = (char *)a0;
-    char *q;
+DogRaceList *func_001EDE38(DogRaceList *self) {
+    CustomIDWork *q;
     int i;
 
-    *(int *)p = 0;
-    cIDBase(p + 0x10);
+    self->unk000 = 0;
+    cIDBase(&self->id);
 
-    q = p + 0x60;
+    q = self->elem;
     /* `i != -1`, not `i >= 0`: retail materialises -1 in a register and closes
        this call-loop with `bne`. The idiom picks the branch instruction. */
     for (i = 0x1C; i != -1; i--) {
-        CustomIDWork__ctor((CustomIDWork *)q);
-        q += 0x7C;
+        CustomIDWork__ctor(q);
+        q++;
     }
-    return p;
+    return self;
 }

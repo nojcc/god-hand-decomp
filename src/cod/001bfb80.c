@@ -8,6 +8,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
+#include "godhand/cMovie.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int self);
 extern void func_001B76D8(void *self);
@@ -23,8 +24,6 @@ extern void Forward149400_1492E8(int step);
 extern char D_005E7E30[];
 extern void func_00346B78(int arg);
 extern void mwPlySetMallocFn(void *alloc, void *free, void *obj);
-extern void *func_002B48A0(int a0, unsigned int size);
-extern void func_002B48C8(void);
 extern void FreeResourceNode_2D3710(void *node);
 extern void func_002D34A8(char *rec);
 extern int func_002D3210(char *rec);

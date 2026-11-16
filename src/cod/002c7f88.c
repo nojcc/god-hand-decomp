@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cWorldLight.h"
 
 extern unsigned char D_0061B289;
@@ -45,17 +46,32 @@ int func_002D42B0(char *p)
 }
 
 __attribute__((section(".text.func_002D65F8")))
-void func_002D65F8(char *a0, float x, float y, float z, float w) {
-    if (*(int *)(a0 + 0x4) != 0) {
-        *(float *)(*(int *)(a0 + 0x4) + 0x70) = x;
-        *(float *)(*(int *)(a0 + 0x4) + 0x74) = y;
-        *(float *)(*(int *)(a0 + 0x4) + 0x78) = z;
-        *(float *)(*(int *)(a0 + 0x4) + 0x7C) = w;
+void func_002D65F8(CustomIDWork *self, float x, float y, float z, float w) {
+    if (self->obj != 0) {
+        self->obj->f70[0] = x;
+        self->obj->f70[1] = y;
+        self->obj->f70[2] = z;
+        self->obj->f70[3] = w;
     }
 }
 
 __attribute__((section(".text.func_002D69A8")))
-void func_002D69A8(int a0,unsigned short a1,float f12,float f13){int p=*(int*)(a0+4);if(p==0)return;*(int*)(a0+0x5C)=3;*(float*)(a0+0x64)=f12;*(float*)(a0+0x68)=f13;*(float*)(a0+0x6C)=*(float*)(p+0x44);*(float*)(a0+0x70)=*(float*)(p+0x44);*(short*)(a0+0x74)=a1;if(a1==0)*(short*)(a0+0x74)=1;*(short*)(a0+0x76)=0;}
+void func_002D69A8(CustomIDWork *self, unsigned short frames, float from, float to)
+{
+    cIDBaseEnt *obj = self->obj;
+
+    if (obj == 0)
+        return;
+    self->scaleFlags = CIDW_ANIM_ON | CIDW_ANIM_LINEAR;
+    self->scaleX[0] = from;
+    self->scaleX[1] = to;
+    self->scaleY[0] = obj->sclY;
+    self->scaleY[1] = obj->sclY;
+    self->scaleTotal = frames;
+    if (frames == 0)
+        self->scaleTotal = 1;
+    self->scaleCount = 0;
+}
 
 /* Returns light idx. */
 __attribute__((section(".text.cWorldLight_Get_LightData")))

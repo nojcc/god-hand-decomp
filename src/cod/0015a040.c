@@ -5,10 +5,10 @@
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cOmBase.h"
+#include "godhand/ColiseumEmSelect.h"
 
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_resetAnim(void *self);
 extern char D_0041F378[];
 extern void **D_003C2384;
 extern cTaskManager D_00752C00;
@@ -61,10 +61,10 @@ void IdDispObj_construct(IdDispObj *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041F378) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize((cIDBaseObj *)self, IDOBJ_KIND, 0);
-        cIDBase_resetAnim(self);
+        cIDBase_initialize(&self->base, IDOBJ_KIND, 0);
+        cIDBase_resetAnim(&self->base);
         self->base.playing = 1;
-        cIDBase_setPackedMessData((cIDBaseObj *)self, IDOBJ_KIND, 1);
+        cIDBase_setPackedMessData(&self->base, IDOBJ_KIND, 1);
         self->b5A = 0;
         self->state = 2;
         self->b5B = 0;
@@ -72,7 +72,7 @@ void IdDispObj_construct(IdDispObj *self)
         self->b5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->work[i] = cIDBase_getIDWork(&self->base, i);
     }
     self->bEC = 0;
     self->bED = 0;
@@ -214,11 +214,6 @@ void Quaternion_AddRotationAxis(cVec *q, cVec *axis, float angle)
 }
 
 /* Turn the pulsing selection mark on or off: on starts the sine move of the offset work and the sine colour fade between a grey 0x80 and a grey 0xC0 colour, off resets both. */
-typedef struct MarkObj {
-    char unk000[0x440];
-    char moveWork[0x7C];                /* 0x440 CustomIDWork of the mark offset */
-    char colorWork[0x7C];               /* 0x4BC CustomIDWork of the mark colour */
-} MarkObj;
 
 
 
@@ -226,20 +221,20 @@ typedef struct MarkObj {
 
 
 __attribute__((section(".text.MarkObj_setPulse")))
-void MarkObj_setPulse(MarkObj *self, int on)
+void MarkObj_setPulse(ColiseumEmDisp *self, int on)
 {
     int base;
     int peak;
     int from;
     int to;
     if (on) {
-        CustomIDWork_SetMoveOffsetPosXSin((CustomIDWork *)self->moveWork, 3, 0x10);
+        CustomIDWork_SetMoveOffsetPosXSin(&self->elem[8], 3, 0x10);
         from = (((((((base & ~0xFF) | 0x80) & ~0xFF00) | 0x8000) & ~0xFF0000) | 0x800000) & ~0xFF000000) | 0x80000000;
         to = (((((((peak & ~0xFF) | 0xC0) & ~0xFF00) | 0xC000) & ~0xFF0000) | 0xC00000) & ~0xFF000000) | 0x80000000;
-        CustomIDWork_SetColorAnimSin((CustomIDWork *)self->colorWork, from, to, 4);
+        CustomIDWork_SetColorAnimSin(&self->elem[9], from, to, 4);
     } else {
-        CustomIDWork_ResetMoveOffsetPos(self->moveWork);
-        CustomIDWork_ResetColorAnim((CustomIDWork *)self->colorWork);
+        CustomIDWork_ResetMoveOffsetPos(&self->elem[8]);
+        CustomIDWork_ResetColorAnim(&self->elem[9]);
     }
 }
 

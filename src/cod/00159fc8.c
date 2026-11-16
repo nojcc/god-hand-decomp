@@ -5,8 +5,9 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cBgmData.h"
+#include "godhand/CustomIDPanel.h"
+#include "godhand/DogRace.h"
 
-extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern int D_0044CE48[];
 extern char D_003BD6E8[];
 extern void KeyStop(void);
@@ -16,28 +17,17 @@ extern char D_0044A520[];
 extern void *SearchData(void *pack, void *name, int c);
 extern int cModel_setupModel(void *self, void *a, void *b, int c, int d);
 extern int D_00747A2C;
-extern void func_001ED490(void *display, int gold);
 
-/* An ID owner: a flag word at 0 and two counters at 0x918 and 0x91C. */
-typedef struct IdOwnerB {
-    unsigned int flags;                 /* 0x000 bit 0: the displays are cleared */
-    char unk004[0x914];
-    int count918;                       /* 0x918 */
-    int count91C;                       /* 0x91C */
-} IdOwnerB;
-
-#define IDOWNER_CLEARED  0x01
-
-/* Hide displays 0, 1, 0xB and 0xC, clear the two counters and set the cleared flag. */
+/* Hide works 0, 1, 0xB and 0xC and restart the fade-in of works 0 and 1 (anim[0]). */
 __attribute__((section(".text.CustomIDOwner_hideAll")))
-void CustomIDOwner_hideAll(IdOwnerB *self) {
+void CustomIDOwner_hideAll(CustomIDPanel *self) {
     SetCustomIDDispOneOrAll_1F29C0(self, 0, 0);
     SetCustomIDDispOneOrAll_1F29C0(self, 1, 0);
     SetCustomIDDispOneOrAll_1F29C0(self, 0xB, 0);
     SetCustomIDDispOneOrAll_1F29C0(self, 0xC, 0);
-    self->count918 = 0;
-    self->count91C = 0;
-    self->flags |= IDOWNER_CLEARED;
+    self->anim[0].state = 0;
+    self->anim[0].timer = 0;
+    self->flags |= CIDPANEL_ANIM0;
 }
 
 /* For each of the 12 emergency-pool slots, check whether its voice ended and release the slot data. */
@@ -101,23 +91,17 @@ int cModel_setupFromPack(struct cObj *self) {
     return 0;
 }
 
-/* A gold screen with a display element at 0x210. */
-typedef struct GoldScreen {
-    char unk000[0x210];
-    char display[1];                    /* 0x210 */
-} GoldScreen;
-
 #define PAD_PRESS_ANY  0x33000000000L   /* button bits of the pad word 0x3DC bytes before D_00747A2C */
 #define SYS_PAY_GOLD   0x200            /* bit of D_00747A2C: the pay prompt is on */
 #define GOLD_PAYOUT    1000
 
-/* On a pad press while the pay prompt is on, pay 1000 gold and show the new total in the display. */
+/* On a pad press while the pay prompt is on, pay 1000 gold and show the new total on the result screen. */
 __attribute__((section(".text.cCoreSave_payGoldOnPress")))
-void cCoreSave_payGoldOnPress(GoldScreen *self) {
+void cCoreSave_payGoldOnPress(DogRace *self) {
     if ((D_00747A2C & SYS_PAY_GOLD) != 0) {
         if ((*(long *)((char *)&D_00747A2C - 0x3DC) & PAD_PRESS_ANY) != 0) {
             cCoreSave_addGold(&D_00569B70, GOLD_PAYOUT, 0);
-            func_001ED490(self->display, cCoreSave_getGold(&D_00569B70));
+            func_001ED490(&self->result, cCoreSave_getGold(&D_00569B70));
         }
     }
 }

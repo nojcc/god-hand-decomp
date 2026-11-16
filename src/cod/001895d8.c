@@ -104,30 +104,30 @@ int KeyFollower_attachScaled(KeyFollower *self, int a1, int a2, int a3, int key)
 }
 
 /* The element that slides in and out sits at 0xDC of the owner. */
-#define OWNER_SLIDE_IDW(self) ((CustomIDWork *)((char *)(self) + 0xDC))
+#define SLIDE_ELEM      1               /* the sliding element */
 #define SLIDE_HIDDEN_Y  (-0x46)
 
 /* Place or slide the element in (sel 2: down from hidden to shown over 10 frames; sel 3:
  * the way back; sel 1: shown at once; others: hidden). */
 __attribute__((section(".text.CustomIDOwner_setSlideStateB")))
-void CustomIDOwner_setSlideStateB(void *self, unsigned char sel)
+void CustomIDOwner_setSlideStateB(PanelObj *self, unsigned char sel)
 {
     switch (sel) {
     case 0:
     default:
-        CustomIDWork_SetOffsetPosY(OWNER_SLIDE_IDW(self), SLIDE_HIDDEN_Y);
+        CustomIDWork_SetOffsetPosY(&self->elem[SLIDE_ELEM], SLIDE_HIDDEN_Y);
         func_001DEE60(self, 1, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosY(OWNER_SLIDE_IDW(self), 0);
+        CustomIDWork_SetOffsetPosY(&self->elem[SLIDE_ELEM], 0);
         func_001DEE60(self, 1, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosY(OWNER_SLIDE_IDW(self), SLIDE_HIDDEN_Y, 0, 10);
+        CustomIDWork_SetMoveOffsetPosY(&self->elem[SLIDE_ELEM], SLIDE_HIDDEN_Y, 0, 10);
         func_001DEE60(self, 1, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosY(OWNER_SLIDE_IDW(self), 0, SLIDE_HIDDEN_Y, 10);
+        CustomIDWork_SetMoveOffsetPosY(&self->elem[SLIDE_ELEM], 0, SLIDE_HIDDEN_Y, 10);
         func_001DEE60(self, 1, 1);
         break;
     }

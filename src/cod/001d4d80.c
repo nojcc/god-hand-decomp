@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/CustomIDWork.h"
+#include "godhand/BlackJack.h"
 
 extern void cIDBase(void *a0);
 
@@ -9,20 +10,19 @@ extern void cIDBase(void *a0);
 
 
 __attribute__((section(".text.func_001D4D80")))
-void *func_001D4D80(void *a0) {
-    char *p = (char *)a0;
-    char *q;
+BlackJack *func_001D4D80(BlackJack *self) {
+    CustomIDWork *q;
     int i;
 
-    *(int *)p = 0;
-    cIDBase(p + 0x10);
+    self->unk0000 = 0;
+    cIDBase(&self->id);
 
-    q = p + 0x60;
+    q = self->elem;
     /* `i != -1`, not `i >= 0`: retail materialises -1 in a register and closes
        this call-loop with `bne`. The idiom picks the branch instruction. */
     for (i = 0x2C; i != -1; i--) {
-        CustomIDWork__ctor((CustomIDWork *)q);
-        q += 0x7C;
+        CustomIDWork__ctor(q);
+        q++;
     }
-    return p;
+    return self;
 }

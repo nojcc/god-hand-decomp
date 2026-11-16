@@ -3,6 +3,7 @@
 #include "godhand/cDamageUnit.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/SlotUi.h"
 #include "godhand/cDvd.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/cEm00.h"
@@ -34,23 +35,9 @@ void cCollisionShape_setPos(cCollisionShapePos *self, float *pos) {
 }
 
 /* Put message `messNo` on the second display element, then switch both elements on or off. */
-#define UIPANEL_WORK_SIZE  0x7C         /* sizeof(CustomIDWork) */
-
-typedef struct UiPanelWork {
-    char unk00[UIPANEL_WORK_SIZE];
-} UiPanelWork;
-
-typedef struct UiPanel {
-    char unk00[0x580];
-    UiPanelWork work[2];                /* 0x580 the two display elements */
-} UiPanel;
-
-
-extern void func_001E7538(UiPanel *self, int no, int on);   /* show or hide element no, 2 = both */
-
 __attribute__((section(".text.UiPanel_setMessAndShow")))
-void UiPanel_setMessAndShow(UiPanel *self, int messNo, int on) {
-    CustomIDWork_SetMessNo((CustomIDWork *)&self->work[1], messNo);
+void UiPanel_setMessAndShow(SlotUi *self, int messNo, int on) {
+    CustomIDWork_SetMessNo(&self->bet[1], messNo);
     func_001E7538(self, 0, on);
     func_001E7538(self, 1, on);
 }

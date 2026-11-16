@@ -1,6 +1,7 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/cSnd.h"
 #include "godhand/cDamageManage.h"
+#include "godhand/cMovie.h"
 
 extern char D_00569B80[];
 extern char D_0056C380[];
@@ -87,19 +88,19 @@ char *func_002A9648(void *unused, char *p, unsigned int n) {
 }
 
 __attribute__((section(".text.func_002B4FE8")))
-char *func_002B4FE8(char *base, int key) {
-    char *p = base + 0x1C;
-    char *q = base + 0x1C;
+cMovieAlloc *func_002B4FE8(cMovie *self, void *block) {
+    cMovieAlloc *p = self->alloc;
+    cMovieAlloc *q = self->alloc;
     int i = 0;
 
     do {
-        if (*(int *)p == key) {
+        if (p->block == block) {
             return q;
         }
         i++;
-        q += 8;
-        p += 8;
-    } while (i < 0x40);
+        q++;
+        p++;
+    } while (i < MOVIE_ALLOC_NUM);
     return 0;
 }
 

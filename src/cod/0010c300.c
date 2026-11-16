@@ -14,9 +14,8 @@ extern float D_003BD480;
 extern float Turn_dest_dir(float f12, float f13, float f14);
 extern void Add_nullspeedDir(void *a0, float f12);
 __attribute__((section(".text.func_0010C300")))
-void func_0010C300(void *a0)
+void func_0010C300(pl00 *self)
 {
-    char *s0 = (char *)a0;
     int t0;
     int v0;
     void *q;
@@ -24,41 +23,41 @@ void func_0010C300(void *a0)
     int p2;
     float v;
     float sp;
-    if (*(short *)(s0 + 0x54A) <= 0) {
-        *(short *)(s0 + 0x54A) = 1;
+    if (self->base.hp <= 0) {
+        self->base.hp = 1;
     }
-    if (*(unsigned short *)(s0 + 0x5F2) == 3) {
-        *(float *)(s0 + 0x5A8) = 1.6f;
-        SetMotionStep(s0, 1.6f);
+    if (self->unk5F2 == 3) {
+        self->base.speedRate = 1.6f;
+        SetMotionStep(self, 1.6f);
     } else {
-        *(float *)(s0 + 0x5A8) = 1.3f;
-        SetMotionStep(s0, 1.3f);
+        self->base.speedRate = 1.3f;
+        SetMotionStep(self, 1.3f);
     }
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    switch (self->base.step) {
     case 0:
-        *(short *)(s0 + 0x5E0) = 0;
-        *(short *)(s0 + 0x5E2) = 0;
-        if (*(char *)(s0 + 0x648) >= 0xB) {
-            *(char *)(s0 + 0x648) = 0xA;
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        if (self->unk648 >= 0xB) {
+            self->unk648 = 0xA;
         }
-        t0 = *(int *)(s0 + 0x304);
-        q = *(void **)(s0 + 0x6A0);
+        t0 = (int)self->base.pack;
+        q = self->sub6A0;
         p1 = *(int *)(t0 + 0x58) + t0;
         p2 = *(int *)(t0 + 0x5C) + t0;
         if (q != 0) {
             func_002A8578(q, *(int *)(t0 + 0x370) + t0, *(int *)(t0 + 0x38C) + t0,
                           0xA, 0.0f, 0, 0);
-            v0 = *(int *)(s0 + 0x304);
+            v0 = (int)self->base.pack;
             p1 = *(int *)(v0 + 0x34C) + v0;
             p2 = *(int *)(v0 + 0x350) + v0;
         }
-        func_002A8578(s0, p1, p2, 0xA, 0.0f, 0, 0);
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        func_002A8578(self, p1, p2, 0xA, 0.0f, 0, 0);
+        self->base.step = self->base.step + 1;
     case 1:
-        *(float *)(s0 + 0x15F0) = D_003BD480;
-        if (*(int *)(s0 + 0x5D8) != 4) {
-            if (*(unsigned char *)(s0 + 0x61F) != 0) {
-                v = *(float *)(s0 + 0x608) - 0.52359879f;
+        self->unk15F0 = D_003BD480;
+        if (self->unk5D8 != 4) {
+            if (self->unk61F != 0) {
+                v = self->unk608 - 0.52359879f;
                 if (v < 0.0f) {
                     v = 0.0f;
                 }
@@ -66,31 +65,31 @@ void func_0010C300(void *a0)
                 if (D_003BD478 < v) {
                     v = D_003BD478;
                 }
-                if (*(float *)(s0 + 0x604) < 0.0f) {
+                if (self->unk604 < 0.0f) {
                     v = -v;
                 }
-                *(float *)(s0 + 0x104) = *(float *)(s0 + 0x104) + v;
-                *(float *)(s0 + 0x104) = Adjust_theta(*(float *)(s0 + 0x104));
+                self->base.rot.y = self->base.rot.y + v;
+                self->base.rot.y = Adjust_theta(self->base.rot.y);
             }
-            moveMotion(s0);
-            cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-            cObjBase_addNullSpeed(s0, 1.0f);
+            moveMotion(self);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
         } else {
-            v = Turn_dest_dir(*(float *)(s0 + 0x104), *(float *)(s0 + 0x15FC), 0.39269909f);
-            *(float *)(s0 + 0x104) = *(float *)(s0 + 0x104) + v;
-            *(float *)(s0 + 0x104) = Adjust_theta(*(float *)(s0 + 0x104));
-            moveMotion(s0);
-            cModel_calcNullPart((cModel *)s0);
-            Add_nullspeedDir(s0, *(float *)(s0 + 0x15FC));
+            v = Turn_dest_dir(self->base.rot.y, self->unk15FC, 0.39269909f);
+            self->base.rot.y = self->base.rot.y + v;
+            self->base.rot.y = Adjust_theta(self->base.rot.y);
+            moveMotion(self);
+            cModel_calcNullPart((cModel *)self);
+            Add_nullspeedDir(self, self->unk15FC);
         }
         break;
     }
-    if (*(unsigned char *)(s0 + 0x61F) != 0) {
-        if (*(float *)(s0 + 0x60C) < 10000.0f) {
-            *(char *)(s0 + 0x1601) = 2;
+    if (self->unk61F != 0) {
+        if (self->unk60C < 10000.0f) {
+            self->unk1601 = 2;
         }
     }
-    if (func_00123938((pl00 *)s0, 0) == 0) {
-        cEm00_startJumpSetup(s0);
+    if (func_00123938(self, 0) == 0) {
+        cEm00_startJumpSetup(self);
     }
 }

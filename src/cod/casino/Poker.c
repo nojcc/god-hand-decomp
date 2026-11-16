@@ -3,14 +3,6 @@
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 
-extern void func_001DD340();
-extern void SetCustomIDNumberIndexed_1DD648();
-extern void func_001D6E20();
-extern void func_001D6F30();
-extern void func_001DD238();
-extern void PokerId_Move();
-extern void PokerId__Trans();
-
 typedef struct PokerSuitIds {
     int w[POKER_SUIT_NUM];
 } PokerSuitIds;
@@ -21,10 +13,8 @@ typedef struct PokerInitFrame {
 } PokerInitFrame;
 
 extern int D_0042B270[POKER_SUIT_NUM];
-extern float D_00568150[4];
 extern BlackJackCardObj *CreateObj(int id, int a1);
 extern void cOmTrump_Initialize(BlackJackCardObj *obj, int rank);
-extern void IdScreen_loadIdData(Poker *self);
 
 /* Flag-word address of a deck card. A helper so the +0x2E68 stays out of the lw/sw displacement, as retail has it. */
 static __inline__ unsigned int *CardFlagAddr(char *p)
@@ -68,7 +58,7 @@ void Poker_Initialize(Poker *self, int level)
     for (suit = 0; suit < POKER_SUIT_NUM; suit++) {
         for (rank = 0; rank < POKER_RANK_NUM; rank++) {
             BlackJackCardObj *obj = CreateObj(f.suitId[suit], 0xFFFF);
-            float *src = D_00568150;
+            float *src = &D_00568150.x;
 
             if (obj != 0) {
                 unsigned int *fl;
@@ -100,16 +90,16 @@ void Poker_Release(Poker *self) {
 
 
 __attribute__((section(".text.Poker_SetDefaultDisp")))
-void Poker_SetDefaultDisp(int a0) {
-    func_001DD340(a0);
-    SetCustomIDNumberIndexed_1DD648(a0, 0, 0x32);
-    SetCustomIDNumberIndexed_1DD648(a0, 1, 0x14);
-    SetCustomIDNumberIndexed_1DD648(a0, 2, 0xF);
-    SetCustomIDNumberIndexed_1DD648(a0, 3, 0xA);
-    SetCustomIDNumberIndexed_1DD648(a0, 4, 0x8);
-    SetCustomIDNumberIndexed_1DD648(a0, 5, 0x8);
-    SetCustomIDNumberIndexed_1DD648(a0, 6, 0x3);
-    SetCustomIDNumberIndexed_1DD648(a0, 7, 0x2);
+void Poker_SetDefaultDisp(Poker *self) {
+    func_001DD340(self);
+    SetCustomIDNumberIndexed_1DD648(self, 0, 0x32);
+    SetCustomIDNumberIndexed_1DD648(self, 1, 0x14);
+    SetCustomIDNumberIndexed_1DD648(self, 2, 0xF);
+    SetCustomIDNumberIndexed_1DD648(self, 3, 0xA);
+    SetCustomIDNumberIndexed_1DD648(self, 4, 0x8);
+    SetCustomIDNumberIndexed_1DD648(self, 5, 0x8);
+    SetCustomIDNumberIndexed_1DD648(self, 6, 0x3);
+    SetCustomIDNumberIndexed_1DD648(self, 7, 0x2);
 }
 
 typedef struct PokerStateEnt {

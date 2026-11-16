@@ -3,7 +3,6 @@
 #include "godhand/classFADE.h"
 #include "godhand/cMovie.h"
 #include "godhand/cSnd.h"
-extern char D_005E79D0[];
 extern int D_00566E40;
 extern int D_00566E44;
 
@@ -50,19 +49,19 @@ int func_00160FF0(cEvMovie *self)
         GW_SYSFLAGS |= 0x10000000;
         GW_SYSFLAGS |= 0x80000;
         GW_SYSFLAGS |= 0x40000;
-        *hp = cMovie_Start(D_005E79D0, id, 0);
+        *hp = cMovie_Start(&D_005E79D0, id, 0);
         D_00566E44 = 5;
         GW_LOCKFLAGS |= 0x2000000;
         EVMOVIE_STEP(self)++;
     case 1:
         if (--D_00566E44 > 0)
             return 0;
-        cMovie_haltActive(D_005E79D0, D_00566E40);
+        cMovie_haltActive(&D_005E79D0, D_00566E40);
         EVMOVIE_STEP(self)++;
     case 2:
-        if (cMovie_GetStatus(D_005E79D0, D_00566E40))
+        if (cMovie_GetStatus(&D_005E79D0, D_00566E40))
             return 0;
-        cMovie_Stop(D_005E79D0, D_00566E40);
+        cMovie_Stop(&D_005E79D0, D_00566E40);
         cSnd_BgmFlaggedNodeKick(&D_005FEE00, 20.0f);
         GW_LOCKFLAGS &= ~0x4000000;
         GW_LOCKFLAGS &= ~0x2000000;

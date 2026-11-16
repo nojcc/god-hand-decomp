@@ -12,7 +12,7 @@ extern char D_0042C000[];
 extern char D_007474A0[];
 extern int D_00747A24[];
 extern void cIDManager_getLocalFileName(int a0, void *a1, void *a2, int a3);
-extern void cIDManager_setIDData(int a0, int a1, int a2);
+extern void cIDManager_setIDData(int a0, int a1, void *name);
 extern void SlotList_selectPrev(JukeBoxObj *self);
 extern void SetSequenceFlags_373810(cSndBgmNode *node, int bits);
 extern void ClearFlagBits_373858(cSndBgmNode *node, int bits);
@@ -41,17 +41,17 @@ __attribute__((section(".text.JukeBox_Load")))
 int JukeBox_Load(JukeBoxObj *self)
 {
     char name[0x40];
-    char *id;
+    cIDBaseObj *id;
     int h;
     char *game;  /* retail keeps the full address of D_007474A0 in one register */
 
     cIDManager_getLocalFileName(D_003C2388, name, D_0042C000, -1);
-    id = self->idBase;
+    id = &self->idBase;
     h = cDvd_ReadAlloc(&D_00583F20, name, &self->dataFile, &D_00754220, 0, 0, 0, 0);
     cDvd_CheckWait(&D_00583F20, h);
     cIDManager_setIDData(*D_003C2384, JUKEBOX_ID_NO, self->dataFile);
-    if (cIDBase_initialize((cIDBaseObj *)id, JUKEBOX_ID_NO, 0) == 0
-        || cIDBase_setPackedMessData((cIDBaseObj *)id, JUKEBOX_ID_NO, 1) == 0) {
+    if (cIDBase_initialize(id, JUKEBOX_ID_NO, 0) == 0
+        || cIDBase_setPackedMessData(id, JUKEBOX_ID_NO, 1) == 0) {
         return 0;
     }
     game = D_007474A0;

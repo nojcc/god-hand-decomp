@@ -5,7 +5,7 @@ extern int D_006046C0;
 extern int D_0042C320;
 extern int InitFields_1B6E90(void *obj);
 extern int D_00421F20;
-extern int cPlBase(void *obj);
+extern struct cGameObj *cPlBase(struct cGameObj *obj);
 extern int D_0041D220;
 extern int D_0041B800;
 

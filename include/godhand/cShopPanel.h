@@ -38,7 +38,9 @@ typedef struct ShopPanel {
     cIDBaseEnt *stageName;              /* 0xBC */
     char unkC0[0xC4 - 0xC0];
     cIDBaseEnt *stageInfo;              /* 0xC4 */
-    char unkC8[0x120 - 0xC8];
+    char unkC8[0xD0 - 0xC8];
+    cIDBaseObj subBase;                 /* 0xD0 second display, drawn every frame */
+    char unk118[0x120 - 0x118];
     cIDBaseEnt *ent[38];                /* 0x120 per-row entries, SHOP_ROW_* */
     int rowReel[SHOP_ROWS];             /* 0x1B8 reel shown on each row */
     short scroll;                       /* 0x1D0 first record shown */
@@ -49,7 +51,9 @@ typedef struct ShopPanel {
     char unk1DC[0x200 - 0x1DC];
     short combo;                        /* 0x200 technique being demonstrated */
     short itemCount;                    /* 0x202 */
-    char unk204[0x260 - 0x204];
+    char unk204[0x210 - 0x204];
+    cIDBaseObj inputBase;               /* 0x210 the combo input display, entry 0 drawn once per shown input */
+    char unk258[0x260 - 0x258];
     short inputTimer[SHOP_INPUTS];      /* 0x260 frames each shown input stays up */
     char unk26A[2];
     int input[SHOP_INPUTS];             /* 0x26C input shown in each slot, 0 = none */
@@ -58,6 +62,10 @@ typedef struct ShopPanel {
     char unk284[0x286 - 0x284];
     unsigned char closed;               /* 0x286 */
 } ShopPanel;
+
+typedef char ShopPanel_subBase_check[((int)&((ShopPanel *)0)->subBase == 0xD0) ? 1 : -1];
+typedef char ShopPanel_inputBase_check[((int)&((ShopPanel *)0)->inputBase == 0x210) ? 1 : -1];
+typedef char ShopPanel_inputTimer_check[((int)&((ShopPanel *)0)->inputTimer == 0x260) ? 1 : -1];
 
 void func_0016BCE0(ShopPanel *self, unsigned short index);
 

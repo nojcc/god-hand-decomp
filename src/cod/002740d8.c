@@ -1,20 +1,23 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cEm00.h"
+
+/* 1 when hand slot 0x6EC and weapon slots fx0, fx4 and fx5 are empty and the enemy kind is not one of the listed ones. */
 __attribute__((section(".text.func_002740D8")))
-int func_002740D8(char *a0) {
-    if (*(int *)(a0 + 0x6EC) != 0) {
+int func_002740D8(cEm00 *self) {
+    if (self->unk6EC != 0) {
         return 0;
     }
-    if (*(int *)(a0 + 0x6F0) != 0) {
+    if (self->fx0 != 0) {
         return 0;
     }
-    if (*(int *)(a0 + 0x700) != 0) {
+    if (self->fx4 != 0) {
         return 0;
     }
-    if (*(int *)(a0 + 0x704) != 0) {
+    if (self->fx5 != 0) {
         return 0;
     }
-    switch (*(int *)(a0 + 0x564)) {
+    switch (self->emNo) {
     case 0x209:
     case 0x213:
     case 0x217:

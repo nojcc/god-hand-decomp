@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/pl00.h"
 
 extern char D_003BC770[];
 extern char D_003BD0F0[];
@@ -36,29 +37,28 @@ void func_00102728(void *a0) {
 }
 
 __attribute__((section(".text.func_0010B6B0")))
-void func_0010B6B0(void *a0) {
-    char *s0 = (char *)a0;
+void func_0010B6B0(pl00 *self) {
     char *e;
     int i8;
     int f0;
     int type; int arg; int (*fp)(int); long entry;
-    if (*(unsigned char *)(s0 + 0x2F5) >= 71) *(unsigned char *)(s0 + 0x2F5) = 0;
-    i8 = *(unsigned char *)(s0 + 0x2F5) * 8;
+    if (self->base.phase >= 71) self->base.phase = 0;
+    i8 = self->base.phase * 8;
     e = D_003BD0F0 + i8;
     type = *(short *)(e + 2);
     if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
+        int base = *(int *)((char *)self + *(short *)(e + 4));
         entry = *(long *)(base + type * 8 - 8);
         fp = (int (*)(int))(int)(entry >> 32);
     } else {
         fp = *(int (**)(int))(D_003BD0F0 + i8 + 4);
     }
-    f0 = *(short *)(D_003BD0F0 + *(unsigned char *)(s0 + 0x2F5) * 8);
+    f0 = *(short *)(D_003BD0F0 + self->base.phase * 8);
     if (type >= 0)
         arg = (short)entry + f0;
     else
         arg = f0;
-    fp((int)(s0 + arg));
+    fp((int)((char *)self + arg));
 }
 
 __attribute__((section(".text.func_002777A8")))

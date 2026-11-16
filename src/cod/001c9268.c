@@ -32,10 +32,10 @@ extern int D_007419A0;
 __attribute__((section(".text.func_001C9268")))
 int func_001C9268(char *p)
 {
-    float buf[12];
+    cVec buf[3];
     int n;
     int flag;
-    float *sph;
+    cVec *sph;
 
     if (func_001B6FB8(p) == 0) {
         return 0;
@@ -120,13 +120,13 @@ int func_001C9268(char *p)
     } else {
         n = 0;
     }
-    buf[4] = 0.0f;
-    buf[5] = 0.0f;
-    buf[6] = 0.0f;
-    sph = buf + 4;
-    sph[3] = 1.0f;
+    buf[1].x = 0.0f;
+    buf[1].y = 0.0f;
+    buf[1].z = 0.0f;
+    sph = &buf[1];
+    sph->w = 1.0f;
     *(int *)(p + 0x654) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x650), (void *)(n + 0x80),
-                                                          (cVec *)sph, 0.3f);
+                                                          sph, 0.3f);
     cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x650), 0);
 
     *(cDamageGive **)(p + 0x658) = cDamageManage_CreateDamageGive(&D_00574380, 0, p);
@@ -139,12 +139,12 @@ int func_001C9268(char *p)
         } else {
             n2 = 0;
         }
-        buf[3] = 1.0f;
-        buf[0] = 0.0f;
-        buf[1] = 0.0f;
-        buf[2] = 0.0f;
+        buf[0].w = 1.0f;
+        buf[0].x = 0.0f;
+        buf[0].y = 0.0f;
+        buf[0].z = 0.0f;
         *(int *)(p + 0x65C) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x658), (void *)(n2 + 0x80),
-                                                              (cVec *)buf, 0.4f);
+                                                              &buf[0], 0.4f);
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x658), 0);
         *(short *)(*(int *)(p + 0x658) + 0x46) = 0x2F;
         *(int *)(*(int *)(p + 0x658) + 0x4C) = 0x32;
@@ -272,13 +272,13 @@ int func_001C9268(char *p)
             p100[0] = 0;
             p100[1] = 0;
             p100[2] = 0;
-            buf[0] = 0.0f;
-            buf[1] = 0.0f;
-            buf[2] = 0.0f;
-            buf[8] = 0.0f;
-            buf[9] = 0.0f;
-            buf[10] = 0.0f;
-            cOmWeapon_setParent((cOmWeapon *)(*(int *)(p + 0x68C)), (cOmBase *)p, 2, (cVec *)buf, (cVec *)((char *)buf + 0x20));
+            buf[0].x = 0.0f;
+            buf[0].y = 0.0f;
+            buf[0].z = 0.0f;
+            buf[2].x = 0.0f;
+            buf[2].y = 0.0f;
+            buf[2].z = 0.0f;
+            cOmWeapon_setParent((cOmWeapon *)(*(int *)(p + 0x68C)), (cOmBase *)p, 2, &buf[0], &buf[2]);
         }
     }
 

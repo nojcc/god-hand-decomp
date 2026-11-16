@@ -193,5 +193,9 @@ int cIDBase_initialize(cIDBaseObj *self, int resNo, int id);
 int cIDBase_setPackedMessData(cIDBaseObj *self, int resNo, int arg);
 cIDBaseEnt *cIDBase_getIDWork(cIDBaseObj *self, int id);
 void cIDBase_restartAnim(cIDBaseObj *self);
+/* Reset every entry's animation. */
+void cIDBase_resetAnim(cIDBaseObj *self);
+/* Step the jitter counters of every entry while the display plays. */
+void cIDBase_stepJitter(cIDBaseObj *self);
 
 #endif

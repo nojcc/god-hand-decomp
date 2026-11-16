@@ -61,12 +61,34 @@ extern void cMovie_haltActive(void *mgr, int handle);
 extern int cMovie_GetStatus(void *mgr, int handle);
 extern void cMovie_Stop(void *mgr, int handle);
 
+struct HeapArena;
+
+/* One heap block the movie library took through the allocator hooks; a free slot has block 0. */
+typedef struct cMovieAlloc {
+    void *block;                        /* 0x00 */
+    struct HeapArena *heap;             /* 0x04 the arena it came from */
+} cMovieAlloc;
+
+#define MOVIE_ALLOC_NUM  0x40
+
 typedef struct cMovie {
     cMovieTrack *track;                 /* 0x00 MOVIE_TRACK_NUM entries */
     int player[MOVIE_TRACK_NUM];        /* 0x04 */
     char unk10[8];
     unsigned int busyMask;              /* 0x18 bit n set while track n plays a flagged clip */
+    cMovieAlloc alloc[MOVIE_ALLOC_NUM]; /* 0x1C */
 } cMovie;
+
+extern cMovie D_005E79D0;
+
+/* The slot whose block is `block` (0 finds a free slot), or 0. */
+cMovieAlloc *func_002B4FE8(cMovie *self, void *block);
+/* size bytes, 128-byte aligned, from the first movie arena with room, kept in a free slot. */
+void *func_002B5AF8(cMovie *self, int unused, unsigned int size);
+/* The movie library's allocator hooks on D_005E79D0; the first argument is passed on but not read.
+ * The free hook returns whatever its callee leaves in v0. */
+void *func_002B48A0(int unused, unsigned int size);
+int func_002B48C8(int unused, void *block);
 
 /* One clip description in the tables D_005E7BF0 (normal) and D_005E7D10
  * (when D_00747A0C is set), 0x30 bytes each. */

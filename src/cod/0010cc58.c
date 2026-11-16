@@ -2,37 +2,35 @@
 
 #include "godhand/motion.h"
 #include "godhand/pl00.h"
-extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern float D_003BD48C;
 
 __attribute__((section(".text.UpdateStatePhase2F6_10CC58")))
-void UpdateStatePhase2F6_10CC58(void *a0) {
-    char *s0 = (char *)a0;
+void UpdateStatePhase2F6_10CC58(pl00 *self) {
     int v0;
     int v1;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    switch (self->base.step) {
     case 0:
-        v0 = *(int *)(s0 + 0x304);
-        *(short *)(s0 + 0x5E0) = 0;
-        *(short *)(s0 + 0x5E2) = 0;
-        func_002A8578(s0, *(int *)(v0 + 0x220) + v0, *(int *)(v0 + 0x278) + v0, 3, 0.0f, 0, 0);
-        *(int *)(s0 + 0x15B0) = 0x10;
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        v0 = (int)self->base.pack;
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        func_002A8578(self, *(int *)(v0 + 0x220) + v0, *(int *)(v0 + 0x278) + v0, 3, 0.0f, 0, 0);
+        self->unk15B0 = 0x10;
+        self->base.step = self->base.step + 1;
         /* fallthrough */
     case 1:
-        *(float *)(s0 + 0x15F0) = D_003BD48C;
-        v1 = *(int *)(s0 + 0x15B0);
+        self->unk15F0 = D_003BD48C;
+        v1 = self->unk15B0;
         if (v1 != 0) {
-            *(int *)(s0 + 0x15B0) = v1 - 1;
-            InvokeVirtualAtField214AndForward_124E68(s0, 0.19634954f);
+            self->unk15B0 = v1 - 1;
+            InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
         }
-        if (moveMotion(s0) != 0) {
-            *(unsigned char *)(s0 + 0x2F4) = 0;
-            *(unsigned char *)(s0 + 0x2F5) = 0;
-            *(unsigned char *)(s0 + 0x2F6) = 0;
-            *(unsigned char *)(s0 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
         break;
     }
-    func_00123938((pl00 *)s0, 1);
+    func_00123938(self, 1);
 }

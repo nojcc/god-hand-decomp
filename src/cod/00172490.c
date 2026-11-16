@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
+#include "godhand/scrollLayer.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/PanelObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cMessDrawFont.h"
 #include "godhand/cMessCommon.h"
 
-extern void displayScrollLayer(int id, int on);
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *take);
 extern void func_002B0480(cMessDrawFont *self, float *frame);
 extern unsigned short *cMessDrawFont_measureText(cMessDrawFont *self, unsigned short *text, float *frame, float *w, float *h);
@@ -17,23 +17,15 @@ extern int cMessCommon_isPageEndCode(unsigned short code);
 /* Blink counter of the mark lights: once armed (bit 15), count frames; after 8 frames flip the on/off bit (bit 14) every frame and show the layer set that matches. */
 
 
-#define SLOT2_OFFSET_BLINK    0x4A4     /* blink word, not named in Slot2.h */
-#define SLOT2_OFFSET_LAYER_A  0x430     /* layer ids, not named in Slot2.h */
-#define SLOT2_OFFSET_LAYER_B  0x47C
-#define SLOT2_OFFSET_LAYER_C  0x46C
-#define SLOT2_OFFSET_LAYER_D  0x470
-#define SLOT2_LAYER(self, off) (*(int *)((char *)(self) + (off)))
 #define BLINK_ARMED    0x8000
 #define BLINK_ON       0x4000
 #define BLINK_COUNT    0x3FFF
 #define BLINK_DELAY    8
 
-
-
 __attribute__((section(".text.Slot2_blinkMarks")))
-void Slot2_blinkMarks(Slot2 *self)
+void Slot2_blinkMarks(Slot1 *self)
 {
-    unsigned short *blink = (unsigned short *)((char *)self + SLOT2_OFFSET_BLINK);
+    unsigned short *blink = &self->markFlag[4];
     unsigned int v = *blink;
     unsigned short w;
     if (v & BLINK_ARMED) {
@@ -43,15 +35,15 @@ void Slot2_blinkMarks(Slot2 *self)
             w = (~v & BLINK_ON) | BLINK_ARMED;
             *blink = w;
             if (w & BLINK_ON) {
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_A), 1);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_B), 1);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_C), 1);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_D), 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK4_LAYERS], 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK4_LAYERS + 1], 0);
             } else {
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_A), 0);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_B), 0);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_C), 0);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_D), 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK4_LAYERS], 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK4_LAYERS + 1], 1);
             }
         }
     }
@@ -105,7 +97,7 @@ void cOmBase_runPhaseHandler(char *s0)
 
 /* Slide the poker table's side panel: 0 snaps it off screen, 1 snaps it on, 2 slides it off, 3 slides it on (10 frames); the two sub panels are shown for modes 1 and 2. */
 
-#define POKERUI_OFFSET_PANEL   0x158    /* CustomIDWork of the panel, offset in the ui object */
+#define POKERUI_PANEL_ELEM     2        /* the element whose CustomIDWork slides the panel */
 #define POKERUI_PANEL_OFF_X    (-0x12C) /* x offset of the panel when off screen */
 #define POKERUI_SLIDE_FRAMES   10
 #define POKERUI_SUB_A          2
@@ -116,28 +108,27 @@ void cOmBase_runPhaseHandler(char *s0)
 
 
 __attribute__((section(".text.PokerUi_slidePanel")))
-void PokerUi_slidePanel(void *ui, int mode)
+void PokerUi_slidePanel(PanelObj *ui, int mode)
 {
-    char *s0 = (char *)ui;
     switch (mode & 0xFF) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), POKERUI_PANEL_OFF_X);
-        func_001DEE60((PanelObj *)s0, POKERUI_SUB_A, 0);
-        func_001DEE60((PanelObj *)s0, POKERUI_SUB_B, 0);
+        CustomIDWork_SetOffsetPosX(&ui->elem[POKERUI_PANEL_ELEM], POKERUI_PANEL_OFF_X);
+        func_001DEE60(ui, POKERUI_SUB_A, 0);
+        func_001DEE60(ui, POKERUI_SUB_B, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), 0);
-        func_001DEE60((PanelObj *)s0, POKERUI_SUB_A, 0);
-        func_001DEE60((PanelObj *)s0, POKERUI_SUB_B, 1);
+        CustomIDWork_SetOffsetPosX(&ui->elem[POKERUI_PANEL_ELEM], 0);
+        func_001DEE60(ui, POKERUI_SUB_A, 0);
+        func_001DEE60(ui, POKERUI_SUB_B, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), POKERUI_PANEL_OFF_X, 0, POKERUI_SLIDE_FRAMES);
-        func_001DEE60((PanelObj *)s0, POKERUI_SUB_A, 0);
-        func_001DEE60((PanelObj *)s0, POKERUI_SUB_B, 1);
+        CustomIDWork_SetMoveOffsetPosX(&ui->elem[POKERUI_PANEL_ELEM], POKERUI_PANEL_OFF_X, 0, POKERUI_SLIDE_FRAMES);
+        func_001DEE60(ui, POKERUI_SUB_A, 0);
+        func_001DEE60(ui, POKERUI_SUB_B, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(s0 + POKERUI_OFFSET_PANEL), 0, POKERUI_PANEL_OFF_X, POKERUI_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX(&ui->elem[POKERUI_PANEL_ELEM], 0, POKERUI_PANEL_OFF_X, POKERUI_SLIDE_FRAMES);
         break;
     }
 }

@@ -2,6 +2,8 @@
 #include "godhand/cDamageManage.h"
 #include "godhand/cSnd.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cGameObj.h"
+#include "godhand/cCockLastBossBar.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
 
@@ -18,27 +20,28 @@ extern char D_003C2648[];
 extern int GuardedCall_00329FD0_329F98(void *h);
 extern void func_00381D60(void *a, void *b, void *c);
 
+/* Draw the bar while a boss with hit points is set, the ui is on and nothing holds the screen. */
 __attribute__((section(".text.func_0013EBA0")))
-void func_0013EBA0(char *p)
+void func_0013EBA0(cCockLastBossBar *self)
 {
-    char *w;
+    struct cGameObj *w;
     char *g;
     unsigned long fl;
     unsigned long bit;
 
-    if (*(int *)(p + 0x94) == 0) return;
-    w = *(char **)(p + 0x9C);
+    if (self->data == 0) return;
+    w = self->boss;
     if (w == 0) return;
     fl = *(int *)D_00747A24;
     bit = (fl >> 3) & 1;
     if (bit) return;
     g = D_00747A24;
     if (*(int *)(g + 0x8) < 0) return;
-    if (*(short *)(w + 0x548) == 0) return;
-    if ((*(int *)(p + 0xA0) & 0x20000000) == 0) return;
+    if (w->hpMax == 0) return;
+    if ((self->unkA0 & 0x20000000) == 0) return;
     if (cCoreSave_getStateBit0(&D_00569B70) != 0) return;
     if ((*(int *)(g + 0x60) & 0x80000) != 0) return;
-    cIDBase_trans((cIDBaseObj *)p);
+    cIDBase_trans(&self->base);
 }
 
 typedef void (*Fn)(void *, int);

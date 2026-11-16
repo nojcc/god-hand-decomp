@@ -22,6 +22,7 @@
 #include "godhand/gameWork.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/ColiseumEmSelect.h"
+#include "godhand/cMovie.h"
 
 typedef struct PinnedEnt {
     int kind;
@@ -105,7 +106,6 @@ extern char *D_003BD930;
 extern int D_003C2380;
 extern int D_003C23A4;
 extern char D_0061A990[];
-extern char D_005E79D0[];
 extern char D_005E8040[];
 extern char D_007419A0[];
 extern char D_00586C00[];
@@ -198,7 +198,7 @@ void func_002A5EC0(StageScene *self)
     ForwardVtableCall_138210((char *)D_005CAFF0);
     func_002CA8C8(&D_005FEE00);
     func_002BF150(D_003C2648);
-    while (!cMovie_isIdle(D_005E79D0))
+    while (!cMovie_isIdle(&D_005E79D0))
         cTaskWork_sleep(D_00752C00.task, 1);
     InitEspWork();
     InitEmitterWork();

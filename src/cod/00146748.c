@@ -1,5 +1,6 @@
 #include "godhand/cModel.h"
 #include "godhand/cIDBase.h"
+#include "godhand/idPair.h"
 #include "godhand/heapArena.h"
 #include "godhand/cCockTutorial.h"
 
@@ -45,15 +46,16 @@ void InitPtrField80AndForward_146748(void *a0, int a1) {
     }
 }
 
+/* Draw the banner part on show (the second one while altQueue[0] is set), unless the banner is idle (step 0 or 6). */
 __attribute__((section(".text.ForwardTransBySubState_146E20")))
-void ForwardTransBySubState_146E20(char *a0) {
-    char v1 = a0[0x79];
+void ForwardTransBySubState_146E20(IdPair *self) {
+    char v1 = self->state[0];
     if (v1 == 0) return;
     if (v1 == 6) return;
-    if (*(unsigned short *)(a0 + 0xF8) == 0) {
-        cIDBase_trans((cIDBaseObj *)a0);
+    if (self->altQueue[0] == 0) {
+        cIDBase_trans(&self->base);
     } else {
-        cIDBase_trans((cIDBaseObj *)(a0 + 0xA0));
+        cIDBase_trans(&self->part2);
     }
 }
 

@@ -3,8 +3,8 @@
 #include "godhand/Poker.h"
 #include "godhand/gameWork.h"
 #include "godhand/cSnd.h"
-extern void func_001DF048(void *self, int a1);
-extern void func_001DF0F0(void *self, int a1);
+extern void func_001DF048(PanelObj *self, int a1);
+extern void func_001DF0F0(PanelObj *self, int a1);
 
 __attribute__((section(".text.func_001DA910")))
 void func_001DA910(Poker *self)

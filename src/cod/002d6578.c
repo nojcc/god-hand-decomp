@@ -51,22 +51,22 @@ void CustomIDWork_SetOffsetPosY(CustomIDWork *self, int v)
 
 /* cygnus-2.96 | fp_hazard_rules mtc1 */
 __attribute__((section(".text.func_002D6578")))
-void func_002D6578(char *p, int v)
+void func_002D6578(CustomIDWork *self, int v)
 {
-    char *q = *(char **)(p + 0x4);
+    cIDBaseEnt *obj = self->obj;
 
-    if (q != 0) {
-        *(float *)(q + 0x68) = (float)v;
+    if (obj != 0) {
+        obj->f68 = (float)v;
     }
 }
 
 /* cygnus-2.96 | fp_hazard_rules mtc1 */
 __attribute__((section(".text.func_002D65A0")))
-void func_002D65A0(char *p, int v)
+void func_002D65A0(CustomIDWork *self, int v)
 {
-    char *q = *(char **)(p + 0x4);
+    cIDBaseEnt *obj = self->obj;
 
-    if (q != 0) {
-        *(float *)(q + 0x6C) = (float)v;
+    if (obj != 0) {
+        obj->f6C = (float)v;
     }
 }

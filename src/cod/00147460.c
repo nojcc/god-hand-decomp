@@ -1,6 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
+#include "godhand/cCockTutorial.h"
 
 extern void func_00155AE8(int pkt, int id, int buf);
 extern char D_0041DCC8[];
@@ -8,14 +8,15 @@ extern int D_007476B0;
 extern int D_00466448[];
 extern int D_00747A34;
 
+/* Draw the tutorial while a pack is loaded and its step is 1 to 4. */
 __attribute__((section(".text.ForwardIfStateActive_147460")))
-void ForwardIfStateActive_147460(char *a0) {
+void ForwardIfStateActive_147460(cCockTutorial *self) {
     char v1;
-    if (*(int *)(a0 + 0xB0) == 0) return;
-    v1 = a0[0xB8];
+    if (self->data == 0) return;
+    v1 = self->unkB8;
     if (v1 >= 5) return;
     if (v1 <= 0) return;
-    cIDBase_trans((cIDBaseObj *)a0);
+    cIDBase_trans(&self->base);
 }
 
 __attribute__((section(".text.InitPtrField80AndForward_1474A0")))

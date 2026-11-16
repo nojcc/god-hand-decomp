@@ -1,16 +1,5 @@
 /* sn-2.95.3-136: func_001DA4E8, poker panel slide-in sequence. */
 #include "godhand/Poker.h"
-extern void Panel_slide(void *a0, int a1);
-extern void func_001DE088(char *a0, unsigned char a1);
-extern void func_001DE170(char *a0, unsigned char a1);
-extern void func_001DE258(char *a0, unsigned char a1);
-extern void func_001DE340(char *a0, unsigned char a1);
-extern void CustomIDOwner_setSlideState(void *a0, unsigned char a1);
-extern void PanelWork_setModeB(char *a0, unsigned char a1);
-extern void CustomIDOwner_setSlideStateB(void *a0, unsigned char a1);
-extern void PokerUi_slidePanel(void *a0, int a1);
-extern void Panel_slideSidePanelArrows(void *a0, int a1);
-extern void UiPanel_setSlideMode(char *a0, unsigned char a1);
 
 static inline unsigned char DecCount(int *p)
 {
@@ -35,12 +24,12 @@ void func_001DA4E8(Poker *self)
             break;
         }
         Panel_slide(self, 3);
-        func_001DE088((char *)self, 3);
-        func_001DE170((char *)self, 3);
-        func_001DE258((char *)self, 3);
-        func_001DE340((char *)self, 3);
+        func_001DE088(self, 3);
+        func_001DE170(self, 3);
+        func_001DE258(self, 3);
+        func_001DE340(self, 3);
         CustomIDOwner_setSlideState(self, 3);
-        PanelWork_setModeB((char *)self, 3);
+        PanelWork_setModeB(self, 3);
         self->timer = 0x1E;
         self->phase += 1;
         break;
@@ -58,7 +47,7 @@ void func_001DA4E8(Poker *self)
         v = self->payout;
         self->bet = v;
         func_001DEE40(ui, v);
-        UiPanel_setSlideMode((char *)ui, 2);
+        UiPanel_setSlideMode(ui, 2);
         self->phase = 0;
         self->state = 0xD;
         break;

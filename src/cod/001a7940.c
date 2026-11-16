@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/BlackJack.h"
 #include "godhand/espSys.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cOmBase.h"
@@ -11,7 +12,6 @@ extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E28F0(void *obj, float y);
 extern char D_003C03F8[];
 extern void func_002A87E8(void *obj, int arg);
-extern void SetFlagOnEntries7C_1D51B8(void *self, int entry, int on);
 
 /* sn-2.95.3-136 */
 
@@ -90,16 +90,12 @@ void ActionTable_tickDispatch(void *a0) {
 
 
 /* Slide a side panel: mode 1 shows it in place, 2 scrolls it out, 3 scrolls it in, anything else hides it; then flag the display entries. The gotos reproduce retail's block order. */
-#define PANEL_WORK            0x3C4     /* CustomIDWork of the panel inside the display entries */
+#define PANEL_ELEM            7         /* the panel's display element */
 #define PANEL_X_HIDDEN        (-0x140)
 #define PANEL_SLIDE_FRAMES    0xA
 
-typedef struct PanelHost {
-    char unk00[4];
-} PanelHost;
-
 __attribute__((section(".text.PanelHost_slideSidePanel")))
-void PanelHost_slideSidePanel(PanelHost *self, unsigned short mode)
+void PanelHost_slideSidePanel(BlackJack *self, unsigned short mode)
 {
     int m = mode;
     if (m == 1) {
@@ -115,16 +111,16 @@ void PanelHost_slideSidePanel(PanelHost *self, unsigned short mode)
         goto scrollIn;
     }
 hidden:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), PANEL_X_HIDDEN);
+    CustomIDWork_SetOffsetPosX(&self->elem[PANEL_ELEM], PANEL_X_HIDDEN);
     goto done;
 slideIn:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[PANEL_ELEM], 0);
     goto done;
 scrollOut:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[PANEL_ELEM], PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
     goto done;
 scrollIn:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + PANEL_WORK), 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[PANEL_ELEM], 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
 done:
     SetFlagOnEntries7C_1D51B8(self, 7, 0);
     SetFlagOnEntries7C_1D51B8(self, 8, m != 0);

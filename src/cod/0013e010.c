@@ -1,22 +1,18 @@
-/* sn-2.95.3-136 matched TU. */
-#include "godhand/cIDBase.h"
+/* sn-2.95.3-136 */
+#include "godhand/cCockGetPoint.h"
 
-
+/* Restart every marker display and set it playing, then mark every slot unused. */
 __attribute__((section(".text.func_0013E010")))
-void func_0013E010(char *a0) {
+void func_0013E010(cCockGetPoint *self) {
     unsigned short i;
     unsigned short j;
-    int off;
-    char *b;
 
-    for (i = 0; i < 8; i++) {
-        off = i * 0x50;
-        cIDBase_restartAnim((cIDBaseObj *)(a0 + (off + 0x90)));
-        *(char *)(off + (int)a0 + 0xAC) = 1;
+    for (i = 0; i < MARKER_NUM; i++) {
+        cIDBase_restartAnim(&self->rec[i].id);
+        (self->rec + i)->id.playing = 1;
     }
 
-    b = a0 + 0x33C;
-    for (j = 0; j < 8; j++) {
-        b[j] = -1;
+    for (j = 0; j < MARKER_NUM; j++) {
+        self->id[j] = MARKER_NONE;
     }
 }

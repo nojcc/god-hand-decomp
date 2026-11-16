@@ -8,6 +8,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/cMovie.h"
 
 extern unsigned int D_00747A84;
 extern void func_0028E858(void);
@@ -23,7 +24,6 @@ extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E28F0(void *obj, float y);
 extern char D_0044C048[];
 extern char D_0044C068[];
-extern char D_005E79D0[];
 extern char D_005E6900[];
 extern void FileLoader_readWholeFile(void *self);
 extern void func_00397128(int a0);
@@ -166,15 +166,15 @@ void GiveOwner_createGiveVolumes(GiveOwner *self) {
     unsigned int i = 0;
     DmgGive **slot = self->give;
     do {
-        float v[4];
+        cVec v;
         i++;
         *slot = cDamageManage_CreateDamageGive(&D_00574380, GIVE_KIND, 0);
         if (*slot != 0) {
-            v[0] = 0.0f;
-            v[1] = 0.0f;
-            v[2] = 0.0f;
-            v[3] = 1.0f;
-            cDamageUnit_AddDamageCollSphere((cDamageUnit *)(*slot), D_00747AC0, (cVec *)v, 1.0f);
+            v.x = 0.0f;
+            v.y = 0.0f;
+            v.z = 0.0f;
+            v.w = 1.0f;
+            cDamageUnit_AddDamageCollSphere((cDamageUnit *)(*slot), D_00747AC0, &v, 1.0f);
             (*slot)->hitA = GIVE_HIT_A;
             (*slot)->hitB = GIVE_HIT_B;
             cDamageUnit_SetDamageCollActive((cDamageUnit *)(*slot), 0);
@@ -278,7 +278,7 @@ void System_bringUp(void *arg) {
     sceGsSyncV(0);
     cDvd_init(&D_00583F20);
     func_002C9D20(&D_005FEE00);
-    MoviePool_init(D_005E79D0);
+    MoviePool_init(&D_005E79D0);
     SlotIds_sendSetup(D_005E6900);
     func_0031A718(arg);
     func_002BE4E8(arg);

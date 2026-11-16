@@ -3,12 +3,8 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
 
-extern void func_001D5360(void *a0, int a1);
-extern void func_001D5430(void *a0, int a1);
-extern void func_001D5500(void *a0, int a1);
-extern void SetBlendField5B4_1D57A0(void *a0, int a1);
+extern void SetBlendField5B4_1D57A0(BlackJack *self, int on);
 extern void NoOp_1D4B70(void *a0);
-extern void CustomIDWork_SetNumber_1D5760(void *a0, int a1);
 extern int D_007474A0;
 extern int D_00747A2C;
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);

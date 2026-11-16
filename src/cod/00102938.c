@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
+#include "godhand/pl00.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cEm00.h"
@@ -84,46 +85,45 @@ void func_00288A58(void *a0)
 }
 
 __attribute__((section(".text.func_0011A530")))
-void func_0011A530(void *a0)
+void func_0011A530(pl00 *self)
 {
-    char *s0 = (char *)a0;
     char *t0;
     int p1, p2;
     float one;
 
-    *(int *)(s0 + 0x15F4) |= 0x80;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    self->flags15F4 |= 0x80;
+    switch (self->base.step) {
     case 0:
-        t0 = *(char **)(s0 + 0x304);
-        *(short *)(s0 + 0x5E0) = 0;
-        *(short *)(s0 + 0x5E2) = 0;
+        t0 = self->base.pack;
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
         p1 = *(int *)(t0 + 0x28) + (int)t0;
         p2 = *(int *)(t0 + 0x2C) + (int)t0;
-        if (*(void **)(s0 + 0x6A0) != 0) {
-            func_002A8578(*(void **)(s0 + 0x6A0), *(int *)(t0 + 0x36C) + (int)t0,
+        if (self->sub6A0 != 0) {
+            func_002A8578(self->sub6A0, *(int *)(t0 + 0x36C) + (int)t0,
                           *(int *)(t0 + 0x388) + (int)t0, 10, 0.0f, 0, 0);
             {
-            char *v0 = *(char **)(s0 + 0x304);
+            char *v0 = self->base.pack;
             p1 = *(int *)(v0 + 0x344) + (int)v0;
             p2 = *(int *)(v0 + 0x348) + (int)v0;
-            *(unsigned char *)(s0 + 0x2F7) = 3;
+            self->base.stepArg = 3;
             }
         }
-        if (*(int *)(s0 + 0x698) != 0) {
+        if (self->sub698 != 0) {
             {
-            char *v0 = *(char **)(s0 + 0x304);
+            char *v0 = self->base.pack;
             p1 = *(int *)(v0 + 0x3AC) + (int)v0;
             p2 = *(int *)(v0 + 0x3B0) + (int)v0;
-            *(unsigned char *)(s0 + 0x2F7) = 3;
+            self->base.stepArg = 3;
             }
         }
-        func_002A8578(s0, p1, p2, 3, 0.0f, 0, 0);
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
+        self->base.step = self->base.step + 1;
     case 1:
         one = 1.0f;
-        moveMotion(s0);
-        cObjBase_addNullSpeed_Rotation(s0, one);
-        cObjBase_addNullSpeed(s0, one);
+        moveMotion(self);
+        cObjBase_addNullSpeed_Rotation(self, one);
+        cObjBase_addNullSpeed(self, one);
         break;
     }
 }

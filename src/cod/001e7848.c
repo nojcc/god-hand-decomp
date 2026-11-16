@@ -1,6 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/CustomIDWork.h"
+#include "godhand/SlotUi.h"
 #include "godhand/cCamManager.h"
+#include "godhand/DogRace.h"
 
 extern int cIDBase_release();
 
@@ -8,37 +10,37 @@ extern int cIDBase_release();
 
 
 __attribute__((section(".text.func_001E7848")))
-void func_001E7848(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x1C4), number); }
+void func_001E7848(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mark[3], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7868")))
-void func_001E7868(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x240), number); }
+void func_001E7868(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mark[4], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E7888")))
-void func_001E7888(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x2BC), number); }
+void func_001E7888(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mark[5], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78A8")))
-void func_001E78A8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x338), number); }
+void func_001E78A8(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mark[6], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78C8")))
-void func_001E78C8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x3B4), number); }
+void func_001E78C8(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mark[7], number); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001E78E8")))
-void func_001E78E8(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x430), number); }
+void func_001E78E8(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mark[8], number); }
 
 /* clone */
 
@@ -78,10 +80,10 @@ void func_001EB9F8(void) {
 
 
 __attribute__((section(".text.func_001ECBD0")))
-void func_001ECBD0(void *a0) { cIDBase_release((char *)a0 + 0x10); }
+void func_001ECBD0(DogRaceResult *self) { cIDBase_release(&self->id); }
 
 /* clone */
 
 
 __attribute__((section(".text.func_001ED490")))
-void func_001ED490(void *self, int number) { CustomIDWork_SetNumber((CustomIDWork *)((char *)self + 0x124C), number); }
+void func_001ED490(DogRaceResult *self, int number) { CustomIDWork_SetNumber(&self->elem[37], number); }

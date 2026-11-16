@@ -1,35 +1,38 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/Slot1.h"
+#include "godhand/scrollLayer.h"
 
 typedef struct { int w[15]; } Tbl15;
 extern Tbl15 D_0042B890;
-extern void displayScrollLayer(int a0, int a1);
 
+#define SCROLL_ROW_NUM    5
+#define SCROLL_ROW_SHIFT  11
+#define SCROLL_ARMED      0x8000
+#define SCROLL_ON         0x4000
+#define SCROLL_LAYER      11       /* scrollLayer[] index shown with every row */
+
+/* Store row sel of table D_0042B890 in scroll (armed when arm is set), then show or hide that row's three layers and layer 11. */
 __attribute__((section(".text.func_001E3E40")))
-void func_001E3E40(char *a0, unsigned short a1, int a2, int a3)
+void func_001E3E40(Slot1 *self, unsigned short sel, int show, int arm)
 {
     int tbl[5][3];
-    int *lay;
 
     *(Tbl15 *)tbl = D_0042B890;
-    if (a1 < 5) {
-        *(unsigned short *)(a0 + 0x4AA) = a1 << 11;
-        if (a3 != 0)
-            *(unsigned short *)(a0 + 0x4AA) |= 0x8000;
-        if (a2 != 0) {
-            *(unsigned short *)(a0 + 0x4AA) |= 0x4000;
-            lay = (int *)(a0 + 0x400);
-            displayScrollLayer(*(int *)((char *)lay + (tbl[a1][0] << 2)), 1);
-            displayScrollLayer(*(int *)((char *)lay + (tbl[a1][1] << 2)), 1);
-            lay += tbl[a1][2];
-            displayScrollLayer(*lay, 1);
-            displayScrollLayer(*(int *)(a0 + 0x42C), 1);
+    if (sel < SCROLL_ROW_NUM) {
+        self->scroll = sel << SCROLL_ROW_SHIFT;
+        if (arm != 0)
+            self->scroll |= SCROLL_ARMED;
+        if (show != 0) {
+            self->scroll |= SCROLL_ON;
+            displayScrollLayer(self->scrollLayer[tbl[sel][0]], 1);
+            displayScrollLayer(self->scrollLayer[tbl[sel][1]], 1);
+            displayScrollLayer(self->scrollLayer[tbl[sel][2]], 1);
+            displayScrollLayer(self->scrollLayer[SCROLL_LAYER], 1);
         } else {
-            lay = (int *)(a0 + 0x400);
-            displayScrollLayer(*(int *)((char *)lay + (tbl[a1][0] << 2)), 0);
-            displayScrollLayer(*(int *)((char *)lay + (tbl[a1][1] << 2)), 0);
-            lay += tbl[a1][2];
-            displayScrollLayer(*lay, 0);
-            displayScrollLayer(*(int *)(a0 + 0x42C), 0);
+            displayScrollLayer(self->scrollLayer[tbl[sel][0]], 0);
+            displayScrollLayer(self->scrollLayer[tbl[sel][1]], 0);
+            displayScrollLayer(self->scrollLayer[tbl[sel][2]], 0);
+            displayScrollLayer(self->scrollLayer[SCROLL_LAYER], 0);
         }
     }
 }

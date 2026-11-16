@@ -1,6 +1,7 @@
 #include "godhand/cOm60.h"
 #include "godhand/cCockTutorial.h"
 #include "godhand/cDvd.h"
+#include "godhand/cCockLastBossBar.h"
 
 __attribute__((section(".text.ClearBytesAt74And79To7C_13C618")))
 void ClearBytesAt74And79To7C_13C618(char *a0) {
@@ -25,17 +26,19 @@ void InitFieldsAt90_13D1E8(char *a0) {
     *(char*)(a0 + 0x92) = 0;
 }
 
+/* Forget the message pack and the boss. */
 __attribute__((section(".text.ClearFields94And9C_13E7D8")))
-void ClearFields94And9C_13E7D8(char *a0) {
-    *(int*)(a0 + 0x94) = 0;
-    *(int*)(a0 + 0x9C) = 0;
+void ClearFields94And9C_13E7D8(cCockLastBossBar *self) {
+    self->data = 0;
+    self->boss = 0;
 }
 
+/* Forget the message pack and set the message back to none. */
 __attribute__((section(".text.ClearFields_B0_AC_147018")))
-void ClearFields_B0_AC_147018(char *a0) {
-    unsigned int v = 0xFFFF;
-    *(int*)(a0 + 0xB0) = 0;
-    *(short*)(a0 + 0xAC) = v;
+void ClearFields_B0_AC_147018(cCockTutorial *self) {
+    unsigned int none = COCKTUT_MSG_NONE;
+    self->data = 0;
+    self->curMsg = none;
 }
 
 /* End the tutorial: forget the loaded pack, set the message number back to

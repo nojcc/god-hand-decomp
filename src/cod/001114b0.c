@@ -16,7 +16,6 @@ extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void func_00129578(void *a0);
@@ -91,134 +90,130 @@ void func_002256C8(void *a0)
 }
 
 __attribute__((section(".text.func_001114B0")))
-void func_001114B0(void *a0)
+void func_001114B0(pl00 *self)
 {
-    char *s1 = (char *)a0;
-
-    *(float *)(s1 + 0x54C) = 30.0f;
+    self->base.hitFlash = 30.0f;
     cEmManage_SetSlotWait(D_005864F0, 2);
     cEmManage_SetPlCatched(D_005864F0);
     cEmManage_SetBigHitEffWait(D_005864F0, 2);
-    *(int *)(s1 + 0x15F4) |= 0x200;
-    if (*(unsigned char *)(s1 + 0x2F6) != 0 &&
-        *(unsigned char *)(s1 + 0x649) == 0 &&
-        func_0010B2E8((pl00 *)s1, 1) != 0) {
-        *(char *)(s1 + 0x649) = 1;
+    self->flags15F4 |= 0x200;
+    if (self->base.step != 0 &&
+        self->unk649 == 0 &&
+        func_0010B2E8(self, 1) != 0) {
+        self->unk649 = 1;
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
     }
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->base.step) {
     case 0:
     {
         int t;
 
-        Obj0000_Clear_Fields_640_648_124E58(s1);
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s1, 0x2BC, 0x10, 0x1E, 0, 0x123);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s1, 0x2BC, 0x10, 0x1E, 0, 0x123);
-        t = *(int *)(s1 + 0x304);
-        *(char *)(s1 + 0x1684) = 1;
-        func_002A8578(s1, *(int *)(t + 0x614) + t, *(int *)(t + 0x618) + t,
+        Obj0000_Clear_Fields_640_648_124E58(self);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x2BC, 0x10, 0x1E, 0, 0x123);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x2BC, 0x10, 0x1E, 0, 0x123);
+        t = (int)self->base.pack;
+        self->unk1684 = 1;
+        func_002A8578(self, *(int *)(t + 0x614) + t, *(int *)(t + 0x618) + t,
                       3, 0.0f, 0, 0);
-        func_00129578(s1);
+        func_00129578(self);
         cEmManage_SetSpeedRate(D_005864F0, 0.2f);
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 1:
-        func_00124EC0(s1);
-        if (moveMotion(s1) != 0) {
-            func_00129630(s1);
-            pl00_clearMotionCam(s1, 0, 0);
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        func_00124EC0(self);
+        if (moveMotion(self) != 0) {
+            func_00129630(self);
+            pl00_clearMotionCam(self, 0, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
-    func_0010A438(s1);
-    if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {
+    func_0010A438(self);
+    if ((self->base.seqFlags & 0x100) != 0) {
         cEmManage_SetSpeedRate(D_005864F0, 0.05f);
     }
-    if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {
+    if ((self->base.seqFlags & 1) != 0) {
         cSnd *g = &D_005FEE00;
-        cSnd_SeStop(g, *(int *)(s1 + 0x161C));
-        *(int *)(s1 + 0x161C) = 0;
+        cSnd_SeStop(g, self->unk161C);
+        self->unk161C = 0;
         g->flagsB0 &= 0xFFBFFFFF;
         g->flagsAC &= 0xFFBFFFFF;
     }
-    if (func_00123938((pl00 *)s1, 1) != 0) {
-        func_00129630(s1);
-        pl00_clearMotionCam(s1, 0, 0);
+    if (func_00123938(self, 1) != 0) {
+        func_00129630(self);
+        pl00_clearMotionCam(self, 0, 0);
     } else {
-        *(unsigned short *)(s1 + 0x3AC) |= 0x800;
-        *(float *)(s1 + 0x674) = 0.05f;
+        self->base.seqFlags |= 0x800;
+        self->unk674 = 0.05f;
     }
 }
 
 __attribute__((section(".text.func_001125A0")))
-void func_001125A0(void *a0)
+void func_001125A0(pl00 *self)
 {
-    char *s1 = (char *)a0;
-
-    *(float *)(s1 + 0x54C) = 30.0f;
+    self->base.hitFlash = 30.0f;
     cEmManage_SetSlotWait(D_005864F0, 2);
     cEmManage_SetPlCatched(D_005864F0);
     cEmManage_SetBigHitEffWait(D_005864F0, 2);
-    *(int *)(s1 + 0x15F4) |= 0x200;
-    if (*(unsigned char *)(s1 + 0x2F6) != 0 &&
-        *(unsigned char *)(s1 + 0x649) == 0 &&
-        func_0010B2E8((pl00 *)s1, 1) != 0) {
-        *(char *)(s1 + 0x649) = 1;
+    self->flags15F4 |= 0x200;
+    if (self->base.step != 0 &&
+        self->unk649 == 0 &&
+        func_0010B2E8(self, 1) != 0) {
+        self->unk649 = 1;
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
     }
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->base.step) {
     case 0:
     {
         int t;
 
-        Obj0000_Clear_Fields_640_648_124E58(s1);
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s1, 0x14, 0x1D, 0x23, 0, 0xA);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s1, 0x50, 0xF, 0x1E, 0, 0x123);
-        *(char *)(s1 + 0x1684) = 1;
-        func_00129578(s1);
-        t = *(int *)(s1 + 0x304);
-        func_002A8578(s1, *(int *)(t + 0x2C0) + t, *(int *)(t + 0x2C4) + t,
+        Obj0000_Clear_Fields_640_648_124E58(self);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x14, 0x1D, 0x23, 0, 0xA);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x50, 0xF, 0x1E, 0, 0x123);
+        self->unk1684 = 1;
+        func_00129578(self);
+        t = (int)self->base.pack;
+        func_002A8578(self, *(int *)(t + 0x2C0) + t, *(int *)(t + 0x2C4) + t,
                       3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 1:
-        func_00124EC0(s1);
-        if (moveMotion(s1) != 0) {
-            func_00129630(s1);
-            pl00_clearMotionCam(s1, 1, 0);
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        func_00124EC0(self);
+        if (moveMotion(self) != 0) {
+            func_00129630(self);
+            pl00_clearMotionCam(self, 1, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
-    func_0010A438(s1);
-    if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {
+    func_0010A438(self);
+    if ((self->base.seqFlags & 0x100) != 0) {
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
     }
-    if (func_00123938((pl00 *)s1, 1) != 0) {
-        func_00129630(s1);
-        pl00_clearMotionCam(s1, 1, 0);
+    if (func_00123938(self, 1) != 0) {
+        func_00129630(self);
+        pl00_clearMotionCam(self, 1, 0);
     } else {
-        *(unsigned short *)(s1 + 0x3AC) |= 0x800;
-        *(float *)(s1 + 0x674) = 0.05f;
+        self->base.seqFlags |= 0x800;
+        self->unk674 = 0.05f;
     }
 }

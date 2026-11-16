@@ -5,7 +5,6 @@
  * tests into a range check; here the constants sit in registers, and the
  * one-reel-stopped tails don't cross-jump the way retail's do. */
 #include "godhand/Slot1.h"
-#include "godhand/MarkPanel.h"
 #include "godhand/gameWork.h"
 #include "godhand/cSnd.h"
 #include "godhand/rand.h"
@@ -90,9 +89,9 @@ void func_001E0CA8(Slot1 *self)
         self->endFlag &= ~SLOT1_F_STOP0;
         self->endFlag &= ~SLOT1_F_STOP1;
         self->endFlag &= ~SLOT1_F_STOP2;
-        MarkPanel_setMark((MarkPanel *)self, 0, 1, 1);
-        MarkPanel_setMark((MarkPanel *)self, 1, 1, 1);
-        MarkPanel_setMark((MarkPanel *)self, 2, 1, 1);
+        MarkPanel_setMark(self, 0, 1, 1);
+        MarkPanel_setMark(self, 1, 1, 1);
+        MarkPanel_setMark(self, 2, 1, 1);
         self->step++;
     case 1:
         if ((D_007474A0.trg & SLOT1_KEY_STOP0) && Slot1_reelSpins(self, 0)) {
@@ -175,7 +174,7 @@ void func_001E0CA8(Slot1 *self)
                 }
             }
             Slot1_stopReel(self, 0);
-            MarkPanel_setMark((MarkPanel *)self, 0, 1, 0);
+            MarkPanel_setMark(self, 0, 1, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
             self->endFlag |= SLOT1_F_STOP0;
         } else if ((D_007474A0.trg & SLOT1_KEY_STOP1) && Slot1_reelSpins(self, 1)) {
@@ -253,7 +252,7 @@ void func_001E0CA8(Slot1 *self)
                 }
             }
             Slot1_stopReel(self, 1);
-            MarkPanel_setMark((MarkPanel *)self, 1, 1, 0);
+            MarkPanel_setMark(self, 1, 1, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
             self->endFlag |= SLOT1_F_STOP1;
         } else if ((D_007474A0.trg & SLOT1_KEY_STOP2) && Slot1_reelSpins(self, 2)) {
@@ -338,7 +337,7 @@ void func_001E0CA8(Slot1 *self)
                 }
             }
             Slot1_stopReel(self, 2);
-            MarkPanel_setMark((MarkPanel *)self, 2, 1, 0);
+            MarkPanel_setMark(self, 2, 1, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_OK, -1, -1, 0, 0);
             self->endFlag |= SLOT1_F_STOP2;
         }

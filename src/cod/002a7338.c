@@ -14,7 +14,7 @@ __attribute__((section(".text.cGameObj")))
 struct cGameObj *cGameObj(struct cGameObj *self)
 {
     cObjBase((struct cObjBase *)self);
-    self->vtable = (cVtEnt *)D_0044AE28;
+    self->vtable = D_0044AE28;
     CVEC_INIT_XYZ(self->stored, 0.0f, 0.0f, 0.0f);
     VU0_SQC2_VF0_AT(self->vel);
     VU0_SQC2_VF0_AT(self->unk580);

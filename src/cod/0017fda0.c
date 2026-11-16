@@ -21,9 +21,9 @@ extern int cOmSub_move(void *a0);
 __attribute__((section(".text.func_00181920")))
 int func_00181920(char *p)
 {
-    float f[16];
-    float *m;
-    float *nv;
+    cVec v[4];
+    cVec *m;
+    cVec *nv;
     void *slot;
     float one, cb;
     int i, n, lo, b1, b2;
@@ -33,28 +33,28 @@ int func_00181920(char *p)
     func_001B6FB8(p);
     one = 1.0f;
     cb = 1.29999995f;
-    m = &f[8];
-    f[0] = one;
-    f[1] = cb;
-    f[5] = cb;
-    f[2] = one;
-    f[3] = one;
-    f[4] = one;
-    f[6] = one;
-    f[7] = one;
-    f[8] = 0.0f;
-    f[9] = 0.0f;
-    f[10] = 0.0f;
-    m[3] = one;
+    m = &v[2];
+    v[0].x = one;
+    v[0].y = cb;
+    v[1].y = cb;
+    v[0].z = one;
+    v[0].w = one;
+    v[1].x = one;
+    v[1].z = one;
+    v[1].w = one;
+    v[2].x = 0.0f;
+    v[2].y = 0.0f;
+    v[2].z = 0.0f;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
-        nv = &f[12];
-        f[12] = 0.0f;
-        f[13] = 0.0f;
-        f[14] = 0.0f;
-        nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
+        nv = &v[3];
+        v[3].x = 0.0f;
+        v[3].y = 0.0f;
+        v[3].z = 0.0f;
+        nv->w = one;
+        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, v[1].y, v[1].x * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -65,10 +65,10 @@ int func_00181920(char *p)
         lo = 0;
         n = 1;
         while (1) {
-        ok1 = ((*(int *)&f[4] = b1 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b1));
+        ok1 = ((*(int *)&v[1] = b1 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b1));
         if (ok1) obj1 = *(int *)(*(int *)(p + 0x278) + i * 4); else obj1 = 0;
         *(int *)(obj1 + 0x154) |= CPARTS_NO_LOCAL;
-        ok2 = ((*(int *)&f[4] = b2 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b2));
+        ok2 = ((*(int *)&v[1] = b2 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b2));
         if (ok2) obj2 = *(int *)(*(int *)(p + 0x278) + i * 4); else obj2 = 0;
         *(int *)(obj2 + 0x154) |= CPARTS_NO_PARENT;
         i++;

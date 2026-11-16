@@ -1,39 +1,36 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/heapArena.h"
+#include "godhand/DogRace.h"
 
 extern void ClearObjRef_1EE9A0(void *a0);
-extern void func_001EDF60(void *a0);
-extern void func_001ED660(void *a0);
-extern void func_001ECBD0(void *a0);
 extern void func_001EB9F8(void *a0);
 extern void **D_003C2384;
 
 __attribute__((section(".text.DogRace_Release")))
-void DogRace_Release(void *a0) {
-    char *p = (char *)a0;
-    char *q;
+void DogRace_Release(DogRace *self) {
+    DogRaceDog *q;
     int i;
     void *base;
     void *node;
 
-    q = p + 0x5C;
+    q = self->dog;
     /* closes with bgez -> i >= 0 */
     for (i = 4; i >= 0; i--) {
         ClearObjRef_1EE9A0(q);
-        q += 0x40;
+        q++;
     }
 
-    func_001EDF60(p + 0x1B90);
-    func_001ED660(p + 0x1840);
-    func_001ECBD0(p + 0x210);
+    func_001EDF60(&self->ui2);
+    func_001ED660(&self->ui1);
+    func_001ECBD0(&self->result);
 
     base = *D_003C2384;
     ((int *)base)[0x29] = 0;
     ((int *)base)[0x28] = 0;
 
-    node = *(void **)(p + 0x2A0C);
+    node = self->fileData;
     if (node != 0) {
-        cHeap_free(*(void **)((char *)node - 0x20), node);
+        cHeap_free(HEAP_OWNER(node), node);
     }
-    func_001EB9F8(p);
+    func_001EB9F8(self);
 }

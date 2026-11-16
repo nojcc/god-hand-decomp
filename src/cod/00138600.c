@@ -1,4 +1,5 @@
 #include "godhand/cCamera.h"
+#include "godhand/cCockEmBar.h"
 
 struct vtbl {
     char pad[0x10];
@@ -17,22 +18,24 @@ void cCamera_move(struct cCamera *self) {
     cCamera_update(self);
 }
 
+/* Reset the animation of the bar and its four sub displays. */
 __attribute__((section(".text.InitFiveSubstructs2ABA78_13D0B8")))
-void InitFiveSubstructs2ABA78_13D0B8(char *a0)
+void InitFiveSubstructs2ABA78_13D0B8(cCockEmBar *self)
 {
-    cIDBase_resetAnim(a0);
-    cIDBase_resetAnim(a0 + 0x140);
-    cIDBase_resetAnim(a0 + 0x190);
-    cIDBase_resetAnim(a0 + 0xA0);
-    cIDBase_resetAnim(a0 + 0xF0);
+    cIDBase_resetAnim(&self->base);
+    cIDBase_resetAnim(&self->sub[2].id);
+    cIDBase_resetAnim(&self->sub[3].id);
+    cIDBase_resetAnim(&self->sub[0].id);
+    cIDBase_resetAnim(&self->sub[1].id);
 }
 
+/* Step the jitter of the bar and its four sub displays. */
 __attribute__((section(".text.InitFiveSubstructs2AABA0_13D100")))
-void InitFiveSubstructs2AABA0_13D100(char *a0)
+void InitFiveSubstructs2AABA0_13D100(cCockEmBar *self)
 {
-    cIDBase_stepJitter(a0);
-    cIDBase_stepJitter(a0 + 0x140);
-    cIDBase_stepJitter(a0 + 0x190);
-    cIDBase_stepJitter(a0 + 0xA0);
-    cIDBase_stepJitter(a0 + 0xF0);
+    cIDBase_stepJitter(&self->base);
+    cIDBase_stepJitter(&self->sub[2].id);
+    cIDBase_stepJitter(&self->sub[3].id);
+    cIDBase_stepJitter(&self->sub[0].id);
+    cIDBase_stepJitter(&self->sub[1].id);
 }

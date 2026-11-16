@@ -1,10 +1,7 @@
 /* sn-2.95.3-136: func_001DCEF0, static initializer (priority 0xFFFF) for two vectors, a five entry row of
  * offsets at D_00568170 and a two entry row at D_005681C0. */
 #include "godhand/cOmBase.h"
-extern cVec D_00568150;
-extern cVec D_00568160;
-extern cVec D_00568170[5];
-extern cVec D_005681C0[2];
+#include "godhand/Poker.h"
 
 __attribute__((section(".text.func_001DCEF0")))
 void func_001DCEF0(int owner, int code)

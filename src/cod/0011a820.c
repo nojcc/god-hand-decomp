@@ -1,9 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/CustomIDWork.h"
+#include "godhand/Poker.h"
 #include "godhand/cDvd.h"
 #include "godhand/cMovie.h"
 #include "godhand/cGameObj.h"
+#include "godhand/pl00.h"
 #include "godhand/cOmBase.h"
 #include "godhand/espSys.h"
 #include "godhand/cSnd.h"
@@ -26,20 +28,18 @@ extern IdxTable D_0042B5D0;             /* element number for each of the five s
 
 
 
-#define IDWORK_FIRST  0x60              /* first CustomIDWork inside the display */
-#define IDWORK_SIZE   0x7C
 
 /* Starts (on) or resets (off) the pulsing scale animation of the element slot maps to; slots above 4 do nothing. */
 __attribute__((section(".text.CustomIDWork_pulseSlot")))
-void CustomIDWork_pulseSlot(char *self, unsigned char slot, int on) {
+void CustomIDWork_pulseSlot(Poker *self, unsigned char slot, int on) {
     IdxTable tbl;
 
     if (slot < 5) {
         tbl = D_0042B5D0;
         if (on) {
-            CustomIDWork_SetScaleAnimSin((CustomIDWork *)(self + (tbl.w[slot] * IDWORK_SIZE + IDWORK_FIRST)), 12, 0.6f, 1.0f);
+            CustomIDWork_SetScaleAnimSin(&self->elem[tbl.w[slot]], 12, 0.6f, 1.0f);
         } else {
-            CustomIDWork_ResetScaleAnim((CustomIDWork *)(self + (tbl.w[slot] * IDWORK_SIZE + IDWORK_FIRST)));
+            CustomIDWork_ResetScaleAnim(&self->elem[tbl.w[slot]]);
         }
     }
 }
@@ -201,33 +201,24 @@ typedef struct PhaseTbl {
     PhaseMemFn e[1];
 } PhaseTbl;
 
-/* A cOmBase object with a handler table indexed by its phase byte. */
-typedef struct cOmPhased {
-    cOmBase base;
-    char unk5E0[0x1603 - sizeof(cOmBase)];
-    unsigned char unk1603;              /* 0x1603 */
-} cOmPhased;
-
 extern PhaseTbl D_003BD328;
-extern void Obj0000_Clear_Fields_640_648_124E58(cOmPhased *self);
-extern void func_0012B928(cOmPhased *self);
+extern void func_0012B928(void *a0);
 
 /* The player's mode-1 handler, entry 1 of the mode table D_003BD0B8. Reset the object, clamp the phase byte into the
  * table, then run the handler for that phase. */
 __attribute__((section(".text.StepPlayerMode1ByPhase_11A820")))
-void StepPlayerMode1ByPhase_11A820(cOmPhased *self)
+void StepPlayerMode1ByPhase_11A820(pl00 *self)
 {
-    char *s0 = (char *)self;
     char *e;
     int i8;
     int f0;
     int type; int arg; int (*fp)(int); long entry;
 
     Obj0000_Clear_Fields_640_648_124E58(self);
-    *(short *)(s0 + 0x5E0) = 0;
-    *(short *)(s0 + 0x5E2) = 0;
+    self->unk5E0 = 0;
+    self->unk5E2 = 0;
     self->unk1603 = 0;
-    *(short *)(s0 + 0x1618) = 0;
+    self->unk1618 = 0;
     func_0012B928(self);
     if (self->base.phase >= PHASE_NUM) {
         self->base.phase = 0;
@@ -236,7 +227,7 @@ void StepPlayerMode1ByPhase_11A820(cOmPhased *self)
     e = (char *)&D_003BD328 + i8;
     type = *(short *)(e + 2);
     if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
+        int base = *(int *)((char *)self + *(short *)(e + 4));
         entry = *(long *)(base + type * 8 - 8);
         fp = (int (*)(int))(int)(entry >> 32);
     } else {
@@ -247,5 +238,5 @@ void StepPlayerMode1ByPhase_11A820(cOmPhased *self)
         arg = (short)entry + f0;
     else
         arg = f0;
-    fp((int)(s0 + arg));
+    fp((int)((char *)self + arg));
 }

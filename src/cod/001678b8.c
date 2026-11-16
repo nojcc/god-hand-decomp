@@ -96,10 +96,11 @@ void cSceAtManager_clearCursor(cSceAtManagerCursor *self) {
 
 /* Draw the object: its second display block comes first while mode is 2 or 3. */
 typedef struct IdDrawObj {
-    char unk00[0x5A];
+    cIDBaseObj base;                    /* 0x00 */
+    char unk48[0x5A - sizeof(cIDBaseObj)];
     signed char mode;                   /* 0x5A */
     char unk5B[0x65];
-    char sub[0x20];                     /* 0xC0 second cIDBase block */
+    cIDBaseObj sub;                     /* 0xC0 second cIDBase block */
 } IdDrawObj;
 
 
@@ -110,9 +111,9 @@ void IdDrawObj_transDual(IdDrawObj *self) {
     if (mode >= 0) {
         if (mode >= 2) {
             if (mode < 4) {
-                cIDBase_trans((cIDBaseObj *)self->sub);
+                cIDBase_trans(&self->sub);
             }
         }
     }
-    cIDBase_trans((cIDBaseObj *)self);
+    cIDBase_trans(&self->base);
 }

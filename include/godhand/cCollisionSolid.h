@@ -16,7 +16,7 @@
 
 #include "godhand/cOmBase.h"
 
-#define CSOLID_STATE_SPHERE  1          /* state: the sphere constructor ran */
+#define CSOLID_KIND_SPHERE   1          /* cCollisionSolidBody.kind: a sphere */
 
 struct cGameObj;
 
@@ -33,7 +33,7 @@ typedef struct cCollisionSolidVt {
 
 typedef struct cCollisionSolidBody {
     struct cCollisionSolidBody *next;   /* 0x00 next solid of the unit */
-    int kind;                           /* 0x04 CSOLID_KIND_* */
+    int kind;                           /* 0x04 0, or CSOLID_KIND_SPHERE */
     unsigned int flags;                 /* 0x08 CSOLID_FLAG_* */
     char unk0C[4];
     cVec min;                           /* 0x10 */
@@ -84,16 +84,25 @@ void cCollisionSolidManage_SetActive(cCollisionSolidManage *self, struct cGameOb
 /* Set the priority of owner's unit. */
 void cCollisionSolidManage_SetPriority(cCollisionSolidManage *self, struct cGameObj *owner, int priority);
 
-/* The C function cCollisionSolid is the constructor, so the record type has
- * its own name. */
+/* Method tables of the base body and of the sphere. */
+extern cCollisionSolidVt D_0041D808;
+extern cCollisionSolidVt D_0041D7E0;
+/* Method tables of two more body kinds, which their destructors put back. */
+extern cCollisionSolidVt D_0041D7B8;
+extern cCollisionSolidVt D_0041D790;
+
+/* Base constructor: no next solid, kind 0, bounds zeroed, base table, flag bit 0. */
+cCollisionSolidBody *cCollisionSolid(cCollisionSolidBody *self);
+/* Base destructor: put the base table back, free the body when flags bit 0 is set. */
+void cCollisionSolid__dtor(cCollisionSolidBody *self, int flags);
+/* Destructors of the bodies with tables D_0041D7B8 and D_0041D790: put the table back, then run the base destructor. */
+void InitObjVtableField30_133B58(cCollisionSolidBody *self, int flags);
+void InitVtableField30Ptr_133BA0(cCollisionSolidBody *self, int flags);
+
+/* A sphere body. The C function cCollisionSolid is the base constructor, so
+ * the record type has its own name. */
 typedef struct cCollisionSolidObj {
-    int unk00;                          /* 0x00 cleared by the base constructor */
-    int state;                          /* 0x04 */
-    unsigned int flags;                 /* 0x08 bit 0 set by the constructor */
-    char unk0C[4];
-    cVec unk10;                         /* 0x10 zeroed */
-    cVec unk20;                         /* 0x20 zeroed */
-    const void *vt;                     /* 0x30 table of the body kind */
+    cCollisionSolidBody base;           /* 0x00 */
     char unk34[0xC];
     void *owner;                        /* 0x40 the object that owns the body */
     char unk44[0xC];
@@ -104,6 +113,8 @@ typedef struct cCollisionSolidObj {
 
 /* Sphere constructor: base constructor, sphere table, owner, centre, radius. */
 cCollisionSolidObj *cCollisionSolid_constructSphere(cCollisionSolidObj *self, void *owner, cVec *center, float radius);
+/* Sphere destructor: put the sphere table back, then run the base destructor. */
+void InitVtableField30Alt_133A80(cCollisionSolidObj *self, int flags);
 
 typedef char cCollisionSolid_radius_check[((int)&((cCollisionSolidObj *)0)->radius == 0x70) ? 1 : -1];
 

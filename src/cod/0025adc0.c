@@ -30,18 +30,16 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
 __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
 {
     float va[4], vb[4], vc[4], vd[4];
-    char *s1 = (char *)self;
-
     VU0_SQC2_VF0(FRAME, 0x30);
-    *(char *)(s1 + 0x617) = 1;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    self->unk617 = 1;
+    switch (self->step) {
         case 0: {
-            int gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            int gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             int s2v, s0v;
 
-            switch (*(int *)(s1 + 0x564)) {
+            switch (self->emNo) {
                 default: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x124);
                     s0v = EM_RES_REC(b, 0x128);
                 } break;
@@ -57,18 +55,18 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 case 0x24f:
                 case 0x278:
                 case 0x279: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x89c);
                     s0v = EM_RES_REC(b, 0x8a0);
                 } break;
                 case 0x250:
                 case 0x251: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x89c);
                     s0v = EM_RES_REC(b, 0x8a0);
                 } break;
                 case 0x260: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x89c);
                     s0v = EM_RES_REC(b, 0x8a0);
                 } break;
@@ -91,7 +89,7 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 case 0x24e:
                 case 0x252:
                 case 0x25a: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x112c);
                     s0v = EM_RES_REC(b, 0x1130);
                 } break;
@@ -104,7 +102,7 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 case 0x272:
                 case 0x273:
                 case 0x274: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x124);
                     s0v = EM_RES_REC(b, 0x128);
                 } break;
@@ -116,34 +114,34 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 case 0x21f:
                 case 0x224:
                 case 0x241: {
-                    int b = *(int *)(s1 + 0x304);
+                    int b = (int)self->pack;
                     s2v = EM_RES_REC(b, 0x15d4);
                     s0v = EM_RES_REC(b, 0x15d8);
                 } break;
             }
-            cCollisionSolidManage_SetPriority(&D_00462FC0, (struct cGameObj *)s1, 5);
-            func_002A8578(s1, s2v, s0v, 3, 0.0f, gb, 0);
-            *(unsigned char *)(s1 + 0x2F6) += 1;
+            cCollisionSolidManage_SetPriority(&D_00462FC0, (struct cGameObj *)self, 5);
+            func_002A8578(self, s2v, s0v, 3, 0.0f, gb, 0);
+            self->step += 1;
         }
             /* fallthrough */
         case 1: {
-            char *p;
+            cVec *p;
             float *dp;
             float *pd;
             float k;
             int f;
 
-            *(float *)(s1 + 0x54C) = 3.0f;
-            *(int *)(s1 + 0x16D0) |= 0x1000;
-            func_00262750(s1, 4);
-            f = *(int *)(s1 + 0x16D0);
+            self->hitFlash = 3.0f;
+            self->emFlags |= 0x1000;
+            func_00262750(self, 4);
+            f = self->emFlags;
             f |= 0x10000;
             f |= 0x20000;
-            *(int *)(s1 + 0x16D0) = f;
+            self->emFlags = f;
             pd = vd;
             k = 0.1f;
 
-            VU0_LQC2(4, s1 + 0x580, 0);
+            VU0_LQC2(4, &self->unk580, 0);
             VU0_SQC2(4, FRAME, 0x60);
             VU0_LQC2(4, FRAME, 0x60);
             VU0_LOAD_SCALAR(5, k);
@@ -152,7 +150,7 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
 
             VU0_LQC2(4, pd, 0);
             VU0_SQC2(4, FRAME, 0x50);
-            k = *(float *)(s1 + 0x5A8);
+            k = self->speedRate;
             VU0_LQC2(4, vc, 0);
             VU0_SQC2(4, FRAME, 0x60);
             VU0_LQC2(4, FRAME, 0x60);
@@ -172,36 +170,36 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 t2 = *(float *)&vb[2];
                 dp[2] = t2;
             }
-            p = *(char **)(s1 + 0xF0);
+            p = self->pos;
             VU0_VADD_XYZ_IP(p, 0, dp);
-            VU0_LQC2(4, s1, 0x580);
+            VU0_LQC2(4, self, 0x580);
             VU0_LQC2(5, dp, 0);
             VU0_VSUB_XYZ(4, 4, 5);
-            VU0_SQC2(4, s1, 0x580);
+            VU0_SQC2(4, self, 0x580);
 
-            if (moveMotion(s1) != 0) {
-                *(short *)(s1 + 0x54A) = 0;
-                *(char *)(s1 + 0x2F4) = 2;
-                *(char *)(s1 + 0x2F5) = 2;
-                *(char *)(s1 + 0x2F7) = 1;
-                *(char *)(s1 + 0x2F6) = 0;
+            if (moveMotion(self) != 0) {
+                self->hp = 0;
+                self->mode = 2;
+                self->phase = 2;
+                self->stepArg = 1;
+                self->step = 0;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
-            if (*(unsigned short *)(s1 + 0x3AC) & 0x10) {
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
+            if (self->seqFlags & 0x10) {
                 float *q;
                 int r;
 
                 VU0_SQC2_VF0(FRAME, 0x40);
                 VU0_SQC2_VF0(FRAME, 0x50);
                 VU0_SQC2_VF0(FRAME, 0x60);
-                q = (float *)(s1 + 0x490);
+                q = &self->posA.x;
                 if (vb != q) {
                     vb[0] = q[0];
                     vb[1] = q[1];
                     vb[2] = q[2];
                 }
-                q = *(float **)(s1 + 0xF0);
+                q = &self->pos->x;
                 if (vc != q) {
                     vc[0] = q[0];
                     vc[1] = q[1];
@@ -210,19 +208,18 @@ __attribute__((section(".text.func_0025ADC0"))) void func_0025ADC0(cEm00 *self)
                 vb[1] = vb[1] + 0.5f;
                 r = ChkLine(vb, vc, pd, 0, 2, 0x400, 0, 0, 0, 0, 0, 0, 1);
                 if (r == 1) {
-                    char *fp = *(char **)(s1 + 0xF0);
-                    char *vt;
+                    cVec *fp = self->pos;
+                    cGameObjVt *vt;
                     short ofs;
 
-                    *(float *)(fp + 4) = vd[1];
-                    vt = *(char **)(s1 + 0x214);
-                    ofs = *(short *)(vt + 0xA8);
-                    ((int (*)(void *, int, int, int, int)) * (void **)(vt + 0xAC))(s1 + ofs, 0x32,
-                                                                                   0, 0, 0);
-                    *(char *)(s1 + 0x2F4) = r;
-                    *(char *)(s1 + 0x2F5) = 8;
-                    *(char *)(s1 + 0x2F6) = 2;
-                    *(char *)(s1 + 0x2F7) = 0;
+                    fp->y = vd[1];
+                    vt = cGameObj_vt((cGameObj *)self);
+                    ofs = vt->unkA8Delta;
+                    vt->unkAC((char *)self + ofs, 0x32, 0, 0, 0);
+                    self->mode = r;
+                    self->phase = 8;
+                    self->step = 2;
+                    self->stepArg = 0;
                 }
             }
             break;

@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cIDBase.h"
+#include "godhand/cShopPanel.h"
 
 extern unsigned char D_005864F0[];
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
@@ -24,40 +24,34 @@ extern void func_00374958(void *a0, float f);
 
 
 
+/* Draw step of the shop: once the panel is up (state 3), draw each shown combo input
+ * one row lower, faded by its timer, then draw the second display and the panel. */
 __attribute__((section(".text.func_0016ACD0")))
-void func_0016ACD0(void *a0)
+void func_0016ACD0(ShopPanel *self)
 {
-    char *s4 = (char *)a0;
     unsigned short i;
 
-    if (*(char *)(s4 + 0x5A) == 3) {
-        for (i = 0; i < 5; i++) {
-            short *tbl = (short *)(s4 + 0x260);
+    if (self->head.state == 3) {
+        for (i = 0; i < SHOP_INPUTS; i++) {
+            short *tbl = self->inputTimer;
             short *q = tbl + i;
             if (*q != 0) {
-                int ids;
-                int k;
-                char *w1 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
-                char *w2 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
-                char *w3;
-                char *w4;
-                int t;
-                *(float *)(w1 + 0x3C) =
-                    *(float *)(*(int *)(w2 + 0x1C) + 0xC) - (float)(i * 26);
-                w3 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
-                *(char *)(w3 + 0x4F) = (int)((float)*q / 20.0f * 256.0f);
-                w4 = (char *)cIDBase_getIDWork((cIDBaseObj *)(s4 + 0x210), 0);
-                k = i * 4;
-                ids = (int)(s4 + 0x26C);
-                t = *(int *)(ids + k);
-                *(int *)(w4 + 0x84) = t;
-                cIDBase_move((cIDBaseObj *)(s4 + 0x210));
-                cIDBase_trans((cIDBaseObj *)(s4 + 0x210));
+                cIDBaseEnt *w1 = cIDBase_getIDWork(&self->inputBase, 0);
+                cIDBaseEnt *w2 = cIDBase_getIDWork(&self->inputBase, 0);
+                cIDBaseEnt *w3;
+                cIDBaseEnt *w4;
+                w1->posY = w2->src->posY - (float)(i * 26);
+                w3 = cIDBase_getIDWork(&self->inputBase, 0);
+                w3->colorBase.c[3] = (int)((float)*q / 20.0f * 256.0f);
+                w4 = cIDBase_getIDWork(&self->inputBase, 0);
+                w4->seed = self->input[i];
+                cIDBase_move(&self->inputBase);
+                cIDBase_trans(&self->inputBase);
             }
         }
     }
-    cIDBase_trans((cIDBaseObj *)(s4 + 0xD0));
-    cIDBase_trans((cIDBaseObj *)s4);
+    cIDBase_trans(&self->subBase);
+    cIDBase_trans(&self->head.base);
 }
 
 /* sn-2.95.3-136 matched TU. */

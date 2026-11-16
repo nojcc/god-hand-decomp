@@ -4,11 +4,10 @@
 #include "godhand/pl00.h"
 #include "godhand/motion.h"
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern char *func_002DDAB0(int a0, float f, int a1);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float D_003BD488;
 
@@ -32,22 +31,22 @@ void func_00102DE8(void *a0){ char *s0=(char*)a0; int p1,p2;
   cObjBase_addNullSpeed(s0,1.0f); break; } }
 
 __attribute__((section(".text.func_0023F970")))
-void func_0023F970(void *a0){ char *s2=(char*)a0; int v0,p1,p2,t0;
- switch(*(unsigned char*)(s2+0x2F6)){
+void func_0023F970(cEm00 *self){ int v0,p1,p2,t0;
+ switch(self->step){
  case 0:
-  v0=*(int*)(s2+0x304);
+  v0=(int)self->pack;
   p1=*(int*)(v0+0x488)+v0; p2=*(int*)(v0+0x48C)+v0;
-  t0=Obj0000_Get_Byte_17C3_NZ_2_276468(s2)&0xFFFF;
-  func_002A8578(s2,p1,p2,3,0.0f,t0,0);
-  *(unsigned char*)(s2+0x2F6)=*(unsigned char*)(s2+0x2F6)+1;
+  t0=Obj0000_Get_Byte_17C3_NZ_2_276468(self)&0xFFFF;
+  func_002A8578(self,p1,p2,3,0.0f,t0,0);
+  self->step=self->step+1;
  case 1:
-  if(moveMotion(s2)!=0){ func_002705D8(s2); }
-  cObjBase_addNullSpeed_Rotation(s2,1.0f);
-  cObjBase_addNullSpeed(s2,1.0f); break; }
- if(*(int*)(s2+0x6EC)==0){
-  if(*(unsigned short*)(s2+0x3AC)&1){
-   char *a=func_002DDAB0(*(int*)(s2+0xF0),1.5f,1);
-   if(a!=0) func_0026AB20((cEm00 *)s2,(struct cOmWeapon *)a,*(unsigned short*)(a+0x2FE)); } } }
+  if(moveMotion(self)!=0){ func_002705D8(self); }
+  cObjBase_addNullSpeed_Rotation(self,1.0f);
+  cObjBase_addNullSpeed(self,1.0f); break; }
+ if(self->unk6EC==0){
+  if(self->seqFlags&1){
+   cOmWeapon *a=func_002DDAB0(self->pos,1,1.5f);
+   if(a!=0) func_0026AB20(self,a,a->base.actorId); } } }
 
 typedef struct { int w[3]; } T3;
 __attribute__((section(".text.func_001AB8F8")))
@@ -92,27 +91,27 @@ void func_00237F98(void *a0){ char *s0=(char*)a0; int v0;
   cObjBase_addNullSpeed(s0,1.0f); break; } }
 
 __attribute__((section(".text.func_0010CB10")))
-void func_0010CB10(void *a0){ char *s0=(char*)a0; char *t0; int p1,p2; void *fl;
- if(*(short*)(s0+0x54A)<=0) *(short*)(s0+0x54A)=1;
- switch(*(unsigned char*)(s0+0x2F6)){
+void func_0010CB10(pl00 *self){ char *t0; int p1,p2; void *fl;
+ if(self->base.hp<=0) self->base.hp=1;
+ switch(self->base.step){
  case 0:
-  *(short*)(s0+0x5E0)=0; *(short*)(s0+0x5E2)=0;
-  Obj0000_Clear_Fields_640_648_124E58(s0);
-  t0=*(char**)(s0+0x304); fl=*(void**)(s0+0x6A0);
+  self->unk5E0=0; self->unk5E2=0;
+  Obj0000_Clear_Fields_640_648_124E58(self);
+  t0=self->base.pack; fl=self->sub6A0;
   p1=*(int*)(t0+0x7C)+(int)t0; p2=*(int*)(t0+0x80)+(int)t0;
   if(fl!=0){
    func_002A8578(fl,*(int*)(t0+0x39C)+(int)t0,*(int*)(t0+0x3A0)+(int)t0,5,0.0f,0,0);
-   { char *v0=*(char**)(s0+0x304);
+   { char *v0=self->base.pack;
    p1=*(int*)(v0+0x3A4)+(int)v0; p2=*(int*)(v0+0x3A8)+(int)v0; } }
-  func_002A8578(s0,p1,p2,5,0.0f,0,0);
-  *(unsigned char*)(s0+0x2F6)=*(unsigned char*)(s0+0x2F6)+1;
+  func_002A8578(self,p1,p2,5,0.0f,0,0);
+  self->base.step=self->base.step+1;
  case 1:
-  *(float*)(s0+0x15F0)=D_003BD488;
-  if(moveMotion(s0)!=0){ pl00_clearMotionCam(s0,1,0); *(unsigned char*)(s0+0x2F4)=0; *(unsigned char*)(s0+0x2F5)=0;
-   *(unsigned char*)(s0+0x2F6)=0; *(unsigned char*)(s0+0x2F7)=0; }
-  cObjBase_addNullSpeed_Rotation(s0,1.0f);
-  cObjBase_addNullSpeed(s0,1.0f);
-  func_00123938((pl00 *)s0,1); break; } }
+  self->unk15F0=D_003BD488;
+  if(moveMotion(self)!=0){ pl00_clearMotionCam(self,1,0); self->base.mode=0; self->base.phase=0;
+   self->base.step=0; self->base.stepArg=0; }
+  cObjBase_addNullSpeed_Rotation(self,1.0f);
+  cObjBase_addNullSpeed(self,1.0f);
+  func_00123938(self,1); break; } }
 
 __attribute__((section(".text.func_00236ED0")))
 void func_00236ED0(void *a0){ char *s0=(char*)a0; int v0;

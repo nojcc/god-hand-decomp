@@ -1,5 +1,6 @@
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cDamageManage.h"
+#include "godhand/Poker.h"
 #include "godhand/criStm.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cObjBase.h"
@@ -12,7 +13,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern char D_0041EBE8[];
 extern char D_0041EB80[];
 extern void *cObj__ctor(void *self);
 extern int D_007854F8;
@@ -32,9 +32,7 @@ extern void cIDBase_initEntry(void *a0, int a1, void *a2);
 extern void func_002B64C0(int a0);
 extern char D_0045C470[];
 extern char D_0045C4A0[];
-extern void SetCustomIDDispOneOrAll_1DD258(int a0, int a1, int a2);
 extern void cScenario_sleepFrames(int a0);
-extern int D_0044A660;
 
 __attribute__((section(".text.func_001D6D20")))
 void func_001D6D20(int a0, int a1) {
@@ -69,7 +67,7 @@ void func_002D5080(long long *a0, int *a1, int *a2) {
 __attribute__((section(".text.cObjBase")))
 struct cObjBase *cObjBase(struct cObjBase *self) {
     cObj__ctor(self);
-    self->vtable = (cVtEnt *)D_0041EBE8;
+    self->vtable = D_0041EBE8;
     VU0_SQC2_VF0(self, 0x310);
     VU0_SQC2_VF0(self, 0x320);
     VU0_SQC2_VF0(self, 0x330);
@@ -219,15 +217,15 @@ void func_00143A90(int a0) {
 }
 
 __attribute__((section(".text.func_001DD5A0")))
-void func_001DD5A0(int a0, int a1) {
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x25, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x26, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x27, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x28, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x29, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x2A, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x2B, a1);
-    SetCustomIDDispOneOrAll_1DD258(a0, 0x2C, a1);
+void func_001DD5A0(Poker *self, int a1) {
+    SetCustomIDDispOneOrAll_1DD258(self, 0x25, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x26, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x27, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x28, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x29, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x2A, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x2B, a1);
+    SetCustomIDDispOneOrAll_1DD258(self, 0x2C, a1);
 }
 
 __attribute__((section(".text.cDvd_CheckWaitFrame")))
@@ -240,7 +238,7 @@ void cDvd_CheckWaitFrame(cDvd *self, int id) {
 
 __attribute__((section(".text.func_0028EB88")))
 void func_0028EB88(struct cGameObj *self, int flags) {
-    self->vtable = (cVtEnt *)&D_0044A660;
+    self->vtable = D_0044A660;
     func_001FE370(&D_00574380, self);
     cCollisionSolidManage_ReleaseUnit(&D_00462FC0, self);
     cGameObj__dtor(self, flags);

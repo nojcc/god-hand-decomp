@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/ColiseumBattle.h"
+#include "godhand/ColiseumEmSelect.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cScenario.h"
@@ -285,14 +286,14 @@ void ColiseumBattle_KillFade(ColiseumBattle *self)
 }
 
 __attribute__((section(".text.func_001F44E0")))
-void func_001F44E0(int a0)
+void func_001F44E0(ColiseumEmSelect *self)
 {
-    long v0 = *(unsigned int *)((char *)a0 + 0x54);
-    if (((v0 >> 1) & 1) == 0) {
+    long t = (unsigned int)self->flags;
+    if (((t >> 1) & 1) == 0) {
         return;
     }
     classFADE_kill(&D_00747470);
-    *(int *)((char *)a0 + 0x54) &= ~2;
+    self->flags = (int)self->flags & ~COLISEUM_FLAG_FADE;
 }
 
 typedef struct {

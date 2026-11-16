@@ -1,14 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cModel.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/criStm.h"
 #include "godhand/heapArena.h"
 #include "godhand/cTaskManager.h"
 #include "godhand/vu0.h"
+#define COBJBASE_NO_TYPEDEF
+#include "godhand/cObjBase.h"
 
 extern int D_00747A34;
-extern int D_00450B28;
-extern void cObjBase(void *a0);
+extern cVtEnt D_00450B28[];
 extern void func_002D58E8(void *work, void *entry, int arg);
 extern void func_002D5440(cTaskManager *self, int index);
 extern void InitFields_1B6E90(void *);
@@ -27,13 +29,13 @@ extern char D_003BC7B8[];
 
 __attribute__((section(".text.CreateObjectWithVtableC")))
 void *CreateObjectWithVtableC(void) {
-    char *s0;
+    struct cObjBase *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x4D0, 0x10, &D_00754C10);
     if (s0 == 0) return 0;
     func_003A52F0(s0, 0, 0x4D0);
     cObjBase(s0);
-    *(int **)(s0 + 0x214) = &D_00450B28;
+    s0->vtable = D_00450B28;
     return s0;
 }
 

@@ -5,6 +5,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cOm1f.h"
 #include "godhand/cSceAtManager.h"
+#include "godhand/CustomIDWork.h"
 
 extern int D_00747A0C;
 extern void TaskFnWork_runAndExit(void);
@@ -246,13 +247,13 @@ void func_002D5918(char *p) {
 
 /* cygnus-2.96 */
 __attribute__((section(".text.func_002D65D0")))
-void func_002D65D0(char *p, float *out)
+void func_002D65D0(CustomIDWork *self, float *out)
 {
-    char *q = *(char **)(p + 0x4);
+    cIDBaseEnt *obj = self->obj;
 
-    if (q != 0) {
+    if (obj != 0) {
         if (out != 0) {
-            *out = *(float *)(q + 0x6C);
+            *out = obj->f6C;
         }
     }
 }

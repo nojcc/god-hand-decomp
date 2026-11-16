@@ -13,7 +13,6 @@ extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
@@ -80,61 +79,60 @@ void func_00278690(void *a0)
 #include "godhand/vu0.h"
 
 __attribute__((section(".text.func_0011A060")))
-void func_0011A060(void *a0)
+void func_0011A060(pl00 *self)
 {
-    char *s1 = (char *)a0;
-    char *s2;
+    cEm00 *s2;
     float one;
     float buf[4] __attribute__((aligned(16)));
 
-    *(float *)(s1 + 0x54C) = 5.0f;
-    *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
-    s2 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
+    self->base.hitFlash = 5.0f;
+    self->base.objFlags = self->base.objFlags | 0x10000;
+    s2 = self->unk694;
+    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
     cEmManage_SetPlCatched(&D_005864F0);
     cEmManage_SetSlotWait(&D_005864F0, 2);
-    *(int *)(s1 + 0x15F4) = *(int *)(s1 + 0x15F4) | 0x200;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    self->flags15F4 = self->flags15F4 | 0x200;
+    switch (self->base.step) {
     case 0:
-        CallWithAndClearField698_12AC28(s1);
-        func_0012B928(s1);
+        CallWithAndClearField698_12AC28(self);
+        func_0012B928(self);
         if (s2 != 0) {
             VU0_SQC2_VF0(buf, 0);
             buf[0] = 0.0f;
             buf[2] = 0.99630004f;
             buf[1] = 0.0f;
-            sceVu0ApplyMatrix(buf, s2 + 0x80, buf);
-            *(float *)(*(int *)(s1 + 0xF0) + 0x0) = buf[0];
-            *(float *)(*(int *)(s1 + 0xF0) + 0x8) = buf[2];
-            *(float *)(s1 + 0x104) = *(float *)(s2 + 0x104) + 3.14159274f;
-            *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
+            sceVu0ApplyMatrix(buf, s2->mtx, buf);
+            self->base.pos->x = buf[0];
+            self->base.pos->z = buf[2];
+            self->base.rot.y = s2->rot.y + 3.14159274f;
+            self->base.rot.y = Adjust_theta(self->base.rot.y);
         }
         cEm00_GetPlMotion(s2, 0x52, 0.0f, 0.0f);
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        Obj0000_Clear_Fields_640_648_124E58(s1);
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s1, 5, 0, 0x2A, 0, 0xA);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s1, 5, 0, 0x2A, 0, 0xA);
-        *(char *)(s1 + 0x1684) = 1;
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        Obj0000_Clear_Fields_640_648_124E58(self);
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 5, 0, 0x2A, 0, 0xA);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 5, 0, 0x2A, 0, 0xA);
+        self->unk1684 = 1;
         cCoreSave_addGameLevelPoint(&D_00569B70, 0x64);
-        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+        self->base.step = self->base.step + 1;
     case 1:
-        func_00124EC0(s1);
-        if (moveMotion(s1)) {
-            pl00_clearMotionCam(s1, 0, 0);
-            *(unsigned char *)(s1 + 0x2F4) = 0;
-            *(unsigned char *)(s1 + 0x2F5) = 0;
-            *(unsigned char *)(s1 + 0x2F6) = 0;
-            *(unsigned char *)(s1 + 0x2F7) = 0;
+        func_00124EC0(self);
+        if (moveMotion(self)) {
+            pl00_clearMotionCam(self, 0, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(self, one);
+        cObjBase_addNullSpeed(self, one);
         break;
     }
-    if (func_00123938((pl00 *)s1, 1) != 0) {
-        pl00_clearMotionCam(s1, 0, 0);
-    } else if (*(unsigned short *)(s1 + 0x3AC) & 0x100) {
+    if (func_00123938(self, 1) != 0) {
+        pl00_clearMotionCam(self, 0, 0);
+    } else if (self->base.seqFlags & 0x100) {
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);
     }
 }

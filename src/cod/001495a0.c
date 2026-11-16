@@ -2,7 +2,7 @@
 
 extern void *func_0014FF80(void *self);
 extern void *cBoundingBox(void *box);
-extern int D_0041EA90;
+extern cVtEnt D_0041EA90[];
 
 __attribute__((section(".text.func_001495A0")))
 cModel *func_001495A0(cModel *self)
@@ -12,7 +12,7 @@ cModel *func_001495A0(cModel *self)
     int j;
 
     func_0014FF80(self);
-    self->vtable = (cVtEnt *)&D_0041EA90;
+    self->vtable = D_0041EA90;
     t = &self->tint;
     t->x = 1.0f;
     t->y = 1.0f;

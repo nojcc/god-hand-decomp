@@ -1,21 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
 #include "godhand/cSnd.h"
+#include "godhand/scrollLayer.h"
 
-extern void displayScrollLayer(int a0, int a1);
 extern void func_003735E0(void *a0, int a1, float f12, float f13);
 
+/* Set markFlag[6] (bit 15 start lit, bit 14 shown) and show or hide its layer. */
 __attribute__((section(".text.func_001E3D78")))
-void func_001E3D78(void *a0, int a1, int a2) {
-    *(short *)((char *)a0 + 0x4A8) = 0;
-    if (a2) {
-        *(unsigned short *)((char *)a0 + 0x4A8) = 0x8000;
+void func_001E3D78(Slot1 *self, int show, int startLit) {
+    self->markFlag[6] = 0;
+    if (startLit) {
+        self->markFlag[6] = SLOT1_MARK_F_START_LIT;
     }
-    if (a1) {
-        *(unsigned short *)((char *)a0 + 0x4A8) = *(unsigned short *)((char *)a0 + 0x4A8) | 0x4000;
-        displayScrollLayer(*(int *)((char *)a0 + 0x430), 1);
+    if (show) {
+        self->markFlag[6] = self->markFlag[6] | SLOT1_MARK_F_ON;
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK6_LAYER], 1);
     } else {
-        displayScrollLayer(*(int *)((char *)a0 + 0x430), 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK6_LAYER], 0);
     }
 }
 

@@ -206,7 +206,7 @@ void func_002DD6C0(void *arg)
 __attribute__((section(".text.SetActionJumpUp")))
 void SetActionJumpUp(void)
 {
-    float buf[8];
+    cVec buf[2];
     char *s0;
     char *g;
     float *p;
@@ -220,8 +220,8 @@ void SetActionJumpUp(void)
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
-                    if (cSceAtManager_findJumpPoint(&D_005FEA60, *((cVec **) (s0 + 0xF0)), (cVec *) buf, buf + 4) != 0) {
-                        t = Turn_dest_dir(*((float *) (s0 + 0x104)), buf[4], 3.14159274f);
+                    if (cSceAtManager_findJumpPoint(&D_005FEA60, *((cVec **) (s0 + 0xF0)), &buf[0], &buf[1].x) != 0) {
+                        t = Turn_dest_dir(*((float *) (s0 + 0x104)), buf[1].x, 3.14159274f);
                         if (t < 0.0f) {
                             at = -t;
                         } else {
@@ -231,12 +231,12 @@ void SetActionJumpUp(void)
                             return;
                         }
                         p = (float *) (s0 + 0x660);
-                        if (p != buf) {
-                            *((float *) (s0 + 0x660)) = buf[0];
-                            p[1] = buf[1];
-                            p[2] = buf[2];
+                        if (p != &buf[0].x) {
+                            *((float *) (s0 + 0x660)) = buf[0].x;
+                            p[1] = buf[0].y;
+                            p[2] = buf[0].z;
                         }
-                        *((float *) (s0 + 0x670)) = buf[4];
+                        *((float *) (s0 + 0x670)) = buf[1].x;
                         t = 0.0f;
                         cActionButton_set(&D_00568288, 0x4, 0x8, 0, func_002DCA58, 0, 0);
                     }

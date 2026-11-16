@@ -3,14 +3,11 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
 
-extern void CustomIDWork_SetNumber_1D5760(void *a0, int a1);
 extern void SetLinkedObjField2B_1D6D68(void *a0, int a1);
 extern void func_001D49E0(void *a0, int a1);
 extern void func_001D4AA8(void *a0, int a1);
-extern void func_001D6310(void *a0, int a1);
-extern void func_001D6A30(void *a0, int a1);
-extern void func_001D6A50(void *a0, int a1);
-extern void IdGlow_setState(void *a0, int a1);
+extern void func_001D6310(BlackJack *self, int mode);
+extern void IdGlow_setState(BlackJack *self, int mode);
 extern void func_001D6D20(void *a0, int a1);
 extern long D_00747640;
 

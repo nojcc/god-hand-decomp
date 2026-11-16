@@ -29,10 +29,10 @@ typedef struct DoorBoxObj {
 __attribute__((section(".text.DoorBoxObj_constructWide")))
 int DoorBoxObj_constructWide(DoorBoxObj *self)
 {
-    float f[16];
-    float *m;
-    float *nv;
-    float *t;
+    cVec v[4];
+    cVec *m;
+    cVec *nv;
+    cVec *t;
     void *slot;
     float one, ca, cb, cc;
     int hp;
@@ -42,34 +42,34 @@ int DoorBoxObj_constructWide(DoorBoxObj *self)
     ca = 2.13f;
     cb = 3.78f;
     cc = 0.2f;
-    t = &f[4];
-    m = &f[8];
-    f[0] = ca;
-    f[4] = ca;
-    f[1] = cb;
-    f[2] = cc;
-    f[6] = cc;
-    f[5] = cb;
-    f[3] = one;
-    t[3] = one;
-    f[8] = f[0] * -0.5f;
-    *(int *)&f[9] = 0;
-    *(int *)&f[10] = 0;
-    m[3] = one;
+    t = &v[1];
+    m = &v[2];
+    v[0].x = ca;
+    v[1].x = ca;
+    v[0].y = cb;
+    v[0].z = cc;
+    v[1].z = cc;
+    v[1].y = cb;
+    v[0].w = one;
+    t->w = one;
+    v[2].x = v[0].x * -0.5f;
+    *(int *)&v[2].y = 0;
+    *(int *)&v[2].z = 0;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damage = slot;
     if (slot != 0) {
-        nv = &f[12];
-        *(int *)&f[12] = 0;
-        *(int *)&f[13] = 0;
-        *(int *)&f[14] = 0;
-        nv[3] = one;
-        func_001FD9D8(slot, (char *)self + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
+        nv = &v[3];
+        *(int *)&v[3] = 0;
+        *(int *)&v[3].y = 0;
+        *(int *)&v[3].z = 0;
+        nv->w = one;
+        func_001FD9D8(slot, (char *)self + 0x80, m, nv, t);
     }
     hp = 1;
     self->base.hpMax = hp;
     self->base.hp = hp;
-    cVec_copy3((cVec *)self->size, (cVec *)f);
+    cVec_copy3((cVec *)self->size, &v[0]);
     cOmDoor_setObjCollision(self);
     self->hasBody = hp;
     self->body = (char *)self + DOORBOX_RING_OFFSET;

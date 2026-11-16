@@ -18,23 +18,24 @@ extern unsigned int D_00747A24;
 extern char D_005864F0[];
 
 #include "godhand/cCollisionSolid.h"
+#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
 
 __attribute__((section(".text.func_001223F8")))
-void func_001223F8(void *a0)
+void func_001223F8(pl00 *self)
 {
-    char *s1 = (char *)a0;
-    char *s0;
+    cEm00 *s0;
     float buf[4];
 
-    *(float *)(s1 + 0x54C) = 5.0f;
-    s0 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
+    self->base.hitFlash = 5.0f;
+    s0 = self->unk694;
+    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
     cEmManage_SetPlCatched(D_005864F0);
-    *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    self->base.objFlags = self->base.objFlags | 0x10000;
+    switch (self->base.step) {
     case 0:
     {
         float z;
@@ -44,31 +45,31 @@ void func_001223F8(void *a0)
         buf[2] = 0.587f;
         buf[3] = 1.0f;
         z = buf[1];
-        func_001299F0(s1, s0, buf, 0, z);
-        CallWithAndClearField698_12AC28(s1);
-        func_0012B928(s1);
+        func_001299F0(self, s0, buf, 0, z);
+        CallWithAndClearField698_12AC28(self);
+        func_0012B928(self);
         cEm00_GetPlMotion(s0, 0x34, z, z);
-        *(short *)(s1 + 0x56E) = 0xF;
+        self->base.unk56E = 0xF;
         cCoreSave_addGameLevelPoint(&D_00569B70, -0x140);
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 1:
-        if (*(short *)(s1 + 0x56E) != 0 && s0 != 0) {
-            char *p;
-            char *q;
+        if (self->base.unk56E != 0 && s0 != 0) {
+            cVec *p;
+            cVec *q;
 
-            *(short *)(s1 + 0x56E) = *(unsigned short *)(s1 + 0x56E) - 1;
-            p = *(char **)(s1 + 0xF0);
-            q = s0 + 0x550;
+            self->base.unk56E = self->base.unk56E - 1;
+            p = self->base.pos;
+            q = &s0->vel;
             VU0_VADD_XYZ_IP(p, 0, q);
         }
-        func_00124EC0(s1);
-        if (moveMotion(s1) != 0) {
-            (*(unsigned char *)(s1 + 0x2F6))++;
+        func_00124EC0(self);
+        if (moveMotion(self) != 0) {
+            (self->base.step)++;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 2:
     {
@@ -79,30 +80,30 @@ void func_001223F8(void *a0)
         buf[2] = 0.414f;
         buf[3] = 1.0f;
         z = buf[1];
-        func_001299F0(s1, s0, buf, 1, z);
+        func_001299F0(self, s0, buf, 1, z);
         cEm00_GetPlMotion(s0, 0x35, z, z);
-        *(int *)(s1 + 0x15B0) = 5;
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        self->unk15B0 = 5;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 3:
-        func_00124EC0(s1);
-        if (moveMotion(s1) != 0) {
-            *(int *)(s1 + 0x15B0) = 5;
+        func_00124EC0(self);
+        if (moveMotion(self) != 0) {
+            self->unk15B0 = 5;
         }
-        if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {
-            if (*(int *)(s1 + 0x15B0) != 0) {
-                *(int *)(s1 + 0x15B0) = 0;
+        if ((self->base.seqFlags & 1) != 0) {
+            if (self->unk15B0 != 0) {
+                self->unk15B0 = 0;
                 if (s0 != 0) {
-                    func_0012C0F8(s1, (int)(*(float *)(s0 + 0x76C) * 30.0f));
+                    func_0012C0F8(self, (int)(s0->unk76C * 30.0f));
                 }
-                func_0012C348(s1, 0);
+                func_0012C348(self, 0);
             }
         } else {
-            *(int *)(s1 + 0x15B0) = 1;
+            self->unk15B0 = 1;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 4:
     {
@@ -113,37 +114,37 @@ void func_001223F8(void *a0)
         buf[2] = 0.4f;
         buf[3] = 1.0f;
         z = buf[1];
-        func_001299F0(s1, s0, buf, 1, z);
+        func_001299F0(self, s0, buf, 1, z);
         cEm00_GetPlMotion(s0, 0x36, 3.0f, z);
-        *(int *)(s1 + 0x15B0) = 0x1E;
-        if (*(short *)(s1 + 0x54A) <= 0) {
-            *(short *)(s1 + 0x54A) = 0;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD6, s1, 0, 0, 0, 0);
+        self->unk15B0 = 0x1E;
+        if (self->base.hp <= 0) {
+            self->base.hp = 0;
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD6, self, 0, 0, 0, 0);
             cSnd_DieDemoStart(&D_005FEE00);
             cCoreSave_addGameLevelPoint(&D_00569B70, -0x3E8);
-            *(short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
+            self->base.motionFlags = self->base.motionFlags | 8;
         } else {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD7, s1, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD7, self, 0, 0, 0, 0);
         }
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 5:
-        func_00124EC0(s1);
-        *(short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
-        if (moveMotion(s1) != 0) {
-            if (*(short *)(s1 + 0x54A) > 0) {
-                pl00_clearMotionCam(s1, 0, 0);
-                *(char *)(s1 + 0x2F4) = 1;
-                *(char *)(s1 + 0x2F5) = 4;
-                *(char *)(s1 + 0x2F6) = 0;
-                *(char *)(s1 + 0x2F7) = 0;
+        func_00124EC0(self);
+        self->base.motionFlags = self->base.motionFlags | 8;
+        if (moveMotion(self) != 0) {
+            if (self->base.hp > 0) {
+                pl00_clearMotionCam(self, 0, 0);
+                self->base.mode = 1;
+                self->base.phase = 4;
+                self->base.step = 0;
+                self->base.stepArg = 0;
             } else {
                 D_00747A24 |= 8;
             }
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 6:
     {
@@ -154,24 +155,24 @@ void func_001223F8(void *a0)
         buf[2] = 0.414f;
         buf[3] = 1.0f;
         z = buf[1];
-        func_001299F0(s1, s0, buf, 1, z);
+        func_001299F0(self, s0, buf, 1, z);
         cEm00_GetPlMotion(s0, 0x37, 3.0f, z);
-        *(int *)(s1 + 0x15B0) = 0x1E;
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        self->unk15B0 = 0x1E;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 7:
-        func_00124EC0(s1);
-        *(short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
-        if (moveMotion(s1) != 0) {
-            pl00_clearMotionCam(s1, 0, 0);
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        func_00124EC0(self);
+        self->base.motionFlags = self->base.motionFlags | 8;
+        if (moveMotion(self) != 0) {
+            pl00_clearMotionCam(self, 0, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     default:
         break;

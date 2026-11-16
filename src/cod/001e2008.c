@@ -6,13 +6,8 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
 
-extern void Slot2_selectMark(Slot1 *a0, int a1, int a2, int a3);
-extern void func_001E3D78(Slot1 *a0, int a1, int a2);
 extern void func_001E8E48(void *a0, void *a1);
 extern long D_00747650;
-extern void Slot2_setMarkLayersAt464(Slot1 *a0, int a1, int a2);
-extern void Slot2_setMarkLayersAt46C(Slot1 *a0, int a1, int a2);
-extern void func_001E7470(int a0, int a1, int a2);
 
 /* Slot1 payout stage, prize line 3: pay out coin by coin until a button is pressed or the coins run out. */
 
@@ -331,12 +326,12 @@ void Slot1_payoutLine2(Slot1 *self) {
 
 
 __attribute__((section(".text.SetUiIdWorkDispRange")))
-void SetUiIdWorkDispRange(int a0, int a1) {
-    func_001E7470(a0, 2, a1);
-    func_001E7470(a0, 3, a1);
-    func_001E7470(a0, 4, a1);
-    func_001E7470(a0, 5, a1);
-    func_001E7470(a0, 6, a1);
-    func_001E7470(a0, 7, a1);
-    func_001E7470(a0, 8, a1);
+void SetUiIdWorkDispRange(SlotUi *self, int show) {
+    func_001E7470(self, 2, show);
+    func_001E7470(self, 3, show);
+    func_001E7470(self, 4, show);
+    func_001E7470(self, 5, show);
+    func_001E7470(self, 6, show);
+    func_001E7470(self, 7, show);
+    func_001E7470(self, 8, show);
 }

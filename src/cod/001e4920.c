@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/gameWork.h"
 #include "godhand/Slot2.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cMessDrawFont.h"
@@ -23,12 +24,8 @@ extern void Slot2_updateLineMark1(Slot2 *a0);
 extern void Slot2_updateLineMark2(Slot2 *a0);
 extern void Slot2_updateLineMark3(Slot2 *a0);
 extern void Slot2_blinkMarkSet(Slot2 *a0);
-extern void func_001E79E8(void *a0);
 extern void func_001E8830(void *a0);
-extern void func_001E73C0(void *a0);
-extern void func_001E7440(void *a0);
 extern void func_001E6938(Slot2 *a0);
-extern int D_00747A2C;
 
 /* Slot2 action-button handler: reset the slot's entity state, then run the
  * slot's per-frame task with this object. */
@@ -116,7 +113,7 @@ extern Slot2VtTbl D_003BE140;
 __attribute__((section(".text.Slot2_update")))
 void Slot2_update(Slot2 *self) {
     Slot2VtTbl *vt = &D_003BE140;
-    void *layer = self->layer;
+    SlotUi *layer = &self->layer;
     int t;
 
     ((void (*)(void *))vt->e[self->state].pfn)((char *)self + vt->e[self->state].delta);
@@ -130,10 +127,10 @@ void Slot2_update(Slot2 *self) {
     func_001E8830(&self->reel[1]);
     func_001E8830(&self->reel[2]);
     t = cCoreSave_getGold(&D_00569B70);
-    CustomIDWork_SetNumber((CustomIDWork *)self->customId, t);
+    CustomIDWork_SetNumber(&self->layer.mark[0], t);
     func_001E73C0(layer);
     func_001E7440(layer);
-    if (D_00747A2C & 0x200) {
+    if (D_00747A2C.unk00 & 0x200) {
         func_001E6938(self);
     }
 }

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/PanelObj.h"
+#include "godhand/Slot1.h"
 
 /* Show or hide the two cursor elements: mode 0 hides the first and shows the second, mode 1 shows both, any other mode leaves them. */
 #define PANEL_ELEM_LEFT   2
@@ -20,31 +21,16 @@ void PanelObj_setCursorMode(PanelObj *self, unsigned char mode)
     }
 }
 
-/* Two-phase wait of a slot machine part: phase 0 counts a blink timer down and clears the blink flag when it runs out, phase 1 resets the state machine. */
-#define SLOT2PART_F_BLINK  0x100            /* flag word bit 8 */
-
-typedef struct Slot2Part {
-    int unk00;
-    int state;                          /* 0x004 */
-    int step;                           /* 0x008 */
-    int phase;                          /* 0x00C */
-    char unk10[0x44];
-    int flags;                      /* 0x054 */
-    char unk58[0x46A];
-    unsigned short blinkTimer;          /* 0x4C2 frames of blinking left */
-} Slot2Part;
-
-extern void LayerScreen_hideLayers(Slot2Part *self, int mode);
-
+/* Two-phase wait of the first slot machine: phase 0 counts the blink timer down and, when it runs out, clears the drift set-up flag and hides the drift layers; phase 1 resets the state machine. */
 __attribute__((section(".text.Slot2Part_stepWait")))
-void Slot2Part_stepWait(Slot2Part *self)
+void Slot2Part_stepWait(Slot1 *self)
 {
     switch (self->phase) {
     case 0:
         if (self->blinkTimer != 0) {
             self->blinkTimer--;
             if (self->blinkTimer == 0) {
-                self->flags &= ~SLOT2PART_F_BLINK;
+                self->flags &= ~SLOT1_F_DRIFT_SET;
                 LayerScreen_hideLayers(self, 0);
             }
         }

@@ -2,7 +2,7 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cNode.h"
-#include "godhand/cIDBase.h"
+#include "godhand/cIDBaseScreen.h"
 #include "godhand/heapArena.h"
 #include "godhand/cSnd.h"
 
@@ -10,8 +10,6 @@ extern char D_0044BED0[];
 extern char D_00747AC0;
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
 extern char D_0044E300[];
-extern unsigned short D_003BD70C;
-extern void func_00144C90(void *self);
 
 /* Constructor of a collision shape: set its vtable, zero the flags and the four
  * vector slots (0x50, 0x60, 0xD0, 0xF0), record the owner, mark the shape as
@@ -154,9 +152,8 @@ void StunObj_startStun(StunObj *self) {
 
 
 typedef struct BufOwner {
-    char unk000[0xF0];
-    void *vt;                           /* 0xF0 */
-    char unkF4[0x218];
+    BlockOwner base;                    /* 0x000 */
+    char unk2D4[0x30C - 0x2D4];
     void *buf30C;                       /* 0x30C */
     char unk310[0x14];
     void *buf324;                       /* 0x324 */
@@ -171,42 +168,34 @@ typedef struct BufOwner {
 
 __attribute__((section(".text.BufOwner_deletingDtor")))
 void BufOwner_deletingDtor(BufOwner *self, int flags) {
-    self->vt = D_0044E300;
+    self->base.base.vt = D_0044E300;
     FREE_BUF(self->buf330);
     FREE_BUF(self->buf334);
     FREE_BUF(self->buf338);
     FREE_BUF(self->buf33C);
     FREE_BUF(self->buf324);
     FREE_BUF(self->buf30C);
-    BlockOwner_dtor((struct BlockOwner *)self, flags);
+    BlockOwner_dtor(&self->base, flags);
 }
 
 /* Init the display: five entries of 0x50 bytes from 0x100 (pack 1, type 5),
  * two more at 0x430 (type 0x19) and 0x480 (type 0x1A), set both colour words
  * to 0x80808080, run func_00144C90, clear the three counters and take the
  * default value from D_003BD70C. */
-#define ENTRY_SIZE   0x50
-#define ENTRY_COUNT  5
-
-
-
-
-
-
 __attribute__((section(".text.cIDBaseScreen_init")))
-void cIDBaseScreen_init(char *self) {
+void cIDBaseScreen_init(cIDBaseScreen *self) {
     unsigned short i = 0;
     do {
-        cIDBase_initialize((cIDBaseObj *)(self + 0x100 + i * ENTRY_SIZE), 1, 5);
+        cIDBase_initialize(&self->row[i].id, 1, 5);
         i = i + 1;
-    } while (i < ENTRY_COUNT);
-    cIDBase_initialize((cIDBaseObj *)(self + 0x430), 1, 0x19);
-    cIDBase_initialize((cIDBaseObj *)(self + 0x480), 1, 0x1A);
-    *(int *)(self + 0x364) = 0x80808080;
-    *(int *)(self + 0x368) = 0x80808080;
+    } while (i < SCR_ROW_NUM);
+    cIDBase_initialize(&self->extraA.id, 1, 0x19);
+    cIDBase_initialize(&self->extraB.id, 1, 0x1A);
+    self->color0 = 0x80808080;
+    self->color1 = 0x80808080;
     func_00144C90(self);
-    *(short *)(self + 0x41E) = 0;
-    *(short *)(self + 0x420) = 0;
-    *(int *)(self + 0x90) = 0;
-    *(unsigned short *)(self + 0x4D0) = D_003BD70C;
+    SCR_STORE(short, self->phase, 0);
+    SCR_STORE(short, self->step, 0);
+    SCR_STORE(int, self->flags, 0);
+    SCR_STORE(unsigned short, self->timer, D_003BD70C);
 }

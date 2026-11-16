@@ -23,7 +23,6 @@ extern float capVu0MagnitudeXZ(void *a0, void *a1);
 extern void func_00124EC0(void *obj);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0010A438(void *a0);
-extern void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12);
 extern int D_003BC7D0[][5];             /* combo table, 0x14 bytes per combo */
 
 /* Distance in the XZ plane from pos to the object the player is locked on to. */
@@ -119,7 +118,7 @@ void func_0010D3A8(pl00 *self)
         }
         if (self->base.unk568 != 0) {
             self->base.unk568--;
-            InvokeVirtualAtField214AndForward_124E68((char *)self, 0.19634955f);
+            InvokeVirtualAtField214AndForward_124E68(self, 0.19634955f);
         }
         if (self->unk640 != 0) {
             self->unk648 = 0x14;

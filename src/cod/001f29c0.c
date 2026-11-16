@@ -1,32 +1,32 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-#include "godhand/CustomIDWork.h"
+#include "godhand/CustomIDPanel.h"
 
-
+/* Show (disp nonzero) or hide work id of the panel, or every work when id is CIDPANEL_WORK_NUM. */
 __attribute__((section(".text.SetCustomIDDispOneOrAll_1F29C0")))
-void SetCustomIDDispOneOrAll_1F29C0(char *a0, int a1, int a2)
+void SetCustomIDDispOneOrAll_1F29C0(CustomIDPanel *self, int id, int disp)
 {
-	char *p;
+	CustomIDWork *p;
 	int i;
 
-	if (a2 != 0) {
-		if (a1 == 0x12) {
-			p = a0 + 0x60;
-			for (i = 0x11; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 1);
-				p += 0x7C;
+	if (disp != 0) {
+		if (id == CIDPANEL_WORK_NUM) {
+			p = self->work;
+			for (i = CIDPANEL_WORK_NUM - 1; i >= 0; i--) {
+				CustomIDWork_SetDisp(p, 1);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 1);
+			CustomIDWork_SetDisp(&self->work[id], 1);
 		}
 	} else {
-		if (a1 == 0x12) {
-			p = a0 + 0x60;
-			for (i = 0x11; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 0);
-				p += 0x7C;
+		if (id == CIDPANEL_WORK_NUM) {
+			p = self->work;
+			for (i = CIDPANEL_WORK_NUM - 1; i >= 0; i--) {
+				CustomIDWork_SetDisp(p, 0);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 0);
+			CustomIDWork_SetDisp(&self->work[id], 0);
 		}
 	}
 }

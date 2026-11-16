@@ -3,8 +3,9 @@
 
 extern void ClearFields00And30_1EE768(void *a0);
 extern void func_001ECA80(void *a0);
-extern void func_001ED548(void *a0);
-extern void func_001EDE38(void *a0);
+/* DogRace.h's typedef DogRace would hide this file's DogRace(); its two sub-objects are named by tag. */
+struct DogRaceUi *func_001ED548(struct DogRaceUi *self);
+struct DogRaceList *func_001EDE38(struct DogRaceList *self);
 
 __attribute__((section(".text.DogRace")))
 void *DogRace(void *a0) {
@@ -28,8 +29,8 @@ void *DogRace(void *a0) {
     }
 
     func_001ECA80(p + 0x210);
-    func_001ED548(p + 0x1840);
-    func_001EDE38(p + 0x1B90);
+    func_001ED548((struct DogRaceUi *)(p + 0x1840));
+    func_001EDE38((struct DogRaceList *)(p + 0x1B90));
 
     *(int *)(p + 0x200) = 0;
     *(unsigned short *)(p + 0x1B0) = 0xFFFF;

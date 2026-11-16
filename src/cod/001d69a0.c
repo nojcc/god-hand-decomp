@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/BlackJack.h"
 
-extern void SetFlagOnEntries7C_1D51B8(void *a, int b, void *c);
 extern char D_00447B90[];
 extern char D_00447B98[];
 extern void Obj0000_Set_Field_424_1595E8(void *a, int b);
@@ -18,39 +18,39 @@ extern char D_00448588[];
 extern char D_00448590[];
 
 __attribute__((section(".text.func_001D69A0")))
-void func_001D69A0(void *a0, void *a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x1C, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x1D, a1);
+void func_001D69A0(BlackJack *self, int on) {
+    SetFlagOnEntries7C_1D51B8(self, 0x1C, on);
+    SetFlagOnEntries7C_1D51B8(self, 0x1D, on);
 }
 
 __attribute__((section(".text.func_001D69E8")))
-void func_001D69E8(void *a0, void *a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x1A, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x1B, a1);
+void func_001D69E8(BlackJack *self, int on) {
+    SetFlagOnEntries7C_1D51B8(self, 0x1A, on);
+    SetFlagOnEntries7C_1D51B8(self, 0x1B, on);
 }
 
 __attribute__((section(".text.func_001D6BE0")))
-void func_001D6BE0(void *a0, void *a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x29, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x2A, a1);
+void func_001D6BE0(BlackJack *self, int on) {
+    SetFlagOnEntries7C_1D51B8(self, 0x29, on);
+    SetFlagOnEntries7C_1D51B8(self, 0x2A, on);
 }
 
 __attribute__((section(".text.func_001D6C28")))
-void func_001D6C28(void *a0, void *a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x2B, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x2C, a1);
+void func_001D6C28(BlackJack *self, int on) {
+    SetFlagOnEntries7C_1D51B8(self, 0x2B, on);
+    SetFlagOnEntries7C_1D51B8(self, 0x2C, on);
 }
 
 __attribute__((section(".text.func_001D6C90")))
-void func_001D6C90(void *a0, void *a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x25, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x26, a1);
+void func_001D6C90(BlackJack *self, int on) {
+    SetFlagOnEntries7C_1D51B8(self, 0x25, on);
+    SetFlagOnEntries7C_1D51B8(self, 0x26, on);
 }
 
 __attribute__((section(".text.func_001D6CD8")))
-void func_001D6CD8(void *a0, void *a1) {
-    SetFlagOnEntries7C_1D51B8(a0, 0x27, a1);
-    SetFlagOnEntries7C_1D51B8(a0, 0x28, a1);
+void func_001D6CD8(BlackJack *self, int on) {
+    SetFlagOnEntries7C_1D51B8(self, 0x27, on);
+    SetFlagOnEntries7C_1D51B8(self, 0x28, on);
 }
 
 __attribute__((section(".text.func_00277F80")))

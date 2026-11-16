@@ -63,39 +63,38 @@ void func_00239570(void *a0)
 }
 
 __attribute__((section(".text.func_0011AC80")))
-void func_0011AC80(void *a0)
+void func_0011AC80(pl00 *self)
 {
-    char *s1 = (char *)a0;
     float one;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->base.step) {
     case 0: {
-        char *v0 = *(char **)(s1 + 0x304);
+        char *v0 = self->base.pack;
         int p1 = *(int *)(v0 + 0x878) + (int)v0;
         int p2 = *(int *)(v0 + 0x87C) + (int)v0;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCF, s1, 0, 0, 0, 0);
-        *(float *)(s1 + 0x54C) = 10.0f;
-        func_002A8578(s1, p1, p2, 1, 0.0f, 0, 0);
-        pl00_clearMotionCam(s1, 0, 0);
-        func_0012C348(s1, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCF, self, 0, 0, 0, 0);
+        self->base.hitFlash = 10.0f;
+        func_002A8578(self, p1, p2, 1, 0.0f, 0, 0);
+        pl00_clearMotionCam(self, 0, 0);
+        func_0012C348(self, 0);
         if (irand() & 1) {
-            CallWithAndClearField698_12AC28(s1);
-            func_0012B928(s1);
+            CallWithAndClearField698_12AC28(self);
+            func_0012B928(self);
         }
-        *(unsigned char *)(s1 + 0x2F6) += 1;
+        self->base.step += 1;
     }
     case 1:
-        if (moveMotion(s1) != 0) {
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s1, one);
-        cObjBase_addNullSpeed(s1, one);
+        cObjBase_addNullSpeed_Rotation(self, one);
+        cObjBase_addNullSpeed(self, one);
         break;
     }
-    func_00123938((pl00 *)s1, 1);
+    func_00123938(self, 1);
 }
 
 __attribute__((section(".text.func_0023A950")))

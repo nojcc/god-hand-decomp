@@ -1,7 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cModel.h"
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
+#include "godhand/scrollLayer.h"
 
 extern char D_0044AC48[];
 extern char D_0044AC50[];
@@ -9,7 +10,6 @@ extern char D_0044AC58[];
 extern char D_0044AC60[];
 extern char D_0044AC68[];
 extern int cModel_setMeshDisplay(void *model, char *name, int on);
-extern void displayScrollLayer(int id, int on);
 
 /* Start the next read of a streaming buffer into slot `slot`: size it as what is left (or the smaller of the chunk limit and what is left when double buffered), point the slot's record at the next bytes, start the transfer and move the cursor. With nothing left the slot is marked done (3). */
 typedef struct StreamRec {
@@ -117,8 +117,6 @@ void cModel_setBossMeshes(char *model, int unused, int level, float rate)
 /* Blink counters of the three prize marks: for each armed mark (bit 15) count frames, and from the 11th frame flip its on/off bit (bit 14) every frame and show or hide its layer. */
 
 
-#define SLOT2_OFFSET_MARK     0x49C     /* three blink words, not named in Slot2.h */
-#define SLOT2_OFFSET_LAYERS   0x400     /* layer id array, Slot2.h names it `layer` */
 #define BLINK_ARMED    0x8000
 #define BLINK_ON       0x4000
 #define BLINK_COUNT    0x3FFF
@@ -129,11 +127,10 @@ extern int D_003BE130[MARK_NUM];        /* layer index of each mark */
 
 
 __attribute__((section(".text.Slot2_blinkMarkTick")))
-void Slot2_blinkMarkTick(Slot2 *self)
+void Slot2_blinkMarkTick(Slot1 *self)
 {
-    unsigned short *blink = (unsigned short *)((char *)self + SLOT2_OFFSET_MARK);
+    unsigned short *blink = self->markFlag;
     int *index = D_003BE130;
-    char *layers = (char *)self + SLOT2_OFFSET_LAYERS;
     int i;
     for (i = MARK_NUM - 1; i >= 0; i--) {
         unsigned int v = *blink;
@@ -145,9 +142,9 @@ void Slot2_blinkMarkTick(Slot2 *self)
                 w = (~next & BLINK_ON) | BLINK_ARMED;
                 *blink = w;
                 if (w & BLINK_ON)
-                    displayScrollLayer(*(int *)(layers + (*index << 2)), 1);
+                    displayScrollLayer(self->scrollLayer[*index], 1);
                 else
-                    displayScrollLayer(*(int *)(layers + (*index << 2)), 0);
+                    displayScrollLayer(self->scrollLayer[*index], 0);
             }
         }
         index++;

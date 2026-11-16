@@ -19,8 +19,6 @@ extern void SetField380Bit2000ForTag_1B7300(void *self, int tag, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
-extern void func_001DEDA8(void *);
-extern void func_001DD180(void *);
 extern char D_00567D70[];
 extern void NoOp_164978(void *p);
 
@@ -169,7 +167,6 @@ void cOmBase_tickModeTableSkip381(cOmBase *self) {
 /* Close the poker table: release the display ids, then clear two words of the host record. */
 
 
-#define POKER_OFFSET_DISP_ID  0x25B0
 
 typedef struct PokerHost {
     char unk00[0x90];
@@ -185,7 +182,7 @@ __attribute__((section(".text.Poker_releaseIds")))
 void Poker_releaseIds(Poker *self)
 {
     PokerHost *host;
-    func_001DEDA8((char *)self + POKER_OFFSET_DISP_ID);
+    func_001DEDA8(&self->ui);
     func_001DD180(self);
     host = *D_003C2384;
     host->clear94 = 0;

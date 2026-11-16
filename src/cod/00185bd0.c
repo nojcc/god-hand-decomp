@@ -124,10 +124,10 @@ void SetMeshLayerAndPlayEffect(void *self, int arg1)
 __attribute__((section(".text.SpawnDamageTakeVolumeC")))
 int SpawnDamageTakeVolumeC(char *p)
 {
-    float f[16];
-    float *m;
-    float *nv;
-    float *t;
+    cVec v[4];
+    cVec *m;
+    cVec *nv;
+    cVec *t;
     void *slot;
     float one, ca, cb, cc;
 
@@ -136,29 +136,29 @@ int SpawnDamageTakeVolumeC(char *p)
     ca = 0.90639997f;
     cb = 2.0f;
     cc = 0.2f;
-    t = &f[4];
-    m = &f[8];
-    f[0] = ca;
-    f[4] = ca;
-    f[1] = cb;
-    f[2] = cc;
-    f[6] = cc;
-    f[5] = cb;
-    f[3] = one;
-    t[3] = one;
-    f[8] = 0.0f;
-    f[10] = 0.0f;
-    f[9] = f[1] * -0.5f;
-    m[3] = one;
+    t = &v[1];
+    m = &v[2];
+    v[0].x = ca;
+    v[1].x = ca;
+    v[0].y = cb;
+    v[0].z = cc;
+    v[1].z = cc;
+    v[1].y = cb;
+    v[0].w = one;
+    t->w = one;
+    v[2].x = 0.0f;
+    v[2].z = 0.0f;
+    v[2].y = v[0].y * -0.5f;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
     *(void **)(p + 0x600) = slot;
     if (slot != 0) {
-        nv = &f[12];
-        f[12] = 0.0f;
-        f[13] = 0.0f;
-        f[14] = 0.0f;
-        nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
+        nv = &v[3];
+        v[3].x = 0.0f;
+        v[3].y = 0.0f;
+        v[3].z = 0.0f;
+        nv->w = one;
+        func_001FD9D8(slot, p + 0x80, m, nv, t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -176,10 +176,10 @@ int SpawnDamageTakeVolumeC(char *p)
 __attribute__((section(".text.SpawnDamageTakeVolumeD")))
 int SpawnDamageTakeVolumeD(char *p)
 {
-    float f[16];
-    float *m;
-    float *nv;
-    float *t;
+    cVec v[4];
+    cVec *m;
+    cVec *nv;
+    cVec *t;
     void *slot;
     float one, ca, cb, cc;
 
@@ -188,29 +188,29 @@ int SpawnDamageTakeVolumeD(char *p)
     ca = 1.6f;
     cb = 1.5f;
     cc = 0.2f;
-    t = &f[4];
-    m = &f[8];
-    f[0] = ca;
-    f[4] = ca;
-    f[1] = cb;
-    f[2] = cc;
-    f[6] = cc;
-    f[5] = cb;
-    f[3] = one;
-    t[3] = one;
-    f[8] = 0.0f;
-    f[10] = 0.0f;
-    f[9] = f[1] * -0.5f;
-    m[3] = one;
+    t = &v[1];
+    m = &v[2];
+    v[0].x = ca;
+    v[1].x = ca;
+    v[0].y = cb;
+    v[0].z = cc;
+    v[1].z = cc;
+    v[1].y = cb;
+    v[0].w = one;
+    t->w = one;
+    v[2].x = 0.0f;
+    v[2].z = 0.0f;
+    v[2].y = v[0].y * -0.5f;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
     *(void **)(p + 0x600) = slot;
     if (slot != 0) {
-        nv = &f[12];
-        f[12] = 0.0f;
-        f[13] = 0.0f;
-        f[14] = 0.0f;
-        nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
+        nv = &v[3];
+        v[3].x = 0.0f;
+        v[3].y = 0.0f;
+        v[3].z = 0.0f;
+        nv->w = one;
+        func_001FD9D8(slot, p + 0x80, m, nv, t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -228,10 +228,10 @@ int SpawnDamageTakeVolumeD(char *p)
 __attribute__((section(".text.SpawnDamageTakeVolumeE")))
 int SpawnDamageTakeVolumeE(char *p)
 {
-    float f[16];
-    float *m;
-    float *nv;
-    float *t;
+    cVec v[4];
+    cVec *m;
+    cVec *nv;
+    cVec *t;
     void *slot;
     float one, ca, cb, cc;
 
@@ -240,29 +240,29 @@ int SpawnDamageTakeVolumeE(char *p)
     ca = 0.84f;
     cb = 1.356f;
     cc = 0.84f;
-    t = &f[4];
-    m = &f[8];
-    f[0] = ca;
-    f[2] = cc;
-    f[1] = cb;
-    f[4] = ca;
-    f[6] = cc;
-    f[5] = cb;
-    f[3] = one;
-    t[3] = one;
-    f[8] = 0.0f;
-    f[10] = 0.0f;
-    f[9] = f[1] * -0.5f;
-    m[3] = one;
+    t = &v[1];
+    m = &v[2];
+    v[0].x = ca;
+    v[0].z = cc;
+    v[0].y = cb;
+    v[1].x = ca;
+    v[1].z = cc;
+    v[1].y = cb;
+    v[0].w = one;
+    t->w = one;
+    v[2].x = 0.0f;
+    v[2].z = 0.0f;
+    v[2].y = v[0].y * -0.5f;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
     *(void **)(p + 0x600) = slot;
     if (slot != 0) {
-        nv = &f[12];
-        f[12] = 0.0f;
-        f[13] = 0.0f;
-        f[14] = 0.0f;
-        nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
+        nv = &v[3];
+        v[3].x = 0.0f;
+        v[3].y = 0.0f;
+        v[3].z = 0.0f;
+        nv->w = one;
+        func_001FD9D8(slot, p + 0x80, m, nv, t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;

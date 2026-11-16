@@ -1,3 +1,4 @@
+#include "godhand/cModel.h"
 #include "godhand/vu0.h"
 
 /* func_0017B870 — InitFields constructor: base-init, install vtable &D_00421BB8, zero a
@@ -5,14 +6,14 @@
  * func_002AD238 sub-init with the object's region pointers.  sn-2.95.3-136. */
 
 extern void InitFields_1B6E90(void*);
-extern int D_00421BB8;
+extern cVtEnt D_00421BB8[];
 extern void func_002AD238(void*, int, int, void*, void*, int);
 
 __attribute__((section(".text.func_0017B870")))
 void *func_0017B870(void *a0){
   char *v1; int i;
   InitFields_1B6E90(a0);
-  *(int**)((char*)a0+0x214) = &D_00421BB8;
+  *(cVtEnt **)((char*)a0+0x214) = D_00421BB8;
   v1 = (char*)a0 + 0x600;
   i = 0xE;
   do {

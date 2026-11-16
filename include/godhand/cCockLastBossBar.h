@@ -13,6 +13,8 @@
 
 #include "godhand/cIDBase.h"
 
+struct cGameObj;
+
 #define COCKLASTBOSSBAR_ENT_NUM   4
 #define COCKLASTBOSSBAR_MSG_PACK  0x1C  /* message pack number of the bar */
 
@@ -26,11 +28,21 @@ typedef struct cCockLastBossBar {
     char unk7D[0x94 - 0x7D];
     void *data;                         /* 0x94 the loaded message pack, 0 before the first load */
     int readId;                         /* 0x98 disc read request */
-    char unk9C[4];
+    struct cGameObj *boss;              /* 0x9C the boss the bar is drawn for, 0 when none */
     unsigned int unkA0;                 /* 0xA0 set to 0x20000000 by roomInit */
     float unkA4;                        /* 0xA4 set to 1.0 by roomInit */
     char unkA8[0xC0 - 0xA8];
     cIDBaseEnt *ent[COCKLASTBOSSBAR_ENT_NUM];   /* 0xC0 display entries looked up by id 0..3 */
 } cCockLastBossBar;
+
+typedef char cCockLastBossBar_boss_check[(int)&((cCockLastBossBar *)0)->boss == 0x9C ? 1 : -1];
+typedef char cCockLastBossBar_ent_check[(int)&((cCockLastBossBar *)0)->ent == 0xC0 ? 1 : -1];
+
+typedef char cCockLastBossBar_size_check[sizeof(cCockLastBossBar) == 0xD0 ? 1 : -1];
+
+/* Draw the bar while a boss with hit points is set, the ui is on and nothing holds the screen. */
+void func_0013EBA0(cCockLastBossBar *self);
+/* Forget the message pack and the boss. */
+void ClearFields94And9C_13E7D8(cCockLastBossBar *self);
 
 #endif

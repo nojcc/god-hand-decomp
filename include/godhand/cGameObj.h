@@ -56,7 +56,14 @@ typedef struct cGameObjVt {
     short lockOnDelta;                  /* 0x80 */
     short pad82;
     void (*lockOn)(void *self);         /* 0x84 getLockOnPos and getHitCheckPos both call it */
-    char unk88[0xC0 - 0x88];
+    char unk88[0xA8 - 0x88];
+    short unkA8Delta;                   /* 0xA8 */
+    short padAA;
+    int (*unkAC)(void *self, int amount, void *from, int a3, int a4); /* 0xAC called on an enemy with a damage amount and the attacker (or 0) */
+    short damageUnitDelta;              /* 0xB0 */
+    short padB2;
+    struct cDamageUnit *(*getDamageUnit)(void *self); /* 0xB4 */
+    char unkB8[0xC0 - 0xB8];
     short canAngerDelta;                /* 0xC0 */
     short padC2;
     int (*canAnger)(void *self);        /* 0xC4 nonzero if the enemy can be angered */
@@ -104,7 +111,8 @@ typedef struct cGameObj cGameObj;
     int emNo;                           /* 0x564 enemy number of an enemy */ \
     short unk568;                       /* 0x568 set when a hit lands; cEm00's end-of-motion code clears it and calls the hit method */ \
     short unk56A;                       /* 0x56A countdown beside unk568 */ \
-    char unk56C[0x570 - 0x56C]; \
+    short unk56C;                       /* 0x56C */ \
+    short unk56E;                       /* 0x56E */ \
     short effNo;                        /* 0x570 one more effect to kill with the object, -1 if none */ \
     short pad572; \
     int effArg;                         /* 0x574 the mode to kill it with */ \
@@ -120,7 +128,7 @@ struct cGameObj {
 };                                      /* 0x5B0: the longs at 0x538 make it 8-aligned */
 
 /* cGameObj's own method table, which its constructor and destructor store at 0x214. */
-extern char D_0044AE28[];
+extern cVtEnt D_0044AE28[];
 
 /* cGameObj's part of the destructor: put its method table back, then run
  * cObjBase__dtor. */
@@ -129,6 +137,7 @@ void cGameObj__dtor(struct cGameObj *self, int flags);
  * the damage manager and the solid-collision manager, then run
  * cGameObj__dtor. */
 void func_0028EB88(struct cGameObj *self, int flags);
+extern cVtEnt D_0044A660[];
 
 /* The typed method table behind cGameObj's g++ vtable (0x214). */
 static __inline__ cGameObjVt *cGameObj_vt(const struct cGameObj *self)

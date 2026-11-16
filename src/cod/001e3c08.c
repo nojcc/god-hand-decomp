@@ -1,9 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/Slot1.h"
+#include "godhand/scrollLayer.h"
 
 extern int cModel_setMeshDisplay(void *model, char *name, int on);
 extern char D_0044A9B0[];
 extern char D_0044A9B8[];
-extern void displayScrollLayer(int layer, int on);
 
 /* Costume hook for the objects with actor id 0x605 and 0x607: from costume 0x10 on, hide the first part mesh (and show the second one on 0x605). */
 #define ACTOR_ID_COSTUME_A   0x605
@@ -44,36 +45,23 @@ void CostumeObj_applyPartMeshes(CostumeObj *self, int unused, int costume)
 #define SLOT2MARK_F_START_LIT  0x8000
 #define SLOT2MARK_F_ON         0x4000
 
-typedef struct Slot2Marks {
-    char unk000[0x430];
-    int layerA;                         /* 0x430 */
-    char unk434[0x40];
-    int layerC;                         /* 0x474 */
-    int layerD;                         /* 0x478 */
-    int layerB;                         /* 0x47C */
-    char unk480[0x26];
-    unsigned short markFlag;            /* 0x4A6 */
-} Slot2Marks;
-
-
-
 __attribute__((section(".text.Slot2_setMarkLayers")))
-void Slot2_setMarkLayers(Slot2Marks *self, int show, int startLit)
+void Slot2_setMarkLayers(Slot1 *self, int show, int startLit)
 {
-    self->markFlag = 0;
+    self->markFlag[5] = 0;
     if (startLit) {
-        self->markFlag = SLOT2MARK_F_START_LIT;
+        self->markFlag[5] = SLOT2MARK_F_START_LIT;
     }
     if (show) {
-        self->markFlag = self->markFlag | SLOT2MARK_F_ON;
-        displayScrollLayer(self->layerA, 1);
-        displayScrollLayer(self->layerB, 1);
-        displayScrollLayer(self->layerC, 1);
-        displayScrollLayer(self->layerD, 1);
+        self->markFlag[5] = self->markFlag[5] | SLOT2MARK_F_ON;
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 1);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 1);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK5_LAYERS], 1);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK5_LAYERS + 1], 1);
     } else {
-        displayScrollLayer(self->layerA, 0);
-        displayScrollLayer(self->layerB, 0);
-        displayScrollLayer(self->layerC, 0);
-        displayScrollLayer(self->layerD, 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK5_LAYERS], 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK5_LAYERS + 1], 0);
     }
 }

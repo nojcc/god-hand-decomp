@@ -1,12 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEma2.h"
+#include "godhand/Poker.h"
 #include "godhand/criStm.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cSnd.h"
 #include "godhand/cOmBase.h"
-#include "godhand/CustomIDWork.h"
+#include "godhand/CustomIDPanel.h"
 
 extern unsigned short D_00747A50;
 extern void cEm00_setGoto(cEm00 *self, cVec *pos, int a2, int a3, float f);
@@ -17,7 +18,6 @@ extern int D_0071B8C0[];
 extern void *func_002FACA8(int slot, int a1);
 extern void func_002CB070(cSnd *self);
 extern float frand(float lo, float hi);
-extern void SetCustomIDDispOneOrAll_1DD258(void *self, int entry, int on);
 
 #define ROOM_ARENA        0x501       /* D_00747A50 value of the room where this applies */
 #define EM_FLAG_16D8_ANY  0           /* unk16D8 must be nonzero */
@@ -186,15 +186,13 @@ extern PosTable D_0042B628;                       /* positions of the first elem
 extern PosTable D_0042B650;                       /* positions of the second element */
 
 #define CARD_KIND_NUM    5
-#define CARD_WORK_A      0x162C   /* two CustomIDWork records inside the owner, not typed yet */
-#define CARD_WORK_B      0x16A8
 #define CARD_DISP_A      0x2D
 #define CARD_DISP_B      0x2E
 
 /* Places the two elements of card display `kind` (0 to 4) from the position
  * tables and shows or hides both. Does nothing for a kind of 5 or more. */
 __attribute__((section(".text.CustomIDOwner_placeCardKind")))
-void CustomIDOwner_placeCardKind(void *self, unsigned char kind, int on)
+void CustomIDOwner_placeCardKind(Poker *self, unsigned char kind, int on)
 {
     PosTable first;
     PosTable second;
@@ -203,13 +201,12 @@ void CustomIDOwner_placeCardKind(void *self, unsigned char kind, int on)
         return;
     first = D_0042B628;
     second = D_0042B650;
-    CustomIDWork_SetLocalPosXY((CustomIDWork *)((char *)self + CARD_WORK_A), second.xy[kind][0], second.xy[kind][1]);
-    CustomIDWork_SetLocalPosXY((CustomIDWork *)((char *)self + CARD_WORK_B), first.xy[kind][0], first.xy[kind][1]);
+    CustomIDWork_SetLocalPosXY(&self->elem[CARD_DISP_A], second.xy[kind][0], second.xy[kind][1]);
+    CustomIDWork_SetLocalPosXY(&self->elem[CARD_DISP_B], first.xy[kind][0], first.xy[kind][1]);
     SetCustomIDDispOneOrAll_1DD258(self, CARD_DISP_A, on);
     SetCustomIDDispOneOrAll_1DD258(self, CARD_DISP_B, on);
 }
 
-#define PANEL_WORK(self)   ((CustomIDWork *)((char *)(self) + 0x980))   /* the owner is not typed yet */
 #define PANEL_OFFSET_OUT   0x258    /* x offset of the panel when it is off screen */
 #define PANEL_SLIDE_FRAMES 10
 #define PANEL_COLOR_NORMAL 0x80000000
@@ -220,34 +217,34 @@ void CustomIDOwner_placeCardKind(void *self, unsigned char kind, int on)
  * else parked off screen and hidden. The parked arm is written first, with
  * an explicit case 0, so the compare tree is rooted at 1 as in retail. */
 __attribute__((section(".text.CustomIDOwner_setPanelState")))
-void CustomIDOwner_setPanelState(void *self, unsigned short mode)
+void CustomIDOwner_setPanelState(CustomIDPanel *self, unsigned short mode)
 {
     CustomIDWork *work;
 
     switch (mode) {
     default:
     case 0:
-        work = PANEL_WORK(self);
+        work = &self->sub[0];
         CustomIDWork_SetOffsetPosX(work, PANEL_OFFSET_OUT);
         CustomIDWork_ResetColorAnim(work);
         CustomIDWork_SetNoDisp(work, 1);
         CustomIDWork_SetChildNoDisp(work, 1);
         break;
     case 1:
-        work = PANEL_WORK(self);
+        work = &self->sub[0];
         CustomIDWork_SetOffsetPosX(work, 0);
         CustomIDWork_ResetColorAnim(work);
         CustomIDWork_SetNoDisp(work, 0);
         CustomIDWork_SetChildNoDisp(work, 0);
         break;
     case 2:
-        work = PANEL_WORK(self);
+        work = &self->sub[0];
         CustomIDWork_SetMoveOffsetPosX(work, PANEL_OFFSET_OUT, 0, PANEL_SLIDE_FRAMES);
         CustomIDWork_SetNoDisp(work, 0);
         CustomIDWork_SetChildNoDisp(work, 0);
         break;
     case 3:
-        work = PANEL_WORK(self);
+        work = &self->sub[0];
         CustomIDWork_SetColorAnimNormal_2D6898(work, PANEL_COLOR_NORMAL, PANEL_COLOR_FRAMES);
         CustomIDWork_SetNoDisp(work, 0);
         CustomIDWork_SetChildNoDisp(work, 0);

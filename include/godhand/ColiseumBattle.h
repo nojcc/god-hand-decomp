@@ -12,13 +12,13 @@
 #ifndef GODHAND_COLISEUMBATTLE_H
 #define GODHAND_COLISEUMBATTLE_H
 
+#include "godhand/CustomIDPanel.h"
+
 /* flags bits */
 #define COLISEUM_FLAG_ENTERED   0x01    /* result screen started */
 #define COLISEUM_FLAG_FADE      0x02    /* a screen fade is running */
 #define COLISEUM_FLAG_CTRL_OFF  0x04    /* player control is switched off */
 #define COLISEUM_FLAG_BONUS     0x10    /* final ring cleared this visit */
-
-#define COLISEUM_UI_SIZE        0xB00
 
 /* The enemy list the arena keeps: a node per enemy object. */
 /* One g++ 2.x vtable slot: this-adjust, index, function. */
@@ -52,7 +52,10 @@ typedef struct ColiseumEmNode {
  * scene starts. -1 in a *Lv field means "leave the player's value alone". */
 typedef struct ColiseumRing {
     short ringNo;               /* 0x00 */
-    char unk02[6];
+    char unk02[2];
+    unsigned short unk04;       /* 0x04 */
+    unsigned char unk06;        /* 0x06 */
+    char unk07;
     short gameLevel;            /* 0x08 */
     short unk0A;                /* 0x0A */
     int timeLimit;              /* 0x0C seconds, 0 = untimed */
@@ -77,7 +80,8 @@ typedef struct ColiseumBattle {
     char unk14[0x40];
     unsigned int flags;         /* 0x054 COLISEUM_FLAG_* */
     char unk58[8];
-    char ui[COLISEUM_UI_SIZE];  /* 0x060 embedded result UI object */
+    CustomIDPanel ui;           /* 0x060 embedded result UI object */
+    char unkB54[0xB60 - 0xB54];
     ColiseumRing ring;          /* 0xB60 */
     int unkB88;                 /* 0xB88 */
     int enemyNum;               /* 0xB8C live enemies at the start */
@@ -95,7 +99,12 @@ typedef struct ColiseumBattle {
     int unkC64[30];             /* 0xC64 cleared by Initialize; [0..2] wave enemy entries */
 } ColiseumBattle;
 
+typedef char ColiseumBattle_ring_check[((int)&((ColiseumBattle *)0)->ring == 0xB60) ? 1 : -1];
+
+void ColiseumBattle_UpdateCountdown(ColiseumBattle *self, int on);
+
 extern ColiseumEmNode *D_005869F0;      /* live enemy list head */
+extern ColiseumRing D_003BE8B0[];       /* the ring table */
 extern int cEmBase_checkDeadFlag(void *em);
 extern int IsEntryActive_1C2490(int entry);
 

@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
+#include "godhand/Poker.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cDvd.h"
@@ -13,8 +14,6 @@ extern void espSys_effDataRelease(void *a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern char D_00422EB8[];
 extern char D_007419A0[];
-extern void CustomIDWork_SetNumber_1DD218(void *p, int n);
-extern void func_001DD238(void *p, int n);
 extern char *Getplayer(void);
 
 __attribute__((section(".text.func_001793D0")))
@@ -105,18 +104,18 @@ int cSeData_PrepareDecode(cSeData *d)
 }
 
 __attribute__((section(".text.func_001DD0D8")))
-void func_001DD0D8(char *p)
+void func_001DD0D8(Poker *self)
 {
     int i;
 
-    cIDBase_initialize((cIDBaseObj *)(p + 0x10), 0x12, 0);
-    cIDBase_restartAnim((cIDBaseObj *)(p + 0x10));
+    cIDBase_initialize(&self->id, 0x12, 0);
+    cIDBase_restartAnim(&self->id);
     for (i = 0; i < 0x4D; i++) {
-        CustomIDWork_Initialize((CustomIDWork *)(p + 0x60 + i * 0x7C), cIDBase_getIDWork((cIDBaseObj *)(p + 0x10), i));
+        CustomIDWork_Initialize(&self->elem[i], cIDBase_getIDWork(&self->id, i));
     }
-    CustomIDWork_SetDisp((CustomIDWork *)(p + 0x60), 0);
-    CustomIDWork_SetNumber_1DD218(p, 0);
-    func_001DD238(p, 0);
+    CustomIDWork_SetDisp(&self->elem[0x0], 0);
+    CustomIDWork_SetNumber_1DD218(self, 0);
+    func_001DD238(self, 0);
 }
 
 __attribute__((section(".text.cCoreSave_snapshot")))

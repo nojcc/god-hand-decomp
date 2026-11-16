@@ -10,6 +10,7 @@ extern void *D_00754C38;
 extern void *D_00754C58;
 extern void *InitFields_1B6E90(void *this);
 #include "godhand/objField.h"
+#include "godhand/BlackJack.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/heapArena.h"
 #include "godhand/cIDBase.h"
@@ -41,7 +42,7 @@ static __inline__ void CopyVec3(float *d, float *s)
 }
 
 __attribute__((section(".text.BlackJackId__Trans")))
-void BlackJackId__Trans(char *self)
+void BlackJackId__Trans(BlackJack *self)
 {
     char cfg[0x50];
     float v[4][4];
@@ -84,7 +85,7 @@ void BlackJackId__Trans(char *self)
     if (r != 0) {
         *(long *)((char *)r + 0x1A0) = 0x3001D;
     }
-    cIDBase_trans((cIDBaseObj *)(self + 0x10));
+    cIDBase_trans(&self->id);
 }
 
 /* sn-2.95.3-136 candidate. */

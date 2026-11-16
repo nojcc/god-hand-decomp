@@ -143,26 +143,26 @@ void cEm00_armAttackVolume(cEm00 *self)
 __attribute__((section(".text.cOmHitVolume_setupCylinder")))
 int cOmHitVolume_setupCylinder(cOmHitVolume *self)
 {
-    float f[8];
-    float *nv;
+    cVec f[2];
+    cVec *nv;
     void *slot;
     float one;
 
     func_001B6FB8(self);
     one = 1.0f;
-    f[0] = 0.0f;
-    f[1] = 0.0f;
-    f[2] = 0.0f;
-    f[3] = one;
+    f[0].x = 0.0f;
+    f[0].y = 0.0f;
+    f[0].z = 0.0f;
+    f[0].w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damageTake = slot;
     if (slot != 0) {
-        nv = &f[4];
-        f[4] = 0.0f;
-        f[5] = 0.0f;
-        f[6] = 0.0f;
-        nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, (cVec *)f, (cVec *)nv, CYL_HEIGHT, CYL_RADIUS);
+        nv = &f[1];
+        f[1].x = 0.0f;
+        f[1].y = 0.0f;
+        f[1].z = 0.0f;
+        nv->w = one;
+        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, &f[0], nv, CYL_HEIGHT, CYL_RADIUS);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -188,10 +188,10 @@ int cOmHitVolume_setupCylinder(cOmHitVolume *self)
 __attribute__((section(".text.cOmHitVolume_setupThinBox")))
 int cOmHitVolume_setupThinBox(cOmHitVolume *self)
 {
-    float f[16];
-    float *m;
-    float *nv;
-    float *t;
+    cVec v[4];
+    cVec *m;
+    cVec *nv;
+    cVec *t;
     void *slot;
     float one, ca, cb, cc;
 
@@ -200,29 +200,29 @@ int cOmHitVolume_setupThinBox(cOmHitVolume *self)
     ca = VOL_HALF_X;
     cb = VOL_HALF_Y;
     cc = VOL_HALF_Z;
-    t = &f[4];
-    m = &f[8];
-    f[0] = ca;
-    f[1] = cb;
-    f[2] = cc;
-    f[3] = one;
-    f[4] = ca;
-    f[5] = cb;
-    f[6] = cc;
-    t[3] = one;
-    f[8] = 0.0f;
-    f[9] = 0.0f;
-    f[10] = 0.0f;
-    m[3] = one;
+    t = &v[1];
+    m = &v[2];
+    v[0].x = ca;
+    v[0].y = cb;
+    v[0].z = cc;
+    v[0].w = one;
+    v[1].x = ca;
+    v[1].y = cb;
+    v[1].z = cc;
+    t->w = one;
+    v[2].x = 0.0f;
+    v[2].y = 0.0f;
+    v[2].z = 0.0f;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damageTake = slot;
     if (slot != 0) {
-        nv = &f[12];
-        f[12] = 0.0f;
-        f[13] = 0.0f;
-        f[14] = 0.0f;
-        nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
+        nv = &v[3];
+        v[3].x = 0.0f;
+        v[3].y = 0.0f;
+        v[3].z = 0.0f;
+        nv->w = one;
+        func_001FD9D8(slot, self->base.mtx, m, nv, t);
     }
     self->base.hpMax = 1;
     self->base.hp = 1;
@@ -240,10 +240,10 @@ int cOmHitVolume_setupThinBox(cOmHitVolume *self)
 
 __attribute__((section(".text.cOmHitVolume_setupBox"))) int cOmHitVolume_setupBox(cOmHitVolume *self)
 {
-  float f[16];
-  float *m;
-  float *nv;
-  float *t;
+  cVec v[4];
+  cVec *m;
+  cVec *nv;
+  cVec *t;
   void *slot;
   float one;
   float ca;
@@ -252,30 +252,30 @@ __attribute__((section(".text.cOmHitVolume_setupBox"))) int cOmHitVolume_setupBo
   one = 1.0f;
   ca = 1.2f;
   cb = 1.5f;
-  t = &f[4];
-  m = &f[8];
-  f[0] = ca;
-  f[1] = cb;
-  f[2] = ca;
-  f[3] = one;
-  f[4] = ca;
-  f[5] = cb;
-  f[6] = ca;
-  t[3] = one;
-  f[8] = 0.0f;
-  f[9] = 0.0f;
-  f[10] = 0.0f;
-  m[3] = one;
+  t = &v[1];
+  m = &v[2];
+  v[0].x = ca;
+  v[0].y = cb;
+  v[0].z = ca;
+  v[0].w = one;
+  v[1].x = ca;
+  v[1].y = cb;
+  v[1].z = ca;
+  t->w = one;
+  v[2].x = 0.0f;
+  v[2].y = 0.0f;
+  v[2].z = 0.0f;
+  m->w = one;
   slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
   self->damageTake = slot;
   if (slot != 0)
   {
-    nv = &f[12];
-    f[12] = 0.0f;
-    f[13] = 0.0f;
-    f[14] = 0.0f;
-    nv[3] = one;
-    func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
+    nv = &v[3];
+    v[3].x = 0.0f;
+    v[3].y = 0.0f;
+    v[3].z = 0.0f;
+    nv->w = one;
+    func_001FD9D8(slot, self->base.mtx, m, nv, t);
   }
   self->unk5E8 = 0;
   self->unk5E4 = 0;

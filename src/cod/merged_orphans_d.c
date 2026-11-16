@@ -1,4 +1,5 @@
 #include "godhand/cGameObj.h"
+#include "godhand/cCollisionSolid.h"
 
 /* ── 1. id/mask thunks ──────────────────────────────────────────────
  * `addiu $a0,1 ; jal helper ; ori $a1,0xFFFF` — a forwarding call with
@@ -48,18 +49,16 @@ cVec *cGameObj_getPos(cGameObj *self) { return self->pos; }
  * Like batch C (store a struct/vtable pointer, then call an init helper
  * with obj) but with a non-0xF0 store offset, or a 2-arg registration.
  */
-extern int D_0041D7B8;
 extern int D_00424D18;
 extern int D_00586AF0;
-extern void cCollisionSolid__dtor(void *obj);
 extern void SetField214PtrThenInit_1B6F38(void *obj);
 extern void func_00298088(void);
 extern void func_00297B40(void *a, void *b);
 
 __attribute__((section(".text.InitObjVtableField30_133B58")))
-void InitObjVtableField30_133B58(void *obj) {
-    *(int **)((char *)obj + 0x30) = &D_0041D7B8;
-    cCollisionSolid__dtor(obj);
+void InitObjVtableField30_133B58(cCollisionSolidBody *self, int flags) {
+    self->vt = &D_0041D7B8;
+    cCollisionSolid__dtor(self, flags);
 }
 
 __attribute__((section(".text.InitObjVtableField214_195ED0")))

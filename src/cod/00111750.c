@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
+#include "godhand/DogRace.h"
 #include "godhand/pl00.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/CustomIDWork.h"
@@ -14,16 +15,13 @@ extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cEm00_armAttackVolume(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern int SetCustomIDDispOneOrAll_1EE1C0();
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void func_00129578(void *a0);
-extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern void func_00124EC0(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
@@ -137,37 +135,35 @@ void func_00227FE8(void *a0)
 
 
 __attribute__((section(".text.func_001EE2E8")))
-void func_001EE2E8(void *a0, int a1, int a2)
+void func_001EE2E8(DogRaceList *self, int on, int sel)
 {
-    char *s1 = (char *)a0;
-
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x1, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x2, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x3, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x4, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x5, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x6, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x7, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x8, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x9, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0xA, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0xB, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0xC, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0xD, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0xE, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0xF, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x10, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x17, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x18, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x19, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x1A, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x1B, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x11, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x12, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x13, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x14, a1);
-    SetCustomIDDispOneOrAll_1EE1C0(s1, 0x1C, a1);
-    if (a2) {
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x1, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x2, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x3, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x4, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x5, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x6, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x7, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x8, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x9, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0xA, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0xB, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0xC, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0xD, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0xE, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0xF, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x10, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x17, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x18, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x19, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x1A, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x1B, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x11, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x12, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x13, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x14, on);
+    SetCustomIDDispOneOrAll_1EE1C0(self, 0x1C, on);
+    if (sel) {
         int mff = ~0xFF;
         int m24 = 0xFFFFFF;
         int hi = 0x80000000;
@@ -177,8 +173,8 @@ void func_001EE2E8(void *a0, int a1, int a2)
         int c;
         int x = ((((((((b & m24) | hi) & m16) | 0x800000) & m8) | 0x8000) & mff) | 0x80);
         int y = ((((((((c & mff) | 0xD0) & m8) | 0xD000) & m16) | 0xD00000) & m24) | hi);
-        CustomIDWork_SetColorAnimSin((CustomIDWork *)(s1 + 0xA8C), x, y, 6);
-        SetCustomIDDispOneOrAll_1EE1C0(s1, 0x15, a1);
+        CustomIDWork_SetColorAnimSin(&self->elem[0x15], x, y, 6);
+        SetCustomIDDispOneOrAll_1EE1C0(self, 0x15, on);
     } else {
         int mff = ~0xFF;
         int m24 = 0xFFFFFF;
@@ -189,8 +185,8 @@ void func_001EE2E8(void *a0, int a1, int a2)
         int c;
         int x = ((((((((b & m24) | hi) & m16) | 0x800000) & m8) | 0x8000) & mff) | 0x80);
         int y = ((((((((c & mff) | 0xD0) & m8) | 0xD000) & m16) | 0xD00000) & m24) | hi);
-        CustomIDWork_SetColorAnimSin((CustomIDWork *)(s1 + 0xB08), x, y, 6);
-        SetCustomIDDispOneOrAll_1EE1C0(s1, 0x16, a1);
+        CustomIDWork_SetColorAnimSin(&self->elem[0x16], x, y, 6);
+        SetCustomIDDispOneOrAll_1EE1C0(self, 0x16, on);
     }
 }
 
@@ -224,76 +220,74 @@ void func_001EE2E8(void *a0, int a1, int a2)
 
 
 __attribute__((section(".text.func_00111750")))
-void func_00111750(void *a0)
+void func_00111750(pl00 *self)
 {
-    char *s1 = (char *)a0;
-
-    *(float *)(s1 + 0x54C) = 30.0f;
+    self->base.hitFlash = 30.0f;
     cEmManage_SetSlotWait(D_005864F0, 2);
     cEmManage_SetPlCatched(D_005864F0);
     cEmManage_SetBigHitEffWait(D_005864F0, 2);
-    *(int *)(s1 + 0x15F4) |= 0x200;
-    if (*(unsigned char *)(s1 + 0x2F6) != 0 &&
-        *(unsigned char *)(s1 + 0x649) == 0 &&
-        func_0010B2E8((pl00 *)s1, 1) != 0) {
-        *(char *)(s1 + 0x649) = 1;
+    self->flags15F4 |= 0x200;
+    if (self->base.step != 0 &&
+        self->unk649 == 0 &&
+        func_0010B2E8(self, 1) != 0) {
+        self->unk649 = 1;
         cCoreSave_useGodItem(&D_00569B70);
     }
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->base.step) {
     case 0:
     {
         int t;
 
-        Obj0000_Clear_Fields_640_648_124E58(s1);
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s1, 0x82, 0x11, 0x1F, 0, 0x123);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s1, 0x82, 0x11, 0x1F, 0, 0x123);
-        t = *(int *)(s1 + 0x304);
-        *(char *)(s1 + 0x1684) = 1;
-        func_002A8578(s1, *(int *)(t + 0x1C0) + t, *(int *)(t + 0x1C4) + t,
+        Obj0000_Clear_Fields_640_648_124E58(self);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x82, 0x11, 0x1F, 0, 0x123);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x82, 0x11, 0x1F, 0, 0x123);
+        t = (int)self->base.pack;
+        self->unk1684 = 1;
+        func_002A8578(self, *(int *)(t + 0x1C0) + t, *(int *)(t + 0x1C4) + t,
                       3, 0.0f, 0, 0);
-        func_00129578(s1);
+        func_00129578(self);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
-        InvokeVirtualAtField214AndForward_124E68(s1, 3.14159274f);
-        *(int *)(s1 + 0x15B0) = 1;
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        InvokeVirtualAtField214AndForward_124E68(self, 3.14159274f);
+        self->unk15B0 = 1;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 1:
-        func_00124EC0(s1);
-        if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {
-            cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
+        func_00124EC0(self);
+        if ((self->base.seqFlags & 0x100) != 0) {
+            cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
         }
-        if (moveMotion(s1) != 0) {
-            func_00129630(s1);
-            pl00_clearMotionCam(s1, 0, 0);
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            func_00129630(self);
+            pl00_clearMotionCam(self, 0, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
-    func_0010A438(s1);
-    if ((*(unsigned short *)(s1 + 0x3AC) & 0x100) != 0) {
+    func_0010A438(self);
+    if ((self->base.seqFlags & 0x100) != 0) {
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
     }
-    if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {
+    if ((self->base.seqFlags & 1) != 0) {
         cSnd *g = &D_005FEE00;
-        cSnd_SeStop(g, *(int *)(s1 + 0x161C));
-        *(int *)(s1 + 0x161C) = 0;
+        cSnd_SeStop(g, self->unk161C);
+        self->unk161C = 0;
         g->flagsB0 &= 0xFFBFFFFF;
         g->flagsAC &= 0xFFBFFFFF;
     }
-    if (func_00123938((pl00 *)s1, 1) != 0) {
-        func_00129630(s1);
-        pl00_clearMotionCam(s1, 0, 0);
+    if (func_00123938(self, 1) != 0) {
+        func_00129630(self);
+        pl00_clearMotionCam(self, 0, 0);
     } else {
-        *(unsigned short *)(s1 + 0x3AC) |= 0x800;
-        *(float *)(s1 + 0x674) = 0.05f;
+        self->base.seqFlags |= 0x800;
+        self->unk674 = 0.05f;
     }
 }
 
@@ -316,82 +310,79 @@ void func_00111750(void *a0)
 #include "godhand/vu0.h"
 
 __attribute__((section(".text.func_0025C5D8")))
-void func_0025C5D8(void *a0)
+void func_0025C5D8(cEm00 *self)
 {
-    char *s0 = (char *)a0;
     char *s1 = (char *)Getplayer();
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
-    *(float *)(s0 + 0x54C) = 3.0f;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    self->hitFlash = 3.0f;
+    switch (self->step) {
     case 0:
     {
         int p;
 
-        ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
-        p = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(p + 0x3BFC) + p, *(int *)(p + 0x3C00) + p,
+        ReleaseField6ECByTag564_26B1E8(self);
+        p = (int)self->pack;
+        func_002A8578(self, *(int *)(p + 0x3BFC) + p, *(int *)(p + 0x3C00) + p,
                       0, 0.0f, 0, 0);
-        *(int *)(s0 + 0x5F0) = 0x2A;
-        *(int *)(s0 + 0x5F4) = 1;
-        *(short *)(s0 + 0x56E) = 0x1E;
-        (*(unsigned char *)(s0 + 0x2F6))++;
-        *(int *)(s0 + 0x16EC) = 0;
+        self->timerA = 0x2A;
+        self->timerB = 1;
+        self->unk56E = 0x1E;
+        (self->step)++;
+        self->unk16EC = 0;
     }
         /* fallthrough */
     case 1:
-        if ((*(unsigned short *)(s0 + 0x3AC) & 8) == 0) {
-            *(int *)(s0 + 0x16D0) |= 0x10000;
-            *(float *)(*(char **)(s0 + 0xF0) + 4) =
+        if ((self->seqFlags & 8) == 0) {
+            self->emFlags |= 0x10000;
+            self->pos->y =
                 *(float *)(*(char **)(s1 + 0xF0) + 4)
-                - (*(float *)(s0 + 0x114) - 1.0f) * 0.1f;
+                - (self->scale.y - 1.0f) * 0.1f;
         }
-        if (*(short *)(s0 + 0x56E) != 0) {
-            char *p;
+        if (self->unk56E != 0) {
+            cVec *p;
             char *q;
 
-            (*(short *)(s0 + 0x56E))--;
-            p = *(char **)(s0 + 0xF0);
+            (self->unk56E)--;
+            p = self->pos;
              
             q = s1 + 0x550;
             VU0_VADD_XYZ_IP(p, 0, q);
         }
-        if ((*(unsigned short *)(s0 + 0x3AC) & 2) != 0
-            && *(int *)(s0 + 0x5F4) != 0) {
-            char *vt;
-            int (*fp)();
+        if ((self->seqFlags & 2) != 0
+            && self->timerB != 0) {
+            cGameObjVt *vt;
 
-            *(int *)(s0 + 0x5F4) = 0;
-            vt = *(char **)(s0 + 0x214);
-            fp = *(int (**)())(vt + 0xAC);
-            fp(s0 + *(short *)(vt + 0xA8), 0x64, s1, 1, 0);
+            self->timerB = 0;
+            vt = cGameObj_vt((cGameObj *)self);
+            vt->unkAC((char *)self + vt->unkA8Delta, 0x64, s1, 1, 0);
             cHeatSys_AddHeatGage(D_005CB000, 0, 10.0f);
         }
-        if (moveMotion(s0) != 0) {
-            if (*(short *)(s0 + 0x54A) <= 0) {
-                if ((*(int *)(s0 + 0x1644) & 0x800000) != 0) {
-                    *(char *)(s0 + 0x2F4) = 2;
-                    *(char *)(s0 + 0x2F5) = 3;
-                    *(char *)(s0 + 0x2F6) = 0;
-                    *(char *)(s0 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            if (self->hp <= 0) {
+                if ((self->flags1644 & 0x800000) != 0) {
+                    self->mode = 2;
+                    self->phase = 3;
+                    self->step = 0;
+                    self->stepArg = 0;
                     return;
                 } else {
-                    func_0025FE30(a0, 0x1000000, 0);
-                    *(char *)(s0 + 0x2F4) = 2;
-                    *(char *)(s0 + 0x2F5) = 2;
-                    *(char *)(s0 + 0x2F6) = 0;
-                    *(char *)(s0 + 0x2F7) = 0;
+                    func_0025FE30(self, 0x1000000, 0);
+                    self->mode = 2;
+                    self->phase = 2;
+                    self->step = 0;
+                    self->stepArg = 0;
                 }
             } else {
-                func_00274FE8(s0);
+                func_00274FE8(self);
             }
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     default:
         break;
     }
-    if ((*(unsigned short *)(s0 + 0x3AC) & 1) != 0)
-        func_00262750(s0, 0);
+    if ((self->seqFlags & 1) != 0)
+        func_00262750(self, 0);
 }

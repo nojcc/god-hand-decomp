@@ -9,7 +9,7 @@ extern int D_00586AF0;
 extern void func_002987F8(void);
 extern void func_002988A8(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
-extern int D_00422240;
+extern cVtEnt D_00422240[];
 extern char D_007419A0[];
 extern void espSys_effDataRelease(void *sys, int effNo);
 extern void SetField214PtrThenInit_1B6F38(cGameObj *self, int flag);
@@ -100,7 +100,7 @@ int cGameObj_isWithinRangeXZ(cGameObj *self, cVec *target, float range) {
 /* Destructor of a game object subclass: set its method table, release effect data 0x27D, run the base destructor. */
 __attribute__((section(".text.cGameObj_destructSubclass")))
 void cGameObj_destructSubclass(cGameObj *self, int flag) {
-    self->vtable = (cVtEnt *)&D_00422240;
+    self->vtable = D_00422240;
     espSys_effDataRelease(D_007419A0, 0x27D);
     SetField214PtrThenInit_1B6F38(self, flag);
 }

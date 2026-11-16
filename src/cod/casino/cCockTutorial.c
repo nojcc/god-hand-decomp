@@ -21,13 +21,13 @@ void cCockTutorial_roomInit(cCockTutorial *self) {
         self->readId = cDvd_ReadAlloc(&D_00583F20, name, &self->data, &D_00754220, 0, 0, 0, 0);
         cDvd_CheckWait(&D_00583F20, self->readId);
         cIDManager_setIDData(*(void **)D_003C2384, COCKTUT_MSG_PACK, self->data);
-        cIDBase_initialize((cIDBaseObj *)self, COCKTUT_MSG_PACK, 0);
-        cIDBase_setPackedMessData((cIDBaseObj *)self, COCKTUT_MSG_PACK, 1);
+        cIDBase_initialize(&self->base, COCKTUT_MSG_PACK, 0);
+        cIDBase_setPackedMessData(&self->base, COCKTUT_MSG_PACK, 1);
     }
-    cIDBase_restartAnim((cIDBaseObj *)self);
+    cIDBase_restartAnim(&self->base);
     self->base.playing = 1;
     for (i = 0; i < COCKTUT_ENT_NUM; i++) {
-        self->ent[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->ent[i] = cIDBase_getIDWork(&self->base, i);
     }
     self->ent[0]->sclX = 0;
     self->ent[0]->sclY = 0;

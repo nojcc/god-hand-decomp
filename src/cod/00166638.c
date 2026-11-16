@@ -5,11 +5,11 @@
 #include "godhand/vu0.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cOmBase.h"
+#include "godhand/Slot1.h"
+#include "godhand/scrollLayer.h"
 
-extern void displayScrollLayer(int layer, int on);
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern void cIDBase_resetAnim(void *self);
 extern char D_0041FA90[];
 extern void **D_003C2384;
 extern void func_001B6FB8(void *self);
@@ -64,62 +64,40 @@ EnemyRec *EnemyBase_constructAimQuad5(EnemyRec *self)
 #define SLOT2MARK_F_START_LIT  0x8000
 #define SLOT2MARK_F_ON         0x4000
 
-typedef struct Slot2Marks {
-    char unk000[0x430];
-    int layerA;                         /* 0x430 */
-    char unk434[0x30];
-    int layerC;                         /* 0x464 */
-    int layerD;                         /* 0x468 */
-    char unkD[0x10];
-    int layerB;                         /* 0x47C */
-    char unk480[0x22];
-    unsigned short markFlag;            /* 0x4A2 */
-} Slot2Marks;
-
 __attribute__((section(".text.Slot2_setMarkLayersAt464")))
-void Slot2_setMarkLayersAt464(Slot2Marks *self, int show, int startLit)
+void Slot2_setMarkLayersAt464(Slot1 *self, int show, int startLit)
 {
-    self->markFlag = 0;
+    self->markFlag[3] = 0;
     if (startLit) {
-        self->markFlag = SLOT2MARK_F_START_LIT;
+        self->markFlag[3] = SLOT2MARK_F_START_LIT;
     }
     if (show) {
-        self->markFlag = self->markFlag | SLOT2MARK_F_ON;
-        displayScrollLayer(self->layerA, 1);
-        displayScrollLayer(self->layerB, 1);
-        displayScrollLayer(self->layerC, 1);
-        displayScrollLayer(self->layerD, 1);
+        self->markFlag[3] = self->markFlag[3] | SLOT2MARK_F_ON;
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 1);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 1);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS], 1);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS + 1], 1);
     } else {
-        displayScrollLayer(self->layerA, 0);
-        displayScrollLayer(self->layerB, 0);
-        displayScrollLayer(self->layerC, 0);
-        displayScrollLayer(self->layerD, 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS], 0);
+        displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS + 1], 0);
     }
 }
 
 /* sn-2.95.3-136 */
 
 
-/* Slot2 blink step, once a frame: while armed (bit 15), count 8 frames, then flip the shown bit (14) and show or hide the four mark layers. */
-#define SLOT2_OFFSET_BLINK    0x4A2     /* blink word, not named in Slot2.h */
-#define SLOT2_OFFSET_LAYER_A  0x430     /* layer ids, not named in Slot2.h */
-#define SLOT2_OFFSET_LAYER_B  0x47C
-#define SLOT2_OFFSET_LAYER_C  0x464
-#define SLOT2_OFFSET_LAYER_D  0x468
-#define SLOT2_LAYER(self, off) (*(int *)((char *)(self) + (off)))
+/* Slot1 blink step on markFlag[3], once a frame: while armed (bit 15), count 8 frames, then flip the shown bit (14) and show or hide the four mark layers. */
 #define BLINK_ARMED    0x8000
 #define BLINK_ON       0x4000
 #define BLINK_COUNT    0x3FFF
 #define BLINK_DELAY    8
 
-typedef struct Slot2Blink {
-    char unk00[4];
-} Slot2Blink;
-
 __attribute__((section(".text.Slot2_blinkMarksAt4A2")))
-void Slot2_blinkMarksAt4A2(Slot2Blink *self)
+void Slot2_blinkMarksAt4A2(Slot1 *self)
 {
-    unsigned short *blink = (unsigned short *)((char *)self + SLOT2_OFFSET_BLINK);
+    unsigned short *blink = &self->markFlag[3];
     unsigned int v = *blink;
     unsigned short w;
     if (v & BLINK_ARMED) {
@@ -129,15 +107,15 @@ void Slot2_blinkMarksAt4A2(Slot2Blink *self)
             w = (~v & BLINK_ON) | BLINK_ARMED;
             *blink = w;
             if (w & BLINK_ON) {
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_A), 1);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_B), 1);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_C), 1);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_D), 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS], 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS + 1], 0);
             } else {
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_A), 0);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_B), 0);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_C), 0);
-                displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_D), 1);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_A], 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK_LAYER_B], 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS], 0);
+                displayScrollLayer(self->scrollLayer[SLOT1_MARK3_LAYERS + 1], 1);
             }
         }
     }
@@ -173,8 +151,8 @@ typedef struct IdDispObj {
     int state;                          /* 0x60 */
     char unk64[0x1C];
     void *work[IDOBJ_WORK_NUM];         /* 0x80 */
-    char sub[0x50];                     /* 0xE0 second part record */
-    char unkSubEnd[0x0];
+    cIDBaseObj sub;                     /* 0xE0 second part */
+    char unk128[0x130 - 0x128];
     unsigned char b130;                  /* 0x130 */
     unsigned char b131;                  /* 0x131 */
 } IdDispObj;
@@ -186,11 +164,11 @@ void IdDispObj_constructKind8(IdDispObj *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041FA90) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize((cIDBaseObj *)self, IDOBJ_KIND, 0);
-        cIDBase_resetAnim(self);
-        cIDBase_setPackedMessData((cIDBaseObj *)self, IDOBJ_KIND, 2);
-        cIDBase_initialize((cIDBaseObj *)self->sub, IDOBJ_KIND, 1);
-        cIDBase_resetAnim(self->sub);
+        cIDBase_initialize(&self->base, IDOBJ_KIND, 0);
+        cIDBase_resetAnim(&self->base);
+        cIDBase_setPackedMessData(&self->base, IDOBJ_KIND, 2);
+        cIDBase_initialize(&self->sub, IDOBJ_KIND, 1);
+        cIDBase_resetAnim(&self->sub);
         self->b5A = 0;
         self->state = 4;
         self->b5B = 0;
@@ -198,7 +176,7 @@ void IdDispObj_constructKind8(IdDispObj *self)
         self->b5D = 0;
     }
     for (i = 0; i < IDOBJ_WORK_NUM; i++) {
-        self->work[i] = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->work[i] = cIDBase_getIDWork(&self->base, i);
     }
     self->b130 = 0;
     self->b131 = 0;
@@ -236,10 +214,10 @@ typedef struct DoorLikeObj {
 
 __attribute__((section(".text.DoorBox_initWithBoxC")))
 int DoorBox_initWithBoxC(DoorLikeObj *self) {
-    float f[16];
-    float *t;
-    float *m;
-    float *nv;
+    cVec v[4];
+    cVec *t;
+    cVec *m;
+    cVec *nv;
     void *slot;
     char *rec;
     float one, ca, cb, cc;
@@ -249,33 +227,33 @@ int DoorBox_initWithBoxC(DoorLikeObj *self) {
     ca = 1.5f;
     cb = 2.4f;
     cc = 0.2f;
-    t = &f[4];
-    m = &f[8];
-    f[0] = ca;
-    f[4] = ca;
-    f[1] = cb;
-    f[2] = cc;
-    f[6] = cc;
-    f[5] = cb;
-    f[3] = one;
-    t[3] = one;
-    f[9] = 0.0f;
-    f[10] = 0.0f;
-    f[8] = -f[0] * 0.5f;
-    m[3] = one;
+    t = &v[1];
+    m = &v[2];
+    v[0].x = ca;
+    v[1].x = ca;
+    v[0].y = cb;
+    v[0].z = cc;
+    v[1].z = cc;
+    v[1].y = cb;
+    v[0].w = one;
+    t->w = one;
+    v[2].y = 0.0f;
+    v[2].z = 0.0f;
+    v[2].x = -v[0].x * 0.5f;
+    m->w = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damage = slot;
     if (slot != 0) {
-        nv = &f[12];
-        f[12] = 0.0f;
-        f[13] = 0.0f;
-        f[14] = 0.0f;
-        nv[3] = one;
-        func_001FD9D8(slot, self->base.mtx, (cVec *)m, (cVec *)nv, (cVec *)t);
+        nv = &v[3];
+        v[3].x = 0.0f;
+        v[3].y = 0.0f;
+        v[3].z = 0.0f;
+        nv->w = one;
+        func_001FD9D8(slot, self->base.mtx, m, nv, t);
     }
     self->base.hpMax = OBJ_LIFE;
     self->base.hp = OBJ_LIFE;
-    cVec_copy3(&self->box, (cVec *)f);
+    cVec_copy3(&self->box, &v[0]);
     cOmDoor_setObjCollision(self);
     self->hitRec = self->hitRecData;
     self->solid = OBJ_SOLID_ID;

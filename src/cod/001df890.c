@@ -6,6 +6,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
+#include "godhand/Poker.h"
 
 extern unsigned char D_0074748C;
 extern short D_00568240[];
@@ -15,8 +16,6 @@ extern void func_001F44E0(void *self);
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern int cIDManager_getLocalFileName();
 extern void cIDManager_setIDData();
-extern void func_001DD0D8(void *self);
-extern void func_001DECE0(void *work);
 extern int D_003C2388;
 extern int *D_003C2384;
 extern char D_0042B6E8[];
@@ -89,7 +88,7 @@ void ColiseumBattle_stepEntryWait(ColiseumBattle *self)
  * owner and
  * the work area at 0x25B0. */
 __attribute__((section(".text.IdScreen_loadIdData")))
-void IdScreen_loadIdData(char *self)
+void IdScreen_loadIdData(Poker *self)
 {
     char name[0x40];
     int size;
@@ -101,7 +100,7 @@ void IdScreen_loadIdData(char *self)
         cDvd_CheckWait(&D_00583F20, r);
         cIDManager_setIDData(*D_003C2384, 0x12, size);
         func_001DD0D8(self);
-        func_001DECE0(self + 0x25B0);
+        func_001DECE0(&self->ui);
     }
 }
 

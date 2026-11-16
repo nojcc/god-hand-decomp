@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
 #include "godhand/cCamManager.h"
 #include "godhand/cIDBase.h"
 #include "godhand/CustomIDWork.h"
@@ -10,7 +10,7 @@
 
 
 __attribute__((section(".text.func_001DEE20")))
-void func_001DEE20(void *a0) { cIDBase_trans((cIDBaseObj *)((char *)a0 + 0x10)); }
+void func_001DEE20(PanelObj *self) { cIDBase_trans(&self->id); }
 
 /* clone */
 
@@ -23,15 +23,15 @@ void func_001DEE40(PanelObj *self, int number) { CustomIDWork_SetNumber(&self->e
 
 
 __attribute__((section(".text.func_001DF048")))
-void func_001DF048(void *a0, int a1, int a2)
+void func_001DF048(PanelObj *self, int a1, int a2)
 {
     if (a1) {
         int b;
         int x = (((((((b & ~0xFF) | 0x60) & ~0xFF00) | 0x6000) & ~0xFF0000) | 0x600000) & ~0xFF000000) | 0x50000000;
         int y = (((((((a2 & ~0xFF) | 0xA0) & ~0xFF00) | 0xA000) & ~0xFF0000) | 0xA00000) & ~0xFF000000) | 0x80000000;
-        CustomIDWork_SetColorAnimSin((CustomIDWork *)(a0 + 0x158), x, y, 3);
+        CustomIDWork_SetColorAnimSin(&self->elem[0x2], x, y, 3);
     } else {
-        CustomIDWork_ResetColorAnim((CustomIDWork *)(a0 + 0x158));
+        CustomIDWork_ResetColorAnim(&self->elem[0x2]);
     }
 }
 
@@ -40,40 +40,37 @@ void func_001DF048(void *a0, int a1, int a2)
 
 
 __attribute__((section(".text.func_001DF0F0")))
-void func_001DF0F0(void *a0, int a1, int a2)
+void func_001DF0F0(PanelObj *self, int a1, int a2)
 {
     if (a1) {
         int b;
         int x = (((((((b & ~0xFF) | 0x60) & ~0xFF00) | 0x6000) & ~0xFF0000) | 0x600000) & ~0xFF000000) | 0x50000000;
         int y = (((((((a2 & ~0xFF) | 0xA0) & ~0xFF00) | 0xA000) & ~0xFF0000) | 0xA00000) & ~0xFF000000) | 0x80000000;
-        CustomIDWork_SetColorAnimSin((CustomIDWork *)(a0 + 0x250), x, y, 3);
+        CustomIDWork_SetColorAnimSin(&self->elem[0x4], x, y, 3);
     } else {
-        CustomIDWork_ResetColorAnim((CustomIDWork *)(a0 + 0x250));
+        CustomIDWork_ResetColorAnim(&self->elem[0x4]);
     }
 }
 
-/* clone */
-
-
-
+/* Switch to the sub-screen camera, keep it in the first slot machine's subCam and copy eye and target into it. */
 __attribute__((section(".text.func_001E32E8")))
-void func_001E32E8(int a0, float *a1, float *a2) {
+void func_001E32E8(Slot1 *self, float *eye, float *target) {
     float *dst1;
     float *dst2;
 
     cCamManager_setSubScrCamera(&D_00463050, 0);
-    *(int *)(a0 + 0x498) = (int)&D_00463050.subScr;
+    self->subCam = &D_00463050.subScr;
     dst1 = &D_00463050.subScr.eye.x;
-    if (a1 != dst1) {
-        dst1[0] = a1[0];
-        dst1[1] = a1[1];
-        dst1[2] = a1[2];
+    if (eye != dst1) {
+        dst1[0] = eye[0];
+        dst1[1] = eye[1];
+        dst1[2] = eye[2];
     }
-    dst2 = (float *)(*(int *)(a0 + 0x498) + 0x200);
-    if (dst2 != a2) {
-        dst2[0] = a2[0];
-        dst2[1] = a2[1];
-        dst2[2] = a2[2];
+    dst2 = &self->subCam->target.x;
+    if (dst2 != target) {
+        dst2[0] = target[0];
+        dst2[1] = target[1];
+        dst2[2] = target[2];
     }
 }
 
@@ -126,30 +123,30 @@ void func_001E6910(void) {
 
 
 __attribute__((section(".text.func_001E7470")))
-void func_001E7470(char *a0, int a1, int a2)
+void func_001E7470(SlotUi *self, int no, int show)
 {
-	char *p;
+	CustomIDWork *p;
 	int i;
 
-	if (a2 != 0) {
-		if (a1 == 0xA) {
-			p = a0 + 0x50;
-			for (i = 0x9; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 1);
-				p += 0x7C;
+	if (show != 0) {
+		if (no == SLOTUI_MARK_NUM) {
+			p = self->mark;
+			for (i = SLOTUI_MARK_NUM - 1; i >= 0; i--) {
+				CustomIDWork_SetDisp(p, 1);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x50)), 1);
+			CustomIDWork_SetDisp(&self->mark[no], 1);
 		}
 	} else {
-		if (a1 == 0xA) {
-			p = a0 + 0x50;
-			for (i = 0x9; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 0);
-				p += 0x7C;
+		if (no == SLOTUI_MARK_NUM) {
+			p = self->mark;
+			for (i = SLOTUI_MARK_NUM - 1; i >= 0; i--) {
+				CustomIDWork_SetDisp(p, 0);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x50)), 0);
+			CustomIDWork_SetDisp(&self->mark[no], 0);
 		}
 	}
 }
@@ -158,30 +155,30 @@ void func_001E7470(char *a0, int a1, int a2)
 
 
 __attribute__((section(".text.func_001E7538")))
-void func_001E7538(char *a0, int a1, int a2)
+void func_001E7538(SlotUi *self, int no, int show)
 {
-	char *p;
+	CustomIDWork *p;
 	int i;
 
-	if (a2 != 0) {
-		if (a1 == 0x2) {
-			p = a0 + 0x580;
-			for (i = 0x1; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 1);
-				p += 0x7C;
+	if (show != 0) {
+		if (no == SLOTUI_BET_NUM) {
+			p = self->bet;
+			for (i = SLOTUI_BET_NUM - 1; i >= 0; i--) {
+				CustomIDWork_SetDisp(p, 1);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x580)), 1);
+			CustomIDWork_SetDisp(&self->bet[no], 1);
 		}
 	} else {
-		if (a1 == 0x2) {
-			p = a0 + 0x580;
-			for (i = 0x1; i >= 0; i--) {
-				CustomIDWork_SetDisp((CustomIDWork *)p, 0);
-				p += 0x7C;
+		if (no == SLOTUI_BET_NUM) {
+			p = self->bet;
+			for (i = SLOTUI_BET_NUM - 1; i >= 0; i--) {
+				CustomIDWork_SetDisp(p, 0);
+				p++;
 			}
 		} else {
-			CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x580)), 0);
+			CustomIDWork_SetDisp(&self->bet[no], 0);
 		}
 	}
 }

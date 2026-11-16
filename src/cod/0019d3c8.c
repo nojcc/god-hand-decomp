@@ -10,7 +10,7 @@ extern int ResetField214FreeField180_1C2820();
 extern char D_00426E78[];
 extern int SetField214PtrThenInit_1B6F38();
 extern char D_00427060[];
-extern char D_00427400[];
+extern cVtEnt D_00427400[];
 
 /* clone */
 
@@ -213,7 +213,7 @@ void func_001A3B20(void *a0, void *a1) {
 __attribute__((section(".text.func_001A6038")))
 void func_001A6038(void *a0, void *a1) {
     int v1;
-    *(int **)((char *)a0 + 0x214) = &D_00427400;
+    *(cVtEnt **)((char *)a0 + 0x214) = D_00427400;
     v1 = *(int *)((char *)a0 + 0x608);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (void *)v1);

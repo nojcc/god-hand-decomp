@@ -5,6 +5,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/SlotUi.h"
 #include "godhand/cSnd.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
@@ -13,7 +14,6 @@ extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
 extern long D_00747640;
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(CustomIDWork *work, int from, int to, int frames);
-extern void func_001E7470(void *self, int entry, int on);
 
 #define OM_OFFSET_MODE  0x2F4           /* mode byte, read through the raw offset as retail does */
 #define OM_MODE(s)      (*(unsigned char *)((s) + OM_OFFSET_MODE))
@@ -135,7 +135,6 @@ void Poker_updateIntro(Poker *self)
     }
 }
 
-#define SCREEN_WORK(self)   ((CustomIDWork *)((char *)(self) + 0xCC))   /* the owner is not typed yet */
 #define SCREEN_FADE_FRAMES  2
 #define SCREEN_ENTRY        1
 
@@ -143,11 +142,11 @@ void Poker_updateIntro(Poker *self)
  * between two grey tints, mode 2 sets one tint. The colour words are built
  * byte by byte from uninitialised ints, as retail does. */
 __attribute__((section(".text.CustomIDOwner_setColorMode")))
-void CustomIDOwner_setColorMode(void *self, unsigned char mode)
+void CustomIDOwner_setColorMode(SlotUi *self, unsigned char mode)
 {
     switch (mode) {
     case 0:
-        CustomIDWork_ResetColorAnim(SCREEN_WORK(self));
+        CustomIDWork_ResetColorAnim(&self->mark[SCREEN_ENTRY]);
         func_001E7470(self, SCREEN_ENTRY, 0);
         break;
     case 1: {
@@ -155,14 +154,14 @@ void CustomIDOwner_setColorMode(void *self, unsigned char mode)
         int c;
         int from = ((((((c & ~0xFF0000) | 0x800000) & ~0xFF00) | 0x8000) & ~0xFF) | 0x80) & 0xFFFFFF;
         int to = (((((((b & ~0xFF0000) | 0x800000) & ~0xFF00) | 0x8000) & ~0xFF) | 0x80) & 0xFFFFFF) | 0x48000000;
-        CustomIDWork_SetColorAnimNormal_2D68D8(SCREEN_WORK(self), from, to, SCREEN_FADE_FRAMES);
+        CustomIDWork_SetColorAnimNormal_2D68D8(&self->mark[SCREEN_ENTRY], from, to, SCREEN_FADE_FRAMES);
         func_001E7470(self, SCREEN_ENTRY, 1);
         break;
     }
     case 2: {
         int d;
         int color = ((((((d & ~0xFF0000) | 0x800000) & ~0xFF00) | 0x8000) & ~0xFF) | 0x80) & 0xFFFFFF;
-        CustomIDWork_SetColorAnimNormal_2D6898(SCREEN_WORK(self), color, SCREEN_FADE_FRAMES);
+        CustomIDWork_SetColorAnimNormal_2D6898(&self->mark[SCREEN_ENTRY], color, SCREEN_FADE_FRAMES);
         func_001E7470(self, SCREEN_ENTRY, 1);
         break;
     }

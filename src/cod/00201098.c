@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDvd.h"
 #include "godhand/cWorldLight.h"
+#include "godhand/cIDBase.h"
 
 
 /* 2 if id is the running job, 1 if it is queued, 0 if unknown. */
@@ -126,18 +127,18 @@ void func_002A9708(char *a0) {
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */
 __attribute__((section(".text.cIDBase_stepJitter")))
-void cIDBase_stepJitter(char *a0) {
+void cIDBase_stepJitter(cIDBaseObj *self) {
     int i;
-    char *p;
-    if (*(unsigned char *)(a0 + 0x1C) == 0) return;
-    for (i = 0; i < *(int *)(a0 + 0xC); i++) {
-        p = *(char **)(a0 + 0x4) + i * 0xAC;
-        if (p != 0) {
-            *(unsigned short *)(p + 0xA0) = *(unsigned short *)(p + 0xA0) + 1;
-            *(unsigned short *)(p + 0xA2) = *(unsigned short *)(p + 0xA2) + 1;
-            *(unsigned short *)(p + 0xA6) = *(unsigned short *)(p + 0xA6) + 1;
-            *(unsigned short *)(p + 0xA8) = *(unsigned short *)(p + 0xA8) + 1;
-            *(unsigned short *)(p + 0xA4) = *(unsigned short *)(p + 0xA4) + 1;
+    cIDBaseEnt *e;
+    if (self->playing == 0) return;
+    for (i = 0; i < self->entNum; i++) {
+        e = &self->ent[i];
+        if (e != 0) {
+            e->jit[0] = e->jit[0] + 1;
+            e->jit[1] = e->jit[1] + 1;
+            e->jit[3] = e->jit[3] + 1;
+            e->jit[4] = e->jit[4] + 1;
+            e->jit[2] = e->jit[2] + 1;
         }
     }
 }

@@ -1,5 +1,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cOmWeapon.h"
 
 /* func_00277A48 — +0x2F6 phase machine (record fields 0x54/0x58, mode 3): phase 0
  * fires func_002A8578 and advances, phases 0/1 step moveMotion and add the
@@ -7,7 +8,6 @@
  * (scale 10.0f) and re-arms 0x2F5=2 when it reports done.  sn-2.95.3-136. */
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern int func_002DDAB0(void *a0, int a1, float f);
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, moveMotion,
  * cObjBase_addNullSpeed_Rotation, cObjBase_addNullSpeed, func_002DDAB0. */
 __attribute__((section(".text.func_00277A48"))) void func_00277A48(cEm00 *self)
@@ -24,7 +24,7 @@ __attribute__((section(".text.func_00277A48"))) void func_00277A48(cEm00 *self)
             cObjBase_addNullSpeed(self, 1.0f);
             break;
     }
-    if (func_002DDAB0((void *)self->pos, 0, 10.0f) != 0) {
+    if (func_002DDAB0(self->pos, 0, 10.0f) != 0) {
         self->mode = 0;
         self->phase = 2;
         self->step = 0;

@@ -65,7 +65,7 @@ void func_00244398(cEm00 *self)
         }
         if (self->seqFlags & 1) {
             if (self->unk730 != 0) {
-                func_001D0108((cOmWeapon *)self->unk730);
+                func_001D0108(self->unk730);
                 self->unk730 = 0;
             }
         }

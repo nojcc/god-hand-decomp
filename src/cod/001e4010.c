@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
 #include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
 
@@ -33,13 +33,12 @@ typedef struct { int w[15]; } Tbl15;
 extern Tbl15 D_0042B890;
 
 
-/* Slot2 scroll counter step: every 0x15 frames pick the next row of table
+/* Slot1 scroll counter step: every 0x15 frames pick the next row of table
  * D_0042B890 and show or hide those layers (bit 0x4000 flips each time). */
 __attribute__((section(".text.func_001E4010")))
-void func_001E4010(Slot2 *self)
+void func_001E4010(Slot1 *self)
 {
     int tbl[5][3];
-    int *lay;
     unsigned v;
     unsigned w;
     int i, j;
@@ -58,19 +57,15 @@ void func_001E4010(Slot2 *self)
     i = (w >> 11) & 7;
     j = i;
     if (w & 0x4000) {
-        lay = (int *)self->layer;
-        displayScrollLayer(*(int *)((char *)lay + (tbl[i][0] << 2)), 1);
-        displayScrollLayer(*(int *)((char *)lay + (tbl[i][1] << 2)), 1);
-        lay += tbl[i][2];
-        displayScrollLayer(*lay, 1);
-        displayScrollLayer(*(int *)(self->layer + 0x2C), 1);
+        displayScrollLayer(self->scrollLayer[tbl[i][0]], 1);
+        displayScrollLayer(self->scrollLayer[tbl[i][1]], 1);
+        displayScrollLayer(self->scrollLayer[tbl[i][2]], 1);
+        displayScrollLayer(self->scrollLayer[11], 1);
     } else {
-        lay = (int *)self->layer;
-        displayScrollLayer(*(int *)((char *)lay + (tbl[j][0] << 2)), 0);
-        displayScrollLayer(*(int *)((char *)lay + (tbl[j][1] << 2)), 0);
-        lay += tbl[j][2];
-        displayScrollLayer(*lay, 0);
-        displayScrollLayer(*(int *)(self->layer + 0x2C), 0);
+        displayScrollLayer(self->scrollLayer[tbl[j][0]], 0);
+        displayScrollLayer(self->scrollLayer[tbl[j][1]], 0);
+        displayScrollLayer(self->scrollLayer[tbl[j][2]], 0);
+        displayScrollLayer(self->scrollLayer[11], 0);
     }
 }
 

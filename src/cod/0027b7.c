@@ -4,7 +4,7 @@
 /* cEm00 field not named in cEm00.h yet: 0x4AC pointer to the class name string. */
 #define CEM00_TYPENAME(self) (*(void **)((char *)(self) + 0x4AC))
 
-extern int D_004481A8;
+extern cVtEnt D_004481A8[];
 extern int D_004480E0;
 extern void *func_0028EB00(void *obj);
 
@@ -13,7 +13,7 @@ __attribute__((section(".text.InitObjVtable_27B768")))
 void *InitObjVtable_27B768(cEm00 *self)
 {
     func_0028EB00(self);
-    self->vtable = (cVtEnt *)&D_004481A8;
+    self->vtable = D_004481A8;
     VU0_SQC2_VF0(self, 0x1530);
     VU0_SQC2_VF0(self, 0x1540);
     VU0_SQC2_VF0(self, 0x1550);

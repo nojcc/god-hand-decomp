@@ -1,10 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/Poker.h"
+#include "godhand/ColiseumEmSelect.h"
 #include "godhand/CustomIDWork.h"
 
 extern void cModel_setTextureExchange(void *model, int set, int rec, int flag);
-extern void SetCustomIDDispOneOrAll_1F4778(void *self, int sel, int on);
 
 /* A message window as a node of the used and free lists. */
 typedef struct MsgNode {
@@ -65,7 +66,7 @@ void cEm00_stepTextureHide(cEm00 *self)
 
 /* CustomIDOwner_setAllShown: show or hide the seven ID elements 0x61 to 0x67 of the owner. */
 __attribute__((section(".text.CustomIDOwner_setAllShown")))
-void CustomIDOwner_setAllShown(void *self, int on)
+void CustomIDOwner_setAllShown(ColiseumEmDisp *self, int on)
 {
     SetCustomIDDispOneOrAll_1F4778(self, 0x61, on);
     SetCustomIDDispOneOrAll_1F4778(self, 0x62, on);
@@ -77,14 +78,14 @@ void CustomIDOwner_setAllShown(void *self, int on)
 }
 
 /* The score element sits at 0x22C4 of the owner. */
-#define OWNER_SCORE_IDW(self) ((CustomIDWork *)((char *)(self) + 0x22C4))
+#define SCORE_ELEM 0x47                 /* the score element */
 
 /* CustomIDOwner_setScoreNumber: show a number and shift the element left by its digit count so it stays right-aligned
  * (1 to 3 digits: -41, 4 digits: -28, 5 digits: -13, more: 0). */
 __attribute__((section(".text.CustomIDOwner_setScoreNumber")))
-void CustomIDOwner_setScoreNumber(void *self, int number)
+void CustomIDOwner_setScoreNumber(Poker *self, int number)
 {
-    CustomIDWork *w = OWNER_SCORE_IDW(self);
+    CustomIDWork *w = &self->elem[SCORE_ELEM];
     CustomIDWork_SetNumber(w, number);
     if (number < 1000) {
         CustomIDWork_SetOffsetPosX(w, -41);
@@ -128,14 +129,10 @@ void cEm00_stepHitStun(cEm00 *self)
     }
 }
 
-/* The seven digit-column elements are 0x7C bytes apart from 0x60 + 0x26 * 0x7C. */
-#define OWNER_COLUMN_IDW(self, i) \
-    ((CustomIDWork *)((char *)(self) + 0x60 + (i) * 0x7C))
-
 /* CustomIDOwner_setColumnNumber: set column idx (0 to 6) to a number, nudging it left by -17 for one digit, -10 for
  * two and 0 for three or more, and show or hide it. */
 __attribute__((section(".text.CustomIDOwner_setColumnNumber")))
-void CustomIDOwner_setColumnNumber(void *self, unsigned short idx, int number, int on)
+void CustomIDOwner_setColumnNumber(ColiseumEmDisp *self, unsigned short idx, int number, int on)
 {
     int x;
     CustomIDWork *w;
@@ -147,7 +144,7 @@ void CustomIDOwner_setColumnNumber(void *self, unsigned short idx, int number, i
             x = (number > 99) ? 0 : -10;
         }
         sel = idx + 0x26;
-        w = OWNER_COLUMN_IDW(self, sel);
+        w = &self->elem[sel];
         CustomIDWork_SetOffsetPosX(w, x);
         CustomIDWork_SetNumber(w, number);
         SetCustomIDDispOneOrAll_1F4778(self, sel, on);

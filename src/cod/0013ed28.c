@@ -2,7 +2,7 @@
 
 #include "godhand/WaveObj.h"
 #include "godhand/cSnd.h"
-#include "godhand/MarkPanel.h"
+#include "godhand/Slot1.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
@@ -84,40 +84,40 @@ void cSnd_shutdown(cSnd *self)
 /* Sets up mark `mark` (0 to 2): clears its flag word, sets the start-lit bit
  * if startLit, and shows or hides its scroll layer; showing also sets the on bit. */
 __attribute__((section(".text.MarkPanel_setMark")))
-void MarkPanel_setMark(MarkPanel *self, unsigned short mark, int show, int startLit)
+void MarkPanel_setMark(Slot1 *self, unsigned short mark, int show, int startLit)
 {
     switch (mark) {
     case 0:
         self->markFlag[0] = 0;
         if (startLit)
-            self->markFlag[0] = MARKPANEL_F_START_LIT;
+            self->markFlag[0] = SLOT1_MARK_F_START_LIT;
         if (show) {
-            displayScrollLayer(self->layer[0], 1);
-            self->markFlag[0] = self->markFlag[0] | MARKPANEL_F_ON;
+            displayScrollLayer(self->scrollLayer[SLOT1_MARK0_LAYER + 0], 1);
+            self->markFlag[0] = self->markFlag[0] | SLOT1_MARK_F_ON;
         } else {
-            displayScrollLayer(self->layer[0], 0);
+            displayScrollLayer(self->scrollLayer[SLOT1_MARK0_LAYER + 0], 0);
         }
         break;
     case 1:
         self->markFlag[1] = 0;
         if (startLit)
-            self->markFlag[1] = MARKPANEL_F_START_LIT;
+            self->markFlag[1] = SLOT1_MARK_F_START_LIT;
         if (show) {
-            displayScrollLayer(self->layer[1], 1);
-            self->markFlag[1] = self->markFlag[1] | MARKPANEL_F_ON;
+            displayScrollLayer(self->scrollLayer[SLOT1_MARK0_LAYER + 1], 1);
+            self->markFlag[1] = self->markFlag[1] | SLOT1_MARK_F_ON;
         } else {
-            displayScrollLayer(self->layer[1], 0);
+            displayScrollLayer(self->scrollLayer[SLOT1_MARK0_LAYER + 1], 0);
         }
         break;
     case 2:
         self->markFlag[2] = 0;
         if (startLit)
-            self->markFlag[2] = MARKPANEL_F_START_LIT;
+            self->markFlag[2] = SLOT1_MARK_F_START_LIT;
         if (show) {
-            displayScrollLayer(self->layer[2], 1);
-            self->markFlag[2] = self->markFlag[2] | MARKPANEL_F_ON;
+            displayScrollLayer(self->scrollLayer[SLOT1_MARK0_LAYER + 2], 1);
+            self->markFlag[2] = self->markFlag[2] | SLOT1_MARK_F_ON;
         } else {
-            displayScrollLayer(self->layer[2], 0);
+            displayScrollLayer(self->scrollLayer[SLOT1_MARK0_LAYER + 2], 0);
         }
         break;
     }
@@ -229,12 +229,12 @@ void cNowLoading_setup(cNowLoading *self)
     cIDBase_initIDWork(self, 1);
     cIDBase_initIDWork(self, 2);
     cIDBase_initIDWork(self, 3);
-    cIDBase_restartAnim((cIDBaseObj *)self);
+    cIDBase_restartAnim(&self->base);
     self->base.playing = 1;
-    ent[0] = cIDBase_getIDWork((cIDBaseObj *)self, 0);
-    ent[1] = cIDBase_getIDWork((cIDBaseObj *)self, 1);
-    barEnt = cIDBase_getIDWork((cIDBaseObj *)self, 2);
-    ent[2] = cIDBase_getIDWork((cIDBaseObj *)self, 3);
+    ent[0] = cIDBase_getIDWork(&self->base, 0);
+    ent[1] = cIDBase_getIDWork(&self->base, 1);
+    barEnt = cIDBase_getIDWork(&self->base, 2);
+    ent[2] = cIDBase_getIDWork(&self->base, 3);
     for (i = 0; i < NOWLOADING_SLOT_NUM; i++) {
         self->slot[i].one = NOWLOADING_SLOT_ONE;
         self->slot[i].two = NOWLOADING_SLOT_TWO;

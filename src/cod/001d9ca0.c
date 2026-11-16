@@ -1,6 +1,6 @@
 #include "godhand/cSnd.h"
+#include "godhand/Poker.h"
 extern int PartHolder_classify(void *self);
-extern void func_001DE858(void *self, unsigned char n);
 
 __attribute__((section(".text.func_001D9CA0")))
 void func_001D9CA0(void *self)

@@ -1,16 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/pl00.h"
+#include "godhand/capVu0.h"
 #include "godhand/motion.h"
 
 /* L1 w34 parked: 216/225 EXACT, insn delta -1, needs --assembler sn (ps2eeas supplies the mtc1 nop at .L0010E2EC). Residue: flag copy daddu $a0,$v0 (R allocated $v0 here), beqzl for beqz at 0x0010E334 (follows the flag register), mov.s $f12 placement before the func_002A8578 call. Edits this wave: int one = 1 hoisted, extern int func_00124540, stores 15C4/15B0 first. */
 /* func_0010E230 — 0x0010E230, 900 B — sn-2.95.3-136. */
 
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
-extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
-extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -30,115 +29,114 @@ static __inline__ long InMidRange(unsigned short k, int lo, int hi)
 }
 
 __attribute__((section(".text.func_0010E230")))
-void func_0010E230(void *a0)
+void func_0010E230(pl00 *self)
 {
-    char *s1 = (char *)a0;
     int one = 1;
 
-    *(int *)(s1 + 0x15F4) |= 0x40000;
-    if (*(short *)(s1 + 0x54A) <= 0)
-        *(short *)(s1 + 0x54A) = one;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    self->flags15F4 |= 0x40000;
+    if (self->base.hp <= 0)
+        self->base.hp = one;
+    switch (self->base.step) {
     case 0: {
-        char *o;
+        cGameObj *o;
         int w;
 
 
-        o = *(char **)(s1 + 0x640);
-        *(int *)(s1 + 0x1588) = 0;
+        o = self->unk640;
+        self->unk1588 = 0.0f;
         if (o != 0) {
-            char *vt;
-            int (*fp)();
-            char *p;
+            cGameObjVt *vt;
+            cVec *(*fp)(void *self);
+            cVec *p;
             float d;
             float lim;
 
-            vt = *(char **)(o + 0x214);
-            p = *(char **)(s1 + 0xF0);
-            fp = *(int (**)())(vt + 0x6C);
-            d = capVu0MagnitudeXZ(p, (void *)fp(o + *(short *)(vt + 0x68)));
+            vt = cGameObj_vt(o);
+            p = self->base.pos;
+            fp = vt->getPos;
+            d = capVu0MagnitudeXZ(p, fp((char *)o + vt->getPosDelta));
             d = d - 1.2f;
             lim = 0.5f;
-            if (*(unsigned short *)(s1 + 0x5E0) == 0
-                && *(unsigned char *)(s1 + 0x61F) != 0)
+            if (self->unk5E0 == 0
+                && self->unk61F != 0)
                 lim = 1.0f;
             if (lim < d)
                 d = lim;
             if (0.0f < d)
-                *(float *)(s1 + 0x1588) = d * 0.2f;
-        if (*(char **)(s1 + 0x640) != 0) {
-            unsigned short k = *(unsigned short *)(*(char **)(s1 + 0x640) + 0x2FE);
+                self->unk1588 = d * 0.2f;
+        if (self->unk640 != 0) {
+            unsigned short k = self->unk640->actorId;
             if (InMidRange(k, 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
         }
         }
-        func_00124540((pl00 *)s1, 0);
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        if (*(char *)(s1 + 0x648) > 0)
-            *(char *)(s1 + 0x648) = 0x2D;
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s1,
-            (int)(*(float *)(s1 + 0x600) * 8.0f), 2, 0x18, 0, 0xA);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s1,
-            (int)(*(float *)(s1 + 0x600) * 8.0f), 2, 0x18, 0, 0xA);
-        w = *(int *)(s1 + 0x304);
-        func_002A8578(s1, *(int *)(w + 0x1AC) + w, *(int *)(w + 0x1B4) + w,
+        func_00124540(self, 0);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        if (self->unk648 > 0)
+            self->unk648 = 0x2D;
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self,
+            (int)(self->unk600 * 8.0f), 2, 0x18, 0, 0xA);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self,
+            (int)(self->unk600 * 8.0f), 2, 0x18, 0, 0xA);
+        w = (int)self->base.pack;
+        func_002A8578(self, *(int *)(w + 0x1AC) + w, *(int *)(w + 0x1B4) + w,
                       3, 0.0f, 0, 0);
-        *(float *)(s1 + 0x15C4) = 0.0f;
-        *(int *)(s1 + 0x15B0) = 1;
-        *(float *)(s1 + 0x15C0) = 1.0f;
-        *(int *)(s1 + 0x15B8) = 1;
-        *(float *)(s1 + 0x1588) = 0.0f;
-        *(short *)(s1 + 0x568) = 0x32;
-        *(char *)(s1 + 0x1603) = 2;
-        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
-        *(int *)(s1 + 0x15B4) = 0;
+        self->unk15C4 = 0.0f;
+        self->unk15B0 = 1;
+        self->unk15C0 = 1.0f;
+        self->unk15B8 = 1;
+        self->unk1588 = 0.0f;
+        self->base.unk568 = 0x32;
+        self->unk1603 = 2;
+        self->base.step = self->base.step + 1;
+        self->unk15B4 = 0;
     }
     /* fallthrough */
     case 1: {
-        char *o;
+        cGameObj *o;
         float acc;
 
-        if (*(short *)(s1 + 0x568) != 0) {
-            *(short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
-            InvokeVirtualAtField214AndForward_124E68(s1, 0.19634954f);
+        if (self->base.unk568 != 0) {
+            self->base.unk568 = self->base.unk568 - 1;
+            InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
         }
-        if ((*(unsigned short *)(s1 + 0x3AC) & 0x10) == 0)
-            *(char *)(s1 + 0x1603) = 2;
-        if (*(int *)(s1 + 0x640) != 0)
-            *(char *)(s1 + 0x648) = 0x14;
-        if (moveMotion(s1) != 0) {
-            pl00_clearMotionCam(s1, 1, 0);
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        if ((self->base.seqFlags & 0x10) == 0)
+            self->unk1603 = 2;
+        if (self->unk640 != 0)
+            self->unk648 = 0x14;
+        if (moveMotion(self) != 0) {
+            pl00_clearMotionCam(self, 1, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        o = *(char **)(s1 + 0x640);
+        o = self->unk640;
         if (o != 0) {
-            char *vt;
-            int (*fp)();
-            char *p;
+            cGameObjVt *vt;
+            cVec *(*fp)(void *self);
+            cVec *p;
 
-            vt = *(char **)(o + 0x214);
-            p = *(char **)(s1 + 0xF0);
-            fp = *(int (**)())(vt + 0x6C);
-            if (capVu0MagnitudeSqXZ(p, (void *)fp(o + *(short *)(vt + 0x68))) < 1.21f) {
-                *(int *)(s1 + 0x330) = 0;
-                *(int *)(s1 + 0x338) = 0;
+            vt = cGameObj_vt(o);
+            p = self->base.pos;
+            fp = vt->getPos;
+            if (capVu0MagnitudeSqXZ(p, fp((char *)o + vt->getPosDelta)) < 1.21f) {
+                self->base.nullSpeed.x = 0.0f;
+                self->base.nullSpeed.z = 0.0f;
             }
         }
-        acc = *(float *)(s1 + 0x1588);
-        *(float *)(s1 + 0x338) = *(float *)(s1 + 0x338) + acc;
-        *(float *)(s1 + 0x1588) = acc * 0.9f;
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        acc = self->unk1588;
+        self->base.nullSpeed.z = self->base.nullSpeed.z + acc;
+        self->unk1588 = acc * 0.9f;
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
     default:
         break;
     }
-    func_0010A438(s1);
-    if (func_00123938((pl00 *)s1, 1) != 0)
-        pl00_clearMotionCam(s1, 1, 0);
+    func_0010A438(self);
+    if (func_00123938(self, 1) != 0)
+        pl00_clearMotionCam(self, 1, 0);
 }

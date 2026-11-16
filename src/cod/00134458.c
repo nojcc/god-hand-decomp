@@ -7,7 +7,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/heapArena.h"
 
-extern char D_0044EE38[];
+extern cVtEnt D_0044EE38[];
 extern unsigned short *cMessage_getMessageAddr(void *table, int id);
 
 /* Destroy hook of the enemy class with vtable D_004481A8: release the collision unit, then the owned child object. */
@@ -61,31 +61,19 @@ void cSnd_CheckSeEnd(cSnd *self, int slot)
 }
 
 /* Destroy hook of the object with vtable D_0044EE38: hide and release the owned object, then run the base destroy. */
-typedef struct OwnedObj {
-    char unk000[0x250];
-    unsigned int objFlags;              /* 0x250 */
-} OwnedObj;
-
-typedef struct HolderObj {
-    char unk000[0xF0];
-    void *vt;                           /* 0xF0 */
-    char unkF4[0x1BC];
-    OwnedObj *owned;                    /* 0x2B0 */
-} HolderObj;
-
 #define OBJ_F_HIDE  0x2                 /* objFlags bit 1 */
 
 
 
 __attribute__((section(".text.HolderObj_destroyOwned")))
-void HolderObj_destroyOwned(HolderObj *self, int flag)
+void HolderObj_destroyOwned(cNodeOwner *self, int flag)
 {
-    self->vt = D_0044EE38;
+    self->base.vt = D_0044EE38;
     if (self->owned != 0) {
         self->owned->objFlags |= OBJ_F_HIDE;
-        ReleaseObj((struct cModel *)self->owned);
+        ReleaseObj(self->owned);
     }
-    func_002FBE28((cNode *)self, flag);
+    func_002FBE28(&self->base, flag);
 }
 
 /* 1 when the character code is one of the 10 codes listed in message 4, else 0. */

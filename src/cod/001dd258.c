@@ -1,10 +1,12 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/CustomIDWork.h"
+#include "godhand/Poker.h"
+#include "godhand/ColiseumEmSelect.h"
 
 extern struct T32 D_0042B5B0;
 
 __attribute__((section(".text.SetCustomIDDispOneOrAll_1DD258")))
-void SetCustomIDDispOneOrAll_1DD258(char *a0, int a1, int a2)
+void SetCustomIDDispOneOrAll_1DD258(Poker *self, int a1, int a2)
 {
     int i;
 
@@ -12,47 +14,47 @@ void SetCustomIDDispOneOrAll_1DD258(char *a0, int a1, int a2)
         if (a1 == 0x4D) {
             for (i = 0; i < 0x4D; i++) {
                 if (i != 0)
-                    CustomIDWork_SetDisp((CustomIDWork *)(a0 + 0x60 + i * 0x7C), 1);
+                    CustomIDWork_SetDisp(&self->elem[i], 1);
             }
         } else if (a1 != 0) {
-            CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 1);
+            CustomIDWork_SetDisp(&self->elem[a1], 1);
         }
     } else {
         if (a1 == 0x4D) {
             for (i = 0; i < 0x4D; i++) {
                 if (i != 0)
-                    CustomIDWork_SetDisp((CustomIDWork *)(a0 + 0x60 + i * 0x7C), 0);
+                    CustomIDWork_SetDisp(&self->elem[i], 0);
             }
         } else if (a1 != 0) {
-            CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 0);
+            CustomIDWork_SetDisp(&self->elem[a1], 0);
         }
     }
 }
 
 __attribute__((section(".text.SetCustomIDDispOneOrAll_1F4778")))
-void SetCustomIDDispOneOrAll_1F4778(char *a0, int a1, int a2)
+void SetCustomIDDispOneOrAll_1F4778(ColiseumEmDisp *self, int id, int on)
 {
-    if (a2 != 0) {
-        if (a1 == 0x6F) {
-            char *s0 = a0 + 0x60;
+    if (on != 0) {
+        if (id == COLISEUMEM_ELEM_NUM) {
+            CustomIDWork *s0 = self->elem;
             int s1;
             for (s1 = 0x6E; s1 >= 0; s1--) {
-                CustomIDWork_SetDisp((CustomIDWork *)s0, 1);
-                s0 += 0x7C;
+                CustomIDWork_SetDisp(s0, 1);
+                s0++;
             }
         } else {
-            CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 1);
+            CustomIDWork_SetDisp(&self->elem[id], 1);
         }
     } else {
-        if (a1 == 0x6F) {
-            char *s0 = a0 + 0x60;
+        if (id == COLISEUMEM_ELEM_NUM) {
+            CustomIDWork *s0 = self->elem;
             int s1;
             for (s1 = 0x6E; s1 >= 0; s1--) {
-                CustomIDWork_SetDisp((CustomIDWork *)s0, 0);
-                s0 += 0x7C;
+                CustomIDWork_SetDisp(s0, 0);
+                s0++;
             }
         } else {
-            CustomIDWork_SetDisp((CustomIDWork *)(a0 + (a1 * 0x7C + 0x60)), 0);
+            CustomIDWork_SetDisp(&self->elem[id], 0);
         }
     }
 }
@@ -61,13 +63,11 @@ struct T32 { int v[8]; };
 
 
 __attribute__((section(".text.SetCustomIDNumberIndexed_1DD648")))
-void SetCustomIDNumberIndexed_1DD648(int a0, unsigned int a1, int a2) {
+void SetCustomIDNumberIndexed_1DD648(Poker *self, unsigned int a1, int a2) {
     unsigned int i = a1 & 0xFFFF;
     if (i < 8) {
         struct T32 buf;
-        int t;
         buf = D_0042B5B0;
-        t = buf.v[i] * 0x7C + 0x60;
-        CustomIDWork_SetNumber((CustomIDWork *)(a0 + t), a2);
+        CustomIDWork_SetNumber(&self->elem[buf.v[i]], a2);
     }
 }

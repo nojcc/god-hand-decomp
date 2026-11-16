@@ -2,6 +2,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
@@ -34,54 +35,52 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
  * StoreMotionParamsBoth_2609A8, InitRenderStruct_2A8608 and 10 more. */
 __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
 {
-    char *s1 = (char *)self;
-
-    *(char *)(s1 + 0x186A) = 2;
-    *(int *)(s1 + 0x16D4) |= 0x400;
+    self->unk186A = 2;
+    self->emFlags2 |= 0x400;
     CheckSlotsShort2FEAndSetByte1864_262A10(self);
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->step) {
         case 0: {
             int gb;
             int a1v, a2v;
             char *p;
-            char *q;
+            cOmWeapon *q;
 
-            *(char *)(s1 + 0x1864) = 0;
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            p = *(char **)(s1 + 0x304);
-            q = *(char **)(s1 + 0x6EC);
+            self->unk1864 = 0;
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            p = self->pack;
+            q = self->unk6EC;
             a1v = EM_RES_REC((int)p, 0x4A4);
-            *(int *)(s1 + 0x5F0) = 0x14;
+            self->timerA = 0x14;
             if (q != 0) {
-                if (*(unsigned short *)(q + 0x2FE) == 0x368) {
+                if (q->base.actorId == 0x368) {
                     a1v = EM_RES_REC((int)p, 0x498);
                     a2v = EM_RES_REC((int)p, 0x49C);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        char *v1 = *(char **)(s1 + 0x304);
+                        char *v1 = self->pack;
                         a2v = EM_RES_REC((int)v1, 0x4A0);
                     }
-                    func_002A8578(s1, a1v, a2v, 3, 0.0f, gb, 0);
-                    *(int *)(s1 + 0x5F0) = 0x14;
+                    func_002A8578(self, a1v, a2v, 3, 0.0f, gb, 0);
+                    self->timerA = 0x14;
                     StoreMotionParamsBoth_2609A8(self, 0x3C, 0x13, 0x3B, 0, 0x111);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7E, 0, 2, *(void **)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7E, 0, 2, self->unk6EC);
                     } else {
-                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x79, 0, 2, *(void **)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x79, 0, 2, self->unk6EC);
                     }
-                } else if ((irand() & 1) != 0 || *(unsigned char *)(s1 + 0x2F7) != 0) {
-                    char *pb = *(char **)(s1 + 0x304);
+                } else if ((irand() & 1) != 0 || self->stepArg != 0) {
+                    char *pb = self->pack;
                     int m, k;
                     a2v = EM_RES_REC((int)pb, 0x4A8);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        char *v1 = *(char **)(s1 + 0x304);
+                        char *v1 = self->pack;
                         a2v = EM_RES_REC((int)v1, 0x4A8);
                     }
-                    func_002A8578(s1, a1v, a2v, 3, 0.0f, gb, 0);
-                    *(int *)(s1 + 0x5F0) = 0x14;
-                    if (*(unsigned char *)(s1 + 0x2F7) != 0) {
-                        *(int *)(s1 + 0x5F0) = 0xA;
+                    func_002A8578(self, a1v, a2v, 3, 0.0f, gb, 0);
+                    self->timerA = 0x14;
+                    if (self->stepArg != 0) {
+                        self->timerA = 0xA;
                     }
-                    m = *(unsigned short *)(*(char **)(s1 + 0x6EC) + 0x2FE);
+                    m = self->unk6EC->base.actorId;
                     if (m == 0x368)
                         goto bd;
                     if (m < 0x369) {
@@ -120,22 +119,22 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     StoreMotionParamsBoth_2609A8(self, 0x28, 0x12, 0x38, 0, 0x112);
                 bend:;
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7F, 0, 2, *(void **)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7F, 0, 2, self->unk6EC);
                     } else {
-                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7A, 0, 2, *(void **)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7A, 0, 2, self->unk6EC);
                     }
                 } else {
-                    char *pc = *(char **)(s1 + 0x304);
+                    char *pc = self->pack;
                     int m, k;
                     a1v = EM_RES_REC((int)pc, 0x474);
                     a2v = EM_RES_REC((int)pc, 0x478);
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        char *v1 = *(char **)(s1 + 0x304);
+                        char *v1 = self->pack;
                         a2v = EM_RES_REC((int)v1, 0x478);
                     }
-                    func_002A8578(s1, a1v, a2v, 3, 0.0f, gb, 0);
-                    *(int *)(s1 + 0x5F0) = 0x14;
-                    m = *(unsigned short *)(*(char **)(s1 + 0x6EC) + 0x2FE);
+                    func_002A8578(self, a1v, a2v, 3, 0.0f, gb, 0);
+                    self->timerA = 0x14;
+                    m = self->unk6EC->base.actorId;
                     if (m == 0x368)
                         goto cd;
                     if (m < 0x369) {
@@ -174,61 +173,61 @@ __attribute__((section(".text.func_00233738"))) void func_00233738(cEm00 *self)
                     StoreMotionParamsBoth_2609A8(self, 0x3C, 0x12, 0x39, 0, 0x112);
                 cend:;
                     if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x80, 0, 2, *(void **)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x80, 0, 2, self->unk6EC);
                     } else {
-                        InitRenderStruct_2A8608((cGameObj *)s1, 0x58, 0x7B, 0, 2, *(void **)(s1 + 0x6EC));
+                        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 0x7B, 0, 2, self->unk6EC);
                     }
                 }
             }
             switch (cCoreSave_getGameLevel(&D_00569B70)) {
                 case 1:
                 default:
-                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.75f);
+                    self->timerA = (int)((float)self->timerA * 0.75f);
                     break;
                 case 2:
-                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.8f);
+                    self->timerA = (int)((float)self->timerA * 0.8f);
                     break;
                 case 3:
                 case 4:
-                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.9f);
+                    self->timerA = (int)((float)self->timerA * 0.9f);
                     break;
                 case 5:
                     break;
             }
-            if (*(unsigned char *)(s1 + 0x2F7) != 0) {
-                *(int *)(s1 + 0x5F0) = 0xA;
+            if (self->stepArg != 0) {
+                self->timerA = 0xA;
             }
-            *(int *)(s1 + 0x5FC) = 0;
-            *(unsigned char *)(s1 + 0x2F6) += 1;
+            self->timerC = 0;
+            self->step += 1;
         }
             /* fallthrough */
         case 1:
-            if (*(int *)(s1 + 0x5F0) != 0) {
+            if (self->timerA != 0) {
                 char *v0;
-                *(int *)(s1 + 0x5F0) -= 1;
+                self->timerA -= 1;
                 v0 = (char *)Getplayer();
-                cGameObj_SetTgtTurn(s1, *(int *)(v0 + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634955f);
+                cGameObj_SetTgtTurn(self, *(int *)(v0 + 0xF0), self->speedRate * 0.19634955f);
             }
-            if (moveMotion(s1) != 0) {
-                cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-                cObjBase_addNullSpeed(s1, 1.0f);
-                func_002705D8(s1);
+            if (moveMotion(self) != 0) {
+                cObjBase_addNullSpeed_Rotation(self, 1.0f);
+                cObjBase_addNullSpeed(self, 1.0f);
+                func_002705D8(self);
                 return;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
     }
     func_00260B30(self);
-    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8((cEm00 *)s1) == 0 &&
-        (*(unsigned short *)(s1 + 0x3AC) & 0x10) != 0 && *(unsigned char *)(s1 + 0x1864) == 0 &&
+    if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && func_0026F1D8(self) == 0 &&
+        (self->seqFlags & 0x10) != 0 && self->unk1864 == 0 &&
         func_00262AA8(self) != 0) {
         return;
     }
-    if (*(unsigned short *)(s1 + 0x3AC) & 3) {
-        *(int *)(s1 + 0x5FC) = 1;
+    if (self->seqFlags & 3) {
+        self->timerC = 1;
     }
-    if (*(int *)(s1 + 0x5FC) != 0) {
-        *(int *)(s1 + 0x16D4) &= 0xFFFFFBFF;
+    if (self->timerC != 0) {
+        self->emFlags2 &= 0xFFFFFBFF;
     }
 }

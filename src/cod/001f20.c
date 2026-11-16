@@ -1,5 +1,4 @@
-#include "godhand/CustomIDWork.h"
-#include "godhand/cIDBase.h"
+#include "godhand/CustomIDPanel.h"
 
 extern void cIDBase(void *);
 
@@ -54,65 +53,54 @@ void ArenaEm_stepIntro(ArenaEm *self)
     }
 }
 
+/* Construct the panel: clear the flags, then construct both displays and their works. */
 __attribute__((section(".text.func_001F2708")))
-void *func_001F2708(void *a0) {
-    char *this = (char *)a0;
-    char *p;
+CustomIDPanel *func_001F2708(CustomIDPanel *self) {
+    CustomIDWork *p;
     int i;
 
-    *(int *)this = 0;
-    cIDBase(this + 0x10);
+    self->flags = 0;
+    cIDBase(&self->id);
 
-    p = this + 0x60;
+    p = self->work;
     /* `i != -1`, not `i >= 0`: retail materialises -1 and closes with bne. */
-    for (i = 0x11; i != -1; i--) {
-        CustomIDWork__ctor((CustomIDWork *)p);
-        p += 0x7C;
+    for (i = CIDPANEL_WORK_NUM - 1; i != -1; i--) {
+        CustomIDWork__ctor(p);
+        p++;
     }
 
-    cIDBase(this + 0x930);
+    cIDBase(&self->id2);
 
-    p = this + 0x980;
-    for (i = 2; i != -1; i--) {
-        CustomIDWork__ctor((CustomIDWork *)p);
-        p += 0x7C;
+    p = self->sub;
+    for (i = CIDPANEL_SUB_NUM - 1; i != -1; i--) {
+        CustomIDWork__ctor(p);
+        p++;
     }
 
-    return this;
+    return self;
 }
 
-extern void SetCustomIDDispOneOrAll_1F29C0(void *p, int n, int f);
-extern void CustomIDOwner_setPanelState(void *p, int a);
-
-#define UI_WORK_SIZE      0x7C          /* one CustomIDWork */
-#define UI_MAIN_IDBASE    0x10          /* first cIDBase inside the object */
-#define UI_MAIN_WORKS     0x60          /* its works */
-#define UI_MAIN_WORK_NUM  0x12
-#define UI_SUB_IDBASE     0x930         /* second cIDBase */
-#define UI_SUB_WORKS      0x980         /* its works */
-#define UI_SUB_WORK_NUM   3
-#define UI_SUB_TITLE      0xA78         /* the sub display's title work */
 #define UI_IDDATA_KIND    0x15
 #define UI_TITLE_MESS     0x300F
 
 /* Build the 18 custom-ID works of a UI object's main display and the 3 of its sub display, hide the main works, set the sub title message and run the final setup step. */
 __attribute__((section(".text.IdUi_initWorks")))
-void IdUi_initWorks(char *p)
+void IdUi_initWorks(CustomIDPanel *self)
 {
     int i;
     int j;
 
-    cIDBase_initialize((cIDBaseObj *)(p + UI_MAIN_IDBASE), UI_IDDATA_KIND, 1);
-    cIDBase_restartAnim((cIDBaseObj *)(p + UI_MAIN_IDBASE));
-    for (i = 0; i < UI_MAIN_WORK_NUM; i++) {
-        CustomIDWork_Initialize((CustomIDWork *)(p + UI_MAIN_WORKS + i * UI_WORK_SIZE), cIDBase_getIDWork((cIDBaseObj *)(p + UI_MAIN_IDBASE), i));
+    cIDBase_initialize(&self->id, UI_IDDATA_KIND, 1);
+    cIDBase_restartAnim(&self->id);
+    for (i = 0; i < CIDPANEL_WORK_NUM; i++) {
+        CustomIDWork_Initialize(&self->work[i], cIDBase_getIDWork(&self->id, i));
     }
-    SetCustomIDDispOneOrAll_1F29C0(p, 0x12, 0);
-    cIDBase_initialize((cIDBaseObj *)(p + UI_SUB_IDBASE), UI_IDDATA_KIND, 2);
-    cIDBase_restartAnim((cIDBaseObj *)(p + UI_SUB_IDBASE));
-    for (j = 0; j < UI_SUB_WORK_NUM; j++) {
-        CustomIDWork_Initialize((CustomIDWork *)(p + UI_SUB_WORKS + j * UI_WORK_SIZE), cIDBase_getIDWork((cIDBaseObj *)(p + UI_SUB_IDBASE), j));
+    SetCustomIDDispOneOrAll_1F29C0(self, CIDPANEL_WORK_NUM, 0);
+    cIDBase_initialize(&self->id2, UI_IDDATA_KIND, 2);
+    cIDBase_restartAnim(&self->id2);
+    for (j = 0; j < CIDPANEL_SUB_NUM; j++) {
+        CustomIDWork_Initialize(&self->sub[j], cIDBase_getIDWork(&self->id2, j));
     }
-    CustomIDWork_SetMessNo((CustomIDWork *)(p + UI_SUB_TITLE), UI_TITLE_MESS);
-    CustomIDOwner_setPanelState(p, 0);
+    CustomIDWork_SetMessNo(&self->sub[2], UI_TITLE_MESS);
+    CustomIDOwner_setPanelState(self, 0);
 }

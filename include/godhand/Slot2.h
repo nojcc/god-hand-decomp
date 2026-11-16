@@ -12,6 +12,8 @@
 #ifndef GODHAND_SLOT2_H
 #define GODHAND_SLOT2_H
 
+#include "godhand/SlotUi.h"
+
 #define SLOT2_REEL_NUM     3
 #define SLOT2_REEL_SIZE    0xE8
 #define SLOT2_BET_MAX      3         /* bet level 0..3 */
@@ -67,10 +69,8 @@ typedef struct Slot2 {
     char unk3EA[2];
     int seId[3];                    /* 0x3EC sound handle per reel */
     char unk3F8[8];
-    char layer[0x50];               /* 0x400 */
-    char customId[0x5A];            /* 0x450 */
-    unsigned short scroll;          /* 0x4AA */
-    char unk4AC[0x5D4];
+    SlotUi layer;                   /* 0x400 */
+    char unkA7C[4];
     unsigned short menuSel;         /* 0xA80 menu cursor 0..7 */
 } Slot2;                            /* at least 0xA82 */
 
@@ -78,5 +78,10 @@ typedef struct Slot2 {
 typedef char Slot2_layer_check[(int)&((Slot2 *)0)->layer == 0x400 ? 1 : -1];
 typedef char Slot2_seId_check[(int)&((Slot2 *)0)->seId == 0x3EC ? 1 : -1];
 typedef char Slot2_menuSel_check[(int)&((Slot2 *)0)->menuSel == 0xA80 ? 1 : -1];
+
+/* Step the prize board (Slot2.panel, Slot1.panel). */
+void func_001E79E8(void *panel);
+/* Clear a prize board's first 0x54 bytes and store id in its first word. */
+void InitClearStructAndSet_1E79A8(Slot2Panel *self, int id);
 
 #endif

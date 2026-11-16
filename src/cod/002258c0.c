@@ -1,12 +1,13 @@
 #include "godhand/cEm00.h"
 #include "godhand/cOmBase.h"
 #include "godhand/motion.h"
+#include "godhand/capVu0.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
-extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
+extern char *ObjList_findActor3D1(void);
+extern void cGameObj_SetTgtTurn(void *a0, cVec *a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
@@ -45,17 +46,17 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
     char *s3;
     int gb;
 
-    *(char *)((char *)self + 0x186A) = 2;
+    self->unk186A = 2;
     self->emFlags2 |= 0x400;
-    s3 = (char *)ObjList_findActor3D1();
+    s3 = ObjList_findActor3D1();
     CheckSlotsShort2FEAndSetByte1864_262A10(self);
     switch (self->step) {
         case 0: {
             char *v0;
-            *(char *)((char *)self + 0x1864) = 0;
+            self->unk1864 = 0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             StoreMotionParamsBoth_2609A8(self, 0x28, 0xA, 0x42, 0, 0xF5);
-            v0 = *(char **)((char *)self + 0x304);
+            v0 = self->pack;
             func_002A8578(self, *(int *)(v0 + 0x2060) + (int)v0, *(int *)(v0 + 0x2064) + (int)v0,
                           0xA, 0.0f, gb, 0);
             self->timerC = 0;
@@ -64,7 +65,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             /* fallthrough */
         case 1:
             if (s3 != 0) {
-                cGameObj_SetTgtTurn(self, *(int *)(s3 + 0xF0), self->speedRate * 0.19634955f);
+                cGameObj_SetTgtTurn(self, *(cVec **)(s3 + 0xF0), self->speedRate * 0.19634955f);
             }
             if (moveMotion(self) != 0) {
                 self->step += 1;
@@ -76,11 +77,11 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             char *v0;
             int a1v, a2v;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            v0 = *(char **)((char *)self + 0x304);
+            v0 = self->pack;
             a1v = *(int *)(v0 + 0x2068) + (int)v0;
             a2v = *(int *)(v0 + 0x206C) + (int)v0;
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                char *v1 = *(char **)((char *)self + 0x304);
+                char *v1 = self->pack;
                 a2v = *(int *)(v1 + 0x2070) + (int)v1;
             }
             func_002A8578(self, a1v, a2v, 3, 0.0f, gb, 0);
@@ -92,8 +93,8 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
         case 3: {
             float d;
             if (s3 != 0) {
-                cGameObj_SetTgtTurn(self, *(int *)(s3 + 0xF0), self->speedRate * 0.19634955f);
-                if (capVu0MagnitudeSqXZ(*(void **)((char *)self + 0xF0), *(void **)(s3 + 0xF0)) <
+                cGameObj_SetTgtTurn(self, *(cVec **)(s3 + 0xF0), self->speedRate * 0.19634955f);
+                if (capVu0MagnitudeSqXZ(self->pos, *(cVec **)(s3 + 0xF0)) <
                     4.0f) {
                     self->step = 6;
                 }
@@ -116,7 +117,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             int gb;
             char *v1;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            v1 = *(char **)((char *)self + 0x304);
+            v1 = self->pack;
             func_002A8578(self, *(int *)(v1 + 0x2074) + (int)v1, *(int *)(v1 + 0x2078) + (int)v1, 3,
                           0.0f, gb, 0);
             self->step += 1;
@@ -134,13 +135,13 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             int gb;
             char *v1;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            v1 = *(char **)((char *)self + 0x304);
+            v1 = self->pack;
             func_002A8578(self, *(int *)(v1 + 0x207C) + (int)v1, *(int *)(v1 + 0x2080) + (int)v1, 3,
                           z, gb, 0);
-            *(int *)((char *)self + 0x70C) = 0;
+            self->unk70C = 0;
             if (s3 != 0) {
                 float buf[8];
-                *(int *)((char *)self + 0x70C) = (int)s3;
+                self->unk70C = (int)s3;
                 VU0_SQC2_VF0(buf, 0x0);
                 VU0_SQC2_VF0(buf, 0x10);
                 buf[0] = z;
@@ -166,28 +167,26 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
                 float dt = self->speedRate;
                 self->timer = cur - dt;
                 if (s3 != 0) {
-                    cGameObj_SetTgtTurn(self, *(int *)(s3 + 0xF0), dt * 0.19634955f);
+                    cGameObj_SetTgtTurn(self, *(cVec **)(s3 + 0xF0), dt * 0.19634955f);
                 }
             }
             func_00262750(self, 3);
             if (moveMotion(self) != 0) {
-                *(char *)((char *)self + 0x2F4) = 0;
+                self->mode = 0;
                 self->phase = 0x6C;
-                *(char *)((char *)self + 0x2F6) = 0;
-                *(char *)((char *)self + 0x2F7) = 0;
+                self->step = 0;
+                self->stepArg = 0;
             }
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
             cObjBase_addNullSpeed(self, 1.0f);
             if (self->seqFlags & 2) {
-                if (*(int *)((char *)self + 0x70C) != 0) {
-                    int nv = *(unsigned short *)((char *)self + 0x54A) + 0x12C;
-                    *(unsigned short *)((char *)self + 0x54A) = (unsigned short)nv;
-                    if (self->hpMax < (short)nv) {
-                        *(unsigned short *)((char *)self + 0x54A) =
-                            *(unsigned short *)((char *)self + 0x548);
+                if (self->unk70C != 0) {
+                    self->hp += 0x12C;
+                    if (self->hpMax < self->hp) {
+                        self->hp = self->hpMax;
                     }
                     cOmBase_dieCommon(*(void **)((char *)self + 0x70C));
-                    *(int *)((char *)self + 0x70C) = 0;
+                    self->unk70C = 0;
                 }
             }
             break;
@@ -196,7 +195,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             int gb;
             char *v1;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            v1 = *(char **)((char *)self + 0x304);
+            v1 = self->pack;
             func_002A8578(self, *(int *)(v1 + 0x20A4) + (int)v1, *(int *)(v1 + 0x20A8) + (int)v1, 3,
                           0.0f, gb, 0);
             self->step += 1;

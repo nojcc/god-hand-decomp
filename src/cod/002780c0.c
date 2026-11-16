@@ -1,37 +1,40 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cGameObj.h"
 
-extern unsigned char D_00447D48[];
+extern cVtEnt D_00447D48[];
 extern void func_002A84A8(void *p);
 extern void cCollisionSolidManage_ReleaseUnit_278368(void *p);
-extern unsigned char D_004481A8[];
+extern cVtEnt D_004481A8[];
 extern void EnemyOwner_releaseChild(void *p);
-extern unsigned char D_00448598[];
+extern cVtEnt D_00448598[];
 extern void ForwardDispatchByMode_27F170(void *p);
 
+/* Destructor of the enemy with method table D_00447D48. */
 __attribute__((section(".text.func_002780C0")))
-void func_002780C0(void *p, int f)
+void func_002780C0(struct cGameObj *self, int flags)
 {
-    *(void **)((char *)p + 0x214) = (void *)D_00447D48;
-    func_002A84A8(p);
-    cCollisionSolidManage_ReleaseUnit_278368(p);
-    func_0028EB88(p, f);
+    self->vtable = D_00447D48;
+    func_002A84A8(self);
+    cCollisionSolidManage_ReleaseUnit_278368(self);
+    func_0028EB88(self, flags);
 }
 
+/* Destructor of the enemy with method table D_004481A8: release its child first. */
 __attribute__((section(".text.func_0027B7C0")))
-void func_0027B7C0(void *p, int f)
+void func_0027B7C0(struct cGameObj *self, int flags)
 {
-    *(void **)((char *)p + 0x214) = (void *)D_004481A8;
-    func_002A84A8(p);
-    EnemyOwner_releaseChild(p);
-    func_0028EB88(p, f);
+    self->vtable = D_004481A8;
+    func_002A84A8(self);
+    EnemyOwner_releaseChild(self);
+    func_0028EB88(self, flags);
 }
 
+/* Destructor of the enemy with method table D_00448598. */
 __attribute__((section(".text.func_0027EEC0")))
-void func_0027EEC0(void *p, int f)
+void func_0027EEC0(struct cGameObj *self, int flags)
 {
-    *(void **)((char *)p + 0x214) = (void *)D_00448598;
-    func_002A84A8(p);
-    ForwardDispatchByMode_27F170(p);
-    func_0028EB88(p, f);
+    self->vtable = D_00448598;
+    func_002A84A8(self);
+    ForwardDispatchByMode_27F170(self);
+    func_0028EB88(self, flags);
 }

@@ -4,20 +4,18 @@
 #include "godhand/criStm.h"
 #include "godhand/cEm00.h"
 #include "godhand/heapArena.h"
-#include "godhand/Slot2.h"
+#include "godhand/Slot1.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
+#include "godhand/DispMgr.h"
 
 extern char D_0044E030[];
 extern char D_0044E040[];
 extern unsigned int D_00747A34;
 extern void displayScrollLayer(int id, int on);
-extern void func_0013ECF0(void *p);
 extern void Obj0000_Clear_Fields_94_9C_13C808(void *p);
 extern void ClearFields_A0_250_358_13F2F8(void *p);
-extern void ClearFields94And9C_13E7D8(void *p);
-extern void ClearFields_B0_AC_147018(void *p);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
 extern char D_0042CAB8[];
 
@@ -113,77 +111,45 @@ void FileBuf_init(void)
     }
 }
 
-#define SLOT2_OFFSET_MODE     0x48E     /* ushort: display mode, 0 to 3 */
-#define SLOT2_OFFSET_LAYER_0  0x434     /* layer ids, not named in Slot2.h */
-#define SLOT2_OFFSET_LAYER_1  0x438
-#define SLOT2_OFFSET_LAYER_2  0x43C
-#define SLOT2_OFFSET_LAYER_3  0x440
-#define SLOT2_OFFSET_LAYER_4  0x444
-#define SLOT2_LAYER(self, off) (*(int *)((char *)(self) + (off)))
-#define SLOT2_MODE(self)       (*(unsigned short *)((char *)(self) + SLOT2_OFFSET_MODE))
+#define BET_LAYER  13     /* scrollLayer[] index of the first of the five bet layers */
 
-/* Show the scroll layers for the mode: 0 shows none, 1 shows layer 0, 2 shows layers 0 to 2, 3 shows all five. */
+/* Show the bet layers for betLv: 0 shows none, 1 the first, 2 the first three, 3 all five. */
 __attribute__((section(".text.Slot2_showLayersForMode")))
-void Slot2_showLayersForMode(Slot2 *self)
+void Slot2_showLayersForMode(Slot1 *self)
 {
-    switch (SLOT2_MODE(self)) {
+    switch (self->betLv) {
     case 0:
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_0), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_1), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_2), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_3), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_4), 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 1], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 2], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 3], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 4], 0);
         break;
     case 1:
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_0), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_1), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_2), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_3), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_4), 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 1], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 2], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 3], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 4], 0);
         break;
     case 2:
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_0), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_1), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_2), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_3), 0);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_4), 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 1], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 2], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 3], 0);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 4], 0);
         break;
     case 3:
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_0), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_1), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_2), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_3), 1);
-        displayScrollLayer(SLOT2_LAYER(self, SLOT2_OFFSET_LAYER_4), 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 1], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 2], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 3], 1);
+        displayScrollLayer(self->scrollLayer[BET_LAYER + 4], 1);
         break;
     }
 }
 
-#define MGR_SLOT_NUM  17
 
-/* One registered object: the manager keeps its pointer at +4. */
-typedef struct MgrSlot {
-    int unk0;
-    void *obj;                          /* 0x4 */
-    int unk8;
-} MgrSlot;
-
-/* A g++ 2.x virtual table entry. */
-typedef struct VtEnt {
-    short delta;
-    short index;
-    void (*pfn)(void *self);
-} VtEnt;
-
-/* The manager: eleven sub-records at fixed offsets, then the slot table at 0x22F0. */
-typedef struct DispMgr {
-    char unk0000[0x22F0];
-    MgrSlot slot[MGR_SLOT_NUM];         /* 0x22F0 */
-    unsigned char ready;                /* 0x23BC */
-} DispMgr;
-
-
-extern void DispMgr_registerSub(DispMgr *mgr, void *sub, int kind);
-extern void SetupFields10And14_13D3C0(DispMgr *mgr);
 
 
 
@@ -191,18 +157,14 @@ extern void SetupFields10And14_13D3C0(DispMgr *mgr);
 
 
 #define MGR_SUB(m, ofs)  ((char *)(m) + (ofs))
-#define OBJ_VT(o)        (*(VtEnt **)((char *)(o) + 0x80))
-#define VT_RESET         2              /* vtable entry called on every registered object */
 
 /* Reset the manager: clear the slot table, set up the eleven sub-records, then call the reset method of every registered object. */
 __attribute__((section(".text.DispMgr_reset")))
 void DispMgr_reset(DispMgr *self)
 {
     int i;
-    void **po;
 
-    func_003A52F0(MGR_SUB(self, 0x22F0), 0, MGR_SLOT_NUM * 12);
-    po = &self->slot[0].obj;
+    func_003A52F0(self->slot, 0, sizeof(self->slot));
     DispMgr_registerSub(self, MGR_SUB(self, 0x6E0), 1);
     DispMgr_registerSub(self, MGR_SUB(self, 0x460), 3);
     DispMgr_registerSub(self, MGR_SUB(self, 0xEA0), 6);
@@ -212,20 +174,19 @@ void DispMgr_reset(DispMgr *self)
     DispMgr_registerSub(self, MGR_SUB(self, 0x1520), 14);
     DispMgr_registerSub(self, MGR_SUB(self, 0x15C0), 9);
     DispMgr_registerSub(self, MGR_SUB(self, 0x1CB0), 15);
-    DispMgr_registerSub(self, MGR_SUB(self, 0x1910), 16);
+    DispMgr_registerSub(self, &self->item, 16);
     DispMgr_registerSub(self, MGR_SUB(self, 0x1AE0), 17);
-    SetupFields10And14_13D3C0(self);
-    func_0013ECF0(MGR_SUB(self, 0x3A0));
-    Obj0000_Clear_Fields_94_9C_13C808(MGR_SUB(self, 0x1DC0));
+    SetupFields10And14_13D3C0(&self->panel);
+    func_0013ECF0(&self->loading);
+    Obj0000_Clear_Fields_94_9C_13C808(&self->bossBar);
     ClearFields_A0_250_358_13F2F8(MGR_SUB(self, 0x1E90));
-    ClearFields94And9C_13E7D8(MGR_SUB(self, 0x2220));
-    ClearFields_B0_AC_147018(MGR_SUB(self, 0x1A20));
-    for (i = MGR_SLOT_NUM - 1; i >= 0; i--) {
-        void *o = *po;
+    ClearFields94And9C_13E7D8(&self->lastBossBar);
+    ClearFields_B0_AC_147018(&self->tutorial);
+    for (i = 0; i < DISPMGR_SLOT_NUM; i++) {
+        DispMgrSub *o = self->slot[i].obj;
         if (o != 0) {
-            OBJ_VT(o)[VT_RESET].pfn((char *)o + OBJ_VT(o)[VT_RESET].delta);
+            o->vt[DISPMGR_SUB_RESET].pfn((char *)o + o->vt[DISPMGR_SUB_RESET].delta);
         }
-        po = (void **)((char *)po + sizeof(MgrSlot));
     }
     self->ready = 0;
 }

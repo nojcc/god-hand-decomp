@@ -1,23 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/Poker.h"
 
-extern void func_001DE858(void *a0, int a1);
-extern void func_001DD770(void *a0, int a1);
-extern void func_001DD840(void *a0, int a1);
-extern void func_001DD910(void *a0, int a1);
-extern void func_001DD9E0(void *a0, int a1);
-extern float D_00568170[];
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
-
-
-
-
-
-
 
 static inline unsigned char DecCount(int *p)
 {
@@ -29,77 +15,76 @@ static inline unsigned char DecCount(int *p)
 }
 
 __attribute__((section(".text.func_001DA2A8")))
-void func_001DA2A8(void *a0)
+void func_001DA2A8(Poker *self)
 {
-    char *s0 = (char *)a0;
 
-    switch (*(unsigned char *)(s0 + 0x3025)) {
+    switch (self->phase) {
     case 0:
-        func_001DE858(s0, 0xFF);
-        *(int *)(s0 + 0x3028) = 1;
-        *(unsigned char *)(s0 + 0x3025) += 1;
+        func_001DE858(self, 0xFF);
+        self->timer = 1;
+        self->phase += 1;
         break;
     case 1: {
-        char **p;
+        BlackJackCard **p;
         int i;
-        if (DecCount((int *)(s0 + 0x3028)) == 0) {
+        if (DecCount(&self->timer) == 0) {
             break;
         }
-        p = (char **)(s0 + 0x3004);
+        p = self->hand;
         for (i = 0; i < 5; i++) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 1, *(void **)(p[i]), 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 1, p[i]->obj, 0, 0, 0, 0);
         }
-        *(int *)(s0 + 0x302C) = 0xF;
-        *(unsigned char *)(s0 + 0x3025) += 1;
+        self->unk302C = 0xF;
+        self->phase += 1;
         break;
     }
     case 2: {
-        char **p;
-        float *q;
+        BlackJackCard **p;
+        cVec *q;
         int i;
-        p = (char **)(s0 + 0x3004);
+        p = self->hand;
         q = D_00568170;
         for (i = 4; i >= 0; i--) {
-            *(float *)(*(int *)(*(int *)(*p) + 0xF0)) =
-                -((15.0f - (float)*(int *)(s0 + 0x302C)) / 15.0f) + *q;
+            *(*p)->obj->pos =
+                -((15.0f - (float)self->unk302C) / 15.0f) + q->x;
             p++;
-            q += 4;
+            q++;
         }
-        if (*(int *)(s0 + 0x302C) == 0) {
-            *(unsigned char *)(s0 + 0x3025) += 1;
+        if (self->unk302C == 0) {
+            self->phase += 1;
         } else {
-            *(int *)(s0 + 0x302C) -= 1;
+            self->unk302C -= 1;
         }
         break;
     }
     case 3: {
-        char **p;
+        BlackJackCard **p;
         long fl;
         int i;
-        p = (char **)(s0 + 0x3004);
+        p = self->hand;
         for (i = 4; i >= 0; i--) {
-            *(int *)(*(int *)(*p) + 0x250) |= 2;
+            (*p)->obj->flags |= 2;
             p++;
         }
-        fl = *(unsigned int *)(s0 + 0x3020);
+        fl = (unsigned int)self->flags;
         if (((fl >> 2) & 1) == 1) {
-            *(unsigned char *)(s0 + 0x3024) = 0xC;
-            *(int *)(s0 + 0x3020) &= -5;
-            *(unsigned char *)(s0 + 0x3025) = 0;
+            self->state = 0xC;
+            self->flags &= -5;
+            self->phase = 0;
         } else {
-            func_001DD770(s0, 2);
-            func_001DD840(s0, 2);
-            func_001DD910(s0, 2);
-            func_001DD9E0(s0, 2);
-            *(int *)(s0 + 0x3028) = 0x1E;
-            *(unsigned char *)(s0 + 0x3025) += 1;
+            func_001DD770(self, 2);
+            func_001DD840(self, 2);
+            func_001DD910(self, 2);
+            func_001DD9E0(self, 2);
+            self->timer = 0x1E;
+            self->phase += 1;
         }
         break;
     }
     case 4: {
-        if (DecCount((int *)(s0 + 0x3028)) != 0) {
-            *(unsigned char *)(s0 + 0x3024) = 0;
-            *(unsigned char *)(s0 + 0x3025) = 0;
+        if (DecCount(&self->timer) != 0) {
+            self->state = 0;
+            self->phase = 0;
         }
         break;
     }

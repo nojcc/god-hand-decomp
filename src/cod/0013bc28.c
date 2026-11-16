@@ -3,14 +3,14 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/cIDBase.h"
-#include "godhand/CustomIDWork.h"
+#include "godhand/idSet.h"
+#include "godhand/CustomIDPanel.h"
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
 
 extern int D_00747A78;
 extern cOmBase *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
-extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int id, int on);
 extern int ChkLine(cVec *from, cVec *to, cVec *hit, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
 
 #define SYSFLAG_FREEZE  0x40000000      /* bit of D_00747A78: the game is frozen */
@@ -38,48 +38,33 @@ void cEmNear_updateNearPlayer(cEmNear *self) {
     }
 }
 
-/* Number display: shows or hides the five digit elements 0xD..0x11, then sets the number in the work at 0x728. */
+/* Number display: shows or hides the five digit works 0xD..0x11, then sets the number in work 14. */
 __attribute__((section(".text.DigitDisplay_setNumber")))
-void DigitDisplay_setNumber(char *self, int on, int value) {
+void DigitDisplay_setNumber(CustomIDPanel *self, int on, int value) {
     SetCustomIDDispOneOrAll_1F29C0(self, 0xD, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0xE, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0xF, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0x10, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0x11, on);
-    CustomIDWork_SetNumber((CustomIDWork *)(self + 0x728), value);
+    CustomIDWork_SetNumber(&self->work[14], value);
 }
 
-#define IDSET_WORK_NUM  13
-
-typedef struct IdSet {
-    char unk000[0x90];
-    int unk90;                          /* 0x90 */
-    char unk94[0xC];
-    float x;                            /* 0xA0 */
-    float y;                            /* 0xA4 */
-    char unkA8[8];
-    cIDBaseEnt *work[IDSET_WORK_NUM];   /* 0xB0 the display entries; the first one's position is mirrored at 0xA0 */
-    char unkE4Pad[0xE4 - 0xB0 - 4 * IDSET_WORK_NUM];
-    int unkE4;                          /* 0xE4 */
-} IdSet;
 
 /* Builds the id set (kind 4): collects the 13 element works and copies the first one's position. */
 __attribute__((section(".text.func_0013BC28")))
 void func_0013BC28(IdSet *self) {
-    cIDBaseEnt **tbl = self->work;
     unsigned short i;
 
     self->unk90 = 0;
-    cIDBase_initialize((cIDBaseObj *)self, 1, 4);
+    cIDBase_initialize(&self->base, 1, 4);
     i = 0;
     do {
-        /* byte-offset form: tbl[i] swaps the addu operands */
-        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork((cIDBaseObj *)self, i);
+        self->work[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
     } while (i < IDSET_WORK_NUM);
     self->x = self->work[0]->posX;
     self->y = self->work[0]->posY;
-    self->unkE4 = -1;
+    self->msg = -1;
 }
 
 #define FRAME ((char *)&from - 0x30)

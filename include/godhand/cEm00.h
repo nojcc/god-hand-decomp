@@ -224,7 +224,7 @@ typedef struct cEm00 {
     struct cOmWeapon *fx6;                  /* 0x708 */
     int unk70C;                             /* 0x70C attached object, updated with func_001C2378 */
     struct cOmWeapon *heldWeapon[EM_WEAPON_NUM]; /* 0x710 enemy 0x211's weapons, 0 = empty slot */
-    int unk730;                             /* 0x730 effect handle, released when moveFlags bit 0 is set */
+    struct cOmWeapon *unk730;               /* 0x730 linked weapon, released with func_001D0108 when moveFlags bit 0 is set */
     struct cOmWeapon *unk734;               /* 0x734 kind 0x369 */
     void *gotoEffect;                       /* 0x738 effect a goto drops (func_001D0408) */
     char unk73C[0x4];
@@ -238,7 +238,9 @@ typedef struct cEm00 {
     float unk760;                           /* 0x760 */
     char unk764[0x4];
     float unk768;                           /* 0x768 angle tested against pi/4 before the attack */
-    char unk76C[0x194];
+    float unk76C;                           /* 0x76C */
+    float unk770;                           /* 0x770 */
+    char unk774[0x18C];
     int unk900;                             /* 0x900 countdown of the derived enemy, ticks down once per frame */
     char unk904[0xC58];
     int unk155C;                            /* 0x155C bits 0 and 1 pick the alternate textures of enemies 0x2A7, 0x2A9 and 0x2AB */
@@ -381,6 +383,8 @@ int func_00262AA8(cEm00 *self);
 int func_0026F120(cEm00 *self);
 /* 1 while unk17CC is positive, else 0. */
 int func_0026F1D8(cEm00 *self);
+/* 1 when the enemy holds nothing (slots 0x6EC, fx0, fx4, fx5) and its kind is not one of 20 listed, else 0. */
+int func_002740D8(cEm00 *self);
 /* Picks the next action once the enemy's motion ends. */
 void func_00270C78(cEm00 *self);
 /* Empty in retail; self is not read. */

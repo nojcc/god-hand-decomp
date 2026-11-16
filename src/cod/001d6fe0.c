@@ -8,7 +8,6 @@ extern void Obj0000_Init_Fields_00_04_1D6DB0(void *a0);
 
 
 
-extern void func_001DF858(Poker *a0);
 /* Constructor: set up the 52 deck nodes and the display node, then clear flags, bet and the hand. */
 __attribute__((section(".text.Poker__ctor")))
 Poker *Poker__ctor(Poker *this) {

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
-#include "godhand/cIDBase.h"
+#include "godhand/cCockItem.h"
 
 extern char *D_003BD6E8;
 extern void func_00143A90(char *a0);
@@ -32,22 +32,20 @@ void Slot1_endGameStep(char *self) {
     }
 }
 
-/* Set up two id works: initialise the id manager, fetch each work into the table at +0x9C, clear the counter at +0x90. */
+/* Set up the count display, cache its two entries in ent and forget the ticket. */
 
 
 
 __attribute__((section(".text.InitTwoIdWorks")))
-void InitTwoIdWorks(void *a0) {
-    cIDBaseEnt **tbl;
+void InitTwoIdWorks(cCockItem *self) {
     unsigned short i;
-    tbl = (cIDBaseEnt **)((char *)a0 + 0x9C);
-    cIDBase_initialize(a0, 1, 0x1F);
+    cIDBase_initialize(&self->base, 1, 0x1F);
     i = 0;
     do {
-        *(cIDBaseEnt **)((char *)tbl + (i << 2)) = cIDBase_getIDWork(a0, i);
+        self->ent[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
-    } while (i < 2);
-    *(int *)((char *)a0 + 0x90) = 0;
+    } while (i < COCKITEM_ENT_NUM);
+    self->ticket = 0;
 }
 
 /* PLAY stage of a two-phase scene: start it on phase 0, step it until it ends, then fall back to the next stage. */

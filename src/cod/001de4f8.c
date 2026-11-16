@@ -1,11 +1,12 @@
 /* sn-2.95.3-136: CustomID panel helpers (offset slides, scale/colour pulses on 0x7C-byte works at +0x60). */
 #include "godhand/CustomIDPanel.h"
+#include "godhand/Poker.h"
 
 extern CustomIDSlotTbl8 D_0042B678;
 extern CustomIDSlotTbl8 D_0042B698;
 
 __attribute__((section(".text.func_001DE5F8")))
-void func_001DE5F8(char *self, unsigned char sel, unsigned char mode)
+void func_001DE5F8(Poker *self, unsigned char sel, unsigned char mode)
 {
     CustomIDSlotTbl8 ids;
     unsigned int i;
@@ -19,22 +20,22 @@ void func_001DE5F8(char *self, unsigned char sel, unsigned char mode)
         switch (mode) {
         default:
         case 0:
-            CustomIDWork_SetOffsetPosX((CustomIDWork *)(self + 0x1E68), -0x1C2);
+            CustomIDWork_SetOffsetPosX(&self->elem[0x3E], -0x1C2);
             break;
         case 1:
-            CustomIDWork_SetOffsetPosX((CustomIDWork *)(self + 0x1E68), 0);
+            CustomIDWork_SetOffsetPosX(&self->elem[0x3E], 0);
             SetCustomIDDispOneOrAll_1DD258(self, ids.w[sel], 1);
             SetCustomIDDispOneOrAll_1DD258(self, 0x3E, 1);
             SetCustomIDDispOneOrAll_1DD258(self, 0x47, 1);
             break;
         case 2:
-            CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(self + 0x1E68), -0x1C2, 0, 0xA);
+            CustomIDWork_SetMoveOffsetPosX(&self->elem[0x3E], -0x1C2, 0, 0xA);
             SetCustomIDDispOneOrAll_1DD258(self, ids.w[sel], 1);
             SetCustomIDDispOneOrAll_1DD258(self, 0x3E, 1);
             SetCustomIDDispOneOrAll_1DD258(self, 0x47, 1);
             break;
         case 3:
-            CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)(self + 0x1E68), 0, 0x1C2, 0xA);
+            CustomIDWork_SetMoveOffsetPosX(&self->elem[0x3E], 0, 0x1C2, 0xA);
             SetCustomIDDispOneOrAll_1DD258(self, ids.w[sel], 1);
             SetCustomIDDispOneOrAll_1DD258(self, 0x3E, 1);
             SetCustomIDDispOneOrAll_1DD258(self, 0x47, 1);
@@ -44,7 +45,7 @@ void func_001DE5F8(char *self, unsigned char sel, unsigned char mode)
 }
 
 __attribute__((section(".text.func_001DE858")))
-void func_001DE858(char *self, unsigned char sel)
+void func_001DE858(Poker *self, unsigned char sel)
 {
     CustomIDSlotTbl8 ids;
     unsigned int i;
@@ -52,17 +53,17 @@ void func_001DE858(char *self, unsigned char sel)
 
     ids = D_0042B698;
     for (i = 0; i < 8; i++)
-        CustomIDWork_ResetColorAnim((CustomIDWork *)(self + (ids.w[i] * 0x7C + 0x60)));
-    CustomIDWork_ResetColorAnim((CustomIDWork *)(self + 0xDF0));
-    CustomIDWork_SetOffsetPosY((CustomIDWork *)(self + 0xDF0), 0);
+        CustomIDWork_ResetColorAnim(&self->elem[ids.w[i]]);
+    CustomIDWork_ResetColorAnim(&self->elem[0x1C]);
+    CustomIDWork_SetOffsetPosY(&self->elem[0x1C], 0);
     SetCustomIDDispOneOrAll_1DD258(self, 0x1C, 0);
     if (sel < 8) {
         hi.r = 0xE1; hi.g = 0x51; hi.b = 0x13; hi.a = 0x80;
-        CustomIDWork_SetColorAnimNormal_2D6898((CustomIDWork *)(self + (ids.w[sel] * 0x7C + 0x60)), *(unsigned int *)&hi, 1);
+        CustomIDWork_SetColorAnimNormal_2D6898(&self->elem[ids.w[sel]], *(unsigned int *)&hi, 1);
         from.r = 0x60; from.g = 0x60; from.b = 0x60; from.a = 0x50;
         to.r = 0xA0; to.g = 0xA0; to.b = 0xA0; to.a = 0x80;
-        CustomIDWork_SetColorAnimSin((CustomIDWork *)(self + 0xDF0), *(unsigned int *)&from, *(unsigned int *)&to, 3);
-        CustomIDWork_SetOffsetPosY((CustomIDWork *)(self + 0xDF0), sel * 17);
+        CustomIDWork_SetColorAnimSin(&self->elem[0x1C], *(unsigned int *)&from, *(unsigned int *)&to, 3);
+        CustomIDWork_SetOffsetPosY(&self->elem[0x1C], sel * 17);
         SetCustomIDDispOneOrAll_1DD258(self, 0x1C, 1);
     }
 }

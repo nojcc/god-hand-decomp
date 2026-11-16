@@ -4,6 +4,8 @@
 #include "godhand/cIDBase.h"
 #include "godhand/cDvd.h"
 #include "godhand/heapArena.h"
+#include "godhand/ColiseumEmSelect.h"
+#include "godhand/JukeBox.h"
 
 /* ──────────────────────────── small picks ─────────────────────────────── */
 
@@ -62,21 +64,19 @@ void *GetPilotClassDesc2_2BA948(void) {
 
 /* ─────────────────────────── medium picks ─────────────────────────────── */
 
-/* ResetAnimState_1F5EF8: jal cIDBase_restartAnim + 4-arg jal classFADE_start + 1-arg jal
- *                cTaskWork_sleep via vtable; sets bytes 0..3 of $a0 struct;
- *                29 insns, 116 B. */
+/* Juke box state 0: restart the ID animation, set the state bytes, start a fade in and sleep the task 10 frames. */
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, int f, int g);
 extern void cTaskWork_sleep(void *p, int a);
 extern int D_00747470;
 extern void *D_003C2F84;
 
 __attribute__((section(".text.ResetAnimState_1F5EF8")))
-void ResetAnimState_1F5EF8(unsigned char *this) {
-    cIDBase_restartAnim((cIDBaseObj *)(this + 0x30));
-    this[0] = 1;
-    this[1] = 1;
-    this[2] = 0;
-    this[3] = 0;
+void ResetAnimState_1F5EF8(JukeBoxObj *self) {
+    cIDBase_restartAnim(&self->idBase);
+    self->unk00 = 1;
+    self->unk01 = 1;
+    self->unk02 = 0;
+    self->unk03 = 0;
     classFADE_start(&D_00747470, 0, 0xA, 0, 0xFF000000U, 0, 0xA);
     cTaskWork_sleep(*(void **)((char *)D_003C2F84 + 0x20), 0xA);
 }
@@ -125,28 +125,19 @@ int BuildObjEntry_387160(short arg1, const void *src) {
 /* ──────────────────────────── large picks ─────────────────────────────── */
 
 /* ColiseumEmSelect__Initialize: 183 insns, 732 B — sq-prologue, saves $s0..$s4,$ra. */
-typedef struct { char b[0x28]; } EmEntry;
-
 extern void cIDManager_getLocalFileName();
 extern void cIDManager_setIDData();
-extern void InitUiIdWorksAndShowAll();
-extern void func_001F4B78();
-extern void DispMenu_open();
 extern void func_001F4068();
 extern void func_001F4248();
-extern void CustomIDWork_placeByIndex();
-extern void func_001F5510();
-extern void MarkObj_setPulse();
 
 extern short D_00568240[];
-extern EmEntry D_003BE8B0[];
 extern int D_003C2388;
 extern char D_0042BF40[];
 extern int *D_003C2384;
 extern int D_00747A2C;
 
 __attribute__((section(".text.ColiseumEmSelect__Initialize")))
-void ColiseumEmSelect__Initialize(char *a0)
+void ColiseumEmSelect__Initialize(ColiseumEmSelect *self)
 {
     char buf[0x40];
     short *hd;
@@ -155,85 +146,84 @@ void ColiseumEmSelect__Initialize(char *a0)
     short b;
 
     hd = D_00568240;
-    *(int *)(a0 + 0x54) = 0;
+    self->flags = 0;
     a = hd[8];
     b = hd[9];
-    *(short *)(a0 + 0x37D0) = a;
-    *(short *)(a0 + 0x37D4) = b;
-    *(short *)(a0 + 0x37D2) = a - b;
-    *(EmEntry *)(a0 + 0x37A8) = D_003BE8B0[a];
+    self->cursor = a;
+    self->top = b;
+    self->row = a - b;
+    self->ring = D_003BE8B0[a];
     cIDManager_getLocalFileName(D_003C2388, buf, D_0042BF40, -1);
-    r = cDvd_ReadAlloc(&D_00583F20, buf, a0 + 0x37D8, &D_00754220, 0, 0, 0, 0);
+    r = cDvd_ReadAlloc(&D_00583F20, buf, &self->cardNode, &D_00754220, 0, 0, 0, 0);
     cDvd_CheckWait(&D_00583F20, r);
-    cIDManager_setIDData(*D_003C2384, 0x15, *(int *)(a0 + 0x37D8));
-    InitUiIdWorksAndShowAll(a0 + 0x60);
-    func_001F4B78(a0 + 0x60, cCoreSave_getGold(&D_00569B70));
-    DispMenu_open(a0 + 0x60);
-    func_001F4068(a0, 0, &D_003BE8B0[*(short *)(a0 + 0x37D4)], 1);
-    func_001F4068(a0, 1, &D_003BE8B0[*(short *)(a0 + 0x37D4) + 1], 1);
-    func_001F4068(a0, 2, &D_003BE8B0[*(short *)(a0 + 0x37D4) + 2], 1);
-    func_001F4068(a0, 3, &D_003BE8B0[*(short *)(a0 + 0x37D4) + 3], 1);
-    func_001F4068(a0, 4, &D_003BE8B0[*(short *)(a0 + 0x37D4) + 4], 1);
-    func_001F4068(a0, 5, &D_003BE8B0[*(short *)(a0 + 0x37D4) + 5], 1);
-    func_001F4068(a0, 6, &D_003BE8B0[*(short *)(a0 + 0x37D4) + 6], 1);
-    func_001F4248(a0, 1);
-    CustomIDWork_placeByIndex(a0 + 0x60, *(unsigned short *)(a0 + 0x37D2), 1);
+    cIDManager_setIDData(*D_003C2384, 0x15, self->cardNode);
+    InitUiIdWorksAndShowAll(&self->idBase);
+    func_001F4B78(&self->idBase, cCoreSave_getGold(&D_00569B70));
+    DispMenu_open(&self->idBase);
+    func_001F4068(self, 0, &D_003BE8B0[self->top], 1);
+    func_001F4068(self, 1, &D_003BE8B0[self->top + 1], 1);
+    func_001F4068(self, 2, &D_003BE8B0[self->top + 2], 1);
+    func_001F4068(self, 3, &D_003BE8B0[self->top + 3], 1);
+    func_001F4068(self, 4, &D_003BE8B0[self->top + 4], 1);
+    func_001F4068(self, 5, &D_003BE8B0[self->top + 5], 1);
+    func_001F4068(self, 6, &D_003BE8B0[self->top + 6], 1);
+    func_001F4248(self, 1);
+    CustomIDWork_placeByIndex(&self->idBase, self->row, 1);
     if (D_00747A2C & 0x200) {
         D_00569B70.data->flags |= 0x800000;
     }
     if (D_00569B70.data->flags & 0x800000) {
-        *(short *)(a0 + 0x37D6) = 0x33;
+        self->ringNum = 0x33;
     } else {
-        *(short *)(a0 + 0x37D6) = 0x32;
+        self->ringNum = 0x32;
     }
-    func_001F5510(a0 + 0x60, *(short *)(a0 + 0x37D6), 7);
-    MarkObj_setPulse(a0 + 0x60, 1);
-    *(int *)(a0 + 0x4) = 0;
-    *(int *)(a0 + 0x8) = 0;
-    *(int *)(a0 + 0xC) = 0;
+    func_001F5510(&self->idBase, self->ringNum, 7);
+    MarkObj_setPulse(&self->idBase, 1);
+    self->vtIndex = 0;
+    self->step = 0;
+    self->unk0C = 0;
 }
 
 /* func_001F4928: 147 insns, 588 B — sq-prologue, saves $s0..$s5,$ra. */
-extern void SetCustomIDDispOneOrAll_1F4778(int a0, int a1, int a2);
 
 __attribute__((section(".text.func_001F4928")))
-void func_001F4928(int a0, int a1)
+void func_001F4928(ColiseumEmDisp *self, int on)
 {
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x50, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x51, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x52, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x53, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x54, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x55, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x56, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x57, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x58, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x59, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x5A, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x5B, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x5C, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x5D, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x5E, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x5F, 0);
-    SetCustomIDDispOneOrAll_1F4778(a0, 0x60, 0);
-    if (a1 != 0) {
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x50, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x51, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x52, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x53, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x54, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x55, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x56, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x57, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x58, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x59, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x5A, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x5B, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x5C, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x5D, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x5E, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x5F, 1);
-        SetCustomIDDispOneOrAll_1F4778(a0, 0x60, 1);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x50, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x51, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x52, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x53, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x54, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x55, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x56, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x57, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x58, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x59, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x5A, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x5B, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x5C, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x5D, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x5E, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x5F, 0);
+    SetCustomIDDispOneOrAll_1F4778(self, 0x60, 0);
+    if (on != 0) {
+        SetCustomIDDispOneOrAll_1F4778(self, 0x50, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x51, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x52, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x53, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x54, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x55, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x56, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x57, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x58, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x59, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x5A, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x5B, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x5C, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x5D, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x5E, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x5F, 1);
+        SetCustomIDDispOneOrAll_1F4778(self, 0x60, 1);
     }
 }
 

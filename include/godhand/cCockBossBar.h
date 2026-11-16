@@ -33,5 +33,6 @@ typedef struct cCockBossBar {
 } cCockBossBar;
 
 typedef char cCockBossBar_ent_check[(int)&((cCockBossBar *)0)->ent == 0xBC ? 1 : -1];
+typedef char cCockBossBar_size_check[sizeof(cCockBossBar) == 0xD0 ? 1 : -1];
 
 #endif

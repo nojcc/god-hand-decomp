@@ -5,6 +5,8 @@
 #ifndef GODHAND_SEQNODE_H
 #define GODHAND_SEQNODE_H
 
+#include "godhand/sndVoiceNode.h"
+
 typedef struct SeqRange {
     char unk00[0x18];
     short min;                  /* 0x18 */
@@ -92,16 +94,11 @@ extern int func_0037C330(SeqCmd *c);
 extern void func_0037BE98(void);
 extern int func_0037BF10(SeqCmd *h);
 
-/* A sound voice node: its work and the method table it dispatches through. */
-typedef struct SndVoiceNode {
-    char unk00[0x80];
-    struct cVtEnt *vt;          /* 0x80 */
-} SndVoiceNode;                 /* 0x84 */
 
 extern SndVoiceNode D_0076A600[3];
 
 /* SndVoiceNode's own method table. */
-extern char D_003BAFE0[];
+extern struct cVtEnt D_003BAFE0[];
 /* Constructor: store SndVoiceNode's method table; returns self. */
 SndVoiceNode *Obj0000_Set_Field_80_372C68(SndVoiceNode *self);
 /* Destructor: put back SndVoiceNode's method table, then free self when

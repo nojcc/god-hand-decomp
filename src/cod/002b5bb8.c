@@ -1,19 +1,22 @@
+/* sn-2.95.3-136 */
 #include "godhand/cSnd.h"
 #include "godhand/criStm.h"
+#include "godhand/heapArena.h"
+#include "godhand/cMovie.h"
+
+/* Free a block taken by func_002B5AF8 and clear its slot (a1 is not read). */
 __attribute__((section(".text.FreeEntrySlot_2B5BB8")))
-void FreeEntrySlot_2B5BB8(int a0, int a1, int a2)
+void FreeEntrySlot_2B5BB8(cMovie *self, int unused, void *block)
 {
-    int *s0;
-    int v0;
-    int v1;
-    s0 = func_002B4FE8(a0, a2);
-    v0 = s0[0];
-    v1 = s0[1];
-    if (v0 != 0) {
-        cHeap_free(v1, v0);
+    cMovieAlloc *slot = func_002B4FE8(self, block);
+    void *p = slot->block;
+    HeapArena *heap = slot->heap;
+
+    if (p != 0) {
+        cHeap_free(heap, p);
     }
-    s0[0] = 0;
-    s0[1] = 0;
+    slot->block = 0;
+    slot->heap = 0;
 }
 
 __attribute__((section(".text.ClearStructFields_2C8EB0")))

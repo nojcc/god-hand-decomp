@@ -17,156 +17,151 @@ extern char D_005CB000[];
 #include "godhand/cEm00.h"
 
 __attribute__((section(".text.func_0025C1D0")))
-void func_0025C1D0(void *a0)
+void func_0025C1D0(cEm00 *self)
 {
-    char *s0 = (char *)a0;
     char *s1;
     float v;
 
     s1 = (char *)Getplayer();
     v = *(float *)(s1 + 0x5A8);
-    *(float *)(s0 + 0x5A8) = v;
-    SetMotionStep(s0, v);
-    *(float *)(s0 + 0x54C) = 3.0f;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
+    self->speedRate = v;
+    SetMotionStep(self, v);
+    self->hitFlash = 3.0f;
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
 
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    switch (self->step) {
     case 0:
     {
         int p;
 
-        ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
-        p = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(p + 0xC98) + p, *(int *)(p + 0xC9C) + p,
+        ReleaseField6ECByTag564_26B1E8(self);
+        p = (int)self->pack;
+        func_002A8578(self, *(int *)(p + 0xC98) + p, *(int *)(p + 0xC9C) + p,
                       0, 0.0f, 0, 0);
-        *(int *)(s0 + 0x16EC) = 0;
-        (*(unsigned char *)(s0 + 0x2F6))++;
+        self->unk16EC = 0;
+        (self->step)++;
     }
         /* fallthrough */
     case 1:
     {
         char *q;
         char *pa;
-        char *pb;
-        int p0;
+        cVec *pb;
+        cVec *p0;
 
-        *(int *)(s0 + 0x16D0) |= 0x10000;
+        self->emFlags |= 0x10000;
         q = s1 + 0x550;
         pa = *(char **)(s1 + 0xF0);
-        pb = *(char **)(s0 + 0xF0);
-        *(float *)(pb + 4) = *(float *)(pa + 4)
-                           - (*(float *)(s0 + 0x114) - 1.0f) * 0.1f;
-        p0 = *(int *)(s0 + 0xF0);
+        pb = self->pos;
+        pb->y = *(float *)(pa + 4)
+                           - (self->scale.y - 1.0f) * 0.1f;
+        p0 = self->pos;
         VU0_VADD_XYZ_IP(p0, 0, q);
-        if (moveMotion(s0) != 0) {
-            (*(unsigned char *)(s0 + 0x2F6))++;
+        if (moveMotion(self) != 0) {
+            (self->step)++;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
     case 2:
     {
         int p;
 
-        ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
-        p = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(p + 0xCA0) + p, *(int *)(p + 0xCA4) + p,
+        ReleaseField6ECByTag564_26B1E8(self);
+        p = (int)self->pack;
+        func_002A8578(self, *(int *)(p + 0xCA0) + p, *(int *)(p + 0xCA4) + p,
                       0, 0.0f, 0, 0);
-        (*(unsigned char *)(s0 + 0x2F6))++;
+        (self->step)++;
     }
         /* fallthrough */
     case 3:
     {
         char *q;
         char *pa;
-        char *pb;
-        int p0;
+        cVec *pb;
+        cVec *p0;
 
-        *(int *)(s0 + 0x16D0) |= 0x10000;
+        self->emFlags |= 0x10000;
         q = s1 + 0x550;
         pa = *(char **)(s1 + 0xF0);
-        pb = *(char **)(s0 + 0xF0);
-        *(float *)(pb + 4) = *(float *)(pa + 4)
-                           - (*(float *)(s0 + 0x114) - 1.0f) * 0.1f;
-        p0 = *(int *)(s0 + 0xF0);
+        pb = self->pos;
+        pb->y = *(float *)(pa + 4)
+                           - (self->scale.y - 1.0f) * 0.1f;
+        p0 = self->pos;
         VU0_VADD_XYZ_IP(p0, 0, q);
-        if (moveMotion(s0) != 0) {
-            int vt;
+        if (moveMotion(self) != 0) {
+            cGameObjVt *vt;
             short off;
-            int (*fp)();
-            vt = *(int *)(s0 + 0x214);
-            off = *(short *)(vt + 0xA8);
-            fp = *(int (**)())(vt + 0xAC);
-            fp(s0 + off, 8, s1, 1, 0);
+            vt = cGameObj_vt((cGameObj *)self);
+            off = vt->unkA8Delta;
+            vt->unkAC((char *)self + off, 8, s1, 1, 0);
             cHeatSys_AddHeatGage(D_005CB000, 0, 0.5f);
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
+        self->step = *(unsigned char *)(s1 + 0x2F6);
         break;
     }
     case 4:
     {
         int p;
 
-        ReleaseField6ECByTag564_26B1E8((cEm00 *)s0);
-        p = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(p + 0xCA8) + p, *(int *)(p + 0xCAC) + p,
+        ReleaseField6ECByTag564_26B1E8(self);
+        p = (int)self->pack;
+        func_002A8578(self, *(int *)(p + 0xCA8) + p, *(int *)(p + 0xCAC) + p,
                       0, 0.0f, 0, 0);
-        *(int *)(s0 + 0x5F0) = 1;
-        *(short *)(s0 + 0x56E) = 0xF;
-        (*(unsigned char *)(s0 + 0x2F6))++;
+        self->timerA = 1;
+        self->unk56E = 0xF;
+        (self->step)++;
     }
         /* fallthrough */
     case 5:
     {
-        if ((*(unsigned short *)(s0 + 0x3AC) & 8) == 0) {
+        if ((self->seqFlags & 8) == 0) {
             char *pa;
-            char *pb;
+            cVec *pb;
 
-            *(int *)(s0 + 0x16D0) |= 0x10000;
+            self->emFlags |= 0x10000;
             pa = *(char **)(s1 + 0xF0);
-            pb = *(char **)(s0 + 0xF0);
-            *(float *)(pb + 4) = *(float *)(pa + 4)
-                               - (*(float *)(s0 + 0x114) - 1.0f) * 0.1f;
+            pb = self->pos;
+            pb->y = *(float *)(pa + 4)
+                               - (self->scale.y - 1.0f) * 0.1f;
         }
-        if (*(short *)(s0 + 0x56E) != 0) {
+        if (self->unk56E != 0) {
             char *q;
-            int p0;
+            cVec *p0;
 
-            p0 = *(int *)(s0 + 0xF0);
-            (*(short *)(s0 + 0x56E))--;
+            p0 = self->pos;
+            (self->unk56E)--;
             q = s1 + 0x550;
             VU0_VADD_XYZ_IP(p0, 0, q);
         }
-        if (*(unsigned short *)(s0 + 0x3AC) & 1) {
-            if (*(int *)(s0 + 0x5F0) != 0) {
-                int vt;
+        if (self->seqFlags & 1) {
+            if (self->timerA != 0) {
+                cGameObjVt *vt;
                 short off;
-                int (*fp)();
-                *(int *)(s0 + 0x5F0) = 0;
-                vt = *(int *)(s0 + 0x214);
-                off = *(short *)(vt + 0xA8);
-                fp = *(int (**)())(vt + 0xAC);
-                fp(s0 + off, 0x14, s1, 1, 0);
+                self->timerA = 0;
+                vt = cGameObj_vt((cGameObj *)self);
+                off = vt->unkA8Delta;
+                vt->unkAC((char *)self + off, 0x14, s1, 1, 0);
                 cHeatSys_AddHeatGage(D_005CB000, 0, 1.0f);
             }
         }
-        if (moveMotion(s0) != 0) {
-            if (*(short *)(s0 + 0x54A) <= 0) {
-                func_0025FE30(a0, 0x1000000, 0);
-                *(char *)(s0 + 0x2F4) = 2;
-                *(char *)(s0 + 0x2F5) = 2;
-                *(char *)(s0 + 0x2F6) = 0;
-                *(char *)(s0 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            if (self->hp <= 0) {
+                func_0025FE30(self, 0x1000000, 0);
+                self->mode = 2;
+                self->phase = 2;
+                self->step = 0;
+                self->stepArg = 0;
                 break;
             } else {
-                func_00274FE8(s0);
+                func_00274FE8(self);
             }
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
     default:

@@ -8,7 +8,7 @@ extern void func_002BD4B0(void *a0, void *a1, void *a2, void *pts);
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
-#include "godhand/cIDBase.h"
+#include "godhand/DogRace.h"
 
 
 
@@ -33,7 +33,7 @@ static __inline__ void CopyVec3(float *d, float *s)
 }
 
 __attribute__((section(".text.func_001EDFD8")))
-void func_001EDFD8(char *self)
+void func_001EDFD8(DogRaceList *self)
 {
     char cfg[0x50];
     float v[4][4];
@@ -76,7 +76,7 @@ void func_001EDFD8(char *self)
     if (r != 0) {
         *(long *)((char *)r + 0x1A0) = 0x3001D;
     }
-    cIDBase_trans((cIDBaseObj *)(self + 0x10));
+    cIDBase_trans(&self->id);
 }
 
 /* sn-2.95.3-136 candidate. */

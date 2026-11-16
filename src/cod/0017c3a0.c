@@ -1,54 +1,44 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/CustomIDWork.h"
+#include "godhand/CustomIDPanel.h"
+#include "godhand/DogRace.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cSnd.h"
 #include "godhand/cScenario.h"
 
 extern void CustomIDWork_ResetMoveOffsetPos(CustomIDWork *self);
-extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern void func_0017C028(void *self, int pos, void *rot);
 extern char D_0044C2B8[];
 extern char D_0044C2C0[];
 extern unsigned int D_00747A30;
 
-/* Two CustomIDWork elements sit at 0x10D8 and 0x1154 of the owner. */
-#define OWNER_IDW_A(self) ((CustomIDWork *)((char *)(self) + 0x10D8))
-#define OWNER_IDW_B(self) ((CustomIDWork *)((char *)(self) + 0x1154))
 
 
 
-/* CustomIDOwner_setBob: with sel set, start the 16-frame sine bob on both elements (-3 and +3); otherwise reset their offsets. */
+/* CustomIDOwner_setBob: with sel set, start the 16-frame sine bob on elements 34 and 35 (-3 and +3); otherwise reset their offsets. */
 __attribute__((section(".text.CustomIDOwner_setBob")))
-void CustomIDOwner_setBob(void *self, int sel)
+void CustomIDOwner_setBob(DogRaceResult *self, int sel)
 {
     if (sel != 0) {
-        CustomIDWork_SetMoveOffsetPosYSin(OWNER_IDW_A(self), -3, 16);
-        CustomIDWork_SetMoveOffsetPosYSin(OWNER_IDW_B(self), 3, 16);
+        CustomIDWork_SetMoveOffsetPosYSin(&self->elem[34], -3, 16);
+        CustomIDWork_SetMoveOffsetPosYSin(&self->elem[35], 3, 16);
     } else {
-        CustomIDWork_ResetMoveOffsetPos(OWNER_IDW_A(self));
-        CustomIDWork_ResetMoveOffsetPos(OWNER_IDW_B(self));
+        CustomIDWork_ResetMoveOffsetPos(&self->elem[34]);
+        CustomIDWork_ResetMoveOffsetPos(&self->elem[35]);
     }
 }
 
-typedef struct IdOwner {
-    int flags;                 /* 0x000 bit 1: the ID display is shown */
-    char unk04[0x91C];
-    int unk920;                /* 0x920 */
-    int unk924;                /* 0x924 */
-} IdOwner;
-
-/* CustomIDOwner_setShown: show or hide the ID display (flag bit 1) and clear the two 0x920 counters. */
+/* CustomIDOwner_setShown: show or hide work 2, restart its animation (anim[1]) and run it only while shown. */
 __attribute__((section(".text.CustomIDOwner_setShown")))
-void CustomIDOwner_setShown(IdOwner *self, int on)
+void CustomIDOwner_setShown(CustomIDPanel *self, int on)
 {
     SetCustomIDDispOneOrAll_1F29C0(self, 2, on);
-    self->unk920 = 0;
-    self->unk924 = 0;
+    self->anim[1].state = 0;
+    self->anim[1].timer = 0;
     if (on != 0) {
-        self->flags |= 2;
+        self->flags |= CIDPANEL_ANIM1;
     } else {
-        self->flags &= ~2;
+        self->flags &= ~CIDPANEL_ANIM1;
     }
 }
 

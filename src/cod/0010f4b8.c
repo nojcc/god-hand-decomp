@@ -12,7 +12,6 @@ extern int irand(void);
 extern void Obj2810_SetState_D_a1(void *a0, int a1);
 extern void SetBytes2F4Mode10_2833C0(void *a0, int a1);
 extern void func_0027D670(void *a0, int a1, int a2);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void func_0010A438(void *a0);
@@ -80,63 +79,62 @@ static __inline__ long inr(unsigned short k, int lo, int hi)
     return c;
 }
 __attribute__((section(".text.func_0010F4B8")))
-void func_0010F4B8(void *a0)
+void func_0010F4B8(pl00 *self)
 {
-    char *s0 = (char *)a0;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    switch (self->base.step) {
     case 0: {
         int p1, p2;
-        *(short *)(s0 + 0x5E0) = 0;
-        *(short *)(s0 + 0x5E2) = 0;
-        func_00124540((pl00 *)s0, 0);
-        if (*(int *)(s0 + 0x640) != 0) {
-            if (inr(*(unsigned short *)(*(int *)(s0 + 0x640) + 0x2FE), 0x200, 0x300) & 0xFF)
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        func_00124540(self, 0);
+        if (self->unk640 != 0) {
+            if (inr(self->unk640->actorId, 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
         }
-        if (*(unsigned char *)(s0 + 0x2F7) != 0) {
+        if (self->base.stepArg != 0) {
             char *v;
-            Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s0, (int)(*(float *)(s0 + 0x600) * 20.0f), 0x19, 0xB, 0, 0x123);
-            Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s0, (int)(*(float *)(s0 + 0x600) * 20.0f), 0x19, 0xB, 0, 0x123);
-            *(char *)(s0 + 0x1684) = 0;
-            v = *(char **)(s0 + 0x304);
+            Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 20.0f), 0x19, 0xB, 0, 0x123);
+            Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 20.0f), 0x19, 0xB, 0, 0x123);
+            self->unk1684 = 0;
+            v = self->base.pack;
             p1 = *(int *)(v + 0x1C8) + (int)v;
             p2 = *(int *)(v + 0x1CC) + (int)v;
         } else {
             char *v;
-            Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(s0, (int)(*(float *)(s0 + 0x600) * 20.0f), 0x18, 0x1D, 0, 0x123);
-            Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(s0, (int)(*(float *)(s0 + 0x600) * 20.0f), 0x18, 0x1D, 0, 0x123);
-            *(char *)(s0 + 0x1684) = 0;
-            v = *(char **)(s0 + 0x304);
+            Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 20.0f), 0x18, 0x1D, 0, 0x123);
+            Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 20.0f), 0x18, 0x1D, 0, 0x123);
+            self->unk1684 = 0;
+            v = self->base.pack;
             p1 = *(int *)(v + 0x1A4) + (int)v;
             p2 = *(int *)(v + 0x1A8) + (int)v;
         }
-        func_002A8578(s0, p1, p2, 3, 0.0f, 0, 0);
-        *(float *)(s0 + 0x54C) = 15.0f;
-        *(unsigned char *)(s0 + 0x2F6) += 1;
+        func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
+        self->base.hitFlash = 15.0f;
+        self->base.step += 1;
     }
     case 1:
-        func_00124EC0(s0);
-        if (*(int *)(s0 + 0x640) != 0)
-            *(char *)(s0 + 0x648) = 0x14;
-        if (moveMotion(s0) != 0) {
-            if (*(unsigned char *)(s0 + 0x2F7) == 0)
-                Obj0000_Clear_Fields_640_648_124E58(s0);
-            pl00_clearMotionCam(s0, 1, 0);
-            *(char *)(s0 + 0x2F4) = 0;
-            *(char *)(s0 + 0x2F5) = 0;
-            *(char *)(s0 + 0x2F6) = 0;
-            *(char *)(s0 + 0x2F7) = 0;
+        func_00124EC0(self);
+        if (self->unk640 != 0)
+            self->unk648 = 0x14;
+        if (moveMotion(self) != 0) {
+            if (self->base.stepArg == 0)
+                Obj0000_Clear_Fields_640_648_124E58(self);
+            pl00_clearMotionCam(self, 1, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
         break;
     }
-    func_0010A438(s0);
-    if (*(unsigned short *)(s0 + 0x3AC) & 0x100) {
+    func_0010A438(self);
+    if (self->base.seqFlags & 0x100) {
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
     }
-    if (func_00123938((pl00 *)s0, 1) != 0) {
-        if (*(unsigned char *)(s0 + 0x2F7) == 0)
-            Obj0000_Clear_Fields_640_648_124E58(s0);
-        pl00_clearMotionCam(s0, 1, 0);
+    if (func_00123938(self, 1) != 0) {
+        if (self->base.stepArg == 0)
+            Obj0000_Clear_Fields_640_648_124E58(self);
+        pl00_clearMotionCam(self, 1, 0);
     }
 }
 

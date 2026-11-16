@@ -3,12 +3,12 @@
 #include "godhand/pl00.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/DogRace.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetPlSorry(void *a0);
 extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00129578(void *a0);
 extern void func_00124EC0(void *a0);
 extern void func_00129630(void *a0);
@@ -31,9 +31,7 @@ extern void cTaskWork_exit(int a0);
 extern void classFADE_start(void *p, int b, int c, int d, int e, unsigned int f, int g);
 extern void classFADE_kill(void *p);
 extern void cTaskWork_sleep(void *p, int a);
-extern void DogRace_Load(void *p);
-extern void Slot2_dispatchStep(void *p);
-extern void DogRace_Release(void *p);
+extern void DogRace_Load(DogRace *self);
 extern void cSceAtManager_SetEnable_2C2950(void *p, int a);
 
 /* sn-2.95.3-136 matched TU. */
@@ -58,56 +56,54 @@ extern void cSceAtManager_SetEnable_2C2950(void *p, int a);
 
 
 __attribute__((section(".text.func_00113F68")))
-void func_00113F68(void *a0)
+void func_00113F68(pl00 *self)
 {
-    char *s1 = (char *)a0;
-
-    *(float *)(s1 + 0x54C) = 30.0f;
+    self->base.hitFlash = 30.0f;
     cEmManage_SetSlotWait(D_005864F0, 2);
     cEmManage_SetPlCatched(D_005864F0);
     cEmManage_SetBigHitEffWait(D_005864F0, 2);
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->base.step) {
     case 0:
     {
         int t;
 
-        Obj0000_Clear_Fields_640_648_124E58(s1);
-        *(short *)(s1 + 0x5E0) = 0;
-        *(short *)(s1 + 0x5E2) = 0;
-        func_00129578(s1);
+        Obj0000_Clear_Fields_640_648_124E58(self);
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
+        func_00129578(self);
         cCoreSave_useGodItem(&D_00569B70);
-        t = *(int *)(s1 + 0x304);
-        func_002A8578(s1, *(int *)(t + 0x604) + t, *(int *)(t + 0x608) + t,
+        t = (int)self->base.pack;
+        func_002A8578(self, *(int *)(t + 0x604) + t, *(int *)(t + 0x608) + t,
                       3, 0.0f, 0, 0);
-        *(int *)(s1 + 0x15B0) = 1;
-        (*(unsigned char *)(s1 + 0x2F6))++;
+        self->unk15B0 = 1;
+        (self->base.step)++;
     }
         /* fallthrough */
     case 1:
-        func_00124EC0(s1);
-        if ((*(unsigned short *)(s1 + 0x3AC) & 0x200) != 0) {
+        func_00124EC0(self);
+        if ((self->base.seqFlags & 0x200) != 0) {
             cEmManage_SetPlSorry(D_005864F0);
         }
-        if (moveMotion(s1) != 0) {
-            pl00_clearMotionCam(s1, 0, 0);
-            *(char *)(s1 + 0x2F4) = 0;
-            *(char *)(s1 + 0x2F5) = 0;
-            *(char *)(s1 + 0x2F6) = 0;
-            *(char *)(s1 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            pl00_clearMotionCam(self, 0, 0);
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-        cObjBase_addNullSpeed(s1, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     }
-    if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0) {
-        if (*(int *)(s1 + 0x15B0) != 0) {
-            *(int *)(s1 + 0x15B0) = 0;
+    if ((self->base.seqFlags & 1) != 0) {
+        if (self->unk15B0 != 0) {
+            self->unk15B0 = 0;
             cCoreSave_setGameLevel(&D_00569B70, 0);
         }
     }
-    if (func_00123938((pl00 *)s1, 1) != 0) {
-        func_00129630(s1);
-        pl00_clearMotionCam(s1, 0, 0);
+    if (func_00123938(self, 1) != 0) {
+        func_00129630(self);
+        pl00_clearMotionCam(self, 0, 0);
     }
 }
 
@@ -129,42 +125,41 @@ void func_00113F68(void *a0)
 
 
 __attribute__((section(".text.func_00114460")))
-void func_00114460(void *a0)
+void func_00114460(pl00 *self)
 {
-    char *s0 = (char *)a0;
     float v[4] __attribute__((aligned(16)));
 
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    switch (self->base.step) {
     case 0: {
         int p1, p2;
-        *(short *)(s0 + 0x5E0) = 0;
-        *(short *)(s0 + 0x5E2) = 0;
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
         if (irand() & 1) {
-            p1 = *(int *)(*(char **)(s0 + 0x304) + 0x230) + *(int *)(s0 + 0x304);
-            p2 = *(int *)(*(char **)(s0 + 0x304) + 0x234) + *(int *)(s0 + 0x304);
+            p1 = *(int *)(self->base.pack + 0x230) + (int)self->base.pack;
+            p2 = *(int *)(self->base.pack + 0x234) + (int)self->base.pack;
         } else {
-            p1 = *(int *)(*(char **)(s0 + 0x304) + 0x8A0) + *(int *)(s0 + 0x304);
-            p2 = *(int *)(*(char **)(s0 + 0x304) + 0x8A4) + *(int *)(s0 + 0x304);
+            p1 = *(int *)(self->base.pack + 0x8A0) + (int)self->base.pack;
+            p2 = *(int *)(self->base.pack + 0x8A4) + (int)self->base.pack;
         }
-        func_002A8578(s0, p1, p2, 3, 0.0f, 0, 0);
-        *(short *)(s0 + 0x568) = 1;
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
+        self->base.unk568 = 1;
+        self->base.step = self->base.step + 1;
     }
         /* fallthrough */
     case 1:
-        if (moveMotion(s0) != 0) {
-            *(unsigned char *)(s0 + 0x2F4) = 0;
-            *(unsigned char *)(s0 + 0x2F5) = 0;
-            *(unsigned char *)(s0 + 0x2F6) = 0;
-            *(unsigned char *)(s0 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            self->base.mode = 0;
+            self->base.phase = 0;
+            self->base.step = 0;
+            self->base.stepArg = 0;
         }
-        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
-        cObjBase_addNullSpeed(s0, 1.0f);
-        if ((*(unsigned short *)(s0 + 0x3AC) & 1) != 0 && *(short *)(s0 + 0x568) != 0) {
-            *(short *)(s0 + 0x568) = 0;
-            VU0_LQC2(4, *(char **)(s0 + 0xF0), 0);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
+        if ((self->base.seqFlags & 1) != 0 && self->base.unk568 != 0) {
+            self->base.unk568 = 0;
+            VU0_LQC2(4, self->base.pos, 0);
             VU0_SQC2(4, v, 0);
-            if (cEmManage_SetEmAnger(D_005864F0, v, *(float *)(s0 + 0x104), 15.0f, 0.523598790f) != 0) {
+            if (cEmManage_SetEmAnger(D_005864F0, v, self->base.rot.y, 15.0f, 0.523598790f) != 0) {
                 if (cCoreSave_getGameLevel(&D_00569B70) != 5) {
                     cHeatSys_AddHeatGage(&D_005CB000, 0, 12.0f);
                     cCoreSave_addGameLevelPoint(&D_00569B70, 0xFA);
@@ -175,7 +170,7 @@ void func_00114460(void *a0)
         }
         break;
     }
-    func_00123938((pl00 *)s0, 1);
+    func_00123938(self, 1);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -203,8 +198,11 @@ static __inline__ int FadeIsEnd(char *f)
     return (*(unsigned char *)(f + 0x1C) >> 2) & 1;
 }
 
+/* DogRace.unk54 by raw offset: the typed field lets cc1 move its load above the D_00747A80 stores. */
+#define DOGRACE_UNK54(self) (*(unsigned int *)((char *)(self) + 0x54))
+
 __attribute__((section(".text.func_001E9F68")))
-void func_001E9F68(char *p)
+void func_001E9F68(DogRace *self)
 {
     cScenario_startSoftEvent(D_003C2F84, 0);
     D_00747A78 = D_00747A78 & 0xFDFFFFFF;
@@ -212,7 +210,7 @@ void func_001E9F68(char *p)
     while (!FadeIsEnd(D_00747470)) {
         cTaskWork_sleep(*(void **)(D_003C2F84 + 0x20), 1);
     }
-    DogRace_Load(p);
+    DogRace_Load(self);
     D_00747A80 |= 0x4000000;
     D_00747A80 |= 0x2000000;
     D_00747A80 |= 0x40000000;
@@ -221,13 +219,13 @@ void func_001E9F68(char *p)
     D_00747A80 |= 0x10000000;
     D_00747A80 |= 0x8000000;
     {
-        long v = *(unsigned int *)(p + 0x54);
+        long v = DOGRACE_UNK54(self);
         if ((v & 1) == 0) {
             long w;
             do {
-                Slot2_dispatchStep(p);
+                Slot2_dispatchStep(self);
                 cTaskWork_sleep(*(void **)(D_003C2F84 + 0x20), 1);
-                w = *(unsigned int *)(p + 0x54);
+                w = DOGRACE_UNK54(self);
             } while ((w & 1) == 0);
         }
     }
@@ -239,14 +237,14 @@ void func_001E9F68(char *p)
     D_00747A80 &= 0xDFFFFFFF;
     D_00747A80 &= 0xEFFFFFFF;
     D_00747A80 &= 0xF7FFFFFF;
-    DogRace_Release(p);
+    DogRace_Release(self);
     classFADE_start(D_00747470, 0, 0xA, 0, 0xFF000000, 0, 0xF);
     while (!FadeIsEnd(D_00747470)) {
         cTaskWork_sleep(*(void **)(D_003C2F84 + 0x20), 1);
     }
     cSnd_BgmFlaggedNodeKick(&D_005FEE00, 20.0f);
     classFADE_kill(D_00747470);
-    cSceAtManager_SetEnable_2C2950(&D_005FEA60, *(unsigned short *)(p + 0x1B0));
+    cSceAtManager_SetEnable_2C2950(&D_005FEA60, self->unk1B0);
     cScenario__endSoftEvent(D_003C2F84);
     cTaskWork_exit(*(int *)(D_003C2F84 + 0x20));
 }

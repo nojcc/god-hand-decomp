@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/CustomIDWork.h"
+#include "godhand/Poker.h"
 #include "godhand/mtx.h"
 #include "godhand/Slot2.h"
 #include "godhand/cNode.h"
@@ -9,6 +9,7 @@ extern void displayScrollLayer(int layer, int on);
 extern float *func_002B6328(cNode *node);
 extern void *Gp_draw_poly4(void *v, int color, int count, void *ctx, int a5, int a6);
 
+#define PANEL_ELEM      0x13            /* the panel's element */
 #define SLIDE_OFFSET_X  (-0xDC)         /* x offset of the panel when hidden */
 #define SLIDE_FRAMES    10
 
@@ -17,29 +18,24 @@ extern void *Gp_draw_poly4(void *v, int color, int count, void *ctx, int a5, int
 #define PANEL_SLIDE_OUT 2
 #define PANEL_SLIDE_IN  3
 
-typedef struct Panel1DE7C8 {
-    char unk000[0x994];
-    CustomIDWork panel;                 /* 0x994 */
-} Panel1DE7C8;
-
 /* Moves the panel by mode: PANEL_SHOW puts it in place, PANEL_SLIDE_OUT and
  * PANEL_SLIDE_IN slide it, anything else hides it at once. */
 __attribute__((section(".text.Panel_slide")))
-void Panel_slide(Panel1DE7C8 *self, unsigned char mode)
+void Panel_slide(Poker *self, unsigned char mode)
 {
     switch (mode) {
     case PANEL_HIDE:
     default:
-        CustomIDWork_SetOffsetPosX(&self->panel, SLIDE_OFFSET_X);
+        CustomIDWork_SetOffsetPosX(&self->elem[PANEL_ELEM], SLIDE_OFFSET_X);
         break;
     case PANEL_SHOW:
-        CustomIDWork_SetOffsetPosX(&self->panel, 0);
+        CustomIDWork_SetOffsetPosX(&self->elem[PANEL_ELEM], 0);
         break;
     case PANEL_SLIDE_OUT:
-        CustomIDWork_SetMoveOffsetPosX(&self->panel, SLIDE_OFFSET_X, 0, SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX(&self->elem[PANEL_ELEM], SLIDE_OFFSET_X, 0, SLIDE_FRAMES);
         break;
     case PANEL_SLIDE_IN:
-        CustomIDWork_SetMoveOffsetPosX(&self->panel, 0, SLIDE_OFFSET_X, SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX(&self->elem[PANEL_ELEM], 0, SLIDE_OFFSET_X, SLIDE_FRAMES);
         break;
     }
 }

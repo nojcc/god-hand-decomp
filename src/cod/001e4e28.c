@@ -5,20 +5,12 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void func_001E7848(char *a0, int a1);
-extern void func_001E7868(char *a0, int a1);
-extern void func_001E7888(char *a0, int a1);
-extern void func_001E78A8(char *a0, int a1);
-extern void func_001E78C8(char *a0, int a1);
-extern void func_001E78E8(char *a0, int a1);
 extern void func_001E6ED8(char *a0, int a1, int a2);
 extern void Slot2_showLayersForBetLv(char *a0);
 extern void Slot2_setLineMark(char *a0, int a1, int a2);
 extern void func_001E6C80(char *a0, int a1, int a2);
 extern void func_001E6D48(char *a0, int a1, int a2);
 extern void func_001E6E10(char *a0, int a1, int a2);
-extern void CustomIDOwner_setColorMode(char *a0, int a1);
-extern void SetUiIdWorkDispRange(char *a0, int a1);
 extern int D_007474A0;
 extern int D_00747A2C;
 extern long D_00747640;
@@ -34,7 +26,7 @@ void Slot2_UpdateBet(Slot2 *self)
 
     switch (self->step) {
     case 0: {
-        char *layer = self->layer;
+        SlotUi *layer = &self->layer;
         Slot2Reel *p0;
         Slot2Reel *p1;
         Slot2Reel *p2;
@@ -136,7 +128,7 @@ void Slot2_UpdateBet(Slot2 *self)
                 return;
             }
         }
-        CustomIDOwner_setColorMode(self->layer, 1);
+        CustomIDOwner_setColorMode(&self->layer, 1);
         self->timer = 0xF;
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15E, -1, -1, 0, 0);
         self->step = self->step + 1;
@@ -149,7 +141,7 @@ void Slot2_UpdateBet(Slot2 *self)
             done = 1;
         }
         if ((done & 0xFF) != 0) {
-            SetUiIdWorkDispRange(self->layer, 1);
+            SetUiIdWorkDispRange(&self->layer, 1);
             self->timer = 0xA;
             self->step = self->step + 1;
         }
@@ -163,7 +155,7 @@ void Slot2_UpdateBet(Slot2 *self)
         }
         if ((done & 0xFF) != 0) {
             if (D_00747640 & 0x33F00000000L) {
-                char *layer = self->layer;
+                SlotUi *layer = &self->layer;
                 SetUiIdWorkDispRange(layer, 0);
                 CustomIDOwner_setColorMode(layer, 2);
                 self->timer = 0xA;

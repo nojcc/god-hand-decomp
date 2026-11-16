@@ -14,7 +14,6 @@ extern cOmBase *Getplayer(void);
 extern void cPlayer_tryTrigger(void);
 extern void cActionButton_set(void *table, int kind, int lifeKind, int arg, void *callback, void *owner, int unused);
 extern int D_00568288;
-extern void SetFlagOnEntries7C_1D51B8(void *self, int entry, int on);
 #include "godhand/objField.h"
 extern void sceVu0ApplyMatrix(void *out, void *mtx, void *vec);
 extern float LengthPositionToGivenLine(void *line, void *pos, void *dir, int *flag);
@@ -136,7 +135,7 @@ void PromptOwner_offerActionPrompt(PromptOwner *owner)
 /* Slide the blackjack panel by mode: 0 jumps it to -0x140, 1 to 0, 2 and 3 scroll it over 10 frames; then clear display entry 5 and show entry 6 for any mode but 0. */
 
 
-#define BLACKJACK_PANEL_WORK  0x2CC     /* CustomIDWork of the panel inside the display entries */
+#define BLACKJACK_PANEL_ELEM  5         /* the panel's display element */
 #define PANEL_X_HIDDEN        (-0x140)
 #define PANEL_SLIDE_FRAMES    0xA
 
@@ -161,16 +160,16 @@ void BlackJack_slidePanel(BlackJack *self, unsigned short mode)
         goto scrollIn;
     }
 hidden:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), PANEL_X_HIDDEN);
+    CustomIDWork_SetOffsetPosX(&self->elem[BLACKJACK_PANEL_ELEM], PANEL_X_HIDDEN);
     goto done;
 slideIn:
-    CustomIDWork_SetOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), 0);
+    CustomIDWork_SetOffsetPosX(&self->elem[BLACKJACK_PANEL_ELEM], 0);
     goto done;
 scrollOut:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[BLACKJACK_PANEL_ELEM], PANEL_X_HIDDEN, 0, PANEL_SLIDE_FRAMES);
     goto done;
 scrollIn:
-    CustomIDWork_SetMoveOffsetPosX((CustomIDWork *)((char *)self + BLACKJACK_PANEL_WORK), 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
+    CustomIDWork_SetMoveOffsetPosX(&self->elem[BLACKJACK_PANEL_ELEM], 0, PANEL_X_HIDDEN, PANEL_SLIDE_FRAMES);
 done:
     SetFlagOnEntries7C_1D51B8(self, 5, 0);
     SetFlagOnEntries7C_1D51B8(self, 6, m != 0);

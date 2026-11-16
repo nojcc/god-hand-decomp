@@ -1,4 +1,5 @@
 #include "godhand/cModel.h"
+#include "godhand/BlackJack.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cEm00.h"
 #include "godhand/cSnd.h"
@@ -75,27 +76,27 @@ int CheckSlotsShort2FEAndSetByte1864_262A10(cEm00 *self)
 }
 
 __attribute__((section(".text.SetFlagOnEntries7C_1D51B8")))
-void SetFlagOnEntries7C_1D51B8(char *base, int idx, int flag) {
+void SetFlagOnEntries7C_1D51B8(BlackJack *self, int idx, int flag) {
     int i;
     if (flag != 0) {
-        if (idx == 0x2D) {
-            for (i = 0; i < 0x2D; i++) {
+        if (idx == BLACKJACK_ELEM_NUM) {
+            for (i = 0; i < BLACKJACK_ELEM_NUM; i++) {
                 if (i != 0) {
-                    CustomIDWork_SetDisp((CustomIDWork *)(base + 0x60 + i * 0x7C), 1);
+                    CustomIDWork_SetDisp(&self->elem[i], 1);
                 }
             }
         } else if (idx != 0) {
-            CustomIDWork_SetDisp((CustomIDWork *)(base + (idx * 0x7C + 0x60)), 1);
+            CustomIDWork_SetDisp(&self->elem[idx], 1);
         }
     } else {
-        if (idx == 0x2D) {
-            for (i = 0; i < 0x2D; i++) {
+        if (idx == BLACKJACK_ELEM_NUM) {
+            for (i = 0; i < BLACKJACK_ELEM_NUM; i++) {
                 if (i != 0) {
-                    CustomIDWork_SetDisp((CustomIDWork *)(base + 0x60 + i * 0x7C), 0);
+                    CustomIDWork_SetDisp(&self->elem[i], 0);
                 }
             }
         } else if (idx != 0) {
-            CustomIDWork_SetDisp((CustomIDWork *)(base + (idx * 0x7C + 0x60)), 0);
+            CustomIDWork_SetDisp(&self->elem[idx], 0);
         }
     }
 }

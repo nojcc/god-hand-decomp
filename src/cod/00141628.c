@@ -40,8 +40,8 @@ typedef struct DoorObj {
 
 __attribute__((section(".text.DoorObj_construct")))
 int DoorObj_construct(DoorObj *self) {
-    float f[8];
-    float *t;
+    cVec f[2];
+    cVec *t;
     int hp;
     float one, ca, cb, cc, cd;
     func_001B6FB8(self);
@@ -51,18 +51,18 @@ int DoorObj_construct(DoorObj *self) {
     cb = 3.7f;
     cc = 0.2f;
     cd = -1.25f;
-    t = &f[4];
-    f[0] = ca;
-    f[1] = cb;
-    f[2] = cc;
-    f[4] = cd;
-    f[3] = one;
-    t[3] = one;
-    f[5] = 0.0f;
-    f[6] = 0.0f;
+    t = &f[1];
+    f[0].x = ca;
+    f[0].y = cb;
+    f[0].z = cc;
+    f[1].x = cd;
+    f[0].w = one;
+    t->w = one;
+    f[1].y = 0.0f;
+    f[1].z = 0.0f;
     self->life = hp;
     self->lifeMax = hp;
-    cVec_copy3((cVec *)self->size, (cVec *)f);
+    cVec_copy3((cVec *)self->size, &f[0]);
     cOmDoor_setObjCollision(self);
     self->hasBody = hp;
     self->body = self->bodyRec;

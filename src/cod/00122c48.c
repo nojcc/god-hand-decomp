@@ -5,6 +5,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
+#include "godhand/pl00.h"
 #include "godhand/cBgmData.h"
 
 extern char D_0044CE28[];
@@ -15,7 +16,6 @@ extern void cOmDoor_setObjCollisionCenterOnly(void *self);
 extern void SetFlagBit_1BD698(void *self);
 extern void func_001BDD88(void *self, float f);
 extern float fRand0_1(void);
-extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 
@@ -146,9 +146,8 @@ extern struct Table_func_00122C48 D_003BD458;
 /* The player's mode-2 handler, entry 2 of the mode table D_003BD0B8. Clear the 0x640 and 0x698 links, update the base,
  * force phase 0 when the phase byte (0x2F5) is 2 or more, then call the method the phase table names for it. */
 __attribute__((section(".text.StepPlayerMode2ByPhase_122C48")))
-void StepPlayerMode2ByPhase_122C48(cEm00 *self)
+void StepPlayerMode2ByPhase_122C48(pl00 *self)
 {
-    char *s0 = (char *)self;
     char *e;
     int i8;
     int f0;
@@ -157,26 +156,26 @@ void StepPlayerMode2ByPhase_122C48(cEm00 *self)
     int (*fp)(int);
     long entry;
 
-    Obj0000_Clear_Fields_640_648_124E58(s0);
-    CallWithAndClearField698_12AC28(s0);
-    func_0012B928(s0);
-    if (self->phase >= 2) {
-        self->phase = 0;
+    Obj0000_Clear_Fields_640_648_124E58(self);
+    CallWithAndClearField698_12AC28(self);
+    func_0012B928(self);
+    if (self->base.phase >= 2) {
+        self->base.phase = 0;
     }
-    i8 = self->phase * 8;
+    i8 = self->base.phase * 8;
     e = (char *)&D_003BD458 + i8;
     type = *(short *)(e + 2);
     if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
+        int base = *(int *)((char *)self + *(short *)(e + 4));
         entry = *(long *)(base + type * 8 - 8);
         fp = (int (*)(int))(int)(entry >> 32);
     } else {
         fp = *(int (**)(int))((char *)&D_003BD458 + i8 + 4);
     }
-    f0 = D_003BD458.e[self->phase].f0;
+    f0 = D_003BD458.e[self->base.phase].f0;
     if (type >= 0)
         arg = (short)entry + f0;
     else
         arg = f0;
-    fp((int)(s0 + arg));
+    fp((int)((char *)self + arg));
 }

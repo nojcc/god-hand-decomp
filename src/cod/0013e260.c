@@ -3,11 +3,12 @@
 #include "godhand/cDamageManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cIDBase.h"
+#include "godhand/cCockGetPoint.h"
 #include "godhand/PanelObj.h"
 #include "godhand/cGameObj.h"
 
 extern float fRand1_1(void);
-extern int D_00428840;
+extern cVtEnt D_00428840[];
 extern void SetField214PtrThenInit_1B6F38(void *self, int flag);
 extern char D_00754C80[];
 extern void func_0031A600(void *queue, int kind, int id, void *packet);
@@ -65,7 +66,7 @@ typedef struct cKidOwner {
 /* Destructor: release the handle, send both children to mode 1, run the base destructor. */
 __attribute__((section(".text.cKidOwner_destruct")))
 void cKidOwner_destruct(cKidOwner *self, int flag) {
-    self->base.vtable = (cVtEnt *)&D_00428840;
+    self->base.vtable = D_00428840;
     if (self->handle != 0) {
         ClearAndResetFields_1FE278(&D_00574380, self->handle);
         self->handle = 0;
@@ -100,27 +101,15 @@ void GifPacket_closeAndQueue(char *pkt) {
     func_0031A600(D_00754C80, 4, 4, pkt);
 }
 
-#define MARKER_NUM   8
-#define MARKER_NONE  (-1)               /* slot unused */
-#define MARKER_LIFE  0x24               /* ids from here on are released after one draw */
-
-/* Eight draw slots: a display record (0x50 bytes each) and a marker id per slot. */
-typedef struct MarkerSet {
-    char unk00[0x90];
-    char rec[MARKER_NUM][0x50];         /* 0x90 display records */
-    char unk310[0x33C - 0x310];
-    signed char id[MARKER_NUM];         /* 0x33C marker id per slot, MARKER_NONE if unused */
-} MarkerSet;
-
 
 
 /* Draw every used slot; a slot whose id is MARKER_LIFE or more is freed after drawing. */
 __attribute__((section(".text.func_0013E260")))
-void func_0013E260(MarkerSet *self) {
+void func_0013E260(cCockGetPoint *self) {
     unsigned short i;
     for (i = 0; i < MARKER_NUM; i++) {
         if (self->id[i] != MARKER_NONE) {
-            cIDBase_trans((cIDBaseObj *)self->rec[i]);
+            cIDBase_trans(&self->rec[i].id);
             if (self->id[i] >= MARKER_LIFE) {
                 self->id[i] = MARKER_NONE;
             }

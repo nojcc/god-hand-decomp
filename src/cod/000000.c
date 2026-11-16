@@ -8,6 +8,8 @@
 #include "godhand/cEm00.h"
 #include "godhand/cOmbb.h"
 #include "godhand/pl00.h"
+#include "godhand/Poker.h"
+#include "godhand/DogRace.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cIDBase.h"
@@ -358,8 +360,8 @@ __attribute__((section(".text.NoOp_1DCE60")))
 void NoOp_1DCE60(void) {}
 
 __attribute__((section(".text.SetField_56_1DEBE8")))
-void SetField_56_1DEBE8(char *a0, int a1) {
-    a0[0x56] = (char)a1;
+void SetField_56_1DEBE8(Poker *self, int mode) {
+    self->id.mode = mode;
 }
 
 __attribute__((section(".text.SetField_162C_1ED488")))
@@ -857,7 +859,7 @@ void Obj0000_Set_D_003EE340_Args_0_1_35F958(int a0, int a1) {
 
 __attribute__((section(".text.Obj0000_Set_Field_80_372C68")))
 SndVoiceNode *Obj0000_Set_Field_80_372C68(SndVoiceNode *self) {
-    self->vt = (struct cVtEnt *)D_003BAFE0;
+    self->vt = D_003BAFE0;
     return self;
 }
 
@@ -1597,7 +1599,7 @@ __attribute__((section(".text.GetField_2_158CC8")))
 float GetField_2_158CC8(int a0, float *a1) { return a1[2]; }
 
 __attribute__((section(".text.Obj0000_Clear_Fields_640_648_124E58")))
-void Obj0000_Clear_Fields_640_648_124E58(char *a0) { *(int *)(a0 + 0x640) = 0; a0[0x648] = 0; }
+void Obj0000_Clear_Fields_640_648_124E58(pl00 *self) { self->unk640 = 0; self->unk648 = 0; }
 
 __attribute__((section(".text.ReturnOne_1F6FA0")))
 int ReturnOne_1F6FA0(void) { return 1; }
@@ -1715,12 +1717,9 @@ int Obj0000_Init_Fields_00_04_1D6DB0(int a0) {
 }
 
 __attribute__((section(".text.Obj0000_Or_Field_0_Bit_1_Clear_Field_348_1ED7C8")))
-int Obj0000_Or_Field_0_Bit_1_Clear_Field_348_1ED7C8(int a0) {
-    int v0 = *(int*)((char*)a0 + 0x0);
-    *(int*)((char*)a0 + 0x348) = 0;
-    v0 |= 1;
-    *(int*)((char*)a0 + 0x0) = v0;
-    return v0;
+void Obj0000_Or_Field_0_Bit_1_Clear_Field_348_1ED7C8(DogRaceUi *self) {
+    self->step = 0;
+    self->flags |= DOGRACE_UI_F_INTRO;
 }
 
 __attribute__((section(".text.NoOp_1F1C48")))

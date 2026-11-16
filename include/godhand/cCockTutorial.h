@@ -31,4 +31,11 @@ typedef struct cCockTutorial {
     unsigned char unkB8;                /* 0xB8 */
 } cCockTutorial;
 
+typedef char cCockTutorial_size_check[sizeof(cCockTutorial) == 0xBC ? 1 : -1];
+
+/* Forget the message pack and set the message back to none. */
+void ClearFields_B0_AC_147018(cCockTutorial *self);
+/* Draw the tutorial while a pack is loaded and its step is 1 to 4. */
+void ForwardIfStateActive_147460(cCockTutorial *self);
+
 #endif

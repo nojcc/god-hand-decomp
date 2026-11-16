@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/CustomIDWork.h"
+#include "godhand/ColiseumEmSelect.h"
 
-extern void SetCustomIDDispOneOrAll_1F4778(void *self, int entry, int on);
 extern int ReturnOne_1F6FA0(void *self);
 extern int GetNextAnimIndex_1451E0(void *table);
 extern void BlendSetup_load(void *table, int a, int b, int c, int d, int e);
@@ -11,10 +11,6 @@ extern char *D_003BD6E8;
 #define TIME_ROW_NUM       7          /* rows in the table */
 #define TIME_DISP_FIRST    0x2D       /* three display entries per row, from here */
 #define TIME_DISP_RANK     0x68       /* one more entry per row: the rank mark */
-#define TIME_ROW_SIZE      0x174      /* bytes between the number records of two rows */
-#define TIME_MIN_OFFSET    0x162C     /* minutes number record of row 0 */
-#define TIME_SEC_OFFSET    0x16A8     /* seconds number record of row 0 */
-#define TIME_MESS_OFFSET   0x32C0     /* message record of row 0 (0x7C bytes each) */
 #define TIME_MESS_NONE     0x102B     /* message shown when the row has no time */
 #define TIME_SECS_PER_MIN  60
 
@@ -22,7 +18,7 @@ extern char *D_003BD6E8;
  * (val seconds as minutes and seconds) with visibility `show`, or the "no
  * time" message when val is 0. Does nothing for a row of 7 or more. */
 __attribute__((section(".text.CustomIDOwner_setTimeRow")))
-void CustomIDOwner_setTimeRow(void *self, unsigned short idx, int val, int show)
+void CustomIDOwner_setTimeRow(ColiseumEmDisp *self, unsigned short idx, int val, int show)
 {
     int disp;
     int minutes;
@@ -38,13 +34,13 @@ void CustomIDOwner_setTimeRow(void *self, unsigned short idx, int val, int show)
     if (val != 0) {
         minutes = val / TIME_SECS_PER_MIN;
         seconds = val % TIME_SECS_PER_MIN;
-        CustomIDWork_SetNumber((CustomIDWork *)((char *)self + TIME_MIN_OFFSET + idx * TIME_ROW_SIZE), minutes);
-        CustomIDWork_SetNumber((CustomIDWork *)((char *)self + TIME_SEC_OFFSET + idx * TIME_ROW_SIZE), seconds);
+        CustomIDWork_SetNumber(&self->elem[idx * 3 + TIME_DISP_FIRST], minutes);
+        CustomIDWork_SetNumber(&self->elem[idx * 3 + TIME_DISP_FIRST + 1], seconds);
         SetCustomIDDispOneOrAll_1F4778(self, disp, show);
         SetCustomIDDispOneOrAll_1F4778(self, disp + 1, show);
         SetCustomIDDispOneOrAll_1F4778(self, disp + 2, show);
     } else {
-        CustomIDWork_SetMessNo((CustomIDWork *)((char *)self + TIME_MESS_OFFSET + idx * 0x7C), TIME_MESS_NONE);
+        CustomIDWork_SetMessNo(&self->elem[idx + TIME_DISP_RANK], TIME_MESS_NONE);
         SetCustomIDDispOneOrAll_1F4778(self, idx + TIME_DISP_RANK, show);
     }
 }
