@@ -8,7 +8,7 @@
 
 
 
-extern void classFADE_start(void *p, int b, int c, int d, int e, unsigned int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void cScenario_beginRoomJump_2C4548(char *p, int a1, float f, void *buf, int a3, unsigned int t0, int t1);
 extern void NoOp_1F0490(char *a0);
 extern char D_00747470[];

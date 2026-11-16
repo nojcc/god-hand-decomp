@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmWeapon.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cObjBase.h"
@@ -6,9 +6,6 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cVec.h"
 #include "godhand/effectPos.h"
-
-struct LineObj;
-void LineObj_checkWaterHit(struct LineObj *self);
 
 #define WEAPON_GRAVITY   0.013f
 #define WEAPON_MIN_SPEED -1.95f
@@ -101,7 +98,7 @@ void func_001C9AF0(cOmWeapon *self)
                 body->rot.z = 0.0f;
             }
         }
-        LineObj_checkWaterHit((struct LineObj *)self);
+        LineObj_checkWaterHit(self);
         return;
     case 2:
         if (--self->base.unk56A <= 0) {

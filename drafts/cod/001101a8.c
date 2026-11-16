@@ -38,8 +38,8 @@ void func_001101A8(pl00 *self)
 
     switch (self->base.step) {
     case 0:
-        self->comboSlot = 0;
-        self->comboSet = 0;
+        self->unk5E0 = 0;
+        self->unk5E2 = 0;
         func_00124540(self, 0);
         switch (self->base.stepArg) {
         case 0:

@@ -12,7 +12,7 @@ extern void cEvent_startPlayFade(cEvent *);
 extern void HideModelMgr_ResetHiddenModels(char *);
 extern void HideModelMgr_ClearHiddenModelList(char *);
 extern void cScenario_setOmSuspend(int, int);
-extern void classFADE_start(char *, int, int, int, int, int, int);
+extern void classFADE_start(char *, int, int, int, unsigned int, unsigned int, int);
 extern void cNowLoading_executeTask(int);
 
 /* START stage: wait until the screen is free, hide the models, fade out and

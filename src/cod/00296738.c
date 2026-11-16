@@ -5,7 +5,7 @@
 extern int D_00747A2C;
 extern int D_00586B34;
 extern char D_00747470[];
-extern void classFADE_start(char *, int, int, int, int, int, int);
+extern void classFADE_start(char *, int, int, int, unsigned int, unsigned int, int);
 extern int D_00747A84;
 extern void func_0();
 

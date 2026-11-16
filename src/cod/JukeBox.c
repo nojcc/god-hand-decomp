@@ -9,7 +9,7 @@ typedef struct { char pad[0x1B0]; short f; } CacT;
 extern CacT D_005CAC90;              /* struct base; sh @0x1B0 */
 extern int D_00747470;               /* fade obj base */
 extern void Set_bg_mode(int a, int b, int c, int d);
-extern void classFADE_start(void *p, int b, int c, int d, int e, unsigned int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void classFADE_kill(void *p);
 extern void cTaskWork_sleep(void *p, int a);
 extern void *Getplayer(void);

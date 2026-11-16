@@ -133,6 +133,12 @@ int cCollisionSolidManage_ChkHit(cCollisionSolidManage *self, struct cGameObj *o
 /* The line test between two points (assembly); the parameters as its callers pass them. */
 int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
             int a7, int a8, int a9, int a10, int a11, int a12);
+/* Wall test of obj (its posA to pos) within radius; the hit point goes to hit
+ * (assembly; the parameters as its callers pass them). */
+int ChkCollScrWall(void *obj, void *hit, int a2, void *a3, int a4, int a5, float radius);
+/* Floor test of obj within range of its position; the hit point goes to hit
+ * (assembly; the parameters as its callers pass them). */
+int func_001329C0(void *obj, void *hit, int a2, void *a3, float range);
 
 /* The point of the triangle a b c closest to p, into out. */
 void func_00135348(cVec *out, cVec *p, cVec *a, cVec *b, cVec *c);

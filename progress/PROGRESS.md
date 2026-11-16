@@ -522,3 +522,22 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - memset declared once in criStm.h for the non-CRI units; func_002BAE40 typed as the three-argument method retail is (build 269, cold).
 - Removed 365 local declarations that repeated an included header prototype (build 270, cold).
 - func_00123938, func_00124540 and func_0010B2E8 declared in pl00.h for the player units (build 271, cold). Stopped here on request.
+
+## Batch 219 (port-list re-try against today's headers) — 2026-11-16T16:19:21Z
+
+- Registered 4: func_001C9AF0 and func_00166780 (`extern_jtbl`), func_001B0540 (`fp_hazard_rules: sqrt`, `as: sn`; plain `__builtin_sqrtf`), func_00137F38.
+- Headers: cOmWeapon.h (`waterHit`, LineObj_checkWaterHit), classFADE.h (classFADE_start's colours unsigned, ten local declarations brought in line), cSubScrOption.h (D_0041FB70), cCollisionSolid.h (ChkCollScrWall, func_001329C0), pathRec.h (func_00137BB8).
+- Parked: the four cvec_pending.h drafts, six drafts on unanswered rows, 001bf5e0, 003bafd0, 001101a8, 00110b20, 00115310 (reasons in batch_log.md).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+## Batch 220 (near misses, FPU_SQRT_S, NM handoffs) — 2026-11-16T17:10:00Z
+
+- No matches. The 69 closest drafts were tried with every per-unit option; the best are 1-13 instructions off (register choice or block order). func_001C8930 stays 2 off with FPU_SQRT_S, so the macro isn't used.
+- func_001C2408 (solved by the NM closer) is left unapplied: it needs the D_003BD6E8 type row answered. New decisions rows for it and for the 21 port-list drafts that need the held headers' names.
+- Stopped: no workable functions left outside the open rows.
+
+## Batch 220 (near misses, FPU_SQRT_S, NM handoffs) — 2026-11-16T17:10:00Z
+
+- No matches. The 69 closest drafts were tried with every per-unit option; the best are 1-13 instructions off (register choice or block order). func_001C8930 stays 2 off with FPU_SQRT_S, so the macro isn't used.
+- func_001C2408 (solved by the NM closer) is left unapplied: it needs the D_003BD6E8 type row answered. New decisions rows for it and for the 21 port-list drafts that need the held headers' names.
+- Stopped: no workable functions left outside the open rows.

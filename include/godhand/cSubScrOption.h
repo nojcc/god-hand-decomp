@@ -59,6 +59,8 @@ void SetFlagOnChildren_167EE8(cSubScrOptionT *self);
 
 /* Step of cSubScrOption's fade to and from the second display. */
 extern unsigned char D_003BD9E8;
+/* Cursor y of each row of cSubScrOption's main display. */
+extern float D_0041FB70[];
 
 /* Put the settings back to their defaults; self is not read. */
 void func_001672F0(cSubScrOption *self);

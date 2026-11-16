@@ -32,5 +32,8 @@ typedef struct PathHost {
 
 /* Turn angle and height toward the active record (kind 1). */
 extern void PathHost_calcTurn(PathHost *self, float *turn, float *height, cVec *ref, cVec *target);
+/* Set rec to the path record whose area holds pos, or 0 (assembly); 1 when
+ * one does. */
+int func_00137BB8(PathHost *self, cVec *pos);
 
 #endif /* GODHAND_PATHREC_H */

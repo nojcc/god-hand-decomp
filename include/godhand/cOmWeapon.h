@@ -43,7 +43,9 @@ typedef struct cOmWeapon {
     float unk66C;                           /* 0x66C */
     int throwArg;                           /* 0x670 second argument of setThrow */
     float fallVel;                          /* 0x674 vertical speed while dropping */
-    char unk678[0x18];
+    char unk678[0x10];
+    unsigned char waterHit;                 /* 0x688 set once LineObj_checkWaterHit finds water */
+    char unk689[0x7];
     int target;                             /* 0x690 object the weapon was thrown at */
     float spin;                             /* 0x694 */
     char unk698[0x8];
@@ -97,6 +99,9 @@ void func_001D0140(cOmWeapon *self, cVec *pos, int arg);
 void cOmWeapon_SetBreak(cOmWeapon *self);
 /* Drop the weapon. */
 void cOmWeapon_setFall(cOmWeapon *self);
+/* Once per weapon: cast a line from posA to pos and, on a water surface,
+ * splash and play the splash sound. */
+void LineObj_checkWaterHit(cOmWeapon *self);
 /* Hand weapon to parent with the hold offsets of type (two loaders with the same table). */
 void SetOrientByType_26AF20(cOmBase *parent, cOmWeapon *weapon, unsigned int type);
 void cOmWeapon_loadEffectParamsByType(cOmBase *parent, cOmWeapon *weapon, unsigned int type);

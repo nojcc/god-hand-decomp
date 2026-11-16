@@ -21,7 +21,7 @@ extern int D_003C2558;
 extern char D_00747470[];
 extern void cEvent_endPlay(cEvent *);
 extern void cEvent_startReleaseObj(cEvent *);
-extern void classFADE_start(char *, int, int, int, int, int, int);
+extern void classFADE_start(char *, int, int, int, unsigned int, unsigned int, int);
 extern void Set_bg_mode(int, int, int, int);
 extern void cNowLoading_executeTask(int);
 

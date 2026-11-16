@@ -1,18 +1,20 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cGameObj.h"
 #include "godhand/cObjBase.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cSnd.h"
 #include "godhand/gameWork.h"
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/capVu0.h"
 #include "godhand/sceVu0.h"
 #include "godhand/vu0.h"
+#include "godhand/cCollisionSolid.h"
 
 /* The rolling object func_001B0980 starts; no header type yet. */
 typedef struct RollObj {
     cGameObj base;
     char unk5B0[0x600 - 0x5B0];
-    void *damage;                       /* 0x600 damage unit, 0 if none */
+    cDamageUnit *damage;                /* 0x600 damage unit, 0 if none */
     char unk604[0x610 - 0x604];
     cVec vel;                           /* 0x610 */
     char unk620[2];
@@ -21,8 +23,6 @@ typedef struct RollObj {
     unsigned char rolling;              /* 0x625 */
 } RollObj;
 
-extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
-extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 
 /* Moves the object by its velocity until it stops rolling: friction, gravity,
  * wall and floor contact, the landing sounds, and a dust puff every 10 frames
@@ -32,7 +32,6 @@ void func_001B0540(RollObj *self)
 {
     cVec flat;
     cVec hit;
-    float k;
 
     VU0_LQC2(4, &self->vel, 0);
     VU0_SQC2_MEM(4, &flat, 0);
@@ -41,10 +40,7 @@ void func_001B0540(RollObj *self)
         self->rolling = 0;
     if (self->rolling == 1 || self->falling == 1) {
         VU0_VADD_XYZ_IP(self->base.pos, 0, &self->vel);
-        k = 0.7f;
-        if (self->falling == 1)
-            k = 0.95f;
-        VU0_VSCALE_XYZ_MEM(&self->vel, 0, k);
+        VU0_VSCALE_XYZ_MEM(&self->vel, 0, self->falling == 1 ? 0.95f : 0.7f);
     }
     self->vel.y += -0.02f;
     cVec_zero(&hit);
@@ -71,7 +67,7 @@ void func_001B0540(RollObj *self)
         }
     }
     if (self->falling == 0 && self->rolling == 1) {
-        self->base.pos->y += (float)(D_007474A0.frame & 1U) * 0.01f;
+        self->base.pos->y += (D_007474A0.frame & 1U) * 0.01f;
         if (self->smokeWait > 0) {
             self->smokeWait--;
         } else {

@@ -65,7 +65,7 @@ void *GetPilotClassDesc2_2BA948(void) {
 /* ─────────────────────────── medium picks ─────────────────────────────── */
 
 /* Juke box state 0: restart the ID animation, set the state bytes, start a fade in and sleep the task 10 frames. */
-extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void cTaskWork_sleep(void *p, int a);
 extern int D_00747470;
 extern void *D_003C2F84;

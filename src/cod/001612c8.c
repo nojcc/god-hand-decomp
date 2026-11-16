@@ -16,7 +16,7 @@ extern int D_00747A84;
 extern void cTaskWork_sleep(void *p, int a);
 extern void cMessage_deleteAll(void *p);
 extern void func_00306140(void);
-extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void cTaskWork_exit(void *a0);
 extern void func_001D0C98(void *a0, int a1);
 extern void *cIDBase(void *a0);

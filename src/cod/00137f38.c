@@ -1,16 +1,10 @@
-/* sn-2.95.3-136 */
-/* NON_MATCHING func_00137F38: matches byte for byte, but needs VU0_LQC2_SQC2_MEM, which vu0.h doesn't have.
- * Waiting on LucasPicoli (progress/decisions_needed.md, "vu0.h macros"). */
-#include "include_asm.h"
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cGameObj.h"
 #include "godhand/cPlCamera.h"
 #include "godhand/pathRec.h"
 #include "godhand/player.h"
 #include "godhand/vu0.h"
 
-extern int func_00137BB8(PathHost *self, cVec *pos);
-
-#ifdef NON_MATCHING
 /* Pick the path area the player is in and ease the player camera's next pose toward it. */
 __attribute__((section(".text.func_00137F38")))
 void func_00137F38(PathHost *self, struct cPlCamera *cam)
@@ -62,6 +56,3 @@ void func_00137F38(PathHost *self, struct cPlCamera *cam)
         cam->nextPose.ofs.y = self->ofsY;
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00137F38);
-#endif

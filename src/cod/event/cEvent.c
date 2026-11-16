@@ -7,7 +7,7 @@ extern char D_00747470[];
 
 extern void cEvent_initEnv(cEvent *, int);
 extern char *Getplayer(void);
-extern void classFADE_start(char *, int, int, int, int, int, int);
+extern void classFADE_start(char *, int, int, int, unsigned int, unsigned int, int);
 /* Start the cutscene `no`: take the player's position and angle, lock the
  * player's camera state and fade in unless the fade bit is set. */
 __attribute__((section(".text.cEvent_playStart")))

@@ -4,6 +4,7 @@
 #include "godhand/capVu0.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cCollisionSolid.h"
 
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
@@ -20,7 +21,6 @@ extern int cOmBase_checkDamage(void *a0, int a1);
 extern void StunObj_startStun(void *a0);
 extern void func_001B48E0(void *a0);
 extern void func_001B54E8(void *a0);
-extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
 

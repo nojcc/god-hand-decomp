@@ -28,7 +28,7 @@ extern int D_005FEA60;
 extern void cScenario_startSoftEvent(int a0, int a1);
 extern void cScenario__endSoftEvent(int a0);
 extern void cTaskWork_exit(int a0);
-extern void classFADE_start(void *p, int b, int c, int d, int e, unsigned int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
 extern void classFADE_kill(void *p);
 extern void cTaskWork_sleep(void *p, int a);
 extern void DogRace_Load(DogRace *self);

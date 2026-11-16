@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cSubScrOption.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/classFADE.h"
@@ -8,8 +8,6 @@
 
 #define OPTION_MSG_ROW      0x2000      /* message of row n is this + n */
 #define OPTION_MSG_ASK      0x2008      /* message of the yes/no question */
-
-extern float D_0041FB70[];              /* cursor y of each row */
 
 /* Each frame of the options panel: show the entries for the row under the
  * cursor and the current settings, run the fade to and from the second

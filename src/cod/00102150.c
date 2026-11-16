@@ -25,8 +25,6 @@ extern char *Getplayer(void);
 extern void func_0012C540(void *a0, int a1);
 extern int GetSeqSEBase(void *a0);
 extern void func_00102418(void *a0);
-extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
-extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 extern void cObjBase_SetSeqEffect(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern int D_00747A78;

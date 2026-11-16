@@ -24,8 +24,6 @@ extern cPmf D_003BFAC0[];
 extern float capVu0MagnitudeSqXZ(void *a, void *b);
 extern void cObjBase_SetSeqEffect(cObjBase *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
-extern int ChkCollScrWall(void *a0, void *a1, int a2, void *a3, int t0, int t1, float f12);
-extern int func_001329C0(void *a0, void *a1, int a2, void *a3, float f12);
 
 /* Per-frame update: run the handler for the current mode, solve the body, then
  * push out of walls and fall onto the floor unless grounded. */
