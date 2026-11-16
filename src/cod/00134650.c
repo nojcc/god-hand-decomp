@@ -4,10 +4,11 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
+#define CGAMEOBJ_NO_TYPEDEF
+#include "godhand/cGameObj.h"
 
 extern char D_005F3970[];
 extern void cGameObj(void *);
-extern cVtEnt D_0044A660[];
 extern int D_0044A630;
 
 __attribute__((section(".text.func_00134650")))

@@ -21,5 +21,8 @@ extern PtrVecRef D_00754C30;            /* every registered object */
 extern PtrVecRef D_00754C58;            /* every other object */
 
 extern void func_003129D0(PtrVecRef *list, void *obj);
+/* First live item object of actor 0x3D1 in D_00754C58 for which
+ * func_001C2328 answers nonzero, or 0. */
+char *ObjList_findActor3D1(void);
 
 #endif /* GODHAND_PTRVEC_H */
