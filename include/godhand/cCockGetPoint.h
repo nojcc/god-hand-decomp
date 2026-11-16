@@ -8,6 +8,7 @@
 #define GODHAND_CCOCKGETPOINT_H
 
 #include "godhand/cIDBase.h"
+#include "godhand/cVecType.h"
 
 #define MARKER_NUM   8
 #define MARKER_NONE  (-1)               /* slot unused */
@@ -29,5 +30,8 @@ typedef struct cCockGetPoint {
 
 typedef char cCockGetPointMark_size_check[sizeof(cCockGetPointMark) == 0x50 ? 1 : -1];
 typedef char cCockGetPoint_id_check[((int)&((cCockGetPoint *)0)->id == 0x33C) ? 1 : -1];
+
+/* Show the points won at pos. Retail's body is empty: no parameter is read. */
+void cCockGetPoint_setData(cCockGetPoint *self, cVec *pos, unsigned short point, short kind);
 
 #endif

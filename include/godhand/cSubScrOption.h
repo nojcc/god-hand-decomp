@@ -59,6 +59,8 @@ void SetFlagOnChildren_167EE8(cSubScrOptionT *self);
 
 /* Step of cSubScrOption's fade to and from the second display. */
 extern unsigned char D_003BD9E8;
+/* Step of cSubScrOptionT's fade, the variant's own byte after cSubScrOption's. */
+extern unsigned char D_003BD9E9;
 /* Cursor y of each row of cSubScrOption's main display. */
 extern float D_0041FB70[];
 

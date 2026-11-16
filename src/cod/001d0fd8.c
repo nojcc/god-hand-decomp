@@ -4,9 +4,8 @@
 #include "godhand/vu0.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/DispMgr.h"
 
-extern int D_003BD6E8;
-extern void func_00143A90();
 extern int D_0042AFE0[BLACKJACK_SUIT_NUM];
 extern float D_00568050[4];
 extern BlackJackCardObj *CreateObj(int id, int a1);
@@ -29,7 +28,7 @@ __attribute__((section(".text.BlackJack_StartSetup")))
 void BlackJack_StartSetup(BlackJack *self)
 {
     if (self->phase == 0) {
-        func_00143A90(D_003BD6E8 + 0x1AE0);
+        func_00143A90(&D_003BD6E8->gold);
         self->flags |= BLACKJACK_FLAG_SETUP;
         self->phase += 1;
     }

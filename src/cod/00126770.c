@@ -6,6 +6,7 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cDvd.h"
+#include "godhand/DispMgr.h"
 #include "godhand/cSnd.h"
 #include "godhand/cIDBase.h"
 #include "godhand/heapArena.h"
@@ -207,11 +208,10 @@ void func_00126770(char *a0) {
 }
 
 __attribute__((section(".text.func_00143A90")))
-void func_00143A90(int a0) {
-    int *p = (int *)a0;
-    if (p[0x94/4] != 0) {
-        p[0x90/4] = cCoreSave_getGold(&D_00569B70);
-        *(int *)(p[0x94/4] + 0x84) = cCoreSave_getGold(&D_00569B70);
+void func_00143A90(DispMgrGold *self) {
+    if (self->num != 0) {
+        self->gold = cCoreSave_getGold(&D_00569B70);
+        self->num->seed = cCoreSave_getGold(&D_00569B70);
         cCoreSave_initAddGold(&D_00569B70);
     }
 }

@@ -3048,6 +3048,7 @@
 !include/godhand/CurveKey.h
 !include/godhand/cFxTrail.h
 !include/godhand/TexChan.h
+!include/godhand/TrackSet.h
 !include/godhand/sndCurveSel.h
 !include/godhand/sjFeedCtl.h
 !include/godhand/sfdStat.h
@@ -3358,6 +3359,7 @@
 !src/cod/0018ef58.c
 !src/cod/00166638.c
 !src/cod/001673d0.c
+!src/cod/00167518.c
 !src/cod/0017f320.c
 !src/cod/0017e8d8.c
 !src/cod/001f16d8.c
@@ -4115,6 +4117,7 @@
 !src/cod/001bcfb0.c
 !src/cod/001bf8c8.c
 !src/cod/001c0450.c
+!src/cod/001c2408.c
 !src/cod/001c9860.c
 !src/cod/001c9af0.c
 !src/cod/001cd800.c

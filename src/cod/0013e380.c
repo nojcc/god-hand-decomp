@@ -2,9 +2,8 @@
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
 #include "godhand/cCockItem.h"
+#include "godhand/DispMgr.h"
 
-extern char *D_003BD6E8;
-extern void func_00143A90(char *a0);
 extern void func_002B2580(char *self);
 extern void cSndSeTrack_switchSoundData(char *self);
 extern int D_00747A34;
@@ -23,7 +22,7 @@ __attribute__((section(".text.Slot1_endGameStep")))
 void Slot1_endGameStep(char *self) {
     switch (SLOT_STEP(self)) {
     case 0:
-        func_00143A90(D_003BD6E8 + 0x1AE0);
+        func_00143A90(&D_003BD6E8->gold);
         SLOT_STEP(self)++;
         /* fallthrough */
     case 1:

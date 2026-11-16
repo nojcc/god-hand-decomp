@@ -3,6 +3,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/cNode.h"
 #include "godhand/cModel.h"
+#include "godhand/DispMgr.h"
 
 extern int SearchData(int a0, void *a1, int a2);
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
@@ -12,7 +13,6 @@ extern int D_004289F8;
 extern int D_00428A00;
 extern int D_00428A08;
 extern int D_00428A10;
-extern int D_003BD6E8;
 extern void func_00147C88(void *a0, void *a1, int a2);
 
 __attribute__((section(".text.func_001B6FB8")))
@@ -61,7 +61,7 @@ int func_001B6FB8(void *a0)
     *(float *)((char *)s0 + 0x3A8) = 1.0f;
     t8 = *(unsigned short *)((char *)s0 + 0x2FE);
     if (t8 == 0x359) {
-        func_0013F558(D_003BD6E8 + 0x1E90, s0);
+        func_0013F558(&D_003BD6E8->track, s0);
     }
     return 1;
 }

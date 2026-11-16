@@ -3,8 +3,8 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/Slot1.h"
+#include "godhand/DispMgr.h"
 
-extern char D_003BD6E8[];
 extern long D_00747640;
 
 #define SLOT1_WIN_WAIT     0x78
@@ -55,7 +55,7 @@ void func_001E2240(Slot1 *self) {
             }
         }
         cCoreSave_addCasinoTicket(&D_00569B70, 1);
-        *(int *)(*(char **)D_003BD6E8 + 0x1A10) =
+        D_003BD6E8->item.ticketSeed =
             (short)cCoreSave_getCasinoTicketNum(&D_00569B70);
         Slot2_selectMark(self, self->slotId, 0, 0);
         Slot2_setMarkLayers(self, 0, 0);

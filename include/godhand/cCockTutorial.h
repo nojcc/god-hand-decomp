@@ -34,6 +34,8 @@ typedef struct cCockTutorial {
 typedef char cCockTutorial_size_check[sizeof(cCockTutorial) == 0xBC ? 1 : -1];
 
 /* Forget the message pack and set the message back to none. */
+/* Show tutorial message msg. */
+void cCockTutorial_TutorialON(cCockTutorial *self, unsigned short msg);
 void ClearFields_B0_AC_147018(cCockTutorial *self);
 /* Draw the tutorial while a pack is loaded and its step is 1 to 4. */
 void ForwardIfStateActive_147460(cCockTutorial *self);

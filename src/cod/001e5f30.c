@@ -3,10 +3,10 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/DispMgr.h"
 
 extern void func_001E6ED8(void *a0, int a1, int a2);
 extern void func_001E6D48(void *a0, int a1, int a2);
-extern char D_003BD6E8[];
 extern char D_007474A0[];
 
 /* sn-2.95.3-136 matched TU. */
@@ -74,7 +74,7 @@ void Slot2_PayoutTicket(Slot2 *self) {
             }
         }
         cCoreSave_addCasinoTicket(&D_00569B70, 1);
-        *(int *)(*(char **)D_003BD6E8 + 0x1A10) =
+        D_003BD6E8->item.ticketSeed =
             (short)cCoreSave_getCasinoTicketNum(&D_00569B70);
         func_001E6ED8(self, 0, 0);
         func_001E6D48(self, 0, 0);

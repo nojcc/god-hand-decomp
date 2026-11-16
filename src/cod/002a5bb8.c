@@ -2,6 +2,7 @@
 #include "godhand/heapArena.h"
 #include "godhand/gameWork.h"
 #include "godhand/cSubScr.h"
+#include "godhand/DispMgr.h"
 extern char D_004664A0[];
 extern void **D_003C2384;
 extern void *D_003C2388;
@@ -11,7 +12,6 @@ extern char D_005E80E0[];
 extern void *D_003C2380;
 extern void *D_003C23A4;
 extern char D_00586AF0[];
-extern void *D_003BD6E8;
 extern char D_00583EC0[];
 extern void *D_003C2648;
 extern char D_00580D20[];
@@ -27,7 +27,6 @@ extern void func_002A4970(void *p);
 extern void cMenu_loadDataTables(void *p);
 extern void func_0015FD98(char *self);
 extern void ResetObjectState_2962B0(void *p);
-extern void DispMgr_reset(void *p);
 extern void NoOp_1FFE00(void *p);
 extern void func_002BF130(void *p);
 extern void ResetSlotArray_1FE6C8(void *p, void *slots);

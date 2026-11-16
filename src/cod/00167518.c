@@ -1,19 +1,10 @@
-/* sn-2.95.3-136 */
-/* NON_MATCHING func_00167518 (sn-2.95.3-136, extern_jtbl D_0041FBB0): 232 words, 4 differ.
- * As in func_00166780: in both fade-out calls retail loads the 0xFF000000 colour into
- * t1 before the zero into t0. The fade step needs a symbol at 0x3BD9E9 to link. */
-#include "include_asm.h"
-
-#ifdef NON_MATCHING
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cSubScrOption.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/classFADE.h"
 #include "godhand/padWork.h"
 #include "godhand/seqNode.h"
 #include "godhand/cIDBase.h"
-
-/* Step of cSubScrOptionT's fade; retail addresses it as its own byte, which has no symbol yet. */
-extern unsigned char D_003BD9E9;
 
 /* Each frame of the options variant: show the entries for the row under the
  * cursor and the current settings, run the fade to and from the second
@@ -131,6 +122,3 @@ void func_00167518(cSubScrOptionT *self)
     cIDBase_move(&self->sub);
     cIDBase_move(&self->obj.base);
 }
-#else
-INCLUDE_ASM("asm/nonmatching", func_00167518);
-#endif

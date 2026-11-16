@@ -8,6 +8,7 @@
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cModel.h"
+#include "godhand/DispMgr.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_001B6FB8(cOmBase *self);
@@ -166,9 +167,7 @@ int cOmBase_initEffData241(cOmBase *self)
     return 1;
 }
 
-#define NOWLOADING_SUB_OFFSET  0x3A0    /* the loading screen's record inside the game object */
 
-extern char *D_003BD6E8;                /* game object */
 extern unsigned char D_003C2554;        /* the loading task is running */
 extern unsigned char D_003C2555;        /* the loading is finished */
 
@@ -182,10 +181,10 @@ extern unsigned char D_003C2555;        /* the loading is finished */
 __attribute__((section(".text.cNowLoading_taskBody")))
 void cNowLoading_taskBody(void)
 {
-    cNowLoading_setup(D_003BD6E8 + NOWLOADING_SUB_OFFSET);
+    cNowLoading_setup(&D_003BD6E8->loading);
     for (;;) {
-        func_0013EE58(D_003BD6E8 + NOWLOADING_SUB_OFFSET);
-        Forward2AAC28_13F070((cIDBaseObj *)(D_003BD6E8 + NOWLOADING_SUB_OFFSET));
+        func_0013EE58(&D_003BD6E8->loading);
+        Forward2AAC28_13F070(&D_003BD6E8->loading.base);
         if (D_003C2555 != 0 && D_003C2554 != 0) {
             D_003C2554 = 0;
             D_003C2555 = 0;

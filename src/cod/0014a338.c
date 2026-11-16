@@ -3,9 +3,8 @@
 #include "godhand/heapArena.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cModel.h"
+#include "godhand/DispMgr.h"
 
-extern void func_00143A90(void *);
-extern char *D_003BD6E8;
 extern void func_00375050(void *, int);
 extern void func_002B22E0(void *, int);
 
@@ -15,7 +14,7 @@ extern void func_002B22E0(void *, int);
 __attribute__((section(".text.func_001DBCF8")))
 void func_001DBCF8(char *a0) {
     if (*(unsigned char *)(a0 + 0x3025) != 0) return;
-    func_00143A90(D_003BD6E8 + 0x1AE0);
+    func_00143A90(&D_003BD6E8->gold);
     *(int *)(a0 + 0x3020) |= 1;
     *(unsigned char *)(a0 + 0x3025) = *(unsigned char *)(a0 + 0x3025) + 1;
 }

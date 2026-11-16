@@ -94,6 +94,9 @@ void BlendWork_copyTable(cIDBaseScreen *self, void **src, short num);
 void BlendWork_copyShortTable(cIDBaseScreen *self, short *src, short num);
 void SetFlagAfterCopy_145160(cIDBaseScreen *self, short *src);
 void func_001451A0(cIDBaseScreen *self, unsigned char *src, short num);
+/* In phase 3 step 0, the item of the entry after the first row's (wrapping to entry 0);
+ * -1 in another phase, -2 in phase 0. */
+short GetNextAnimIndex_1451E0(cIDBaseScreen *self);
 void BlendSetup_load(cIDBaseScreen *self, void **tex, short *item, unsigned char *attr, short num,
                      unsigned short start);
 
