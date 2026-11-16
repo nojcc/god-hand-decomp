@@ -21,7 +21,6 @@ extern void *SearchData(void *a, void *b, int c);
 extern void PtrVec_create(void *counter, int value);
 extern void func_00150098(int step);
 extern void Forward149400_1492E8(int step);
-extern char D_005E7E30[];
 extern void func_00346B78(int arg);
 extern void mwPlySetMallocFn(void *alloc, void *free, void *obj);
 extern void FreeResourceNode_2D3710(void *node);
@@ -186,18 +185,6 @@ void System_initPools(void) {
     Forward149400_1492E8(info->stepB);
 }
 
-/* Init the movie player pool: set the table pointer D_005E7E30, clear the
- * counters, hand the movie library a 59.94 fps setup record, set it up with
- * the allocator hooks func_002B48A0 and func_002B48C8, then free the three
- * resource nodes (0xAC bytes each) and clear the three slot pointers. */
-typedef struct MoviePool {
-    char *nodes;                        /* 0x00 first resource node */
-    int slot[3];                        /* 0x04 */
-    int count;                          /* 0x10 */
-    unsigned char flag;                 /* 0x14 */
-    char pad15[3];
-    int unk18;                          /* 0x18 */
-} MoviePool;
 
 typedef struct MovieSetup {
     float fps;                          /* 0x00 */
@@ -207,8 +194,6 @@ typedef struct MovieSetup {
     int rest[4];                        /* 0x10 cleared by the memset */
 } MovieSetup;
 
-#define NODE_SIZE   0xAC
-#define NODE_COUNT  3
 #define MOVIE_FPS   59.94f
 
 
@@ -221,17 +206,17 @@ extern void func_003452D8(MovieSetup *setup);
 
 
 __attribute__((section(".text.MoviePool_init")))
-void MoviePool_init(MoviePool *self) {
+void MoviePool_init(cMovie *self) {
     MovieSetup setup;
     int *slot;
-    char *node;
+    cMovieTrack *node;
     int i;
     self->count = 0;
     self->flag = 0;
-    self->unk18 = 0;
-    slot = self->slot;
-    i = NODE_COUNT - 1;
-    self->nodes = D_005E7E30;
+    self->busyMask = 0;
+    slot = self->player;
+    i = MOVIE_TRACK_NUM - 1;
+    self->track = D_005E7E30;
     func_003A52F0(&setup, 0, 0x20);
     setup.fps = MOVIE_FPS;
     setup.a = 1;
@@ -240,11 +225,11 @@ void MoviePool_init(MoviePool *self) {
     func_003452D8(&setup);
     func_00346B78(-1);
     mwPlySetMallocFn((void *)func_002B48A0, (void *)func_002B48C8, 0);
-    node = self->nodes;
+    node = self->track;
     do {
         FreeResourceNode_2D3710(node);
         i--;
-        node += NODE_SIZE;
+        node++;
         *slot++ = 0;
     } while (i >= 0);
 }

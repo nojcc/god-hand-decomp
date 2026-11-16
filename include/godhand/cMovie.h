@@ -74,12 +74,21 @@ typedef struct cMovieAlloc {
 typedef struct cMovie {
     cMovieTrack *track;                 /* 0x00 MOVIE_TRACK_NUM entries */
     int player[MOVIE_TRACK_NUM];        /* 0x04 */
-    char unk10[8];
+    int count;                          /* 0x10 cleared by MoviePool_init */
+    unsigned char flag;                 /* 0x14 cleared by MoviePool_init */
+    char unk15[3];
     unsigned int busyMask;              /* 0x18 bit n set while track n plays a flagged clip */
     cMovieAlloc alloc[MOVIE_ALLOC_NUM]; /* 0x1C */
 } cMovie;
 
 extern cMovie D_005E79D0;
+extern cMovieTrack D_005E7E30[MOVIE_TRACK_NUM];   /* the tracks D_005E79D0.track points at */
+
+/* Set the movie player up: point it at the track table D_005E7E30, clear the
+ * counters, hand the movie library a 59.94 fps setup record and the allocator
+ * hooks func_002B48A0 and func_002B48C8, then free each track's resource node
+ * and clear its player handle. */
+void MoviePool_init(cMovie *self);
 
 /* The slot whose block is `block` (0 finds a free slot), or 0. */
 cMovieAlloc *func_002B4FE8(cMovie *self, void *block);

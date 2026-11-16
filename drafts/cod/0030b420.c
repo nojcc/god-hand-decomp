@@ -49,7 +49,6 @@ extern void classFADE_kill(void *p);
 extern void cMc_DllRelease(void *self);
 extern void func_002C9F58(void *);
 extern void cDvd_init(void *dvd);
-extern void MoviePool_init(void *res);
 extern void cEvent_freeData(void *p);
 extern void ClearActorList_2C32C0(void *p);
 extern void InitZeroAndSetup_12E800(void *p);

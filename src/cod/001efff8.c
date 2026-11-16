@@ -33,7 +33,6 @@ extern void sceGsResetGraph(int mode, int inter, int omode, int ffmode);
 extern void sceGsSyncV(int mode);
 extern void cDvd_init(void *dvd);
 extern void func_002C9D20(void *snd);
-extern void MoviePool_init(void *res);
 extern void SlotIds_sendSetup(void *card);
 extern void func_0031A718(void *arg);
 extern void func_002BE4E8(void *arg);
