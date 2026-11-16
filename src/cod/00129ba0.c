@@ -7,9 +7,8 @@
 #include "godhand/heapArena.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_0044E538[];
-extern cVtEnt D_0044A528[];
 extern char D_007419A0[];
 extern void func_002A84A8(void *);
 extern void espSys_effDataRelease(void *, int);

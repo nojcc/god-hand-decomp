@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 */
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_00448598[];
 extern const char D_004484B0[];
 extern void *func_0028EB00(void *self);
 

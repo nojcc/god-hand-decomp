@@ -3,13 +3,13 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/heapArena.h"
+#include "godhand/vtables.h"
 
 extern float cEmManage_GetSpeedRate(void *manager);
 extern int D_00586AF0;
 extern void func_002987F8(void);
 extern void func_002988A8(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
-extern cVtEnt D_00422240[];
 extern char D_007419A0[];
 extern void espSys_effDataRelease(void *sys, int effNo);
 extern void SetField214PtrThenInit_1B6F38(cGameObj *self, int flag);

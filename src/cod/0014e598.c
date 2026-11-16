@@ -3,6 +3,7 @@
 #include "godhand/heapArena.h"
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cObjBase.h"
+#include "godhand/vtables.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -12,7 +13,6 @@ extern void __as__22_IO_istream_withassignR7istream(void *a0, void *a1);
 extern void func_003B9DE0(void *);
 extern int D_00460AA8;
 extern void func_001495A0(cObj *self);
-extern cVtEnt D_0041EAF0[];
 extern void func_001BD580(void *);
 extern int D_00420D68;
 extern int D_00421C80;
@@ -21,7 +21,6 @@ extern void func_001BFAC8(void *);
 extern int D_00422B48;
 extern int D_00423C70;
 extern int D_00425AC0;
-extern cVtEnt D_00450C38[];
 extern int D_003FA62C;
 extern int D_003FBEA8;
 

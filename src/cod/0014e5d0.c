@@ -8,13 +8,13 @@
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cGameObj.h"
 #include "godhand/Slot1.h"
+#include "godhand/vtables.h"
 
 extern int CreateThread(void *param);
 extern void func_003B0BA8(int tid, cTaskWork *self);
 extern void WakeupThread(int tid);
 extern void WaitSema(int sema);
 extern void cTaskWork_kill(cTaskWork *self);
-extern cVtEnt D_0041EAF0[];
 extern cDataManager D_005864E0;
 extern cDataManager D_00580D20;
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);

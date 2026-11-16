@@ -6,11 +6,11 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
 #include "godhand/cSnd.h"
+#include "godhand/vtables.h"
 
 extern void cEm00_setEm65Separate(cEmActor *em);
 extern void cScenario_startSoftEvent(int scenario, int arg);
 extern void cScenario__endSoftEvent(int scenario);
-extern cVtEnt D_004282F0[];
 extern void KillEffect(void *obj, int a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *obj, int flag);
 

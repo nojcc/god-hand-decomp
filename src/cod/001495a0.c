@@ -1,8 +1,8 @@
 #include "godhand/cModel.h"
+#include "godhand/vtables.h"
 
 extern void *func_0014FF80(void *self);
 extern void *cBoundingBox(void *box);
-extern cVtEnt D_0041EA90[];
 
 __attribute__((section(".text.func_001495A0")))
 cModel *func_001495A0(cModel *self)

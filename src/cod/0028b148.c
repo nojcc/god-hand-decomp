@@ -7,8 +7,8 @@
 #include "godhand/heapArena.h"
 #include "godhand/cScenario.h"
 #include "godhand/mtx.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_0044A408[];
 extern int cTaskManager_execute_2D54F0(cTaskManager *task, void *entry, void *arg, int slot);
 extern char D_0044E090[];
 

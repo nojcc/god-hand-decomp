@@ -1,7 +1,7 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cObjBase.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_0041B6A0[];
 extern char D_0041B730[];
 extern void cActionButtonUnit_setOk(int x);
 extern void ClearLinkedNodeList_12ECF0(void *p);

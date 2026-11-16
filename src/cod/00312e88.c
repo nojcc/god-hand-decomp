@@ -3,6 +3,7 @@
 #include "godhand/criStm.h"
 #include "godhand/heapArena.h"
 #include "godhand/vu0.h"
+#include "godhand/vtables.h"
 
 /* The 0x360-byte actor whose vtable is D_00450CE8: a cObj with two vectors
  * and a flag byte. */
@@ -18,7 +19,6 @@ typedef struct cObjVec2 {
 
 #define OBJ_ALIGN  0x10
 
-extern cVtEnt D_00450CE8[];
 extern cObj *cObj__ctor(cObj *self);
 
 /* Allocate one from the D_00754C20 arena and construct it; 0 when the arena

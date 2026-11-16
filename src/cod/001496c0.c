@@ -10,8 +10,8 @@
 #include "godhand/cScenario.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/espSys.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_0041EA90[];
 extern void cModel_removeMesh(cModel *self);
 extern void func_00149E60(cModel *self);
 extern void cBoundingBox__dtor(cBox *box, int flags);

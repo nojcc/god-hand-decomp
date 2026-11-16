@@ -1,12 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cGameObj.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_00447D48[];
 extern void func_002A84A8(void *p);
 extern void cCollisionSolidManage_ReleaseUnit_278368(void *p);
-extern cVtEnt D_004481A8[];
 extern void EnemyOwner_releaseChild(void *p);
-extern cVtEnt D_00448598[];
 extern void ForwardDispatchByMode_27F170(void *p);
 
 /* Destructor of the enemy with method table D_00447D48. */

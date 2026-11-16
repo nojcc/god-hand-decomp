@@ -6,9 +6,9 @@
 #include "godhand/cCockGetPoint.h"
 #include "godhand/PanelObj.h"
 #include "godhand/cGameObj.h"
+#include "godhand/vtables.h"
 
 extern float fRand1_1(void);
-extern cVtEnt D_00428840[];
 extern void SetField214PtrThenInit_1B6F38(void *self, int flag);
 extern char D_00754C80[];
 extern void func_0031A600(void *queue, int kind, int id, void *packet);

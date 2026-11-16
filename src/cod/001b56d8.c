@@ -7,7 +7,7 @@
 
 extern void InitFields_1B6E90(void *);
 #include "godhand/objField.h"
-extern cVtEnt D_00428840[];
+#include "godhand/vtables.h"
 __attribute__((section(".text.func_001B56D8")))
 void *func_001B56D8(void *a0){
   char *s0; int i;

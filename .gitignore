@@ -3102,6 +3102,7 @@
 !include/godhand/cSlotObj.h
 !include/godhand/cObjPtrArrayWrapper.h
 !include/godhand/cObj21C0.h
+!include/godhand/vtables.h
 !include/godhand/cIDParam.h
 !include/godhand/beRec16.h
 !include/godhand/adxfObj.h

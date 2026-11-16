@@ -1,7 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cModel.h"
 
-extern cVtEnt D_0041B598[];
 extern const char D_0041B590[];
 extern int D_007854C8;
 extern int D_0041B638;
@@ -18,6 +17,7 @@ extern float D_003BC7C0;
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
 #include "godhand/cGameObj.h"
+#include "godhand/vtables.h"
 extern void cObjBase_addNullSpeed_Rotation(void *, float);
 extern void cObjBase_addNullSpeed(void *, float);
 

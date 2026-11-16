@@ -5,12 +5,12 @@
 #include "godhand/cIDBase.h"
 #include "godhand/cModel.h"
 #include "godhand/IdScreen4.h"
+#include "godhand/vtables.h"
 
 extern void func_002BF708(ScenarioCursor *self);
 extern void SysFlags_saveAndFreeze(ScenarioCursor *self);
 extern void func_002C09E8(void *p);
 extern void *D_003C264C;
-extern cVtEnt D_0044F1C8[];
 extern void func_002D5790(void *work);
 
 /* Re-initialise a second scenario cursor: run the two reset steps, tell the manager,

@@ -6,8 +6,8 @@
 #include "godhand/cModel.h"
 #include "godhand/cOmBase.h"
 #include "godhand/heapArena.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_0044EE38[];
 extern unsigned short *cMessage_getMessageAddr(void *table, int id);
 
 /* Destroy hook of the enemy class with vtable D_004481A8: release the collision unit, then the owned child object. */

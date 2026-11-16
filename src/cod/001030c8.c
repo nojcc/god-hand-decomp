@@ -10,11 +10,11 @@
 #include "godhand/cObjBase.h"
 
 extern int D_00747A34;
-extern cVtEnt D_00450B28[];
 extern void func_002D58E8(void *work, void *entry, int arg);
 extern void func_002D5440(cTaskManager *self, int index);
 extern void InitFields_1B6E90(void *);
 #include "godhand/objField.h"
+#include "godhand/vtables.h"
 extern int D_00428778;
 extern char D_003BC7B0[];
 extern char D_003BC7B8[];

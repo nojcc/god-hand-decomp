@@ -27,7 +27,7 @@ typedef struct cObj21C0 {
 typedef char cObj21C0_size_check[sizeof(cObj21C0) == COBJ21C0_SIZE ? 1 : -1];
 
 extern int D_00747A34;
-extern cVtEnt D_00447F70[];
+extern cVtEnt D_00447F70[];            /* the method table; retail names the class cEm53 */
 extern void cGameObj(void *self);
 
 #endif

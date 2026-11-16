@@ -3,13 +3,13 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
+#include "godhand/vtables.h"
 
 extern int D_00586AF0;
 extern void func_00297B20(void *a, void *b);
 extern void func_00297B40(void *a, void *b);
 extern void ScrollLayer_hideAtEnd(void);
 extern void func_00298460(void);
-extern cVtEnt D_004294F0[];
 extern char D_007419A0[];
 extern void espSys_effDataRelease(void *sys, int effNo);
 extern void SetField214PtrThenInit_1B6F38(cGameObj *self, int flag);

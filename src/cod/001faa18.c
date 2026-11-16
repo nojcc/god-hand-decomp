@@ -1,16 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#define CGAMEOBJ_NO_TYPEDEF
 #include "godhand/cGameObj.h"
+#include "godhand/cObj21C0.h"
+#include "godhand/vtables.h"
 
-extern cVtEnt D_00447AD0[];
-extern cVtEnt D_00447E68[];
-extern cVtEnt D_00447F70[];
 extern void NoOp_279E70(void);
-extern cVtEnt D_00448028[];
-extern cVtEnt D_004483A8[];
 extern void cCollisionSolidManage_ReleaseUnit_27E088(void *a0);
-extern cVtEnt D_00448890[];
-extern cVtEnt D_00448948[];
 
 /* clone */
 

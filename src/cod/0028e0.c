@@ -1,10 +1,10 @@
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
+#include "godhand/vtables.h"
 
 /* cEm00 field not named in cEm00.h yet: 0x4AC pointer to the class name string. */
 #define CEM00_TYPENAME(self) (*(void **)((char *)(self) + 0x4AC))
 
-extern cVtEnt D_0044A528[];
 extern int D_0044A510;
 extern void *func_0028EB00(void *obj);
 

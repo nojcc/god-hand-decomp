@@ -10,7 +10,7 @@
 
 extern cGameObj *InitFields_1B6E90(cGameObj *self);
 #include "godhand/objField.h"
-extern cVtEnt D_00427400[];
+#include "godhand/vtables.h"
 extern int D_005864F0;
 extern int cEmManage_CkPlCatched(void *p);
 extern void func_0();

@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
 #include "godhand/cDamageUnit.h"
+#include "godhand/vtables.h"
 
 extern char D_00425D48[];
 extern int ResetActorState_1BBF00();
@@ -10,7 +11,6 @@ extern int ResetField214FreeField180_1C2820();
 extern char D_00426E78[];
 extern int SetField214PtrThenInit_1B6F38();
 extern char D_00427060[];
-extern cVtEnt D_00427400[];
 
 /* clone */
 
