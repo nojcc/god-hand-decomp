@@ -77,13 +77,13 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
             w -= 0x205;
             switch (w) {
                 default: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x5D0);
                     p2 = EM_RES_REC(b, 0x5D4);
                 } break;
                 case 81:
                 case 121: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x2BF4);
                     p2 = EM_RES_REC(b, 0x2BF8);
                 } break;
@@ -96,7 +96,7 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 109:
                 case 110:
                 case 111: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0xEC4);
                     p2 = EM_RES_REC(b, 0xEC8);
                 } break;
@@ -114,22 +114,22 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 76:
                 case 115:
                 case 116: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0xA84);
                     p2 = EM_RES_REC(b, 0xA88);
                 } break;
                 case 91: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0xA84);
                     p2 = EM_RES_REC(b, 0xA88);
                 } break;
                 case 95: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x3300);
                     p2 = EM_RES_REC(b, 0x3304);
                 } break;
                 case 96: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x3818);
                     p2 = EM_RES_REC(b, 0x381C);
                 } break;
@@ -139,25 +139,25 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 3:
                 case 31:
                 case 60: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x1728);
                     p2 = EM_RES_REC(b, 0x172C);
                 } break;
                 case 4:
                 case 26: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x1728);
                     p2 = EM_RES_REC(b, 0x172C);
                 } break;
                 case 27:
                 case 28:
                 case 29: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x1D10);
                     p2 = EM_RES_REC(b, 0x1D14);
                 } break;
                 case 30: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x2D38);
                     p2 = EM_RES_REC(b, 0x2D3C);
                 } break;
@@ -178,7 +178,7 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 73:
                 case 77:
                 case 85: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x12F0);
                     p2 = EM_RES_REC(b, 0x12F4);
                 } break;
@@ -261,13 +261,13 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
             w -= 0x205;
             switch (w) {
                 default: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x5D8);
                     p2 = EM_RES_REC(b, 0x5DC);
                 } break;
                 case 81:
                 case 121: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x2BFC);
                     p2 = EM_RES_REC(b, 0x2C00);
                 } break;
@@ -280,7 +280,7 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 109:
                 case 110:
                 case 111: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0xECC);
                     p2 = EM_RES_REC(b, 0xED0);
                 } break;
@@ -298,22 +298,22 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 76:
                 case 115:
                 case 116: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0xA8C);
                     p2 = EM_RES_REC(b, 0xA90);
                 } break;
                 case 91: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0xA8C);
                     p2 = EM_RES_REC(b, 0xA90);
                 } break;
                 case 95: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x3300);
                     p2 = EM_RES_REC(b, 0x3304);
                 } break;
                 case 96: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x3818);
                     p2 = EM_RES_REC(b, 0x381C);
                 } break;
@@ -323,25 +323,25 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 3:
                 case 31:
                 case 60: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x1730);
                     p2 = EM_RES_REC(b, 0x1734);
                 } break;
                 case 4:
                 case 26: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x1730);
                     p2 = EM_RES_REC(b, 0x1734);
                 } break;
                 case 27:
                 case 28:
                 case 29: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x5D8);
                     p2 = EM_RES_REC(b, 0x5DC);
                 } break;
                 case 30: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x2D38);
                     p2 = EM_RES_REC(b, 0x2D3C);
                 } break;
@@ -362,7 +362,7 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
                 case 73:
                 case 77:
                 case 85: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     p1 = EM_RES_REC(b, 0x12F8);
                     p2 = EM_RES_REC(b, 0x12FC);
                 } break;

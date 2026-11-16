@@ -71,9 +71,9 @@ void func_00122D18(pl00 *self)
     switch (self->base.step) {
     case 0:
         {
-            int b = (int)self->base.pack;
-            s2 = *(int *)(b + 0x16C) + b;
-            s0 = *(int *)(b + 0x170) + b;
+            char *b = self->base.pack;
+            s2 = EM_RES_REC(b, 0x16C);
+            s0 = EM_RES_REC(b, 0x170);
         }
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD6, self, 0, 0, 0, 0);
         cSnd_DieDemoStart(&D_005FEE00);

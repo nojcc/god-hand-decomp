@@ -6,14 +6,14 @@ extern float D_003BD48C;
 
 __attribute__((section(".text.UpdateStatePhase2F6_10CC58")))
 void UpdateStatePhase2F6_10CC58(pl00 *self) {
-    int v0;
+    char *v0;
     int v1;
     switch (self->base.step) {
     case 0:
-        v0 = (int)self->base.pack;
+        v0 = self->base.pack;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        func_002A8578(self, *(int *)(v0 + 0x220) + v0, *(int *)(v0 + 0x278) + v0, 3, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(v0, 0x220), EM_RES_REC(v0, 0x278), 3, 0.0f, 0, 0);
         self->unk15B0 = 0x10;
         self->base.step = self->base.step + 1;
         /* fallthrough */

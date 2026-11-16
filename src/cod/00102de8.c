@@ -31,11 +31,11 @@ void func_00102DE8(void *a0){ char *s0=(char*)a0; int p1,p2;
   cObjBase_addNullSpeed(s0,1.0f); break; } }
 
 __attribute__((section(".text.func_0023F970")))
-void func_0023F970(cEm00 *self){ int v0,p1,p2,t0;
+void func_0023F970(cEm00 *self){ char *v0; int p1,p2,t0;
  switch(self->step){
  case 0:
-  v0=(int)self->pack;
-  p1=*(int*)(v0+0x488)+v0; p2=*(int*)(v0+0x48C)+v0;
+  v0=self->pack;
+  p1=EM_RES_REC(v0,0x488); p2=EM_RES_REC(v0,0x48C);
   t0=Obj0000_Get_Byte_17C3_NZ_2_276468(self)&0xFFFF;
   func_002A8578(self,p1,p2,3,0.0f,t0,0);
   self->step=self->step+1;

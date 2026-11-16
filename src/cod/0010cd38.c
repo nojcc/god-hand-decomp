@@ -39,8 +39,8 @@ void func_0010CD38(pl00 *self)
         case 0:
         default:
             Obj0000_Clear_Fields_640_648_124E58(self);
-            p1 = EM_RES_REC((int)self->base.pack, 0x48);
-            p2 = EM_RES_REC((int)self->base.pack, 0x4C);
+            p1 = EM_RES_REC(self->base.pack, 0x48);
+            p2 = EM_RES_REC(self->base.pack, 0x4C);
             SetEffect(0, 0x17, self, 0, -1, 0xFFFFFFFF);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2A, self, 0, 0, 0, 0);
             self->base.unk568 = 0xC;
@@ -48,15 +48,15 @@ void func_0010CD38(pl00 *self)
         case 1:
             self->base.hitFlash = 12.0f;
             Obj0000_Clear_Fields_640_648_124E58(self);
-            p1 = EM_RES_REC((int)self->base.pack, 0x50);
-            p2 = EM_RES_REC((int)self->base.pack, 0x54);
+            p1 = EM_RES_REC(self->base.pack, 0x50);
+            p2 = EM_RES_REC(self->base.pack, 0x54);
             SetEffect(0, 0x18, self, 0, -1, 0xFFFFFFFF);
             break;
         case 2:
             self->base.hitFlash = 5.0f;
             func_00124540(self, 5);
-            p1 = EM_RES_REC((int)self->base.pack, 0x40);
-            p2 = EM_RES_REC((int)self->base.pack, 0x44);
+            p1 = EM_RES_REC(self->base.pack, 0x40);
+            p2 = EM_RES_REC(self->base.pack, 0x44);
             SetEffect(0, 0x16, self, 0, -1, 0xFFFFFFFF);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2A, self, 0, 0, 0, 0);
             self->unk15C0 = 1.2f;
@@ -64,8 +64,8 @@ void func_0010CD38(pl00 *self)
         case 3:
             self->base.hitFlash = 5.0f;
             func_00124540(self, 5);
-            p1 = EM_RES_REC((int)self->base.pack, 0x38);
-            p2 = EM_RES_REC((int)self->base.pack, 0x3C);
+            p1 = EM_RES_REC(self->base.pack, 0x38);
+            p2 = EM_RES_REC(self->base.pack, 0x3C);
             SetEffect(0, 0x15, self, 0, -1, 0xFFFFFFFF);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2A, self, 0, 0, 0, 0);
             self->unk15C0 = 1.2f;

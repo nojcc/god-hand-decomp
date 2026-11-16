@@ -65,15 +65,15 @@ void func_00113F68(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         func_00129578(self);
         cCoreSave_useGodItem(&D_00569B70);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x604) + t, *(int *)(t + 0x608) + t,
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x604), EM_RES_REC(t, 0x608),
                       3, 0.0f, 0, 0);
         self->unk15B0 = 1;
         (self->base.step)++;
@@ -135,11 +135,11 @@ void func_00114460(pl00 *self)
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         if (irand() & 1) {
-            p1 = *(int *)(self->base.pack + 0x230) + (int)self->base.pack;
-            p2 = *(int *)(self->base.pack + 0x234) + (int)self->base.pack;
+            p1 = EM_RES_REC(self->base.pack, 0x230);
+            p2 = EM_RES_REC(self->base.pack, 0x234);
         } else {
-            p1 = *(int *)(self->base.pack + 0x8A0) + (int)self->base.pack;
-            p2 = *(int *)(self->base.pack + 0x8A4) + (int)self->base.pack;
+            p1 = EM_RES_REC(self->base.pack, 0x8A0);
+            p2 = EM_RES_REC(self->base.pack, 0x8A4);
         }
         func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
         self->base.unk568 = 1;

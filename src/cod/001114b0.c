@@ -42,11 +42,11 @@ void func_002256C8(void *a0)
         gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
         StoreMotionParamsBoth_2609A8(a0, 0x28, 0xB, 0x42, 0, 0xF5);
         v0 = *(char **)(s1 + 0x304);
-        a1v = *(int *)(v0 + 0xCE4) + (int)v0;
-        a2v = *(int *)(v0 + 0xCE8) + (int)v0;
+        a1v = EM_RES_REC(v0, 0xCE4);
+        a2v = EM_RES_REC(v0, 0xCE8);
         *(int *)(s1 + 0x5F0) = 10;
         if (*(int *)(s1 + 0x564) == 0x250 || *(int *)(s1 + 0x564) == 0x251) {
-            a2v = *(int *)(v0 + 0xCEC) + (int)v0;
+            a2v = EM_RES_REC(v0, 0xCEC);
             *(int *)(s1 + 0x5F0) = 8;
         }
         func_002A8578(s1, a1v, a2v, 3, 0.0f, gb, 0);
@@ -107,16 +107,16 @@ void func_001114B0(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x2BC, 0x10, 0x1E, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x2BC, 0x10, 0x1E, 0, 0x123);
-        t = (int)self->base.pack;
+        t = self->base.pack;
         self->unk1684 = 1;
-        func_002A8578(self, *(int *)(t + 0x614) + t, *(int *)(t + 0x618) + t,
+        func_002A8578(self, EM_RES_REC(t, 0x614), EM_RES_REC(t, 0x618),
                       3, 0.0f, 0, 0);
         func_00129578(self);
         cEmManage_SetSpeedRate(D_005864F0, 0.2f);
@@ -175,7 +175,7 @@ void func_001125A0(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
@@ -184,8 +184,8 @@ void func_001125A0(pl00 *self)
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x50, 0xF, 0x1E, 0, 0x123);
         self->unk1684 = 1;
         func_00129578(self);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x2C0) + t, *(int *)(t + 0x2C4) + t,
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x2C0), EM_RES_REC(t, 0x2C4),
                       3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
         (self->base.step)++;

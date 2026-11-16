@@ -44,13 +44,13 @@ void func_00114608(pl00 *self)
                 s2 = 1;
         }
         if (s2 != 0) {
-            int w1 = (int)self->base.pack;
-            p1 = *(int *)(w1 + 0x228) + w1;
-            p2 = *(int *)(w1 + 0x22C) + w1;
+            char *w1 = self->base.pack;
+            p1 = EM_RES_REC(w1, 0x228);
+            p2 = EM_RES_REC(w1, 0x22C);
         } else {
-            int w2 = (int)self->base.pack;
-            p1 = *(int *)(w2 + 0x220) + w2;
-            p2 = *(int *)(w2 + 0x224) + w2;
+            char *w2 = self->base.pack;
+            p1 = EM_RES_REC(w2, 0x220);
+            p2 = EM_RES_REC(w2, 0x224);
         }
         func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
         self->unk15B0 = 0x66;
@@ -141,10 +141,10 @@ void func_00114608(pl00 *self)
         }
         break;
     case 2: {
-        int w = (int)self->base.pack;
+        char *w = self->base.pack;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        func_002A8578(self, *(int *)(w + 0x220) + w, *(int *)(w + 0x224) + w,
+        func_002A8578(self, EM_RES_REC(w, 0x220), EM_RES_REC(w, 0x224),
                       0xA, 21.0f, 0, 0);
         self->base.step = self->base.step + 1;
     }

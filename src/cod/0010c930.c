@@ -39,8 +39,8 @@ extern unsigned short D_00747A50;
 __attribute__((section(".text.func_0010C930")))
 void func_0010C930(pl00 *self)
 {
-    int t0;
-    int v0;
+    char *t0;
+    char *v0;
     void *q;
     int p1;
     int p2;
@@ -58,16 +58,16 @@ void func_0010C930(pl00 *self)
         if (self->unk648 >= 0xB) {
             self->unk648 = 0xA;
         }
-        t0 = (int)self->base.pack;
+        t0 = self->base.pack;
         q = self->sub6A0;
-        p1 = *(int *)(t0 + 0x60) + t0;
-        p2 = *(int *)(t0 + 0x64) + t0;
+        p1 = EM_RES_REC(t0, 0x60);
+        p2 = EM_RES_REC(t0, 0x64);
         if (q != 0) {
-            func_002A8578(q, *(int *)(t0 + 0x374) + t0, *(int *)(t0 + 0x390) + t0,
+            func_002A8578(q, EM_RES_REC(t0, 0x374), EM_RES_REC(t0, 0x390),
                           0xA, 0.0f, 0, 0);
-            v0 = (int)self->base.pack;
-            p1 = *(int *)(v0 + 0x354) + v0;
-            p2 = *(int *)(v0 + 0x358) + v0;
+            v0 = self->base.pack;
+            p1 = EM_RES_REC(v0, 0x354);
+            p2 = EM_RES_REC(v0, 0x358);
         }
         func_002A8578(self, p1, p2, 0xA, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;

@@ -60,8 +60,8 @@ void func_00115030(pl00 *self) {
     cVec *d2;
     cVec *s2;
     cGameObj *o;
-    int t;
-    int tt;
+    char *t;
+    char *tt;
     int p1;
     int p2;
 
@@ -75,9 +75,9 @@ void func_00115030(pl00 *self) {
         self->unk5E2 = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
-        t = (int)self->base.pack;
-        p1 = *(int *)(t + 0x8C8) + t;
-        p2 = *(int *)(t + 0x8CC) + t;
+        t = self->base.pack;
+        p1 = EM_RES_REC(t, 0x8C8);
+        p2 = EM_RES_REC(t, 0x8CC);
         o = self->unk69C;
         self->sub698 = o;
         if (o != 0) {
@@ -104,8 +104,8 @@ void func_00115030(pl00 *self) {
                 d->y = s->y;
                 d->z = s->z;
             }
-            tt = (int)self->base.pack;
-            func_002A8578(self->sub698, *(int *)(tt + 0x900) + tt, 0, 0, 0.0f, 0, 0);
+            tt = self->base.pack;
+            func_002A8578(self->sub698, EM_RES_REC(tt, 0x900), 0, 0, 0.0f, 0, 0);
         }
         func_002A8578(self, p1, p2, 0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;

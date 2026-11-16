@@ -23,11 +23,11 @@ void func_00237078(cEm00 *self)
     self->hitFlash = 3.0f;
     switch (self->step) {
     case 0: {
-        int p = (int)self->pack;
+        char *p = self->pack;
         int t;
 
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(p + 0x240C) + p, *(int *)(p + 0x2410) + p,
+        func_002A8578(self, EM_RES_REC(p, 0x240C), EM_RES_REC(p, 0x2410),
                       0, 0.0f, 0, 0);
         self->unk56E = 0x3C;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -93,10 +93,10 @@ void func_00237078(cEm00 *self)
         }
         break;
     case 2: {
-        int p = (int)self->pack;
+        char *p = self->pack;
 
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(p + 0x2420) + p, *(int *)(p + 0x2424) + p,
+        func_002A8578(self, EM_RES_REC(p, 0x2420), EM_RES_REC(p, 0x2424),
                       0, 0.0f, 0, 0);
         self->unk56E = 0xF;
         self->step = self->step + 1;

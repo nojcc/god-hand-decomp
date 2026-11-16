@@ -17,7 +17,7 @@ extern int D_005864F0;
 __attribute__((section(".text.func_00113CF8")))
 void func_00113CF8(pl00 *self)
 {
-    int b;
+    char *b;
     float one;
 
     self->base.hitFlash = 30.0f;
@@ -30,10 +30,10 @@ void func_00113CF8(pl00 *self)
         Owner_spawnEffect(self);
         pl00_clearMotionCam(self, 0, 0);
         Obj0000_Clear_Fields_640_648_124E58(self);
-        b = (int)self->base.pack;
+        b = self->base.pack;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        func_002A8578(self, *(int *)(b + 0x220) + b, *(int *)(b + 0x224) + b, 3, 21.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(b, 0x220), EM_RES_REC(b, 0x224), 3, 21.0f, 0, 0);
         self->unk15B0 = 0xD;
         self->base.step = self->base.step + 1;
     case 1:
@@ -50,10 +50,10 @@ void func_00113CF8(pl00 *self)
         break;
     case 2:
         Obj0000_Clear_Fields_640_648_124E58(self);
-        b = (int)self->base.pack;
+        b = self->base.pack;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        func_002A8578(self, *(int *)(b + 0x380) + b, *(int *)(b + 0x384) + b, 0, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(b, 0x380), EM_RES_REC(b, 0x384), 0, 0.0f, 0, 0);
         self->base.hp = self->base.hp - 10;
         if (self->base.hp < 2) {
             self->base.hp = 1;

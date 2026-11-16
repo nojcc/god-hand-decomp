@@ -9,7 +9,7 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 
 __attribute__((section(".text.UpdateAttackState2F6_1161E0")))
 void UpdateAttackState2F6_1161E0(pl00 *self) {
-    int v0;
+    char *v0;
     float one;
     self->base.hitFlash = 5.0f;
     self->flags15F4 = self->flags15F4 | 0x2080;
@@ -19,8 +19,8 @@ void UpdateAttackState2F6_1161E0(pl00 *self) {
         self->unk5E2 = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
-        v0 = (int)self->base.pack;
-        func_002A8578(self, *(int *)(v0 + 0x8D8) + v0, *(int *)(v0 + 0x8DC) + v0, 0, 0.0f, 0, 0);
+        v0 = self->base.pack;
+        func_002A8578(self, EM_RES_REC(v0, 0x8D8), EM_RES_REC(v0, 0x8DC), 0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;
         /* fallthrough */
     case 1:

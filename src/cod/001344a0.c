@@ -156,13 +156,13 @@ int cEmBase_checkDeadFlag(cEm00 *self)
 __attribute__((section(".text.cOmBase_initEffData241")))
 int cOmBase_initEffData241(cOmBase *self)
 {
-    int res;
+    char *res;
     func_001B6FB8(self);
     cOmBase_setMeshDispFromLayer(self, 0, 1);
     cOmBase_setMeshDispFromLayer(self, 0x40, 0);
     self->flags2 |= COMBASE_F2_BIT3;
-    res = (int)self->pack;
-    espSys_effDataRegist(D_007419A0, 0x241, (void *)(*(int *)(res + 0x10) + res));
+    res = self->pack;
+    espSys_effDataRegist(D_007419A0, 0x241, (void *)(EM_RES_REC(res, 0x10)));
     return 1;
 }
 

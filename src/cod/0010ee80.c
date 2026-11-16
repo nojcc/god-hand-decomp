@@ -56,9 +56,9 @@ void func_0010EE80(pl00 *self)
                 Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0xC8, 0xD, 0x1D, 0, 0x123);
             }
             {
-                int t = (int)self->base.pack;
-                p = *(int *)(t + 0xD4) + t;
-                q = *(int *)(t + 0xDC) + t;
+                char *t = self->base.pack;
+                p = EM_RES_REC(t, 0xD4);
+                q = EM_RES_REC(t, 0xDC);
             }
         } else {
             if (D_00747A0C != 0) {
@@ -69,9 +69,9 @@ void func_0010EE80(pl00 *self)
                 Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x50, 0xD, 0x1D, 0, 0x123);
             }
             {
-                int t = (int)self->base.pack;
-                p = *(int *)(t + 0xD4) + t;
-                q = *(int *)(t + 0xD8) + t;
+                char *t = self->base.pack;
+                p = EM_RES_REC(t, 0xD4);
+                q = EM_RES_REC(t, 0xD8);
             }
         }
         self->unk1684 = 1;

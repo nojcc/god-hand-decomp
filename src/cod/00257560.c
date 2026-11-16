@@ -56,11 +56,11 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
             switch (self->emNo) {
                 default:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x340);
                         s0v = EM_RES_REC(b, 0x344);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x338);
                         s0v = EM_RES_REC(b, 0x33C);
                     }
@@ -80,28 +80,28 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 case 0x278:
                 case 0x279:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0xACC);
                         s0v = EM_RES_REC(b, 0xAD0);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0xAD4);
                         s0v = EM_RES_REC(b, 0xAD8);
                     }
                     break;
                 case 0x260:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x31A4);
                         s0v = EM_RES_REC(b, 0x31A8);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x31A4);
                         s0v = EM_RES_REC(b, 0x31A8);
                     }
                     break;
                 case 0x264: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     int t = self->subA;
 
                     s1v = EM_RES_REC(b, 0x33B0);
@@ -112,7 +112,7 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                     break;
                 }
                 case 0x265: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
 
                     s1v = EM_RES_REC(b, 0x3988);
                     s0v = EM_RES_REC(b, 0x398C);
@@ -125,11 +125,11 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 case 0x224:
                 case 0x241:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x1768);
                         s0v = EM_RES_REC(b, 0x176C);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x1760);
                         s0v = EM_RES_REC(b, 0x1764);
                     }
@@ -137,11 +137,11 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 case 0x209:
                 case 0x21F:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x1768);
                         s0v = EM_RES_REC(b, 0x176C);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x1760);
                         s0v = EM_RES_REC(b, 0x1764);
                     }
@@ -156,11 +156,11 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 case 0x273:
                 case 0x274:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0xF0C);
                         s0v = EM_RES_REC(b, 0xF10);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0xF14);
                         s0v = EM_RES_REC(b, 0xF18);
                     }
@@ -168,14 +168,14 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 case 0x220:
                 case 0x221:
                 case 0x222: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
 
                     s1v = EM_RES_REC(b, 0x1D08);
                     s0v = EM_RES_REC(b, 0x1D0C);
                     break;
                 }
                 case 0x223: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
 
                     s1v = EM_RES_REC(b, 0x2E4C);
                     s0v = EM_RES_REC(b, 0x2E50);
@@ -199,11 +199,11 @@ __attribute__((section(".text.func_00257560"))) void func_00257560(cEm00 *self)
                 case 0x252:
                 case 0x25A:
                     if (irand() & 1) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x1340);
                         s0v = EM_RES_REC(b, 0x1344);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         s1v = EM_RES_REC(b, 0x1338);
                         s0v = EM_RES_REC(b, 0x133C);
                     }

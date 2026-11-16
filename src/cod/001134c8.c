@@ -47,7 +47,7 @@ void func_001134C8(pl00 *self)
         self->unk1684 = 1;
         func_00129578(self);
         v0 = self->base.pack;
-        func_002A8578(self, *(int *)(v0 + 0x8A8) + (int)v0, *(int *)(v0 + 0x8AC) + (int)v0, 3, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(v0, 0x8A8), EM_RES_REC(v0, 0x8AC), 3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);
         self->base.step += 1;
     }

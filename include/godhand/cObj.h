@@ -55,4 +55,10 @@ typedef char cObj_size_check[(sizeof(struct cObj) == 0x310) ? 1 : -1];
 
 extern void cObj_setId(struct cObj *self, int id);
 
+/* The address of a record in the data pack. The pack starts with a table of
+ * offsets from its own start; res is the pack (the char *pack, or its address
+ * as an int) and off the table slot. Retail adds the offset and the pack's
+ * address as integers, offset first. */
+#define EM_RES_REC(res, off) (*(int *)((res) + (off)) + (int)(res))
+
 #endif

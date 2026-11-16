@@ -192,7 +192,7 @@ void func_00112318(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
@@ -201,8 +201,8 @@ void func_00112318(pl00 *self)
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x32, 0x16, 0x22, 0, 0xA);
         self->unk1684 = 1;
         func_00129578(self);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x218) + t, *(int *)(t + 0x21C) + t,
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x218), EM_RES_REC(t, 0x21C),
                       3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
         (self->base.step)++;
@@ -347,18 +347,18 @@ void func_0010F1F0(pl00 *self)
             cCoreSave_useGodItem(&D_00569B70);
             cCoreSave_useGodItem(&D_00569B70);
             {
-                int t = (int)self->base.pack;
-                p = *(int *)(t + 0xC8) + t;
-                q = *(int *)(t + 0xD0) + t;
+                char *t = self->base.pack;
+                p = EM_RES_REC(t, 0xC8);
+                q = EM_RES_REC(t, 0xD0);
             }
         } else {
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x5A, 0xE, 0x1C, 0, 0x123);
             Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x5A, 0xE, 0x1C, 0, 0x123);
             cCoreSave_useGodItem(&D_00569B70);
             {
-                int t = (int)self->base.pack;
-                p = *(int *)(t + 0xC8) + t;
-                q = *(int *)(t + 0xCC) + t;
+                char *t = self->base.pack;
+                p = EM_RES_REC(t, 0xC8);
+                q = EM_RES_REC(t, 0xCC);
             }
         }
         self->unk1684 = 1;

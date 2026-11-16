@@ -34,9 +34,9 @@ void func_00237AB0(cEm00 *self)
     self->hitFlash = 3.0f;
     switch (self->step) {
     case 0: {
-        int w = (int)self->pack;
+        char *w = self->pack;
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(w + 0x2118) + w, *(int *)(w + 0x211C) + w,
+        func_002A8578(self, EM_RES_REC(w, 0x2118), EM_RES_REC(w, 0x211C),
                       0, 0.0f, 0, 0);
         self->unk568 = 0;
         self->unk56E = 0x3C;
@@ -116,9 +116,9 @@ void func_00237AB0(cEm00 *self)
         }
         break;
     case 2: {
-        int w = (int)self->pack;
+        char *w = self->pack;
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(w + 0x2120) + w, *(int *)(w + 0x2124) + w,
+        func_002A8578(self, EM_RES_REC(w, 0x2120), EM_RES_REC(w, 0x2124),
                       0, 0.0f, 0, 0);
         self->unk56E = 0x3C;
         self->step = self->step + 1;

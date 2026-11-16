@@ -276,11 +276,11 @@ void func_0025C010(cEm00 *self)
     switch (self->step) {
     case 0:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0x1074) + p, *(int *)(p + 0x1078) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0x1074), EM_RES_REC(p, 0x1078),
                       0, 0.0f, 0, 0);
         self->timerA = 0x2A;
         self->unk56E = 0xF;

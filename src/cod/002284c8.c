@@ -48,7 +48,7 @@ __attribute__((section(".text.func_002284C8"))) void func_002284C8(cEm00 *self)
             self->unk1864 = 0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             v0 = self->pack;
-            func_002A8578(self, EM_RES_REC((int)v0, 0x1E84), EM_RES_REC((int)v0, 0x1E88), 3, 0.0f, gb,
+            func_002A8578(self, EM_RES_REC(v0, 0x1E84), EM_RES_REC(v0, 0x1E88), 3, 0.0f, gb,
                           0);
             self->timerC = 0;
             self->step += 1;
@@ -72,11 +72,11 @@ __attribute__((section(".text.func_002284C8"))) void func_002284C8(cEm00 *self)
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             StoreMotionParamsBoth_2609A8(self, 0x14, 3, 0x37, -1, 0);
             v0 = self->pack;
-            a1v = EM_RES_REC((int)v0, 0x1E8C);
-            a2v = EM_RES_REC((int)v0, 0x1E90);
+            a1v = EM_RES_REC(v0, 0x1E8C);
+            a2v = EM_RES_REC(v0, 0x1E90);
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 char *v1 = self->pack;
-                a2v = EM_RES_REC((int)v1, 0x1E94);
+                a2v = EM_RES_REC(v1, 0x1E94);
             }
             func_002A8578(self, a1v, a2v, 3, 0.0f, gb, 0);
             self->timerA = 0xF;
@@ -163,7 +163,7 @@ __attribute__((section(".text.func_002284C8"))) void func_002284C8(cEm00 *self)
             self->unk1864 = 0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             v0 = self->pack;
-            func_002A8578(self, EM_RES_REC((int)v0, 0x1E98), EM_RES_REC((int)v0, 0x1E9C), 3, 0.0f, gb,
+            func_002A8578(self, EM_RES_REC(v0, 0x1E98), EM_RES_REC(v0, 0x1E9C), 3, 0.0f, gb,
                           0);
             self->step += 1;
         }

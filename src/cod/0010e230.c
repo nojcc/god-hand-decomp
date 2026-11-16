@@ -39,7 +39,7 @@ void func_0010E230(pl00 *self)
     switch (self->base.step) {
     case 0: {
         cGameObj *o;
-        int w;
+        char *w;
 
 
         o = self->unk640;
@@ -79,8 +79,8 @@ void func_0010E230(pl00 *self)
             (int)(self->unk600 * 8.0f), 2, 0x18, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self,
             (int)(self->unk600 * 8.0f), 2, 0x18, 0, 0xA);
-        w = (int)self->base.pack;
-        func_002A8578(self, *(int *)(w + 0x1AC) + w, *(int *)(w + 0x1B4) + w,
+        w = self->base.pack;
+        func_002A8578(self, EM_RES_REC(w, 0x1AC), EM_RES_REC(w, 0x1B4),
                       3, 0.0f, 0, 0);
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;

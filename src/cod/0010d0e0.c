@@ -36,7 +36,7 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
             switch (self->unk1614) {
                 case 0:
                 default: {
-                    int t = (int)self->base.pack;
+                    char *t = self->base.pack;
                     s2v = EM_RES_REC(t, 0x284);
                     s0v = EM_RES_REC(t, 0x288);
                 }
@@ -47,7 +47,7 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
                     }
                     break;
                 case 1: {
-                    int t = (int)self->base.pack;
+                    char *t = self->base.pack;
                     s2v = EM_RES_REC(t, 0x27C);
                     s0v = EM_RES_REC(t, 0x280);
                 }
@@ -58,7 +58,7 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
                     }
                     break;
                 case 2: {
-                    int t = (int)self->base.pack;
+                    char *t = self->base.pack;
                     s2v = EM_RES_REC(t, 0x28C);
                     s0v = EM_RES_REC(t, 0x290);
                 }

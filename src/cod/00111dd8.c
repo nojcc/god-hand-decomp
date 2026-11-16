@@ -52,7 +52,7 @@ void func_00111DD8(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
@@ -62,8 +62,8 @@ void func_00111DD8(pl00 *self)
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x20) + t, *(int *)(t + 0x24) + t,
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x20), EM_RES_REC(t, 0x24),
                       3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
         self->unk15B0 = 1;

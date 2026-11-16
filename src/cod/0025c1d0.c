@@ -32,11 +32,11 @@ void func_0025C1D0(cEm00 *self)
     switch (self->step) {
     case 0:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0xC98) + p, *(int *)(p + 0xC9C) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0xC98), EM_RES_REC(p, 0xC9C),
                       0, 0.0f, 0, 0);
         self->unk16EC = 0;
         (self->step)++;
@@ -66,11 +66,11 @@ void func_0025C1D0(cEm00 *self)
     }
     case 2:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0xCA0) + p, *(int *)(p + 0xCA4) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0xCA0), EM_RES_REC(p, 0xCA4),
                       0, 0.0f, 0, 0);
         (self->step)++;
     }
@@ -105,11 +105,11 @@ void func_0025C1D0(cEm00 *self)
     }
     case 4:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0xCA8) + p, *(int *)(p + 0xCAC) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0xCA8), EM_RES_REC(p, 0xCAC),
                       0, 0.0f, 0, 0);
         self->timerA = 1;
         self->unk56E = 0xF;

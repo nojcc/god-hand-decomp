@@ -48,11 +48,11 @@ void cEm_heldByPlayerPhase(cEm00 *self)
     switch (self->step) {
     case 0:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0x39A0) + p, *(int *)(p + 0x39A4) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0x39A0), EM_RES_REC(p, 0x39A4),
                       0, 0.0f, 0, 0);
         if (self->unk744 != 0) {
             ForwardAnimParamPairByIndex_27EA50(self->unk744, 0x19);
@@ -82,12 +82,12 @@ void cEm_heldByPlayerPhase(cEm00 *self)
         break;
     case 2:
     {
-        int p;
+        char *p;
         float z = 0.0f;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0x39A8) + p, *(int *)(p + 0x39AC) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0x39A8), EM_RES_REC(p, 0x39AC),
                       0, z, 0, 0);
         if (self->unk744 != 0) {
             ForwardAnimParamPairByIndex_27EA50(self->unk744, 0x1A);
@@ -115,11 +115,11 @@ void cEm_heldByPlayerPhase(cEm00 *self)
         break;
     case 4:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0x39B0) + p, *(int *)(p + 0x39B4) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0x39B0), EM_RES_REC(p, 0x39B4),
                       0, 0.0f, 0, 0);
         if (self->unk744 != 0) {
             ForwardAnimParamPairByIndex_27EA50(self->unk744, 0x1B);

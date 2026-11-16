@@ -42,7 +42,7 @@ void func_001142E0(pl00 *self)
         self->unk5E2 = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         v0 = self->base.pack;
-        func_002A8578(self, *(int *)(v0 + 0x18) + (int)v0, *(int *)(v0 + 0x1C) + (int)v0, 3, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(v0, 0x18), EM_RES_REC(v0, 0x1C), 3, 0.0f, 0, 0);
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 5, 0x17, 0x2A, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 5, 0x17, 0x2A, 0, 0xA);
         self->unk1684 = 1;
@@ -85,15 +85,15 @@ void func_0011AAA0(pl00 *self)
         default:
             {
             char *v0 = self->base.pack;
-            p1 = *(int *)(v0 + 0x148) + (int)v0;
-            p2 = *(int *)(v0 + 0x14C) + (int)v0;
+            p1 = EM_RES_REC(v0, 0x148);
+            p2 = EM_RES_REC(v0, 0x14C);
             }
             break;
         case 1:
             {
             char *v1 = self->base.pack;
-            p1 = *(int *)(v1 + 0x150) + (int)v1;
-            p2 = *(int *)(v1 + 0x154) + (int)v1;
+            p1 = EM_RES_REC(v1, 0x150);
+            p2 = EM_RES_REC(v1, 0x154);
             }
             break;
         case 2:
@@ -252,16 +252,16 @@ void func_00111210(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x190, 0xF, 0x1E, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x190, 0xF, 0x1E, 0, 0x123);
-        t = (int)self->base.pack;
+        t = self->base.pack;
         self->unk1684 = 1;
-        func_002A8578(self, *(int *)(t + 0x19C) + t, *(int *)(t + 0x1A0) + t,
+        func_002A8578(self, EM_RES_REC(t, 0x19C), EM_RES_REC(t, 0x1A0),
                       3, 0.0f, 0, 0);
         func_00129578(self);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);

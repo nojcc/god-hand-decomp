@@ -44,7 +44,7 @@ void func_00113228(pl00 *self)
         func_00129578(self);
         {
             char *v = self->base.pack;
-            func_002A8578(self, *(int *)(v + 0x60C) + (int)v, *(int *)(v + 0x610) + (int)v, 3, 0.0f, 0, 0);
+            func_002A8578(self, EM_RES_REC(v, 0x60C), EM_RES_REC(v, 0x610), 3, 0.0f, 0, 0);
         }
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);
         self->base.step += 1;

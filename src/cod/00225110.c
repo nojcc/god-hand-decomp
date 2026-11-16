@@ -58,7 +58,7 @@ __attribute__((section(".text.func_00225110"))) void func_00225110(cEm00 *self)
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             StoreMotionParamsBoth_2609A8(self, 0x28, 0xA, 0x41, 0, 0xF5);
             v0 = self->pack;
-            func_002A8578(self, EM_RES_REC((int)v0, 0x974), EM_RES_REC((int)v0, 0x978), 0xA, 0.0f, gb,
+            func_002A8578(self, EM_RES_REC(v0, 0x974), EM_RES_REC(v0, 0x978), 0xA, 0.0f, gb,
                           0);
             self->timerC = 0;
             self->step += 1;
@@ -80,7 +80,7 @@ __attribute__((section(".text.func_00225110"))) void func_00225110(cEm00 *self)
             float z = 0.0f;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             v1 = self->pack;
-            func_002A8578(self, EM_RES_REC((int)v1, 0x97C), EM_RES_REC((int)v1, 0x980), 2, z, gb, 0);
+            func_002A8578(self, EM_RES_REC(v1, 0x97C), EM_RES_REC(v1, 0x980), 2, z, gb, 0);
             self->unk580.x = z;
             self->unk580.z = 0.2f;
             self->unk580.y = self->unk170C * 15.0f;
@@ -179,7 +179,7 @@ __attribute__((section(".text.func_00225110"))) void func_00225110(cEm00 *self)
             char *v1;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             v1 = self->pack;
-            func_002A8578(self, EM_RES_REC((int)v1, 0x984), EM_RES_REC((int)v1, 0x988), 2, 0.0f, gb,
+            func_002A8578(self, EM_RES_REC(v1, 0x984), EM_RES_REC(v1, 0x988), 2, 0.0f, gb,
                           0);
             self->step += 1;
         }

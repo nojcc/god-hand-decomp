@@ -39,7 +39,7 @@ __attribute__((section(".text.func_002170B8"))) void func_002170B8(cEm00 *self)
             char *v0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             v0 = self->pack;
-            func_002A8578(self, EM_RES_REC((int)v0, 0x1C8), EM_RES_REC((int)v0, 0x1CC), 3, 0.0f, gb,
+            func_002A8578(self, EM_RES_REC(v0, 0x1C8), EM_RES_REC(v0, 0x1CC), 3, 0.0f, gb,
                           0);
             self->timerA = 0x1E;
             switch (cCoreSave_getGameLevel(&D_00569B70)) {

@@ -24,13 +24,13 @@ void func_0011B5F8(pl00 *self)
         int p1, p2;
         if (irand() & 1) {
             char *v0 = self->base.pack;
-            p1 = *(int *)(v0 + 0x148) + (int)v0;
-            p2 = *(int *)(v0 + 0x14C) + (int)v0;
+            p1 = EM_RES_REC(v0, 0x148);
+            p2 = EM_RES_REC(v0, 0x14C);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCF, self, 0, 0, 0, 0);
         } else {
             char *v1 = self->base.pack;
-            p1 = *(int *)(v1 + 0x150) + (int)v1;
-            p2 = *(int *)(v1 + 0x154) + (int)v1;
+            p1 = EM_RES_REC(v1, 0x150);
+            p2 = EM_RES_REC(v1, 0x154);
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xD0, self, 0, 0, 0, 0);
         }
         pl00_clearMotionCam(self, 0, 0);
@@ -69,7 +69,7 @@ void func_0011B5F8(pl00 *self)
     }
     case 2: {
         char *v0 = self->base.pack;
-        func_002A8578(self, *(int *)(v0 + 0x49C) + (int)v0, *(int *)(v0 + 0x4A0) + (int)v0, 0xA, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(v0, 0x49C), EM_RES_REC(v0, 0x4A0), 0xA, 0.0f, 0, 0);
         self->base.step += 1;
     }
         /* fallthrough */

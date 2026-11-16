@@ -52,8 +52,8 @@ void func_0025E248(cEm00 *self)
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
     case 0: {
-        int w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x3E4C) + w, *(int *)(w + 0x3E50) + w,
+        char *w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x3E4C), EM_RES_REC(w, 0x3E50),
                       0, 0.0f, 0, 0);
         if (self->sub0 != 0)
             func_00281560(self->sub0, 0);
@@ -66,8 +66,8 @@ void func_0025E248(cEm00 *self)
         goto phase1;
     }
     case 2: {
-        int w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x3E54) + w, *(int *)(w + 0x3E58) + w,
+        char *w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x3E54), EM_RES_REC(w, 0x3E58),
                       0, 0.0f, 0, 0);
         if (self->sub0 != 0)
             func_00281560(self->sub0, 1);
@@ -87,8 +87,8 @@ void func_0025E248(cEm00 *self)
         self->step = *(unsigned char *)(s1 + 0x2F6);
         break;
     case 4: {
-        int w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x3E5C) + w, *(int *)(w + 0x3E60) + w,
+        char *w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x3E5C), EM_RES_REC(w, 0x3E60),
                       0, 0.0f, 0, 0);
         if (self->sub0 != 0)
             func_00281560(self->sub0, 2);

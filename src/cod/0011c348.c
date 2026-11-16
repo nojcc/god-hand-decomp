@@ -271,20 +271,20 @@ void func_0025BCC0(cEm00 *self)
     {
         cGameObjVt *vt;
         short saved;
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
         vt = cGameObj_vt((cGameObj *)self);
         saved = self->hp;
         vt->unkAC((char *)self + vt->unkA8Delta, 0x32, s1, 1, 0);
         if (self->hp <= 0) {
-            p = (int)self->pack;
-            func_002A8578(self, *(int *)(p + 0x530) + p, *(int *)(p + 0x534) + p,
+            p = self->pack;
+            func_002A8578(self, EM_RES_REC(p, 0x530), EM_RES_REC(p, 0x534),
                           0, 0.0f, 0, 0);
             self->unk568 = 1;
         } else {
-            p = (int)self->pack;
-            func_002A8578(self, *(int *)(p + 0x528) + p, *(int *)(p + 0x52C) + p,
+            p = self->pack;
+            func_002A8578(self, EM_RES_REC(p, 0x528), EM_RES_REC(p, 0x52C),
                           0, 0.0f, 0, 0);
             self->unk568 = 0;
         }

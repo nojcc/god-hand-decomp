@@ -45,7 +45,7 @@ void func_0010E5B8(pl00 *self)
     {
         cGameObj *e;
         cGameObj *e2;
-        int t;
+        char *t;
 
         func_00124540(self, 0);
         self->unk5E0 = 0;
@@ -59,8 +59,8 @@ void func_0010E5B8(pl00 *self)
         }
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 10.0f), 8, 0x13, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 8, 0x13, 0, 0xA);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x18C) + t, *(int *)(t + 0x194) + t, 5, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x18C), EM_RES_REC(t, 0x194), 5, 0.0f, 0, 0);
         self->unk15C0 = 1.0f;
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;

@@ -9,7 +9,7 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 __attribute__((section(".text.func_00115F60")))
 void func_00115F60(pl00 *self) {
-    int v0;
+    char *v0;
     float one;
     self->base.hitFlash = 5.0f;
     switch (self->base.step) {
@@ -30,8 +30,8 @@ void func_00115F60(pl00 *self) {
             }
         }
         self->base.rot.y = self->unk670;
-        v0 = (int)self->base.pack;
-        func_002A8578(self, *(int *)(v0 + 0x8B8) + v0, *(int *)(v0 + 0x8BC) + v0, 0, 0.0f, 0, 0);
+        v0 = self->base.pack;
+        func_002A8578(self, EM_RES_REC(v0, 0x8B8), EM_RES_REC(v0, 0x8BC), 0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;
     case 1:
         func_00124EC0(self);

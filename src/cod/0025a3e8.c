@@ -65,7 +65,7 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
             switch (self->emNo) {
                 case 0x256:
                 case 0x27E: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x2A28);
                     s2 = EM_RES_REC(b, 0x2A2C);
                 } break;
@@ -81,31 +81,31 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 case 0x24F:
                 case 0x278:
                 case 0x279: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0xB5C);
                     s2 = EM_RES_REC(b, 0xB60);
                 } break;
                 case 0x250:
                 case 0x251: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0xB5C);
                     s2 = EM_RES_REC(b, 0xB60);
                     cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0,
                                        0, 0);
                 } break;
                 case 0x260: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0xB5C);
                     s2 = EM_RES_REC(b, 0xB60);
                 } break;
                 case 0x264: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x326C);
                     s2 = EM_RES_REC(b, 0x3270);
                     self->stepArg = 1;
                 } break;
                 case 0x265: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x3818);
                     s2 = EM_RES_REC(b, 0x381C);
                     self->stepArg = 1;
@@ -116,13 +116,13 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 case 0x208:
                 case 0x224:
                 case 0x241: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x17D0);
                     s2 = EM_RES_REC(b, 0x17D4);
                 } break;
                 case 0x209:
                 case 0x21F: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x17D0);
                     s2 = EM_RES_REC(b, 0x17D4);
                 } break;
@@ -144,18 +144,18 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 case 0x24E:
                 case 0x252:
                 case 0x25A: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x13B0);
                     s2 = EM_RES_REC(b, 0x13B4);
                     self->stepArg = 1;
                 } break;
                 default: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x638);
                     s2 = EM_RES_REC(b, 0x63C);
                 } break;
                 case 0x223: {
-                    int b = (int)self->pack;
+                    char *b = self->pack;
                     s3 = EM_RES_REC(b, 0x2E34);
                     s2 = EM_RES_REC(b, 0x2E38);
                     self->stepArg = 1;
@@ -200,7 +200,7 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
             s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             ReleaseField6ECByTag564_26B1E8(self);
             {
-                int b = (int)self->pack;
+                char *b = self->pack;
                 func_002A8578(self, EM_RES_REC(b, 0xF84), EM_RES_REC(b, 0xF88), 0, 0.0f, s4, 0);
             }
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2D, self, 0, 0, 0, 0);
@@ -221,7 +221,7 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
             break;
         case 4: {
             int nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            int b = (int)self->pack;
+            char *b = self->pack;
             func_002A8578(self, EM_RES_REC(b, 0xF8C), EM_RES_REC(b, 0xF90), 0, 0.0f, nb, 0);
             self->timer = 150.0f;
             self->step += 1;

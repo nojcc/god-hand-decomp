@@ -232,7 +232,7 @@ void func_001AA6C0(void *a0)
 __attribute__((section(".text.func_00114E28")))
 void func_00114E28(pl00 *self)
 {
-    int t;
+    char *t;
     int p1;
     int p2;
 
@@ -244,9 +244,9 @@ void func_00114E28(pl00 *self)
         Obj0000_Clear_Fields_640_648_124E58(self);
         func_00126770(self);
         pl00_clearMotionCam(self, 0, 0);
-        t = (int)self->base.pack;
-        p1 = *(int *)(t + 0x3D8) + t;
-        p2 = *(int *)(t + 0x3DC) + t;
+        t = self->base.pack;
+        p1 = EM_RES_REC(t, 0x3D8);
+        p2 = EM_RES_REC(t, 0x3DC);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x29, self, 0, 0, 0, 0);
         func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;

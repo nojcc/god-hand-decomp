@@ -19,11 +19,11 @@ extern char D_007419A0[];
 __attribute__((section(".text.cOmBase_initEffData27D")))
 int cOmBase_initEffData27D(cOmBase *self)
 {
-    int res;
+    char *res;
 
     func_001B6FB8(self);
-    res = (int)self->pack;
-    espSys_effDataRegist(D_007419A0, EFFDATA_ID, (void *)(*(int *)(res + 0xC) + res));
+    res = self->pack;
+    espSys_effDataRegist(D_007419A0, EFFDATA_ID, (void *)(EM_RES_REC(res, 0xC)));
     SetEffect(EFFDATA_ID, 1, self, 0, -1, 0xFFFFFFFF);
     return 1;
 }

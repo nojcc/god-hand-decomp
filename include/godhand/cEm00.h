@@ -24,13 +24,9 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
 
-/* The address of a record in the resource blob. The blob starts with a
- * table of offsets from its own start; res is the blob's address as an int
- * and off the table slot. */
 #define EM_NO_WEAPON_HOLDER  0x211    /* emNo of the enemy that holds heldWeapon[] */
 #define EM_WEAPON_NUM        8
 
-#define EM_RES_REC(res, off) (*(int *)((res) + (off)) + (res))
 /* The blob's address as an int: the data pack at 0x304. */
 #define EM_RES(obj) ((int)(obj)->pack)
 

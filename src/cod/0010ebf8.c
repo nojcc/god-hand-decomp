@@ -48,7 +48,7 @@ void func_0010EBF8(pl00 *self)
     case 0:
     {
         cGameObj *e;
-        int t;
+        char *t;
 
         func_00124540(self, 0);
         self->unk5E0 = 0;
@@ -62,8 +62,8 @@ void func_0010EBF8(pl00 *self)
         }
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 10.0f), 0xB, 0xA, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 0xB, 0xA, 0, 0xA);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x100) + t, *(int *)(t + 0x108) + t, 5, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x100), EM_RES_REC(t, 0x108), 5, 0.0f, 0, 0);
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;
         self->unk15B4 = 0;
@@ -128,7 +128,7 @@ void func_00241C18(void *a0)
 
         gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s0) & 0xFFFF;
         v = *(char **)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(v + 0x111C) + (int)v, *(int *)(v + 0x1120) + (int)v, 3, 0.0f, gb, 0);
+        func_002A8578(s0, EM_RES_REC(v, 0x111C), EM_RES_REC(v, 0x1120), 3, 0.0f, gb, 0);
         *(float *)(s0 + 0x6D0) = 1.954f;
         *(float *)(s0 + 0x6D4) = 4.0f;
         *(float *)(s0 + 0x6D8) = -14.8719997f;

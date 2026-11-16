@@ -33,9 +33,9 @@ void func_002397C0(cEm00 *self)
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
     case 0: {
-        int w = (int)self->pack;
+        char *w = self->pack;
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(w + 0x3C44) + w, *(int *)(w + 0x3C48) + w,
+        func_002A8578(self, EM_RES_REC(w, 0x3C44), EM_RES_REC(w, 0x3C48),
                       0, 0.0f, 0, 0);
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         default:
@@ -73,9 +73,9 @@ void func_002397C0(cEm00 *self)
         cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 2: {
-        int w = (int)self->pack;
+        char *w = self->pack;
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(w + 0x3C4C) + w, *(int *)(w + 0x3C50) + w,
+        func_002A8578(self, EM_RES_REC(w, 0x3C4C), EM_RES_REC(w, 0x3C50),
                       0, 0.0f, 0, 0);
         self->step = self->step + 1;
     }
@@ -109,9 +109,9 @@ void func_002397C0(cEm00 *self)
         cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 4: {
-        int w = (int)self->pack;
+        char *w = self->pack;
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(w + 0x3C54) + w, *(int *)(w + 0x3C58) + w,
+        func_002A8578(self, EM_RES_REC(w, 0x3C54), EM_RES_REC(w, 0x3C58),
                       3, 0.0f, 0, 0);
         self->step = self->step + 1;
     }
@@ -128,8 +128,8 @@ void func_002397C0(cEm00 *self)
         cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 6: {
-        int w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x3C5C) + w, *(int *)(w + 0x3C60) + w,
+        char *w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x3C5C), EM_RES_REC(w, 0x3C60),
                       3, 0.0f, 0, 0);
         self->timerA = 1;
         self->hitFlash = 5.0f;

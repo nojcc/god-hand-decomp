@@ -26,10 +26,10 @@ void func_0025C830(cEm00 *self)
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
     case 0: {
-        int w;
+        char *w;
         ReleaseField6ECByTag564_26B1E8(self);
-        w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x1820) + w, *(int *)(w + 0x1824) + w,
+        w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x1820), EM_RES_REC(w, 0x1824),
                       0, 0.0f, 0, 0);
         self->unk16EC = 0;
         self->step = self->step + 1;
@@ -51,10 +51,10 @@ void func_0025C830(cEm00 *self)
         break;
     }
     case 2: {
-        int w;
+        char *w;
         ReleaseField6ECByTag564_26B1E8(self);
-        w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x1828) + w, *(int *)(w + 0x182C) + w,
+        w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x1828), EM_RES_REC(w, 0x182C),
                       0, 0.0f, 0, 0);
         self->step = self->step + 1;
     }
@@ -80,8 +80,8 @@ void func_0025C830(cEm00 *self)
         break;
     }
     case 4: {
-        int w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x1838) + w, *(int *)(w + 0x183C) + w,
+        char *w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x1838), EM_RES_REC(w, 0x183C),
                       0, 0.0f, 0, 0);
         self->timerA = 1;
         self->unk56E = 0xF;
@@ -135,8 +135,8 @@ void func_0025C830(cEm00 *self)
         break;
     }
     case 6: {
-        int w = (int)self->pack;
-        func_002A8578(self, *(int *)(w + 0x1830) + w, *(int *)(w + 0x1834) + w,
+        char *w = self->pack;
+        func_002A8578(self, EM_RES_REC(w, 0x1830), EM_RES_REC(w, 0x1834),
                       0, 0.0f, 0, 0);
         self->unk56E = 0xF;
         self->hitFlash = 15.0f;

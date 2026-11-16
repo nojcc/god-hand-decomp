@@ -29,7 +29,7 @@ void func_001158E8(pl00 *self)
     self->base.hitFlash = 5.0f;
     switch (self->base.step) {
     case 0: {
-        int t;
+        char *t;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         func_001268F0(self);
@@ -44,8 +44,8 @@ void func_001158E8(pl00 *self)
             d->z = s->z;
         }
         self->base.rot.y = self->unk670;
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x4CC) + t, *(int *)(t + 0x4D0) + t, 0, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x4CC), EM_RES_REC(t, 0x4D0), 0, 0.0f, 0, 0);
         self->base.step += 1;
     }
         /* fallthrough */
@@ -84,9 +84,9 @@ void func_001158E8(pl00 *self)
         break;
     }
     case 2: {
-        int t = (int)self->base.pack;
-        int p1 = *(int *)(t + 0x4D4) + t;
-        int p2 = *(int *)(t + 0x4D8) + t;
+        char *t = self->base.pack;
+        int p1 = EM_RES_REC(t, 0x4D4);
+        int p2 = EM_RES_REC(t, 0x4D8);
         SetEffectParts(0, 0x2D, self, 0, 0.0f, 0.0f, 0.0f, 1.0f, -1);
         func_002A8578(self, p1, p2, 0, 0.0f, 0, 0);
         self->base.step += 1;

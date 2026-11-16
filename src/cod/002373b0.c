@@ -21,15 +21,15 @@ void func_002373B0(cEm00 *self)
     char *s1 = (char *)Getplayer();
     cVec *p;
     char *q;
-    int b;
+    char *b;
 
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     self->hitFlash = 3.0f;
     switch (self->step) {
     case 0:
         self->unk1864 = 0;
-        b = (int)self->pack;
-        func_002A8578(self, *(int *)(b + 0x20D8) + b, *(int *)(b + 0x20DC) + b,
+        b = self->pack;
+        func_002A8578(self, EM_RES_REC(b, 0x20D8), EM_RES_REC(b, 0x20DC),
                       0, 0.0f, 0, 0);
         self->unk56E = 0x3C;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {

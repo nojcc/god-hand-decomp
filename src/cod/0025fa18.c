@@ -18,7 +18,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
     void *parts;
     void *s3;
     cDamageUnit *s2;
-    int v0;
+    char *v0;
     cGameObjVt *vt;
     float one;
     cCamManager *mgr;
@@ -53,7 +53,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
     }
     switch (self->step) {
         case 0:
-            v0 = (int)self->pack;
+            v0 = self->pack;
             func_002A8578(self, EM_RES_REC(v0, 0x444), EM_RES_REC(v0, 0x448), 0, 0.0f, 0, 0);
             self->seqFlags = self->seqFlags & 0xFDFF;
             self->unk617 = 1;
@@ -77,7 +77,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             }
             break;
         case 2:
-            v0 = (int)self->pack;
+            v0 = self->pack;
             func_002A8578(self, EM_RES_REC(v0, 0x153C), EM_RES_REC(v0, 0x1540), 0, 0.0f, 0, 0);
             self->seqFlags = self->seqFlags & 0xFDFF;
             self->unk617 = 1;

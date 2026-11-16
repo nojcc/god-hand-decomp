@@ -25,11 +25,11 @@ void func_0011A660(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int b = (int)self->base.pack;
+        char *b = self->base.pack;
 
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        func_002A8578(self, *(int *)(b + 0x6F0) + b, *(int *)(b + 0x6F4) + b,
+        func_002A8578(self, EM_RES_REC(b, 0x6F0), EM_RES_REC(b, 0x6F4),
                       3, 0.0f, 0, 0);
         CallWithAndClearField698_12AC28(self);
         func_0012B928(self);
@@ -52,9 +52,9 @@ void func_0011A660(pl00 *self)
         break;
     case 2:
     {
-        int b = (int)self->base.pack;
+        char *b = self->base.pack;
 
-        func_002A8578(self, *(int *)(b + 0x28) + b, *(int *)(b + 0x2C) + b,
+        func_002A8578(self, EM_RES_REC(b, 0x28), EM_RES_REC(b, 0x2C),
                       3, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;
     }
@@ -72,11 +72,11 @@ void func_0011A660(pl00 *self)
         break;
     case 4:
     {
-        int b = (int)self->base.pack;
+        char *b = self->base.pack;
 
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        func_002A8578(self, *(int *)(b + 0x6F8) + b, *(int *)(b + 0x6FC) + b,
+        func_002A8578(self, EM_RES_REC(b, 0x6F8), EM_RES_REC(b, 0x6FC),
                       0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;
     }

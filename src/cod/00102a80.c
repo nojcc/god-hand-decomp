@@ -199,8 +199,8 @@ void func_00246088(void *a0)
             func_00260438(p);
         }
         v = *(char **)(p + 0x304);
-        s0v = *(int *)(v + 0xBCC) + (int)v;
-        s1v = *(int *)(v + 0xBD4) + (int)v;
+        s0v = EM_RES_REC(v, 0xBCC);
+        s1v = EM_RES_REC(v, 0xBD4);
         func_002A8578(p, s0v, s1v, 10, 0.0f, Obj0000_Get_Byte_17C3_NZ_2_276468(p) & 0xFFFF, 0);
         *(short *)(p + 0x568) = 3;
         *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
@@ -233,10 +233,10 @@ void func_00110E98(pl00 *self)
         func_00124540(self, 4);
         if (self->sub6A0 != 0) {
             v = self->base.pack;
-            func_002A8578(self->sub6A0, *(int *)(v + 0x37C) + (int)v, *(int *)(v + 0x398) + (int)v, 3, 0.0f, 0, 0);
+            func_002A8578(self->sub6A0, EM_RES_REC(v, 0x37C), EM_RES_REC(v, 0x398), 3, 0.0f, 0, 0);
         }
         v = self->base.pack;
-        func_002A8578(self, *(int *)(v + 0x364) + (int)v, *(int *)(v + 0x368) + (int)v, 3, 0.0f, 0, 0);
+        func_002A8578(self, EM_RES_REC(v, 0x364), EM_RES_REC(v, 0x368), 3, 0.0f, 0, 0);
         self->unk15B0 = 1;
         self->base.step = self->base.step + 1;
     case 1:

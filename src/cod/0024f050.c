@@ -50,11 +50,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x25B:
                 case 0x27E: {
                     if (self->stepArg != 0) {
-                        int wa1 = (int)self->pack;
+                        char *wa1 = self->pack;
                         s3 = EM_RES_REC(wa1, 0x300);
                         s1 = EM_RES_REC(wa1, 0x304);
                     } else {
-                        int wb1 = (int)self->pack;
+                        char *wb1 = self->pack;
                         s3 = EM_RES_REC(wb1, 0x2F8);
                         s1 = EM_RES_REC(wb1, 0x2FC);
                     }
@@ -62,11 +62,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 }
                 default: {
                     if (self->stepArg != 0) {
-                        int wa2 = (int)self->pack;
+                        char *wa2 = self->pack;
                         s3 = EM_RES_REC(wa2, 0x820);
                         s1 = EM_RES_REC(wa2, 0x824);
                     } else {
-                        int wb2 = (int)self->pack;
+                        char *wb2 = self->pack;
                         s3 = EM_RES_REC(wb2, 0x818);
                         s1 = EM_RES_REC(wb2, 0x81C);
                     }
@@ -85,11 +85,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x278:
                 case 0x279: {
                     if (self->stepArg != 0) {
-                        int wa3 = (int)self->pack;
+                        char *wa3 = self->pack;
                         s3 = EM_RES_REC(wa3, 0x9E8);
                         s1 = EM_RES_REC(wa3, 0x9EC);
                     } else {
-                        int wb3 = (int)self->pack;
+                        char *wb3 = self->pack;
                         s3 = EM_RES_REC(wb3, 0x9E0);
                         s1 = EM_RES_REC(wb3, 0x9E4);
                     }
@@ -98,11 +98,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x250:
                 case 0x251: {
                     if (self->stepArg != 0) {
-                        int we = (int)self->pack;
+                        char *we = self->pack;
                         s3 = EM_RES_REC(we, 0x9E8);
                         s1 = EM_RES_REC(we, 0x9EC);
                     } else {
-                        int wf = (int)self->pack;
+                        char *wf = self->pack;
                         s3 = EM_RES_REC(wf, 0x9E0);
                         s1 = EM_RES_REC(wf, 0x9E4);
                     }
@@ -112,11 +112,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 }
                 case 0x260: {
                     if (self->stepArg != 0) {
-                        int wa5 = (int)self->pack;
+                        char *wa5 = self->pack;
                         s3 = EM_RES_REC(wa5, 0x3144);
                         s1 = EM_RES_REC(wa5, 0x3148);
                     } else {
-                        int wb5 = (int)self->pack;
+                        char *wb5 = self->pack;
                         s3 = EM_RES_REC(wb5, 0x3144);
                         s1 = EM_RES_REC(wb5, 0x3148);
                         s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
@@ -125,11 +125,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 }
                 case 0x264: {
                     if (self->stepArg != 0) {
-                        int wa6 = (int)self->pack;
+                        char *wa6 = self->pack;
                         s3 = EM_RES_REC(wa6, 0x3310);
                         s1 = EM_RES_REC(wa6, 0x3314);
                     } else {
-                        int wb6 = (int)self->pack;
+                        char *wb6 = self->pack;
                         s3 = EM_RES_REC(wb6, 0x3308);
                         s1 = EM_RES_REC(wb6, 0x330C);
                     }
@@ -137,11 +137,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 }
                 case 0x265: {
                     if (self->stepArg != 0) {
-                        int wa7 = (int)self->pack;
+                        char *wa7 = self->pack;
                         s3 = EM_RES_REC(wa7, 0x3888);
                         s1 = EM_RES_REC(wa7, 0x388C);
                     } else {
-                        int wb7 = (int)self->pack;
+                        char *wb7 = self->pack;
                         s3 = EM_RES_REC(wb7, 0x3880);
                         s1 = EM_RES_REC(wb7, 0x3884);
                     }
@@ -153,11 +153,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x208:
                 case 0x224: {
                     if (self->stepArg != 0) {
-                        int wa8 = (int)self->pack;
+                        char *wa8 = self->pack;
                         s3 = EM_RES_REC(wa8, 0x16A0);
                         s1 = EM_RES_REC(wa8, 0x16A4);
                     } else {
-                        int wb8 = (int)self->pack;
+                        char *wb8 = self->pack;
                         s3 = EM_RES_REC(wb8, 0x1698);
                         s1 = EM_RES_REC(wb8, 0x169C);
                     }
@@ -165,11 +165,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 }
                 case 0x241: {
                     if (self->stepArg != 0) {
-                        int wa9 = (int)self->pack;
+                        char *wa9 = self->pack;
                         s3 = EM_RES_REC(wa9, 0x3AA4);
                         s1 = EM_RES_REC(wa9, 0x3AA8);
                     } else {
-                        int wb9 = (int)self->pack;
+                        char *wb9 = self->pack;
                         s3 = EM_RES_REC(wb9, 0x3A9C);
                         s1 = EM_RES_REC(wb9, 0x3AA0);
                     }
@@ -178,11 +178,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x209:
                 case 0x21F: {
                     if (self->stepArg != 0) {
-                        int wa10 = (int)self->pack;
+                        char *wa10 = self->pack;
                         s3 = EM_RES_REC(wa10, 0x16A0);
                         s1 = EM_RES_REC(wa10, 0x16A4);
                     } else {
-                        int wb10 = (int)self->pack;
+                        char *wb10 = self->pack;
                         s3 = EM_RES_REC(wb10, 0x1698);
                         s1 = EM_RES_REC(wb10, 0x169C);
                     }
@@ -192,18 +192,18 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x221:
                 case 0x222: {
                     if (self->stepArg != 0) {
-                        int wa11 = (int)self->pack;
+                        char *wa11 = self->pack;
                         s3 = EM_RES_REC(wa11, 0x820);
                         s1 = EM_RES_REC(wa11, 0x824);
                     } else {
-                        int wb11 = (int)self->pack;
+                        char *wb11 = self->pack;
                         s3 = EM_RES_REC(wb11, 0x818);
                         s1 = EM_RES_REC(wb11, 0x81C);
                     }
                     break;
                 }
                 case 0x223: {
-                    int w = (int)self->pack;
+                    char *w = self->pack;
                     s3 = EM_RES_REC(w, 0x2E4C);
                     s1 = EM_RES_REC(w, 0x2E50);
                     break;
@@ -228,11 +228,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
                 case 0x252:
                 case 0x25A: {
                     if (self->stepArg != 0) {
-                        int wa12 = (int)self->pack;
+                        char *wa12 = self->pack;
                         s3 = EM_RES_REC(wa12, 0x1260);
                         s1 = EM_RES_REC(wa12, 0x1264);
                     } else {
-                        int wb12 = (int)self->pack;
+                        char *wb12 = self->pack;
                         s3 = EM_RES_REC(wb12, 0x1258);
                         s1 = EM_RES_REC(wb12, 0x125C);
                     }
@@ -241,11 +241,11 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
             }
             if (self->unk6EC != 0) {
                 if (self->stepArg != 0) {
-                    int wc = (int)self->pack;
+                    char *wc = self->pack;
                     s3 = EM_RES_REC(wc, 0x820);
                     s1 = EM_RES_REC(wc, 0x824);
                 } else {
-                    int wd = (int)self->pack;
+                    char *wd = self->pack;
                     s3 = EM_RES_REC(wd, 0x818);
                     s1 = EM_RES_REC(wd, 0x81C);
                 }

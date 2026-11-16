@@ -64,11 +64,11 @@ void func_00227FE8(void *a0)
         gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
         *(unsigned char *)(s1 + 0x2F7) = (unsigned int)irand() % 3;
         v0 = *(char **)(s1 + 0x304);
-        a1v = *(int *)(v0 + 0x2FEC) + (int)v0;
-        a2v = *(int *)(v0 + 0x2FF0) + (int)v0;
+        a1v = EM_RES_REC(v0, 0x2FEC);
+        a2v = EM_RES_REC(v0, 0x2FF0);
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
             char *v1 = *(char **)(s1 + 0x304);
-            a2v = *(int *)(v1 + 0x2FF4) + (int)v1;
+            a2v = EM_RES_REC(v1, 0x2FF4);
         }
         StoreMotionParamsBoth_2609A8(a0, 0x28, 0, 0x3E, -1, 0);
         func_002A8578(s1, a1v, a2v, 3, 0.0f, gb, 0);
@@ -113,7 +113,7 @@ void func_00227FE8(void *a0)
         *(char *)(s1 + 0x1864) = 0;
         gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
         v1 = *(char **)(s1 + 0x304);
-        func_002A8578(s1, *(int *)(v1 + 0x2FF8) + (int)v1, *(int *)(v1 + 0x2FFC) + (int)v1, 3, 0.0f, gb, 0);
+        func_002A8578(s1, EM_RES_REC(v1, 0x2FF8), EM_RES_REC(v1, 0x2FFC), 3, 0.0f, gb, 0);
         *(unsigned char *)(s1 + 0x2F6) += 1;
     }
         /* fallthrough */
@@ -235,16 +235,16 @@ void func_00111750(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x82, 0x11, 0x1F, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x82, 0x11, 0x1F, 0, 0x123);
-        t = (int)self->base.pack;
+        t = self->base.pack;
         self->unk1684 = 1;
-        func_002A8578(self, *(int *)(t + 0x1C0) + t, *(int *)(t + 0x1C4) + t,
+        func_002A8578(self, EM_RES_REC(t, 0x1C0), EM_RES_REC(t, 0x1C4),
                       3, 0.0f, 0, 0);
         func_00129578(self);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
@@ -319,11 +319,11 @@ void func_0025C5D8(cEm00 *self)
     switch (self->step) {
     case 0:
     {
-        int p;
+        char *p;
 
         ReleaseField6ECByTag564_26B1E8(self);
-        p = (int)self->pack;
-        func_002A8578(self, *(int *)(p + 0x3BFC) + p, *(int *)(p + 0x3C00) + p,
+        p = self->pack;
+        func_002A8578(self, EM_RES_REC(p, 0x3BFC), EM_RES_REC(p, 0x3C00),
                       0, 0.0f, 0, 0);
         self->timerA = 0x2A;
         self->timerB = 1;

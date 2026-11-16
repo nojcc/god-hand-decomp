@@ -35,7 +35,7 @@ void func_001160A0(pl00 *self)
     self->base.hitFlash = 5.0f;
     switch (self->base.step) {
     case 0: {
-        int t;
+        char *t;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         func_001268F0(self);
@@ -50,8 +50,8 @@ void func_001160A0(pl00 *self)
             d->z = s->z;
         }
         self->base.rot.y = self->unk670;
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x954) + t, *(int *)(t + 0x958) + t, 0, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x954), EM_RES_REC(t, 0x958), 0, 0.0f, 0, 0);
         self->base.step += 1;
     }
     case 1:
@@ -70,7 +70,7 @@ void func_001160A0(pl00 *self)
 }
 
 __attribute__((section(".text.func_0010FE18")))
-void func_0010FE18(pl00 *self){ int v0;
+void func_0010FE18(pl00 *self){ char *v0;
  switch(self->base.step){
  case 0:
   self->unk5E0=0; self->unk5E2=0;
@@ -79,9 +79,9 @@ void func_0010FE18(pl00 *self){ int v0;
   pl00_clearMotionCam(self,0,0);
   Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self,0x14,0xB,0xA,0,0xA);
   Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self,0x14,0xB,0xA,0,0xA);
-  v0=(int)self->base.pack;
+  v0=self->base.pack;
   self->unk1684=0;
-  func_002A8578(self,*(int*)(v0+0x100)+v0,*(int*)(v0+0x108)+v0,3,0.0f,0,0);
+  func_002A8578(self,EM_RES_REC(v0,0x100),EM_RES_REC(v0,0x108),3,0.0f,0,0);
   self->unk15B0=1;
   self->base.step=self->base.step+1;
  case 1:

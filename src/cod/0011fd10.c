@@ -63,21 +63,21 @@ void func_0011FD10(pl00 *self)
         switch (irand() % 3) {
         default:
         case 0: {
-            int p = (int)self->base.pack;
-            f1 = *(int *)(p + 0x140) + p;
-            f2 = *(int *)(p + 0x144) + p;
+            char *p = self->base.pack;
+            f1 = EM_RES_REC(p, 0x140);
+            f2 = EM_RES_REC(p, 0x144);
             break;
         }
         case 1: {
-            int p = (int)self->base.pack;
-            f1 = *(int *)(p + 0x4DC) + p;
-            f2 = *(int *)(p + 0x4E0) + p;
+            char *p = self->base.pack;
+            f1 = EM_RES_REC(p, 0x4DC);
+            f2 = EM_RES_REC(p, 0x4E0);
             break;
         }
         case 2: {
-            int p = (int)self->base.pack;
-            f1 = *(int *)(p + 0x4E4) + p;
-            f2 = *(int *)(p + 0x4E8) + p;
+            char *p = self->base.pack;
+            f1 = EM_RES_REC(p, 0x4E4);
+            f2 = EM_RES_REC(p, 0x4E8);
             break;
         }
         }
@@ -106,21 +106,21 @@ void func_0011FD10(pl00 *self)
                 switch (irand() % 3) {
                 default:
                 case 0: {
-                    int p = (int)self->base.pack;
-                    f1 = *(int *)(p + 0x140) + p;
-                    f2 = *(int *)(p + 0x144) + p;
+                    char *p = self->base.pack;
+                    f1 = EM_RES_REC(p, 0x140);
+                    f2 = EM_RES_REC(p, 0x144);
                     break;
                 }
                 case 1: {
-                    int p = (int)self->base.pack;
-                    f1 = *(int *)(p + 0x4DC) + p;
-                    f2 = *(int *)(p + 0x4E0) + p;
+                    char *p = self->base.pack;
+                    f1 = EM_RES_REC(p, 0x4DC);
+                    f2 = EM_RES_REC(p, 0x4E0);
                     break;
                 }
                 case 2: {
-                    int p = (int)self->base.pack;
-                    f1 = *(int *)(p + 0x4E4) + p;
-                    f2 = *(int *)(p + 0x4E8) + p;
+                    char *p = self->base.pack;
+                    f1 = EM_RES_REC(p, 0x4E4);
+                    f2 = EM_RES_REC(p, 0x4E8);
                     break;
                 }
                 }
@@ -256,13 +256,13 @@ void func_0011FD10(pl00 *self)
         func_001299F0(self, s1, buf, 0, buf[1]);
         { int g1; int g2;
         if (self->base.stepArg != 0) {
-            int pa = (int)self->base.pack;
-            g1 = *(int *)(pa + 0x6AC) + pa;
-            g2 = *(int *)(pa + 0x6B0) + pa;
+            char *pa = self->base.pack;
+            g1 = EM_RES_REC(pa, 0x6AC);
+            g2 = EM_RES_REC(pa, 0x6B0);
         } else {
-            int pb = (int)self->base.pack;
-            g1 = *(int *)(pb + 0x810) + pb;
-            g2 = *(int *)(pb + 0x814) + pb;
+            char *pb = self->base.pack;
+            g1 = EM_RES_REC(pb, 0x810);
+            g2 = EM_RES_REC(pb, 0x814);
         }
         func_002A8578(self, g1, g2, 3, 0.0f, 0, 0); }
         self->base.unk56E = 0xF;

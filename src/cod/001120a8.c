@@ -28,14 +28,14 @@ void func_001156D8(pl00 *self)
     self->base.hitFlash = 5.0f;
     switch (self->base.step) {
     case 0: {
-        int t;
+        char *t;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->base.rot.y = self->unk670;
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x4C4) + t, *(int *)(t + 0x4C8) + t, 0, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x4C4), EM_RES_REC(t, 0x4C8), 0, 0.0f, 0, 0);
         self->base.step += 1;
     }
         /* fallthrough */
@@ -50,7 +50,7 @@ void func_001156D8(pl00 *self)
         cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 2: {
-        int t;
+        char *t;
         d = self->base.pos;
         s = &self->unk660;
         if (d != s) {
@@ -66,8 +66,8 @@ void func_001156D8(pl00 *self)
             d->z = s->z;
         }
         self->base.rot.y = self->unk670;
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x4D4) + t, *(int *)(t + 0x4D8) + t, 0, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x4D4), EM_RES_REC(t, 0x4D8), 0, 0.0f, 0, 0);
         self->base.step += 1;
     }
         /* fallthrough */
@@ -143,7 +143,7 @@ void func_001120A8(pl00 *self)
     switch (self->base.step) {
     case 0:
     {
-        int t;
+        char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->unk5E0 = 0;
@@ -152,8 +152,8 @@ void func_001120A8(pl00 *self)
         func_00129578(self);
         cCoreSave_useGodItem(&D_00569B70);
         cCoreSave_useGodItem(&D_00569B70);
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x870) + t, *(int *)(t + 0x874) + t,
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x870), EM_RES_REC(t, 0x874),
                       3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(D_005864F0, 0.1f);
         self->unk15B0 = 1;

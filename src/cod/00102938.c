@@ -97,23 +97,23 @@ void func_0011A530(pl00 *self)
         t0 = self->base.pack;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
-        p1 = *(int *)(t0 + 0x28) + (int)t0;
-        p2 = *(int *)(t0 + 0x2C) + (int)t0;
+        p1 = EM_RES_REC(t0, 0x28);
+        p2 = EM_RES_REC(t0, 0x2C);
         if (self->sub6A0 != 0) {
-            func_002A8578(self->sub6A0, *(int *)(t0 + 0x36C) + (int)t0,
-                          *(int *)(t0 + 0x388) + (int)t0, 10, 0.0f, 0, 0);
+            func_002A8578(self->sub6A0, EM_RES_REC(t0, 0x36C),
+                          EM_RES_REC(t0, 0x388), 10, 0.0f, 0, 0);
             {
             char *v0 = self->base.pack;
-            p1 = *(int *)(v0 + 0x344) + (int)v0;
-            p2 = *(int *)(v0 + 0x348) + (int)v0;
+            p1 = EM_RES_REC(v0, 0x344);
+            p2 = EM_RES_REC(v0, 0x348);
             self->base.stepArg = 3;
             }
         }
         if (self->sub698 != 0) {
             {
             char *v0 = self->base.pack;
-            p1 = *(int *)(v0 + 0x3AC) + (int)v0;
-            p2 = *(int *)(v0 + 0x3B0) + (int)v0;
+            p1 = EM_RES_REC(v0, 0x3AC);
+            p2 = EM_RES_REC(v0, 0x3B0);
             self->base.stepArg = 3;
             }
         }
@@ -143,16 +143,16 @@ void func_00102CB0(void *a0)
         default:
             {
             char *v0 = *(char **)(s0 + 0x304);
-            p1 = *(int *)(v0 + 0x6C) + (int)v0;
-            p2 = *(int *)(v0 + 0x70) + (int)v0;
+            p1 = EM_RES_REC(v0, 0x6C);
+            p2 = EM_RES_REC(v0, 0x70);
             t0 = (irand() & 1) << 1;
             }
             break;
         case 1:
             {
             char *v1 = *(char **)(s0 + 0x304);
-            p1 = *(int *)(v1 + 0x64) + (int)v1;
-            p2 = *(int *)(v1 + 0x68) + (int)v1;
+            p1 = EM_RES_REC(v1, 0x64);
+            p2 = EM_RES_REC(v1, 0x68);
             }
             break;
         case 2:
@@ -200,7 +200,7 @@ void func_00102938(void *a0)
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
         v0 = *(char **)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(v0 + 0x14) + (int)v0, *(int *)(v0 + 0x18) + (int)v0, 10, 0.0f, 0, 0);
+        func_002A8578(s0, EM_RES_REC(v0, 0x14), EM_RES_REC(v0, 0x18), 10, 0.0f, 0, 0);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         if (*(unsigned char *)(s1 + 0x61F) != 0) {

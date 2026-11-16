@@ -95,11 +95,11 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             switch (self->emNo) {
                 default:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x618);
                         p2 = EM_RES_REC(b, 0x61C);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x620);
                         p2 = EM_RES_REC(b, 0x624);
                     }
@@ -117,11 +117,11 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x278:
                 case 0x279:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xB2C);
                         p2 = EM_RES_REC(b, 0xB30);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xB34);
                         p2 = EM_RES_REC(b, 0xB38);
                     }
@@ -129,11 +129,11 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x250:
                 case 0x251:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xB2C);
                         p2 = EM_RES_REC(b, 0xB30);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xB34);
                         p2 = EM_RES_REC(b, 0xB38);
                     }
@@ -142,33 +142,33 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                     break;
                 case 0x260:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xB2C);
                         p2 = EM_RES_REC(b, 0xB30);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xB34);
                         p2 = EM_RES_REC(b, 0xB38);
                     }
                     break;
                 case 0x264:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x326C);
                         p2 = EM_RES_REC(b, 0x3270);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x326C);
                         p2 = EM_RES_REC(b, 0x3270);
                     }
                     break;
                 case 0x265:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x3818);
                         p2 = EM_RES_REC(b, 0x381C);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x3818);
                         p2 = EM_RES_REC(b, 0x381C);
                     }
@@ -179,22 +179,22 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x208:
                 case 0x224:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x17A8);
                         p2 = EM_RES_REC(b, 0x17AC);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x17A8);
                         p2 = EM_RES_REC(b, 0x17AC);
                     }
                     break;
                 case 0x241:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x3AEC);
                         p2 = EM_RES_REC(b, 0x3AF0);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x3AEC);
                         p2 = EM_RES_REC(b, 0x3AF0);
                     }
@@ -202,11 +202,11 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x209:
                 case 0x21F:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x17A8);
                         p2 = EM_RES_REC(b, 0x17AC);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x17A8);
                         p2 = EM_RES_REC(b, 0x17AC);
                     }
@@ -221,11 +221,11 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x273:
                 case 0x274:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xF54);
                         p2 = EM_RES_REC(b, 0xF58);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0xF5C);
                         p2 = EM_RES_REC(b, 0xF60);
                     }
@@ -234,22 +234,22 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x221:
                 case 0x222:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x618);
                         p2 = EM_RES_REC(b, 0x61C);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x618);
                         p2 = EM_RES_REC(b, 0x61C);
                     }
                     break;
                 case 0x223:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x2E7C);
                         p2 = EM_RES_REC(b, 0x2E80);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x2E7C);
                         p2 = EM_RES_REC(b, 0x2E80);
                     }
@@ -272,11 +272,11 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                 case 0x252:
                 case 0x25A:
                     if (self->seqFlags & 0x200) {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x1380);
                         p2 = EM_RES_REC(b, 0x1384);
                     } else {
-                        int b = (int)self->pack;
+                        char *b = self->pack;
                         p1 = EM_RES_REC(b, 0x1388);
                         p2 = EM_RES_REC(b, 0x138C);
                     }
@@ -301,7 +301,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             }
             break;
         case 2: {
-            int b = (int)self->pack;
+            char *b = self->pack;
 
             func_002A8578(self, EM_RES_REC(b, 0x1400), EM_RES_REC(b, 0x1404), 3, 0.0f, 0, 0);
             self->hitFlash = 10.0f;
@@ -317,7 +317,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             cObjBase_addNullSpeed(self, 1.0f);
             break;
         case 4: {
-            int b = (int)self->pack;
+            char *b = self->pack;
 
             func_002A8578(self, EM_RES_REC(b, 0x1408), EM_RES_REC(b, 0x140C), 3, 0.0f, 0, 0);
             self->unk568 = 5;
@@ -345,7 +345,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             break;
         }
         case 6: {
-            int b = (int)self->pack;
+            char *b = self->pack;
 
             func_002A8578(self, EM_RES_REC(b, 0x1410), EM_RES_REC(b, 0x1414), 3, 0.0f, 0, 0);
             self->step += 1;
@@ -360,7 +360,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             break;
         case 8:
             if (self->seqFlags & 0x200) {
-                int b = (int)self->pack;
+                char *b = self->pack;
                 cOmWeapon *o = self->fx6;
 
                 p1 = EM_RES_REC(b, 0x2F74);
@@ -369,7 +369,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
                     Obj1D00_SetState_7_E_a1(&o->base, 1);
                 }
             } else {
-                int b = (int)self->pack;
+                char *b = self->pack;
                 cOmWeapon *o = self->fx6;
 
                 p1 = EM_RES_REC(b, 0x2F7C);
@@ -390,7 +390,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             cObjBase_addNullSpeed(self, 1.0f);
             break;
         case 10: {
-            int b = (int)self->pack;
+            char *b = self->pack;
             cOmWeapon *o;
 
             func_002A8578(self, EM_RES_REC(b, 0x2F94), EM_RES_REC(b, 0x2F98), 3, 0.0f, 0, 0);
@@ -410,7 +410,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             cObjBase_addNullSpeed(self, 1.0f);
             break;
         case 12: {
-            int b = (int)self->pack;
+            char *b = self->pack;
             cOmWeapon *o;
 
             func_002A8578(self, EM_RES_REC(b, 0x2F84), EM_RES_REC(b, 0x2F88), 3, 0.0f, 0, 0);
@@ -461,7 +461,7 @@ __attribute__((section(".text.func_00259A88"))) void func_00259A88(cEm00 *self)
             break;
         }
         case 14: {
-            int b = (int)self->pack;
+            char *b = self->pack;
             cOmWeapon *o;
 
             func_002A8578(self, EM_RES_REC(b, 0x2F8C), EM_RES_REC(b, 0x2F90), 3, 0.0f, 0, 0);

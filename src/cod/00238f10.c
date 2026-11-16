@@ -20,10 +20,10 @@ void func_00238F10(cEm00 *self)
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
     case 0: {
-        int p = (int)self->pack;
+        char *p = self->pack;
 
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(p + 0x39DC) + p, *(int *)(p + 0x39E0) + p,
+        func_002A8578(self, EM_RES_REC(p, 0x39DC), EM_RES_REC(p, 0x39E0),
                       0, 0.0f, 0, 0);
         self->unk56E = 0xF;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -76,10 +76,10 @@ void func_00238F10(cEm00 *self)
         }
         break;
     case 2: {
-        int p = (int)self->pack;
+        char *p = self->pack;
 
         self->unk1864 = 0;
-        func_002A8578(self, *(int *)(p + 0x39E4) + p, *(int *)(p + 0x39E8) + p,
+        func_002A8578(self, EM_RES_REC(p, 0x39E4), EM_RES_REC(p, 0x39E8),
                       0, 0.0f, 0, 0);
         self->emFlags2 &= 0xDFFFFFFFU;
         KillEffect(self, 1, 2);

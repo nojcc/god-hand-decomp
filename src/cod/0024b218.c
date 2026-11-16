@@ -25,7 +25,7 @@ __attribute__((section(".text.func_0025FCF8"))) void func_0025FCF8(cEm00 *self)
     cDamageUnit *du;
     cGameObjVt *vt;
     int nb;
-    int b;
+    char *b;
     int o;
     float one;
 
@@ -34,7 +34,7 @@ __attribute__((section(".text.func_0025FCF8"))) void func_0025FCF8(cEm00 *self)
     switch (self->step) {
         case 0:
             nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            b = (int)self->pack;
+            b = self->pack;
             o = EM_RES_REC(b, 0x108C);
             func_002A8578(self, o, o, 3, 0.0f, nb, 0);
             cDamageUnit_SetDamageCollActive(du, 0);

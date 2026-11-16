@@ -35,14 +35,14 @@ void func_00115C00(pl00 *self)
     self->base.objFlags = self->base.objFlags | 0x10000;
     switch (self->base.step) {
     case 0: {
-        int t;
+        char *t;
         self->unk5E0 = 0;
         self->unk5E2 = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->base.rot.y = self->unk670;
-        t = (int)self->base.pack;
-        func_002A8578(self, *(int *)(t + 0x8B0) + t, *(int *)(t + 0x8B4) + t, 0, 0.0f, 0, 0);
+        t = self->base.pack;
+        func_002A8578(self, EM_RES_REC(t, 0x8B0), EM_RES_REC(t, 0x8B4), 0, 0.0f, 0, 0);
         self->base.step += 1;
     }
     case 1: {
@@ -92,9 +92,9 @@ void func_00115C00(pl00 *self)
         break;
     }
     case 2: {
-        int t = (int)self->base.pack;
-        int p1 = *(int *)(t + 0x8D0) + t;
-        int p2 = *(int *)(t + 0x8D4) + t;
+        char *t = self->base.pack;
+        int p1 = EM_RES_REC(t, 0x8D0);
+        int p2 = EM_RES_REC(t, 0x8D4);
         SetEffectParts(0, 0x2D, self, 0, 0.0f, 0.0f, 0.0f, 1.0f, -1);
         func_002A8578(self, p1, p2, 0, 0.0f, 0, 0);
         self->base.step += 1;

@@ -58,12 +58,12 @@ void func_001162C0(pl00 *self) {
     cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
     switch (self->base.step) {
     case 0: {
-        int b;
+        char *b;
 
         CallWithAndClearField698_12AC28(self);
         func_0012B928(self);
-        b = (int)self->base.pack;
-        func_002A8578(self, *(int *)(b + 0x8E0) + b, *(int *)(b + 0x8E4) + b,
+        b = self->base.pack;
+        func_002A8578(self, EM_RES_REC(b, 0x8E0), EM_RES_REC(b, 0x8E4),
                       0, 0.0f, 0, 0);
         moveMotion(self);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF5, self, 0, 0, 0, 0);
@@ -87,9 +87,9 @@ void func_001162C0(pl00 *self) {
         break;
     }
     case 2: {
-        int b = (int)self->base.pack;
+        char *b = self->base.pack;
 
-        func_002A8578(self, *(int *)(b + 0x8E8) + b, *(int *)(b + 0x8EC) + b,
+        func_002A8578(self, EM_RES_REC(b, 0x8E8), EM_RES_REC(b, 0x8EC),
                       0, 0.0f, 0, 0);
         self->base.unk568 = 10;
         self->unk15C0 = 30.0f;
@@ -196,9 +196,9 @@ void func_001162C0(pl00 *self) {
         break;
     }
     case 4: {
-        int b = (int)self->base.pack;
+        char *b = self->base.pack;
 
-        func_002A8578(self, *(int *)(b + 0x8F8) + b, *(int *)(b + 0x8FC) + b,
+        func_002A8578(self, EM_RES_REC(b, 0x8F8), EM_RES_REC(b, 0x8FC),
                       0, 0.0f, 0, 0);
         cSnd_DieDemoStart(&D_005FEE00);
         func_0012C348(self, 2);
@@ -216,9 +216,9 @@ void func_001162C0(pl00 *self) {
         cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 6: {
-        int b = (int)self->base.pack;
+        char *b = self->base.pack;
 
-        func_002A8578(self, *(int *)(b + 0x8F0) + b, *(int *)(b + 0x8F4) + b,
+        func_002A8578(self, EM_RES_REC(b, 0x8F0), EM_RES_REC(b, 0x8F4),
                       0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;
     }
