@@ -127,6 +127,8 @@ extern DogRaceStepEnt D_003BE528[];
 void Slot2_dispatchStep(DogRace *self);
 /* Release the dogs, the three displays and the data file. */
 void DogRace_Release(DogRace *self);
+/* Constructor: clear the race state, construct the dogs and the three screens. */
+DogRace *DogRace__ctor(DogRace *self);
 
 /* DogRaceUi methods. */
 /* Clear the flags, construct the ID base and the 6 elements; returns self. */

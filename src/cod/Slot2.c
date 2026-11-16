@@ -2,31 +2,31 @@
 #include "godhand/criStm.h"
 #include "include_asm.h"
 
+#include "godhand/Slot2.h"
+
 extern void InitStructSubfieldsAndFloat_1E8798(void *a0);
 extern void InitStructZeroedFields_1E7960(void *a0);
-extern void func_001E7118(void *a0);
 
-__attribute__((section(".text.Slot2")))
-void *Slot2(void *a0) {
-    char *p = (char *)a0;
-    char *q;
+__attribute__((section(".text.Slot2__ctor")))
+Slot2 *Slot2__ctor(Slot2 *self) {
+    Slot2Reel *q;
     int i;
 
-    func_003A52F0(p, 0, 0x54);
-    *(int *)(p + 0x54) = 0;
+    func_003A52F0(self, 0, 0x54);
+    self->endFlag = 0;
 
-    q = p + 0x58;
+    q = self->reel;
     /* closes with bne against a -1 register -> i != -1, not i >= 0 */
     for (i = 2; i != -1; i--) {
         InitStructSubfieldsAndFloat_1E8798(q);
-        q += 0xE8;
+        q++;
     }
 
-    InitStructZeroedFields_1E7960(p + 0x310);
-    func_001E7118(p + 0x400);
+    InitStructZeroedFields_1E7960(&self->panel);
+    func_001E7118(&self->layer);
 
-    *(unsigned short *)(p + 0x3D0) = 0xFFFF;
-    *(unsigned short *)(p + 0xA80) = 0;
-    *(int *)(p + 0x3DC) = 0;
-    return p;
+    self->slotId = 0xFFFF;
+    self->menuSel = 0;
+    self->camera = 0;
+    return self;
 }

@@ -2,44 +2,40 @@
 #include "godhand/criStm.h"
 
 extern void ClearFields00And30_1EE768(void *a0);
-extern void func_001ECA80(void *a0);
-/* DogRace.h's typedef DogRace would hide this file's DogRace(); its two sub-objects are named by tag. */
-struct DogRaceUi *func_001ED548(struct DogRaceUi *self);
-struct DogRaceList *func_001EDE38(struct DogRaceList *self);
+#include "godhand/DogRace.h"
 
-__attribute__((section(".text.DogRace")))
-void *DogRace(void *a0) {
-    char *p = (char *)a0;
+__attribute__((section(".text.DogRace__ctor")))
+DogRace *DogRace__ctor(DogRace *self) {
     int i;
     int j;
-    char *q;
+    DogRaceDog *q;
     int *r;
     int *s;
 
-    func_003A52F0(p, 0, 0x54);
-    *(int *)(p + 0x54) = 0;
+    func_003A52F0(self, 0, 0x54);
+    self->unk54 = 0;
 
-    q = p + 0x5C;
+    q = self->dog;
     /* `j != -1`, not `j >= 0`: retail materialises -1 in a register and closes
        this loop with `bne`, where the zero-fill loops below use `bgez`. The
        idiom picks the branch instruction, so normalising it breaks the match. */
     for (j = 4; j != -1; j--) {
         ClearFields00And30_1EE768(q);
-        q += 0x40;
+        q++;
     }
 
-    func_001ECA80(p + 0x210);
-    func_001ED548((struct DogRaceUi *)(p + 0x1840));
-    func_001EDE38((struct DogRaceList *)(p + 0x1B90));
+    func_001ECA80(&self->result);
+    func_001ED548(&self->ui1);
+    func_001EDE38(&self->ui2);
 
-    *(int *)(p + 0x200) = 0;
-    *(unsigned short *)(p + 0x1B0) = 0xFFFF;
+    self->unk200 = 0;
+    self->unk1B0 = 0xFFFF;
 
-    r = (int *)(p + 0x19C);
-    s = (int *)(p + 0x1EC);
+    r = self->rank;
+    s = &self->scroll[10];
 
     for (i = 9; i >= 0; i--) {
-        ((int *)(p + 0x1C4))[i] = 0;
+        self->scroll[i] = 0;
     }
     for (i = 4; i >= 0; i--) {
         r[i] = 0;
@@ -48,5 +44,5 @@ void *DogRace(void *a0) {
         s[i] = 0;
     }
 
-    return p;
+    return self;
 }
