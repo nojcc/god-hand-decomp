@@ -14,7 +14,7 @@ extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern void func_00124EC0(void *a0);
 extern void func_00129630(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern int Obj0000_Get_Field_1580_27A128(int a0);
+extern cGameObj *Obj0000_Get_Field_1580_27A128(cGameObj *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
@@ -67,7 +67,7 @@ void func_001134C8(pl00 *self)
             if (self->unk640 != 0) {
                 cGameObj *e = self->unk640;
                 if (func_003A5678(D_0041C208, e->kindName) == 0) {
-                    e = (cGameObj *)Obj0000_Get_Field_1580_27A128((int)self->unk640);
+                    e = Obj0000_Get_Field_1580_27A128(self->unk640);
                 }
                 e->mode = 1;
                 e->phase = 6;

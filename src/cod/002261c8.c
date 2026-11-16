@@ -2,11 +2,11 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int irand(void);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -88,7 +88,7 @@ __attribute__((section(".text.func_002261C8"))) void func_002261C8(cEm00 *self)
                 char *v0;
                 *(int *)(s1 + 0x5F0) -= 1;
                 v0 = (char *)Getplayer();
-                cGameObj_SetTgtTurn(s1, *(int *)(v0 + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634955f);
+                cGameObj_SetTgtTurn(s1, *(cVec **)(v0 + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634955f);
             }
             if (*(int *)(s1 + 0x5F4) != 0) {
                 *(int *)(s1 + 0x5F4) -= 1;

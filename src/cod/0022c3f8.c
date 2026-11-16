@@ -4,12 +4,12 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern int irand(void);
 extern int GetSeqSEBase(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern char *Getplayer(void);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
 extern float Adjust_theta(float f12);
@@ -98,7 +98,7 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
         case 1: {
             char *m = s1 + 0x580;
 
-            cGameObj_SetTgtTurn(s1, (int)m, *(float *)(s1 + 0x5A8) * 0.196349546f);
+            cGameObj_SetTgtTurn(s1, (cVec *)m, *(float *)(s1 + 0x5A8) * 0.196349546f);
             moveMotion(s1);
             cObjBase_addNullSpeed_Rotation(s1, 1.0f);
             cObjBase_addNullSpeed(s1, 1.0f);
@@ -134,7 +134,7 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             /* fallthrough */
         case 3:
             if (s2 != 0) {
-                cGameObj_SetTgtTurn(s1, *(int *)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
+                cGameObj_SetTgtTurn(s1, *(cVec **)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
             }
             moveMotion(s1);
             cObjBase_addNullSpeed_Rotation(s1, 1.0f);
@@ -161,7 +161,7 @@ __attribute__((section(".text.func_0022C3F8"))) void func_0022C3F8(cEm00 *self)
             /* fallthrough */
         case 5:
             if (s2 != 0) {
-                cGameObj_SetTgtTurn(s1, *(int *)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
+                cGameObj_SetTgtTurn(s1, *(cVec **)(s2 + 0xF0), *(float *)(s1 + 0x5A8) * 0.196349546f);
             }
             moveMotion(s1);
             cObjBase_addNullSpeed_Rotation(s1, 1.0f);

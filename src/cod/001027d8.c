@@ -6,6 +6,7 @@
 #include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern int setMotionInfo(cObjBase *self, char *motion, SEQ_DATA_HEADER_1 *seqData, unsigned int blendLen,
 
@@ -14,7 +15,6 @@ float step, float start, int flags);
 extern unsigned int func_0031ED08(float f);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
-extern void cGameObj_SetTgtTurn(void *a0, cVec *a1, float a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern int D_00747A78;
 extern void *Getplayer(void);

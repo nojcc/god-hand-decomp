@@ -6,9 +6,9 @@
 #include "godhand/angle.h"
 #include "godhand/cCamera.h"
 #include "godhand/cEmManage.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, cVec *a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 

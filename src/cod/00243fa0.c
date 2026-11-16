@@ -2,8 +2,8 @@
 
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 extern char *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void func_00129718(void *a0, void *a1, int a2);
@@ -39,7 +39,7 @@ void func_00243FA0(char *s0)
         *(char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         o = Getplayer();
-        cGameObj_SetTgtTurn(s0, *(int *)(o + 0xF0),
+        cGameObj_SetTgtTurn(s0, *(cVec **)(o + 0xF0),
                                          *(float *)(s0 + 0x5A8) * 0.19634954f);
         if (moveMotion(s0) != 0)
             *(char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
@@ -56,7 +56,7 @@ void func_00243FA0(char *s0)
     case 3:
         if (64.0f < *(float *)(s0 + 0x618)) {
             o = Getplayer();
-            cGameObj_SetTgtTurn(s0, *(int *)(o + 0xF0),
+            cGameObj_SetTgtTurn(s0, *(cVec **)(o + 0xF0),
                                              *(float *)(s0 + 0x5A8) *
                                                  0.09817477f);
         }
@@ -107,7 +107,7 @@ void func_00243FA0(char *s0)
         *(char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 7:
         o = Getplayer();
-        cGameObj_SetTgtTurn(s0, *(int *)(o + 0xF0),
+        cGameObj_SetTgtTurn(s0, *(cVec **)(o + 0xF0),
                                          *(float *)(s0 + 0x5A8) * 0.19634954f);
         if (moveMotion(s0) != 0) {
             *(char *)(s0 + 0x2F4) = 0;

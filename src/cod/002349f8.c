@@ -3,10 +3,10 @@
 #include "godhand/cEm00.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
@@ -61,7 +61,7 @@ __attribute__((section(".text.func_002349F8"))) void func_002349F8(cEm00 *self)
                 int q;
                 self->timerA = self->timerA - 1;
                 q = Getplayer();
-                cGameObj_SetTgtTurn(self, *(int *)(q + 0xF0), self->speedRate * 0.19634954f);
+                cGameObj_SetTgtTurn(self, *(cVec **)(q + 0xF0), self->speedRate * 0.19634954f);
             }
             if (moveMotion(self)) {
                 cObjBase_addNullSpeed_Rotation(self, 1.0f);

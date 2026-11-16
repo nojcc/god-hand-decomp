@@ -2,6 +2,7 @@
 #include "godhand/motion.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -9,7 +10,6 @@ extern void Add_nullspeed(void *a0);
 extern void func_002A74E0(void *a0, void *a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern int irand(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int D_007476B0;
 /* Phase machine on the step byte, 8 case labels. Calls capVu0MagnitudeSqXZ, func_002A74E0,
  * func_002A7CA0, func_002A8578, irand, cSnd_SeCall_2CBA48 and 4 more. */

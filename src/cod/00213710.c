@@ -3,11 +3,11 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int irand(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern char *Getplayer(void);
@@ -293,7 +293,7 @@ void func_00213710(void *a0)
         float lim = 16.0f;
         int w;
 
-        cGameObj_SetTgtTurn(p, (int)(p + 0x16A0),
+        cGameObj_SetTgtTurn(p, (cVec *)(p + 0x16A0),
                                          *(float *)(p + 0x5A8) * 0.2617994f);
         moveMotion(p);
         cObjBase_addNullSpeed_Rotation(p, one);

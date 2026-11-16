@@ -12,7 +12,6 @@ extern unsigned int irand(void);
 extern void *Getplayer(void);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
 extern float Adjust_theta(float f12);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int cEmBase_checkDeadFlag(void *a0);
@@ -78,7 +77,7 @@ void func_00252070(void *a0)
                     if (tgt == Getplayer()) {
                         self->rot.y = Adjust_theta(((cEm00 *)Getplayer())->rot.y + 3.14159274f);
                     } else {
-                        cGameObj_SetTgtTurn(self, *(void **)(tgt + 0xF0), 3.14159274f);
+                        cGameObj_SetTgtTurn(self, *(cVec **)(tgt + 0xF0), 3.14159274f);
                     }
                     if (d > 1.57079637f) {
                         self->stepArg = 1;

@@ -222,7 +222,7 @@ typedef struct cEm00 {
     struct cOmWeapon *fx4;                  /* 0x700 */
     struct cOmWeapon *fx5;                  /* 0x704 kinds 0x375, 0x377 and 0x378 */
     struct cOmWeapon *fx6;                  /* 0x708 */
-    int unk70C;                             /* 0x70C attached object, updated with func_001C2378 */
+    void *unk70C;                           /* 0x70C attached object, updated with func_001C2378 */
     struct cOmWeapon *heldWeapon[EM_WEAPON_NUM]; /* 0x710 enemy 0x211's weapons, 0 = empty slot */
     struct cOmWeapon *unk730;               /* 0x730 linked weapon, released with func_001D0108 when moveFlags bit 0 is set */
     struct cOmWeapon *unk734;               /* 0x734 kind 0x369 */

@@ -1,11 +1,11 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -864,7 +864,7 @@ __attribute__((section(".text.func_002112F0"))) void func_002112F0(cEm00 *self)
             *((unsigned char *)(s2 + 0x2F6)) = (*((unsigned char *)(s2 + 0x2F6))) + 1;
 
         case 3:
-            cGameObj_SetTgtTurn(s2, *((int *)(((char *)Getplayer()) + 0xF0)),
+            cGameObj_SetTgtTurn(s2, *((cVec **)(((char *)Getplayer()) + 0xF0)),
                                 (*((float *)(s2 + 0x5A8))) * 0.09817477f);
             if (900.0f < (*((float *)(s2 + 0x618)))) {
                 if ((D_007476B0 & 7) == ((*((unsigned int *)(s2 + 0x17D0))) & 7)) {

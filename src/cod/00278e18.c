@@ -7,12 +7,12 @@
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern float fRand1_1(void);
 extern unsigned int Rnd(void);
 extern char *D_00586A7C;
 
 #include "godhand/vu0.h"
+#include "godhand/cGameObj.h"
 
 /* Phase machine of the enemy that circles the player: it turns toward the player, drifts its height
  * toward the player's, and steps along the 0x580 vector scaled by speedRate until the countdown
@@ -57,7 +57,7 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
         case 3:
             if (g != 0) {
                 if (16.0f < dist) {
-                    cGameObj_SetTgtTurn(self, *(int *)(g + 0xF0), self->speedRate * 0.024543693f);
+                    cGameObj_SetTgtTurn(self, *(cVec **)(g + 0xF0), self->speedRate * 0.024543693f);
                 }
                 if (*(float *)((char *)self->pos + 4) <
                     *(float *)(*(char **)(g + 0xF0) + 4) + 2.5f) {
@@ -110,7 +110,7 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
         case 5:
             if (g != 0) {
                 if (4.0f < dist) {
-                    cGameObj_SetTgtTurn(self, *(int *)(g + 0xF0), self->speedRate * 0.09817477f);
+                    cGameObj_SetTgtTurn(self, *(cVec **)(g + 0xF0), self->speedRate * 0.09817477f);
                 }
                 if (*(float *)(*(char **)(g + 0xF0) + 4) + 2.0f <
                     *(float *)((char *)self->pos + 4)) {

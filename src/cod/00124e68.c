@@ -1,6 +1,7 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cDamageManage.h"
 #include "godhand/pl00.h"
+#include "godhand/cGameObj.h"
 
 extern char D_00429C80[];
 extern void SetField214PtrThenInit_1B6F38(int *, int);
@@ -17,7 +18,6 @@ extern int D_0044FBB8;
 extern void GetOrInit_460D58_2B6528(void);
 extern int SignalSema(int sema);
 extern int SleepThread(void);
-extern void cGameObj_SetTgtTurn(void *a0, cVec *a1, float f12);
 
 __attribute__((section(".text.ResetField214FreeField180_1C2820")))
 void ResetField214FreeField180_1C2820(int *a0, int a1) {

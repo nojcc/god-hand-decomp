@@ -6,7 +6,6 @@
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern char *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int cEmManage_CkPlSorry(void *a0);
@@ -17,6 +16,7 @@ extern int GetSeqSEBase(void *a0);
 extern unsigned char D_005864F0[];
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cGameObj.h"
 #define FRAME ((char *)va)
 static __inline__ void vcopy(float *d, float *s)
 {
@@ -156,7 +156,7 @@ __attribute__((section(".text.func_002236E8"))) void func_002236E8(cEm00 *self)
         case 1:
             if (*(int *)(s1 + 0x5F0) != 0) {
                 *(int *)(s1 + 0x5F0) -= 1;
-                cGameObj_SetTgtTurn(s1, *(int *)(Getplayer() + 0xF0),
+                cGameObj_SetTgtTurn(s1, *(cVec **)(Getplayer() + 0xF0),
                                     *(float *)(s1 + 0x5A8) * 0.19634955f);
             }
             if (moveMotion(s1) != 0)
@@ -329,7 +329,7 @@ __attribute__((section(".text.func_002236E8"))) void func_002236E8(cEm00 *self)
             /* fallthrough */
         case 9:
             if (*(unsigned short *)(s1 + 0x3AC) & 0x10) {
-                cGameObj_SetTgtTurn(s1, *(int *)(Getplayer() + 0xF0),
+                cGameObj_SetTgtTurn(s1, *(cVec **)(Getplayer() + 0xF0),
                                     *(float *)(s1 + 0x5A8) * 0.392699093f);
             }
             if (moveMotion(s1) != 0)

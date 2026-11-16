@@ -7,7 +7,6 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, cVec *a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
@@ -37,6 +36,7 @@ extern void SetField_2F6_1C2308(void *a0);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cGameObj.h"
 
 /* Phase machine on the step byte, 10 case labels. Calls ObjList_findActor3D1,
  * CheckSlotsShort2FEAndSetByte1864_262A10, Obj0000_Get_Byte_17C3_NZ_2_276468,
@@ -141,7 +141,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
             self->unk70C = 0;
             if (s3 != 0) {
                 float buf[8];
-                self->unk70C = (int)s3;
+                self->unk70C = s3;
                 VU0_SQC2_VF0(buf, 0x0);
                 VU0_SQC2_VF0(buf, 0x10);
                 buf[0] = z;
@@ -155,7 +155,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
                 } else {
                     cObj_setupAimStep2(s3, self, 0x10, buf, &buf[4]);
                 }
-                SetField_2F6_1C2308(*(void **)((char *)self + 0x70C));
+                SetField_2F6_1C2308(self->unk70C);
             }
             self->timer = 10.0f;
             self->step += 1;
@@ -185,7 +185,7 @@ __attribute__((section(".text.func_002258C0"))) void func_002258C0(cEm00 *self)
                     if (self->hpMax < self->hp) {
                         self->hp = self->hpMax;
                     }
-                    cOmBase_dieCommon(*(void **)((char *)self + 0x70C));
+                    cOmBase_dieCommon(self->unk70C);
                     self->unk70C = 0;
                 }
             }

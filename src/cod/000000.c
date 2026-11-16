@@ -1702,10 +1702,10 @@ void SetField_8_133B80(char *a0) {
 }
 
 __attribute__((section(".text.cPartsCamera_SetParts")))
-void cPartsCamera_SetParts(char *a0, int a1, int a2, int a3) {
-    *(int*)(a0 + 0x360) = a1;
-    *(int*)(a0 + 0x364) = a2;
-    *(int*)(a0 + 0x368) = a3;
+void cPartsCamera_SetParts(char *a0, void *a1, void *a2, void *a3) {
+    *(void **)(a0 + 0x360) = a1;
+    *(void **)(a0 + 0x364) = a2;
+    *(void **)(a0 + 0x368) = a3;
 }
 
 
@@ -2037,7 +2037,7 @@ __attribute__((section(".text.NoOp_279F60")))
 void NoOp_279F60(void) {}
 
 __attribute__((section(".text.Obj0000_Get_Field_1580_27A128")))
-int Obj0000_Get_Field_1580_27A128(int a0) { return *(int*)((char*)a0 + 0x1580); }
+struct cGameObj *Obj0000_Get_Field_1580_27A128(struct cGameObj *a0) { return *(struct cGameObj **)((char *)a0 + 0x1580); }
 
 __attribute__((section(".text.NoOp_27CFF8")))
 void NoOp_27CFF8(void) {}

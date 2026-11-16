@@ -4,11 +4,11 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002744E0(void *a0);
@@ -40,7 +40,7 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         }
         /* fallthrough */
         case 1:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self))
                 self->step++;
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
@@ -92,7 +92,7 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         /* fallthrough */
         case 3: {
             unsigned short fl;
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self)) {
                 if (36.0f < self->playerDist)
                     self->step = 6;
@@ -135,7 +135,7 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         }
         /* fallthrough */
         case 5:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self)) {
                 cOmWeapon *p;
                 cObjBase_addNullSpeed_Rotation(self, 1.0f);
@@ -165,7 +165,7 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         }
         /* fallthrough */
         case 7:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self))
                 self->step = 4;
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
@@ -191,7 +191,7 @@ __attribute__((section(".text.func_00234368"))) void func_00234368(cEm00 *self)
         }
         /* fallthrough */
         case 9:
-            cGameObj_SetTgtTurn(self, *(int *)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self)) {
                 self->mode = 0;
                 self->phase = 0x6C;

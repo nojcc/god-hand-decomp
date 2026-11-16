@@ -4,12 +4,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern char *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f12);
 extern float SetMotionStep(void *a0, float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
 #include "godhand/vu0.h"
+#include "godhand/cGameObj.h"
 
 
 
@@ -90,7 +90,7 @@ __attribute__((section(".text.func_00278940"))) void func_00278940(cEm00 *self)
             if (900.0f < self->playerDist) {
                 char *o = Getplayer();
 
-                cGameObj_SetTgtTurn(self, *(int *)(o + 0xF0),
+                cGameObj_SetTgtTurn(self, *(cVec **)(o + 0xF0),
                                     *(float *)((char *)self + 0x608) * self->speedRate);
             }
             SetMotionStep(self, self->speedRate * self->timer);

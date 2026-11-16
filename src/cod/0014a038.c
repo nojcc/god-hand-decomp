@@ -9,10 +9,10 @@
 #include "godhand/cEma2.h"
 #include "godhand/criStm.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float f);
 extern unsigned char D_00747A50[];
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);
 extern void func_00156D70(cParts *dst, cParts *src, float *m, float blend);

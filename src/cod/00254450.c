@@ -6,11 +6,11 @@
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,

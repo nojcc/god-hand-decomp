@@ -11,7 +11,6 @@ extern void Add_nullspeed(void *a0);
 extern unsigned int D_00747A78;
 extern void cEmBase_setTalkButton(void);
 extern int Getplayer(void);
-extern void cGameObj_SetTgtTurn(char *a0, int a1, float f12);
 extern void cObjBase_SetSeqEffect(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void func_002A87E8(void *a0, int a1);
@@ -142,7 +141,7 @@ void func_0028E420(void *a0)
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         v0 = Getplayer();
-        cGameObj_SetTgtTurn(s0, *(int *)(v0 + 0xF0), *(float *)(s0 + 0x5A8) * 0.09817477f);
+        cGameObj_SetTgtTurn(s0, *(cVec **)(v0 + 0xF0), *(float *)(s0 + 0x5A8) * 0.09817477f);
         moveMotion(s0);
         break;
     }
@@ -164,6 +163,7 @@ void func_0028E420(void *a0)
 }
 
 #include "godhand/vu0.h"
+#include "godhand/cGameObj.h"
 
 
 

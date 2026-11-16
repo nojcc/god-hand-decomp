@@ -9,7 +9,7 @@
 
 extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
+extern void cPartsCamera_SetParts(void *parts, void *obj, void *a2, void *a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -23,8 +23,8 @@ __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
     void *s2;
     cCamManager *mgr;
     struct cCamera *parts;
-    int a2v;
-    int a3v;
+    struct cOmBase *a2v;
+    struct cOmBase *a3v;
     int b;
     int lim;
     int nb;
@@ -105,7 +105,7 @@ __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
             spill[0] = b;
             lim = 0x1B;
             if (lim < b) {
-                a2v = *(int *)((int)self->children + 0x6C);
+                a2v = self->children[0x1B];
             } else {
                 a2v = 0;
             }
@@ -113,7 +113,7 @@ __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
             spill[0] = b;
             lim = 0x1C;
             if (lim < b) {
-                a3v = *(int *)((int)self->children + 0x70);
+                a3v = self->children[0x1C];
             } else {
                 a3v = 0;
             }

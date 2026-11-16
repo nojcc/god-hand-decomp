@@ -4,6 +4,7 @@
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
+#include "godhand/cGameObj.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -11,7 +12,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand0_1(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 
 /* sn-2.95.3-136 matched TU. */
 

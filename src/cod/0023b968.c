@@ -2,6 +2,7 @@
 #include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -12,7 +13,6 @@ extern int Getplayer(void);
 extern void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DAF0(int a0);
 extern void Obj2810_SetState_1_a1(int a0, int a1);
 extern void SetBytes2F4Mode1_283188(int a0, int a1);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002744E0(void *a0);
@@ -627,7 +627,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
 
             if (t < 0x264 || (t >= 0x266 && t != 0x26A)) {
                 int r = Getplayer();
-                cGameObj_SetTgtTurn(self, *(int *)(r + 0xF0), self->speedRate * 0.19634955f);
+                cGameObj_SetTgtTurn(self, *(cVec **)(r + 0xF0), self->speedRate * 0.19634955f);
             }
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
@@ -670,7 +670,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
             {
                 int r = Getplayer();
 
-                cGameObj_SetTgtTurn(self, *(int *)(r + 0xF0), self->speedRate * 0.09817477f);
+                cGameObj_SetTgtTurn(self, *(cVec **)(r + 0xF0), self->speedRate * 0.09817477f);
                 if (moveMotion(self) != 0) {
                     self->step += 1;
                 }
@@ -695,7 +695,7 @@ __attribute__((section(".text.func_0023B968"))) void func_0023B968(cEm00 *self)
         case 7: {
             int r = Getplayer();
 
-            cGameObj_SetTgtTurn(self, *(int *)(r + 0xF0), self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(r + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self) != 0) {
                 cObjBase_addNullSpeed_Rotation(self, 1.0f);
                 cObjBase_addNullSpeed(self, 1.0f);

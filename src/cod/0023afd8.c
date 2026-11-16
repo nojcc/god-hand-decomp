@@ -9,7 +9,7 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int Getplayer(void);
 #include "godhand/cOmWeapon.h"
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
+#include "godhand/cGameObj.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026EE40(void *a0, int a1, int a2);
@@ -245,7 +245,7 @@ __attribute__((section(".text.func_0023AFD8"))) void func_0023AFD8(cEm00 *self)
                 int r;
                 *(int *)(s3 + 0x5F0) = c - 1;
                 r = Getplayer();
-                cGameObj_SetTgtTurn(s3, *(int *)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.39269909f);
+                cGameObj_SetTgtTurn(s3, *(cVec **)(r + 0xF0), *(float *)(s3 + 0x5A8) * 0.39269909f);
             }
             moveMotion(s3);
             {

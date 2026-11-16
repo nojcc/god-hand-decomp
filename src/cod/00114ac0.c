@@ -4,8 +4,8 @@
 #include "godhand/vecInline.h"
 #include "godhand/cObjBase.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);

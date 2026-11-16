@@ -3,6 +3,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/cOmBase.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int func_002DDAB0(void *a0, int a1, float f);
@@ -12,7 +13,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void *Getplayer(void);
 extern float Adjust_theta(float f12);
 extern void func_001034E0(void *a0);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void func_00260438(void *a0);
 extern unsigned short D_00747A50;
 extern void func_0012B618(void *a0);
@@ -206,7 +206,7 @@ void func_00246088(void *a0)
         *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
     case 1:
         v = (char *)Getplayer();
-        cGameObj_SetTgtTurn(p, *(int *)(v + 0xF0), *(float *)(p + 0x5A8) * 0.19634954f);
+        cGameObj_SetTgtTurn(p, *(cVec **)(v + 0xF0), *(float *)(p + 0x5A8) * 0.19634954f);
         if (moveMotion(p) != 0) {
             if (--*(short *)(p + 0x568) <= 0) {
                 func_002705D8(p);

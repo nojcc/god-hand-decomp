@@ -14,7 +14,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -43,6 +42,7 @@ extern int SetEffectParts(int a0, int a1, void *a2, int a3, float f12,
 
 
 #include "godhand/vu0.h"
+#include "godhand/cGameObj.h"
 
 #define FRAME ((char *)va - 0x30)
 
@@ -387,7 +387,7 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
             cObjBase_addNullSpeed_Rotation(self, one);
             cObjBase_addNullSpeed(self, one);
             o = (char *)Getplayer();
-            cGameObj_SetTgtTurn(self, *(int *)(o + 0xF0), self->speedRate * 0.196349546f);
+            cGameObj_SetTgtTurn(self, *(cVec **)(o + 0xF0), self->speedRate * 0.196349546f);
             n = self->timerA;
             if (n != 0) {
                 self->timerA = n - 1;

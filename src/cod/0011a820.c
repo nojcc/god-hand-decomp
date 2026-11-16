@@ -212,7 +212,7 @@ void StepPlayerMode1ByPhase_11A820(pl00 *self)
     char *e;
     int i8;
     int f0;
-    int type; int arg; int (*fp)(int); long entry;
+    int type; int arg; int (*fp)(void *); long entry;
 
     Obj0000_Clear_Fields_640_648_124E58(self);
     self->unk5E0 = 0;
@@ -229,14 +229,14 @@ void StepPlayerMode1ByPhase_11A820(pl00 *self)
     if (type >= 0) {
         int base = *(int *)((char *)self + *(short *)(e + 4));
         entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
+        fp = (int (*)(void *))(int)(entry >> 32);
     } else {
-        fp = *(int (**)(int))((char *)&D_003BD328 + i8 + 4);
+        fp = *(int (**)(void *))((char *)&D_003BD328 + i8 + 4);
     }
     f0 = D_003BD328.e[self->base.phase].delta;
     if (type >= 0)
         arg = (short)entry + f0;
     else
         arg = f0;
-    fp((int)((char *)self + arg));
+    fp((char *)self + arg);
 }

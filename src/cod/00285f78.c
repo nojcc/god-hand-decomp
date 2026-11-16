@@ -8,12 +8,12 @@
 #include "godhand/motion.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0, float f12, float f13, float f14);
 extern int IsEntryActive_1C2490(int a0);
 extern void Add_nullspeed(void *a0);
 extern void *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, void *a1, float f);
 extern int irand(void);
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void cObj_setupAimStep2(void *a0, void *a1, int a2, void *a3, void *a4);

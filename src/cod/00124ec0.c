@@ -6,8 +6,8 @@ typedef unsigned char unsigned char;
 
 typedef struct Sub {
     char pad0[0x6C];
-    int unk6C;  /* 0x6C */
-    int unk70;  /* 0x70 */
+    void *unk6C;  /* 0x6C */
+    void *unk70;  /* 0x70 */
 } Sub;
 
 typedef struct Obj_00124ec0 {
@@ -21,14 +21,14 @@ typedef struct Obj_00124ec0 {
 
 
 
-void cPartsCamera_SetParts(void *parts, Obj_00124ec0 *obj, int a2, int a3);
+void cPartsCamera_SetParts(void *parts, void *obj, void *a2, void *a3);
 
 __attribute__((section(".text.func_00124EC0")))
 void func_00124EC0(Obj_00124ec0 *obj) {
     cCamManager *mgr;
     void *parts;
-    int a2v;
-    int a3v;
+    void *a2v;
+    void *a3v;
     int b;
     int lim;
     int spill[2];

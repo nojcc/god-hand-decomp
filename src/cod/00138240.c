@@ -8,10 +8,10 @@
 #include "godhand/cCamera.h"
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern char *Getplayer(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026EC60(void *a0);
@@ -62,10 +62,10 @@ __attribute__((section(".text.cEm00_stepTurnToLinkedObject"))) void cEm00_stepTu
                 self->timerA -= 1;
                 v1 = self->unk17A0;
                 if (v1 != 0) {
-                    cGameObj_SetTgtTurn(self, *(int *)(v1 + 0xF0), self->speedRate * 0.19634955f);
+                    cGameObj_SetTgtTurn(self, *(cVec **)(v1 + 0xF0), self->speedRate * 0.19634955f);
                 } else if (self->unk5F8 <= 0) {
                     char *v0 = Getplayer();
-                    cGameObj_SetTgtTurn(self, *(int *)(v0 + 0xF0), self->speedRate * 0.19634955f);
+                    cGameObj_SetTgtTurn(self, *(cVec **)(v0 + 0xF0), self->speedRate * 0.19634955f);
                 }
             }
             if (moveMotion(self) != 0) {

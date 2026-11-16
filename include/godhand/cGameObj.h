@@ -133,6 +133,10 @@ extern cVtEnt D_0044AE28[];
 /* cGameObj's part of the destructor: put its method table back, then run
  * cObjBase__dtor. */
 void cGameObj__dtor(struct cGameObj *self, int flags);
+/* Turn rot.y toward target by at most rate (scaled by D_007479FC), through
+ * Turn_dest and Adjust_theta. self is any object built on cGameObj's fields
+ * (cGameObj, pl00, cEm00 and their handlers' raw object pointers). */
+void cGameObj_SetTgtTurn(void *self, cVec *target, float rate);
 /* Destructor of the cGameObj subclass with method table D_0044A660: leave
  * the damage manager and the solid-collision manager, then run
  * cGameObj__dtor. */

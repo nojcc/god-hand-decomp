@@ -33,7 +33,7 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 #include "godhand/cCamManager.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/cSnd.h"
-extern void cPartsCamera_SetParts(void *parts, void *obj, int a2, int a3);
+extern void cPartsCamera_SetParts(void *parts, void *obj, void *a2, void *a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -229,7 +229,9 @@ void func_00247588(char *p)
 {
     unsigned char frame[0x10];
     void *ptr;
-    int b, o1, o2, i1, i2, r;
+    int b;
+    void *o1, *o2;
+    int i1, i2, r;
     char *q;
     cCamManager *mgr;
     struct cCamera *parts;
@@ -258,12 +260,12 @@ common:
     parts = &mgr->parts;
     i1 = 0x1B;
     if (((*(int *)frame = b = *(unsigned char *)(p + 0x2B4)), (i1 < b)))
-        o1 = *(int *)(*(int *)(p + 0x278) + i1 * 4);
+        o1 = *(void **)(*(int *)(p + 0x278) + i1 * 4);
     else
         o1 = 0;
     i2 = 0x1C;
     if (((*(int *)frame = b = *(unsigned char *)(p + 0x2B4)), (i2 < b)))
-        o2 = *(int *)(*(int *)(p + 0x278) + i2 * 4);
+        o2 = *(void **)(*(int *)(p + 0x278) + i2 * 4);
     else
         o2 = 0;
     cPartsCamera_SetParts(parts, p, o1, o2);

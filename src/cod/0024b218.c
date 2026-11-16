@@ -4,6 +4,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
@@ -11,7 +12,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void *Getplayer(void);
 extern int irand(void);
-extern void cGameObj_SetTgtTurn(void *a0, int a1, float f);
 extern void Obj2810_SetState_8_a1(char *a0, int a1);
 extern void SetBytes2F4Mode7_283270(char *a0, char a1);
 extern void ClearBytes2F4To2F7_283170(void *a0);
