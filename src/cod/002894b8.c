@@ -3,8 +3,8 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEma2.h"
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
-extern cGameObj *Getplayer(void);
 extern int D_00747A2C;
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 

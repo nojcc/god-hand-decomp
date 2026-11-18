@@ -2,17 +2,15 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern void SetMotionStep(void *a0, float f12);
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
 #include "godhand/cEm00.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
-extern char D_005CB000[];
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 __attribute__((section(".text.func_0025CCC0")))
 void func_0025CCC0(cEm00 *self)
@@ -146,7 +144,7 @@ void func_0025CCC0(cEm00 *self)
             vt = cGameObj_vt((cGameObj *)self);
             off = vt->unkA8Delta;
             vt->unkAC((char *)self + off, 6, s1, 1, 0);
-            cHeatSys_AddHeatGage(D_005CB000, 0, 0.5f);
+            cHeatSys_AddHeatGage(&D_005CB000, 0, 0.5f);
         }
     } else {
         self->timerA = 1;
@@ -159,7 +157,7 @@ void func_0025CCC0(cEm00 *self)
         vt = cGameObj_vt((cGameObj *)self);
         off = vt->unkA8Delta;
         vt->unkAC((char *)self + off, 0x14, s1, 1, 0);
-        cHeatSys_AddHeatGage(D_005CB000, 0, 1.0f);
+        cHeatSys_AddHeatGage(&D_005CB000, 0, 1.0f);
     } else {
         self->timerB = 1;
     }

@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/gameWork.h"
 
 extern int GetSeqSEBase(void *a0);
 extern void func_0026EE40(void *a0, int a1, int a2);
-extern unsigned short D_00747A50;
 
 /* func_0026ECD0 — two jump tables.  sn-2.95.3-136. */
 
@@ -42,7 +42,7 @@ void func_0026ECD0(void *a0, int a1) {
     }
     v = *(int *)(s1 + 0x564);
     if (v == 0x256) {
-        if (D_00747A50 == 0x406) return;
+        if (D_007474A0.room == 0x406) return;
     }
     if (t >= *(int *)(s1 + 0x16E8) && a1 == 0) return;
     if (v < 0x224) {

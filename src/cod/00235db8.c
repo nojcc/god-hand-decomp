@@ -1,20 +1,16 @@
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 
-/* sn-2.95.3-136 matched TU. */
-
-/* func_00235DB8, 980 B, sn-2.95.3-136. Wave 2026-08-31 V1 E + block-local base per if/else arm with the argument sums in the arms (x, y at function scope). */
-/* sn-2.95.3-136 matched TU. */
-
-extern void *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002DB770(void);
-extern char D_007474A0[];
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
+#include "godhand/gameWork.h"
 
 /* Phase machine on the step byte, 11 case labels. Calls Getplayer, func_002A8578,
  * cCoreSave_getGameLevel, cCollisionSolidManage_SetActive, VU0_VADD_XYZ_IP, moveMotion and 4 more.
@@ -94,15 +90,15 @@ __attribute__((section(".text.func_00235DB8"))) void func_00235DB8(cEm00 *self)
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
             cObjBase_addNullSpeed(self, 1.0f);
             if (*(short *)((char *)self + 0x56A) > 0) {
-                char *g;
+                GameWork *g;
 
                 (*(short *)((char *)self + 0x56A))--;
                 func_002DB770();
-                g = D_007474A0;
-                if ((*(int *)(g + 8) & 0xF0) != 0) {
+                g = &D_007474A0;
+                if ((g->padBtn & 0xF0) != 0) {
                     self->unk568--;
                 }
-                if ((*(int *)(g + 8) & 0xF00000) != 0) {
+                if ((g->padBtn & 0xF00000) != 0) {
                     self->unk568 -= 4;
                 }
                 if (self->unk568 <= 0) {

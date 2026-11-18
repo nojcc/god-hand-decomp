@@ -4,6 +4,9 @@
 #include "godhand/BlackJack.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cOmBase.h"
+#include "godhand/player.h"
+#include "godhand/cModel.h"
+#include "godhand/emPhaseTable.h"
 
 extern int D_00466470;
 extern void func_002A9790(void *);
@@ -17,7 +20,6 @@ extern void InitSlotTable_1FF800(void *);
 extern void GetSelf_200AB0(void *);
 extern int D_00586AB0;
 extern void cEmSetParam_roomInit(void *);
-extern int D_005CB000;
 extern void func_002A98A8(void *);
 extern int D_005E6900;
 extern void func_002AE3D0(void *);
@@ -41,25 +43,24 @@ extern void func_0031C900(int);
 extern void SetFields_4_And_8_1FE6B8(void *, void *, int);
 extern char D_005864E0[];
 extern char D_00585960[];
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_002A87E8(void *a0, int a1);
-extern void func_001B76D8(void *a0);
-extern struct Table_00171200 D_003BD9F0;
-extern struct Table_0017BA28 D_003BDA40;
-extern struct Table_0017ED00 D_003BDA88;
-extern struct Table_00182A18 D_003BDB20;
-extern struct Table_001841E8 D_003BDB38;
-extern struct Table_00195F18 D_003BDB68;
-extern struct Table_001A85B8 D_003BDBD0;
-extern struct Table_001A8A70 D_003BDBF0;
-extern struct Table_001B3800 D_003BDD20;
-extern struct Table_001B6968 D_003BDD78;
+extern void func_001B76D8(cOmBase *self);
+extern EmPhaseTable D_003BD9F0;
+extern EmPhaseTable D_003BDA40;
+extern EmPhaseTable D_003BDA88;
+extern EmPhaseTable D_003BDB20;
+extern EmPhaseTable D_003BDB38;
+extern EmPhaseTable D_003BDB68;
+extern EmPhaseTable D_003BDBD0;
+extern EmPhaseTable D_003BDBF0;
+extern EmPhaseTable D_003BDD20;
+extern EmPhaseTable D_003BDD78;
 extern struct Table_001BD6B0 D_003BDDC8;
-extern struct Table_001BE950 D_003BDE08;
-extern struct Table_001BF518 D_003BDE30;
+extern EmPhaseTable D_003BDE08;
+extern EmPhaseTable D_003BDE30;
 
 /* sn-2.95.3-136 matched TU. */
-
 
 
 __attribute__((section(".text.func_001D5360")))
@@ -88,7 +89,6 @@ void func_001D5360(BlackJack *self, unsigned char a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
 __attribute__((section(".text.func_001D5430")))
 void func_001D5430(BlackJack *self, unsigned char a1) {
     switch (a1) {
@@ -113,7 +113,6 @@ void func_001D5430(BlackJack *self, unsigned char a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
 
 
 __attribute__((section(".text.func_001D5500")))
@@ -142,7 +141,6 @@ void func_001D5500(BlackJack *self, unsigned char a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
 __attribute__((section(".text.func_001D5690")))
 void func_001D5690(BlackJack *self, unsigned char a1) {
     switch (a1) {
@@ -167,7 +165,6 @@ void func_001D5690(BlackJack *self, unsigned char a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
 
 
 __attribute__((section(".text.func_001DD770")))
@@ -196,7 +193,6 @@ void func_001DD770(Poker *self, unsigned char a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
 __attribute__((section(".text.func_001DD840")))
 void func_001DD840(Poker *self, unsigned char a1) {
     switch (a1) {
@@ -221,7 +217,6 @@ void func_001DD840(Poker *self, unsigned char a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
 
 
 __attribute__((section(".text.func_001DD9E0")))
@@ -250,8 +245,6 @@ void func_001DD9E0(Poker *self, unsigned char a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_00150608")))
 void func_00150608(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -260,8 +253,6 @@ void func_00150608(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_001523F8")))
@@ -274,8 +265,6 @@ void func_001523F8(int a0, int a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_00161480")))
 void func_00161480(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -284,8 +273,6 @@ void func_00161480(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_001F6E18")))
@@ -298,8 +285,6 @@ void func_001F6E18(int a0, int a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_001FFDB0")))
 void func_001FFDB0(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -308,8 +293,6 @@ void func_001FFDB0(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_00201A80")))
@@ -330,8 +313,6 @@ void func_00294AE0(int initialize, int priority) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_00295928")))
 void func_00295928(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -340,8 +321,6 @@ void func_00295928(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_002A9D30")))
@@ -354,8 +333,6 @@ void func_002A9D30(int a0, int a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_002AE940")))
 void func_002AE940(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -364,8 +341,6 @@ void func_002AE940(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_002B4850")))
@@ -378,8 +353,6 @@ void func_002B4850(int a0, int a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_002BA428")))
 void func_002BA428(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -388,8 +361,6 @@ void func_002BA428(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_002C9C38")))
@@ -402,8 +373,6 @@ void func_002C9C38(int a0, int a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_002D31B0")))
 void func_002D31B0(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -414,8 +383,6 @@ void func_002D31B0(int a0, int a1) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
 __attribute__((section(".text.func_002D9B70")))
 void func_002D9B70(int a0, int a1) {
     if (a1 == 0xFFFF && a0 != 0) {
@@ -424,8 +391,6 @@ void func_002D9B70(int a0, int a1) {
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_002D9E98")))
@@ -441,8 +406,6 @@ __attribute__((section(".text.func_001A96E8")))
 int func_001A96E8(void *a0){ func_001B6FB8(a0); *(int*)((char*)a0+0x250)|=0x10000; return 1; }
 
 /* sn-2.95.3-136 matched TU. */
-
-
 
 
 __attribute__((section(".text.func_00381D60")))
@@ -463,7 +426,6 @@ void func_00381D60(int a0, int a1, int a2)
 /* sn-2.95.3-136 matched TU. */
 
 
-
 __attribute__((section(".text.func_0028FF80")))
 void func_0028FF80(int enable, int id) {
     int i;
@@ -477,85 +439,31 @@ void func_0028FF80(int enable, int id) {
 /* sn-2.95.3-136 matched TU. */
 
 
-
-
-
-struct Entry_00171200 { short f0; short f2; short f4; short f6; };
-struct Table_00171200 { struct Entry_00171200 e[1]; };
-
-
 __attribute__((section(".text.func_00171200")))
-void func_00171200(void *a0)
+void func_00171200(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BD9F0 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BD9F0 + i8 + 4);
-    }
-    f0 = D_003BD9F0.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BD9F0, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_0017BA28 { short f0; short f2; short f4; short f6; };
-struct Table_0017BA28 { struct Entry_0017BA28 e[1]; };
 
 
 __attribute__((section(".text.func_0017BA28")))
-void func_0017BA28(void *a0)
+void func_0017BA28(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDA40 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDA40 + i8 + 4);
-    }
-    f0 = D_003BDA40.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDA40, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_0017ED00 { short f0; short f2; short f4; short f6; };
@@ -563,38 +471,15 @@ struct Table_0017ED00 { struct Entry_0017ED00 e[1]; };
 
 
 __attribute__((section(".text.func_0017ED00")))
-void func_0017ED00(void *a0)
+void func_0017ED00(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDA88 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDA88 + i8 + 4);
-    }
-    f0 = D_003BDA88.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDA88, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_00182A18 { short f0; short f2; short f4; short f6; };
@@ -602,38 +487,15 @@ struct Table_00182A18 { struct Entry_00182A18 e[1]; };
 
 
 __attribute__((section(".text.func_00182A18")))
-void func_00182A18(void *a0)
+void func_00182A18(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDB20 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDB20 + i8 + 4);
-    }
-    f0 = D_003BDB20.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDB20, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001841E8 { short f0; short f2; short f4; short f6; };
@@ -641,38 +503,15 @@ struct Table_001841E8 { struct Entry_001841E8 e[1]; };
 
 
 __attribute__((section(".text.func_001841E8")))
-void func_001841E8(void *a0)
+void func_001841E8(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDB38 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDB38 + i8 + 4);
-    }
-    f0 = D_003BDB38.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDB38, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_00195F18 { short f0; short f2; short f4; short f6; };
@@ -680,38 +519,15 @@ struct Table_00195F18 { struct Entry_00195F18 e[1]; };
 
 
 __attribute__((section(".text.func_00195F18")))
-void func_00195F18(void *a0)
+void func_00195F18(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDB68 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDB68 + i8 + 4);
-    }
-    f0 = D_003BDB68.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDB68, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001A85B8 { short f0; short f2; short f4; short f6; };
@@ -719,38 +535,15 @@ struct Table_001A85B8 { struct Entry_001A85B8 e[1]; };
 
 
 __attribute__((section(".text.func_001A85B8")))
-void func_001A85B8(void *a0)
+void func_001A85B8(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDBD0 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDBD0 + i8 + 4);
-    }
-    f0 = D_003BDBD0.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDBD0, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001A8A70 { short f0; short f2; short f4; short f6; };
@@ -758,38 +551,15 @@ struct Table_001A8A70 { struct Entry_001A8A70 e[1]; };
 
 
 __attribute__((section(".text.func_001A8A70")))
-void func_001A8A70(void *a0)
+void func_001A8A70(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDBF0 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDBF0 + i8 + 4);
-    }
-    f0 = D_003BDBF0.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDBF0, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001B3800 { short f0; short f2; short f4; short f6; };
@@ -797,38 +567,15 @@ struct Table_001B3800 { struct Entry_001B3800 e[1]; };
 
 
 __attribute__((section(".text.func_001B3800")))
-void func_001B3800(void *a0)
+void func_001B3800(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDD20 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDD20 + i8 + 4);
-    }
-    f0 = D_003BDD20.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDD20, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001B6968 { short f0; short f2; short f4; short f6; };
@@ -836,38 +583,15 @@ struct Table_001B6968 { struct Entry_001B6968 e[1]; };
 
 
 __attribute__((section(".text.func_001B6968")))
-void func_001B6968(void *a0)
+void func_001B6968(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDD78 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDD78 + i8 + 4);
-    }
-    f0 = D_003BDD78.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDD78, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001BD6B0 { short f0; short f2; short f4; short f6; };
@@ -882,7 +606,7 @@ void func_001BD6B0(void *a0)
     int i8;
     int f0;
     int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
+    if (ClearField5B4IfFlagUnset_1B76B0((cOmBase *)s0) == 0) return;
     i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
     e = (char *)&D_003BDDC8 + i8;
     type = *(short *)(e + 2);
@@ -900,13 +624,10 @@ void func_001BD6B0(void *a0)
         arg = f0;
     fp((int)(s0 + arg));
     func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    func_001B76D8((cOmBase *)s0);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001BE950 { short f0; short f2; short f4; short f6; };
@@ -914,38 +635,15 @@ struct Table_001BE950 { struct Entry_001BE950 e[1]; };
 
 
 __attribute__((section(".text.func_001BE950")))
-void func_001BE950(void *a0)
+void func_001BE950(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDE08 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDE08 + i8 + 4);
-    }
-    f0 = D_003BDE08.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDE08, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
 
 
 struct Entry_001BF518 { short f0; short f2; short f4; short f6; };
@@ -953,30 +651,10 @@ struct Table_001BF518 { struct Entry_001BF518 e[1]; };
 
 
 __attribute__((section(".text.func_001BF518")))
-void func_001BF518(void *a0)
+void func_001BF518(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDE30 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDE30 + i8 + 4);
-    }
-    f0 = D_003BDE30.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDE30, self, self->mode);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }

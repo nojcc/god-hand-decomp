@@ -1,59 +1,34 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/emPhaseTable.h"
 
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_001A6558(void *a0);
 extern void func_002A87E8(void *a0, int a1);
-extern void func_001B76D8(void *a0);
-extern struct Table_1A D_004273C0;
+extern void func_001B76D8(cOmBase *self);
+extern EmPhaseTable4 D_004273C0;
 extern void func_001BD430(void *a0);
 extern struct Table_1B D_00429258;
 
-struct Entry_1A { short f0; unsigned short type; unsigned short f4; short f6; };
-struct Table_1A { struct Entry_1A e[4]; };
-
-
-
-
 
 __attribute__((section(".text.func_001A6188")))
-void func_001A6188(void *a0)
+void func_001A6188(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    struct Table_1A buf;
-    char *e;
-    int i8;
-    int f0;
-    long flags; int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
+    EmPhaseTable4 buf;
+    long flags;
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
     buf = D_004273C0;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&buf + i8;
-    type = (short)*(unsigned short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + (short)*(unsigned short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&buf + i8 + 4);
-    }
-    f0 = buf.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_001A6558(s0);
-    flags = *(unsigned int *)(s0 + 0x5B0);
+    EM_PHASE_RUN(&buf, self, self->mode);
+    func_001A6558(self);
+    flags = (unsigned int)self->flags0;
     if (((flags >> 1) & 1) == 0)
-        func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+        func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 struct Entry_1B { short f0; unsigned short type; unsigned short f4; short f6; };
 struct Table_1B { struct Entry_1B e[4]; };
-
-
 
 
 __attribute__((section(".text.func_001BC0A0")))
@@ -65,7 +40,7 @@ void func_001BC0A0(void *a0)
     int i8;
     int f0;
     long flags; int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
+    if (ClearField5B4IfFlagUnset_1B76B0((cOmBase *)s0) == 0) return;
     flags = *(unsigned int *)(s0 + 0x5B0);
     if (((flags >> 1) & 1) == 0)
         func_001BD430(s0);
@@ -86,7 +61,7 @@ void func_001BC0A0(void *a0)
     else
         arg = f0;
     fp((int)(s0 + arg));
-    func_001B76D8(s0);
+    func_001B76D8((cOmBase *)s0);
 }
 
 /* True when this object drops an item: not gone, not marked no-drop, and either an explicit item or one of the actor types that drop by default. */

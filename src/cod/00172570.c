@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern float capVu0LengthSq(void *a0);
 extern float sqrtf(float x);
 
@@ -11,6 +10,7 @@ extern float sqrtf(float x);
 
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 typedef void *(*vfn)(void *);
 
@@ -23,8 +23,8 @@ void func_00172570(void *a0) {
     int n;
 
     {
-        void *o = Getplayer();
-        char *vt = *(char **)((char *)o + 0x214);
+        cGameObj *o = Getplayer();
+        char *vt = *(char **)((char *)&o->vtable);
         void *p1 = (*(vfn *)(vt + 0x84))((char *)o + *(short *)(vt + 0x80));
         char *vt2 = *(char **)(s + 0x214);
         void *p2 = (*(vfn *)(vt2 + 0x84))(s + *(short *)(vt2 + 0x80));

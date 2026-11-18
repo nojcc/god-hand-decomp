@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDataManager.h"
-
-extern unsigned short D_00747A50;
+#include "godhand/gameWork.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -59,7 +58,7 @@ void cDataManager_loadSeWait(cDataManager *self, int kind, int id, int flags) {
             break;
         }
     }
-    if (D_00747A50 == 0x504) {
+    if (D_007474A0.room == 0x504) {
         if ((unsigned int)(id - 0x250) < 2) {
             return;
         }

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/player.h"
 
 extern int D_00747A2C;
-extern int Getplayer(void);
 extern void SeEmitter_update(void *a0);
 
 /* sn-2.95.3-136 matched TU. */

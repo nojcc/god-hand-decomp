@@ -3,11 +3,11 @@
 #include "godhand/ptrVec.h"
 #include "godhand/cScenario.h"
 #include "godhand/cVec.h"
+#include "godhand/player.h"
 
 extern void func_0031B410(void *ctx, void *out);
 extern void *_MemoryAlloc(int size, int align, int heap);
 extern void cHeap_free(int heap, void *p);
-extern void *Getplayer(void);
 extern int cEmBase_checkDeadFlag(void *em);
 extern float capVu0LengthSq(void *v);
 extern int Dest_ck(void *from, void *to, float heading, float angle);
@@ -155,7 +155,7 @@ void cEmBase_setTalkButton(void *self)
     {
         void *pl = Getplayer();
         cVec *from = VCALL(pl, VT_LOCKON_POS);
-        void *pl2 = Getplayer();
+        cGameObj *pl2 = Getplayer();
         cVec *rot = VCALL(pl2, VT_ROT);
         cVec *to = VCALL(self, VT_LOCKON_POS);
 

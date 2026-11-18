@@ -1,10 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cScenario.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 
 extern int D_007474A0;
 extern int D_00747A2C;
 extern int D_005FEA60;
-extern char *Getplayer(void);
 extern void cSceAtManager_clearCursor(int *a0);
 extern void cTaskManager_runTasksWithWait(cTaskManager *task);
 
@@ -19,7 +20,7 @@ void cScenario_move(cScenario *self)
         if (Getplayer() != 0) {
             long t = (unsigned int)self->task.flags;
             if (((t >> 1) & 1) == 0) {
-                if (*(short *)(Getplayer() + 0x54A) <= 0) {
+                if (Getplayer()->hp <= 0) {
                     /* Stored through an int: as a struct store, the
                      * D_003C2F84 load below is scheduled above it. */
                     *(int *)&self->task.flags = self->task.flags | SCENARIO_F_PL_DEAD;
@@ -27,7 +28,7 @@ void cScenario_move(cScenario *self)
                     *(int *)(g + 0x5E0) = *(int *)(g + 0x5E0) | 0x100000;
                 }
             } else {
-                if (*(short *)(Getplayer() + 0x54A) > 0) {
+                if (Getplayer()->hp > 0) {
                     self->task.flags = self->task.flags & ~SCENARIO_F_PL_DEAD;
                     *(int *)(g + 0x5E0) = *(int *)(g + 0x5E0) & 0xFFEFFFFF;
                 }

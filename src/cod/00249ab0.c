@@ -1,16 +1,14 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned char D_005CB010;
-extern char *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void func_00281260(void *a0);
-extern void ClearBytes2F4To2F7_283170(void *a0);
 extern void func_002495E0(void *a0, float f12);
 extern float fRand0_1(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -21,28 +19,28 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
  * more. */
 __attribute__((section(".text.func_00249AB0"))) void func_00249AB0(cEm00 *self)
 {
-    capVu0MagnitudeSqXZ(*(void **)(Getplayer() + 0xF0), &D_005850B0);
+    capVu0MagnitudeSqXZ(Getplayer()->pos, &D_005850B0);
     self->emFlags = self->emFlags | 0x30400;
     switch (self->step) {
         case 0: {
             int gb;
             int b;
-            void *q;
+            cGameObj *q;
 
             self->unk1864 = 0;
             gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
             b = EM_RES(self);
             func_002A8578(self, EM_RES_REC(b, 0x3D34), EM_RES_REC(b, 0x3D38), 0xA, 0.0f, gb, 0);
             self->timer = 30.0f;
-            q = (void *)self->sub0;
+            q = self->sub0;
             if (q != 0) {
                 func_00281260(q);
             }
-            q = (void *)self->sub1;
+            q = self->sub1;
             if (q != 0) {
                 ClearBytes2F4To2F7_283170(q);
             }
-            q = (void *)self->sub2;
+            q = self->sub2;
             if (q != 0) {
                 ClearBytes2F4To2F7_283170(q);
             }
@@ -73,7 +71,7 @@ __attribute__((section(".text.func_00249AB0"))) void func_00249AB0(cEm00 *self)
         case 2: {
             int gb;
             int b;
-            void *q;
+            cGameObj *q;
             float rv;
             float z = 0.0f;
 
@@ -82,15 +80,15 @@ __attribute__((section(".text.func_00249AB0"))) void func_00249AB0(cEm00 *self)
             b = EM_RES(self);
             func_002A8578(self, EM_RES_REC(b, 0x3D34), EM_RES_REC(b, 0x3D38), 0xA, z, gb, 0);
             self->timer = 60.0f;
-            q = (void *)self->sub0;
+            q = self->sub0;
             if (q != 0) {
                 func_00281260(q);
             }
-            q = (void *)self->sub1;
+            q = self->sub1;
             if (q != 0) {
                 ClearBytes2F4To2F7_283170(q);
             }
-            q = (void *)self->sub2;
+            q = self->sub2;
             if (q != 0) {
                 ClearBytes2F4To2F7_283170(q);
             }

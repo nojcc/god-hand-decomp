@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/gameWork.h"
 
 extern char *D_00754C38;
 extern char *D_00754C30;
 extern char D_0061B644;
 extern unsigned int D_00747A78;
-extern unsigned short D_00747A50;
 
 __attribute__((section(".text.setColorScrollLayer")))
 void setColorScrollLayer(int id, float r, float g, float b) {
@@ -198,7 +198,7 @@ int func_00268408(char *o) {
     if (a != 1 && a != 9) {
         return 0;
     }
-    if (D_00747A50 != 0x700) {
+    if (D_007474A0.room != 0x700) {
         return 0;
     }
     if (0.0f < *(float *)(o + 0x1744)) {

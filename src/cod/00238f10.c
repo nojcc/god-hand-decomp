@@ -3,19 +3,19 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
+#include "godhand/gameWork.h"
 
-extern char *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002DB770(void);
 extern void KillEffect(void *a0, int a1, int a2);
-extern char D_007474A0[];
 
 __attribute__((section(".text.func_00238F10")))
 void func_00238F10(cEm00 *self)
 {
     int one = 1;
-    char *s2 = Getplayer();
+    cGameObj *pl = Getplayer();
 
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
@@ -58,18 +58,18 @@ void func_00238F10(cEm00 *self)
         if (self->unk56A != 0) {
             (self->unk56A)--;
         } else {
-            char *g;
+            GameWork *g;
 
             func_002DB770();
-            g = D_007474A0;
-            if (*(int *)(g + 8) & 0xF0)
+            g = &D_007474A0;
+            if (g->padBtn & 0xF0)
                 (self->unk568)--;
-            if (*(int *)(g + 8) & 0xF00000)
+            if (g->padBtn & 0xF00000)
                 self->unk568 -= 4;
         }
         if (self->seqFlags & 0x10) {
             if (self->unk568 <= 0) {
-                *(unsigned char *)(s2 + 0x2F6) = 2;
+                pl->step = 2;
                 self->step = 2;
             }
             self->unk56A = 0x3E7;

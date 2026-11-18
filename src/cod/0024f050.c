@@ -255,14 +255,14 @@ __attribute__((section(".text.func_0024F050"))) void func_0024F050(cEm00 *self)
             func_0026F120(self);
             self->timerA = 0;
             {
-                char *h = self->unk698;
-                if (h != 0) {
-                    char *k = *(char **)(h + 0x34);
-                    if (k != 0) {
+                cDamageTake *take = self->unk698;
+                if (take != 0) {
+                    cGameObj *atk = (cGameObj *)take->attacker;
+                    if (atk != 0) {
                         cVec *d = &self->posB;
                         cVec *src;
                         self->timerA = 0xA;
-                        src = *(cVec **)(k + 0xF0);
+                        src = atk->pos;
                         if (d != src) {
                             self->posB.x = src->x;
                             d->y = src->y;

@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern float capVu0LengthSq(void *a0);
 extern int Dest_ck(void *a0, void *a1, float f12, float f13);
 extern void cActionButton_set(void *a0, int a1, int a2, int a3, int t0, int t1, int t2);
 extern char D_00568288;
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 
 
@@ -24,8 +24,8 @@ void func_001B7EE0(void *a0, float fp12) {
     long flag = *(unsigned int *)(s2 + 0x5B0);
 
     if (((flag >> 1) & 1) == 0) {
-        void *o = Getplayer();
-        char *vt = *(char **)((char *)o + 0x214);
+        cGameObj *o = Getplayer();
+        char *vt = *(char **)((char *)&o->vtable);
         void *p1 = (*(vfn *)(vt + 0x84))((char *)o + *(short *)(vt + 0x80));
         char *vt2 = *(char **)(s2 + 0x214);
         void *p2 = (*(vfn *)(vt2 + 0x6C))(s2 + *(short *)(vt2 + 0x68));
@@ -39,11 +39,11 @@ void func_001B7EE0(void *a0, float fp12) {
         VU0_SQC2(4, buf, 0x0);
 
         if (capVu0LengthSq(buf) < saved * saved) {
-            void *o1 = Getplayer();
-            char *vta = *(char **)((char *)o1 + 0x214);
+            cGameObj *o1 = Getplayer();
+            char *vta = *(char **)((char *)&o1->vtable);
             void *r1 = (*(vfn *)(vta + 0x84))((char *)o1 + *(short *)(vta + 0x80));
-            void *o2 = Getplayer();
-            char *vtb = *(char **)((char *)o2 + 0x214);
+            cGameObj *o2 = Getplayer();
+            char *vtb = *(char **)((char *)&o2->vtable);
             void *r2 = (*(vfn *)(vtb + 0x8C))((char *)o2 + *(short *)(vtb + 0x88));
             char *vtc = *(char **)(s2 + 0x214);
             void *r3 = (*(vfn *)(vtc + 0x6C))(s2 + *(short *)(vtc + 0x68));

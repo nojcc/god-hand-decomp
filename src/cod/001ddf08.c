@@ -8,8 +8,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cOmBase.h"
 #include "godhand/CustomIDPanel.h"
-
-extern unsigned short D_00747A50;
+#include "godhand/gameWork.h"
 extern void cEm00_setGoto(cEm00 *self, cVec *pos, int a2, int a3, float f);
 extern char D_0061B7C0[];
 extern int D_0071B7C0[];
@@ -19,7 +18,7 @@ extern void *func_002FACA8(int slot, int a1);
 extern void func_002CB070(cSnd *self);
 extern float frand(float lo, float hi);
 
-#define ROOM_ARENA        0x501       /* D_00747A50 value of the room where this applies */
+#define ROOM_ARENA        0x501       /* room id of the room where this applies */
 #define EM_FLAG_16D8_ANY  0           /* unk16D8 must be nonzero */
 #define EM_F1644_ARMED    0x10000
 #define FIND_RADIUS       10.0f
@@ -36,7 +35,7 @@ int cEm00_startGotoToNearEma2(cEm00 *self)
 {
     cEma2 *target;
 
-    if (D_00747A50 != ROOM_ARENA)
+    if (D_007474A0.room != ROOM_ARENA)
         return 0;
     if (0.0f < self->slideTime)
         return 0;

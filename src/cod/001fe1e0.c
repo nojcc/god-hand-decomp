@@ -1,5 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cDamageManage.h"
 #include "godhand/cMovie.h"
 
@@ -53,8 +54,31 @@ char *func_001FE660(void) {
     return 0;
 }
 
+/* Phase 0xC at step 0 or 2 for kinds 0 and 1. */
 __attribute__((section(".text.func_00283378")))
-void func_00283378(int a0,unsigned char a1){switch(a1){case 0:*(unsigned char*)(a0+0x2F4)=0;*(unsigned char*)(a0+0x2F5)=0xC;*(unsigned char*)(a0+0x2F6)=0;*(unsigned char*)(a0+0x2F7)=0;break;case 1:*(unsigned char*)(a0+0x2F4)=0;*(unsigned char*)(a0+0x2F5)=0xC;*(unsigned char*)(a0+0x2F6)=2;*(unsigned char*)(a0+0x2F7)=0;break;default:*(unsigned char*)(a0+0x2F4)=0;*(unsigned char*)(a0+0x2F5)=0xC;*(unsigned char*)(a0+0x2F6)=0;*(unsigned char*)(a0+0x2F7)=0;break;}}
+void func_00283378(cGameObj *self, unsigned char kind)
+{
+    switch (kind) {
+    case 0:
+        self->mode = 0;
+        self->phase = 0xC;
+        self->step = 0;
+        self->stepArg = 0;
+        break;
+    case 1:
+        self->mode = 0;
+        self->phase = 0xC;
+        self->step = 2;
+        self->stepArg = 0;
+        break;
+    default:
+        self->mode = 0;
+        self->phase = 0xC;
+        self->step = 0;
+        self->stepArg = 0;
+        break;
+    }
+}
 
 __attribute__((section(".text.func_00295660")))
 char *func_00295660(char *base) {

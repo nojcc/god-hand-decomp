@@ -87,6 +87,8 @@
 !include/godhand/cOl40.h
 !include/godhand/cVec.h
 !include/godhand/cVecType.h
+!include/godhand/cOmEntry.h
+!include/godhand/cOmHitHolder.h
 !include/godhand/eesyscall.h
 !include/godhand/mmi.h
 !include/godhand/mul64.h

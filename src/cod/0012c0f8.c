@@ -1,9 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
 
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
 extern unsigned short D_005CAC94;
-extern int D_005CB000;
 
 /* sn-2.95.3-136 matched TU. */
 

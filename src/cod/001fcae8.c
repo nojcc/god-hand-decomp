@@ -5,12 +5,12 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cDamageUnit.h"
+#include "godhand/player.h"
 
 extern char D_00568240[];
 extern void cWorldTime_gameInit(void *w);
 extern void cEmManage_reset(void *m);
 extern void func_001FDEA8(void *p);
-extern void cHeatSys_Initialize(void *h);
 extern void Obj0000_Clear_Fields_00_08_0C_0E_10_12_1F6CF8(void *p);
 extern int KeySlotTable_set(void *tbl, int key, int value);
 extern void func_002A87E8(void *self, int arg);
@@ -39,7 +39,6 @@ int cOmBase_countGroupsInAction211(cOmBase *self)
 extern char D_0061A990[];               /* cWorldTime */
 extern char D_005864F0[];               /* cEmManage */
 
-extern char D_005CB000[];               /* cHeatSys */
 
 extern int D_00747A24;                  /* system state flags */
 
@@ -68,7 +67,7 @@ void GameInitObj_start(GameInitObj *self)
     self->started = 1;
     cEmManage_reset(D_005864F0);
     func_001FDEA8(&D_00574380);
-    cHeatSys_Initialize(D_005CB000);
+    cHeatSys_Initialize(&D_005CB000);
     Obj0000_Clear_Fields_00_08_0C_0E_10_12_1F6CF8(D_00568240);
     cCoreSave_gameInit(&D_00569B70);
     self->rate = 0.5f;

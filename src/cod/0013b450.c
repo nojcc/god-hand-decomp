@@ -3,8 +3,8 @@
 #include "godhand/cPlCamera.h"
 #include "godhand/mtx.h"
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
 
 #define PLCAM_EASE  0.25f

@@ -4,18 +4,16 @@
  * get-up motion, step 1 and 3 wait for it to end. */
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void func_00281470(int a0, unsigned char a1);
-extern void func_00283378(int a0, unsigned char a1);
 
 
 
 __attribute__((section(".text.cEm00_stepGetUp")))
 void cEm00_stepGetUp(cEm00 *self)
 {
-    void *player;
+    cGameObj *player;
     int motion;
 
     player = Getplayer();

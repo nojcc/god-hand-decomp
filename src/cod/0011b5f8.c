@@ -5,19 +5,19 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 #include "godhand/motion.h"
 #include "godhand/pl00.h"
 #include "godhand/cSnd.h"
+#include "godhand/gameWork.h"
 extern void func_0012C348(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_002DB770(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern char D_007474A0[];
 
 __attribute__((section(".text.func_0011B5F8")))
 void func_0011B5F8(pl00 *self)
 {
-    char *g;
-    char *h;
+    GameWork *g;
+    GameWork *h;
 
     switch (self->base.step) {
     case 0: {
@@ -47,11 +47,11 @@ void func_0011B5F8(pl00 *self)
     case 1: {
         float one;
         func_002DB770();
-        g = D_007474A0;
-        if (*(int *)(g + 8) & 0xF0) {
+        g = &D_007474A0;
+        if (g->padBtn & 0xF0) {
             self->unk15B0 -= 5;
         }
-        if (*(int *)(g + 8) & 0xF00000) {
+        if (g->padBtn & 0xF00000) {
             self->unk15B0 -= 0x14;
         }
         if (moveMotion(self) != 0) {
@@ -79,12 +79,12 @@ void func_0011B5F8(pl00 *self)
         func_002DB770();
         moveMotion(self);
         t = self->unk15B0;
-        h = D_007474A0;
+        h = &D_007474A0;
         self->unk15B0 = t - 1;
-        if (*(int *)(h + 8) & 0xF0) {
+        if (h->padBtn & 0xF0) {
             self->unk15B0 = t - 6;
         }
-        if (*(int *)(h + 8) & 0xF00000) {
+        if (h->padBtn & 0xF00000) {
             self->unk15B0 -= 0x14;
         }
         if (self->unk15B0 <= 0) {

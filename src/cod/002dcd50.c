@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern int cEmManage_CkPlCatched(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern float Turn_dest(void *a0, float f12, float f13, void *a1);
@@ -46,6 +45,7 @@ extern void cActionButton_set(void *a0, int a1, int a2,
 
 #include "godhand/vu0.h"
 #include "godhand/pl00.h"
+#include "godhand/player.h"
 
 typedef void *(*vfn)(void *);
 

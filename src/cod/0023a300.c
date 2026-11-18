@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer();
 extern unsigned int func_0031ED08(float f12);
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 

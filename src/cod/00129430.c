@@ -7,6 +7,7 @@
 #include "godhand/pl00.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/player.h"
 
 extern int cOmSub_move(void *move);
 extern void cOmSub_initMove3_y(void *dst, void *obj, int idx, int a3, float f12, float f13, float f14);
@@ -14,8 +15,6 @@ extern void cOmSub_initMove1_pos(void *dst, void *obj, int idx, int a3, void *t0
 extern char D_00747B00[];
 extern char D_00747AC0[];
 extern int cOmBase_checkDamage(void *self, int damage);
-extern void cHeatSys_AddHeatGage(void *heat, int a1, float amount);
-extern int D_005CB000;
 extern char D_0044ABB0[];
 extern char D_0044ABB8[];
 extern int cModel_setMeshDisplay(void *model, char *name, int on);

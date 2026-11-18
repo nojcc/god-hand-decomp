@@ -7,14 +7,12 @@ extern void func_0012B928(void *a0);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern int moveMotion(void *a0);
-extern int cHeatSys_SubHeatGage(void *a0, int a1, float f12);
 extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern char D_005864F0[];
-extern char D_005CB000[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -44,6 +42,7 @@ extern char D_005CB000[];
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
 
 __attribute__((section(".text.func_0011C988")))
 void func_0011C988(pl00 *self)
@@ -137,7 +136,7 @@ void func_0011C988(pl00 *self)
         }
         func_00124EC0(self);
         moveMotion(self);
-        cHeatSys_SubHeatGage(D_005CB000, 0, self->unk15C0);
+        cHeatSys_SubHeatGage(&D_005CB000, 0, self->unk15C0);
         if (self->unk15B0 != 0) {
             self->unk15B0 = self->unk15B0 - 1;
         } else {

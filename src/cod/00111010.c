@@ -2,6 +2,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/pl00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
@@ -9,9 +10,7 @@ extern void func_0012B928(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern void cHeatSys_SetHeatMode(void *a0, int a1);
 extern void func_0010A438(void *a0);
-extern unsigned char D_005CB000[];
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cEmManage_SetSpeedRate(void *a0, float f12);
@@ -53,8 +52,8 @@ void func_00114120(pl00 *self)
         break;
     }
     if (self->base.seqFlags & 1) {
-        char *hs = (char *)D_005CB000;
-        if (*(unsigned char *)(hs + 0x10) == 0) {
+        cHeatSys *hs = &D_005CB000;
+        if (hs->mode == 0) {
             cHeatSys_SetHeatMode(hs, 1);
             self->flags15F4 = (self->flags15F4 | 0x10) & ~0x20;
             CallWithAndClearField698_12AC28(self);

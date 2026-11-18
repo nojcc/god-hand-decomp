@@ -1,46 +1,28 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cOmHitHolder.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/emPhaseTable.h"
 
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
-extern void cOmBase_updateWithHitRecord(void *a0);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_002A87E8(void *a0, int a1);
-extern void func_001B76D8(void *a0);
-extern struct Table_func_0018DF18 D_00423A98;
+extern void func_001B76D8(cOmBase *self);
+extern EmPhaseTable4 D_00423A98;
 
-struct Entry_func_0018DF18 { short f0; unsigned short type; unsigned short f4; short f6; };
-struct Table_func_0018DF18 { struct Entry_func_0018DF18 e[4]; };
 
 __attribute__((section(".text.func_0018DF18")))
-void func_0018DF18(void *a0)
+void func_0018DF18(cOmHitHolder *self)
 {
-    char *s0 = (char *)a0;
-    struct Table_func_0018DF18 buf;
-    char *e;
-    int i8;
-    int f0;
-    long flags; int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    flags = *(unsigned int *)(s0 + 0x5B0);
+    EmPhaseTable4 buf;
+    long flags;
+    if (ClearField5B4IfFlagUnset_1B76B0(&self->base) == 0) return;
+    flags = (unsigned int)self->base.flags0;
     if (((flags >> 2) & 1) == 0) {
         buf = D_00423A98;
-        i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-        e = (char *)&buf + i8;
-        type = (short)*(unsigned short *)(e + 2);
-        if (type >= 0) {
-            int base = *(int *)(s0 + (short)*(unsigned short *)(e + 4));
-            entry = *(long *)(base + type * 8 - 8);
-            fp = (int (*)(int))(int)(entry >> 32);
-        } else {
-            fp = *(int (**)(int))((char *)&buf + i8 + 4);
-        }
-        f0 = buf.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-        if (type >= 0)
-            arg = (short)entry + f0;
-        else
-            arg = f0;
-        fp((int)(s0 + arg));
-        func_002A87E8(s0, 0);
-        func_001B76D8(s0);
+        EM_PHASE_RUN(&buf, self, self->base.mode);
+        func_002A87E8(self, 0);
+        func_001B76D8(&self->base);
     } else {
-        cOmBase_updateWithHitRecord(s0);
+        cOmBase_updateWithHitRecord(self);
     }
 }

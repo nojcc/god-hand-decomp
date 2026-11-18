@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/gameWork.h"
 
-extern char D_007474A0[];
 extern void func_002C90A0(void *self, int a);
 extern void func_002C9950(void *self);
 extern void ClearStructFields_2C8EB0(void *self);
@@ -9,18 +9,18 @@ extern void *memcpy(void *dst, const void *src, unsigned int n);
 __attribute__((section(".text.func_002C8EF8")))
 int func_002C8EF8(void *self) {
     char *d;
-    char *g;
+    GameWork *g;
     char *base;
     char *p;
     char *q;
     unsigned int i;
 
     d = (char *)self;
-    g = D_007474A0;
-    base = *(char **)(g + 0x554);
+    g = &D_007474A0;
+    base = g->sysData;
 
     p = (char *)(*(int *)(base + 0x14) + (int)base);
-    if ((*(int *)(g + 0x594) & 0x800) || *(int *)(g + 0x56C) != 0) {
+    if ((g->debugFlags & 0x800) || g->language != 0) {
         p = (char *)(*(int *)(base + 0x18) + (int)base);
     }
 

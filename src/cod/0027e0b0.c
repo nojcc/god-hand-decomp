@@ -3,10 +3,10 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
+#include "godhand/player.h"
 
 extern float cEmManage_GetSpeedRate(void *mgr);
 extern void SetMotionStep(void *self, float step);
-extern cOmBase *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 extern void func_0027E228(void *self);
 extern void cModel_ScrollTexture(void *self, float f);

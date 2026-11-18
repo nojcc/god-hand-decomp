@@ -11,8 +11,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int Getplayer(void);
 extern void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DAF0(int a0);
-extern void Obj2810_SetState_1_a1(int a0, int a1);
-extern void SetBytes2F4Mode1_283188(int a0, int a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002744E0(void *a0);

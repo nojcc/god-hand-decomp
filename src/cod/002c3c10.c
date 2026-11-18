@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cScenario.h"
+#include "godhand/player.h"
 
 extern int D_00747A78;
 extern int D_00747A80;
 extern int D_00747A84;
 extern char D_005864F0[];
-extern void *Getplayer(void);
 extern void pl00_reset(void *a0);
 extern void cEmManage_suspendRange(void *a0, int a1);
 extern void func_002FA470(int a0);

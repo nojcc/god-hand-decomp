@@ -3,6 +3,8 @@
 #include "godhand/cGameObj.h"
 #include "godhand/motion.h"
 #include "godhand/cEmManage.h"
+#include "godhand/player.h"
+#include "godhand/gameWork.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -10,11 +12,8 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int irand(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern void *Getplayer(void);
 extern void func_002A74E0(void *a0, void *a1, int a2);
 extern void cEm00_clearSetFlags(int a0);
-extern unsigned short D_00747A50;
-extern char D_007474A0[];
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -45,7 +44,6 @@ extern char D_007474A0[];
  * 11 more. */
 __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
 {
-    char *s1 = (char *)self;
     int s2v, s0v;
     int gb;
     float fv;
@@ -57,19 +55,19 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
     p2 = 1;
     p1 = 0x4E2;
     flag6 = 0;
-    old = *(int *)(s1 + 0x16D0);
+    old = self->emFlags;
     nw = old | 0x400;
-    *(int *)(s1 + 0x16D0) = nw;
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    self->emFlags = nw;
+    switch (self->step) {
         case 0:
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x8000;
-            switch (*(unsigned char *)(s1 + 0x1650)) {
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            self->emFlags = self->emFlags | 0x8000;
+            switch (self->unk1650) {
                 default:
                 case 0x0:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x98);
                             s0v = EM_RES_REC(b, 0x9C);
                         } break;
@@ -81,20 +79,20 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x229:
                         case 0x22A:
                         case 0x24B: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x648);
                             s0v = EM_RES_REC(b, 0x9C);
                         } break;
                         case 0x242:
                         case 0x243:
                         case 0x244: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x35CC);
                             s0v = EM_RES_REC(b, 0x35D0);
                         } break;
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x25AC);
                             s0v = EM_RES_REC(b, 0x25B0);
                         } break;
@@ -114,18 +112,18 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24C:
                         case 0x24E:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x10A8);
                             s0v = EM_RES_REC(b, 0x10AC);
                         } break;
                         case 0x225:
                         case 0x24D: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3C88);
                             s0v = EM_RES_REC(b, 0x3C8C);
                         } break;
                         case 0x252: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x24EC);
                             s0v = EM_RES_REC(b, 0x24F0);
                         } break;
@@ -136,46 +134,46 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x245:
                         case 0x246:
                         case 0x247: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x828);
                             s0v = EM_RES_REC(b, 0x82C);
                         } break;
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1FB0);
                             s0v = EM_RES_REC(b, 0x1FB4);
                         } break;
                         case 0x218: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3BB4);
                             s0v = EM_RES_REC(b, 0x3BB8);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            if (D_00747A50 == 0x504) {
-                                int b = *(int *)(s1 + 0x304);
+                            if (D_007474A0.room == 0x504) {
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0x1A48);
                                 s0v = EM_RES_REC(b, 0x1A4C);
                             } else {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0x18F0);
                                 s0v = EM_RES_REC(b, 0x18F4);
                             }
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -183,13 +181,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
                         case 0x20C:
                         case 0x24F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1EAC);
                             s0v = EM_RES_REC(b, 0x1EB0);
                         } break;
@@ -198,18 +196,18 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x207:
                         case 0x208:
                         case 0x224: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1560);
                             s0v = EM_RES_REC(b, 0x1564);
                         } break;
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3A00);
                             s0v = EM_RES_REC(b, 0x3A04);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3418);
                             s0v = EM_RES_REC(b, 0x341C);
                         } break;
@@ -222,12 +220,12 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            if (*(int *)(s1 + 0x1644) & 0x200000) {
-                                int b = *(int *)(s1 + 0x304);
+                            if (self->flags1644 & 0x200000) {
+                                int b = EM_RES(self);
                                 s0v = EM_RES_REC(b, 0xFBC);
                                 s2v = s0v;
                             } else {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0xCF8);
                                 s0v = EM_RES_REC(b, 0xCFC);
                             }
@@ -235,25 +233,25 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x275:
                         case 0x276: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2274);
                             s0v = EM_RES_REC(b, 0x2278);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x18:
-                    switch (*(unsigned short *)(s1 + 0x640) & 7) {
+                    switch (self->entryNo & 7) {
                         default:
                         case 0:
                             fv = 7.0f;
@@ -280,9 +278,9 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             fv = 0.0f;
                             break;
                     }
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3F4);
                             s0v = EM_RES_REC(b, 0x3F8);
                         } break;
@@ -299,13 +297,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x243:
                         case 0x244:
                         case 0x24B: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3F4);
                             s0v = EM_RES_REC(b, 0x3F8);
                         } break;
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3F4);
                             s0v = EM_RES_REC(b, 0x3F8);
                         } break;
@@ -322,19 +320,19 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x13F8);
                             s0v = EM_RES_REC(b, 0x13FC);
                         } break;
                         case 0x21B:
                         case 0x22D: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1448);
                             s0v = EM_RES_REC(b, 0x144C);
                         } break;
                         case 0x225:
                         case 0x24D: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1450);
                             s0v = EM_RES_REC(b, 0x1454);
                         } break;
@@ -346,35 +344,35 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x245:
                         case 0x246:
                         case 0x247: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBCC);
                             s0v = EM_RES_REC(b, 0xBD0);
                         } break;
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBCC);
                             s0v = EM_RES_REC(b, 0xBD4);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBCC);
                             s0v = EM_RES_REC(b, 0xBD0);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -382,13 +380,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
                         case 0x20C:
                         case 0x24F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBCC);
                             s0v = EM_RES_REC(b, 0xBD0);
                         } break;
@@ -397,18 +395,18 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x207:
                         case 0x208:
                         case 0x224: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1560);
                             s0v = EM_RES_REC(b, 0x1564);
                         } break;
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3A00);
                             s0v = EM_RES_REC(b, 0x3A04);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3418);
                             s0v = EM_RES_REC(b, 0x341C);
                         } break;
@@ -421,12 +419,12 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            if (*(int *)(s1 + 0x1644) & 0x200000) {
-                                int b = *(int *)(s1 + 0x304);
+                            if (self->flags1644 & 0x200000) {
+                                int b = EM_RES(self);
                                 s0v = EM_RES_REC(b, 0xFBC);
                                 s2v = s0v;
                             } else {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0xCF8);
                                 s0v = EM_RES_REC(b, 0xCFC);
                             }
@@ -434,25 +432,25 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x275:
                         case 0x276: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3F4);
                             s0v = EM_RES_REC(b, 0x3F8);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x19:
-                    switch (*(unsigned short *)(s1 + 0x640) & 7) {
+                    switch (self->entryNo & 7) {
                         default:
                         case 0:
                             fv = 0.0f;
@@ -479,9 +477,9 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             fv = 25.0f;
                             break;
                     }
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x43C);
                             s0v = EM_RES_REC(b, 0x440);
                         } break;
@@ -502,7 +500,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1458);
                             s0v = EM_RES_REC(b, 0x145C);
                         } break;
@@ -516,29 +514,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x247:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBF8);
                             s0v = EM_RES_REC(b, 0xBFC);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xB84);
                             s0v = EM_RES_REC(b, 0xB88);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -546,30 +544,30 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
                         case 0x20C:
                         case 0x24F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xB84);
                             s0v = EM_RES_REC(b, 0xB88);
                         } break;
                         case 0x205:
                         case 0x207: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x17F8);
                             s0v = EM_RES_REC(b, 0x17FC);
                         } break;
                         case 0x224: {
                             int t = irand();
                             if (t & 1) {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0x18DC);
                                 s0v = EM_RES_REC(b, 0x18E0);
                             } else {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0x18E4);
                                 s0v = EM_RES_REC(b, 0x18E8);
                             }
@@ -577,28 +575,28 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x241: {
                             int t = irand();
                             if (t & 1) {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0x3B1C);
                                 s0v = EM_RES_REC(b, 0x3B20);
                             } else {
-                                int b = *(int *)(s1 + 0x304);
+                                int b = EM_RES(self);
                                 s2v = EM_RES_REC(b, 0x3B24);
                                 s0v = EM_RES_REC(b, 0x3B28);
                             }
                         } break;
                         case 0x206: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1890);
                             s0v = EM_RES_REC(b, 0x1894);
                         } break;
                         case 0x208: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1EA0);
                             s0v = EM_RES_REC(b, 0x1EA4);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3418);
                             s0v = EM_RES_REC(b, 0x341C);
                         } break;
@@ -611,34 +609,34 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xF94);
                             s0v = EM_RES_REC(b, 0xF98);
                         } break;
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x275:
                         case 0x276: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3F4);
                             s0v = EM_RES_REC(b, 0x3F8);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x4:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x40C);
                             s0v = EM_RES_REC(b, 0x410);
                         } break;
@@ -655,7 +653,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24B:
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x40C);
                             s0v = EM_RES_REC(b, 0x410);
                         } break;
@@ -678,7 +676,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1418);
                             s0v = EM_RES_REC(b, 0x141C);
                         } break;
@@ -694,29 +692,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24F:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x40C);
                             s0v = EM_RES_REC(b, 0x410);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x18F0);
                             s0v = EM_RES_REC(b, 0x18F4);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -724,7 +722,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
@@ -734,13 +732,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x208:
                         case 0x224:
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1800);
                             s0v = EM_RES_REC(b, 0x1804);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3418);
                             s0v = EM_RES_REC(b, 0x341C);
                         } break;
@@ -753,7 +751,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             p1 = 0x58;
                             p2 = 0x47;
                             s2v = EM_RES_REC(b, 0xFC4);
@@ -762,21 +760,21 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x1:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3FC);
                             s0v = EM_RES_REC(b, 0x400);
                         } break;
@@ -792,12 +790,12 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24B:
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3FC);
                             s0v = EM_RES_REC(b, 0x400);
                         } break;
                         case 0x244: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x36F8);
                             s0v = EM_RES_REC(b, 0x36FC);
                         } break;
@@ -818,7 +816,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1438);
                             s0v = EM_RES_REC(b, 0x143C);
                         } break;
@@ -834,29 +832,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24F:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBD8);
                             s0v = EM_RES_REC(b, 0xBDC);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x18F0);
                             s0v = EM_RES_REC(b, 0x18F4);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -864,7 +862,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
@@ -874,13 +872,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x208:
                         case 0x224:
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1810);
                             s0v = EM_RES_REC(b, 0x1814);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1810);
                             s0v = EM_RES_REC(b, 0x1814);
                         } break;
@@ -893,28 +891,28 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xFAC);
                             s0v = EM_RES_REC(b, 0xFB0);
                         } break;
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x5:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x424);
                             s0v = EM_RES_REC(b, 0x428);
                         } break;
@@ -930,12 +928,12 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24B:
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x424);
                             s0v = EM_RES_REC(b, 0x428);
                         } break;
                         case 0x244: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x36F8);
                             s0v = EM_RES_REC(b, 0x36FC);
                         } break;
@@ -956,7 +954,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1438);
                             s0v = EM_RES_REC(b, 0x143C);
                         } break;
@@ -972,29 +970,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24F:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBD8);
                             s0v = EM_RES_REC(b, 0xBDC);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x18F0);
                             s0v = EM_RES_REC(b, 0x18F4);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -1002,7 +1000,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
@@ -1012,13 +1010,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x208:
                         case 0x224:
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1810);
                             s0v = EM_RES_REC(b, 0x1814);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1810);
                             s0v = EM_RES_REC(b, 0x1814);
                         } break;
@@ -1031,171 +1029,171 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xFD4);
                             s0v = EM_RES_REC(b, 0xFD8);
                         } break;
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
             }
-            if (*(int *)(s1 + 0x6EC) != 0) {
-                if (*(unsigned char *)(s1 + 0x1650) == 9) {
-                    int b = *(int *)(s1 + 0x304);
-                    *(char *)(s1 + 0x2F7) = 0;
+            if (*(int *)((char *)self + 0x6EC) != 0) {
+                if (self->unk1650 == 9) {
+                    int b = EM_RES(self);
+                    self->stepArg = 0;
                     s2v = EM_RES_REC(b, 0x490);
                     s0v = EM_RES_REC(b, 0x494);
                 } else {
-                    int b = *(int *)(s1 + 0x304);
-                    *(char *)(s1 + 0x2F7) = 0;
+                    int b = EM_RES(self);
+                    self->stepArg = 0;
                     s2v = EM_RES_REC(b, 0x44C);
                     s0v = EM_RES_REC(b, 0x450);
                 }
             }
-            func_002A8578(s1, s2v, s0v, 0, fv, gb, 0);
+            func_002A8578(self, s2v, s0v, 0, fv, gb, 0);
             if ((p1 ^ 0x4E2) != 0) {
-                InitRenderStruct_2A8608((cGameObj *)s1, p1, p2, 0, 2, 0);
+                InitRenderStruct_2A8608((cGameObj *)self, p1, p2, 0, 2, 0);
             }
             {
-                float *dst = (float *)(s1 + 0x5C0);
-                float *src = *(float **)(s1 + 0xF0);
+                cVec *dst = &self->home;
+                cVec *src = self->pos;
                 if (dst != src) {
-                    *(float *)(s1 + 0x5C0) = src[0];
-                    dst[1] = src[1];
-                    dst[2] = src[2];
+                    self->home.x = src->x;
+                    dst->y = src->y;
+                    dst->z = src->z;
                 }
             }
-            *(int *)(s1 + 0x5F0) = 0x1E;
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->timerA = 0x1E;
+            self->step = self->step + 1;
         case 1:
-            if (*(unsigned char *)(s1 + 0x1650) == 5) {
-                *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x20000;
+            if (self->unk1650 == 5) {
+                self->emFlags = self->emFlags | 0x20000;
             }
-            if (*(int *)(s1 + 0x1644) & 0x100000) {
-                *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x10000;
+            if (self->flags1644 & 0x100000) {
+                self->emFlags = self->emFlags | 0x10000;
             }
-            if (0.0f < *(float *)(s1 + 0x24C)) {
-                float *fp1;
-                float *fp2;
+            if (0.0f < self->tint.w) {
+                cVec *fp1;
+                cVec *fp2;
                 fv = 1.0f;
-                moveMotion(s1);
-                cObjBase_addNullSpeed_Rotation(s1, fv);
-                cObjBase_addNullSpeed(s1, fv);
-                fp1 = *(float **)(s1 + 0xF0);
-                fp1[0] = fp1[0] * 0.99500002f + *(float *)(s1 + 0x5C0) * 0.0049999999f;
-                fp2 = *(float **)(s1 + 0xF0);
-                fp2[2] = fp2[2] * 0.99500002f + *(float *)(s1 + 0x5C8) * 0.0049999999f;
+                moveMotion(self);
+                cObjBase_addNullSpeed_Rotation(self, fv);
+                cObjBase_addNullSpeed(self, fv);
+                fp1 = self->pos;
+                fp1->x = fp1->x * 0.99500002f + self->home.x * 0.0049999999f;
+                fp2 = self->pos;
+                fp2->z = fp2->z * 0.99500002f + self->home.z * 0.0049999999f;
             }
             {
-                char *g = D_007474A0;
-                if ((*(int *)(g + 0x210) & 7) == (*(int *)(s1 + 0x17D0) & 7)) {
-                    if (*(float *)(s1 + 0x618) < 64.0f) {
+                GameWork *g = &D_007474A0;
+                if ((g->frame & 7) == (self->unk17D0 & 7)) {
+                    if (self->playerDist < 64.0f) {
                         func_0026F328(self);
                     }
                 }
             }
-            if (*(int *)(s1 + 0x1644) & 0x10008000) {
-                if (*(int *)(s1 + 0x1644) & 0x10000000) {
-                    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
-                    *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x1000;
+            if (self->flags1644 & 0x10008000) {
+                if (self->flags1644 & 0x10000000) {
+                    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+                    self->emFlags = self->emFlags | 0x1000;
                 }
-                if (*(int *)(s1 + 0x16EC) != 0) {
-                    if (*(unsigned char *)(s1 + 0x1650) == 9) {
-                        *(unsigned char *)(s1 + 0x2F6) = 2;
+                if (self->unk16EC != 0) {
+                    if (self->unk1650 == 9) {
+                        self->step = 2;
                     }
-                    if (*(int *)(s1 + 0x1644) & 0x8000) {
-                        *(unsigned char *)(s1 + 0x2F6) = 2;
+                    if (self->flags1644 & 0x8000) {
+                        self->step = 2;
                     }
                 }
             } else {
-                if (*(int *)(s1 + 0x5F0) != 0) {
-                    *(int *)(s1 + 0x5F0) = *(int *)(s1 + 0x5F0) - 1;
-                } else if (*(int *)(s1 + 0x16D0) & 0x200000) {
-                    if (*(float *)(s1 + 0x618) < 64.0f) {
-                        char *g = D_007474A0;
-                        if ((*(int *)(g + 0x210) & 7) == (*(int *)(s1 + 0x17D0) & 7)) {
+                if (self->timerA != 0) {
+                    self->timerA = self->timerA - 1;
+                } else if (self->emFlags & 0x200000) {
+                    if (self->playerDist < 64.0f) {
+                        GameWork *g = &D_007474A0;
+                        if ((g->frame & 7) == (self->unk17D0 & 7)) {
                             void *h;
-                            *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) & 0xF7FFFFFF;
+                            self->emFlags2 = self->emFlags2 & 0xF7FFFFFF;
                             h = Getplayer();
-                            func_002A74E0(s1, *(void **)((char *)h + 0xF0), 1);
-                            if (func_002A7CA0((cGameObj *)s1, (cVec *)(s1 + 0x16A0)) != 0) {
-                                *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) | 0x8000000;
+                            func_002A74E0(self, *(void **)((char *)h + 0xF0), 1);
+                            if (func_002A7CA0((cGameObj *)self, (cVec *)&self->unk16A0) != 0) {
+                                self->emFlags2 = self->emFlags2 | 0x8000000;
                             }
-                            if (*(float *)(s1 + 0x510) < 8.0f) {
-                                *(unsigned char *)(s1 + 0x2F6) = 2;
+                            if (self->unk510 < 8.0f) {
+                                self->step = 2;
                             }
                         }
                     }
-                    if (*(float *)(s1 + 0x618) < 9.0f) {
-                        *(unsigned char *)(s1 + 0x2F6) = 2;
+                    if (self->playerDist < 9.0f) {
+                        self->step = 2;
                     }
                 }
-                if (*(int *)(s1 + 0x16D0) & 0x200000) {
-                    char *g = D_007474A0;
-                    if ((*(int *)(g + 0x210) & 7) == (*(int *)(s1 + 0x17D0) & 7)) {
-                        if (cEmManage_ckEnemyActiveNear(&D_005864F0, *(cVec **)(s1 + 0xF0), 4.0f) != 0) {
-                            *(unsigned char *)(s1 + 0x2F6) = 2;
+                if (self->emFlags & 0x200000) {
+                    GameWork *g = &D_007474A0;
+                    if ((g->frame & 7) == (self->unk17D0 & 7)) {
+                        if (cEmManage_ckEnemyActiveNear(&D_005864F0, self->pos, 4.0f) != 0) {
+                            self->step = 2;
                         }
-                        if (cEmManage_ckEmNear(&D_005864F0, *(cVec **)(s1 + 0xF0), (cEmActor *)s1, 3.0f) != 0) {
-                            *(unsigned char *)(s1 + 0x2F6) = 2;
+                        if (cEmManage_ckEmNear(&D_005864F0, self->pos, (cEmActor *)self, 3.0f) != 0) {
+                            self->step = 2;
                         }
                     }
                 }
-                if (*(int *)(s1 + 0x16EC) != 0) {
-                    *(unsigned char *)(s1 + 0x2F6) = 2;
+                if (self->unk16EC != 0) {
+                    self->step = 2;
                 }
             }
-            if (*(int *)(s1 + 0x16D0) & 0x20000000) {
+            if (self->emFlags & 0x20000000) {
                 flag6 = 1;
-                *(unsigned char *)(s1 + 0x2F6) = 2;
+                self->step = 2;
             }
-            if (0.0f < *(float *)(s1 + 0x16C0)) {
-                *(unsigned char *)(s1 + 0x2F6) = 2;
+            if (0.0f < self->slideTime) {
+                self->step = 2;
             }
-            if (*(unsigned char *)(s1 + 0x2F6) != 2) {
+            if (self->step != 2) {
                 break;
             }
-            cEm00_clearSetFlags((int)s1);
-            switch (*(unsigned char *)(s1 + 0x1650)) {
+            cEm00_clearSetFlags((int)self);
+            switch (self->unk1650) {
                 default:
                 case 0x0:
                 case 0x19:
-                    if ((irand() & 1) != 0 && *(float *)(s1 + 0x16C0) <= 0.0f &&
-                        *(int *)(s1 + 0x16EC) <= 0) {
-                        *(char *)(s1 + 0x2F4) = 0;
-                        *(char *)(s1 + 0x2F5) = 0x6B;
-                        *(char *)(s1 + 0x2F6) = 0;
-                        *(char *)(s1 + 0x2F7) = 0;
+                    if ((irand() & 1) != 0 && self->slideTime <= 0.0f &&
+                        self->unk16EC <= 0) {
+                        self->mode = 0;
+                        self->phase = 0x6B;
+                        self->step = 0;
+                        self->stepArg = 0;
                         break;
                     }
-                    func_002705D8(s1);
+                    func_002705D8(self);
                     break;
                 case 0x9:
                     if (flag6 != 0) {
-                        if (*(int *)(s1 + 0x6EC) != 0) {
+                        if (*(int *)((char *)self + 0x6EC) != 0) {
                             int t = 0x47;
-                            *(char *)(s1 + 0x2F7) = 1;
-                            *(char *)(s1 + 0x2F5) = t;
+                            self->stepArg = 1;
+                            self->phase = t;
                         } else {
-                            *(char *)(s1 + 0x2F7) = 0;
-                            *(char *)(s1 + 0x2F5) = 0x15;
+                            self->stepArg = 0;
+                            self->phase = 0x15;
                         }
-                        *(char *)(s1 + 0x2F6) = 0;
-                        *(char *)(s1 + 0x2F4) = 0;
+                        self->step = 0;
+                        self->mode = 0;
                         break;
                     }
-                    func_002705D8(s1);
+                    func_002705D8(self);
                     break;
                 case 0x1:
                 case 0x4:
@@ -1204,17 +1202,17 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
             }
             break;
         case 2:
-            if (!(nw & 0x20000000) && !(fv < *(float *)(s1 + 0x16C0))) {
-                *(int *)(s1 + 0x16D0) = old | 0x402;
+            if (!(nw & 0x20000000) && !(fv < self->slideTime)) {
+                self->emFlags = old | 0x402;
             }
-            *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) & 0xFFFF7FFF;
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            switch (*(unsigned char *)(s1 + 0x1650)) {
+            self->emFlags = self->emFlags & 0xFFFF7FFF;
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            switch (self->unk1650) {
                 default:
                 case 0x4:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x414);
                             s0v = EM_RES_REC(b, 0x418);
                         } break;
@@ -1231,7 +1229,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24B:
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x7B4);
                             s0v = EM_RES_REC(b, 0x7B8);
                         } break;
@@ -1254,7 +1252,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1420);
                             s0v = EM_RES_REC(b, 0x1424);
                         } break;
@@ -1270,29 +1268,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24F:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x414);
                             s0v = EM_RES_REC(b, 0x418);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x18F0);
                             s0v = EM_RES_REC(b, 0x18F4);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -1300,7 +1298,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
@@ -1310,13 +1308,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x208:
                         case 0x224:
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1808);
                             s0v = EM_RES_REC(b, 0x180C);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3418);
                             s0v = EM_RES_REC(b, 0x341C);
                         } break;
@@ -1329,28 +1327,28 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xFCC);
                             s0v = EM_RES_REC(b, 0xFD0);
                         } break;
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x1:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x404);
                             s0v = EM_RES_REC(b, 0x408);
                         } break;
@@ -1383,12 +1381,12 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x256:
                         case 0x25A:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x404);
                             s0v = EM_RES_REC(b, 0x408);
                         } break;
                         case 0x244: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3700);
                             s0v = EM_RES_REC(b, 0x3704);
                         } break;
@@ -1404,29 +1402,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24F:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBE0);
                             s0v = EM_RES_REC(b, 0xBE4);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x18F0);
                             s0v = EM_RES_REC(b, 0x18F4);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -1434,7 +1432,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
@@ -1444,13 +1442,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x208:
                         case 0x224:
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1818);
                             s0v = EM_RES_REC(b, 0x181C);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1818);
                             s0v = EM_RES_REC(b, 0x181C);
                         } break;
@@ -1463,28 +1461,28 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xFB4);
                             s0v = EM_RES_REC(b, 0xFB8);
                         } break;
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
                 case 0x5:
-                    switch (*(int *)(s1 + 0x564)) {
+                    switch (self->emNo) {
                         default: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x42C);
                             s0v = EM_RES_REC(b, 0x430);
                         } break;
@@ -1500,12 +1498,12 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24B:
                         case 0x256:
                         case 0x27E: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x7BC);
                             s0v = EM_RES_REC(b, 0x7C0);
                         } break;
                         case 0x244: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3700);
                             s0v = EM_RES_REC(b, 0x3704);
                         } break;
@@ -1526,7 +1524,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24E:
                         case 0x252:
                         case 0x25A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1440);
                             s0v = EM_RES_REC(b, 0x1444);
                         } break;
@@ -1542,29 +1540,29 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x24F:
                         case 0x278:
                         case 0x279: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xBE0);
                             s0v = EM_RES_REC(b, 0xBE4);
                         } break;
                         case 0x250:
                         case 0x251: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x18F0);
                             s0v = EM_RES_REC(b, 0x18F4);
                         } break;
                         case 0x260: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3038);
                             s0v = EM_RES_REC(b, 0x303C);
                         } break;
                         case 0x264: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x326C);
                             s0v = EM_RES_REC(b, 0x3270);
                         } break;
                         case 0x265: {
-                            int b = *(int *)(s1 + 0x304);
-                            cEm00 *h = *(cEm00 **)(s1 + 0x744);
+                            int b = EM_RES(self);
+                            cEm00 *h = self->unk744;
                             s2v = EM_RES_REC(b, 0x3724);
                             s0v = EM_RES_REC(b, 0x3728);
                             if (h != 0) {
@@ -1572,7 +1570,7 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                             }
                         } break;
                         case 0x26A: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x3D34);
                             s0v = EM_RES_REC(b, 0x3D38);
                         } break;
@@ -1582,13 +1580,13 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x208:
                         case 0x224:
                         case 0x241: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1818);
                             s0v = EM_RES_REC(b, 0x181C);
                         } break;
                         case 0x209:
                         case 0x21F: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1818);
                             s0v = EM_RES_REC(b, 0x181C);
                         } break;
@@ -1601,45 +1599,45 @@ __attribute__((section(".text.func_0020FBB8"))) void func_0020FBB8(cEm00 *self)
                         case 0x272:
                         case 0x273:
                         case 0x274: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0xFDC);
                             s0v = EM_RES_REC(b, 0xFE0);
                         } break;
                         case 0x220:
                         case 0x221:
                         case 0x222: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x1BC0);
                             s0v = EM_RES_REC(b, 0x1BC4);
                         } break;
                         case 0x223: {
-                            int b = *(int *)(s1 + 0x304);
+                            int b = EM_RES(self);
                             s2v = EM_RES_REC(b, 0x2D38);
                             s0v = EM_RES_REC(b, 0x2D3C);
                         } break;
                     }
                     break;
             }
-            func_002A8578(s1, s2v, s0v, 10, 0.0f, gb, 0);
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            func_002A8578(self, s2v, s0v, 10, 0.0f, gb, 0);
+            self->step = self->step + 1;
         case 3:
-            if (*(unsigned char *)(s1 + 0x1650) == 5) {
-                *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x20000;
+            if (self->unk1650 == 5) {
+                self->emFlags = self->emFlags | 0x20000;
             }
-            if (moveMotion(s1) != 0) {
-                if ((irand() & 1) != 0 && *(float *)(s1 + 0x16C0) <= 0.0f &&
-                    *(int *)(s1 + 0x16EC) <= 0) {
-                    *(char *)(s1 + 0x2F4) = 0;
-                    *(char *)(s1 + 0x2F5) = 0x6B;
-                    *(char *)(s1 + 0x2F6) = 0;
-                    *(char *)(s1 + 0x2F7) = 0;
+            if (moveMotion(self) != 0) {
+                if ((irand() & 1) != 0 && self->slideTime <= 0.0f &&
+                    self->unk16EC <= 0) {
+                    self->mode = 0;
+                    self->phase = 0x6B;
+                    self->step = 0;
+                    self->stepArg = 0;
                 } else {
-                    func_002705D8(s1);
+                    func_002705D8(self);
                 }
             }
             fv = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s1, fv);
-            cObjBase_addNullSpeed(s1, fv);
+            cObjBase_addNullSpeed_Rotation(self, fv);
+            cObjBase_addNullSpeed(self, fv);
             break;
     }
 }

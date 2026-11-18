@@ -26,7 +26,9 @@ typedef struct cOmSub {
     void *obj;                          /* 0x04 the object the record is bound to */
     void *ent;                          /* 0x08 the entry of obj it follows */
     void *part[COMSUB_PART_COUNT];      /* 0x0C model parts to recompute, 0 ends a slot */
-    char unk2C[0x104];
+    char unk2C[0x30 - 0x2C];
+    float unk30;                        /* 0x30 func_00194D10 sets 30.0 before it reverses the path */
+    char unk34[0x130 - 0x34];
     float curA;                         /* 0x130 current pair */
     float curB;                         /* 0x134 */
     float endA;                         /* 0x138 end pair */

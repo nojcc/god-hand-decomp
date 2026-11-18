@@ -1,16 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
+#include "godhand/player.h"
 
-extern int Getplayer(void);
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
 extern void func_002DB770(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern char D_007474A0[];
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/gameWork.h"
 
 
 
@@ -82,12 +82,12 @@ void func_002397C0(cEm00 *self)
     /* fallthrough */
     case 3:
     {
-        char *g;
+        GameWork *g;
         func_002DB770();
-        g = D_007474A0;
-        if (*(int *)(g + 8) & 0xF0)
+        g = &D_007474A0;
+        if (g->padBtn & 0xF0)
             self->unk568 = self->unk568 - 1;
-        if (*(int *)(g + 8) & 0xF00000)
+        if (g->padBtn & 0xF00000)
             self->unk568 = self->unk568 - 4;
     }
         self->hitFlash = 3.0f;

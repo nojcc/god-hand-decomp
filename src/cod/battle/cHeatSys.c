@@ -3,10 +3,9 @@
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/DispMgr.h"
+#include "godhand/gameWork.h"
 
-extern unsigned int D_00747A50;       /* lhu -> u16 */
 
-extern void cHeatSys_UpdateHeatLv(cHeatSys *self);
 /* Add `heat` to the gauge (boosted by 1.25 for some players and in heat mode), clamp at max,
  * move the floor up by the gain, and refresh lv. Does nothing while heat mode is on and heat > 0,
  * unless force is set. */
@@ -34,7 +33,7 @@ void cHeatSys_AddHeatGage(cHeatSys *self, int force, float heat)
         D_003BD6E8->plBar.flags = D_003BD6E8->plBar.flags | 0x01000000;
     }
 
-    mode = (unsigned short)D_00747A50;
+    mode = D_007474A0.room;
     if (mode == 0x801) {
         heat = heat * 1.25f;
     }

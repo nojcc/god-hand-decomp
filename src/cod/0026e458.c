@@ -3,14 +3,13 @@
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
-
-extern unsigned short D_00747A50;
+#include "godhand/gameWork.h"
 extern int cOmbb_ckCountdown(void *actor);
 extern void cOmbb_initCountdown(void *actor);
 
 extern void cEm00_setGoto(cEm00 *self, cVec *pos, int a2, int a3, float f);
 
-#define ROOM_FIRE_FIGHT     0x204       /* D_00747A50 value of the room where this applies */
+#define ROOM_FIRE_FIGHT     0x204       /* room id of the room where this applies */
 #define GOTO_FIRE_SPEED     300.0f
 #define GOTO_FIRE_MODE      0xD
 #define PHASE_GOTO_FIRE     0x13
@@ -26,7 +25,7 @@ int cEm00_startGotoToFire(cEm00 *self) {
     cOmbb *bomb;
     unsigned int i;
 
-    if (D_00747A50 != ROOM_FIRE_FIGHT) {
+    if (D_007474A0.room != ROOM_FIRE_FIGHT) {
         return 0;
     }
     for (i = 0; i < 2; i++) {

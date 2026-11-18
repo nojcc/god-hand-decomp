@@ -3,13 +3,13 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 
 /* func_00227CA8 — 0x00227CA8, 828 B — sn-2.95.3-136.
  * Template src/cod/00225e30.c (func_00225E30, jaccard 0.93). */
 
 extern int  Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern unsigned int irand(void);
-extern int  Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
@@ -81,10 +81,10 @@ __attribute__((section(".text.func_00227CA8"))) void func_00227CA8(cEm00 *self)
             float t = self->timer;
 
             if (0.0f < t) {
-                int q;
+                cGameObj *pl;
                 self->timer = t - self->speedRate;
-                q = Getplayer();
-                cGameObj_SetTgtTurn(self, *(cVec **)(q + 0xF0), self->speedRate * 0.19634954f);
+                pl = Getplayer();
+                cGameObj_SetTgtTurn(self, pl->pos, self->speedRate * 0.19634954f);
             }
             if (moveMotion(self)) {
                 if (25.0f < self->playerDist) {

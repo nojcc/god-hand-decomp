@@ -1,3 +1,6 @@
+/* cygnus-2.96 matched TU. */
+#include "godhand/cGameObj.h"
+
 extern volatile int D_003C814C;
 extern int D_003C80C8;
 extern int SleepThread(void);
@@ -27,76 +30,85 @@ void NoOp_282E50(void) {}
 __attribute__((section(".text.NoOp_282EB8")))
 void NoOp_282EB8(void) {}
 
+/* Mode, phase, step and step argument all 0. */
 __attribute__((section(".text.ClearBytes2F4To2F7_283170")))
-void ClearBytes2F4To2F7_283170(char *a0) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 0;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = 0;
+void ClearBytes2F4To2F7_283170(cGameObj *self) {
+    self->mode = 0;
+    self->phase = 0;
+    self->step = 0;
+    self->stepArg = 0;
 }
 
+/* Phase 1 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode1_283188")))
-void SetBytes2F4Mode1_283188(char *a0, char a1) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 1;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = a1;
+void SetBytes2F4Mode1_283188(cGameObj *self, int arg) {
+    self->mode = 0;
+    self->phase = 1;
+    self->step = 0;
+    self->stepArg = arg;
 }
 
+/* Phase 2 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode2_2831B0")))
-void SetBytes2F4Mode2_2831B0(char *a0, char a1) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 2;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = a1;
+void SetBytes2F4Mode2_2831B0(cGameObj *self, int arg) {
+    self->mode = 0;
+    self->phase = 2;
+    self->step = 0;
+    self->stepArg = arg;
 }
 
+/* Phase 4 at step 0. */
 __attribute__((section(".text.SetBytes2F4Mode4_283240")))
-void SetBytes2F4Mode4_283240(char *a0) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 4;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = 0;
+void SetBytes2F4Mode4_283240(cGameObj *self) {
+    self->mode = 0;
+    self->phase = 4;
+    self->step = 0;
+    self->stepArg = 0;
 }
 
+/* Phase 5 at step 0. */
 __attribute__((section(".text.SetBytes2F4Mode5_283258")))
-void SetBytes2F4Mode5_283258(char *a0) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 5;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = 0;
+void SetBytes2F4Mode5_283258(cGameObj *self) {
+    self->mode = 0;
+    self->phase = 5;
+    self->step = 0;
+    self->stepArg = 0;
 }
 
+/* Phase 7 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode7_283270")))
-void SetBytes2F4Mode7_283270(char *a0, char a1) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 7;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = a1;
+void SetBytes2F4Mode7_283270(cGameObj *self, int arg) {
+    self->mode = 0;
+    self->phase = 7;
+    self->step = 0;
+    self->stepArg = arg;
 }
 
+/* Phase 8 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode8_283288")))
-void SetBytes2F4Mode8_283288(char *a0, char a1) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 8;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = a1;
+void SetBytes2F4Mode8_283288(cGameObj *self, int arg) {
+    self->mode = 0;
+    self->phase = 8;
+    self->step = 0;
+    self->stepArg = arg;
 }
 
+/* Phase 0xB at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode11_283360")))
-void SetBytes2F4Mode11_283360(char *a0, char a1) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 0xB;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = a1;
+void SetBytes2F4Mode11_283360(cGameObj *self, int arg) {
+    self->mode = 0;
+    self->phase = 0xB;
+    self->step = 0;
+    self->stepArg = arg;
 }
 
+/* Phase 0xA at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode10_2833C0")))
-void SetBytes2F4Mode10_2833C0(char *a0, char a1) {
-    a0[0x2F4] = 0;
-    a0[0x2F5] = 0xA;
-    a0[0x2F6] = 0;
-    a0[0x2F7] = a1;
+void SetBytes2F4Mode10_2833C0(cGameObj *self, int arg) {
+    self->mode = 0;
+    self->phase = 0xA;
+    self->step = 0;
+    self->stepArg = arg;
 }
 
 __attribute__((section(".text.Forward33F130_3248D8")))

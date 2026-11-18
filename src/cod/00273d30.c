@@ -1,9 +1,9 @@
 #include "godhand/cEm00.h"
+#include "godhand/gameWork.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned int irand(void);
 extern void cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
-extern unsigned short D_00747A50;
 extern unsigned char D_005864F0[];
 
 /* sn-2.95.3-136 candidate. */
@@ -17,47 +17,46 @@ extern unsigned char D_005864F0[];
 __attribute__((section(".text.func_00273D30")))
 void func_00273D30(cEm00 *self)
 {
-    char *s0 = (char *)self;
-    int f = *(int *)(s0 + 0x16D4);
+    int f = self->emFlags2;
 
     if ((f & 2) != 0) {
         return;
     }
-    *(int *)(s0 + 0x16D4) = f | 2;
-    switch (*(int *)(s0 + 0x564)) {
+    self->emFlags2 = f | 2;
+    switch (self->emNo) {
     case 0x220: case 0x221: case 0x222: case 0x223:
-        if (D_00747A50 == 0x801) {
+        if (D_007474A0.room == 0x801) {
             unsigned int r = irand() % 100;
 
-            *(int *)(s0 + 0x560) = 0x3C1;
+            self->dropItem = 0x3C1;
             if (r >= 0x14) {
-                *(int *)(s0 + 0x560) = 0x3C8;
+                self->dropItem = 0x3C8;
             }
             if (r >= 0x28) {
-                *(int *)(s0 + 0x560) = 0x3D1;
+                self->dropItem = 0x3D1;
             }
             if (r >= 0x31) {
-                *(int *)(s0 + 0x560) = 0x3D0;
+                self->dropItem = 0x3D0;
             }
             if (r >= 0x32) {
-                *(int *)(s0 + 0x560) = 0x3E0;
+                self->dropItem = 0x3E0;
             }
             if (r >= 0x41) {
-                *(int *)(s0 + 0x560) = 0x3E1;
+                self->dropItem = 0x3E1;
             }
             if (r >= 0x3B) {
-                *(int *)(s0 + 0x560) = 0x3DE;
+                self->dropItem = 0x3DE;
             }
             if (r >= 0x50) {
-                *(int *)(s0 + 0x560) = 0x3E2;
+                self->dropItem = 0x3E2;
             }
             if (r >= 0x5A) {
-                *(int *)(s0 + 0x560) = 0x3DF;
+                self->dropItem = 0x3DF;
             }
         } else {
-            *(int *)(s0 + 0x560) = func_002920B0(&D_005864F0);
+            self->dropItem = func_002920B0(&D_005864F0);
             if (irand() % 100 >= 0x46) {
-                *(int *)(s0 + 0x560) = 0x3D8;
+                self->dropItem = 0x3D8;
             }
         }
         break;
@@ -67,5 +66,5 @@ void func_00273D30(cEm00 *self)
     default:
         break;
     }
-    cEmManage_CreateItem(&D_005864F0, *(int *)(s0 + 0xF0), *(int *)(s0 + 0x560), 1);
+    cEmManage_CreateItem(&D_005864F0, *(int *)((char *)self + 0xF0), self->dropItem, 1);
 }

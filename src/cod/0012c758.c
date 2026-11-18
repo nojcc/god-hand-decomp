@@ -1,7 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/heapArena.h"
-
-extern unsigned short D_00747A50;
+#include "godhand/gameWork.h"
 extern int D_005FEA60;
 extern void func_002DBE98(void);
 extern unsigned int D_00747A78;
@@ -10,7 +9,7 @@ extern char D_0041DCC8[];
 
 __attribute__((section(".text.IsSpecialConditionMet_12C758")))
 int IsSpecialConditionMet_12C758(char *a0) {
-    if (D_00747A50 != 0x608) {
+    if (D_007474A0.room != 0x608) {
         return 0;
     }
     if (*(int*)(a0 + 0x698) != 0) {

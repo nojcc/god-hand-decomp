@@ -6,7 +6,6 @@
 #ifdef NON_MATCHING
 /* func_00274FE8: enemy think: pick the next phase (0x2F4/0x2F5) from the hit points, the current
  * action id at 0x564 and the player distance at 0x618. */
-extern int func_00274150(char *self);
 extern int irand(void);
 
 static inline void SetPhase274FE8(char *p, int phase, int sub)
@@ -43,7 +42,7 @@ void func_00274FE8(void *self)
     }
     if (cEm00_startHitUnitAim(self))
         return;
-    if (func_00274150(p) == 0 && !(0.0f < *(float *)(p + 0x1734))) {
+    if (func_00274150((cEm00 *)p) == 0 && !(0.0f < *(float *)(p + 0x1734))) {
         switch (*(int *)(p + 0x564)) {
         case 0x220:
         case 0x221:

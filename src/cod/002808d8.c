@@ -1,9 +1,9 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern float SetMotionStep(void *a0, float f);
 
 /* sn-2.95.3-136 matched TU. */
@@ -20,7 +20,7 @@ __attribute__((section(".text.func_002808D8"))) void func_002808D8(cEm00 *self)
 {
     int res;
     unsigned long t0 = 0;
-    float r = *(float *)((char *)Getplayer() + 0x5A8);
+    float r = Getplayer()->speedRate;
     self->speedRate = r;
     SetMotionStep(self, r);
     switch (self->step) {

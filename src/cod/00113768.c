@@ -3,6 +3,7 @@
 #include "godhand/pl00.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
@@ -18,8 +19,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern int D_005864F0;
-extern void cHeatSys_AddHeatGage(void *a0, float a1, int a2);
-extern int D_005CB000;
 extern void func_002A52E8(void *a0, int a1);
 extern int func_002A53A8(void *a0, int a1, float f12, float f13, float f14);
 extern void func_002B1300(void *a0, float f12, float f13, float f14);
@@ -85,9 +84,9 @@ void func_00113768(pl00 *self)
     if ((self->base.seqFlags & 1) && self->unk15B0 != 0) {
         self->unk15B0 = 0;
         if (self->base.stepArg) {
-            cHeatSys_AddHeatGage(&D_005CB000, 80.0f, 1);
+            cHeatSys_AddHeatGage(&D_005CB000, 1, 80.0f);
         } else {
-            cHeatSys_AddHeatGage(&D_005CB000, 30.0f, 1);
+            cHeatSys_AddHeatGage(&D_005CB000, 1, 30.0f);
         }
     }
     func_0010A438(self);

@@ -2,6 +2,8 @@
 
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cModel.h"
+#include "godhand/cOmBase.h"
+#include "godhand/emPhaseTable.h"
 
 extern char D_00747470[];
 extern void classFADE_kill(void *p);
@@ -10,17 +12,13 @@ extern void func_00300D20(int a0, int a1);
 extern void Esp_killByGroupPair(int a0, int a1);
 extern void Slots_runHandlerForAll(int a0, int a1);
 extern void func_002FBA60(int a0, int a1, int a2);
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_002A87E8(void *a0, int a1);
-extern void func_001B76D8(void *a0);
+extern void func_001B76D8(cOmBase *self);
 extern void cOmShake_updateHeight(void *);
 extern void cOmBase_shakeHeight(void *);
 
 /* Start a screen fade (mode 0 fades to black, mode 1 from black): stop a running fade first, then flag a fade as running. */
-
-
-
-
 
 
 __attribute__((section(".text.ColiseumUi_StartFade")))
@@ -53,7 +51,6 @@ void ColiseumUi_StartFade(ColiseumBattle *self, unsigned char mode)
 /* Remove an effect from one or both of its lists: mode 0 the first list, 1 the second, 2 both. */
 
 
-
 __attribute__((section(".text.KillEffect_306168")))
 void KillEffect_306168(int a0, int a1, int a2) {
     switch (a2) {
@@ -71,7 +68,6 @@ void KillEffect_306168(int a0, int a1, int a2) {
 }
 
 /* Remove an effect (unless it is the null/-1 pair) from one or both lists; mode 0 first list, 1 second list with flag, 2 both. */
-
 
 
 __attribute__((section(".text.KillEffectWithFlag")))
@@ -94,123 +90,51 @@ void KillEffectWithFlag(int a0, int a1, int a2, unsigned char a3) {
 }
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
-struct Entry_func_001AC838 { short f0; short f2; short f4; short f6; };
-struct Table_func_001AC838 { struct Entry_func_001AC838 e[1]; };
 
 
-
-
-extern struct Table_func_001AC838 D_003BDC18;
+extern EmPhaseTable D_003BDC18;
 
 
 __attribute__((section(".text.UpdatePhaseWithPostStepA")))
-void UpdatePhaseWithPostStepA(void *a0)
+void UpdatePhaseWithPostStepA(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDC18 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDC18 + i8 + 4);
-    }
-    f0 = D_003BDC18.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    cOmShake_updateHeight(s0);
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDC18, self, self->mode);
+    cOmShake_updateHeight(self);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
 struct Entry_func_00180FD0 { short f0; short f2; short f4; short f6; };
-struct Table_func_00180FD0 { struct Entry_func_00180FD0 e[1]; };
 
 
-
-
-extern struct Table_func_00180FD0 D_003BDAF8;
+extern EmPhaseTable D_003BDAF8;
 
 
 __attribute__((section(".text.UpdatePhaseWithPostStepB")))
-void UpdatePhaseWithPostStepB(void *a0)
+void UpdatePhaseWithPostStepB(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDAF8 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDAF8 + i8 + 4);
-    }
-    f0 = D_003BDAF8.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    cOmBase_shakeHeight(s0);
-    func_002A87E8(s0, 0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDAF8, self, self->mode);
+    cOmBase_shakeHeight(self);
+    func_002A87E8(self, 0);
+    func_001B76D8(self);
 }
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
-struct Entry_func_001B5A58 { short f0; short f2; short f4; short f6; };
-struct Table_func_001B5A58 { struct Entry_func_001B5A58 e[1]; };
 
 
-
-
-extern struct Table_func_001B5A58 D_003BDD60;
-
+extern EmPhaseTable D_003BDD60;
 
 
 __attribute__((section(".text.UpdatePhaseThenCalcParts")))
-void UpdatePhaseThenCalcParts(void *a0)
+void UpdatePhaseThenCalcParts(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDD60 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDD60 + i8 + 4);
-    }
-    f0 = D_003BDD60.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_002A87E8(s0, 0);
-    cModel_calcParts((cModel *)s0);
-    cModel_calcWorldParts((cModel *)s0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDD60, self, self->mode);
+    func_002A87E8(self, 0);
+    cModel_calcParts((cModel *)self);
+    cModel_calcWorldParts((cModel *)self);
+    func_001B76D8(self);
 }

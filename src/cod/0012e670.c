@@ -301,47 +301,46 @@ void func_002606E8(unsigned char *p, int kind)
 
 
 __attribute__((section(".text.func_002464E0")))
-void func_002464E0(void *a0)
+void func_002464E0(cEm00 *self)
 {
-    char *s2 = (char *)a0;
     int v0;
     int v1;
     int p1;
     int p2;
     int t0;
 
-    *(float *)(s2 + 0x54C) = 3.0f;
-    *(char *)(s2 + 0x617) = 1;
-    switch (*(unsigned char *)(s2 + 0x2F6)) {
+    self->hitFlash = 3.0f;
+    self->unk617 = 1;
+    switch (self->step) {
     case 0:
-        *(char *)(s2 + 0x1864) = 0;
-        v0 = *(int *)(s2 + 0x304);
+        self->unk1864 = 0;
+        v0 = EM_RES(self);
         p1 = *(int *)(v0 + 0x2504) + v0;
         p2 = *(int *)(v0 + 0x2508) + v0;
-        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(s2) & 0xFFFF;
-        *(int *)(s2 + 0x16D0) = *(int *)(s2 + 0x16D0) & 0xDFFFFFFF;
-        func_002A8578(s2, p1, p2, 0xA, 0.0f, t0, 0);
-        *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
+        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+        self->emFlags = self->emFlags & 0xDFFFFFFF;
+        func_002A8578(self, p1, p2, 0xA, 0.0f, t0, 0);
+        self->step = self->step + 1;
     case 1:
-        if (moveMotion(s2) != 0) {
-            *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
+        if (moveMotion(self) != 0) {
+            self->step = self->step + 1;
         }
-        cObjBase_addNullSpeed_Rotation(s2, 1.0f);
-        cObjBase_addNullSpeed(s2, 1.0f);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
         break;
     case 2:
-        *(char *)(s2 + 0x1864) = 0;
-        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(s2) & 0xFFFF;
-        v1 = *(int *)(s2 + 0x304);
-        func_002A8578(s2, *(int *)(v1 + 0x24EC) + v1, *(int *)(v1 + 0x24F0) + v1,
+        self->unk1864 = 0;
+        t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+        v1 = EM_RES(self);
+        func_002A8578(self, *(int *)(v1 + 0x24EC) + v1, *(int *)(v1 + 0x24F0) + v1,
                       0xA, 0.0f, t0, 0);
-        *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
+        self->step = self->step + 1;
     case 3:
-        moveMotion(s2);
-        cObjBase_addNullSpeed_Rotation(s2, 1.0f);
-        cObjBase_addNullSpeed(s2, 1.0f);
-        if (*(int *)(s2 + 0x16D0) & 0x20000000) {
-            func_002705D8(s2);
+        moveMotion(self);
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
+        if (self->emFlags & 0x20000000) {
+            func_002705D8(self);
         }
         break;
     }

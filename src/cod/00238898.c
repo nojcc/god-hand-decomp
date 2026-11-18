@@ -4,16 +4,16 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_002DB770(void);
-extern char D_007474A0[];
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
+#include "godhand/gameWork.h"
 
 
 
@@ -99,14 +99,14 @@ __attribute__((section(".text.func_00238898"))) void func_00238898(cEm00 *self)
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
             cObjBase_addNullSpeed(self, 1.0f);
             if (*(short *)(s1 + 0x54A) > 0) {
-                char *g;
+                GameWork *g;
 
                 func_002DB770();
-                g = D_007474A0;
-                if ((*(int *)(g + 8) & 0xF0) != 0) {
+                g = &D_007474A0;
+                if ((g->padBtn & 0xF0) != 0) {
                     self->unk568--;
                 }
-                if ((*(int *)(g + 8) & 0xF00000) != 0) {
+                if ((g->padBtn & 0xF00000) != 0) {
                     self->unk568 -= 4;
                 }
                 if (self->unk568 <= 0) {

@@ -33,5 +33,12 @@ typedef char cHeatSys_size_check[sizeof(cHeatSys) == 0x18 ? 1 : -1];
 /* Add heat to the gauge; while heat mode is on a gain is dropped unless force is set. */
 void cHeatSys_AddHeatGage(cHeatSys *self, int force, float heat);
 float cHeatSys_GetHeatRatio(cHeatSys *self);
+int cHeatSys_GetHeatLv(cHeatSys *self);
+void cHeatSys_Initialize(cHeatSys *self);
+void cHeatSys_UpdateHeatLv(cHeatSys *self);
+void cHeatSys_UpdateHeatMax(cHeatSys *self, float unused);
+void cHeatSys_SetHeatGage(cHeatSys *self, float gage);
+void cHeatSys_SetHeatMode(cHeatSys *self, unsigned char mode);
+int cHeatSys_SubHeatGage(cHeatSys *self, int check, float amount);
 
 #endif

@@ -68,7 +68,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             /* fallthrough */
         case 3:
             *(char *)((char *)self + 0x617) = 1;
-            *(char *)((char *)self + 0x623) = 1;
+            self->forceShown = 1;
             self->hitFlash = 2.0f;
             *(char *)((char *)self + 0x531) = -1;
             cGameObj_SetTgtTurn(self, &self->unk16A0, self->speedRate * 0.09817477f);
@@ -126,7 +126,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             *(int *)((char *)self + 0x4A8) = *(int *)((char *)self + 0x4A8) & 0x7FFFFFFF;
             self->hitFlash = 5.0f;
             self->step += 1;
-            *(char *)((char *)self + 0x623) = 0;
+            self->forceShown = 0;
         }
             /* fallthrough */
         case 5:

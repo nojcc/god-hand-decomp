@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */
 __attribute__((section(".text.func_00393F80")))
@@ -9,56 +10,56 @@ int func_00393F80(char *p) {
     return 2;
 }
 
-/* compiler: sn-2.95.3-136 ; extra keys: none */
+/* Phase 0xD at step 0, 2 or 4 for kinds 0 to 2. */
 __attribute__((section(".text.func_002833D8")))
-void func_002833D8(char *obj, unsigned char mode)
+void func_002833D8(cGameObj *self, unsigned char kind)
 {
-    switch (mode) {
+    switch (kind) {
     case 0:
     default:
-        obj[0x2F4] = 0;
-        obj[0x2F5] = 0xD;
-        obj[0x2F6] = 0;
-        obj[0x2F7] = 0;
+        self->mode = 0;
+        self->phase = 0xD;
+        self->step = 0;
+        self->stepArg = 0;
         break;
     case 1:
-        obj[0x2F4] = 0;
-        obj[0x2F5] = 0xD;
-        obj[0x2F6] = 2;
-        obj[0x2F7] = 0;
+        self->mode = 0;
+        self->phase = 0xD;
+        self->step = 2;
+        self->stepArg = 0;
         break;
     case 2:
-        obj[0x2F4] = 0;
-        obj[0x2F5] = 0xD;
-        obj[0x2F6] = 4;
-        obj[0x2F7] = 0;
+        self->mode = 0;
+        self->phase = 0xD;
+        self->step = 4;
+        self->stepArg = 0;
         break;
     }
 }
 
-/* compiler: sn-2.95.3-136 ; extra keys: none */
+/* Phase 0xE at step 0, 2 or 4 for kinds 0 to 2. */
 __attribute__((section(".text.func_00283438")))
-void func_00283438(char *obj, unsigned char mode)
+void func_00283438(cGameObj *self, unsigned char kind)
 {
-    switch (mode) {
+    switch (kind) {
     case 0:
     default:
-        obj[0x2F4] = 0;
-        obj[0x2F5] = 0xE;
-        obj[0x2F6] = 0;
-        obj[0x2F7] = 0;
+        self->mode = 0;
+        self->phase = 0xE;
+        self->step = 0;
+        self->stepArg = 0;
         break;
     case 1:
-        obj[0x2F4] = 0;
-        obj[0x2F5] = 0xE;
-        obj[0x2F6] = 2;
-        obj[0x2F7] = 0;
+        self->mode = 0;
+        self->phase = 0xE;
+        self->step = 2;
+        self->stepArg = 0;
         break;
     case 2:
-        obj[0x2F4] = 0;
-        obj[0x2F5] = 0xE;
-        obj[0x2F6] = 4;
-        obj[0x2F7] = 0;
+        self->mode = 0;
+        self->phase = 0xE;
+        self->step = 4;
+        self->stepArg = 0;
         break;
     }
 }

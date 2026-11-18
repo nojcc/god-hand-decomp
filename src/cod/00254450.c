@@ -239,11 +239,11 @@ void cEm00_hitReaction(void *a0)
         func_002A8578(self, recA, recB, 3, 0.0f, nb, 0);
         cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
         {
-            char *link = (char *)self->unk698;
+            cDamageTake *take = self->unk698;
 
             self->timerA = 0;
-            if (link != 0) {
-                cEm00 *watched = *(cEm00 **)(link + 0x34);
+            if (take != 0) {
+                cGameObj *watched = (cGameObj *)take->attacker;
 
                 if (watched != 0) {
                     self->timerA = 0xA;
@@ -705,11 +705,11 @@ void cEm00_hitReaction(void *a0)
             self->stepArg = 1;
         }
         {
-            char *link = (char *)self->unk698;
+            cDamageTake *take = self->unk698;
 
             self->timerA = 0;
-            if (link != 0) {
-                cEm00 *watched = *(cEm00 **)(link + 0x34);
+            if (take != 0) {
+                cGameObj *watched = (cGameObj *)take->attacker;
 
                 if (watched != 0) {
                     self->timerA = 0xA;

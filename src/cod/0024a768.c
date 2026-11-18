@@ -15,8 +15,6 @@ extern int Obj2B28_CopyU16_8C2_To38_ReturnZero(void *);
 extern int Obj2B28_ReturnZero_FF0(void *);
 extern int Obj2B28_ReturnZero_FF8(void *);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void Obj2810_ClearState_4(void *a0);
-extern void SetBytes2F4Mode4_283240(void *a0);
 extern int irand(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -124,12 +122,12 @@ __attribute__((section(".text.func_0024A768"))) void func_0024A768(cEm00 *self)
             v1 = (char *)EM_RES(self);
             func_002A8578(self, EM_RES_REC((int)v1, 0x3D8C), EM_RES_REC((int)v1, 0x3D90), 0xA, 0.0f,
                           nb, 0);
-            if ((void *)self->sub0 != 0)
-                Obj2810_ClearState_4((void *)self->sub0);
-            if ((void *)self->sub1 != 0)
-                SetBytes2F4Mode4_283240((void *)self->sub1);
-            if ((void *)self->sub2 != 0)
-                SetBytes2F4Mode4_283240((void *)self->sub2);
+            if (self->sub0 != 0)
+                Obj2810_ClearState_4(self->sub0);
+            if (self->sub1 != 0)
+                SetBytes2F4Mode4_283240(self->sub1);
+            if (self->sub2 != 0)
+                SetBytes2F4Mode4_283240(self->sub2);
             StoreMotionParamsBoth_2609A8(self, 0x32, 0x3B, 0x3E, -1, 0);
             self->timer = 0.0f;
             self->unk568 = 0;

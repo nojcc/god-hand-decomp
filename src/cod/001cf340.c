@@ -4,10 +4,11 @@
 #include "godhand/mtx.h"
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 
 extern void func_001331B8(char *a0, long a1, int a2);
 extern char D_005CAE50[];
-extern char *Getplayer(void);
 extern void sceVu0ApplyMatrix(void *dst, void *m, void *src);
 
 /* Reset a weapon to its resting state: release the hold bit, normal anim rate, state bytes cleared and phase 2. */
@@ -155,7 +156,7 @@ void cOmWeapon_kickOff(cOmWeapon *self) {
     self->fallSpeed = 0.065f;
     self->parent = 0;
     mtx = &f[8];
-    MtxInitRotY(mtx, *(float *)(Getplayer() + 0x104));
+    MtxInitRotY(mtx, Getplayer()->rot.y);
     self->vel.x = 0.1f;
     self->vel.y = 0.05f;
     self->vel.z = -0.1f;

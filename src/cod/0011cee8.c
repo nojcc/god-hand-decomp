@@ -13,18 +13,15 @@ extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
 extern int D_00747A24;
 extern char D_005864F0[];
-extern void *Getplayer(void);
 #include "godhand/cCollisionSolid.h"
 #include "godhand/pl00.h"
 #include "godhand/motion.h"
 #include "godhand/cEm00.h"
 #include "godhand/cSnd.h"
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float a2);
 extern void func_00274FE8(void *a0);
 extern void func_00262750(void *a0, int a1);
 extern int irand(void);
 extern void func_00129718(void *a0, void *a1, int a2);
-extern char D_005CB000[];
 
 /* func_0011CEE8, 688 B, sn-2.95.3-136. Body: wave 21 V1 (exact with -malign-loops=2) + L1 w34 nested Duff do{}while(0). */
 
@@ -265,6 +262,7 @@ void func_00122140(pl00 *self)
 
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 __attribute__((section(".text.func_0025C010")))
 void func_0025C010(cEm00 *self)
@@ -304,7 +302,7 @@ void func_0025C010(cEm00 *self)
 
                 vt = cGameObj_vt((cGameObj *)self);
                 vt->unkAC((char *)self + vt->unkA8Delta, 0x32, s1, 1, 0);
-                cHeatSys_AddHeatGage(D_005CB000, 0, 10.0f);
+                cHeatSys_AddHeatGage(&D_005CB000, 0, 10.0f);
             }
         }
         if (moveMotion(self) != 0) {

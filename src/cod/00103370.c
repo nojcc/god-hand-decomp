@@ -3,49 +3,58 @@
 #include "godhand/cObjBase.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
+#include "godhand/cObj.h"
+
 extern void func_0012C348(void *a0, int a1);
-extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
-extern void cObjBase_addNullSpeed(void *a0, float s);
+extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
+extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 extern unsigned int D_00747A24;
 
-__attribute__((section(".text.func_00103370")))
-void func_00103370(void *a0)
-{
-    char *s2 = (char *)a0;
-    char *s3;
-    char *v0;
-    int p1, p2;
-    float one;
+/* An object that runs the death demo, counting down a timer of its own at 0x1490. */
+typedef struct cDieDemoObj {
+    cGameObj base;                      /* 0x000 */
+    char unk5B0[0x1490 - 0x5B0];
+    int demoLeft;                       /* 0x1490 frames left before the demo sets D_00747A24 bit 3 */
+} cDieDemoObj;
 
-    s3 = (char *)Getplayer();
-    *(float *)(s2 + 0x54C) = 30.0f;
-    switch (*(unsigned char *)(s2 + 0x2F6)) {
+/* Death demo: start the demo sound, drop the level points, set the player's state 3 and play the death motion with
+ * its effect; then count the timer down and play the motion out, setting D_00747A24 bit 3 when either ends. */
+__attribute__((section(".text.func_00103370")))
+void func_00103370(cDieDemoObj *self)
+{
+    cGameObj *pl;
+    int res;
+    int motA;
+    int motB;
+
+    pl = Getplayer();
+    self->base.hitFlash = 30.0f;
+    switch (self->base.step) {
     case 0:
-        v0 = *(char **)(s2 + 0x304);
-        p1 = *(int *)(v0 + 0x4C) + (int)v0;
-        p2 = *(int *)(v0 + 0x50) + (int)v0;
+        res = (int)self->base.pack;
+        motA = EM_RES_REC(res, 0x4C);
+        motB = EM_RES_REC(res, 0x50);
         cSnd_DieDemoStart(&D_005FEE00);
         cCoreSave_dropLevelPoint(&D_00569B70);
-        func_0012C348(s3, 3);
-        func_002A8578(s2, p1, p2, 2, 0.0f, 0, 0);
-        SetEffect(0, 0x53, s2, 0, -1, 0xFFFFFFFF);
-        *(int *)(s2 + 0x1490) = 0x82;
-        *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
+        func_0012C348(pl, 3);
+        func_002A8578(self, motA, motB, 2, 0.0f, 0, 0);
+        SetEffect(0, 0x53, self, 0, -1, 0xFFFFFFFF);
+        self->demoLeft = 0x82;
+        self->base.step = self->base.step + 1;
     case 1:
-        if (*(int *)(s2 + 0x1490) != 0) {
-            *(int *)(s2 + 0x1490) = *(int *)(s2 + 0x1490) - 1;
+        if (self->demoLeft != 0) {
+            self->demoLeft = self->demoLeft - 1;
         } else {
             D_00747A24 = D_00747A24 | 8;
         }
-        if (moveMotion(s2) != 0) {
+        if (moveMotion(self) != 0) {
             D_00747A24 = D_00747A24 | 8;
-            *(unsigned char *)(s2 + 0x2F6) = *(unsigned char *)(s2 + 0x2F6) + 1;
+            self->base.step = self->base.step + 1;
         }
-        one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(s2, one);
-        cObjBase_addNullSpeed(s2, one);
+        cObjBase_addNullSpeed_Rotation((cObjBase *)self, 1.0f);
+        cObjBase_addNullSpeed((cObjBase *)self, 1.0f);
         break;
     case 2:
         break;

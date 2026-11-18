@@ -1,18 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDoor.h"
+#include "godhand/gameWork.h"
 
 extern void cDoor_setDoorJump(cDoor *self);
 extern char D_00586AF0[];
 extern int cEvent_getObjPtr(void *event, unsigned short kind, unsigned char no);
 
-extern unsigned short D_00747A50;               /* room id the player is in */
-
 
 /* A jump point equal to the current room id means none (0xFFFF). */
 static __inline__ unsigned short cDoor_pointId(unsigned short id)
 {
-    if (id == D_00747A50)
+    if (id == D_007474A0.room)
         return 0xFFFF;
     return id;
 }

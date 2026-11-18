@@ -3,14 +3,16 @@
 #include "godhand/cDamageUnit.h"
 
 #include "godhand/cOmBase.h"
+#include "godhand/cOmHitHolder.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
+#include "godhand/emPhaseTable.h"
 
-extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_001B6FB8(cOmBase *self);
 extern void cOmBase_setMeshDispFromLayer(cOmBase *self, int layer, int hide);
 extern int espSys_effDataRegist(void *table, int id, void *data);
@@ -24,64 +26,23 @@ extern void cTaskWork_sleep(cTaskWork *task, int frames);
 /* Per-frame update of an object with a hit record: clear the record and its collision, run the handler picked by the mode byte (one pointer-to-member record), rebuild the model parts and copy the live positions to the saved ones. */
 
 
-#define OM_OFFSET_MODE  0x2F4           /* mode byte, read through the raw offset as retail does */
-#define OM_MODE(s)      (*(unsigned char *)((s) + OM_OFFSET_MODE))
-
-/* One pointer-to-member record, g++ 2.x layout: this adjust, vtable index (-1 for a plain function) and the vtable offset or function. */
-typedef struct PhaseMemFn {
-    short delta;
-    short index;
-    short vtOfs;
-    short pad6;
-} PhaseMemFn;
-
-typedef struct { char b[8]; } PhaseTbl;
-
-typedef struct cOmHitHolder {
-    cOmBase base;
-    char unk5E0[0x20];
-    cDamageTake *take;                  /* 0x600 */
-} cOmHitHolder;
-
-extern PhaseTbl D_00429DD0;
-
-
+extern EmPhaseTable D_00429DD0;
 
 
 __attribute__((section(".text.cOmBase_updateWithHitRecord")))
 void cOmBase_updateWithHitRecord(cOmHitHolder *self)
 {
-    PhaseMemFn tbl[1];
-    char *e;
-    char *s0 = (char *)self;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
+    EmPhaseTable tbl;
 
-    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0)
+    if (ClearField5B4IfFlagUnset_1B76B0(&self->base) == 0)
         return;
     if (self->take != 0) {
         self->take->kind = 0;
         self->take->power = 0;
         cDamageUnit_SetDamageCollActive((cDamageUnit *)self->take, 0);
     }
-    *(PhaseTbl *)tbl = D_00429DD0;
-    i8 = OM_MODE(s0) * 8;
-    e = (char *)tbl + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)tbl + i8 + 4);
-    }
-    f0 = tbl[OM_MODE(s0)].delta;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
+    tbl = D_00429DD0;
+    EM_PHASE_RUN(&tbl, self, self->base.mode);
     cModel_calcParts((cModel *)self);
     cVec_copy3(&self->base.posA, self->base.pos);
     cVec_copy3(&self->base.posB, &self->base.rot);
@@ -149,10 +110,6 @@ int cEmBase_checkDeadFlag(cEm00 *self)
 #define COMBASE_F2_BIT3  0x8            /* flags2 bit 3 */
 
 
-
-
-
-
 /* Init of an object that owns effect data 0x241: base init, show layer 0, hide layer 0x40, register the data record. */
 __attribute__((section(".text.cOmBase_initEffData241")))
 int cOmBase_initEffData241(cOmBase *self)
@@ -170,11 +127,6 @@ int cOmBase_initEffData241(cOmBase *self)
 
 extern unsigned char D_003C2554;        /* the loading task is running */
 extern unsigned char D_003C2555;        /* the loading is finished */
-
-
-
-
-
 
 
 /* Task body of the now-loading screen: set it up, then update and draw it every frame until the loading is finished, when the task exits. */

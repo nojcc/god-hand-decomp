@@ -1,29 +1,37 @@
 /* TU: CasinoWork [casino] - recovered C++ class. */
 #include "godhand/cCoreSave.h"
-extern int Getplayer(void);
-extern void cHeatSys_SetHeatGage(void *a0, float a1);
-extern int D_005CB000;
+#include "godhand/player.h"
 
+/* The player state saved for the casino warm-up room. */
+typedef struct CasinoWork {
+    int flags;                  /* 0x0 bit 0 cleared once the state is restored */
+    int vital;                  /* 0x4 */
+    float heat;                 /* 0x8 */
+    short levelPoint;           /* 0xC */
+    unsigned short godItemNum;  /* 0xE */
+} CasinoWork;
+
+/* Restore the saved vital, heat, level points and god items to the player, then clear bit 0 of flags. */
 __attribute__((section(".text.CasinoWork_ResetWarmUpRoom")))
-void CasinoWork_ResetWarmUpRoom(int *a0)
+void CasinoWork_ResetWarmUpRoom(CasinoWork *self)
 {
-    int obj;
+    cGameObj *pl;
     int i;
     int v;
 
-    obj = Getplayer();
-    v = a0[1];
-    if (v >= *(short *)(obj + 0x548)) {
-        *(short *)(obj + 0x54A) = *(unsigned short *)(obj + 0x548);
+    pl = Getplayer();
+    v = self->vital;
+    if (v >= pl->hpMax) {
+        pl->hp = pl->hpMax;
     } else {
-        *(short *)(obj + 0x54A) = v;
+        pl->hp = v;
     }
-    cCoreSave_setVital(&D_00569B70, a0[1]);
-    cHeatSys_SetHeatGage(&D_005CB000, *(float *)((char *)a0 + 0x8));
-    cCoreSave_setLevelPoint(&D_00569B70, *(short *)((char *)a0 + 0xC));
+    cCoreSave_setVital(&D_00569B70, self->vital);
+    cHeatSys_SetHeatGage(&D_005CB000, self->heat);
+    cCoreSave_setLevelPoint(&D_00569B70, self->levelPoint);
     cCoreSave_clearGodItem(&D_00569B70);
-    for (i = 0; i < *(unsigned short *)((char *)a0 + 0xE); i++) {
+    for (i = 0; i < self->godItemNum; i++) {
         cCoreSave_addGodItem(&D_00569B70, 1);
     }
-    *a0 = *a0 & -2;
+    self->flags &= ~1;
 }

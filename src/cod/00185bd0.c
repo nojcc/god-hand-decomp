@@ -4,95 +4,47 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cSnd.h"
 #include "godhand/cObjBase.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/emPhaseTable.h"
 
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
-extern void func_001B76D8(void *a0);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
+extern void func_001B76D8(cOmBase *self);
 extern void cOmBase_setMeshDispFromLayer(void *model, int layer, int show);
 extern void func_001B6FB8(void *a0);
 extern void func_001BFB28(void *a0);
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
-struct Entry_func_00194480 { short f0; short f2; short f4; short f6; };
-struct Table_func_00194480 { struct Entry_func_00194480 e[1]; };
 
 
-
-extern struct Table_func_00194480 D_003BDB48;
-
+extern EmPhaseTable D_003BDB48;
 
 
 __attribute__((section(".text.UpdatePhaseWithHitCheckB")))
-void UpdatePhaseWithHitCheckB(void *a0)
+void UpdatePhaseWithHitCheckB(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDB48 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDB48 + i8 + 4);
-    }
-    f0 = D_003BDB48.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDB48, self, self->mode);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (cGameObj *)self);
+    func_001B76D8(self);
 }
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
-struct Entry_func_001A5470 { short f0; short f2; short f4; short f6; };
-struct Table_func_001A5470 { struct Entry_func_001A5470 e[1]; };
 
 
-
-extern struct Table_func_001A5470 D_003BDB98;
-
+extern EmPhaseTable D_003BDB98;
 
 
 __attribute__((section(".text.UpdatePhaseWithHitCheckC")))
-void UpdatePhaseWithHitCheckC(void *a0)
+void UpdatePhaseWithHitCheckC(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDB98 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDB98 + i8 + 4);
-    }
-    f0 = D_003BDB98.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)s0);
-    func_001B76D8(s0);
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    EM_PHASE_RUN(&D_003BDB98, self, self->mode);
+    cCollisionSolidManage_ChkHit(&D_00462FC0, (cGameObj *)self);
+    func_001B76D8(self);
 }
 
 /* Show the mesh layer picked by arg1 (0 or 1) and hide the other; arg1 == 4 plays the sound effect and spawns effect 0x298 instead. */
-
-
-
 
 
 __attribute__((section(".text.SetMeshLayerAndPlayEffect")))
@@ -115,10 +67,6 @@ void SetMeshLayerAndPlayEffect(void *self, int arg1)
 }
 
 /* Spawn the damage-take volume of an object: build the three float vectors and register them, then set the two shorts at +0x548 and +0x54A. */
-
-
-
-
 
 
 __attribute__((section(".text.SpawnDamageTakeVolumeC")))
@@ -169,10 +117,6 @@ int SpawnDamageTakeVolumeC(char *p)
 /* Spawn the damage-take volume of an object: build the three float vectors and register them, then set the two shorts at +0x548 and +0x54A. */
 
 
-
-
-
-
 __attribute__((section(".text.SpawnDamageTakeVolumeD")))
 int SpawnDamageTakeVolumeD(char *p)
 {
@@ -219,10 +163,6 @@ int SpawnDamageTakeVolumeD(char *p)
 }
 
 /* Spawn the damage-take volume of an object: build the three float vectors and register them, then set the two shorts at +0x548 and +0x54A. */
-
-
-
-
 
 
 __attribute__((section(".text.SpawnDamageTakeVolumeE")))

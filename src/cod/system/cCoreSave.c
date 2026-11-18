@@ -1,8 +1,8 @@
 /* TU: cCoreSave [system] - recovered C++ class. */
 #include "godhand/cCoreSave.h"
 #include "include_asm.h"
+#include "godhand/gameWork.h"
 
-extern unsigned short D_00747A50;   /* current stage id */
 extern int D_0061A990[];
 extern int D_003BF160[];            /* levelPoint thresholds, one per game level */
 extern int D_00747A34;              /* cheat flags */
@@ -191,7 +191,7 @@ void cCoreSave_stageInit(cCoreSave *self) {
     cCoreSave_initContinueNum(self);
     cCoreSave_initItem(self);
     func_002D9D48(D_0061A990, 0);
-    if (D_00747A50 != 0x20) {
+    if (D_007474A0.room != 0x20) {
         cCoreSave_setVital(self, cCoreSave_getVitalMax(self));
     }
 }

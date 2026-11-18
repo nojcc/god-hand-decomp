@@ -9,9 +9,9 @@
 
 extern void *InitFields_1B6E90(void *self);
 #include "godhand/objField.h"
+#include "godhand/player.h"
 extern void sceVu0InversMatrix(float *dst, float *src);
 extern void func_001A6FB0(void *self);
-extern char *Getplayer(void);
 extern void func_001A70D8(void *self, cVec *pos, float radius);
 extern char *FileNameFromObjId(char *out, int objId);
 extern unsigned char GetField_601_17B810(void *self);
@@ -95,11 +95,11 @@ void func_001A6F00(Obj1A6F00 *self)
 {
     cEmSlot *slot;
     cVec pos;
-    char *player;
+    cGameObj *player;
     sceVu0InversMatrix(self->invMtx, self->mtx);
     func_001A6FB0(self);
     player = Getplayer();
-    VU0_LQC2(4, *(cVec **)(player + 0xF0), 0);
+    VU0_LQC2(4, player->pos, 0);
     VU0_SQC2(4, &pos, 0);
     func_001A70D8(self, &pos, WATCH_RADIUS);
     for (slot = cEmManage_getTop(&D_005864F0); slot != 0; slot = slot->next) {

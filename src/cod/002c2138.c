@@ -1,12 +1,12 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cSceAtManager.h"
 #include "godhand/cScenario.h"
+#include "godhand/gameWork.h"
 #define SCEAT_TYPE_HIT     0xB          /* units with the enable flag that FindNodeByHit looks at */
 
 extern char *D_003C23A4;
 extern void cTaskWork_exit(cTaskWork *work);
 extern void cTaskPool_killAll(void *a0);
-extern char D_007474A0[];
 extern char D_0061A990[];
 extern void func_002D9BD0(void *a0);
 extern void func_002D9BD8(void *a0);
@@ -130,7 +130,7 @@ void ClearActorList_2C32C0(void *a0) {
 __attribute__((section(".text.ResetActorState_2C3440")))
 void ResetActorState_2C3440(void *a0) {
     int v0;
-    char *b = D_007474A0;
+    GameWork *b = &D_007474A0;
     *(unsigned short*)((char*)a0 + 0x112) = 0xFFFF;
     *(int*)((char*)a0 + 0x104) = 0;
     *(int*)((char*)a0 + 0xEC) = 0;
@@ -141,12 +141,12 @@ void ResetActorState_2C3440(void *a0) {
     *(int*)((char*)a0 + 0x100) = 0;
     *(char*)((char*)a0 + 0x108) = 0;
     *(short*)((char*)a0 + 0xE8) = 0;
-    *(int*)(b + 0x610) = 0xFFFFu;
+    *(int*)(((char *)b + 0x610)) = 0xFFFFu;
     v0 = *(int*)((char*)a0 + 0x48);
     v0 &= -2;
     v0 &= -3;
     *(int*)((char*)a0 + 0x48) = v0;
-    if ((*(int*)(b + 0x590) & 1) == 0) {
+    if ((*(int*)(((char *)b + 0x590)) & 1) == 0) {
         void (*f)(void);
         func_002D9BD0(D_0061A990);
         f = *(void (**)(void))(*(char**)((char*)a0 + 0xD4) + 8);

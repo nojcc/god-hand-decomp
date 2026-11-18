@@ -3,14 +3,12 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern void Obj2810_SetState_9_a1(char *a0, int a1);
-extern void SetBytes2F4Mode8_283288(char *a0, char a1);
 extern void func_0026DB00(void *a0, int a1, int a2);
 
 /* Phase machine on the step byte, 2 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,
@@ -33,18 +31,18 @@ __attribute__((section(".text.func_0024B3D0"))) void func_0024B3D0(cEm00 *self)
                 b2 = EM_RES(self);
                 a2v = EM_RES_REC(b2, 0x3DB8);
                 if (self->sub0 != 0)
-                    Obj2810_SetState_9_a1((char *)self->sub0, 1);
+                    Obj2810_SetState_9_a1(self->sub0, 1);
                 if (self->sub1 != 0)
-                    SetBytes2F4Mode8_283288((char *)self->sub1, 1);
+                    SetBytes2F4Mode8_283288(self->sub1, 1);
                 if (self->sub2 != 0)
-                    SetBytes2F4Mode8_283288((char *)self->sub2, 1);
+                    SetBytes2F4Mode8_283288(self->sub2, 1);
             } else {
                 if (self->sub0 != 0)
-                    Obj2810_SetState_9_a1((char *)self->sub0, 0);
+                    Obj2810_SetState_9_a1(self->sub0, 0);
                 if (self->sub1 != 0)
-                    SetBytes2F4Mode8_283288((char *)self->sub1, 0);
+                    SetBytes2F4Mode8_283288(self->sub1, 0);
                 if (self->sub2 != 0)
-                    SetBytes2F4Mode8_283288((char *)self->sub2, 0);
+                    SetBytes2F4Mode8_283288(self->sub2, 0);
             }
             func_002A8578(self, a1v, a2v, 0xA, 0.0f, t0, 0);
         }
@@ -53,7 +51,7 @@ __attribute__((section(".text.func_0024B3D0"))) void func_0024B3D0(cEm00 *self)
         case 1:
             if (0.0f < self->timer) {
                 self->timer = self->timer - self->speedRate;
-                cGameObj_SetTgtTurn(self, *(cVec **)((char *)Getplayer() + 0xF0),
+                cGameObj_SetTgtTurn(self, Getplayer()->pos,
                                     self->speedRate * 0.0122718466f);
             }
             if (moveMotion(self) != 0) {

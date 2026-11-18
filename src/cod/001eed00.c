@@ -3,6 +3,7 @@
 /* sn-2.95.3-136, extern_jtbl D_0042BE40 */
 #include "godhand/ColiseumBattle.h"
 #include "godhand/DispMgr.h"
+#include "godhand/player.h"
 
 extern unsigned char D_00747470[];
 extern int D_00747A84;
@@ -10,7 +11,6 @@ extern unsigned char D_00586AA5;
 extern char D_005CAE50[];
 extern ColiseumVtEnt D_003BE570[];
 extern ColiseumVtEnt D_003BE710[];
-extern int Getplayer(void);
 extern void cCollisionScroll_SetLayerCollEnable(void *scroll, int layer, int on);
 extern void displayScrollLayer(int layer, int on);
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
@@ -29,7 +29,7 @@ __attribute__((section(".text.ColiseumBattle_Update")))
 void ColiseumBattle_Update(ColiseumBattle *self)
 {
     char *layers;
-    char *player;
+    cGameObj *pl;
     int done;
     int alive;
     int hp;
@@ -116,10 +116,10 @@ void ColiseumBattle_Update(ColiseumBattle *self)
             CustomID_setNumberAndShow(&self->ui, self->ring.unk0A - self->unkB88, 1);
         }
         D_003BE710[self->ring.ringNo].pfn((char *)self + D_003BE710[self->ring.ringNo].delta);
-        player = (char *)Getplayer();
+        pl = Getplayer();
         hp = 0;
-        if (player != 0) {
-            hp = *(short *)(player + 0x54A);
+        if (pl != 0) {
+            hp = pl->hp;
         }
         if (hp == 0) {
             break;
@@ -136,12 +136,12 @@ void ColiseumBattle_Update(ColiseumBattle *self)
             } else {
                 ColiseumBattle_PlCtrlOff(self, 1);
                 D_00586AA5 = 1;
-                *(float *)(player + 0x54C) = 1800.0f;
+                pl->hitFlash = 1800.0f;
                 self->state = self->state + 2;
             }
         } else if (self->unkB88 >= self->ring.unk0A) {
             ColiseumBattle_PlCtrlOff(self, 1);
-            *(float *)(player + 0x54C) = 1800.0f;
+            pl->hitFlash = 1800.0f;
             self->timer = 0x3C;
             self->state = self->state + 1;
         }

@@ -7,6 +7,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
 #include "godhand/Poker.h"
+#include "godhand/gameWork.h"
 
 extern unsigned char D_0074748C;
 extern short D_00568240[];
@@ -21,7 +22,6 @@ extern int *D_003C2384;
 extern char D_0042B6E8[];
 extern char D_005E8040[];
 extern void KeySlotTable_set(char *slot, int a1, int a2);
-extern unsigned short D_00747A50;
 extern unsigned char D_005FEA60[];
 extern int FindEntityAtPosition_2C2638(void *mgr, void *shape, void *centerOut, float *extentOut);
 extern void func_002E83D8(int a0, int a1, int a2, int a3, int t0);
@@ -154,7 +154,7 @@ int cEm00_startHitUnitAim(cEm00 *self)
     cVec center;
     float extent;
     VU0_SQC2_VF0(&center, 0);
-    if (D_00747A50 != 0x700) {
+    if (D_007474A0.room != 0x700) {
         return 0;
     }
     if (self->emNo < 0x224) {

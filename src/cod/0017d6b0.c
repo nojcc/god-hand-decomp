@@ -1,19 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cOmBase.h"
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/player.h"
+#include "godhand/cModel.h"
+#include "godhand/cEmManage.h"
+#include "godhand/emPhaseTable.h"
 
-extern cGameObj *Getplayer(void);
 extern int D_003C264C;
 extern int D_00747A24;
 extern void func_002BFC80(int a0);
 extern void cScenario_beginRoomJump_2C4548(cScenario *self, int room, float angle, void *pos, int a3, unsigned int t0, int t1);
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
-extern void func_001B76D8(void *a0);
-extern float cEmManage_GetSpeedRate(void *a0);
-extern char D_005864F0[];
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
+extern void func_001B76D8(cOmBase *self);
 
 typedef struct RoomJumpTarget {
     float pos[4];               /* 0x00 */
@@ -74,47 +76,27 @@ void CustomIDWork_setSlotMessAndPosY(char *self, unsigned char msgSlot, unsigned
     }
 }
 
-/* One row of the mode table: this adjust, method index (or -1), table offset in the object, or the inline handler. */
-struct Entry_func_0017D6B0 { short f0; short f2; short f4; short f6; };
-struct Table_func_0017D6B0 { struct Entry_func_0017D6B0 e[1]; };
+/* An enemy object that counts down a timer for its current mode. */
+typedef struct cEmModeTimer {
+    cOmBase base;                       /* 0x000 */
+    char unk5E0[0x28];
+    float modeLeft;                     /* 0x608 seconds left in the current mode */
+} cEmModeTimer;
 
-extern struct Table_func_0017D6B0 D_003BDA58;
-
-#define OBJ_TIMER_OFFSET  0x608         /* seconds left in the current mode */
+extern EmPhaseTable D_003BDA58;
 
 /* Mode tick: run the handler of the mode's table row, count the mode timer down by the speed rate (floored at 0), then
  * the shared post-update step. */
 __attribute__((section(".text.cEmObj_tickModeTimer")))
-void cEmObj_tickModeTimer(void *a0)
+void cEmObj_tickModeTimer(cEmModeTimer *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    float rate;
     float left;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDA58 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDA58 + i8 + 4);
-    }
-    f0 = D_003BDA58.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    rate = cEmManage_GetSpeedRate(D_005864F0);
-    left = *(float *)(s0 + OBJ_TIMER_OFFSET) - rate;
-    *(float *)(s0 + OBJ_TIMER_OFFSET) = left;
+
+    if (ClearField5B4IfFlagUnset_1B76B0(&self->base) == 0) return;
+    EM_PHASE_RUN(&D_003BDA58, self, self->base.mode);
+    left = self->modeLeft - cEmManage_GetSpeedRate(&D_005864F0);
+    self->modeLeft = left;
     if (left < 0.0f)
-        *(float *)(s0 + OBJ_TIMER_OFFSET) = 0.0f;
-    func_001B76D8(s0);
+        self->modeLeft = 0.0f;
+    func_001B76D8(&self->base);
 }

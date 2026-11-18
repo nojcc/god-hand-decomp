@@ -27,12 +27,14 @@ extern char D_003C02A0[];
 extern char D_003C0340[];
 extern char D_00585720[];
 extern float fRand1_1(void);
-extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 #include "godhand/motion.h"
 #include "godhand/cCamManager.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/cSnd.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00.h"
+#include "godhand/player.h"
 extern void cPartsCamera_SetParts(void *parts, void *obj, void *a2, void *a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -224,57 +226,47 @@ void func_0017AEB0(char *p)
     }
 }
 
+/* Held by the player's grab camera: start the held motion, then point the
+ * parts camera at children 0x1B and 0x1C each frame; when the motion ends,
+ * clear the player's motion camera and pick the next action. */
 __attribute__((section(".text.func_00247588")))
-void func_00247588(char *p)
+void func_00247588(cEm00 *self)
 {
-    unsigned char frame[0x10];
-    void *ptr;
-    int b;
-    void *o1, *o2;
-    int i1, i2, r;
-    char *q;
+    int frame[3];
+    cGameObj *pl;
+    cOmBase *o1, *o2;
     cCamManager *mgr;
     struct cCamera *parts;
-    unsigned char st;
 
-    ptr = Getplayer();
-    *(int *)(p + 0x16D0) |= 0x30000;
-    *(float *)(p + 0x54C) = 3.0f;
-    *(int *)(p + 0x250) |= 0x10000;
-    st = *(unsigned char *)(p + 0x2F6);
-    if (st == 0) goto blockA;
-    if (st == 1) goto common;
-    return;
-blockA:
-    {
-        r = Obj0000_Get_Byte_17C3_NZ_2_276468(p);
-        q = *(char **)(p + 0x304);
-        func_002A8578(p, *(int *)(q + 0x2FB4) + (int)q, *(int *)(q + 0x2FB8) + (int)q,
-                      0, 0.0f, r & 0xFFFF, 0);
-        Obj1D00_SetState_7_1C(&(*(cOmWeapon **)(p + 0x708))->base);
-        *(unsigned char *)(p + 0x2F6) = *(unsigned char *)(p + 0x2F6) + 1;
+    pl = Getplayer();
+    self->emFlags |= 0x30000;
+    self->hitFlash = 3.0f;
+    self->objFlags |= 0x10000;
+    switch (self->step) {
+    case 0: {
+        int b;
+        int r = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
+
+        b = EM_RES(self);
+        func_002A8578(self, EM_RES_REC(b, 0x2FB4), EM_RES_REC(b, 0x2FB8), 0, 0.0f, r & 0xFFFF, 0);
+        Obj1D00_SetState_7_1C(&self->fx6->base);
+        self->step += 1;
     }
-common:
-    mgr = &D_00463050;
-    cCamManager_setPartsCamera(mgr, 0);
-    parts = &mgr->parts;
-    i1 = 0x1B;
-    if (((*(int *)frame = b = *(unsigned char *)(p + 0x2B4)), (i1 < b)))
-        o1 = *(void **)(*(int *)(p + 0x278) + i1 * 4);
-    else
-        o1 = 0;
-    i2 = 0x1C;
-    if (((*(int *)frame = b = *(unsigned char *)(p + 0x2B4)), (i2 < b)))
-        o2 = *(void **)(*(int *)(p + 0x278) + i2 * 4);
-    else
-        o2 = 0;
-    cPartsCamera_SetParts(parts, p, o1, o2);
-    if (moveMotion(p) != 0) {
-        pl00_clearMotionCam(ptr, 0, 1);
-        func_002705D8(p);
+    case 1:
+        mgr = &D_00463050;
+        cCamManager_setPartsCamera(mgr, 0);
+        parts = &mgr->parts;
+        o1 = cOmBase_childAt((cOmBase *)self, frame, 0x1B);
+        o2 = cOmBase_childAt((cOmBase *)self, frame, 0x1C);
+        cPartsCamera_SetParts(parts, self, o1, o2);
+        if (moveMotion(self) != 0) {
+            pl00_clearMotionCam(pl, 0, 1);
+            func_002705D8(self);
+        }
+        cObjBase_addNullSpeed_Rotation(self, 1.0f);
+        cObjBase_addNullSpeed(self, 1.0f);
+        break;
     }
-    cObjBase_addNullSpeed_Rotation(p, 1.0f);
-    cObjBase_addNullSpeed(p, 1.0f);
 }
 
 __attribute__((section(".text.func_00271298")))

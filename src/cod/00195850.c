@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern char D_00426F88[];
 extern void SetField214PtrThenInit_1B6F38(void *self, void *a1);
 

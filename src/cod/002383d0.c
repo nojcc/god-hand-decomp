@@ -6,10 +6,10 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 extern int D_007474A8;
 
-extern int Getplayer();
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float SetMotionStep(void *a0, float f);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);

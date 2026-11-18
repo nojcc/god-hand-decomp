@@ -1,37 +1,37 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cObjBase.h"
+#include "godhand/cOmWeapon.h"
+#include "godhand/gameWork.h"
+#include "godhand/pl00.h"
+#include "godhand/player.h"
 
-/* sn-2.95.3-136 matched TU. */
-
-extern void KillEffect(void *a0, int a1, int a2);
-extern void cHeatSys_SetHeatGage(void *a0, float f12);
-extern int cHeatSys_SubHeatGage(void *a0, int a1, float f12);
-extern int cHeatSys_GetHeatLv(void *a0);
-extern void *Getplayer(void);
-extern float SetMotionStep(void *a0, float f12);
-extern void cOmWeapon_kickOff(int a0);
+extern void KillEffect(int owner, int id, int mode);
+extern void SetMotionStep(void *self, float step);
+extern void cOmWeapon_kickOff(cOmWeapon *self);
 
 extern float D_003BD4A0;
-extern int D_00747A2C;
-extern char D_005CB000[];
 
+/* The player's per-frame heat upkeep: drop the weapon in hand unless flags15F4 bit 0x20 is set,
+ * refill the gauge (and add a god item, up to 3) while GameSys bit 0x80000 is set, drain the gauge
+ * in heat mode, and pick the player's effect by flags15F4 bit 0x20, the gauge level and the
+ * costume (unk5F2: 0 none, 1 effect 0x25/0x73, 3 effect 0x21/0x72). Nothing past the weapon runs
+ * in modes 5 and 6. */
 __attribute__((section(".text.func_00123460")))
-void func_00123460(void *arg)
+void func_00123460(pl00 *self)
 {
-    char *s0 = (char *)arg;
     float g;
     int ph;
 
     g = D_003BD4A0;
-    if (*(int *)(s0 + 0x6A8) != 0) {
-        if ((*(int *)(s0 + 0x15F4) & 0x20) == 0) {
-            cOmWeapon_kickOff(*(int *)(s0 + 0x6A8));
-            *(int *)(s0 + 0x6A8) = 0;
+    if (self->weapon != 0) {
+        if ((self->flags15F4 & 0x20) == 0) {
+            cOmWeapon_kickOff(self->weapon);
+            self->weapon = 0;
             cCoreSave_clearPaper(&D_00569B70);
         }
     }
-    ph = *(unsigned char *)(s0 + 0x2F4);
+    ph = self->base.mode;
     if (ph == 5) {
         return;
     }
@@ -39,42 +39,38 @@ void func_00123460(void *arg)
         return;
     }
 
-    if (D_00747A2C & 0x80000) {
-        cHeatSys_SetHeatGage(D_005CB000, *(float *)D_005CB000);
+    if (D_00747A2C.unk00 & 0x80000) {
+        cHeatSys_SetHeatGage(&D_005CB000, D_005CB000.max);
         if (cCoreSave_getGodItemNum(&D_00569B70) < 3) {
             cCoreSave_addGodItem(&D_00569B70, 1);
         }
     }
 
     {
-        int f1 = *(int *)(s0 + 0x15F4);
-        int msk = f1 & 0x200;
-        int ok = (msk == 0);
-        unsigned char *h = (unsigned char *)D_005CB000;
-        if (h[0x10] != 0) {
-            if (ok) {
+        int f1 = self->flags15F4;
+        int locked = f1 & 0x200;
+        int drain = (locked == 0);
+        cHeatSys *h = &D_005CB000;
+
+        if (h->mode != 0) {
+            if (drain) {
                 if (f1 & 0x80000) {
                     g = g * 0.25f;
                 }
-                cHeatSys_SubHeatGage(h, 1, g * *(float *)(s0 + 0x5A8));
+                cHeatSys_SubHeatGage(h, 1, g * self->base.speedRate);
             }
         }
     }
 
-    if (*(int *)(s0 + 0x15F4) & 0x20) {
-        int lv;
-        lv = cHeatSys_GetHeatLv(D_005CB000);
-        if (lv == 0) {
-            int sta = *(unsigned short *)(s0 + 0x5F2);
-            if (sta != 0) {
-                KillEffect(s0, 3, 2);
-                *(unsigned short *)(s0 + 0x5F2) = 0;
+    if (self->flags15F4 & 0x20) {
+        if (cHeatSys_GetHeatLv(&D_005CB000) == 0) {
+            if (self->unk5F2 != 0) {
+                KillEffect((int)self, 3, 2);
+                self->unk5F2 = 0;
             }
-        } else {
-            int stb = *(unsigned short *)(s0 + 0x5F2);
-            if (stb != 1) {
-            KillEffect(s0, 3, 2);
-            *(unsigned short *)(s0 + 0x5F2) = 1;
+        } else if (self->unk5F2 != 1) {
+            KillEffect((int)self, 3, 2);
+            self->unk5F2 = 1;
             switch (cCoreSave_getCostumeNo(&D_00569B70)) {
             case 0:
             case 2:
@@ -90,31 +86,27 @@ void func_00123460(void *arg)
                 SetEffect(0, 0x73, Getplayer(), 0, 3, 0xFFFFFFFFu);
                 break;
             }
-            }
         }
-    } else {
-        int st2 = *(unsigned short *)(s0 + 0x5F2);
-        if (st2 != 3) {
-            *(unsigned short *)(s0 + 0x5F2) = 3;
-            switch (cCoreSave_getCostumeNo(&D_00569B70)) {
-            case 0:
-            case 2:
-            case 4:
-            case 6:
-            default:
-                SetEffect(0, 0x21, s0, 0, 3, 0xFFFFFFFFu);
-                break;
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-                SetEffect(0, 0x72, Getplayer(), 0, 3, 0xFFFFFFFFu);
-                break;
-            }
+    } else if (self->unk5F2 != 3) {
+        self->unk5F2 = 3;
+        switch (cCoreSave_getCostumeNo(&D_00569B70)) {
+        case 0:
+        case 2:
+        case 4:
+        case 6:
+        default:
+            SetEffect(0, 0x21, self, 0, 3, 0xFFFFFFFFu);
+            break;
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+            SetEffect(0, 0x72, Getplayer(), 0, 3, 0xFFFFFFFFu);
+            break;
         }
     }
 
-    *(float *)(s0 + 0x5DC) = 1.0f;
-    *(float *)(s0 + 0x5A8) = 1.0f;
-    SetMotionStep(s0, 1.0f);
+    self->unk5DC = 1.0f;
+    self->base.speedRate = 1.0f;
+    SetMotionStep(self, 1.0f);
 }

@@ -1,62 +1,36 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageUnit.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/cEmManage.h"
+#include "godhand/emPhaseTable.h"
 
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
-extern void func_001B76D8(void *a0);
-extern float cEmManage_GetSpeedRate(void *a0);
-extern char D_005864F0[];
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
+extern void func_001B76D8(cOmBase *self);
 
-#define PHASE_OBJ_STATE   0x2F4         /* state byte: index into the phase table */
-#define PHASE_OBJ_RATE    0x5A8         /* speed rate float */
+/* A phase object with two damage collision units, switched off every tick. */
+typedef struct cOmCollPhase {
+    cOmBase base;                       /* 0x000 */
+    char unk5E0[0x20];
+    cDamageUnit *collA;                 /* 0x600 */
+    char unk604[4];
+    cDamageUnit *collB;                 /* 0x608 */
+} cOmCollPhase;
 
-/* One phase entry: this-adjust, method index (or negative: inline handler), table offset in the object. */
-typedef struct PhaseEnt {
-    short adjust;                       /* 0x00 */
-    short index;                        /* 0x02 */
-    short tableOff;                     /* 0x04 */
-    short unk06;
-} PhaseEnt;
-typedef struct PhaseTable { PhaseEnt e[1]; } PhaseTable;
-
-extern PhaseTable D_003BDDA8;
-
-#define PHASE_OBJ_COLL_A  0x600         /* damage collision units, switched off every tick */
-#define PHASE_OBJ_COLL_B  0x608
+extern EmPhaseTable D_003BDDA8;
 
 /* Phase tick: switch off the object's two damage collision units, store the global speed rate in the object, run the handler the state byte's table entry names (from a method table found through the object, or inline), then the shared post-update steps. */
 __attribute__((section(".text.EmPhaseCollOff_update")))
-void EmPhaseCollOff_update(void *a0)
+void EmPhaseCollOff_update(cOmCollPhase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
-    float rate;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
-    if (*(int *)(s0 + PHASE_OBJ_COLL_A) != 0) {
-        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(s0 + PHASE_OBJ_COLL_A), 0);
+    if (ClearField5B4IfFlagUnset_1B76B0(&self->base) == 0) return;
+    if (self->collA != 0) {
+        cDamageUnit_SetDamageCollActive(self->collA, 0);
     }
-    if (*(int *)(s0 + PHASE_OBJ_COLL_B) != 0) {
-        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(s0 + PHASE_OBJ_COLL_B), 0);
+    if (self->collB != 0) {
+        cDamageUnit_SetDamageCollActive(self->collB, 0);
     }
-    rate = cEmManage_GetSpeedRate(D_005864F0);
-    *(float *)(s0 + PHASE_OBJ_RATE) = rate;
-    i8 = *(unsigned char *)(s0 + PHASE_OBJ_STATE) * 8;
-    e = (char *)&D_003BDDA8 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDDA8 + i8 + 4);
-    }
-    f0 = D_003BDDA8.e[*(unsigned char *)(s0 + PHASE_OBJ_STATE)].adjust;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_001B76D8(s0);
+    self->base.speedRate = cEmManage_GetSpeedRate(&D_005864F0);
+    EM_PHASE_RUN(&D_003BDDA8, self, self->base.mode);
+    func_001B76D8(&self->base);
 }

@@ -3,8 +3,8 @@
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCamManager.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern int cCamManager_isCk_CamClass(void *mgr, int cls);
 extern void func_001325A0(void *self, cVec *pos);
 extern char D_00747A2C[];
@@ -43,7 +43,7 @@ void ListOwner_updateFollowFocus(ListOwner *self)
 {
     cVec pos __attribute__((aligned(16)));
     ListNode *n;
-    void *pl;
+    cGameObj *pl;
     cVec *src;
     char *g;
 
@@ -64,7 +64,7 @@ void ListOwner_updateFollowFocus(ListOwner *self)
                 cVec_copy3(&pos, &D_005CAFF0->target);
             }
         } else if (pl != 0) {
-            src = *(cVec **)((char *)pl + 0xF0);
+            src = *(cVec **)((char *)&pl->pos);
             cVec_copy3(&pos, src);
         }
         func_001325A0(self, &pos);

@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern int Obj0000_Get_Field_5FC_NE_Zero_12C748(void *a0);
 extern unsigned char D_00747A50[];
 extern unsigned char D_005CB010;
@@ -19,7 +19,7 @@ short func_0028FB88(void *a0, int a1, void *a2, void *a3, int t0)
 {
     char *s1 = (char *)a0;
     char *s2 = (char *)a2;
-    void *g;
+    cGameObj *g;
     float f;
     int n;
     short r;

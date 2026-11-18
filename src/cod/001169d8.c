@@ -5,9 +5,9 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/vu0.h"
+#include "godhand/gameWork.h"
 
 extern void func_001CFE88(void *weapon, int arg);
-extern unsigned short D_00747A50;
 extern unsigned char D_005CB010;
 extern char D_005FEA60[];
 extern int FindEntityAtPosition_2C2638(void *mgr, cVec *pos, cVec *center, float *extent);
@@ -131,7 +131,7 @@ int PartHolder_classify(PartHolder *self)
     return PART_KIND_NONE;
 }
 
-#define EM_MODE_ROOM_HIT  0x700         /* D_00747A50 value this probe runs in */
+#define EM_MODE_ROOM_HIT  0x700         /* room id this probe runs in */
 #define EM_PHASE_HIT_AIM  0x37
 
 /* In room mode 0x700, look for a hit unit at the enemy's position unless
@@ -144,7 +144,7 @@ int cEm00_startRoomHitAim(cEm00 *self)
     float extent;
 
     VU0_SQC2_VF0(&center, 0);
-    if (D_00747A50 != EM_MODE_ROOM_HIT)
+    if (D_007474A0.room != EM_MODE_ROOM_HIT)
         return 0;
     if (FindEntityAtPosition_2C2638(D_005FEA60, self->pos, &center, &extent) == 0)
         return 0;

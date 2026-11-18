@@ -8,6 +8,8 @@
 #include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/cModel.h"
+#include "godhand/emPhaseTable.h"
 
 extern void cEmSetParam_setEm(cEmSetParam *param, int entry);
 extern void cEmWrap_StartAction(void *wrap);
@@ -18,8 +20,8 @@ extern float Turn_dest_dir(float cur, float dest, float speed);
 extern float Adjust_theta(float f12);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E6B88(void *obj, float y);
-extern int ClearField5B4IfFlagUnset_1B76B0(int self);
-extern void func_001B76D8(void *self);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
+extern void func_001B76D8(cOmBase *self);
 
 /* Arena wave step: step 0 defeats every enemy and starts a 600 frame timer; step 1 waits until two enemies are down or the timer runs out, then sets the first enemy up and starts its action. */
 #define ARENA_WAIT_FRAMES  0x258
@@ -80,9 +82,6 @@ typedef struct KeyFollower {
     short id;               /* 0x2C */
     unsigned char ready;    /* 0x2E */
 } KeyFollower;
-
-
-
 
 
 /* Take a key slot from the scaled pool (-1 when none is left), register it, and start both
@@ -221,7 +220,6 @@ void Pos_followGroundB(char *self)
  * handler is the pointer stored at entry + 4. Then run func_001B76D8. */
 
 
-
 typedef struct StateEntry {
     short adjust;                       /* 0x0 */
     short selector;                     /* 0x2 */
@@ -233,37 +231,14 @@ typedef struct StateTable {
     StateEntry e[4];
 } StateTable;
 
-extern StateTable D_004235D0;
+extern EmPhaseTable4 D_004235D0;
 
 __attribute__((section(".text.StateObj_runHandlerB")))
-void StateObj_runHandlerB(void *a0)
+void StateObj_runHandlerB(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    StateTable tbl;
-    char *e;
-    int i8;
-    int f0;
-    int type;
-    int arg;
-    int (*fp)(int);
-    long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
+    EmPhaseTable4 tbl;
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
     tbl = D_004235D0;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&tbl + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&tbl + i8 + 4);
-    }
-    f0 = tbl.e[*(unsigned char *)(s0 + 0x2F4)].adjust;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_001B76D8(s0);
+    EM_PHASE_RUN(&tbl, self, self->mode);
+    func_001B76D8(self);
 }

@@ -5,16 +5,13 @@
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern void *Getplayer(void);
 extern int irand(void);
-extern void Obj2810_SetState_8_a1(char *a0, int a1);
-extern void SetBytes2F4Mode7_283270(char *a0, char a1);
-extern void ClearBytes2F4To2F7_283170(void *a0);
 extern void func_0026DB00(void *a0, int a1, int a2);
 
 /* Phase machine on the step byte, 2 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,
@@ -76,18 +73,18 @@ __attribute__((section(".text.func_0024B218"))) void func_0024B218(cEm00 *self)
                 b2 = EM_RES(self);
                 a2v = EM_RES_REC(b2, 0x3DAC);
                 if (self->sub0 != 0)
-                    Obj2810_SetState_8_a1((char *)self->sub0, 1);
+                    Obj2810_SetState_8_a1(self->sub0, 1);
                 if (self->sub1 != 0)
-                    SetBytes2F4Mode7_283270((char *)self->sub1, 1);
+                    SetBytes2F4Mode7_283270(self->sub1, 1);
                 if (self->sub2 != 0)
-                    ClearBytes2F4To2F7_283170((char *)self->sub2);
+                    ClearBytes2F4To2F7_283170(self->sub2);
             } else {
                 if (self->sub0 != 0)
-                    Obj2810_SetState_8_a1((char *)self->sub0, 0);
+                    Obj2810_SetState_8_a1(self->sub0, 0);
                 if (self->sub1 != 0)
-                    SetBytes2F4Mode7_283270((char *)self->sub1, 0);
+                    SetBytes2F4Mode7_283270(self->sub1, 0);
                 if (self->sub2 != 0)
-                    ClearBytes2F4To2F7_283170((char *)self->sub2);
+                    ClearBytes2F4To2F7_283170(self->sub2);
             }
             func_002A8578(self, a1v, a2v, 0xA, 0.0f, t0, 0);
         }

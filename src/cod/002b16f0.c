@@ -1,18 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
-/* sn-2.95.3-136 matched TU. */
+#include "godhand/messPanel.h"
 
 extern void CornerPanel_initState0(void *a0);
 extern void func_002B17F8(void *a0);
-extern void Panel_resetToStartPose(void *a0);
+extern void Panel_resetToStartPose(Panel *self);
 extern void CornerPanel_setPointsState4(void *a0);
 extern void CornerPanel_setPointsState5(void *a0);
 extern int D_00747A2C;
 
 __attribute__((section(".text.func_002B16F0")))
-void func_002B16F0(void *a0)
+void func_002B16F0(Panel *self)
 {
-    char *p = (char *)a0;
     char *g = (char *)&D_00747A2C;
 
     {
@@ -25,21 +24,21 @@ void func_002B16F0(void *a0)
     if ((*(int *)(g + 0x58) & 0x8000000) != 0) {
         return;
     }
-    switch (*(unsigned char *)(p + 0xA4)) {
+    switch (self->kind) {
     case 0:
-        CornerPanel_initState0(p);
+        CornerPanel_initState0(self);
         break;
     case 2:
-        func_002B17F8(p);
+        func_002B17F8(self);
         break;
     case 3:
-        Panel_resetToStartPose(p);
+        Panel_resetToStartPose(self);
         break;
     case 4:
-        CornerPanel_setPointsState4(p);
+        CornerPanel_setPointsState4(self);
         break;
     case 5:
-        CornerPanel_setPointsState5(p);
+        CornerPanel_setPointsState5(self);
         break;
     default:
         break;

@@ -5,7 +5,6 @@
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern char *Getplayer(void);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
@@ -14,6 +13,7 @@ extern void func_00271148(void *a0);
 extern void func_00129718(void *a0, void *a1, int a2);
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 #define FRAME ((char *)va)
 /* Phase machine of the enemy that charges the player: it turns toward the player, derives a charge
  * vector from the player's matrix, slides along it until the timer runs out, then plays its end
@@ -34,7 +34,7 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             self->step += 1;
             /* fallthrough */
         case 1:
-            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0),
+            cGameObj_SetTgtTurn(self, Getplayer()->pos,
                                 self->speedRate * 0.19634955f);
             if (moveMotion(self) != 0) {
                 self->step += 1;
@@ -54,7 +54,7 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             va[2] = -0.6f;
             va[0] = z;
             va[1] = z;
-            sceVu0ApplyMatrix(va, Getplayer() + 0x80, va);
+            sceVu0ApplyMatrix(va, &Getplayer()->mtx, va);
             d = &self->unk580;
             if (d != (char *)va) {
                 float t0 = va[0];
@@ -160,11 +160,11 @@ __attribute__((section(".text.cEm00_stepChargePlayer"))) void cEm00_stepChargePl
             /* fallthrough */
         case 7:
             cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
-            cGameObj_SetTgtTurn(self, *(cVec **)(Getplayer() + 0xF0),
+            cGameObj_SetTgtTurn(self, Getplayer()->pos,
                                 self->speedRate * 0.19634955f);
             if (moveMotion(self) != 0) {
                 if (func_00270DB0(self) != 0) {
-                    char *r = Getplayer();
+                    cGameObj *r = Getplayer();
                     self->mode = 0;
                     self->step = 0;
                     self->stepArg = 0;

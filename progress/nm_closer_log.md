@@ -2900,3 +2900,58 @@ A rule such as `div2_unless_after(cvt.s.w|lwc1|div.s)` would need checking again
 - PERM=0.
 - 08:24 pl00.h changed: 0x640 is still padding (unk640[0x698 - 0x640]), but a new comment calls unk640 the enemy the player catches, with unk648 set when one is found. func_0012AFE8's scratch view names 0x640 lockOn (a cGameObj *); when the header names it, use that name instead. Drafts: func_0010B2E8 171/179 words, 159 off; 00110b20, 0010d3a8 and 001101a8 don't compile (mid-pass). PERM=0.
 - 08:26 STOP requested. Killed permuters (PERM=0) and any mc.py/draftsweep processes. Session ended.
+## Session 2026-11-16 (batch 220 queue)
+- 23:05 Resumed as NM closer. build/scratch/b219/variants.txt (the full 69-item list) no longer exists, so the queue is the ten closest batch 220 names, then the rest of the 1-13 group from earlier logs. Work in nm_work/s1116/.
+- func_0026EF60 (1): nm_work/s1116/ef60.
+  - Clean base j.c: angle.h's absf and Turn_dest prototype (`&f.eye.x`), no local Turn_dest declaration. Still 1 off (neg.s f2,f2 vs retail f2,f20).
+  - Abs forms a-i (test through off, `>=`, `!(<)`, `>`, `0.0f - angle`, off = -angle first): best 1 (`!(angle < 0.0f)`); explicit copy-first forms change the layout (35-36).
+  - turn local / in-place abs / absf(turn) / absf(Turn_dest(...)) / separate off: 4-35. Combined `||` conditions and a switch on mode: 55-91.
+  - Permuter (jp.c, 280 iterations): zero score by reusing `angle` for the moved distance at the end (`angle = capVu0MagnitudeSqXZ(self->pos, &self->posA); if (VIEW_MOVED_SQ < angle)`). Checked: that is x.c, MATCH 95 insns; the same with a separate `moved` local is 1 off (w.c). The longer life of `angle` makes CSE keep it as the register the negate reads. That's a register-only reassignment of a misnamed local: NOT a match. Left for the maintainer to rule on; no handoff.
+- func_002BF420 (2): nm_work/s1116/f420. 24 statement orders x arm swap: original arm order 2 (as before), swapped arms 10. keep as a ternary, a common unk03 store, early return: 5-15. Still parked. gameWork.h names nothing at 0x5E8 now, so the raw base stays.
+- func_00162298 (2): top computed before the sel = 5 store (and `reelNum - 5 - 1`): still 2 (5 in v1, retail a0). Parked.
+- func_001EBB78 (2): nm_work/s1116/bb78. args declared at function or loop scope and assigned, SetMotionStep declared float (as five matched units do; the others say void, a prototype disagreement for the main agent), index form of m: all 2. Parked.
+- func_001F4530 (3): nm_work/s1116/4530. Per-branch `!= 0` returns: 10-30. `unsigned int r`, `(flags & 0x800000) != 0` into r, `flags >> 23 & 1`: 3-4. `unsigned short stage` (with a scratch copy of ColiseumEmSelect.h): 5, so `int stage` with the cast is right. Parked.
+- cSceAtUnit_AreaSet (2): nm_work/s1116/area. Written on cSceAtManager.h's cSceAtUnit (`(cArea *)&self->unk04`; cSceAtUnit's 0x04.. bytes are the cArea, a header gap for the main agent). Third parameter as int, signed char, char, short, unsigned short, unsigned int, long: all 2 (andi before the last mov.s). Parked.
+- func_00178E18: skipped (damage-volume head, waits on the cDamageGive issue).
+- 23:50 draftsweep (sn, -j 1) started over 298 sn drafts to rebuild the near-miss list: nm_work/s1116/dsweep_sn.tsv. Permuter on func_00162298 (15 min).
+- 00:20 permuter func_00162298: 15 min, ~6800 iterations, nothing below the base. PERM=0.
+- 00:55 draftsweep finished (298 sn drafts, nm_work/s1116/dsweep_sn.tsv). No MATCH. 1-6 off: func_0026EF60 1, func_0028E0E0 1, cScrSpriteDraw_drawRectLine 2, func_00162298 2, func_00178E18 2, func_001A4010 2, func_001EBB78 2, func_002BF420 2, func_001DF7D0 3, func_0024BB68 3, func_003AD348 3, cSceAtUnit_AtInit 4, func_0014E818 4, func_00262750 4, then the 5-6 group (0012BAF0, 00136030, 00136458, 001F4530, 002ACF30, 002CABE8, SearchData, create, 0012AFE8, 001346C8, 0013DF70, 0031A6B0). All logged before with the same numbers and reasons.
+- func_0031A6B0 (6): nm_work/s1116/a6b0. The "waiting on an in-place cvt.w.s macro" note is wrong. This objdump prints the cvt.w.s encoding (funct 0x24) as `trunc.w.s`, so the draft's `(int)depth` already emits retail's opcode; the 6 differences are all register choice (retail: product f0, 10.0 f1, zero f2; ours: 10.0 f0, zero f1, product f2). A scratch fpu.h with the three ruled macros (via mc.py --inc): FPU_CVT_W_S + FPU_MFC1 6, in place on depth 7, union pun 15 (extra move), under ee and sn assemblers alike. Operand order `10.0f * v.w`, `>=`, `0.0f <=`, `!(0.0f >)`, if/else, an unsigned conversion: 6-18. Parked; fpu.h not needed for it. Note for the main agent: the draft's `(unsigned char *)self + 0xB58` needs the owner's real record.
+- 01:05 queue worked through; nm_prune: 0 stale, 2 partial (drafts/cod/00156508.c still holds func_0037D298, matched in src/cod/0037d298.c; 00352790.c is CRI, not mine). Retired my stale func_00137F38 handoff to nm_solved/rejected (batch 219 registered it). Snapshots refreshed; idle checks every 10 min. PERM=0.
+- 01:15 ten drafts not in this log before: func_00130700 (D_0041D640 undeclared), func_0015C410 (sceVu0IVECTOR), func_001C3540 (no childNum), func_001C5F48 (pos on a non-struct), func_001C6CB8 (parse error, unknown type), func_0020A178 (no vital), func_0026A638 (incompatible assignment) don't compile against today's headers (the batch 220 port list; not mine to fix). func_002937C0, func_00293C40: cvec_pending.h, off limits. func_002A8038: 280 vs 283 words, 251 off (retail hoists the mask and &sum across both loops), and it copies func_00156BE8's return slot without operator='s check, so it falls under the open cVec operator issue. None workable.
+- 01:27 idle check: cEm00.h, motion.h and draft 00274fe8 changed (main agent's pass). func_00274FE8: 117 vs 120 words, 103 off (cross-jumping, as its header says). Not near. PERM=0.
+- 01:38 idle check: cGameObj.h changed; func_0026EF60's clean form still 1 off. PERM=0.
+- 01:49-02:05 idle check clean. Permuter func_0031A6B0 (15 min, 15k iterations, base from the draft): best 10, every improvement is dead code (`new_var = v.w && v.w`, unreachable ifs after the return, a repeated conversion). Rejected. PERM=0.
+- 02:06 motion.h changed; none of the open near misses include it. PERM=0.
+- 02:06 motion.h changed; none of the open near misses include it. PERM=0.
+- 02:25 func_001DF7D0: MATCH (20 insns, 3 relocs) -> progress/nm_solved/func_001DF7D0 (solved.c, meta.json compiler only, header_changes.md, NOTES.md). nm_work/s1116/f7d0.
+  - Retail's beqz / bltz / slti 7 is cc1's compare tree for a switch with case 0 as its own node: `switch (language) { case 0: default: A; case 1..6: B; }`.
+  - Without `case 0`: 17 off (19 vs 20 words); case 0 as a copied arm: 7; case 0 + separate default arm: 13-16.
+  - Clean form: `PanelObj *self` (the header's prototype; elem[8] is the draft's +0x440), `D_007474A0.language` for D_00747A0C, no casts, no local declarations. cygnus -W-Wall clean.
+  - header_changes.md renames PanelObj.h's `a1` to the definition's `left` (B6b); simhc OK with a scratch overlay, still MATCH.
+  - Steering to list in the PR: the `case 0:` label next to default (adds no behaviour; numbers in NOTES.md).
+- 02:35 func_0012BAF0 rechecked for a switch compare tree (the func_001DF7D0 shape): retail's tail has nops between slti/beqz and a bltz on an lbu value, which no C form explains; stays given up (toolchain). PERM=0.
+- 02:50 idle check clean. cSceAtUnit_AtInit (4): byte parameter types (all unsigned char 6, actType only 4, param3B only 8, plain char 34) and the 24 parameter-store orders with the four constant stores first (best 12): no better than the draft. Parked.
+  - For the main agent: cSceAtUnit is typedef'd in two headers with different layouts (cSceAtUnit.h: area at 0x04, type 0x35, param38/3B; cSceAtManager.h: unk04/state at 0x04/0x05, type 0x35, hitKind 0x3B). One type per record.
+- 03:05 idle check clean. func_00136030 (5): absf (angle.h), a ternary abs, `return fabs(d) < eps` and `return absf(d) < eps`: 23-53 (93-110 words). The draft's `>= eps` form stays best. Parked. PERM=0.
+- 03:16 idle check clean (no draft, header, decision or handoff changes). PERM=0.
+- 03:16 idle check clean (no draft, header, decision or handoff changes). PERM=0.
+- 03:38 idle check clean. func_0028E0E0 (1) re-read: cases 0x701 (lbu 0x14; dsrl 7) and 0x802 (lw 0x14; dsrl 6) both shift in 64 bits and 0x607/0x802 share one andi 1 tail, which reads like 64-bit bitfield access to the save flags; bitfields are ruled out, so it stays parked (and the draft still needs typed cEm00 fields). PERM=0.
+- 03:49 idle check clean. PERM=0.
+- 04:00 decisions_needed: main agent's new row 'Constants that retail keeps in a register across a store' (batch 221). func_002BF420 is the same case: `int keep = 4;` in the bit-6 arm is MATCH 22 insns (nm_work/s1116/f420/k1.c; keep stored after the 0xC byte; the other order is 4 off). Added it to that row; no handoff until it's answered (and the draft still needs its record type). PERM=0.
+- 04:11 idle check clean. Added a decisions row for func_0026EF60 (reused float local; recommendation: register-only reassignment, stays a draft). PERM=0.
+- 04:22 idle check clean. PERM=0.
+- 04:44 idle check: cHeatSys.h and player.h changed; func_001DF7D0 handoff still MATCH 20. PERM=0.
+- 04:55 idle check: main-agent row (pl00 0x6A8 weapon); nothing for the closer. PERM=0.
+- 04:55 idle check: main-agent row (pl00 0x6A8 weapon); nothing for the closer. PERM=0.
+- 05:06 idle check clean. PERM=0.
+- 05:17 idle check clean. PERM=0.
+- 05:28 idle check clean. Scanned drafts for other constant-range tests that could be switch compare trees (the func_001DF7D0 shape): none (the other range tests have variable bounds). PERM=0.
+- 05:39 idle check clean. PERM=0.
+- 05:50 idle check clean. PERM=0.
+- 06:01 idle check clean. PERM=0.
+- 06:12 idle check clean. PERM=0.
+- 06:23 idle check clean. PERM=0.
+- 06:34 idle check clean. PERM=0.
+- 06:34 idle check clean. PERM=0.
+- 06:45 idle check clean. PERM=0.

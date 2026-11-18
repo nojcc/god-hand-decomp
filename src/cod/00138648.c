@@ -8,11 +8,12 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/cSnd.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 
 extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
 extern void sceVu0CameraMatrix(float *out, cVec *p, cVec *zd, cVec *yd);
 extern unsigned char D_005CB010;
-extern void *Getplayer(void);
 extern void cOmBase_setMeshDispFromLayer(cOmBase *self, int layer, int on);
 extern void KillEffect(void *obj, int effNo, int mode);
 

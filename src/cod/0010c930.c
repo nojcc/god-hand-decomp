@@ -21,8 +21,6 @@ extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float f12);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
-extern void *Getplayer(void);
-extern unsigned short D_00747A50;
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -197,6 +195,8 @@ void func_00117F78(pl00 *self)
 
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
+#include "godhand/gameWork.h"
 
 static inline void cpy3(float *d, float *s)
 {
@@ -223,7 +223,7 @@ void cPlCamera_SetNormalZoomOutMode(struct cPlCamera *self, cPlCamPose *src, int
         cVec_copy3(&self->nextPose.ofs, &src->ofs);
         cVec_copy3(&self->nextPose.rotOfs, &src->rotOfs);
         self->nextPose.dist = src->dist;
-    } else if (D_00747A50 != 0x104) {
+    } else if (D_007474A0.room != 0x104) {
         self->nextPose.obj = Getplayer();
         self->nextPose.ofs.x = -0.200000003f;
         self->nextPose.ofs.y = 1.05999994f;

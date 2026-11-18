@@ -15,7 +15,7 @@
 /* Words of the game work block, addressed from D_00747A84 (its 0x5E4) as retail does;
  * as their own symbols (D_00747A24 and the rest) the code changes. */
 #define SYS_MODE()         (*(int *)((char *)&D_00747A84 - 0x60))             /* D_00747A24 */
-#define SYS_STAGE()        (*(unsigned short *)((char *)&D_00747A84 - 0x34))  /* D_00747A50 */
+#define SYS_STAGE()        (*(unsigned short *)((char *)&D_00747A84 - 0x34))  /* D_007474A0.room */
 #define SYS_FLAGS()        (*(int *)((char *)&D_00747A84 - 0xC))              /* D_00747A78, the system flags */
 #define SYS_LOCKFLAGS()    (*(int *)((char *)&D_00747A84 - 0x4))              /* D_00747A80, the lock flags */
 

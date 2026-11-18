@@ -7,9 +7,9 @@
 #include "godhand/CustomIDPanel.h"
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
+#include "godhand/player.h"
 
 extern int D_00747A78;
-extern cOmBase *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 extern int ChkLine(cVec *from, cVec *to, cVec *hit, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
 

@@ -4,21 +4,11 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cOmEntry.h"
 extern void func_001FB1C0(void *a0, int a1, int a2, int a3, int a4, void *a5);
 
 #include "godhand/vecInline.h"
 
-/* An object with an entry in the D_00569B70 table, registered again whenever it changes. */
-typedef struct cOmEntry {
-    cOmBase base;                       /* 0x000 */
-    char unk5E0[0x662 - 0x5E0];
-    unsigned short entryId;             /* 0x662 id the entry is registered under */
-    char unk664[0x676 - 0x664];
-    unsigned char state;                /* 0x676 state bits; with bit 1 the rotation is watched too */
-    unsigned char statePrev;            /* 0x677 state at the last registration */
-    char unk678[0x67C - 0x678];
-    int dropItemPrev;                   /* 0x67C dropItem at the last registration */
-} cOmEntry;
 
 /* vtable slots 16 and 17 of the object give the two words the table keeps for it. */
 static inline int vcall(cOmEntry *self, int slot)

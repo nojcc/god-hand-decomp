@@ -1,11 +1,11 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/gameWork.h"
+#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern char D_007474A0[];
-extern char *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002DB770(void);
@@ -14,26 +14,15 @@ extern void func_00274FE8(void *a0);
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Phase machine on the step byte, 16 case labels. Calls Getplayer, cCollisionSolidManage_SetActive,
- * func_002A8578, cCoreSave_getGameLevel, VU0_VADD_XYZ_IP, moveMotion and 4 more. */
+/* The enemy's grab on the player: the enemy moves with the player's velocity while the player's
+ * button presses wear down a counter set by the game level. When the counter runs out the player
+ * takes step 6 and the enemy loses HP; if the grab motion ends with the player at 0 HP, the
+ * player goes to mode 2. */
 __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
 {
-    char *s1;
+    cGameObj *pl;
 
-    s1 = Getplayer();
+    pl = Getplayer();
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
@@ -56,26 +45,22 @@ __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
                     self->unk568 = 0x32;
                     break;
             }
-            *(short *)((char *)self + 0x56A) = 4;
-            *(short *)((char *)self + 0x56E) = 0xF;
+            self->unk56A = 4;
+            self->unk56E = 0xF;
             self->step++;
         }
         /* fallthrough */
         case 1: {
-            char *g;
-            char *p = (char *)self->pos;
-            char *q = s1 + 0x550;
-            VU0_VADD_XYZ_IP(p, 0, q);
+            VU0_VADD_XYZ_IP(self->pos, 0, &pl->vel);
             self->hitFlash = 3.0f;
             if (moveMotion(self))
                 self->step = 2;
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
             cObjBase_addNullSpeed(self, 1.0f);
             func_002DB770();
-            g = D_007474A0;
-            if ((*(int *)(g + 8) & 0xF0) != 0)
+            if ((D_007474A0.padBtn & 0xF0) != 0)
                 self->unk568 = self->unk568 - 1;
-            if ((*(int *)(g + 8) & 0xF00000) != 0)
+            if ((D_007474A0.padBtn & 0xF00000) != 0)
                 self->unk568 = self->unk568 - 4;
             break;
         }
@@ -87,39 +72,32 @@ __attribute__((section(".text.func_002367C0"))) void func_002367C0(cEm00 *self)
         }
         /* fallthrough */
         case 3: {
-            char *g;
-            if (*(short *)((char *)self + 0x56E) != 0) {
-                char *p;
-                char *q;
-                *(short *)((char *)self + 0x56E) = *(unsigned short *)((char *)self + 0x56E) - 1;
-                p = (char *)self->pos;
-
-                q = s1 + 0x550;
-                VU0_VADD_XYZ_IP(p, 0, q);
+            if (self->unk56E != 0) {
+                self->unk56E--;
+                VU0_VADD_XYZ_IP(self->pos, 0, &pl->vel);
             }
             func_002DB770();
-            g = D_007474A0;
-            if ((*(int *)(g + 8) & 0xF0) != 0)
+            if ((D_007474A0.padBtn & 0xF0) != 0)
                 self->unk568 = self->unk568 - 1;
-            if ((*(int *)(g + 8) & 0xF00000) != 0)
+            if ((D_007474A0.padBtn & 0xF00000) != 0)
                 self->unk568 = self->unk568 - 4;
             self->hitFlash = 3.0f;
             if (moveMotion(self)) {
                 self->step = 4;
-                if (*(short *)(s1 + 0x54A) > 0) {
-                    *(unsigned char *)(s1 + 0x2F6) = 4;
+                if (pl->hp > 0) {
+                    pl->step = 4;
                 } else {
-                    *(unsigned char *)(s1 + 0x2F5) = 0;
-                    *(unsigned char *)(s1 + 0x2F4) = 2;
-                    *(unsigned char *)(s1 + 0x2F6) = 0;
-                    *(unsigned char *)(s1 + 0x2F7) = 0;
+                    pl->phase = 0;
+                    pl->mode = 2;
+                    pl->step = 0;
+                    pl->stepArg = 0;
                 }
             }
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
             cObjBase_addNullSpeed(self, 1.0f);
-            if (*(short *)(s1 + 0x54A) > 0 && self->unk568 <= 0) {
+            if (pl->hp > 0 && self->unk568 <= 0) {
                 self->step = 6;
-                *(unsigned char *)(s1 + 0x2F6) = 6;
+                pl->step = 6;
             }
             break;
         }

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEvent.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern void pl00_reset(void *p);
 extern void cEmManage_ReleaseEmAll(void *a0);
 extern void cDataManager_clear(void *a0);

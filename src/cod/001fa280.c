@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/gameWork.h"
 
 extern unsigned int D_00568240;
 extern unsigned int D_00747A84;
-extern unsigned short D_00747A50;   /* current stage id */
 extern unsigned short D_005CAC94;
 extern int D_003BF160[];            /* levelPoint thresholds, one per game level */
 
@@ -56,7 +56,7 @@ void cCoreSave_addGameLevelPoint(cCoreSave *self, int point)
         case 3: f = 1.0f; break;
         case 4: f = 1.0f; break;
         }
-        if (D_00747A50 == 0x801) {
+        if (D_007474A0.room == 0x801) {
             f = f * 0.8f;
         }
     }

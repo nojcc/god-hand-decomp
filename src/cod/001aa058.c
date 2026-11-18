@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 
 /* Follow the hit position of a linked collision record: when the object has a
  * link (0x604) whose record (looked up with the key at 0x618) has the type

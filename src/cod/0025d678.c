@@ -2,7 +2,6 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern void SetMotionStep(void *a0, float f);
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
@@ -10,16 +9,15 @@ extern void SetMotionStep(void *a0, float f);
 #include "godhand/cEm00.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float a2);
 extern float fRand1_1(void);
 extern float fRand0_1(void);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
-extern int D_005CB000;
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
 #include "godhand/effectPos.h"
+#include "godhand/player.h"
 
 
 

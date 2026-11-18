@@ -2,11 +2,11 @@
 #include "godhand/heapArena.h"
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
+#include "godhand/gameWork.h"
 
 extern char D_00602F80[];
 extern char D_00603310[];
 extern char D_006036A0[];
-extern unsigned short D_00747A50;
 
 /* Point a sound-effect slot at the allocator and table set that its bank id uses. */
 __attribute__((section(".text.cSeData_SelectHeap")))
@@ -32,8 +32,8 @@ void cSeData_SelectHeap(cSeData *d) {
     case 17:
     case 18:
     case 19:
-        if (D_00747A50 == 0x504 || D_00747A50 == 0x506 || D_00747A50 == 0x801 ||
-            D_00747A50 == 0x4F || D_00747A50 == 0x4E) {
+        if (D_007474A0.room == 0x504 || D_007474A0.room == 0x506 || D_007474A0.room == 0x801 ||
+            D_007474A0.room == 0x4F || D_007474A0.room == 0x4E) {
             d->pool = &D_00754220;
         } else {
             d->pool = &D_00754210;

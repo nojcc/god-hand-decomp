@@ -30,18 +30,14 @@
 #define EM00_770(self) (*(float *)((char *)(self) + 0x770))
 #define EM00_1718(self) (*(float *)((char *)(self) + 0x1718))
 #define EM00_1734(self) (*(float *)((char *)(self) + 0x1734))
-#define EM00_173C(self) (*(float *)((char *)(self) + 0x173C))
 #define EM00_1754(self) (*(float *)((char *)(self) + 0x1754))
 #define EM00_17A4(self) (*(int *)((char *)(self) + 0x17A4))
 #define EM00_17B4(self) (*(int *)((char *)(self) + 0x17B4))
 #define EM00_17BD(self) (*(unsigned char *)((char *)(self) + 0x17BD))
-#define EM00_17BF(self) (*(unsigned char *)((char *)(self) + 0x17BF))
 
 /* A float past the end of cEm00, in the derived enemy's record. */
 #define EM00_F1940(self) (*(float *)((char *)(self) + 0x1940))
 
-/* The hit record the enemy is answering. */
-#define EM_TAKE(self) ((cDamageTake *)(self)->unk698)
 
 /* Mode and phase bytes (0x2F4, 0x2F5) read as one test of the state dword. */
 #define EM_MODE_PHASE_IS(self, m, p) \
@@ -50,8 +46,6 @@
 extern cEm00 *D_00586A80;
 extern unsigned short D_00747A50;
 
-long func_0020CAC8(void *a0, int a1);
-int func_0020D140(void *a0);
 int func_0020CD00(cEm00 *self);
 int func_0020EF08(cEm00 *self);
 int func_0024BF20(cEm00 *self);
@@ -161,16 +155,16 @@ int func_0020A178(cEm00 *self)
         self->vital = 0;
         return 1;
     }
-    if (EM_TAKE(self) == 0) {
+    if (self->unk698 == 0) {
         return 0;
     }
-    if ((EM_TAKE(self)->flags & 1) == 0) {
+    if ((self->unk698->flags & 1) == 0) {
         return 0;
     }
     if (self->hitFlash > 0.0f) {
         return 0;
     }
-    if (!(self->moveFlags & 8) && cDamageTake_kind(EM_TAKE(self)) == 0x2B) {
+    if (!(self->moveFlags & 8) && cDamageTake_kind(self->unk698) == 0x2B) {
         return 0;
     }
     if (self->unk17CA) {
@@ -181,8 +175,8 @@ int func_0020A178(cEm00 *self)
         self->emFlags2 |= 0x8000;
     }
     self->unk17CA = 10;
-    atk = (cEm00 *)EM_TAKE(self)->attacker;
-    switch (cDamageTake_kind(EM_TAKE(self))) {
+    atk = (cEm00 *)self->unk698->attacker;
+    switch (cDamageTake_kind(self->unk698)) {
     case 0x2E:
         if (self->vital <= 0) {
             return 0;
@@ -195,7 +189,7 @@ int func_0020A178(cEm00 *self)
         break;
     }
 
-    switch (cDamageTake_kind(EM_TAKE(self))) {
+    switch (cDamageTake_kind(self->unk698)) {
     case 7: case 0xE:
         heat = 0.8f;
         break;
@@ -235,12 +229,12 @@ int func_0020A178(cEm00 *self)
         }
     }
     self->counterVital = self->vital;
-    power = EM_TAKE(self)->power;
-    if (cDamageTake_kind(EM_TAKE(self)) == 0x54) {
+    power = self->unk698->power;
+    if (cDamageTake_kind(self->unk698) == 0x54) {
         self->vital = 0;
     }
     if (self->moveFlags & 0x100) {
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 0x1C: case 0x1D: case 0x1E: case 0x1F: case 0x20: case 0x21: case 0x22:
         case 0x23: case 0x24: case 0x25: case 0x26: case 0x27: case 0x29: case 0x2A:
         case 0x2E: case 0x2F: case 0x30: case 0x31: case 0x52: case 0x55:
@@ -252,7 +246,7 @@ int func_0020A178(cEm00 *self)
         self->emFlags &= ~0x800000;
     }
     big = 0;
-    switch (cDamageTake_kind(EM_TAKE(self))) {
+    switch (cDamageTake_kind(self->unk698)) {
     case 0x1C: case 0x1D: case 0x1E: case 0x1F: case 0x20: case 0x21: case 0x22:
     case 0x23: case 0x24: case 0x25: case 0x26: case 0x27: case 0x29: case 0x2A:
     case 0x2E: case 0x2F: case 0x30: case 0x31: case 0x52: case 0x55:
@@ -266,7 +260,7 @@ int func_0020A178(cEm00 *self)
     if (self->emNo == 0x218 && D_00747A50 == 1 && self->vital <= 0) {
         self->vital = 1;
     }
-    if (cDamageTake_kind(EM_TAKE(self)) == 0x2C || cDamageTake_kind(EM_TAKE(self)) == 0x24) {
+    if (cDamageTake_kind(self->unk698) == 0x2C || cDamageTake_kind(self->unk698) == 0x24) {
         if (self->vital <= 0) {
             self->vital = 1;
         }
@@ -279,12 +273,12 @@ int func_0020A178(cEm00 *self)
     case 0x20A: case 0x20B: case 0x20C: case 0x20D: case 0x20E: case 0x218:
     case 0x245: case 0x246: case 0x247: case 0x24F: case 0x250: case 0x251:
     case 0x260: case 0x278: case 0x279:
-        self->unk17C4 = 1;
-        self->unk17C8 = 0x2A;
+        self->hitSeSlot = 1;
+        self->hitSeKey = 0x2A;
         break;
     }
     self->hitFlash = 3.0f;
-    switch (cDamageTake_kind(EM_TAKE(self))) {
+    switch (cDamageTake_kind(self->unk698)) {
     case 0xD: case 0xF: case 0x1A: case 0x1B:
         self->hitFlash = 10.0f;
         break;
@@ -338,17 +332,17 @@ int func_0020A178(cEm00 *self)
         return func_0020EF08(self);
     }
 
-    if (cDamageTake_kind(EM_TAKE(self)) == 0x1E) {
+    if (cDamageTake_kind(self->unk698) == 0x1E) {
         if ((self->emFlags2 & 0x100000) && self->vital <= 0) {
             cEm00_setState(self, 2, 2, 0);
             return 1;
         }
         cEm00_setState(self, 1, 5, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x1F) {
+    } else if (cDamageTake_kind(self->unk698) == 0x1F) {
         cEm00_setState(self, 1, 0xB, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x21 || cDamageTake_kind(EM_TAKE(self)) == 0x54) {
+    } else if (cDamageTake_kind(self->unk698) == 0x21 || cDamageTake_kind(self->unk698) == 0x54) {
         if (EM_MODE_PHASE_IS(self, 1, 0x16) && self->step < 4) {
             if (self->vital > 0) {
                 cEm00_setState(self, 1, 0x16, 0);
@@ -357,14 +351,14 @@ int func_0020A178(cEm00 *self)
             }
             return 1;
         }
-        if (cDamageTake_kind(EM_TAKE(self)) == 0x54) {
+        if (cDamageTake_kind(self->unk698) == 0x54) {
             self->vital = 0;
             cEm00_setState(self, 1, 0x13, 1);
             return 1;
         }
         cEm00_setState(self, 1, 0x13, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x20) {
+    } else if (cDamageTake_kind(self->unk698) == 0x20) {
         if (EM_MODE_PHASE_IS(self, 1, 0x16) && self->step < 4) {
             if (self->vital > 0) {
                 cEm00_setState(self, 1, 0x16, 0);
@@ -375,28 +369,28 @@ int func_0020A178(cEm00 *self)
         }
         cEm00_setState(self, 1, 0xB, 1);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x22) {
+    } else if (cDamageTake_kind(self->unk698) == 0x22) {
         switch (self->emNo) {
         case 0x215: case 0x21A: case 0x21B: case 0x21C: case 0x21D: case 0x21E:
         case 0x225: case 0x22C: case 0x22D: case 0x22E: case 0x22F: case 0x248:
         case 0x249: case 0x24C: case 0x24D: case 0x24E: case 0x252: case 0x25A:
             cEm00_setVital(self, self->counterVital);
-            self->unk17C8 = 0x7C;
+            self->hitSeKey = 0x7C;
             self->hitFlash = 5.0f;
             self->moveFlags &= ~0x100;
-            self->unk17C4 = 0;
+            self->hitSeSlot = 0;
             break;
         }
         if (EM_MODE_PHASE_IS(self, 1, 0x16) && self->step < 4) {
             cEm00_setVital(self, self->counterVital);
-            self->unk17C4 = -1;
+            self->hitSeSlot = -1;
             self->hitFlash = 5.0f;
-            self->unk17C8 = 0;
+            self->hitSeKey = 0;
             return 0;
         }
         cEm00_setState(self, 1, 0x15, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x23) {
+    } else if (cDamageTake_kind(self->unk698) == 0x23) {
         switch (self->emNo) {
         default:
             if (EM_MODE_PHASE_IS(self, 1, 8)) {
@@ -413,12 +407,12 @@ int func_0020A178(cEm00 *self)
             }
             return 1;
         }
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x25) {
+    } else if (cDamageTake_kind(self->unk698) == 0x25) {
         if (EM_MODE_PHASE_IS(self, 1, 0x16)) {
             cEm00_setVital(self, self->counterVital);
-            self->unk17C4 = -1;
+            self->hitSeSlot = -1;
             self->hitFlash = 5.0f;
-            self->unk17C8 = 0;
+            self->hitSeKey = 0;
             return 0;
         }
         self->moveFlags &= ~0x100;
@@ -443,10 +437,10 @@ int func_0020A178(cEm00 *self)
         }
         cEm00_setState(self, 1, 3, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x26) {
+    } else if (cDamageTake_kind(self->unk698) == 0x26) {
         cEm00_setState(self, 1, 0xB, 1);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x28) {
+    } else if (cDamageTake_kind(self->unk698) == 0x28) {
         func_0028ED28(self, 999);
         if (self->vital <= 0) {
             if (self->counterVital < 2) {
@@ -468,7 +462,7 @@ int func_0020A178(cEm00 *self)
         }
         cEm00_setState(self, 1, 1, 1);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x1C) {
+    } else if (cDamageTake_kind(self->unk698) == 0x1C) {
         self->hitFlash = 15.0f;
         if ((self->emFlags2 & 0x100000) && self->vital <= 0) {
             cEm00_setState(self, 2, 2, 0);
@@ -481,13 +475,13 @@ int func_0020A178(cEm00 *self)
         }
         cEm00_setState(self, 1, 8, 2);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x1D) {
+    } else if (cDamageTake_kind(self->unk698) == 0x1D) {
         cEm00_setState(self, 1, 4, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x27) {
+    } else if (cDamageTake_kind(self->unk698) == 0x27) {
         cEm00_setState(self, 1, 3, 0);
         return 1;
-    } else if (cDamageTake_kind(EM_TAKE(self)) == 0x2C || cDamageTake_kind(EM_TAKE(self)) == 0x24) {
+    } else if (cDamageTake_kind(self->unk698) == 0x2C || cDamageTake_kind(self->unk698) == 0x24) {
         self->hitFlash = 3.0f;
         EM00_17A4(self) = 0;
         switch (self->emNo) {
@@ -513,7 +507,7 @@ int func_0020A178(cEm00 *self)
             cEm00_setState(self, 1, 0x12, 0);
             return 1;
         }
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         default:
             if (atk && absf(Turn_dest(&self->pos->x, &atk->pos->x, self->rot.y, 3.14159274f)) > 1.57079637f) {
                 break;
@@ -526,18 +520,18 @@ int func_0020A178(cEm00 *self)
                 self->emFlags2 |= 0x4000;
                 return 1;
             }
-            if (EM00_173C(self) > 0.0f) {
+            if (self->unk173C > 0.0f) {
                 if (func_0020CAC8(self, 1)) {
                     return 0;
                 }
                 if (cCoreSave_getGameLevel(&D_00569B70) >= 3 && fRand0_1() <= 0.5f) {
-                    EM00_173C(self) = 0.0f;
+                    self->unk173C = 0.0f;
                 }
                 cEm00_setVital(self, self->counterVital);
                 func_00274238(self, 1);
-                self->unk17C8 = 0;
-                self->unk17C4 = -1;
-                EM00_17BF(self) = (unsigned int)irand() % 3;
+                self->hitSeKey = 0;
+                self->hitSeSlot = -1;
+                self->unk17BF = (unsigned int)irand() % 3;
                 return 0;
             }
             cEm00_setVital(self, self->counterVital);
@@ -592,7 +586,7 @@ int func_0020A178(cEm00 *self)
         return 1;
     }
     if (EM_MODE_PHASE_IS(self, 1, 0x16) && self->step < 4) {
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 8: case 9: case 0xA: case 0xB: case 0x1C: case 0x30: case 0x52:
             cEm00_setState(self, 1, 8, 0);
             return 1;
@@ -634,7 +628,7 @@ int func_0020A178(cEm00 *self)
         cEm00_setState(self, 1, 0x16, 0);
         return 1;
     }
-    if ((self->moveFlags & 8) || (cDamageTake_kind(EM_TAKE(self)) == 0x2B && EM00_1754(self) > 0.0f)) {
+    if ((self->moveFlags & 8) || (cDamageTake_kind(self->unk698) == 0x2B && EM00_1754(self) > 0.0f)) {
         counter = 0;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         default:
@@ -659,7 +653,7 @@ int func_0020A178(cEm00 *self)
             lim /= 2;
             break;
         }
-        if (cDamageTake_kind(EM_TAKE(self)) == 0x2B) {
+        if (cDamageTake_kind(self->unk698) == 0x2B) {
             self->unk5B4 = 0;
             if (self->unk1866 >= lim) {
                 counter = irand() & 1;
@@ -691,16 +685,16 @@ int func_0020A178(cEm00 *self)
             self->unk1866 = 0;
             cEm00_setVital(self, self->counterVital);
             self->hitFlash = 5.0f;
-            self->unk17C4 = -1;
+            self->hitSeSlot = -1;
             cEm00_setState(self, 1, 0x14, 0);
-            self->unk17C8 = 0;
+            self->hitSeKey = 0;
             return 0;
         }
         if ((self->emFlags2 & 0x100000) && self->vital <= 0) {
             cEm00_setState(self, 2, 2, 0);
             return 1;
         }
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 2: case 3: case 4: case 5: case 7: case 0x19: case 0x2A: case 0x2C:
         case 0x2D: case 0x2E:
             if (self->vital > 0) {
@@ -749,7 +743,7 @@ int func_0020A178(cEm00 *self)
 
     if (self->emFlags & 0x4000) {
         cEm00_setVital(self, self->counterVital);
-        if (cDamageTake_kind(EM_TAKE(self)) == 0x30 || cDamageTake_kind(EM_TAKE(self)) == 0x52) {
+        if (cDamageTake_kind(self->unk698) == 0x30 || cDamageTake_kind(self->unk698) == 0x52) {
             cEm00_setState(self, 1, 0x10, 0);
             return 1;
         }
@@ -763,7 +757,7 @@ int func_0020A178(cEm00 *self)
         return 1;
     }
     if ((self->moveFlags & 0x24) || (self->emFlags & 0x20)) {
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 0x1C: case 0x30: case 0x36: case 0x52:
             break;
         default:
@@ -772,7 +766,7 @@ int func_0020A178(cEm00 *self)
             }
             break;
         }
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         default:
             cEm00_setState(self, 1, 8, 1);
             return 1;
@@ -812,7 +806,7 @@ int func_0020A178(cEm00 *self)
         }
     }
     if (self->vital <= 0 || self->counterVital <= 0) {
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 2: case 3: case 4: case 5: case 7: case 0x2C: case 0x2D: case 0x2E:
             if (self->moveFlags & 8) {
                 cEm00_setState(self, 2, 1, 0);
@@ -874,7 +868,7 @@ int func_0020A178(cEm00 *self)
     if (func_0020D140(self)) {
         return 0;
     }
-    switch (cDamageTake_kind(EM_TAKE(self))) {
+    switch (cDamageTake_kind(self->unk698)) {
     default:
         if (func_0024BF20(self)) {
             return 1;
@@ -896,7 +890,7 @@ int func_0020A178(cEm00 *self)
             cEm00_setState(self, 1, 8, 4);
             return 1;
         }
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 2: case 3: case 4: case 5:
             cEm00_setState(self, 1, 1, 0);
             return 1;
@@ -928,7 +922,7 @@ int func_0020A178(cEm00 *self)
             break;
         }
         if (strong) {
-            switch (cDamageTake_kind(EM_TAKE(self))) {
+            switch (cDamageTake_kind(self->unk698)) {
             case 0x12: case 0x15:
             default:
                 EM_FLINCH7(self, 0);
@@ -936,7 +930,7 @@ int func_0020A178(cEm00 *self)
                 EM_FLINCH7(self, 1);
             }
         }
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 0x15:
         default:
             cEm00_setState(self, 1, 2, 0);
@@ -969,14 +963,14 @@ int func_0020A178(cEm00 *self)
             strong = 1;
         }
         if (strong) {
-            switch (cDamageTake_kind(EM_TAKE(self))) {
+            switch (cDamageTake_kind(self->unk698)) {
             default:
                 EM_FLINCH7(self, 0);
             case 0x18:
                 EM_FLINCH7(self, 1);
             }
         }
-        switch (cDamageTake_kind(EM_TAKE(self))) {
+        switch (cDamageTake_kind(self->unk698)) {
         case 0x18:
         default:
             cEm00_setState(self, 1, 2, 1);
@@ -1002,7 +996,7 @@ int func_0020A178(cEm00 *self)
             cEm00_setState(self, 1, 3, 0);
             return 1;
         case 0x260: case 0x264: case 0x265:
-            switch (cDamageTake_kind(EM_TAKE(self))) {
+            switch (cDamageTake_kind(self->unk698)) {
             case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: case 0xA:
             case 0xB: case 0xC: case 0xD: case 0xF: case 0x11: case 0x12: case 0x13:
             case 0x14: case 0x15: case 0x16: case 0x17: case 0x18: case 0x19: case 0x1A:
@@ -1024,7 +1018,7 @@ int func_0020A178(cEm00 *self)
             case 0x265: case 0x278: case 0x279:
                 break;
             default:
-                switch (cDamageTake_kind(EM_TAKE(self))) {
+                switch (cDamageTake_kind(self->unk698)) {
                 case 0x19:
                     break;
                 default:
@@ -1155,7 +1149,7 @@ int func_0020A178(cEm00 *self)
             return 1;
         }
         if (func_0026F1D8(self) || (self->moveFlags & 0x100)) {
-            if (cDamageTake_kind(EM_TAKE(self)) == 0x14) {
+            if (cDamageTake_kind(self->unk698) == 0x14) {
                 cEm00_setState(self, 1, 0xA, 1);
                 return 1;
             }

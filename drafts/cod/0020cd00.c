@@ -191,7 +191,7 @@ int func_0020CD00(cEm00 *self)
                 return 0;
             }
             Em_restoreCounterVital(self);
-            self->unk17C4 = -1;
+            self->hitSeSlot = -1;
             self->phase = PHASE_COUNTER;
             self->stepArg = 0;
             break;
@@ -202,12 +202,12 @@ int func_0020CD00(cEm00 *self)
                 return 0;
             }
             Em_restoreCounterVital(self);
-            self->unk17C4 = -1;
+            self->hitSeSlot = -1;
             self->stepArg = 1;
             self->phase = PHASE_TWIN_COUNTER;
             break;
         }
-        self->unk17C8 = 0;
+        self->hitSeKey = 0;
         self->mode = 0;
         self->step = 0;
         return 1;

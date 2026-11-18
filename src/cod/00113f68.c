@@ -18,8 +18,6 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 extern char D_005864F0[];
 extern int irand(void);
 extern int cEmManage_SetEmAnger(void *a0, void *a1, float f12, float f13, float f14);
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
-extern int D_005CB000;
 extern unsigned int D_00747A78;
 extern unsigned int D_00747A80;
 extern int D_003C2F84;
@@ -109,6 +107,7 @@ void func_00113F68(pl00 *self)
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 
 

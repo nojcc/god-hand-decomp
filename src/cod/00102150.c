@@ -30,7 +30,6 @@ extern void IK_InverseKinematics(void *a0, void *a1);
 extern int D_00747A78;
 extern void SlotList_selectPrev(void *a0);
 extern void func_001F6AF8(void *a0);
-extern char D_007474A0[];
 extern int *D_003BF0C0[];
 extern int D_003BF0D0[];
 extern void func_00294AD8(void *a0);
@@ -238,6 +237,7 @@ struct Table_00102150 { struct Entry_00102150 e[1]; };
 extern struct Table_00102150 D_003BC748;
 
 #include "godhand/vu0.h"
+#include "godhand/gameWork.h"
 
 __attribute__((section(".text.func_00102150")))
 void func_00102150(void *a0)
@@ -346,10 +346,10 @@ __attribute__((section(".text.func_001F6208")))
 void func_001F6208(void *a0)
 {
     char *s0 = (char *)a0;
-    char *pad = D_007474A0;
+    GameWork *pad = &D_007474A0;
     long b;
 
-    if (*(long *)(pad + 0x1A0) & 0x10000000) {
+    if (*(long *)(&pad->trg) & 0x10000000) {
         if (*(int *)(s0 + 0x24) != D_003BF0C0[*(int *)(s0 + 0xC)][*(int *)(s0 + 0x20)]) {
             if (*(int *)(s0 + 0x24) == -2)
                 cSnd_BattleBgmAllPause(&D_005FEE00, 20.0f);
@@ -360,7 +360,7 @@ void func_001F6208(void *a0)
         }
         return;
     }
-    b = *(long *)(pad + 0x1B0);
+    b = *(long *)(&pad->rep);
     if (b & 0x8000000) {
         if (D_003BF0D0[*(int *)(s0 + 0xC)] >= 7) {
             if (*(int *)(s0 + 0x20) >= 6) {
@@ -497,13 +497,13 @@ void cEmManage_Main(cEmManage *self)
     func_00125F38(Getplayer());
     slot = self->list.top;
     if (slot != 0) {
-        char *g = D_007474A0;
+        GameWork *g = &D_007474A0;
 
         for (; slot != 0; slot = slot->next) {
         cEmActor *e = slot->em;
 
         if (e != 0) {
-            float v = self->speedRate * *(float *)(g + 0x574);
+            float v = self->speedRate * g->timeScale;
 
             e->speedRate = v;
             SetMotionStep(e, v);

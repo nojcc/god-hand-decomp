@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
 #include "godhand/pl00.h"
+#include "godhand/player.h"
 
 extern int D_00586AF0;
 extern void CostumeObj_applyPartMeshes(void);
@@ -14,7 +15,6 @@ extern void func_00298C18(void);
 extern void func_00298EF8(void);
 extern void cModel_setBossMeshes(void);
 extern char D_005864F0[];
-extern char *Getplayer();
 extern int cEmManage_CkPlCatched(void *p);
 extern void func_00129718(void *a, void *b, int c);
 
@@ -100,12 +100,12 @@ void Forward297B40_2991B0(void) {
 
 __attribute__((section(".text.func_002DD300")))
 void func_002DD300(char *a0) {
-    char *o;
+    cGameObj *pl;
     char *g;
-    o = Getplayer();
+    pl = Getplayer();
     if (a0 == 0) return;
-    if (*(short *)(o + 0x54A) <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)o) != 0) return;
+    if (pl->hp <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -115,17 +115,17 @@ void func_002DD300(char *a0) {
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x1D;
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(o, a0, 0x1D);
+    func_00129718(pl, a0, 0x1D);
 }
 
 __attribute__((section(".text.func_002DD3C0")))
 void func_002DD3C0(char *a0) {
-    char *o;
+    cGameObj *pl;
     char *g;
-    o = Getplayer();
+    pl = Getplayer();
     if (a0 == 0) return;
-    if (*(short *)(o + 0x54A) <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)o) != 0) return;
+    if (pl->hp <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -135,5 +135,5 @@ void func_002DD3C0(char *a0) {
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x1E;
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(o, a0, 0x1E);
+    func_00129718(pl, a0, 0x1E);
 }

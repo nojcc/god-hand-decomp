@@ -4,13 +4,13 @@
 #include "godhand/cDvd.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/gameWork.h"
 
 extern int D_00568240;
 extern int D_003C2388;
 extern int *D_003C2384;
 extern char D_005864F0[];
 extern char D_0042BE30[];
-extern char D_007474A0[];
 extern void cIDManager_getLocalFileName(int a, void *b, void *c, int d);
 extern void cIDManager_setIDData(int a, int b, int c);
 extern void ColiseumBattle_ApplyRingRules(void *a);
@@ -55,7 +55,7 @@ void ColiseumBattle_Initialize(ColiseumBattle *self)
     int h;
     int n;
     int t;
-    char *g;
+    GameWork *g;
 
     self->ring =
         D_003BE8B0[cCoreSave_GetFightingRingEmListNo(&D_00569B70)];
@@ -85,8 +85,8 @@ void ColiseumBattle_Initialize(ColiseumBattle *self)
     ColiseumBattle_ApplyRingRules(self);
     if (self->ring.timeLimit != 0) ColiseumBattle_SetCountdown(self);
     ColiseumBattle_PlCtrlOff(self, 1);
-    g = D_007474A0;
-    SetBgmTbl(*(unsigned short *)(g + 0x5B0), self->ring.bgm, 1);
+    g = &D_007474A0;
+    SetBgmTbl(g->room, self->ring.bgm, 1);
 }
 
 /* sn-2.95.3-136 */

@@ -6,8 +6,8 @@
 #include "godhand/cOmWeapon.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cPartsCamera_SetParts(void *parts, void *obj, void *a2, void *a3);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
@@ -20,7 +20,7 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
 {
     cEffectParam s;
-    void *s2;
+    cGameObj *pl;
     cCamManager *mgr;
     struct cCamera *parts;
     struct cOmBase *a2v;
@@ -30,7 +30,7 @@ __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
     int nb;
     int spill[2];
 
-    s2 = Getplayer();
+    pl = Getplayer();
     s.color.x = 1.0f;
     s.color.y = 1.0f;
     s.color.z = 1.0f;
@@ -120,7 +120,7 @@ __attribute__((section(".text.func_00212C08"))) void func_00212C08(cEm00 *self)
             cPartsCamera_SetParts(parts, self, a2v, a3v);
             self->hitFlash = 3.0f;
             if (moveMotion(self) != 0) {
-                pl00_clearMotionCam(s2, 0, 1);
+                pl00_clearMotionCam(pl, 0, 1);
                 func_002705D8(self);
                 self->active = 0;
             }

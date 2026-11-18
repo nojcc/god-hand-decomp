@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern unsigned int D_00747A78;
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 
 

@@ -1,7 +1,7 @@
 #include "godhand/cIDScreen3.h"
 #include "godhand/cIDBase.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 
 /* cIDScreen3 setup: restart every display, keep the first entries of each part, reset the colour. */
 __attribute__((section(".text.func_00143BE8")))

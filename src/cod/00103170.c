@@ -3,7 +3,6 @@
 extern void func_0012C348(void *a0, int a1);
 extern float capVu0Atan2(float y, float x);
 extern float Adjust_theta(float f12);
-extern void *Getplayer(void);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 #include "godhand/motion.h"
 #include "godhand/pl00.h"
@@ -16,14 +15,16 @@ extern int D_00747A24;
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 __attribute__((section(".text.func_00103170")))
 void func_00103170(void *a0)
 {
     float buf[4];
     char *s0 = (char *)a0;
-    void *s1;
+    cGameObj *pl;
     float one;
-    s1 = Getplayer();
+    pl = Getplayer();
     *(float *)(s0 + 0x54C) = 5.0f;
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
@@ -32,8 +33,8 @@ void func_00103170(void *a0)
         func_002A8578(s0, *(int *)(v0 + 0x2C) + v0, *(int *)(v0 + 0x30) + v0, 1, 0.0f, 0, 0);
     }
         SetEffect(0, 0x52, s0, 0, -1, 0xFFFFFFFFu);
-        func_0012C348(s1, 0);
-        pl00_clearMotionCam(s1, 0, 0);
+        func_0012C348(pl, 0);
+        pl00_clearMotionCam(pl, 0, 0);
         {
             char *p = *(char **)(s0 + 0x5B0);
             if (p != 0) {

@@ -21,11 +21,6 @@ extern unsigned char D_00747A2C[];
 
 #define FRAME ((char *)va - 0x30)
 
-/* The record the target link at 0x698 points to; only the enemy pointer is named. */
-typedef struct cEmLink {
-    char unk00[0x34];
-    cEm00 *target;                          /* 0x34 the enemy being watched */
-} cEmLink;
 /* A jumping enemy. Step 0 starts the jump motion chosen by the enemy number and
  * aims at the linked enemy. Step 1 applies gravity and waits for the floor. Step 2
  * starts the fall motion. Step 3 falls until the line check hits the floor, then
@@ -168,17 +163,17 @@ void cEm00_stepLeapAndLand(cEm00 *self)
         cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
         self->timerA = 0;
         {
-            cEmLink *q = self->unk698;
+            cDamageTake *take = self->unk698;
 
-            if (q != 0) {
-                cEm00 *r = q->target;
+            if (take != 0) {
+                cGameObj *atk = (cGameObj *)take->attacker;
 
-                if (r != 0) {
+                if (atk != 0) {
                     cVec *d = &self->posB;
                     cVec *e;
 
                     self->timerA = 0xA;
-                    e = r->pos;
+                    e = atk->pos;
                     if (d != e) {
                         self->posB.x = e->x;
                         d->y = e->y;

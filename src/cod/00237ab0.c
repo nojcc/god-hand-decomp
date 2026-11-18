@@ -3,10 +3,10 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int Getplayer(void);
 extern unsigned int irand(void);
 extern void func_00274FE8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);

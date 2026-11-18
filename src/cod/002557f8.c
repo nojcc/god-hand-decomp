@@ -13,7 +13,6 @@ extern float Adjust_theta(float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00262750(void *a0, int a1);
-extern void *Getplayer(void);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -43,6 +42,7 @@ extern int SetEffectParts(int a0, int a1, void *a2, int a3, float f12,
 
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 
 #define FRAME ((char *)va - 0x30)
 
@@ -191,18 +191,18 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
             func_0026ECD0(self, 0);
             self->timerA = 0;
             {
-                char *q = self->unk698;
-                if (q != 0) {
-                    char *r = *(char **)(q + 0x34);
-                    if (r != 0) {
-                        float *d = &self->posB.x;
-                        float *e;
+                cDamageTake *take = self->unk698;
+                if (take != 0) {
+                    cGameObj *atk = (cGameObj *)take->attacker;
+                    if (atk != 0) {
+                        cVec *d = &self->posB;
+                        cVec *src;
                         self->timerA = 0xA;
-                        e = *(float **)(r + 0xF0);
-                        if (d != e) {
-                            self->posB.x = e[0];
-                            d[1] = e[1];
-                            d[2] = e[2];
+                        src = atk->pos;
+                        if (d != src) {
+                            self->posB.x = src->x;
+                            d->y = src->y;
+                            d->z = src->z;
                         }
                     }
                 }
@@ -375,7 +375,7 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
         }
         case 3: {
             float one;
-            char *o;
+            cGameObj *o;
             int n;
             if (moveMotion(self) != 0) {
                 if (cEm00_startHitUnitAim(self) != 0) {
@@ -386,8 +386,8 @@ __attribute__((section(".text.func_002557F8"))) void func_002557F8(cEm00 *self)
             one = 1.0f;
             cObjBase_addNullSpeed_Rotation(self, one);
             cObjBase_addNullSpeed(self, one);
-            o = (char *)Getplayer();
-            cGameObj_SetTgtTurn(self, *(cVec **)(o + 0xF0), self->speedRate * 0.196349546f);
+            o = Getplayer();
+            cGameObj_SetTgtTurn(self, o->pos, self->speedRate * 0.196349546f);
             n = self->timerA;
             if (n != 0) {
                 self->timerA = n - 1;

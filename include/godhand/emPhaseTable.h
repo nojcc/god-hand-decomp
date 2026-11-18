@@ -11,6 +11,8 @@ typedef struct EmPhaseEnt {
     short unk06;
 } EmPhaseEnt;
 typedef struct EmPhaseTable { EmPhaseEnt e[1]; } EmPhaseTable;
+/* A four-phase table, for the updates that copy their table to the stack before running it. */
+typedef struct EmPhaseTable4 { EmPhaseEnt e[4]; } EmPhaseTable4;
 
 /* Run the handler of phase entry `no` of table `t` on `self`. It is a macro in a bare
  * block because an inline function and a do { } while (0) both move registers; this

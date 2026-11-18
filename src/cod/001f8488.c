@@ -6,10 +6,8 @@
 #include "godhand/cObjSimple.h"
 #include "godhand/cModel.h"
 #include "godhand/cObjBase.h"
+#include "godhand/player.h"
 
-extern cHeatSys D_005CB000;
-extern void cHeatSys_UpdateHeatMax(cHeatSys *self, float range);
-extern void cHeatSys_SetHeatGage(cHeatSys *self, float gage);
 extern void func_002A9C90(cHeatSys *self, float range);
 extern int func_001573C8(float *pt, cAreaVec4 *a, cAreaVec4 *b, cAreaVec4 *c, cAreaVec4 *d);
 extern void cModel_ScrollTexture(cObjSimple *self, float dt);

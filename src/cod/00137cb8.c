@@ -7,12 +7,12 @@
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/gameWork.h"
 
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollision(void *self);
 extern void SlotList_selectPrev(void *self);
 extern void func_001F6AF8(void *self);
-extern char D_007474A0[];
 extern char D_00585040[];
 extern void displayScrollLayer(int id, int on);
 extern float sceVu0InnerProduct(void *a, void *b);
@@ -113,8 +113,6 @@ typedef struct MenuInput {
 
 
 
-#define PAD_OFFSET_HOLD   0x1A0
-#define PAD_OFFSET_PRESS  0x1B0
 #define PAD_BACK          0x30000000
 #define PAD_FIRST         0x2000000
 #define PAD_LAST          0x1000000
@@ -124,38 +122,37 @@ typedef struct MenuInput {
 #define MENU_SE_BACK      0x160
 
 __attribute__((section(".text.MenuInput_stepPad")))
-void MenuInput_stepPad(void *a0)
+void MenuInput_stepPad(MenuInput *self)
 {
-    MenuInput *s0 = (MenuInput *)a0;
-    char *pad = D_007474A0;
+    GameWork *g = &D_007474A0;
     long b;
 
-    if (*(long *)(pad + PAD_OFFSET_HOLD) & PAD_BACK) {
-        s0->mode = 0;
-        s0->step = 0;
-        s0->state = 2;
-        s0->stepArg = 0;
+    if (g->trg & PAD_BACK) {
+        self->mode = 0;
+        self->step = 0;
+        self->state = 2;
+        self->stepArg = 0;
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
         return;
     }
-    b = *(long *)(pad + PAD_OFFSET_PRESS);
+    b = g->rep;
     if (b & PAD_FIRST) {
-        s0->mode = 1;
-        s0->entry = 0;
-        s0->step = 0;
-        s0->stepArg = 0;
+        self->mode = 1;
+        self->entry = 0;
+        self->step = 0;
+        self->stepArg = 0;
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_LAST) {
-        s0->entry = 5;
-        s0->mode = 1;
-        s0->step = 0;
-        s0->stepArg = 0;
+        self->entry = 5;
+        self->mode = 1;
+        self->step = 0;
+        self->stepArg = 0;
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_PAGE_PREV) {
-        SlotList_selectPrev(s0);
+        SlotList_selectPrev(self);
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_PAGE_NEXT) {
-        func_001F6AF8(s0);
+        func_001F6AF8(self);
         cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     }
 }

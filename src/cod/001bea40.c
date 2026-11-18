@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern float capVu0LengthSq(void *a0);
 extern void cActionButton_set(void *a0, int a1, int a2, int a3, void *t0, void *t1, int t2);
 extern int D_00568288;
@@ -8,6 +7,7 @@ extern void cOm_takeCasinoTicket();
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
 
 
 

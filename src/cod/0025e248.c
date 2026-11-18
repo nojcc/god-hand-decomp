@@ -1,23 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
 
-extern int Getplayer(void);
 extern void SetMotionStep(void *a0, float f12);
 #include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
 #include "godhand/cObjBase.h"
-extern void func_00281560(int a0, int a1);
-extern void func_00283438(int a0, int a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand1_1(void);
 extern float fRand0_1(void);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float heat);
-extern char D_005CB000[];
 
 #include "godhand/vu0.h"
 #include "godhand/effectPos.h"
+#include "godhand/player.h"
 
 
 
@@ -125,13 +121,13 @@ void func_0025E248(cEm00 *self)
                 vt->unkAC((char *)self + off, 0x14, s1, 0, 0);
                 if (self->hp <= 0)
                     self->hp = 1;
-                cHeatSys_AddHeatGage(D_005CB000, 0, 0.5f);
+                cHeatSys_AddHeatGage(&D_005CB000, 0, 0.5f);
             }
             if (self->seqFlags & 2) {
                 cGameObjVt *vt = cGameObj_vt((cGameObj *)self);
                 short off = vt->unkA8Delta;
                 vt->unkAC((char *)self + off, 0xC8, s1, 0, 0);
-                cHeatSys_AddHeatGage(D_005CB000, 0, 0.5f);
+                cHeatSys_AddHeatGage(&D_005CB000, 0, 0.5f);
             }
         }
         self->unk56A = 0;

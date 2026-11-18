@@ -3,11 +3,9 @@
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern float capVu0Atan2(float x, float z);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void func_00281368(void *a0, int a1);
 extern void func_002832A0(void *a0, int a1);
 extern void cGameObj_placeBeforeAnchor(void *a0, float a1);
 extern float fRand1_1(void);
@@ -16,6 +14,7 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026DB00(void *a0, int a1, int a2);
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
 
 
@@ -40,12 +39,12 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
     float v[12];
     float dist;
     void *sb;
-    char *o;
+    cGameObj *o;
 
     VU0_SQC2_VF0(v, 0);
-    o = (char *)Getplayer();
+    o = Getplayer();
     sb = &D_005850B0;
-    dist = capVu0MagnitudeSqXZ(*(void **)(o + 0xF0), sb);
+    dist = capVu0MagnitudeSqXZ(o->pos, sb);
     self->emFlags |= 0x30400;
     switch (self->step) {
         case 0: {
@@ -57,13 +56,13 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
             func_002A8578(self, EM_RES_REC((int)p, 0x3D3C), EM_RES_REC((int)p, 0x3D40), 0xA, 0.0f,
                           gb, 0);
             if (self->sub0 != 0) {
-                func_00281368((void *)self->sub0, 0);
+                func_00281368(self->sub0, 0);
             }
             if (self->sub1 != 0) {
-                func_002832A0((void *)self->sub1, 0);
+                func_002832A0(self->sub1, 0);
             }
             if (self->sub2 != 0) {
-                func_002832A0((void *)self->sub2, 0);
+                func_002832A0(self->sub2, 0);
             }
             self->step += 1;
         }
@@ -79,7 +78,7 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
         case 2: {
             int gb;
             float ang;
-            void *q = *(void **)((char *)Getplayer() + 0xF0);
+            void *q = Getplayer()->pos;
             float *cs = v + 4;
             float *tq = v + 8;
             VU0_SQC2_VF0(v, 0x20);
@@ -95,7 +94,7 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
                 v[2] = v[6];
             }
             ang = capVu0Atan2(v[0], v[2]);
-            if (capVu0MagnitudeSqXZ(*(void **)((char *)Getplayer() + 0xF0), sb) < 64.0f) {
+            if (capVu0MagnitudeSqXZ(Getplayer()->pos, sb) < 64.0f) {
                 ang = fRand1_1() * 3.14159274f;
             }
             cGameObj_placeBeforeAnchor(self, ang);
@@ -106,13 +105,13 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
                 func_002A8578(self, EM_RES_REC((int)p, 0x3D44), EM_RES_REC((int)p, 0x3D48), 0xA,
                               0.0f, gb, 0);
                 if (self->sub0 != 0) {
-                    func_00281368((void *)self->sub0, 1);
+                    func_00281368(self->sub0, 1);
                 }
                 if (self->sub1 != 0) {
-                    func_002832A0((void *)self->sub1, 1);
+                    func_002832A0(self->sub1, 1);
                 }
                 if (self->sub2 != 0) {
-                    func_002832A0((void *)self->sub2, 1);
+                    func_002832A0(self->sub2, 1);
                 }
                 self->timer = 35.0f;
             } else {
@@ -120,13 +119,13 @@ __attribute__((section(".text.func_0024AE50"))) void func_0024AE50(cEm00 *self)
                 func_002A8578(self, EM_RES_REC((int)p, 0x3D4C), EM_RES_REC((int)p, 0x3D50), 0xA,
                               0.0f, gb, 0);
                 if (self->sub0 != 0) {
-                    func_00281368((void *)self->sub0, 2);
+                    func_00281368(self->sub0, 2);
                 }
                 if (self->sub1 != 0) {
-                    func_002832A0((void *)self->sub1, 2);
+                    func_002832A0(self->sub1, 2);
                 }
                 if (self->sub2 != 0) {
-                    func_002832A0((void *)self->sub2, 2);
+                    func_002832A0(self->sub2, 2);
                 }
                 self->timer = 15.0f;
             }

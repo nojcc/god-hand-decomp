@@ -2,10 +2,10 @@
 #include "godhand/cCamManager.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cPartsCamera_SetParts(void *parts, void *obj, cOmBase *a2, cOmBase *a3);
@@ -16,7 +16,7 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
 {
     void *parts;
-    void *s3;
+    cGameObj *pl;
     cDamageUnit *s2;
     char *v0;
     cGameObjVt *vt;
@@ -26,7 +26,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
     cOmBase *a3v;
     int spill[2];
 
-    s3 = Getplayer();
+    pl = Getplayer();
     vt = cGameObj_vt((cGameObj *)self);
     s2 = vt->getDamageUnit((char *)self + vt->damageUnitDelta);
     self->hitFlash = 3.0f;
@@ -100,7 +100,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             if (self->unk568 != 0) {
                 self->unk568 = self->unk568 - 1;
             } else {
-                pl00_clearMotionCam(s3, 0, 1);
+                pl00_clearMotionCam(pl, 0, 1);
                 self->mode = 2;
                 self->phase = 2;
                 self->step = 0;

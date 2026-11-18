@@ -9,10 +9,10 @@
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
 #include "godhand/cMovie.h"
+#include "godhand/gameWork.h"
 
 extern unsigned int D_00747A84;
 extern void func_0028E858(void);
-extern char D_007474A0[];
 extern char D_0044B100[];
 extern void *SearchData(void *name, void *table, int which);
 extern unsigned int D_00747A78;
@@ -85,9 +85,9 @@ typedef struct MenuObj {
 
 __attribute__((section(".text.cMenu_loadDataTables")))
 void cMenu_loadDataTables(MenuObj *self) {
-    char *sys = D_007474A0;
-    D_003C23A4->data = SearchData(*(void **)(sys + 0x558), D_0044B100, 0);
-    D_003C23A4->tex = SearchData(*(void **)(sys + 0x558), D_0044B100, 1);
+    GameWork *sys = &D_007474A0;
+    D_003C23A4->data = SearchData(sys->langData, D_0044B100, 0);
+    D_003C23A4->tex = SearchData(sys->langData, D_0044B100, 1);
     self->timer = MENU_TIMER_INIT;
     self->state = 0;
 }
@@ -257,7 +257,7 @@ void Pos_followGround(char *self)
 
 __attribute__((section(".text.System_bringUp")))
 void System_bringUp(void *arg) {
-    char *sys;
+    GameWork *sys;
     int r;
     FileLoader_readWholeFile(arg);
     do {
@@ -269,8 +269,8 @@ void System_bringUp(void *arg) {
     func_00397128(1);
     func_0030ABD8();
     func_00395058();
-    sys = D_007474A0;
-    if ((*(int *)(sys + 0x578) ^ 1) == 0)
+    sys = &D_007474A0;
+    if ((sys->mode ^ 1) == 0)
         sceGsResetGraph(0, 1, 3, 0);
     else
         sceGsResetGraph(0, 1, 2, 0);

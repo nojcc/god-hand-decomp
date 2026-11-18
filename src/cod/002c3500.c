@@ -5,6 +5,8 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cScenario.h"
 #include "godhand/cSceAtManager.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 
 extern int ChkLine(cVec *from, cVec *to, cVec *hit, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
@@ -12,7 +14,6 @@ extern int D_007474A0;
 extern int D_00747A2C;
 extern cSceAtManager D_005FEA60;
 extern char D_00568288[];
-extern char *Getplayer(void);
 extern void func_001F7360(void *p);
 
 #define DROP_UP        1.0f
@@ -96,13 +97,13 @@ void cScenario_moveFrame(cScenario *self)
         if (Getplayer() != 0) {
             long t = (unsigned int)self->task.flags;
             if (((t >> 1) & 1) == 0) {
-                if (*(short *)(Getplayer() + 0x54A) <= 0) {
+                if (Getplayer()->hp <= 0) {
                     *(int *)&self->task.flags = self->task.flags | SCENARIO_F_PL_DEAD;
                     cScenario_endMess(D_003C2F84);
                     *(int *)(g + 0x5E0) = *(int *)(g + 0x5E0) | 0x100000;
                 }
             } else {
-                if (*(short *)(Getplayer() + 0x54A) > 0) {
+                if (Getplayer()->hp > 0) {
                     self->task.flags = self->task.flags & ~SCENARIO_F_PL_DEAD;
                     *(int *)(g + 0x5E0) = *(int *)(g + 0x5E0) & 0xFFEFFFFF;
                 }

@@ -14,36 +14,35 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012A8D8(void *a0);
 
 __attribute__((section(".text.func_0028A9E8")))
-void func_0028A9E8(void *a0)
+void func_0028A9E8(cEm00 *self)
 {
-    char *s0 = (char *)a0;
     float one;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
-    *(float *)(s0 + 0x54C) = 3.0f;
-    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    self->hitFlash = 3.0f;
+    switch (self->step) {
     case 0: {
         int b;
-        func_0028FB08(a0);
+        func_0028FB08(self);
         cCoreSave_addKillNpcNum(&D_00569B70);
-        if (*(int *)(s0 + 0x564) != 0x2A7 && *(int *)(s0 + 0x564) != 0x2AB) {
-            b = *(int *)(s0 + 0x304);
-            func_002A8578(s0, *(int *)(b + 0x70) + b, *(int *)(b + 0x74) + b, 5, 0.0f, 0, 0);
+        if (self->emNo != 0x2A7 && self->emNo != 0x2AB) {
+            b = EM_RES(self);
+            func_002A8578(self, *(int *)(b + 0x70) + b, *(int *)(b + 0x74) + b, 5, 0.0f, 0, 0);
         }
-        b = *(int *)(s0 + 0x304);
-        func_002A8578(s0, *(int *)(b + 0x98) + b, *(int *)(b + 0x9C) + b, 5, 0.0f, 0, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5F, s0, 0, 0, 0, 0);
-        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        b = EM_RES(self);
+        func_002A8578(self, *(int *)(b + 0x98) + b, *(int *)(b + 0x9C) + b, 5, 0.0f, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5F, self, 0, 0, 0, 0);
+        self->step = self->step + 1;
     }
     case 1:
-        if (moveMotion(s0) != 0) {
-            *(unsigned char *)(s0 + 0x2F4) = 2;
-            *(unsigned char *)(s0 + 0x2F5) = 1;
-            *(unsigned char *)(s0 + 0x2F6) = 0;
-            *(unsigned char *)(s0 + 0x2F7) = 0;
+        if (moveMotion(self) != 0) {
+            self->mode = 2;
+            self->phase = 1;
+            self->step = 0;
+            self->stepArg = 0;
         } else {
             one = 1.0f;
-            cObjBase_addNullSpeed_Rotation(s0, one);
-            cObjBase_addNullSpeed(s0, one);
+            cObjBase_addNullSpeed_Rotation(self, one);
+            cObjBase_addNullSpeed(self, one);
         }
         break;
     }

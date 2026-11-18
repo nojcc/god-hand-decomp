@@ -8,6 +8,7 @@
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
 #include "godhand/ColiseumEmSelect.h"
+#include "godhand/player.h"
 
 extern void StoreVecFromFieldB0_2B6160(float *out, void *obj);
 extern void cNode_setTranslationFromWorld(void *self, float *pos);
@@ -15,7 +16,6 @@ extern int cOmBase_checkDamage(void *self, void *damage);
 extern void func_001B0540(void *self);
 extern void func_001B7EE0(void *self, float f);
 extern float capVu0LengthSq(void *v);
-extern cOmBase *Getplayer(void);
 
 #define POS_NUM  7                      /* positions per table */
 

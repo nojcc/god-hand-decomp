@@ -12,9 +12,6 @@
 #define EM_FLAG_HOLD   0x1000000
 
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
-extern void Obj2810_ClearState_B(int obj);
-extern void Obj2810_ClearState_C(int obj);
-extern int func_002815D0(int obj);
 extern unsigned char D_005CB010;
 
 /* Knocked down, or a held reaction when the hold flag is set. */
@@ -70,7 +67,7 @@ int func_0020EF08(cEm00 *self)
         flags = self->emFlags;
         if ((flags & 0x800000) && self->vital > 0 && D_005CB010 == 0)
             return 1;
-        if (!(flags & EM_FLAG_HOLD) && self->sub0 != 0 && func_002815D0(self->sub0) != 0)
+        if (!(flags & EM_FLAG_HOLD) && self->sub0 != 0 && func_002815D0((cEm00 *)self->sub0) != 0)
             return 1;
         if (self->moveFlags & 8)
             return 1;

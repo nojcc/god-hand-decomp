@@ -1,36 +1,44 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern char *InitFields_1B6E90(char *a0);
-extern int D_0042AA98;
-
-/* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
 #include "godhand/cDamageUnit.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+
+extern char *InitFields_1B6E90(cOmBase *self);
+extern cVtEnt D_0042AA98[];
+
+/* A 0x790-byte map object with seven pairs of vectors from 0x6B0. */
+typedef struct cOmVecPairs {
+    cOmBase base;                       /* 0x000 */
+    char unk5E0[0x6B0 - 0x5E0];
+    cVec pair[7][2];                    /* 0x6B0 */
+} cOmVecPairs;
 
 
 
 
+/* Constructor: the map-object base, this class's vtable, then four vectors and the seven pairs zeroed. */
 __attribute__((section(".text.func_001C9140")))
-void *func_001C9140(void *a0)
+cOmVecPairs *func_001C9140(cOmVecPairs *self)
 {
-    char *s0 = (char *)a0;
-    char *p;
+    cVec *p;
     int i;
 
-    InitFields_1B6E90(s0);
-    *(int *)(s0 + 0x214) = (int)&D_0042AA98;
-    VU0_SQC2_VF0(s0, 0x610);
-    VU0_SQC2_VF0(s0, 0x620);
-    VU0_SQC2_VF0(s0, 0x640);
-    VU0_SQC2_VF0(s0, 0x6A0);
-    p = s0 + 0x6B0;
+    InitFields_1B6E90(&self->base);
+    self->base.vtable = D_0042AA98;
+    VU0_SQC2_VF0(self, 0x610);
+    VU0_SQC2_VF0(self, 0x620);
+    VU0_SQC2_VF0(self, 0x640);
+    VU0_SQC2_VF0(self, 0x6A0);
+    p = self->pair[0];
     i = 6;
     do {
         VU0_SQC2_VF0(p, 0x0);
         VU0_SQC2_VF0(p, 0x10);
-        p += 0x20;
+        p += 2;
     } while (--i != -1);
-    return s0;
+    return self;
 }
 
 extern int SpawnRec_create(cDamageNode *node, int group, void *mtx, cVec *pos, cVec *dir, cDamageUnit *owner,

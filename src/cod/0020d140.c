@@ -1,34 +1,41 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern int Obj0000_Get_Field_5FC_NE_Zero_12C748(void *a0);
 extern int irand(void);
-extern unsigned char D_005CB010;
 
+/* After enough hits of the listed kinds (a random count that drops with the
+ * game level), restore hp from counterVital, capped at hpMax, and start
+ * func_00274238's kind 1; 1 when it did. */
 __attribute__((section(".text.func_0020D140")))
-int func_0020D140(void *a0)
+int func_0020D140(cEm00 *self)
 {
-    char *s0 = (char *)a0;
-    unsigned short v1;
-    int lim;
-    int c;
+    unsigned short seq;
+    int kind;
+    int vital;
+    unsigned int lim;
     int ok;
-    int t;
-    int n;
-    int q;
-    short w;
 
-    if (Obj0000_Get_Field_5FC_NE_Zero_12C748(Getplayer()) != 0)
+    if (Obj0000_Get_Field_5FC_NE_Zero_12C748(Getplayer()) != 0) {
         return 0;
-    if (0.0f < *(float *)(s0 + 0x1740)) return 0;
-    v1 = *(unsigned short *)(s0 + 0x3AC);
-    if ((v1 & 8) != 0) goto ret0;
-    if ((v1 & 0x20) != 0) goto ret0;
-    if ((v1 & 4) != 0) goto ret0;
-    n = *(short *)(*(int *)(s0 + 0x698) + 0x46);
-    switch (n) {
+    }
+    if (0.0f < self->unk1740) {
+        return 0;
+    }
+    seq = self->seqFlags;
+    if ((seq & 8) != 0) {
+        return 0;
+    }
+    if ((seq & 0x20) != 0) {
+        return 0;
+    }
+    if ((seq & 4) != 0) {
+        return 0;
+    }
+    kind = self->unk698->kind;
+    switch (kind) {
     case 1: case 2: case 3: case 4:
     case 7: case 8:
     case 12:
@@ -37,51 +44,75 @@ int func_0020D140(void *a0)
     case 21: case 22: case 23: case 24: case 25: case 26: case 27:
     case 43:
         break;
-    case 85: default:
+    case 85: /* retail's table runs up to kind 85 */
+    default:
         return 0;
     }
-    t = *(unsigned char *)(s0 + 0x17BB);
-    if (t == 0) goto ret0;
-    if (t != 1) goto ret0;
-    if (D_005CB010 != 0) return 0;
-    if (func_0026F1D8((cEm00 *)s0) != 0) return 0;
-    if ((*(unsigned short *)(s0 + 0x3AC) & 0x100) != 0) return 0;
-    if (*(int *)(s0 + 0x17AC) <= 0) return 0;
+    if (self->unk17BB == 0) {
+        goto ret0;
+    }
+    if (self->unk17BB != 1) {
+        return 0;
+    }
+    if (D_005CB010 != 0) {
+        return 0;
+    }
+    if (func_0026F1D8(self) != 0) {
+        return 0;
+    }
+    if ((self->seqFlags & 0x100) != 0) {
+        return 0;
+    }
+    if (self->counterVital <= 0) {
+        return 0;
+    }
     switch (cCoreSave_getGameLevel(&D_00569B70)) {
-    case 1: default:
+    case 1:
+    default:
         lim = (irand() & 3) + 5;
         break;
     case 2:
         lim = (irand() & 3) + 4;
         break;
-    case 3: case 4:
+    case 3:
+    case 4:
         lim = (irand() & 3) + 3;
         break;
     case 5:
         lim = (irand() & 3) + 2;
         break;
     }
-    if (*(unsigned char *)(s0 + 0x17C1) != 0) lim = lim - 2;
-    c = *(unsigned char *)(s0 + 0x17BF) + 1;
-    *(unsigned char *)(s0 + 0x17BF) = c;
-    if ((unsigned char)c >= 0x65) *(unsigned char *)(s0 + 0x17BF) = 0x64;
-    if ((unsigned int)*(unsigned char *)(s0 + 0x17BF) < (unsigned int)lim)
+    if (self->slowFlinch != 0) {
+        lim -= 2;
+    }
+    self->unk17BF++;
+    if (self->unk17BF > 100) {
+        self->unk17BF = 100;
+    }
+    if (self->unk17BF < lim) {
         return 0;
+    }
     ok = 1;
-    if (1.5707964f < *(float *)(s0 + 0x760)) ok = 0;
-    if ((irand() & 3) != 0) ok = 0;
-    if (ok == 0) return 0;
-    q = *(int *)(s0 + 0x17AC);
-    w = *(short *)(s0 + 0x548);
-    if (q >= w)
-        *(short *)(s0 + 0x54A) = *(unsigned short *)(s0 + 0x548);
-    else
-        *(short *)(s0 + 0x54A) = q;
-    func_00274238(a0, 1);
-    *(short *)(s0 + 0x17C8) = 0;
-    *(int *)(s0 + 0x17C4) = -1;
-    *(unsigned char *)(s0 + 0x17BF) = (unsigned int)irand() % 3;
+    if (1.5707964f < self->unk760) {
+        ok = 0;
+    }
+    if ((irand() & 3) != 0) {
+        ok = 0;
+    }
+    if (ok == 0) {
+        return 0;
+    }
+    vital = self->counterVital;
+    if (vital >= self->hpMax) {
+        self->hp = self->hpMax;
+    } else {
+        self->hp = vital;
+    }
+    func_00274238(self, 1);
+    self->hitSeKey = 0;
+    self->hitSeSlot = -1;
+    self->unk17BF = (unsigned int)irand() % 3;
     return 1;
-ret0:
+ret0: /* returning straight from the unk17BB test instead changes the code */
     return 0;
 }

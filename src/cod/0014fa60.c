@@ -5,10 +5,10 @@
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEma2.h"
+#include "godhand/player.h"
 
 extern unsigned int D_00747A84;
 extern void KillEffect(void *obj, int effNo, int mode);
-extern cGameObj *Getplayer(void);
 extern float capVu0Atan2(float x, float z);
 
 /* Moves the object by its null-bone speed rotated about the y axis by yaw. */

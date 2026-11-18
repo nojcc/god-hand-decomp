@@ -7,8 +7,6 @@ extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0027DBF8(int a0, int a1);
-extern void func_00281500(int a0, int a1);
-extern void func_002833D8(int a0, int a1);
 extern void func_0026EE40(void *a0, int a1, int a2);
 extern void KillEffect(void *a0, int a1, int a2);
 
@@ -615,7 +613,7 @@ __attribute__((section(".text.func_002580B8"))) void func_002580B8(cEm00 *self)
             cObjBase_addNullSpeed(self, 1.0f);
             break;
     }
-    if (func_00274150(self) != 0 || 0.0f < *(float *)((char *)self + 0x1734)) {
+    if (func_00274150(self) != 0 || 0.0f < self->unk1734) {
         self->mode = 0;
         self->phase = 0x89;
         self->step = 0;

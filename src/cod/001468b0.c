@@ -10,8 +10,7 @@
 #include "godhand/cIDBase.h"
 #include "godhand/idPair.h"
 #include "godhand/sceVu0.h"
-
-extern unsigned short D_00747A50;
+#include "godhand/gameWork.h"
 extern void func_0026ECD0(cEm00 *self, int flag);
 extern float ESLib_ESHermite(float t, float p0, float p1, float m0, float m1);
 extern char D_0044E960[];
@@ -21,8 +20,8 @@ extern char *D_005CAFF0;
 #define EMFLAGS_NO_REACT   0x40000      /* emFlags: the enemy ignores the trigger */
 #define EM_NO_A            0x256
 #define EM_NO_B            0x218
-#define ROOM_NO_A          0x406        /* D_00747A50 value that blocks enemy 0x256 */
-#define ROOM_NO_B          0x1          /* D_00747A50 value that blocks enemy 0x218 */
+#define ROOM_NO_A          0x406        /* room id that blocks enemy 0x256 */
+#define ROOM_NO_B          0x1          /* room id that blocks enemy 0x218 */
 
 
 
@@ -42,9 +41,9 @@ int cEm00_tryReact(cEm00 *self)
         return 0;
     if (self->hp <= 0)
         return 0;
-    if (self->emNo == EM_NO_A && D_00747A50 == ROOM_NO_A)
+    if (self->emNo == EM_NO_A && D_007474A0.room == ROOM_NO_A)
         return 0;
-    if (self->emNo == EM_NO_B && D_00747A50 == ROOM_NO_B)
+    if (self->emNo == EM_NO_B && D_007474A0.room == ROOM_NO_B)
         return 0;
     func_0026ECD0(self, 1);
     return 1;

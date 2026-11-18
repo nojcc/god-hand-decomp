@@ -8,13 +8,14 @@
 #include "godhand/CustomIDWork.h"
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 
 extern void func_003057D0(void *a, int b, int c);
 extern void espSys_effDataRelease(void *a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern char D_00422EB8[];
 extern char D_007419A0[];
-extern char *Getplayer(void);
 
 __attribute__((section(".text.func_001793D0")))
 void func_001793D0(char *p)
@@ -131,8 +132,8 @@ void cCoreSave_snapshot(cCoreSave *p, int full)
         cCoreSave_saveGlobalToggle(p);
     }
     cCoreSave_updateVitalMax(p);
-    if (*(short *)(Getplayer() + 0x54A) > 0) {
-        cCoreSave_setVital(p, *(short *)(Getplayer() + 0x54A));
+    if (Getplayer()->hp > 0) {
+        cCoreSave_setVital(p, Getplayer()->hp);
     } else {
         cCoreSave_setVital(p, 1);
     }

@@ -6,13 +6,13 @@
 #include "godhand/cE3.h"
 #include "godhand/cOm53.h"
 #include "godhand/cMc.h"
+#include "godhand/player.h"
 
 extern void func_002B4A50(cMovie *self);
 extern void cMovieTrack_stop(cMovieTrack *track);
 extern void cE3_stepMenuClock(cE3 *self);
 extern void cE3_runDemo(cE3 *self);
 extern void KeyStop(void);
-extern void *Getplayer(void);
 extern unsigned int D_00747A84;
 extern void func_0();
 extern char cEvent_nullStr00[];
@@ -82,7 +82,7 @@ void cE3_setEnding(cE3 *self, int kind) {
     SYSFLAG_BELOW(sys, SYS_LOCK_FLAGS) |= SYS_LOCK_MORE_A;
     SYSFLAG_BELOW(sys, SYS_LOCK_FLAGS) |= SYS_LOCK_MORE_B;
     SYSFLAG_BELOW(sys, SYS_MODE_FLAGS) |= SYS_MODE_BIT;
-    *(float *)((char *)Getplayer() + 0x54C) = 100.0f;
+    Getplayer()->hitFlash = 100.0f;
     self->ending = kind;
     self->state = CE3_STATE_DEMO;
 }

@@ -1,12 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
 #include "godhand/espSys.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cModel.h"
+#include "godhand/emPhaseTable.h"
 
-extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
+extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void DamagePairObj_clearHits(void *a0);
 extern void func_001B1938(void *a0);
 extern void func_001B1630(void *a0);
-extern void func_001B76D8(void *a0);
+extern void func_001B76D8(cOmBase *self);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern char D_005864F0[];
 
@@ -42,43 +45,21 @@ next: ;
 }
 
 /* One row of the mode table: this adjust, method index (or -1), table offset in the object, or the inline handler. */
-struct Entry_func_001B0F70 { short f0; short f2; short f4; short f6; };
-struct Table_func_001B0F70 { struct Entry_func_001B0F70 e[1]; };
 
-extern struct Table_func_001B0F70 D_003BDCC0;
+extern EmPhaseTable D_003BDCC0;
 
 /* Mode tick: unless a hit stop is running, refresh the speed rate, run the handler of the mode's table row, then the shared post-update steps. */
 __attribute__((section(".text.ModeDispatch_tickWithHitStop")))
-void ModeDispatch_tickWithHitStop(void *a0)
+void ModeDispatch_tickWithHitStop(cOmBase *self)
 {
-    char *s0 = (char *)a0;
-    char *e;
-    int i8;
-    int f0;
     float rate;
-    int type; int arg; int (*fp)(int); long entry;
-    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
+    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
     if (cDamageManage_CkHitStop(&D_00574380) != 0) return;
-    DamagePairObj_clearHits(s0);
+    DamagePairObj_clearHits(self);
     rate = cEmManage_GetSpeedRate(D_005864F0);
-    *(float *)(s0 + 0x5A8) = rate;
-    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
-    e = (char *)&D_003BDCC0 + i8;
-    type = *(short *)(e + 2);
-    if (type >= 0) {
-        int base = *(int *)(s0 + *(short *)(e + 4));
-        entry = *(long *)(base + type * 8 - 8);
-        fp = (int (*)(int))(int)(entry >> 32);
-    } else {
-        fp = *(int (**)(int))((char *)&D_003BDCC0 + i8 + 4);
-    }
-    f0 = D_003BDCC0.e[*(unsigned char *)(s0 + 0x2F4)].f0;
-    if (type >= 0)
-        arg = (short)entry + f0;
-    else
-        arg = f0;
-    fp((int)(s0 + arg));
-    func_001B1938(s0);
-    func_001B1630(s0);
-    func_001B76D8(s0);
+    self->speedRate = rate;
+    EM_PHASE_RUN(&D_003BDCC0, self, self->mode);
+    func_001B1938(self);
+    func_001B1630(self);
+    func_001B76D8(self);
 }

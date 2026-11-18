@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cScenario.h"
+#include "godhand/player.h"
 
 extern int D_00747A78;
 extern int D_00747A84;
@@ -8,7 +9,6 @@ extern char D_005864F0[];
 extern void HideModelMgr_ResetHiddenModels(void *a0);
 extern void HideModelMgr_ClearHiddenModelList(void *a0);
 extern void KeyStop(void);
-extern void *Getplayer(void);
 extern void func_00126770(void *a0);
 extern void cEmManage_suspendRange(void *a0, int a1);
 extern void func_002FA470(int a0);

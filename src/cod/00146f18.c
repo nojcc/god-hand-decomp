@@ -9,7 +9,7 @@ extern float cEvent_getCutFrame();
 extern void func_001C0450(cGameObj *self);
 extern int D_00423E48;
 #include "godhand/objField.h"
-extern unsigned short D_00747A50;
+#include "godhand/gameWork.h"
 extern void ClearBytesAt74And79To7C_13C618(void *self);
 
 /* The derived object keeps a copy of the lock-on point at 0x8D0. */
@@ -152,7 +152,7 @@ __attribute__((section(".text.Element_resetPos")))
 void Element_resetPos(PosPair *self)
 {
     ClearBytesAt74And79To7C_13C618(self);
-    if (D_00747A50 == 0x20) {
+    if (D_007474A0.room == 0x20) {
         self->x = -130.0f;
         self->y = 5.0f;
     } else {

@@ -3,7 +3,6 @@
 
 /* sn-2.95.3-136 */
 
-extern void *Getplayer(void);
 extern void SetMotionStep(void *a0, float f12);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void ForwardAnimParamPairByIndex_27EA50(void *a0, int a1);
@@ -14,12 +13,11 @@ extern float fRand1_1(void);
 extern float fRand0_1(void);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern void SetEffectPos(int a0, int a1, int a2, void *a3, int a4, float a5);
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float a2);
 extern char D_00462FC0[];
-extern char D_005CB000[];
 
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 /* Held-by-player phase of an enemy, stepped on its 0x2F6 sub-phase (0 to 5).
  * The enemy copies the player's motion step, plays three motion pairs from
@@ -160,7 +158,7 @@ void cEm_heldByPlayerPhase(cEm00 *self)
             vt = cGameObj_vt((cGameObj *)self);
             vt->unkAC((char *)self + vt->unkA8Delta,
                (int)(self->timer * 20.0f), s2, 0, 0);
-            cHeatSys_AddHeatGage(D_005CB000, 0, self->timer);
+            cHeatSys_AddHeatGage(&D_005CB000, 0, self->timer);
             self->mode = 1;
             self->phase = 4;
             self->stepArg = 2;

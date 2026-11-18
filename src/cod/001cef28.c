@@ -7,7 +7,6 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern char *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float SetMotionStep(void *a0, float f12);
@@ -15,6 +14,7 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 /* Phase machine on the step byte, 2 case labels. Calls func_002948C8, VU0_SQC2_VF0,
  * cCollisionSolidManage_SetActive, Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578,
  * cSnd_SeCall_2CBA48 and 9 more. */
@@ -38,7 +38,7 @@ __attribute__((section(".text.func_00244708"))) void func_00244708(cEm00 *self)
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x64, self, 0, 0, 0, 0);
             self->step++;
         case 1: {
-            float *p = (float *)(*(char **)(Getplayer() + 0xF0));
+            float *p = (float *)(Getplayer()->pos);
             if (&buf.x != p) {
                 buf.x = p[0];
                 buf.y = p[1];
@@ -90,7 +90,7 @@ __attribute__((section(".text.func_001CEF28"))) void func_001CEF28(cEm00 *self)
             self->step++;
         case 1:
             moveMotion(self);
-            if (capVu0MagnitudeSqXZ(*(void **)(Getplayer() + 0xF0), (void *)self->pos) < 4.0f)
+            if (capVu0MagnitudeSqXZ(Getplayer()->pos, (void *)self->pos) < 4.0f)
                 self->unk568 = 1;
             if (self->unk568 != 0) {
                 t = *(float *)((char *)self + 0x674) - sp;

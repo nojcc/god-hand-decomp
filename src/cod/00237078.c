@@ -5,19 +5,21 @@
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
+#include "godhand/gameWork.h"
+#include "godhand/player.h"
 
-extern char *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002DB770(void);
-extern char D_007474A0[];
 
+/* The enemy's hold on the player, as in func_002380D0 with this enemy's motions and counts: the
+ * player's button presses wear down a counter, and when it is out at a motion event the player
+ * takes step 2 and the enemy plays its next motion; at its events the enemy calls its method
+ * 0xAC with 0x14 and keeps its own HP at 1 or more. */
 __attribute__((section(".text.func_00237078")))
 void func_00237078(cEm00 *self)
 {
-    char *s1 = Getplayer();
-    cVec *p;
-    char *q;
+    cGameObj *pl = Getplayer();
 
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
     self->hitFlash = 3.0f;
@@ -47,23 +49,17 @@ void func_00237078(cEm00 *self)
             break;
         }
         self->unk568 = t;
-        if (*(short *)(s1 + 0x54A) < 2)
+        if (pl->hp < 2)
             self->unk568 = 0x3C;
         self->unk56A = 0x14;
         self->step = self->step + 1;
     }
     /* fallthrough */
-    
-    
     case 1:
-        if (self->unk56E == 0)
-            goto join;
-        (self->unk56E)--;
-        p = self->pos;
-    
-        q = s1 + 0x550;
-        VU0_VADD_XYZ_IP(p, 0, q);
-    join:
+        if (self->unk56E != 0) {
+            (self->unk56E)--;
+            VU0_VADD_XYZ_IP(self->pos, 0, &pl->vel);
+        }
         if (moveMotion(self) != 0) {
             self->mode = 0;
             self->phase = 0x6C;
@@ -75,18 +71,18 @@ void func_00237078(cEm00 *self)
         if (self->unk56A != 0) {
             (self->unk56A)--;
         } else {
-            char *g;
+            GameWork *g;
 
             func_002DB770();
-            g = D_007474A0;
-            if (*(int *)(g + 8) & 0xF0)
+            g = &D_007474A0;
+            if (g->padBtn & 0xF0)
                 (self->unk568)--;
-            if (*(int *)(g + 8) & 0xF00000)
+            if (g->padBtn & 0xF00000)
                 self->unk568 -= 4;
         }
         if (self->seqFlags & 0x10) {
             if (self->unk568 <= 0) {
-                *(unsigned char *)(s1 + 0x2F6) = 2;
+                pl->step = 2;
                 self->step = 2;
             }
             self->unk56A = 0x3E7;
@@ -104,13 +100,8 @@ void func_00237078(cEm00 *self)
     /* fallthrough */
     case 3:
         if (self->unk56E != 0) {
-            char *q;
-            cVec *p0;
-
             (self->unk56E)--;
-            q = s1 + 0x550;
-            p0 = self->pos;
-            VU0_VADD_XYZ_IP(p0, 0, q);
+            VU0_VADD_XYZ_IP(self->pos, 0, &pl->vel);
         }
         if (moveMotion(self) != 0)
             func_002705D8(self);

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cArea.h"
+#include "godhand/gameWork.h"
 
-extern char D_007474A0[];
 extern unsigned int D_00754250[];
 extern int D_003C3D08;
 
@@ -32,17 +32,17 @@ void cCollisionScroll_SetLayerCollEnable(char *a0, unsigned char kind, int on) {
 
 __attribute__((section(".text.func_0013D200")))
 void func_0013D200(char *a0) {
-    char *g;
+    GameWork *g;
     int w;
     int s;
-    g = D_007474A0;
-    if (*(unsigned short *)(g + 0x5B0) == 0x20) {
+    g = &D_007474A0;
+    if (g->room == GAMEWORK_ROOM_NOPLAYER) {
         return;
     }
     if (*(unsigned char *)(a0 + 0x93) != 0) {
         return;
     }
-    if ((*(int *)(g + 0x5E4) & 0x40000000) != 0) {
+    if ((g->flags5E4 & 0x40000000) != 0) {
         *(short *)(a0 + 0x90) = *(unsigned short *)(a0 + 0x90) - 1;
     } else if (*(unsigned char *)(a0 + 0x92) != 0) {
         *(short *)(a0 + 0x90) = *(unsigned short *)(a0 + 0x90) - 1;

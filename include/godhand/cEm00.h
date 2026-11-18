@@ -192,14 +192,16 @@ typedef struct cEm00 {
     float playerDist;                       /* 0x618 squared distance to the player, ground plane */
     char unk61C[0x3];
     unsigned char unk61F;                   /* 0x61F while set, the hit countdown at 0x568 also sets unk15F4 bit 0x8000 */
-    char unk620[0x20];
+    char unk620[0x3];
+    unsigned char forceShown;               /* 0x623 while set, the frame update (func_00208BE0) raises CMODEL_F_SHOWN in objFlags */
+    char unk624[0x1C];
     unsigned short entryNo;                 /* 0x640 the room table's number for it */
     char unk642[0x6];
     unsigned char unk648;                   /* 0x648 set to 0x14 while the 0x640 link is held */
     char unk649[0x2F];
     void *unk678;                           /* 0x678 link record of the enemy it works with, its 0x34 field is the target object */
     char unk67C[0x1C];
-    void *unk698;                           /* 0x698 link record, its 0x34 field is the enemy being watched */
+    cDamageTake *unk698;                    /* 0x698 the enemy's damage-take record (released with ClearAndResetFields_1FE278); attacker is the one that hit it */
     char unk69C[4];
     int unk6A0;                             /* 0x6A0 nonzero: func_0012A108 skips its burning-bomb check */
     char unk6A4[0x10];
@@ -226,9 +228,9 @@ typedef struct cEm00 {
     char unk73C[0x4];
     int subA;                               /* 0x740 child object started with a variant number */
     void *unk744;                           /* 0x744 child enemy whose motion pairs follow this one's (a cEm66 for kind 0x264) */
-    int sub0;                               /* 0x748 child object, its own state bytes follow the enemy's */
-    int sub1;                               /* 0x74C */
-    int sub2;                               /* 0x750 */
+    cGameObj *sub0;                         /* 0x748 child object put in the enemy's phase by the 0x2810xx setters */
+    cGameObj *sub1;                         /* 0x74C child object put in the phase by the 0x2831xx..0x2834xx setters */
+    cGameObj *sub2;                         /* 0x750 like sub1 */
     char unk754[0x8];
     float unk75C;                           /* 0x75C */
     float unk760;                           /* 0x760 */
@@ -311,30 +313,43 @@ typedef struct cEm00 {
     float unk1720;                          /* 0x1720 */
     char unk1724[0xC];
     float unk1730;                          /* 0x1730 */
-    char unk1734[0xC];
+    float unk1734;                          /* 0x1734 set by func_00274150, counted down by speedRate in func_00208BE0; positive ends the wait in func_0023AFD8 */
+    char unk1738[0x4];
+    float unk173C;                          /* 0x173C set by func_00274238 (by enemy number and game level) when phase 0x69 starts; func_00208BE0 counts it down by speedRate */
     float unk1740;                          /* 0x1740 */
-    char unk1744[0x24];
+    char unk1744[0x4];
+    float unk1748;                          /* 0x1748 set by func_00241908, counted down by speedRate in func_00208BE0; func_00274F50 waits for it to run out */
+    char unk174C[0x18];
+    float unk1764;                          /* 0x1764 zeroed by func_002022D0, counted down by speedRate in func_00208BE0, read by func_00262AA8; func_00248FE0 sets 300.0 */
     float unk1768;                          /* 0x1768 */
     char unk176C[0x34];
     int unk17A0;                            /* 0x17A0 the object this enemy turns toward, cleared when its motion ends */
-    char unk17A4[0xD];
+    char unk17A4[0x8];
+    int counterVital;                       /* 0x17AC hp a counter attack restores, capped at hpMax (func_0020A178 saves hp here before kind 0x54 zeroes it); 0 or less: no counter */
+    char unk17B0[0x1];
     unsigned char unk17B1;                  /* 0x17B1 index passed to func_002948C8 */
     char unk17B2[0x6];
     unsigned char counterChance;            /* 0x17B8 on game level 2 and up: 1 counters half the time, 2 two times in three */
     unsigned char counterReady;             /* 0x17B9 nonzero lets the enemy start a counter attack */
     char unk17BA[0x1];
     unsigned char unk17BB;                  /* 0x17BB */
-    char unk17BC[0x5];
+    unsigned char unk17BC;                  /* 0x17BC 0, 1 or 2 by enemy number (func_002022D0): func_0020CAC8 starts phase 0x46 never, half the time, or always */
+    char unk17BD[0x2];
+    unsigned char unk17BF;                  /* 0x17BF counted up to 100 by func_0020D140, which acts once it passes a random limit and then sets it to 0..2 */
+    char unk17C0[0x1];
     unsigned char slowFlinch;               /* 0x17C1 nonzero keeps the slow flinch speed of stepArg 3 */
     char unk17C2[0x1];
     unsigned char unk17C3;                  /* 0x17C3 */
-    char unk17C4[0x6];
+    int hitSeSlot;                          /* 0x17C4 sound-effect slot func_00208BE0 plays when a hit lands, -1 for none */
+    short hitSeKey;                         /* 0x17C8 its key */
     unsigned short unk17CA;                 /* 0x17CA 30 before a motion ends */
     float unk17CC;                          /* 0x17CC set to 150.0 by func_0026F120, tested positive by func_0026F1D8 */
     int unk17D0;                            /* 0x17D0 random; its low bits pick the frames the periodic checks run on */
-    char unk17D4[0x90];
+    float unk17D4;                          /* 0x17D4 enemy 0x222: set to 6.0 with unk1865 when seqFlags bit 2 fires (func_00233248); func_0026A200 moves a part with it while unk1865 counts down */
+    char unk17D8[0x8C];
     unsigned char unk1864;                  /* 0x1864 */
-    char unk1865[0x2];
+    signed char unk1865;                    /* 0x1865 enemy 0x222: frames left of that part move, set to 2 by func_00233248, counted down by func_0026A200 */
+    char unk1866[0x1];
     unsigned char hitCount;                 /* 0x1867 the hits taken in a row, counted up to 4 */
     char unk1868[0x1];
     signed char unk1869;                    /* 0x1869 on enemy 0x275: how many of four meshes stay shown */
@@ -375,10 +390,16 @@ void func_0026B600(cEm00 *self);
 void func_0026BEF0(cEm00 *self, int kind, int arg);
 /* 1 when it switched the enemy to another action, else 0. */
 int func_00262AA8(cEm00 *self);
+int func_00274150(cEm00 *self);
+int func_00274F50(cEm00 *self);
 /* Clears the 0x5B4 counter and sets unk17CC once it reaches 200; 0 before that. */
 int func_0026F120(cEm00 *self);
 /* 1 while unk17CC is positive, else 0. */
 int func_0026F1D8(cEm00 *self);
+/* 1 after putting the enemy in phase 0x46; force == 1 skips the game-level dice. */
+int func_0020CAC8(cEm00 *self, int force);
+/* 1 after restoring hp from counterVital and starting func_00274238's kind 1. */
+int func_0020D140(cEm00 *self);
 /* 1 when the enemy holds nothing (slots 0x6EC, fx0, fx4, fx5) and its kind is not one of 20 listed, else 0. */
 int func_002740D8(cEm00 *self);
 /* Picks the next action once the enemy's motion ends. */

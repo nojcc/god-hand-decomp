@@ -1,10 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern char *Getplayer(void);
 extern void cSescr_At_ck(void *a0, int a1, void *a2, float f12);
 
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/player.h"
+#include "godhand/cEm00.h"
 
 
 
@@ -25,7 +26,7 @@ void func_002C8B68(char *a0)
     char buf[0x10];
 
     VU0_SQC2_VF0(buf, 0x0);
-    cSescr_At_ck(s0, *(int *)(Getplayer() + 0xF0), buf, 1.5f);
+    cSescr_At_ck(s0, *(int *)(&Getplayer()->pos), buf, 1.5f);
     switch (*(unsigned char *)(s0 + 0x13)) {
     case 0:
         if (*(unsigned char *)(s0 + 0xC) & 2) {

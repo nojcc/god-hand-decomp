@@ -4,11 +4,9 @@
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
-extern unsigned char D_005CB000[];
-extern char *Getplayer(void);
 extern void SetMotionStep(void *a0, float f12);
-extern void cHeatSys_AddHeatGage(void *a0, int a1, float f12);
 
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -19,7 +17,7 @@ void func_0025C830(cEm00 *self)
     char *s1;
     float t;
 
-    s1 = Getplayer();
+    s1 = (char *)Getplayer();
     t = *(float *)(s1 + 0x5A8);
     self->speedRate = t;
     SetMotionStep(self, t);

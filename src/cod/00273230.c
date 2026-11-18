@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cEm00.h"
 
 
 /* sn-2.95.3-136 matched TU. */
@@ -8,12 +9,11 @@
 
 
 __attribute__((section(".text.func_00273230")))
-void func_00273230(void *a0)
+void func_00273230(cEm00 *self)
 {
-    char *s0 = (char *)a0;
     int v;
 
-    switch (*(int *)(s0 + 0x564)) {
+    switch (self->emNo) {
     case 0x200:
     default:
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -331,5 +331,5 @@ void func_00273230(void *a0)
         }
         break;
     }
-    *(int *)(s0 + 0x624) = v;
+    *(int *)((char *)self + 0x624) = v;
 }

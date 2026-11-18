@@ -2,8 +2,8 @@
 
 #include "godhand/cEma2.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
-extern void *Getplayer(void);
 extern unsigned int func_0031ED08(float f12);
 
 /* Starts a motion on the player from the data block of this enemy's model:
@@ -11,7 +11,7 @@ extern unsigned int func_0031ED08(float f12);
 __attribute__((section(".text.cEma2_startPlayerMotion")))
 void cEma2_startPlayerMotion(cEma2 *self, float f12, float f13)
 {
-    void *player = Getplayer();
+    cGameObj *player = Getplayer();
     char *data = self->base.pack;
     int start = *(int *)(data + 0x160) + (int)data;
     int end = *(int *)(data + 0x164) + (int)data;

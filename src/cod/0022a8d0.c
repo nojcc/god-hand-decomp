@@ -3,10 +3,10 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/player.h"
 
 extern unsigned char D_005864F0[];
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern char *Getplayer(void);
 extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern float Adjust_theta(float f12);
 extern int cEmManage_CkPlSorry(void *a0);
@@ -41,131 +41,130 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
  * StoreMotionParams_2609E0, Set_Fields_1884_1894_2609F8 and 11 more. */
 __attribute__((section(".text.func_0022A8D0"))) void func_0022A8D0(cEm00 *self)
 {
-    char *s1 = (char *)self;
 
-    *(char *)(s1 + 0x186A) = 2;
-    *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) | 0x400;
+    self->unk186A = 2;
+    self->emFlags2 = self->emFlags2 | 0x400;
     CheckSlotsShort2FEAndSetByte1864_262A10(self);
-    switch (*(unsigned char *)(s1 + 0x2F6)) {
+    switch (self->step) {
         case 0: {
             int gb;
             int b;
 
-            *(char *)(s1 + 0x1864) = 0;
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            b = *(int *)(s1 + 0x304);
-            func_002A8578(s1, EM_RES_REC(b, 0x251C), EM_RES_REC(b, 0x2520), 3, 0.0f, gb, 0);
-            InitRenderStruct_2A8608((cGameObj *)s1, 0xAA, 7, 0, 2, 0);
+            self->unk1864 = 0;
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            b = EM_RES(self);
+            func_002A8578(self, EM_RES_REC(b, 0x251C), EM_RES_REC(b, 0x2520), 3, 0.0f, gb, 0);
+            InitRenderStruct_2A8608((cGameObj *)self, 0xAA, 7, 0, 2, 0);
             StoreMotionParams_2609E0(self, 0x28, 0x1C, 0x3E, -1, 0);
             Set_Fields_1884_1894_2609F8(self, 0x3C, 0x1B, 0x3E, -1, 0);
-            *(int *)(s1 + 0x5FC) = 0;
-            *(float *)(s1 + 0x600) = *(float *)(s1 + 0x104);
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->timerC = 0;
+            self->timer = self->rot.y;
+            self->step = self->step + 1;
         }
         case 1: {
-            void *e = *(void **)(s1 + 0xF0);
+            void *e = self->pos;
             float t;
             float th;
 
-            *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x800000;
-            t = Turn_dest(e, *(void **)(Getplayer() + 0xF0), *(float *)(s1 + 0x600),
-                          *(float *)(s1 + 0x5A8) * 0.09817477f);
-            th = *(float *)(s1 + 0x600) + t;
-            *(float *)(s1 + 0x600) = th;
-            *(float *)(s1 + 0x600) = Adjust_theta(th);
-            th = *(float *)(s1 + 0x104) + t;
-            *(float *)(s1 + 0x104) = th;
-            *(float *)(s1 + 0x104) = Adjust_theta(th);
-            if (moveMotion(s1) != 0) {
-                *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->emFlags = self->emFlags | 0x800000;
+            t = Turn_dest(e, Getplayer()->pos, self->timer,
+                          self->speedRate * 0.09817477f);
+            th = self->timer + t;
+            self->timer = th;
+            self->timer = Adjust_theta(th);
+            th = self->rot.y + t;
+            self->rot.y = th;
+            self->rot.y = Adjust_theta(th);
+            if (moveMotion(self) != 0) {
+                self->step = self->step + 1;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         }
         case 2: {
             int gb;
             int b;
 
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            b = *(int *)(s1 + 0x304);
-            func_002A8578(s1, EM_RES_REC(b, 0x2524), EM_RES_REC(b, 0x2528), 0, 0.0f, gb, 1);
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            b = EM_RES(self);
+            func_002A8578(self, EM_RES_REC(b, 0x2524), EM_RES_REC(b, 0x2528), 0, 0.0f, gb, 1);
             switch (cCoreSave_getGameLevel(&D_00569B70)) {
                 default:
                 case 1:
-                    *(short *)(s1 + 0x568) = 1;
+                    self->unk568 = 1;
                     break;
                 case 2:
-                    *(short *)(s1 + 0x568) = 2;
+                    self->unk568 = 2;
                     break;
                 case 3:
-                    *(short *)(s1 + 0x568) = 2;
+                    self->unk568 = 2;
                     break;
                 case 4:
-                    *(short *)(s1 + 0x568) = 2;
+                    self->unk568 = 2;
                     break;
                 case 5:
-                    *(short *)(s1 + 0x568) = 3;
+                    self->unk568 = 3;
                     break;
             }
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            self->step = self->step + 1;
         }
         case 3: {
-            void *e = *(void **)(s1 + 0xF0);
+            void *e = self->pos;
             float t;
             float th;
             char *g;
 
-            *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x800000;
-            t = Turn_dest(e, *(void **)(Getplayer() + 0xF0), *(float *)(s1 + 0x600),
-                          *(float *)(s1 + 0x5A8) * 0.09817477f);
-            th = *(float *)(s1 + 0x600) + t;
-            *(float *)(s1 + 0x600) = th;
-            *(float *)(s1 + 0x600) = Adjust_theta(th);
-            th = *(float *)(s1 + 0x104) + t;
-            *(float *)(s1 + 0x104) = th;
-            *(float *)(s1 + 0x104) = Adjust_theta(th);
-            if (moveMotion(s1) != 0) {
-                if (*(short *)(s1 + 0x568) != 0) {
-                    *(short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
+            self->emFlags = self->emFlags | 0x800000;
+            t = Turn_dest(e, Getplayer()->pos, self->timer,
+                          self->speedRate * 0.09817477f);
+            th = self->timer + t;
+            self->timer = th;
+            self->timer = Adjust_theta(th);
+            th = self->rot.y + t;
+            self->rot.y = th;
+            self->rot.y = Adjust_theta(th);
+            if (moveMotion(self) != 0) {
+                if (self->unk568 != 0) {
+                    self->unk568 = self->unk568 - 1;
                 } else {
-                    *(char *)(s1 + 0x2F6) = 4;
+                    self->step = 4;
                 }
             }
             g = (char *)&D_005864F0;
             if (cEmManage_CkPlSorry(g) != 0) {
-                *(char *)(s1 + 0x2F6) = 4;
+                self->step = 4;
             } else if (cEmManage_CkPlCatched(g) != 0) {
-                *(char *)(s1 + 0x2F6) = 4;
+                self->step = 4;
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
         }
         case 4: {
             int gb;
             int b;
 
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
-            b = *(int *)(s1 + 0x304);
-            func_002A8578(s1, EM_RES_REC(b, 0x252C), EM_RES_REC(b, 0x2530), 0, 0.0f, gb, 0);
-            InitRenderStruct_2A8608((cGameObj *)s1, 0xAA, 8, 0, 2, 0);
-            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            b = EM_RES(self);
+            func_002A8578(self, EM_RES_REC(b, 0x252C), EM_RES_REC(b, 0x2530), 0, 0.0f, gb, 0);
+            InitRenderStruct_2A8608((cGameObj *)self, 0xAA, 8, 0, 2, 0);
+            self->step = self->step + 1;
         }
         case 5:
-            *(int *)(s1 + 0x16D0) = *(int *)(s1 + 0x16D0) | 0x800000;
-            if (moveMotion(s1) != 0) {
-                func_002705D8(s1);
+            self->emFlags = self->emFlags | 0x800000;
+            if (moveMotion(self) != 0) {
+                func_002705D8(self);
             }
-            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
-            cObjBase_addNullSpeed(s1, 1.0f);
+            cObjBase_addNullSpeed_Rotation(self, 1.0f);
+            cObjBase_addNullSpeed(self, 1.0f);
             break;
     }
     func_00260B30(self);
-    if ((*(unsigned short *)(s1 + 0x3AC) & 3) != 0) {
-        *(int *)(s1 + 0x5FC) = 1;
+    if ((self->seqFlags & 3) != 0) {
+        self->timerC = 1;
     }
-    if (*(int *)(s1 + 0x5FC) != 0) {
-        *(int *)(s1 + 0x16D4) = *(int *)(s1 + 0x16D4) & 0xFFFFFBFFU;
+    if (self->timerC != 0) {
+        self->emFlags2 = self->emFlags2 & 0xFFFFFBFFU;
     }
 }

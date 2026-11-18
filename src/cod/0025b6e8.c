@@ -6,9 +6,6 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float capVu0Atan2(float y, float x);
 extern float Turn_dest_dir(float f12, float f13, float f14);
-extern void Obj2810_SetState_E_a1(void *a0, int a1);
-extern void SetBytes2F4Mode11_283360(void *a0, int a1);
-extern void ClearBytes2F4To2F7_283170(void *a0);
 
 /* Phase machine on the step byte, 8 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468, VU0_LQC2,
  * VU0_SQC2, capVu0Atan2, Turn_dest_dir, func_002A8578 and 8 more. */
@@ -107,11 +104,11 @@ __attribute__((section(".text.func_0025B6E8"))) void func_0025B6E8(cEm00 *self)
             }
             func_002A8578(self, p1, p2, 2, 0.0f, s1, 0);
             if (self->sub0)
-                Obj2810_SetState_E_a1((void *)self->sub0, self->stepArg);
+                Obj2810_SetState_E_a1(self->sub0, self->stepArg);
             if (self->sub1)
-                SetBytes2F4Mode11_283360((void *)self->sub1, self->stepArg);
+                SetBytes2F4Mode11_283360(self->sub1, self->stepArg);
             if (self->sub2)
-                ClearBytes2F4To2F7_283170((void *)self->sub2);
+                ClearBytes2F4To2F7_283170(self->sub2);
             self->step = self->step + 1;
         }
         case 1:

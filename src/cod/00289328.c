@@ -2,8 +2,8 @@
 
 #include "godhand/cEma2.h"
 #include "godhand/vu0.h"
+#include "godhand/player.h"
 
-extern cGameObj *Getplayer(void);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 

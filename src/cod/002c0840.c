@@ -4,15 +4,14 @@
 #include "godhand/vu0.h"
 #include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/player.h"
 
 typedef struct { int w[0x14A0 / 4]; } __attribute__((aligned(16))) SaveBlob;
 
 extern char D_0061A990[];
-extern char D_005CB000[];
 
 extern void cWorldTime_gameInit(void *w);
 extern void cSaveManager_setCheckPoint(void *self, int a1, int a2, int a3);
-extern void cHeatSys_Initialize(void *h);
 
 __attribute__((section(".text.func_002C0840")))
 void func_002C0840(char *self)
@@ -46,7 +45,7 @@ void func_002C0840(char *self)
     cWorldTime_gameInit(D_0061A990);
     D_00569B70.data->unkB8C |= 1;
     cSaveManager_setCheckPoint(self, 0, 0, 0);
-    cHeatSys_Initialize(D_005CB000);
+    cHeatSys_Initialize(&D_005CB000);
     *(short *)(self + 0xC) = 0x100;
     *(unsigned short *)(self + 0x10) = *(unsigned short *)(tmp + 0x10);
     *(char *)(self + 0x1F) = *(char *)(tmp + 0x1F);

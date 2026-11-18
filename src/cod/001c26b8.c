@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 
-extern cGameObj *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 /* Turn_dest is (from, to, cur, max) in src/cod/002da038.c. Declared with the floats
  * first, as src/cod/002dcd50.c does: the registers are the same and only this

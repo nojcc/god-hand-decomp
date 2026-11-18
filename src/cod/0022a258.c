@@ -2,11 +2,11 @@
 #include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
 #include "godhand/cGameObj.h"
+#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern void *Getplayer(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void cEmManage_ReleaseEm(void *a0, void *a1);

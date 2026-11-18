@@ -3,33 +3,30 @@
 #include "godhand/cEm00.h"
 #include "godhand/cSnd.h"
 
-/* sn-2.95.3-136 */
-
 extern float fRand0_1(void);
 
-__attribute__((section(".text.func_00274238")))
-void func_00274238(cEm00 *self, unsigned char kind) {
-    char *s1 = (char *)self;
-    unsigned char s2 = kind;
-
-    if ((*(int *)(s1 + 0x16D0) & 0x2000) != 0) goto tail;
-    switch (*(int *)(s1 + 0x564)) {
+/* unk173C for phase 0x69 by enemy number and game level, plus up to 4 at
+ * random below level 5; enemies 0x24F, 0x278 and 0x279 get 0. */
+static __inline__ void cEm00_setTime173C(cEm00 *self)
+{
+    switch (self->emNo) {
     default:
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
-            case 1: default:
-            *(float *)(s1 + 0x173C) = 40.0f;
+        case 1:
+        default:
+            self->unk173C = 40.0f;
             break;
-            case 2:
-            *(float *)(s1 + 0x173C) = 30.0f;
+        case 2:
+            self->unk173C = 30.0f;
             break;
-            case 3:
-            *(float *)(s1 + 0x173C) = 20.0f;
+        case 3:
+            self->unk173C = 20.0f;
             break;
-            case 4:
-            *(float *)(s1 + 0x173C) = 20.0f;
+        case 4:
+            self->unk173C = 20.0f;
             break;
-            case 5:
-            *(float *)(s1 + 0x173C) = 15.0f;
+        case 5:
+            self->unk173C = 15.0f;
             break;
         }
         break;
@@ -41,61 +38,73 @@ void func_00274238(cEm00 *self, unsigned char kind) {
     case 0x271: case 0x272: case 0x273: case 0x274: case 0x275: case 0x276:
     case 0x27E:
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
-            case 2:
-            *(float *)(s1 + 0x173C) = 8.0f;
+        case 2:
+            self->unk173C = 8.0f;
             break;
-            case 3:
-            *(float *)(s1 + 0x173C) = 6.0f;
+        case 3:
+            self->unk173C = 6.0f;
             break;
-            case 4:
-            *(float *)(s1 + 0x173C) = 6.0f;
+        case 4:
+            self->unk173C = 6.0f;
             break;
-            case 5:
-            *(float *)(s1 + 0x173C) = 5.0f;
+        case 5:
+            self->unk173C = 5.0f;
             break;
-            case 1: default:
-            *(float *)(s1 + 0x173C) = 10.0f;
+        case 1:
+        default:
+            self->unk173C = 10.0f;
             break;
         }
         break;
     case 0x24F: case 0x278: case 0x279:
-        *(float *)(s1 + 0x173C) = 0.0f;
-        goto tail;
+        self->unk173C = 0.0f;
+        return;
     case 0x206: case 0x20C: case 0x20D: case 0x224: case 0x225: case 0x227:
     case 0x228: case 0x229: case 0x22A: case 0x22B: case 0x22C: case 0x22D:
     case 0x22E: case 0x22F: case 0x23A: case 0x246: case 0x24B: case 0x24D:
     case 0x25A:
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
-            case 1: default:
-            *(float *)(s1 + 0x173C) = 15.0f;
+        case 1:
+        default:
+            self->unk173C = 15.0f;
             break;
-            case 2:
-            *(float *)(s1 + 0x173C) = 13.0f;
+        case 2:
+            self->unk173C = 13.0f;
             break;
-            case 3:
-            *(float *)(s1 + 0x173C) = 12.0f;
+        case 3:
+            self->unk173C = 12.0f;
             break;
-            case 4:
-            *(float *)(s1 + 0x173C) = 12.0f;
+        case 4:
+            self->unk173C = 12.0f;
             break;
-            case 5:
-            *(float *)(s1 + 0x173C) = 10.0f;
+        case 5:
+            self->unk173C = 10.0f;
             break;
         }
         break;
     }
     if (cCoreSave_getGameLevel(&D_00569B70) < 5) {
-        *(float *)(s1 + 0x173C) = *(float *)(s1 + 0x173C) + fRand0_1() * 4.0f;
+        self->unk173C = self->unk173C + fRand0_1() * 4.0f;
     }
-tail:
-    if (*(int *)(s1 + 0x564) == 0x279) {
-        ReleaseField6ECByTag564_26B1E8((cEm00 *)s1);
+}
+
+/* Start phase 0x69 with step argument kind (sound 0x7C when it is set); unless
+ * emFlags 0x2000 is set, set unk173C first. Enemy 0x279 also drops its
+ * unk6EC weapon. */
+__attribute__((section(".text.func_00274238")))
+void func_00274238(cEm00 *self, unsigned char kind)
+{
+    if ((self->emFlags & 0x2000) == 0) {
+        cEm00_setTime173C(self);
     }
-    *(unsigned char *)(s1 + 0x2F4) = 0;
-    *(unsigned char *)(s1 + 0x2F5) = 0x69;
-    *(unsigned char *)(s1 + 0x2F6) = 0;
-    *(unsigned char *)(s1 + 0x2F7) = s2;
-    if (s2 != 0) {
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x7C, s1, 0, 0, 0, 0);
+    if (self->emNo == 0x279) {
+        ReleaseField6ECByTag564_26B1E8(self);
+    }
+    self->mode = 0;
+    self->phase = 0x69;
+    self->step = 0;
+    self->stepArg = kind;
+    if (kind != 0) {
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x7C, self, 0, 0, 0, 0);
     }
 }

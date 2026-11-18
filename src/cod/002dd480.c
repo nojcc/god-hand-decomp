@@ -3,21 +3,21 @@
 #include "godhand/criStm.h"
 #include "godhand/pl00.h"
 #include "godhand/heapArena.h"
+#include "godhand/player.h"
 
 extern char D_005864F0[];
-extern char *Getplayer();
 extern int cEmManage_CkPlCatched(void *p);
 extern void func_00129718(void *a, void *b, int c);
 extern int D_00747A34;
 
 __attribute__((section(".text.func_002DD480")))
 void func_002DD480(char *a0) {
-    char *o;
+    cGameObj *pl;
     char *g;
-    o = Getplayer();
+    pl = Getplayer();
     if (a0 == 0) return;
-    if (*(short *)(o + 0x54A) <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)o) != 0) return;
+    if (pl->hp <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -27,17 +27,17 @@ void func_002DD480(char *a0) {
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x1F;
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(o, a0, 0x1F);
+    func_00129718(pl, a0, 0x1F);
 }
 
 __attribute__((section(".text.func_002DD540")))
 void func_002DD540(char *a0) {
-    char *o;
+    cGameObj *pl;
     char *g;
-    o = Getplayer();
+    pl = Getplayer();
     if (a0 == 0) return;
-    if (*(short *)(o + 0x54A) <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)o) != 0) return;
+    if (pl->hp <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -47,17 +47,17 @@ void func_002DD540(char *a0) {
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x20;
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(o, a0, 0x20);
+    func_00129718(pl, a0, 0x20);
 }
 
 __attribute__((section(".text.func_002DD600")))
 void func_002DD600(char *a0) {
-    char *o;
+    cGameObj *pl;
     char *g;
-    o = Getplayer();
+    pl = Getplayer();
     if (a0 == 0) return;
-    if (*(short *)(o + 0x54A) <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)o) != 0) return;
+    if (pl->hp <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -67,7 +67,7 @@ void func_002DD600(char *a0) {
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x21;
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(o, a0, 0x21);
+    func_00129718(pl, a0, 0x21);
 }
 
 /* clone */

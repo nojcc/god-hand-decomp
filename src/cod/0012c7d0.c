@@ -4,6 +4,7 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/pl00.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cSnd.h"
@@ -65,8 +66,8 @@ void ColiseumBattle_stepEnemyWaves(ColiseumBattle *self)
         ent_->pfn((char *)(obj) + ent_->delta, (on)); \
     } while (0)
 
-/* Set (on == 1) or clear the suspend bits of the player, then pass the state on to the jacket and to the three objects
- * that fight beside the player. */
+/* Set (on == 1) or clear the suspend bits of the player, then pass the state on to the jacket, to the two objects
+ * that fight beside the player and to the weapon it holds. */
 __attribute__((section(".text.pl00_setSuspend")))
 void pl00_setSuspend(pl00 *self, int on)
 {
@@ -89,8 +90,8 @@ void pl00_setSuspend(pl00 *self, int on)
         PL00_FORWARD_SUSPEND(self->sub698, on);
     if (self->sub6A0 != 0)
         PL00_FORWARD_SUSPEND(self->sub6A0, on);
-    if (self->sub6A8 != 0)
-        PL00_FORWARD_SUSPEND(self->sub6A8, on);
+    if (self->weapon != 0)
+        PL00_FORWARD_SUSPEND(&self->weapon->base, on);
 }
 
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, void *a6,

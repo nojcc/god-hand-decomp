@@ -1,8 +1,8 @@
 /* include/godhand/pl00.h - pl00, the player object.
  *
  * pl00 derives from cGameObj. Past the base part it keeps the objects that
- * fight beside the player: three of them sit in a row of pointers at 0x698,
- * 0x6A0 and 0x6A8, and the player forwards the state changes that concern
+ * fight beside the player in a row of pointers at 0x698 and 0x6A0, and the
+ * weapon it holds at 0x6A8; the player forwards the state changes that concern
  * them (suspend, for one) through their method table at 0x214.
  *
  * Only the fields the methods drawn so far touch are named. Offsets are
@@ -25,6 +25,7 @@ typedef struct pl00VtEnt {
 #define PL00_VT_SETSUSPEND  12
 
 struct cEm00;
+struct cOmWeapon;
 
 typedef struct pl00 {
     cGameObj base;
@@ -69,7 +70,9 @@ typedef struct pl00 {
     cGameObj *unk69C;                   /* 0x69C */
     cGameObj *sub6A0;                   /* 0x6A0 */
     char unk6A4[4];
-    cGameObj *sub6A8;                   /* 0x6A8 */
+    struct cOmWeapon *weapon;           /* 0x6A8 the weapon in hand: func_0012C8D8 stores a picked-up
+                                         * weapon here and passes it to cOmWeapon_setParent,
+                                         * func_00123460 passes it to cOmWeapon_kickOff and clears it */
     char unk6AC[0x76C - 0x6AC];
     float unk76C;                       /* 0x76C */
     char unk770[0x1588 - 0x770];
@@ -108,7 +111,7 @@ typedef struct pl00 {
 
 typedef char pl00_chk_sub698[((int)&((pl00 *)0)->sub698 == 0x698) ? 1 : -1];
 typedef char pl00_chk_sub6A0[((int)&((pl00 *)0)->sub6A0 == 0x6A0) ? 1 : -1];
-typedef char pl00_chk_sub6A8[((int)&((pl00 *)0)->sub6A8 == 0x6A8) ? 1 : -1];
+typedef char pl00_chk_weapon[((int)&((pl00 *)0)->weapon == 0x6A8) ? 1 : -1];
 typedef char pl00_chk_flags[((int)&((pl00 *)0)->flags15F4 == 0x15F4) ? 1 : -1];
 typedef char pl00_chk_combo[((int)&((pl00 *)0)->comboCount == 0x1615) ? 1 : -1];
 typedef char pl00_chk_timer[((int)&((pl00 *)0)->comboTimer == 0x1616) ? 1 : -1];
