@@ -141,12 +141,12 @@ void ResetActorState_2C3440(void *a0) {
     *(int*)((char*)a0 + 0x100) = 0;
     *(char*)((char*)a0 + 0x108) = 0;
     *(short*)((char*)a0 + 0xE8) = 0;
-    *(int*)(((char *)b + 0x610)) = 0xFFFFu;
+    b->unk610 = 0xFFFFu;
     v0 = *(int*)((char*)a0 + 0x48);
     v0 &= -2;
     v0 &= -3;
     *(int*)((char*)a0 + 0x48) = v0;
-    if ((*(int*)(((char *)b + 0x590)) & 1) == 0) {
+    if ((b->unk590 & 1) == 0) {
         void (*f)(void);
         func_002D9BD0(D_0061A990);
         f = *(void (**)(void))(*(char**)((char*)a0 + 0xD4) + 8);

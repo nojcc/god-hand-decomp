@@ -14,11 +14,11 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
 __attribute__((section(".text.func_0025C830")))
 void func_0025C830(cEm00 *self)
 {
-    char *s1;
+    cGameObj *pl;
     float t;
 
-    s1 = (char *)Getplayer();
-    t = *(float *)(s1 + 0x5A8);
+    pl = Getplayer();
+    t = pl->speedRate;
     self->speedRate = t;
     SetMotionStep(self, t);
     cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
@@ -34,12 +34,12 @@ void func_0025C830(cEm00 *self)
     }
     /* fallthrough */
     case 1: {
-        char *q = s1 + 0x550;
+        cVec *q = &pl->vel;
         cVec *d = self->pos;
         cVec *p;
         self->hitFlash = 3.0f;
         self->emFlags = self->emFlags | 0x10000;
-        d->y = *(float *)(*(char **)(s1 + 0xF0) + 4);
+        d->y = pl->pos->y;
         p = self->pos;
         VU0_VADD_XYZ_IP(p, 0, q);
         if (moveMotion(self))
@@ -58,23 +58,23 @@ void func_0025C830(cEm00 *self)
     }
     /* fallthrough */
     case 3: {
-        char *q = s1 + 0x550;
+        cVec *q = &pl->vel;
         cVec *d = self->pos;
         cVec *p;
         self->hitFlash = 3.0f;
         self->emFlags = self->emFlags | 0x10000;
-        d->y = *(float *)(*(char **)(s1 + 0xF0) + 4);
+        d->y = pl->pos->y;
         p = self->pos;
         VU0_VADD_XYZ_IP(p, 0, q);
         if (moveMotion(self)) {
             cGameObjVt *vt = cGameObj_vt((cGameObj *)self);
             int off = vt->unkA8Delta;
-            vt->unkAC((char *)self + off, 8, s1, 1, 0);
+            vt->unkAC((char *)self + off, 8, pl, 1, 0);
             cHeatSys_AddHeatGage(&D_005CB000, 0, 1.0f);
         }
         cObjBase_addNullSpeed_Rotation(self, 1.0f);
         cObjBase_addNullSpeed(self, 1.0f);
-        self->step = *(unsigned char *)(s1 + 0x2F6);
+        self->step = pl->step;
         break;
     }
     case 4: {
@@ -91,13 +91,13 @@ void func_0025C830(cEm00 *self)
         self->hitFlash = 3.0f;
         self->emFlags = self->emFlags | 0x10000;
         d = self->pos;
-        d->y = *(float *)(*(char **)(s1 + 0xF0) + 4);
+        d->y = pl->pos->y;
         if (self->unk56E != 0) {
             cVec *p;
-            char *q;
+            cVec *q;
             self->unk56E = self->unk56E - 1;
             p = self->pos;
-            q = s1 + 0x550;
+            q = &pl->vel;
             VU0_VADD_XYZ_IP(p, 0, q);
         }
         if (moveMotion(self)) {
@@ -120,13 +120,13 @@ void func_0025C830(cEm00 *self)
                 self->timerA = 0;
                 vt = cGameObj_vt((cGameObj *)self);
                 off = vt->unkA8Delta;
-                vt->unkAC((char *)self + off, 0x14, s1, 1, 0);
+                vt->unkAC((char *)self + off, 0x14, pl, 1, 0);
                 cHeatSys_AddHeatGage(&D_005CB000, 0, 1.0f);
             }
         }
         if (self->seqFlags & 0x10) {
             if (self->hp > 0) {
-                *(unsigned char *)(s1 + 0x2F6) = 6;
+                pl->step = 6;
                 self->step = 6;
             }
         }
@@ -143,7 +143,7 @@ void func_0025C830(cEm00 *self)
     /* fallthrough */
     case 7:
         if (self->unk56E != 0) {
-            char *q = s1 + 0x550;
+            cVec *q = &pl->vel;
             cVec *p;
             self->unk56E = self->unk56E - 1;
             p = self->pos;

@@ -62,7 +62,8 @@ typedef struct GameWork {
     int unk57C;                 /* 0x57C */
     int unk580;                 /* 0x580 */
     int flags;                  /* 0x584 GAMEWORK_* */
-    char pad588[0x594 - 0x588];
+    char pad588[0x590 - 0x588];
+    int unk590;                 /* 0x590 bit 0 set: ResetActorState_2C3440 skips the actor's exit callback */
     int debugFlags;             /* 0x594 */
     int flags598;               /* 0x598 */
     int flags59C;               /* 0x59C */
@@ -87,7 +88,8 @@ typedef struct GameWork {
     unsigned char pairNum;      /* 0x600 entries used in D_007558A8 */
     char pad601[0x60C - 0x601];
     int bgColor;                /* 0x60C background fill colour, r | g << 8 | b << 16 */
-    char pad610[0x620 - 0x610];
+    int unk610;                 /* 0x610 ResetActorState_2C3440 sets it to 0xFFFF */
+    char pad614[0x620 - 0x614];
 } GameWork;                     /* 0x620 */
 
 extern GameWork D_007474A0;

@@ -166,7 +166,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
             cDamageTake *take = self->unk698;
 
             if (take != 0) {
-                cGameObj *atk = (cGameObj *)take->attacker;
+                cGameObj *atk = take->attacker;
 
                 if (atk != 0) {
                     cVec *d = &self->posB;

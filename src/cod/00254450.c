@@ -243,7 +243,7 @@ void cEm00_hitReaction(void *a0)
 
             self->timerA = 0;
             if (take != 0) {
-                cGameObj *watched = (cGameObj *)take->attacker;
+                cGameObj *watched = take->attacker;
 
                 if (watched != 0) {
                     self->timerA = 0xA;
@@ -709,7 +709,7 @@ void cEm00_hitReaction(void *a0)
 
             self->timerA = 0;
             if (take != 0) {
-                cGameObj *watched = (cGameObj *)take->attacker;
+                cGameObj *watched = take->attacker;
 
                 if (watched != 0) {
                     self->timerA = 0xA;

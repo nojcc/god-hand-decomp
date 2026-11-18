@@ -237,14 +237,14 @@ __attribute__((section(".text.func_00258D80"))) void func_00258D80(cEm00 *self)
                 cDamageTake *hit = self->unk698;
 
                 if (hit != 0) {
-                    char *atk = hit->attacker;
+                    cGameObj *atk = hit->attacker;
 
                     if (atk != 0) {
                         cVec *d = &self->posB;
                         cVec *sv;
 
                         self->timerA = 0xA;
-                        sv = *(cVec **)(atk + 0xF0);
+                        sv = atk->pos;
                         if (d != sv) {
                             d->x = sv->x;
                             d->y = sv->y;

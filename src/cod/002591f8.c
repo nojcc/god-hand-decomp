@@ -175,14 +175,14 @@ __attribute__((section(".text.func_002591F8"))) void func_002591F8(cEm00 *self)
                 cDamageTake *hit = self->unk698;
 
                 if (hit != 0) {
-                    char *atk = hit->attacker;
+                    cGameObj *atk = hit->attacker;
 
                     if (atk != 0) {
                         cVec *d = &self->posB;
                         cVec *sv;
 
                         self->timerA = 0xA;
-                        sv = *(cVec **)(atk + 0xF0);
+                        sv = atk->pos;
                         if (d != sv) {
                             d->x = sv->x;
                             d->y = sv->y;

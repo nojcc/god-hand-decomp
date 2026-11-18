@@ -87,7 +87,7 @@ extern const cBitMasks D_0041D2E0;
 void func_0012D3C8(cCollBody *self, int mode, int fill);
 
 /* Debug draw of pts[0..2], or pts[0..3] when quad is set, filled in one colour. */
-void func_001334A8(cVec *pts, int quad, unsigned int color);
+void func_001334A8(cVec *pts, int quad, int color);
 
 extern void func_00133948(void *self, void *boxMin, void *boxMax);
 extern int func_00133408(void *unused, float *min, float *max, float *boxMin, float *boxMax);

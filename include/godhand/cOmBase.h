@@ -23,7 +23,7 @@ typedef struct cDamageTake {
     char unk00[0x10];
     cVec dir;                           /* 0x10 hit direction */
     char unk20[0x14];
-    char *attacker;                     /* 0x34 the object that dealt the hit */
+    struct cGameObj *attacker;          /* 0x34 the object that dealt the hit */
     char unk38[0xE];
     short kind;                         /* 0x46 attack kind */
     char unk48[4];
