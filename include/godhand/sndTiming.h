@@ -46,4 +46,9 @@ typedef char SndTiming_size_check[(sizeof(SndTiming) == 0xC4) ? 1 : -1];
 
 extern SndTiming D_0076A790;
 
+/* Copy out the system volumes. */
+void SdeSystemVolGet(SndSystemVol *dst);
+/* Set the system volumes and each sub-volume's level, scaled by its master. */
+void SdeSystemVolSet(SndSystemVol *vol);
+
 #endif /* GODHAND_SNDTIMING_H */

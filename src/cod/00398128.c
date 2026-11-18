@@ -3,8 +3,8 @@
 
 /* ee-2.9-991111 */
 
-__attribute__((section(".text.func_00398128")))
-int func_00398128(int port, int slot, const unsigned char *data)
+__attribute__((section(".text.scePadSetActDirect")))
+int scePadSetActDirect(int port, int slot, const unsigned char *data)
 {
     PadData buf;
     PadCmd *p;

@@ -15,7 +15,7 @@ PadData *func_00397BC8(int port, int slot, PadData *buf)
 
     oldstat = DIntr();
     pd = D_0077C110[port][slot].buf;
-    SyncDCache(pd, (char *)pd + 0xFF);
+    SyncDCache(pd, &pd[1].unk73[sizeof(pd[1].unk73) - 1]); /* both frames */
     n = pd[0].frame < pd[1].frame;
     if (buf != 0)
         *buf = pd[n];

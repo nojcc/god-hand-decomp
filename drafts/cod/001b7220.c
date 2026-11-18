@@ -5,11 +5,11 @@
 #ifdef NON_MATCHING
 #include "godhand/cOmBase.h"
 
-extern cMeshNode *cModel_getMeshPtr(void *model, int idx);
+extern cModelNode *cModel_getMeshPtr(void *model, int idx);
 
 /* Set the alpha of every mesh node on one layer. */
 void cOmBase_setMeshAlphaFromLayer(void *model, int layer, float alpha) {
-    cMeshNode *node = cModel_getMeshPtr(model, 0);
+    cModelNode *node = cModel_getMeshPtr(model, 0);
     if (node != 0) {
         do {
             if (node->layer == layer) {

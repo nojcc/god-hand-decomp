@@ -3,8 +3,8 @@
 
 /* ee-2.9-991111 */
 
-__attribute__((section(".text.func_00397ED0")))
-int func_00397ED0(int port, int slot)
+__attribute__((section(".text.scePadGetReqState")))
+int scePadGetReqState(int port, int slot)
 {
     PadData *p;
 

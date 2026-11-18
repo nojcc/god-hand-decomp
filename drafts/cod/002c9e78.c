@@ -4,8 +4,8 @@
 
 #ifdef NON_MATCHING
 extern void SetGlobalToggle_375700(int a0);
-extern void func_00375630(void *p);
 extern void func_00375748(unsigned char f);
+extern void SdeSystemVolSet(void *p);
 extern void func_00375380(void);
 extern void func_00375500(void);
 
@@ -35,7 +35,7 @@ void func_002C9E78(float *out)
     r.y1 = 0x7F;
     r.z1 = 0x7F;
     r.w1 = 0x7F;
-    func_00375630(&r);
+    SdeSystemVolSet(&r);
     func_00375748(7);
     fx = r.x0;
     fx1 = (short)r.x1;

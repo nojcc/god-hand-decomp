@@ -1,4 +1,4 @@
-/* include/godhand/libpad.h - the EE pad library: per-port state, DMA frames and the RPC buffer (0x397BC8-0x3984xx). */
+/* include/godhand/libpad.h - the EE pad library: per-port state, DMA frames and the RPC buffer (0x397630-0x3984D8). */
 #ifndef GODHAND_LIBPAD_H
 #define GODHAND_LIBPAD_H
 
@@ -41,6 +41,12 @@ typedef struct {
     int unk18;
 } PadInfoT;
 
+/* A SIF RPC client (0x28 bytes), with the field these units read. */
+typedef struct {
+    unsigned char pad0[0x24];
+    int server;                         /* 0x24 nonzero once bound */
+} SifRpcClientData;
+
 /* The RPC buffer (D_0077C300, 128 bytes): command, port, slot, then arguments and results. */
 typedef struct {
     int cmd;
@@ -52,14 +58,36 @@ typedef struct {
     int rest[26];
 } PadSif;
 
+/* The same buffer as scePadSetActAlign fills it: six alignment bytes in place of a and b, and the result at c. */
+typedef struct {
+    int cmd;
+    int port;
+    int slot;
+    unsigned char align[6];
+    unsigned char pad12[2];
+    int result;
+    int rest[26];
+} PadSifAlign;
+
 extern PadInfoT D_0077C110[2][4];
 extern PadSif D_0077C300;
-extern char D_0077C0C0[];               /* the pad RPC client */
+extern SifRpcClientData D_0077C0C0[2];  /* the pad RPC clients, bound to servers 0x80000100 and 0x80000101 */
 
 /* Copy the current DMA frame into buf (if not null); returns the current frame. */
 PadData *func_00397BC8(int port, int slot, PadData *buf);
+int scePadInit(int mode);
+int scePadPortOpen(int port, int slot, void *data);
+int func_00397D20(int port, int slot, unsigned char *data);
+int scePadGetState(int port, int slot);
+int scePadGetReqState(int port, int slot);
+int scePadInfoMode(int port, int slot, int term, int offs);
+int scePadInfoPressMode(int port, int slot);
+int scePadSetMainMode(int port, int slot, int offs, int lock);
+int scePadSetActAlign(int port, int slot, const unsigned char *align);
+int scePadEnterPressMode(int port, int slot);
 /* Set the frame's requested state. */
-int func_00397E18(int port, int slot, int state);
+int scePadSetReqState(int port, int slot, int state);
+int scePadSetActDirect(int port, int slot, const unsigned char *data);
 /* Send the slot's command block to the IOP. */
 int func_003978C8(int port, int slot);
 int scePadSetButtonInfo(int port, int slot, int mask);

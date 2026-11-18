@@ -1462,6 +1462,10 @@
       "compiler": "cygnus-2.96"
     },
     {
+      "path": "src/cod/002febe8.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
       "path": "src/cod/00303a20.c",
       "compiler": "cygnus-2.96"
     },
@@ -9359,6 +9363,10 @@
       ]
     },
     {
+      "path": "src/cod/001fefd0.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
       "path": "src/cod/001ff110.c",
       "compiler": "sn-2.95.3-136",
       "extern_jtbl": [
@@ -16620,6 +16628,10 @@
       "compiler": "sn-2.95.3-136"
     },
     {
+      "path": "src/cod/00375630.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
       "path": "src/cod/003821d8.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -17183,10 +17195,6 @@
     },
     {
       "path": "src/cod/001348e8.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
-      "path": "src/cod/001fefd0.c",
       "compiler": "sn-2.95.3-136"
     },
     {
@@ -18736,6 +18744,10 @@
       "fp_hazard_rules": "mtc1"
     },
     {
+      "path": "src/cod/002b1f80.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
       "path": "src/cod/002b8b50.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -19395,10 +19407,6 @@
       "compiler": "ee-2.9-991111"
     },
     {
-      "path": "src/cod/00375630.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
       "path": "src/cod/002a7338.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -19423,10 +19431,6 @@
       ]
     },
     {
-      "path": "src/cod/002b1f80.c",
-      "compiler": "sn-2.95.3-136"
-    },
-    {
       "path": "src/cod/0012d3c8.c",
       "compiler": "sn-2.95.3-136",
       "extern_jtbl": [
@@ -19447,10 +19451,6 @@
       "path": "src/cod/00269b50.c",
       "compiler": "sn-2.95.3-136",
       "as": "sn"
-    },
-    {
-      "path": "src/cod/002febe8.c",
-      "compiler": "sn-2.95.3-136"
     },
     {
       "path": "src/cod/001f8810.c",
@@ -29797,6 +29797,13 @@
       "tu": "src/cod/system/cDataManager.c"
     },
     {
+      "name": "cDataManager_isUnload",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x001FEFD0",
+      "size": 88,
+      "tu": "src/cod/001fefd0.c"
+    },
+    {
       "name": "AddQueueEntry_1FF4D0",
       "unit": "asm/cod/000000",
       "vaddr": "0x001FF4D0",
@@ -37275,7 +37282,7 @@
       "tu": "src/cod/00397d20.c"
     },
     {
-      "name": "func_00397D98",
+      "name": "scePadGetState",
       "unit": "asm/cod/000000",
       "vaddr": "0x00397D98",
       "size": 120,
@@ -37283,7 +37290,7 @@
       "tu": "src/cod/00397d98.c"
     },
     {
-      "name": "func_00397E18",
+      "name": "scePadSetReqState",
       "unit": "asm/cod/000000",
       "vaddr": "0x00397E18",
       "size": 180,
@@ -37291,7 +37298,7 @@
       "tu": "src/cod/00397e18.c"
     },
     {
-      "name": "func_00397ED0",
+      "name": "scePadGetReqState",
       "unit": "asm/cod/000000",
       "vaddr": "0x00397ED0",
       "size": 88,
@@ -37299,7 +37306,7 @@
       "tu": "src/cod/00397ed0.c"
     },
     {
-      "name": "func_00397F38",
+      "name": "scePadInfoMode",
       "unit": "asm/cod/000000",
       "vaddr": "0x00397F38",
       "size": 308,
@@ -37315,7 +37322,7 @@
       "tu": "src/cod/00398070.c"
     },
     {
-      "name": "func_00398128",
+      "name": "scePadSetActDirect",
       "unit": "asm/cod/000000",
       "vaddr": "0x00398128",
       "size": 200,
@@ -37339,7 +37346,7 @@
       "tu": "src/cod/003982c8.c"
     },
     {
-      "name": "func_00398378",
+      "name": "scePadInfoPressMode",
       "unit": "asm/cod/000000",
       "vaddr": "0x00398378",
       "size": 128,
@@ -43273,6 +43280,13 @@
       "vaddr": "0x002FEBE0",
       "size": 8,
       "tu": "src/cod/002febe0.c"
+    },
+    {
+      "name": "EspAnim_setFramesLeft",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x002FEBE8",
+      "size": 68,
+      "tu": "src/cod/002febe8.c"
     },
     {
       "name": "func_00303A20",
@@ -64506,6 +64520,13 @@
       "tu": "src/cod/002009b0.c"
     },
     {
+      "name": "SdeSystemVolSet",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00375630",
+      "size": 192,
+      "tu": "src/cod/00375630.c"
+    },
+    {
       "name": "func_00236190",
       "unit": "asm/cod/000000",
       "vaddr": "0x00236190",
@@ -68727,7 +68748,7 @@
       "tu": "src/cod/00397128.c"
     },
     {
-      "name": "func_00397630",
+      "name": "scePadInit",
       "unit": "asm/cod/000000",
       "vaddr": "0x00397630",
       "size": 332,
@@ -76665,7 +76686,7 @@
       "tu": "src/cod/002018d0.c"
     },
     {
-      "name": "func_002B2058",
+      "name": "cScrSheet_drawCell",
       "unit": "asm/cod/000000",
       "vaddr": "0x002B2058",
       "size": 32,
@@ -78567,13 +78588,6 @@
       "vaddr": "0x001348E8",
       "size": 968,
       "tu": "src/cod/001348e8.c"
-    },
-    {
-      "name": "cDataManager_isUnload",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x001FEFD0",
-      "size": 88,
-      "tu": "src/cod/001fefd0.c"
     },
     {
       "name": "func_00146A18",
@@ -85464,6 +85478,13 @@
       "tu": "src/cod/002b1c80.c"
     },
     {
+      "name": "cScrSheet_drawCellBox",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x002B1F80",
+      "size": 212,
+      "tu": "src/cod/002b1f80.c"
+    },
+    {
       "name": "func_00281968",
       "unit": "asm/cod/000000",
       "vaddr": "0x00281968",
@@ -86752,13 +86773,6 @@
       "tu": "src/cod/0015e708.c"
     },
     {
-      "name": "SdeSystemVolSet",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00375630",
-      "size": 192,
-      "tu": "src/cod/00375630.c"
-    },
-    {
       "name": "cGameObj",
       "unit": "asm/cod/000000",
       "vaddr": "0x002A7338",
@@ -86787,13 +86801,6 @@
       "tu": "src/cod/0026ab20.c"
     },
     {
-      "name": "func_002B1F80",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x002B1F80",
-      "size": 212,
-      "tu": "src/cod/002b1f80.c"
-    },
-    {
       "name": "func_0012D3C8",
       "unit": "asm/cod/000000",
       "vaddr": "0x0012D3C8",
@@ -86820,13 +86827,6 @@
       "vaddr": "0x00269B50",
       "size": 1220,
       "tu": "src/cod/00269b50.c"
-    },
-    {
-      "name": "func_002FEBE8",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x002FEBE8",
-      "size": 68,
-      "tu": "src/cod/002febe8.c"
     },
     {
       "name": "func_002DAF68",

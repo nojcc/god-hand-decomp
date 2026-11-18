@@ -4,9 +4,9 @@
 #include "godhand/cScrSpriteDraw.h"
 
 extern cMessDrawFont D_005E7510;
-extern cScrSheet D_005E75A0;
-extern cScrSheetCell D_003C2478[];
-extern unsigned int D_003C254C;
+extern cScrSheet D_005E75A0;            /* the panel frame's sheet */
+extern cScrSheetCell D_003C2478[];      /* its ten cells */
+extern unsigned int D_003C254C;         /* the frame colour */
 
 __attribute__((section(".text.func_002B1890")))
 void func_002B1890(Panel *self)
@@ -29,32 +29,32 @@ void func_002B1890(Panel *self)
     spr->cell = D_003C2478;
     x1 = x0 + 21.0f;
     wm = w - 42.0f;
-    func_002B2058(spr, 0, D_003C254C, x0, y0, 21.0f, 21.0f);
+    cScrSheet_drawCell(spr, 0, D_003C254C, x0, y0, 21.0f, 21.0f);
     xe = x0 + w;
     x2 = xe - 21.0f;
-    func_002B2058(spr, 1, D_003C254C, x1, y0, wm, 21.0f);
+    cScrSheet_drawCell(spr, 1, D_003C254C, x1, y0, wm, 21.0f);
     y1 = y0 + 21.0f;
     hm = h - 42.0f;
-    func_002B2058(spr, 2, D_003C254C, x2, y0, 21.0f, 21.0f);
-    func_002B2058(spr, 3, D_003C254C, x0, y1, 21.0f, hm);
-    func_002B2058(spr, 4, D_003C254C, x1, y1, wm, hm);
-    func_002B2058(spr, 5, D_003C254C, x2, y1, 21.0f, hm);
+    cScrSheet_drawCell(spr, 2, D_003C254C, x2, y0, 21.0f, 21.0f);
+    cScrSheet_drawCell(spr, 3, D_003C254C, x0, y1, 21.0f, hm);
+    cScrSheet_drawCell(spr, 4, D_003C254C, x1, y1, wm, hm);
+    cScrSheet_drawCell(spr, 5, D_003C254C, x2, y1, 21.0f, hm);
     y2 = y0 + h - 21.0f;
-    func_002B2058(spr, 6, D_003C254C, x0, y2, 21.0f, 21.0f);
-    func_002B2058(spr, 7, D_003C254C, x1, y2, wm, 21.0f);
-    func_002B2058(spr, 8, D_003C254C, x2, y2, 21.0f, 21.0f);
+    cScrSheet_drawCell(spr, 6, D_003C254C, x0, y2, 21.0f, 21.0f);
+    cScrSheet_drawCell(spr, 7, D_003C254C, x1, y2, wm, 21.0f);
+    cScrSheet_drawCell(spr, 8, D_003C254C, x2, y2, 21.0f, 21.0f);
     switch (self->tail) {
     case 1:
-        func_002B2058(spr, 9, D_003C254C, x0 - 42.0f, y1, self->frameW * 42.0f, self->frameH * 42.0f);
+        cScrSheet_drawCell(spr, 9, D_003C254C, x0 - 42.0f, y1, self->frameW * 42.0f, self->frameH * 42.0f);
         break;
     case 2:
-        func_002B2058(spr, 9, D_003C254C, xe + 42.0f, y1, self->frameW * -42.0f, self->frameH * 42.0f);
+        cScrSheet_drawCell(spr, 9, D_003C254C, xe + 42.0f, y1, self->frameW * -42.0f, self->frameH * 42.0f);
         break;
     case 3:
-        func_002B2058(spr, 9, D_003C254C, x0 - 42.0f, y2, self->frameW * 42.0f, self->frameH * -42.0f);
+        cScrSheet_drawCell(spr, 9, D_003C254C, x0 - 42.0f, y2, self->frameW * 42.0f, self->frameH * -42.0f);
         break;
     case 4:
-        func_002B2058(spr, 9, D_003C254C, xe + 42.0f, y2, self->frameW * -42.0f, self->frameH * -42.0f);
+        cScrSheet_drawCell(spr, 9, D_003C254C, xe + 42.0f, y2, self->frameW * -42.0f, self->frameH * -42.0f);
         break;
     }
 }

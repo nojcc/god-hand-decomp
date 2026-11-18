@@ -4,8 +4,8 @@
 /* ee-2.9-991111 */
 
 /* scePadGetState: a stable pad whose request is still busy reads as 5 (executing a command). */
-__attribute__((section(".text.func_00397D98")))
-int func_00397D98(int port, int slot)
+__attribute__((section(".text.scePadGetState")))
+int scePadGetState(int port, int slot)
 {
     PadData buf;
 

@@ -17,13 +17,13 @@ static __inline__ int motionBlock_at(char *block, int ofs) {
 }
 
 /* Hides a mesh node, if the model has it. */
-static __inline__ void cMeshNode_hide(cMeshNode *node) {
+static __inline__ void cModelNode_hide(cModelNode *node) {
     if (node != 0)
         node->dispFlags |= 1;
 }
 
 /* Shows a mesh node again, if the model has it. */
-static __inline__ void cMeshNode_show(cMeshNode *node) {
+static __inline__ void cModelNode_show(cModelNode *node) {
     if (node != 0)
         node->dispFlags &= ~1;
 }
@@ -189,16 +189,16 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     self->mesh[5] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DE0);
     self->mesh[6] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DE8);
     self->mesh[7] = cModel_getMeshPtr_14B730((cModel *)self, D_00448DF0);
-    cMeshNode_hide(self->mesh[0]);
-    cMeshNode_hide(self->mesh[1]);
-    cMeshNode_hide(self->mesh[2]);
-    cMeshNode_hide(self->mesh[3]);
-    cMeshNode_hide(self->mesh[4]);
-    cMeshNode_hide(self->mesh[5]);
-    cMeshNode_hide(self->mesh[6]);
-    cMeshNode_hide(self->mesh[7]);
-    cMeshNode_show(self->mesh[0]);
-    cMeshNode_show(self->mesh[4]);
+    cModelNode_hide(self->mesh[0]);
+    cModelNode_hide(self->mesh[1]);
+    cModelNode_hide(self->mesh[2]);
+    cModelNode_hide(self->mesh[3]);
+    cModelNode_hide(self->mesh[4]);
+    cModelNode_hide(self->mesh[5]);
+    cModelNode_hide(self->mesh[6]);
+    cModelNode_hide(self->mesh[7]);
+    cModelNode_show(self->mesh[0]);
+    cModelNode_show(self->mesh[4]);
     *(unsigned char *)&self->aim.y = 1;
     roll = Rnd() & 0xF;
     self->base.dropItem = 0x3C1;

@@ -544,7 +544,6 @@
 !src/cod/002af698.c
 !src/cod/002af720.c
 !src/cod/002afc08.c
-!src/cod/002b1f80.c
 !src/cod/002b22e0.c
 !src/cod/002b2580.c
 !src/cod/002b28.c
@@ -986,7 +985,6 @@
 !src/cod/0036e378.c
 !src/cod/00373158.c
 !src/cod/003749d8.c
-!src/cod/00375630.c
 !src/cod/00375ef8.c
 !src/cod/00376508.c
 !src/cod/003766f8.c
@@ -2189,6 +2187,7 @@
 !src/cod/0023a300.c
 !src/cod/002f1d58.c
 !src/cod/001feaa0.c
+!src/cod/001fefd0.c
 !src/cod/001ff110.c
 !src/cod/002b8630.c
 !src/cod/003605b0.c
@@ -3345,7 +3344,6 @@
 !src/cod/001dc4c0.c
 !src/cod/00271148.c
 !src/cod/001348e8.c
-!src/cod/001fefd0.c
 !src/cod/00146a18.c
 !src/cod/001c6a90.c
 !src/cod/001bded8.c
@@ -3985,6 +3983,7 @@
 !src/cod/00374b70.c
 !src/cod/00375380.c
 !src/cod/00375500.c
+!src/cod/00375630.c
 !src/cod/003757a0.c
 !src/cod/00375988.c
 !src/cod/00376a90.c
@@ -4300,6 +4299,7 @@
 !src/cod/002a5bb8.c
 !src/cod/002b1890.c
 !src/cod/002b1c80.c
+!src/cod/002b1f80.c
 !src/cod/002b8b50.c
 !src/cod/002be240.c
 !src/cod/002c0f90.c
@@ -4463,6 +4463,7 @@
 !include/godhand/gsLoadImage.h
 !include/godhand/gsPacket.h
 !include/godhand/libio.h
+!include/godhand/libpad.h
 !include/godhand/newlibStdio.h
 !include/godhand/newlibStdlib.h
 !include/godhand/sceMpeg.h

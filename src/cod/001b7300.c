@@ -50,7 +50,7 @@ void cHeap_free(HeapArena *heap, void *p) {
 /* Set or clear display flag bit 13 on every mesh node of one layer. */
 __attribute__((section(".text.SetField380Bit2000ForTag_1B7300")))
 void SetField380Bit2000ForTag_1B7300(void *model, int layer, int clear) {
-    cMeshNode *node = (cMeshNode *)cModel_getMeshPtr(model, 0);
+    cModelNode *node = (cModelNode *)cModel_getMeshPtr(model, 0);
     if (node != 0) {
         do {
             if (node->layer == layer) {

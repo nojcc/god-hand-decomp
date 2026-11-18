@@ -140,6 +140,8 @@ void func_002FEB80(EspAnim *self, int a, int b);
 void LinkObj_callLockOn(EspAnim *self);
 /* Call virtual method 2 unless the effect has ESP_ANIM_SKIP_METHOD2. */
 void func_002FBE88(EspAnim *self);
-void func_002FEBE8(EspAnim *self, unsigned short len, int mode);
+/* Set the end frame to len frames after the current one: always for mode 1,
+ * for mode 0 only when that lengthens the run. */
+void EspAnim_setFramesLeft(EspAnim *self, unsigned short len, int mode);
 
 #endif

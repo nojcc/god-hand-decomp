@@ -1,14 +1,8 @@
 /* ee-2.9-991111 matched TU. */
-#include "godhand/eeKernel.h"
+#include "godhand/libpad.h"
 
 /* ee-2.9-991111 */
 
-typedef struct {
-    unsigned char pad0[0x24];
-    int           server;
-} SifRpcClientData;
-
-extern SifRpcClientData D_0077C0C0[2];
 extern int  D_003F85C8;
 extern int  D_003F85CC;
 extern char D_0045E038[];
@@ -18,8 +12,8 @@ extern char D_0045E060[];
 extern int  scePadGetModVersion(void);
 
 
-__attribute__((section(".text.func_00397630")))
-int func_00397630(int mode)
+__attribute__((section(".text.scePadInit")))
+int scePadInit(int mode)
 {
     int i;
     int ver;

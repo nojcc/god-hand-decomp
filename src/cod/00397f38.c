@@ -3,8 +3,8 @@
 
 /* ee-2.9-991111 */
 
-__attribute__((section(".text.func_00397F38")))
-int func_00397F38(int port, int slot, int term, int offs)
+__attribute__((section(".text.scePadInfoMode")))
+int scePadInfoMode(int port, int slot, int term, int offs)
 {
     PadData fr;
 

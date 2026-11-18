@@ -1,6 +1,5 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/libpad.h"
-#include "godhand/sif.h"
 
 /* ee-2.9-991111 */
 
@@ -18,7 +17,7 @@ int scePadSetMainMode(int port, int slot, int offs, int lock)
         return 0;
     r = D_0077C300.c;
     if (r == 1) {
-        func_00397E18(port, slot, 2);
+        scePadSetReqState(port, slot, 2);
         r = D_0077C300.c;
     }
     return r;

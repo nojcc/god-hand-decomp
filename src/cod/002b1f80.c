@@ -1,12 +1,12 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cScrSpriteDraw.h"
 #include "godhand/gameWork.h"
 #include "godhand/drawPrim.h"
 
 /* Draws cell idx of a sprite sheet over the rectangle (x0, y0)-(x1, y1); the texture is
  * the system data file entry the cell (or the sheet) names. */
-__attribute__((section(".text.func_002B1F80")))
-void func_002B1F80(cScrSheet *sheet, int idx, unsigned int color, float x0, float y0, float x1, float y1)
+__attribute__((section(".text.cScrSheet_drawCellBox")))
+void cScrSheet_drawCellBox(cScrSheet *sheet, int idx, unsigned int color, float x0, float y0, float x1, float y1)
 {
     cScrTexCfg cfg;
     cScrVtx v[2];

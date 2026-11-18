@@ -11,7 +11,7 @@
 #include "godhand/heapList.h"
 #include "godhand/effectPos.h"
 
-extern cMeshNode *cModel_getMeshPtr(void *model, int idx);
+extern cModelNode *cModel_getMeshPtr(void *model, int idx);
 extern void BufHolder_deletingDtor(int entry, int mode);
 extern void func_001DBF18(void *self, unsigned short *a, unsigned short *b, unsigned short *c, unsigned short *d);
 
