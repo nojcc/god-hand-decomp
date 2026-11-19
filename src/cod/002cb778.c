@@ -2,6 +2,8 @@
 #include "godhand/criStm.h"
 #include "godhand/cSnd.h"
 #include "include_asm.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 
 extern int D_00747A34;
 extern void cSndMemHeap_ResetFirstBlk(void *);

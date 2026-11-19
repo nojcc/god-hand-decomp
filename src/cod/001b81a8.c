@@ -4,20 +4,21 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cEmManage.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/DogRace.h"
+#include "godhand/cOmBaseFn.h"
 
 extern char D_00428AF0[];
 extern void *SearchData(void *pack, void *name, int which);
 extern int D_007474A0;
 extern char D_0044B100[];
 extern char *D_003C23A4;
-extern void CustomIDWork_setDispAllButEight(void *self, int id, int on);
 
 /* Set the bomb up hidden and unlit, hand it to the enemy manager, hide the mesh D_00428AF0 (CMODEL_NODE_HIDE) and clear the hiss handle. Returns 1. */
 __attribute__((section(".text.cObj_hideAndFlagMesh")))
 int cObj_hideAndFlagMesh(cOmbb *self) {
     cModelNode *mesh;
     int flags;
-    func_001B6FB8(self);
+    func_001B6FB8(&self->base);
     flags = self->base.objFlags;
     self->fireLit = 0;
     self->bombKind = 0;
@@ -76,25 +77,17 @@ void cMessage_initWinList(MsgMgr *self) {
     self->winOpen = 1;
 }
 
-/* An ID screen with a number element at 0xFE0 and a count at 0x162C. */
-typedef struct IdCountScreen {
-    char unk000[0xFE0];
-    CustomIDWork number;                /* 0xFE0 */
-    char unk105C[0x5D0];
-    int count;                          /* 0x162C */
-} IdCountScreen;
-
 #define ARROW_PREV  0x22
 #define ARROW_NEXT  0x23
 
 /* Show min(count, limit) in the number element and switch the two arrow displays by whether it is empty, at the limit, or in between. */
 __attribute__((section(".text.CustomID_setArrowDisp")))
-void CustomID_setArrowDisp(IdCountScreen *self, int limit) {
+void CustomID_setArrowDisp(DogRaceResult *self, int limit) {
     int n = self->count;
     if (n >= limit) {
         n = limit;
     }
-    CustomIDWork_SetNumber(&self->number, n);
+    CustomIDWork_SetNumber(&self->elem[32], n);
     if (n <= 0) {
         CustomIDWork_setDispAllButEight(self, ARROW_PREV, 1);
         CustomIDWork_setDispAllButEight(self, ARROW_NEXT, 0);

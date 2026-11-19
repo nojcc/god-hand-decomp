@@ -1,5 +1,7 @@
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 extern int D_00747A34;
 
 __attribute__((section(".text.AllocAndInitObjVtable_313510")))
@@ -51,7 +53,7 @@ void *AllocZeroedAndInitVtable_3135F0(void)
 }
 
 __attribute__((section(".text.AllocZeroedAndSetupObj_313660")))
-int AllocZeroedAndSetupObj_313660(void)
+void *AllocZeroedAndSetupObj_313660(void)
 {
     void *p;
     if (D_00747A34 & 0x100000)
@@ -64,7 +66,7 @@ int AllocZeroedAndSetupObj_313660(void)
 }
 
 __attribute__((section(".text.AllocAndInitObjVtableFull_3136D0")))
-int AllocAndInitObjVtableFull_3136D0(void)
+void *AllocAndInitObjVtableFull_3136D0(void)
 {
     void *p;
     if (D_00747A34 & 0x100000)
@@ -77,7 +79,7 @@ int AllocAndInitObjVtableFull_3136D0(void)
 }
 
 __attribute__((section(".text.ForwardInitBuffer_313740")))
-int ForwardInitBuffer_313740(void)
+void *ForwardInitBuffer_313740(void)
 {
     void *p;
     if (D_00747A34 & 0x100000)

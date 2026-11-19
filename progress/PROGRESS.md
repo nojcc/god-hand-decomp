@@ -541,3 +541,86 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - No matches. The 69 closest drafts were tried with every per-unit option; the best are 1-13 instructions off (register choice or block order). func_001C8930 stays 2 off with FPU_SQRT_S, so the macro isn't used.
 - func_001C2408 (solved by the NM closer) is left unapplied: it needs the D_003BD6E8 type row answered. New decisions rows for it and for the 21 port-list drafts that need the held headers' names.
 - Stopped: no workable functions left outside the open rows.
+
+## Batch 222 (new matching from the assembly) — 2026-11-18T23:56:41Z
+
+- Registered cObj_setId (src/cod/0014e690.c, 216 B). cObj.h gains cObj_idInRange; cGameObj_idInRange forwards to it.
+- JukeBox.h names 0x0C `list` and 0x20 `cursor` (evidence: func_001F6208), and owns the BGM table externs.
+- Draft: func_001F6758 (jukebox song rows, 140 of 177 instructions differ: loop invariants hoisted). Skipped: pl00_CkSubScreen, Cloth_AddWind (D-021), cEmSetParam_setEmAll (PR #58 file). func_00268068 was mis-picked (it has an old draft that needs cEm00_setState); left alone.
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+## Batch 223 (effect bank, movie, sound messages) — 2026-11-19T00:17:19Z
+
+- Registered func_00306BB0 (src/cod/00306bb0.c, 196 B) on EspDataBank.h.
+- cMovie.h: shared cMovieTrack_inUse, typed prototypes for func_002B4F38/func_002B4F78 (definitions retyped to cMovie *), cMovieTrack_start, cMovieClip.name, clip tables.
+- Drafts: cMovie_Start (matches only with GameWork words as aggregates under their own symbols; decision row), func_00376B80 (0x17 kept in a saved register; SndMsg.h disagrees with its definitions; decision row). Skipped func_002D4DA0 (sync/bc0f).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+## Batch 224 (script dispatcher, gimmick setup, BGM fade) — 2026-11-19T00:53:00Z
+
+- 0 registered. Skipped func_002B34D8 (handlers typed on conflicting local records; needs a shared script command header), func_001AE928 (constants held in locals), func_002CCD80 (untyped BGM entry and sequence helper definitions; one lives in a CRI-range file).
+- The never-attempted pool is exhausted: everything under 10 KB without a draft already has a logged attempt. Left: func_0030FE68 (10400 B), func_001269E0 (10832 B).
+- No source changes. Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+## Batch 225 (player motion start) — 2026-11-19T02:21:00Z
+
+- Registered func_001269E0 (src/cod/001269e0.c, 10832 B, extern_jtbl D_0041CB80): the player's motion start, a 114-entry switch whose cases set the two blend records and pick the motion's records from the pack by style (macro PL00_PICK_MOTION; the inline form is 2 insns off).
+- pl00.h names 0x1660..0x1683 (moveA/moveB after ComboObj) and owns the prototypes of the two blend-record setters (definitions retyped to `pl00 *`) and func_001269E0; 22 units dropped their local setter externs.
+- Decision row: ComboObj is a second type for the player record (00126918.c keeps a local extern until it is merged).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 226 (object factory)
+- Registered func_0030FE68 (src/cod/0030fe68.c, 10400 B): the object factory. A switch over the actor id picks one of 179 allocators, then the factory stamps the serial and id and binds or loads the data pack.
+- The allocators return `void *` (156 definitions retyped), declared in the new objFactory.h; their constructors are declared in the new objCtor.h. cDataManager's load addresses are `void *`; cObj.h names createId (0x300) and COBJ_F_PACK_LOADED.
+- Decision row: object factory leftovers (InitFields_1B6E90, EnemyRec, the wrappers' callers).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 227 (CreateObj chain, one PR)
+- CreateObj and CreateEventObj take `(int id, int dataId)` and call the factories through objFactory.h; func_0030FB20 is `void *(int id, cObj *obj)` and func_0030FCC0 `int (cObj *)`, with its prototype in sideCounter.h. 5 units, 1 header; all six functions still match, no config edits.
+- No new matches: the three skips that named CreateObj have other blockers. func_0026DB00 and func_0027D670 give each vector operator expression its own stack temporaries. cOmSetParam_setOmData is held at 157/159 words (an fp hoist, plus D_005E8658 typed twice, one of them in a file of open PR #58).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 228 (debug text, widened pool)
+- Registered func_002E0F18 (src/cod/002e0f18.c, 960 B, `as: sn` for the mtc1/cvt.s.w hazard nops): draws a debug string one font sprite per character.
+- New fileBuf.h for the debug text state (D_0061B280) and its functions; seven units moved onto it. cScrSpriteDraw.h names the texture flags and the TEST word of cScrTexCfg. New cOmBaseFn.h for two cOmBase methods (used by the GetTargetNear draft).
+- Draft cEmManage_GetTargetNear (383/385 words, a constant kept in a saved register). Skipped 6 (logged).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 229 (big functions, NM handoffs)
+- Registered func_001DF7D0 (80 B) and func_002C9E78 (220 B, `fp_hazard_rules: mtc1`) from the NM closer's solved folders.
+- sndTiming.h now holds the sound mode/reset/update prototypes; seven units include it instead of local declarations (00126918, 00137aa0, 002cbdc0 left, see the log).
+- Drafts: cWorldLight_Light_curent_set (254/258), func_00196188 (282/283). Skipped 12 (logged).
+
+### Batch 230 (path points, draft sweep)
+- No registrations. Draft func_002A7CD0 (214/217, nearest path point); new cGameLoop.h for D_005CAC90's path lines, shared with the func_002A8038 draft.
+- Re-ran all 558 drafts: only the two cvec_pending.h users match. Decision row: cGameObjSortEnt's id is a path point pointer.
+
+### Checkpoint 231
+- Cold build matches both hashes. data_decls: stripped 4 `nonmatching` lines for JukeBox.h, cMovie.h and objFactory.h declarations; rebuild matches. session_check 19 pass, 6 skip, 1 fail (dual_compiler_regress argument limit; passes alone).
+
+### Batch 231 (file server receive, DogRace bet step)
+- No registrations. Drafts: _sceFs_Rcv_Intr (235/237, register shift from one overlapping constant) and func_001EA1F8 (392/398, DogRace bet step: two jump-threading spots and one scheduled setup instruction).
+- New cOm71.h (the racing dog object and its 0x600 flags) and libcdvd.h (sceCdDiskReady). DogRace.h types the dog slot as cOm71, names phase/sel/bet and the bet screen vectors; menuKey.h gains the UP/DOWN_ALL masks; gameWork.h gains GameSys_work.
+- func_00201A50 keeps the parameter its caller passes. iSignalSema moved into eeKernel.h.
+- Decision row: cOm71Slots.h and DogRace.h type the dog slots twice.
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 232 (DogRace result step)
+- No registrations. Draft: func_001EB030 (19 words differ: retail computes the camera call's &target before the second vector copy; the volatile copy asm keeps ours after it).
+- DogRace.h names timer, payoutSteps, rank[5], payout and cam; func_001EB718 and CustomIDWork_setSlotMessAndPosY are declared there. New decCount.h replaces three local copies of DecCount.
+- func_001EC540 skipped (D-021).
+- Decision row: DogRaceDog.raceTime is read as the payout multiplier.
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 233 (draft re-sweep, poker double-up)
+- No registrations. Re-swept all 544 draft functions with their jump tables and the as sn / fdiv settings: the only matches go through drafts/cvec_pending.h (#54 is answered; they wait on PRs #56/#57).
+- func_001DAB00 ported to today's headers: 1 word short; it matches with an (unsigned short) cast on Casino_randRange's result (decision row).
+- func_001EB030 matches its setup with the pending CVEC_TEMP_COPY shape (11 words left); noted on the DogRace_Load row.
+- Skipped: cEmSetParam_setEmAll (D_005E8658 typed as cEmSetTable and cRoomSave; decision row), func_001F8AD8 (D-021).
+- No src/include changes; batch 232's build stands.
+
+### Batch 234 (DogRace start step, cOm71 prototype)
+- No registrations. func_001EBB78 redrafted on DogRace.h types: 2 words differ (argument load order for SetMotionStep; only a steering float local fixes it).
+- cOm71_SetMotionRun now declared once in cOm71.h (001b1e30.c's local `int *` extern removed); com71_setmotionrun.c -Wall clean.
+- Skipped: func_002FC1A0 and func_002E9D48 (their div.s padding is fdivdep, which is on main since #37 merged; not attempted yet), func_002E8EE8 (large GS packet builder).
+- Fifth batch in a row with zero matches (230-234): run stopped per the stop rule. Build: both hashes match.

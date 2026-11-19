@@ -6,6 +6,8 @@
 #include "godhand/heapArena.h"
 #include "godhand/ColiseumEmSelect.h"
 #include "godhand/JukeBox.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 
 /* ──────────────────────────── small picks ─────────────────────────────── */
 
@@ -83,10 +85,9 @@ void ResetAnimState_1F5EF8(JukeBoxObj *self) {
 
 /* AllocZeroedBlock_313E50: 28 insns, 112 B — sq-prologue, no VU0, no jumptable. */
 extern int D_00747A34;
-extern int func_0018B290(void *p);
 
 __attribute__((section(".text.AllocZeroedBlock_313E50")))
-int AllocZeroedBlock_313E50(void) {
+void *AllocZeroedBlock_313E50(void) {
     void *p;
     if (D_00747A34 & 0x10000) {
         return 0;

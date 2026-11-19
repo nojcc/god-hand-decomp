@@ -163,8 +163,8 @@ GpStripPkt *func_0015C410(cVec *verts, float *s, float *t, unsigned int n, unsig
     end->vifFlush = 0x11000000;
     end->vifNop = 0;
     if (cfg != 0) {
-        if (cfg->mode & SCR_TEX_ALPHA) {
-            pkt->test.data = cfg->alpha;
+        if (cfg->mode & SCR_TEX_TEST) {
+            pkt->test.data = cfg->test;
         }
         if (cfg->mode & SCR_TEX_CLAMP) {
             pkt->clamp.data = cfg->clamp;

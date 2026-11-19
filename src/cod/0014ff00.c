@@ -8,6 +8,7 @@
 #include "godhand/BlackJack.h"
 
 extern unsigned char D_005864F0[];
+extern long cOmBase_canItemDrop(cOmBase *self);
 extern void cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern int D_005E8658;
 extern void func_002BECB0();
@@ -52,7 +53,6 @@ void func_001889C8(unsigned char *a0)
     }
 }
 
-extern long cOmBase_canItemDrop(cOmBase *self);
 /* True when the object can be picked up: alive, not flagged unpickable, and either it drops an item for an ordinary actor type or flags2 bit 8 allows it. */
 __attribute__((section(".text.func_001B79E0")))
 long func_001B79E0(cOmBase *self)

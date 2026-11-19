@@ -41,8 +41,8 @@ void func_001DEDC8(PanelObj *self);
 void func_001DEE20(PanelObj *self);
 /* Slide element 1 vertically for state sel and show or hide element 1. */
 void CustomIDOwner_setSlideStateB(PanelObj *self, unsigned char sel);
-/* Move element 8 left or right (a1 set) by an offset that depends on the language. */
-void func_001DF7D0(PanelObj *self, int a1);
+/* Move element 8 left or right (left set) by an offset that depends on the language. */
+void func_001DF7D0(PanelObj *self, int left);
 void func_001DF528(PanelObj *self, unsigned char idx, unsigned short mode);
 /* Start (enabled != 0) or stop element 8's sideways sway. */
 void func_001DF820(PanelObj *self, int enabled);

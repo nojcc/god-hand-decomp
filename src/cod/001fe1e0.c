@@ -3,6 +3,7 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cDamageManage.h"
 #include "godhand/cMovie.h"
+#include "godhand/FileLoadRec.h"
 
 extern char D_00569B80[];
 extern char D_0056C380[];

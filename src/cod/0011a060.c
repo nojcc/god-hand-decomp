@@ -13,8 +13,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
-extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
-extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);

@@ -4,6 +4,7 @@
 #include "godhand/pl00.h"
 #include "godhand/heapArena.h"
 #include "godhand/player.h"
+#include "godhand/objCtor.h"
 
 extern char D_005864F0[];
 extern int cEmManage_CkPlCatched(void *p);

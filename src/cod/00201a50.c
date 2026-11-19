@@ -1,6 +1,9 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/cDvd.h"
+#include "godhand/libcdvd.h"
 
 extern int GuardedCall_00329FD0_329F98(void *hn);
+extern int func_00360B18(void);
 extern void func_0032A160(void *hn, int *ntime, int *tunit);
 extern int Obj0000_Get_D_003EEA70_360C58(void);
 extern void func_0035C5A0(void *tst, long long *a, long long *b, long long *c);
@@ -41,7 +44,8 @@ void SFBUF_DestroySj(void *sj)
 }
 
 __attribute__((section(".text.func_00201A50")))
-int func_00201A50(void)
+/* 1 once the disc is ready; self, which the caller passes, is not read. */
+int func_00201A50(void *self)
 {
     return sceCdDiskReady(1) == 2;
 }

@@ -91,8 +91,8 @@ GpSpritePkt *func_0015DB30(cScrVtx *v, unsigned int color, void *tex, cScrTexCfg
     pkt->st1.s = 1.0f;
     pkt->endVifNop = 0;
     if (cfg != 0) {
-        if (cfg->mode & SCR_TEX_ALPHA) {
-            pkt->test.data = cfg->alpha;
+        if (cfg->mode & SCR_TEX_TEST) {
+            pkt->test.data = cfg->test;
         }
         if (cfg->mode & SCR_TEX_RECT) {
             pkt->st0.s = cfg->u0;

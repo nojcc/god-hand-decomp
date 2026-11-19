@@ -54,9 +54,19 @@ typedef struct cMovieTrack {
 
 extern void ResHolder_release(cMovieTrack *track);
 
+/* 1 while the track holds a player. The unsigned char result is what makes
+ * the compiler build the 0/1 with a branch, as retail does. */
+static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
+    if (t->handle != 0) return 1;
+    return 0;
+}
+
+struct cMovie;
+
 /* The movie calls the scenario's movie object makes: cMovie_Start returns a handle, and the
  * other three take the movie manager (D_005E79D0) and that handle, which they don't read. */
-extern int cMovie_Start(void *mgr, int id, int arg);
+/* cMovie_Start's arg is not read. */
+extern int cMovie_Start(struct cMovie *self, int id, int arg);
 extern void cMovie_haltActive(void *mgr, int handle);
 extern int cMovie_GetStatus(void *mgr, int handle);
 extern void cMovie_Stop(void *mgr, int handle);
@@ -104,9 +114,23 @@ int func_002B48C8(int unused, void *block);
 #define MOVIE_CLIP_LOCK_PAD  0x20       /* flags: hold the pad while the clip plays */
 
 typedef struct cMovieClip {
-    char unk00[0x2C];
+    const char *name;                   /* 0x00 cMovieTrack_start copies it into the track */
+    char unk04[0x28];
     unsigned int flags;                 /* 0x2C */
 } cMovieClip;                           /* 0x30 */
+
+extern cMovieClip D_005E7BF0[];
+extern cMovieClip D_005E7D10[];
+
+/* Set to 1 when a movie starts; func_0030B148 reads and clears it. */
+extern int D_003C3CD4;
+
+/* The first free track (handle 0), or -1 when all MOVIE_TRACK_NUM play. */
+int func_002B4F38(cMovie *self);
+/* The next movie handle from count, skipping 0. */
+int func_002B4F78(cMovie *self);
+/* Start the clip (its name is the first word) on track; 1 on success. */
+int cMovieTrack_start(cMovieTrack *track, const char **clip);
 
 typedef char cMovieTrack_size_check[(sizeof(cMovieTrack) == 0xAC) ? 1 : -1];
 

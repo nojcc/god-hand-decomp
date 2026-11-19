@@ -1,9 +1,11 @@
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 extern int D_00747A34;
 
 __attribute__((section(".text.AllocZeroedAndInitObjSlots_315510")))
-int AllocZeroedAndInitObjSlots_315510(void){
+void *AllocZeroedAndInitObjSlots_315510(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0xB40, 0x10, &D_00754C10);
@@ -13,7 +15,7 @@ int AllocZeroedAndInitObjSlots_315510(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndSetupFields214And620_315580")))
-int AllocZeroedAndSetupFields214And620_315580(void){
+void *AllocZeroedAndSetupFields214And620_315580(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x860, 0x10, &D_00754C10);
@@ -23,7 +25,7 @@ int AllocZeroedAndSetupFields214And620_315580(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndInitVu0SlotArray4_3155F0")))
-int AllocZeroedAndInitVu0SlotArray4_3155F0(void){
+void *AllocZeroedAndInitVu0SlotArray4_3155F0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x800, 0x10, &D_00754C10);
@@ -33,7 +35,7 @@ int AllocZeroedAndInitVu0SlotArray4_3155F0(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndInitVu0SlotArray5_315660")))
-int AllocZeroedAndInitVu0SlotArray5_315660(void){
+void *AllocZeroedAndInitVu0SlotArray5_315660(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x860, 0x10, &D_00754C10);
@@ -43,7 +45,7 @@ int AllocZeroedAndInitVu0SlotArray5_315660(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndInitVu0SlotArray5B_3156D0")))
-int AllocZeroedAndInitVu0SlotArray5B_3156D0(void){
+void *AllocZeroedAndInitVu0SlotArray5B_3156D0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x860, 0x10, &D_00754C10);
@@ -53,7 +55,7 @@ int AllocZeroedAndInitVu0SlotArray5B_3156D0(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndInitVu0SlotArray4B_315740")))
-int AllocZeroedAndInitVu0SlotArray4B_315740(void){
+void *AllocZeroedAndInitVu0SlotArray4B_315740(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x800, 0x10, &D_00754C10);
@@ -63,7 +65,7 @@ int AllocZeroedAndInitVu0SlotArray4B_315740(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndInitObjSlots_3157B0")))
-int AllocZeroedAndInitObjSlots_3157B0(void){
+void *AllocZeroedAndInitObjSlots_3157B0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x860, 0x10, &D_00754C10);
@@ -73,7 +75,7 @@ int AllocZeroedAndInitObjSlots_3157B0(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndInitObjSlotsB_315820")))
-int AllocZeroedAndInitObjSlotsB_315820(void){
+void *AllocZeroedAndInitObjSlotsB_315820(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0xDA0, 0x10, &D_00754C10);
@@ -83,7 +85,7 @@ int AllocZeroedAndInitObjSlotsB_315820(void){
 }
 
 __attribute__((section(".text.AllocZeroedAndForwardInit1A25A0_315890")))
-int AllocZeroedAndForwardInit1A25A0_315890(void){
+void *AllocZeroedAndForwardInit1A25A0_315890(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0xDA0, 0x10, &D_00754C10);
@@ -93,7 +95,7 @@ int AllocZeroedAndForwardInit1A25A0_315890(void){
 }
 
 __attribute__((section(".text.ForwardInit1A3A98_315900")))
-int ForwardInit1A3A98_315900(void){
+void *ForwardInit1A3A98_315900(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0xDA0, 0x10, &D_00754C10);

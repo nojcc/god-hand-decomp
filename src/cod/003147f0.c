@@ -1,9 +1,11 @@
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 extern int D_00747A34;
 
 __attribute__((section(".text.ForwardInitBuffer_3147F0")))
-int ForwardInitBuffer_3147F0(void){
+void *ForwardInitBuffer_3147F0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x800, 0x10, &D_00754C10);
@@ -13,7 +15,7 @@ int ForwardInitBuffer_3147F0(void){
 }
 
 __attribute__((section(".text.AllocZeroAndInit_9E0_314860")))
-int AllocZeroAndInit_9E0_314860(void){
+void *AllocZeroAndInit_9E0_314860(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x9E0, 0x10, &D_00754C10);
@@ -23,7 +25,7 @@ int AllocZeroAndInit_9E0_314860(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_3148D0")))
-int ForwardInitBuffer_3148D0(void){
+void *ForwardInitBuffer_3148D0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x9E0, 0x10, &D_00754C10);
@@ -33,7 +35,7 @@ int ForwardInitBuffer_3148D0(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_314940")))
-int ForwardInitBuffer_314940(void){
+void *ForwardInitBuffer_314940(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x610, 0x10, &D_00754C10);
@@ -43,7 +45,7 @@ int ForwardInitBuffer_314940(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_3149B0")))
-int ForwardInitBuffer_3149B0(void){
+void *ForwardInitBuffer_3149B0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x9C0, 0x10, &D_00754C10);
@@ -53,7 +55,7 @@ int ForwardInitBuffer_3149B0(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_314A20")))
-int ForwardInitBuffer_314A20(void){
+void *ForwardInitBuffer_314A20(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x610, 0x10, &D_00754C10);
@@ -63,7 +65,7 @@ int ForwardInitBuffer_314A20(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_314A90")))
-int ForwardInitBuffer_314A90(void){
+void *ForwardInitBuffer_314A90(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x8C0, 0x10, &D_00754C10);
@@ -73,7 +75,7 @@ int ForwardInitBuffer_314A90(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_314B00")))
-int ForwardInitBuffer_314B00(void){
+void *ForwardInitBuffer_314B00(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x8C0, 0x10, &D_00754C10);
@@ -83,7 +85,7 @@ int ForwardInitBuffer_314B00(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_314B70")))
-int ForwardInitBuffer_314B70(void){
+void *ForwardInitBuffer_314B70(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x8C0, 0x10, &D_00754C10);
@@ -93,7 +95,7 @@ int ForwardInitBuffer_314B70(void){
 }
 
 __attribute__((section(".text.ForwardInitBuffer_314BE0")))
-int ForwardInitBuffer_314BE0(void){
+void *ForwardInitBuffer_314BE0(void){
     void *s0;
     if (D_00747A34 & 0x10000) return 0;
     s0 = _MemoryAlloc(0x800, 0x10, &D_00754C10);

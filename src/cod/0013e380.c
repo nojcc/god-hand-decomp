@@ -3,6 +3,7 @@
 #include "godhand/criStm.h"
 #include "godhand/cCockItem.h"
 #include "godhand/DispMgr.h"
+#include "godhand/objFactory.h"
 
 extern void func_002B2580(char *self);
 extern void cSndSeTrack_switchSoundData(char *self);

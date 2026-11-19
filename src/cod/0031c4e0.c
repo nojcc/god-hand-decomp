@@ -2,9 +2,9 @@
 #include "godhand/gameWork.h"
 #include "godhand/heapArena.h"
 #include "godhand/player.h"
+#include "godhand/objCtor.h"
 
 void func_0031C5C0(void);
-void *func_00107E40(int arg);
 
 __attribute__((section(".text.func_0031C4E0")))
 void func_0031C4E0(void)

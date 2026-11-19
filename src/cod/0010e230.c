@@ -8,8 +8,6 @@
 /* func_0010E230 — 0x0010E230, 900 B — sn-2.95.3-136. */
 
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
-extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
-extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);

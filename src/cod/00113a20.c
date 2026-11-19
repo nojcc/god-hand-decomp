@@ -8,8 +8,6 @@ extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
 extern void cEmManage_SetBigHitEffWait(void *a0, int a1);
 extern void func_00129578(void *a0);
-extern void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(void *a0, int a1, int a2, int a3, int a4, int a5);
-extern void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void func_0010A438(void *a0);
 extern void func_00124EC0(void *a0);
 extern void func_00129630(void *a0);

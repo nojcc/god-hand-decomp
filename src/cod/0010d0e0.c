@@ -118,12 +118,6 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
     }
 }
 
-/* 1 while the track holds a player (a branch-built 0/1, as in retail). */
-static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
-    if (t->handle != 0) return 1;
-    return 0;
-}
-
 /* Stop every track that holds a player, then clear the "movie playing" bit.
  * Two byte offsets walk the table, as in retail; the read offset is added
  * to the table pointer as an integer, which keeps retail's operand order. */

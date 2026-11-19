@@ -3,6 +3,7 @@
 #include "godhand/espSys.h"
 #include "godhand/cNode.h"
 #include "godhand/mtx.h"
+#include "godhand/EspDataBank.h"
 
 extern int D_0076B580[];
 

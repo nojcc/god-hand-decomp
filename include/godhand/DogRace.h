@@ -18,6 +18,10 @@
 #define DOGRACE_DOG_NUM     5
 #define DOGRACE_ODDS_BASE   0x3E8   /* payout base, 0x7D0 after the game was cleared */
 #define DOGRACE_ODDS_CLEAR  0x7D0
+#define DOGRACE_BET_STEP    500     /* gold added to or taken from the bet per press */
+
+struct cOm71;
+struct cCamera;
 
 /* A dog's stat record, one row of the 0x24-byte table entry it spawns from. */
 typedef struct DogRaceStats {
@@ -33,7 +37,7 @@ typedef struct DogRaceStats {
 } DogRaceStats;                 /* 0x24 */
 
 typedef struct DogRaceDog {
-    void *obj;                  /* 0x00 spawned object, 0 if the spawn failed */
+    struct cOm71 *obj;          /* 0x00 spawned object, 0 if the spawn failed */
     unsigned char no;           /* 0x04 index of the dog */
     char pad05[3];
     DogRaceStats stats;         /* 0x08 */
@@ -84,7 +88,7 @@ typedef struct DogRaceResult {
     cIDBaseObj id;                      /* 0x010 the elements' display */
     char unk058[0x60 - 0x10 - sizeof(cIDBaseObj)];
     CustomIDWork elem[DOGRACE_RESULT_ELEM_NUM]; /* 0x060 */
-    char unk162C[0x1630 - 0x162C];
+    int count;                          /* 0x162C CustomID_setArrowDisp shows at most this many */
 } DogRaceResult;                        /* 0x1630 */
 
 typedef char DogRaceResult_size_check[sizeof(DogRaceResult) == 0x1630 ? 1 : -1];
@@ -92,21 +96,22 @@ typedef char DogRaceResult_size_check[sizeof(DogRaceResult) == 0x1630 ? 1 : -1];
 typedef struct DogRace {
     char unk00[4];
     int step;                   /* 0x004 index into the step table D_003BE528 */
-    int unk08;                  /* 0x008 */
+    int phase;                  /* 0x008 position inside the current step */
     int unk0C;                  /* 0x00C */
-    char unk10[0x44];
+    int timer;                  /* 0x010 frames to wait before the payout starts */
+    char unk14[0x54 - 0x14];
     int unk54;                  /* 0x054 bit 0 ends the race loop */
-    char unk58[4];
+    int payoutSteps;            /* 0x058 10-gold steps of the payout still to add */
     DogRaceDog dog[DOGRACE_DOG_NUM];    /* 0x05C */
-    int rank[DOGRACE_DOG_NUM];  /* 0x19C */
+    DogRaceDog *rank[DOGRACE_DOG_NUM];  /* 0x19C finishing order, winner first */
     unsigned short unk1B0;      /* 0x1B0 0xFFFF after construction */
     char unk1B2[2];
-    int unk1B4;                 /* 0x1B4 */
-    int unk1B8;                 /* 0x1B8 */
+    int sel;                    /* 0x1B4 the dog the cursor is on, 0..4 */
+    int bet;                    /* 0x1B8 gold staked, at most odds */
     int odds;                   /* 0x1BC */
-    char unk1C0[4];
+    int payout;                 /* 0x1C0 gold won, counted down as it is paid */
     int scroll[15];             /* 0x1C4 scroll layer ids, set by DogRace_Initialize */
-    int unk200;                 /* 0x200 */
+    struct cCamera *cam;        /* 0x200 the sub-screen camera func_001EB718 sets up */
     char unk204[0xC];
     DogRaceResult result;       /* 0x210 */
     DogRaceUi ui1;              /* 0x1840 */
@@ -122,9 +127,19 @@ typedef struct DogRaceStepEnt {
 } DogRaceStepEnt;
 
 extern DogRaceStepEnt D_003BE528[];
+extern cVec D_005681E0;         /* where each dog stands on the bet screen */
+extern cVec D_005681F0;         /* the dogs' rotation on the bet screen */
+extern cVec D_00568200;         /* camera eye of the result screen */
+extern cVec D_00568210;         /* camera target of the result screen */
 
 /* Call the handler of the current step, then run the shared update func_001EC088. */
 void Slot2_dispatchStep(DogRace *self);
+/* Switch to the sub-screen camera, keep it in self->cam and aim it from eye at target. */
+void func_001EB718(DogRace *self, cVec *eye, cVec *target);
+/* Set message messNo on result row msgSlot (elements 12+ and 23+) and move element 6+ySlot to that row's Y. */
+void CustomIDWork_setSlotMessAndPosY(DogRaceList *self, unsigned char msgSlot, unsigned char ySlot, int messNo);
+/* On a pad press while the pay prompt is on, pay 1000 gold and show the new total on the result screen. */
+void cCoreSave_payGoldOnPress(DogRace *self);
 /* Release the dogs, the three displays and the data file. */
 void DogRace_Release(DogRace *self);
 /* Constructor: clear the race state, construct the dogs and the three screens. */
@@ -198,5 +213,9 @@ void CustomIDWork_setDispAllButEight(DogRaceResult *self, int id, int on);
 void CustomIDWork_setSlotMessNo(DogRaceResult *self, unsigned short slot, int messNo);
 /* Start (sel set) or stop the vertical bob of elements 34 and 35. */
 void CustomIDOwner_setBob(DogRaceResult *self, int sel);
+/* Place elements 0 and 36 at the local Y of row idx (0..4). */
+void CustomID_placeByIndexB(DogRaceResult *self, unsigned short idx);
+/* Show min(count, limit) in element 32 and switch the arrows 34 and 35 by where it stands. */
+void CustomID_setArrowDisp(DogRaceResult *self, int limit);
 
 #endif

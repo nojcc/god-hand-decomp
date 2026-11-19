@@ -105,7 +105,12 @@ typedef struct pl00 {
     int unk1620;                        /* 0x1620 sound handle, stopped with cSnd_SeStop */
     char unk1624[0x165C - 0x1624];
     int unk165C;                        /* 0x165C */
-    char unk1660[0x1684 - 0x1660];
+    int unk1660[2];                     /* 0x1660 */
+    int moveA;                          /* 0x1668 the move being run (ComboObj.moveA) */
+    int moveB;                          /* 0x166C */
+    int unk1670[2];                     /* 0x1670 */
+    int unk1678[2];                     /* 0x1678 */
+    short unk1680[2];                   /* 0x1680 */
     char unk1684;                       /* 0x1684 */
 } pl00;
 
@@ -140,5 +145,11 @@ int func_0010B2E8(pl00 *self, int flag);
 void Obj0000_Clear_Fields_640_648_124E58(pl00 *self);
 /* Turn toward the catch target (unk640) at the given rate, when there is one. */
 void InvokeVirtualAtField214AndForward_124E68(pl00 *self, float f12);
+/* Set blend record 0: moveA and the [0] words of 0x1660, 0x1670, 0x1678, 0x1680. */
+void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(pl00 *self, int move, int a2, int a3, int a4, short a5);
+/* Set blend record 1: moveB and the [1] words of 0x1660, 0x1670, 0x1678, 0x1680. */
+void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(pl00 *self, int move, int a2, int a3, int a4, short a5);
+/* Start player motion `motion` for the current style (style 1, no blend, when `now` is set). */
+void func_001269E0(pl00 *self, int motion, int now);
 
 #endif

@@ -1,10 +1,15 @@
+/* NON_MATCHING: 1 word differs (with fp_hazard_rules fdiv, extern_jtbl D_0042B380): retail masks the first Casino_randRange result to 16 bits (andi 0xFFFF) before the multiply; only an (unsigned short) cast on that call gives it. */
 /* sn-2.95.3-136 */
+#include "include_asm.h"
 #include "godhand/Poker.h"
 #include "godhand/cSnd.h"
+#include "godhand/decCount.h"
 
 #define POKER_STEP_WAIT     30          /* frames before the card is drawn and before it turns */
 #define POKER_STATE_DOUBLE  0x10
+#define POKER_DEAL_FRAMES   10          /* frames the card takes to fly into its slot */
 
+#ifdef NON_MATCHING
 /* Double-up draw: wait, draw the second card (when rigged, a card of a
  * random suit below or above the first card's rank, as the player did not
  * guess), fly it into the second slot, turn it over and go on to the
@@ -18,7 +23,7 @@ void func_001DAB00(Poker *self)
         self->phase++;
         break;
     case 1:
-        if (Poker_tick(&self->timer)) {
+        if (DecCount(&self->timer)) {
             long f = (unsigned int)self->flags;
             long rigged = f >> 4 & 1;   /* Poker.flags bit 4: the double-up card is chosen, not drawn */
 
@@ -28,10 +33,10 @@ void func_001DAB00(Poker *self)
                 BlackJackCard *card;
 
                 if (self->cursorOn) {
-                    id = (unsigned short)Casino_randRange(self, 0, POKER_SUIT_NUM - 1) * POKER_RANK_NUM
+                    id = Casino_randRange(self, 0, POKER_SUIT_NUM - 1) * POKER_RANK_NUM
                        + Casino_randRange(self, 1, rank - 1);
                 } else {
-                    id = (unsigned short)Casino_randRange(self, 0, POKER_SUIT_NUM - 1) * POKER_RANK_NUM
+                    id = Casino_randRange(self, 0, POKER_SUIT_NUM - 1) * POKER_RANK_NUM
                        + Casino_randRange(self, rank + 1, POKER_RANK_NUM - 1);
                 }
                 card = &self->deck[id];
@@ -42,7 +47,7 @@ void func_001DAB00(Poker *self)
             }
             func_001D6EC8(self->hand[1], 0);
             self->hand[1]->obj->flags |= BLACKJACK_CARD_FACE_DOWN;
-            Poker_placeCard(self->hand[1]->obj, D_00568160);
+            self->hand[1]->obj->vtbl[14].pfn((char *)self->hand[1]->obj + self->hand[1]->obj->vtbl[14].delta, &D_00568160.x);
             self->phase++;
         }
         break;
@@ -54,8 +59,8 @@ void func_001DAB00(Poker *self)
         break;
     case 3: {
         float t = (POKER_DEAL_FRAMES - (float)self->unk302C) / POKER_DEAL_FRAMES;
-        float x = t * (D_005681C0[1][0] - D_00568160[0]) + D_00568160[0];
-        float y = t * (D_005681C0[1][1] - D_00568160[1]) + D_00568160[1];
+        float x = t * (D_005681C0[1].x - D_00568160.x) + D_00568160.x;
+        float y = t * (D_005681C0[1].y - D_00568160.y) + D_00568160.y;
 
         self->hand[1]->obj->pos[0] = x;
         self->hand[1]->obj->pos[1] = y;
@@ -68,7 +73,7 @@ void func_001DAB00(Poker *self)
         break;
     }
     case 4:
-        if (Poker_tick(&self->timer)) {
+        if (DecCount(&self->timer)) {
             func_001D6DD0(self->hand[1], 1);
             cSnd_SeCall_2CBA48(&D_005FEE00, 2, 1, self->hand[1]->obj, 0, 0, 0, 0);
             self->phase++;
@@ -87,3 +92,6 @@ void func_001DAB00(Poker *self)
     }
     }
 }
+#else
+INCLUDE_ASM("asm/nonmatching", func_001DAB00);
+#endif

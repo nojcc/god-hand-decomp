@@ -73,6 +73,7 @@ extern cDvdJob *cDvd_takeFreeJob(cDvd *self);            /* take a free job */
 extern int func_00201788(cDvd *self);                    /* next job id */
 extern void func_00201228(cDvd *self, cDvdJob *job);     /* give a job back */
 extern void func_00201290(cDvd *self);                   /* start the next job */
+int func_00201A50(void *self);                           /* 1 once the disc is ready (sceCdDiskReady(1) == 2) */
 extern void func_00324008(void *heap);                   /* free the heap block */
 extern void FreeObjectSlot_2018F0(cDvd *self);
 

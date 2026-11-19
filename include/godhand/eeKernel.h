@@ -6,6 +6,8 @@
 int DIntr(void);
 /* Enable interrupts. */
 int EIntr(void);
+/* Signal a semaphore from an interrupt handler. */
+int iSignalSema(int sema);
 
 /* scePrintf: print to the debug console with interrupts disabled. */
 void func_003B1F28(const char *fmt, ...);

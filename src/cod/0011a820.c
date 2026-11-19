@@ -114,13 +114,6 @@ int EspAnim_step(EspAnim *self) {
 
 
 
-/* 1 while the track holds a player. The unsigned char result is what makes
- * the compiler build the 0/1 with a branch, as retail does. */
-static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
-    if (t->handle != 0) return 1;
-    return 0;
-}
-
 /* Starts a clip on a free track: copies its name, loads it, looks the entry up and starts (or loops) the stream. Returns 1 on success. */
 __attribute__((section(".text.cMovieTrack_start")))
 int cMovieTrack_start(cMovieTrack *track, const char **clip) {

@@ -27,9 +27,9 @@ int *GetOrInitSingleton785818_170A08(void) {
 }
 
 __attribute__((section(".text.InitActorSetVtable_170A58")))
-int InitActorSetVtable_170A58(int a0) {
+void *InitActorSetVtable_170A58(void *a0) {
     func_001BFAC8(a0);
-    *(int *)(a0 + 0x214) = (int)&D_00420780;
+    *(int *)((char *)a0 + 0x214) = (int)&D_00420780;
     return a0;
 }
 

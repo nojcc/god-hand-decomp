@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cOm71.h"
 
 extern char D_00428090[];
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern char D_00428160[];
 extern int D_004283D8;
-extern void cOm71_SetMotionWait(int a0);
 extern char D_00428928[];
 extern char D_00428C20[];
 extern int D_00747A80;

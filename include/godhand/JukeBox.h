@@ -26,12 +26,12 @@ typedef struct JukeBoxObj {
     unsigned char unk05;
     char pad06[2];
     int unk08;                  /* 0x08 starts at 10 */
-    int unk0C;                  /* 0x0C starts at 1 */
+    int list;                   /* 0x0C song list shown, starts at 1 */
     int unk10;                  /* 0x10 mirrors a bit of the save flags */
     int unk14;                  /* 0x14 mirrors D_00747A24 bit 26 */
     int unk18;                  /* 0x18 mirrors D_00747A24 bit 25 */
     int unk1C;                  /* 0x1C mirrors D_00747A24 bit 24 */
-    int unk20;                  /* 0x20 */
+    int cursor;                 /* 0x20 selected song in the list */
     int bgmEvent;               /* 0x24 id of the running BGM event */
     char unk28[8];
     cIDBaseObj idBase;          /* 0x30 */
@@ -41,6 +41,13 @@ typedef struct JukeBoxObj {
 
 typedef char JukeBoxObj_idBase_check[((int)&((JukeBoxObj *)0)->idBase == JUKEBOX_ID_OFFSET) ? 1 : -1];
 typedef char JukeBoxObj_dataFile_check[((int)&((JukeBoxObj *)0)->dataFile == 0x80) ? 1 : -1];
+
+#define JUKEBOX_LIST_ROWS   12      /* song rows on screen */
+
+/* BGM id of each song, per list (D_003BF0C0[list][song]), and the number
+ * of songs in each list. */
+extern int *D_003BF0C0[];
+extern int D_003BF0D0[];
 
 /* Load the data file and set up the screen: 1, or 0 if the ID data didn't load. */
 int JukeBox_Load(JukeBoxObj *self);

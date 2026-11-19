@@ -1,14 +1,6 @@
 /* sn-2.95.3-136: func_001DA4E8, poker panel slide-in sequence. */
 #include "godhand/Poker.h"
-
-static inline unsigned char DecCount(int *p)
-{
-    if (*p == 0) {
-        return 1;
-    }
-    *p = *p - 1;
-    return 0;
-}
+#include "godhand/decCount.h"
 
 __attribute__((section(".text.func_001DA4E8")))
 void func_001DA4E8(Poker *self)

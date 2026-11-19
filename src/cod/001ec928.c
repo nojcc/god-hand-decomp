@@ -1,7 +1,6 @@
 #include "godhand/cOmBase.h"
+#include "godhand/DogRace.h"
 
-extern cVec D_005681E0;
-extern cVec D_005681F0;
 extern cVec D_00568200;
 extern cVec D_00568210;
 extern cVec D_00568220;

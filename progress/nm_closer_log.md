@@ -2955,3 +2955,147 @@ A rule such as `div2_unless_after(cvt.s.w|lwc1|div.s)` would need checking again
 - 06:34 idle check clean. PERM=0.
 - 06:34 idle check clean. PERM=0.
 - 06:45 idle check clean. PERM=0.
+
+## Session 2026-11-18
+- 18:32 start. New drafts since the 11-17 06:45 stop: drafts/cod/001b7220.c (cOmBase_setMeshAlphaFromLayer) and drafts/cod/002c9e78.c (func_002C9E78). Pending handoffs func_001C2408 and func_001DF7D0 are still in nm_solved/ (main agent's to apply).
+- func_002C9E78 (002c9e78.c, sn): SOLVED, handed off to nm_solved/func_002C9E78. MATCH 55 insns, 5 relocs, fp_hazard_rules mtc1.
+  - The draft passed two arguments to func_00375380. Retail's jal has the last float store in the delay slot; the function takes no arguments (src/cod/00375380.c). The loads are the four channel conversions.
+  - Callees are the current names: SdeSystemOutModeSet(int a0), SdeSystemVolSet, SdePlayVolReset(unsigned char f), func_00375380(void), func_00375500(void). The object is cSnd; the two triples are unk00 and unk0C.
+  - Four float locals (master0, master1, sub1, sub2), each stored twice. Without them the three lhu results land in v0/v1/a0 instead of a0/v0/v1 (15 off). A chained assignment is the same 15. Stores written in index order 0, 1, 2: writing the [2] slots first swaps those four stores (4 off).
+  - fp_hazard_rules mtc1: without it the four mtc1/cvt.s.w nops are missing (51 words vs 55). as=sn does not add them.
+  - header_changes.md: the four callee prototypes in sndTiming.h (definitions' types), func_002C9E78(cSnd *) in cSnd.h, and 002c9d20.c includes cSnd.h instead of `extern void func_002C9E78(void *)`. Caller still MATCH 13. Dependents of sndTiming.h rechecked MATCH: func_00375380, func_00375500, SdeSystemVolSet, func_0037AD88, func_00377BC8, SdeSystemVolGet.
+  - No casts. SndSystemVol's shorts already produce retail's lh at offset 0 and lhu+sign-extend at 2/8/A.
+- cOmBase_setMeshAlphaFromLayer (001b7220.c, sn): PARKED at 1. The do-while on cModel_getMeshPtr / node->layer / node->alpha / node->next is retail except the nop between `lw next` and `bnel` (22 words vs 23). for-loop is the same. A `next` local is 4 off (bne, extra move) at the right length. as=sn and --call-loop-pad do not insert the nop: the back edge targets the beql, so the loop is multi-block and neither pads it. Work: nm_work/s1118/b722/m1.c.
+- cScrSpriteDraw_drawRectLine, rescored because cScrSpriteDraw.h and drawPrim.h changed: still 2 (counter 3 vs the source pointer, at 0x2F8). cScrVtx v[5] with the same copy loop is the same 2, and the call then needs a cast to Draw_Line_sc's `float (*)[4]`. Stays parked. The constant-local decision (batch 221) was answered no, so func_002BF420 stays parked; gameWork.h still has pad at 0x5E8.
+- nm_prune: 0 fully stale, 2 partial (00156508.c holds func_0037D298, already matched; 00352790.c is CRI). Not applied. PERM=0.
+
+## Session 2026-11-18 (continued)
+- func_001F6758 (drafts/cod/001f6758.c, sn, as sn): PARKED at 140. 178 words vs retail 177. The calls, the flag updates, the lhu/sh message store and the cursor placement are retail's program. Two passes move every register:
+  - `i + 0x30` is strength-reduced to a counter that starts at 0x30 and increments in the back-edge delay slot (`bne` + `addiu`). Retail recomputes `addiu` from i (once on the show path, reused for the second title call; once on the hide path) and the back edge is `bnel` with the list reload in the delay slot.
+  - `&self->idBase` is hoisted for the whole function. Retail recomputes `addiu a0, self, 0x30`, and the show path's second copy stays in s3 for the rest of the iteration. The hoist takes a 9th callee-saved, so the frame is 0xA0 instead of 0x90.
+  - `-fno-strength-reduce` restores the `bnel` and the per-iteration addiu. It is not in SUPPORTED_C_FLAG_ADDS, so this was a probe: the address stays hoisted, the frame stays 0xA0, and the score stays 140.
+  - `-fno-gcse` alone is 176 words, 151 off. Both flags together: frame 0x90, 176 vs 177, 153 off, address still hoisted.
+  - `cIDBaseObj *base = &self->idBase` compiles to the same 140. Cygnus is 172 off, 180 words. `-fno-rerun-cse-after-loop` is 142. SN cc1 rejects `-fno-cse` and `-fno-loop-optimize`.
+  - `->msg = D_003BF0C0[list][i] + 0x2000` is already retail's lhu + addiu 0x2000 + sh. No cast.
+  - Permuter not run. The gap is those two passes, not a statement permutation. Scratch: progress/nm_work/s1118/f6758/.
+- func_0026EF60, rescored after cGameObj.h (18:36): progress/nm_work/s1116/ef60/j.c is still 1 (neg.s of the copy). The reused-float question is still open, so the matching reuse form was not handed off.
+- func_003187D8, rescored after cObj.h named unk2F0: still 219 words vs 224, 138 off. `self->unk2F0 |= 0x800` scores 141. The 0xFFFF / 1 / 0xFF stores are reordered, and the tail still merges the 0x4000000 and 0x2000000 tests. Left parked.
+- PERM=0.
+- 19:16 idle check: no new drafts, headers, or handoffs since func_001F6758 was parked. PERM=0.
+- 19:37 idle check: queue still empty. PERM=0.
+- 19:47 idle check, then the cGameObj.h drafts that claim a small gap:
+  - func_0014E818 still 4 (pos pointer in v0, work address in v1; retail has them swapped). A `cVec *pos = self->pos` local is the same 4. capVu0.h's prototype doesn't move it.
+  - func_00284AF8 no longer builds against the headers: 673 vs 736, and SET_EM_DATA_copy / cModelNode_hide / cModelNode_show don't resolve. Left for the header pass.
+  - func_0026EF60 unchanged at 1.
+- 19:50 queue empty. PERM=0.
+- 19:47 idle check, then the cGameObj.h drafts that claim a small gap:
+  - func_0014E818 still 4 (pos pointer in v0, work address in v1; retail has them swapped). A `cVec *pos = self->pos` local is the same 4. capVu0.h's prototype doesn't move it.
+  - func_00284AF8 no longer builds against the headers: 673 vs 736, and SET_EM_DATA_copy / cModelNode_hide / cModelNode_show don't resolve. Left for the header pass.
+  - func_0026EF60 unchanged at 1.
+- 19:50 queue empty. PERM=0.
+- 20:00 idle check: no new drafts or headers. PERM=0.
+- 20:21 idle check: queue empty. PERM=0.
+- 20:31 idle check: queue empty. PERM=0.
+- 20:41 idle check: queue empty. PERM=0.
+- 20:51 idle check: queue empty. PERM=0.
+- 21:02 idle check: queue empty. PERM=0.
+- 21:12 idle check: queue empty. PERM=0.
+- 21:22 idle check: queue empty. PERM=0.
+- 21:32 idle check: queue empty. PERM=0.
+- 21:43 idle check: queue empty. PERM=0.
+- 21:53 idle check: queue empty. PERM=0.
+- 22:03 idle check: queue empty. PERM=0.
+- 22:13 idle check: queue empty. PERM=0.
+- 22:23 idle check: queue empty. PERM=0.
+- 22:33 idle check: queue empty. PERM=0.
+- 22:44 idle check: queue empty. PERM=0.
+- 22:54 idle check: queue empty. PERM=0.
+- 23:04 idle check: queue empty. PERM=0.
+- 23:14 idle check: queue empty. PERM=0.
+- 23:24 idle check: queue empty. PERM=0.
+- 23:35 idle check: queue empty. PERM=0.
+- 23:45 idle check: queue empty. PERM=0.
+- 23:55 idle check: queue empty. PERM=0.
+- 00:05 idle check: queue empty. PERM=0.
+- 00:15 idle check: queue empty. PERM=0.
+- 00:25 idle check: queue empty. PERM=0.
+- 00:36 idle check: queue empty. PERM=0.
+- 00:46 idle check: queue empty. PERM=0.
+- 00:57 idle check: queue empty. PERM=0.
+- 01:07 idle check: queue empty. PERM=0.
+- 01:18 idle check: queue empty. PERM=0.
+- 01:28 idle check: queue empty. PERM=0.
+- 01:39 idle check: queue empty. PERM=0.
+- 01:49 idle check: queue empty. PERM=0.
+- 01:59 idle check: queue empty. PERM=0.
+- 02:09 idle check: queue empty. PERM=0.
+- 02:19 idle check: queue empty. PERM=0.
+- 02:29 idle check: queue empty. PERM=0.
+- 02:38 pl00.h named unk640, unk694 and weapon. func_0012AFE8 rescored with pl00 * and self->unk640 (fp_hazard_rules fdiv): still 6. Retail's addiu of sp+0x50 sits before the vsub block; ours sits after it. Same slide as the draft. The named field does not move it.
+- 02:40 queue otherwise empty. PERM=0.
+- 02:51 idle check: queue empty. PERM=0.
+- 03:02 idle check: queue empty. PERM=0.
+- 03:12 idle check: queue empty. PERM=0.
+- 03:22 idle check: queue empty. PERM=0.
+- 03:25 cObj.h, cDataManager.h, objCtor.h, FileLoadRec.h, objFactory.h changed. func_003187D8 still 219 vs 224, 138 off.
+- func_001FE748 (cDataManager.h): the draft has no section attribute. With one added, 83 vs 85, 68 off. -fno-gcse makes the length match (85) and the inner loop matches; 40 off, all in the outer loop. Retail reloads 0x5C into v0 and multiplies; ours walks the outer slot by -0x5C. An explicit inner pointer is worse (79 vs 85, 73). Left at 40 with -fno-gcse. Not handed off.
+- PERM=0.
+- func_00376B80 (drafts/cod/00376b80.c, new 19:03, sn): 92 vs 94, 94 off. The body is retail's program. Retail saves six registers because it loads the literal 0x17 into s0 before func_00376CF8 and keeps it to the store at node+0x2E; this C rematerializes 0x17 after the call and saves five. -1 is kept live, because ofsA and tail both use it. A short local for 0x17 is optimized back to a post-call addiu (still 92 vs 94). Moving the store above the call is 92 off. -fno-gcse, -fmove-all-movables, -fno-schedule-insns and -fno-schedule-insns2 leave the frame at 0x60. Not handed off.
+- PERM=0.
+- 03:59 cOmBaseFn.h, objFactory.h, sideCounter.h changed. No draft includes them. Nothing to rescore.
+- cEmManage_GetTargetNear (drafts/cod/00290a08.c, new 04:10, sn): 383 vs 385, 210 off. The body is retail's instruction stream. Retail loads the literal 1 into s6 once, in the delay slot of the object-loop entry compare, and uses it for the flags2 bit-10 test (bne v0, s6) and that loop's ChkLine last argument (sw s6, 0x20(sp)); this C reloads 1 inside the loop, so the list end and the constant take other saved registers. The else branch's height abs is a bc1tl at 0x4CC where retail has bc1f with the copy before the negate. A shared int one = 1, which the checklist forbids, does hoist the addiu into s6 at 0x348 and lowers the score to 164, still 383 vs 385, with the bc1tl left. Not handed off.
+- 04:10 drawPrim.h, cScrSpriteDraw.h, fileBuf.h changed and broke drafts that use them. func_0012DEF0: D_0041D640 undeclared. func_0015C410 and func_0015DB30: sceVu0IVECTOR, SCR_TEX_CLAMP and the clamp member are gone. func_00165638: D_0061A990 and D_005FEC58 undeclared, and a member c is gone. Left for the main agent.
+- cScrSpriteDraw_drawRectLine still 2 (mtc1, extern_jtbl D_0044C320).
+- func_002C70A8 480 off with unresolvable .rodata, func_002C5EA8 346 off with .rodata, func_002A2ED0 451 off. Far.
+- PERM=0.
+- func_002E0DE8 (fileBuf.h, rescored): the literal room /= 8 folds to a shift, 73 vs 76, 72 off. Retail divides by a long-lived s4 = 8 and the div-by-zero test checks a fresh v0 = 8. A variable divisor set to 8 before the call is a constant in a local, which the checklist forbids; it does give the right length and 14 off, with the divisor in s3 instead of s4 and the test on that register instead of a fresh v0. Not handed off.
+- cEmManage_GetTargetNear unchanged at 210 (383 vs 385) after the cOmBaseFn.h edit.
+- func_0015C410 and func_0015DB30 were rewritten and still do not compile: sceVu0IVECTOR is undeclared.
+- PERM=0.
+- func_00196188 (new, sn): 282 vs 283, 265 off. The frame is 0x110 against retail's 0x100, so every stack offset and several saved registers differ. The take block does not use the give block's locals, but giving it its own scope stays at 265 and the frame stays 0x110. The damage vectors do not reuse the give part's child-count slot the way retail's temporaries do. Not handed off.
+- cWorldLight_Light_curent_set (new, sn): 254 vs 258, 255 off. Retail keeps two registers holding 0xFF and hoists 0x4000000, so it saves two more registers. Not handed off.
+- 04:41 objField.h removed childNum: func_001C3090 no longer compiles. PanelObj.h changed; no draft includes it.
+- PERM=0.
+- 04:53 cSnd.h and sndTiming.h changed (func_002C9E78 applied, now in src). No draft calls the added functions. func_0012AFE8 still 6.
+- 05:04 no new drafts or headers.
+- func_002A7CD0 (new, sn): 214 vs 217, 212 off. The sort and the ChkLine calls match; retail reloads ptNum where this reuses the loop test's load, so the saved registers shift, and retail takes fabsf of the height before loading near[far].key. -fno-gcse goes to 208 vs 217, 216 off. The pointer casts wait on a decision row. Not handed off.
+- func_002A8038 (new, sn): 279 vs 283, 251 off. Retail keeps the 0x40000000 mask and &sum in registers across both loops and reloads lineNum; this builds both inside the loops. -fno-gcse goes to 278 vs 283, 259 off. Not handed off.
+- PERM=0.
+- 05:24 no new drafts or headers.
+- 05:35 no new drafts or headers.
+- 05:45 no new drafts or headers.
+- 05:55 no new drafts or headers.
+- 06:05 no new drafts or headers.
+- 06:15 eeKernel.h changed.
+- func_003977C8 (ee): 3 off, length matches. The source sets the rpc buffer's word at 0x10 to 0 before cmd, which is retail's order, but the compiler schedules that store after the arg store. The draft's comment records that statement order, an int buffer, volatile and the call prototype do not move it. Not handed off.
+- func_003B21D0 (ee): 13 off, length matches. The cmd-data stores are in retail's order; the addiu of 0x20, a daddu and the lui of D_0077E500 sit a few slots away, and that swaps v0/v1 for the packet and buffer pointers at the tail. -fschedule-insns stays at 13; -fno-schedule-insns and -fno-gcse lose the length. Not handed off.
+- func_003B3650 (ee): 40 off, length matches (the s0/s1 swap). Not handed off.
+- func_003B3F50 (ee): no longer compiles, parse error before PoffCb. Left for the main agent.
+- PERM=0.
+- _sceFs_Rcv_Intr (new, ee): 235 vs 237. extern_jtbl D_004600A0 clears the .rodata and leaves 152 off. The slot lands in a2 where retail uses a1, because the 0x20000000 uncached constant takes a1, and every block copy and reload after that is one register later. Not handed off.
+- DogRace.h changed; no draft includes it.
+- PERM=0.
+- func_001EA1F8 (new, sn): 404 vs 398, 301 off with extern_jtbl D_0042BCC0, which clears the .rodata. The comment's 392 figure is stale. In case 0 the dog pointer is set before the two vector addresses, and two null checks skip a reload retail does. Not handed off.
+- menuKey.h, gameWork.h and cOm71.h changed. func_003187D8 is unchanged at 138 (219 vs 224).
+- PERM=0.
+- 06:50 cDvd.h and libcdvd.h changed. func_0030B420 no longer compiles: too many arguments to func_002B4A30. Left for the main agent.
+- func_0030D358 unchanged at 148 vs 155, 143 off (extern_jtbl D_00450550). func_00201290 is 284 vs 289, 287 off. Not handed off.
+- PERM=0.
+- 07:00 decCount.h, DogRace.h and cOm71.h changed. No draft includes decCount.h. func_001EA1F8 unchanged at 301 (404 vs 398).
+- func_001DAB00 (new, sn, fdiv, extern_jtbl D_0042B380): 1 off, length matches. Retail masks the first Casino_randRange result to 16 bits before the multiply. An (unsigned short) cast on the call matches (197 insns, 22 relocs), but that is a narrowing cast, which the checklist does not allow. An unsigned short local for the suit is 3 off. Not handed off.
+- func_001EB030 (new, sn): 19 off with extern_jtbl D_0042BD20. All 19 are in case 0, where retail computes &target for func_001EB718 before the second vector copy and the copy macros' volatile asm keeps ours after it. Not handed off.
+- PERM=0.
+- func_001EB030 revised, still 19 (extern_jtbl D_0042BD20). The eye and target addresses wait on the pending CVEC_TEMP_COPY decision, which the comment says leaves 11, in the null check that skips a reload. Not handed off.
+- 07:32 no new drafts or headers.
+- 07:42 no new drafts or headers.
+- 07:53 no new drafts or headers.
+- func_001EBB78 (new, sn): 2 off, length matches. Retail loads the copied speed into f12 and then the object into a0 in SetMotionStep's delay slot; ours loads the object first and the speed in the delay slot. A float local for the speed or a pointer local for the object makes it 59 vs 55. Not handed off.
+- cOm71.h changed. func_001EB030 still 19, func_001EA1F8 still 404 vs 398.
+- PERM=0.
+- 08:15 no new drafts or headers.
+- 08:25 no new drafts or headers.
+- 08:35 no new drafts or headers.
+- 08:45 no new drafts or headers.
+- 08:56 no new drafts or headers.
+- 09:06 no new drafts or headers.
+- 09:16 no new drafts or headers.

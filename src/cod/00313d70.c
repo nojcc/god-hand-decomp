@@ -1,9 +1,11 @@
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 extern int D_00747A34;
 
 __attribute__((section(".text.ForwardInitBuffer_313D70")))
-int ForwardInitBuffer_313D70(void)
+void *ForwardInitBuffer_313D70(void)
 {
     void *s0;
 
@@ -17,7 +19,7 @@ int ForwardInitBuffer_313D70(void)
 }
 
 __attribute__((section(".text.ForwardInitBuffer_313DE0")))
-int ForwardInitBuffer_313DE0(void)
+void *ForwardInitBuffer_313DE0(void)
 {
     void *s0;
 
@@ -31,7 +33,7 @@ int ForwardInitBuffer_313DE0(void)
 }
 
 __attribute__((section(".text.ForwardInitBuffer_313EC0")))
-int ForwardInitBuffer_313EC0(void)
+void *ForwardInitBuffer_313EC0(void)
 {
     void *s0;
 

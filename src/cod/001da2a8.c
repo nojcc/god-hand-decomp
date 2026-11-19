@@ -1,18 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
 #include "godhand/Poker.h"
-
+#include "godhand/decCount.h"
 
 /* sn-2.95.3-136 matched TU. */
-
-static inline unsigned char DecCount(int *p)
-{
-    if (*p == 0) {
-        return 1;
-    }
-    *p = *p - 1;
-    return 0;
-}
 
 __attribute__((section(".text.func_001DA2A8")))
 void func_001DA2A8(Poker *self)

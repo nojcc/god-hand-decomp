@@ -4,6 +4,7 @@
 #include "godhand/heapArena.h"
 #include "godhand/vu0.h"
 #include "godhand/vtables.h"
+#include "godhand/objFactory.h"
 
 /* The 0x360-byte actor whose vtable is D_00450CE8: a cObj with two vectors
  * and a flag byte. */

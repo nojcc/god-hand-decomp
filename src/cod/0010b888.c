@@ -4,9 +4,9 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_00126770(void *a0);
 #include "godhand/motion.h"
 #include "godhand/cModel.h"
+#include "godhand/pl00.h"
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void func_001CF3A8(void *a0);
-extern void func_001269E0(void *a0, int a1, int a2);
 
 __attribute__((section(".text.pl00_SubscreenMode")))
 void pl00_SubscreenMode(void *a0, int a1) {
@@ -43,7 +43,7 @@ void pl00_SubscreenMode(void *a0, int a1) {
 __attribute__((section(".text.pl00_SubscreenMotSet")))
 void pl00_SubscreenMotSet(void *a0, int a1) {
     char *s0 = (char *)a0;
-    func_001269E0(s0, a1, 1);
+    func_001269E0(a0, a1, 1);
     *(unsigned char *)(s0 + 0x2F4) = 5;
     *(unsigned char *)(s0 + 0x2F6) = 2;
     *(unsigned char *)(s0 + 0x2F5) = 0;

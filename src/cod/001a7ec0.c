@@ -17,13 +17,6 @@ extern unsigned int D_00747A84;
 extern void func_0();
 extern char cEvent_nullStr00[];
 
-/* 1 while the track holds a player. The unsigned char result is what makes
- * the compiler build the 0/1 with a branch, as retail does. */
-static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
-    if (t->handle != 0) return 1;
-    return 0;
-}
-
 /* 1 when no track holds a player. */
 __attribute__((section(".text.cMovie_isIdle")))
 int cMovie_isIdle(cMovie *self) {

@@ -1,9 +1,11 @@
 #include "godhand/heapArena.h"
 #include "godhand/criStm.h"
+#include "godhand/objFactory.h"
+#include "godhand/objCtor.h"
 extern int D_00747A34;
 
 __attribute__((section(".text.ForwardInitVtable214Buffer_3137B0")))
-int ForwardInitVtable214Buffer_3137B0(void)
+void *ForwardInitVtable214Buffer_3137B0(void)
 {
     void *p;
     if (D_00747A34 & 0x100000)
@@ -16,7 +18,7 @@ int ForwardInitVtable214Buffer_3137B0(void)
 }
 
 __attribute__((section(".text.ForwardInitBuffer_313820")))
-int ForwardInitBuffer_313820(void)
+void *ForwardInitBuffer_313820(void)
 {
     void *p;
     if (D_00747A34 & 0x100000)
@@ -29,7 +31,7 @@ int ForwardInitBuffer_313820(void)
 }
 
 __attribute__((section(".text.ForwardInitBuffer_313890")))
-int ForwardInitBuffer_313890(void)
+void *ForwardInitBuffer_313890(void)
 {
     void *p;
     if (D_00747A34 & 0x100000)

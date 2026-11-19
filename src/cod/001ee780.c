@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/DogRace.h"
+#include "godhand/cOm71.h"
 
 extern void *CreateObj(int a0, int a1);
 extern void cOmBase_setTexChange(void *a0, int a1);
@@ -19,16 +20,18 @@ typedef struct { int a[9]; } T36;
 * and rolls its speed and power. 0 if the object could not be made. */
 __attribute__((section(".text.func_001EE780")))
 int func_001EE780(DogRaceDog *dog, unsigned char n, DogRaceStats *stats) {
+    void *made;
     char *obj;
     char *vt;
     int (*fp)();
     float r;
     unsigned int rem;
-    char *p;
+    cOm71 *p;
     unsigned int m;
 
-    obj = (char *)CreateObj(0x371, 0xFFFF);
-    dog->obj = obj;
+    made = CreateObj(0x371, 0xFFFF);
+    obj = made;
+    dog->obj = made;
     if (obj == 0) {
         return 0;
     }

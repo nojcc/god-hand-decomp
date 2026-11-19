@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/Poker.h"
+#include "godhand/cOm71.h"
 
 extern float Adjust_theta(float);
 extern int moveMotion(int *);
-extern void cOm71_SetMotionRun(int *);
 extern void cObjBase_addNullSpeed_Rotation(int *, float);
 extern void cObjBase_addNullSpeed(int *, float);
 

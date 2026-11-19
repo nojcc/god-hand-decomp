@@ -59,8 +59,8 @@ int JukeBox_Load(JukeBoxObj *self)
     self->bgmEvent = JUKEBOX_BGM_NONE;
     self->unk08 = 10;
     self->done = 0;
-    self->unk0C = 1;
-    self->unk20 = 0;
+    self->list = 1;
+    self->cursor = 0;
     self->unk05 = 0;
     if ((*(unsigned int *)(game + 0x588) & 0x8000000) != 0) {
         self->unk10 = 1;

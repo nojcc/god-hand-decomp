@@ -8,6 +8,7 @@
 #include "godhand/cEmManage.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/JukeBox.h"
 
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float f12);
 extern void CallWithAndClearField698_12AC28(void *a0);
@@ -30,8 +31,6 @@ extern void IK_InverseKinematics(void *a0, void *a1);
 extern int D_00747A78;
 extern void SlotList_selectPrev(void *a0);
 extern void func_001F6AF8(void *a0);
-extern int *D_003BF0C0[];
-extern int D_003BF0D0[];
 extern void func_00294AD8(void *a0);
 extern void func_00125F38(void *a0);
 extern float SetMotionStep(void *a0, float f);

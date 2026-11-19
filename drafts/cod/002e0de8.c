@@ -3,11 +3,11 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern char D_0061B298[];
+#include "godhand/fileBuf.h"
+
 extern int D_003C1180;
 extern int D_003C118C;
 extern int func_003A7AE8(char *buf, const char *fmt, char *args);
-extern void func_002E0F18(char *buf, int, int, int, int);
 
 void func_002E0DE8(int x, int y, int color, const char *fmt, ...)
 {

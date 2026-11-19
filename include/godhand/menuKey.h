@@ -13,6 +13,9 @@
 #define MENU_KEY_LEFT       0x0004000008000000L
 #define MENU_KEY_RIGHT      0x0008000004000000L
 #define MENU_KEY_LEFTRIGHT  (MENU_KEY_LEFT | MENU_KEY_RIGHT)
+/* UP and DOWN plus one more source each (bits 44 and 45); DogRace's bet screen moves on these. */
+#define MENU_KEY_UP_ALL     0x0001100001000000L
+#define MENU_KEY_DOWN_ALL   0x0002200002000000L
 #define MENU_KEY_OK         0x10000000L
 #define MENU_KEY_BACK       0x20000000L
 #define MENU_KEY_CLOSE      0x200000L

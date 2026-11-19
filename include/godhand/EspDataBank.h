@@ -30,4 +30,10 @@ extern EspDataBank D_00741DC8;
 /* Look up entry index of the resource table; 0 when it is missing. */
 int func_00306C78(void **table, unsigned int index, void *out1, void *out2);
 
+/* Resource index of a block: *out gets its address (as an int), 0 if missing. */
+int func_00306A48(int a0, unsigned int a1, int *a2);
+
+/* Unregister block id; 1 if its slot held a block. */
+int func_00306BB0(EspDataBank *bank, int id);
+
 #endif /* GODHAND_ESPDATABANK_H */

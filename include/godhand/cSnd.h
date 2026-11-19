@@ -191,6 +191,8 @@ int cSnd_BgmReqFromEnemies(void *self);
 /* Plays sound-effect slot on a free voice at the origin; 0 when the slot is dead or no voice is free. */
 int cSnd_SeCall_2CBA48(cSnd *self, int slot, int key, void *obj, void *owner, void *part, int a6, int a7);
 int cSnd_SeCall_2CB8A0(cSnd *self, int slot, short key1, short idA, short idB, int a5, int a6);
+/* Set the default system volumes and copy master and sub channels into the two triples. */
+void func_002C9E78(cSnd *self);
 
 /* The game's one sound object. */
 extern cSnd D_005FEE00;

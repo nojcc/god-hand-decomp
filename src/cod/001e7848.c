@@ -3,6 +3,7 @@
 #include "godhand/SlotUi.h"
 #include "godhand/cCamManager.h"
 #include "godhand/DogRace.h"
+#include "godhand/cCamera.h"
 
 extern int cIDBase_release();
 
@@ -47,23 +48,23 @@ void func_001E78E8(SlotUi *self, int number) { CustomIDWork_SetNumber(&self->mar
 
 
 __attribute__((section(".text.func_001EB718")))
-void func_001EB718(int a0, float *a1, float *a2) {
-    float *dst1;
-    float *dst2;
+void func_001EB718(DogRace *self, cVec *eye, cVec *target) {
+    cVec *camEye;
+    cVec *camTarget;
 
     cCamManager_setSubScrCamera(&D_00463050, 0);
-    *(int *)(a0 + 0x200) = (int)&D_00463050.subScr;
-    dst1 = &D_00463050.subScr.eye.x;
-    if (a1 != dst1) {
-        dst1[0] = a1[0];
-        dst1[1] = a1[1];
-        dst1[2] = a1[2];
+    self->cam = &D_00463050.subScr;
+    camEye = &D_00463050.subScr.eye;
+    if (eye != camEye) {
+        camEye->x = eye->x;
+        camEye->y = eye->y;
+        camEye->z = eye->z;
     }
-    dst2 = (float *)(*(int *)(a0 + 0x200) + 0x200);
-    if (dst2 != a2) {
-        dst2[0] = a2[0];
-        dst2[1] = a2[1];
-        dst2[2] = a2[2];
+    camTarget = &self->cam->target;
+    if (camTarget != target) {
+        camTarget->x = target->x;
+        camTarget->y = target->y;
+        camTarget->z = target->z;
     }
 }
 

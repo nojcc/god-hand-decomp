@@ -179,20 +179,10 @@ typedef char cGameObj_chk_size[sizeof(struct cGameObj) == 0x5B0 ? 1 : -1];
 /* The sort uses insertion sort alone below this many entries. */
 #define GAMEOBJ_SORT_THRESHOLD 16
 
-/* Whether the actor id of obj lies in [lo, hi), as a long flag. The retail
- * range tests build the flag with a branch and a copy, then mask it with 0xFF
- * where it is tested: write `if (cGameObj_idInRange(obj, lo, hi) & 0xFF)`. */
+/* cObj_idInRange on a cGameObj: write `if (cGameObj_idInRange(obj, lo, hi) & 0xFF)`. */
 static __inline__ long cGameObj_idInRange(const struct cGameObj *obj, int lo, int hi)
 {
-    int id = obj->actorId;
-    long in = 0;
-
-    if (id >= lo) {
-        int below = id < hi;
-
-        in = below;
-    }
-    return in;
+    return cObj_idInRange((const struct cObj *)obj, lo, hi);
 }
 
 /* One entry of the sorted target list: an id and the key it is ordered by. */

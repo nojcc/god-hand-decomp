@@ -3,6 +3,7 @@
 #include "godhand/cDvd.h"
 #include "godhand/cOmBase.h"
 #include "godhand/CustomIDPanel.h"
+#include "godhand/DogRace.h"
 
 extern void *sceSifAllocIopHeap(int size);
 extern int Tramp_sceSifFreeSysMemory_3B5A50(void *p);
@@ -150,23 +151,15 @@ int cOmBase_rollChance(ChanceObj *self, int level) {
 
 typedef struct { int w[5]; } PosTbl;
 
-/* An ID screen with two position elements, at 0x60 and 0x11D0. */
-typedef struct IdPosScreen {
-    char unk000[0x60];
-    CustomIDWork first;                 /* 0x060 */
-    char unk0DC[0x10F4];
-    CustomIDWork second;                /* 0x11D0 */
-} IdPosScreen;
-
 /* Place both elements at the local Y of position idx (0..4). */
 __attribute__((section(".text.CustomID_placeByIndexB")))
-void CustomID_placeByIndexB(IdPosScreen *self, unsigned short idx) {
+void CustomID_placeByIndexB(DogRaceResult *self, unsigned short idx) {
     PosTbl a;
     PosTbl b;
     if (idx < 5) {
         a = *(PosTbl *)D_0042BD40;
-        CustomIDWork_SetLocalPosY(&self->first, a.w[idx]);
+        CustomIDWork_SetLocalPosY(&self->elem[0], a.w[idx]);
         b = *(PosTbl *)D_0042BD58;
-        CustomIDWork_SetLocalPosY(&self->second, b.w[idx]);
+        CustomIDWork_SetLocalPosY(&self->elem[36], b.w[idx]);
     }
 }

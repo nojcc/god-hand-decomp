@@ -1,25 +1,19 @@
-#include "godhand/cCoreSave.h"
+/* sn-2.95.3-136 matched TU. */
+#include "godhand/cMovie.h"
 
-static inline unsigned char slotUsed(char *p)
-{
-    if (*(int *)p != 0)
-        return 1;
-    return 0;
-}
-
+/* The first free track (handle 0), or -1 when all MOVIE_TRACK_NUM play. */
 __attribute__((section(".text.func_002B4F38")))
-int func_002B4F38(int **a0)
+int func_002B4F38(cMovie *self)
 {
-    char *p = (char *)*a0;
-    int count = 0;
+    cMovieTrack *t = self->track;
+    int no = 0;
 
     for (;;) {
-        if (!slotUsed(p))
-            return count;
-        count++;
-        if (count >= 3)
+        if (!cMovieTrack_inUse(t))
+            return no;
+        no++;
+        if (no >= MOVIE_TRACK_NUM)
             return -1;
-        p += 0xAC;
+        t++;
     }
 }
-

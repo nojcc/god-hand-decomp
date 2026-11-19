@@ -9,7 +9,7 @@ DogRace *DogRace__ctor(DogRace *self) {
     int i;
     int j;
     DogRaceDog *q;
-    int *r;
+    DogRaceDog **r;
     int *s;
 
     func_003A52F0(self, 0, 0x54);
@@ -28,7 +28,7 @@ DogRace *DogRace__ctor(DogRace *self) {
     func_001ED548(&self->ui1);
     func_001EDE38(&self->ui2);
 
-    self->unk200 = 0;
+    self->cam = 0;
     self->unk1B0 = 0xFFFF;
 
     r = self->rank;

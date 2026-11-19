@@ -9,6 +9,7 @@
 #include "godhand/cModel.h"
 #include "godhand/cEmManage.h"
 #include "godhand/emPhaseTable.h"
+#include "godhand/DogRace.h"
 
 extern int D_003C264C;
 extern int D_00747A24;
@@ -51,10 +52,9 @@ void cScenario_endExtraGame(RoomJumpTarget *target)
 }
 
 #define SLOT_COUNT      5
-#define WORK_SIZE       0x7C            /* sizeof(CustomIDWork) */
-#define BANK_A_OFFSET   0x630
-#define BANK_B_OFFSET   0xB84
-#define BANK_Y_OFFSET   0x348
+#define BANK_A_ELEM     12              /* first element of each message bank */
+#define BANK_B_ELEM     23
+#define BANK_Y_ELEM     6               /* first element moved to a row's Y */
 
 typedef struct { int w[5]; } SlotY;
 
@@ -63,16 +63,15 @@ extern int D_0042BDC0[5];               /* local Y per slot */
 /* Set message `messNo` on slot `msgSlot` of both banks and move the work entry of slot `ySlot` to that slot's Y
  * from the table. Both slots must be below 5. */
 __attribute__((section(".text.CustomIDWork_setSlotMessAndPosY")))
-void CustomIDWork_setSlotMessAndPosY(char *self, unsigned char msgSlot, unsigned char ySlot, int messNo)
+void CustomIDWork_setSlotMessAndPosY(DogRaceList *self, unsigned char msgSlot, unsigned char ySlot, int messNo)
 {
     SlotY tbl;
 
     if (msgSlot < SLOT_COUNT && ySlot < SLOT_COUNT) {
-        int off = msgSlot * WORK_SIZE;
-        CustomIDWork_SetMessNo((CustomIDWork *)(self + (off + BANK_A_OFFSET)), messNo);
-        CustomIDWork_SetMessNo((CustomIDWork *)(self + (off + BANK_B_OFFSET)), messNo);
+        CustomIDWork_SetMessNo(&self->elem[BANK_A_ELEM + msgSlot], messNo);
+        CustomIDWork_SetMessNo(&self->elem[BANK_B_ELEM + msgSlot], messNo);
         tbl = *(SlotY *)D_0042BDC0;
-        CustomIDWork_SetLocalPosY((CustomIDWork *)(self + (ySlot * WORK_SIZE + BANK_Y_OFFSET)), tbl.w[msgSlot]);
+        CustomIDWork_SetLocalPosY(&self->elem[BANK_Y_ELEM + ySlot], tbl.w[msgSlot]);
     }
 }
 

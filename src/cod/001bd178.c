@@ -3,6 +3,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cOmDoor.h"
+#include "godhand/cMovie.h"
 
 extern unsigned char D_0058503A;
 extern int D_005E8600;
@@ -79,15 +80,15 @@ void func_002B45B0(char *p)
 
 /* cygnus-2.96 | drop-freorder-blocks */
 __attribute__((section(".text.func_002B4F78")))
-int func_002B4F78(char *p)
+int func_002B4F78(cMovie *self)
 {
-    int n = *(int *)(p + 0x10) + 1;
+    int n = self->count + 1;
 
-    *(int *)(p + 0x10) = n;
+    self->count = n;
     if (n == 0) {
-        *(int *)(p + 0x10) = 1;
+        self->count = 1;
     }
-    return *(int *)(p + 0x10);
+    return self->count;
 }
 
 /* cygnus-2.96 | drop-freorder-blocks */
