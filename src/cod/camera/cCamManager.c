@@ -8,11 +8,11 @@ void cCamManager_setPlCamera(cCamManager *self, unsigned char blend)
 {
     if (self->mode != CAMMGR_MODE_PLAYER && self->mode != CAMMGR_MODE_HOLD) {
         if (blend) {
-            func_00138CA8(self, &self->player, D_005CAFF0, blend);
+            func_00138CA8(self, &self->player.base, D_005CAFF0, blend);
         }
         self->prevMode = self->mode;
         self->prevCamera = (struct cCamera *)CAMMGR_CUR_CAMERA_WORD;
-        D_005CAFF0 = &self->player;
+        D_005CAFF0 = &self->player.base;
         self->mode = CAMMGR_MODE_PLAYER;
     }
 }

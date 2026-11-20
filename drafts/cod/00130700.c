@@ -29,7 +29,7 @@ void func_00130700(cGrid *self, int *ids, unsigned int max, unsigned int *count)
     cVec normal;
     cVec edge[2];
     CVEC_TEMPS;
-    cCollBody *body;
+    cCollisionScrollSolid *body;
     cCollFace *face;
     cVec *corner;
     cVec *p;
@@ -51,13 +51,13 @@ void func_00130700(cGrid *self, int *ids, unsigned int max, unsigned int *count)
         if (func_00133408(self, &self->boxMin.x, &self->boxMax.x, &body->min.x, &body->max.x) == 0)
             continue;
         switch (body->type) {
-        case CCOLLBODY_QUAD:
-            face = &body->u.quad.face;
+        case CCOLLSOLID_BOARD:
+            face = &body->u.board.face;
             if (!(face->kind & self->mask))
                 continue;
             if (face->attr & self->exclude)
                 continue;
-            corner = body->u.quad.corner;
+            corner = body->u.board.corner;
             p = quad;
             k = 3;
             do {
@@ -130,7 +130,7 @@ void func_00130700(cGrid *self, int *ids, unsigned int max, unsigned int *count)
             }
             self->hit = 1;
             break;
-        case CCOLLBODY_BOX:
+        case CCOLLSOLID_BOX:
             for (i = 0; i < 6; i++) {
                 face = &body->u.box.face[i];
                 if (!(face->kind & self->mask))

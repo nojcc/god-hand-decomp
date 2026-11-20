@@ -17,7 +17,7 @@
 #ifdef NON_MATCHING
 
 __attribute__((section(".text.func_0012DEF0")))
-void func_0012DEF0(cCollBody *self, int mode, int fill)
+void func_0012DEF0(cCollisionScrollSolid *self, int mode, int fill)
 {
     cVec line[5];
     cVec strip[4];
@@ -87,7 +87,7 @@ void func_0012DEF0(cCollBody *self, int mode, int fill)
             break;
         case 1:
             if (fill == 0) {
-                switch (self->u.box.face[f].unk0) {
+                switch (self->u.box.face[f].colorClass) {
                 case 1: lineColor = 0x8000FFFF; break;
                 case 2: lineColor = 0x80FF0000; break;
                 case 3: lineColor = 0x80808080; break;
@@ -98,7 +98,7 @@ void func_0012DEF0(cCollBody *self, int mode, int fill)
                 }
                 Draw_Line2(line, 5, lineColor, 1);
             } else if (fill == 1) {
-                switch (self->u.box.face[f].unk0) {
+                switch (self->u.box.face[f].colorClass) {
                 case 1: fillColor = 0x2000FFFF; break;
                 case 2: fillColor = 0x20FF0000; break;
                 case 3: fillColor = 0x20808080; break;
@@ -113,9 +113,11 @@ void func_0012DEF0(cCollBody *self, int mode, int fill)
             break;
         case 2 ... 31: {
             int n = mode - 2;
-            cBitMasks bits = D_0041D2E0; /* retail copies the table to the stack before indexing it */
+            int bits[32]; /* retail copies the table to the stack before indexing it */
 
-            if (self->u.box.face[f].attr & bits.bit[n]) {
+            __builtin_memcpy(bits, D_0041D2E0, sizeof(bits));
+
+            if (self->u.box.face[f].attr & bits[n]) {
                 if (fill == 0) {
                     Draw_Line2(line, 5, 0x80FFFFFF, 1);
                 } else if (fill == 1) {

@@ -122,7 +122,7 @@ class TestValidation:
         with pytest.raises(cm.BuildError, match="both"):
             cfg.compile_units
 
-    def test_the_vocabulary_holds_exactly_seven_flags_today(self):
+    def test_the_vocabulary_holds_exactly_six_flags_today(self):
         """Widening this set needs a measured case. If this test fails, the
         change owes the record an argument for the new member.
 
@@ -161,10 +161,9 @@ class TestValidation:
         3,884 C units 28 change their `.text` with it (0.7%), and the 24
         that don't carry it are already matched, so it stays per-TU.
 
-        `-O0` and `-f=-fno-align-jumps` are work's own; compile.py gives
-        their reasons next to the set."""
+        `-O0` is work's own; compile.py gives its reason next to the set."""
         assert cm.SUPPORTED_C_FLAG_ADDS == frozenset(
-            {"-O0", "-f=-fno-align-jumps", GCSE, "-f=-ffast-math",
+            {"-O0", GCSE, "-f=-ffast-math",
              "-f=-fno-rtti", "-f=-ftrapv", "-f=-fmove-all-movables"})
 
 

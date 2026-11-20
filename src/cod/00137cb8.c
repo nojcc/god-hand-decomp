@@ -1,20 +1,23 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
 #include "godhand/Slot2.h"
+#include "godhand/pathRec.h"
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
-#include "godhand/cSnd.h"
-#include "godhand/gameWork.h"
 
 extern void func_001B6FB8(void *self);
+extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
+extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *box);
 extern void cOmDoor_setObjCollision(void *self);
+extern int D_00574380;
+extern void cSnd_SeCall_2CB8A0(char *snd, int a1, int a2, int a3, int t0, int t1, int t2);
 extern void SlotList_selectPrev(void *self);
 extern void func_001F6AF8(void *self);
+extern char D_005FEE00[];
+extern char D_007474A0[];
 extern char D_00585040[];
 extern void displayScrollLayer(int id, int on);
+extern float sceVu0Normalize(void *dst, void *src);
 extern float sceVu0InnerProduct(void *a, void *b);
 extern float capVu0Acos(float x);
 
@@ -24,12 +27,6 @@ extern float capVu0Acos(float x);
 
 #define OBJ_LIFE      1
 #define OBJ_SOLID_ID  7                 /* value of the solid-collision byte */
-
-
-
-
-
-
 
 
 /* The object past cOmBase: damage unit, collision box, solid byte and hit record. */
@@ -49,10 +46,10 @@ typedef struct DoorLikeObj {
 
 __attribute__((section(".text.cOmDoor_initWithBox")))
 int cOmDoor_initWithBox(DoorLikeObj *self) {
-    cVec v[4];
-    cVec *t;
-    cVec *m;
-    cVec *nv;
+    float f[16];
+    float *t;
+    float *m;
+    float *nv;
     void *slot;
     char *rec;
     float one, ca, cb, cc;
@@ -62,33 +59,33 @@ int cOmDoor_initWithBox(DoorLikeObj *self) {
     ca = 1.449f;
     cb = 2.4318f;
     cc = 0.2f;
-    t = &v[1];
-    m = &v[2];
-    v[0].x = ca;
-    v[1].x = ca;
-    v[0].y = cb;
-    v[0].z = cc;
-    v[1].z = cc;
-    v[1].y = cb;
-    v[0].w = one;
-    t->w = one;
-    v[2].y = 0.0f;
-    v[2].z = 0.0f;
-    v[2].x = v[0].x * -0.5f;
-    m->w = one;
+    t = &f[4];
+    m = &f[8];
+    f[0] = ca;
+    f[4] = ca;
+    f[1] = cb;
+    f[2] = cc;
+    f[6] = cc;
+    f[5] = cb;
+    f[3] = one;
+    t[3] = one;
+    f[9] = 0.0f;
+    f[10] = 0.0f;
+    f[8] = f[0] * -0.5f;
+    m[3] = one;
     slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damage = slot;
     if (slot != 0) {
-        nv = &v[3];
-        v[3].x = 0.0f;
-        v[3].y = 0.0f;
-        v[3].z = 0.0f;
-        nv->w = one;
+        nv = &f[12];
+        f[12] = 0.0f;
+        f[13] = 0.0f;
+        f[14] = 0.0f;
+        nv[3] = one;
         func_001FD9D8(slot, self->base.mtx, m, nv, t);
     }
     self->base.hpMax = OBJ_LIFE;
     self->base.hp = OBJ_LIFE;
-    cVec_copy3(&self->box, &v[0]);
+    cVec_copy3(&self->box, (cVec *)f);
     cOmDoor_setObjCollision(self);
     self->hitRec = self->hitRecData;
     self->solid = OBJ_SOLID_ID;
@@ -109,10 +106,8 @@ typedef struct MenuInput {
 } MenuInput;
 
 
-
-
-
-
+#define PAD_OFFSET_HOLD   0x1A0
+#define PAD_OFFSET_PRESS  0x1B0
 #define PAD_BACK          0x30000000
 #define PAD_FIRST         0x2000000
 #define PAD_LAST          0x1000000
@@ -122,43 +117,43 @@ typedef struct MenuInput {
 #define MENU_SE_BACK      0x160
 
 __attribute__((section(".text.MenuInput_stepPad")))
-void MenuInput_stepPad(MenuInput *self)
+void MenuInput_stepPad(void *a0)
 {
-    GameWork *g = &D_007474A0;
+    MenuInput *s0 = (MenuInput *)a0;
+    char *pad = D_007474A0;
     long b;
 
-    if (g->trg & PAD_BACK) {
-        self->mode = 0;
-        self->step = 0;
-        self->state = 2;
-        self->stepArg = 0;
-        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
+    if (*(long *)(pad + PAD_OFFSET_HOLD) & PAD_BACK) {
+        s0->mode = 0;
+        s0->step = 0;
+        s0->state = 2;
+        s0->stepArg = 0;
+        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_BACK, -1, -1, 0, 0);
         return;
     }
-    b = g->rep;
+    b = *(long *)(pad + PAD_OFFSET_PRESS);
     if (b & PAD_FIRST) {
-        self->mode = 1;
-        self->entry = 0;
-        self->step = 0;
-        self->stepArg = 0;
-        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        s0->mode = 1;
+        s0->entry = 0;
+        s0->step = 0;
+        s0->stepArg = 0;
+        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_LAST) {
-        self->entry = 5;
-        self->mode = 1;
-        self->step = 0;
-        self->stepArg = 0;
-        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        s0->entry = 5;
+        s0->mode = 1;
+        s0->step = 0;
+        s0->stepArg = 0;
+        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_PAGE_PREV) {
-        SlotList_selectPrev(self);
-        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        SlotList_selectPrev(s0);
+        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     } else if (b & PAD_PAGE_NEXT) {
-        func_001F6AF8(self);
-        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
+        func_001F6AF8(s0);
+        cSnd_SeCall_2CB8A0(D_005FEE00, 0, MENU_SE_MOVE, -1, -1, 0, 0);
     }
 }
 
 /* Fill the seven-entry vector table D_00585040 with (x, 0, z, 1) points and reset the vector D_005850B0 to (0, 0, 0, 1). Runs only for the init code 0xFFFF and a non-null owner. */
-
 
 
 typedef struct Vec4 {
@@ -306,7 +301,6 @@ typedef struct HitHost {
 } HitHost;
 
 
-
 __attribute__((section(".text.cSndSeVoice_ckHitSet")))
 int cSndSeVoice_ckHitSet(HitHost *self, float *pos)
 {
@@ -346,44 +340,21 @@ int cSndSeVoice_ckHitSet(HitHost *self, float *pos)
     return dflt;
 }
 
-/* Turn angle toward a target on a path piece: when the piece (record at +0x30, kind byte 0x3F) is kind 1, take its direction vector (0x50), subtract the reference point, flatten it, and measure the angle between it and the flattened target direction. Writes the signed angle times the path blend to *turn and the interpolated height to *height. */
+/* Turn angle toward a target on a path piece: when the piece (record at +0x30, kind byte 0x3F) is kind 1, take its direction vector (0x50), subtract the reference point, flatten it, and measure the angle between it and the flattened target direction. Writes the signed angle times the path blend to *turn and the interpolated camera distance to *dist. */
 
-
-
-typedef struct PathRec {
-    char unk00[0x38];
-    float endY;                         /* 0x38 */
-    char unk3C[3];
-    unsigned char kind;                 /* 0x3F */
-    char unk40[0x10];
-    char dir[0x10];                     /* 0x50 direction vector, copied as a blob */
-} PathRec;
-
-typedef struct PathHost {
-    char unk00[0x10];
-    float startY;                       /* 0x10 */
-    char unk14[0x1C];
-    PathRec *rec;                       /* 0x30 */
-} PathHost;
 
 typedef struct Blob16 {
     char b[0x10];
 } Blob16;
 
-#define PATH_KIND_CURVE  1
-
-
-
-
-extern float func_00137E70(PathHost *self, void *a, void *b);
 
 #define FR(off) ((cVec *)(fr + (off)))
 
-__attribute__((section(".text.PathHost_calcTurn")))
-void PathHost_calcTurn(PathHost *self, float *turn, float *height, cVec *ref, cVec *target)
+__attribute__((section(".text.cAreaCamManager_calcTurn")))
+void cAreaCamManager_calcTurn(cAreaCamManager *self, float *turn, float *dist, cVec *ref, cVec *target)
 {
     char fr[0x40] __attribute__((aligned(16)));
-    PathRec *rec = self->rec;
+    AreaCamRec *rec = self->rec;
     unsigned char kind = rec->kind;
     cVec *dirB;
     cVec *tmp;
@@ -392,7 +363,7 @@ void PathHost_calcTurn(PathHost *self, float *turn, float *height, cVec *ref, cV
     float ang;
     float blend;
 
-    if (kind != PATH_KIND_CURVE)
+    if (kind != AREACAM_KIND_CURVE)
         return;
     VU0_SQC2_VF0(fr, 0x0);
     VU0_SQC2_VF0(fr, 0x10);
@@ -425,5 +396,5 @@ void PathHost_calcTurn(PathHost *self, float *turn, float *height, cVec *ref, cV
         *turn = -ang * blend;
     else
         *turn = ang * blend;
-    *height = (rec->endY - self->startY) * blend + self->startY;
+    *dist = (rec->endDist - self->startDist) * blend + self->startDist;
 }

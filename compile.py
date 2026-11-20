@@ -1610,10 +1610,6 @@ SUPPORTED_COMPILERS = frozenset(
 # to `jal __mulvsi3`, a libgcc helper this build does not link. cygnus-2.96
 # keeps `mult` and adds no call. Read the emitted `.s` for a `__mulv` or
 # `__addv` call before you land an ee-3.2 TU that carries the key.
-# `-fno-align-jumps` suppresses a single scheduler-inserted alignment nop in
-# the retail Cygnus exception helper `__uncatch_exception`.  It is scoped to
-# that byte-verified TU, paired with the existing `-freorder-blocks` drop.
-#
 # `-O0` is for the retail objects that were built unoptimised: frame-pointer
 # prologues (`daddu $fp,$sp,$zero`), every argument spilled to the frame, and
 # a `b` to the epilogue per `return` (the classFADE group). It comes after the
@@ -1645,7 +1641,6 @@ SUPPORTED_COMPILERS = frozenset(
 # the bytes of its `.text` sections.
 SUPPORTED_C_FLAG_ADDS = frozenset({
     "-O0",
-    "-f=-fno-align-jumps",
     "-f=-fno-gcse",
     "-f=-ffast-math",
     "-f=-fno-rtti",

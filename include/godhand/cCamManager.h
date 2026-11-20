@@ -1,7 +1,7 @@
 /* include/godhand/cCamManager.h - cCamManager, the owner of the game cameras.
  *
  * A cCamManager holds four cameras back to back (player at 0, motion at
- * 0x530, parts at 0x920, sub-screen at 0xC90), each starting with a cCamera, the camera that was current before the last switch (0xFF0), and
+ * 0x530, parts at 0x920, sub-screen at 0xC90), each starting with a cCamera (the player's is a cPlCamera), the camera that was current before the last switch (0xFF0), and
  * a mode word (0x1028) that says which camera is current. The setXxxCamera
  * methods in camera/cCamManager.c switch the mode and publish the new camera
  * in the global D_005CAFF0.
@@ -12,7 +12,8 @@
 #ifndef GODHAND_CCAMMANAGER_H
 #define GODHAND_CCAMMANAGER_H
 
-#include "godhand/cCamera.h"
+#include "godhand/cPlCamera.h"
+#include "godhand/pathRec.h"
 
 /* Values of cCamManager.mode. */
 #define CAMMGR_MODE_PLAYER   0x01       /* player camera */
@@ -23,15 +24,14 @@
 #define CAMMGR_MODE_SUBSCR   0x80       /* sub-screen camera */
 
 typedef struct cCamManager {
-    struct cCamera player;              /* 0x000 */
-    char unk360[0x530 - 0x360];
+    struct cPlCamera player;            /* 0x000 */
     struct cCamera motion;              /* 0x530 */
     char unk890[0x920 - 0x890];
     struct cCamera parts;               /* 0x920 */
     char unkC80[0xC90 - 0xC80];
     struct cCamera subScr;              /* 0xC90 */
     struct cCamera *prevCamera;         /* 0xFF0 camera that was current before the switch */
-    char unkFF4[0x1028 - 0xFF4];        /* 0xFF4 state that func_00137F38 updates */
+    cAreaCamManager areaCam;            /* 0xFF4 the area camera; SetData__15cAreaCamManagerUi writes it */
     int mode;                           /* 0x1028 CAMMGR_MODE_* */
     int prevMode;                       /* 0x102C */
 } cCamManager;
@@ -42,7 +42,7 @@ extern struct cCamera *D_005CAFF0;     /* the current camera */
  * the load moves above their prevMode store. */
 #define CAMMGR_CUR_CAMERA_WORD (*(int *)&D_005CAFF0)
 
-/* Construct the manager: its four cameras, the state at 0xFF4, then start on the player camera. */
+/* Construct the manager: its four cameras, the area camera at 0xFF4, then start on the player camera. */
 void *func_00138BE8(void *a0);
 /* Move the current camera when the mode has CAMMGR_MODE_NO_MOVE (the motion camera). */
 void func_00138F98(cCamManager *self);

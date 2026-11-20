@@ -1,9 +1,12 @@
 /* include/godhand/cOl40.h - the breakable six-sided object (sn code at 0x1842B0..0x186738).
  *
- * Each side breaks on its own (broken[]); a broken side throws loose pieces
- * that fly off and fall. A hit shakes the object: func_00186598 sets the
- * shake amplitudes from the hit strength, func_00186398 applies them to
- * part 5 and lets them decay. Names are ours. Offsets are exact.
+ * AllocInitObj183848_317CE0 allocates and clears 0x1CC0 bytes and constructs
+ * them with func_00183848, which clears twenty 0x60-byte blocks from 0x670 up
+ * to 0xDF0 (the loose pieces) and the two shake vectors. Each side breaks on
+ * its own (broken[]); a broken side throws loose pieces that fly off and
+ * fall. A hit shakes the object: func_00186598 sets the shake amplitudes from
+ * the hit strength, func_00186398 applies them to part 5 and lets them decay.
+ * Names are ours. Offsets are exact.
  */
 #ifndef GODHAND_COL40_H
 #define GODHAND_COL40_H
@@ -24,6 +27,8 @@ typedef struct cOl40Piece {
     char unk5C[4];
 } cOl40Piece;
 
+typedef char cOl40Piece_size_check[(sizeof(cOl40Piece) == 0x60) ? 1 : -1];
+
 typedef struct cOl40 {
     cOmBase base;                       /* 0x000 */
     char unk5E0[0x65C - 0x5E0];
@@ -36,13 +41,15 @@ typedef struct cOl40 {
     float shakeRotX;                    /* 0xE14 x rotation amplitude */
     float shakeRotZ;                    /* 0xE18 z rotation amplitude */
     float shakePhase;                   /* 0xE1C 0 or pi at the hit, steps by pi/4 */
+    char unkE20[0x1CC0 - 0xE20];
 } cOl40;
 
-typedef char cOl40_chk[(int)&((cOl40 *)0)->shakePos == 0xDF0 ? 1 : -1];
+typedef char cOl40_size_check[(sizeof(cOl40) == 0x1CC0) ? 1 : -1];
 
 /* The part the shake moves. */
 #define OL40_SHAKE_PART 5
 
+/* Shake part 5 and let the amplitudes decay. */
 void func_00186398(cOl40 *self);
 
 #endif /* GODHAND_COL40_H */

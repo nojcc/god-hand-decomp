@@ -1,59 +1,44 @@
-/* NON_MATCHING func_00137BB8: sn only s1..s6 assignment differs */
+/* NON_MATCHING cAreaCamManager_selectArea: sn only s1..s6 assignment differs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-#include "godhand/cArea.h"
+#include "godhand/pathRec.h"
 
-typedef struct AreaEnt {
-    cArea area;                 /* 0x00 */
-    float range;                /* 0x30 */
-    char unk34[0xA];
-    unsigned char prio;         /* 0x3E */
-    char unk3F[0x2D];
-} AreaEnt;                /* 0x6C */
+/* cArea::HitCheck with the margin the active record is tested with. */
+extern int cArea_HitCheck(cArea *self, float margin, float *pt);
 
-typedef struct AreaList {
-    AreaEnt *ent;         /* 0x00 */
-    int unk04[2];
-    unsigned int num;           /* 0x0C */
-    int unk10[8];
-    AreaEnt *cur;         /* 0x30 */
-} AreaList;
-
-extern int cArea_HitCheck(AreaEnt *self, float range, float *pt);
-
-int func_00137BB8(AreaList *list, float *pt)
+int cAreaCamManager_selectArea(cAreaCamManager *self, cVec *pos)
 {
     unsigned char best;
     unsigned int i;
-    AreaEnt *found;
-    AreaEnt *e;
+    AreaCamRec *found;
+    AreaCamRec *e;
 
-    if (list->ent == 0)
+    if (self->recs == 0)
         return 0;
     best = 0xFF;
     found = 0;
-    for (i = 0; i < list->num; i++) {
-        e = &list->ent[i];
-        if (e == list->cur) {
-            if (!(unsigned char)cArea_HitCheck(e, e->range, pt))
+    for (i = 0; i < self->recNum; i++) {
+        e = &self->recs[i];
+        if (e == self->rec) {
+            if (!(unsigned char)cArea_HitCheck(&e->area, e->margin, &pos->x))
                 continue;
         } else {
-            if (!(unsigned char)cArea_HitCheck_1F83E8(&e->area, pt))
+            if (!(unsigned char)cArea_HitCheck_1F83E8(&e->area, &pos->x))
                 continue;
         }
-        if (e->prio < best) {
+        if (e->priority < best) {
             found = e;
-            best = e->prio;
+            best = e->priority;
         }
     }
     if (found != 0) {
-        list->cur = found;
+        self->rec = found;
         return 1;
     }
-    list->cur = 0;
+    self->rec = 0;
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00137BB8);
+INCLUDE_ASM("asm/nonmatching", cAreaCamManager_selectArea);
 #endif

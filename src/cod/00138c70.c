@@ -5,6 +5,6 @@
 __attribute__((section(".text.func_00138C70")))
 void func_00138C70(cCamManager *self) {
     self->mode = CAMMGR_MODE_PLAYER;
-    func_00139090(&self->player);
-    D_005CAFF0 = &self->player;
+    func_00139090(&self->player.base);
+    D_005CAFF0 = &self->player.base;
 }

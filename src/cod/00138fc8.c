@@ -11,7 +11,6 @@
 #include "godhand/SlotUi.h"
 #include "godhand/espSys.h"
 
-extern void func_00137F38(void *state, cCamManager *mgr);
 extern void cEmSetParam_updateSetDataFlag(cEmSetParam *self, int id, unsigned int flags);
 extern void cTaskWork_sleep(cTaskWork *work, int frames);
 extern SlotUiHost **D_003C2384;
@@ -34,7 +33,7 @@ void func_002FBE88(EspAnim *self)
 __attribute__((section(".text.cCamManager_update")))
 void cCamManager_update(cCamManager *self)
 {
-    func_00137F38(self->unkFF4, self);
+    cAreaCamManager_easeCamera(&self->areaCam, &self->player);
     if (!(self->mode & CAMMGR_MODE_NO_MOVE)) {
         cCamera_move(D_005CAFF0);
     }
