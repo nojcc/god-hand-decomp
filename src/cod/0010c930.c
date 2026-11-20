@@ -51,8 +51,8 @@ void func_0010C930(pl00 *self)
     SetMotionStep(self, 1.5f);
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (self->unk648 >= 0xB) {
             self->unk648 = 0xA;
         }

@@ -32,9 +32,11 @@ typedef struct pl00 {
     char unk5B0[0x5D8 - 0x5B0];
     int unk5D8;                         /* 0x5D8 */
     float unk5DC;                       /* 0x5DC */
-    unsigned short unk5E0;                     /* 0x5E0 cleared with unk5E2 when a state starts */
-    short unk5E2;                       /* 0x5E2 */
-    char unk5E4[0x5F0 - 0x5E4];
+    unsigned short comboSlot;           /* 0x5E0 slot of the combo being run; cleared with comboSet when a state starts */
+    unsigned short comboSet;            /* 0x5E2 combo set */
+    unsigned short comboTicks;          /* 0x5E4 cleared when a combo starts */
+    unsigned short comboStage;          /* 0x5E6 cleared when a combo starts */
+    char unk5E8[0x5F0 - 0x5E8];
     short unk5F0;                       /* 0x5F0 */
     unsigned short unk5F2;              /* 0x5F2 */
     char unk5F4[0x600 - 0x5F4];
@@ -106,7 +108,7 @@ typedef struct pl00 {
     char unk1624[0x165C - 0x1624];
     int unk165C;                        /* 0x165C */
     int unk1660[2];                     /* 0x1660 */
-    int moveA;                          /* 0x1668 the move being run (ComboObj.moveA) */
+    int moveA;                          /* 0x1668 the move being run */
     int moveB;                          /* 0x166C */
     int unk1670[2];                     /* 0x1670 */
     int unk1678[2];                     /* 0x1678 */
@@ -151,5 +153,11 @@ void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(pl00 *self, int move, in
 void Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(pl00 *self, int move, int a2, int a3, int a4, short a5);
 /* Start player motion `motion` for the current style (style 1, no blend, when `now` is set). */
 void func_001269E0(pl00 *self, int motion, int now);
+/* Start the next combo of the current set (wrapping to set 0, slot 0 past the
+ * set's size) and advance the slot; returns the combo id. */
+int ComboObj_startNext(pl00 *self);
+/* Whether combo set `set` is used up: it is the current set and the slot has
+ * reached the set's size. */
+int func_0012C000(pl00 *self, unsigned int set);
 
 #endif

@@ -123,8 +123,8 @@ void func_001127F8(pl00 *self)
         char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x8C, 0x1E, 0x25, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x8C, 0x1E, 0x25, 0, 0x123);
         self->unk1684 = 1;
@@ -183,8 +183,8 @@ void func_00112A48(pl00 *self)
         int p1, p2;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         self->unk1684 = 1;
         func_00129578(self);
         cCoreSave_useGodItem(&D_00569B70);
@@ -260,8 +260,8 @@ void func_00111A20(pl00 *self)
         int p1, p2;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (self->base.stepArg != 0) {
             char *v0;
             if (D_00747A0C != 0) {

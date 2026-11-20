@@ -15,8 +15,8 @@ void UpdateAttackState2F6_1161E0(pl00 *self) {
     self->flags15F4 = self->flags15F4 | 0x2080;
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         v0 = self->base.pack;

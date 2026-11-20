@@ -62,8 +62,8 @@ void func_00119BF0(pl00 *self)
     case 0:
         CallWithAndClearField698_12AC28(self);
         func_0012B928(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         if (s2 != 0) {
             VU0_SQC2_VF0(buf, 0);

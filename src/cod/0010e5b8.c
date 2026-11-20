@@ -47,8 +47,8 @@ void func_0010E5B8(pl00 *self)
         char *t;
 
         func_00124540(self, 0);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (self->unk648 > 0)
             self->unk648 = 0x2D;
         e = self->unk640;
@@ -72,7 +72,7 @@ void func_0010E5B8(pl00 *self)
             cVec *pos = self->base.pos;
             cVec *r = vt->getPos((char *)e2 + vt->getPosDelta);
             float d = capVu0MagnitudeXZ(pos, r) - 1.20000005f;
-            if (self->unk5E0 == 0 && self->unk61F != 0) {
+            if (self->comboSlot == 0 && self->unk61F != 0) {
                 if (1.0f < d) d = 1.0f;
             } else {
                 if (0.5f < d) d = 0.5f;
@@ -177,8 +177,8 @@ void func_0010E5B8(pl00 *self)
             self->unk5F0 = self->unk5F0 - 1;
             self->flags15F4 |= 0x20000;
         } else {
-            self->unk5E0 = 0;
-            self->unk5E2 = 0;
+            self->comboSlot = 0;
+            self->comboSet = 0;
         }
     }
     if (func_00123938(self, 1) != 0)

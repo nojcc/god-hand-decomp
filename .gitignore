@@ -4282,7 +4282,6 @@
 !include/godhand/drawPrim.h
 !include/godhand/idSet.h
 !include/godhand/cSubScr.h
-!include/godhand/comboObj.h
 !src/cod/00244398.c
 !src/cod/00248d00.c
 !src/cod/00249770.c

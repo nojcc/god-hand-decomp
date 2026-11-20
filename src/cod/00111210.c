@@ -36,8 +36,8 @@ void func_001142E0(pl00 *self)
     self->base.hitFlash = 15.0f;
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         v0 = self->base.pack;
         func_002A8578(self, EM_RES_REC(v0, 0x18), EM_RES_REC(v0, 0x1C), 3, 0.0f, 0, 0);
@@ -253,8 +253,8 @@ void func_00111210(pl00 *self)
         char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x190, 0xF, 0x1E, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x190, 0xF, 0x1E, 0, 0x123);
         t = self->base.pack;

@@ -225,8 +225,8 @@ void func_00110E98(pl00 *self)
     self->flags15F4 |= 0x100000;
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_00124540(self, 4);
         if (self->sub6A0 != 0) {
             v = self->base.pack;

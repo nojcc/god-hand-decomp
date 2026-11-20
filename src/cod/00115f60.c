@@ -14,8 +14,8 @@ void func_00115F60(pl00 *self) {
     self->base.hitFlash = 5.0f;
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->base.pos->x = self->unk660.x;

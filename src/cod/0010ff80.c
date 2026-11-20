@@ -31,8 +31,8 @@ void func_0010FF80(pl00 *self)
     VU0_SQC2_VF0(b, 0);
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         s1 = &self->base.unk580;
         func_00126770(self);

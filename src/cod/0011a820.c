@@ -208,8 +208,8 @@ void StepPlayerMode1ByPhase_11A820(pl00 *self)
     int type; int arg; int (*fp)(void *); long entry;
 
     Obj0000_Clear_Fields_640_648_124E58(self);
-    self->unk5E0 = 0;
-    self->unk5E2 = 0;
+    self->comboSlot = 0;
+    self->comboSet = 0;
     self->unk1603 = 0;
     self->unk1618 = 0;
     func_0012B928(self);

@@ -27,8 +27,8 @@ void func_00110B20(pl00 *self)
         int start;
         int end;
 
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_00124540(self, 4);
         if (self->sub698 != 0 && self->sub698->actorId == 0x3AF)
             Obj0000_Clear_Fields_640_648_124E58(self);

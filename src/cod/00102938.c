@@ -89,8 +89,8 @@ void func_0011A530(pl00 *self)
     switch (self->base.step) {
     case 0:
         t0 = self->base.pack;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         p1 = EM_RES_REC(t0, 0x28);
         p2 = EM_RES_REC(t0, 0x2C);
         if (self->sub6A0 != 0) {

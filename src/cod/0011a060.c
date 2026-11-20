@@ -102,8 +102,8 @@ void func_0011A060(pl00 *self)
             self->base.rot.y = Adjust_theta(self->base.rot.y);
         }
         cEm00_GetPlMotion(s2, 0x52, 0.0f, 0.0f);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 5, 0, 0x2A, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 5, 0, 0x2A, 0, 0xA);

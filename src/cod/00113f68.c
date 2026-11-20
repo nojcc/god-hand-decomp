@@ -66,8 +66,8 @@ void func_00113F68(pl00 *self)
         char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_00129578(self);
         cCoreSave_useGodItem(&D_00569B70);
         t = self->base.pack;
@@ -131,8 +131,8 @@ void func_00114460(pl00 *self)
     switch (self->base.step) {
     case 0: {
         int p1, p2;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (irand() & 1) {
             p1 = EM_RES_REC(self->base.pack, 0x230);
             p2 = EM_RES_REC(self->base.pack, 0x234);

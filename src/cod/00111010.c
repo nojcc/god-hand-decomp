@@ -23,8 +23,8 @@ void func_00114120(pl00 *self)
     case 0: {
         char *v0;
         int p1, p2;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         v0 = self->base.pack;
         p1 = *(int *)(v0 + 0x10) + (int)v0;
@@ -73,8 +73,8 @@ void func_00111010(pl00 *self)
     switch (self->base.step) {
     case 0: {
         int p1, p2;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         if (self->base.stepArg != 0) {
             char *v = self->base.pack;

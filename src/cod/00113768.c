@@ -34,8 +34,8 @@ void func_00113768(pl00 *self)
     case 0: {
         int p1, p2;
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_00129578(self);
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 5, 0x17, 0x2A, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 5, 0x17, 0x2A, 0, 0xA);

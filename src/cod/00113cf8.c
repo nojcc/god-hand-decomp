@@ -31,8 +31,8 @@ void func_00113CF8(pl00 *self)
         pl00_clearMotionCam(self, 0, 0);
         Obj0000_Clear_Fields_640_648_124E58(self);
         b = self->base.pack;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_002A8578(self, EM_RES_REC(b, 0x220), EM_RES_REC(b, 0x224), 3, 21.0f, 0, 0);
         self->unk15B0 = 0xD;
         self->base.step = self->base.step + 1;
@@ -51,8 +51,8 @@ void func_00113CF8(pl00 *self)
     case 2:
         Obj0000_Clear_Fields_640_648_124E58(self);
         b = self->base.pack;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_002A8578(self, EM_RES_REC(b, 0x380), EM_RES_REC(b, 0x384), 0, 0.0f, 0, 0);
         self->base.hp = self->base.hp - 10;
         if (self->base.hp < 2) {

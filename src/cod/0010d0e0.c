@@ -27,8 +27,8 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
 
     switch (self->base.step) {
         case 0:
-            self->unk5E0 = 0;
-            self->unk5E2 = 0;
+            self->comboSlot = 0;
+            self->comboSet = 0;
             func_001268F0(self);
             func_00124540(self, 5);
             cSnd_SeStop(&D_005FEE00, self->unk1620);
@@ -88,7 +88,7 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
             one = 1.0f;
             cObjBase_addNullSpeed_Rotation(self, one);
             cObjBase_addNullSpeed(self, one);
-            self->unk5E2 = 0;
+            self->comboSet = 0;
             if (self->unk15B4 != 0) {
                 self->unk15B4 -= 1;
                 self->flags15F4 |= 0x10000;

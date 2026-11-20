@@ -38,8 +38,8 @@ void func_001134C8(pl00 *self)
     switch (self->base.step) {
     case 0: {
         char *v0;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x50, 6, 0x28, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x50, 6, 0x28, 0, 0x123);
         self->unk1684 = 1;

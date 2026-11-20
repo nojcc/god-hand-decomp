@@ -34,8 +34,8 @@ void func_00113228(pl00 *self)
     }
     switch (self->base.step) {
     case 0: {
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0xC8, 0x14, 0x26, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0xC8, 0x14, 0x26, 0, 0x123);
         self->unk1684 = 1;

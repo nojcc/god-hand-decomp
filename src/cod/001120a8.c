@@ -29,8 +29,8 @@ void func_001156D8(pl00 *self)
     switch (self->base.step) {
     case 0: {
         char *t;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         self->base.rot.y = self->unk670;
@@ -146,8 +146,8 @@ void func_001120A8(pl00 *self)
         char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         self->unk1684 = 1;
         func_00129578(self);
         cCoreSave_useGodItem(&D_00569B70);

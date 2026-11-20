@@ -71,8 +71,8 @@ void func_00115030(pl00 *self) {
     cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_001268F0(self);
         Obj0000_Clear_Fields_640_648_124E58(self);
         t = self->base.pack;

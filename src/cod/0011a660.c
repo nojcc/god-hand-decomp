@@ -27,8 +27,8 @@ void func_0011A660(pl00 *self)
     {
         char *b = self->base.pack;
 
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_002A8578(self, EM_RES_REC(b, 0x6F0), EM_RES_REC(b, 0x6F4),
                       3, 0.0f, 0, 0);
         CallWithAndClearField698_12AC28(self);
@@ -74,8 +74,8 @@ void func_0011A660(pl00 *self)
     {
         char *b = self->base.pack;
 
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_002A8578(self, EM_RES_REC(b, 0x6F8), EM_RES_REC(b, 0x6FC),
                       0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;

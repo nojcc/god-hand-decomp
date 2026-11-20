@@ -95,7 +95,7 @@ void func_0010CB10(pl00 *self){ char *t0; int p1,p2; void *fl;
  if(self->base.hp<=0) self->base.hp=1;
  switch(self->base.step){
  case 0:
-  self->unk5E0=0; self->unk5E2=0;
+  self->comboSlot=0; self->comboSet=0;
   Obj0000_Clear_Fields_640_648_124E58(self);
   t0=self->base.pack; fl=self->sub6A0;
   p1=*(int*)(t0+0x7C)+(int)t0; p2=*(int*)(t0+0x80)+(int)t0;

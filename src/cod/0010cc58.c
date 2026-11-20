@@ -11,8 +11,8 @@ void UpdateStatePhase2F6_10CC58(pl00 *self) {
     switch (self->base.step) {
     case 0:
         v0 = self->base.pack;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_002A8578(self, EM_RES_REC(v0, 0x220), EM_RES_REC(v0, 0x278), 3, 0.0f, 0, 0);
         self->unk15B0 = 0x10;
         self->base.step = self->base.step + 1;

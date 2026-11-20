@@ -28,8 +28,8 @@ void func_0010CD38(pl00 *self)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 8);
             }
         }
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_001268F0((int *)self);
         self->unk15C0 = 1.0f;
         cSnd_SeStop(&D_005FEE00, self->unk1620);

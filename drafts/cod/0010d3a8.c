@@ -6,7 +6,6 @@
 #include "godhand/cHeatSys.h"
 #include "godhand/player.h"
 #include "godhand/gameWork.h"
-#include "godhand/comboObj.h"
 #include "godhand/capVu0.h"
 #include "godhand/motion.h"
 #include "include_asm.h"
@@ -18,7 +17,6 @@
 #ifdef NON_MATCHING
 
 /* Defined as int func_0010B2E8(BusyOwner *self, int flag); BusyOwner is its view of pl00. */
-extern int ComboObj_startNext(ComboObj *self);
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
 extern void func_00124EC0(void *obj);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
@@ -75,7 +73,7 @@ void func_0010D3A8(pl00 *self)
         if (self->comboSlot == 0) {
             self->prevCombo = 0x72;
         }
-        self->combo = ComboObj_startNext((ComboObj *)self);
+        self->combo = ComboObj_startNext(self);
         self->base.stepArg = 0;
         if (self->combo == 0x2D) {
             self->base.stepArg = 1;

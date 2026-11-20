@@ -193,8 +193,8 @@ void func_00112318(pl00 *self)
         char *t;
 
         Obj0000_Clear_Fields_640_648_124E58(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x32, 0x16, 0x22, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x32, 0x16, 0x22, 0, 0xA);
         self->unk1684 = 1;
@@ -336,8 +336,8 @@ void func_0010F1F0(pl00 *self)
         int p, q;
 
         func_00129578(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         if (self->base.stepArg != 0) {
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x190, 0xE, 0x1C, 0, 0x123);

@@ -35,8 +35,8 @@ void func_0010C300(pl00 *self)
     }
     switch (self->base.step) {
     case 0:
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (self->unk648 >= 0xB) {
             self->unk648 = 0xA;
         }

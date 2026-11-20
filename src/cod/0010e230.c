@@ -55,7 +55,7 @@ void func_0010E230(pl00 *self)
             d = capVu0MagnitudeXZ(p, fp((char *)o + vt->getPosDelta));
             d = d - 1.2f;
             lim = 0.5f;
-            if (self->unk5E0 == 0
+            if (self->comboSlot == 0
                 && self->unk61F != 0)
                 lim = 1.0f;
             if (lim < d)
@@ -69,8 +69,8 @@ void func_0010E230(pl00 *self)
         }
         }
         func_00124540(self, 0);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (self->unk648 > 0)
             self->unk648 = 0x2D;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self,

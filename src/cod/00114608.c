@@ -26,8 +26,8 @@ void func_00114608(pl00 *self)
         cGameObj *e;
         int p1;
         int p2;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         func_00124540(self, 3);
         if (self->unk640 != 0)
@@ -142,8 +142,8 @@ void func_00114608(pl00 *self)
         break;
     case 2: {
         char *w = self->base.pack;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_002A8578(self, EM_RES_REC(w, 0x220), EM_RES_REC(w, 0x224),
                       0xA, 21.0f, 0, 0);
         self->base.step = self->base.step + 1;

@@ -23,8 +23,8 @@ void func_0010DE70(pl00 *self)
         float f;
 
         func_00124540(self, 1);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         if (self->unk648 > 0)
             self->unk648 = 0x2D;
         switch (self->base.stepArg) {

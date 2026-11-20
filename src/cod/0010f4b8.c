@@ -109,8 +109,8 @@ void func_0010F4B8(pl00 *self)
     switch (self->base.step) {
     case 0: {
         int p1, p2;
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_00124540(self, 0);
         if (self->unk640 != 0) {
             if (inr(self->unk640->actorId, 0x200, 0x300) & 0xFF)

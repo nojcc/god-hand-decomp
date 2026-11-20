@@ -42,8 +42,8 @@ void func_0010EE80(pl00 *self)
         int p, q;
 
         func_00129578(self);
-        self->unk5E0 = 0;
-        self->unk5E2 = 0;
+        self->comboSlot = 0;
+        self->comboSet = 0;
         func_00124540(self, 1);
         if (self->base.stepArg != 0) {
             if (D_00747A0C != 0) {
