@@ -23,6 +23,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cDamageUnit.h"
 
 #define EM_NO_WEAPON_HOLDER  0x211    /* emNo of the enemy that holds heldWeapon[] */
 #define EM_WEAPON_NUM        8

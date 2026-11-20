@@ -27,7 +27,7 @@ typedef struct cOl0eHit {
 typedef struct cOl0e {
     cOmBase base;
     char unk5E0[0x20];
-    cDamageUnit *damage;                /* 0x600 */
+    cDamageTake *damage;                /* 0x600 */
     char unk604[0xD9B - 0x604];
     unsigned char fake;                 /* 0xD9B 1 while in the fake state */
     char unkD9C[0xC];

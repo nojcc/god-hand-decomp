@@ -2,14 +2,14 @@
 #include "godhand/cDamageManage.h"
 
 __attribute__((section(".text.SetTarget_1FD530")))
-int SetTarget_1FD530(cDamageUnit *self, void *owner, int kind) {
+int SetTarget_1FD530(cDamageTake *self, void *owner, int kind) {
     if (self->type == CDAMAGE_TYPE_SPARE) {
         return 1;
     }
     self->owner = owner;
     self->live = 1;
-    func_001FD988(self, kind);
-    self->unk34 = 0;
+    func_001FD988((cDamageUnit *)self, kind);
+    self->attacker = 0;
     return 1;
 }
 
@@ -44,8 +44,8 @@ void InitEntryPool_1FE188(cDamageManage *self) {
 }
 
 __attribute__((section(".text.cDamageManage_CreateDamageTake")))
-cDamageUnit *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, int kind) {
-    cDamageUnit *p = func_001FE310(self);
+cDamageTake *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, int kind) {
+    cDamageTake *p = func_001FE310(self);
     if (p == 0) return 0;
     if (SetTarget_1FD530(p, owner, kind) == 0) p = 0;
     return p;
@@ -53,7 +53,7 @@ cDamageUnit *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, in
 
 __attribute__((section(".text.InitNodePool_1FE2B8")))
 void InitNodePool_1FE2B8(cDamageManage *self) {
-    cDamageUnit *p = self->take;
+    cDamageTake *p = self->take;
     unsigned int i = 0;
     do {
         ClearAndResetFields_1FE278(self, p);

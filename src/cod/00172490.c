@@ -7,6 +7,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cMessDrawFont.h"
 #include "godhand/cMessCommon.h"
+#include "godhand/cDamageUnit.h"
 
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *take);
 extern void func_002B0480(cMessDrawFont *self, float *frame);

@@ -2777,7 +2777,6 @@
 !src/cod/001c9140.c
 !src/cod/0015fd98.c
 !src/cod/0012cf70.c
-!src/cod/0012d3c8.c
 !src/cod/001d0ea8.c
 !src/cod/002b0d68.c
 !src/cod/00227ca8.c
@@ -3011,7 +3010,6 @@
 !include/godhand/cMessDrawFont.h
 !include/godhand/cObjSimple.h
 !include/godhand/cOl21.h
-!include/godhand/cOl40.h
 !include/godhand/ColiseumBattle.h
 !include/godhand/ColiseumEmSelect.h
 !include/godhand/cOm4f.h
@@ -4355,6 +4353,7 @@
 !include/godhand/ptrVec.h
 !include/godhand/rand.h
 !src/cod/00321288.c
+!src/cod/003214d0.c
 !src/cod/00372cb0.c
 !src/cod/00373ba8.c
 !src/cod/00374210.c
@@ -4376,7 +4375,6 @@
 !src/cod/00382898.c
 !src/cod/00382d30.c
 !src/cod/00383170.c
-!src/cod/003214d0.c
 !progress/PROGRESS.md
 !progress/batch_log.md
 !progress/pending_headers.md
@@ -4499,7 +4497,6 @@
 !include/godhand/tim2.h
 !include/godhand/typeInfo.h
 !include/godhand/sceDma.h
-!include/godhand/libpad.h
 !include/godhand/effectPos.h
 !include/godhand/objCtor.h
 !include/godhand/objFactory.h

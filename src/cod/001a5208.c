@@ -332,7 +332,7 @@ int cOmGiveTake_initSphere(char *p)
         *(int *)(*(int *)(p + OBJ_GIVE) + 0x4C) = GIVE_DAMAGE;
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + OBJ_GIVE), 0);
     }
-    *(cDamageUnit **)(p + OBJ_TAKE) = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    *(cDamageTake **)(p + OBJ_TAKE) = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
     if (*(int *)(p + OBJ_TAKE) != 0) {
         flag = *(unsigned char *)(p + OBJ_MTX_FLAG);
         *(int *)buf = flag;

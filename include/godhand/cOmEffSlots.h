@@ -26,7 +26,7 @@ typedef struct cOmPartGroup {
 typedef struct cOmEffSlots {
     cOmBase base;                       /* 0x000 */
     char unk5E0[0x20];
-    cDamageUnit *take;                  /* 0x600 from cDamageManage_CreateDamageTake */
+    cDamageTake *take;                  /* 0x600 from cDamageManage_CreateDamageTake */
     cDamageGive *give;                  /* 0x604 from cDamageManage_CreateDamageGive */
     char unk608[0x8];
     char unk610[0x9D0 - 0x610];         /* 0x610 ten 0x60-byte effect slots */

@@ -251,7 +251,7 @@ int func_00101EB8(char *a0)
     } else {
         *(short *)(s1 + 0x54A) = v3;
     }
-    *(cDamageUnit **)(s1 + 0x5B0) = cDamageManage_CreateDamageTake(&D_00574380, s1, 0);
+    *(cDamageTake **)(s1 + 0x5B0) = cDamageManage_CreateDamageTake(&D_00574380, s1, 0);
     if (*(int *)(s1 + 0x5B0) != 0) {
         struct sph *rr;
         n = *(unsigned char *)(s1 + 0x2B4);

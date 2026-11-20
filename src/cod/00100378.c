@@ -74,7 +74,7 @@ int func_001B0340(char *p)
     buf[1] = 0.0f;
     buf[2] = 0.0f;
     buf[3] = 1.0f;
-    *(cDamageUnit **)(p + 0x600) = cDamageManage_CreateDamageTake(&D_00574380, p, 1);
+    *(cDamageTake **)(p + 0x600) = cDamageManage_CreateDamageTake(&D_00574380, p, 1);
     if (*(int *)(p + 0x600) != 0) {
         flag = *(unsigned char *)(p + 0x2B4);
         *(int *)(buf + 4) = flag;

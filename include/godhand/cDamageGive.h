@@ -17,23 +17,9 @@
 #include "godhand/cDamageUnit.h"
 
 typedef struct cDamageGive {
-    unsigned int flags;                 /* 0x00 bit 0 is set by the enemy setups */
-    char unk04[0xC];
-    cVec hitVec;                        /* 0x10 push direction of the hit */
-    char unk20[0x10];
-    void *owner;                        /* 0x30 the object the manager gave it to */
-    int unk34;                          /* 0x34 cleared by the setup and the reset */
-    char unk38[0x8];
-    int unk40;                          /* 0x40 cleared by the enemy setups */
-    short unk44;                        /* 0x44 */
-    short unk46;                        /* 0x46 cleared when the volume is parked; the setups store 0x2E..0x52 (cDamageTake.kind) */
-    char unk48;
-    signed char type;                   /* 0x49 CDAMAGE_TYPE_* */
-    unsigned char live;                 /* 0x4A in use */
-    char unk4B;
-    int activeTime;                     /* 0x4C frames the volume stays active, 0 while parked */
-    char unk50[0x10];
-} cDamageGive;
+    CDAMAGE_UNIT_FIELDS;                /* 0x00..0x53, as cDamageUnit */
+    char unk54[0x60 - 0x54];
+} cDamageGive;                          /* 0x60: the manager's give array has a 0x60 stride */
 
 typedef char cDamageGive_size_check[(sizeof(cDamageGive) == 0x60) ? 1 : -1];
 

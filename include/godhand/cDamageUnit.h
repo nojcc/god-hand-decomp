@@ -12,8 +12,10 @@
 
 #include "godhand/cVecType.h"
 
-/* cDamageGive.type and cDamageUnit.type: which reset ran on the record. The
- * manager's spare records keep 0, and the create calls leave them alone. */
+struct cGameObj;
+
+/* cDamageUnit.type: which reset ran on the record. The manager's spare
+ * records keep 0, and the create calls leave them alone. */
 #define CDAMAGE_TYPE_SPARE  0
 #define CDAMAGE_TYPE_GIVE   1
 #define CDAMAGE_TYPE_TAKE   2
@@ -50,31 +52,64 @@ typedef struct cDamageNode {
     short flash;                /* 0x30 set with the flash state */
 } cDamageNode;
 
-/* The damage take record (0x70 bytes). A cDamageGive has the same words up
- * to 0x4A (owner, node list, type, live), so the unit methods also take gives. */
-typedef struct cDamageUnit {
-    char unk00[0x30];
-    void *owner;                /* 0x30 the object the manager gave it to */
-    int unk34;                  /* 0x34 cleared by the setup and the reset */
-    char unk38[0x4];
-    cDamageNode *nodes;         /* 0x3C list head, 0 when empty */
-    char unk40[0x8];
-    signed char kind;           /* 0x48 set with the owner */
-    signed char type;           /* 0x49 CDAMAGE_TYPE_* */
-    unsigned char live;         /* 0x4A in use */
-    char unk4B[0x5];
-    const cDamageVtEnt *vt;     /* 0x50 slot CDAMAGE_UNIT_NEWNODE makes a node */
-    char unk54[0xC];
-    int unk60;                  /* 0x60 cleared by the reset */
-    char unk64[0xC];
-} cDamageUnit;
+/* The fields a give (cDamageGive, 0x60 bytes) and a take (cDamageTake, 0x70
+ * bytes) share, 0x00..0x53: the cDamageUnit head both derive from (the type
+ * info registers 11cDamageUnit before 11cDamageGive and 11cDamageTake). The
+ * manager runs the same code on both kinds:
+ * - The constructors store the vtable at 0x50: D_0042C4D8 for cDamageUnit
+ *   (0x1FCE38, 0x1FD3D0), then D_0042C4B8 for a give (0x1FCE58) or
+ *   D_0042C498 for a take (0x1FD3F8). g++ 2.x places the vptr after the
+ *   members of the first class with virtuals.
+ * - ActorRec_reset clears flags, both vectors, owner, unk38, nodes, unk44,
+ *   kind, live and power, sets unk40 to -1 and sets unitKind (func_001FD988).
+ * - SetObjTargetAndActivate_1FD2C0 and SetTarget_1FD530 read type, then store
+ *   owner, clear attacker and set live.
+ * - When a give hits a take, func_001FCF20 copies kind, unk40, unk44 and power
+ *   from the give to the take, writes the hit's direction and position into
+ *   the take, sets bits 0 and 1 of its hitFlags, and stores each side's owner
+ *   in the other's attacker.
+ * - func_001FDFD8 reads live on both arrays (0x60 and 0x70 strides). */
+#define CDAMAGE_UNIT_FIELDS                                                     \
+    unsigned int flags;         /* 0x00 bit 0 is set by the enemy setups */     \
+    char unk04[0xC];                                                            \
+    cVec hitVec;                /* 0x10 push direction of the hit */            \
+    cVec unk20;                 /* 0x20 cleared by the reset; a hit's position */ \
+    struct cGameObj *owner;     /* 0x30 the object the manager gave it to */    \
+    struct cGameObj *attacker;  /* 0x34 the other side's owner in the last hit */ \
+    int unk38;                  /* 0x38 cleared by the reset */                 \
+    cDamageNode *nodes;         /* 0x3C list head, 0 when empty */              \
+    int unk40;                  /* 0x40 -1 after the reset; cleared by the enemy setups */ \
+    short unk44;                /* 0x44 */                                      \
+    short kind;                 /* 0x46 attack kind: the setups store 0x2E..0x52, 0 when parked */ \
+    signed char unitKind;       /* 0x48 set by func_001FD988 */                 \
+    signed char type;           /* 0x49 CDAMAGE_TYPE_*, by the record's setup */ \
+    unsigned char live;         /* 0x4A in use */                               \
+    char unk4B;                                                                 \
+    int power;                  /* 0x4C hit strength, 0 when parked */          \
+    const cDamageVtEnt *vt      /* 0x50 vtable; slot CDAMAGE_UNIT_NEWNODE makes a node */
 
-typedef char cDamageUnit_size_check[(sizeof(cDamageUnit) == 0x70) ? 1 : -1];
+/* The head a give and a take share. */
+typedef struct cDamageUnit {
+    CDAMAGE_UNIT_FIELDS;
+} cDamageUnit;                  /* 0x54 */
+
+typedef char cDamageUnit_size_check[(sizeof(cDamageUnit) == 0x54) ? 1 : -1];
+
+/* A take record: what cDamageManage_CreateDamageTake returns and
+ * cOmBase_checkDamage (checkDamage__7cOmBaseP11cDamageTake) tests. */
+typedef struct cDamageTake {
+    CDAMAGE_UNIT_FIELDS;
+    char unk54[0x60 - 0x54];
+    unsigned int hitFlags;      /* 0x60 bit 0 must be set for the hit to count */
+    char unk64[0x70 - 0x64];
+} cDamageTake;                  /* 0x70: the manager's take array has a 0x70 stride */
+
+typedef char cDamageTake_size_check[(sizeof(cDamageTake) == 0x70) ? 1 : -1];
 
 /* Reset the record as a take. */
-void ResetObjectFields_1FCDE8(cDamageUnit *self);
+void ResetObjectFields_1FCDE8(cDamageTake *self);
 /* Unless the record is a spare: owner, kind, live; returns 1. */
-int SetTarget_1FD530(cDamageUnit *self, void *owner, int kind);
+int SetTarget_1FD530(cDamageTake *self, void *owner, int kind);
 /* Store kind and give every node's data the new hit group. */
 void func_001FD988(cDamageUnit *self, int kind);
 /* Unlink and clear every node of the list; 0 when one can't be released. */

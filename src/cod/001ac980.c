@@ -8,6 +8,7 @@ extern void func_001B7EE0(void *self, float f);
 #include "godhand/cModel.h"
 #include "godhand/emPhaseTable.h"
 #include "godhand/cSnd.h"
+#include "godhand/cDamageUnit.h"
 
 extern EmPhaseTable D_003BDC40;
 
@@ -34,7 +35,7 @@ void func_001AC980(char *self)
     if (*(unsigned char *)(self + 0x60D) == 0) {
         hit = *(cDamageTake **)(self + 0x624);
         if (hit != 0) {
-            t = hit->flags;
+            t = hit->hitFlags;
             t &= 1;
             if (t != 0) {
             int d = hit->power;

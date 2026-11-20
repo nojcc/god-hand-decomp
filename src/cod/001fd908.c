@@ -6,7 +6,7 @@ int func_001FD908(cDamageUnit *self)
 {
     int a, b, c;
 
-    switch (self->kind) {
+    switch (self->unitKind) {
     case 0:
         c = self->type;
         a = 1;

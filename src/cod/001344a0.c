@@ -11,6 +11,7 @@
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
 #include "godhand/emPhaseTable.h"
+#include "godhand/cDamageUnit.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_001B6FB8(cOmBase *self);

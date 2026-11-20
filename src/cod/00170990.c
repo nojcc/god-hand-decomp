@@ -39,7 +39,7 @@ int FreeActorVtableState_170A90(int a0, int a1) {
     *(int *)(a0 + 0x214) = (int)&D_00420780;
     v1 = *(int *)(a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)(a0 + 0x600) = 0;
     }
     return func_001BFB00(a0, a1);

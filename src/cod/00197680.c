@@ -47,7 +47,7 @@ void *FreeObjSlotArrayB_197708(void *a0, void *a1) {
     *(int **)((char *)a0 + 0x214) = &D_00424F28;
     do {
         if (*p != 0) {
-            ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*p));
+            ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*p));
             *p = 0;
         }
         p++;
@@ -122,7 +122,7 @@ __attribute__((section(".text.FreeObjSlotC_198CE0")))
 void *FreeObjSlotC_198CE0(void *a0, int a1) {
     *(int **)((char *)a0 + 0x214) = &D_00425000;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)(*(int *)((char *)a0 + 0x600)));
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*(int *)((char *)a0 + 0x600)));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     return func_001BFB00(a0, a1);
@@ -164,7 +164,7 @@ void FreeObjSlotD_199040(void *a0, int a1) {
     *(int **)((char*)a0 + 0x214) = &D_004250F0;
     v1 = *(int *)((char*)a0 + 0x650);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)((char*)a0 + 0x650) = 0;
     }
     func_001C7DE0(a0, a1);

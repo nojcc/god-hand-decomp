@@ -4,6 +4,7 @@
 #include "godhand/cCamManager.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cDamageGive.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/player.h"
 
@@ -86,24 +87,24 @@ typedef struct DamageFiveObj {
     cDamageGive *unit4;                 /* 0x690 */
 } DamageFiveObj;
 
-/* Switch all five damage units off: clear their hit values and deactivate every node. */
+/* Park all five damage gives: clear their attack kind and power and deactivate every node. */
 __attribute__((section(".text.DamageFiveObj_clearHits")))
 void DamageFiveObj_clearHits(DamageFiveObj *self)
 {
-    self->unit0->unk46 = 0;
-    self->unit0->activeTime = 0;
+    self->unit0->kind = 0;
+    self->unit0->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit0, 0);
-    self->unit1->unk46 = 0;
-    self->unit1->activeTime = 0;
+    self->unit1->kind = 0;
+    self->unit1->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit1, 0);
-    self->unit2->unk46 = 0;
-    self->unit2->activeTime = 0;
+    self->unit2->kind = 0;
+    self->unit2->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit2, 0);
-    self->unit3->unk46 = 0;
-    self->unit3->activeTime = 0;
+    self->unit3->kind = 0;
+    self->unit3->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit3, 0);
-    self->unit4->unk46 = 0;
-    self->unit4->activeTime = 0;
+    self->unit4->kind = 0;
+    self->unit4->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unit4, 0);
 }
 

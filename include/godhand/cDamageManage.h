@@ -22,9 +22,9 @@
 
 typedef struct cDamageManage {
     cDamageGive give[CDAMAGE_GIVE_MAX]; /* 0x0000 */
-    cDamageUnit take[CDAMAGE_TAKE_MAX]; /* 0x3C00 */
+    cDamageTake take[CDAMAGE_TAKE_MAX]; /* 0x3C00 */
     cDamageGive giveSpare;              /* 0xAC00 handed out when every give is live */
-    cDamageUnit takeSpare;              /* 0xAC60 handed out when every take is live */
+    cDamageTake takeSpare;              /* 0xAC60 handed out when every take is live */
     int hitStop;                        /* 0xACD0 frames of hit pause left */
 } cDamageManage;
 
@@ -46,13 +46,13 @@ void InitEntryPool_1FE188(cDamageManage *self);
 /* The first give that is not live, or the spare. */
 cDamageGive *func_001FE1E0(cDamageManage *self);
 /* A take record for owner, set up for kind. */
-cDamageUnit *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, int kind);
+cDamageTake *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, int kind);
 /* Release take's volumes and reset it; 0 when take is 0. */
-int ClearAndResetFields_1FE278(cDamageManage *self, cDamageUnit *take);
+int ClearAndResetFields_1FE278(cDamageManage *self, cDamageTake *take);
 /* Release every take record. */
 void InitNodePool_1FE2B8(cDamageManage *self);
 /* The first take that is not live, or the spare. */
-cDamageUnit *func_001FE310(cDamageManage *self);
+cDamageTake *func_001FE310(cDamageManage *self);
 /* hitStop = frames. */
 void SetField_ACD0_1FE348(cDamageManage *self, int frames);
 /* Nonzero while the hit pause runs. */

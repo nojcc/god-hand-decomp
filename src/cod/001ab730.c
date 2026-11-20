@@ -50,7 +50,7 @@ void func_001AB730(cOmOpenClose *self)
             }
             give = self->give;
             if (give != 0) {
-                give->activeTime = 0x3C;
+                give->power = 0x3C;
                 cDamageUnit_SetDamageCollFlashActiveById((cDamageUnit *)self->give, self->giveId, 1, 0x3C);
             }
             func_002A8578(self, mot, 0, 0xA, 0.0f, 0, 0);

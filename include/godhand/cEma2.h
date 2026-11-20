@@ -29,7 +29,7 @@ typedef struct cEma2 {
     char unk5B0[0x616 - 0x5B0];
     unsigned char unk616;               /* 0x616 set to 1 by the constructor */
     char unk617[0x670 - 0x617];
-    struct cDamageUnit *damageTake;     /* 0x670 from cDamageManage_CreateDamageTake */
+    struct cDamageTake *damageTake;     /* 0x670 from cDamageManage_CreateDamageTake */
     int hitSphere[4];                   /* 0x674 damage spheres on four joints */
     char unk684[0x690 - 0x684];
     char shadow[0x10];                  /* 0x690 shadow record handed to KageInit, size not known */

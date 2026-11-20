@@ -375,12 +375,12 @@ int func_001B2548(char *p)
     unsigned char frame[0x20] __attribute__((aligned(16)));
     int flag;
     int n;
-    cDamageUnit *dg;
+    cDamageTake *dg;
     int sph;
 
     func_001B6FB8(p);
     dg = cDamageManage_CreateDamageTake(&D_00574380, p, 1);
-    *(cDamageUnit **)(p + 0x600) = dg;
+    *(cDamageTake **)(p + 0x600) = dg;
     if (dg != 0) {
         flag = *(unsigned char *)(p + 0x2B4);
         *(int *)frame = flag;

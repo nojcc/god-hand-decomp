@@ -23,11 +23,11 @@ __attribute__((section(".text.ResetField214FreeField180_1C2820")))
 void ResetField214FreeField180_1C2820(int *a0, int a1) {
     *(char **)((char *)a0 + 0x214) = D_00429C80;
     if (a0[0x180] != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)a0[0x180]);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)a0[0x180]);
         a0[0x180] = 0;
     }
     if (a0[0x181] != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)a0[0x180]);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)a0[0x180]);
         a0[0x180] = 0;
     }
     SetField214PtrThenInit_1B6F38(a0, a1);

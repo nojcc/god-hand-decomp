@@ -90,7 +90,7 @@ void FreeObjResource_19D5E0(void *a0, void *a1) {
     *(unsigned int *)((char *)a0 + 0x214) = (unsigned int)&D_00425E10;
     v1 = *(int *)((char *)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(unsigned int *)((char *)a0 + 0x600) = 0;
     }
     func_001BFB00(a0, a1);

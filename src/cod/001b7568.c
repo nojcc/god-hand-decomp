@@ -2,6 +2,7 @@
 /* func_001B7568: classify a hit into the cOmBase hit flags (sn-2.95.3-136) */
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cDamageUnit.h"
 
 /* Classify an incoming hit by its attack kind into the COMBASE_HIT_* bits of hitFlags:
  * strong for kinds 0x2E-0x2F, player for a strong-enough hit from an actor in 0x100-0x1FE

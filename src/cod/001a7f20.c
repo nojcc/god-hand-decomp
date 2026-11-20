@@ -32,9 +32,9 @@ int cOm53_setGetOffEm(cOm53 *self, int n) {
 }
 
 __attribute__((section(".text.func_001FE310")))
-cDamageUnit *func_001FE310(cDamageManage *self) {
+cDamageTake *func_001FE310(cDamageManage *self) {
     unsigned int i = 0;
-    cDamageUnit *q = self->take;
+    cDamageTake *q = self->take;
 loop:
     if (q->live == 0) {
         return q;

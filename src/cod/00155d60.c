@@ -30,7 +30,7 @@ void func_001FD988(cDamageUnit *self, int kind) {
     cDamageNode *p;
     int group;
 
-    self->kind = kind;
+    self->unitKind = kind;
     group = func_001FD908(self);
     for (p = self->nodes; p != 0; p = p->next) {
         p->data->group = group;

@@ -2,6 +2,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/player.h"
 #include "godhand/cSnd.h"
+#include "godhand/cDamageUnit.h"
 
 #define BREAK_FLASH_FRAMES  8
 #define BREAK_MESH_LAYER    2

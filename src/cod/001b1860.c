@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageGive.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/CustomIDWork.h"
@@ -42,7 +43,7 @@ void UiPanel_setMessAndShow(SlotUi *self, int messNo, int on) {
     func_001E7538(self, 1, on);
 }
 
-/* Switch both damage units off: clear their hit values and deactivate every node. */
+/* Park both damage gives: clear their attack kind and power and deactivate every node. */
 
 
 typedef struct DamagePairObj {
@@ -53,11 +54,11 @@ typedef struct DamagePairObj {
 
 __attribute__((section(".text.DamagePairObj_clearHits")))
 void DamagePairObj_clearHits(DamagePairObj *self) {
-    self->unitA->unk46 = 0;
-    self->unitA->activeTime = 0;
+    self->unitA->kind = 0;
+    self->unitA->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unitA, 0);
-    self->unitB->unk46 = 0;
-    self->unitB->activeTime = 0;
+    self->unitB->kind = 0;
+    self->unitB->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)self->unitB, 0);
 }
 

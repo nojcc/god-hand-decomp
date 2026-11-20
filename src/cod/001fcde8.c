@@ -14,11 +14,11 @@ extern void func_00378020(void *a0);
 extern void func_00378070(void *a0);
 
 __attribute__((section(".text.ResetObjectFields_1FCDE8")))
-void ResetObjectFields_1FCDE8(cDamageUnit *self) {
+void ResetObjectFields_1FCDE8(cDamageTake *self) {
     ActorRec_reset(self);
-    self->unk34 = 0;
+    self->attacker = 0;
     self->type = CDAMAGE_TYPE_TAKE;
-    self->unk60 = 0;
+    self->hitFlags = 0;
 }
 
 #include "godhand/vu0.h"

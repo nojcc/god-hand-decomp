@@ -85,7 +85,7 @@ void ResetField214FreeField600E_1934F0(void *a0, int a1) {
     *(int**)((char*)a0 + 0x214) = D_00424790;
     v1 = *(int*)((char*)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int*)((char*)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);
@@ -130,7 +130,7 @@ void ClearSlotResources_1937A0(void *a0, void *a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00424878;
     v1 = *(int *)((char *)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);

@@ -3,29 +3,20 @@
 #include "godhand/cDamageManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cOmHitVolumeSetup.h"
+#include "godhand/cDamageGive.h"
 
 #define GIVE_BOX_KIND     0x41
 #define GIVE_SPHERE_KIND  0x2E
 #define GIVE_POWER        0x14
-
-/* The fields of a damage-give unit this setup writes. */
-typedef struct DmgGiveView {
-    char unk00[0x40];
-    int unk40;                          /* 0x40 -1 at setup */
-    short unk44;                        /* 0x44 0 at setup */
-    short kind;                         /* 0x46 attack kind */
-    char unk48[4];
-    int power;                          /* 0x4C */
-} DmgGiveView;
 
 /* The enemy this sets up: two damage-give units, the volume ids they returned, a facing
  * and a timer. */
 typedef struct cEmTwoGive {
     cOmBase base;                       /* 0x000 */
     char unk5E0[0x600 - 0x5E0];
-    DmgGiveView *box;                   /* 0x600 damage-give unit on the body */
+    cDamageGive *box;                   /* 0x600 damage-give unit on the body */
     int boxId;                          /* 0x604 */
-    DmgGiveView *sphere;                /* 0x608 damage-give unit on part 0 */
+    cDamageGive *sphere;                /* 0x608 damage-give unit on part 0 */
     int sphereId;                       /* 0x60C */
     char unk610[0x620 - 0x610];
     float facing;                       /* 0x620 random, -pi..pi */
@@ -47,9 +38,9 @@ int func_001B90D0(cEmTwoGive *self)
     cVec *g;
     cVec *h;
     unsigned int i;
-    DmgGiveView *d;
-    DmgGiveView *e;
-    DmgGiveView *q;
+    cDamageGive *d;
+    cDamageGive *e;
+    cDamageGive *q;
     cOmBase *part;
     int n;
 

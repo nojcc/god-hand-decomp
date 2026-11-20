@@ -123,7 +123,7 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     first.z = 0;
     offset = &first;
     offset->w = 1.0f;
-    self->hitSphere[0] = cDamageUnit_AddDamageCollSphere(self->damageTake, child->mtx, offset, 0.25f);
+    self->hitSphere[0] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->damageTake, child->mtx, offset, 0.25f);
     n = self->base.partNum;
     *(int *)&centre.x = n;
     {
@@ -138,7 +138,7 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     centre.x = 0;
     centre.y = 0;
     centre.z = 0;
-    self->hitSphere[1] = cDamageUnit_AddDamageCollSphere(self->damageTake, child->mtx, &centre, 0.25f);
+    self->hitSphere[1] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->damageTake, child->mtx, &centre, 0.25f);
     n = self->base.partNum;
     *(int *)&centre.x = n;
     {
@@ -153,7 +153,7 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     centre.x = 0;
     centre.y = 0;
     centre.z = 0;
-    self->hitSphere[2] = cDamageUnit_AddDamageCollSphere(self->damageTake, child->mtx, &centre, 0.25f);
+    self->hitSphere[2] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->damageTake, child->mtx, &centre, 0.25f);
     n = self->base.partNum;
     *(int *)&centre.x = n;
     {
@@ -168,7 +168,7 @@ int func_002897F0(cEma2 *self, SET_EM_DATA *data, void *arg)
     centre.y = 0;
     centre.z = 0;
     centre.w = 1.0f;
-    self->hitSphere[3] = cDamageUnit_AddDamageCollSphere(self->damageTake, child->mtx, &centre, 0.25f);
+    self->hitSphere[3] = cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->damageTake, child->mtx, &centre, 0.25f);
 
     cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)self, 5, 0.2f);
     centre.w = 1.0f;

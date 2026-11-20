@@ -2,6 +2,7 @@
 #define GODHAND_COMHITHOLDER_H
 
 #include "godhand/cOmBase.h"
+#include "godhand/cDamageUnit.h"
 
 /* A map object that keeps the last hit it took: the cDamageTake at 0x600 is
  * cleared by cOmBase_updateWithHitRecord each frame, which the gimmick updates

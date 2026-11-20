@@ -56,7 +56,7 @@ int func_0027EF10(char *a0)
     *(int *)(s1 + 0x670) = 0;
     if (*(int *)(s1 + 0x564) != 0x26B) {
         struct sph *r;
-        *(cDamageUnit **)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
+        *(cDamageTake **)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
         n = *(unsigned char *)(s1 + 0x2B4);
         *(int *)(buf + 0x40) = n;
         {

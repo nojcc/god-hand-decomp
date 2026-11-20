@@ -110,7 +110,7 @@ void FreeObjResourceAndDestroyE_170800(int a0, int a1) {
     *(int*)((char*)a0 + 0x214) = (int)&D_004206B0;
     v1 = *(int*)((char*)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageUnit *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int*)((char*)a0 + 0x600) = 0;
     }
     func_001BFB00(a0, a1);

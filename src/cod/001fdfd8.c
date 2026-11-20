@@ -10,7 +10,7 @@ __attribute__((section(".text.func_001FDFD8")))
 void func_001FDFD8(cDamageManage *m)
 {
     cDamageGive *d;
-    cDamageUnit *f;
+    cDamageTake *f;
     unsigned int i;
 
     if (m->hitStop != 0) {
@@ -42,7 +42,7 @@ void func_001FDFD8(cDamageManage *m)
     do {
         if (f->live) {
             NoOp_1FD528(f);
-            cDamageUnit_UpdateDamageCollFlash(f);
+            cDamageUnit_UpdateDamageCollFlash((cDamageUnit *)f);
         }
         i++;
         f++;

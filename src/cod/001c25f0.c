@@ -57,11 +57,11 @@ int *GetOrInit_460D40_1F7C88(void) {
 }
 
 __attribute__((section(".text.ClearAndResetFields_1FE278")))
-int ClearAndResetFields_1FE278(cDamageManage *self, cDamageUnit *take) {
+int ClearAndResetFields_1FE278(cDamageManage *self, cDamageTake *take) {
     if (take == 0) {
         return 0;
     }
-    cDvd_releaseAll(take);
+    cDvd_releaseAll((cDamageUnit *)take);
     ResetObjectFields_1FCDE8(take);
     return 1;
 }
