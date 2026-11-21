@@ -303,7 +303,7 @@ void func_00111A20(pl00 *self)
             self->base.stepArg = 0;
         }
         if ((self->base.seqFlags & 0x100) != 0) {
-            cGameObj *e = self->unk640;
+            cGameObj *e = self->held;
             if (e != 0) {
                 cGameObjVt *vt = cGameObj_vt(e);
                 cVec *pos = self->base.pos;

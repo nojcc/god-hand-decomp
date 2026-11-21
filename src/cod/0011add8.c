@@ -139,22 +139,22 @@ void func_0011ADD8(pl00 *self)
         func_0012B928(self);
         func_002A8578(self, s3v, s2v, 2, 0.0f, 0, 0);
         self->unk15B0 = 0;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->base.step += 1;
     }
         /* fallthrough */
     case 1: {
         char *g;
 
-        if (self->unk15B4 != 0) {
-            self->unk15B4 -= 1;
+        if (self->stepCount != 0) {
+            self->stepCount -= 1;
         }
         g = (char *)&D_007474A0;
         if ((*(int *)(g + 8) & 0xF0) != 0) {
-            self->unk15B4 = 0xA;
+            self->stepCount = 0xA;
         }
         if (moveMotion(self) != 0) {
-            if (self->unk15B4 > 0) {
+            if (self->stepCount > 0) {
                 self->base.phase = 4;
                 self->base.mode = 1;
                 self->base.step = 0;
@@ -191,7 +191,7 @@ void func_0011ADD8(pl00 *self)
         break;
     }
     case 2: {
-        if (self->unk15B4 != 0) {
+        if (self->stepCount != 0) {
             char *v0 = self->base.pack;
             s3v = *(int *)(v0 + 0x51C) + (int)v0;
             s2v = *(int *)(v0 + 0x520) + (int)v0;

@@ -17,9 +17,10 @@ extern char D_005E8040[];
 extern void func_002D42E0(cMovieTrack *track);
 extern int D_00747A84;
 
-/* Player state with the counted attack: step 1 counts 0x15B4 down each frame, and
- * when it reaches zero it raises the 0x15B0 state to 2 and calls pl00_addComboHit. */
-__attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCountedAttack(pl00 *self)
+/* Counted attack step of the player (a state of the pl00 table D_003BD0F0): step 1 counts
+ * stepCount down each frame, and when it reaches zero with a unit near, it raises the 0x15B0
+ * state to 2 and calls pl00_addComboHit. */
+__attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAttack(pl00 *self)
 {
     float v[4] __attribute__((aligned(16)));
     float one;
@@ -71,11 +72,11 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
             }
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x41, self, 0, 0, 0, 0);
             func_002A8578(self, s2v, s0v, 3, 2.0f, 0, 0);
-            self->unk15B4 = 8;
+            self->stepCount = 8;
             self->unk15B0 = 0;
             self->base.step += 1;
         case 1:
-            if (self->unk640 != 0) {
+            if (self->held != 0) {
                 self->unk648 = 0x14;
             }
             InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
@@ -89,8 +90,8 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
             cObjBase_addNullSpeed_Rotation(self, one);
             cObjBase_addNullSpeed(self, one);
             self->comboSet = 0;
-            if (self->unk15B4 != 0) {
-                self->unk15B4 -= 1;
+            if (self->stepCount != 0) {
+                self->stepCount -= 1;
                 self->flags15F4 |= 0x10000;
                 self->unk1603 = 2;
                 if (self->unk15B0 == 0) {
@@ -101,7 +102,7 @@ __attribute__((section(".text.cEm00_stepCountedAttack"))) void cEm00_stepCounted
                         self->unk15B0 = 1;
                     }
                 }
-                if (self->unk15B4 == 0) {
+                if (self->stepCount == 0) {
                     if (self->unk15B0 == 1) {
                         self->unk15B0 = 2;
                         pl00_addComboHit(self);

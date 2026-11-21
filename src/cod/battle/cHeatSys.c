@@ -30,7 +30,7 @@ void cHeatSys_AddHeatGage(cHeatSys *self, int force, float heat)
     }
 
     if (120.0f <= heat) {
-        D_003BD6E8->plBar.flags = D_003BD6E8->plBar.flags | 0x01000000;
+        Cockpit->plBar.flags = Cockpit->plBar.flags | 0x01000000;
     }
 
     mode = D_007474A0.room;

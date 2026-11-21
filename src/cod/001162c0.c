@@ -92,10 +92,10 @@ void func_001162C0(pl00 *self) {
         func_002A8578(self, EM_RES_REC(b, 0x8E8), EM_RES_REC(b, 0x8EC),
                       0, 0.0f, 0, 0);
         self->base.unk568 = 10;
-        self->unk15C0 = 30.0f;
+        self->stepScale = 30.0f;
         self->base.step = self->base.step + 1;
         self->unk15B0 = 0;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->unk15B8 = 0;
     }
         /* fallthrough */
@@ -112,7 +112,7 @@ void func_001162C0(pl00 *self) {
         }
         self->unk15B0 = self->unk15B0 + 1;
         if ((D_007474A0.padBtn & 0xF0) != 0) {
-            switch (self->unk15B4) {
+            switch (self->stepCount) {
             default:
             case 0: lim = 9; break;
             case 1: lim = 8; break;
@@ -124,27 +124,27 @@ void func_001162C0(pl00 *self) {
             case 7: lim = 2; break;
             }
             if (self->unk15B0 < lim) {
-                self->unk15B4 = self->unk15B4 + 1;
+                self->stepCount = self->stepCount + 1;
             }
             if (lim < self->unk15B0) {
-                self->unk15B4 = self->unk15B4 - 1;
+                self->stepCount = self->stepCount - 1;
             }
-            if (self->unk15B4 < 0) {
-                self->unk15B4 = 0;
+            if (self->stepCount < 0) {
+                self->stepCount = 0;
             }
-            if (self->unk15B4 >= 8) {
-                self->unk15B4 = 7;
+            if (self->stepCount >= 8) {
+                self->stepCount = 7;
             }
             self->unk15B0 = 0;
             self->unk15B8 = 10;
         } else if (self->unk15B8 <= 0) {
             self->unk15B8 = 5;
-            self->unk15B4 = self->unk15B4 - 1;
-            if (self->unk15B4 < 0) {
-                self->unk15B4 = 0;
+            self->stepCount = self->stepCount - 1;
+            if (self->stepCount < 0) {
+                self->stepCount = 0;
             }
         }
-        switch (self->unk15B4) {
+        switch (self->stepCount) {
         default:
         case 0: self->base.speedRate = 1.0f; break;
         case 1: self->base.speedRate = 1.2f; break;
@@ -173,13 +173,13 @@ void func_001162C0(pl00 *self) {
         cObjBase_addNullSpeed_Rotation(self, 1.0f);
         self->base.nullSpeed.z = rate;
         cObjBase_addNullSpeed(self, 1.0f);
-        if (0.0f < self->unk15C0) {
-            self->unk15C0 =
-                self->unk15C0 - self->base.speedRate;
+        if (0.0f < self->stepScale) {
+            self->stepScale =
+                self->stepScale - self->base.speedRate;
         }
         mag2 = capVu0MagnitudeSqXZ(self->base.pos, &self->base.unk580);
         if (mag2 < 0.25f) {
-            if (self->unk15C0 <= 0.0f) {
+            if (self->stepScale <= 0.0f) {
                 self->base.step = 4;
                 break;
             }

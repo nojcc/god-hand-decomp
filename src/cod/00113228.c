@@ -59,7 +59,7 @@ void func_00113228(pl00 *self)
             self->base.step = 0;
             self->base.stepArg = 0;
         }
-        e = self->unk640;
+        e = self->held;
         if (e != 0) {
             cGameObjVt *vt = cGameObj_vt(e);
             cVec *p = self->base.pos;

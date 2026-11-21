@@ -77,7 +77,7 @@ int func_003187D8(objScroll *self)
     func_00319CC0(self, 10);
     D_007474A0.frame--;
     func_00319E00(self);
-    if (self->set->u.flags & CMODEL_MESH_BACK)
+    if (self->set->u.flags & CMODEL_MESH_FAR)
         func_0031D2F8((char *)self, 0);
     if (self->set->u.flags & 0x40000) {
         self->objFlags |= CMODEL_F_HIDDEN;

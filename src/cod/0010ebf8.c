@@ -53,7 +53,7 @@ void func_0010EBF8(pl00 *self)
         self->comboSet = 0;
         if (self->unk648 > 0)
             self->unk648 = 0x2D;
-        e = self->unk640;
+        e = self->held;
         if (e != 0) {
             if (inrange(e->actorId, 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
@@ -64,9 +64,9 @@ void func_0010EBF8(pl00 *self)
         func_002A8578(self, EM_RES_REC(t, 0x100), EM_RES_REC(t, 0x108), 5, 0.0f, 0, 0);
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->unk15B8 = 1;
-        self->unk15C0 = 1.0f;
+        self->stepScale = 1.0f;
         self->unk1588 = 0.0f;
         self->base.unk568 = 0x32;
         (self->base.step)++;
@@ -80,7 +80,7 @@ void func_0010EBF8(pl00 *self)
             self->base.unk568 = self->base.unk568 - 1;
             InvokeVirtualAtField214AndForward_124E68(self, 0.196349546f);
         }
-        if (self->unk640 != 0)
+        if (self->held != 0)
             self->unk648 = 0x14;
         if (moveMotion(self) != 0) {
             pl00_clearMotionCam(self, 1, 0);
@@ -89,7 +89,7 @@ void func_0010EBF8(pl00 *self)
             self->base.step = 0;
             self->base.stepArg = 0;
         }
-        e = self->unk640;
+        e = self->held;
         if (e != 0) {
             cGameObjVt *vt = cGameObj_vt(e);
             cVec *pos = self->base.pos;

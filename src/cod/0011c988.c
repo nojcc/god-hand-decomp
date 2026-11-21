@@ -70,15 +70,15 @@ void func_0011C988(pl00 *self)
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         default:
         case 1:
-            self->unk15C0 = 0.1f;
+            self->stepScale = 0.1f;
         case 2:
-            self->unk15C0 = 0.2f;
+            self->stepScale = 0.2f;
         case 3:
-            self->unk15C0 = 0.5f;
+            self->stepScale = 0.5f;
         case 4:
-            self->unk15C0 = 0.5f;
+            self->stepScale = 0.5f;
         case 5:
-            self->unk15C0 = 1.0f;
+            self->stepScale = 1.0f;
         }
         cCoreSave_addGameLevelPoint(&D_00569B70, -0x140);
         self->unk15B0 = 0xA;
@@ -109,15 +109,15 @@ void func_0011C988(pl00 *self)
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         default:
         case 1:
-            self->unk15C0 = 0.1f;
+            self->stepScale = 0.1f;
         case 2:
-            self->unk15C0 = 0.2f;
+            self->stepScale = 0.2f;
         case 3:
-            self->unk15C0 = 0.5f;
+            self->stepScale = 0.5f;
         case 4:
-            self->unk15C0 = 0.5f;
+            self->stepScale = 0.5f;
         case 5:
-            self->unk15C0 = 1.0f;
+            self->stepScale = 1.0f;
         }
         self->unk15B0 = 0xA;
         self->base.unk56E = 0xF;
@@ -136,7 +136,7 @@ void func_0011C988(pl00 *self)
         }
         func_00124EC0(self);
         moveMotion(self);
-        cHeatSys_SubHeatGage(&D_005CB000, 0, self->unk15C0);
+        cHeatSys_SubHeatGage(&D_005CB000, 0, self->stepScale);
         if (self->unk15B0 != 0) {
             self->unk15B0 = self->unk15B0 - 1;
         } else {

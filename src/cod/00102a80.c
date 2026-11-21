@@ -237,7 +237,7 @@ void func_00110E98(pl00 *self)
         self->unk15B0 = 1;
         self->base.step = self->base.step + 1;
     case 1:
-        if (self->unk640 != 0) {
+        if (self->held != 0) {
             self->unk648 = 0x14;
         }
         InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);

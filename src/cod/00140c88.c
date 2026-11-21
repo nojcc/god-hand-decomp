@@ -92,8 +92,8 @@ void FileBuf_init(void)
 {
     FileBuf *fb = &D_0061B280;
     fb->count = 0;
-    fb->kindA = 8;
-    fb->kindB = 8;
+    fb->charW = 8;
+    fb->charH = 8;
     fb->buf = _MemoryAlloc(0x1000, 0x40, &D_00754200);
     if ((D_00747A34 & FILEBUF_SYS_ALT) == 0) {
         LoadEntryByValue_1FFD00(&D_00580D40, D_0044E030, fb->buf);
@@ -168,7 +168,7 @@ void DispMgr_reset(DispMgr *self)
     DispMgr_registerSub(self, &self->item, 16);
     DispMgr_registerSub(self, MGR_SUB(self, 0x1AE0), 17);
     SetupFields10And14_13D3C0(&self->panel);
-    func_0013ECF0(&self->loading);
+    func_0013ECF0(&self->nowLoading);
     Obj0000_Clear_Fields_94_9C_13C808(&self->bossBar);
     ClearFields_A0_250_358_13F2F8(MGR_SUB(self, 0x1E90));
     ClearFields94And9C_13E7D8(&self->lastBossBar);

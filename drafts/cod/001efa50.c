@@ -9,7 +9,7 @@
 #include "godhand/player.h"
 
 #ifdef NON_MATCHING
-extern char *D_003BD6E8;
+extern char *Cockpit;
 extern void cCockPlBar_initData(int a0);
 
 /* Applies the ring's rules: the player's life and heat gauge levels and
@@ -58,7 +58,7 @@ void ColiseumBattle_ApplyRingRules(ColiseumBattle *self)
         cCoreSave_addGodItem(&D_00569B70, 1);
     }
     cCoreSave_setGameLevel(&D_00569B70, self->ring.gameLevel);
-    cCockPlBar_initData((int)(D_003BD6E8 + 0x460));
+    cCockPlBar_initData((int)(Cockpit + 0x460));
 }
 #else
 INCLUDE_ASM("asm/nonmatching", ColiseumBattle_ApplyRingRules);

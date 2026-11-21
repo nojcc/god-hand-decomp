@@ -70,7 +70,7 @@ void func_0011DE30(pl00 *self)
         func_001299F0(self, s1, buf, 0, z);
         cEm00_GetPlMotion(s1, 0x15, z, z);
         self->unk15B0 = 1;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->base.unk56E = 0x3C;
         cCoreSave_addGameLevelPoint(&D_00569B70, -0x140);
         (self->base.step)++;
@@ -101,11 +101,11 @@ void func_0011DE30(pl00 *self)
         }
         cObjBase_addNullSpeed_Rotation(self, 1.0f);
         cObjBase_addNullSpeed(self, 1.0f);
-        if (self->unk15B4 > 0)
-            self->unk15B4 = self->unk15B4 - 1;
+        if (self->stepCount > 0)
+            self->stepCount = self->stepCount - 1;
         if ((self->base.seqFlags & 1) != 0
-            && self->unk15B4 <= 0) {
-            self->unk15B4 = 5;
+            && self->stepCount <= 0) {
+            self->stepCount = 5;
             if (s1 != 0) {
                 func_0012C0F8(self, (int)(s1->unk76C * 10.0f));
                 if (self->base.hp < 2)

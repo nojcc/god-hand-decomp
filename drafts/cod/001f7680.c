@@ -32,7 +32,7 @@ typedef struct ViewGame {
     int viewId;                         /* 0x1464 */
 } ViewGame;
 
-extern ViewGame *D_003BD6E8;            /* the game object */
+extern ViewGame *Cockpit;            /* the game object */
 
 __attribute__((section(".text.func_001F7680")))
 void func_001F7680(void *unused, ViewReq *req)  /* callers pass the owner; it is not read */
@@ -40,48 +40,48 @@ void func_001F7680(void *unused, ViewReq *req)  /* callers pass the owner; it is
     float near;
     float far;
 
-    D_003BD6E8->view.flags |= 1;
+    Cockpit->view.flags |= 1;
     switch (req->kind) {
     case 0:
     default:
         near = 200.0f;
         far = 330.0f;
-        D_003BD6E8->viewMode = 1;
+        Cockpit->viewMode = 1;
         break;
     case 1:
         near = 200.0f;
         far = 330.0f;
-        D_003BD6E8->viewMode = 0;
+        Cockpit->viewMode = 0;
         break;
     case 2:
         near = 200.0f;
         far = 330.0f;
-        D_003BD6E8->viewMode = 3;
+        Cockpit->viewMode = 3;
         break;
     case 3:
         near = 200.0f;
         far = 330.0f;
-        D_003BD6E8->viewMode = 2;
+        Cockpit->viewMode = 2;
         break;
     case 16:
         near = 230.0f;
-        D_003BD6E8->viewMode = 4;
+        Cockpit->viewMode = 4;
         far = 290.0f;
         break;
     case 17:
         near = 230.0f;
-        D_003BD6E8->viewMode = 5;
+        Cockpit->viewMode = 5;
         far = 290.0f;
         break;
     case 18:
         near = 230.0f;
-        D_003BD6E8->viewMode = 6;
+        Cockpit->viewMode = 6;
         far = 290.0f;
         break;
     }
-    D_003BD6E8->view.far = far;
-    D_003BD6E8->view.near = near;
-    D_003BD6E8->viewId = req->id + 0x3011;
+    Cockpit->view.far = far;
+    Cockpit->view.near = near;
+    Cockpit->viewId = req->id + 0x3011;
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_001F7680);

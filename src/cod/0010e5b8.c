@@ -51,7 +51,7 @@ void func_0010E5B8(pl00 *self)
         self->comboSet = 0;
         if (self->unk648 > 0)
             self->unk648 = 0x2D;
-        e = self->unk640;
+        e = self->held;
         if (e != 0) {
             if (inrange(e->actorId, 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
@@ -60,13 +60,13 @@ void func_0010E5B8(pl00 *self)
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 8, 0x13, 0, 0xA);
         t = self->base.pack;
         func_002A8578(self, EM_RES_REC(t, 0x18C), EM_RES_REC(t, 0x194), 5, 0.0f, 0, 0);
-        self->unk15C0 = 1.0f;
+        self->stepScale = 1.0f;
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;
         self->unk15B8 = 1;
         self->unk1588 = 0.0f;
-        self->unk15B4 = 0;
-        e2 = self->unk640;
+        self->stepCount = 0;
+        e2 = self->held;
         if (e2 != 0) {
             cGameObjVt *vt = cGameObj_vt(e2);
             cVec *pos = self->base.pos;
@@ -91,7 +91,7 @@ void func_0010E5B8(pl00 *self)
             self->base.unk568 = self->base.unk568 - 1;
             InvokeVirtualAtField214AndForward_124E68(self, 0.196349546f);
         }
-        if (self->unk640 != 0)
+        if (self->held != 0)
             self->unk648 = 0x14;
         self->base.speedRate = 1.0f;
         self->unk5DC = 1.0f;
@@ -102,8 +102,8 @@ void func_0010E5B8(pl00 *self)
             }
         }
         if (self->unk15C4 > 0.0f && self->unk15B0 != 0) {
-            if (self->unk15B4 == 0) {
-                self->unk15B4 = 1;
+            if (self->stepCount == 0) {
+                self->stepCount = 1;
                 InitRenderStruct_2A8608(&self->base, 0, 0x31, 2, 2, 0);
             }
             if ((D_007474A0 & 0xD0) != 0) {
@@ -112,10 +112,10 @@ void func_0010E5B8(pl00 *self)
                 self->unk5DC = sp;
                 self->unk15C4 = self->unk15C4 - sp;
                 SetMotionStep(self, sp);
-                self->unk15C0 = self->unk15C0 + 0.0500000007f;
+                self->stepScale = self->stepScale + 0.0500000007f;
                 if (self->unk15C4 <= 0.0f)
-                    self->unk15C0 = self->unk15C0 + 1.0f;
-                if (self->unk15C0 >= 1.10000002f) {
+                    self->stepScale = self->stepScale + 1.0f;
+                if (self->stepScale >= 1.10000002f) {
                     if (self->unk15B8 != 0) {
                         self->unk15B8 = 0;
                         self->unk1620 = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11B, self, 0, 0, 0, 0);
@@ -130,9 +130,9 @@ void func_0010E5B8(pl00 *self)
         } else {
             if (self->base.seqFlags & 3)
                 KillEffect(Getplayer(), 2, 2);
-            if (self->unk15B4 != 0) {
-                self->unk15B4 = 0;
-                if (self->unk15C0 >= 2.5f) {
+            if (self->stepCount != 0) {
+                self->stepCount = 0;
+                if (self->stepScale >= 2.5f) {
                     KillEffect(Getplayer(), 2, 2);
                     SetEffect(0, 0x32, self, 0, -1, 0xFFFFFFFFu);
                 }
@@ -148,7 +148,7 @@ void func_0010E5B8(pl00 *self)
             self->base.stepArg = 0;
         }
         {
-            cGameObj *e = self->unk640;
+            cGameObj *e = self->held;
             if (e != 0) {
                 cGameObjVt *vt = cGameObj_vt(e);
                 cVec *pos = self->base.pos;
@@ -166,8 +166,8 @@ void func_0010E5B8(pl00 *self)
         break;
     }
     }
-    self->unk1610 = self->unk15C0;
-    if (2.5f < self->unk15C0) {
+    self->unk1610 = self->stepScale;
+    if (2.5f < self->stepScale) {
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x10, 8, 0x14, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x10, 8, 0x14, 0, 0xA);
     }

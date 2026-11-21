@@ -48,7 +48,7 @@ void func_002BF948(void *mgr)
     allKill = *(Kill5 *)D_00569B70.data->allKillEmNum;
     reel = *(Reel10 *)D_00569B70.data->reelSlot;
     stateBits = D_00569B70.data->stateBits;
-    toggle = D_00569B70.data->worldToggle;
+    toggle = D_00569B70.data->soundOutMode;
     active = D_00569B70.data->worldActive;
     saved = D_00569B70.data->savedToggle;
     pl = Getplayer();
@@ -75,7 +75,7 @@ void func_002BF948(void *mgr)
     *(Kill5 *)D_00569B70.data->killEmNum = kill;
     *(Kill5 *)D_00569B70.data->allKillEmNum = allKill;
     *(Reel10 *)D_00569B70.data->reelSlot = reel;
-    D_00569B70.data->worldToggle = toggle;
+    D_00569B70.data->soundOutMode = toggle;
     D_00569B70.data->worldActive = active;
     D_00569B70.data->savedToggle = saved;
     D_00569B70.data->stateBits = stateBits;

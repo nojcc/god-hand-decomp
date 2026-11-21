@@ -68,7 +68,7 @@ void cTaskWork_sleep(char *a0, int a1)
 __attribute__((section(".text.InvokeVirtualAtField214AndForward_124E68")))
 void InvokeVirtualAtField214AndForward_124E68(pl00 *self, float f12)
 {
-    cGameObj *e = self->unk640;
+    cGameObj *e = self->held;
     if (e != 0) {
         cGameObjVt *vt = cGameObj_vt(e);
         cGameObj_SetTgtTurn(self, vt->getPos((char *)e + vt->getPosDelta), f12);

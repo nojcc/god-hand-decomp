@@ -54,7 +54,7 @@ void func_0011D198(pl00 *self)
         cEm00_GetPlMotion(s0, 0x10, z, z);
         self->base.unk56E = 0xF;
         self->unk15B0 = 1;
-        self->unk15B4 = 1;
+        self->stepCount = 1;
         cCoreSave_addGameLevelPoint(&D_00569B70, -0x140);
         (self->base.step)++;
     }
@@ -96,8 +96,8 @@ void func_0011D198(pl00 *self)
             self->unk15B0 = 1;
         }
         if ((self->base.seqFlags & 2) != 0) {
-            if (self->unk15B4 != 0) {
-                self->unk15B4 = 0;
+            if (self->stepCount != 0) {
+                self->stepCount = 0;
                 if (s0 != 0) {
                     func_0012C0F8(self, (int)(s0->unk76C * 16.0f));
                 }
@@ -115,7 +115,7 @@ void func_0011D198(pl00 *self)
                 func_0012C348(self, 2);
             }
         } else {
-            self->unk15B4 = 1;
+            self->stepCount = 1;
         }
         break;
     default:

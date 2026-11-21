@@ -23,6 +23,12 @@ void *func_0015D6E8(struct cScrVtx *v, unsigned int color, int arg2, void *tex, 
  * tex is not read. */
 void *func_0015DB30(struct cScrVtx *v, unsigned int color, void *tex, struct cScrTexCfg *cfg, int kind, int prio);
 
+/* Queue a flat sprite over the corners v[0] and v[1] in the packed colour color,
+ * with cfg's texel window and TEST value when cfg asks for them; kind and prio
+ * say where it is queued. Returns the packet, or 0 when the buffer is full.
+ * tex is not read. */
+void *func_0015DB30(struct cScrVtx *v, unsigned int color, void *tex, struct cScrTexCfg *cfg, int kind, int prio);
+
 /* The line drawing attributes Gp_draw_line reads: flags and a TEST register value. */
 typedef struct LineAttr {
     int flags;                          /* 0x00 LINE_ATTR_* */

@@ -46,7 +46,7 @@ typedef struct pl00 {
     float unk60C;                       /* 0x60C */
     char unk610[0x61E - 0x610];
     unsigned char unk61E;               /* 0x61E */
-    unsigned char unk61F;               /* 0x61F */
+    unsigned char unk61F;               /* 0x61F while set, the hit countdown at 0x568 also sets flags15F4 bit 0x8000 */
     char unk620;
     unsigned char unk621;               /* 0x621 */
     unsigned char unk622;               /* 0x622 */
@@ -55,9 +55,9 @@ typedef struct pl00 {
     signed char unk626;                 /* 0x626 */
     char unk627[0x630 - 0x627];
     cVec unk630;                        /* 0x630 func_0012A578 scales the player's offset from this point */
-    cGameObj *unk640;                   /* 0x640 the enemy func_00124540 picks to catch */
+    cGameObj *held;                     /* 0x640 the object the player holds, 0 while none (func_00124540 picks an enemy to catch) */
     char unk644[0x648 - 0x644];
-    signed char unk648;                 /* 0x648 */
+    signed char unk648;                 /* 0x648 set to 0x14 while an object is held */
     unsigned char unk649;               /* 0x649 */
     char unk64A[0x660 - 0x64A];
     cVec unk660;                        /* 0x660 x and z copied back into pos */
@@ -80,11 +80,11 @@ typedef struct pl00 {
     char unk770[0x1588 - 0x770];
     float unk1588;                      /* 0x1588 */
     char unk158C[0x15B0 - 0x158C];
-    int unk15B0;                        /* 0x15B0 */
-    int unk15B4;                        /* 0x15B4 */
+    int unk15B0;                        /* 0x15B0 pl00_stepCountedAttack: 1 once a unit is near, 2 once the hit is counted */
+    int stepCount;                      /* 0x15B4 frames left of the current step's count */
     int unk15B8;                        /* 0x15B8 */
     int unk15BC;                        /* 0x15BC */
-    float unk15C0;                      /* 0x15C0 */
+    float stepScale;                    /* 0x15C0 scale on nullSpeed x and z while a knockdown motion runs */
     float unk15C4;                      /* 0x15C4 */
     char unk15C8[0x15F0 - 0x15C8];
     float unk15F0;                      /* 0x15F0 */
@@ -98,7 +98,7 @@ typedef struct pl00 {
     char unk1604[0x160C - 0x1604];
     int unk160C;                        /* 0x160C */
     float unk1610;                      /* 0x1610 */
-    unsigned char unk1614;              /* 0x1614 */
+    unsigned char unk1614;              /* 0x1614 which of three counter motions runs next, 0 to 2 */
     signed char comboCount;             /* 0x1615 hits in the current combo */
     short comboTimer;                   /* 0x1616 frames left before the combo ends */
     short unk1618;                      /* 0x1618 cleared when mode 1 starts */
@@ -122,7 +122,9 @@ typedef char pl00_chk_weapon[((int)&((pl00 *)0)->weapon == 0x6A8) ? 1 : -1];
 typedef char pl00_chk_flags[((int)&((pl00 *)0)->flags15F4 == 0x15F4) ? 1 : -1];
 typedef char pl00_chk_combo[((int)&((pl00 *)0)->comboCount == 0x1615) ? 1 : -1];
 typedef char pl00_chk_timer[((int)&((pl00 *)0)->comboTimer == 0x1616) ? 1 : -1];
-typedef char pl00_chk_640[((int)&((pl00 *)0)->unk640 == 0x640) ? 1 : -1];
+typedef char pl00_chk_held[((int)&((pl00 *)0)->held == 0x640) ? 1 : -1];
+typedef char pl00_chk_stepScale[((int)&((pl00 *)0)->stepScale == 0x15C0) ? 1 : -1];
+typedef char pl00_chk_1620[((int)&((pl00 *)0)->unk1620 == 0x1620) ? 1 : -1];
 typedef char pl00_chk_660[((int)&((pl00 *)0)->unk660 == 0x660) ? 1 : -1];
 typedef char pl00_chk_68C[((int)&((pl00 *)0)->unk68C == 0x68C) ? 1 : -1];
 typedef char pl00_chk_694[((int)&((pl00 *)0)->unk694 == 0x694) ? 1 : -1];

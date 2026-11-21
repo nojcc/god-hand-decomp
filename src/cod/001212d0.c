@@ -78,7 +78,7 @@ void func_001212D0(pl00 *self)
         func_001299F0(self, s1, buf, 0, z);
         cEm00_GetPlMotion(s1, 0x2C, z, z);
         self->unk15B0 = 1;
-        self->unk15B4 = 1;
+        self->stepCount = 1;
         self->base.unk56E = 0xF;
         if (s1 != 0) {
             func_0012C0F8(self, (int)(s1->unk76C * 15.0f));
@@ -125,8 +125,8 @@ void func_001212D0(pl00 *self)
             self->unk15B0 = 1;
         }
         if ((self->base.seqFlags & 2) != 0) {
-            if (self->unk15B4 != 0) {
-                self->unk15B4 = 0;
+            if (self->stepCount != 0) {
+                self->stepCount = 0;
                 if (s1 != 0) {
                     func_0012C0F8(self, (int)(s1->unk76C * 20.0f));
                 }
@@ -139,7 +139,7 @@ void func_001212D0(pl00 *self)
                 func_0012C348(self, 2);
             }
         } else {
-            self->unk15B4 = 1;
+            self->stepCount = 1;
         }
         break;
     default:

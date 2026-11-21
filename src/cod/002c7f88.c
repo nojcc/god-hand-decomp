@@ -3,7 +3,7 @@
 #include "godhand/CustomIDWork.h"
 #include "godhand/cWorldLight.h"
 
-extern unsigned char D_0061B289;
+#include "godhand/fileBuf.h"
 extern int D_003C118C;
 
 __attribute__((section(".text.func_002C7F88")))
@@ -82,7 +82,7 @@ cWorldLightRec *cWorldLight_Get_LightData(cWorldLight *self, int idx)
 
 __attribute__((section(".text.func_002E0AE0")))
 int func_002E0AE0(int x) {
-    int m = D_0061B289;
+    int m = D_0061B280.charH;
 
     if (x < -m) {
         return 1;

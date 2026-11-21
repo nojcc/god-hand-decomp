@@ -38,5 +38,5 @@ void pl00_reset(pl00 *self)
     }
     self->flags15F4 = (self->flags15F4 & ~0x10) | 0x20;
     cHeatSys_SetHeatMode(&D_005CB000, 0);
-    self->unk640 = 0;
+    self->held = 0;
 }

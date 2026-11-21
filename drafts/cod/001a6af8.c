@@ -17,7 +17,7 @@ typedef struct SysFlagWords {
 } SysFlagWords;
 
 extern SysFlagWords D_00747A78;
-extern char *D_003BD6E8;
+extern char *Cockpit;
 extern char D_004273F8[];               /* "A00" */
 extern void cCockGetPoint_setData(void *self, cVec *pos, int point, short kind);
 
@@ -27,7 +27,7 @@ extern void cCockGetPoint_setData(void *self, cVec *pos, int point, short kind);
  * then end the soft event and the task. Same length as retail, 15
  * instructions differ: retail loads D_003C2F84 for the first and last calls
  * only after the objFlags store (here the load is scheduled above it), and
- * builds D_003BD6E8's address in $v1 after the position copy where this uses
+ * builds Cockpit's address in $v1 after the position copy where this uses
  * $v0 (as in drafts/cod/001c2408.c). */
 __attribute__((section(".text.func_001A6AF8")))
 void func_001A6AF8(cOmScripted *self)
@@ -53,7 +53,7 @@ void func_001A6AF8(cOmScripted *self)
             }
             cCoreSave_addGold(&D_00569B70, gold, 0);
             CVEC_COPY(pos, self->base.pos);
-            cCockGetPoint_setData(D_003BD6E8 + 0x15C0, &pos, gold, self->base.unk2AC);
+            cCockGetPoint_setData(Cockpit + 0x15C0, &pos, gold, self->base.unk2AC);
         }
     }
     while ((D_007474A0.trg & 0x30000000) == 0) {

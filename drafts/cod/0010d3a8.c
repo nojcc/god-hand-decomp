@@ -56,8 +56,8 @@ void func_0010D3A8(pl00 *self)
     case 0:
         func_00124540(self, 0);
         self->unk1588 = 0.0f;
-        if (self->unk640 != 0) {
-            d = pl00_targetDistXZ(self->base.pos, self->unk640) - 1.2f;
+        if (self->held != 0) {
+            d = pl00_targetDistXZ(self->base.pos, self->held) - 1.2f;
             lim = 0.5f;
             if (self->comboSlot == 0 && self->unk61F != 0) {
                 lim = 1.0f;
@@ -80,10 +80,10 @@ void func_0010D3A8(pl00 *self)
             self->base.hitFlash = 5.0f;
             self->unk1588 = 0.0f;
         }
-        self->unk15C0 = 1.0f;
+        self->stepScale = 1.0f;
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->unk15B8 = 1;
         self->unk5F0 = 10;
         self->base.unk568 = 999;
@@ -118,7 +118,7 @@ void func_0010D3A8(pl00 *self)
             self->base.unk568--;
             InvokeVirtualAtField214AndForward_124E68(self, 0.19634955f);
         }
-        if (self->unk640 != 0) {
+        if (self->held != 0) {
             self->unk648 = 0x14;
         }
         self->base.speedRate = 1.0f;
@@ -144,8 +144,8 @@ void func_0010D3A8(pl00 *self)
             }
         }
         if (0.0f < self->unk15C4 && self->unk15B0 != 0) {
-            if (self->unk15B4 == 0) {
-                self->unk15B4 = 1;
+            if (self->stepCount == 0) {
+                self->stepCount = 1;
                 switch (self->combo) {
                 case 0x2E:
                 case 0x44:
@@ -179,11 +179,11 @@ void func_0010D3A8(pl00 *self)
                     break;
                 }
                 SetMotionStep(self, self->base.speedRate);
-                self->unk15C0 += 0.05f;
+                self->stepScale += 0.05f;
                 if (self->unk15C4 <= 0.0f) {
-                    self->unk15C0 += 1.0f;
+                    self->stepScale += 1.0f;
                 }
-                if (1.1f <= self->unk15C0 && self->unk15B8 != 0) {
+                if (1.1f <= self->stepScale && self->unk15B8 != 0) {
                     self->unk15B8 = 0;
                     self->seHandle = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11B, self, 0, 0, 0, 0);
                 }
@@ -198,9 +198,9 @@ void func_0010D3A8(pl00 *self)
             if (self->base.motionFlags & (GAMEOBJ_MOTION_END | GAMEOBJ_MOTION_LOOP)) {
                 KillEffect((int)Getplayer(), 2, 2);
             }
-            if (self->unk15B4 != 0) {
-                self->unk15B4 = 0;
-                if (2.5f <= self->unk15C0) {
+            if (self->stepCount != 0) {
+                self->stepCount = 0;
+                if (2.5f <= self->stepScale) {
                     switch (self->combo) {
                     case 0x2E:
                     case 0x55:
@@ -236,8 +236,8 @@ void func_0010D3A8(pl00 *self)
             ((cObjBase *)self)->nullSpeed.z += self->unk1598;
             self->unk1598 *= 0.9f;
         }
-        if (self->unk640 != 0 && self->base.stepArg == 0
-            && pl00_targetDistSqXZ(self->base.pos, self->unk640) < 1.21f) {
+        if (self->held != 0 && self->base.stepArg == 0
+            && pl00_targetDistSqXZ(self->base.pos, self->held) < 1.21f) {
             ((cObjBase *)self)->nullSpeed.x = 0.0f;
             ((cObjBase *)self)->nullSpeed.z = 0.0f;
         }
@@ -258,11 +258,11 @@ void func_0010D3A8(pl00 *self)
             self->comboSet = 0;
         }
     }
-    self->unk1610 = self->unk15C0;
+    self->unk1610 = self->stepScale;
     switch (self->combo) {
     case 0x2E:
     case 0x63:
-        if (2.5f <= self->unk15C0) {
+        if (2.5f <= self->stepScale) {
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, self->moveA, self->unk1660, 0xD, 0, 0x123);
             Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, self->moveB, self->unk1664, 0xD, 0, 0x123);
         }

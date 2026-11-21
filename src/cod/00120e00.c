@@ -108,12 +108,12 @@ void func_00120E00(pl00 *self)
         moveMotion(self);
         cObjBase_addNullSpeed_Rotation(self, 1.0f);
         cObjBase_addNullSpeed(self, 1.0f);
-        if ((self->base.seqFlags & 1) && self->unk15B4 != 0) {
-            self->unk15B4 = 0;
+        if ((self->base.seqFlags & 1) && self->stepCount != 0) {
+            self->stepCount = 0;
             if (s1 != 0)
                 func_0012C0F8(self, (int)(s1->unk76C * 30.0f));
         } else {
-            self->unk15B4 = 1;
+            self->stepCount = 1;
         }
         break;
     case 4: {

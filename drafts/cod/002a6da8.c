@@ -6,7 +6,7 @@
 extern unsigned int D_00747A24[];
 extern unsigned char D_007474A0[];
 extern unsigned char D_005CAC90;
-extern char *D_003BD6E8;
+extern char *Cockpit;
 extern int D_00752C00[];
 extern int D_00747A80;
 extern float D_003C1184;
@@ -64,12 +64,12 @@ void func_002A6DA8(void)
     if (g[0x14] != 0)
         return;
     saved = *(int *)(g + 0x5E0);
-    cCockMess_SetMessNo(D_003BD6E8 + 0x1520, 0x3007, 0, 256.0f, 220.0f);
+    cCockMess_SetMessNo(Cockpit + 0x1520, 0x3007, 0, 256.0f, 220.0f);
     *(int *)(g + 0x5E0) |= 0x2000000;
     *(int *)(g + 0x5E0) |= 0x20000;
     while (*(int *)(game() + 0x56C) == 0 ? !(*(int *)(game() + 8) & 0x20) : !(*(int *)(game() + 8) & 0x40)) {
-        func_00140E58(D_003BD6E8);
-        func_001410A8(D_003BD6E8);
+        func_00140E58(Cockpit);
+        func_001410A8(Cockpit);
         *(int *)attr = 0;
         func_003A52F0(attr, 0, 0x48);
         *(int *)attr |= 0x20;
@@ -96,7 +96,7 @@ void func_002A6DA8(void)
         cTaskWork_sleep(task()[1], 1);
     }
     D_00747A80 = saved;
-    *(int *)(D_003BD6E8 + 0x15BC) = 0xFFFF;
+    *(int *)(Cockpit + 0x15BC) = 0xFFFF;
     cTaskWork_sleep(task()[1], 1);
 }
 #else

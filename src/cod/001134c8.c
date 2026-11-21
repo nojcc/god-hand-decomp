@@ -62,10 +62,10 @@ void func_001134C8(pl00 *self)
             self->base.stepArg = 0;
         }
         if (self->base.seqFlags & 0x200) {
-            if (self->unk640 != 0) {
-                cGameObj *e = self->unk640;
+            if (self->held != 0) {
+                cGameObj *e = self->held;
                 if (func_003A5678(D_0041C208, e->kindName) == 0) {
-                    e = Obj0000_Get_Field_1580_27A128(self->unk640);
+                    e = Obj0000_Get_Field_1580_27A128(self->held);
                 }
                 e->mode = 1;
                 e->phase = 6;

@@ -111,7 +111,7 @@ void func_001627D8(void *a0) {
         t = D_00747A24;
         if (((t >> 6) & 1) == 1) {
             *(short *)(s1 + 0x130) = 1;
-            cCockPlBar_initData(&D_003BD6E8->plBar);
+            cCockPlBar_initData(&Cockpit->plBar);
         } else {
             *(short *)(s1 + 0x130) = 0;
         }
@@ -121,7 +121,7 @@ void func_001627D8(void *a0) {
         t = D_00747A24;
         if (((t >> 6) & 1) == 1) {
             *(short *)(s1 + 0x130) = 1;
-            cCockPlBar_initData(&D_003BD6E8->plBar);
+            cCockPlBar_initData(&Cockpit->plBar);
         } else {
             *(short *)(s1 + 0x130) = 0;
         }

@@ -70,7 +70,7 @@ void func_0011DA30(pl00 *self)
         func_001299F0(self, s0, buf, 0, z);
         cEm00_GetPlMotion(s0, 0x13, z, z);
         self->unk15B0 = 1;
-        self->unk15B4 = 1;
+        self->stepCount = 1;
         self->base.unk56E = 0xF;
         cCoreSave_addGameLevelPoint(&D_00569B70, -0x140);
         if (s0 != 0) {
@@ -131,7 +131,7 @@ void func_0011DA30(pl00 *self)
     case 2:
         cEm00_GetPlMotion(s0, 0x14, 0.0f, 0.0f);
         self->unk15B0 = 1;
-        self->unk15B4 = 1;
+        self->stepCount = 1;
         self->base.unk56E = 0xF;
         cCoreSave_addGameLevelPoint(&D_00569B70, 0x64);
         (self->base.step)++;

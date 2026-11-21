@@ -94,7 +94,7 @@ extern void func_0031BE78(void *a0);
 extern void func_0031C1D0(void *dest, char *src);
 extern void cWorldLight_Light_curent_set(void *wl, int a1);
 
-extern char *D_003BD6E8;
+extern char *Cockpit;
 extern PinnedEnt *D_003C3CC4;
 extern void *D_00752C38[];
 extern char D_00580D20[];
@@ -140,7 +140,7 @@ void func_002A5EC0(StageScene *self)
     func_003A52F0(D_007474A0.unk5EC, 0, 8);
     if (D_007474A0.debugFlags & 0x800) {
         if (D_007474A0.flags & 0x200)
-            *(short *)(D_003BD6E8 + 0x45E) = 0x3101;
+            *(short *)(Cockpit + 0x45E) = 0x3101;
     }
     if (!(D_007474A0.flags & 0x4000000))
         self->unk04 = 0;
@@ -214,7 +214,7 @@ void func_002A5EC0(StageScene *self)
     func_002993A0(D_00586C00);
     func_002D6F40(D_00604700);
     func_001509A0(D_004664A0);
-    cHookList_callAll(D_003BD6E8);
+    cHookList_callAll(Cockpit);
     func_001FDF88(&D_00574380);
     func_00134690(&D_00462FC0);
     func_002A71B0();
@@ -269,7 +269,7 @@ void func_002A5EC0(StageScene *self)
     if (D_007474A0.room != 0x20)
         Getplayer()->hitFlash = 30.0f;
     if ((D_007474A0.debugFlags & 0x800) && (D_007474A0.flags & 0x200))
-        *(short *)(D_003BD6E8 + 0x45E) = -1;
+        *(short *)(Cockpit + 0x45E) = -1;
     D_007474A0.flags = D_007474A0.flags & ~0x200 & ~0x40 & ~0x4000000 & ~0x2 & ~0x1000000;
     D_007474A0.unk588 &= ~0x800000;
     D_007474A0.flags5E0 &= ~0x2000000;

@@ -1,7 +1,7 @@
 /* include/godhand/DispMgr.h - DispMgr, the registry of display sub-records.
  *
  * The game's one DispMgr is at 0x464080; every reader reaches it through the
- * pointer D_003BD6E8. A DispMgr holds eleven sub-records at fixed offsets, then a table of
+ * pointer Cockpit. A DispMgr holds eleven sub-records at fixed offsets, then a table of
  * registered objects at 0x22F0 (12 bytes per slot). func_00140BF0 registers
  * a sub-record in the first free slot and DispMgr_reset (src/cod/00140c88.c)
  * walks the table to call every object's reset method.
@@ -76,7 +76,7 @@ typedef struct DispMgrKind7 {
 typedef struct DispMgr {
     IDPanelScreen panel;                /* 0x0000 */
     char unk0390[0x3A0 - sizeof(IDPanelScreen)];
-    cCockLoading loading;               /* 0x03A0 */
+    cCockLoading nowLoading;            /* 0x03A0 the loading screen record (cNowLoading_setup) */
     cCockPlBar plBar;                   /* 0x0460 */
     char unk06E0[0xEA0 - 0x6E0];
     cIDBaseScreen screen;               /* 0x0EA0 registered as kind 6; the action-button prompts */
@@ -101,6 +101,8 @@ typedef struct DispMgr {
 
 typedef char cCockPlBar_size_check[(sizeof(cCockPlBar) == 0x280) ? 1 : -1];
 typedef char DispMgrGold_size_check[(sizeof(DispMgrGold) == 0x1D0) ? 1 : -1];
+typedef char DispMgrKind7_size_check[(sizeof(DispMgrKind7) == 0xF0) ? 1 : -1];
+typedef char DispMgr_nowLoading_check[((int)&((DispMgr *)0)->nowLoading == 0x3A0) ? 1 : -1];
 typedef char DispMgr_plBar_check[((int)&((DispMgr *)0)->plBar == 0x460) ? 1 : -1];
 typedef char DispMgr_screen_check[((int)&((DispMgr *)0)->screen == 0xEA0) ? 1 : -1];
 typedef char DispMgr_kind7_check[((int)&((DispMgr *)0)->kind7 == 0x1380) ? 1 : -1];
@@ -108,7 +110,6 @@ typedef char DispMgr_getPoint_check[((int)&((DispMgr *)0)->getPoint == 0x15C0) ?
 typedef char DispMgr_gold_check[((int)&((DispMgr *)0)->gold == 0x1AE0) ? 1 : -1];
 typedef char DispMgr_track_check[((int)&((DispMgr *)0)->track == 0x1E90) ? 1 : -1];
 typedef char DispMgr_size_check[(sizeof(DispMgr) == 0x23C0) ? 1 : -1];
-typedef char DispMgr_loading_check[((int)&((DispMgr *)0)->loading == 0x3A0) ? 1 : -1];
 typedef char DispMgr_item_check[((int)&((DispMgr *)0)->item == 0x1910) ? 1 : -1];
 typedef char DispMgr_tutorial_check[((int)&((DispMgr *)0)->tutorial == 0x1A20) ? 1 : -1];
 typedef char DispMgr_bossBar_check[((int)&((DispMgr *)0)->bossBar == 0x1DC0) ? 1 : -1];
@@ -135,7 +136,7 @@ void cCockPlBar_initData(cCockPlBar *self);
 /* Show the current gold in the gold display, then reset the gold being added. */
 void func_00143A90(DispMgrGold *self);
 
-/* The game object: the DispMgr at 0x464080, which every reader reaches through this word. */
-extern DispMgr *D_003BD6E8;
+/* Retail's name for this word, from the script table at 0x4137A0: a pointer to the DispMgr at 0x464080, which every reader reaches through this word. */
+extern DispMgr *Cockpit;
 
 #endif

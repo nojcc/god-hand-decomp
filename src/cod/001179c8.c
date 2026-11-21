@@ -107,7 +107,7 @@ void func_001179C8(pl00 *self)
         self->base.unk568 = 0x5A;
         (self->base.step)++;
         self->unk15B0 = 0;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->unk15B8 = 0;
     }
         /* fallthrough */
@@ -131,7 +131,7 @@ void func_001179C8(pl00 *self)
         if ((D_007474A0.padBtn & 0xF0) != 0) {
             int lim;
 
-            switch (self->unk15B4) {
+            switch (self->stepCount) {
             case 0: default: lim = 0x3E7; break;
             case 1: lim = 6; break;
             case 2: lim = 5; break;
@@ -140,29 +140,29 @@ void func_001179C8(pl00 *self)
             case 5: lim = 2; break;
             }
             if (self->unk15B0 < lim) {
-                self->unk15B4 = self->unk15B4 + 1;
+                self->stepCount = self->stepCount + 1;
             }
             if (lim < self->unk15B0) {
-                self->unk15B4 = self->unk15B4 - 1;
+                self->stepCount = self->stepCount - 1;
             }
-            if (self->unk15B4 < 0) {
-                self->unk15B4 = 0;
+            if (self->stepCount < 0) {
+                self->stepCount = 0;
             }
-            if (self->unk15B4 >= 5) {
-                self->unk15B4 = 4;
+            if (self->stepCount >= 5) {
+                self->stepCount = 4;
             }
             self->unk15B0 = 0;
             self->unk15B8 = 0xA;
         } else {
             if (self->unk15B8 <= 0) {
                 self->unk15B8 = 5;
-                self->unk15B4 = self->unk15B4 - 1;
-                if (self->unk15B4 < 0) {
-                    self->unk15B4 = 0;
+                self->stepCount = self->stepCount - 1;
+                if (self->stepCount < 0) {
+                    self->stepCount = 0;
                 }
             }
         }
-        switch (self->unk15B4) {
+        switch (self->stepCount) {
         case 0: default: self->base.speedRate = 0.699999988f; break;
         case 1: self->base.speedRate = 1.0f; break;
         case 2: self->base.speedRate = 1.29999995f; break;

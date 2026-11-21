@@ -218,7 +218,7 @@ void func_001101A8(pl00 *self)
         self->base.step++;
         /* fall through */
     case 1:
-        if (self->unk640 != 0) {
+        if (self->held != 0) {
             self->unk648 = 0x14;
         }
         InvokeVirtualAtField214AndForward_124E68(self, 0.19634955f);
@@ -228,8 +228,8 @@ void func_001101A8(pl00 *self)
             self->base.step = 0;
             self->base.stepArg = 0;
         }
-        if (self->unk640 != 0) {
-            cGameObj *target = self->unk640;
+        if (self->held != 0) {
+            cGameObj *target = self->held;
             cVec *pos = self->base.pos;
 
             if (capVu0MagnitudeSqXZ(pos, cGameObj_vt(target)->getPos((char *)target + cGameObj_vt(target)->getPosDelta)) < 1.21f) {

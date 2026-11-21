@@ -52,18 +52,18 @@ void func_00115310(pl00 *self)
         sceVu0ApplyMatrix(&self->base.unk580, self->base.mtx, &self->base.unk580);
         CVEC_COPY(pos, self->base.pos);
         target = func_00291010(&D_005864F0, &pos, self->base.rot.y, 40.0f, 3.1415927f, 0, 0, 0);
-        self->unk640 = target;
+        self->held = target;
         if (target != 0) {
             at = cGameObj_vt(target)->getPos((char *)target + cGameObj_vt(target)->getPosDelta);
             CVEC_PUT(&self->base.unk580, *at);
             from = self->base.pos;
-            at = cGameObj_vt(self->unk640)->getPos((char *)self->unk640 + cGameObj_vt(self->unk640)->getPosDelta);
+            at = cGameObj_vt(self->held)->getPos((char *)self->held + cGameObj_vt(self->held)->getPosDelta);
             off = Turn_dest((float *)from, (float *)at, self->base.rot.y, 3.1415927f);
             off = absf(off);
             if (off > 2.3561945f)
                 back = 1;
         }
-        self->unk15C0 = self->base.rot.y;
+        self->stepScale = self->base.rot.y;
         if (back != 0) {
             cOm_attachThrown((struct ThrowerObj *)self);
             if (self->sub6A0 != 0) {
@@ -73,8 +73,8 @@ void func_00115310(pl00 *self)
             }
             func_002A8578((int)self, motionBlock_at(self->base.pack, 0x35C),
                           motionBlock_at(self->base.pack, 0x360), 0, 0.0f, 0, 0);
-            self->unk15C0 = self->base.rot.y + 3.1415927f;
-            self->unk15C0 = Adjust_theta(self->unk15C0);
+            self->stepScale = self->base.rot.y + 3.1415927f;
+            self->stepScale = Adjust_theta(self->stepScale);
         } else {
             cOm_attachThrown((struct ThrowerObj *)self);
             if (self->sub6A0 != 0) {
@@ -90,9 +90,9 @@ void func_00115310(pl00 *self)
     case 1:
         func_00124EC0(self);
         if (self->base.seqFlags & 0x10) {
-            turn = Turn_dest((float *)self->base.pos, (float *)&self->base.unk580, self->unk15C0, 0.22439948f);
-            self->unk15C0 = self->unk15C0 + turn;
-            self->unk15C0 = Adjust_theta(self->unk15C0);
+            turn = Turn_dest((float *)self->base.pos, (float *)&self->base.unk580, self->stepScale, 0.22439948f);
+            self->stepScale = self->stepScale + turn;
+            self->stepScale = Adjust_theta(self->stepScale);
             self->base.rot.y = self->base.rot.y + turn;
             self->base.rot.y = Adjust_theta(self->base.rot.y);
         }

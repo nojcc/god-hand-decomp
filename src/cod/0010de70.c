@@ -64,9 +64,9 @@ void func_0010DE70(pl00 *self)
         func_002A8578(self, p, q, 3, f, 0x40, 0);
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
         self->unk1588 = 0.0f;
-        self->unk15C0 = 1.0f;
+        self->stepScale = 1.0f;
         self->unk15B8 = 1;
         self->unk15BC = 999;
         self->base.unk568 = 10;
@@ -81,7 +81,7 @@ void func_0010DE70(pl00 *self)
             self->base.unk568 = self->base.unk568 - 1;
             InvokeVirtualAtField214AndForward_124E68(self, 0.392699093f);
         }
-        if (self->unk640 != 0)
+        if (self->held != 0)
             self->unk648 = 0x14;
         if (moveMotion(self) != 0) {
             pl00_clearMotionCam(self, 1, 0);
@@ -90,7 +90,7 @@ void func_0010DE70(pl00 *self)
             self->base.step = 0;
             self->base.stepArg = 0;
         }
-        e = self->unk640;
+        e = self->held;
         if (e != 0 && self->base.stepArg != 0) {
             cGameObjVt *vt = cGameObj_vt(e);
             cVec *pos = self->base.pos;

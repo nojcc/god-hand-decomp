@@ -55,7 +55,7 @@ void func_001E2240(Slot1 *self) {
             }
         }
         cCoreSave_addCasinoTicket(&D_00569B70, 1);
-        D_003BD6E8->item.ticketSeed =
+        Cockpit->item.ticketSeed =
             (short)cCoreSave_getCasinoTicketNum(&D_00569B70);
         Slot2_selectMark(self, self->slotId, 0, 0);
         Slot2_setMarkLayers(self, 0, 0);

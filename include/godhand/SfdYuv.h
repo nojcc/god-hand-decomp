@@ -3,7 +3,7 @@
  * The tables hold 256 entries of four 16-bit words each, in three blocks:
  * the luma term, the blue and green terms of the blue difference, the red
  * and green terms of the red difference. The first block's fourth word is
- * a clamp ramp that the same routine fills in for the chroma range.
+ * an alpha ramp over the luma index, filled by func_00365EC0.
  *
  * Field names are ours; offsets are exact.
  */
@@ -33,5 +33,8 @@ typedef struct SfdYuvTab {
 } SfdYuvTab;
 
 extern int func_00360D50(void);
+
+/* Fill the tables; mode 1 makes the luma ramp fall across lo..hi, any other mode makes it rise. */
+void func_00365EC0(int mode, int lo, int hi, SfdYuvTab *tab);
 
 #endif

@@ -30,9 +30,9 @@ void func_00114608(pl00 *self)
         self->comboSet = 0;
         Obj0000_Clear_Fields_640_648_124E58(self);
         func_00124540(self, 3);
-        if (self->unk640 != 0)
+        if (self->held != 0)
             func_00124EC0(self);
-        e = self->unk640;
+        e = self->held;
         s2 = 0;
         if (e != 0) {
             cGameObjVt *vt = cGameObj_vt(e);
@@ -54,7 +54,7 @@ void func_00114608(pl00 *self)
         }
         func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
         self->unk15B0 = 0x66;
-        self->unk15BC = self->unk15B4 = 1;
+        self->unk15BC = self->stepCount = 1;
         self->base.unk568 = 5;
         self->unk15B8 = 0;
         self->unk165C = 0;
@@ -64,13 +64,13 @@ void func_00114608(pl00 *self)
     /* fallthrough */
     case 1:
         InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
-        if (self->unk640 != 0) {
+        if (self->held != 0) {
             self->unk648 = 0x14;
             func_0012CC70(self);
             self->flags15F4 = self->flags15F4 | 0x800000;
         }
         if (self->base.seqFlags & 0x100) {
-            if (self->unk15B4 != 0) {
+            if (self->stepCount != 0) {
                 if (self->unk165C == 0)
                     self->unk165C = func_00125048(self);
                 if (self->unk15B0 != 0) {

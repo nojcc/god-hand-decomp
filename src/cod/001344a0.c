@@ -12,6 +12,7 @@
 #include "godhand/DispMgr.h"
 #include "godhand/emPhaseTable.h"
 #include "godhand/cDamageUnit.h"
+#include "godhand/DispMgr.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_001B6FB8(cOmBase *self);
@@ -125,7 +126,6 @@ int cOmBase_initEffData241(cOmBase *self)
     return 1;
 }
 
-
 extern unsigned char D_003C2554;        /* the loading task is running */
 extern unsigned char D_003C2555;        /* the loading is finished */
 
@@ -134,10 +134,10 @@ extern unsigned char D_003C2555;        /* the loading is finished */
 __attribute__((section(".text.cNowLoading_taskBody")))
 void cNowLoading_taskBody(void)
 {
-    cNowLoading_setup(&D_003BD6E8->loading);
+    cNowLoading_setup(&Cockpit->nowLoading);
     for (;;) {
-        func_0013EE58(&D_003BD6E8->loading);
-        Forward2AAC28_13F070(&D_003BD6E8->loading.base);
+        func_0013EE58(&Cockpit->nowLoading);
+        Forward2AAC28_13F070(&Cockpit->nowLoading.base);
         if (D_003C2555 != 0 && D_003C2554 != 0) {
             D_003C2554 = 0;
             D_003C2555 = 0;

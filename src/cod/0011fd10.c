@@ -42,7 +42,7 @@ void func_0011FD10(pl00 *self)
     self->unk648 = 0x1E;
     self->base.objFlags = self->base.objFlags | 0x10000;
     s1 = self->unk694;
-    self->unk640 = (cGameObj *)s1;
+    self->held = (cGameObj *)s1;
     cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
     cEmManage_SetPlCatched(D_005864F0);
     switch (self->base.step) {
@@ -136,11 +136,11 @@ void func_0011FD10(pl00 *self)
             }
             cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, self, 0, 0, 0, 0);
         }
-        if ((self->base.seqFlags & 1) != 0 && self->unk15B4 != 0) {
-            self->unk15B4 = 0;
+        if ((self->base.seqFlags & 1) != 0 && self->stepCount != 0) {
+            self->stepCount = 0;
             func_0012C348(self, 2);
         } else {
-            self->unk15B4 = 1;
+            self->stepCount = 1;
         }
         self->base.unk56A--;
         if (self->base.unk56A > 0) {
@@ -168,7 +168,7 @@ void func_0011FD10(pl00 *self)
         }
         self->unk15B0 = 0;
         self->unk15B8 = 0;
-        self->unk15B4 = 4;
+        self->stepCount = 4;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0xA, 0, 0x2C, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x64, 0, 0x1D, 0, 0xA);
         self->base.step = self->base.step + 1;
@@ -176,7 +176,7 @@ void func_0011FD10(pl00 *self)
     case 3:
         self->base.hitFlash = 5.0f;
         func_002DB7A8();
-        if (self->unk640 != 0) {
+        if (self->held != 0) {
             self->unk648 = 0x1E;
         }
         InvokeVirtualAtField214AndForward_124E68(self, 0.392699093f);
@@ -185,7 +185,7 @@ void func_0011FD10(pl00 *self)
         }
         self->unk15B0 = self->unk15B0 + 1;
         if ((D_007474A0.padBtn & 0xF0) != 0) {
-            switch (self->unk15B4) {
+            switch (self->stepCount) {
             default:
             case 0: lim = 9; break;
             case 1: lim = 8; break;
@@ -197,29 +197,29 @@ void func_0011FD10(pl00 *self)
             case 7: lim = 2; break;
             }
             if (self->unk15B0 < lim) {
-                self->unk15B4 = self->unk15B4 + 1;
+                self->stepCount = self->stepCount + 1;
             }
             if (lim < self->unk15B0) {
-                self->unk15B4 = self->unk15B4 - 1;
+                self->stepCount = self->stepCount - 1;
             }
-            if (self->unk15B4 < 0) {
-                self->unk15B4 = 0;
+            if (self->stepCount < 0) {
+                self->stepCount = 0;
             }
-            if (self->unk15B4 >= 8) {
-                self->unk15B4 = 7;
+            if (self->stepCount >= 8) {
+                self->stepCount = 7;
             }
             self->unk15B0 = 0;
             self->unk15B8 = 0xA;
         } else {
             if (self->unk15B8 <= 0) {
                 self->unk15B8 = 5;
-                self->unk15B4 = self->unk15B4 - 1;
-                if (self->unk15B4 < 0) {
-                    self->unk15B4 = 0;
+                self->stepCount = self->stepCount - 1;
+                if (self->stepCount < 0) {
+                    self->stepCount = 0;
                 }
             }
         }
-        switch (self->unk15B4) {
+        switch (self->stepCount) {
         default:
         case 0: self->base.speedRate = 1.0f; break;
         case 1: self->base.speedRate = 1.25f; break;

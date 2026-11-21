@@ -1000,7 +1000,7 @@ void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(unsigned char *a0) {
 
 __attribute__((section(".text.Obj0000_Clear_Byte_D_003BD6E8_1380_94_Bit0_1F75B0")))
 void Obj0000_Clear_Byte_D_003BD6E8_1380_94_Bit0_1F75B0(void) {
-    DispMgrKind7 *rec = &D_003BD6E8->kind7;
+    DispMgrKind7 *rec = &Cockpit->kind7;
 
     rec->flags = rec->flags & 0xFE;
 }
@@ -1599,7 +1599,7 @@ __attribute__((section(".text.GetField_2_158CC8")))
 float GetField_2_158CC8(int a0, float *a1) { return a1[2]; }
 
 __attribute__((section(".text.Obj0000_Clear_Fields_640_648_124E58")))
-void Obj0000_Clear_Fields_640_648_124E58(pl00 *self) { self->unk640 = 0; self->unk648 = 0; }
+void Obj0000_Clear_Fields_640_648_124E58(pl00 *self) { self->held = 0; self->unk648 = 0; }
 
 __attribute__((section(".text.ReturnOne_1F6FA0")))
 int ReturnOne_1F6FA0(void) { return 1; }

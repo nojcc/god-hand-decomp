@@ -51,7 +51,7 @@ typedef struct PartModel {
     void *anim;
 } PartModel;
 
-extern char *D_003BD6E8;
+extern char *Cockpit;
 
 static inline void Vec28EBF0_copy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
 {
@@ -88,9 +88,9 @@ int func_0028EBF0(PartModel *self, PartSrc *src, int arg)
     self->unk622 = 0;
     self->unk630 = 1.0f;
     if (InRange28EBF0(self->kind, 0x2A0, 0x300)) {
-        self->anim = D_003BD6E8 + 0xE50;
+        self->anim = Cockpit + 0xE50;
     } else {
-        self->anim = D_003BD6E8 + 0xE00;
+        self->anim = Cockpit + 0xE00;
     }
     cIDBase_restartAnim(self->anim);
     self->unk3A8 = 1.0f;

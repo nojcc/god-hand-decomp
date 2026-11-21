@@ -40,7 +40,7 @@ void func_0010E230(pl00 *self)
         char *w;
 
 
-        o = self->unk640;
+        o = self->held;
         self->unk1588 = 0.0f;
         if (o != 0) {
             cGameObjVt *vt;
@@ -62,8 +62,8 @@ void func_0010E230(pl00 *self)
                 d = lim;
             if (0.0f < d)
                 self->unk1588 = d * 0.2f;
-        if (self->unk640 != 0) {
-            unsigned short k = self->unk640->actorId;
+        if (self->held != 0) {
+            unsigned short k = self->held->actorId;
             if (InMidRange(k, 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
         }
@@ -82,13 +82,13 @@ void func_0010E230(pl00 *self)
                       3, 0.0f, 0, 0);
         self->unk15C4 = 0.0f;
         self->unk15B0 = 1;
-        self->unk15C0 = 1.0f;
+        self->stepScale = 1.0f;
         self->unk15B8 = 1;
         self->unk1588 = 0.0f;
         self->base.unk568 = 0x32;
         self->unk1603 = 2;
         self->base.step = self->base.step + 1;
-        self->unk15B4 = 0;
+        self->stepCount = 0;
     }
     /* fallthrough */
     case 1: {
@@ -101,7 +101,7 @@ void func_0010E230(pl00 *self)
         }
         if ((self->base.seqFlags & 0x10) == 0)
             self->unk1603 = 2;
-        if (self->unk640 != 0)
+        if (self->held != 0)
             self->unk648 = 0x14;
         if (moveMotion(self) != 0) {
             pl00_clearMotionCam(self, 1, 0);
@@ -110,7 +110,7 @@ void func_0010E230(pl00 *self)
             self->base.step = 0;
             self->base.stepArg = 0;
         }
-        o = self->unk640;
+        o = self->held;
         if (o != 0) {
             cGameObjVt *vt;
             cVec *(*fp)(void *self);

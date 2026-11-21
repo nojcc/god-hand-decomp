@@ -53,7 +53,7 @@ void func_001E0840(Slot1 *self)
                 if ((unsigned int)irand() % n == 0) {
                     if (tbl.kind[i] == 0 || tbl.kind[i] == 8 || tbl.kind[i] == 1) {
                         self->payMode = tbl.kind[i];
-                        classPAD_WORK_Pad_act_set(D_005E8140, 0x03FF0000, (10 << D_007474A0.padPort) << 16);
+                        classPAD_WORK_Pad_act_set(D_005E8140, 0x03FF0000, (10 << D_007474A0.frameShift) << 16);
                     } else {
                         self->payMode = tbl.kind[(irand() & 3) + 3];
                     }
