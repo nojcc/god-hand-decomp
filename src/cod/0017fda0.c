@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void cDamageUnit_AddDamageCollCylinder(void *a0, void *a1, float *a2, float *a3, float f0, float f1);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern int D_00574380;
 extern float D_00567FF0[];
 extern unsigned char D_005FEE00[];
 extern int cOmSub_move(void *a0);

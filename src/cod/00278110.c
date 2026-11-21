@@ -6,18 +6,17 @@
 extern void func_002799B8(char *a0);
 
 #include "godhand/motion.h"
+#include "godhand/cDamageManage.h"
 extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void cModel_calcWorldParts(void *a0);
 extern void cCollisionSolidManage_SetActive(void *a0, void *a1, int a2);
 extern void cParts_setRotationOrder(void *a0, int a1);
-extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
 extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 
 extern int D_00462FC0;
-extern char D_00574380[];
 extern char D_00447CB8[];
 extern char D_00447CC0[];
 
@@ -62,7 +61,7 @@ int func_00278110(char *a0, char *a1, void *a2)
     *(int *)(s1 + 0x670) = 0;
     if (*(int *)(s1 + 0x564) != 0x232) {
         struct sph *r;
-        *(int *)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
+        *(cDamageTake **)(s1 + 0x670) = cDamageManage_CreateDamageTake(&D_00574380, s1, 1);
         n = *(unsigned char *)(s1 + 0x2B4);
         *(int *)(buf + 0x0) = n;
         {

@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmHitVolume.h"
+#include "godhand/cDamageManage.h"
 
-extern int D_00574380;
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void func_001FD9D8(void *take, void *mtx, float *center, float *zero, float *half);
 
 

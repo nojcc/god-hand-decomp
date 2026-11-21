@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmHitVolume.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_00383708(void *self);
 extern void func_003837E8(void *self);
 extern void func_00383848(void *self);
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void cDamageUnit_AddDamageCollCylinder(void *unit, void *pos, float *a, float *b, float height, float radius);
 extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *size);
 
@@ -41,7 +41,6 @@ void PhaseObj_updatePhase(PhaseObj *self)
 
 
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -93,7 +92,6 @@ int cOmHitVolume_setupCylinderH3(cOmHitVolume *self)
 
 
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -141,7 +139,6 @@ int cOmHitVolume_setupCylinderH4(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 

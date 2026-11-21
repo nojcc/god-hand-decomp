@@ -1,13 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
+#include "godhand/cDamageManage.h"
 
 /* sn-2.95.3-136 */
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void cDamageUnit_AddDamageCollSphere(void *a0, void *a1, float *a2, float f12);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern int D_00574380;
 
 #define SPHERE_RADIUS    0.5f
 #define CHILD_FIRST      1

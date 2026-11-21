@@ -23,4 +23,7 @@ typedef struct cDamageGive {
 
 typedef char cDamageGive_size_check[(sizeof(cDamageGive) == 0x60) ? 1 : -1];
 
+/* Hand give to owner and set it up for kind; nothing on the spare. Returns 1. */
+int SetObjTargetAndActivate_1FD2C0(cDamageGive *self, int kind, void *owner);
+
 #endif

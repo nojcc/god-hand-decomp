@@ -22,12 +22,10 @@ extern char D_005864F0[];
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
 extern void cParts_setRotationOrder(void *a0, int a1);
 extern void cObjBase_KageInit(void *a0, void *a1, void *a2);
-extern int cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, void *a2, float f);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
 extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 extern int D_00462FC0;
-extern char D_00574380[];
 extern char D_003C3F58[];
 extern char *D_00586A88;
 
@@ -173,6 +171,7 @@ void func_0028E420(void *a0)
 }
 
 #include "godhand/vu0.h"
+#include "godhand/cDamageManage.h"
 
 
 
@@ -260,7 +259,7 @@ int func_00101EB8(char *a0)
     } else {
         *(short *)(s1 + 0x54A) = v3;
     }
-    *(int *)(s1 + 0x5B0) = cDamageManage_CreateDamageTake(D_00574380, s1, 0);
+    *(cDamageTake **)(s1 + 0x5B0) = cDamageManage_CreateDamageTake(&D_00574380, s1, 0);
     if (*(int *)(s1 + 0x5B0) != 0) {
         struct sph *rr;
         n = *(unsigned char *)(s1 + 0x2B4);

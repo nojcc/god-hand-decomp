@@ -28,7 +28,7 @@ int func_00178618(cOmHitVolume *em)
     v[2].y = 0.0f;
     v[2].z = 0.0f;
     m->w = 1.0f;
-    slot = cDamageManage_CreateDamageTake(D_00574380, em, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, em, 2);
     em->damageTake = slot;
     if (slot != 0) {
         nv = &v[3];
@@ -38,7 +38,7 @@ int func_00178618(cOmHitVolume *em)
         nv->w = 1.0f;
         cDamageUnit_AddDamageCollCylinder(slot, em->base.mtx, m, nv, v[1].y, v[1].x * 0.5f);
     }
-    give = cDamageManage_CreateDamageGive(D_00574380, 0, (char *)em);
+    give = cDamageManage_CreateDamageGive(&D_00574380, 0, em);
     em->damageGive = give;
     if (give != 0) {
         ov = &v[3];

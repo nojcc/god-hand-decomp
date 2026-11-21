@@ -1,9 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmHitVolume.h"
-extern char D_00574380[];
+#include "godhand/cDamageManage.h"
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void func_001FD9D8(void *slot, void *mtx, float *m, float *nv, float *t);
 
 
@@ -37,7 +36,7 @@ int cOmHitVolume_setupLongBox(cOmHitVolume *p)
     f[9] = 0.0f;
     f[10] = 0.0f;
     m[3] = one;
-    slot = cDamageManage_CreateDamageTake(D_00574380, p, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
     p->damageTake = slot;
     if (slot != 0) {
         nv = &f[12];

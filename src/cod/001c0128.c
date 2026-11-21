@@ -1,12 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
+#include "godhand/cDamageManage.h"
 
-extern int cDamageManage_CreateDamageGive(int a0, int a1, int a2);
 extern int cDamageUnit_AddDamageCollSphere(int a0, int a1, int a2, float f);
-extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void cOmItem_setGetRangeLong(void *a0, int a1);
 extern void cOmItem_setScrCheck(void *a0, int a1);
-extern int D_00574380;
 
 __attribute__((section(".text.func_001C0128")))
 int func_001C0128(void *a0)
@@ -52,7 +50,7 @@ int func_001C0128(void *a0)
         *(int *)(s3 + 0x5B8) |= 8;
         break;
     case 0x3ED:
-        d = cDamageManage_CreateDamageGive((int)&D_00574380, 3, (int)s3);
+        d = (int)cDamageManage_CreateDamageGive(&D_00574380, 3, s3);
         *(int *)(s3 + 0x680) = d;
         if (d != 0) {
             *(int *)&buf[0] = 0;

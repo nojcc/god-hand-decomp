@@ -5,12 +5,11 @@
 #include "godhand/cModel.h"
 #include "godhand/cOm1f.h"
 #include "godhand/motion.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void func_001FD9D8(void *a0, void *a1, float *a2, float *a3, float *t0);
 extern void func_001BFB28(void *a0);
-extern int D_00574380;
 extern int D_0071B7C0[];
 extern int D_0071B840[];
 extern int D_0071B8C0[];

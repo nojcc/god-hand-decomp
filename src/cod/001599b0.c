@@ -3,16 +3,15 @@
 #include "godhand/cMessDrawFont.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
+#include "godhand/cDamageManage.h"
 
 extern unsigned int cMessCommon_getCodeSize(unsigned int code);
 extern void func_002B04C0(cMessDrawFont *self, unsigned short *text, void *arg);
 extern float cMessDrawFont_measureCode(cMessDrawFont *self, unsigned short *text, void *arg);
 extern float func_002B0A58(cMessDrawFont *self, unsigned short *text, void *arg);
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *size);
 extern void cOmDoor_setObjCollision(void *self);
-extern int D_00574380;
 
 /* Decode one record header: store the kind (bits 12..15 of the first word); kinds 1, 3 and 5 point the output at the record's table in the blob, reset it when the record has fewer than 2 entries, otherwise step to the first entry, read its first value and let func_00159DA0 start the decode; any other kind keeps the record's float. */
 #define REC_KIND_BYTES   1

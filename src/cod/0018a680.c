@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void func_001FD9D8(void *a0, void *a1, float *a2, float *a3, float *t0);
 extern int cModel_getMeshPtr(void *a0, int a1);
-extern int D_00574380;
 extern void cDamageUnit_AddDamageCollCylinder(void *a0, void *a1, float *a2, float *a3, float f0, float f1);
 
 /* Spawn the damage-take volume of a multi-part object, show the second mesh and hide the first, then flag every other part with 0x8 and 0x10. */

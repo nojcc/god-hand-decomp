@@ -27,7 +27,6 @@ extern void cCollisionSolidManage_ReleaseUnit(void *a0, void *a1);
 extern void cCollisionSolidManage_CreateUnit(void *a0, void *a1, int a2, float f);
 extern void cCollisionSolidManage_CreateSphere(void *a0, void *a1, void *a2, void *a3, float f);
 extern int D_00462FC0;
-extern char D_00574380[];
 
 __attribute__((section(".text.func_00275DA8")))
 void func_00275DA8(cEm265 *self)
@@ -38,7 +37,7 @@ void func_00275DA8(cEm265 *self)
 
     if ((self->base.emNo ^ EM_NO_265) != 0)
         return;
-    if (ClearAndResetFields_1FE278(D_00574380, self->take)) {
+    if (ClearAndResetFields_1FE278(&D_00574380, self->take)) {
         self->take = 0;
         for (i = 0; i < 5; i++)
             self->sphere[i] = -1;
@@ -60,7 +59,7 @@ void func_00275DA8(cEm265 *self)
     q.z = -1.4f;
     q.w = 1.0f;
     cCollisionSolidManage_CreateSphere(&D_00462FC0, self, self->base.mtx, &q, 1.0f);
-    self->take = cDamageManage_CreateDamageTake(D_00574380, self, 1);
+    self->take = cDamageManage_CreateDamageTake(&D_00574380, self, 1);
 
     child = cOmBase_childAt((cOmBase *)self, &q.frame, 2);
     q.frame = 0;

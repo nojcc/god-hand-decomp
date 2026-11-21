@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmHitVolume.h"
+#include "godhand/cDamageManage.h"
 
-extern int D_00574380;
 extern void func_001B6FB8(cOmHitVolume *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, cOmHitVolume *owner, int kind);
 extern void func_001FD9D8(void *take, void *pos, float *a, float *b, float *c);
 
 /* Set the object up: a damage-take unit with a 1.0 x 2.0 x 1.0 volume at its position, one hit point, a five entry table at 0x620 and the state words set; returns 1. */

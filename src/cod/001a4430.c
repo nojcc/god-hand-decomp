@@ -4,14 +4,13 @@
 #include "godhand/vu0.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cMovie.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void cDamageUnit_AddDamageCollSphere(void *unit, void *mtx, cVec *pos, float radius);
 extern void cOm4f_setOpenCloseRot(void *self, float a, float b);
 extern void cOm4f_setCloseFix(void *self);
 extern void cOm4f_setEventMode(void *self, int mode);
-extern int D_00574380;
 extern void displayScrollLayer(int layer, int show);
 extern void cHeap_free(void *heap, void *p);
 extern void Forward342910_342888(int handle);

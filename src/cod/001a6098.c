@@ -5,11 +5,10 @@
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/capVu0.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void cDamageUnit_AddDamageCollCylinder(void *unit, void *mtx, float *pos, float *dir, float radius, float half);
-extern int D_00574380;
 extern float fRand1_1(void);
 extern void CustomIDWork_SetOffsetPosX(void *work, int x);
 extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);

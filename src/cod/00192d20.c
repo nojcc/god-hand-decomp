@@ -45,7 +45,7 @@ int func_00192D20(cOmHitVolume *em)
     v[5].y = 0.0f;
     v[5].z = 0.0f;
     ofsB->w = 1.0f;
-    slot = cDamageManage_CreateDamageTake(D_00574380, em, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, em, 2);
     em->damageTake = slot;
     if (slot != 0) {
         rot = &v[6];

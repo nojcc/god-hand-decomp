@@ -1,3 +1,4 @@
+#include "godhand/cDamageManage.h"
 /* sn-2.95.3-136 matched TU. */
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
@@ -9,10 +10,8 @@ extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, int a3, int a4, int a5, 
 extern void SetEffect(int a0, int a1, int a2, int a3, int a4, unsigned int a5);
 extern int D_005FEE00;
 extern void func_001B6FB8(void *a0);
-extern void *cDamageManage_CreateDamageTake(void *a0, void *a1, int a2);
 extern void func_001FD9D8(void *a0, void *a1, float *a2, float *a3, float *t0);
 extern void func_001BFB28(void *a0);
-extern int D_00574380;
 
 /* Phase-machine tick: run the handler picked by the state byte, then the shared post-update steps. */
 struct Entry_func_00194480 { short f0; short f2; short f4; short f6; };

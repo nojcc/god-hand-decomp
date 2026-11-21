@@ -2,7 +2,6 @@
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/vecInline.h"
-extern char D_00574380[];
 
 /* An enemy whose attack is a damage-give volume of three spheres along z. */
 typedef struct cOmGiveSpheres {
@@ -43,7 +42,7 @@ int func_001B67D0(cOmGiveSpheres *self)
     f[13] = 0.0f;
     t[2] = 1.0f;
     t[3] = 1.0f;
-    give = cDamageManage_CreateDamageGive(D_00574380, 2, self);
+    give = cDamageManage_CreateDamageGive(&D_00574380, 2, self);
     self->give = give;
     if (give != 0) {
         cDamageUnit_AddDamageCollSphere(give, self->base.mtx, f, 0.25f);

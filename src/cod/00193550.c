@@ -1,6 +1,5 @@
 /* sn-2.95.3-136: func_00193550, hit volume 1.18 x 1.61 x 0.67 with the origin at half the depth, the damage-take
  * marked active, and a five entry table at 0x620. */
-extern char D_00574380[];               /* the damage manager */
 
 #include "godhand/cOmHitVolume.h"
 #include "godhand/cOmHitVolumeSetup.h"
@@ -31,7 +30,7 @@ int func_00193550(cOmHitVolume *self) {
     originVec[1] = 0.0f;
     originVec[2] = v[0].z * 0.5f;
     m[3] = 1.0f;
-    slot = cDamageManage_CreateDamageTake(D_00574380, self, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
     self->damageTake = slot;
     if (slot != 0) {
         nv = &origin2Vec[0];

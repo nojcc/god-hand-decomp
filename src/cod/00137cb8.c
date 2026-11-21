@@ -4,12 +4,11 @@
 #include "godhand/Slot2.h"
 #include "godhand/pathRec.h"
 #include "godhand/vu0.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void func_001FD9D8(void *unit, void *mtx, float *pos, float *dir, float *box);
 extern void cOmDoor_setObjCollision(void *self);
-extern int D_00574380;
 extern void cSnd_SeCall_2CB8A0(char *snd, int a1, int a2, int a3, int t0, int t1, int t2);
 extern void SlotList_selectPrev(void *self);
 extern void func_001F6AF8(void *self);

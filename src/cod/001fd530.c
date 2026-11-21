@@ -1,14 +1,15 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cDamageManage.h"
 
 __attribute__((section(".text.SetTarget_1FD530")))
-int SetTarget_1FD530(void *a0, int a1, int a2) {
-    if (*(char*)((char*)a0+0x49) == 0) {
+int SetTarget_1FD530(cDamageTake *self, void *owner, int kind) {
+    if (self->type == 0) {
         return 1;
     }
-    *(int*)((char*)a0+0x30) = a1;
-    *(char*)((char*)a0+0x4A) = 1;
-    func_001FD988(a0, a2);
-    *(int*)((char*)a0+0x34) = 0;
+    self->owner = owner;
+    self->live = 1;
+    func_001FD988(self, kind);
+    self->attacker = 0;
     return 1;
 }
 
@@ -43,10 +44,10 @@ void InitEntryPool_1FE188(int a0) {
 }
 
 __attribute__((section(".text.cDamageManage_CreateDamageTake")))
-int cDamageManage_CreateDamageTake(int a0, int a1, int a2) {
-    int p = func_001FE310(a0);
+cDamageTake *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, int kind) {
+    cDamageTake *p = func_001FE310(self);
     if (p == 0) return 0;
-    if (SetTarget_1FD530(p, a1, a2) == 0) p = 0;
+    if (SetTarget_1FD530(p, owner, kind) == 0) p = 0;
     return p;
 }
 

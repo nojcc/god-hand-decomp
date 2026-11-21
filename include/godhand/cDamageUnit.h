@@ -92,6 +92,9 @@ typedef struct cDamageTake {
 
 typedef char cDamageTake_size_check[(sizeof(cDamageTake) == 0x70) ? 1 : -1];
 
+/* Hand take to owner and set it up for kind; nothing on the spare. Returns 1. */
+int SetTarget_1FD530(cDamageTake *self, void *owner, int kind);
+
 /* Turns every node of the unit on or off. */
 void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);
 

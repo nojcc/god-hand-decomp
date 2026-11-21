@@ -4,9 +4,9 @@
 #include "godhand/cOmHitVolume.h"
 #include "godhand/cDataManager.h"
 #include "godhand/cSnd.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *self);
-extern void *cDamageManage_CreateDamageTake(void *mgr, void *owner, int kind);
 extern void func_001FD9D8(void *unit, void *pos, float *m, float *nv, float *t);
 extern void cHeap_free(int heap, int *node);
 extern cSnd D_005FEE00;
@@ -42,7 +42,6 @@ void *cRoomJump_getRecord(cRoomJump *self, unsigned short group, unsigned char n
     return rec;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -110,7 +109,6 @@ int cOmHitVolume_setupBox08x17x08(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
@@ -178,7 +176,6 @@ int cOmHitVolume_setupBox15x11x12(cOmHitVolume *self)
     return 1;
 }
 
-extern int D_00574380;                  /* damage manager */
 
 
 
