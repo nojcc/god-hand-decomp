@@ -23,9 +23,9 @@ extern void func_001BFAC8(void *a0);
 __attribute__((section(".text.ResetObjState_19D1E8")))
 void ResetObjState_19D1E8(void *a0) {
     int tmp;
-    int sub;
+    cDamageUnit *sub;
     tmp = (*(int *)((char *)a0 + 0x5B0) & -9) | 4;
-    sub = *(int *)((char *)a0 + 0x650);
+    sub = *(cDamageUnit **)((char *)a0 + 0x650);
     *(int *)((char *)a0 + 0x5B0) = tmp;
     if (sub != 0) {
         cDamageUnit_SetDamageCollActive((cDamageUnit *)sub, 0);
@@ -86,9 +86,9 @@ void *InitObjVtable_19D5A8(void *a0) {
 
 __attribute__((section(".text.FreeObjResource_19D5E0")))
 void FreeObjResource_19D5E0(void *a0, void *a1) {
-    int v1;
+    cDamageTake *v1;
     *(unsigned int *)((char *)a0 + 0x214) = (unsigned int)&D_00425E10;
-    v1 = *(int *)((char *)a0 + 0x600);
+    v1 = *(cDamageTake **)((char *)a0 + 0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(unsigned int *)((char *)a0 + 0x600) = 0;

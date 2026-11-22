@@ -161,10 +161,15 @@ class TestValidation:
         3,884 C units 28 change their `.text` with it (0.7%), and the 24
         that don't carry it are already matched, so it stays per-TU.
 
-        `-O0` is work's own; compile.py gives its reason next to the set."""
+        `-f=-fno-exceptions` joined for SN C++ units (#60): sn-2.95.3-136's
+        cc1plus emits one exception FDE per function into `.data`, which
+        retail doesn't have, and the flag removes it without touching
+        `.text`. `func_001ABE80` is its first unit. When it joined, no C unit changed its
+        `.text` with it (3,798 then) and 29 of the 135 ee-2.9 C++ units did, so
+        it stays per-TU."""
         assert cm.SUPPORTED_C_FLAG_ADDS == frozenset(
-            {"-O0", GCSE, "-f=-ffast-math",
-             "-f=-fno-rtti", "-f=-ftrapv", "-f=-fmove-all-movables"})
+            {GCSE, "-f=-ffast-math", "-f=-fno-rtti", "-f=-ftrapv",
+             "-f=-fmove-all-movables", "-f=-fno-exceptions"})
 
 
 # --------------------------------------------------------------------------- #

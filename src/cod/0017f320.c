@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
-#include "godhand/Slot1.h"
-#include "godhand/scrollLayer.h"
+#include "godhand/Slot2.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
+#include "godhand/cDamageManage.h"
 
+extern void displayScrollLayer(int id, int on);
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollision(void *self);
 
@@ -61,7 +60,9 @@ void Slot2_showLayersForBetLv(Slot2 *self)
 /* sn-2.95.3-136 */
 
 
-/* Slot1 mark selector step (selFlag), once a frame: while armed (bit 15), count 8 frames, flip the shown bit (14) keeping the selector (bits 11..13), then show only the selected mark layer or hide all five. */
+/* Slot2 mark selector step, once a frame: while armed (bit 15), count 8 frames, flip the shown bit (14) keeping the selector (bits 11..13), then show only the selected mark layer or hide all five. */
+#define SLOT2_OFFSET_BLINK2   0x4AC     /* blink word, not named in Slot2.h */
+#define SLOT2_OFFSET_MARKS    0x400     /* layer ids, not named in Slot2.h */
 #define BLINK_ARMED    0x8000
 #define BLINK_ON       0x4000
 #define BLINK_SELECT   0x3800
@@ -70,19 +71,23 @@ void Slot2_showLayersForBetLv(Slot2 *self)
 #define MARK_NUM       5
 
 typedef struct { int w[MARK_NUM]; } MarkTbl;
+typedef struct Slot2Blink {
+    char unk00[4];
+} Slot2Blink;
 
 extern MarkTbl D_0042B8D0;              /* layer index of each mark */
 
 __attribute__((section(".text.Slot2_stepMarkSelector")))
-void Slot2_stepMarkSelector(Slot1 *self)
+void Slot2_stepMarkSelector(Slot2Blink *self)
 {
-    unsigned short *blink = &self->selFlag;
+    unsigned short *blink = (unsigned short *)((char *)self + SLOT2_OFFSET_BLINK2);
     unsigned int v = *blink;
     MarkTbl tbl;
     unsigned short w;
     int sel;
     int i;
     int *p;
+    char *layers;
 
     if (v & BLINK_ARMED) {
         v = v + 1;
@@ -93,16 +98,18 @@ void Slot2_stepMarkSelector(Slot1 *self)
             sel = (w >> 11) & 7;
             *blink = w;
             if (w & BLINK_ON) {
+                layers = (char *)self + SLOT2_OFFSET_MARKS;
                 i = 0;
                 p = tbl.w;
                 for (; i < MARK_NUM; i++) {
-                    displayScrollLayer(self->scrollLayer[*p], i == sel);
+                    displayScrollLayer(*(int *)(layers + (*p << 2)), i == sel);
                     p++;
                 }
             } else {
+                layers = (char *)self + SLOT2_OFFSET_MARKS;
                 p = tbl.w;
                 for (i = MARK_NUM - 1; i >= 0; i--) {
-                    displayScrollLayer(self->scrollLayer[*p], 0);
+                    displayScrollLayer(*(int *)(layers + (*p << 2)), 0);
                     p++;
                 }
             }
@@ -140,10 +147,10 @@ typedef struct DoorBoxObj {
 __attribute__((section(".text.DoorBoxObj_constructWideB")))
 int DoorBoxObj_constructWideB(DoorBoxObj *self)
 {
-    cVec v[4];
-    cVec *m;
-    cVec *nv;
-    cVec *t;
+    float f[16];
+    float *m;
+    float *nv;
+    float *t;
     void *slot;
     float one, ca, cb, cc;
     int hp;
@@ -153,34 +160,34 @@ int DoorBoxObj_constructWideB(DoorBoxObj *self)
     ca = 2.13f;
     cb = 3.78f;
     cc = 0.2f;
-    t = &v[1];
-    m = &v[2];
-    v[0].x = ca;
-    v[1].x = ca;
-    v[0].y = cb;
-    v[0].z = cc;
-    v[1].z = cc;
-    v[1].y = cb;
-    v[0].w = one;
-    t->w = one;
-    v[2].x = v[0].x * -0.5f;
-    *(int *)&v[2].y = 0;
-    *(int *)&v[2].z = 0;
-    m->w = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
+    t = &f[4];
+    m = &f[8];
+    f[0] = ca;
+    f[4] = ca;
+    f[1] = cb;
+    f[2] = cc;
+    f[6] = cc;
+    f[5] = cb;
+    f[3] = one;
+    t[3] = one;
+    f[8] = f[0] * -0.5f;
+    *(int *)&f[9] = 0;
+    *(int *)&f[10] = 0;
+    m[3] = one;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, 2);
     self->damage = slot;
     if (slot != 0) {
-        nv = &v[3];
-        *(int *)&v[3] = 0;
-        *(int *)&v[3].y = 0;
-        *(int *)&v[3].z = 0;
-        nv->w = one;
-        func_001FD9D8(slot, (char *)self + 0x80, m, nv, t);
+        nv = &f[12];
+        *(int *)&f[12] = 0;
+        *(int *)&f[13] = 0;
+        *(int *)&f[14] = 0;
+        nv[3] = one;
+        func_001FD9D8(slot, (const struct cMatrix *)((char *)self + 0x80), (const cVec *)m, (const cVec *)nv, (const cVec *)t);
     }
     hp = 1;
     self->base.hpMax = hp;
     self->base.hp = hp;
-    cVec_copy3((cVec *)self->size, &v[0]);
+    cVec_copy3((cVec *)self->size, (cVec *)f);
     cOmDoor_setObjCollision(self);
     self->hasBody = hp;
     self->body = (char *)self + DOORBOX_RING_OFFSET;

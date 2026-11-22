@@ -47,7 +47,7 @@ int SpawnDamageVolumeAndFlagParts_A(char *p)
     f[9] = 0.0f;
     f[10] = 0.0f;
     m[3] = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
         nv = &f[12];
@@ -55,7 +55,7 @@ int SpawnDamageVolumeAndFlagParts_A(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
+        func_001FD9D8(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)m, (const cVec *)nv, (const cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -123,7 +123,7 @@ int SpawnDamageVolumeAndFlagParts_B(char *p)
     f[9] = 0.0f;
     f[10] = 0.0f;
     m[3] = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
         nv = &f[12];
@@ -131,7 +131,7 @@ int SpawnDamageVolumeAndFlagParts_B(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        func_001FD9D8(slot, p + 0x80, (cVec *)m, (cVec *)nv, (cVec *)t);
+        func_001FD9D8(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)m, (const cVec *)nv, (const cVec *)t);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -197,7 +197,7 @@ int SpawnCylinderDamageAndFlagPartsB(char *p)
     f[9] = 0.0f;
     f[10] = 0.0f;
     m[3] = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
         nv = &f[12];
@@ -205,7 +205,7 @@ int SpawnCylinderDamageAndFlagPartsB(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)m, (const cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -271,7 +271,7 @@ int SpawnCylinderDamageAndFlagPartsA(char *p)
     f[9] = 0.0f;
     f[10] = 0.0f;
     m[3] = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x600) = slot;
     if (slot != 0) {
         nv = &f[12];
@@ -279,7 +279,7 @@ int SpawnCylinderDamageAndFlagPartsA(char *p)
         f[13] = 0.0f;
         f[14] = 0.0f;
         nv[3] = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, (cVec *)m, (cVec *)nv, f[5], f[4] * 0.5f);
+        cDamageUnit_AddDamageCollCylinder(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)m, (const cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;

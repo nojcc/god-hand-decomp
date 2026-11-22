@@ -1,8 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cDamageGive.h"
-#include "godhand/cDamageUnit.h"
 
-extern void ActorRec_reset(void *a0);
 extern unsigned char D_0042C4D8[];
 extern unsigned char D_0042C4B8[];
 extern unsigned char D_0042C498[];
@@ -15,9 +13,9 @@ extern void func_00378070(void *a0);
 
 __attribute__((section(".text.ResetObjectFields_1FCDE8")))
 void ResetObjectFields_1FCDE8(cDamageTake *self) {
-    ActorRec_reset(self);
+    ActorRec_reset((cDamageUnit *)self);
     self->attacker = 0;
-    self->type = CDAMAGE_TYPE_TAKE;
+    self->type = 2;
     self->hitFlags = 0;
 }
 
@@ -38,7 +36,6 @@ void *InitObjectA_1FCE20(void *a0) {
     return a0;
 }
 
-#include "godhand/vu0.h"
 
 
 

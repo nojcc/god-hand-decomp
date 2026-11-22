@@ -3,7 +3,6 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern void cDamageGive_SetDmgGiveHitVec(void *self, void *dir);
 #include "godhand/cSnd.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cDamageUnit.h"

@@ -1,17 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
-#include "godhand/CustomIDWork.h"
-#include "godhand/PanelObj.h"
 #include "godhand/cOm60.h"
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/capVu0.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *self);
 extern float fRand1_1(void);
+extern void CustomIDWork_SetOffsetPosX(void *work, int x);
+extern void CustomIDWork_SetMoveOffsetPosX(void *work, int from, int to, int frames);
+extern void func_001DEE60(void *self, int element, int show);
 
 /* Set the object up: 40 life, a 1.6 by 2.24 hit cylinder through the damage manager, no flag byte. */
 
@@ -34,9 +34,9 @@ typedef struct DamagedObj {
 
 __attribute__((section(".text.DamagedObj_setupHitCylinder")))
 int DamagedObj_setupHitCylinder(DamagedObj *self) {
-    cVec v[4];
-    cVec *pos;
-    cVec *dir;
+    float f[16];
+    float *pos;
+    float *dir;
     void *slot;
     float one, ca, cb;
 
@@ -44,28 +44,28 @@ int DamagedObj_setupHitCylinder(DamagedObj *self) {
     one = 1.0f;
     ca = 1.6f;
     cb = 2.24f;
-    pos = &v[2];
-    v[0].x = ca;
-    v[0].y = cb;
-    v[1].y = cb;
-    v[0].z = ca;
-    v[0].w = one;
-    v[1].x = ca;
-    v[1].w = one;
-    v[2].x = 0.0f;
-    v[2].y = 0.0f;
-    v[2].z = 0.0f;
-    v[1].z = ca;
-    pos->w = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 1);
+    pos = &f[8];
+    f[0] = ca;
+    f[1] = cb;
+    f[5] = cb;
+    f[2] = ca;
+    f[3] = one;
+    f[4] = ca;
+    f[7] = one;
+    f[8] = 0.0f;
+    f[9] = 0.0f;
+    f[10] = 0.0f;
+    f[6] = ca;
+    pos[3] = one;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, 1);
     self->damage = slot;
     if (slot != 0) {
-        dir = &v[3];
-        v[3].x = 0.0f;
-        v[3].y = 0.0f;
-        v[3].z = 0.0f;
-        dir->w = one;
-        cDamageUnit_AddDamageCollCylinder(slot, self->base.mtx, pos, dir, v[1].y, v[1].x * 0.5f);
+        dir = &f[12];
+        f[12] = 0.0f;
+        f[13] = 0.0f;
+        f[14] = 0.0f;
+        dir[3] = one;
+        cDamageUnit_AddDamageCollCylinder(slot, (const struct cMatrix *)self->base.mtx, (const cVec *)pos, (const cVec *)dir, f[5], f[4] * 0.5f);
     }
     self->flag604 = 0;
     self->base.hpMax = OBJ_LIFE;
@@ -117,33 +117,33 @@ void EmThrower_throwHeld(cEm00 *self, int no, int keepTime) {
 
 
 
-#define PANEL_WORK_ELEM    0xE          /* the element whose CustomIDWork slides the panel */
+#define PANEL_WORK_OFFSET  0x728
 #define PANEL_OFF_X        200          /* pixels to the right of its resting place */
 #define PANEL_SLIDE_FRAMES 10
 #define PANEL_ELEM_A       0xE
 #define PANEL_ELEM_B       0xF
 
 __attribute__((section(".text.UiPanel_setSlideMode")))
-void UiPanel_setSlideMode(PanelObj *self, unsigned char mode) {
+void UiPanel_setSlideMode(char *self, unsigned char mode) {
     switch (mode) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosX(&self->elem[PANEL_WORK_ELEM], PANEL_OFF_X);
+        CustomIDWork_SetOffsetPosX(self + PANEL_WORK_OFFSET, PANEL_OFF_X);
         func_001DEE60(self, PANEL_ELEM_A, 0);
         func_001DEE60(self, PANEL_ELEM_B, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosX(&self->elem[PANEL_WORK_ELEM], 0);
+        CustomIDWork_SetOffsetPosX(self + PANEL_WORK_OFFSET, 0);
         func_001DEE60(self, PANEL_ELEM_A, 1);
         func_001DEE60(self, PANEL_ELEM_B, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosX(&self->elem[PANEL_WORK_ELEM], PANEL_OFF_X, 0, PANEL_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX(self + PANEL_WORK_OFFSET, PANEL_OFF_X, 0, PANEL_SLIDE_FRAMES);
         func_001DEE60(self, PANEL_ELEM_A, 1);
         func_001DEE60(self, PANEL_ELEM_B, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosX(&self->elem[PANEL_WORK_ELEM], 0, PANEL_OFF_X, PANEL_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosX(self + PANEL_WORK_OFFSET, 0, PANEL_OFF_X, PANEL_SLIDE_FRAMES);
         func_001DEE60(self, PANEL_ELEM_A, 1);
         func_001DEE60(self, PANEL_ELEM_B, 1);
         break;

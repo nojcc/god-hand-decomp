@@ -1,6 +1,5 @@
 /* sn-2.95.3-136: func_0017AC90, setup with a radius 1 damage-take sphere 2.28 above the first child, a 120-frame
  * timer pair, and the first child's rot.x kept at 0x608. */
-#include "godhand/cDamageManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cOmHitVolumeSetup.h"
 
@@ -34,17 +33,17 @@ int func_0017AC90(cOmSphereTake *self)
 
     func_001B6FB8((cOmHitVolume *)self);
     {
-        cVec ofs;
+        float ofs[4];
         void *slot;
 
-        ofs.z = 2.28f;
-        ofs.w = 1.0f;
-        ofs.x = 0.0f;
-        ofs.y = 0.0f;
-        slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
+        ofs[2] = 2.28f;
+        ofs[3] = 1.0f;
+        ofs[0] = 0.0f;
+        ofs[1] = 0.0f;
+        slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, 2);
         self->take = slot;
         if (slot != 0 && GetChild(self) != 0) {
-            cDamageUnit_AddDamageCollSphere(self->take, GetChild(self)->mtx, &ofs, 1.0f);
+            cDamageUnit_AddDamageCollSphere(self->take, (const struct cMatrix *)(GetChild(self)->mtx), (const cVec *)ofs, 1.0f);
             *(int *)self->take |= 1;
         }
     }

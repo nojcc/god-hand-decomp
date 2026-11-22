@@ -1,5 +1,4 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-
 extern int D_00425EE0;
 extern void func_001BFB00(void *a0, void *a1);
 extern int D_00785E18;
@@ -22,9 +21,9 @@ extern int D_00426168;
 
 __attribute__((section(".text.ClearObjResource_19D7E8")))
 void ClearObjResource_19D7E8(void *a0, void *a1) {
-    int v1;
+    cDamageTake *v1;
     *(unsigned int *)((char *)a0 + 0x214) = (unsigned int)&D_00425EE0;
-    v1 = *(int *)((char *)a0 + 0x600);
+    v1 = *(cDamageTake **)((char *)a0 + 0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(unsigned int *)((char *)a0 + 0x600) = 0;
@@ -89,7 +88,6 @@ int *GetClassDescriptor_19DBF8(void) {
     return &D_00785E28;
 }
 
-#include "godhand/vu0.h"
 
 
 

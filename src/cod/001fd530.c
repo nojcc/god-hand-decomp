@@ -2,8 +2,8 @@
 #include "godhand/cDamageManage.h"
 
 __attribute__((section(".text.SetTarget_1FD530")))
-int SetTarget_1FD530(cDamageTake *self, void *owner, int kind) {
-    if (self->type == CDAMAGE_TYPE_SPARE) {
+int SetTarget_1FD530(cDamageTake *self, struct cGameObj *owner, int kind) {
+    if (self->type == 0) {
         return 1;
     }
     self->owner = owner;
@@ -44,7 +44,7 @@ void InitEntryPool_1FE188(cDamageManage *self) {
 }
 
 __attribute__((section(".text.cDamageManage_CreateDamageTake")))
-cDamageTake *cDamageManage_CreateDamageTake(cDamageManage *self, void *owner, int kind) {
+cDamageTake *cDamageManage_CreateDamageTake(cDamageManage *self, struct cGameObj *owner, int kind) {
     cDamageTake *p = func_001FE310(self);
     if (p == 0) return 0;
     if (SetTarget_1FD530(p, owner, kind) == 0) p = 0;

@@ -41,7 +41,7 @@ __attribute__((section(".text.SetStateEntry0x258_16F438")))
 void SetStateEntry0x258_16F438(int *a0, int a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00420070;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*(int *)((char *)a0 + 0x600)));
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)((char *)a0 + 0x600));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     espSys_effDataRelease(D_007419A0, 0x258);
@@ -52,7 +52,7 @@ __attribute__((section(".text.SetStateEntry0x259_16F720")))
 void SetStateEntry0x259_16F720(int *a0, int a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00420158;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*(int *)((char *)a0 + 0x600)));
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)((char *)a0 + 0x600));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     espSys_effDataRelease(D_007419A0, 0x259);
@@ -63,7 +63,7 @@ __attribute__((section(".text.SetStateEntry0x25A_16FA10")))
 void SetStateEntry0x25A_16FA10(int *a0, int a1) {
     *(int *)((char *)a0 + 0x214) = (int)&D_00420240;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*(int *)((char *)a0 + 0x600)));
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)((char *)a0 + 0x600));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     espSys_effDataRelease(D_007419A0, 0x25A);

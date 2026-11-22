@@ -52,9 +52,9 @@ void *InitSlotVu0Data_193998(void *a0) {
 
 __attribute__((section(".text.ResetField214FreeField600F_193A20")))
 int ResetField214FreeField600F_193A20(void *a0, int a1) {
-    int v1;
+    cDamageTake *v1;
     *(int **)((char*)a0 + 0x214) = &D_00424960;
-    v1 = *(int *)((char*)a0 + 0x600);
+    v1 = *(cDamageTake **)((char*)a0 + 0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)((char*)a0 + 0x600) = 0;
@@ -73,9 +73,9 @@ void *GetCInstance_193BD0(void) {
 
 __attribute__((section(".text.ResetField214FreeField600G_193CA8")))
 int ResetField214FreeField600G_193CA8(void *a0, int a1) {
-    int v1;
+    cDamageTake *v1;
     *(int **)((char*)a0 + 0x214) = &D_00424A48;
-    v1 = *(int *)((char*)a0 + 0x600);
+    v1 = *(cDamageTake **)((char*)a0 + 0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)((char*)a0 + 0x600) = 0;
@@ -94,17 +94,18 @@ void *GetDInstance_193E58(void) {
 
 __attribute__((section(".text.FreeMultiResource_193FD8")))
 void FreeMultiResource_193FD8(void *a0, int a1) {
-    int v1;
+    cDamageTake *v1;
+    cDamageGive *give;
     int v5;
     *(int *)((char *)a0 + 0x214) = (int)&D_00424B68;
-    v1 = *(int *)((char *)a0 + 0x604);
+    v1 = *(cDamageTake **)((char *)a0 + 0x604);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)((char *)a0 + 0x604) = 0;
     }
-    v5 = *(int *)((char *)a0 + 0x608);
-    if (v5 != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)v5);
+    give = *(cDamageGive **)((char *)a0 + 0x608);
+    if (give != 0) {
+        cDamageManage_ReleaseDamageGive(&D_00574380, give);
         *(int *)((char *)a0 + 0x608) = 0;
     }
     v5 = *(int *)((char *)a0 + 0x614);
@@ -126,7 +127,6 @@ void *GetEInstance_195BD0(void) {
     return p;
 }
 
-#include "godhand/vu0.h"
 
 
 

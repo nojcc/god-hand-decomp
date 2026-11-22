@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 
 extern char D_00422858[];
 extern int cOmBase_checkDamage();
@@ -68,7 +67,7 @@ void func_00182488(void *a0) {
     v0 = (*(int*)((char*)a0 + 0x5B0) & -9) | 4;
     *(int*)((char*)a0 + 0x5B0) = v0;
     if (*(int*)((char*)a0 + 0x650) != 0) {
-        cDamageUnit_SetDamageCollActive((cDamageUnit *)(*(int*)((char*)a0 + 0x650)), 0);
+        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)((char*)a0 + 0x650), 0);
     }
     func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
@@ -176,7 +175,7 @@ void func_001875F8(void *a0) {
     v0 = (*(int*)((char*)a0 + 0x5B0) & -9) | 4;
     *(int*)((char*)a0 + 0x5B0) = v0;
     if (*(int*)((char*)a0 + 0x650) != 0) {
-        cDamageUnit_SetDamageCollActive((cDamageUnit *)(*(int*)((char*)a0 + 0x650)), 0);
+        cDamageUnit_SetDamageCollActive(*(cDamageUnit **)((char*)a0 + 0x650), 0);
     }
     func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);

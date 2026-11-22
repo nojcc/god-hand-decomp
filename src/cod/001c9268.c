@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
 
-extern void cDamageGive_SetDmgGiveHitVec(char *a0, float *a1);
 extern int espSys_effDataRegist(void *a0, int a1, void *a2);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern char *CreateObj(int a0, int a1);
@@ -148,7 +147,7 @@ int func_001C9268(char *p)
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x658), 0);
         *(short *)(*(int *)(p + 0x658) + 0x46) = 0x2F;
         *(int *)(*(int *)(p + 0x658) + 0x4C) = 0x32;
-        cDamageGive_SetDmgGiveHitVec(*(char **)(p + 0x658), (float *)&D_00747B00);
+        cDamageGive_SetDmgGiveHitVec(*(cDamageGive **)(p + 0x658), (const cVec *)&D_00747B00);
         {
             char *dg = *(char **)(p + 0x658);
             *(int *)(dg + 0x40) = -1;

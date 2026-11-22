@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
-#include "godhand/cSnd.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *a0);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern float D_00567FF0[];
+extern unsigned char D_005FEE00[];
 extern int cOmSub_move(void *a0);
+extern int cSnd_SeCall_2CBA48(void *a, int b, int c, void *d, int e, int f, int g, int h);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -21,9 +21,9 @@ extern int cOmSub_move(void *a0);
 __attribute__((section(".text.func_00181920")))
 int func_00181920(char *p)
 {
-    cVec v[4];
-    cVec *m;
-    cVec *nv;
+    float f[16];
+    float *m;
+    float *nv;
     void *slot;
     float one, cb;
     int i, n, lo, b1, b2;
@@ -33,28 +33,28 @@ int func_00181920(char *p)
     func_001B6FB8(p);
     one = 1.0f;
     cb = 1.29999995f;
-    m = &v[2];
-    v[0].x = one;
-    v[0].y = cb;
-    v[1].y = cb;
-    v[0].z = one;
-    v[0].w = one;
-    v[1].x = one;
-    v[1].z = one;
-    v[1].w = one;
-    v[2].x = 0.0f;
-    v[2].y = 0.0f;
-    v[2].z = 0.0f;
-    m->w = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    m = &f[8];
+    f[0] = one;
+    f[1] = cb;
+    f[5] = cb;
+    f[2] = one;
+    f[3] = one;
+    f[4] = one;
+    f[6] = one;
+    f[7] = one;
+    f[8] = 0.0f;
+    f[9] = 0.0f;
+    f[10] = 0.0f;
+    m[3] = one;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
-        nv = &v[3];
-        v[3].x = 0.0f;
-        v[3].y = 0.0f;
-        v[3].z = 0.0f;
-        nv->w = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, m, nv, v[1].y, v[1].x * 0.5f);
+        nv = &f[12];
+        f[12] = 0.0f;
+        f[13] = 0.0f;
+        f[14] = 0.0f;
+        nv[3] = one;
+        cDamageUnit_AddDamageCollCylinder(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)m, (const cVec *)nv, f[5], f[4] * 0.5f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -65,10 +65,10 @@ int func_00181920(char *p)
         lo = 0;
         n = 1;
         while (1) {
-        ok1 = ((*(int *)&v[1] = b1 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b1));
+        ok1 = ((*(int *)&f[4] = b1 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b1));
         if (ok1) obj1 = *(int *)(*(int *)(p + 0x278) + i * 4); else obj1 = 0;
         *(int *)(obj1 + 0x154) |= CPARTS_NO_LOCAL;
-        ok2 = ((*(int *)&v[1] = b2 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b2));
+        ok2 = ((*(int *)&f[4] = b2 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b2));
         if (ok2) obj2 = *(int *)(*(int *)(p + 0x278) + i * 4); else obj2 = 0;
         *(int *)(obj2 + 0x154) |= CPARTS_NO_PARENT;
         i++;
@@ -140,7 +140,7 @@ void func_0017FDA0(char *p)
             char *e2;
             ok2 = ((*(int *)hold = b2 = *(unsigned char *)(p + 0x2B4)), (lim < b2));
             if (ok2) e2 = *(char **)(*(char **)(p + 0x278) + 4); else e2 = 0;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xDF, p, 0, e2, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xDF, p, 0, (int)e2, 0, 0);
         }
         p[0xA28] = 1;
         p[0x2F5] = 1;

@@ -9,7 +9,6 @@
 #include "godhand/vu0.h"
 
 extern void ForwardEventToList_1FD820(void *a0, void *a1);
-extern void cDamageGive_SetDmgGiveHitVec(cDamageGive *self, cVec *dir);
 
 /* cEm00.h does not name 0x690 yet, and cDamageGive.h does not name 0x40..0x4C. */
 #define EM00_DAMAGE_GIVE(self) (*(char **)((char *)(self) + 0x690))

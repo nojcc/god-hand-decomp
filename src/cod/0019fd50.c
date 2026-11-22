@@ -16,7 +16,7 @@ extern int D_00426A98;
 __attribute__((section(".text.ClearDamageCollAndState_19FD50")))
 void ClearDamageCollAndState_19FD50(void *a0) {
     int v0 = *(int*)((char*)a0 + 0x5B0);
-    int x = *(int*)((char*)a0 + 0x650);
+    cDamageUnit *x = *(cDamageUnit **)((char*)a0 + 0x650);
     *(int*)((char*)a0 + 0x5B0) = (v0 & -9) | 4;
     if (x != 0) cDamageUnit_SetDamageCollActive((cDamageUnit *)x, 0);
     func_001331B8(D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
@@ -59,9 +59,9 @@ void *Setup_Field_214_Field_620_19FEA8(void *a0) {
 
 __attribute__((section(".text.FreeActorResources_19FF30")))
 void FreeActorResources_19FF30(void *a0, int a1) {
-    int v1;
+    cDamageTake *v1;
     *(int **)((char*)a0 + 0x214) = &D_004268C8;
-    v1 = *(int*)((char*)a0 + 0x600);
+    v1 = *(cDamageTake **)((char*)a0 + 0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int*)((char*)a0 + 0x600) = 0;
@@ -78,7 +78,6 @@ void *GetTypeDescriptorB_1A00D0(void) {
     return &D_00785EC8;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -126,7 +125,6 @@ void *GetTypeDescriptorC_1A0340(void) {
     return &D_00785ED8;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -158,7 +156,7 @@ void FreeActorResourcesD_1A0418(void *a0, void *a1)
 {
     *(int *)((char *)a0 + 0x214) = (int)&D_00426A98;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*(int *)((char *)a0 + 0x600)));
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)((char *)a0 + 0x600));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     ResetField214FreeField180_1C2820(a0, a1);

@@ -1,13 +1,10 @@
 #include "godhand/cDamageManage.h"
-#include "godhand/criStm.h"
-#include "godhand/cCollisionSolid.h"
-#include "godhand/cBgmData.h"
-#include "godhand/cDvd.h"
-#include "godhand/cSnd.h"
+
 extern int D_00460D40;
 extern int D_0042C348;
 extern int D_00460D48;
 extern int D_0042C4F8;
+extern char D_00462FC0[];
 extern int D_00460D50;
 extern char D_0044AF10[];
 extern int D_00460D58;
@@ -61,7 +58,7 @@ int ClearAndResetFields_1FE278(cDamageManage *self, cDamageTake *take) {
     if (take == 0) {
         return 0;
     }
-    cDvd_releaseAll((cDamageUnit *)take);
+    cDvd_releaseAll(take);
     ResetObjectFields_1FCDE8(take);
     return 1;
 }
@@ -74,19 +71,18 @@ int *GetOrInit_460D48_1FE4C0(void) {
     return &D_00460D48;
 }
 
-/* The size in bytes of the file at path, 0 when it is missing. */
 __attribute__((section(".text.GetBuiltPackedAddr_1FFA28")))
-int GetBuiltPackedAddr_1FFA28(PathTable *table, const char *path) {
-    PathNode *node = func_001FFA68(table, path);
-    if (node == 0) {
+int GetBuiltPackedAddr_1FFA28(int a0) {
+    int v = func_001FFA68(a0);
+    if (v == 0) {
         return 0;
     }
-    return BuildPackedAddr_1FFD98(table, node);
+    return BuildPackedAddr_1FFD98(a0, v);
 }
 
 __attribute__((section(".text.ForwardDispatchByMode_27F170")))
 void ForwardDispatchByMode_27F170(void *a0) {
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, a0);
+    cCollisionSolidManage_ReleaseUnit(D_00462FC0, a0);
     KillEffect(a0, 1, 2);
 }
 
@@ -123,8 +119,8 @@ void *GetOrInit_460D68_2BAFA0(void) {
 }
 
 __attribute__((section(".text.cSnd_SeLoadNo")))
-int cSnd_SeLoadNo(cSnd *self, int slot, int arg) {
-    return cSeData_LoadNumbered(cSnd_GetSeData(self, slot), slot, arg);
+int cSnd_SeLoadNo(int a0, int a1, int a2) {
+    return cSeData_LoadNumbered(cSnd_GetSeData(a0), a1, a2);
 }
 
 __attribute__((section(".text.GetOrInit_460D78_2D5BB8")))

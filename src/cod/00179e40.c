@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
+#include "godhand/cDamageManage.h"
 
 /* sn-2.95.3-136, -f=-fno-gcse */
 
@@ -11,8 +10,8 @@ extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 __attribute__((section(".text.func_00179E40")))
 int func_00179E40(char *p)
 {
-    cVec f[2];
-    cVec *nv;
+    float f[8];
+    float *nv;
     void *slot;
     float one;
     int i, n, lo, b1, b2;
@@ -21,19 +20,19 @@ int func_00179E40(char *p)
 
     func_001B6FB8(p);
     one = 1.0f;
-    f[0].x = 0.0f;
-    f[0].y = 0.0f;
-    f[0].z = 0.0f;
-    f[0].w = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    f[0] = 0.0f;
+    f[1] = 0.0f;
+    f[2] = 0.0f;
+    f[3] = one;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
-        nv = &f[1];
-        f[1].x = 0.0f;
-        f[1].y = 0.0f;
-        f[1].z = 0.0f;
-        nv->w = one;
-        cDamageUnit_AddDamageCollCylinder(slot, p + 0x80, &f[0], nv, one, 0.600000024f);
+        nv = &f[4];
+        f[4] = 0.0f;
+        f[5] = 0.0f;
+        f[6] = 0.0f;
+        nv[3] = one;
+        cDamageUnit_AddDamageCollCylinder(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)f, (const cVec *)nv, one, 0.600000024f);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;

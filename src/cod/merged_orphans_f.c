@@ -1,7 +1,8 @@
 #include "godhand/cDamageManage.h"
-#include "godhand/heapArena.h"
+
 extern int D_0041D8F8;
 extern int D_00424328;
+extern void __builtin_delete(void *obj);
 extern void SetField214PtrThenInit_1B6F38(void *obj, void *a1);
 
 /* InitObjVtableField35C_139878: store vtable at obj+0x35C (always); call __builtin_delete

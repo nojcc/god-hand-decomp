@@ -121,9 +121,9 @@ void func_001FCF20(cDamageGive *self)
             take->attacker = (char *)self->owner;
             self->lastHit = take->victim;
             if (Getplayer() == self->owner)
-                SetField_ACD0_1FE348(&D_00574380, D_003BF190);
+                StartHitStop_1FE348(&D_00574380, D_003BF190);
             if (Getplayer() == victim)
-                SetField_ACD0_1FE348(&D_00574380, D_003BF194);
+                StartHitStop_1FE348(&D_00574380, D_003BF194);
         }
     }
 }

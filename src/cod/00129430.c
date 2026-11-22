@@ -1,13 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cOmb2.h"
 #include "godhand/cOmBase.h"
 #include "godhand/pl00.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cSnd.h"
-#include "godhand/player.h"
+#include "godhand/cDamageManage.h"
 
 extern int cOmSub_move(void *move);
 extern void cOmSub_initMove3_y(void *dst, void *obj, int idx, int a3, float f12, float f13, float f14);
@@ -15,6 +12,10 @@ extern void cOmSub_initMove1_pos(void *dst, void *obj, int idx, int a3, void *t0
 extern char D_00747B00[];
 extern char D_00747AC0[];
 extern int cOmBase_checkDamage(void *self, int damage);
+extern int cSnd_SeCall_2CBA48(void *snd, int a1, int a2, void *a3, int a4, int a5, int a6, int a7);
+extern void cHeatSys_AddHeatGage(void *heat, int a1, float amount);
+extern char D_005FEE00[];
+extern int D_005CB000;
 extern char D_0044ABB0[];
 extern char D_0044ABB8[];
 extern int cModel_setMeshDisplay(void *model, char *name, int on);
@@ -86,23 +87,12 @@ void cOmb2_stepMove(MoveObj *self)
 #define TAKE_OFFSET_Z     3.0f
 #define OM_F2_HIT_OFF     0x1       /* flags2 bit cleared once the volumes exist */
 
-/* A damage unit as this routine edits it. */
-typedef struct DmgUnit {
-    int flags;                  /* 0x00 */
-    char unk04[0x42];
-    short hitKind;              /* 0x46 */
-    char unk48[4];
-    int damage;                 /* 0x4C */
-} DmgUnit;
-
 typedef struct cOmGiveTake {
     cOmBase base;
     char unk5E0[0x40];
-    DmgUnit *give;              /* 0x620 */
-    cDamageUnit *take;          /* 0x624 */
+    cDamageGive *give;          /* 0x620 */
+    cDamageTake *take;          /* 0x624 */
 } cOmGiveTake;
-
-
 
 
 
@@ -117,26 +107,26 @@ int cOmGiveTake_init(cOmGiveTake *self)
     float v[4] __attribute__((aligned(16)));
 
     func_001B6FB8(self);
-    self->give = cDamageManage_CreateDamageGive(&D_00574380, GIVE_KIND, self);
+    self->give = cDamageManage_CreateDamageGive(&D_00574380, GIVE_KIND, (cGameObj *)self);
     if (self->give != 0) {
         v[0] = 0.0f;
         v[1] = 0.0f;
         v[2] = 0.0f;
         v[3] = 1.0f;
-        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, D_00747AC0, (cVec *)v, GIVE_SPHERE);
-        self->give->hitKind = GIVE_HIT_KIND;
-        self->give->damage = GIVE_DAMAGE;
+        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->give, (const struct cMatrix *)D_00747AC0, (const cVec *)v, GIVE_SPHERE);
+        self->give->kind = GIVE_HIT_KIND;
+        self->give->power = GIVE_DAMAGE;
         cDamageUnit_SetDamageCollActive((cDamageUnit *)self->give, 0);
         self->give->flags |= GIVE_FLAG_ON;
     }
-    self->take = cDamageManage_CreateDamageTake(&D_00574380, self, TAKE_KIND);
+    self->take = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, TAKE_KIND);
     if (self->take != 0) {
         v[0] = 0.0f;
         v[1] = 0.0f;
         v[2] = TAKE_OFFSET_Z;
         v[3] = 1.0f;
-        cDamageUnit_AddDamageCollSphere(self->take, self->base.mtx, (cVec *)v, TAKE_SPHERE);
-        cDamageUnit_SetDamageCollActive(self->take, 0);
+        cDamageUnit_AddDamageCollSphere((cDamageUnit *)self->take, (const struct cMatrix *)self->base.mtx, (const cVec *)v, TAKE_SPHERE);
+        cDamageUnit_SetDamageCollActive((cDamageUnit *)self->take, 0);
     }
     self->base.flags2 &= ~OM_F2_HIT_OFF;
     return 1;
@@ -221,7 +211,7 @@ void pl00_addComboHit(pl00 *self)
     self->comboCount = (unsigned char)self->comboCount + 1;
     self->comboTimer = COMBO_WINDOW;
     if (self->comboCount == COMBO_TOP_HITS) {
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, COMBO_SE_TOP, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(D_005FEE00, 0, COMBO_SE_TOP, self, 0, 0, 0, 0);
         cCoreSave_addGameLevelPoint(&D_00569B70, COMBO_BONUS_POINTS);
     }
     heat = COMBO_HEAT_FIRST;
@@ -231,7 +221,7 @@ void pl00_addComboHit(pl00 *self)
         heat = heat * COMBO_HEAT_LATER;
     cHeatSys_AddHeatGage(&D_005CB000, 0, heat);
     if (self->comboCount % 3 == 1)
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, COMBO_SE_STEP, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(D_005FEE00, 0, COMBO_SE_STEP, self, 0, 0, 0, 0);
     cCoreSave_addGameLevelPoint(&D_00569B70, COMBO_STEP_POINTS);
 }
 

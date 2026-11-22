@@ -1,5 +1,6 @@
 #include "godhand/cDamageManage.h"
-#include "godhand/cSnd.h"
+
+extern int D_005FEE00[];
 extern int D_00785818;
 extern int D_00420768;
 extern int D_00785808;
@@ -35,9 +36,9 @@ void *InitActorSetVtable_170A58(void *a0) {
 
 __attribute__((section(".text.FreeActorVtableState_170A90")))
 int FreeActorVtableState_170A90(int a0, int a1) {
-    int v1;
+    cDamageTake *v1;
     *(int *)(a0 + 0x214) = (int)&D_00420780;
-    v1 = *(int *)(a0 + 0x600);
+    v1 = *(cDamageTake **)(a0 + 0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)(a0 + 0x600) = 0;

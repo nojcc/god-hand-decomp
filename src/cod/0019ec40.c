@@ -83,7 +83,6 @@ void *GetObjClassDesc_19F058(void) {
     return &D_00785EA8;
 }
 
-#include "godhand/vu0.h"
 
 
 

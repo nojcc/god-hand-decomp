@@ -82,7 +82,7 @@ void func_001C91B0(char *p, void *arg)
 
     d = *(void **)(p + 0x650);
     if (d != 0) {
-        if (cDamageManage_ReleaseDamageGive((void *)&D_00574380, d) != 0) {
+        if (cDamageManage_ReleaseDamageGive(&D_00574380, d) != 0) {
             *(int *)(p + 0x650) = 0;
             *(int *)(p + 0x654) = -1;
         }

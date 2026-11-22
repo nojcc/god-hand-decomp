@@ -42,7 +42,7 @@ void *InitObjSlotArrayB_197680(void *a0) {
 
 __attribute__((section(".text.FreeObjSlotArrayB_197708")))
 void *FreeObjSlotArrayB_197708(void *a0, void *a1) {
-    int *p = (int *)((char *)a0 + 0x600);
+    cDamageTake **p = (cDamageTake **)((char *)a0 + 0x600);
     int i = 0;
     *(int **)((char *)a0 + 0x214) = &D_00424F28;
     do {
@@ -54,7 +54,7 @@ void *FreeObjSlotArrayB_197708(void *a0, void *a1) {
         i--;
     } while (i >= 0);
     if (*(int *)((char *)a0 + 0x604) != 0) {
-        cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)(*(int *)((char *)a0 + 0x604)));
+        cDamageManage_ReleaseDamageGive(&D_00574380, *(cDamageGive **)((char *)a0 + 0x604));
         *(int *)((char *)a0 + 0x604) = 0;
     }
     return SetField214PtrThenInit_1B6F38(a0, a1);
@@ -92,7 +92,7 @@ void UpdateSlotTimerStateB_197EC8(void *a0) {
 
 __attribute__((section(".text.SetSlotDeadBitB_198A58")))
 void SetSlotDeadBitB_198A58(int a0, unsigned int a1) {
-    int *p = (int *)(a0 + a1 * 4 + 0x600);
+    cDamageUnit **p = (cDamageUnit **)(a0 + a1 * 4 + 0x600);
     if (*p != 0) {
         cDamageUnit_SetDamageCollActive((cDamageUnit *)(*p), 0);
     }
@@ -122,7 +122,7 @@ __attribute__((section(".text.FreeObjSlotC_198CE0")))
 void *FreeObjSlotC_198CE0(void *a0, int a1) {
     *(int **)((char *)a0 + 0x214) = &D_00425000;
     if (*(int *)((char *)a0 + 0x600) != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)(*(int *)((char *)a0 + 0x600)));
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)((char *)a0 + 0x600));
         *(int *)((char *)a0 + 0x600) = 0;
     }
     return func_001BFB00(a0, a1);
@@ -137,7 +137,6 @@ int *GetInstanceD_198F68(void) {
     return &D_00785D08;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -160,9 +159,9 @@ void *InitObjSlotArrayD_198FB8(void *a0) {
 
 __attribute__((section(".text.FreeObjSlotD_199040")))
 void FreeObjSlotD_199040(void *a0, int a1) {
-    int v1;
+    cDamageTake *v1;
     *(int **)((char*)a0 + 0x214) = &D_004250F0;
-    v1 = *(int *)((char*)a0 + 0x650);
+    v1 = *(cDamageTake **)((char*)a0 + 0x650);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int *)((char*)a0 + 0x650) = 0;

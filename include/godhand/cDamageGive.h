@@ -23,9 +23,13 @@ typedef struct cDamageGive {
 
 typedef char cDamageGive_size_check[(sizeof(cDamageGive) == 0x60) ? 1 : -1];
 
-/* Unless the record is a spare: owner, kind, live; returns 1. */
-int SetObjTargetAndActivate_1FD2C0(cDamageGive *self, int kind, void *owner);
-/* Reset the record as a give. */
+/* Hand give to owner and set it up for kind; nothing on the spare. Returns 1. */
+int SetObjTargetAndActivate_1FD2C0(cDamageGive *self, int kind, struct cGameObj *owner);
+
+/* Resets a give: the head, attacker and type 1. */
 void func_001FCDB8(cDamageGive *self);
+
+/* Copies x, y and z of vec into hitVec (SetDmgGiveHitVec__11cDamageGiveRC4cVec). */
+void cDamageGive_SetDmgGiveHitVec(cDamageGive *self, const cVec *vec);
 
 #endif

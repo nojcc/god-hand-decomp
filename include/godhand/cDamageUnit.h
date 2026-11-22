@@ -106,22 +106,49 @@ typedef struct cDamageTake {
 
 typedef char cDamageTake_size_check[(sizeof(cDamageTake) == 0x70) ? 1 : -1];
 
-/* Reset the record as a take. */
+/* Hand take to owner and set it up for kind; nothing on the spare. Returns 1. */
+int SetTarget_1FD530(cDamageTake *self, struct cGameObj *owner, int kind);
+
+/* Clears the head: flags, both vectors, owner, unk38, nodes, unk44, kind, live
+ * and power; unk40 to -1 and unit kind 4. */
+void ActorRec_reset(cDamageUnit *self);
+/* Resets a take: the head, attacker, type 2 and hitFlags. */
 void ResetObjectFields_1FCDE8(cDamageTake *self);
-/* Unless the record is a spare: owner, kind, live; returns 1. */
-int SetTarget_1FD530(cDamageTake *self, void *owner, int kind);
-/* Store kind and give every node's data the new hit group. */
+
+/* Sets unitKind and stores the unit's group (func_001FD908) in the record of
+ * every node. */
 void func_001FD988(cDamageUnit *self, int kind);
-/* Unlink and clear every node of the list; 0 when one can't be released. */
-int cDvd_releaseAll(cDamageUnit *self);
+
+/* Turns every node of the unit on or off. */
+void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);
+
+/* Retail's matrix type, cMatrix (MtxInitRotY__FR7cMatrixf and others). Only
+ * its address is passed here, so no layout yet. */
+struct cMatrix;
+
+/* The three volume adders. Each takes a new node from the unit's vtable,
+ * attaches it to mtx at ofs and links it at the end of nodes. They return
+ * the node's id, or -1 when the unit has no type, no node is free or the
+ * attach fails. The sphere and cylinder types are retail's:
+ * AddDamageCollSphere__11cDamageUnitRC7cMatrixRC4cVecf and
+ * AddDamageCollCylinder__11cDamageUnitRC7cMatrixRC4cVecT2ff, with the
+ * references as pointers. The box has no retail name and follows them. */
+/* A box of size, turned by rot (KeyFollower_attach). */
+int func_001FD9D8(cDamageUnit *self, const struct cMatrix *mtx, const cVec *ofs,
+                  const cVec *rot, const cVec *size);
+/* A sphere of radius (KeyFollower_attachScaled). */
+int cDamageUnit_AddDamageCollSphere(cDamageUnit *self, const struct cMatrix *mtx,
+                                    const cVec *ofs, float radius);
+/* A cylinder of height and radius, turned by rot (SpawnRec_create). */
+int cDamageUnit_AddDamageCollCylinder(cDamageUnit *self, const struct cMatrix *mtx,
+                                      const cVec *ofs, const cVec *rot,
+                                      float height, float radius);
 
 #define CDAMAGE_SHAPE_SETRADIUS  3      /* vt[3] of cCollisionShape */
 #define CDAMAGE_UNIT_NEWNODE     2      /* vt[2] of cDamageUnit */
 
 /* The hit group of the record, from its kind and type. */
 int func_001FD908(cDamageUnit *self);
-/* Turn the hit volume of every node on (active == 1) or off. */
-void cDamageUnit_SetDamageCollActive(cDamageUnit *self, int active);
 /* The same for the node with the given id (first match only). */
 void cDamageUnit_SetDamageCollActive_1FD610(cDamageUnit *self, int id, int active);
 /* Turn every node on (active == 1) or off and store its flash value. */
@@ -134,11 +161,5 @@ void cDamageUnit_UpdateDamageCollFlash(cDamageUnit *self);
 void cDamageUnit_SetDamageCollRadius(cDamageUnit *self, int id, float radius);
 /* Move the hit volume of every node by the given offset. */
 void cDamageUnit_SetDamageCollOffset(cDamageUnit *self, void *offset);
-/* Append a sphere volume at ofs in mtx's space; its id, or -1. */
-int cDamageUnit_AddDamageCollSphere(cDamageUnit *self, void *mtx, cVec *ofs, float radius);
-/* Append a box volume at ofs in mtx's space; its id, or -1. */
-int func_001FD9D8(cDamageUnit *self, void *mtx, cVec *ofs, cVec *rot, cVec *size);
-/* Append a cylinder volume from pos along dir; its id, or -1. */
-int cDamageUnit_AddDamageCollCylinder(cDamageUnit *self, void *mtx, cVec *pos, cVec *dir, float height, float radius);
 
 #endif

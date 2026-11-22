@@ -53,7 +53,6 @@ void *GetObjSingleton_191A60(void) {
     return &D_00785BE8;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -80,9 +79,9 @@ void *InitObjSlots_191AB0(void *a0) {
 
 __attribute__((section(".text.ResetField214FreeField600_191B38")))
 void ResetField214FreeField600_191B38(void *a0, int a1) {
-    int v1;
+    cDamageTake *v1;
     *(int*)((char*)a0+0x214) = (int)&D_00424040;
-    v1 = *(int*)((char*)a0+0x600);
+    v1 = *(cDamageTake **)((char*)a0+0x600);
     if (v1 != 0) {
         ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
         *(int*)((char*)a0+0x600) = 0;
@@ -99,7 +98,6 @@ void *GetObjSingleton_191CE8(void) {
     return &D_00785BF8;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -133,7 +131,6 @@ void *GetObjSingleton_191F50(void) {
     return &D_00785C08;
 }
 
-#include "godhand/vu0.h"
 
 
 

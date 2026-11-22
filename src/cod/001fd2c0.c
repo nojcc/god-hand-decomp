@@ -1,10 +1,9 @@
 #include "godhand/cDamageGive.h"
-#include "godhand/cDamageUnit.h"
 
 __attribute__((section(".text.SetObjTargetAndActivate_1FD2C0")))
-int SetObjTargetAndActivate_1FD2C0(cDamageGive *self, int kind, void *owner)
+int SetObjTargetAndActivate_1FD2C0(cDamageGive *self, int kind, struct cGameObj *owner)
 {
-    if (self->type == CDAMAGE_TYPE_SPARE)
+    if (self->type == 0)
         return 1;
     self->attacker = 0;
     self->owner = owner;

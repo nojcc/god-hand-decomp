@@ -60,7 +60,6 @@ int *GetTypeRegistry_19E170(void) {
     return &D_00785E48;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -108,7 +107,6 @@ int *GetObjClassDesc_19E3F8(void) {
     return &D_00785E58;
 }
 
-#include "godhand/vu0.h"
 
 
 

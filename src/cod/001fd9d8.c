@@ -1,22 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageUnit.h"
 
-extern int KeyFollower_attach(cDamageNode *node, int group, void *mtx, cVec *ofs, cVec *rot, cVec *size,
-                              cDamageUnit *owner);
-
-/* Append a box volume at ofs in mtx's space; its id, or -1. */
 __attribute__((section(".text.func_001FD9D8")))
-int func_001FD9D8(cDamageUnit *self, void *mtx, cVec *ofs, cVec *rot, cVec *size) {
-    const cDamageVtEnt *ent;
-    cDamageNode *node;
-    cDamageNode *last;
+int func_001FD9D8(cDamageUnit *self, const struct cMatrix *mtx, const cVec *ofs,
+                  const cVec *rot, const cVec *size)
+{
+    const cDamageVtEnt *vt;
+    int node;
+    int *head;
+    int *last;
     int result;
 
-    if (self->type == CDAMAGE_TYPE_SPARE) {
+    if (self->type == 0) {
         return -1;
     }
-    ent = &self->vt[CDAMAGE_UNIT_NEWNODE];
-    node = ((cDamageNode *(*)(void *))ent->pfn)((char *)self + ent->delta);
+    vt = self->vt;
+    node = ((int (*)(char *))vt[2].pfn)((char *)self + vt[2].delta);
     if (node == 0) {
         return -1;
     }
@@ -27,17 +26,18 @@ int func_001FD9D8(cDamageUnit *self, void *mtx, cVec *ofs, cVec *rot, cVec *size
     if (result == -1) {
         return -1;
     }
-    if (self->nodes != 0) {
-        last = self->nodes;
-        if (last->next != 0) {
+    head = (int *)self->nodes;
+    if (head != 0) {
+        last = head;
+        if (*(int **)((char *)last + 0x24) != 0) {
             do {
-                last = last->next;
-            } while (last->next != 0);
+                last = *(int **)((char *)last + 0x24);
+            } while (*(int **)((char *)last + 0x24) != 0);
         }
-        last->next = node;
-        node->prev = last;
+        *(int **)((char *)last + 0x24) = (int *)node;
+        *(int *)(node + 0x20) = (int)last;
     } else {
-        self->nodes = node;
+        self->nodes = (cDamageNode *)node;
     }
     return result;
 }

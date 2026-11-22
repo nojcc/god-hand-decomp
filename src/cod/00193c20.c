@@ -54,7 +54,6 @@ void *GetInstance_196008(void) {
     return p;
 }
 
-#include "godhand/vu0.h"
 
 
 
@@ -82,13 +81,13 @@ void *InitObjSlotArray_196058(void *a0) {
 
 __attribute__((section(".text.FreeObjSlotArray_1960E0")))
 void FreeObjSlotArray_1960E0(void *a0, int a1) {
-    int *s0;
+    cDamageTake **s0;
     int i;
     *(int **)((char*)a0 + 0x214) = &D_00424E18;
-    s0 = (int *)((char*)a0 + 0x600);
+    s0 = (cDamageTake **)((char*)a0 + 0x600);
     i = 0;
     do {
-        int v = *s0;
+        cDamageTake *v = *s0;
         if (v != 0) {
             ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v);
             *s0 = 0;
@@ -97,7 +96,7 @@ void FreeObjSlotArray_1960E0(void *a0, int a1) {
         s0 += 1;
     } while (i >= 0);
     {
-        int w = *(int*)((char*)a0 + 0x604);
+        cDamageGive *w = *(cDamageGive **)((char*)a0 + 0x604);
         if (w != 0) {
             cDamageManage_ReleaseDamageGive(&D_00574380, (cDamageGive *)w);
             *(int*)((char*)a0 + 0x604) = 0;
@@ -142,10 +141,11 @@ void UpdateSlotTimerState_1968A0(void *a0) {
 
 __attribute__((section(".text.SetSlotDeadBit_197430")))
 void SetSlotDeadBit_197430(int *a0, unsigned int a1) {
-    int v = *(int *)((char *)a0 + (a1 << 2) + 0x600);
+    cDamageUnit *unit = *(cDamageUnit **)((char *)a0 + (a1 << 2) + 0x600);
+    int v;
     int *p;
-    if (v != 0) {
-        cDamageUnit_SetDamageCollActive((cDamageUnit *)v, 0);
+    if (unit != 0) {
+        cDamageUnit_SetDamageCollActive(unit, 0);
     }
     v = a1 >> 5;
     p = a0 + 0x274;

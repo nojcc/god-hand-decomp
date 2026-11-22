@@ -1,20 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/criStm.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
-#include "godhand/heapArena.h"
 #include "godhand/vu0.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cMovie.h"
-#include "godhand/Slot1.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *self);
 extern void cOm4f_setOpenCloseRot(void *self, float a, float b);
 extern void cOm4f_setCloseFix(void *self);
 extern void cOm4f_setEventMode(void *self, int mode);
 extern void displayScrollLayer(int layer, int show);
+extern void cHeap_free(void *heap, void *p);
 extern void Forward342910_342888(int handle);
 extern void Obj3260_Tramp_00337C88_D208(void);
 extern void Forward3443E0_3443C8(int handle);
@@ -27,6 +24,7 @@ extern char D_0044CD80[];
 extern char D_0044CDA0[];
 extern char D_0044CDA8[];
 extern char D_0044CDC8[];
+extern int IsEntryActive_1C2490(int entry);
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern void cEmSetParam_setEm(void *param, int slot);
 extern void cEmWrap_StartAction(void *act);
@@ -62,10 +60,10 @@ int cOm4f_construct(Om4fObj *self)
     c.y = 0.0f;
     c.z = 0.7f;
     c.w = 1.0f;
-    dmg = cDamageManage_CreateDamageTake(&D_00574380, self, 1);
+    dmg = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, 1);
     self->damage = dmg;
     if (dmg != 0) {
-        cDamageUnit_AddDamageCollSphere(dmg, self->base.mtx, &c, OM4F_SPHERE_R);
+        cDamageUnit_AddDamageCollSphere(dmg, (const struct cMatrix *)self->base.mtx, &c, OM4F_SPHERE_R);
     }
     self->base.hpMax = OM4F_LIFE;
     self->base.hp = OM4F_LIFE;
@@ -87,11 +85,17 @@ int cOm4f_construct(Om4fObj *self)
 typedef struct { int w[SLOT2_MARK_NUM]; } MarkTbl;
 
 /* The mark layer ids and the blink word of the Slot2 object. */
+typedef struct Slot2Marks {
+    char unk000[0x400];
+    int layer[0x2B];                    /* 0x400 mark layer ids, indexed through the mark table */
+    unsigned short blink;               /* 0x4AC */
+} Slot2Marks;
+
 extern MarkTbl D_0042B8D0;              /* layer index of each mark */
 
-/* Select a mark: store the selector (index below 5) in selFlag, arm the blink when armFlag is set, then show only the selected mark layer (showAll) or hide all five. */
+/* Select a mark: store the selector (index below 5) in the blink word, arm the blink when armFlag is set, then show only the selected mark layer (showAll) or hide all five. */
 __attribute__((section(".text.Slot2_selectMark")))
-void Slot2_selectMark(Slot1 *self, unsigned int sel, int showAll, int armFlag)
+void Slot2_selectMark(Slot2Marks *self, unsigned int sel, int showAll, int armFlag)
 {
     MarkTbl tbl;
     int i;
@@ -99,22 +103,22 @@ void Slot2_selectMark(Slot1 *self, unsigned int sel, int showAll, int armFlag)
     sel = sel & 0xFFFF;
     tbl = D_0042B8D0;
     if (sel < SLOT2_MARK_NUM) {
-        self->selFlag = sel << SLOT2_SEL_SHIFT;
+        self->blink = sel << SLOT2_SEL_SHIFT;
         if (armFlag) {
-            self->selFlag |= BLINK_ARMED;
+            self->blink |= BLINK_ARMED;
         }
         if (showAll) {
-            self->selFlag |= BLINK_ON;
+            self->blink |= BLINK_ON;
             i = 0;
             p = tbl.w;
             for (; i < SLOT2_MARK_NUM; i++) {
-                displayScrollLayer(self->scrollLayer[*p], i == sel);
+                displayScrollLayer(self->layer[*p], i == sel);
                 p++;
             }
         } else {
             p = tbl.w;
             for (i = SLOT2_MARK_NUM - 1; i >= 0; i--) {
-                displayScrollLayer(self->scrollLayer[*p], 0);
+                displayScrollLayer(self->layer[*p], 0);
                 p++;
             }
         }

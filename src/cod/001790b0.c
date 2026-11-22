@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
+#include "godhand/cDamageManage.h"
 
 /* sn-2.95.3-136 */
 
@@ -17,7 +16,7 @@ extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 __attribute__((section(".text.cOmBase_setupSphereVolume")))
 int cOmBase_setupSphereVolume(char *p)
 {
-    cVec f;
+    float f[4];
     void *slot;
     float one;
     int i, n, lo, b1, b2;
@@ -26,14 +25,14 @@ int cOmBase_setupSphereVolume(char *p)
 
     func_001B6FB8(p);
     one = 1.0f;
-    f.x = 0.0f;
-    f.w = one;
-    f.y = SPHERE_RADIUS;
-    f.z = 0.0f;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, p, 2);
+    f[0] = 0.0f;
+    f[3] = one;
+    f[1] = SPHERE_RADIUS;
+    f[2] = 0.0f;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 2);
     *(void **)(p + 0x650) = slot;
     if (slot != 0) {
-        cDamageUnit_AddDamageCollSphere(slot, p + 0x80, &f, SPHERE_RADIUS);
+        cDamageUnit_AddDamageCollSphere(slot, (const struct cMatrix *)(p + 0x80), (const cVec *)f, SPHERE_RADIUS);
     }
     *(short *)(p + 0x548) = 1;
     *(short *)(p + 0x54A) = 1;
@@ -44,10 +43,10 @@ int cOmBase_setupSphereVolume(char *p)
         lo = 0;
         n = 1;
         while (1) {
-        ok1 = ((*(int *)&f = b1 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b1));
+        ok1 = ((*(int *)&f[0] = b1 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b1));
         if (ok1) obj1 = *(int *)(*(int *)(p + 0x278) + i * 4); else obj1 = 0;
         *(int *)(obj1 + 0x154) |= CPARTS_NO_LOCAL;
-        ok2 = ((*(int *)&f = b2 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b2));
+        ok2 = ((*(int *)&f[0] = b2 = *(unsigned char *)(p + 0x2B4)), (n >= lo && i < b2));
         if (ok2) obj2 = *(int *)(*(int *)(p + 0x278) + i * 4); else obj2 = 0;
         *(int *)(obj2 + 0x154) |= CPARTS_NO_PARENT;
         i++;

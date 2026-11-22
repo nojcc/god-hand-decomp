@@ -15,7 +15,6 @@ extern void func_0012EC58(void *a, int b);
 extern void KillEffect(void *a0, int a1, int a2);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern float D_00747B00[];
-extern void cDamageGive_SetDmgGiveHitVec(void *give, float *dir);
 extern void func_001B6FB8(void *self);
 
 /* True when the distance from the line, taken from the matrix position along its turned offset vector, is at most k. */
@@ -91,16 +90,8 @@ void EffectOwner_destruct(EffectOwner *self, void *flag)
     SetField214PtrThenInit_1B6F38(self, flag);
 }
 
-/* The attack volume record the enemy keeps at 0x680 (a cDamageUnit with its own tail fields). */
-typedef struct AtkRec {
-    char unk00[0x40];
-    int unk40;          /* 0x40 set to -1 when the volume is armed */
-    short unk44;        /* 0x44 cleared */
-    short unk46;        /* 0x46 set to 0x49 */
-    char unk48[4];
-    int unk4C;          /* 0x4C cleared */
-} AtkRec;
-#define EM_ATK_REC(self)  (*(AtkRec **)((char *)(self) + 0x680))
+/* The attack volume the enemy keeps at 0x680. */
+#define EM_ATK_REC(self)  (*(cDamageGive **)((char *)(self) + 0x680))
 #define EM_ATK_NEXT(self) (*(int *)((char *)(self) + 0x684))
 
 
@@ -114,20 +105,20 @@ __attribute__((section(".text.cEm00_armAttackVolume")))
 void cEm00_armAttackVolume(cEm00 *self)
 {
     float radius;
-    volatile AtkRec *rec;  /* volatile keeps the epilogue restores below these stores */
+    volatile cDamageGive *rec;  /* volatile keeps the epilogue restores below these stores */
     float *dir;
     if (self->emNo != 0x260) {
-        EM_ATK_REC(self)->unk46 = 0x49;
+        EM_ATK_REC(self)->kind = 0x49;
         radius = 2.0f;
     } else {
-        EM_ATK_REC(self)->unk46 = 0x49;
+        EM_ATK_REC(self)->kind = 0x49;
         radius = 3.0f;
     }
     cDamageUnit_SetDamageCollRadius((cDamageUnit *)(EM_ATK_REC(self)), EM_ATK_NEXT(self), radius);
-    EM_ATK_REC(self)->unk4C = 0;
+    EM_ATK_REC(self)->power = 0;
     cDamageUnit_SetDamageCollActive((cDamageUnit *)(EM_ATK_REC(self)), 1);
     dir = D_00747B00;
-    cDamageGive_SetDmgGiveHitVec(EM_ATK_REC(self), dir);
+    cDamageGive_SetDmgGiveHitVec(EM_ATK_REC(self), (const cVec *)dir);
     rec = EM_ATK_REC(self);
     rec->unk40 = -1;
     do { } while (0);

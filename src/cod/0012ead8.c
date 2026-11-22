@@ -1,40 +1,38 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/criStm.h"
+#include "godhand/cGrid.h"
 
 extern cCoreSaveData D_005686D0;   /* the record itself */
 
 /* sn-2.95.3-136 candidate. */
 
-typedef struct Node {
-    struct Node *next;
-} Node;
 
 
 
 
 __attribute__((section(".text.func_0012EAD8")))
-Node *func_0012EAD8(char *self, void *obj, int a2, int a3, int a4, int a5,
-                    int a6, int a7, int a8, int a9, int a10, int a11)
+cCollisionScrollSolid *func_0012EAD8(char *self, void *obj, void *mtx, void *v70, void *v90,
+                    void *extent, void *face0, void *face1, void *face2, void *face3,
+                    void *face4, void *face5)
 {
-    Node *q;
-    Node *p;
+    cCollisionScrollSolid *q;
+    cCollisionScrollSolid *p;
 
     if (obj != 0) {
-        if (*(Node **)(self + 0x190) != 0) {
-            q = *(Node **)(self + 0x190);
+        if (*(cCollisionScrollSolid **)(self + 0x190) != 0) {
+            q = *(cCollisionScrollSolid **)(self + 0x190);
             while (q->next != 0) {
                 q = q->next;
             }
-            p = cHitRec_constructSixBlob(func_0030F550(0x190), obj, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+            p = cHitRec_constructSixBlob(func_0030F550(0x190), obj, mtx, v70, v90, extent, face0, face1, face2, face3, face4, face5);
             q->next = p;
             if (p != 0) {
                 *(int *)(self + 0x194) = *(int *)(self + 0x194) + 1;
                 return q->next;
             }
         } else {
-            p = cHitRec_constructSixBlob(func_0030F550(0x190), obj, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
-            *(Node **)(self + 0x190) = p;
+            p = cHitRec_constructSixBlob(func_0030F550(0x190), obj, mtx, v70, v90, extent, face0, face1, face2, face3, face4, face5);
+            *(cCollisionScrollSolid **)(self + 0x190) = p;
             if (p != 0) {
                 *(int *)(self + 0x194) = *(int *)(self + 0x194) + 1;
                 return p;

@@ -1,8 +1,5 @@
-#include "godhand/cDamageManage.h"
 #include "godhand/cModel.h"
-#include "godhand/CustomIDWork.h"
-#include "godhand/cDvd.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/cDamageManage.h"
 
 extern unsigned char D_004292F0[];
 
@@ -34,11 +31,11 @@ void ForwardNodeUpdate_14D768(cModel *self, int a1, int a2) {
 __attribute__((section(".text.ResetActorState_1BBF00")))
 void ResetActorState_1BBF00(int a0, int a1)
 {
-    int v1;
+    cDamageTake *v1;
     *(int *)(a0 + 0x214) = (int)D_004292F0;
-    v1 = *(int *)(a0 + 0x600);
+    v1 = *(cDamageTake **)(a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, v1);
         *(int *)(a0 + 0x600) = 0;
     }
     cOmDoor_releaseObjCollision(a0);
@@ -46,37 +43,42 @@ void ResetActorState_1BBF00(int a0, int a1)
 }
 
 __attribute__((section(".text.SetCustomIDSlotNumber_1F4C40")))
-void SetCustomIDSlotNumber_1F4C40(ColiseumEmDisp *self, unsigned short slot, int number, int on)
+void SetCustomIDSlotNumber_1F4C40(int a0, unsigned short a1, int a2, int a3)
 {
-    if (slot < 7) {
-        CustomIDWork_SetNumber(&self->elem[slot + 0x18], number);
-        SetCustomIDDispOneOrAll_1F4778(self, slot + 0x18, on);
+    unsigned int s0 = a1;
+    int off;
+    if (s0 < 7) {
+        off = s0 * 0x7C + 0xC00;
+        CustomIDWork_SetNumber(a0 + off, a2);
+        SetCustomIDDispOneOrAll_1F4778(a0, (int)(s0 + 0x18), a3);
     }
 }
 
 __attribute__((section(".text.SetCustomIDSlotNumberAlt_1F5210")))
-void SetCustomIDSlotNumberAlt_1F5210(ColiseumEmDisp *self, unsigned short slot, int number, int on)
+void SetCustomIDSlotNumberAlt_1F5210(int a0, unsigned short a1, int a2, int a3)
 {
-    if (slot < 7) {
-        CustomIDWork_SetNumber(&self->elem[slot + 0x42], number);
-        SetCustomIDDispOneOrAll_1F4778(self, slot + 0x42, on);
+    unsigned int s0 = a1;
+    int off;
+    if (s0 < 7) {
+        off = s0 * 0x7C + 0x2058;
+        CustomIDWork_SetNumber(a0 + off, a2);
+        SetCustomIDDispOneOrAll_1F4778(a0, (int)(s0 + 0x42), a3);
     }
 }
 
-/* The file number of name, or -1; its size goes in *size (key is not read). */
 __attribute__((section(".text.FindEntryValue_1FF9C0")))
-int FindEntryValue_1FF9C0(PathTable *table, const char *name, int *size, char *key)
+int FindEntryValue_1FF9C0(int a0, int a1, int *a2)
 {
-    PathNode *node;
-    if (size != 0) {
-        *size = 0;
+    int s0;
+    if (a2 != 0) {
+        *a2 = 0;
     }
-    node = func_001FFA68(table, name);
-    if (node == 0) {
+    s0 = func_001FFA68(a0);
+    if (s0 == 0) {
         return -1;
     }
-    if (size != 0) {
-        *size = BuildPackedAddr_1FFD98(table, node);
+    if (a2 != 0) {
+        *a2 = BuildPackedAddr_1FFD98(a0, s0);
     }
-    return node->u.fileNo;
+    return *(int *)(s0 + 8);
 }

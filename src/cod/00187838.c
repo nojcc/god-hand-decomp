@@ -1,8 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cOmHitVolume.h"
+#include "godhand/cDamageManage.h"
 
 extern void func_001B6FB8(void *a0);
 
@@ -14,10 +13,10 @@ extern void func_001B6FB8(void *a0);
 __attribute__((section(".text.cOmHitVolume_setupBox_20_16")))
 int cOmHitVolume_setupBox_20_16(cOmHitVolume *self)
 {
-    cVec v[4];
-    cVec *m;
-    cVec *nv;
-    cVec *t;
+    float f[16];
+    float *m;
+    float *nv;
+    float *t;
     void *slot;
     float one, c, w;
 
@@ -25,29 +24,29 @@ int cOmHitVolume_setupBox_20_16(cOmHitVolume *self)
     c = BOX_HALF_XY;
     one = 1.0f;
     w = BOX_HALF_Z;
-    v[0].x = c;
-    v[0].y = c;
-    t = &v[1];
-    v[0].z = w;
-    v[0].w = one;
-    v[1].x = c;
-    v[1].y = c;
-    v[1].z = w;
-    t->w = one;
-    m = &v[2];
-    v[2].x = 0.0f;
-    v[2].y = 0.0f;
-    v[2].z = 0.0f;
-    m->w = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
+    f[0] = c;
+    f[1] = c;
+    t = &f[4];
+    f[2] = w;
+    f[3] = one;
+    f[4] = c;
+    f[5] = c;
+    f[6] = w;
+    t[3] = one;
+    m = &f[8];
+    f[8] = 0.0f;
+    f[9] = 0.0f;
+    f[10] = 0.0f;
+    m[3] = one;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, 2);
     self->damageTake = slot;
     if (slot != 0) {
-        nv = &v[3];
-        v[3].x = 0.0f;
-        v[3].y = 0.0f;
-        v[3].z = 0.0f;
-        nv->w = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        nv = &f[12];
+        f[12] = 0.0f;
+        f[13] = 0.0f;
+        f[14] = 0.0f;
+        nv[3] = one;
+        func_001FD9D8(slot, (const struct cMatrix *)self->base.mtx, (const cVec *)m, (const cVec *)nv, (const cVec *)t);
     }
     self->unk5E8 = 0;
     self->base.hpMax = 1;

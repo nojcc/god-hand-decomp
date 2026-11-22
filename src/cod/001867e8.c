@@ -1,16 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
+#include "godhand/cDamageManage.h"
+#include "godhand/cGrid.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(void *obj);
 extern void func_002A87E8(void *obj, int arg);
 extern void func_001B76D8(void *obj);
-#include "godhand/cOmWeapon.h"
+extern int cOmWeapon_setParent();
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollision(void *self);
 
@@ -127,7 +127,7 @@ void cOmBase_attachWeaponGripB(cOmBase *self, void *weapon, int left)
             grip.rot[2] = turn;
         }
     }
-    cOmWeapon_setParent((cOmWeapon *)weapon, (cOmBase *)self, idx, (cVec *)&grip, (cVec *)&grip.rot[0]);
+    cOmWeapon_setParent(weapon, self, idx, &grip, &grip.rot[0]);
 }
 
 /* sn-2.95.3-136 */
@@ -162,10 +162,10 @@ typedef struct DoorLikeObj {
 
 __attribute__((section(".text.DoorBox_initWithBoxA")))
 int DoorBox_initWithBoxA(DoorLikeObj *self) {
-    cVec v[4];
-    cVec *t;
-    cVec *m;
-    cVec *nv;
+    float f[16];
+    float *t;
+    float *m;
+    float *nv;
     void *slot;
     char *rec;
     float one, ca, cb, cc;
@@ -175,33 +175,33 @@ int DoorBox_initWithBoxA(DoorLikeObj *self) {
     ca = 1.5f;
     cb = 2.4f;
     cc = 0.2f;
-    t = &v[1];
-    m = &v[2];
-    v[0].x = ca;
-    v[1].x = ca;
-    v[0].y = cb;
-    v[0].z = cc;
-    v[1].z = cc;
-    v[1].y = cb;
-    v[0].w = one;
-    t->w = one;
-    v[2].y = 0.0f;
-    v[2].z = 0.0f;
-    v[2].x = v[0].x * -0.5f;
-    m->w = one;
-    slot = cDamageManage_CreateDamageTake(&D_00574380, self, 2);
+    t = &f[4];
+    m = &f[8];
+    f[0] = ca;
+    f[4] = ca;
+    f[1] = cb;
+    f[2] = cc;
+    f[6] = cc;
+    f[5] = cb;
+    f[3] = one;
+    t[3] = one;
+    f[9] = 0.0f;
+    f[10] = 0.0f;
+    f[8] = f[0] * -0.5f;
+    m[3] = one;
+    slot = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)self, 2);
     self->damage = slot;
     if (slot != 0) {
-        nv = &v[3];
-        v[3].x = 0.0f;
-        v[3].y = 0.0f;
-        v[3].z = 0.0f;
-        nv->w = one;
-        func_001FD9D8(slot, self->base.mtx, m, nv, t);
+        nv = &f[12];
+        f[12] = 0.0f;
+        f[13] = 0.0f;
+        f[14] = 0.0f;
+        nv[3] = one;
+        func_001FD9D8(slot, (const struct cMatrix *)self->base.mtx, (const cVec *)m, (const cVec *)nv, (const cVec *)t);
     }
     self->base.hpMax = OBJ_LIFE;
     self->base.hp = OBJ_LIFE;
-    cVec_copy3(&self->box, &v[0]);
+    cVec_copy3(&self->box, (cVec *)f);
     cOmDoor_setObjCollision(self);
     self->hitRec = self->hitRecData;
     self->solid = OBJ_SOLID_ID;
@@ -222,7 +222,7 @@ typedef struct DoorBoxHost {
     char unk5E0[0x20];
     float size[3];                      /* 0x600 */
     char unk60C[0x77C - 0x60C];
-    int collision;                      /* 0x77C collision handle */
+    cCollisionScrollSolid *collision;   /* 0x77C collision body */
 } DoorBoxHost;
 
 typedef struct { char b[0x60]; } cDoorBoxAxes;

@@ -4,7 +4,7 @@ extern unsigned char D_00785798[];
 extern int D_00420328;
 #include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-#include "godhand/cSnd.h"
+extern unsigned char D_005FEE00[];
 extern int D_007857C8;
 extern unsigned char D_004203F8[];
 extern int D_00420410;
@@ -65,7 +65,6 @@ void *GetOrInitSingleton7857C8_16FF18(void)
     return &D_007857C8;
 }
 
-#include "godhand/vu0.h"
 
 
 
