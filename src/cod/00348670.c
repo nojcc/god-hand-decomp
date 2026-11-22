@@ -1,9 +1,7 @@
 /* cygnus-2.96: open slot id and fill its 0x20-byte record, or report one of three errors and return 0. */
 #include "godhand/mwsfd.h"
+#include "godhand/globals.h"
 
-extern char D_00459240[];
-extern char D_00459270[];
-extern char D_00459298[];
 extern int func_00348938(int id);
 extern void MWSST_Init(int id);
 extern int MWSST_CalcWorkSize(int id, int *p0, int *p1, int *p2);

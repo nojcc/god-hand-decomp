@@ -6,10 +6,9 @@
 #include "godhand/cModel.h"
 #define CGAMEOBJ_NO_TYPEDEF
 #include "godhand/cGameObj.h"
+#include "godhand/globals.h"
 
-extern char D_005F3970[];
 extern void cGameObj(void *);
-extern int D_0044A630;
 
 __attribute__((section(".text.func_00134650")))
 void *func_00134650(void *this) {

@@ -1,9 +1,9 @@
 #include "godhand/cModel.h"
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int D_0041EA80;
 
 /* A texture exchange table: a list of texture keys, then groups of
 

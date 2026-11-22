@@ -3,12 +3,12 @@
 #include "godhand/criStm.h"
 #include "godhand/heapArena.h"
 #include "godhand/mtx.h"
+#include "godhand/globals.h"
 
 extern char D_00583EC0[];
 extern void cDoor_aimJump();
 extern void func_001FFF30();
 extern void func_0016B1F8();
-extern void *D_005FEC68;
 extern void *D_003FA62C;
 extern void func_003A9498(void *, int, void *);
 extern void func_003B5E78(int, int, int, void *, int);

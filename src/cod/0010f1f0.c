@@ -5,6 +5,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern int cWorldLight_Set_LightData(void *a0, void *a1);
 extern void cEmManage_SetSlotWait(void *a0, int a1);
@@ -20,18 +21,6 @@ extern void func_0010A438(void *a0);
 extern char D_005864F0[];
 extern void func_002E0DE8();
 extern void func_00380720(void *a0, int a1, int a2, int *a3, int *t0, int *t1, int *t2);
-extern char D_0045CBC0[];
-extern char D_0045CBC8[];
-extern char D_0045CBD8[];
-extern char D_0045CBE8[];
-extern char D_0045CBF8[];
-extern char D_0045CC18[];
-extern char D_0045CC28[];
-extern char D_0045CC38[];
-extern char D_0045CC50[];
-extern char D_0045CC60[];
-extern char D_0045CC80[];
-extern char D_0045CCA0[];
 
 /* cWorldLight_Init_SatanLight — 0x002D98C0, 640 B — sn-2.95.3-136.
  * b3: pointer locals for the two vec4 fields + source order mirrors

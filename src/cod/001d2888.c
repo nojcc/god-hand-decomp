@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/BlackJack.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern void func_002B4768(unsigned char *, unsigned char *, unsigned char *);
 extern unsigned int D_00747A84;
@@ -12,8 +13,6 @@ extern void SetBlendField3C4_1D5A40(BlackJack *self, int on);
 extern void cFILTER_gif_tag_start(int a0, int a1, long a2);
 extern void cFILTER_gif_tag_end(int a0);
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);
-extern unsigned char D_003BD758[];
-extern char D_004A6980[];
 
 /* sn-2.95.3-136, as=sn */
 

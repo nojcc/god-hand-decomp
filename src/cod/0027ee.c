@@ -2,8 +2,8 @@
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
-extern const char D_004484B0[];
 extern void *func_0028EB00(void *self);
 
 /* Enemy constructor: runs the enemy base constructor, sets the method table and

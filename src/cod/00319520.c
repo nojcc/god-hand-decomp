@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 extern void cParts_setRotationOrder(void *a0, int a1);
 extern float sqrtf(float x);
 extern char *D_005CAFF0;
-extern char D_003BD8C0[];
 
 /* sn-2.95.3-136 matched TU. */
 

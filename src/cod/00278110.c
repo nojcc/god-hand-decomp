@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -13,8 +14,6 @@ extern void func_002799B8(char *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void cParts_setRotationOrder(void *a0, int a1);
 
-extern char D_00447CB8[];
-extern char D_00447CC0[];
 
 struct sph { int a; float b; int c; float d; };
 

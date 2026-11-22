@@ -1,6 +1,7 @@
 /* ee-2.9-991111 matched TU. */
 
 #include "godhand/libio.h"
+#include "godhand/globals.h"
 
 extern int _IO_least_marker(struct _IO_FILE *fp);
 extern void *func_003A51F4(void *d, const void *s, unsigned int n); /* memmove */
@@ -10,9 +11,6 @@ extern int *Obj0000_Get_D_003FA62C_3A4FB8(void);                    /* __errno *
 #define EBADF 9
 #define ESPIPE 29
 
-
-extern const char D_0045D7E0[16];   /* blanks */
-extern const char D_0045D7F0[16];   /* zeroes */
 
 /* libio iopadn.c :: _IO_padn */
 __attribute__((section(".text._IO_padn")))

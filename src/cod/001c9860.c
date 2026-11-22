@@ -13,8 +13,6 @@ extern void func_001CF3A8(char *self);
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/vecInline.h"
 
-extern EmPhaseTable D_003BDE88;
-
 /* A gimmick with two damage-give volumes that are parked every frame before its phase runs. */
 typedef struct cOmFallGimmick {
     cOmBase base;                       /* 0x000 */

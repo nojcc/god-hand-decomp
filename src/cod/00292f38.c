@@ -4,10 +4,9 @@
 #include "godhand/espSys.h"
 #include "godhand/newlibStdio.h"
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
 extern void PushEsp(void *a0);
-extern float D_00741DC0;
-extern float D_00754C48;
 
 __attribute__((section(".text.UpdateObjByIndexedOp_2FBE50")))
 void UpdateObjByIndexedOp_2FBE50(EspAnim *self) {

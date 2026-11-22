@@ -6,6 +6,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/CustomIDPanel.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 extern void *InitFields_1B6E90(void *self);
 extern void func_001B6FB8(void *self);

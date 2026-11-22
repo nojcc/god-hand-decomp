@@ -3,10 +3,8 @@
 #include "godhand/BlackJack.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
-extern long D_00747650;
-extern char D_0042BAC0[];
-extern char D_0042BAE0[];
 extern void printf_2E0D60(int a, int b, int c, int d, int e, int f, char *g, int h);
 extern void SetBlendField820_1D5B90(BlackJack *self, int on);
 extern int D_007474A0;

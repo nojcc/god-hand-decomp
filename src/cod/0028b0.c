@@ -2,6 +2,7 @@
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 #define CEMA6_VEC_A_OFFSET   0x1520     /* cEma6.vecA, for the VU0 store */
 #define CEMA6_VEC_B_OFFSET   0x1590     /* cEma6.vecB */
@@ -26,7 +27,6 @@ typedef struct cEma6 {
     cEma6Aim aim;                       /* 0x1510 */
 } cEma6;
 
-extern const char D_00448F30[];             /* "cEma6" */
 extern void *func_0028EB00(void *self);     /* enemy base constructor */
 
 __attribute__((section(".text.cEma6_construct")))

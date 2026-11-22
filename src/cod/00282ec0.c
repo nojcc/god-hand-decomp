@@ -2,9 +2,8 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/pl00.h"
 #include "godhand/player.h"
+#include "godhand/globals.h"
 
-extern char D_00448778[];
-extern char D_00448780[];
 extern void Obj0000_Set_Field_424_1595E8(void *a, int b);
 extern void *SearchData(void *a, void *b, int c);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);

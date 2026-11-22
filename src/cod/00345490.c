@@ -1,11 +1,9 @@
+#include "godhand/globals.h"
 extern int Forward349308_349238(void);
-extern int D_00457B90;
 extern void MWSFSVM_EntryIdVfunc(int, void *, int, void *);
 extern int MWSFSVR_MainThrdProc(int a0);
-extern int D_00457BA8;
 extern int MWSFSVM_EntryMainFunc(void *, int, void *);
 extern int func_003492A0(int a0);
-extern int D_00457BC0;
 extern int MWSFSVM_EntryIdleFunc(void *, int, void *);
 extern void func_00348B20(void);
 

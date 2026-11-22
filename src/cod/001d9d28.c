@@ -3,10 +3,10 @@
 #include "godhand/Poker.h"
 #include "godhand/PanelObj.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern int D_0042B2F0[];
 extern long D_007474A0[];
 extern long D_00747640;
 

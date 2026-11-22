@@ -6,11 +6,10 @@
 #include "godhand/CustomIDWork.h"
 #include "godhand/DogRace.h"
 #include "godhand/cOmBaseFn.h"
+#include "godhand/globals.h"
 
-extern char D_00428AF0[];
 extern void *SearchData(void *pack, void *name, int which);
 extern int D_007474A0;
-extern char D_0044B100[];
 extern char *D_003C23A4;
 
 /* Set the bomb up hidden and unlit, hand it to the enemy manager, hide the mesh D_00428AF0 (CMODEL_NODE_HIDE) and clear the hiss handle. Returns 1. */

@@ -15,8 +15,8 @@
 #include "godhand/sceVu0.h"
 #include "godhand/drawQueue.h"
 #include "godhand/typeInfo.h"
+#include "godhand/globals.h"
 
-extern int D_0077E6C0[];
 extern void func_001FDEA8(void *);
 extern void KeyStop(void);
 extern void func_002B4560(void);

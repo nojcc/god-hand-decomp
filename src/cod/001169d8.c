@@ -8,7 +8,6 @@
 #include "godhand/gameWork.h"
 
 extern void func_001CFE88(void *weapon, int arg);
-extern unsigned char D_005CB010;
 extern char D_005FEA60[];
 extern int FindEntityAtPosition_2C2638(void *mgr, cVec *pos, cVec *center, float *extent);
 

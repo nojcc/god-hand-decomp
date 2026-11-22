@@ -1,7 +1,6 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
-extern volatile int D_003EADB0;
-extern int D_003EADA8;
 
 __attribute__((section(".text.ADXCRS_Finish")))
 void ADXCRS_Finish(void) {

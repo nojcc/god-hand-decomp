@@ -1,4 +1,4 @@
-extern char D_003FA998[];
+#include "godhand/globals.h"
 extern char *strrev(char *s);
 
 __attribute__((section(".text.itoa")))

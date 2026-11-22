@@ -3,9 +3,9 @@
 #include "godhand/cIDBase.h"
 #include "godhand/cDvd.h"
 #include "godhand/BlackJack.h"
+#include "godhand/globals.h"
 extern int D_003C2388;
 extern char **D_003C2384;
-extern char D_0042B190[];
 
 extern int cIDManager_getLocalFileName(int mgr, char *buf, char *name, int lang);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);

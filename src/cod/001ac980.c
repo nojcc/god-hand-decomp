@@ -10,8 +10,6 @@ extern void func_001B7EE0(void *self, float f);
 #include "godhand/cSnd.h"
 #include "godhand/cDamageUnit.h"
 
-extern EmPhaseTable D_003BDC40;
-
 __attribute__((section(".text.func_001AC980")))
 void func_001AC980(char *self)
 {

@@ -7,6 +7,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/cSnd.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 extern void cEm00_setEm65Separate(cEmActor *em);
 extern void cScenario_startSoftEvent(int scenario, int arg);

@@ -1,6 +1,7 @@
 /* cygnus-2.96: start a read request: wrap buf in a stream joint of nsct sectors, issue the read, and
  * destroy the joint again on failure. */
 #include "godhand/criSj.h"
+#include "godhand/globals.h"
 typedef struct CdReadReq {
     char unk00;
     signed char stat;                   /* 0x01 2 = busy */
@@ -12,11 +13,6 @@ typedef struct CdReadReq {
     int size;                           /* 0x28 */
 } CdReadReq;
 
-extern char D_00451718[];
-extern char D_00451740[];
-extern char D_00451770[];
-extern char D_00451798[];
-extern int D_003EB708;
 
 extern void adxf_SetCmdHstry(int id, int phase, CdReadReq *h, int nsct, void *buf);
 extern int func_003395A0(int buf, int size, int mode);

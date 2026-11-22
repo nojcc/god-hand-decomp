@@ -4,13 +4,12 @@
 #include "godhand/cCockItem.h"
 #include "godhand/DispMgr.h"
 #include "godhand/objFactory.h"
+#include "godhand/globals.h"
 
 extern void func_002B2580(char *self);
 extern void cSndSeTrack_switchSoundData(char *self);
 extern int D_00747A34;
-extern int D_0044B840;
 extern void cObjBase(void *a0);
-extern int D_00450B98;
 
 /* Slot1 end-of-game stage: on the first call run the end hook, then flag the game as over. */
 #define SLOT_STEP(s)     (*(int *)((s) + 0x08))

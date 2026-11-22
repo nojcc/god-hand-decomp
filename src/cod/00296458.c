@@ -2,9 +2,9 @@
 #include "godhand/heapArena.h"
 #include "godhand/cDvd.h"
 #include "godhand/cEvent.h"
+#include "godhand/globals.h"
 
 extern unsigned int D_00747A84;
-extern int D_00586B34;
 extern char D_00747470[];
 extern int D_00747A30;
 extern char D_0044A920[];

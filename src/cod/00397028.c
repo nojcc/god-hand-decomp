@@ -1,8 +1,8 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/sceDma.h"
 #include "godhand/eeKernel.h"
+#include "godhand/globals.h"
 
-extern char D_0045DFC8[];
 
 __attribute__((section(".text.WaitDma")))
 void WaitDma(volatile sceDmaChan *chan)

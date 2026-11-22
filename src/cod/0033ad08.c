@@ -1,7 +1,6 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
-extern int D_003E8C08[];
-extern char D_003F0298[];
 
 __attribute__((section(".text.ADXB_DecodeHeaderAc3")))
 int ADXB_DecodeHeaderAc3(char *p) {

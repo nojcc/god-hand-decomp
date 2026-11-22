@@ -4,15 +4,11 @@
 #include "godhand/IdScreen4.h"
 #include "godhand/cCockPrintData.h"
 #include "godhand/cCockEmBar.h"
+#include "godhand/globals.h"
 
 extern unsigned char D_0044BAB0[];
-extern unsigned char D_0044D3C0[];
 extern int D_00747A80;
 extern int cGameObj_isClip();
-extern int D_00785548;
-extern int D_00460D10;
-extern int D_0041D830;
-extern int D_0041D848;
 extern void func_0031EEC8(void *a, void *b);
 extern void SetField_0_4_8_31EEA8(void *a, void *b, void *c);
 

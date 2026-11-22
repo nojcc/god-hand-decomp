@@ -1,10 +1,8 @@
 /* cygnus-2.96: MWSF handle status / play time (0x346848..). */
 
 #include "godhand/mwsfHn.h"
+#include "godhand/globals.h"
 
-extern char D_00458488[];
-extern char D_004585D0[];
-extern char D_00458600[];
 
 __attribute__((section(".text.mwPlyGetStat")))
 int mwPlyGetStat(MwsfHn *mw)

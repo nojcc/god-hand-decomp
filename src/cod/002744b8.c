@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
+#include "godhand/globals.h"
 
-extern int D_00747A10;
 
 __attribute__((section(".text.SetEventFrame")))
 void SetEventFrame(int n) {

@@ -9,6 +9,7 @@
 #include "godhand/cNode.h"
 #include "godhand/cIDBaseScreen.h"
 #include "godhand/DispMgr.h"
+#include "godhand/globals.h"
 
 extern void func_002CAF28(cSnd *self);
 extern void cSnd_BgmControl(cSnd *self);
@@ -19,9 +20,6 @@ extern void Ring_stepToAccepted(void *p);
 extern char D_00603A40[];
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
 extern int strlen(const char *s);
-extern char D_0044B060[];
-extern char D_0044B090[];
-extern short D_003BD6F8[];
 extern void displayScrollLayer(int id, int on);
 
 #define SE_STOP_FADE  5
@@ -85,8 +83,6 @@ void cNode_setTranslationFromWorld(void *self, float *pos)
 
 extern char D_005E8140[];               /* request queue */
 
-extern char D_0044B080[];               /* 10 byte string constant */
-
 
 typedef struct { char b[10]; } Str10;
 
@@ -132,8 +128,6 @@ void BlendSetup_load(cIDBaseScreen *self, void **tex, short *item, unsigned char
     }
     self->timer = D_003BD70C;
 }
-
-extern int D_003BC7D0[];                /* combo table, 0x14 bytes per combo, first word used */
 
 #define COMBO_ENTRY_WORDS  5            /* 0x14 bytes */
 

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/globals.h"
 
-extern float D_0041E898[];
 
 /* The screen's frame: run the phase handler, move the rows and, while the screen is open (phase 2), count the timer down and spin the extra displays' marker. */
 __attribute__((section(".text.func_00145238")))

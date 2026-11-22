@@ -1,10 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/globals.h"
 
 
 extern int D_0041D5A8;
-extern int D_0041D558;
+extern unsigned char D_0041D558[]; /* cGrid.h's type; that header clashes here */
 
 typedef struct { char b[0x10]; } Blob16;
 

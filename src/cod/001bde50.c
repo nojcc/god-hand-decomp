@@ -1,5 +1,6 @@
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
+#include "godhand/globals.h"
 
 /* func_001BDE50 - object constructor: base init, set vtable at 0x214, then loop zeroing
  * a 5-quadword sub-block per slot and tagging it (Obj0000_Set_Byte_54). Loop

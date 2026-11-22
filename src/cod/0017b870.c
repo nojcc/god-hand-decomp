@@ -1,6 +1,7 @@
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 /* func_0017B870 — InitFields constructor: base-init, install vtable &D_00421BB8, zero a
  * $vf0 block at +0x600 (count 0xE, 4 quadwords, stride 0x50), then a

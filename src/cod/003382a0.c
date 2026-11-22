@@ -1,7 +1,6 @@
 /* cygnus-2.96: PS2RNA_SetTransSw, sets the transfer group's pause request; any request other than 1
  * stops every transfer in the group. */
-extern int D_003E0710;
-extern int D_003E0708;
+#include "godhand/criStm.h"
 extern void DTR_Stop(int dtr);
 
 __attribute__((section(".text.PS2RNA_SetTransSw")))

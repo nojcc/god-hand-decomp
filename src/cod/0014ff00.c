@@ -6,6 +6,7 @@
 #include "godhand/cScenario.h"
 #include "godhand/cSnd.h"
 #include "godhand/BlackJack.h"
+#include "godhand/globals.h"
 
 extern unsigned char D_005864F0[];
 extern long cOmBase_canItemDrop(cOmBase *self);
@@ -15,8 +16,6 @@ extern void func_002BECB0();
 extern int D_00747470;
 extern void classFADE_kill(void *p);
 extern void cGameObjSortEnt_unguardedLinearInsert();
-extern char D_003BE548[];
-extern short D_005CAE40;
 
 __attribute__((section(".text.func_0014FF00")))
 void func_0014FF00(int a0, unsigned int a1, int a2, int a3)

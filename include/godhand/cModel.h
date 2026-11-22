@@ -357,4 +357,8 @@ cModelNode *cModel_getMeshPtr_14B730(struct cModel *self, char *name);
  * the packet block, drop the meshes and parts, then run the base part. */
 void cModel_destroy(cModel *self, int flags);
 
+extern cPmf D_003BF738[];
+extern cPmf D_003BF878[];
+extern cPmf D_003BFAC0[];
+
 #endif

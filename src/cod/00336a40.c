@@ -1,7 +1,7 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
 extern void SFCON_WriteTotSmplQue(void *a0, int x, int y);
-extern int D_004551E8;
 extern void func_00336330(void *, void *);
 
 __attribute__((section(".text.sfadxt_HeadDecCallBack")))

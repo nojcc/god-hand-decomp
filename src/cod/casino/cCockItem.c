@@ -3,11 +3,11 @@
 #include "godhand/cCockItem.h"
 #include "godhand/cDvd.h"
 #include "include_asm.h"
+#include "godhand/globals.h"
 
 extern void cIDManager_getLocalFileName();
 extern void cIDManager_setIDData();
 extern int D_003C2388;
-extern char D_0041E030[];
 extern int *D_003C2384;
 
 /* Read the ticket's message pack once, hand it to the ID manager and start the ticket display. */

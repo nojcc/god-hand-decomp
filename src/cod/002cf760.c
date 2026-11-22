@@ -5,12 +5,11 @@
 #include "godhand/cSnd.h"
 #include "godhand/heapArena.h"
 #include "godhand/cBgmData.h"
+#include "godhand/globals.h"
 
-extern unsigned char D_0044D070;
 extern void func_00322F58(void);
 extern void cBgmData_AddLoadBits(cBgmData *, int);
 extern char D_00603A40[];
-extern char D_0044CF78[];
 extern unsigned int D_00747A34;
 extern void func_003A6A20(char *, int, int, int);
 extern void cSeData_SetFailed(cSeData *);

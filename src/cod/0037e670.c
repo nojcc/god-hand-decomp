@@ -1,10 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
-extern void *D_003C4030[16];
-extern char D_0045C110[];
-extern char D_0045C118[];
-extern char D_0045C120[];
 extern void func_003863B8(void *);
 extern void func_00386520(void *, char *);
 extern void func_0037EDA8(void *);

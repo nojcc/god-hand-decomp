@@ -2,10 +2,10 @@
 
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern int irand(void);
 extern int func_002D3210(char *rec);
-extern char D_0042BE90[];
 extern int func_00135EC8(void *a0, void *a1, void *a2, void *a3, void *hit);
 extern int func_001361A0(void *a0, void *hit);
 

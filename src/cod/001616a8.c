@@ -8,10 +8,10 @@
 #include "godhand/cEm00.h"
 #include "godhand/Slot1.h"
 #include "godhand/scrollLayer.h"
+#include "godhand/globals.h"
 
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern char D_0041F1F0[];
 extern void **D_003C2384;
 
 /* Enemy constructor: base setup, method table, aim lock byte, zeroed vectors and the type name. */
@@ -35,7 +35,6 @@ typedef struct EnemyRec {
 } EnemyRec;
 
 extern const unsigned char D_00448E20[];    /* method table */
-extern const char D_00448DB0[];             /* type name */
 extern void *func_0028EB00(void *self);     /* enemy base constructor */
 
 __attribute__((section(".text.EnemyBase_constructAimQuad")))

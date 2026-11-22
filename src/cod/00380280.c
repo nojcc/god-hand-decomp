@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
-extern void *D_003C4030[16];
 extern void func_002E0DE8(int, int, int, const char *, ...);
 
 /* sn-2.95.3-136 matched TU. */
@@ -25,16 +25,7 @@ typedef struct SimpleString {
 } SimpleString;
 
 
-extern char D_0045C1C8[];   /* "%s" */
 extern char D_0045C208[];   /* "" */
-extern char D_0045C368[];   /* "-- ADX FILE SELECT --" */
-extern char D_0045C380[];   /* "DIR : %s" */
-extern char D_0045C390[];   /* "[D]" */
-extern char D_0045C398[];   /* "[F]" */
-extern char D_0045C3A0[];   /* "ADX[%d] : %s" */
-extern char D_0045C3B0[];   /* "AIX : %s" */
-extern char D_0045C3C0[];   /* "AFS : %s" */
-extern char D_0045C3D0[];   /* "ACX : %s" */
 
 extern char *func_003BB058(void *);                    /* Rep::clone */
 

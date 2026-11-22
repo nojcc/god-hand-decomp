@@ -8,6 +8,7 @@
 #include "godhand/JukeBox.h"
 #include "godhand/objFactory.h"
 #include "godhand/objCtor.h"
+#include "godhand/globals.h"
 
 /* ──────────────────────────── small picks ─────────────────────────────── */
 
@@ -29,8 +30,6 @@ void *InitPilotVtable_1B0B70(void *a) {
  *                GetOrInitGlobal785878_1B8058() + SetField_0_4_8_31EEA8(&D_00785858, &D_004294D0,
  *                &D_00785878) when the underlying word is 0.
  *                20 insns, 80 B. */
-extern int D_00785858;
-extern int D_004294D0;
 extern int D_00785878;
 extern void GetOrInitGlobal785878_1B8058(void);
 extern void SetField_0_4_8_31EEA8(void *, void *, void *);
@@ -49,9 +48,6 @@ void *GetPilotClassDesc_1BDE00(void) {
  *                SetField_0_4_8_31EEA8(&D_00786358, &D_0044BE48, &D_00460D68) when
  *                the underlying word is 0.
  *                20 insns, 80 B. */
-extern int D_00786358;
-extern int D_0044BE48;
-extern int D_00460D68;
 extern void GetOrInit_460D68_2BAFA0(void);
 extern void SetField_0_4_8_31EEA8(void *, void *, void *);
 
@@ -133,7 +129,6 @@ extern void func_001F4248();
 
 extern short D_00568240[];
 extern int D_003C2388;
-extern char D_0042BF40[];
 extern int *D_003C2384;
 extern int D_00747A2C;
 

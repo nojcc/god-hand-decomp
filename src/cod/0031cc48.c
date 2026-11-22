@@ -1,10 +1,9 @@
 #include "godhand/heapArena.h"
 #include "godhand/cDvd.h"
 #include "godhand/gameWork.h"
+#include "godhand/globals.h"
 
 extern int func_003A6C58(char *buf, const char *fmt, ...);
-extern char D_00450EC0[];
-extern int D_007558A0[];
 
 __attribute__((section(".text.func_0031CC48")))
 void func_0031CC48(void)

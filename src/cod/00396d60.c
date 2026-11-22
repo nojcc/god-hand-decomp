@@ -1,5 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/eeKernel.h"
+#include "godhand/globals.h"
 
 /* ee-2.9-991111 */
 
@@ -9,7 +10,6 @@ typedef unsigned long u_long;
 #define D2_MADR (*(volatile unsigned int *)0x1000A010)
 #define D2_QWC  (*(volatile unsigned int *)0x1000A020)
 
-extern char D_0045DF98[];
 
 __attribute__((section(".text.sceGsPutDrawEnv")))
 int sceGsPutDrawEnv(u_long *dg)

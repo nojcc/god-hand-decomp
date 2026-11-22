@@ -1,12 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
 extern unsigned int strlen(const char *);
-extern void *D_003C4030[16];
-extern const char D_0045C220[];
-extern const char D_0045C250[];
-extern const char D_0045C258[];
-extern unsigned short D_003F215E;
 extern void func_00385A20(void *);
 extern void ADXT_SetOutVol(void *, short);
 extern void func_0032A6D0(void *, int, short);
@@ -16,7 +12,6 @@ extern void func_0032BDC0(void *, void *, int);
 
 
 
-extern char D_003BB168[];                     /* basic_string<char>::nilRep */
 extern const char D_0045C208[];               /* "" */
 
 

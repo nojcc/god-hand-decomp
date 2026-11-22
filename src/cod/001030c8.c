@@ -8,6 +8,7 @@
 #include "godhand/vu0.h"
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cObjBase.h"
+#include "godhand/globals.h"
 
 extern int D_00747A34;
 extern void func_002D58E8(void *work, void *entry, int arg);
@@ -17,8 +18,6 @@ extern void InitFields_1B6E90(void *);
 #include "godhand/vtables.h"
 #include "godhand/objFactory.h"
 extern int D_00428778;
-extern char D_003BC7B0[];
-extern char D_003BC7B8[];
 
 /* Allocate and zero a 0x4D0-byte object, run the base constructor and set its vtable pointer; 0 if the allocator is locked or full. */
 

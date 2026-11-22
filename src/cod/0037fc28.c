@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 */
 #include "godhand/menuCtl.h"
 #include "godhand/heapArena.h"
+#include "godhand/globals.h"
 
-extern const char D_0045C270[];
 extern int func_00323000(int ptid);
 extern void ADXF_Close(int adxf);
 extern int func_00323E80(int a0, int a1, int a2);

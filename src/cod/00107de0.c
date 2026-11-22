@@ -1,8 +1,8 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/heapArena.h"
+#include "godhand/globals.h"
 
 extern int D_0041DCC8[];
-extern int D_004615F0[];
 extern void pl00_reset(void);
 
 __attribute__((section(".text.InitPtrField80AndForward_144AD0")))

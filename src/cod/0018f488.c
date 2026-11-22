@@ -8,6 +8,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/emPhaseTable.h"
+#include "godhand/globals.h"
 
 extern int IsEntryActive_1C2490(int a0);
 extern void SetField_630_1C2370(int a0);
@@ -22,7 +23,6 @@ extern void func_001B76D8(cOmBase *self);
 extern unsigned short D_003F2060[];
 extern void ADXT_SetOutVol(int a0, int a1);
 extern void func_001E8E48(void *a0, void *a1);
-extern long D_00747650;
 
 /* Phase-machine tick: drop the pending entry at +0x15B0 (stop it if still running), then run the handler of the 0..1 state byte. */
 

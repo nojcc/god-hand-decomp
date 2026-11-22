@@ -5,11 +5,10 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cSnd.h"
 #include "godhand/cScenario.h"
+#include "godhand/globals.h"
 
 extern void CustomIDWork_ResetMoveOffsetPos(CustomIDWork *self);
 extern void func_0017C028(void *self, int pos, void *rot);
-extern char D_0044C2B8[];
-extern char D_0044C2C0[];
 extern unsigned int D_00747A30;
 
 

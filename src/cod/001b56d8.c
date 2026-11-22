@@ -1,5 +1,6 @@
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
+#include "godhand/globals.h"
 
 /* func_001B56D8 - object constructor: base init, vtable@0x214, loop zeroing a
  * sub-block per slot (Obj0000_Set_Byte_54), then a few trailing field clears.

@@ -1,11 +1,11 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/heapArena.h"
 #include "godhand/cCockTutorial.h"
+#include "godhand/globals.h"
 
 extern void func_00155AE8(int pkt, int id, int buf);
 extern char D_0041DCC8[];
 extern int D_007476B0;
-extern int D_00466448[];
 extern int D_00747A34;
 
 /* Draw the tutorial while a pack is loaded and its step is 1 to 4. */

@@ -1,5 +1,6 @@
 #include "godhand/criSj.h"
 #include "godhand/mwPly.h"
+#include "godhand/globals.h"
 typedef struct AdxtHn {
     char used;
     char pad1[2];
@@ -13,7 +14,6 @@ typedef struct AdxtHn {
     SjObj *sji[1];
 } AdxtHn;
 
-extern char D_004529F8[];
 extern void Obj33F8_Tramp_0033F130_FCB0(char *msg);
 extern void aixp_Stop(MwPly *ply);
 extern int ADXSTM_EntryEosFunc(int stm, int a, int b);

@@ -9,15 +9,13 @@
 #include "godhand/cObj.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern void cDvd_pollJob(cDvd *self);
 extern void func_00201250(cDvd *self);
-extern int D_0044F448;
 extern int func_001717C0(cOmBase *self, void *target, cVec *pos);
 extern void *InitFields_1B6E90(void *self);
 extern int D_00429B88;
-extern int D_004298B0;
-extern int D_00428B58;
 extern void KillEffect(void *obj, int a, int b);
 extern void SetField214PtrThenInit_1B6F38(void *obj, int flag);
 

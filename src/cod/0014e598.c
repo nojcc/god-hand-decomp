@@ -4,6 +4,7 @@
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cObjBase.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -11,7 +12,6 @@ extern void flush__7ostream(void *a0);
 extern void __as__22_IO_ostream_withassignR7ostream(void *a0, void *a1);
 extern void __as__22_IO_istream_withassignR7istream(void *a0, void *a1);
 extern void func_003B9DE0(void *);
-extern int D_00460AA8;
 extern void func_001495A0(cObj *self);
 extern void func_001BD580(void *);
 extern int D_00420D68;
@@ -22,7 +22,6 @@ extern int D_00422B48;
 extern int D_00423C70;
 extern int D_00425AC0;
 extern int D_003FA62C;
-extern int D_003FBEA8;
 
 __attribute__((section(".text.Tramp_flush__7ostream_3892C0")))
 void Tramp_flush__7ostream_3892C0(void *a0) {

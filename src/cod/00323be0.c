@@ -1,8 +1,7 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
 extern void adxf_SetCmdHstry(int a, int b, void *c, void *d, int e);
-extern char D_004518B0[];
-extern char D_004518D8[];
 extern void OpenStreamHandle(void *a0);
 extern void func_0033F130(int a0);
 extern void ADXSTM_Stop(int a0);

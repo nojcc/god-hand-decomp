@@ -1,13 +1,12 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern char *D_00586A58;
-extern char *D_00586A5C;
 
 /* sn-2.95.3-136 matched TU. */
 

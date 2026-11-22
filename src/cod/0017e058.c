@@ -4,6 +4,7 @@
 #include "godhand/cGameObj.h"
 #include "godhand/heapArena.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 extern float cEmManage_GetSpeedRate(void *manager);
 extern int D_00586AF0;
@@ -24,7 +25,6 @@ typedef struct WaitObj {
 
 
 extern int D_005864F0;                  /* enemy manager */
-extern float D_00747A14;                /* global speed rate */
 
 /* Wait step: load the countdown from the start time, count it down by the frame rate, and when it is spent go back to phase 0 in mode 1. */
 __attribute__((section(".text.WaitObj_stepCountdown")))

@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cObjBase.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
-extern char D_00454D68[];
 extern char D_0076A790[];
 
 /* clone */

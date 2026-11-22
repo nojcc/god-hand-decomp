@@ -4,6 +4,7 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cObj21C0.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 extern void NoOp_279E70(void);
 extern void cCollisionSolidManage_ReleaseUnit_27E088(void *a0);

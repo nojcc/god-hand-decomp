@@ -10,10 +10,10 @@
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
 #include "godhand/cMovie.h"
+#include "godhand/globals.h"
 
 extern int ClearField5B4IfFlagUnset_1B76B0(int self);
 extern void func_001B76D8(void *self);
-extern char D_0044AD60[];
 extern char D_00754C30[];
 extern char D_00754C38[];
 extern char D_00754C50[];

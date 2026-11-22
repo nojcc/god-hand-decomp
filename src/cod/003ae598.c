@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
 extern int write(int fd, const void *buf, int n);
 
@@ -11,8 +12,6 @@ extern int write(int fd, const void *buf, int n);
 
 extern void func_003A61F0(void *ptr);		/* __sinit */
 extern int fflush(void *fp);		/* fflush */
-
-extern char D_0045FC90[];			/* the overflow message */
 
 struct _reent;
 

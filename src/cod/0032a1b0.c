@@ -1,6 +1,7 @@
 /* cygnus-2.96 */
 /* cygnus-2.96 */
 #include "godhand/criSj.h"
+#include "godhand/globals.h"
 
 #define ADXT_STAT_DECODING  3
 #define ADXT_STAT_PREP      4
@@ -23,9 +24,7 @@ typedef struct AdxtTimeHn {
 } AdxtTimeHn;
 
 extern int D_003C7418;          /* vsync counter */
-extern int D_003D1408;          /* the vsync clock is in use */
 extern int D_003D142C;
-extern int D_003D1454;          /* vsync time scale */
 extern float D_003D1458;        /* audio minus vsync time, ms */
 extern char D_004520B0[];
 

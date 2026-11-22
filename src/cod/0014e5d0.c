@@ -15,8 +15,6 @@ extern void StartThread_3B0BA8(int tid, cTaskWork *self);
 extern void WakeupThread(int tid);
 extern void WaitSema(int sema);
 extern void cTaskWork_kill(cTaskWork *self);
-extern cDataManager D_005864E0;
-extern cDataManager D_00580D20;
 extern void ColiseumBattle_DefeatAllEnemies(ColiseumBattle *self);
 extern void displayScrollLayer(int id, int on);
 

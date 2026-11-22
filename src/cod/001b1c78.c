@@ -17,7 +17,6 @@ typedef struct cOmGimmick {
     unsigned int checks;                /* 0x600 bit 4 floor, bit 5 walls, bit 6 solids */
 } cOmGimmick;
 
-extern EmPhaseTable D_003BDCE0;
 
 extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void cObjBase_SetSeqEffect(void *self);

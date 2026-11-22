@@ -10,7 +10,6 @@ extern int GetSeqSEBase(void *a0);
 extern unsigned int irand(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern unsigned char D_005CB010;
 
 /* Phase machine on the step byte, 73 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,
  * cSnd_SeCall_2CBA48, GetSeqSEBase, func_002A8578, func_0026F120, cCoreSave_getGameLevel and 10

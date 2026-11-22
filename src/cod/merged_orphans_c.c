@@ -1,18 +1,5 @@
 #include "godhand/cNode.h"
-extern int D_0044E820;
-extern int D_0044EA10;
-extern int D_0044EAB8;
-extern int D_0044EB70;
-extern int D_0044EC68;
-extern int D_0044EF08;
-extern int D_0044EFA0;
-extern int D_0044F270;
-extern int D_0044F3A0;
-extern int D_0044F630;
-extern int D_0044F880;
-extern int D_0044FC38;
-extern int D_0044FC98;
-extern int D_0044FDF8;
+#include "godhand/globals.h"
 
 
 __attribute__((section(".text.InitVtblF0_2EBC28")))

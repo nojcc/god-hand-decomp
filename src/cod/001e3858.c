@@ -3,12 +3,8 @@
 #include "godhand/cModel.h"
 #include "godhand/Slot1.h"
 #include "godhand/scrollLayer.h"
+#include "godhand/globals.h"
 
-extern char D_0044AC48[];
-extern char D_0044AC50[];
-extern char D_0044AC58[];
-extern char D_0044AC60[];
-extern char D_0044AC68[];
 extern int cModel_setMeshDisplay(void *model, char *name, int on);
 
 /* Start the next read of a streaming buffer into slot `slot`: size it as what is left (or the smaller of the chunk limit and what is left when double buffered), point the slot's record at the next bytes, start the transfer and move the cursor. With nothing left the slot is marked done (3). */

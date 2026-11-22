@@ -9,6 +9,7 @@
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
 #include "godhand/JukeBox.h"
+#include "godhand/globals.h"
 
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float f12);
 extern void CallWithAndClearField698_12AC28(void *a0);

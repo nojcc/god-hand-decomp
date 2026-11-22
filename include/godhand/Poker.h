@@ -173,4 +173,6 @@ void func_001DEBF0(Poker *self, unsigned char a1, int a2, int a3);
 /* Set the display's draw mode (cIDBaseObj.mode). */
 void SetField_56_1DEBE8(Poker *self, int mode);
 
+extern int D_0042B270[POKER_SUIT_NUM];
+
 #endif

@@ -5,6 +5,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/mtx.h"
 #include "godhand/DogRace.h"
+#include "godhand/globals.h"
 
 extern void displayScrollLayer(int id, int on);
 extern void func_001EC088(DogRace *self);

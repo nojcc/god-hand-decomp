@@ -2,10 +2,10 @@
 #include "godhand/cIDBase.h"
 #include "godhand/cDvd.h"
 #include "godhand/cCockLastBossBar.h"
+#include "godhand/globals.h"
 
 extern void *D_003C2388;
 extern void *D_003C2384;
-extern char D_0041E090[];
 extern void cIDManager_getLocalFileName(void *mgr, char *out, char *fmt, int n);
 extern void cIDManager_setIDData(void *mgr, int pack, void *data);
 

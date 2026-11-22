@@ -1,5 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/cMovie.h"
+#include "godhand/globals.h"
 
 /* FreeEntrySlot_2B5BB8 is void, but retail's hook keeps a frame and returns the call's v0:
  * declared void here, the call becomes a tail jump. */

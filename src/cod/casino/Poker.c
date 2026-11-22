@@ -12,7 +12,6 @@ typedef struct PokerInitFrame {
     float pos[4];                       /* sp+0x10 */
 } PokerInitFrame;
 
-extern int D_0042B270[POKER_SUIT_NUM];
 extern BlackJackCardObj *CreateObj(int id, int a1);
 extern void cOmTrump_Initialize(BlackJackCardObj *obj, int rank);
 

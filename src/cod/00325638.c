@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 typedef struct AdxmThreadPrm {
     int prio_lock;                      /* 0x00 */
     int prio_safe;                      /* 0x04 */
@@ -29,11 +30,9 @@ typedef struct ThreadStatus {
 } ThreadStatus;
 
 extern volatile int D_003C80A0;
-extern int D_003C80A4;
 extern volatile int D_003C80FC;
 extern AdxmThreadCur D_003C80B0;
 extern volatile int D_003C8148;
-extern int D_003CF9D8;
 typedef struct AdxmCbEnt { void (*fn)(int); int arg; } AdxmCbEnt;
 extern AdxmCbEnt D_00755C28;
 extern AdxmCbEnt D_00755C20;

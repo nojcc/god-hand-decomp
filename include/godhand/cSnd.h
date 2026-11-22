@@ -319,4 +319,6 @@ void cSnd_shutdown(cSnd *self);
 void cSnd_update(cSnd *self);
 void cSnd_updateLoads(cSnd *self);
 
+extern cSndKindEnt D_003C3120; /* fallback entry, just before the table */
+
 #endif /* GODHAND_CSND_H */

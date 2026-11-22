@@ -2,6 +2,7 @@
 #include "godhand/Slot1.h"
 #include "godhand/criStm.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/globals.h"
 
 extern void displayScrollLayer(int a0, int a1);
 extern void InitAllocBuffer_14FE08(void *a0, int a1);
@@ -26,8 +27,6 @@ extern void func_00381EA0(void *a0, void *a1);
 extern void func_0032A160(int a0, void *a1, void *a2);
 extern void func_00382898(void *a0);
 extern void func_00380678(void *a0, int a1, int a2, int a3, int a4);
-extern char D_0045C760[];
-extern char D_0045C780[];
 
 typedef struct { int w[15]; } Tbl15;
 extern Tbl15 D_0042B890;

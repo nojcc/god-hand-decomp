@@ -1,12 +1,12 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/mtx.h"
+#include "godhand/globals.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern unsigned int D_00747A84;
 extern void Adjust_theta_vec(cVec *v);
-extern float D_007479FC;
 #include "godhand/angle.h"
 extern float Adjust_theta(float f12);
 

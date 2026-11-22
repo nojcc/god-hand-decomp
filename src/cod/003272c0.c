@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 /* cygnus-2.96 matched TU. */
 
 extern void SFTIM_GetNowTime(int a0, int *out0, int *out1);
@@ -9,7 +10,6 @@ extern int Obj0000_Set_D_0076A5D8_Check_Field_0_EQ_2(int a0, int a1);
 extern int M2VERR_SetCode(int a0, int a1);
 extern void func_0036DE80(int a0);
 extern volatile int D_003DA5D8;
-extern int D_003DA5F0;
 extern int D_003DA5F8;
 extern void Forward33B658_335CE8(int *);
 extern void Forward33B670_335D00(int *);
@@ -28,14 +28,10 @@ extern void mwrsc_WaitSprDmaEnd();
 extern int SprMem_save(int scratchpadOffset, int byteCount, void *destination);
 extern void MWDMA_WaitEnd(int a0);
 extern int SprMem_restore(void *source, int byteCount, int scratchpadOffset);
-extern int D_003EE080;
-extern int D_0075CC80;
-extern int D_00758C80;
 extern void func_00345B38(void *a0);
 extern void func_00345F48(void *a0, int a1);
 extern int SFD_SetConcatPlay(int a0);
 extern int MWSFSVM_Error(char *msg);
-extern char D_004592D0[];
 extern void sfbuf_PeekChunk(void *buf, int a1, void *out0, void *out1);
 extern int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(void *a0);
 extern int D_00766CE8[];

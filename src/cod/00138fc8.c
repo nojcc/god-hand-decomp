@@ -10,6 +10,8 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/SlotUi.h"
 #include "godhand/espSys.h"
+#include "godhand/cTaskWork.h"
+#include "godhand/globals.h"
 
 extern void cEmSetParam_updateSetDataFlag(cEmSetParam *self, int id, unsigned int flags);
 extern void cTaskWork_sleep(cTaskWork *work, int frames);
@@ -51,8 +53,6 @@ void cEm00_clearSetFlags(cEm00 *self)
     cEmSetParam_updateSetDataFlag(&D_00586AB0, self->entryNo, flags);
 }
 
-extern cTaskWork *D_00752C04;           /* the main task, used when no script task runs */
-
 /* cScenario 0x50 is the hword just past the embedded task manager. Retail forms
  * the address from the manager pointer, so the body does the same. */
 #define TASK_AFTER_WORD(task) (*(unsigned short *)((char *)(task) + sizeof(cTaskManager)))
@@ -72,8 +72,6 @@ void cScenario_sleepFrames(unsigned short frames)
         cTaskWork_sleep(D_00752C04, frames);
     }
 }
-
-extern float D_00428000[];              /* per game level scale, levels past 5 use entry 5 */
 
 /* The object's speed rate scaled by the table entry for the game level. */
 __attribute__((section(".text.cGameObj_getLevelSpeedScale")))

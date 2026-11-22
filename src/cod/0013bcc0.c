@@ -6,8 +6,8 @@
 #include "godhand/DogRace.h"
 #include "godhand/JukeBox.h"
 #include "godhand/Slot1.h"
+#include "godhand/globals.h"
 
-extern short D_005CAE40;
 extern void displayScrollLayer(int layer, int on);
 extern long D_007474A0[];
 

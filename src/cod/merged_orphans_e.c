@@ -1,5 +1,6 @@
 /* cSnd_SetBgmTblNo: `func_002D0658(0.0f)` — forwarding call with a float arg. */
 #include "godhand/cNode.h"
+#include "godhand/globals.h"
 extern void func_002D0658(float);
 __attribute__((section(".text.cSnd_SetBgmTblNo")))
 void cSnd_SetBgmTblNo(void) { func_002D0658(0.0f); }
@@ -34,7 +35,6 @@ void *cEmWrap_getPos(void *a0) {
 
 /* Destructor: put back the method table at 0xF0, remove the object's light
  * (cWorldLight_Del_LightData), then run the base destructor func_002FBE28. */
-extern int D_0044E640;
 extern int D_00604700;
 extern void cWorldLight_Del_LightData(void *a, unsigned short b, int c);
 __attribute__((section(".text.InitObjVtableAndRegister_2E76F8")))

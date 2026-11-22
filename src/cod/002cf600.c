@@ -3,11 +3,10 @@
 #include "godhand/cSnd.h"
 #include "godhand/cDvd.h"
 #include "godhand/cBgmData.h"
+#include "godhand/globals.h"
 
 extern int D_00747A2C;
-extern char D_0044CF68[];
 extern char D_00603A40[];
-extern char D_0044CFB8[];
 
 /* Load bank bankId from the file named fileName; 1 when the data arrived. */
 __attribute__((section(".text.cSeData_LoadFile")))

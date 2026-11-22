@@ -6,6 +6,7 @@
 #include "godhand/cIDBase.h"
 #include "godhand/heapArena.h"
 #include "godhand/stageSet.h"
+#include "godhand/globals.h"
 
 extern void func_003182D8(int a, int b);
 extern void func_0031CE90(int a, int b);
@@ -31,14 +32,11 @@ extern void func_0032DB70(void *p);
 extern void func_0032E040(void *p, int b);
 extern int D_0076DF10;
 extern unsigned char D_0041ECA0[];
-extern unsigned char D_0042C4D8[];
 extern unsigned char D_0044AEF8[];
 extern char D_0044B310[];
 extern char D_0044BAB0[];
 extern char D_0044D1C8[];
 extern char D_0044D388[];
-extern int D_00450080;
-extern int D_00451288;
 
 __attribute__((section(".text.func_003184C0")))
 void func_003184C0(void) {

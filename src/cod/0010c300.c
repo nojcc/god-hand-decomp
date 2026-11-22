@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 extern float SetMotionStep(void *a0, float f12);
 #include "godhand/motion.h"
@@ -9,8 +10,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void cEm00_startJumpSetup(void *a0);
 
-extern float D_003BD478;
-extern float D_003BD480;
 extern float Turn_dest_dir(float f12, float f13, float f14);
 extern void Add_nullspeedDir(void *a0, float f12);
 __attribute__((section(".text.func_0010C300")))

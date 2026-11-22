@@ -5,6 +5,7 @@
 #include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cMovie.h"
+#include "godhand/globals.h"
 
 extern char *Obj0000_Get_Field_20_Plus_A1_Shifted3_1333B8(void *p, unsigned short i);
 extern int cScrArray_SearchScroll(void *p, long v);

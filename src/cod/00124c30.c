@@ -7,6 +7,7 @@
 #include "godhand/SlotUi.h"
 #include "godhand/gameWork.h"
 #include "godhand/motion.h"
+#include "godhand/globals.h"
 
 extern int irand(void);
 extern void func_00280EB8(void *a0, int a1, int a2);
@@ -18,7 +19,6 @@ extern char D_005864F0[];
 extern int cIDManager_getLocalFileName();
 extern void cIDManager_setIDData();
 extern int D_003C2388;
-extern char D_0042BB20[];
 extern int *D_003C2384;
 extern void func_00381D38(void *a0, void *a1, void *a2);
 extern void func_00380E88(void *a0, void *a1, void *a2);

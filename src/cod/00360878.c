@@ -1,6 +1,5 @@
+#include "godhand/globals.h"
 /* cygnus-2.96: SUD_SearchSudDat, scans a buffer for a tag signature and reports the last hit and its length. */
-extern char D_0045A258[];
-extern char D_0045A1E8[];
 extern int func_003A50B4(const void *a, const void *b, int n);
 extern int func_00360940(char *p);
 

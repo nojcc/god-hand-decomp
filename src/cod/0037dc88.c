@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
-extern void *D_003C4030[16];
 extern void InitObjectFull_3806D8(void *);
 
 /* sn-2.95.3-136 matched TU. */

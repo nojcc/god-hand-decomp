@@ -2,7 +2,6 @@
 #include "godhand/CustomIDPanel.h"
 #include "godhand/DogRace.h"
 
-extern CustomIDDigitTbl D_0042BD70;
 
 /* Set slot 0..4's two number elements to n / 10 and n % 10 (n capped at 999). */
 __attribute__((section(".text.func_001ED050")))

@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cScenario.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern int D_00741940[];
 extern int D_00741960[];
@@ -11,7 +12,6 @@ extern int IsEntryActive_1C2490(int a0);
 extern void SetField_630_1C2370(int a0);
 extern char D_00747470[];
 extern char *D_003C23A4;
-extern unsigned int D_00747A8C[];
 extern int D_00747A84;
 extern void cTaskWork_sleep(void *p, int a);
 extern void cMessage_deleteAll(void *p);
@@ -21,16 +21,6 @@ extern void cTaskWork_exit(void *a0);
 extern void func_001D0C98(void *a0, int a1);
 extern void *cIDBase(void *a0);
 extern void cRoomJump(void *a0);
-extern char D_0041F190[];
-extern char D_0041F6C8[];
-extern char D_0041FF30[];
-extern char D_0041F388[];
-extern char D_0041F5E0[];
-extern char D_0041FB20[];
-extern char D_0041FBE8[];
-extern char D_0041F200[];
-extern char D_0041FC60[];
-extern char D_0041FDF8[];
 extern void AIXP_SetTrackVol(int a0, int a1, int a2);
 extern void ADXT_SetOutVol(int a0, int a1);
 

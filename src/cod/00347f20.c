@@ -1,8 +1,8 @@
 /* cygnus-2.96: MWSF handle playback server tick / start time (0x347F20, 0x348098). */
 
 #include "godhand/mwsfHn.h"
+#include "godhand/globals.h"
 
-extern char D_00459210[];
 
 void RestartSingleLoop(MwsfHn *mw);
 int func_00348098(MwsfHn *mw);

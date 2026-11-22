@@ -1,7 +1,7 @@
 /* cygnus-2.96: Sofdec handle destroy, releasing each sub-resource before clearing the handle (0x3443E0). */
 #include "godhand/mwsfd.h"
+#include "godhand/globals.h"
 
-extern char D_004576A0[];
 extern void MWSFD_SetProhibitServer(int on);
 extern void func_00345DF0(MwsfdHn *self);
 extern void MWSFTAG_DestroyAinfSj(MwsfdHn *self);

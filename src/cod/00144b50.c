@@ -5,11 +5,11 @@
 #include "godhand/cIDBaseScreen.h"
 #include "godhand/heapArena.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern char D_0044BED0[];
 extern char D_00747AC0;
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
-extern char D_0044E300[];
 
 /* Constructor of a collision shape: set its vtable, zero the flags and the four
  * vector slots (0x50, 0x60, 0xD0, 0xF0), record the owner, mark the shape as

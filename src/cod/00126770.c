@@ -11,28 +11,20 @@
 #include "godhand/cIDBase.h"
 #include "godhand/heapArena.h"
 #include "godhand/cCamManager.h"
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern char D_0041EB80[];
 extern void *cObj__ctor(void *self);
-extern int D_007854F8;
-extern int D_0041EC58;
-extern int D_007856E8;
 extern void cObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
 extern int D_004292F0;
 extern void *InitFields_1B6E90(void *a0);
 extern int D_007859B8;
-extern int D_004293A0;
 extern int D_00785878;
 extern void GetOrInitGlobal785878_1B8058(void);
-extern int D_007854D8;
-extern int D_0044AEC8;
 extern void cIDBase_initEntry(void *a0, int a1, void *a2);
 extern void func_002B64C0(int a0);
-extern char D_0045C470[];
-extern char D_0045C4A0[];
 extern void cScenario_sleepFrames(int a0);
 
 __attribute__((section(".text.func_001D6D20")))

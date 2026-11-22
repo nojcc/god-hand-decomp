@@ -1,6 +1,7 @@
 /* cygnus-2.96 matched TU. */
 #include "godhand/criStm.h"
 #include "godhand/sync.h"
+#include "godhand/globals.h"
 
 extern void *func_003A52F0(void *p, int v, int n);
 extern void ADXPS2_ResumeIdleThrd(void);
@@ -14,8 +15,6 @@ extern void sfxzmv_InitHn(int);
 extern int D_003EE800;
 extern void sfxalp_InitHn(int);
 extern int D_003F1EC8;
-extern int D_00760D88;
-extern int D_00760D8C;
 extern int GetArrayElemA0C_35A1C8(int, int);
 extern int SFH_AnlyMaxFrmNum(int, int *);
 extern void Obj33F8_Init_D003EB858_F888(void);

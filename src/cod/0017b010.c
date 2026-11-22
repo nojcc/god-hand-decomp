@@ -6,6 +6,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/FileLoadRec.h"
 #include "godhand/ColiseumEmSelect.h"
+#include "godhand/globals.h"
 
 extern void *InitFields_1B6E90(void *self);
 #include "godhand/objField.h"
@@ -43,8 +44,6 @@ void Panel_showSlotMark(ColiseumEmDisp *self, unsigned short no, int right, int 
         }
     }
 }
-
-extern char D_004272F8[];               /* the class's method table */
 
 #define SLOT_NUM     7
 #define SLOT_SIZE    0x60

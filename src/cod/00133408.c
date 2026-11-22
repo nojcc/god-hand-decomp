@@ -2,11 +2,9 @@
 #include "godhand/cEm00.h"
 #include "godhand/cEmManage.h"
 #include "godhand/gameWork.h"
+#include "godhand/globals.h"
 
 extern int D_00747A78;
-extern int D_00755800;
-extern int D_00755804;
-extern char *D_00755840;
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */
 

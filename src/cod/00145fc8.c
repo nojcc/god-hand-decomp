@@ -1,6 +1,7 @@
 /* sn-2.95.3-136: func_00145FC8, pop-in animation of a five-part HUD effect: shrink the scale each frame,
  * fade in colour 0 on every part, then colour 1 on the second part's third entry, then stop. */
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/globals.h"
 
 __attribute__((section(".text.func_00145FC8")))
 void func_00145FC8(cIDBaseScreen *self)

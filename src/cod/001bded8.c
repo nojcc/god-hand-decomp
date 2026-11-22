@@ -4,6 +4,7 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 extern int D_00586AF0;
 extern void func_00297B20(void *a, void *b);

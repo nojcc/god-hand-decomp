@@ -2,8 +2,8 @@
 
 #include "godhand/cSnd.h"
 #include "godhand/sceVu0.h"
+#include "godhand/globals.h"
 
-extern int D_0044CE48[];
 
 /* Starts a free voice with the given key pair and ids, at the global origin. */
 __attribute__((section(".text.cSndSeVoice_StartAtOrigin")))

@@ -5,6 +5,7 @@
 #include "godhand/cGameObj.h"
 #include "godhand/newlibStdio.h"
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 

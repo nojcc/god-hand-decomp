@@ -2,10 +2,9 @@
 
 #include "godhand/cScrSpriteDraw.h"
 #include "godhand/drawPrim.h"
+#include "godhand/gsPacket.h"
 
 extern void *Gp_draw_polyG4(void *verts, unsigned int *colors, int n, int colorNo, int fontNo);
-
-extern int D_003C118C;                  /* screen height in pixels */
 
 
 
@@ -40,9 +39,6 @@ void cScrSpriteDraw_drawPolyF(cScrSpriteDraw *self, unsigned int color,
     pkt = Gp_draw_polyG4(v, col, 1, self->colorNo, self->fontNo);
     if (pkt != 0) *(long *)((char *)pkt + 0x40) = SCR_PKT_TAG;
 }
-
-extern int D_003C118C;                  /* screen height in pixels */
-extern int D_003C11B0;                  /* draw mode word passed to the packet builders */
 
 
 

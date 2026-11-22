@@ -3,12 +3,11 @@
 #include "godhand/heapArena.h"
 #include "godhand/cDvd.h"
 #include "godhand/cMc.h"
+#include "godhand/globals.h"
 
 extern void func_0();
 extern char cEvent_nullStr00[];
 extern unsigned int D_00747A30;
-extern char D_0044B0B0[];
-extern char D_0044B0E8[];
 extern cMcTaskRef D_00752C00;
 extern void func_003A6C58(char *dst, char *src);
 extern void cMc_Move(cMc *self);

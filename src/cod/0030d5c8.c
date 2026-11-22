@@ -3,13 +3,12 @@
 #include "godhand/cDvd.h"
 #include "godhand/heapArena.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern void FileNameFromObjId(char *buf, int id);
 extern void func_0030D8E0(int a0);
 extern void cTaskWork_exit(int a0);
 extern int D_00747A24;
-extern int D_003C3BC8[];
-extern int *D_003C3CC4;
 extern char D_00752C38[];
 extern char D_00752C00[];
 

@@ -20,7 +20,6 @@ extern void func_001B6FB8(cOmSized *self);
 extern void cOmDoor_setObjCollisionCenterOnly(cOmSized *self);
 extern void SetFlagBit_1BD698(cOmSized *self);
 extern void *cCamera_getScreenPos(cVec *out, void *camera, cVec *world);
-extern cScenario *D_003C2F84;
 extern void KeyStop(void);
 extern void func_001BF8C8(void);
 extern unsigned int D_00747A84;

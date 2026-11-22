@@ -7,6 +7,7 @@
 #include "godhand/DispMgr.h"
 #include "godhand/DogRace.h"
 #include "godhand/cCockItem.h"
+#include "godhand/globals.h"
 
 
 /* Hides every mark and bet mark, then shows the first and last mark. */
@@ -43,8 +44,6 @@ void func_002BA7B8(Part2BA7B8 *self)
     float b = self->child->first.fn((char *)self + self->child->first.delta);
     self->size = a + b;
 }
-
-extern char D_0044D1E8[];               /* the class's method table */
 
 typedef struct Obj2D5708 {
     char unk00[0x10];

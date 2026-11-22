@@ -31,4 +31,12 @@ static __inline__ float cVec_distSq(cVec *a, cVec *b) {
          + (a->z - b->z) * (a->z - b->z);
 }
 
+extern cVec D_005681E0;
+extern cVec D_005681F0;
+extern cVec D_00568200;
+extern cVec D_00568210;
+extern cVec D_00568220;
+extern cVec D_00568230;
+extern cVec D_00583F00[2];
+
 #endif

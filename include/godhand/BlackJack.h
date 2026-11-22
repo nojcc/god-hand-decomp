@@ -161,4 +161,6 @@ void func_001D6BE0(BlackJack *self, int on);
 void func_001D6A30(BlackJack *self, int number);
 void func_001D6A50(BlackJack *self, int number);
 
+extern int D_0042AFE0[BLACKJACK_SUIT_NUM];
+
 #endif

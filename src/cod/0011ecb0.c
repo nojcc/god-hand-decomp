@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 extern void cEmManage_SetPlCatched(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
@@ -17,7 +18,6 @@ extern float Adjust_theta(float f12);
 extern char D_005864F0[];
 extern void cOmSub_setVibration(void *a0, int a1, int a2, float f12, float f13, float f14);
 extern int cOmSub_move(void *a0);
-extern char D_00585720[];
 extern char D_005FEC58[];
 extern int D_00747A0C;
 

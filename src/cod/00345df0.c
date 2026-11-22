@@ -1,6 +1,6 @@
 #include "godhand/mwsfd.h"
+#include "godhand/globals.h"
 
-extern char D_00458068[];
 extern int mwlSfdSleepDecSvr(void *h);
 extern int SFD_Stop(int);
 extern int MWSFLIB_SetErrCode(int);

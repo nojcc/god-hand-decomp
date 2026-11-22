@@ -1,10 +1,9 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
 /* ee-2.9-991111 */
 
-extern int D_003FAEF8;
-extern char D_00781BA8[];
 
 __attribute__((section(".text.sceSifLoadFileReset")))
 int sceSifLoadFileReset(void)

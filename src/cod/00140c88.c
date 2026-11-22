@@ -10,15 +10,13 @@
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
 #include "godhand/fileBuf.h"
+#include "godhand/globals.h"
 
-extern char D_0044E030[];
-extern char D_0044E040[];
 extern unsigned int D_00747A34;
 extern void displayScrollLayer(int id, int on);
 extern void Obj0000_Clear_Fields_94_9C_13C808(void *p);
 extern void ClearFields_A0_250_358_13F2F8(void *p);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *vec);
-extern char D_0042CAB8[];
 
 /* Reset a hit-flash driver: drop its nine state flags, clear its fields, and (unless bit 31 of the system flags is set) fade its target's hit flash down by speed * frame rate, not below the driver's floor. */
 

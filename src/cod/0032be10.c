@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 extern void func_0033F130(const char *msg);
 extern void ADXT_Stop(void *self);
 extern void Forward33B658_33E678(void);
@@ -5,8 +6,6 @@ extern void Forward33B670_33E690(void);
 extern void *func_00338B90(void *src, int mode);
 extern void adxt_start_sj(char *self, void *sj);
 extern void ADXT_SetLnkSw(char *self, int arg);
-extern char D_00452830[];
-extern char D_00452860[];
 
 #define BSWAP32(x) ((((unsigned int)(x) >> 24) | ((x) << 24)) | ((((x) << 8) & 0xFF0000) | (((x) >> 8) & 0xFF00)))
 

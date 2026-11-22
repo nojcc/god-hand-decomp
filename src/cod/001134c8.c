@@ -3,6 +3,7 @@
 #include "godhand/pl00.h"
 #include "godhand/criStm.h"
 #include "godhand/motion.h"
+#include "godhand/globals.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);
@@ -17,7 +18,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 extern int D_005864F0;
-extern const char D_0041C208[];
 
 __attribute__((section(".text.func_001134C8")))
 void func_001134C8(pl00 *self)

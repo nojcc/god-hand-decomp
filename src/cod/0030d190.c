@@ -5,9 +5,8 @@
 #include "godhand/SndSlotInit.h"
 #include "godhand/sync.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
-extern volatile int D_00753D88;
-extern int D_00747A18;
 
 /* Once the current slot's stream header is in, read its format into the slot info and rebuild the page. */
 __attribute__((section(".text.MenuCtl_readSlotStreamInfo")))

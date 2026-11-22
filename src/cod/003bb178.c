@@ -1,9 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
-extern const char D_0045C430[];
-extern const char D_0045C440[];
 
 typedef unsigned int size_t;
 
@@ -22,8 +21,6 @@ extern void func_003A7B58(const char *, int, const char *);   /* __assert */
 extern void *func_0031D6E8(size_t);                           /* _S_oom_malloc */
 extern void *func_0031D928(size_t);                           /* _S_refill */
 extern void func_003A51F4(char *, const char *, size_t);      /* memmove */
-extern void *D_003C4030[16];                                  /* _S_free_list */
-extern const char D_0045C3F8[];                               /* "bastring.cc" */
 
 
 

@@ -5,13 +5,13 @@
 #include "godhand/cObjBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
+#include "godhand/globals.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_00275DA8(void *a0);
 
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-extern int D_0042CAD0;
 
 
 /* Phase machine on the step byte, 2 case labels. Calls Obj0000_Get_Byte_17C3_NZ_2_276468,

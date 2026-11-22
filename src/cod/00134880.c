@@ -5,10 +5,10 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/mtx.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/globals.h"
 
 extern void func_002A84A8(void *a0, int a1, int a2, int a3, float f12);
 extern int setMotionInfo(void *a0, int a1, int a2, int a3, float f12, float f13, int t0);
-extern int D_00429DD8;
 extern int SetField214PtrThenInit_1B6F38(void *obj);
 extern char *InitFields_1B6E90(char *a0);
 extern int func_00305908(void *self, int id, void *data);

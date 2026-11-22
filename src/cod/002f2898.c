@@ -2,6 +2,7 @@
 #include "godhand/cObjSimple.h"
 #include "godhand/cNode.h"
 #include "godhand/cOmBase.h"
+#include "godhand/globals.h"
 typedef struct {
     char pad0[0x13C];
     float range;          /* 0x13C */
@@ -36,8 +37,6 @@ typedef struct {
     cVec ofs;        /* 0x2E0 */
 } EmAct;
 
-extern char D_0044EED0[];
-extern char D_0044EEE8[];
 extern void func_002D9F68(EmAct *a, char *msg, int v);
 extern void *func_002B6310(cObjSimpleVec3 *out, EmAct *a);
 extern void *StoreVecFromFieldB0_2B6160(cObjSimpleVec3 *out, EmAct *a);

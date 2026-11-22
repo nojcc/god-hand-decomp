@@ -1,8 +1,8 @@
 /* TU: cEmManage [enemy] - recovered C++ class. */
 #include "godhand/heapArena.h"
 #include "godhand/cEmManage.h"
+#include "godhand/globals.h"
 
-extern float D_00747A14;
 
 /* The manager's speed rate scaled by the global rate in D_00747A14. */
 __attribute__((section(".text.cEmManage_GetSpeedRate")))

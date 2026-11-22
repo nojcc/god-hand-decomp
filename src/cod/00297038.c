@@ -2,6 +2,7 @@
 
 #include "godhand/cEvent.h"
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
 extern void func_0();
 extern void func_00297CB0(void *, char *);
@@ -16,7 +17,6 @@ extern void func_00297EF0(void *, char *);
 extern void func_00297F38(void *, char *);
 extern void func_00297F80(void *, char *);
 extern void func_00297FC8(void *, char *);
-extern int D_00586B34;
 extern int D_003C2558;
 extern char D_00747470[];
 extern void cEvent_endPlay(cEvent *);

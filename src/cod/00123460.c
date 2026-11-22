@@ -5,12 +5,12 @@
 #include "godhand/gameWork.h"
 #include "godhand/pl00.h"
 #include "godhand/player.h"
+#include "godhand/globals.h"
 
 extern void KillEffect(int owner, int id, int mode);
 extern void SetMotionStep(void *self, float step);
 extern void cOmWeapon_kickOff(cOmWeapon *self);
 
-extern float D_003BD4A0;
 
 /* The player's per-frame heat upkeep: drop the weapon in hand unless flags15F4 bit 0x20 is set,
  * refill the gauge (and add a god item, up to 3) while GameSys bit 0x80000 is set, drain the gauge

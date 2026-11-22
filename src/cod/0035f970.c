@@ -1,5 +1,6 @@
 /* cygnus-2.96 */
 #include "godhand/sfxlib.h"
+#include "godhand/globals.h"
 
 /* View of SfxCtx with the two decoder handles; the 0x30 handle is the
  * pointer SFXA_MakeAlpLumiTbl takes. */
@@ -11,9 +12,6 @@ typedef struct SfxOpenView {
 } SfxOpenView;
 
 extern unsigned char D_003EE338[];
-extern char D_00459FE0[];
-extern char D_0045A010[];
-extern char D_0045A030[];
 extern void *sfx_SearchFreeHn(void);
 extern int func_0035FB78(int ver, int a1, int a2);
 extern void StageBuf_init(void *w, int work, int size);

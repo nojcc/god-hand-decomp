@@ -2,6 +2,7 @@
 
 #include "godhand/menuCtl.h"
 #include "godhand/heapArena.h"
+#include "godhand/globals.h"
 
 extern int func_0032DC58(int handle);
 extern int func_0032DCD0(int handle, int a1);
@@ -12,7 +13,6 @@ extern int func_0032D0C0(int handle);
 extern int func_003A6A20(const char *fmt, ...);
 extern int func_00323E80(int a0, int a1, int a2);
 extern int func_003244C8(int req);
-extern char D_0045CA58[];
 
 void func_00383708(FileSel *sel, MenuPad *pad);
 void func_003837E8(FileSel *sel);

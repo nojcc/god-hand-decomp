@@ -3,6 +3,7 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/Slot1.h"
+#include "godhand/globals.h"
 
 /* One row of the state table: this adjust and the state's handler. */
 typedef struct Slot1StateEnt {

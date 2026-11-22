@@ -2,11 +2,10 @@
 #include "godhand/cCoreSave.h"
 #include "include_asm.h"
 #include "godhand/gameWork.h"
+#include "godhand/globals.h"
 
 extern int D_0061A990[];
-extern int D_003BF160[];            /* levelPoint thresholds, one per game level */
 extern int D_00747A34;              /* cheat flags */
-extern int D_00747A38;              /* cheat flags */
 
 extern void func_002D9D48(int *a0, int a1);
 

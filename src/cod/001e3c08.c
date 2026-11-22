@@ -1,10 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/Slot1.h"
 #include "godhand/scrollLayer.h"
+#include "godhand/globals.h"
 
 extern int cModel_setMeshDisplay(void *model, char *name, int on);
-extern char D_0044A9B0[];
-extern char D_0044A9B8[];
 
 /* Costume hook for the objects with actor id 0x605 and 0x607: from costume 0x10 on, hide the first part mesh (and show the second one on 0x605). */
 #define ACTOR_ID_COSTUME_A   0x605

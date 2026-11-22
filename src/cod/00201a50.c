@@ -1,16 +1,15 @@
 /* cygnus-2.96 matched TU. */
 #include "godhand/cDvd.h"
 #include "godhand/libcdvd.h"
+#include "godhand/globals.h"
 
 extern int GuardedCall_00329FD0_329F98(void *hn);
 extern int func_00360B18(void);
 extern void func_0032A160(void *hn, int *ntime, int *tunit);
 extern int Obj0000_Get_D_003EEA70_360C58(void);
 extern void SFTST_Calc(void *tst, long long *a, long long *b, long long *c);
-extern int D_003EE0A4;
 extern void func_0034BD98(void *sj, int kind);
 extern void sfply_ChkCondDfl(void);
-extern int D_003EE304;
 extern void sfply_FixAvPlay(void *p);
 extern void sfply_AdjustSyncMode(void *p);
 extern void sfply_AdjustEtrg(void *p);

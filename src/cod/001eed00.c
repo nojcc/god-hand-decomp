@@ -9,8 +9,6 @@ extern unsigned char D_00747470[];
 extern int D_00747A84;
 extern unsigned char D_00586AA5;
 extern char D_005CAE50[];
-extern ColiseumVtEnt D_003BE570[];
-extern ColiseumVtEnt D_003BE710[];
 extern void cCollisionScroll_SetLayerCollEnable(void *scroll, int layer, int on);
 extern void displayScrollLayer(int layer, int on);
 extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);

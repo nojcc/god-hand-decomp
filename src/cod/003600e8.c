@@ -1,8 +1,5 @@
+#include "godhand/globals.h"
 extern char D_0045A068[];
-extern char D_0045A078[];
-extern char D_0045A080[];
-extern char D_0045A088[];
-extern char D_0045A090[];
 extern void sfxzmv_GetZfrmInf(void *a0, const char *key, const char *sect, char **out, int *len);
 extern int sscanf(const char *s, const char *fmt, ...);
 extern long long func_0031DE10(long long v, int idx);

@@ -16,7 +16,6 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
-extern unsigned char D_005CB010;
 extern unsigned char D_00747A2C[];
 
 #define FRAME ((char *)va - 0x30)

@@ -2,6 +2,7 @@
 #include "godhand/eeKernel.h"
 #include "godhand/libcdvd.h"
 #include "godhand/sif.h"
+#include "godhand/globals.h"
 
 /* ee-2.9-991111: sceCdDiskReady. Binds the scmd RPC client when it is not bound (retrying with a delay loop),
  * then sends the mode word and returns the reply, or 6 / -1 on failure. */
@@ -9,15 +10,7 @@
 typedef unsigned int u_int;
 
 extern char D_003F8640[];        /* D_003F8640+0x10 == SCE_CD_debug */
-extern int  D_003F8680;
-extern int  D_003F8690;          /* "scmd rpc not bound" flag */
 extern volatile int D_003F8670;  /* _sceCd_dr_semid */
-extern int  D_0077C610[];        /* sceSifClientData */
-extern int  D_0077C650[];        /* send buffer */
-extern int  D_003FA0C0[];        /* receive buffer */
-extern char D_0045E348[];
-extern char D_0045E368[];
-extern char D_0045E380[];
 
 extern void cmd_sem_init(void);
 extern int  PollSema(int sema);

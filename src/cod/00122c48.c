@@ -7,9 +7,8 @@
 #include "godhand/cEm00.h"
 #include "godhand/pl00.h"
 #include "godhand/cBgmData.h"
+#include "godhand/globals.h"
 
-extern char D_0044CE28[];
-extern char D_0044CE30[];
 extern void cScenario_sleepFrames(int frames);
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollisionCenterOnly(void *self);

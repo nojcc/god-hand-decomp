@@ -1,9 +1,9 @@
+#include "godhand/globals.h"
 extern char *GetD003EC7E0_3452B0(void);
 extern int Forward33BF18_348BC8(void *p);
 extern int MWSFD_GetProhibitServer(void);
 extern void mwPlyExecInfiniteLoopHandle(void *p);
 extern void MWSFSVR_SetMwsfdSvrFlg(int a0);
-extern int D_003EC7DC;
 
 __attribute__((section(".text.mwPlyExecInfiniteLoopServer")))
 void mwPlyExecInfiniteLoopServer(void)

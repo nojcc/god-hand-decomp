@@ -3,8 +3,8 @@
 #include "godhand/criStm.h"
 #include "godhand/heapArena.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
-extern int D_00580D80;
 extern int D_00747A78[];
 
 __attribute__((section(".text.IsSlotArrayValid_1FF540")))

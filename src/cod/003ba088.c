@@ -1,7 +1,7 @@
 /* cygnus-2.96 */
+#include "godhand/globals.h"
 
 extern void func_003B9DE0(void *);
-extern char D_00460928[];
 
 __attribute__((section(".text.AC3CNV_TermSupply")))
 void AC3CNV_TermSupply(char *self)

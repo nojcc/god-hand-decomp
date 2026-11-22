@@ -2,6 +2,7 @@
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cMovie.h"
+#include "godhand/globals.h"
 
 extern void cTaskWork_exit(cTaskWork *self);
 extern cTaskManager D_00752C00;

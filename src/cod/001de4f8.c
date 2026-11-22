@@ -2,9 +2,6 @@
 #include "godhand/CustomIDPanel.h"
 #include "godhand/Poker.h"
 
-extern CustomIDSlotTbl8 D_0042B678;
-extern CustomIDSlotTbl8 D_0042B698;
-
 __attribute__((section(".text.func_001DE5F8")))
 void func_001DE5F8(Poker *self, unsigned char sel, unsigned char mode)
 {

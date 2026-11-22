@@ -20,7 +20,6 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_0012C348(void *a0, int a1);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern char D_005864F0[];
-extern int D_00747A24;
 
 /* sn-2.95.3-136 matched TU. */
 

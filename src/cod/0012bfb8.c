@@ -4,13 +4,13 @@
 #include "godhand/debugPrint.h"
 #include "godhand/Slot1.h"
 #include "godhand/scrollLayer.h"
+#include "godhand/globals.h"
 
 extern void func_002E0C80(int x, int y, int arg2, int arg3, int zero, const char *fmt, char *args);
 extern void SetActionJumpUp(cEm00 *self);
 extern void SetActionJumpDown(void);
 extern int moveMotion(cEm00 *self);
 extern void MtxInitCoord(void *a0, int a1, int a2, int a3, int t0);
-extern int D_00422A80;
 extern void func_002AD288(void *a0, int a1);
 extern void SetField214PtrThenInit_1B6F38(void *a0, void *a1);
 

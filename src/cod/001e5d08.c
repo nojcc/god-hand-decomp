@@ -5,11 +5,11 @@
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern void func_001E6ED8(Slot2 *a0, int a1, int a2);
 extern void Slot2_setLineMark(Slot2 *a0, int a1, int a2);
 extern void func_001E8E48(void *a0, void *a1);
-extern long D_00747650;
 extern void func_001E6C80(Slot2 *a0, int a1, int a2);
 
 /* Slot2 payout stage, first line prize: pay out coin by coin until a button

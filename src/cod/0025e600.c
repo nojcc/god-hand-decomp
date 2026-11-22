@@ -7,7 +7,6 @@ extern void func_001D0108(void *a0);
 extern void func_001D0408(void *a0);
 #include "godhand/cOmWeapon.h"
 extern void KillEffect(void *a0, int a1, int a2);
-extern cPmf D_003BF878[];
 
 __attribute__((section(".text.func_0025E600")))
 void func_0025E600(cEm00 *self)

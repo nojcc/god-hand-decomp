@@ -10,10 +10,10 @@
 #include "godhand/cSnd.h"
 #include "godhand/cMovie.h"
 #include "godhand/gameWork.h"
+#include "godhand/globals.h"
 
 extern unsigned int D_00747A84;
 extern void func_0028E858(void);
-extern char D_0044B100[];
 extern void *SearchData(void *name, void *table, int which);
 extern unsigned int D_00747A78;
 extern char *D_005CAFF0;
@@ -22,8 +22,6 @@ extern void cParts_setRotationOrder(void *self, int order);
 extern char D_00747AC0[];
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E28F0(void *obj, float y);
-extern char D_0044C048[];
-extern char D_0044C068[];
 extern char D_005E6900[];
 extern void FileLoader_readWholeFile(void *self);
 extern void func_00397128(int a0);

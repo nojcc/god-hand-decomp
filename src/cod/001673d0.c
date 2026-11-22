@@ -7,10 +7,10 @@
 #include "godhand/vu0.h"
 #include "godhand/Slot1.h"
 #include "godhand/scrollLayer.h"
+#include "godhand/globals.h"
 
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
-extern char D_0041FBA0[];
 extern void **D_003C2384;
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollision(void *self);

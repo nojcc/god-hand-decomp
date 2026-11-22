@@ -2,7 +2,7 @@
 
 #include "godhand/motion.h"
 #include "godhand/pl00.h"
-extern float D_003BD48C;
+#include "godhand/globals.h"
 
 __attribute__((section(".text.UpdateStatePhase2F6_10CC58")))
 void UpdateStatePhase2F6_10CC58(pl00 *self) {

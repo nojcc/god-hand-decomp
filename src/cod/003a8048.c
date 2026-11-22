@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
 extern int GetThreadId(void);
 extern int WaitSema(int sema);
@@ -8,10 +9,6 @@ extern int SignalSema(int sema);
 /* SCE newlib __malloc_lock (0x003A8048). */
 
 
-
-extern int D_003FA990;   /* owner thread id */
-extern int D_003FA994;   /* recursion count */
-extern int D_003FAF18;   /* semaphore id    */
 
 __attribute__((section(".text.__malloc_lock")))
 void __malloc_lock(void *r)
@@ -30,10 +27,6 @@ void __malloc_lock(void *r)
 
 /* SCE newlib __malloc_unlock (0x003A80A8). */
 
-
-extern int D_003FA990;   /* owner thread id */
-extern int D_003FA994;   /* recursion count */
-extern int D_003FAF18;   /* semaphore id    */
 
 __attribute__((section(".text.__malloc_unlock")))
 void __malloc_unlock(void *r)

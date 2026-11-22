@@ -5,6 +5,7 @@
 #include "godhand/heapArena.h"
 #include "godhand/gameWork.h"
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
 /* The game work (D_007474A0) as the boot code sees it: only word fields, so 4-byte aligned. */
 typedef struct BootWork {
@@ -27,10 +28,7 @@ typedef struct BootWork {
     char pad5B2[0x620 - 0x5B2];
 } BootWork;
 
-extern int D_003C3CCC;
-extern int D_00752D3C;
 extern char D_005E8140[];
-extern char D_004504D8[];
 
 extern void func_0030D258(void);
 extern void func_0030ECF8(int a0);

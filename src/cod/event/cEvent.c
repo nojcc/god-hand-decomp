@@ -1,8 +1,8 @@
 /* TU: cEvent [event] - recovered C++ class. */
 #include "godhand/cDvd.h"
 #include "godhand/cEvent.h"
+#include "godhand/globals.h"
 extern unsigned int D_00747A84;
-extern int D_00586B34;
 extern char D_00747470[];
 
 extern void cEvent_initEnv(cEvent *, int);
@@ -42,7 +42,6 @@ void cEvent_playStart(cEvent *self, int no) {
 }
 
 extern int D_003C2F84;
-extern char D_0044A890[];
 extern int func_002962A8(int);
 extern void func_003A6C58(void *, void *, int);
 extern void cTaskWork_sleep(int, int);

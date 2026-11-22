@@ -1,6 +1,6 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
-extern int D_003EEA6C;
 
 __attribute__((section(".text.SFXA_SetLumiPrm")))
 void SFXA_SetLumiPrm(int *p, int a, int b, int c) {

@@ -8,8 +8,8 @@
 #include "godhand/vu0.h"
 #include "godhand/Poker.h"
 #include "godhand/gameWork.h"
+#include "godhand/globals.h"
 
-extern unsigned char D_0074748C;
 extern short D_00568240[];
 extern void ColiseumEmSelect_close(void);
 extern void ColiseumUi_StartFade(void *self, int mode);
@@ -19,7 +19,6 @@ extern int cIDManager_getLocalFileName();
 extern void cIDManager_setIDData();
 extern int D_003C2388;
 extern int *D_003C2384;
-extern char D_0042B6E8[];
 extern char D_005E8040[];
 extern void KeySlotTable_set(char *slot, int a1, int a2);
 extern unsigned char D_005FEA60[];

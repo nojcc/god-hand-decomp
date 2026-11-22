@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 /* newlib e_log.c -- __ieee754_log (0x003AD790). */
 
@@ -12,8 +13,6 @@ typedef union { double value; unsigned int i[2]; } U;
 
 #define SET_HIGH_WORD(d, v)                                             \
     do { U sh_u; sh_u.value = (d); sh_u.i[1] = (v); (d) = sh_u.value; } while (0)
-
-extern const double D_0045FC60;         /* -two54/zero, folded to -inf */
 
 #define ln2_hi  6.93147180369123816490e-01      /* 3fe62e42 fee00000 */
 #define ln2_lo  1.90821492927058770002e-10      /* 3dea39ef 35793c76 */
@@ -96,7 +95,6 @@ extern double dpadd(double a, double b);	/* dpadd */
 extern double litodp(int i);			/* litodp */
 extern double sn_log(double x);			/* __ieee754_log */
 
-extern const double D_0045FC80;				/* -two54/zero == -inf */
 
 typedef union {
 	double	value;

@@ -3,6 +3,7 @@
 #include "godhand/JukeBox.h"
 #include "godhand/gameWork.h"
 #include "godhand/heapArena.h"
+#include "godhand/globals.h"
 extern int cIDBase_release(void *p);
 extern int D_003C2388;
 

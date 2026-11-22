@@ -1,17 +1,11 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cModel.h"
+#include "godhand/globals.h"
 
-extern const char D_0041B590[];
 extern int D_007854C8;
-extern int D_0041B638;
-extern int D_007854D8;
 extern void cGameObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *, void *, void *);
-extern int D_007854E8;
-extern int D_0041B710;
-extern int D_007854F8;
 extern void cObjBase__tf(void);
-extern float D_003BC7C0;
 #define CGAMEOBJ_NO_TYPEDEF
 #include "godhand/cModel.h"
 #include "godhand/cCollisionSolid.h"

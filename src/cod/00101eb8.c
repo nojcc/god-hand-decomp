@@ -6,6 +6,7 @@
 #include "godhand/motion.h"
 #include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern void Add_nullspeed(void *a0);
 extern unsigned int D_00747A78;
@@ -18,8 +19,6 @@ extern int func_00291010(void *a0, void *a1, int a2, int a3, float f12, float f1
 extern char D_005864F0[];
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
 extern void cParts_setRotationOrder(void *a0, int a1);
-extern char D_003C3F58[];
-extern char *D_00586A88;
 
 __attribute__((section(".text.func_002826C8")))
 void func_002826C8(void *a0)

@@ -1,8 +1,6 @@
 /* cygnus-2.96: stream/SFD/sound singletons. */
 #include "godhand/criStm.h"
 
-extern int D_003E0708;
-extern int D_003E0710;
 
 __attribute__((section(".text.PS2RNA_SetSpu2CoreNo")))
 void PS2RNA_SetSpu2CoreNo(StmVolHn *h, unsigned int mode)

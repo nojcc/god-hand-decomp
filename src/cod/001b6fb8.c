@@ -4,15 +4,12 @@
 #include "godhand/cNode.h"
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
+#include "godhand/globals.h"
 
 extern int SearchData(int a0, void *a1, int a2);
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
 extern void cOmBase_setTexChange(void *a0, int a1);
 extern void cParts_setRotationOrder(void *a0, int a1);
-extern int D_004289F8;
-extern int D_00428A00;
-extern int D_00428A08;
-extern int D_00428A10;
 extern void func_00147C88(void *a0, void *a1, int a2);
 
 __attribute__((section(".text.func_001B6FB8")))

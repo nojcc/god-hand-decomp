@@ -1,12 +1,12 @@
 /* sn-2.95.3-136: func_001FFA68, look a path up in a node table: normalise it to lower-case backslash form, then walk it one strtok component at a time. */
 #include "godhand/cDvd.h"
+#include "godhand/globals.h"
+#include "godhand/newlibStdlib.h"
 
 /* newlib ctype: the class table one past its base; bit 0 is upper case. */
-extern unsigned char D_0045F039[];
 #define _U 01
 #define isupper(c) (D_0045F039[(c)] & _U)
 
-extern char D_0042C750[];
 extern char *func_003A57C4(char *d, const char *s);
 extern int func_003A5678(const char *a, const char *b);
 extern char *func_003A9470(char *s, const char *delim);

@@ -1,11 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cScrSpriteDraw.h"
+#include "godhand/globals.h"
 
 extern int D_003C2388;
-extern int D_003C11B0;
 extern void *cIDManager_getTexAddr(int a, int b, int c);
 extern int InitFields_1B6E90(void *);
-extern char D_00428650[];
-extern char D_00421A08[];
 
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"

@@ -5,12 +5,11 @@
 #include "godhand/player.h"
 #include "godhand/angle.h"
 #include "godhand/cCamera.h"
+#include "godhand/globals.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-extern char D_004365A8[];
-extern char D_004365B0[];
 
 /* sn-2.95.3-136 matched TU. */
 

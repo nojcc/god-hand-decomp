@@ -1,31 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
-extern char D_003BFB48[];
-extern char D_003BFB60[];
-extern char D_003BFB78[];
-extern char D_003BFB90[];
-extern char D_003BFBA8[];
-extern char D_003BFBF8[];
-extern char D_003BFC48[];
-extern char D_00585240[];
 extern void func_001038E0(char *a0, char *a1, char *a2, float f12, float f13);
-extern char D_003BFC98[];
-extern char D_003BFCB0[];
-extern char D_003BFCC8[];
-extern char D_003BFCE0[];
-extern char D_003BFCF8[];
-extern char D_003BFD50[];
-extern char D_003BFDA8[];
-extern char D_00585450[];
-extern char D_003C01D8[];
-extern char D_003C0138[];
-extern char D_003C0160[];
-extern char D_003C0188[];
-extern char D_003C01B0[];
-extern char D_003C0200[];
-extern char D_003C02A0[];
-extern char D_003C0340[];
-extern char D_00585720[];
 extern float fRand1_1(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 #include "godhand/motion.h"

@@ -1,8 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/criStm.h"
+#include "godhand/globals.h"
 
-extern unsigned char D_00773318[];
-extern char D_0045B170[];
 
 typedef struct {
     char b[8];

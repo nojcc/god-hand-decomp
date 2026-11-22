@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cMovie.h"
+#include "godhand/globals.h"
 
 /* The movie player's malloc hook: func_002B5AF8 on D_005E79D0. */
 __attribute__((section(".text.func_002B48A0")))

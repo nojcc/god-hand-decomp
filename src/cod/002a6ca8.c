@@ -5,6 +5,8 @@
 #include "godhand/cTaskWork.h"
 #include "godhand/gameWork.h"
 #include "godhand/cIDManager.h"
+#include "godhand/cScrSpriteDraw.h"
+#include "godhand/globals.h"
 
 /* The draw context Gp_draw_poly4 takes. */
 typedef struct PolyCtx {
@@ -16,8 +18,6 @@ typedef struct PolyCtx {
 
 struct cDvdState;
 
-extern float D_003C1184;                /* quad right edge */
-extern float D_003C1190;                /* quad bottom edge */
 extern unsigned char cDvd_stepState(struct cDvdState *self);
 extern void *Gp_draw_poly4(cVec *v, int color, int count, PolyCtx *ctx, int a5, int a6);
 

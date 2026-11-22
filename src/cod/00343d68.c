@@ -1,13 +1,12 @@
 /* cygnus-2.96: MWSFCRE_ResetSfdHn, starts playback of the attached movie handle
  * with func_00345848 as its callback; reports and returns -1 on failure. */
+#include "godhand/globals.h"
 extern int SFD_Stop(char *mv);
 extern int func_0034DE20(char *mv, int cb, int arg);
 extern void func_00345848(int a0, int a1);
 extern int MWSFLIB_SetErrCode(int code);
 extern void MWSFSVM_Error(char *msg);
 extern int mwsfcre_AttachPicUsrBuf(int ply);
-extern char D_004573D8[];
-extern char D_00457410[];
 
 __attribute__((section(".text.MWSFCRE_ResetSfdHn")))
 int MWSFCRE_ResetSfdHn(char *ply)

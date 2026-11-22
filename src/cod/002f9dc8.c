@@ -4,8 +4,8 @@
 #include "godhand/cNode.h"
 #include "godhand/mtx.h"
 #include "godhand/EspDataBank.h"
+#include "godhand/globals.h"
 
-extern int D_0076B580[];
 
 /* sn-2.95.3-136 */
 

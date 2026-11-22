@@ -2,8 +2,8 @@
 
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
+#include "godhand/globals.h"
 
-extern char D_0044D100[];
 
 /* Fire cSndBgmNode_SetFlagsFade on every live node whose flag 0x100000 is set. */
 __attribute__((section(".text.cSnd_BgmFlaggedNodeKick")))

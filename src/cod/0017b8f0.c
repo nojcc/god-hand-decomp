@@ -5,6 +5,7 @@
 #include "godhand/Slot1.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vtables.h"
+#include "godhand/globals.h"
 
 extern unsigned int D_00747A84[];
 extern char D_00752C00;

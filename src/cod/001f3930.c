@@ -3,13 +3,12 @@
 #include "godhand/cSnd.h"
 #include "godhand/gameWork.h"
 #include "godhand/ColiseumEmSelect.h"
+#include "godhand/globals.h"
 
 extern void ColiseumUi_StartFade(void *a0, int a1);
 extern void func_001F4068(void *a0, unsigned short a1, void *a2, int a3);
 extern void func_001F4248(void *a0, int a1);
 
-extern unsigned char D_0074748C;
-extern unsigned char D_00586AA4;
 
 /* The ring pick step: fade in, move the cursor through the ring list with the pad, then pick a ring or back out and fade out. */
 __attribute__((section(".text.func_001F3930")))

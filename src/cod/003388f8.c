@@ -1,15 +1,13 @@
+#include "godhand/globals.h"
 /* cygnus-2.96 matched TU. */
 
 extern int D_003E0710;
 extern int D_003E0708;
 extern char D_004558C8[];
 extern void func_003260C8(char *a0);
-extern int D_003E3AC8;
 extern char D_003E3AD0[];
 extern void func_003A52F0(void *dst, int val, int len);
-extern int D_003E3FB0;
 extern char D_003E3FB8[];
-extern int D_003E7FE8;
 extern char D_003E7FF0[];
 
 /* Refresh the entry at D_004558C8 unless the mode flag is 1 and the counter is not positive; always return 0. */

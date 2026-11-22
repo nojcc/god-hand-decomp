@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/PanelObj.h"
 #include "godhand/CustomIDWork.h"
+#include "godhand/globals.h"
 
 extern void CustomIDWork_SetColorAnimNormal_2D68D8(void *a0, int a1, int a2, int a3);
-extern char D_0042B6B8[];
 
 /* sn-2.95.3-136 matched TU. */
 

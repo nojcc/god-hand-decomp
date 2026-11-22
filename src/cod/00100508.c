@@ -2,8 +2,8 @@
 #include "godhand/cObjBase.h"
 #include "godhand/vtables.h"
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/globals.h"
 
-extern char D_0041B730[];
 extern void cActionButtonUnit_setOk(int x);
 extern void ClearLinkedNodeList_12ECF0(void *p);
 

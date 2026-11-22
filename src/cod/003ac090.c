@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
+#include "godhand/globals.h"
 
 /* newlib mallocr.c :: malloc_extend_top  -> malloc_extend_top */
 
 extern unsigned long D_003FADE0;  /* __malloc_top_pad */
-extern char *D_003FADE8;          /* __malloc_sbrk_base */
 extern unsigned long D_003FADF0;  /* __malloc_max_sbrked_mem */
 extern unsigned long D_003FADF8;  /* __malloc_max_total_mem */
 extern int D_003FAE00;            /* __malloc_current_mallinfo.arena */

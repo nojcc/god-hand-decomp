@@ -3,13 +3,13 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand1_1(void);
 extern unsigned int Rnd(void);
-extern char *D_00586A7C;
 
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"

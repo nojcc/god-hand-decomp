@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 extern char *GetD003EC7E0_3452B0(void);
 extern int Forward3443E0_3443C8(void *p);
 extern void MWSFD_SetReqSvrBdrHn(int a0, int a1);
@@ -16,7 +17,6 @@ extern void SJMEM_Finish(void);
 extern void SJRBF_Finish(void);
 extern int Forward346450_3462C0(void);
 extern int Forward33BEC0_3489F0(void);
-extern int D_003EC7D8;
 
 __attribute__((section(".text.mwPlyFinishSfdFx")))
 void mwPlyFinishSfdFx(void)

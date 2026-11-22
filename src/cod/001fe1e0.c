@@ -4,9 +4,8 @@
 #include "godhand/cDamageManage.h"
 #include "godhand/cMovie.h"
 #include "godhand/FileLoadRec.h"
+#include "godhand/globals.h"
 
-extern char D_00569B80[];
-extern char D_0056C380[];
 
 __attribute__((section(".text.func_001FE1E0")))
 cDamageGive *func_001FE1E0(cDamageManage *self) {

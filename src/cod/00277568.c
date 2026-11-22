@@ -20,7 +20,6 @@ typedef struct cEmFallWork {
 #define EMFALL_FLOOR_RANGE 10.0f
 
 extern unsigned int D_00747A78;
-extern cPmf D_003BFAC0[];
 extern float capVu0MagnitudeSqXZ(void *a, void *b);
 extern void cObjBase_SetSeqEffect(cObjBase *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);

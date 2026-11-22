@@ -3,6 +3,7 @@
 #include "godhand/player.h"
 #include "godhand/cSnd.h"
 #include "godhand/cDamageUnit.h"
+#include "godhand/cEm00.h"
 
 #define BREAK_FLASH_FRAMES  8
 #define BREAK_MESH_LAYER    2
@@ -19,7 +20,6 @@ typedef struct cOmBreakObj {
     int flash;                          /* 0xAF4 frames of hit flash left */
 } cOmBreakObj;
 
-extern unsigned char D_005CB010;
 extern int func_001FDD38(void *trigger, void *pl);
 extern int cOmBase_checkDamage(cOmBase *self, cDamageTake *give);
 extern void cOmBase_setMeshColorFromLayer(void *self, int layer, float r, float g, float b);

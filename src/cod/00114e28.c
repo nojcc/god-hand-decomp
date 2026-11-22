@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 extern unsigned char D_005864F0[];
 extern void cEmManage_SetPlCatched(void *a0);
@@ -31,15 +32,8 @@ extern void func_0012A8D8(void *a0);
 extern void cIDManager_getLocalFileName();
 extern void cIDManager_setIDData();
 extern int D_003C2388;
-extern char D_0041E190[];
 extern int *D_003C2384;
 extern void SetMotionStep(void *a0, float f12);
-extern float D_003BDE70;
-extern float D_003BDE74;
-extern float D_003BDE78;
-extern float D_003BDE7C;
-extern float D_003BDE80;
-extern float D_003BDE84;
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 
 /* sn-2.95.3-136 matched TU. */

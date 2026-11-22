@@ -1,15 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 #include "godhand/espSys.h"
 #include "godhand/cNode.h"
 #include "godhand/mtx.h"
 
-extern int D_0061B674;
-extern unsigned char D_003C3BB0;
-extern int D_003C3BB4;
-extern unsigned char D_0061B670;
-extern int D_0044EC08;
-extern int D_0044EC28;
 extern void sceVu0ApplyMatrix(void *dst, void *m, void *src);
 extern char *D_005CAFF0;
 

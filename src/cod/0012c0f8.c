@@ -1,8 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/player.h"
+#include "godhand/globals.h"
 
-extern unsigned short D_005CAC94;
 
 /* sn-2.95.3-136 matched TU. */
 

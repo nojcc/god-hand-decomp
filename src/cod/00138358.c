@@ -8,6 +8,7 @@
 #include "godhand/cDamageUnit.h"
 #include "godhand/Poker.h"
 #include "godhand/cIDBase.h"
+#include "godhand/globals.h"
 
 extern cPlCameraTarget *Getplayer(void);
 extern void func_00139FF8(struct cPlCamera *self);
@@ -19,7 +20,6 @@ extern void SetField380Bit2000ForTag_1B7300(void *self, int tag, int on);
 extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
-extern char D_00567D70[];
 extern void NoOp_164978(void *p);
 
 /* Follow the player: the normal chase, or the lock-on chase in state 4. */

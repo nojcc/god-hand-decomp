@@ -13,7 +13,6 @@
 
 extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
 extern void sceVu0CameraMatrix(float *out, cVec *p, cVec *zd, cVec *yd);
-extern unsigned char D_005CB010;
 extern void cOmBase_setMeshDispFromLayer(cOmBase *self, int layer, int on);
 extern void KillEffect(void *obj, int effNo, int mode);
 

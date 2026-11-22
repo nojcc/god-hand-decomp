@@ -1,6 +1,6 @@
 #include "godhand/mtx.h"
 #include "godhand/criStm.h"
-extern int D_0076A7A4;
+#include "godhand/globals.h"
 
 __attribute__((section(".text.SdeSystemOutModeSet")))
 void SdeSystemOutModeSet(int a0) {

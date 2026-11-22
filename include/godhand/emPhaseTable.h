@@ -46,4 +46,14 @@ typedef struct EmPhaseTable4 { EmPhaseEnt e[4]; } EmPhaseTable4;
         fn_((char *)(self) + delta_);                                               \
     }
 
+extern EmPhaseTable D_003BDB18;
+extern EmPhaseTable D_003BDC40;
+extern EmPhaseTable D_003BDC80;
+extern EmPhaseTable D_003BDCE0;
+extern EmPhaseTable D_003BDE88;
+extern EmPhaseTable D_003BFB00;
+extern EmPhaseTable D_003BFE00;
+extern EmPhaseTable D_003BFE98;
+extern EmPhaseTable D_003BFF40;
+
 #endif /* GODHAND_EMPHASETABLE_H */

@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/globals.h"
 
 extern unsigned int Rnd(void);
 #include "godhand/motion.h"
@@ -9,7 +10,6 @@ extern unsigned int Rnd(void);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void func_00279C20(void *a0);
-extern char *D_00586A7C;
 extern void func_00188798(void *a0);
 extern void SetField5B0Bit2ClearBit8_1B7908(void *a0);
 extern int GetField_54_173900(void *a0);

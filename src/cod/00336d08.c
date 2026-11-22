@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 /* cygnus-2.96: ADXT_SetOutPos, sets the decoder's output callback once the stream is running. */
 typedef struct {
     char pad0[0xE8];
@@ -17,8 +18,6 @@ typedef struct {
     StmLink *link;    /* 0x04 */
 } DecOutHn;
 
-extern char D_00455308[];
-extern char D_00455330[];
 extern void func_0033F130(char *msg);
 extern void PL2ENC_SetPos(void *dec, int fn, int obj);
 

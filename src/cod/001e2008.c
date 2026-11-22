@@ -5,9 +5,9 @@
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/globals.h"
 
 extern void func_001E8E48(void *a0, void *a1);
-extern long D_00747650;
 
 /* Slot1 payout stage, prize line 3: pay out coin by coin until a button is pressed or the coins run out. */
 

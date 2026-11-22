@@ -4,12 +4,9 @@
 #include "godhand/cDvd.h"
 #include "godhand/heapArena.h"
 #include "godhand/cBgmData.h"
+#include "godhand/globals.h"
 
-extern char D_0044D0B0[];
-extern char D_0044D0C0[];
-extern char D_0044D0D8[];
 extern void cBgmData_AddLoadBits(cBgmData *, int);
-extern char D_0044D0A0[];
 
 /* Is the request reqNo of bgm part 0 playing? */
 __attribute__((section(".text.cSnd_BgmEvIsPlaying")))

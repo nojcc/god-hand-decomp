@@ -1,8 +1,8 @@
 /* TU: cSnd [sound] - recovered C++ class. */
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
+#include "godhand/globals.h"
 #define CSND_HIT(s) (*(cBgmHit **)((char *)(s) + 0x24))
-extern int D_0044CE48[];
 extern void SetSequenceParam_373A18(void *a0, int a1);
 extern void UpdateSequenceNodeWeighted_373560(void *a0, int a1, float f);
 extern float GetSequenceBlendWeight_373938(void *a0, int a1);
@@ -299,7 +299,6 @@ void cSnd_BgmEvAllSignal(cSnd *self, float time)
 
 
 extern int func_003A5678(cBgmHit *, char *);
-extern char D_0044D100[];
 
 /* Set or clear the hit flag of the hit table entries whose id matches. */
 __attribute__((section(".text.cSnd_BgmHitBeSet")))

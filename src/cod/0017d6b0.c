@@ -10,6 +10,7 @@
 #include "godhand/cEmManage.h"
 #include "godhand/emPhaseTable.h"
 #include "godhand/DogRace.h"
+#include "godhand/globals.h"
 
 extern int D_003C264C;
 extern int D_00747A24;
@@ -57,8 +58,6 @@ void cScenario_endExtraGame(RoomJumpTarget *target)
 #define BANK_Y_ELEM     6               /* first element moved to a row's Y */
 
 typedef struct { int w[5]; } SlotY;
-
-extern int D_0042BDC0[5];               /* local Y per slot */
 
 /* Set message `messNo` on slot `msgSlot` of both banks and move the work entry of slot `ySlot` to that slot's Y
  * from the table. Both slots must be below 5. */

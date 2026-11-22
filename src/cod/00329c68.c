@@ -1,15 +1,14 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
 extern void NoOp_33E6A8(void);
 extern void NoOp_33E6B0(void);
 extern void SndVol_applyRate(void *o, float f, int a1, int a2);
 extern void ADXSTM_SetEos(void *a0, void *a1);
 extern void adxt_start_sj(void *a0, void *a1);
-extern void *D_003D1404;
 extern void MWSFD_SetReqSvrBdrHn(int a0, int a1);
 extern int GetField0OrZero_346828(void *a0);
 extern int MWSFSVM_Error(char *a0);
-extern char D_00458FD8[];
 extern void mwPlySetSeamlessLp(void *a0, int a1);
 extern void mwPlyReleaseSeamless(void *a0);
 

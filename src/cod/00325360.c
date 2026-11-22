@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 /* cygnus-2.96 matched TU. */
 
 extern int sfset_IsCondValid();
@@ -20,7 +21,6 @@ extern long long SFBUF_UpdateFlowCnt(long long, int);
 extern void MWSFD_Free(int *a0, int a1);
 extern void func_00352AA0(int *a0, int *a1);
 extern void SFTIM_Tc2Time(int *a0, int *a1, int *a2);
-extern int D_003EE278;
 extern int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(int *a0);
 extern int ReferThreadStatus(int threadId, int *status);
 extern int SuspendThread(int threadId);

@@ -1,8 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cNode.h"
+#include "godhand/globals.h"
 
-extern int D_0044EDC0;
-extern int D_0044EDE8;
 extern int D_00741DC8;
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void CopyVec16From20_B62E0(void *dst, void *self);

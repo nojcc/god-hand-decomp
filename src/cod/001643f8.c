@@ -3,11 +3,11 @@
 #include "godhand/cSnd.h"
 #include "godhand/cSubScr.h"
 #include "godhand/menuKey.h"
+#include "godhand/globals.h"
 
 #define GAMEWORK_FLAG_BIT6  6
 #define ROOM_TITLE      0x21
 
-extern unsigned short D_00583ED4;
 extern void func_001645E0(char *self);
 
 /* Move the cursor over the four entries with up and down, wrapping (the first

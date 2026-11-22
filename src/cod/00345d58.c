@@ -1,16 +1,14 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/globals.h"
 
 extern int GetField0OrZero_346828(void *a0);
 extern int MWSFSVM_Error(char *a0);
-extern char D_00458038[];
 extern void MWSFD_SetProhibitServer(int a0);
 extern void func_00345DF0(void *a0);
 extern void mw_sfd_start_ex(void *a0);
 extern void func_00342FF8(void *a0);
-extern char D_00458110[];
 extern void Forward345D58_345D40(void *a0, int a1);
 extern void MWSFPLY_ReqStartAfs(void *a0, int a1, int a2);
-extern char D_00458628[];
 extern void func_0036CA38(void *a0, int a1);
 extern void MWSST_SetOutVol(void *a0, int a1);
 

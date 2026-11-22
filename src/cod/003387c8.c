@@ -1,7 +1,6 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/criStm.h"
 
-extern int D_003E0710;
-extern int D_003E0708;
 
 __attribute__((section(".text.PS2RNA_SetOutPan")))
 void PS2RNA_SetOutPan(char *a0, int idx, int val) {

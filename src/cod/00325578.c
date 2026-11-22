@@ -1,14 +1,12 @@
 /* cygnus-2.96 matched TU. */
+#include "godhand/adxm.h"
+#include "godhand/globals.h"
 
 extern int CreateThread(void *);
 extern void StartThread_3B0BA8(int, int);
 extern void ChangeThreadPriority(int, int);
 extern void adxm_mwidle_proc(void);
-extern int D_003CF9D8;
-extern int D_003C80C8;
-extern unsigned char D_003CB9D0[];
 extern int D_00468CF0;
-extern volatile int D_003C814C;
 
 typedef struct {
     int status;

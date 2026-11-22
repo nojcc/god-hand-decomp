@@ -26,8 +26,6 @@ extern void IK_InverseKinematics(void *a0, void *a1);
 
 #include "godhand/emPhaseTable.h"
 
-extern EmPhaseTable D_003BFE00;
-
 static inline cOmBase *getPart0(cEm00 *self)
 {
     int frame[3];

@@ -1,7 +1,7 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/eeKernel.h"
+#include "godhand/globals.h"
 
-extern char D_0045DD40[];
 
 typedef unsigned int  u_int;
 typedef unsigned long u_long;

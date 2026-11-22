@@ -5,12 +5,12 @@
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/gameWork.h"
+#include "godhand/globals.h"
 
 extern int D_00568240;
 extern int D_003C2388;
 extern int *D_003C2384;
 extern char D_005864F0[];
-extern char D_0042BE30[];
 extern void cIDManager_getLocalFileName(int a, void *b, void *c, int d);
 extern void cIDManager_setIDData(int a, int b, int c);
 extern void ColiseumBattle_ApplyRingRules(void *a);

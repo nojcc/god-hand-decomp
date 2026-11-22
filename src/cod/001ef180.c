@@ -5,6 +5,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cCamManager.h"
 #include "godhand/cCamera.h"
+#include "godhand/globals.h"
 
 
 
@@ -14,7 +15,6 @@ extern void NoOp_1F0490(char *a0);
 extern char D_00747470[];
 extern int D_00747A24[];
 extern long D_00747640;
-extern unsigned char D_0074748C;
 extern char *D_003C2F84;
 
 /* Result sequence after a fight: marks the ring cleared, pays the prize

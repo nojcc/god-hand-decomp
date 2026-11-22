@@ -1,10 +1,9 @@
 /* ee-2.9-991111 matched TU. */
+#include "godhand/globals.h"
 
 #include "godhand/eeKernel.h"
 
 extern int iWakeupThread(int id);
-extern int D_003FAE48;
-extern int D_0077DF90;
 extern char D_0077DF98[];
 
 #include "godhand/sync.h"

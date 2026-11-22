@@ -3,8 +3,7 @@
 #include "godhand/classFADE.h"
 #include "godhand/cMovie.h"
 #include "godhand/cSnd.h"
-extern int D_00566E40;
-extern int D_00566E44;
+#include "godhand/globals.h"
 
 extern void KeyStop(void);
 /* Two lock-flag words of the game work: 0x5D8 (D_00747A78, the system flags) and 0x5E0

@@ -8,8 +8,8 @@
 #include "godhand/cActionButton.h"
 #include "godhand/cEm00.h"
 #include "godhand/cOmWeapon.h"
+#include "godhand/globals.h"
 
-extern int D_00428A20;
 extern char D_005CAE50[];
 extern void func_001331B8(char *a0, long a1, int a2);
 extern cActionButtonEnt *func_001F7798(cActionButton *self);

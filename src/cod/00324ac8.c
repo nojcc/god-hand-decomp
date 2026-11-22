@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 extern void ADXT_DestroyAll(void);
 extern void Obj3260_Tramp_00337D20_D2A0(void);
 extern void func_0033F4C8(void);
@@ -15,12 +16,7 @@ extern void SJUNI_Finish(void);
 extern void ADXCRS_Finish(void);
 extern void SVM_CallErr1(void *p);
 extern void ADXT_Destroy(char *p);
-extern int D_003C7400;
-extern int D_003C7408;
-extern int D_003C7414;
 extern char D_003C7420[];
-extern int D_003D84AC;
-extern char D_00451B48[];
 
 __attribute__((section(".text.ADXT_Finish")))
 void ADXT_Finish(void)

@@ -66,4 +66,8 @@ void CustomID_showDisplays(CustomIDPanel *self, int full);
 void DigitDisplay_setNumber(CustomIDPanel *self, int on, int value);
 void IdNumbers_setAndTint(CustomIDPanel *self, int show, int n0, int n1, int n2, int flag);
 
+extern CustomIDSlotTbl8 D_0042B678;
+extern CustomIDSlotTbl8 D_0042B698;
+extern CustomIDDigitTbl D_0042BD70;
+
 #endif

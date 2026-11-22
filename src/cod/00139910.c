@@ -4,6 +4,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/CustomIDPanel.h"
 #include "godhand/DogRace.h"
+#include "godhand/globals.h"
 
 extern void *sceSifAllocIopHeap(int size);
 extern int Tramp_sceSifFreeSysMemory_3B5A50(void *p);
@@ -12,8 +13,6 @@ extern int Obj3290_Tramp_003313E0_9298(void *self);
 extern int Entry_releaseIfReady(void *self);
 extern int Rnd(void);
 extern char D_00427CD8[];
-extern int D_0042BD40[5];
-extern int D_0042BD58[5];
 
 /* Allocate size bytes on the IOP heap, hand them to Forward2D2F78_2D3020 and store the block in *out on success; free it on failure. */
 __attribute__((section(".text.cSif_allocAndForward")))

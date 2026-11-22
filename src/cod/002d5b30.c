@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/regTbl.h"
+#include "godhand/globals.h"
 
-extern int D_0040A420;
 extern char *D_00754C38;
 extern char D_0061B7C0[];
 extern char D_0071B7C0[];

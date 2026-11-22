@@ -3,8 +3,8 @@
 #include "godhand/criStm.h"
 #include "godhand/seqNode.h"
 #include "godhand/sndTiming.h"
+#include "godhand/globals.h"
 
-extern int D_0045A600[];
 extern char D_0076B1C0[];
 extern void sdeIssWorkClear(void);
 extern void sdeStrWorkClear(void);

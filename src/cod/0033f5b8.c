@@ -1,3 +1,4 @@
+#include "godhand/globals.h"
 extern void Forward33B658_33E678(void);
 extern void Forward33B670_33E690(void);
 extern void CdSrd_finishRead(void);
@@ -5,7 +6,6 @@ extern void func_00328C30(void);
 extern void ADXSTM_ExecServer(void);
 extern void ADXF_ExecServer(void);
 extern void func_00328C70(void);
-extern int D_003EB844;
 
 __attribute__((section(".text.adxt_ExecFsSvr")))
 void adxt_ExecFsSvr(void)
