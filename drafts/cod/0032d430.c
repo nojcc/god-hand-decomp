@@ -42,13 +42,13 @@ typedef struct {
 } AdxtSearchHn;
 
 extern void Obj33F8_Tramp_0033F130_FCB0(char *);
-extern int func_0032ED70(AdxtSearchHn *, char *, int);
+extern int aixp_create_track(AdxtSearchHn *, char *, int);
 extern int func_003395A0(char *, int, int);
 extern int func_0032F2D8(int, int, char *);
 extern int func_00327D00(int, int);
-extern void func_003283E8(int, void *, AdxtSearchHn *);
-extern void func_0032E488(int a0);
-extern void func_0032D720(AdxtSearchHn *);
+extern void ADXSTM_EntryEosFunc(int, void *, AdxtSearchHn *);
+extern void aixp_entry_eos_cb(int a0);
+extern void aixp_Destroy(AdxtSearchHn *);
 
 extern AdxtSearchHn D_003D1488[4];
 extern char D_004529D0[];
@@ -90,7 +90,7 @@ char *func_0032D430(int *prm, char *buf, int size)
         n = prm[0] * 0x85C0;
     else
         n = prm[0] * (prm[1] * 0x40C0 + 0x40);
-    x = func_0032ED70(h, pos, n);
+    x = aixp_create_track(h, pos, n);
     if (x < 0)
         goto fail;
     rem -= n;
@@ -136,7 +136,7 @@ char *func_0032D430(int *prm, char *buf, int size)
     h->f8 = x;
     if (!x)
         goto fail;
-    func_003283E8(x, func_0032E488, h);
+    ADXSTM_EntryEosFunc(x, aixp_entry_eos_cb, h);
     h->f1A8 = 0;
     h->f1B1 = 1;
     h->used = 1;
@@ -151,7 +151,7 @@ char *func_0032D430(int *prm, char *buf, int size)
     h->f274 = 0;
     return (char *)h;
 fail:
-    func_0032D720(h);
+    aixp_Destroy(h);
     return 0;
 }
 #else

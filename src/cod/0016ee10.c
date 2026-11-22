@@ -30,7 +30,7 @@ extern void func_002949C8(void *self);
 extern void func_002B4528(void *self, int value);
 extern void func_002D5918(void *self);
 extern void func_002D5990(void *self);
-extern int func_00394DD8(void *value, int mode);
+extern int snDllLoaded(void *value, int mode);
 
 __attribute__((section(".text.func_0031AF70")))
 int func_0031AF70(int value)
@@ -159,7 +159,7 @@ int func_002B3050(char *self)
 __attribute__((section(".text.func_002BE6A0")))
 int func_002BE6A0(cRelSlot *slot)
 {
-    return func_00394DD8(slot->data, 0) == 0;
+    return snDllLoaded(slot->data, 0) == 0;
 }
 
 __attribute__((section(".text.func_001627A0")))

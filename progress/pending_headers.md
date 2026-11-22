@@ -8,54 +8,54 @@ working source file for now. Moved into `include/` at each 10-batch checkpoint.
 
 | item | declared in | evidence |
 | --- | --- | --- |
-| `Sfd35BDD0` / `Cond35BDD0` | src/cod/sa_0035bdd0.c | func_0035BDD0; matched |
+| `Sfd35BDD0` / `Cond35BDD0` | src/cod/sa_0035bdd0.c | sftrn_BuildAll; matched |
 | `Slot37FE78` | src/cod/sa_0037fe78.c | func_0037FE78; matched |
 | `Res305A68` / `GW305A68` / `Esp305A68` | src/cod/sa_00305a68.c | func_00305A68; matched |
-| `Sub355130` / `Ctx355130` | src/cod/sa_00355130.c | func_00355130; matched |
+| `Sub355130` / `Ctx355130` | src/cod/sa_00355130.c | sfmpv_AddReadSub; matched |
 | `Tm360B18` | src/cod/sa_00360b18.c | func_00360B18; matched |
 | `Snd37A4C8` | src/cod/sa_0037a4c8.c | func_0037A4C8; matched |
 | `Vt3443E0` / `Obj3443E0` / `Mwsf3443E0` | src/cod/sa_003443e0.c | func_003443E0; matched |
 | `SndSys76A790` fields: frame@0x10, time@0x8C, timeMax@0x90 | src/cod/sa_00375380.c | func_00375380; matched (NM closer handoff, batch 83) |
 | `Mode2D0D70` (mode@0x48, busy@0xEE8) / `Ovr2D0D70` (flags, bgm u16@8) / `Req2D0D70` (kind@0x13C) | src/cod/sa_nm_csnd_getstagebgmreq.c | cSnd_GetStageBgmReq; NM |
 | `Adxt32A018` | src/cod/sa_0032a018.c | func_0032A018; matched |
-| `Adxt32B1C8` / `Sj32B1C8` / `SjIf32B1C8` | src/cod/sa_0032b1c8.c | func_0032B1C8; matched |
+| `Adxt32B1C8` / `Sj32B1C8` / `SjIf32B1C8` | src/cod/sa_0032b1c8.c | adxt_SetLpFlg; matched |
 | `IDBase143BE8` / `IDObj143BE8` | src/cod/sa_00143be8.c | func_00143BE8; matched |
 | `Vec1EC928` | src/cod/sa_001ec928.c | func_001EC928; matched |
 | `Ps2Work336BA8` / `Ps2Obj336BA8` / `Adxt336BA8` | src/cod/sa_00336ba8.c | func_00336BA8; matched |
-| `Rng34BA88` / `Hdr34BA88` / `BufPtr34BA88` | src/cod/sa_0034ba88.c | func_0034BA88; matched |
+| `Rng34BA88` / `Hdr34BA88` / `BufPtr34BA88` | src/cod/sa_0034ba88.c | SFBUF_InitHn; matched |
 | `Slider37AD88` / `Menu37AD88` | src/cod/sa_0037ad88.c | func_0037AD88; matched |
 | `Pad1B48E0` (view of D_007474A0, frameRate@0x574) / `Mdl1B48E0` / `Em1B48E0` | src/cod/sa_001b48e0.c | func_001B48E0; matched |
 | `IDWork13D400` / `CustomIDWork13D400` (0x7C) / `Obj13D400` (cw[5]@0x120) | src/cod/sa_0013d400.c | func_0013D400; matched |
 | `MWSFSVM_Error` is variadic (`mwsfHn.h` declares 1 param) | src/cod/sa_00345f48.c | func_00345F48; matched in batch 83 (was NM); fix at checkpoint 90 |
 | `Rec308DA8` / `Ent308DA8`; `func_0012ED60` takes 14 params | src/cod/sa_00308da8.c | func_00308DA8; matched |
-| `Object321E08` / `FdeVector321E08` / `FdeAccu321E08` (libgcc frame.c) | src/cod/sa_00321e08.c | func_00321E08; matched |
-| `SjCk327568` / `SjIf327568` / `Sj327568` / `Dec327568` | src/cod/sa_00327568.c | func_00327568; matched |
-| `Src35F288` / `Inf35F288` (void* y/u/v plane pointers) | src/cod/sa_0035f288.c | func_0035F288; matched |
-| `Req386FA0` / `Node386FA0` (req@0xE) | src/cod/sa_00386fa0.c | func_00386FA0; matched |
-| `DevStat36C790` / `DevObj36C790` | src/cod/sa_0036c790.c | func_0036C790; matched |
+| `Object321E08` / `FdeVector321E08` / `FdeAccu321E08` (libgcc frame.c) | src/cod/sa_00321e08.c | frame_init; matched |
+| `SjCk327568` / `SjIf327568` / `Sj327568` / `Dec327568` | src/cod/sa_00327568.c | adxsjd_discard_proc; matched |
+| `Src35F288` / `Inf35F288` (void* y/u/v plane pointers) | src/cod/sa_0035f288.c | sfxcnv_MakeCftSrcBuf; matched |
+| `Req386FA0` / `Node386FA0` (req@0xE) | src/cod/sa_00386fa0.c | SdeStrOpen; matched |
+| `DevStat36C790` / `DevObj36C790` | src/cod/sa_0036c790.c | mpvm2v_CopyPicAtr; matched |
 | `Menu140718` / `Item140718` / `IDWork140718` (item[8], count@0x340) | src/cod/sa_00140718.c | func_00140718; matched |
 | `BankHdr374B70` / `Bank374B70` / `Ext374B70` / `Cmd374B70`; `func_003758E8` returns int | src/cod/sa_00374b70.c | func_00374B70; matched |
-| `BankHdr375988`; `func_003758E8` returns int | src/cod/sa_00375988.c | func_00375988; matched |
+| `BankHdr375988`; `func_003758E8` returns int | src/cod/sa_00375988.c | SdeSsqHedOpen; matched |
 | `func_001C28A0` returns int | (batch 83 upgrades) | header item |
-| `GetField0OrZero_346828`, `MWSFD_GetPauseBdr`, `SFD_GetCond`, `func_00356F48`, `func_00345750` return int | src/cod/sa_00345f48.c | func_00345F48; matched |
-| `func_00366960` returns int | src/cod/sa_00352f40.c | func_00352F40; matched |
-| `func_0036A300`, `GetArrayElemA0C_35A1C8` return int | src/cod/sa_003533a8.c | func_003533A8; matched |
-| `func_0039AA38`, `viBufAddDMA`, `sfmpvp_PutVibuf` return int | src/cod/sa_nm_003566e8.c | func_003566E8; NM (1 diff) |
+| `GetField0OrZero_346828`, `MWSFD_GetPauseBdr`, `SFD_GetCond`, `SFD_Pause`, `MWSFLIB_SetErrCode` return int | src/cod/sa_00345f48.c | func_00345F48; matched |
+| `MEM_Copy` returns int | src/cod/sa_00352f40.c | sfmpv_SetMpvHd; matched |
+| `MPV_GetLinkFlg`, `GetArrayElemA0C_35A1C8` return int | src/cod/sa_003533a8.c | sfmpv_UpdateDefect; matched |
+| `sceMpegGetPictureAbort`, `viBufAddDMA`, `sfmpvp_PutVibuf` return int | src/cod/sa_nm_003566e8.c | mpegNodata; NM (1 diff) |
 | `Vec2F2898` / `Vec4F2898` / `Prm2F2898` / `Act2F2898` | src/cod/sa_002f2898.c | func_002F2898; matched |
 | `__eh_info` / `exception_table` / `exception_descriptor` (libgcc2) | src/cod/sa_00320800.c | func_00320800; matched |
 | `Sys2CAF28` (mode@0xEE8 on D_003BD930); `cSnd` mix levels cur/target/step[5]@0x60/0x74/0x88 | src/cod/sa_nm_002caf28.c | func_002CAF28; NM |
-| `SjIf32D720` / `Sj32D720` / `Adxt32D720` | src/cod/sa_0032d720.c | func_0032D720; matched (NM closer handoff, batch 84) |
+| `SjIf32D720` / `Sj32D720` / `Adxt32D720` | src/cod/sa_0032d720.c | aixp_Destroy; matched (NM closer handoff, batch 84) |
 
 ## Batch 85 (local, not merged)
 
 | item | declared in | evidence |
 | --- | --- | --- |
 | `cp_eh_info.caught` is a word at 0x14 (`int`, sw) and `handlers` is a `long` at 0x20 | src/cod/sa_00321288.c | __start_cp_handler; matched. 00321240.cc still says `bool caught`; do not merge until that TU is rechecked |
-| `Mwsf3448B0` stat at 0x2D4; `MWSFSVM_Error` noreturn | src/cod/sa_003448b0.c | func_003448B0; matched. mwsfHn.h declares it with one const char * and not noreturn |
+| `Mwsf3448B0` stat at 0x2D4; `MWSFSVM_Error` noreturn | src/cod/sa_003448b0.c | mwsffrm_SetFrmApi; matched. mwsfHn.h declares it with one const char * and not noreturn |
 | `Obj341EC0` kind short at 0x9C | src/cod/sa_nm_00341ec0.c | func_00341EC0; NM (bne vs bnel) |
 | `Work353348` kind at 0x74 / `Hn353348` work at 0x1FC0 | src/cod/sa_nm_00353348.c | func_00353348; NM |
 | `Ent3769B0` (id u16, key at 4, flags at 8, stride 0x40) over D_0076F050 | src/cod/sa_nm_003769b0.c | func_003769B0; NM. 00377e28.c uses a different StructB view of the same block |
-| `Slot3B9F60` (word at 0, stride 0x3C) over D_003FC7B8 | src/cod/sa_nm_003b9f60.c | func_003B9F60; NM |
+| `Slot3B9F60` (word at 0, stride 0x3C) over D_003FC7B8 | src/cod/sa_nm_003b9f60.c | ac3cnv_alloc_hndl; NM |
 
 ## Batch 86 (local, not merged)
 
@@ -68,10 +68,10 @@ working source file for now. Moved into `include/` at each 10-batch checkpoint.
 | item | declared in | evidence |
 | --- | --- | --- |
 | `SinCos378` `{float s, c}` over `D_0045A610` | src/cod/sa_003780f8.c | func_003780F8; matched handoff |
-| `Dec327418` pending at 0xA0, sj[] at 0x0C, nch at 0x02 | src/cod/sa_00327418.c | func_00327418; matched. Sibling func_00327568 has pending at 0xA4 |
+| `Dec327418` pending at 0xA0, sj[] at 0x0C, nch at 0x02 | src/cod/sa_00327418.c | adxsjd_insert_proc; matched. Sibling adxsjd_discard_proc has pending at 0xA4 |
 | `Obj32D868` unk1CC at 0x1CC; dead volatile load of `D_00451AC0` | src/cod/sa_nm_0032d868.c | func_0032D868; NM (beql vs beq) |
-| `Work47498` sj at 0x17C, buf at 0x180, copy at 0x188, rec at 0x194 | src/cod/sa_nm_00347498.c | func_00347498; NM |
-| `Slot48670` stride 0x20 at 0x284; `Obj48670.unk3C` at 0x3C | src/cod/sa_00348670.c | func_00348670; matched |
+| `Work47498` sj at 0x17C, buf at 0x180, copy at 0x188, rec at 0x194 | src/cod/sa_nm_00347498.c | mwsftag_GetAinfFromSj; NM |
+| `Slot48670` stride 0x20 at 0x284; `Obj48670.unk3C` at 0x3C | src/cod/sa_00348670.c | MWSST_Create; matched |
 | `Slot4C3A8` stride 0x74 at 0x1310; on at 0x04, obj at 0x14, totals at 0x30/0x34 | src/cod/sa_nm_0034c3a8.c | func_0034C3A8; NM |
 | damage-take pointer at 0x60C (not EM_DMG_TAKE 0x600); child model via byte 0x2B4 and pointer 0x278 | src/cod/sa_nm_0017ac90.c | func_0017AC90; NM |
 | state byte at 0x2F6; resource base at 0x304; countdown at 0x5F0 | src/cod/sa_nm_0028a780.c | func_0028A780; NM |
@@ -81,7 +81,7 @@ working source file for now. Moved into `include/` at each 10-batch checkpoint.
 | item | declared in | evidence |
 | --- | --- | --- |
 | `Obj12F600` entries (stride 0x14, flags at 0x10) at 0x14, u16 index array at 0x1C; `Grp12F600` start at 0, three u8 run lengths at 4 | src/cod/sa_0012f600.c | func_0012F600; matched. Caller func_0012F4C8 (0012f4c8.c) passes `void *` |
-| `Dtx33A730` spare list at 0x14, `list[4]` at 0x18, cb/cbobj at 0x28/0x2C; node chunk at +8 | src/cod/sa_nm_0033a730.c | func_0033A730; NM. Same object as `DtxObj` in sa_nm_0033abd0.c; `Ck33A730` is the 8-byte chunk that criAix.h passes to func_0033ACA0 as `SjChunk` |
+| `Dtx33A730` spare list at 0x14, `list[4]` at 0x18, cb/cbobj at 0x28/0x2C; node chunk at +8 | src/cod/sa_nm_0033a730.c | func_0033A730; NM. Same object as `DtxObj` in sa_nm_0033abd0.c; `Ck33A730` is the 8-byte chunk that criAix.h passes to SJ_SplitChunk as `SjChunk` |
 | the 0x2B4 child-model getter keeps an `int[3]` local (a dead stack store in retail) | src/cod/sa_nm_0017ac90.c | func_0017AC90; matched as an NM closer handoff in batch 93 (sa_0017ac90.c) |
 
 ## Batch 93-94 (local, not merged)
@@ -91,8 +91,8 @@ working source file for now. Moved into `include/` at each 10-batch checkpoint.
 | `Vec1DCEF0 {x, y, z, w}` with an inline 4-float setter; globals D_00568150, D_00568160, D_00568170[5], D_005681C0[2] | src/cod/sa_001dcef0.c | func_001DCEF0; matched. Same shape as `Vec1EC928` in sa_001ec928.c (two registered users of one vec4 + setter; candidate for a shared header at the next checkpoint) |
 | `Vt173258` g++ vtable entry `{short delta; short index; fn}`; entries at 0x214 + 0x70 (set position) and + 0x80 (get position); timer short at 0xDA0, height float at 0xDA4 | src/cod/sa_00173258.c | func_00173258; matched. Other units carry their own VtEntry copy |
 | inline setter for 0x548 / 0x54A / 0x5EC (COL_A, COL_B, then 0x5EC from one value) | src/cod/sa_0016fa80.c | func_0016FA80; matched. The twin sa_nm_0016f790.c should use it too |
-| `Hn34AC60` rec at 0x2004, callback table pointer at 0x2114, rec at 0x35A8, ADXT create info at 0x35B0, callback table at 0x365C | src/cod/sa_nm_0034ac60.c | func_0034AC60; NM |
-| `Adx33D720` ADX handle: stat 0x04, decoder 0x08, header out 0x68/0x6C/0x70, header cb/obj 0x78/0x7C, end cb/obj 0x80/0x84, end args 0x90/0x94, replay flag 0xE8; `Dec33D720` n 0x10, tables 0x20/0x24 | src/cod/sa_nm_0033d720.c | func_0033D720; NM |
+| `Hn34AC60` rec at 0x2004, callback table pointer at 0x2114, rec at 0x35A8, ADXT create info at 0x35B0, callback table at 0x365C | src/cod/sa_nm_0034ac60.c | SFADXT_Create; NM |
+| `Adx33D720` ADX handle: stat 0x04, decoder 0x08, header out 0x68/0x6C/0x70, header cb/obj 0x78/0x7C, end cb/obj 0x80/0x84, end args 0x90/0x94, replay flag 0xE8; `Dec33D720` n 0x10, tables 0x20/0x24 | src/cod/sa_nm_0033d720.c | ADXB_ExecOneAdx; NM |
 | `SfRing3511F8 {p0, n0, p1, n1}` Sofdec two-part ring view | src/cod/sa_nm_003511f8.c | sfmpv_SearchDelim; NM |
 | `Tm360950` = `Tm360B18 {u64 count; u16 last}` tick snapshot at D_00766CA8/CB8; timer globals D_003EEA78..80, D_0045A260/270 | src/cod/sa_00360950.c | func_00360950; matched. Same struct and globals as sa_00360b18.c and sa_00360aa8.c (candidate shared header) |
 
@@ -110,7 +110,7 @@ working source file for now. Moved into `include/` at each 10-batch checkpoint.
 | item | declared in | evidence |
 | --- | --- | --- |
 | `Pack1FF858` pack loader (ents 0x0, count 0xC, data 0x10, name[0x20] 0x19) and 12-byte `PackEnt1FF858`; tolower macro on D_0045F039 | src/cod/sa_nm_001ff858.c | func_001FF858; NM |
-| `SfRing354478` = Sofdec ring view, 0x18 bytes (p0, n0, p1, n1 + 8 more); `Sf354478` totals at 0x9A8/0x9B0 (long), SJ at 0x1FC8 | src/cod/sa_00354478.c | func_00354478; matched. sa_nm_003511f8.c declares the same ring as 0x10 bytes |
+| `SfRing354478` = Sofdec ring view, 0x18 bytes (p0, n0, p1, n1 + 8 more); `Sf354478` totals at 0x9A8/0x9B0 (long), SJ at 0x1FC8 | src/cod/sa_00354478.c | sfmpv_GoDdelim; matched. sa_nm_003511f8.c declares the same ring as 0x10 bytes |
 | `Sf354650` mode 0x38, decoder pointer 0x1FC0, MPV handle 0x23A8 | src/cod/sa_nm_00354650.c | func_00354650; NM |
 | `Adxt3B9998` obj->work at 0x4 (work dec 0xC0), nch 0x10, sfreq 0x18 | src/cod/sa_003b9998.c | func_003B9998; matched. Sibling of Adxt336BA8 in sa_00336ba8.c |
 
@@ -125,48 +125,48 @@ Kept local. Each of these has one registered user, or overlaps another view at d
 | --- | --- | --- |
 | MenuList fields: `short unk04/unk08/unk0A`, second `MenuInfo` at 0x14 (`MenuList384EC8`) | src/cod/sa_00384ec8.c | func_00384EC8 copies list->info (0x4C) into the 0x14 MenuInfo and passes it to func_00380AE8; matched |
 | `CamSave2B4428` (camera save block copied as qwords) | src/cod/sa_002b4428.c | func_002B4428 copies it through int w[N] (sn long long is 16 bytes); matched |
-| `Sj` / `SjIf` / `SjObj` (CRI stream joint: vtable interface pointer at 0, methods called through it) | src/cod/sa_0036b798.c | func_0036B798; matched |
+| `Sj` / `SjIf` / `SjObj` (CRI stream joint: vtable interface pointer at 0, methods called through it) | src/cod/sa_0036b798.c | mpvhdec_DecUdscSj; matched |
 | `IDWork143998` / `IDObj143998` (cIDBase work: src ptr 0x1C, z 0x3C, layer 0x4F, color 0x84; owner with second ID base at 0xB0 and 16-slot z/color/layer/on arrays at 0x100/0x140/0x1A0/0x1B0) | src/cod/sa_00143998.c | func_00143998; matched |
-| `Stream334998` (char state 0x02, pos 0x28, req 0x2C) | src/cod/sa_00334998.c | func_00334998 polls state 2 down; matched |
+| `Stream334998` (char state 0x02, pos 0x28, req 0x2C) | src/cod/sa_00334998.c | htCiStopTr polls state 2 down; matched |
 | `ChList3821D8` / `Ch3821D8` (channel list header at +0x30 with count 0x08 and mixer 0x20; 1-based short vol[] at +4 and u8 mute[] at +0x48) | src/cod/sa_003821d8.c | func_003821D8; matched |
-| `Req33FB78` (request: state 0x0C, result 0x10, simple 0x14, args 0x18..0x38) | src/cod/sa_nm_0033fb78.c | func_0033FB78; NM (bne vs bnel) |
+| `Req33FB78` (request: state 0x0C, result 0x10, simple 0x14, args 0x18..0x38) | src/cod/sa_nm_0033fb78.c | ADXPD_ExecHndl; NM (bne vs bnel) |
 | `Img363528` (picture: data 0x04, w 0x08, h 0x0C) | src/cod/sa_nm_00363528.c | func_00363528; NM |
 | `PadSlot3977C8` / `PadState3977C8` / `PadRpcBuf3977C8` (libpad: D_0077C110 slot[2][4] of 0x1C bytes from +0x10; D_0077C300 rpc buffer cmd/result/arg) | src/cod/sa_nm_003977c8.c | func_003977C8; NM (store scheduling) |
-| `Stream3B9BF0` (CRI stream state machine fields) | src/cod/sa_003b9bf0.c | func_003B9BF0; matched |
+| `Stream3B9BF0` (CRI stream state machine fields) | src/cod/sa_003b9bf0.c | AC3LINK_ExecOneAc3; matched |
 | `Adxt32BB98` (ADXT handle: stat 0x01, unk02, sj 0x08, unkAC, dir 0xB0, unkB4, ofst 0xB8, nsct 0xBC) | src/cod/sa_0032bb98.c | func_0032BB98 stores stat, unkAC, unk02 in that order; matched |
 | `Slot32F330` (D_003D1E70[4], 0x1964 bytes each) | src/cod/sa_0032f330.c | func_0032F330; matched |
-| `Ring339F00` (SJ ring: open 0x04, data 0x0C, free 0x10, freePos 0x14, dataPos 0x18, size 0x20, extra 0x24, err cb 0x38, errArg 0x3C) | src/cod/sa_00339f00.c | func_00339F00; matched. Same object family as `Stream38` in sa_003397c8.c |
+| `Ring339F00` (SJ ring: open 0x04, data 0x0C, free 0x10, freePos 0x14, dataPos 0x18, size 0x20, extra 0x24, err cb 0x38, errArg 0x3C) | src/cod/sa_00339f00.c | sjrbf_IsGetChunk; matched. Same object family as `Stream38` in sa_003397c8.c |
 | `SjMem3391F8` (SJ memory stream: used 0x04, data 0x0C, free 0x10, base 0x14, size 0x18, cb 0x1C, cbobj 0x20) | src/cod/sa_003391f8.c | func_003391F8; matched. Extends `SjMem` in sa_00339108.c |
-| `Adx32CB90` / `Sj32CB90` / `SjIf32CB90` (ADX handle: stat 0x01, sji 0x04, sjo[4] 0x18, eos 0x6C, endOfs 0xC4; SJ vtable getNumData at 0x24) | src/cod/sa_0032cb90.c | func_0032CB90; matched |
+| `Adx32CB90` / `Sj32CB90` / `SjIf32CB90` (ADX handle: stat 0x01, sji 0x04, sjo[4] 0x18, eos 0x6C, endOfs 0xC4; SJ vtable getNumData at 0x24) | src/cod/sa_0032cb90.c | adxt_stat_playing; matched |
 | `Cb33BA80` / D_00758620[8][6] (callback table: func, obj, name) | src/cod/sa_0033ba80.c | func_0033BA80; matched |
 | `Vec3127B0` (pointer vector: allocator byte, begin, end, cap) | src/cod/sa_003127b0.c | func_003127B0; matched |
-| `Sel37A0F0`, `SelEnt37A0F0`, `SelEnt37A0F0b` (column counts at 0x10; 0x20-byte entry tables D_0076DF10/D_0076E510/D_0076EA50) | src/cod/sa_0037a0f0.c | func_0037A0F0; matched. Same object as `SelObj` in sa_0037a020.c |
+| `Sel37A0F0`, `SelEnt37A0F0`, `SelEnt37A0F0b` (column counts at 0x10; 0x20-byte entry tables D_0076DF10/D_0076E510/D_0076EA50) | src/cod/sa_0037a0f0.c | SdeTblTestBlkNoCheck; matched. Same object as `SelObj` in sa_0037a020.c |
 | `Scr1F5F70`, `StateFn1F5F70` (menu screen state bytes, delay 0x08, bgm 0x24; handler table D_003BF0F8) | src/cod/sa_001f5f70.c | func_001F5F70; matched |
-| `Fde322030`, `Cie322030`, `CieInfo322030` (libgcc frame.c fde/cie/cie_info) | src/cod/sa_00322030.c | func_00322030; matched |
-| `Ring336110`, `Req336110` (16-entry request ring at 0x38, idx/count/active at 0x20..0x28) | src/cod/sa_00336110.c | func_00336110; matched |
+| `Fde322030`, `Cie322030`, `CieInfo322030` (libgcc frame.c fde/cie/cie_info) | src/cod/sa_00322030.c | extract_cie_info; matched |
+| `Ring336110`, `Req336110` (16-entry request ring at 0x38, idx/count/active at 0x20..0x28) | src/cod/sa_00336110.c | lsc_StatEnd; matched |
 | `Obj304830`, `RotPrm304830` (prm 0x100, angular velocity 0x128; damp/acc at 0x1C0) | src/cod/sa_00304830.c | func_00304830; matched |
 | `Mgr331AD8` (stream manager mode byte at 0x01; flags D_003D844C..D_003D8488) | src/cod/sa_00331ad8.c | func_00331AD8; matched |
 | `Mwsf3447A8`, `HdrInf3447A8` (0x90-byte Sofdec header info) | src/cod/sa_003447a8.c | func_003447A8; matched |
-| `Dec366FE0` (user-data callback at 0xF4/0xF8, data 0xA8, kind 0xB8) | src/cod/sa_00366fe0.c | func_00366FE0; matched |
-| `Cmd387328`, `Ch387328` (voice-parameter command, 4 channels at 0x20, mask 0x40) | src/cod/sa_00387328.c | func_00387328; matched |
+| `Dec366FE0` (user-data callback at 0xF4/0xF8, data 0xA8, kind 0xB8) | src/cod/sa_00366fe0.c | mpsdec_DecOneHd; matched |
+| `Cmd387328`, `Ch387328` (voice-parameter command, 4 channels at 0x20, mask 0x40) | src/cod/sa_00387328.c | strFadeSetOne; matched |
 | `Dmg1FDFD8` (0x60), `Fl1FDFD8` (0x70), `Mgr1FDFD8` (160 + 256 slots, wait at 0xACD0) | src/cod/sa_001fdfd8.c | func_001FDFD8; matched |
-| `Mgr331458`, `Req331458` (stream manager mode, request state at 0x02) | src/cod/sa_00331458.c | func_00331458; matched |
+| `Mgr331458`, `Req331458` (stream manager mode, request state at 0x02) | src/cod/sa_00331458.c | SRD_WaitComplete; matched |
 | `Ent37B808` (20-byte option entry), `Act37B808` (row/col at 0x27, slots at 0x16C) | src/cod/sa_0037b808.c | func_0037B808; matched |
 | `Order1E6ED8` (5-int order), `Scr1E6ED8` (layers at 0x3A0, sel 0x3D8, flags 0x3E8) | src/cod/sa_001e6ed8.c | func_001E6ED8; matched |
 | `Ent2BE708` (type at 0x10) | src/cod/sa_002be708.c | func_002BE708; matched |
 | `Arena30ECF8` (16-byte arena) | src/cod/sa_0030ecf8.c | func_0030ECF8; matched |
-| `Sub35CE60` (entries at 0x8, state at 0x10; at obj+0x2150) | src/cod/sa_0035ce60.c | func_0035CE60; matched |
+| `Sub35CE60` (entries at 0x8, state at 0x10; at obj+0x2150) | src/cod/sa_0035ce60.c | SFD_SetUsrSj; matched |
 | `Pl319848`, `Sub319848`, `W319848`, `Bits319848` (7:1 bitfield) | src/cod/sa_00319848.c | func_00319848; matched |
 | `Adx32A720` (nch 0x3, sj 0x4, rna 0xC, pan[] 0x42, mode 0xAD) | src/cod/sa_0032a720.c | func_0032A720; matched |
 | `Elem` / `Node_003943D0` (list node: elem 0xC, next 0x30; list head at D_003F852C) | src/cod/sa_003943d0.c | func_003943D0; matched |
 | `PadVib31BB80`, `PadWork31BB80`, `PadSys31BB80` (pad vibration work and system block) | src/cod/sa_0031bb80.c | func_0031BB80; matched |
-| `Dec32ED70` (CRI decoder with buf[] written per branch) | src/cod/sa_0032ed70.c | func_0032ED70; matched |
+| `Dec32ED70` (CRI decoder with buf[] written per branch) | src/cod/sa_0032ed70.c | aixp_create_track; matched |
 | `VolEnt3812B0` / `VolSel3812B0` (volume menu entries and selection) | src/cod/sa_003812b0.c | func_003812B0; matched |
 | `Name381BC8` {long a; ushort b; uchar c;}, `Sel381BC8`, `Work381BC8` | src/cod/sa_00381bc8.c | func_00381BC8; matched (8-byte field must be `long`, sn long long is 16 bytes) |
 | `Sys1F9C98` (cCoreSave system block) | src/cod/sa_001f9cb0.c | cCoreSave_loadStageState; matched |
 | `Ent33C7F8` (CRI entry cleared with memset) | src/cod/sa_0033c7f8.c | func_0033C7F8; matched |
 | `Blk366EC0` (32-byte block), `Dec366EC0` (cur at 0x28, slot[3] at 0x48) | src/cod/sa_00366ec0.c | func_00366EC0; matched |
-| `Mpv36BA50` (MPV header fields 0x360/0x364/0x368 and 0x398) | src/cod/sa_0036ba50.c | func_0036BA50; matched |
+| `Mpv36BA50` (MPV header fields 0x360/0x364/0x368 and 0x398) | src/cod/sa_0036ba50.c | mpvhdec_DecSeqUdsc; matched |
 | `Sys12CAE0` (D_00747A2C flags word at 0, stage byte at 0x25), `Obj12CAE0` (cGameObj + hitWait 0x15D0, hit work 0x15E0) | src/cod/sa_0012cae0.c | func_0012CAE0; matched. D_00747A2C is also viewed by cE3.h and cSaveLoad.h |
 
 ## Reviewed at the batch-70 checkpoint
@@ -614,7 +614,7 @@ Still open:
 - mwsfd.h: `void func_0032B488(void *adxt, int db, int frac);` (the ADXT output-volume entry; an empty stub in this build). Change src/cod/0032b488.c's definition from `(void *a0)` to that signature, with one line saying db and frac are not read, and include mwsfd.h there. Then register build/scratch/00349c28_ckpt.c (func_00349C28, the SfdHn volume setter; matches exactly with cygnus-2.96 and c_flags_drop -freorder-blocks; uses logf func_003A1DF0, whose prototype also belongs in a shared libm header).
 - cGameObj.h cGameObjVt (off limits now, for the maintainer): the cOm49 table D_00427148 has cGameObj_getLockOnPos at 0x6C and cGameObj_getPos at 0x84, so `getPos` (0x68/0x6C) and `lockOn` (0x80/0x84) look swapped; the header comment's "getLockOnPos and getHitCheckPos both call it" fits 0x84 being getPos. drafts/cod/001a4010.c and src/cod/00149378.c (EffObj) use local views of the 0x80/0x84 pair.
 - cScenario.h: name the byte at 0x14 (split unk00 into unk00[0x14], `unsigned char unk14; /* 0x14 nonzero (1) while an event runs; the action-button checks skip then */`, unk15[0x7]). Readers through raw offsets: src/cod/001633a0.c, src/cod/00162b18.c, drafts/cod/0028e580.c.
-- D_003EE338 (the SFXLIB handle pool) has three types: `char[]` (0035f8b8.c), `int` (00325360.c, the live count at 0 that func_0035FB88 decrements), `unsigned char[]` with a Root3EE338 view (0035fa88.c, and func_0035F970 from the handoff increments it as an int). Give it one struct type in sfxlib.h (count at 0x00, 8 at 0x04, entries after; 0x4C8 bytes). func_0035FB88's definition takes `int a0` but its callers pass the handle pointer; retype it to the handle type when sfxlib.h gets the struct.
+- D_003EE338 (the SFXLIB handle pool) has three types: `char[]` (0035f8b8.c), `int` (00325360.c, the live count at 0 that SFX_Destroy decrements), `unsigned char[]` with a Root3EE338 view (0035fa88.c, and func_0035F970 from the handoff increments it as an int). Give it one struct type in sfxlib.h (count at 0x00, 8 at 0x04, entries after; 0x4C8 bytes). SFX_Destroy's definition takes `int a0` but its callers pass the handle pointer; retype it to the handle type when sfxlib.h gets the struct.
 
 ## Batch 143
 - New header (spring mesh): `SpringNode` (0x50), `SpringLink` (0x18), `SpringMesh` (cols 0x0, rows 0x4, nodes 0x10, links 0x14), plus `SpringNodeDef`/`SpringLinkDef`, from drafts/cod/002ad2b8.c. src/cod/002ad590.c reads the same records through raw offsets.
@@ -623,7 +623,7 @@ Still open:
 - New ADXT header: `signed char D_003C7420[]` (16 handles of 0xC8; src/cod/00323a00.c declares it `int`), `Forward33B658_33E678`/`Forward33B670_33E690` (ADXCRS lock/unlock, declared locally in 6+ files), `void func_0032CFC8(signed char *adxt)` and `void ADXT_ExecHndl(signed char *adxt)` (changed from `int` in 00322f58.c in batch 143; still matches), `volatile int D_003D140C` (server stage guard, src/cod/0032afb0.c), `int D_003D1414`.
 - mwPly.h: add `int span` at 0x118 and `float rate` at 0x1E4 to MwPly (split unk094 and the tail; 0032de38.c writes rate through a raw offset). Then register build/scratch/0032dd70_ckpt.c (func_0032DD70, cygnus-2.96, fp_hazard_rules cmpfull; matches against a scratch view with the same offsets).
 - `func_00328C80(void *h, int a, int b)`: 00335f20.c and 0032dd70 pass the handle pointer, but the definition in 002c54e8.c takes `int a0`. Correct the definition and move the prototype to a header.
-- func_003452D8 (MWSFD init, cygnus) is blocked on callee signatures: func_00345490 is defined `void (void)` but called with the init record; func_00335D18(int, int) receives a function pointer; Forward348BE0_3452C0/Forward346450_3462A8 are int-typed thunks; MWSFSVM_Error is declared two ways (mwsfd.h variadic, mwsfHn.h single arg). Fix those, then retry.
+- func_003452D8 (MWSFD init, cygnus) is blocked on callee signatures: mwsflib_SetSvrFunc is defined `void (void)` but called with the init record; func_00335D18(int, int) receives a function pointer; Forward348BE0_3452C0/Forward346450_3462A8 are int-typed thunks; MWSFSVM_Error is declared two ways (mwsfd.h variadic, mwsfHn.h single arg). Fix those, then retry.
 
 ## Batch 144
 
@@ -656,12 +656,12 @@ Still open:
   other use is a plain store from a parameter). Rename it `unsigned int priority`, update the three
   ReadAlloc stores, and declare `void cDvd_startJobHeap(cDvd *self, cDvdJob *job)` (defined in
   001aa478.c) in cDvd.h. Then drop the casts in drafts/cod/00201290.c.
-- ADX stream (func_003284B8): `Obj3290_Tramp_0033E678_9028` (lock) is declared three ways (K&R in
+- ADX stream (adxstmf_stat_exec): `Obj3290_Tramp_0033E678_9028` (lock) is declared three ways (K&R in
   003288e0.c, `(void)` in 00327230.c, `(void *)` in 00328300.c), and `func_00330BB0`/`func_00330C18`
-  are defined in 00328300.c as one-parameter forwarders while 003288e0.c and func_003284B8 pass three
+  are defined in 00328300.c as one-parameter forwarders while 003288e0.c and adxstmf_stat_exec pass three
   (handle, offset/count, buffer) that the vtable target reads. Fix the forwarder signatures and give
-  them one header (with the stream handle struct, 0x60 bytes) before func_003284B8.
-- Tooling, not a header: func_003AD348 (fmod, drafts/cod/003ad348.c) is blocked by the assembler.
+  them one header (with the stream handle struct, 0x60 bytes) before adxstmf_stat_exec.
+- Tooling, not a header: sn_fmod (fmod, drafts/cod/003ad348.c) is blocked by the assembler.
   Retail expands `dli $r,0xffffffff` as addiu -1/dsrl32 (needs as: sn) and also pads call-free
   short loops, which ps2eeas does not; neither assembler route gives both today.
 - cCoreSave.h: `cCoreSave_getReelSlot`'s slot parameter is `unsigned char` (every caller masks it
@@ -740,7 +740,7 @@ Still open:
 - APPLIED through header_merge (12 units rebuilt identical): seqNode.h `short pan` at 0x44 plus func_0037D558, func_003780F8 and Obj0000_Get_D_0076A7A4_3756F0 prototypes (0037cce0.c's local copy dropped); new cGrid.h (cGrid, func_00133948, func_00133408); mwPly.h `span` 0x118, `rate` 0x1E4 and `int func_00328C80(void *h, int a, int b)`; mwsfd.h `void func_0032B488(void *adxt, int db, int frac)` with src/cod/0032b488.c corrected to it. Registered func_0037D558, func_0012F288, func_00349C28, func_0032DD70.
 - STILL OPEN: func_00328C80's definition in 002c54e8.c takes `int a0`, and 0032e620.c / 000000.c declare it void-returning; move them to the mwPly.h prototype. Obj0000_Get_D_0076A7A4_3756F0 is still declared locally in six files (as `(int)` in 002cf258.c).
 - STILL HELD: func_0013D7B0 (build/scratch/0013d7b0_ckpt.c) needs cIDBaseEnt.jit unsigned, one shared type for D_005CAC90 (three today: 0013d7b0 hold, 002a5998.c, 002a72c8.c/JukeBox.c), and header prototypes for cSnd_SeCall_2CB8A0, cIDBase_move, func_002AC9B8 and D_005FEE00.
-- NM handoff not applied: progress/nm_solved/ holds func_0032A1B0, cSnd_UpdateListener, func_00365EC0, MoveEmitter, MoveEsp, Turn_dest. An apply run was interrupted mid-transaction and left the cSnd_UpdateListener header requests applied (cVecQuad typedef in cOmBase.h, cOmBase.h include and `cVecQuad listenPos` in cSnd.h); all three were reverted by hand to the prior text, and nothing was registered. cOmBase.h is off limits while its PR is open, so that folder waits. func_0032A1B0's solved form uses `*ncount += (int)(adxt->baseCount + 1);` (baseCount is really unsigned; the plain form is 6 insns off), which the reviewer should confirm.
+- NM handoff not applied: progress/nm_solved/ holds func_0032A1B0, cSnd_UpdateListener, CFT_MakeArgb8888AlpLumiTbl, MoveEmitter, MoveEsp, Turn_dest. An apply run was interrupted mid-transaction and left the cSnd_UpdateListener header requests applied (cVecQuad typedef in cOmBase.h, cOmBase.h include and `cVecQuad listenPos` in cSnd.h); all three were reverted by hand to the prior text, and nothing was registered. cOmBase.h is off limits while its PR is open, so that folder waits. func_0032A1B0's solved form uses `*ncount += (int)(adxt->baseCount + 1);` (baseCount is really unsigned; the plain form is 6 insns off), which the reviewer should confirm.
 
 ## Batch 150 (local, not merged)
 - ComboHolder (src/cod/0012c000.c) and ComboObj (00126918.c) are the same combo state: `unsigned short slot` 0x5E0, `unsigned short set` 0x5E2. Merge into one header type (owner object not identified yet; cCoreSave.h is the nearest header).
@@ -761,7 +761,7 @@ Still open:
 - cEm00.h: name 0x690 as the attack volume (`cDamageGive *damageGive`), 0x6C0 as a goal cVec (walk target, FindNodeByHit_2C2490 output), 0x1734 as an int cleared when the walk ends, and retype 0x698 `unk698` as `cDamageTake *` (func_00271518 reads its kind at 0x46 and a hit position at 0x20). Drafts 00262750.c, 00245538.c and 00271518.c use local raw macros until then.
 - cDamageGive / cDamageTake: 0x20 hit position (cVec), 0x40 int reset to -1, 0x44 short reset to 0 (drafts 00262750.c; also 001b90d0.c `unk40/unk44`). cDamageTake lives in cOmBase.h (off-limits), so this waits for the maintainer.
 - cGameObj_SetTgtTurn: definition corrected in src/cod/001351d8.c to `void cGameObj_SetTgtTurn(char *self, void *target, float rate)`; retail passes a1 through to Turn_dest as the target. Turn_dest is `float Turn_dest(void *pos, void *target, float angle, float rate)`. About 68 callers declare their own copy (void *a0, int/void *a1, float); one shared prototype belongs in cGameObj.h.
-- func_00397550 (sceDmaSync): definition now takes `(sceDmaChan *chan, int mode, int timeout)`, timeout unread; callers pass three args. sceDmaChan and this prototype plus func_003973E8 (`void (int *chan, int tag)`) want a shared DMA header.
+- sceDmaSync (sceDmaSync): definition now takes `(sceDmaChan *chan, int mode, int timeout)`, timeout unread; callers pass three args. sceDmaChan and this prototype plus sceDmaSend (`void (int *chan, int tag)`) want a shared DMA header.
 - func_002A8578: callers declare at least three different parameter orders; the definition is `(int a0, int a1, int a2, int a3, int t0, int t1, float f12)`. One shared prototype in cEm00.h.
 - Held NM handoffs for the checkpoint: cSubScr_SubScrOn (gameWork.h flags5D8/5E0) and func_001F0A28 (cEmWrap.h `unsigned char entryNo` at 0x00; ColiseumBattle_DefeatAllEnemies takes an unread `ColiseumBattle *self`).
 - The retail "0/1 then andi 0xFF" index test appears again in func_0026B240 (cOmBase_childAt-style lookup). Same maintainer question as batch 150.
@@ -829,7 +829,7 @@ Still open:
 - GoldScreen (drafts/cod/00143670.c) and IDSlotScreen (00143998.c) are one record, the gold counter display (cIDBaseObj at 0, base2 0xB0, gold 0x90, entries 0x94..0xA0, popup arrays 0x100..0x1B0, mode bits 0x1C0); S143598 in 00143598.c is a third view. One header type. cScenario 0x14 (a running flag the gold label waits on) has no name in cScenario.h.
 
 ## Batch 158
-- libgraph GS store image: 003958d8.c (sceGsExecStoreImage, bitfield sceGsStoreImage), 00395618.c (func_00395618 = sceGsSetDefStoreImage, sceGifTag-based sceGsStoreImage) and 0030e660.c (GsStoreImageWords) each define the same packet differently, and drafts/cod/002f1758.c adds a fourth (word view). One header (e.g. sceGs.h) with one sceGsStoreImage layout, the prototypes `int func_00395618(sceGsStoreImage *, short, short, short, short, short, short, short)`, `int sceGsExecStoreImage(sceGsStoreImage *, qword *)`, `unsigned long Tramp_GsGetIMR_3964A0(void)` and `unsigned long func_00396008(unsigned long)` (sceGsPutIMR wrapper returning the old mask), included by all four.
+- libgraph GS store image: 003958d8.c (sceGsExecStoreImage, bitfield sceGsStoreImage), 00395618.c (sceGsSetDefStoreImage = sceGsSetDefStoreImage, sceGifTag-based sceGsStoreImage) and 0030e660.c (GsStoreImageWords) each define the same packet differently, and drafts/cod/002f1758.c adds a fourth (word view). One header (e.g. sceGs.h) with one sceGsStoreImage layout, the prototypes `int sceGsSetDefStoreImage(sceGsStoreImage *, short, short, short, short, short, short, short)`, `int sceGsExecStoreImage(sceGsStoreImage *, qword *)`, `unsigned long Tramp_GsGetIMR_3964A0(void)` and `unsigned long func_00396008(unsigned long)` (sceGsPutIMR wrapper returning the old mask), included by all four.
 - Lens flare state (0x2F1200..0x2F1AA0): D_0061B660 is the flare's screen position (cVec: x, y, depth z; z = -1 means no test this frame); 002f1aa0.c declares it as a 16-byte `QWord`. D_0061B670 (visible byte), D_0061B672 (reference depth, u16), D_0061B674 (sample count), D_0061B680 (u16 Z row, 16 entries), D_003C3BB0 (visible byte), D_003C3BB4 (fade float), D_0044EC60 (six signed tap offsets). One header declaring them with these types.
 - objScroll (vtable D_00450CE8, init func_003187D8, draft drafts/cod/003187d8.c): a cObj subclass. cObj.h needs the flag word at 0x2F0 named (split unk2E4[0x10] into unk2E4[0xC] + int at 0x2F0; 0012ce20.c, 00276808.c, 00100378.c, 00347968.c, 00292e80.c write it with raw offsets). The object adds unk310 (cVec, from D_003BD890), set 0x320 (setup record), uvSpeed[2] 0x324, bytes 0x32C..0x32E, short 0x330, startRot 0x340 (cVec, radians), bit array 0x350 (func_0031A088/func_0031A0B8 set/clear bits). The setup record's flag word at 0x34 uses the CMODEL_MESH_* bits (0x10 hidden, 0x100000, 0x200000 special, 0x1000000 back), so it may be cMeshInfo (cModel.h, flags `unsigned int` there but read with lw + dsrl here); its 0x3E/0x40/0x48 are F16 values, 0x44 the life in seconds, 0x4C..0x54 the start rotation in degrees. func_00319CC0/func_00319E00/func_0031A088/func_0031A0B8/func_0031D2F8 take `void *`/`char *` today; they are objScroll methods and want an objScroll header with their prototypes. D_003BD890 is `float []` in 0014b9a0.c, a cVec here.
 - HELD for checkpoint: func_0026B600 matches (build/scratch/0026b600_ckpt.c, SN, `extern_jtbl D_00445620`; new TU src/cod/0026b600.c). Enemy 0x211 throws out eight rocks (actors 0x3B8..0x3BA). Header work: (1) cGameObj.h cGameObjVt: name the pair at 0x40 `short initDelta; short pad42; int (*init)(void *self);` (objScroll's vtable has its init, func_003187D8, there; 0026b9e8.c calls it through raw offsets). (2) cEm00.h: split unk70C[0x24] into unk70C[0x4] + `struct cGameObj *rock[8]` at 0x710. (3) The CreateObj definition fix already listed (`cGameObj *CreateObj(int kind, int id)` in 00306200.c including player.h, forwarding id to func_0030FAC8); the ckpt file uses player.h's prototype. irand (int, 001004c8.c), fRand1_1 (00292f50.c), cSnd_SeCall_2CBA48 (002cba48.c) and D_005FEE00 are declared locally in many files; a shared header for each would be the follow-up.
@@ -913,7 +913,7 @@ Still open:
 ## Batch 165
 
 - cDoor.h: cRoomJumpGroup (id 0x00, count 0x02, first 0x03) and cRoomJumpTbl (groupNum 0x00, recOfs 0x08, groups from 0x10) moved out of 00193050.c (were RecGroup/RecTable), plus func_002BEAA8's prototype; cRoomJump_getRecord called it with no prototype in scope before.
-- seqNode.h: SeqCmd is the full 0x50-byte sound request (used 0x00, id 0x02, flags 0x0C, link 0x12) with `extern SeqCmd D_0076B9C0[SEQCMD_NUM]`; 00377ed0.c dropped its SfxPoolA copy. 00376978.c still declares D_0076B9C0 as `char[]` (doesn't include the header). New: SndCore (two SPU2 cores at D_0076A7D4), func_00374AE0, func_00377CB8, func_0037BE98 and func_0037C330 prototypes; 0037b808.c, 00375f68.c, 00150048.c, 00376e00.c and 00377bc8.c include it instead of declaring them. 00321208.c still views D_0076A7D4 as `char[]`.
+- seqNode.h: SeqCmd is the full 0x50-byte sound request (used 0x00, id 0x02, flags 0x0C, link 0x12) with `extern SeqCmd D_0076B9C0[SEQCMD_NUM]`; 00377ed0.c dropped its SfxPoolA copy. 00376978.c still declares D_0076B9C0 as `char[]` (doesn't include the header). New: SndCore (two SPU2 cores at D_0076A7D4), func_00374AE0, sdeEfxWorkClear, SdeVoiceExecute and vexeCmdExec prototypes; 0037b808.c, 00375f68.c, 00150048.c, 00376e00.c and 00377bc8.c include it instead of declaring them. 00321208.c still views D_0076A7D4 as `char[]`.
 - The 0x70-byte channel request at D_0076E590 has three local types (Rq in 00376f18.c, ChanCmd in 003772d8.c, E1 in 00377d80.c), and the channel at D_0076E910 is `Ch` in 00376f18.c but SndCh in seqNode.h. One header type each would unblock func_00376EA0.
 - menuCtl.h: MenuList.f84 is `MenuDir *dir` (the loaded file table, count at 0x04); 00385078.c and 00384ec8.c pass it to func_0032BDC0 as `(int)`, as its definition takes an int. func_0032BDC0 itself is declared with four different signatures across the tree. func_0037FC28 and func_0037FF98 prototypes added; 0037e368.c includes menuCtl.h and casts its byte-pointer self at those two calls.
 - cGameObj.h: func_002831C8 prototype; 0022af90.c includes cGameObj.h instead of its `(void *, int, int)` copy.
@@ -1000,7 +1000,7 @@ Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists 
 - gameWork.h: `extern long D_00747640;` (D_007474A0.trg under its own symbol) and `extern int D_007476B0;` (D_007474A0.frame under its own symbol).
 - gsLoadImage.h: `void func_0015E708(GsLoadImagePacket *pkt, int psm, int tbp, int tbw, int w, int h, char *data);` (tbw not read). src/cod/0015e0a0.c then includes gsLoadImage.h and tim2.h and drops its local declarations.
 - mdlPkt.h: PktQw gains an `ad { unsigned long data; unsigned long addr; }` view; MdlRec gains `unsigned char texNo` (0x16); MdlObj gains `PktQw *pkt[2][16]` (0x300) and `unsigned char texBank` (0x384, pad385[3]); `extern MdlPktBuf D_00747BB8[];`; `PktQw *func_00155800(MdlObj *self, PktQw *q, int idx, int buf);` (buf not read). drafts/cod/00155800.c and 00154da0.c should use the typed fields.
-- tim2.h (new): GsTex0, Tim2FileHdr, Tim2PicHdr (unsigned totalSize/clutSize/imageSize), D_0041ED80, `int func_00309C30(unsigned int psm, int width);`.
+- tim2.h (new): GsTex0, Tim2FileHdr, Tim2PicHdr (unsigned totalSize/clutSize/imageSize), D_0041ED80, `int Tim2CalcBufWidth(unsigned int psm, int width);`.
 - texWork.h (new): ImageUpList (moved from 00151168.c), TexWork, the func_00150F68 and func_00151168 prototypes.
 - cEm00.h: `Obj0000_IsSet_Field_16D4_Bit_4_26F308(void *)`, `func_00273EE0(void *)`, `extern unsigned char D_005CB010;` (local declarations in 001169d8.c, 0024f050.c, 0020cac8.c, 002705d8.c then go).
 - cObjSimple.h: StoreVecFromFieldB0_2B6160, CopyVec16From20_B62E0, `int CallThenReturnPlusB0_002B6420_2B61B0(int)`, UpdateObjByIndexedOp_2FBE50, func_002FBED0, `void *func_002B60D0(void *dst, void *self);`, `void cNode_setLocalScale(int self, int scale);` (as its definition in 00134880.c; 002e6868.c and 002f2250.c declare other types).
@@ -1061,7 +1061,7 @@ Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists 
 - MpegMcState fields form_predictions (held 0039c5b8_nm.c) reads: 0x130 second field flag, 0x160 picture coding type, 0x184 picture structure, 0x1C8/0x1CC forward/backward frame, 0x1D8/0x1DC and 0x1E8/0x1EC the forward/backward top and bottom fields; `mc[cur].num` (0x6CC) is cleared on entry. 0039b810.c's `Ctx` names 0x184/0x1CC/0x1DC/0x1EC as fNNN for the same record.
 
 ## soft-double helper names (from batch 172)
-- SN cc1 emits `dpmul`, `litodp` and `dptoli` for C double multiply and int/double conversions. symbol_addrs.txt names them func_0031E348, func_0031E8C0 and func_0031E978; rename them (with their carves and the 003ad790.c externs) when held 003a96c0_nm.c matches.
+- SN cc1 emits `dpmul`, `litodp` and `dptoli` for C double multiply and int/double conversions. symbol_addrs.txt names them dpmul, litodp and dptoli; rename them (with their carves and the 003ad790.c externs) when held 003a96c0_nm.c matches.
 - `dpcmp` is defined `void` in src/cod/0031e870.c, but its callers read the result; correct the definition to `int` when one of them lands.
 
 ## gameWork.h / ColiseumEmSelect.h fields added for func_002A5EC0 (held overlay, batch 172)
@@ -1268,7 +1268,7 @@ Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists 
 ## After checkpoint 176
 - 27 overlays in progress/held/inc still carry pending edits (the W-set prototypes, the cSnd BGM block and cSndMemHeap prototypes, cModel.h cTexTable/fogMode, BlackJack.h, cSubScr.h, regTbl.h, ...). They were cut from include/ because main's callers declare those helpers differently. Re-merge them with build/scratch/hmerge.py once the typing PRs land.
 - func_0039C390 (_sceMpegError) has four signatures: sceMpeg.h `int (int m, int msg)`, 0039c2c8.c `void (void *, const char *)`, 0039acd8.c `void (Ctx *, char *)`, 00100248.c `void (int, int)`. Give sceMpeg.h `void func_0039C390(sceMpeg *m, const char *msg)` and fix the callers; 0039b3f0_nm and 0039b960_nm stay held until then. 0039c5b8_nm waits on the libmpeg header for `_getRef0`'s state type.
-- Main cleanups still open: 001fab28.c and 0031a718.c should use the SndRpc fields (prototypes for func_003B3128/func_003B2F48 missing); 00376f18.c's `Rq` is SndChReq; cObjPtrArrayWrapper.c's local `cVec` tag clashes with the real cVec; raw D_00754C38 views; cDamageUnit_SetDamageCollActive has two signatures; cOmHitVolumeSetup's void * prototype; 0015bcf0_nm needs pack.h's func_00151630.
+- Main cleanups still open: 001fab28.c and 0031a718.c should use the SndRpc fields (prototypes for func_003B3128/sceSifBindRpc missing); 00376f18.c's `Rq` is SndChReq; cObjPtrArrayWrapper.c's local `cVec` tag clashes with the real cVec; raw D_00754C38 views; cDamageUnit_SetDamageCollActive has two signatures; cOmHitVolumeSetup's void * prototype; 0015bcf0_nm needs pack.h's func_00151630.
 - cIDManager.h and criStm.h both declare func_003A52F0 (memset); keep criStm.h's and drop the other.
 - `struct cSceAtUnit` has two different definitions on main, in cSceAtUnit.h (flags/type at 0x34/0x35 only) and cSceAtManager.h (flags, type, hitKind 0x3B, dataC 0x3C, ...). Merge them into one header type (cSceAtManager.h's is the fuller one) and give the flag word at 0x50 named bits (31 hit now, 30 hit last frame, 29 entered, 28 left, 27 button, 26 auto, 25 dispatched; from func_002C1618). func_002C1618 waits on it.
 - D_007479F4 (the default id/data pack pointer) is declared `int` in 001c8f30.c and `VibHead *` in 001710f0.c; give it one header type (a pack of offsets). func_002B1F80 waits on it.
@@ -1291,21 +1291,21 @@ Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists 
 
 ## Checkpoint 180 candidates (held)
 - menuCtl.h (overlay rebuilt from include/ at batch 180, plus the func_00380F80 prototype): MenuRowEnt value/type/min/max/step/fastStep (waits on the decision); new MenuActSet0, MenuActSet1, MenuActSlot, MenuActObj; prototypes func_0037A8F8, func_0037A9C8, func_0037AAB0, func_0037AB00. Then 0037a740.c drops its local MenuActObj and 0037ab00.c its SndActor/SndSlot.
-- seqNode.h (overlay rebuilt from include/ at batch 180; the old one had no additions): `int func_00387430(short idx);` for 00145410.c's func_0037AAB0. Follow-ups after it merges: 00387430.c should include seqNode.h and read `D_0076E910[idx].flags` instead of its own `unsigned short D_0076E910` (it also calls func_003779D0, defined in 002cbdc0.c, with no prototype); 003870e0.c declares it `(int a0)`, and 0037b3f0.c and 001b7de8.c call it with no prototype.
+- seqNode.h (overlay rebuilt from include/ at batch 180; the old one had no additions): `int SdeStrStatusGetByWorkId(short idx);` for 00145410.c's func_0037AAB0. Follow-ups after it merges: 00387430.c should include seqNode.h and read `D_0076E910[idx].flags` instead of its own `unsigned short D_0076E910` (it also calls SdeStrExeSearchByWorkId, defined in 002cbdc0.c, with no prototype); 003870e0.c declares it `(int a0)`, and 0037b3f0.c and 001b7de8.c call it with no prototype.
 - 0037ab00.c's `BuildSoundEventCd0_375CD0(void *snd, SndSlot *slot)` extern disagrees with the definition in 003749d8.c `(int a0, void *a1)`; its sound-entry siblings live in SndEntry.h. 0037b518.c declares GetSoundEntryStatus_375EF8 K&R style (`()`).
 - Removed the espSys.h and cOmHitVolumeSetup.h overlays at batch 180: include/ already has everything they held (copies in build/scratch/ck180/overlay_old/).
-- SndEntry records (proposal, not started): 00375ef8.c (GetSoundEntryStatus_375EF8 .. ClearSlotRefs_376AE0) and 00376f18.c work on three untyped arrays: D_0076F050 (96 pending entries of 0x40 bytes: used 0x00, id 0x04, flags 0x08, sub-record at 0x10 that FindSlotEntry_376A10 reads at 0x08/0x09/0x0E), D_00770850 (slots of 0xE0 bytes) and D_0076CF20 (48 of 0x50 bytes; 001f6b78.c's func_00376D28 reads it too). 00376f18.c also keeps local copies `Ch`/`Rq` of seqNode.h's SndCh/SndChReq. Typing these in SndEntry.h would unblock func_00376080 and clean those TUs.
+- SndEntry records (proposal, not started): 00375ef8.c (GetSoundEntryStatus_375EF8 .. ClearSlotRefs_376AE0) and 00376f18.c work on three untyped arrays: D_0076F050 (96 pending entries of 0x40 bytes: used 0x00, id 0x04, flags 0x08, sub-record at 0x10 that FindSlotEntry_376A10 reads at 0x08/0x09/0x0E), D_00770850 (slots of 0xE0 bytes) and D_0076CF20 (48 of 0x50 bytes; 001f6b78.c's SdeSsqVregParaChange reads it too). 00376f18.c also keeps local copies `Ch`/`Rq` of seqNode.h's SndCh/SndChReq. Typing these in SndEntry.h would unblock func_00376080 and clean those TUs.
 
 ## newlib stdio batch (merged at checkpoint 181)
 - Headers: include/godhand/newlibStdio.h and newlibStdlib.h from progress/held/inc/godhand/ (+ .gitignore lines).
-- carved_funcs tu moves: Obj0000_Setup_Fields_00_04_08_0C_0E_10_18_1C_20_24_28_2C_54, func_003A61F0, func_003A6290, func_003A62B0 -> src/cod/003a6188.c; func_003A6A88 -> 003a6a88.c; func_003A7C28 -> 003a7c28.c; func_003A8FE0 -> 003a8fe0.c; func_003A9228 -> 003a9018.c; func_003AD0C0 -> 003ace90.c; func_003A6CE0 -> 003a6ce0.c (new sn unit; 003a6cd8.c stays cygnus-2.96 with eofread alone). New carve func_003ACE90 -> 003ace90.c (compile unit `as: sn`).
+- carved_funcs tu moves: Obj0000_Setup_Fields_00_04_08_0C_0E_10_18_1C_20_24_28_2C_54, func_003A61F0, func_003A6290, func_003A62B0 -> src/cod/003a6188.c; func_003A6A88 -> 003a6a88.c; func_003A7C28 -> 003a7c28.c; func_003A8FE0 -> 003a8fe0.c; func_003A9228 -> 003a9018.c; func_003AD0C0 -> 003ace90.c; sscanf -> 003a6ce0.c (new sn unit; 003a6cd8.c stays cygnus-2.96 with eofread alone). New carve func_003ACE90 -> 003ace90.c (compile unit `as: sn`).
 - Follow-ups not in this batch (pre-existing drift, logged so the next newlib pass can take them):
   - `D_003FA62C` (_impure_ptr) is declared `int`, `int *` and `void *` in 00292f38.c, 0014ea28.c, 00150048.c, 003a7b58.c, 00133810.c, 003a6c58.c, 00150830.c, 003a6a20.c, 00389548.cc, and defined `int *` in 000000.c; `__errno` (Obj0000_Get_D_003FA62C_3A4FB8) is defined returning `int` while its callers declare `int *`.
   - The reentrant syscalls take `int *errp` in their definitions (_read_r func_003AE068, _write_r func_003AE128, _lseek_r func_003AE008 in 00133810.c/003ae068.c, _fstat_r func_003ADFA8 in 002a7280.c, _close_r func_003ADF50 in 0039ade0.c) while the stdio callers declare `void *` and other parameter types; they should take `struct _reent *`.
   - `_localeconv_r` (Obj0000_Get_D_0045FB80_3AD118, 000000.c) is defined `(void)`, but localeconv (func_003AD130, 00150048.c) passes `_impure_ptr`.
   - malloc (func_003A7C70, 0014ea28.c) is defined `int (int)`; 003a7b88.c declares `void *(unsigned int)`.
   - strtoul/strtol callers 00333b40.c and 0031f4e0.c declare `long long (int, int *, int)`; 0038d2b8.c's local declarations equal the new header's and can include it.
-  - memcpy func_003A62D8 is defined `void (unsigned char *, unsigned char *, unsigned int)` in 001fab28.c; 003a6308.c declares `void *(void *, const void *, unsigned int)`.
+  - memcpy memcpyalpha is defined `void (unsigned char *, unsigned char *, unsigned int)` in 001fab28.c; 003a6308.c declares `void *(void *, const void *, unsigned int)`.
   - `RegTbl.handleA` is used as the relocation table (RegReloc *) passed to func_00394290; 003943d0.c declares func_00394290 `(int, int, int, int)`. Retyping the field needs a decision (main names it).
   - D_0045F039 (_ctype_ + 1) is declared locally in 0038d2b8.c, 00387b78.cc, 00150048.c, 003875a8.cc, 002be240.c and 001ffa68.c; newlibStdlib.h now owns it.
 
@@ -1355,7 +1355,7 @@ Overlay copies are in progress/held/inc/godhand/; progress/held/README.md lists 
 - New include/godhand/cSubScrOption.h (needs `!include/godhand/cSubScrOption.h` in .gitignore after cSubScrMenu.h): cSubScrOption (14cSubScrOption, 0x134: ent[0x18] at 0x80, second display at 0xE0, row/answer at 0x130) and cSubScrOptionT (the variant, ent[0x10] at 0x80, second display at 0xC0, row/answer at 0x110), their prototypes, and `extern unsigned char D_003BD9E8;` (cSubScrOption's fade step).
 - padWork.h: D_005E8140 becomes `unsigned char[]` and gains PAD_WORK_VIBRATION (0x4B8). Other declarations of the same word disagree: char[] in 001a4430.c, 0030b298.c, 002bdc00.c, 00126918.c; int in 0012c348.c; 001004c8.c names 0x5E85F8 D_005E85F8 (a second name for the byte; splat gives it its own bss label).
 - D_003BD9E9: cSubScrOptionT's fade step. symbol_addrs has nothing at 0x3BD9E8/0x3BD9E9 (the data is one `.word` in 2BBF80.data.s). Adding `D_003BD9E9` would split that word; only worth doing when func_00167518 matches.
-- SetGlobalToggle_375700 (void (int mode)) is declared locally in 00166bb8.c, 00167908.c, 001672f0.c, 00167eb0.c. A seqNode.h prototype first needs 00137aa0.c's seven implicit callees fixed (func_0032BA30 in the CRI range, func_00380E10, func_00381D38 whose definition takes 2 arguments while callers pass 3, UpdateChildAndFreeSoundHandle, func_00385A20, func_003A52F0 via criStm.h, MtxInitTransVec), and 001f9e68.c's include placed before its use.
+- SetGlobalToggle_375700 (void (int mode)) is declared locally in 00166bb8.c, 00167908.c, 001672f0.c, 00167eb0.c. A seqNode.h prototype first needs 00137aa0.c's seven implicit callees fixed (ADXT_SetOutputMono in the CRI range, func_00380E10, func_00381D38 whose definition takes 2 arguments while callers pass 3, UpdateChildAndFreeSoundHandle, func_00385A20, func_003A52F0 via criStm.h, MtxInitTransVec), and 001f9e68.c's include placed before its use.
 - classFADE_start is declared locally with disagreeing types in about 15 files (`rg -l 'classFADE_start' src | xargs rg -L 'classFADE.h'`); classFADE.h owns it.
 
 ## item test (batch 186)
@@ -1607,7 +1607,7 @@ The work order says include/ is edited only at checkpoints. Batches 198 and 199 
 - cGameObj.h: cGameObjVt 0x50 moveDelta / 0x54 move split out of padding; cGameObj unk2F0 split out of padding (size unchanged). Used by MoveObj.
 - menuCtl.h (PR #25 header, additions only): prototypes of func_003807E0, func_003827F0, func_003820C0.
 - cObjBase.h: SetEffectParts prototype.
-- seqNode.h (PR #25 header, addition only): `SeqNode *func_0037D298(int kind);`.
+- seqNode.h (PR #25 header, addition only): `SeqNode *SdeVregOpen(int kind);`.
 - player.h: `void func_0012BC00(cGameObj *self, int type, unsigned int side);`.
 - cCollisionSolid.h (PR #25 header, addition only): cCollisionSolidBox with a corner offset check.
 - drawPrim.h (PR #25 header, addition only): Draw_Line2 prototype.
@@ -1796,13 +1796,13 @@ Headers:
 - cSnd.h: `cSndSeParam` (0x30-byte SE table entry; bank 0x0, idx 0x2, outMode 0x9, flags 0x20, randRange 0x21, maxPri 0x22 signed, limit 0x23, stateHi 0x24, optLo 0x25, optHi 0x26). SdeIssTblGet (00374cb8.c) and cSnd_SeCheckParam (002cf218.c) take `cSndSeParam *` instead of `short *` / `int`.
 - cSnd.h prototype `int cSndSeVoice_Setup(cSndSeVoice *v, short key0, short key1, int flags, int delay);` — 002cd310.c and 002cb5b8.c call it with no prototype today.
 - func_002CBD10 (002cbd10.c) takes `cSnd *` (its History view is cSnd.recent/recentPos at 0x160/0x1E0); func_002CBF78 (002cbf78.c) takes `cSnd *` and `cSndSeVoice *` (PriList/PriNode are views of cSnd.voiceHead and cSndSeVoice; PriNode's `on : 1` bitfield becomes a flags test). Both prototypes to cSnd.h.
-- capVu0LengthAB, cSndSeVoice_Link/Unlink, SdeSystemOutModeGet, func_00377FF8 prototypes to their owning headers (local copies in 002cf058.c, 002db0d0.c, 0014a338.c, 0011a8f8.c, 002cb5b8.c, 00373ff0.c, 0013e4f0.c, 003745c0.c, 00386fa0.c).
+- capVu0LengthAB, cSndSeVoice_Link/Unlink, SdeSystemOutModeGet, SdeSndIdNew prototypes to their owning headers (local copies in 002cf058.c, 002db0d0.c, 0014a338.c, 0011a8f8.c, 002cb5b8.c, 00373ff0.c, 0013e4f0.c, 003745c0.c, 00386fa0.c).
 
 ### func_0030AC40 (batch 209, held NM progress/held/0030ac40_nm.c, overlay progress/held/inc_0030ac40)
 - gameWork.h padding fields: vsyncField 0x214, frameStep 0x55C (float), frameTicks 0x560, frameRate 0x568 (u8), frameWait 0x570 (unsigned), frameRand 0x604 (float).
 - D_00753D80/D_00753D88 vblank counters (volatile; 0030d190.c already declares D_00753D88 volatile) and D_00753D84 want one header (vsync/interrupt).
 - func_00306D10 is defined `(void *a0)` but read nothing and its callers pass nothing: make it `(void)`.
-- func_003973E8 (0038e490.c) is `(int *a0, int a1)`; callers pass the DMA channel and a packet pointer: retype to `(sceDmaChan *, void *)` with 00397550.c's sceDmaChan.
+- sceDmaSend (0038e490.c) is `(int *a0, int a1)`; callers pass the DMA channel and a packet pointer: retype to `(sceDmaChan *, void *)` with 00397550.c's sceDmaChan.
 
 ### func_002B1F80 (batch 209, held match progress/held/002b1f80.c)
 - drawPrim.h: `void *func_0015D168(struct cScrVtx *v, unsigned int color, int screen, void *tex, unsigned int tbp, int cbp, struct cScrTexCfg *cfg, int kind, int prio);` (the non-TIM2 twin of Gp_draw_polyFT4); 002c5bd8.c calls it, and func_0015D6E8, with no prototype today.

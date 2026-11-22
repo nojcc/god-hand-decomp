@@ -34,8 +34,8 @@ extern void Forward33D4D8_33D578(short *a0, int a1, int a2, int a3);
 
 /* After a decode pass: count the samples produced (the last block only up to the data's end), and when
  * the write position runs past the output buffer, copy the overflow back to its start. */
-__attribute__((section(".text.func_0033D598")))
-void func_0033D598(AdxbDecodeView *adx)
+__attribute__((section(".text.ADXB_EndDecode")))
+void ADXB_EndDecode(AdxbDecodeView *adx)
 {
     AdxbDecodePrm *prm;
     int blkLen;

@@ -12,7 +12,7 @@ typedef struct AdxEnc {
     SjObj *sj;                       /* 0x14 */
 } AdxEnc;
 
-extern void func_0033ACA0(SjChunk *ck, int len, SjChunk *head, SjChunk *tail);
+extern void SJ_SplitChunk(SjChunk *ck, int len, SjChunk *head, SjChunk *tail);
 
 __attribute__((section(".text.func_0032B888")))
 int func_0032B888(AdxEnc *enc, int nch, int nsmpl)
@@ -34,14 +34,14 @@ int func_0032B888(AdxEnc *enc, int nch, int nsmpl)
     len = ck.len / unit * unit;
     total = len;
     func_003A52F0(ck.data, 0, len);
-    func_0033ACA0(&ck, len, &ck, &rest);
+    SJ_SplitChunk(&ck, len, &ck, &rest);
     sj->vt->putChunk(sj, 1, &ck);
     sj->vt->ungetChunk(sj, 0, &rest);
     sj->vt->getChunk(sj, 0, size - total, &ck);
     len = ck.len / unit * unit;
     func_003A52F0(ck.data, 0, len);
     total += len;
-    func_0033ACA0(&ck, len, &ck, &rest);
+    SJ_SplitChunk(&ck, len, &ck, &rest);
     sj->vt->putChunk(sj, 1, &ck);
     sj->vt->ungetChunk(sj, 0, &rest);
     return total / unit * 32;

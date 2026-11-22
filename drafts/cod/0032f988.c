@@ -64,7 +64,7 @@ int func_0032FC38(AixDmx *d)
             }
         }
         if (pos > 0) {
-            func_0033ACA0(&ck, pos, &ck, &skip);
+            SJ_SplitChunk(&ck, pos, &ck, &skip);
             sj->vt->ungetChunk(sj, 1, &skip);
             sj->vt->putChunk(sj, 0, &ck);
             sj->vt->getChunk(sj, 1, 0x7FFFFFFF, &ck);
@@ -81,7 +81,7 @@ int func_0032FC38(AixDmx *d)
                     break;
                 }
             }
-            func_0033ACA0(&ck, pos, &ck, &rest);
+            SJ_SplitChunk(&ck, pos, &ck, &rest);
             sj->vt->putChunk(sj, 0, &ck);
             sj->vt->ungetChunk(sj, 1, &rest);
             if (sj->vt->getNumData(sj, 1) <= 0) {
@@ -106,9 +106,9 @@ int func_0032FC38(AixDmx *d)
             goto unget;
         }
         ret = hdr.fC;
-        func_0033ACA0(&ck, hdr.f4 + 8, &ck, &rest);
+        SJ_SplitChunk(&ck, hdr.f4 + 8, &ck, &rest);
         sj->vt->ungetChunk(sj, 1, &rest);
-        func_0033ACA0(&ck, 16, &ck, &rest);
+        SJ_SplitChunk(&ck, 16, &ck, &rest);
         sj->vt->putChunk(sj, 0, &ck);
         if (rest.len < hdr.fA) {
             Obj33F8_Tramp_0033F130_FCB0(D_004530C8);

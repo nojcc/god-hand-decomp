@@ -28,17 +28,17 @@ typedef struct SfHn {
 
 extern unsigned int D_003EE300;
 extern char D_003EE0C0[];
-extern void func_00366C50(void *p, int c, unsigned int n);
-extern void func_0034D080(void *p);
+extern void UTY_MemsetDword(void *p, int c, unsigned int n);
+extern void SFHDS_InitFhd(void *p);
 extern void sfply_InitMvInf(void *p);
-extern void func_00358600(void *p);
-extern void func_00358688(void *p);
+extern void sfply_InitPlyInf(void *p);
+extern void sfply_InitTmrInf(void *p);
 extern void func_0034DD58(void *p);
-extern void func_00366960(void *p, void *src, int n);
-extern void func_0035A2B0(void *hn, void *p);
-extern int func_0034BA88(void *hn, void *p, SfCprm *cprm);
-extern void func_0035BCD0(void *hn, void *p, SfCprm *cprm);
-extern void func_00359730(void *p);
+extern void MEM_Copy(void *p, void *src, int n);
+extern void SFTIM_InitHn(void *hn, void *p);
+extern int SFBUF_InitHn(void *hn, void *p, SfCprm *cprm);
+extern void SFTRN_InitHn(void *hn, void *p, SfCprm *cprm);
+extern void SFSEE_InitHn(void *p);
 extern int func_003587D0(void *hn);
 
 __attribute__((section(".text.func_00358368")))
@@ -59,7 +59,7 @@ SfHn *func_00358368(SfCprm *cprm, void *a1)
     if (D_003EE300 != 0 && D_003EE300 != size)
         return 0;
     D_003EE300 = size;
-    func_00366C50(work, 0, n);
+    UTY_MemsetDword(work, 0, n);
     cprm->bufSize = (cprm->bufSize + 0x1F) & ~0x1F;
     hn = (SfHn *)(((int)work + 0x1F) & ~0x1F);
     hn->w4C = 0;
@@ -71,18 +71,18 @@ SfHn *func_00358368(SfCprm *cprm, void *a1)
     hn->w58 = 0;
     hn->w5C = 0;
     hn->w60 = 0;
-    func_0034D080((char *)hn + 0x78);
+    SFHDS_InitFhd((char *)hn + 0x78);
     sfply_InitMvInf((char *)hn + 0x90C);
-    func_00358600((char *)hn + 0x950);
-    func_00358688((char *)hn + 0x36C0);
+    sfply_InitPlyInf((char *)hn + 0x950);
+    sfply_InitTmrInf((char *)hn + 0x36C0);
     func_0034DD58((char *)hn + 0x9F8);
-    func_00366960((char *)hn + 0xA0C, D_003EE0C0, 0x190);
-    func_00366960((char *)hn + 0xB9C, D_003EE0C0, 0x190);
-    func_0035A2B0(hn, (char *)hn + 0xD30);
-    if (func_0034BA88(hn, (char *)hn + 0x1310, cprm) != 0)
+    MEM_Copy((char *)hn + 0xA0C, D_003EE0C0, 0x190);
+    MEM_Copy((char *)hn + 0xB9C, D_003EE0C0, 0x190);
+    SFTIM_InitHn(hn, (char *)hn + 0xD30);
+    if (SFBUF_InitHn(hn, (char *)hn + 0x1310, cprm) != 0)
         return 0;
-    func_0035BCD0(hn, (char *)hn + 0x1F30, cprm, a1);
-    func_00359730((char *)hn + 0x36B0);
+    SFTRN_InitHn(hn, (char *)hn + 0x1F30, cprm, a1);
+    SFSEE_InitHn((char *)hn + 0x36B0);
     if (func_003587D0(hn) != 0)
         return 0;
     hn->w4C = 1;

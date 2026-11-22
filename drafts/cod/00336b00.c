@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00336B00: retail's case tree pivots on 0xCB (0xC9 left;
+/* NON_MATCHING mfCiOptFn1: retail's case tree pivots on 0xCB (0xC9 left;
 * 0xCD, 0x12B, 0x191 right) while gcc picks 0xCD for these five cases; the bodies match. */
 #include "include_asm.h"
 
@@ -6,7 +6,7 @@
 extern int func_00336AC0(int *hn);
 extern int func_00336510(int *hn);
 
-int func_00336B00(int *hn, int id)
+int mfCiOptFn1(int *hn, int id)
 {
     int r = 0;
 
@@ -31,5 +31,5 @@ int func_00336B00(int *hn, int id)
     return r;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00336B00);
+INCLUDE_ASM("asm/nonmatching", mfCiOptFn1);
 #endif

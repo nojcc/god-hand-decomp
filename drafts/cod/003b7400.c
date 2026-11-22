@@ -22,8 +22,8 @@ typedef struct {
 
 extern AlarmSys D_003FBE90;
 extern void *_gp;
-extern AlarmEnt *func_003B6E40(AlarmEnt *a);
-extern void func_003B6DB8(AlarmEnt *a);
+extern AlarmEnt *UnlinkAlarm(AlarmEnt *a);
+extern void InsertAlarm(AlarmEnt *a);
 extern long iGetTimerSystemTime(void);
 extern void SetNextComp(long t);
 
@@ -37,7 +37,7 @@ int func_003B7400(int id, long time, void *handler, void *arg)
     if (D_003FBE90.cur == id)
         return 0x80000010;
     if (a->flags & 2) {
-        n = func_003B6E40(a);
+        n = UnlinkAlarm(a);
         if (D_003FBE90.head == a)
             D_003FBE90.head = n;
     }
@@ -50,7 +50,7 @@ int func_003B7400(int id, long time, void *handler, void *arg)
         a->gp = &_gp;
         a->arg = arg;
         if (a->flags & 1)
-            func_003B6DB8(a);
+            InsertAlarm(a);
     }
     SetNextComp(iGetTimerSystemTime());
     return 0;

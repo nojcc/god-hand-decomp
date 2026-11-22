@@ -81,8 +81,8 @@ extern void func_0032AB20(AdxtObj *adxt, int a1);
 /* CRI ADXT_Create: take a free handle and carve its output buffers (one per
  * channel) and its input ring buffer out of the work area, then build the
  * streams, decoder and renderer on them. Returns 0 on failure. */
-__attribute__((section(".text.func_00329490")))
-AdxtObj *func_00329490(int maxnch, void *work, int worksize)
+__attribute__((section(".text.adxt_Create")))
+AdxtObj *adxt_Create(int maxnch, void *work, int worksize)
 {
     AdxtObj *adxt;
     char *buf;
@@ -175,5 +175,5 @@ fail:
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00329490);
+INCLUDE_ASM("asm/nonmatching", adxt_Create);
 #endif

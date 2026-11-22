@@ -15,7 +15,7 @@ extern void func_0012C348(void *a0, int a1);
 extern int  D_00747A24;
 extern char D_005864F0[];
 extern unsigned short D_003F2060[];
-extern void func_0032A9F0(int a0, int a1);
+extern void ADXT_SetOutVol(int a0, int a1);
 extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void func_002BB868(void *a0, void *a1, float f);
 
@@ -237,7 +237,7 @@ call1:
         *(short *)(p + 4) = D_003F2060[*(short *)(p + 6)];
     }
     if (*(int *)(q + 0x30) != 0) {
-        func_0032A9F0(*(int *)(q + 0x30), *(short *)(p + 4));
+        ADXT_SetOutVol(*(int *)(q + 0x30), *(short *)(p + 4));
     }
 }
 

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003552D0: cygnus-2.96: only s0/s1 swap for sfd/mpv (18 insns) */
+/* NON_MATCHING sfmpv_ReprocessShc: cygnus-2.96: only s0/s1 swap for sfd/mpv (18 insns) */
 #include "include_asm.h"
 #include "godhand/sftim.h"
 
@@ -20,17 +20,17 @@ typedef struct PicBuf {
     int len;
 } PicBuf;
 
-extern PicEnt *func_003553C8(void *sfd);
+extern PicEnt *sfmpv_GetHd(void *sfd);
 extern int MPV_DecodePicAtr(int mpv, PicBuf *buf, void *atr);
 
-int func_003552D0(char *sfd, int *mpv, int *done)
+int sfmpv_ReprocessShc(char *sfd, int *mpv, int *done)
 {
     PicBuf buf;
     char atr[0x10];
     PicEnt *e;
 
     *done = 0;
-    e = func_003553C8(sfd);
+    e = sfmpv_GetHd(sfd);
     if (e == 0)
         return 0;
     if (e->valid == 0)
@@ -44,5 +44,5 @@ int func_003552D0(char *sfd, int *mpv, int *done)
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003552D0);
+INCLUDE_ASM("asm/nonmatching", sfmpv_ReprocessShc);
 #endif

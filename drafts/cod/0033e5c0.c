@@ -1,15 +1,15 @@
-/* func_00345250: ring lookup; same shape, register assignment differs throughout.
+/* MWSFD_GetTotalFrmNum: ring lookup; same shape, register assignment differs throughout.
 * func_00354B40: 2 insns; clear loop store/increment order.
 * func_0033E5C0: 1 insn; first mode test is bne in retail, bnel here.
-* func_00356E98: 1 insn; retail sltiu (==0) where we get xori for >= 3. */
+* SFMPVP_IsPscEnough: 1 insn; retail sltiu (==0) where we get xori for >= 3. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 
 #include "godhand/mwsfViews.h"
 
-extern void func_0033E3B8(AdxPlay *p);
-extern void func_0033E220(AdxPlay *p);
+extern void ADXB_ExecOneWav4(AdxPlay *p);
+extern void ADXB_ExecOneWav8(AdxPlay *p);
 extern void func_0033E0A8(AdxPlay *p);
 
 __attribute__((section(".text.func_00354B40")))
@@ -34,9 +34,9 @@ __attribute__((section(".text.func_0033E5C0")))
 void func_0033E5C0(AdxPlay *p)
 {
     if (p->mode == 2) {
-        func_0033E3B8(p);
+        ADXB_ExecOneWav4(p);
     } else if (p->mode == 1) {
-        func_0033E220(p);
+        ADXB_ExecOneWav8(p);
     } else if (p->mode == 0) {
         func_0033E0A8(p);
     }

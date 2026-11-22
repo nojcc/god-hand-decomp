@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00336218: the only differences are two branches; retail uses bne (non-likely) with the speculative sll v0,a1,5 in the slot before each call, ours uses bnel. */
+/* NON_MATCHING lsc_ExecHndl: the only differences are two branches; retail uses bne (non-likely) with the speculative sll v0,a1,5 in the slot before each call, ours uses bnel. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -26,11 +26,11 @@ typedef struct {
 
 #define STM_CUR(o) (sub->slot[(o)->sub.cur])
 
-extern void func_00336048(StmObj *o);
-extern void func_00336110(StmObj *o);
-extern void func_00335F20(StmObj *o);
+extern void lsc_StatRead(StmObj *o);
+extern void lsc_StatEnd(StmObj *o);
+extern void lsc_StatWait(StmObj *o);
 
-void func_00336218(StmObj *o)
+void lsc_ExecHndl(StmObj *o)
 {
     StmSub *sub;
 
@@ -42,13 +42,13 @@ void func_00336218(StmObj *o)
         return;
     sub = &o->sub;
     if (STM_CUR(o).state == 1)
-        func_00336048(o);
+        lsc_StatRead(o);
     if (STM_CUR(o).state == 2)
-        func_00336110(o);
+        lsc_StatEnd(o);
     if (STM_CUR(o).state != 0)
         return;
-    func_00335F20(o);
+    lsc_StatWait(o);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00336218);
+INCLUDE_ASM("asm/nonmatching", lsc_ExecHndl);
 #endif

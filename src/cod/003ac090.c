@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/newlibMalloc.h"
 
-/* newlib mallocr.c :: malloc_extend_top  -> func_003AC090 */
+/* newlib mallocr.c :: malloc_extend_top  -> malloc_extend_top */
 
 extern unsigned long D_003FADE0;  /* __malloc_top_pad */
 extern char *D_003FADE8;          /* __malloc_sbrk_base */
@@ -38,8 +38,8 @@ extern void *func_003AE0C8(void *reent, int size); /* _sbrk_r */
 #define MORECORE(x) func_003AE0C8(RARG, (x))
 #define MORECORE_FAILURE (-1)
 
-__attribute__((section(".text.func_003AC090")))
-void func_003AC090(void *RARG, INTERNAL_SIZE_T nb)
+__attribute__((section(".text.malloc_extend_top")))
+void malloc_extend_top(void *RARG, INTERNAL_SIZE_T nb)
 {
     char *brk;
     INTERNAL_SIZE_T front_misalign;

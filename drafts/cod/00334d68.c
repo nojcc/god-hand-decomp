@@ -5,7 +5,7 @@
 extern char D_003DA4A0[];
 extern char D_003DA398[];
 extern char D_00454A00[];
-extern int func_00334CA0(const char *name);
+extern int htci_is_inc_colon(const char *name);
 extern int htci_is_bgn_host(const char *path);
 extern char *func_003A57C4(char *dst, const char *src);
 extern char *func_003A53A8(char *dst, const char *src);
@@ -17,7 +17,7 @@ void func_00334D68(const char *name, char *path)
     char c;
 
     path[0] = 0;
-    if (func_00334CA0(name) == 0)
+    if (htci_is_inc_colon(name) == 0)
         func_003A57C4(path, D_003DA4A0);
     if (htci_is_bgn_host(path) == 1) {
         func_003A53A8(path, D_003DA398);

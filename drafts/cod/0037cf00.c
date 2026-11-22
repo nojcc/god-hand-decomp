@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0037CF00: voice allocator over the D_0076C8C0 table.
+/* NON_MATCHING SdeVmngOpenForIss: voice allocator over the D_0076C8C0 table.
 * Return a free voice in [base, base+last]; otherwise steal the oldest voice at the lowest priority if the request's priority allows it (equal priority needs flag 0x20).
 * Only diff: retail builds the loop-2 base as (D+0x1E)+base*32 with 0x1E added separately; ours folds it into the lb offset (or into %lo when written as byte arithmetic). */
 #include "include_asm.h"
@@ -26,7 +26,7 @@ typedef struct {
 extern AllocVoice D_0076C8C0[];
 extern void func_0037D8B8(int node, int arg);
 
-AllocVoice *func_0037CF00(AllocReq *r)
+AllocVoice *SdeVmngOpenForIss(AllocReq *r)
 {
     AllocVoice *v;
     AllocVoice *best;
@@ -73,5 +73,5 @@ AllocVoice *func_0037CF00(AllocReq *r)
     return best;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0037CF00);
+INCLUDE_ASM("asm/nonmatching", SdeVmngOpenForIss);
 #endif

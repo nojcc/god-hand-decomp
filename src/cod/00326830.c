@@ -1,6 +1,6 @@
 /* cygnus-2.96 matched TU. */
 
-extern void func_00326568(int a0);
+extern void adxsjd_clear(int a0);
 extern void (*D_003EADB8)(void *, void *);
 extern void *D_003EADBC;
 extern char D_003EADC0[];
@@ -8,9 +8,9 @@ extern char D_003EADC0[];
 /* clone */
 
 
-__attribute__((section(".text.func_00326830")))
-void func_00326830(void *a0) {
-    func_00326568(a0);
+__attribute__((section(".text.ADXSJD_Start")))
+void ADXSJD_Start(void *a0) {
+    adxsjd_clear(a0);
     *(char *)((char *)a0 + 0x1) = 1;
 }
 

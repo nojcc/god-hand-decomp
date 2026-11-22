@@ -12,7 +12,7 @@ extern char D_00459040[];
 extern char D_00459070[];
 extern int GetField0OrZero_346828(SfdHn *hn);
 extern void MWSFSVM_Error(char *msg);
-extern int func_003245B0(int buf, int size, int type, int *a, int *b, int *c);
+extern int ADXF_GetFnameRangeEx(int buf, int size, int type, int *a, int *b, int *c);
 extern int func_003247D0(int buf);
 extern void func_00335638(int sj, int hdr, int a, int b, int c);
 
@@ -26,7 +26,7 @@ void func_00347AF8(SfdHn *hn, int buf, int size)
         return;
     }
     sj = hn->sj;
-    if (func_003245B0(buf, size, hn->type, &a, &b, &c) == 0) {
+    if (ADXF_GetFnameRangeEx(buf, size, hn->type, &a, &b, &c) == 0) {
         func_00335638(sj, func_003247D0(buf, buf, size), a, b, c);
         return;
     }

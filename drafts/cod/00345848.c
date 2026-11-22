@@ -3,7 +3,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern int func_003466F8(int);
+extern int mwPlyGetSfdHn(int);
 extern char *func_003565D0(int);
 extern int func_003A6C58(char *, const char *, ...);
 extern char *strncat(char *, const char *, unsigned int);
@@ -30,7 +30,7 @@ void func_00345848(int obj, int err)
     char *s = 0;
 
     if (obj) {
-        hn = func_003466F8(obj);
+        hn = mwPlyGetSfdHn(obj);
         D_003EE070 = obj;
         D_003EE074 = hn;
     } else {

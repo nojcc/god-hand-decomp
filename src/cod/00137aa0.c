@@ -5,9 +5,9 @@ extern int D_0076A7A4;
 __attribute__((section(".text.SdeSystemOutModeSet")))
 void SdeSystemOutModeSet(int a0) {
     if (a0 == 0) {
-        func_0032BA30(1);
+        ADXT_SetOutputMono(1);
     } else {
-        func_0032BA30(0);
+        ADXT_SetOutputMono(0);
     }
     D_0076A7A4 = a0;
 }

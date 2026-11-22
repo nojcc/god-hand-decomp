@@ -22,7 +22,7 @@ extern void *SearchData(void *a, void *b, int c);
 extern void PtrVec_create(void *counter, int value);
 extern void func_00150098(int step);
 extern void Forward149400_1492E8(int step);
-extern void func_00346B78(int arg);
+extern void mwPlySetTimerCh(int arg);
 extern void mwPlySetMallocFn(void *alloc, void *free, void *obj);
 extern void FreeResourceNode_2D3710(void *node);
 extern void func_002D34A8(char *rec);
@@ -215,7 +215,7 @@ void MoviePool_init(cMovie *self) {
     setup.b = 1;
     setup.c = 0;
     func_003452D8(&setup);
-    func_00346B78(-1);
+    mwPlySetTimerCh(-1);
     mwPlySetMallocFn((void *)func_002B48A0, (void *)func_002B48C8, 0);
     node = self->track;
     do {

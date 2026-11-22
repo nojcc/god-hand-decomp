@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00340580: cygnus-2.96: prologue param-copy order plus 3 beql (retail) vs beq with the same delay insn */
+/* NON_MATCHING pl2enc_Create: cygnus-2.96: prologue param-copy order plus 3 beql (retail) vs beq with the same delay insn */
 #include "include_asm.h"
 #include "godhand/criStm.h"
 
@@ -19,7 +19,7 @@ typedef struct SifWork {
     char unk10[0x1C];
 } SifWork;                   /* 0x2C */
 
-SifWork *func_00340580(char *buf, int size)
+SifWork *pl2enc_Create(char *buf, int size)
 {
     SifWork *w;
     char *p;
@@ -58,5 +58,5 @@ SifWork *func_00340580(char *buf, int size)
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00340580);
+INCLUDE_ASM("asm/nonmatching", pl2enc_Create);
 #endif

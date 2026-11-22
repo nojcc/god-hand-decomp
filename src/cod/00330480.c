@@ -13,8 +13,8 @@ extern const char D_00453D80[];
  * [0] = table pointer, [1] = entry count. */
 
 
-__attribute__((section(".text.func_003351C0")))
-void func_003351C0(char *name, int *out) {
+__attribute__((section(".text.htci_get_finf")))
+void htci_get_finf(char *name, int *out) {
     out[0] = 0;
     out[1] = 0;
     if (D_003DA380[0] != 0) func_003350F0(out, name, D_003DA380[0], D_003DA380[1]);

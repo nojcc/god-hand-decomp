@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00360200 (cygnus-2.96): 30 words vs 32
+/* NON_MATCHING sfxzmv_GetZfrmInf (cygnus-2.96): 30 words vs 32
 block layout matches, but retail aligns the success label with a nop, duplicates *data = 0 into a bnel delay slot, and moves the t0 copy above the ra save. */
 #include "godhand/criSj.h"
 #include "include_asm.h"
@@ -16,7 +16,7 @@ typedef struct {
 
 extern Sint8 *SJ_SearchTag(SjChunk *ck, Sint8 *tag, Sint8 *endtag, SJTAG *tagck);
 
-void func_00360200(char *self, Sint8 *tag, Sint8 *endtag, Sint8 **data, Sint32 *len)
+void sfxzmv_GetZfrmInf(char *self, Sint8 *tag, Sint8 *endtag, Sint8 **data, Sint32 *len)
 {
     ChunkSrc360 *src = (ChunkSrc360 *)(self + 0x28);
     SjChunk ck;
@@ -34,5 +34,5 @@ void func_00360200(char *self, Sint8 *tag, Sint8 *endtag, Sint8 **data, Sint32 *
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00360200);
+INCLUDE_ASM("asm/nonmatching", sfxzmv_GetZfrmInf);
 #endif

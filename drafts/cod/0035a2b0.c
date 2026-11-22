@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0035A2B0 (cygnus-2.96): matches through both table-clear loops (the
+/* NON_MATCHING SFTIM_InitHn (cygnus-2.96): matches through both table-clear loops (the
  * second table is addressed from sub = t + 0xC set before the first loop); the final block of constant stores is
  * scheduled differently and retail reloads 0x2A8 for the 0x2D0 copy.
 * Sofdec timer init: six time callbacks,
@@ -6,34 +6,34 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern void func_0035B0D8(void *obj, void *fn, int n);
+extern void SFTIM_SetTimeFn(void *obj, void *fn, int n);
 extern void sftim_GetTimeNone(void *p, int *tim, int *tunit);
-extern void func_0035ACA0(int *a0, int *a1, int *a2);
+extern void sftim_GetTimeVsync(int *a0, int *a1, int *a2);
 extern void func_0035AD00(int a0);
-extern void func_0035AD20(int a0, int a1, int a2);
-extern void func_0035A518(void *p);
-extern void func_0035A4D0(void *p, int v);
+extern void sftim_GetTimeExtClock(int a0, int a1, int a2);
+extern void SFTIM_InitTcode(void *p);
+extern void SFTIM_InitTtu(void *p, int v);
 
-__attribute__((section(".text.func_0035A2B0")))
-void func_0035A2B0(void *obj, char *t)
+__attribute__((section(".text.SFTIM_InitHn")))
+void SFTIM_InitHn(void *obj, char *t)
 {
     int i;
     char *sub;
 
-    func_0035B0D8(obj, sftim_GetTimeNone, 0);
-    func_0035B0D8(obj, func_0035ACA0, 1);
-    func_0035B0D8(obj, 0, 2);
-    func_0035B0D8(obj, func_0035AD00, 3);
-    func_0035B0D8(obj, 0, 4);
-    func_0035B0D8(obj, func_0035AD20, 5);
+    SFTIM_SetTimeFn(obj, sftim_GetTimeNone, 0);
+    SFTIM_SetTimeFn(obj, sftim_GetTimeVsync, 1);
+    SFTIM_SetTimeFn(obj, 0, 2);
+    SFTIM_SetTimeFn(obj, func_0035AD00, 3);
+    SFTIM_SetTimeFn(obj, 0, 4);
+    SFTIM_SetTimeFn(obj, sftim_GetTimeExtClock, 5);
     *(int *)(t + 0x18) = 0;
-    func_0035A518(t + 0x1C);
-    func_0035A4D0(t + 0xC0, 0);
-    func_0035A4D0(t + 0x3C, 0x7FFFFFFF);
-    func_0035A4D0(t + 0x68, -1);
-    func_0035A4D0(t + 0x94, -1);
-    func_0035A4D0(t + 0xEC, -1);
-    func_0035A4D0(t + 0x118, 0x7FFFFFFF);
+    SFTIM_InitTcode(t + 0x1C);
+    SFTIM_InitTtu(t + 0xC0, 0);
+    SFTIM_InitTtu(t + 0x3C, 0x7FFFFFFF);
+    SFTIM_InitTtu(t + 0x68, -1);
+    SFTIM_InitTtu(t + 0x94, -1);
+    SFTIM_InitTtu(t + 0xEC, -1);
+    SFTIM_InitTtu(t + 0x118, 0x7FFFFFFF);
     *(int *)(t + 0x144) = 0;
     *(int *)(t + 0x148) = 0;
     *(long *)(t + 0x150) = -1;
@@ -83,5 +83,5 @@ void func_0035A2B0(void *obj, char *t)
     *(int *)(t + 0x5B8) = 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0035A2B0);
+INCLUDE_ASM("asm/nonmatching", SFTIM_InitHn);
 #endif

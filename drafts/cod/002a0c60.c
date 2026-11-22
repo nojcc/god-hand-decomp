@@ -27,8 +27,8 @@ typedef unsigned int u_int;
 #define GS_SET_TEXA(ta0, aem, ta1) ((u_long)(ta0) | ((u_long)(aem) << 15) | ((u_long)(ta1) << 32))
 
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);
-extern void func_002998D8(int a0, int a1, long a2);
-extern void func_00299908(int a0);
+extern void cFILTER_gif_tag_start(int a0, int a1, long a2);
+extern void cFILTER_gif_tag_end(int a0);
 extern void func_00299A28(char *a0, int a1, int *pal);
 extern int D_003C1180;
 extern int D_003C118C;
@@ -61,9 +61,9 @@ void func_002A0C60(char *ctx)
     PushEntryAtField10000_299868(ctx, 3, GS_SET_UV((D_003C1180 << 4) + 9, (D_003C118C << 4) + 9));
     PushEntryAtField10000_299868(ctx, 5,
         GS_SET_XYZ((D_003C1180 + 0x800 - D_003C1180 / 2) << 4, (D_00586B80 + D_003C118C) << 4, 0xFFFF));
-    func_00299908((int)ctx);
+    cFILTER_gif_tag_end((int)ctx);
     func_00299A28(ctx, 0x1C04, D_003C1B00);
-    func_002998D8((int)ctx, 0, 0xE);
+    cFILTER_gif_tag_start((int)ctx, 0, 0xE);
     PushEntryAtField10000_299868(ctx, 0, 0x316);
     PushEntryAtField10000_299868(ctx, 0x3F, 0xFF);
     PushEntryAtField10000_299868(ctx, 0x4D, GS_SET_FRAME(0xE00 >> 5, D_003C1180 / 64, 0, 0xFF000000));

@@ -16,7 +16,7 @@ extern int D_0075CC80;
 extern int D_00451800;
 extern int D_00451828;
 extern void Forward33B658_33E678(void);
-extern void func_00323A00(int *);
+extern void adxf_CloseSjStm(int *);
 extern void Forward33B670_33E690(void);
 
 /* Poll the URPC state once when not locked out: fetch the 8-byte reply into D_003E0748 and mark the poll done. */
@@ -85,7 +85,7 @@ void LatchDmaModeAndQueueTransfers(void)
 
 __attribute__((section(".text.OpenStreamHandle")))
 int OpenStreamHandle(int *a0) {
-    func_003228C0(5, 0, a0, -1, -1);
+    adxf_SetCmdHstry(5, 0, a0, -1, -1);
     if (a0 == 0) {
         func_0033F130(&D_00451800);
         return -3;
@@ -103,13 +103,13 @@ int OpenStreamHandle(int *a0) {
             func_0033F130(&D_00451828);
             return -1;
         }
-        func_00328368(a0[1]);
+        ADXSTM_Stop(a0[1]);
         Forward33B658_33E678();
         a0[8] = func_00328140(a0[1]) - a0[5];
-        func_00323A00(a0);
+        adxf_CloseSjStm(a0);
         *((char*)a0 + 1) = 1;
         Forward33B670_33E690();
-        func_003228C0(5, 1, a0, -1, -1);
+        adxf_SetCmdHstry(5, 1, a0, -1, -1);
         return a0[5];
     }
 }

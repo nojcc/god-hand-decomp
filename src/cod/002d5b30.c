@@ -13,8 +13,8 @@ extern char D_0071B8C0[];
 
 
 
-__attribute__((section(".text.func_00394D58")))
-int func_00394D58(int *out) {
+__attribute__((section(".text.snInitDllSystem")))
+int snInitDllSystem(int *out) {
     RegEnt *p;
     int n;
     D_003F5520.check = 0x31415926;

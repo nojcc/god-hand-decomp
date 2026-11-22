@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003B6290 (ee-2.9-991111): retail strlen loop carries R5900 short-loop 3-nop pad that our ee-as path omits; also name-11 hoist folded */
+/* NON_MATCHING sceSifRebootIop (ee-2.9-991111): retail strlen loop carries R5900 short-loop 3-nop pad that our ee-as path omits; also name-11 hoist folded */
 #include "godhand/eeKernel.h"
 #include "include_asm.h"
 
@@ -7,9 +7,9 @@ extern char D_00460340[];
 extern char D_00460350[];
 extern void sceSifInitRpc(unsigned int mode);
 extern void sceSifExitRpc(void);
-extern int func_003B60E8(const char *path, int a1);
+extern int sceSifResetIop(const char *path, int a1);
 
-int func_003B6290(const char *name)
+int sceSifRebootIop(const char *name)
 {
     char buf[80];
     const char *p = name;
@@ -27,8 +27,8 @@ int func_003B6290(const char *name)
     while (*q) *d++ = *q++;
     while (*name) *d++ = *name++;
     *d = 0;
-    return func_003B60E8(buf, 0);
+    return sceSifResetIop(buf, 0);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003B6290);
+INCLUDE_ASM("asm/nonmatching", sceSifRebootIop);
 #endif

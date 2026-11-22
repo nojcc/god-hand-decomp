@@ -8,8 +8,8 @@ typedef struct SfxCscEnt {
 } SfxCscEnt;
 
 /* Build the Y, Cb and Cr colour-conversion tables and the Y alpha ramp between lo and hi. */
-__attribute__((section(".text.func_00365EC0")))
-void func_00365EC0(int mode, int lo, int hi, SfxCscEnt *tbl)
+__attribute__((section(".text.CFT_MakeArgb8888AlpLumiTbl")))
+void CFT_MakeArgb8888AlpLumiTbl(int mode, int lo, int hi, SfxCscEnt *tbl)
 {
     SfxCscEnt *ytbl = tbl;
     SfxCscEnt *cbtbl = tbl + 256;

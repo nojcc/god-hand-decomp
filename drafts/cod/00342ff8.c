@@ -31,8 +31,8 @@ typedef struct {
     int b1;
 } PicHn;
 
-extern int func_00359270(int stm, BufReq *req);
-extern void func_00345750(int err);
+extern int SFD_SetSupplySj(int stm, BufReq *req);
+extern void MWSFLIB_SetErrCode(int err);
 extern void MWSFSVM_Error(char *msg, ...);
 extern char D_00457208[];
 
@@ -64,8 +64,8 @@ void func_00342FF8(PicHn *hn)
         req.c = hn->c2;
     }
     req.d = 0;
-    if (func_00359270(stm, &req) != 0) {
-        func_00345750(-0x138);
+    if (SFD_SetSupplySj(stm, &req) != 0) {
+        MWSFLIB_SetErrCode(-0x138);
         MWSFSVM_Error(D_00457208);
     }
 }

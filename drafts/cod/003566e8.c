@@ -28,18 +28,18 @@ typedef struct {
 } SfMpv;
 
 extern char D_00459748[];
-extern int func_0039AA38(void *dec);
+extern int sceMpegGetPictureAbort(void *dec);
 extern int viBufAddDMA(ViBuf *vb);
 extern int sfmpvp_PutVibuf(ViBuf *vb, void *data, int n);
 
-int func_003566E8(int a0, int a1, SfMpv *sf)
+int mpegNodata(int a0, int a1, SfMpv *sf)
 {
     MpvWork *w = sf->w;
     MpvTerm *t = &w->t;
     ViBuf *vb = &w->t.vb;
 
     if (t->term == 1) {
-        func_0039AA38(w->t.dec);
+        sceMpegGetPictureAbort(w->t.dec);
         return 1;
     }
     viBufAddDMA(vb);
@@ -52,5 +52,5 @@ int func_003566E8(int a0, int a1, SfMpv *sf)
     return 1;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003566E8);
+INCLUDE_ASM("asm/nonmatching", mpegNodata);
 #endif

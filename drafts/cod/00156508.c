@@ -12,8 +12,8 @@ extern int D_0076A7AC;
 extern void (*D_003F2810[])(int);
 typedef struct { int a; int b; } Pair28;
 
-__attribute__((section(".text.func_0037D298")))
-void func_0037D298(int a0)
+__attribute__((section(".text.SdeVregOpen")))
+void SdeVregOpen(int a0)
 {
     void (*fn)(int) = D_003F2810[D_0076A7AC];
 
@@ -63,7 +63,7 @@ int func_001C2328(unsigned char *a0)
 }
 
 #else
-INCLUDE_ASM("asm/nonmatching", func_0037D298);
+INCLUDE_ASM("asm/nonmatching", SdeVregOpen);
 INCLUDE_ASM("asm/nonmatching", func_00156508);
 INCLUDE_ASM("asm/nonmatching", func_001C2328);
 #endif

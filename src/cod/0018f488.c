@@ -20,7 +20,7 @@ extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(cOmBase *self);
 extern unsigned short D_003F2060[];
-extern void func_0032A9F0(int a0, int a1);
+extern void ADXT_SetOutVol(int a0, int a1);
 extern void func_001E8E48(void *a0, void *a1);
 extern long D_00747650;
 
@@ -186,7 +186,7 @@ call1:
         *(short *)(p + 4) = D_003F2060[*(short *)(p + 6)];
     }
     if (*(int *)(q + 0x30) != 0) {
-        func_0032A9F0(*(int *)(q + 0x30), *(short *)(p + 4));
+        ADXT_SetOutVol(*(int *)(q + 0x30), *(short *)(p + 4));
     }
 }
 

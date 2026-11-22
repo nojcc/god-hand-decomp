@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00353630: decide whether the next SFD frame is due: hand off to the time callback when set, else correct the time and test it against the frame clock.
+/* NON_MATCHING sfmpv_IsLate: decide whether the next SFD frame is due: hand off to the time callback when set, else correct the time and test it against the frame clock.
 * Control flow and loads match; retail holds t/rate/cnt in s4/s3/s5 (here s3/s5/s4) and uses a0 as the base temp, so it re-copies s and mode before the callback (3 words).
 * Declaration order changes nothing; direct s->tmr access loses the two clock base registers (91). */
 #include "include_asm.h"
@@ -38,15 +38,15 @@ typedef struct FrmDueHn {
     FrmCount *cnt;                     /* 0x1FC0 */
 } FrmDueHn;
 
-extern void func_0035A540(FrmTimer *t, int time);
-extern int func_0035A5E0(FrmTimer *t, int time);
+extern void SFTIM_UpdateItime(FrmTimer *t, int time);
+extern int SFTIM_GetNextItime(FrmTimer *t, int time);
 extern int func_0035BA50(FrmDueHn *s);
-extern void func_0035AB98(FrmDueHn *s, int *a, int *b);
-extern void func_003537A8(FrmDueHn *s, int mode, int *num, int *den);
-extern int func_00366918(int a, int b, int time, int a3);
+extern void SFTIM_GetTime(FrmDueHn *s, int *a, int *b);
+extern void sfmpv_GetDtime(FrmDueHn *s, int mode, int *num, int *den);
+extern int UTY_CmpTime(int a, int b, int time, int a3);
 
-__attribute__((section(".text.func_00353630")))
-int func_00353630(FrmDueHn *s, int mode)
+__attribute__((section(".text.sfmpv_IsLate")))
+int sfmpv_IsLate(FrmDueHn *s, int mode)
 {
     FrmTimer *tm;
     int rate;
@@ -70,22 +70,22 @@ int func_00353630(FrmDueHn *s, int mode)
     if (tm->func != 0)
         return tm->func(s, mode, t, rate);
     if (mode == 1)
-        func_0035A540(tm, t);
+        SFTIM_UpdateItime(tm, t);
     if ((unsigned int)(mode - 1) < 2)
-        t = func_0035A5E0(tm, t);
+        t = SFTIM_GetNextItime(tm, t);
     if (func_0035BA50(s) <= SFD_FRAME_LIMIT) {
         if (cnt->frames >= s->frameMax)
             return 0;
     }
-    func_0035AB98(s, &a, &b);
+    SFTIM_GetTime(s, &a, &b);
     if (a < 0)
         return 0;
-    func_003537A8(s, mode, &num, &den);
-    if (func_00366918(a, b, t - rate * num / den) != 0)
+    sfmpv_GetDtime(s, mode, &num, &den);
+    if (UTY_CmpTime(a, b, t - rate * num / den) != 0)
         return 0;
     cnt->frames++;
     return 1;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00353630);
+INCLUDE_ASM("asm/nonmatching", sfmpv_IsLate);
 #endif

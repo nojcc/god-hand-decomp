@@ -33,8 +33,8 @@ typedef unsigned char u_char;
 #define GS_SET_TEXA(ta0, aem, ta1) ((u_long)(ta0) | ((u_long)(aem) << 15) | ((u_long)(ta1) << 32))
 
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);
-extern void func_002998D8(int a0, int a1, long a2);
-extern void func_00299908(int a0);
+extern void cFILTER_gif_tag_start(int a0, int a1, long a2);
+extern void cFILTER_gif_tag_end(int a0);
 extern void func_00299A28(char *a0, int a1, int *pal);
 extern void func_002E0D60(int a, int b, int c, int d, int e, int f, char *format, ...);
 
@@ -117,9 +117,9 @@ void func_00299DE0(char *ctx)
         /* retail prints the table's address, not the entry */
         func_002E0D60(8, 8, i / 32 * 0x70 + 0x20, (i % 32 + 5) * 8, 2, 0x80FFFFFF, D_0044AC88, i, D_004A6100);
     }
-    func_00299908((int)ctx);
+    cFILTER_gif_tag_end((int)ctx);
     func_00299A28(ctx, 0x1C04, (int *)D_004A6100);
-    func_002998D8((int)ctx, 0, 0xE);
+    cFILTER_gif_tag_start((int)ctx, 0, 0xE);
 
     PushEntryAtField10000_299868(ctx, 0x4F, GS_SET_ZBUF(0xF8, 0xA, 1));
     PushEntryAtField10000_299868(ctx, 0x4D, GS_SET_FRAME(D_003C11AC >> 5, D_003C1180 / 64, 0, 0xFFFFFF));
@@ -140,9 +140,9 @@ void func_00299DE0(char *ctx)
     for (n = 0; n < 256; n++) {
         D_004A6500[n] = D_004A5F00[(u_char)(D_004A6000[n] + 0x20)] << 24;
     }
-    func_00299908((int)ctx);
+    cFILTER_gif_tag_end((int)ctx);
     func_00299A28(ctx, 0x1C04, (int *)D_004A6500);
-    func_002998D8((int)ctx, 0, 0xE);
+    cFILTER_gif_tag_start((int)ctx, 0, 0xE);
 
     PushEntryAtField10000_299868(ctx, 7,
         GS_SET_TEX0(D_003C11AC, D_003C1180 / 64, 0x1B, 9, D_003C11B8, 1, 1, 0x1C04, 0, 0, 0, 1));

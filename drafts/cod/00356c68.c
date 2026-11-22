@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00356C68 (cygnus-2.96): the last end-code-skip test comes out as bnel
+/* NON_MATCHING SFMPVP_SearchPsc (cygnus-2.96): the last end-code-skip test comes out as bnel
  * where retail has bnez with the s0 restore in the delay slot; no condition shape or approved flag changes the reorg
  * choice.
 * Scans a video chunk for MPEG start codes (carried-over tail, then MPV_SearchDelim) and signals end of stream
@@ -10,7 +10,7 @@ extern unsigned char *MPV_SearchDelim(unsigned char *buf, int len, int mask);
 extern int MPV_CheckDelim(unsigned char *p);
 extern int SFCON_IsEndcodeSkip(void *self);
 extern int SFCON_IsVideoEndcodeSkip(void *self);
-extern void func_00356988(void *self, int a1);
+extern void SFMPVP_Flush(void *self, int a1);
 
 typedef struct MovSt {
     int state;  /* 0x00 */
@@ -20,8 +20,8 @@ typedef struct MovSt {
     unsigned char tail[3]; /* 0x10 */
 } MovSt;
 
-__attribute__((section(".text.func_00356C68")))
-void func_00356C68(char *self, unsigned char *buf, int len)
+__attribute__((section(".text.SFMPVP_SearchPsc")))
+void SFMPVP_SearchPsc(char *self, unsigned char *buf, int len)
 {
     MovSt *st = (MovSt *)(*(char **)(self + 0x1FC0) + 0x1128);
     unsigned char tmp[6];
@@ -69,8 +69,8 @@ void func_00356C68(char *self, unsigned char *buf, int len)
         buf = p;
     }
     if (end == 1 && !SFCON_IsEndcodeSkip(self) && !SFCON_IsVideoEndcodeSkip(self))
-        func_00356988(self, 1);
+        SFMPVP_Flush(self, 1);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00356C68);
+INCLUDE_ASM("asm/nonmatching", SFMPVP_SearchPsc);
 #endif

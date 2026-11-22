@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003B3650 (ee-2.9-991111): req and pkt get s1/s0 swapped versus retail
+/* NON_MATCHING sceSifExecRequest (ee-2.9-991111): req and pkt get s1/s0 swapped versus retail
  * (no declaration order or register keyword moves them); the final DMA slot stores schedule differently. */
 #include "godhand/eeKernel.h"
 #include "include_asm.h"
@@ -43,8 +43,8 @@ extern void *func_003B2B90(void *data);
 extern int sceSifSendCmd(unsigned int cmd, void *pkt, int size, void *src, void *dest, int dsize);
 extern unsigned int func_003B2148(SifDmaT *dma, int n);
 
-__attribute__((section(".text.func_003B3650")))
-void func_003B3650(RpcReq *req)
+__attribute__((section(".text.sceSifExecRequest")))
+void sceSifExecRequest(RpcReq *req)
 {
     SifDmaT dma[2];
     RpcPkt *pkt;
@@ -99,5 +99,5 @@ void func_003B3650(RpcReq *req)
     } while (id == 0);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003B3650);
+INCLUDE_ASM("asm/nonmatching", sceSifExecRequest);
 #endif

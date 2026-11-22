@@ -3,7 +3,7 @@
 
 extern void SndMix_calcVoiceLevel(SeqNode *self);
 extern void func_0037D680(SeqNode *self);
-extern void func_0037D728(SeqNode *self);
+extern void SdeVregOutPchCalc(SeqNode *self);
 extern void func_003738A0(void *node, int a1, float w);
 extern void UpdateSequenceNodeWeighted_373560(void *node, int a1, float w);
 
@@ -30,7 +30,7 @@ void func_0037CCE0(SeqNode *self)
             func_0037D680(self);
         }
         if (self->sub & 4) {
-            func_0037D728(self);
+            SdeVregOutPchCalc(self);
         }
         if (self->sub & 8) {
             func_0037D558(self);

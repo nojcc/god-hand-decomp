@@ -1,11 +1,11 @@
 #include "include_asm.h"
 #include "godhand/sftim.h"
 
-int func_003526D0(SftimHn *hn, SftimInfo *info);
+int sfmpv_DetectTcErr(SftimHn *hn, SftimInfo *info);
 void Sftim_setTimecode(SftimHn *hn, SftimInfo *info, int time, int update);
 
 #ifdef NON_MATCHING
-extern void func_00352888(int time, int rate, int drop, int ofs, SftimTc *tc);
+extern void sfmpv_Pts2Tc(int time, int rate, int drop, int ofs, SftimTc *tc);
 extern void func_00352AA0(SftimTc *src, SftimTc *dst);
 /* Register allocation: retail builds the result in v0 directly; ours uses a3 plus a move. */
 #else
@@ -22,7 +22,7 @@ void Sftim_setTimecode(SftimHn *hn, SftimInfo *info, int time, int update)
     int ofs = info->ofs;
 
     if (update != 0 && time >= 0) {
-        func_00352888(time, rate, drop, ofs, &hn->tim.tc);
+        sfmpv_Pts2Tc(time, rate, drop, ofs, &hn->tim.tc);
         return;
     }
     if (w->rec[1].valid == 0) {

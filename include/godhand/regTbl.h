@@ -47,7 +47,7 @@ extern PairTbl D_003F5520;
 
 /* Reset the paired-key table, store D_0040A420 in *out (if out is set) and
  * mark each entry of the first table active by kind; 7 for an unknown kind. */
-int func_00394D58(int *out);
+int snInitDllSystem(int *out);
 /* Unlink tbl from the list and undo its entries; 5 if it isn't listed. */
 int func_00394F20(RegTbl *tbl);
 

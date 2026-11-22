@@ -1,17 +1,17 @@
-/* NON_MATCHING func_003234D0 (cygnus-2.96): same size, 10 insns: control flow and error sharing match; with volatile stores the store order matches too, but the return copy v0 = p is scheduled early so 0x200 lands in v1 (retail: li v0, 0x200 hoisted to the top of the block and the return copy last).
+/* NON_MATCHING adxf_CreateAdxFs (cygnus-2.96): same size, 10 insns: control flow and error sharing match; with volatile stores the store order matches too, but the return copy v0 = p is scheduled early so 0x200 lands in v1 (retail: li v0, 0x200 hoisted to the top of the block and the return copy last).
 * Without volatile the scheduler hoists the 0x2C and second byte stores. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern char *func_00323478(void);
+extern char *adxf_AllocAdxFs(void);
 extern int func_00327D00(int a0, int size);
 extern void func_0033F130(char *msg);
 extern char D_004515E8[];
 extern char D_00451620[];
 
-char *func_003234D0(void)
+char *adxf_CreateAdxFs(void)
 {
-    char *p = func_00323478();
+    char *p = adxf_AllocAdxFs();
 
     if (p == 0) {
         func_0033F130(D_004515E8);
@@ -37,5 +37,5 @@ char *func_003234D0(void)
     return p;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003234D0);
+INCLUDE_ASM("asm/nonmatching", adxf_CreateAdxFs);
 #endif

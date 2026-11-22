@@ -9,7 +9,7 @@ one counts as unmatched until real C replaces the `INCLUDE_ASM` line and the res
 
 Kept on purpose (single instructions with no C equivalent):
 
-- `src/cod/0032f938.c` func_003B06C8: `mfc0 $12`, a privileged COP0 read.
+- `src/cod/0032f938.c` QueryIntrContext: `mfc0 $12`, a privileged COP0 read.
 - `src/cod/phase_a_sn.c` func_002D4DA0: `sync`.
 - `src/cod/phase_a_sn.c` func_002F1AA0: `sqc2 $vf0`, the same form as `VU0_SQC2_VF0` in `include/godhand/vu0.h`.
 

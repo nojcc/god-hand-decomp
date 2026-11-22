@@ -20,10 +20,10 @@ float dptofp(double a0)
     return func_0031EDA0(buf.a, buf.b, buf.c, sffrac);
 }
 
-__attribute__((section(".text.func_00397450")))
-void func_00397450(sceDmaChan *chan, void *addr, int qwc)
+__attribute__((section(".text.sceDmaSendN")))
+void sceDmaSendN(sceDmaChan *chan, void *addr, int qwc)
 {
-    unsigned int src = func_003970A0((unsigned int)addr);
+    unsigned int src = CheckAddress((unsigned int)addr);
     WaitDma(chan);
     if ((unsigned int)chan->madr != 0xFFFFFFFFU)
         chan->madr = (void *)src;

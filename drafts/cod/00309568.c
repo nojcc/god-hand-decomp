@@ -42,7 +42,7 @@ typedef struct Tim2Pic {
 } Tim2Pic;
 
 extern int sceGsSetDefLoadImage(sceGsLoadImage *lp, short dbp, short dbw, short dpsm, short x, short y, short w, short h);
-extern int func_00395758(void *lp, void *srcaddr);
+extern int sceGsExecLoadImage(void *lp, void *srcaddr);
 extern int func_0030A298(int a0);
 
 /* Upload a TIM2 picture's palette to the GS at block cbp and point its TEX0 at it;
@@ -101,8 +101,8 @@ int func_00309568(Tim2Pic *ph, int cbp)
                 FlushCache(0);
             else
                 iFlushCache(0);
-            func_00395758(&li, clut);
-            func_003950F8(0, 0);
+            sceGsExecLoadImage(&li, clut);
+            sceGsSyncPath(0, 0);
             cbp++;
             clut += step;
         }
@@ -119,8 +119,8 @@ int func_00309568(Tim2Pic *ph, int cbp)
         for (i = 0; i < ph->clutColors / 16; i++) {
             sceGsSetDefLoadImage(&li, func_0030A298(cbp + i / 16), 1, cpsm, (i & 1) * 8, ((i & 0xF) >> 1) * 2, 8, 2);
             FlushCache(0);
-            func_00395758(&li, clut);
-            func_003950F8(0, 0);
+            sceGsExecLoadImage(&li, clut);
+            sceGsSyncPath(0, 0);
             if ((ph->clutType & 0x3F) == 1)
                 clut += 0x20;
             else if ((ph->clutType & 0x3F) == 2)

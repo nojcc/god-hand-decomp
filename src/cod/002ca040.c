@@ -5,9 +5,9 @@ extern void func_002CB070(cSnd *self);
 extern void func_00375050(int a, int b);
 extern void sceGsSyncV(int a);
 extern void cSndMemHeap_Close(void *a);
-extern void func_0032D250(void);
-extern void func_00324AC8(void);
-extern void func_00325818(void);
+extern void AIXP_Finish(void);
+extern void ADXT_Finish(void);
+extern void ADXM_ShutdownThrd(void);
 extern char D_006036A0[];
 extern char D_00603310[];
 extern char D_00602F80[];
@@ -57,7 +57,7 @@ void func_002CA040(cSnd *self) {
     self->fA8 = 0;
     func_002CB070(self);
     func_00375050(0, 0);
-    while (func_00375180() == 1) {
+    while (SdeIssEndCheck() == 1) {
         cSnd_update(self);
         sceGsSyncV(0);
     }
@@ -65,7 +65,7 @@ void func_002CA040(cSnd *self) {
     cSndMemHeap_Close(D_006036A0);
     cSndMemHeap_Close(D_00603310);
     cSndMemHeap_Close(D_00602F80);
-    func_0032D250();
-    func_00324AC8();
-    func_00325818();
+    AIXP_Finish();
+    ADXT_Finish();
+    ADXM_ShutdownThrd();
 }

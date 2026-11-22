@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003520D8: SFD audio time: latch the stream base time, then turn a time stamp into a play position, counting samples on while the stamp repeats.
+/* NON_MATCHING sfmpv_ComplementPts: SFD audio time: latch the stream base time, then turn a time stamp into a play position, counting samples on while the stamp repeats.
 * Logic matches; retail keeps tc/s/ts/info/unit/rate in s0/s1/s2/s3/s5/s6, base in v1 and computes &tc->last late (s4), reusing s1 for t; this hoists &tc->last to entry and shifts every pointer one register.
 * Dropping the base local spills out (90). */
 #include "include_asm.h"
@@ -35,8 +35,8 @@ extern int D_00459920[];
 extern long Sftim_toClock90M(int n, int rate);
 extern int func_003A50B4(const void *a, const void *b, int n);
 
-__attribute__((section(".text.func_003520D8")))
-long func_003520D8(SfdAudHn *s, SfdTimeCnt *tc, SfdAudInfo *info, SfdTimeStamp *ts, int cont, long *out)
+__attribute__((section(".text.sfmpv_ComplementPts")))
+long sfmpv_ComplementPts(SfdAudHn *s, SfdTimeCnt *tc, SfdAudInfo *info, SfdTimeStamp *ts, int cont, long *out)
 {
     int rate;
     int unit;
@@ -78,5 +78,5 @@ long func_003520D8(SfdAudHn *s, SfdTimeCnt *tc, SfdAudInfo *info, SfdTimeStamp *
     return t;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003520D8);
+INCLUDE_ASM("asm/nonmatching", sfmpv_ComplementPts);
 #endif

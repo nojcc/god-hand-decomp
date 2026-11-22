@@ -32,7 +32,7 @@ void func_00151CC0(TexWork *w, Tim2FileHdr *tim, unsigned int *pa, unsigned int 
     height = pic->height;
     image = (char *)pic + pic->headerSize;
     t = pic->tex0;
-    bw = func_00309C30(psm, width);
+    bw = Tim2CalcBufWidth(psm, width);
     clut = (char *)pic + pic->headerSize + pic->imageSize;
     t.TBP0 = tbp;
     t.TBW = bw;

@@ -1,11 +1,11 @@
-/* NON_MATCHING func_00366730: structure ~matched (goto outer loop disables SR; dst offset as j giv); left: p/d in t8/t7 swapped vs retail, p->data load placed after mult (retail: before, bnel reload) */
+/* NON_MATCHING CFT_Ycc420mbToA256UserTable: structure ~matched (goto outer loop disables SR; dst offset as j giv); left: p/d in t8/t7 swapped vs retail, p->data load placed after mult (retail: before, bnel reload) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
 typedef struct { int unk0; unsigned char *data; int w; int h; } LutPic;
 typedef struct { int unk0; unsigned char *buf; int unk8; int unkC; int pitch; } LutDst;
 
-void func_00366730(LutPic *p, LutDst *d, unsigned char **tbl)
+void CFT_Ycc420mbToA256UserTable(LutPic *p, LutDst *d, unsigned char **tbl)
 {
     int i, j, k, l;
     int nx = p->w / 16;
@@ -35,5 +35,5 @@ loop:
     if (++i < nx) goto loop;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00366730);
+INCLUDE_ASM("asm/nonmatching", CFT_Ycc420mbToA256UserTable);
 #endif

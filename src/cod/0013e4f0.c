@@ -16,7 +16,7 @@ extern void Obj3290_SetGlobal_D003D1400(int a0);
 extern void func_0032BAF0(const char *s);
 extern void Obj3290_Tramp_003313F0_9278(int a0);
 extern int SdeSystemOutModeGet(void);
-extern void func_0032BA30(int a0);
+extern void ADXT_SetOutputMono(int a0);
 extern char D_0044CDE0[];
 extern char D_0044CE00[];
 extern char D_0044CE10[];
@@ -75,7 +75,7 @@ void func_002CA220(void)
     func_0032BAF0(D_0044CE20);
     Obj3290_Tramp_003313F0_9278(1);
     if (SdeSystemOutModeGet() == 0)
-        func_0032BA30(1);
+        ADXT_SetOutputMono(1);
 }
 
 /* Show the key card and key counts (an entry is hidden at 0) and move the count display;

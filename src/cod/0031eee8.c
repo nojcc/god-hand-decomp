@@ -10,8 +10,8 @@ extern char D_00452288[];
 extern char D_004522E8[];
 extern char D_004524D0[];
 
-__attribute__((section(".text.func_003A4AC8")))
-int func_003A4AC8(void *a0) {
+__attribute__((section(".text.matherr")))
+int matherr(void *a0) {
     long long p;
     p = *(long long *)((char *)a0 + 0x8);
     dpcmp(p, p);

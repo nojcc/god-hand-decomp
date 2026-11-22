@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033ABD0: matches except (1) retail uses bnel at the used!=0 test, with sltiu id<4 in the slot, while ours uses bne; (2) retail's tail shares one sltiu for both modes (bnel xor / slt -> sltiu), while ours emits xori+sltiu with a separate branch.
+/* NON_MATCHING sjuni_IsGetChunk: matches except (1) retail uses bnel at the used!=0 test, with sltiu id<4 in the slot, while ours uses bne; (2) retail's tail shares one sltiu for both modes (bnel xor / slt -> sltiu), while ours emits xori+sltiu with a separate branch.
 * A shared t-variable form if-converts to movz. */
 #include "include_asm.h"
 
@@ -29,7 +29,7 @@ extern char D_00455D18[];
 extern char D_00455C08[];
 extern void func_0033A048(char *a, char *b);
 
-int func_0033ABD0(DtxObj *obj, unsigned int id, int ref, int *out)
+int sjuni_IsGetChunk(DtxObj *obj, unsigned int id, int ref, int *out)
 {
     DtxSlot *s;
     DtxCond c;
@@ -62,5 +62,5 @@ int func_0033ABD0(DtxObj *obj, unsigned int id, int ref, int *out)
     return !(c.val ^ ref);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0033ABD0);
+INCLUDE_ASM("asm/nonmatching", sjuni_IsGetChunk);
 #endif

@@ -17,13 +17,13 @@ extern int D_0045A3D0[];
 extern char *D_00766D38;
 extern int Obj0000_Check_D_0045A460_Magic_And_D_0045A470_Val(void);
 extern void func_0036BF50(void);
-extern void func_0036C0B0(int a0, int a1);
+extern void mpvlib_InitWork(int a0, int a1);
 extern void func_00369E60();
 extern void func_0036A378(void);
 extern void func_0036BF60(int a0);
-extern void func_0036C038(void);
+extern void mpvlib_InitObjTbl(void);
 extern void func_0036C0A8(void);
-extern void func_0036C628(void);
+extern void MPVM2V_Init(void);
 extern volatile int D_003D140C;
 extern int D_003D1414;
 extern char D_003C7420[];
@@ -87,14 +87,14 @@ int M2vDec_init(int a0, int a1)
         return r;
     }
     func_0036BF50();
-    func_0036C0B0(a0, (int)func_0036BF58((void *)a1));
+    mpvlib_InitWork(a0, (int)func_0036BF58((void *)a1));
     work = D_00766D38;
     func_00369E60();
     func_0036A378();
     func_0036BF60((int)work + 0x17E0);
-    func_0036C038();
+    mpvlib_InitObjTbl();
     func_0036C0A8();
-    func_0036C628();
+    MPVM2V_Init();
     return 0;
 }
 
@@ -152,7 +152,7 @@ void MwPly_openByName(MwPlyOpen *o, char *file, int a2, int sizeA, int sizeB)
         Obj33F8_Tramp_0033F130_FCB0(D_00452A78);
         return;
     }
-    func_0032DBA0(o);
+    aixp_Stop(o);
     Obj33F8_Tramp_0033B658_FC70();
     func_003A57C4(o->name, file);
     o->nameSaved = o->name;

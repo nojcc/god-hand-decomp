@@ -1,4 +1,4 @@
-/* func_0035F5F0: same length; entry base/index register pair swapped (s0/s1) and the
+/* sfxcnv_MakeDstBufInf: same length; entry base/index register pair swapped (s0/s1) and the
  * prologue saves are interleaved differently. */
 #include "include_asm.h"
 
@@ -6,17 +6,17 @@
 
 #include "godhand/sfxlib.h"
 
-extern int func_0035EA88(SfxStm *stm);
+extern int sfxcnv_IsCnvUpHalf(SfxStm *stm);
 
-__attribute__((section(".text.func_0035F5F0")))
-void func_0035F5F0(SfxStm *stm, SfxInf *inf, int val, SfxTbl *tbl, int idx)
+__attribute__((section(".text.sfxcnv_MakeDstBufInf")))
+void sfxcnv_MakeDstBufInf(SfxStm *stm, SfxInf *inf, int val, SfxTbl *tbl, int idx)
 {
     int rate;
 
     tbl->ent[idx].val = val;
     rate = inf->rate;
     tbl->ent[idx].rate = rate;
-    if (func_0035EA88(stm, rate) == 1) {
+    if (sfxcnv_IsCnvUpHalf(stm, rate) == 1) {
         tbl->ent[idx].size = inf->size / 2;
     } else {
         tbl->ent[idx].size = inf->size;
@@ -26,6 +26,6 @@ void func_0035F5F0(SfxStm *stm, SfxInf *inf, int val, SfxTbl *tbl, int idx)
 
 #else
 
-INCLUDE_ASM("asm/nonmatching", func_0035F5F0);
+INCLUDE_ASM("asm/nonmatching", sfxcnv_MakeDstBufInf);
 
 #endif

@@ -20,7 +20,7 @@ typedef struct {
 } RectBox;
 
 extern void *Obj0000_Get_D_003EEA98_365EB0(void);
-extern void func_00365D90(RectSize *size, RectBox *box, void *dst);
+extern void CFT_Ycc420mbToArgb8888UserTable(RectSize *size, RectBox *box, void *dst);
 
 void func_00365D18(RectSrc *a, RectSrc *b, void **target)
 {
@@ -40,7 +40,7 @@ void func_00365D18(RectSrc *a, RectSrc *b, void **target)
     dst = cur;
     if (cur == 0)
         dst = Obj0000_Get_D_003EEA98_365EB0();
-    func_00365D90(&size, &box, dst);
+    CFT_Ycc420mbToArgb8888UserTable(&size, &box, dst);
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_00365D18);

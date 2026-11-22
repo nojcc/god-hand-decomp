@@ -18,8 +18,8 @@ typedef struct SfxCscEnt {
 /* Build the Cb and Cr colour-conversion tables and a Y table with a
  * 48-entry dark head and steeper ramps, with the alphas given for the head,
  * the rising ramp and the falling ramp. */
-__attribute__((section(".text.func_00366368")))
-void func_00366368(SfxCscEnt *tbl, unsigned char headA, unsigned char riseA, unsigned char fallA)
+__attribute__((section(".text.CFT_MakeArgb8888Alp3211Tbl")))
+void CFT_MakeArgb8888Alp3211Tbl(SfxCscEnt *tbl, unsigned char headA, unsigned char riseA, unsigned char fallA)
 {
     SfxCscEnt *ytbl = tbl;
     SfxCscEnt *cbtbl = tbl + 256;
@@ -76,5 +76,5 @@ void func_00366368(SfxCscEnt *tbl, unsigned char headA, unsigned char riseA, uns
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00366368);
+INCLUDE_ASM("asm/nonmatching", CFT_MakeArgb8888Alp3211Tbl);
 #endif

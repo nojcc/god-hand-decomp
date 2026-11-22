@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00327A50: cygnus-2.96: store order of stat/sj/size in the init block */
+/* NON_MATCHING ADXSTMF_SetupHandleMember: cygnus-2.96: store order of stat/sj/size in the init block */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -39,7 +39,7 @@ typedef struct AdxSjEnt {
 extern void Obj3290_Tramp_0033E678_9028(void);
 extern void Obj3290_Tramp_0033E690_9040(void);
 
-void func_00327A50(AdxSjEnt *e, int a0, int a1, int size, AdxSj *sj)
+void ADXSTMF_SetupHandleMember(AdxSjEnt *e, int a0, int a1, int size, AdxSj *sj)
 {
     int nsct;
     int n;
@@ -70,5 +70,5 @@ void func_00327A50(AdxSjEnt *e, int a0, int a1, int size, AdxSj *sj)
     Obj3290_Tramp_0033E690_9040();
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00327A50);
+INCLUDE_ASM("asm/nonmatching", ADXSTMF_SetupHandleMember);
 #endif

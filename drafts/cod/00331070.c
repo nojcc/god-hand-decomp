@@ -1,6 +1,6 @@
 /* func_00331070 (SRD_Destroy): retail fills the third stat test's delay slot with the
  * lui of the warning string; ours leaves a nop (a0 treated as live at the reset call).
-* func_00331110 (SRD_ReqRdCd): 3 insns - stat/devtype stores scheduled after d_lsn. */
+* SRD_ReqRdDvd (SRD_ReqRdCd): 3 insns - stat/devtype stores scheduled after d_lsn. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -40,7 +40,7 @@ typedef struct srd_obj {
 extern int Forward33B568_33B688(void);
 extern int Forward33B5C8_33B6B8(void);
 extern int func_003B1F28(const char *fmt, ...);
-extern void func_00330FB8(void);
+extern void srd_reset_obj(void);
 
 extern SRD_OBJ D_003D8410;              /* srd_obj */
 extern Sint32 D_003D8474;      /* destroy count */
@@ -57,7 +57,7 @@ void func_00331070(SRD srd)
         if (srd->stat != 0 && srd->stat != 3 && srd->stat != 9) {
             func_003B1F28(D_00453E70);
         }
-        func_00330FB8();
+        srd_reset_obj();
         D_003D8410.used = 0;
         D_003D8474++;
     }

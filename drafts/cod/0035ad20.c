@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0035AD20: cygnus-2.96: retail reloads t->last after the -5 test and hoists the cnt load; prologue order differs */
+/* NON_MATCHING sftim_GetTimeExtClock: cygnus-2.96: retail reloads t->last after the -5 test and hoists the cnt load; prologue order differs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -12,10 +12,10 @@ typedef struct SfdTimeRec {
     int arg;                        /* 0x2E8 */
 } SfdTimeRec;
 
-extern int func_0035AE18(char *sfd, int *time, int *flag);
-extern int func_0035A768(char *sfd);
+extern int SFTIM_ChkRegularTime(char *sfd, int *time, int *flag);
+extern int sftim_IsTimeIncre(char *sfd);
 
-int func_0035AD20(char *sfd, int *time, int *flag)
+int sftim_GetTimeExtClock(char *sfd, int *time, int *flag)
 {
     int cnt;
     int fl;
@@ -25,7 +25,7 @@ int func_0035AD20(char *sfd, int *time, int *flag)
     int r2;
     SfdTimeRec *t;
 
-    ret = func_0035AE18(sfd, time, flag);
+    ret = SFTIM_ChkRegularTime(sfd, time, flag);
     t = (SfdTimeRec *)(sfd + 0xD30);
     if (ret == 0)
         return ret;
@@ -35,7 +35,7 @@ int func_0035AD20(char *sfd, int *time, int *flag)
         ret = 0;
     } else {
             r2 = t->get(t->arg, &cnt, &fl);
-            if (func_0035A768(sfd) != 0) {
+            if (sftim_IsTimeIncre(sfd) != 0) {
                 if (t->last != -5) {
                     d = cnt - t->last;
                     if (d < 0)
@@ -53,5 +53,5 @@ int func_0035AD20(char *sfd, int *time, int *flag)
     return ret;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0035AD20);
+INCLUDE_ASM("asm/nonmatching", sftim_GetTimeExtClock);
 #endif

@@ -30,7 +30,7 @@ struct SemaParam {
 
 extern Iob *get_iob(int fd);
 extern void func_003B2850(unsigned int, int);
-extern int func_003B3958(void *, int, int, void *, int, void *, int, int, int, int);
+extern int sceFsSifCallRpc(void *, int, int, void *, int, void *, int, int, int, int);
 
 extern int SignalSema_3B3EF8(void);
 extern int CreateSema(struct SemaParam *p);
@@ -108,7 +108,7 @@ int func_003B4AD8(int fd, unsigned int buf, int size)
     q->head = head;
     for (j = 0; j < head; j++)
         q->data[j] = *(unsigned char *)(buf + j);
-    r = func_003B3958(D_007816C0, 3, 0, &D_0077FFC0, 0x30, D_00780C00, 4, 0, 0, async);
+    r = sceFsSifCallRpc(D_007816C0, 3, 0, &D_0077FFC0, 0x30, D_00780C00, 4, 0, 0, async);
     if (r < 0) {
         DeleteSema(sid);
         SignalSema_3B3EF8();

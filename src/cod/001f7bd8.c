@@ -22,8 +22,8 @@ extern int D_0044FDD8;
 extern int D_007865D8;
 extern int D_0044FDE8;
 
-__attribute__((section(".text.func_003A9260")))
-int func_003A9260(char *s1, char *s2) {
+__attribute__((section(".text.strcasecmp")))
+int strcasecmp(char *s1, char *s2) {
     while (*s1) {
         int c1 = func_003AD0F8(*s1);
         int c2 = func_003AD0F8(*s2);

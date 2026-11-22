@@ -9,12 +9,12 @@ extern int D_003EE2F4;
 extern int ReturnK_003EE2BC_00358A38_358A38(void);
 extern void func_00399E40(void *mp, int buf, int size);
 extern void func_0039AAD8(void *mp, int kind, void *cb, void *data);
-extern void func_00356890(void *self);
+extern void sfmpvp_RestoreMpvp(void *self);
 extern void viBufCreate(void *vb, int a, int b, int n, int c, int m);
 extern void viBufAddDMA(void *vb);
 extern void func_00355E88(void *vb);
-extern void func_003565E0(int a0, void *a1, int a2);
-extern void func_003566E8(int a0, int a1, int a2);
+extern void mpegError(int a0, void *a1, int a2);
+extern void mpegNodata(int a0, int a1, int a2);
 extern void func_00356790(int a0, int a1, char *a2);
 extern void func_003567B8(int a0, int a1, char *a2);
 
@@ -51,12 +51,12 @@ void func_003563B8(char *self)
     b1 = (b0 + 0x104F) & ~0x3F;
     if (ReturnK_003EE2BC_00358A38_358A38() != 1) {
         func_00399E40(mp, a28, size);
-        func_0039AAD8(mp, 0, func_003565E0, self);
-        func_0039AAD8(mp, 1, func_003566E8, self);
+        func_0039AAD8(mp, 0, mpegError, self);
+        func_0039AAD8(mp, 1, mpegNodata, self);
         func_0039AAD8(mp, 2, func_00356790, self);
         func_0039AAD8(mp, 3, func_003567B8, self);
     } else {
-        func_00356890(self);
+        sfmpvp_RestoreMpvp(self);
     }
     viBufCreate(st + 0x70, a2c, b0, 0x100, b1, 0x200);
     viBufAddDMA(st + 0x70);

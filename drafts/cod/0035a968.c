@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0035A968 (cygnus-2.96): 2 insns: li v0,-1 scheduled before sd s0. */
+/* NON_MATCHING SFTIM_GetAudioStartSample (cygnus-2.96): 2 insns: li v0,-1 scheduled before sd s0. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -12,8 +12,8 @@ typedef struct {
     long id;
 } Obj35A;
 
-__attribute__((section(".text.func_0035A968")))
-int func_0035A968(Obj35A *o, int ntr)
+__attribute__((section(".text.SFTIM_GetAudioStartSample")))
+int SFTIM_GetAudioStartSample(Obj35A *o, int ntr)
 {
     long id = o->id;
     int r;
@@ -27,5 +27,5 @@ int func_0035A968(Obj35A *o, int ntr)
     return r;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0035A968);
+INCLUDE_ASM("asm/nonmatching", SFTIM_GetAudioStartSample);
 #endif

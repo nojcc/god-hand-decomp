@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 */
-/* func_00376438: 48 of 52 words, 42 differ. Retail jumps into the wait test
+/* ssqCtlPodMain: 48 of 52 words, 42 differ. Retail jumps into the wait test
  * from the entry and repeats the test, with its decrement, after a command
  * loads (testing the loaded wait in a register); this C reaches the same block
  * order but falls back into the one test and reloads the wait. */
@@ -36,8 +36,8 @@ extern int (*D_003F2188[])(SndScript *s, SndScriptArg *arg);
  * out run commands until one asks to wait or the script ends. A handler that
  * returns 0 moves on to the next command; nonzero reloads the current one. */
 #ifdef NON_MATCHING
-__attribute__((section(".text.func_00376438")))
-void func_00376438(SndScript *s)
+__attribute__((section(".text.ssqCtlPodMain")))
+void ssqCtlPodMain(SndScript *s)
 {
     int next;
 
@@ -59,5 +59,5 @@ void func_00376438(SndScript *s)
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00376438);
+INCLUDE_ASM("asm/nonmatching", ssqCtlPodMain);
 #endif

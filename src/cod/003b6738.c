@@ -10,8 +10,8 @@ extern void FlushCache(int a0);
 extern int D_003FB6C8[];
 extern char D_003FAF20[];
 
-__attribute__((section(".text.func_003B6738")))
-void func_003B6738(void)
+__attribute__((section(".text.InitExecPS2")))
+void InitExecPS2(void)
 {
     int *t;
     int *p;

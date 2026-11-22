@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033EE30 (cygnus-2.96): header checks and offsets match; retail
+/* NON_MATCHING ADX_DecodeInfoAinf (cygnus-2.96): header checks and offsets match; retail
  * schedules all field-address computations ahead of the AINF length store and the 16-byte data-id copy (and keeps a
  * second register for the pan[1] address), and uses beq (not beql) on the AINF tag test.
 * ADX AINF chunk decode:
@@ -21,8 +21,8 @@ typedef unsigned int Uint32;
 extern Sint32 ADX_DecodeInfoExVer(Sint8 *ibuf, Sint32 hdlen, Uint8 *ver, Uint8 *rev);
 extern void *memcpy(void *d, const void *s, unsigned int n);
 
-__attribute__((section(".text.func_0033EE30")))
-Sint32 func_0033EE30(Sint8 *ibuf, Sint32 ibuflen, Sint32 *ainflen, Sint8 *dataid, Sint16 *vol, Sint16 *pan)
+__attribute__((section(".text.ADX_DecodeInfoAinf")))
+Sint32 ADX_DecodeInfoAinf(Sint8 *ibuf, Sint32 ibuflen, Sint32 *ainflen, Sint8 *dataid, Sint16 *vol, Sint16 *pan)
 {
     Uint8 ver, rev;
     Sint32 ret, hdlen, pos, v;
@@ -61,5 +61,5 @@ Sint32 func_0033EE30(Sint8 *ibuf, Sint32 ibuflen, Sint32 *ainflen, Sint8 *dataid
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0033EE30);
+INCLUDE_ASM("asm/nonmatching", ADX_DecodeInfoAinf);
 #endif

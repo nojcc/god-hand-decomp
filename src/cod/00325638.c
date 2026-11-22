@@ -40,7 +40,7 @@ extern AdxmCbEnt D_00755C20;
 
 extern void func_0033BE80(void);
 extern void func_00324C90(void);
-extern void func_00324D18(void);
+extern void adxm_unlock(void);
 extern void Forward324D88_324E70(void);
 extern void Obj0000_Set_D_007588A0_Pair_33BC18(void (*fn)(void), int obj);
 extern void Obj0000_Set_D_007588A8_XY_33BC30(void (*fn)(void), int obj);
@@ -63,7 +63,7 @@ void func_00325638(AdxmThreadPrm *prm)
     if (D_003C80A4 == 0) {
         func_0033BE80();
         Obj0000_Set_D_007588A0_Pair_33BC18(func_00324C90, 0);
-        Obj0000_Set_D_007588A8_XY_33BC30(func_00324D18, 0);
+        Obj0000_Set_D_007588A8_XY_33BC30(adxm_unlock, 0);
         D_00755C20.fn = 0;
         D_00755C20.arg = 0;
         D_00755C28.fn = 0;

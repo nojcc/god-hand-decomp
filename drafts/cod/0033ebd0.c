@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033EBD0 (cygnus-2.96): ADX loop-info decode; structure and schedule match, register allocation of the byte-swap temps differs. */
+/* NON_MATCHING ADX_DecodeInfoExLoop (cygnus-2.96): ADX loop-info decode; structure and schedule match, register allocation of the byte-swap temps differs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -15,8 +15,8 @@ typedef unsigned int Uint32;
 
 extern Sint32 ADX_DecodeInfoExVer(Sint8 *ibuf, Sint32 hdlen, Uint8 *ver, Uint8 *rev);
 
-__attribute__((section(".text.func_0033EBD0")))
-Sint32 func_0033EBD0(Sint8 *ibuf, Sint32 ibuflen, Sint32 *insttype, Uint16 *nloop, Uint16 *lptype,
+__attribute__((section(".text.ADX_DecodeInfoExLoop")))
+Sint32 ADX_DecodeInfoExLoop(Sint8 *ibuf, Sint32 ibuflen, Sint32 *insttype, Uint16 *nloop, Uint16 *lptype,
                      Sint32 *lsSmpl, Sint32 *lsOfst, Sint32 *leSmpl, Sint32 *leOfst)
 {
     Uint8 ver, rev;
@@ -64,5 +64,5 @@ Sint32 func_0033EBD0(Sint8 *ibuf, Sint32 ibuflen, Sint32 *insttype, Uint16 *nloo
 }
 
 #else
-INCLUDE_ASM("asm/nonmatching", func_0033EBD0);
+INCLUDE_ASM("asm/nonmatching", ADX_DecodeInfoExLoop);
 #endif

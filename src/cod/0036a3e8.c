@@ -8,18 +8,18 @@ typedef struct MpvHdrDec {
 
 extern int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(MpvHdrDec *dec);
 extern int func_00369F20(MpvHdrDec *dec, int err);
-extern int func_0036A708(MpvHdrDec *dec, SjChunk *ck);
-extern int func_0036C6C8(MpvHdrDec *dec, SjObj *sj);
-extern int func_0036BCD0(MpvHdrDec *dec, int a, SjObj *sj);
+extern int mpvhdec_GetCodec(MpvHdrDec *dec, SjChunk *ck);
+extern int MPVM2V_DecodePicAtr(MpvHdrDec *dec, SjObj *sj);
+extern int mpvhdec_RecoverSj(MpvHdrDec *dec, int a, SjObj *sj);
 extern int mpvhdec_GetCurDelim(SjObj *sj);
-extern int func_0036B6D8(MpvHdrDec *dec, SjObj *sj, int last);
-extern int func_0036B798(MpvHdrDec *dec, SjObj *sj, int last);
-extern void func_0036B0F0(MpvHdrDec *dec, SjObj *sj);
-extern void func_0036AE70(MpvHdrDec *dec, SjObj *sj);
-extern void func_0036A7B0(MpvHdrDec *dec, SjObj *sj);
+extern int mpvhdec_DecEscSj(MpvHdrDec *dec, SjObj *sj, int last);
+extern int mpvhdec_DecUdscSj(MpvHdrDec *dec, SjObj *sj, int last);
+extern void mpvhdec_DecPscSj(MpvHdrDec *dec, SjObj *sj);
+extern void mpvhdec_DecGscSj(MpvHdrDec *dec, SjObj *sj);
+extern void mpvhdec_DecShcSj(MpvHdrDec *dec, SjObj *sj);
 
-__attribute__((section(".text.func_0036A3E8")))
-int func_0036A3E8(MpvHdrDec *dec, SjObj *sj)
+__attribute__((section(".text.MPV_DecodePicAtrSj")))
+int MPV_DecodePicAtrSj(MpvHdrDec *dec, SjObj *sj)
 {
     SjChunk ck;
     SjChunk ck2;
@@ -34,11 +34,11 @@ int func_0036A3E8(MpvHdrDec *dec, SjObj *sj)
     sj->vt->ungetChunk(sj, 1, &ck);
     ck2.data = ck.data;
     ck2.len = ck.len;
-    if (func_0036A708(dec, &ck2) == 2)
-        return func_0036C6C8(dec, sj);
+    if (mpvhdec_GetCodec(dec, &ck2) == 2)
+        return MPVM2V_DecodePicAtr(dec, sj);
     last = 0;
     for (;;) {
-        r = func_0036BCD0(dec, -1, sj);
+        r = mpvhdec_RecoverSj(dec, -1, sj);
         if (r != 0)
             return func_00369F20(dec, r);
         d = mpvhdec_GetCurDelim(sj);
@@ -52,21 +52,21 @@ int func_0036A3E8(MpvHdrDec *dec, SjObj *sj)
         switch (d) {
         case 0x40:
             last = 0x40;
-            func_0036A7B0(dec, sj);
+            mpvhdec_DecShcSj(dec, sj);
             break;
         case 0x08:
             last = 0x08;
-            func_0036AE70(dec, sj);
+            mpvhdec_DecGscSj(dec, sj);
             break;
         case 0x04:
             last = 0x04;
-            func_0036B0F0(dec, sj);
+            mpvhdec_DecPscSj(dec, sj);
             break;
         case 0x10:
-            func_0036B6D8(dec, sj, last);
+            mpvhdec_DecEscSj(dec, sj, last);
             break;
         case 0x20:
-            func_0036B798(dec, sj, last);
+            mpvhdec_DecUdscSj(dec, sj, last);
             break;
         }
     }

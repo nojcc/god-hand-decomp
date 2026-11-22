@@ -2,8 +2,8 @@
 /* func_003A96C0 (libc floating-point conversion): 364 of 367 words.
  * Retail keeps fmt in its stack slot and len in fp; this C gives fmt the
  * saved register and spills len. The double operations bind dpmul, litodp
- * and dptoli, which config/symbol_addrs.txt still calls func_0031E348,
- * func_0031E8C0 and func_0031E978. */
+ * and dptoli, which config/symbol_addrs.txt still calls dpmul,
+ * litodp and dptoli. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -11,9 +11,9 @@
 extern void *memcpy(void *dst, const void *src, unsigned int n);
 
 extern double func_003AD158(double x);
-extern double func_003AD348(double x, double y);
+extern double sn_fmod(double x, double y);
 extern int RoundDigitString(char *digits, int n);
-extern char *func_003A9620(int value, char *str, int base);
+extern char *itoa(int value, char *str, int base);
 extern char D_0077D9E0[] __attribute__((aligned(8)));
 extern const char D_0045F6F0[] __attribute__((aligned(8)));
 extern const char D_0045F6F8[] __attribute__((aligned(8)));
@@ -79,7 +79,7 @@ char *func_003A96C0(double value, int ndigit, char fmt, int flag, char *sign)
         ip = func_003AD158(value);
         value = value - ip;
         while (n < 0xA3) {
-            d = (int)func_003AD348(ip, 10.0);
+            d = (int)sn_fmod(ip, 10.0);
             p[n++] = d + '0';
             ip = (ip - d) * 0.1;
             if (ip < 1.0)
@@ -164,7 +164,7 @@ char *func_003A96C0(double value, int ndigit, char fmt, int flag, char *sign)
                 p[++last] = '0';
             exp = -exp;
         }
-        func_003A9620(exp, &p[++last], 10);
+        itoa(exp, &p[++last], 10);
     } else {
         p[last + 1] = '\0';
     }

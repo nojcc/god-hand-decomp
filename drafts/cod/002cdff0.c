@@ -30,7 +30,7 @@ extern int func_002CBD10(cSnd *self, short id, short code, int key, short lo, sh
 extern cSndSeVoice *func_002CBF78(cSnd *self, cSndSeVoice *skip, short a, short b, int mode, int maxPri);
 extern float capVu0LengthAB(void *a0, void *a1);
 extern int SdeSystemOutModeGet(void);
-extern int func_00377FF8(void);
+extern int SdeSndIdNew(void);
 
 /* Starts a voice: looks up its sound-effect entry, picks a variant, drops it
  * when too many of the same play or a closer one wins, sets the output kind
@@ -150,7 +150,7 @@ int cSndSeVoice_Setup(cSndSeVoice *v, short key0, short key1, int flags, int del
     if (opt & 6) {
         v->optFlags = opt | 1;
     }
-    v->handle = func_00377FF8();
+    v->handle = SdeSndIdNew();
     cSndSeVoice_Link(v);
     return v->handle;
 }

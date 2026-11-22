@@ -3,7 +3,7 @@
 extern void PrintfErrorReport(char *fmt, ...);
 extern void func_0036D7C0(void);
 extern void func_0036DCE8(void);
-extern void func_0036D238(void);
+extern void m2vlib_InitObjTbl(void);
 extern void func_00366D18(void);
 extern void func_00368AA0(void);
 
@@ -59,14 +59,14 @@ void cri_InitEntryPool(int n, int work, unsigned int size)
     D_0076A588 = D_0045A478;
     func_0036D7C0();
     func_0036DCE8();
-    func_0036D280(n, work, size);
-    func_0036D238();
+    m2vlib_InitWork(n, work, size);
+    m2vlib_InitObjTbl();
 }
 
 extern unsigned char D_0045A370;                /* build tag, must read 4 */
 extern char D_0045A320[];                       /* mode table */
 extern char *volatile D_00766CD4;               /* active mode table, volatile keeps retail's lui+addiu address */
-extern int func_00368D60(int a, int b);         /* pool setup: entry count, work area; defined in 0032d3a8.c */
+extern int mpslib_InitLibWork(int a, int b);         /* pool setup: entry count, work area; defined in 0032d3a8.c */
 
 
 
@@ -83,7 +83,7 @@ int sfd_InitPool(int a, int b)
             ((void (*)(void))-1)();
         }
     }
-    r = func_00368D60(a, b);
+    r = mpslib_InitLibWork(a, b);
     if (r != 0) {
         return r;
     }

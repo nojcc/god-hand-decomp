@@ -15,8 +15,8 @@ extern void KillEffect(void *owner, int id, int arg);
 extern unsigned int D_00747A84;
 extern void func_003A57C4(void *dst, const void *src);
 extern void FreeResourceNode_2D3710(cMovieTrack *track);
-extern void func_00347BC0(int handle, int a1, int found);
-extern void func_00346078(int handle, int a1, int found);
+extern void mwPlyStartAfsLp(int handle, int a1, int found);
+extern void mwPlyStartAfs(int handle, int a1, int found);
 extern float Turn_dest_dir(float cur, float dest, float speed);
 extern float Adjust_theta(float f12);
 
@@ -129,9 +129,9 @@ int cMovieTrack_start(cMovieTrack *track, const char **clip) {
     }
     found = FindEntryValue_1FF9C0(&D_00580D40, name, 0, 0);
     if ((MOVIE_TRACK_FLAGS(track) & MOVIE_TRACK_LOOP) != 0) {
-        func_00347BC0(track->handle, 0, found);
+        mwPlyStartAfsLp(track->handle, 0, found);
     } else {
-        func_00346078(track->handle, 0, found);
+        mwPlyStartAfs(track->handle, 0, found);
     }
     return 1;
 }

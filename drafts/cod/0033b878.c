@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033B878: retail keeps a second slot pointer t0 (copied each iteration) used for the name store, hoists &D_00455EF0 into t2 before the loop, puts the name!=0 store as an out-of-line stub, and has two nops between the slot lw and bnel in the loop (ours has none). ee-2.9-991111 is worse (51). */
+/* NON_MATCHING svm_SetCbSvr: retail keeps a second slot pointer t0 (copied each iteration) used for the name store, hoists &D_00455EF0 into t2 before the loop, puts the name!=0 store as an out-of-line stub, and has two nops between the slot lw and bnel in the loop (ours has none). ee-2.9-991111 is worse (51). */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -11,15 +11,15 @@ extern CbEnt D_00758620[8][6];
 extern char D_00455EC8[];
 extern char D_00455EF0[];
 extern char D_00455EF8[];
-extern void func_0033B790(char *msg);
+extern void SVM_CallErr1(char *msg);
 
-int func_0033B878(unsigned int grp, int func, int arg, char *name)
+int svm_SetCbSvr(unsigned int grp, int func, int arg, char *name)
 {
     CbEnt *ent;
     int i;
 
     if (grp >= 8) {
-        func_0033B790(D_00455EC8);
+        SVM_CallErr1(D_00455EC8);
         return -1;
     }
     ent = D_00758620[grp];
@@ -35,11 +35,11 @@ int func_0033B878(unsigned int grp, int func, int arg, char *name)
         }
     }
     if (i == 6) {
-        func_0033B790(D_00455EF8);
+        SVM_CallErr1(D_00455EF8);
         return -1;
     }
     return i;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0033B878);
+INCLUDE_ASM("asm/nonmatching", svm_SetCbSvr);
 #endif

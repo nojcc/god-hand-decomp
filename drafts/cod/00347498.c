@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00347498: query the joint, search the tag, and either copy it into the buffer at 0x188 or hand the tag span to func_00347698.
+/* NON_MATCHING mwsftag_GetAinfFromSj: query the joint, search the tag, and either copy it into the buffer at 0x188 or hand the tag span to MWSFTAG_ClearUsrSj.
 * Registers and prologue match.
 * Retail places the failure stores right after the search (bnez to the success block) and keeps the copy path's stores interleaved with the GetChunk setup; this form puts the failure block last. */
 #include "godhand/criSj.h"
@@ -30,9 +30,9 @@ extern Sint8 D_00458C98[];
 extern Sint8 D_00458CA0[];
 extern Sint8 *SJ_SearchTag(SjChunk *ck, Sint8 *tag, Sint8 *endtag, SJTAG *tagck);
 extern void *func_003A5148(void *d, const void *s, unsigned int n);
-extern void func_00347698(TagWork *w);
+extern void MWSFTAG_ClearUsrSj(TagWork *w);
 
-void func_00347498(TagWork *w)
+void mwsftag_GetAinfFromSj(TagWork *w)
 {
     TagRec *rec = &w->rec;
     SjObj *sj = w->sj;
@@ -61,7 +61,7 @@ void func_00347498(TagWork *w)
             rec->flag = 1;
             rec->data = tag.data;
             rec->len = tag.len;
-            func_00347698(w);
+            MWSFTAG_ClearUsrSj(w);
             return;
         }
     }
@@ -70,5 +70,5 @@ void func_00347498(TagWork *w)
     rec->len = 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00347498);
+INCLUDE_ASM("asm/nonmatching", mwsftag_GetAinfFromSj);
 #endif

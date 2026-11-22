@@ -59,13 +59,13 @@ extern char D_00457580[];
 extern char D_004575A0[];
 extern int func_00344278(int *a0);
 extern char *GetD003EC7E0_3452B0(void);
-extern void func_00345750(int err);
+extern void MWSFLIB_SetErrCode(int err);
 extern void MWSFSVM_Error(char *msg);
 extern int mwsfcre_IsOkUsrMalloc(Cprm343 *cprm);
 extern void Obj0000_Set_Fields_1EC_280_Zero(Ply343 *ply, Cprm343 *cprm);
 extern int func_00343340(Ply343 *ply, Cprm343 *cprm);
-extern void func_00346410(Ply343 *ply);
-extern void func_00343AE8(Ply343 *ply);
+extern void MWSFD_ExecSetSprCbFn(Ply343 *ply);
+extern void mwsfcre_AttachPicUsrBuf(Ply343 *ply);
 extern void mwsfcre_CalcWorkStmBuf(Cprm343 *cprm, int *a, int *b, int *c, int *d, int *e, int *f);
 extern void SfdHn_setPlayConds(Ply343 *ply, Cprm343 *cprm, int a, int b);
 extern int Obj0000_Call_003395A0_Field_1C4_1C8_1CC(Ply343 *ply);
@@ -74,17 +74,17 @@ extern int SFD_GetTrHn(int sfd, int type, int *out);
 extern void func_00349718(Ply343 *ply, int a);
 extern void func_00349728(Ply343 *ply, int a);
 extern int Forward327D00_349AA0(int a);
-extern void func_00346100(Ply343 *ply);
+extern void MWSFPLY_SetFlowLimit(Ply343 *ply);
 extern int func_003353C0(int a);
 extern void func_00335580(int a, int b);
-extern long func_00344300(Ply343 *ply);
+extern long mwsfcre_MallocCompoWork(Ply343 *ply);
 extern int Forward35F970_346C18(int a, int b, int c, int d);
-extern void func_003471B8(Ply343 *ply, int a);
-extern int func_00347310(Ply343 *ply);
-extern int func_003473A0(Ply343 *ply);
-extern void func_00347400(Ply343 *ply);
+extern void MWSFSFX_SetCompoMode(Ply343 *ply, int a);
+extern int MWSFTAG_CreateAinfSj(Ply343 *ply);
+extern int MWSFTAG_SetAinfSj(Ply343 *ply);
+extern void MWSFTAG_InitTagInf(Ply343 *ply);
 extern void Obj0000_Init_Fields_B4_B8_BC_Entries(Ply343 *ply);
-extern void func_00345040(Ply343 *ply);
+extern void MWSFFRM_SetShfCbFn(Ply343 *ply);
 extern void Forward3443E0_3443C8(Ply343 *ply);
 
 Ply343 *func_00343E28(Cprm343 *cprm)
@@ -113,7 +113,7 @@ Ply343 *func_00343E28(Cprm343 *cprm)
         ply = (Ply343 *)(base + 0x6C) + i + 1;
     }
     if (i == 8) {
-        func_00345750(-11);
+        MWSFLIB_SetErrCode(-11);
         msg = D_00457478;
         goto err;
     }
@@ -132,8 +132,8 @@ err:
         msg = D_00457508;
         goto errf;
     }
-    func_00346410(ply);
-    func_00343AE8(ply);
+    MWSFD_ExecSetSprCbFn(ply);
+    mwsfcre_AttachPicUsrBuf(ply);
     mwsfcre_CalcWorkStmBuf(cprm, &w[0], &w[1], &w[2], &w[3], &w[4], &w[5]);
     SfdHn_setPlayConds(ply, cprm, wk[1], wk[2]);
     ply->f1C0 = Obj0000_Call_003395A0_Field_1C4_1C8_1CC(ply);
@@ -167,11 +167,11 @@ err:
     ply->f40 = Forward327D00_349AA0(ply->f1C0);
     if (ply->f40 == 0)
         goto fail;
-    func_00346100(ply);
+    MWSFPLY_SetFlowLimit(ply);
     ply->f48 = func_003353C0(ply->f1C0);
     ply->f74 = 0;
     func_00335580(ply->f48, ply->f40);
-    if (func_00344300(ply) == -1)
+    if (mwsfcre_MallocCompoWork(ply) == -1)
         goto fail;
     v = Forward35F970_346C18(ply->fAC, ply->fB0, cprm->f8, cprm->fC);
     if (v == 0) {
@@ -179,9 +179,9 @@ err:
         goto errf;
     }
     ply->fA8 = v;
-    func_003471B8(ply, ply->cprm.f20);
-    ply->f17C = func_00347310(ply);
-    if (func_003473A0(ply) != 0) {
+    MWSFSFX_SetCompoMode(ply, ply->cprm.f20);
+    ply->f17C = MWSFTAG_CreateAinfSj(ply);
+    if (MWSFTAG_SetAinfSj(ply) != 0) {
         msg = D_004575A0;
 errf:
         MWSFSVM_Error(msg);
@@ -189,9 +189,9 @@ fail:
         Forward3443E0_3443C8(ply);
         return 0;
     }
-    func_00347400(ply);
+    MWSFTAG_InitTagInf(ply);
     Obj0000_Init_Fields_B4_B8_BC_Entries(ply);
-    func_00345040(ply);
+    MWSFFRM_SetShfCbFn(ply);
     ply->used = 1;
     ply->f2FC = -1;
     ply->f2E8 = 0;

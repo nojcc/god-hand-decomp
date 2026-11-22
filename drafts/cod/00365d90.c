@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00365D90 (cygnus-2.96: ): retail spills arg/ny to stack and keeps dst in fp; ours uses s8 + caller-saved t0; outer-loop entry layout differs */
+/* NON_MATCHING CFT_Ycc420mbToArgb8888UserTable (cygnus-2.96: ): retail spills arg/ny to stack and keeps dst in fp; ours uses s8 + caller-saved t0; outer-loop entry layout differs */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -15,9 +15,9 @@ typedef struct CnvSrc {
     int stride;
 } CnvSrc;
 
-extern void func_00363620(char *dst, int stride, char *src, int arg);
+extern void cftraw_CnvMbRAW8toPlaneARGB(char *dst, int stride, char *src, int arg);
 
-void func_00365D90(CnvDst *dst, CnvSrc *src, int arg)
+void CFT_Ycc420mbToArgb8888UserTable(CnvDst *dst, CnvSrc *src, int arg)
 {
     int y, x;
     int ny, nx, stride;
@@ -29,11 +29,11 @@ void func_00365D90(CnvDst *dst, CnvSrc *src, int arg)
     for (y = 0; y < ny; y++) {
         d = dst->base + dst->pitch * y * 0x18;
         for (x = 0; x < nx; x++) {
-            func_00363620(d, stride, src->base + y * 64 + x * stride * 16, arg);
+            cftraw_CnvMbRAW8toPlaneARGB(d, stride, src->base + y * 64 + x * stride * 16, arg);
             d += 0x180;
         }
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00365D90);
+INCLUDE_ASM("asm/nonmatching", CFT_Ycc420mbToArgb8888UserTable);
 #endif

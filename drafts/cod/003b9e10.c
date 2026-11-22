@@ -9,8 +9,8 @@
 extern int D_003FC7A8;
 extern char D_003FC7B8[];
 
-__attribute__((section(".text.func_003B9E10")))
-void func_003B9E10(void)
+__attribute__((section(".text.AC3CNV_Init")))
+void AC3CNV_Init(void)
 {
     if (D_003FC7A8 == 0) {
         func_003A52F0(D_003FC7B8, 0, 0x3C);
@@ -19,5 +19,5 @@ void func_003B9E10(void)
 }
 
 #else
-INCLUDE_ASM("asm/nonmatching", func_003B9E10);
+INCLUDE_ASM("asm/nonmatching", AC3CNV_Init);
 #endif

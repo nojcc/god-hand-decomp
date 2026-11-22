@@ -1,9 +1,9 @@
 /* NON_MATCHING func_00376B80 (sn-2.95.3-136): 92 words vs 94, every
  * register differs. Retail loads 0x17 (the code stored after
- * func_00376CF8) into a saved register before the call, beside -1, so it
+ * SdeSsqVexeComParaSet) into a saved register before the call, beside -1, so it
  * saves six registers; this C loads 0x17 after the call. SndMsg.h's
  * prototypes also disagree with the definitions (func_0037D170 returns a
- * char * slot of a 0x50-byte pool; func_00376CF8 takes void *). */
+ * char * slot of a 0x50-byte pool; SdeSsqVexeComParaSet takes void *). */
 #include "include_asm.h"
 #ifdef NON_MATCHING
 #include "godhand/sndBank.h"
@@ -34,7 +34,7 @@ void func_00376B80(SndMsgSrc *src, SndMsgReq *req)
     node->ofsB = 0;
     node->srcId = src->id;
     node->reqBias = req->bias;
-    func_00376CF8(src, node);
+    SdeSsqVexeComParaSet(src, node);
     node->volL = req->volL;
     node->row = req->row;
     node->base = row->base;

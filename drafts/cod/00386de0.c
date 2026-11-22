@@ -31,7 +31,7 @@ typedef struct ReqBank {
 
 extern ReqBank D_0076E510[];
 
-extern void func_00386F38(short bank, short idx, short *a2);
+extern void strTblSetError(short bank, short idx, short *a2);
 
 int func_00386DE0(short bank, short idx, BankReq *out)
 {
@@ -39,7 +39,7 @@ int func_00386DE0(short bank, short idx, BankReq *out)
     BankReq *r;
 
     if (idx >= b->count || ((r = &b->reqs[idx])->flags & 0x8000)) {
-        func_00386F38(bank, idx);
+        strTblSetError(bank, idx);
         return -1;
     }
     *out = *r;

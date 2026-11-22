@@ -21,10 +21,10 @@ typedef struct {
 } SfHn;
 
 extern char D_004593D8[];
-extern int func_0034CF38(SfHn *hn, int *pos, int *rate);
-extern int func_0036C920(int pos, int a, int rate);
+extern int SFCON_ReadTotSmplQue(SfHn *hn, int *pos, int *rate);
+extern int UTY_MulDiv(int pos, int a, int rate);
 
-int func_00351A08(SfHn *hn)
+int sfmpv_CalcAudioTotTime(SfHn *hn)
 {
     SfTime *tm = &hn->tm;
     int t[2];
@@ -33,13 +33,13 @@ int func_00351A08(SfHn *hn)
     if (hn->dev->vtbl != D_004593D8) {
         t[0] = 0;
         t[1] = 44100;
-    } else if (func_0034CF38(hn, &t[0], &t[1]) == 0) {
+    } else if (SFCON_ReadTotSmplQue(hn, &t[0], &t[1]) == 0) {
         return -1;
     }
     tm->total += t[0];
-    r = func_0036C920(tm->total, *(int *)((char *)hn + 0xD94), t[1]) - tm->start;
+    r = UTY_MulDiv(tm->total, *(int *)((char *)hn + 0xD94), t[1]) - tm->start;
     return r < 0 ? 0 : r;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00351A08);
+INCLUDE_ASM("asm/nonmatching", sfmpv_CalcAudioTotTime);
 #endif

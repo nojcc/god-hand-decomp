@@ -1,24 +1,24 @@
-/* cygnus-2.96: func_00351CB0, Sofdec MPV picture header decode step. */
+/* cygnus-2.96: sfmpv_DecodePicAtr, Sofdec MPV picture header decode step. */
 #include "godhand/sftim.h"
 typedef int (*MpvCb)(void *obj, int a, int b);
 
-extern void func_0036A3A8(int h, int a, int b);
-extern int func_0033A010(int s, int a, int b);
-extern int func_0036A3E8(int h, int s);
-extern int func_00351C18(char *mpv, int a, int n, int code);
-extern void func_00351B70(char *mpv, int n);
-extern int func_0036A0D0(int h, int *hdr);
-extern void func_0036A3C0(int h, int a, void *p);
+extern void MPV_SetPicUsrBuf(int h, int a, int b);
+extern int SJRBF_GetFlowCnt(int s, int a, int b);
+extern int MPV_DecodePicAtrSj(int h, int s);
+extern int sfmpv_ChkMpvErr(char *mpv, int a, int n, int code);
+extern void sfmpv_AddRtotSj(char *mpv, int n);
+extern int MPV_GetPicAtr(int h, int *hdr);
+extern void MPV_GetPicUsr(int h, int a, void *p);
 extern char *MPV_SearchDelim(char *p, int len, int kind);
-extern void func_00352008(char *mpv, int *hdr, char *p, long *a, long *b, int f);
-extern void func_00352298(char *mpv, int *hdr, int f);
-extern void func_003525F0(char *mpv, int *hdr, long a, int f);
-extern void func_00352B98(char *mpv, int *hdr);
+extern void sfmpv_ReadPtsQue(char *mpv, int *hdr, char *p, long *a, long *b, int f);
+extern void sfmpv_CalcRepeatField(char *mpv, int *hdr, int f);
+extern void sfmpv_ReformTc(char *mpv, int *hdr, long a, int f);
+extern void sfmpv_SetHeadTtu(char *mpv, int *hdr);
 extern void SftimHn_recordLastFrame(char *mpv, int *hdr);
-extern int func_00352E10(char *mpv, int h, int *hdr, char **buf);
+extern int sfmpv_FirstPicAtr(char *mpv, int h, int *hdr, char **buf);
 
-__attribute__((section(".text.func_00351CB0")))
-int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
+__attribute__((section(".text.sfmpv_DecodePicAtr")))
+int sfmpv_DecodePicAtr(char *mpv, char **buf, int s, unsigned int flags, int *res)
 {
     char *w = *(char **)(mpv + 0x1FC0);
     char *x = w + 0x1080;
@@ -37,17 +37,17 @@ int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
     int v;
 
     *(int *)(x + 0x10) = 0;
-    func_0036A3A8(h, *(int *)(x + 0xC), *(int *)(x + 0x8));
-    t0 = func_0033A010(s, 0, 1);
-    *res = func_0036A3E8(h, s);
-    n = func_0033A010(s, 0, 1) - t0;
-    r = func_00351C18(mpv, *res, n, 0xFF000F04);
-    func_00351B70(mpv, n);
+    MPV_SetPicUsrBuf(h, *(int *)(x + 0xC), *(int *)(x + 0x8));
+    t0 = SJRBF_GetFlowCnt(s, 0, 1);
+    *res = MPV_DecodePicAtrSj(h, s);
+    n = SJRBF_GetFlowCnt(s, 0, 1) - t0;
+    r = sfmpv_ChkMpvErr(mpv, *res, n, 0xFF000F04);
+    sfmpv_AddRtotSj(mpv, n);
     if (r != 0)
         return r;
     if (*res == -2)
         return 0;
-    *res = func_0036A0D0(h, hdr);
+    *res = MPV_GetPicAtr(h, hdr);
     if (*res != 0)
         return func_0034DD70(mpv, 0xFF000F05);
     f40 = flags & 0x40;
@@ -88,7 +88,7 @@ int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
             }
         }
     }
-    func_0036A3C0(h, 0, x + 0x10);
+    MPV_GetPicUsr(h, 0, x + 0x10);
     if (*(int *)(w + 0x10C) != hdr[12]) {
         *(int *)(w + 0x10C) = hdr[12];
         *(int *)(w + 0x110) = 1;
@@ -106,13 +106,13 @@ int func_00351CB0(char *mpv, char **buf, int s, unsigned int flags, int *res)
         }
     }
     p = MPV_SearchDelim(buf[0], (int)buf[1], 4);
-    func_00352008(mpv, hdr, p, &l0, &l1, *(int *)(w + 0x110));
+    sfmpv_ReadPtsQue(mpv, hdr, p, &l0, &l1, *(int *)(w + 0x110));
     *(long *)(w + 0x1120) = l1;
     if (!(flags & *(unsigned int *)(w + 0x78)))
         return 0;
-    func_00352298(mpv, hdr, *(int *)(w + 0x110));
-    func_003525F0(mpv, hdr, l0, *(int *)(w + 0x110));
-    func_00352B98(mpv, hdr);
+    sfmpv_CalcRepeatField(mpv, hdr, *(int *)(w + 0x110));
+    sfmpv_ReformTc(mpv, hdr, l0, *(int *)(w + 0x110));
+    sfmpv_SetHeadTtu(mpv, hdr);
     SftimHn_recordLastFrame(mpv, hdr);
-    return func_00352E10(mpv, h, hdr, buf);
+    return sfmpv_FirstPicAtr(mpv, h, hdr, buf);
 }

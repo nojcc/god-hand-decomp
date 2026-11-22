@@ -21,11 +21,11 @@ typedef struct {
 extern char D_00457870[];
 extern int func_00344BF0(int a0);
 extern int func_00344C30(int a0);
-extern int func_0035B5F8(int a0, SvmInfo *info);
+extern int SFD_GetFps(int a0, SvmInfo *info);
 extern void MWSFSVM_Error(char *msg);
 extern int Forward36C920_344BC0(int a0, int a1, int a2);
-extern void func_00344B28(char *svm, char *prm, char *work);
-extern void func_00344D98(char *svm, char *prm, char *work);
+extern void mwsffrm_SetPicUsrInf(char *svm, char *prm, char *work);
+extern void mwsffrm_SetSudDatInf(char *svm, char *prm, char *work);
 extern int func_00344C98(char *svm, char *prm, int a2, int a3);
 
 __attribute__((section(".text.func_00344948")))
@@ -55,7 +55,7 @@ void func_00344948(char *svm, char *prm, char *work)
     c = *(int *)(prm + 0x2C);
     info.f1C = *(int *)(prm + 0x24);
     info.f20 = *(int *)(prm + 0x28);
-    if (func_0035B5F8(h, &info) != 0)
+    if (SFD_GetFps(h, &info) != 0)
         MWSFSVM_Error(D_00457870);
     t0 = Forward36C920_344BC0(a, info.rate, unit);
     t1 = Forward36C920_344BC0(b, info.rate, unit);
@@ -75,8 +75,8 @@ void func_00344948(char *svm, char *prm, char *work)
     *(int *)(work + 0x1C) = info.f18;
     *(int *)(work + 0x3C) = info.f1C;
     *(int *)(work + 0x40) = info.f20;
-    func_00344B28(svm, prm, work);
-    func_00344D98(svm, prm, work);
+    mwsffrm_SetPicUsrInf(svm, prm, work);
+    mwsffrm_SetSudDatInf(svm, prm, work);
     *(int *)(work + 0x4C) = func_00344C98(svm, prm, *(int *)(work + 0x88), *(int *)(work + 0x8C));
     *(SvmTail *)(work + 0x50) = *(SvmTail *)(prm + 0x48);
 }

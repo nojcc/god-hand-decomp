@@ -16,8 +16,8 @@ typedef struct _Bigint {
 
 extern _Bigint *Balloc(int k);
 
-__attribute__((section(".text.func_0038F548")))
-void func_0038F548(_Bigint *v) {
+__attribute__((section(".text.Bfree_38F548")))
+void Bfree_38F548(_Bigint *v) {
     if (v && !v->_sign)
         UpdateGlobalPtrWithParam_3A7CC0(v);
 }
@@ -42,6 +42,6 @@ _Bigint *Brealloc(_Bigint *b, int k) {
         return b;
     rv = Balloc(k);
     Bcopy(rv, b);
-    func_0038F548(b);
+    Bfree_38F548(b);
     return rv;
 }

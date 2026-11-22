@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003AD348 (sn-2.95.3-136): 3 instructions differ from retail.
+/* NON_MATCHING sn_fmod (sn-2.95.3-136): 3 instructions differ from retail.
  * Retail's assembler expands `dli $r,0xffffffff` as addiu -1; dsrl32 (ee-as uses lui 0xffff), and it
  * pads the call-free short ilogb loops, which ps2eeas (as: sn) does not. The fixed-point loop
  * keeps retail's bottom test only as `n-- > 0`, giving bgtz where retail has bnez. */
@@ -13,14 +13,14 @@ typedef union { double value; struct { unsigned int lsw; unsigned int msw; } par
 #define INSERT_WORDS(d, ix0, ix1)                                       \
     do { U iw_u; iw_u.parts.msw = (ix0); iw_u.parts.lsw = (ix1); (d) = iw_u.value; } while (0)
 
-extern double func_0031E348(double a, double b);    /* dpmul */
-extern double func_0031E5F0(double a, double b);    /* dpdiv */
+extern double dpmul(double a, double b);    /* dpmul */
+extern double dpdiv(double a, double b);    /* dpdiv */
 
 extern const double D_0045FBF8[];                   /* Zero[] = { 0.0, -0.0 } */
 
 /* x - n*y for the integer n of x/y truncated toward zero, computed exactly on the bits. */
-__attribute__((section(".text.func_003AD348")))
-double func_003AD348(double x, double y)
+__attribute__((section(".text.sn_fmod")))
+double sn_fmod(double x, double y)
 {
     int n, hx, hy, hz, ix, iy, sx, i;
     unsigned int lx, ly, lz;
@@ -34,7 +34,7 @@ double func_003AD348(double x, double y)
     /* purge off exception values */
     if ((hy | ly) == 0 || (hx >= 0x7ff00000) ||         /* y=0, or x not finite */
         ((hy | ((ly | -ly) >> 31)) > 0x7ff00000))       /* or y is NaN */
-        return func_0031E5F0(func_0031E348(x, y), func_0031E348(x, y));
+        return dpdiv(dpmul(x, y), dpmul(x, y));
     if (hx <= hy) {
         if ((hx < hy) || (lx < ly)) return x;           /* |x|<|y| return x */
         if (lx == ly)
@@ -124,5 +124,5 @@ double func_003AD348(double x, double y)
     return x;                           /* exact output */
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003AD348);
+INCLUDE_ASM("asm/nonmatching", sn_fmod);
 #endif

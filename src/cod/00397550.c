@@ -7,8 +7,8 @@ typedef struct {
 extern void WaitDma(sceDmaChan *chan);
 
 /* sceDmaSync; timeout is not read. */
-__attribute__((section(".text.func_00397550")))
-int func_00397550(sceDmaChan *chan, int mode, int timeout)
+__attribute__((section(".text.sceDmaSync")))
+int sceDmaSync(sceDmaChan *chan, int mode, int timeout)
 {
     if (mode == 1) {
         return (chan->chcr >> 8) & 1;

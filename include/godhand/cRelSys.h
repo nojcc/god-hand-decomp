@@ -26,11 +26,11 @@ void HeapBuf_release(cRelSlot *slot);
 unsigned char SetValueAndValidate_2BE630(cRelSlot *slot, void *data);
 /* Unlink the slot and clear it without freeing the data. */
 void func_002BE670(cRelSlot *slot);
-/* Register the slot's module (func_00394DD8); 1 when that succeeded. */
+/* Register the slot's module (snDllLoaded); 1 when that succeeded. */
 int func_002BE6A0(cRelSlot *slot);
 /* Unregister the slot's module (func_00394F20). */
 int func_002BE6C8(cRelSlot *slot);
-/* Reset the registry (func_00394D58(0)); slots is not read. */
+/* Reset the registry (snInitDllSystem(0)); slots is not read. */
 void func_002BE6E8(cRelSlot *slots);
 /* Load the module for room id into slots[0]. */
 void func_002BE708(cRelSlot *slots, int id);

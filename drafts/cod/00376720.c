@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00376720 (sn-2.95.3-136): same size, 19 insns: this for-loop hoists i-- to the top and schedules ori/args ahead of the timer test.
+/* NON_MATCHING ssqCtlTrkControl (sn-2.95.3-136): same size, 19 insns: this for-loop hoists i-- to the top and schedules ori/args ahead of the timer test.
 * The m2c goto form (f preloaded, 'if (--i >= 0) { f = e[0]
 goto loop; }') reproduces the whole body exactly but inverts the loop exit (bltzl + fallthrough instead of bgezl back-edge), drops the pre-label nop and reorders the prologue saves. */
 #include "include_asm.h"
@@ -6,7 +6,7 @@ goto loop; }') reproduces the whole body exactly but inverts the loop exit (bltz
 #ifdef NON_MATCHING
 extern void func_00376B80(char *slot, unsigned short *e);
 
-void func_00376720(char *slot)
+void ssqCtlTrkControl(char *slot)
 {
     unsigned short *e = (unsigned short *)(slot + 0x40);
     int i;
@@ -26,5 +26,5 @@ void func_00376720(char *slot)
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00376720);
+INCLUDE_ASM("asm/nonmatching", ssqCtlTrkControl);
 #endif

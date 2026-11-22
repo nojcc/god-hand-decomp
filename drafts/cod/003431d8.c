@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003431D8: size the decode buffers ((w/16)*(h/16)*1024 for format 2, else *384, plus 0x40) and fill out[0..n) either from the preallocated pool D_00758A38 (after the pool count/size checks) or with func_00344568; -1 if any buffer is missing.
+/* NON_MATCHING mwsfcre_MallocTab: size the decode buffers ((w/16)*(h/16)*1024 for format 2, else *384, plus 0x40) and fill out[0..n) either from the preallocated pool D_00758A38 (after the pool count/size checks) or with func_00344568; -1 if any buffer is missing.
 * Retail keeps the pool loop un-strength-reduced (index recomputed, entered at its test) and divides w in place; ours reduces it and copies the quotients. */
 #include "include_asm.h"
 
@@ -18,7 +18,7 @@ extern int D_00758A38[];
 extern int mwsfcre_ConvBufFmtFromMwsfd(int fmt);
 extern int func_00344568(void *hdl, int size);
 
-int func_003431D8(void *hdl, MwsfCreParam *cre, int *out)
+int mwsfcre_MallocTab(void *hdl, MwsfCreParam *cre, int *out)
 {
     int w = cre->width;
     int h = cre->height;
@@ -65,5 +65,5 @@ int func_003431D8(void *hdl, MwsfCreParam *cre, int *out)
     return ret;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003431D8);
+INCLUDE_ASM("asm/nonmatching", mwsfcre_MallocTab);
 #endif

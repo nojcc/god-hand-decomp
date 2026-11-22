@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00352298 (cygnus-2.96): ring-table
+/* NON_MATCHING sfmpv_CalcRepeatField (cygnus-2.96): ring-table
  * update.
 * Retail's reset loop carries 3 short-loop pad nops (assembler-padded reorder loop)
  * that our cygnus pipeline never emits; most remaining diffs are that shift plus the
@@ -11,12 +11,12 @@ typedef struct Ent {
     unsigned short val;
 } Ent;
 
-extern void func_00352DC0(char *pkt, char *dst);
-extern void func_00352520(char *self, char *o);
-extern void func_00354128(char *self, char *o);
+extern void sfmpv_ReadTcode(char *pkt, char *dst);
+extern void sfmpv_CalcFrmTtu(char *self, char *o);
+extern void sfmpv_CalcFrmTime(char *self, char *o);
 
-__attribute__((section(".text.func_00352298")))
-void func_00352298(char *self, char *pkt, int reset)
+__attribute__((section(".text.sfmpv_CalcRepeatField")))
+void sfmpv_CalcRepeatField(char *self, char *pkt, int reset)
 {
     char *d = self + 0xD30;
     Ent *tbl = (Ent *)(self + 0x11E0);
@@ -27,7 +27,7 @@ void func_00352298(char *self, char *pkt, int reset)
     int i;
     int k;
 
-    func_00352DC0(pkt, self + 0xD4C);
+    sfmpv_ReadTcode(pkt, self + 0xD4C);
     if (reset) {
         for (i = 0; i < 64; i++)
             tbl[i].key = -1;
@@ -69,10 +69,10 @@ void func_00352298(char *self, char *pkt, int reset)
         unsigned short v = (unsigned short)tbl[idx].key + tbl[idx].val;
         tbl[*(int *)(o + 0x70) % 64].val = v;
         *(unsigned short *)(o + 0x2E) = v;
-        func_00352520(self, o);
-        func_00354128(self, *(char **)(s3 + 0x164));
+        sfmpv_CalcFrmTtu(self, o);
+        sfmpv_CalcFrmTime(self, *(char **)(s3 + 0x164));
     }
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00352298);
+INCLUDE_ASM("asm/nonmatching", sfmpv_CalcRepeatField);
 #endif

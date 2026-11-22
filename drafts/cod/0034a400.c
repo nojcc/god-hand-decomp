@@ -14,8 +14,8 @@ typedef struct {
     char pad9D0[0x2004 - 0x9D0];
     SfdDec *dec; /* 0x2004 */
 } SfdHn;
-extern void func_0034A0F0(int a0, int a1, int a2, int a3);
-extern int func_0032B758(unsigned char *data, int size, int *hdrsize);
+extern void sfadxt_AdjustSync(int a0, int a1, int a2, int a3);
+extern int ADXT_IsHeader(unsigned char *data, int size, int *hdrsize);
 extern unsigned char *sfadxt_SearchAlign(SfdHn *hn, unsigned char *data, int size);
 
 void func_0034A400(SfdHn *hn, unsigned char *data, int size, int *skip)
@@ -28,7 +28,7 @@ void func_0034A400(SfdHn *hn, unsigned char *data, int size, int *skip)
     dec = hn->dec;
     if (size < 0x120)
         return;
-    if (func_0032B758(data, size, &hdrsize) == 0) {
+    if (ADXT_IsHeader(data, size, &hdrsize) == 0) {
         if (Obj34D8_GetTri78_Times100(hn) < 0x6C)
             n = sfadxt_SearchAlign(hn, data, size) - data;
         else
@@ -38,7 +38,7 @@ void func_0034A400(SfdHn *hn, unsigned char *data, int size, int *skip)
     }
     *skip = n;
     hn->total += n;
-    dec->proc = func_0034A0F0;
+    dec->proc = sfadxt_AdjustSync;
 }
 #else
 INCLUDE_ASM("asm/nonmatching", func_0034A400);

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0033A618: identical except retail's used!=0 branch is bnel (annulled sltiu in the slot) where ours is bne. */
+/* NON_MATCHING sjuni_GetNumData: identical except retail's used!=0 branch is bnel (annulled sltiu in the slot) where ours is bne. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -22,7 +22,7 @@ extern char D_00455C88[];
 extern char D_00455C98[];
 extern void func_0033A048(char *fn, char *msg);
 
-int func_0033A618(SjQue *sj, unsigned int id)
+int sjuni_GetNumData(SjQue *sj, unsigned int id)
 {
     SjChunk *ck;
     int sum;
@@ -46,5 +46,5 @@ int func_0033A618(SjQue *sj, unsigned int id)
     return sum;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0033A618);
+INCLUDE_ASM("asm/nonmatching", sjuni_GetNumData);
 #endif

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00342D00: cygnus-2.96: all register numbering in the size arithmetic; retail keeps an extra mb copy before the <<10 */
+/* NON_MATCHING mwsfcre_CalcWorkFrmBuf: cygnus-2.96: all register numbering in the size arithmetic; retail keeps an extra mb copy before the <<10 */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -13,7 +13,7 @@ extern int D_003EC7D0;
 extern void mwsfcre_CalcFrmRes(MwsfSizeHn *m, int *w, int *h, int *a, int *b);
 extern int mwsfcre_ConvBufFmtFromMwsfd(int fmt);
 
-void func_00342D00(MwsfSizeHn *m, int *size0, int *size1)
+void mwsfcre_CalcWorkFrmBuf(MwsfSizeHn *m, int *size0, int *size1)
 {
     int w, h, a, b;
     int n, fmt, mb, v;
@@ -35,5 +35,5 @@ void func_00342D00(MwsfSizeHn *m, int *size0, int *size1)
     *size1 = v;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00342D00);
+INCLUDE_ASM("asm/nonmatching", mwsfcre_CalcWorkFrmBuf);
 #endif

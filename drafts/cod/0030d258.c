@@ -13,8 +13,8 @@ typedef struct { unsigned char data[0x60]; } sceGsLoadImage;
 extern unsigned char D_00753DC0[0x400];
 extern int sceGsSetDefLoadImage(sceGsLoadImage *lp, short dbp, short dbw, short dpsm, short x, short y, short w, short h);
 extern void FlushCache(int op);
-extern int func_00395758(sceGsLoadImage *lp, void *src);
-extern int func_003950F8(int mode, int timeout);
+extern int sceGsExecLoadImage(sceGsLoadImage *lp, void *src);
+extern int sceGsSyncPath(int mode, int timeout);
 
 #ifdef NON_MATCHING
 #include "godhand/heapArena.h"
@@ -38,8 +38,8 @@ void func_0030D258(void)
     for (i = 0, dbp = 0; i < n; i++, dbp += 4) {
         sceGsSetDefLoadImage(&li, dbp, 4, 0, 0, 0, 16, 16);
         FlushCache(0);
-        func_00395758(&li, D_00753DC0);
-        func_003950F8(0, 0);
+        sceGsExecLoadImage(&li, D_00753DC0);
+        sceGsSyncPath(0, 0);
     }
 }
 #else

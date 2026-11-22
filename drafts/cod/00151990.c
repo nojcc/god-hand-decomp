@@ -39,7 +39,7 @@ void func_00151990(TexWork *w, Tim2File *tim, unsigned int *pa, unsigned int *pb
             pic->tex0.PSM = psm;
             height = pic->height;
             t = pic->tex0;
-            bw = func_00309C30(psm, width);
+            bw = Tim2CalcBufWidth(psm, width);
             t.TBP0 = tbp;
             t.TBW = bw;
             t.TCC = 1;

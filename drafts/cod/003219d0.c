@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003219D0: cygnus: retail keeps 3 separate d[i-1] pointer givs (+s0..s2 saves) */
+/* NON_MATCHING fde_merge: cygnus: retail keeps 3 separate d[i-1] pointer givs (+s0..s2 saves) */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -12,7 +12,7 @@ typedef struct KeyList {
     int num;                    /* 0x04 */
 } KeyList;
 
-void func_003219D0(KeyList *dst, KeyList *src)
+void fde_merge(KeyList *dst, KeyList *src)
 {
     KeyEnt **d;
     KeyEnt *e;
@@ -38,5 +38,5 @@ void func_003219D0(KeyList *dst, KeyList *src)
     dst->num = nd + ns;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003219D0);
+INCLUDE_ASM("asm/nonmatching", fde_merge);
 #endif

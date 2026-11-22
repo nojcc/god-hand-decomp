@@ -6,7 +6,7 @@ this keeps a0 as the index and shares one address.
 #ifdef NON_MATCHING
 typedef struct { int x, y, z; } IVec3;
 
-extern void func_0033B790(char *msg);
+extern void SVM_CallErr1(char *msg);
 extern IVec3 D_00758620[8][6];
 extern char D_00455F28[];
 extern char D_00455F48[];
@@ -17,11 +17,11 @@ void func_0033B978(unsigned int a0, unsigned int a1)
     char *v;
 
     if (a1 >= 6) {
-        func_0033B790(D_00455F28);
+        SVM_CallErr1(D_00455F28);
         return;
     }
     if (a0 >= 8) {
-        func_0033B790(D_00455F48);
+        SVM_CallErr1(D_00455F48);
         return;
     }
     off = a1 * 12 + a0 * 0x48;

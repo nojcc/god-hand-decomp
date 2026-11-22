@@ -1,21 +1,21 @@
-/* NON_MATCHING func_0035CC80 (cygnus-2.96): arguments and call order are right; retail runs a 0x210 frame with one more 64-bit spill slot (the 0x1AC field) and loads the int fields in a different order, so every register and stack offset in the argument setup differs. */
+/* NON_MATCHING sftst_DebWrite (cygnus-2.96): arguments and call order are right; retail runs a 0x210 frame with one more 64-bit spill slot (the 0x1AC field) and loads the int fields in a different order, so every register and stack offset in the argument setup differs. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-/* func_0035CC80: append one stream-timing debug line for a handle to the debug log buffer
- * (the log set up by func_0035CB20); wrap to the restart point when under 1 KB is left. */
+/* sftst_DebWrite: append one stream-timing debug line for a handle to the debug log buffer
+ * (the log set up by sftst_DebInit); wrap to the restart point when under 1 KB is left. */
 extern char D_00459AA8[];
 extern int D_003EE320;
 extern int D_003EE31C;
 extern int D_003EE328;
 extern int D_003EE32C;
 extern int D_003EE0A4;
-extern int func_0036C920(int pos, int a, int rate);
+extern int UTY_MulDiv(int pos, int a, int rate);
 extern int func_003A6C58(char *dst, const char *fmt, ...);
 extern void func_003A57C4(int a0, char *a1);
 
-__attribute__((section(".text.func_0035CC80")))
-void func_0035CC80(char *h)
+__attribute__((section(".text.sftst_DebWrite")))
+void sftst_DebWrite(char *h)
 {
     char buf[0x100];
     int n;
@@ -27,7 +27,7 @@ void func_0035CC80(char *h)
 
     if (D_003EE320 == 0)
         return;
-    t = func_0036C920(1000, *(int *)(h + 0x118), *(int *)(h + 0x120));
+    t = UTY_MulDiv(1000, *(int *)(h + 0x118), *(int *)(h + 0x120));
     a = *(long *)(h + 0x118);
     start = *(long *)(h + 0x128);
     cur = *(long *)(h + 0x188) ;
@@ -48,5 +48,5 @@ void func_0035CC80(char *h)
         D_003EE328 = D_003EE32C;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0035CC80);
+INCLUDE_ASM("asm/nonmatching", sftst_DebWrite);
 #endif

@@ -20,12 +20,12 @@ void WaitDma(volatile sceDmaChan *chan);
 /* Stop the channel; returns CHCR as it was. */
 unsigned int sceDmaPause(volatile sceDmaChan *chan);
 /* Turn a scratchpad address (0x7xxxxxxx) into the DMA's scratchpad form (bit 31 set). */
-unsigned int func_003970A0(unsigned int addr);
+unsigned int CheckAddress(unsigned int addr);
 /* sceDmaSend: start a chain transfer at the tag. */
-void func_003973E8(sceDmaChan *chan, void *tag);
+void sceDmaSend(sceDmaChan *chan, void *tag);
 /* sceDmaSendN: send qwc quadwords from addr. */
-void func_00397450(sceDmaChan *chan, void *addr, int qwc);
+void sceDmaSendN(sceDmaChan *chan, void *addr, int qwc);
 /* sceDmaRecvN: receive qwc quadwords into addr. */
-void func_003974D0(sceDmaChan *chan, void *addr, int qwc);
+void sceDmaRecvN(sceDmaChan *chan, void *addr, int qwc);
 
 #endif

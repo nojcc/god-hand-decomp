@@ -33,7 +33,7 @@ extern int dtx_create_rmt(Sint32 a, Sint32 b, Sint32 c, Sint32 d);
 extern void SyncDCache(void *start, void *end);
 extern void func_003B0640(void *start, void *end);
 extern void Obj0000_Increment_D_003D84B0_3320E0(void);
-extern void func_003320F8(int a0, char *a1, int a2);
+extern void dtx_def_sndcbf(int a0, char *a1, int a2);
 
 __attribute__((section(".text.func_00332178")))
 DtxRmt *func_00332178(unsigned int id, char *buf, int arg2, int bufsize)
@@ -79,7 +79,7 @@ DtxRmt *func_00332178(unsigned int id, char *buf, int arg2, int bufsize)
     SyncDCache(e->buf, e->buf + e->size + 0x3F);
     func_003B0640(e->buf, e->buf + e->size + 0x3F);
     e->fn20 = Obj0000_Increment_D_003D84B0_3320E0;
-    e->fn28 = func_003320F8;
+    e->fn28 = dtx_def_sndcbf;
     e->used = 1;
     e->unk24 = 0;
     e->unk2C = 0;

@@ -8,7 +8,7 @@ typedef unsigned int size_t;
 
 
 
-extern void func_003AC090(void *reent, INTERNAL_SIZE_T nb); /* malloc_extend_top */
+extern void malloc_extend_top(void *reent, INTERNAL_SIZE_T nb); /* malloc_extend_top */
 
 #define SIZE_SZ 4
 #define MALLOC_ALIGNMENT 16
@@ -308,7 +308,7 @@ void *func_003AC2F8(void *RARG, size_t bytes)
   remainder_size = long_sub_size_t(chunksize(top), nb);
   if (chunksize(top) < nb || remainder_size < (long)MINSIZE)
   {
-    func_003AC090(RARG, nb);
+    malloc_extend_top(RARG, nb);
     remainder_size = long_sub_size_t(chunksize(top), nb);
     if (chunksize(top) < nb || remainder_size < (long)MINSIZE)
     {

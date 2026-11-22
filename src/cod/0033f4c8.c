@@ -1,4 +1,4 @@
-extern void func_00323B58(void);
+extern void ADXF_CloseAll(void);
 extern void *func_003A52F0(void *d, int c, unsigned int n);
 extern int D_003EAEC0;
 extern signed char D_003EAEC8[];
@@ -16,7 +16,7 @@ __attribute__((section(".text.func_0033F4C8")))
 void func_0033F4C8(void)
 {
     if (--D_003EAEC0 == 0) {
-        func_00323B58();
+        ADXF_CloseAll();
         D_003EB840 = 1;
         D_003EB83C = -1;
         D_003EB838 = 0;

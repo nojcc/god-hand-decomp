@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0036AE70 (cygnus-2.96): MPV GOP header parse.
+/* NON_MATCHING mpvhdec_DecGscSj (cygnus-2.96): MPV GOP header parse.
 * Prologue
  * matches up to the start-code skip; retail keeps `bitpos ? nxt << bitpos : nxt` as xori/movn
  * while ours combines it to a bare sllv, and the time-code/bit reads schedule differently. */
@@ -6,7 +6,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern void func_0033ACA0(SjChunk *ck, int n, SjChunk *a, SjChunk *b);
+extern void SJ_SplitChunk(SjChunk *ck, int n, SjChunk *a, SjChunk *b);
 
 #define LOADW(w)                                    \
     w = *p++;                                       \
@@ -28,8 +28,8 @@ extern void func_0033ACA0(SjChunk *ck, int n, SjChunk *a, SjChunk *b);
         acc <<= 1;                                  \
     }
 
-__attribute__((section(".text.func_0036AE70")))
-int func_0036AE70(char *h, SjObj *sj)
+__attribute__((section(".text.mpvhdec_DecGscSj")))
+int mpvhdec_DecGscSj(char *h, SjObj *sj)
 {
     SjChunk tail;
     SjChunk *ck;
@@ -88,11 +88,11 @@ int func_0036AE70(char *h, SjObj *sj)
     GETBIT1(*(int *)(h + 0x2B4));
     GETBIT1(*(int *)(h + 0x2B8));
 
-    func_0033ACA0(ck, (int)p + ((bitpos + 7) >> 3) - 8 - *(int *)(h + 0x38C), ck, &tail);
+    SJ_SplitChunk(ck, (int)p + ((bitpos + 7) >> 3) - 8 - *(int *)(h + 0x38C), ck, &tail);
     sj->vt->putChunk(sj, 0, ck);
     sj->vt->ungetChunk(sj, 1, &tail);
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0036AE70);
+INCLUDE_ASM("asm/nonmatching", mpvhdec_DecGscSj);
 #endif

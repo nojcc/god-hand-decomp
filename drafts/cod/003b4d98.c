@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003B4D98 (ee-2.9-991111): sceIoctl-style request; retail holds the case-1 compare constant in s5 from the prologue (beql s1,s5), which shifts the s-reg assignment and the switch delay slots; if-chain and explicit locals are worse */
+/* NON_MATCHING sceIoctl (ee-2.9-991111): sceIoctl-style request; retail holds the case-1 compare constant in s5 from the prologue (beql s1,s5), which shifts the s-reg assignment and the switch delay slots; if-chain and explicit locals are worse */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -30,14 +30,14 @@ struct SemaParam {
 
 extern IoBuf *get_iob(int fd);
 extern int func_003B3EC8(int cmd);
-extern void func_003B3F50(void);
+extern void sceFsInit(void);
 extern int SignalSema_3B3EF8(void);
 extern int CreateSema(struct SemaParam *p);
 extern int DeleteSema(int id);
 extern int WaitSema(int id);
 extern int SignalSema(int id);
 extern void func_003B2850(void *p, int n);
-extern int func_003B3958(void *cd, int fno, int mode, void *send, int ssize, void *recv, int rsize, int a, int b, int c);
+extern int sceFsSifCallRpc(void *cd, int fno, int mode, void *send, int ssize, void *recv, int rsize, int a, int b, int c);
 extern void *memcpy(void *d, const void *s, unsigned int n);
 
 extern int D_003FAEDC;
@@ -51,7 +51,7 @@ extern char D_00780C00[];
 extern char D_00780C50[];
 extern char D_007816C0[];
 
-int func_003B4D98(int fd, int cmd, void *arg)
+int sceIoctl(int fd, int cmd, void *arg)
 {
     struct SemaParam sp;
     int result;
@@ -65,7 +65,7 @@ int func_003B4D98(int fd, int cmd, void *arg)
     func_003B3EC8(5);
     D_0077FF88 = arg;
     if (D_003FAEDC == 0)
-        func_003B3F50();
+        sceFsInit();
     if (f == 0 || f->mode == 0) {
         SignalSema_3B3EF8();
         return -9;
@@ -111,7 +111,7 @@ int func_003B4D98(int fd, int cmd, void *arg)
     q->dst = &result;
     q->sema = sid;
     func_003B2850(&D_0077FFC0, 0x420);
-    if (func_003B3958(D_007816C0, 5, 0, &D_0077FFC0, 0x420, D_00780C00, 4, 0, 0, 0) < 0) {
+    if (sceFsSifCallRpc(D_007816C0, 5, 0, &D_0077FFC0, 0x420, D_00780C00, 4, 0, 0, 0) < 0) {
         DeleteSema(sid);
         SignalSema_3B3EF8();
         return -11;
@@ -127,5 +127,5 @@ int func_003B4D98(int fd, int cmd, void *arg)
     return result;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003B4D98);
+INCLUDE_ASM("asm/nonmatching", sceIoctl);
 #endif

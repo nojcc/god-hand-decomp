@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00354EC8 (cygnus-2.96): field copy matches, but retail hoists
+/* NON_MATCHING sfmpv_SetFrmInf (cygnus-2.96): field copy matches, but retail hoists
  * the source loads above the record stores (first-pass scheduling, t0-t2 temporaries) while keeping the record
  * stores and the *out reloads in order; no typing of the pointers reproduces both. */
 #include "include_asm.h"
@@ -9,10 +9,10 @@
 #define B(b, o) (*(unsigned char *)((char *)(b) + (o)))
 #define L(b, o) (*(long *)((char *)(b) + (o)))
 
-extern int *func_00355490(char *ctx);
+extern int *SFMPVF_SearchVfrmData(char *ctx);
 
-__attribute__((section(".text.func_00354EC8")))
-void func_00354EC8(char *ctx, char *src, char **out)
+__attribute__((section(".text.sfmpv_SetFrmInf")))
+void sfmpv_SetFrmInf(char *ctx, char *src, char **out)
 {
     char *cur;
     int *p;
@@ -20,7 +20,7 @@ void func_00354EC8(char *ctx, char *src, char **out)
     char *h;
 
     cur = *(char **)(ctx + 0x1FC0);
-    p = func_00355490(ctx);
+    p = SFMPVF_SearchVfrmData(ctx);
     h = src + 0x5C;
     *p = 1;
     d = (char *)(p + 2);
@@ -71,5 +71,5 @@ void func_00354EC8(char *ctx, char *src, char **out)
     B(*out, 0x7A) = B(h, 0x64);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00354EC8);
+INCLUDE_ASM("asm/nonmatching", sfmpv_SetFrmInf);
 #endif

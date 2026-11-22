@@ -19,12 +19,12 @@ extern char D_004547E0[];
 extern char D_00454818[];
 extern char D_00454848[];
 extern char D_003DA250[];
-extern void func_003351C0(char *name, FileInfo334 *info);
+extern void htci_get_finf(char *name, FileInfo334 *info);
 extern void func_00334D68(char *name, char *path);
 extern void PushGlobalD8478History_331C78(int tag);
-extern int func_00331EE8(char *path, int mode);
+extern int SRD_SceOpen(char *path, int mode);
 extern int func_00331DB8(int fd, int ofs, int whence);
-extern int func_00331F50(int fd);
+extern int SRD_SceClose(int fd);
 extern void func_00334008(void *obj, char *msg);
 
 __attribute__((section(".text.func_00334310")))
@@ -40,12 +40,12 @@ int func_00334310(char *name)
         func_00334008(0, D_00454708);
         return 0;
     }
-    func_003351C0(name, &info);
+    htci_get_finf(name, &info);
     if (info.size == 0) {
         path = D_003DA250;
         func_00334D68(name, path);
         PushGlobalD8478History_331C78(0x4400);
-        fd = func_00331EE8(path, 1);
+        fd = SRD_SceOpen(path, 1);
         PushGlobalD8478History_331C78(0x4401);
         if (fd < 0) {
             func_003260C8(D_00454738, path);
@@ -71,12 +71,12 @@ int func_00334310(char *name)
         if (size < 0) {
             func_00334008(0, D_00454818);
             PushGlobalD8478History_331C78(0x4500);
-            func_00331F50(fd);
+            SRD_SceClose(fd);
             PushGlobalD8478History_331C78(0x4501);
             return 0;
         }
         PushGlobalD8478History_331C78(0x5000);
-        r = func_00331F50(fd);
+        r = SRD_SceClose(fd);
         PushGlobalD8478History_331C78(0x5001);
         if (r < 0) {
             func_00334008(0, D_00454848);

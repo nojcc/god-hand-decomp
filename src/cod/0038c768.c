@@ -3,9 +3,9 @@
 #include "godhand/libio.h"
 #include "godhand/sceDma.h"
 
-__attribute__((section(".text.func_003974D0")))
-void func_003974D0(sceDmaChan *chan, void *addr, int qwc) {
-    unsigned int dst = func_003970A0((unsigned int)addr);
+__attribute__((section(".text.sceDmaRecvN")))
+void sceDmaRecvN(sceDmaChan *chan, void *addr, int qwc) {
+    unsigned int dst = CheckAddress((unsigned int)addr);
     int chcr;
     WaitDma(chan);
     if ((unsigned int)chan->madr != 0xFFFFFFFFU)

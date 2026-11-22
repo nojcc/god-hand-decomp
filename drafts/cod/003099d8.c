@@ -5,7 +5,7 @@
 #ifdef NON_MATCHING
 #include "godhand/sceDma.h"
 
-extern int func_00397550(sceDmaChan *chan, int mode, int timeout);
+extern int sceDmaSync(sceDmaChan *chan, int mode, int timeout);
 typedef unsigned int  u_int;
 typedef unsigned long u_long;
 
@@ -77,7 +77,7 @@ void func_003099D8(int psm, int tbp, int tbw, int w, int h, char *data)
     }
     bitbltbuf = ((u_long)tbp << 32) | ((u_long)tbw << 48) | ((u_long)psm << 56);
     do {
-        func_00397550(SCE_DMA_GIF, 0, 0);
+        sceDmaSync(SCE_DMA_GIF, 0, 0);
         if (left < chunk) {
             n = left;
             lines = (left + stride - 1) / stride;
@@ -106,7 +106,7 @@ void func_003099D8(int psm, int tbp, int tbw, int w, int h, char *data)
         SPR_PACKET->reftag[1] = 0;
         y += lines;
         data += n;
-        func_003973E8(SCE_DMA_GIF, (void *)(0x70000000 | 0x80000000));
+        sceDmaSend(SCE_DMA_GIF, (void *)(0x70000000 | 0x80000000));
     } while (left != 0);
 }
 #else

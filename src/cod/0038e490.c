@@ -19,10 +19,10 @@ void _IO_seekpos(struct _IO_FILE *fp, int pos, int mode)
 
 
 
-__attribute__((section(".text.func_003973E8")))
-void func_003973E8(sceDmaChan *chan, void *tag)
+__attribute__((section(".text.sceDmaSend")))
+void sceDmaSend(sceDmaChan *chan, void *tag)
 {
-    unsigned int addr = func_003970A0((unsigned int)tag);
+    unsigned int addr = CheckAddress((unsigned int)tag);
     WaitDma(chan);
     if ((unsigned int)chan->tadr != 0xFFFFFFFFU)
         chan->tadr = (void *)addr;

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_0034AC60: open the ADX stream for a handle: create the ADXT on the work at 0x35B0, map its buffer, fill the callback table at 0x365C, then start it.
+/* NON_MATCHING SFADXT_Create: open the ADX stream for a handle: create the ADXT on the work at 0x35B0, map its buffer, fill the callback table at 0x365C, then start it.
 * The inline setter gives retail's register for every callback address.
 * Left: retail forms cb (s1+0x365C) between the low halves and loads adxt->id only after the 0x2114 and 0x14 stores; int-typed fields keep the load late but reshuffle the registers. */
 #include "include_asm.h"
@@ -43,8 +43,8 @@ extern AdxOpenAdxt *sfadxt_CreateEx(AdxOpenInfo *info);
 extern int func_003395A0(int a, int b, int c);
 extern int func_0034DD70(AdxOpenHn *hn, int code);
 extern void func_00329D38(AdxOpenAdxt *adxt, int span);
-extern void func_0034B3E0(AdxOpenHn *hn, int on);
-extern void func_0034AFF0(AdxOpenHn *hn);
+extern void sfadxt_WaitStart(AdxOpenHn *hn, int on);
+extern void sfadxt_SetTimeFn(AdxOpenHn *hn);
 extern void func_00349BA8(int a0, int a1, int a2);
 extern void func_00349BC8(int a0, int a1);
 extern void func_00349BE8(int a0, int a1);
@@ -61,7 +61,7 @@ static inline void SetCb34AC60(AdxOpenCb *cb, int id, void *f0, void *f1, void *
     cb->fn[4] = f4;
 }
 
-int func_0034AC60(AdxOpenHn *hn)
+int SFADXT_Create(AdxOpenHn *hn)
 {
     AdxOpenInfo *info = &hn->info;
     AdxOpenRec *rec = &hn->recbuf;
@@ -88,10 +88,10 @@ int func_0034AC60(AdxOpenHn *hn)
     hn->cb = cb;
     SetCb34AC60(cb, adxt->id, func_00349BA8, func_00349BC8, func_00349BE8, func_00349C08, TargetOwner_setLogScaleValue);
     func_00329D38(adxt, span);
-    func_0034B3E0(hn, 1);
-    func_0034AFF0(hn);
+    sfadxt_WaitStart(hn, 1);
+    sfadxt_SetTimeFn(hn);
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_0034AC60);
+INCLUDE_ASM("asm/nonmatching", SFADXT_Create);
 #endif

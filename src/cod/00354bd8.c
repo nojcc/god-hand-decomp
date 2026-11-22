@@ -23,7 +23,7 @@ extern int D_00766C18;
 extern int D_00766C1C;
 extern int D_00766C20;
 
-extern void func_003567E0(char *p);
+extern void SFMPVP_Destroy(char *p);
 extern int func_00354D68(int id);
 
 __attribute__((section(".text.func_00354BD8")))
@@ -40,7 +40,7 @@ int func_00354BD8(char *p)
     D_00766C18 = req->x;
     D_00766C1C = req->y;
     D_00766C20 = req->z;
-    func_003567E0(p);
+    SFMPVP_Destroy(p);
     if (func_00354D68(id))
         return func_0034DD70((SftimHn *)p, 0xFF000F0C);
     req->id = 0;

@@ -5,7 +5,7 @@ extern int strlen(const char *s);
 extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern void toUpperStr(char *s);
 
-void func_00330920(char *path, char *dev, char *fname)
+void getDevName(char *path, char *dev, char *fname)
 {
     int i, j;
 
@@ -39,5 +39,5 @@ void func_00330920(char *path, char *dev, char *fname)
     toUpperStr(path);
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00330920);
+INCLUDE_ASM("asm/nonmatching", getDevName);
 #endif

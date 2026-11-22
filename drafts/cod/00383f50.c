@@ -20,7 +20,7 @@ typedef struct MuteMix {
 } MuteMix;
 
 extern int func_00384138(char *o, MuteSel *s);
-extern void func_0032EC78(void *h, int ch, int vol);
+extern void AIXP_SetTrackVol(void *h, int ch, int vol);
 
 __attribute__((section(".text.func_00383F50")))
 void func_00383F50(char *o, char *ev)
@@ -51,15 +51,15 @@ void func_00383F50(char *o, char *ev)
         return;
     if (s->cur != 0) {
         if (c->mute[s->cur] != 0)
-            func_0032EC78(c->h, s->cur - 1, -0x3C0);
+            AIXP_SetTrackVol(c->h, s->cur - 1, -0x3C0);
         else
-            func_0032EC78(c->h, s->cur - 1, s->vol[s->cur]);
+            AIXP_SetTrackVol(c->h, s->cur - 1, s->vol[s->cur]);
     } else if (c->mute[s->cur] != 0) {
         for (i = 0; i < c->nch; i++)
-            func_0032EC78(c->h, i, -0x3C0);
+            AIXP_SetTrackVol(c->h, i, -0x3C0);
     } else {
         for (i = 1; i <= c->nch; i++)
-            func_0032EC78(c->h, i - 1, s->vol[i]);
+            AIXP_SetTrackVol(c->h, i - 1, s->vol[i]);
     }
 }
 #else

@@ -20,8 +20,8 @@ void cDamageUnit_SetDamageCollFlashActiveById(cDamageUnit *self, int id, int act
     }
 }
 
-__attribute__((section(".text.func_002E12D8")))
-int func_002E12D8(signed char c) {
+__attribute__((section(".text.sp_char_ck")))
+int sp_char_ck(signed char c) {
     switch (c) {
     case 1: return 0x7D;
     case 2: return 0x60;

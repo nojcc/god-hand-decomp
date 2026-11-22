@@ -71,7 +71,7 @@ int LoadEntryByValue_1FFD00(PathTable *table, const char *name, void *dest) {
     while (func_003244C8(fd) != 3) {
         sceGsSyncV(0);
     }
-    return func_00323A70(fd);
+    return ADXF_Close(fd);
 }
 
 __attribute__((section(".text.SetColorRgba_1FFE60")))

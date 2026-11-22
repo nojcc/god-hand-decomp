@@ -4,9 +4,9 @@
 #ifdef NON_MATCHING
 extern int GetD003E9D5C_33C718(void);
 extern void func_0033F1A8(void *a0, void *a1);
-extern void func_0033ACA0(void *a0, int a1, void *a2, void *a3);
+extern void SJ_SplitChunk(void *a0, int a1, void *a2, void *a3);
 extern int ADXB_DecodeHeader(void *a0, void *a1, int a2);
-extern void func_0033CC50(void *a0);
+extern void ADXB_SetDefPrm(void *a0);
 extern int Obj33C8_GetShort_98(void *a0);
 extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern char D_00451E48[];
@@ -44,7 +44,7 @@ void func_00326890(char *self)
         self[1] = 4;
         return;
     }
-    func_0033ACA0(b0, i, b10, b0);
+    SJ_SplitChunk(b0, i, b10, b0);
     (*(void (**)())(*(int *)s0 + 0x20))(s0, 0, b10);
     if (b0[1] < 16) {
         (*(void (**)())(*(int *)s0 + 0x1C))(s0, 1, b0);
@@ -57,7 +57,7 @@ void func_00326890(char *self)
     }
     if (r < 0) {
         if (*(short *)(s2 + 0x9A) != 0) {
-            func_0033CC50(s2);
+            ADXB_SetDefPrm(s2);
             r = 0;
         } else {
             (*(void (**)())(*(int *)s0 + 0x1C))(s0, 1, b0);
@@ -77,7 +77,7 @@ void func_00326890(char *self)
     if ((unsigned int)(k - 10) < 3 || k == 20 || k == 15) {
         (*(void (**)())(*(int *)s0 + 0x1C))(s0, 1, b0);
     } else {
-        func_0033ACA0(b0, r, b0, b10);
+        SJ_SplitChunk(b0, r, b0, b10);
         (*(void (**)())(*(int *)s0 + 0x20))(s0, 0, b0);
         (*(void (**)())(*(int *)s0 + 0x1C))(s0, 1, b10);
     }

@@ -10,8 +10,8 @@
 #ifdef NON_MATCHING
 extern int func_003A50B4(const void *a, const void *b, int n);
 extern int func_00324500(signed char *adxf);
-extern int func_00324858(int ent);
-extern void func_00322F18(void);
+extern int ADXF_CALC_BYTE2SCT(int ent);
+extern void adxf_CloseLdptnwHn(void);
 extern int ADXF_ReadNw(signed char *adxf, int nsct, unsigned char *buf);
 
 extern int D_003EB834;
@@ -72,13 +72,13 @@ int func_00323050(int ptid)
         if (func_003A50B4(D_003C5298, D_00451528, 3) != 0) {
             func_0033F130(D_00451530);
             D_003EB840 = 4;
-            func_00322F18();
+            adxf_CloseLdptnwHn();
             return D_003EB840;
         }
         if (ADXF_LE32(D_003C5298 + 4) > 0x10000) {
             func_0033F130(D_00451568);
             D_003EB840 = 4;
-            func_00322F18();
+            adxf_CloseLdptnwHn();
             return D_003EB840;
         }
         nfile = D_003C5298[4] | (D_003C5298[5] << 8);
@@ -101,18 +101,18 @@ int func_00323050(int ptid)
         if (pt->type == 1) {
             tbl32[D_003EB834++] = ADXF_LE32(D_003C5298 + i * 4);
         } else {
-            sct = func_00324858(ADXF_LE32(D_003C5298 + i * 4));
+            sct = ADXF_CALC_BYTE2SCT(ADXF_LE32(D_003C5298 + i * 4));
             if (sct & 0xFFFF0000) {
                 func_0033F130(D_004515A0);
                 D_003EB840 = 4;
-                func_00322F18();
+                adxf_CloseLdptnwHn();
                 return D_003EB840;
             }
             tbl16[D_003EB834++] = sct;
         }
         if (D_003EB834 >= pt->unk08) {
             D_003EB840 = 3;
-            func_00322F18();
+            adxf_CloseLdptnwHn();
             break;
         }
     }
@@ -121,7 +121,7 @@ int func_00323050(int ptid)
     }
     if (ADXF_ReadNw(D_003EB838, D_003C529C, D_003C5298) < 0) {
         D_003EB840 = 4;
-        func_00322F18();
+        adxf_CloseLdptnwHn();
         return D_003EB840;
     }
     D_003EB840 = D_003EB838[1];

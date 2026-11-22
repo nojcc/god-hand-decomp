@@ -29,7 +29,7 @@ typedef struct {
     long   trxdiraddr;
 } sceGsStoreImage;
 
-extern int func_00395618(sceGsStoreImage *sg, short sbp, short sbw, short spsm,
+extern int sceGsSetDefStoreImage(sceGsStoreImage *sg, short sbp, short sbw, short spsm,
                          short ssax, short ssay, short rrw, short rrh);
 extern int sceGsExecStoreImage(sceGsStoreImage *sp, qword *dstaddr);
 extern u_long Tramp_GsGetIMR_3964A0(void);
@@ -84,7 +84,7 @@ void func_002F1758(void)
             x = 0x200;
         center = 8 - skip;
         func_003A52F0(D_0061B680, 0, 0x20);
-        func_00395618(&gs, 0x1F00, D_003C1180 / 64, 0x3A, x, y, 16 - skip, 1);
+        sceGsSetDefStoreImage(&gs, 0x1F00, D_003C1180 / 64, 0x3A, x, y, 16 - skip, 1);
         FlushCache(0);
         imr = func_00396008(Tramp_GsGetIMR_3964A0() | 0x400);
         ok = sceGsExecStoreImage(&gs, (qword *)D_0061B680);

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003B3F50 (ee-2.9-991111): code shape matches; retail computes the
+/* NON_MATCHING sceFsInit (ee-2.9-991111): code shape matches; retail computes the
  * D_00781740 address into s0/s1 before sceSifInitRpc (this swaps s0/s1), and the split asm pairs the delay loop's
  * lui 0x10 / addiu -1 as %hi/%lo of the auto symbol D_FFFFF, which no C source reproduces. */
 #include "godhand/eeKernel.h"
@@ -43,16 +43,16 @@ extern void _sceFs_Poff_Intr(int a0, PoffCb *cb);
 extern void sceSifInitRpc(unsigned int mode);
 extern int func_003B63A0(void);
 extern void func_003B2488(unsigned int cmd, void (*fn)(void), void *data);
-extern int func_003B2F48(FsCdRpc *cd, unsigned int num, int mode);
+extern int sceSifBindRpc(FsCdRpc *cd, unsigned int num, int mode);
 extern void func_003B3858(void);
 extern int WaitSema(int sema);
 extern int SignalSema(int sema);
-extern int func_003B3958(FsCdRpc *cd, int fno, int mode, void *send, int ssize, void *recv, int rsize,
+extern int sceFsSifCallRpc(FsCdRpc *cd, int fno, int mode, void *send, int ssize, void *recv, int rsize,
                          void *end, void *param, int pad);
 extern void *memcpy(void *dst, const void *src, unsigned int n);
 
-__attribute__((section(".text.func_003B3F50")))
-int func_003B3F50(void)
+__attribute__((section(".text.sceFsInit")))
+int sceFsInit(void)
 {
     FsFdRpc *fd;
     int oldei;
@@ -68,7 +68,7 @@ int func_003B3F50(void)
     if (oldei)
         EIntr();
     for (;;) {
-        if (func_003B2F48(&D_007816C0, 0x80000001, 0) < 0)
+        if (sceSifBindRpc(&D_007816C0, 0x80000001, 0) < 0)
             return -22;
         if (D_007816C0.server != 0)
             break;
@@ -82,7 +82,7 @@ int func_003B3F50(void)
     SignalSema(D_003FAEE8);
     D_0077FF80.start = D_00780C40;
     D_0077FF80.end = D_00780C40 + 0x440;
-    if (func_003B3958(&D_007816C0, 0xFF, 0, &D_0077FF80, 8, D_00780C00, 8, 0, 0, 0) < 0)
+    if (sceFsSifCallRpc(&D_007816C0, 0xFF, 0, &D_0077FF80, 8, D_00780C00, 8, 0, 0, 0) < 0)
         return 0xFFFEFFFF;
     memcpy(D_007816E8, (void *)((unsigned int)D_00780C00 | 0x20000000), 4);
     memcpy(&ver, (void *)((unsigned int)(D_00780C00 + 4) | 0x20000000), 4);
@@ -91,5 +91,5 @@ int func_003B3F50(void)
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003B3F50);
+INCLUDE_ASM("asm/nonmatching", sceFsInit);
 #endif

@@ -17,8 +17,8 @@ struct exc_3A1C78 {
 };
 
 extern float func_003A28F8(float x);			/* __ieee754_expf */
-extern int func_003A4CF0(float x);			/* finitef */
-extern int func_003A4AC8(void *e);		/* matherr */
+extern int finitef(float x);			/* finitef */
+extern int matherr(void *e);		/* matherr */
 extern int *Obj0000_Get_D_003FA62C_3A4FB8(void);	/* __errno */
 extern const int D_0045F024;				/* _LIB_VERSION */
 extern char D_0045EA78[];				/* "expf" */
@@ -33,7 +33,7 @@ float func_003A1C78(float x)
 	z = func_003A28F8(x);
 	if (D_0045F024 == -1)
 		return z;
-	if (func_003A4CF0(x)) {
+	if (finitef(x)) {
 		if (x > 88.7216796875f) {
 			exc.type = 3;
 			exc.name = D_0045EA78;
@@ -45,7 +45,7 @@ float func_003A1C78(float x)
 				exc.retval = D_0045EA00;
 			if (D_0045F024 == 2)
 				*Obj0000_Get_D_003FA62C_3A4FB8() = 34;
-			else if (func_003A4AC8(&exc) == 0)
+			else if (matherr(&exc) == 0)
 				*Obj0000_Get_D_003FA62C_3A4FB8() = 34;
 			if (exc.err != 0)
 				*Obj0000_Get_D_003FA62C_3A4FB8() = exc.err;
@@ -58,7 +58,7 @@ float func_003A1C78(float x)
 			exc.retval = 0.0;
 			if (D_0045F024 == 2)
 				*Obj0000_Get_D_003FA62C_3A4FB8() = 34;
-			else if (func_003A4AC8(&exc) == 0)
+			else if (matherr(&exc) == 0)
 				*Obj0000_Get_D_003FA62C_3A4FB8() = 34;
 			if (exc.err != 0)
 				*Obj0000_Get_D_003FA62C_3A4FB8() = exc.err;

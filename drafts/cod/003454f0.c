@@ -1,4 +1,4 @@
-/* NON_MATCHING func_003454F0: then-path matches via explicit locals; else-path store order (retail C,0,8,4) cannot be steered, so cross-jumping merges sw v0,8(a1) tails; */
+/* NON_MATCHING mwsflib_InitLibWork: then-path matches via explicit locals; else-path store order (retail C,0,8,4) cannot be steered, so cross-jumping merges sw v0,8(a1) tails; */
 #include "include_asm.h"
 #include "godhand/criStm.h"
 
@@ -25,7 +25,7 @@ typedef struct {
 extern MwsfdWork *GetD003EC7E0_3452B0(void);
 extern void MWSFSVR_SetMwsfdSvrFlg(int f);
 
-void func_003454F0(MwsfdIprm *iprm)
+void mwsflib_InitLibWork(MwsfdIprm *iprm)
 {
     MwsfdWork *w = GetD003EC7E0_3452B0();
     MwsfdIprm *dst;
@@ -57,5 +57,5 @@ void func_003454F0(MwsfdIprm *iprm)
     w->f188C = 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_003454F0);
+INCLUDE_ASM("asm/nonmatching", mwsflib_InitLibWork);
 #endif

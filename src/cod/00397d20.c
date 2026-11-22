@@ -12,7 +12,7 @@ int func_00397D20(int port, int slot, unsigned char *data)
 
     if (D_0077C110[port][slot].open == 0)
         return 0;
-    func_00397BC8(port, slot, &buf);
+    scePadGetDmaStr(port, slot, &buf);
     func_003A5148(data, &buf, buf.length);
     return buf.length;
 }

@@ -1,4 +1,4 @@
-/* NON_MATCHING func_00321F48 (ee-2.9-991111,jump-thread): libgcc frame.c find_fde. */
+/* NON_MATCHING find_fde (ee-2.9-991111,jump-thread): libgcc frame.c find_fde. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -20,9 +20,9 @@ struct object {
   struct object *next;
 };
 
-extern void func_00321E08(struct object *ob);
+extern void frame_init(struct object *ob);
 
-fde *func_00321F48(void *pc)
+fde *find_fde(void *pc)
 {
   struct object *ob;
   unsigned int lo, hi;
@@ -30,7 +30,7 @@ fde *func_00321F48(void *pc)
   for (ob = D_00755C18; ob; ob = ob->next)
     {
       if (ob->pc_begin == 0)
-	func_00321E08 (ob);
+	frame_init (ob);
       if (pc >= ob->pc_begin && pc < ob->pc_end)
 	break;
     }
@@ -54,5 +54,5 @@ fde *func_00321F48(void *pc)
   return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00321F48);
+INCLUDE_ASM("asm/nonmatching", find_fde);
 #endif

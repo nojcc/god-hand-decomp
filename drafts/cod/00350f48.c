@@ -19,8 +19,8 @@ extern void *func_003A5148(void *d, const void *s, unsigned int n);
 extern int MPV_CheckDelim(void *code);
 extern unsigned char *sfmpv_SearchDelim(Ring350 *rb, int type, int *flags);
 
-__attribute__((section(".text.func_00350F48")))
-int func_00350F48(Ring350 *rb, int flags, unsigned char *ptr)
+__attribute__((section(".text.sfmpv_NeedSafeDlmRefresh")))
+int sfmpv_NeedSafeDlmRefresh(Ring350 *rb, int flags, unsigned char *ptr)
 {
     Code350 code;
     unsigned char *end;
@@ -77,5 +77,5 @@ check:
     return 0;
 }
 #else
-INCLUDE_ASM("asm/nonmatching", func_00350F48);
+INCLUDE_ASM("asm/nonmatching", sfmpv_NeedSafeDlmRefresh);
 #endif

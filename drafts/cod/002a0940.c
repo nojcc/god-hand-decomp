@@ -6,7 +6,7 @@ extern char D_00747A80[];
 extern int D_00747A24;
 extern int D_003C1180;
 extern int D_003C118C;
-extern void func_002998D8(char *p, int a, int b);
+extern void cFILTER_gif_tag_start(char *p, int a, int b);
 extern void PushEntryAtField10000_299868(char *p, int reg, long val);
 extern void func_00299DE0(char *p);
 extern void func_0029F7D8(char *p);
@@ -21,7 +21,7 @@ extern void func_002A0C60(char *p);
 extern void func_002A10E8(char *p);
 extern void func_002A1640(char *p);
 extern void func_002A1BF8(char *p);
-extern void func_00299908(char *p);
+extern void cFILTER_gif_tag_end(char *p);
 extern void GifPacket_closeAndQueue(char *p);
 
 #define FLT_F(p) (*(unsigned long *)((p) + 0x140C8))
@@ -39,7 +39,7 @@ void classCFILTER_TAG_Filter_main(char *p)
     if (*(int *)a & 0x4000000)
         return;
     g = a - 0x5E0;
-    func_002998D8(p, 0, 14);
+    cFILTER_gif_tag_start(p, 0, 14);
     PushEntryAtField10000_299868(p, 0x3B, 0x8000000000L);
     f = FLT_F(p);
     if (!(f & 0x1000) && ((f & 0x80) || (FLT_G(p) & 2) || (f & 0x4018)))
@@ -74,15 +74,15 @@ void classCFILTER_TAG_Filter_main(char *p)
         *(short *)(p + 0x19ADA) = 0;
         *(char *)(p + 0x19AD8) = 0;
     }
-    func_00299908(p);
-    func_002998D8(p, 1, 14);
+    cFILTER_gif_tag_end(p);
+    cFILTER_gif_tag_start(p, 1, 14);
     PushEntryAtField10000_299868(p, 0x3F, 0xFF);
     PushEntryAtField10000_299868(p, 0x19, *(long *)(g + 0x490));
     PushEntryAtField10000_299868(p, 0x4F, 0xA0000F8);
     PushEntryAtField10000_299868(p, 0x48, 0x50000);
     PushEntryAtField10000_299868(p, 0x41, ((long)(D_003C1180 - 1) << 16) | ((long)(D_003C118C - 1) << 48));
     PushEntryAtField10000_299868(p, 0x4D, (0xE00 >> 5) | ((long)(D_003C1180 / 64) << 16));
-    func_00299908(p);
+    cFILTER_gif_tag_end(p);
     GifPacket_closeAndQueue(p);
 }
 #else

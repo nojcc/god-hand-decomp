@@ -8,14 +8,14 @@ typedef struct KindObj {
     short kind;
 } KindObj;
 
-extern void func_00341D18(KindObj *o);
+extern void ADXB_ExecOneAuUlaw(KindObj *o);
 extern void func_00341B98(KindObj *o);
 extern void func_00341A00(KindObj *o);
 
 void func_00341EC0(KindObj *o)
 {
     if (o->kind == 2)
-        func_00341D18(o);
+        ADXB_ExecOneAuUlaw(o);
     else if (o->kind == 1)
         func_00341B98(o);
     else
