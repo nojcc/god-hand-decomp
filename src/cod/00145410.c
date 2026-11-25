@@ -20,6 +20,7 @@ void func_001F3260(CustomIDPanel *self) {
 
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/cIDBaseScreenFn.h"
 /* func_001B6710 — sn-2.95.3-136 */
 
 

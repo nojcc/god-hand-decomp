@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmWeapon.h"
-#include "godhand/cModel.h"
 
+extern void cModel_calcParts(void *m);
 extern void cOmBase_setMeshColorFromLayer(void *a0, int a1, float r, float g, float b);
 extern float fRand0_1(void);
 extern float fRand1_1(void);
@@ -21,12 +21,12 @@ static inline int GetLayerObj(char *a0, int *frame, int idx)
     return 0;
 }
 
-/* Throw a weapon with velocity pos and throw argument arg and enter state 0x11. */
+/* Throw a weapon with velocity vel, keep the thrower and enter state 0x11. */
 __attribute__((section(".text.func_001D0140")))
-void func_001D0140(cOmWeapon *self, cVec *pos, int arg)
+void func_001D0140(cOmWeapon *self, const cVec *vel, cGameObj *thrower)
 {
     unsigned char frame[0x10];
-    cOmBase *holder;
+    cGameObj *holder;
     cVec *d;
     cOmBase *body;
 
@@ -46,11 +46,11 @@ void func_001D0140(cOmWeapon *self, cVec *pos, int arg)
         body->rot.x = 0.0f;
         body->rot.y = 0.0f;
         body->rot.z = 0.0f;
-        cModel_calcParts((cModel *)self);
-        self->throwArg = arg;
+        cModel_calcParts(self);
+        self->thrower = thrower;
         {
             cVec *d2 = &self->vel;
-            if (d2 != pos) { d2->x = pos->x; d2->y = pos->y; d2->z = pos->z; }
+            if (d2 != vel) { d2->x = vel->x; d2->y = vel->y; d2->z = vel->z; }
         }
         self->base.mode = 0;
         self->base.phase = 0x11;
@@ -63,12 +63,12 @@ void func_001D0140(cOmWeapon *self, cVec *pos, int arg)
 
 
 
-/* Throw a weapon with velocity pos and throw argument arg and enter state 0x12. */
+/* Throw a weapon with velocity vel, keep the thrower and enter state 0x12. */
 __attribute__((section(".text.func_001D0240")))
-void func_001D0240(cOmWeapon *self, cVec *pos, int arg)
+void func_001D0240(cOmWeapon *self, const cVec *vel, cGameObj *thrower)
 {
     unsigned char frame[0x10];
-    cOmBase *holder;
+    cGameObj *holder;
     cVec *d;
     cOmBase *body;
 
@@ -88,11 +88,11 @@ void func_001D0240(cOmWeapon *self, cVec *pos, int arg)
         body->rot.x = 0.0f;
         body->rot.y = 0.0f;
         body->rot.z = 0.0f;
-        cModel_calcParts((cModel *)self);
-        self->throwArg = arg;
+        cModel_calcParts(self);
+        self->thrower = thrower;
         {
             cVec *d2 = &self->vel;
-            if (d2 != pos) { d2->x = pos->x; d2->y = pos->y; d2->z = pos->z; }
+            if (d2 != vel) { d2->x = vel->x; d2->y = vel->y; d2->z = vel->z; }
         }
         self->base.mode = 0;
         self->base.phase = 0x12;
@@ -105,12 +105,12 @@ void func_001D0240(cOmWeapon *self, cVec *pos, int arg)
 
 
 
-/* Let go of the holder and enter state 0x14 with the throw argument cleared. */
+/* Let go of the holder and enter state 0x14 with the thrower cleared. */
 __attribute__((section(".text.func_001D0340")))
 void func_001D0340(cOmWeapon *self)
 {
     unsigned char frame[0x10];
-    cOmBase *holder;
+    cGameObj *holder;
     cVec *d;
     cOmBase *body;
 
@@ -130,8 +130,8 @@ void func_001D0340(cOmWeapon *self)
         body->rot.x = 0.0f;
         body->rot.y = 0.0f;
         body->rot.z = 0.0f;
-        cModel_calcParts((cModel *)self);
-        self->throwArg = 0;
+        cModel_calcParts(self);
+        self->thrower = 0;
         self->base.mode = 0;
         self->base.phase = 0x14;
         self->base.step = 0;
@@ -143,12 +143,12 @@ void func_001D0340(cOmWeapon *self)
 
 
 
-/* Let go of the holder and enter state 0x15 with the throw argument cleared. */
+/* Let go of the holder and enter state 0x15 with the thrower cleared. */
 __attribute__((section(".text.func_001D0408")))
 void func_001D0408(cOmWeapon *self)
 {
     unsigned char frame[0x10];
-    cOmBase *holder;
+    cGameObj *holder;
     cVec *d;
     cOmBase *body;
 
@@ -168,8 +168,8 @@ void func_001D0408(cOmWeapon *self)
         body->rot.x = 0.0f;
         body->rot.y = 0.0f;
         body->rot.z = 0.0f;
-        cModel_calcParts((cModel *)self);
-        self->throwArg = 0;
+        cModel_calcParts(self);
+        self->thrower = 0;
         self->base.mode = 0;
         self->base.phase = 0x15;
         self->base.step = 0;
@@ -254,7 +254,7 @@ __attribute__((section(".text.func_001CFD60")))
 void func_001CFD60(cOmWeapon *self, int target)
 {
     unsigned char frame[0x10];
-    cOmBase *holder;
+    cGameObj *holder;
     cVec *d;
     cOmBase *body;
     float f;
@@ -275,7 +275,7 @@ void func_001CFD60(cOmWeapon *self, int target)
         body->rot.x = 0.0f;
         body->rot.y = 0.0f;
         body->rot.z = 0.0f;
-        cModel_calcParts((cModel *)self);
+        cModel_calcParts(self);
         self->target = target;
         self->unk6A0 = 0;
         self->unk6A4 = fRand0_1() * 2.0f + 2.0f;

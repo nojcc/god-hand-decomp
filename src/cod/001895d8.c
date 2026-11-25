@@ -1,27 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEmSetParam.h"
-#include "godhand/cNode.h"
-#include "godhand/PanelObj.h"
 #include "godhand/cOmBase.h"
+#include "godhand/cSnd.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vu0.h"
-#include "godhand/cSnd.h"
-#include "godhand/cModel.h"
-#include "godhand/emPhaseTable.h"
 
 extern void cEmSetParam_setEm(cEmSetParam *param, int entry);
 extern void cEmWrap_StartAction(void *wrap);
-extern char D_005E8040[];
-extern char *Pool_createObjWithScale(char *pool);
-extern void KeySlotTable_set(char *slot, int a1, int a2);
+extern void func_001DEE60(void *self, int sel, int on);
 extern float Turn_dest_dir(float cur, float dest, float speed);
 extern float Adjust_theta(float f12);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E6B88(void *obj, float y);
-extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
-extern void func_001B76D8(cOmBase *self);
+extern int ClearField5B4IfFlagUnset_1B76B0(int self);
+extern void func_001B76D8(void *self);
 
 /* Arena wave step: step 0 defeats every enemy and starts a 600 frame timer; step 1 waits until two enemies are down or the timer runs out, then sets the first enemy up and starts its action. */
 #define ARENA_WAIT_FRAMES  0x258
@@ -63,70 +58,50 @@ void ArenaEm_stepFirstWave(ArenaEm *self)
     }
 }
 
-typedef struct KeyHolder {
-    char unk00[0xC0];
-    cVec *pos;              /* 0xC0 */
-} KeyHolder;
-
-typedef struct KeyLink {
-    char unk00[0x34];
-    KeyHolder *holder;      /* 0x34 */
-} KeyLink;
-
-/* An object that follows a position taken from a key-slot holder. */
-typedef struct KeyFollower {
-    cVec posA;              /* 0x00 */
-    cVec posB;              /* 0x10 */
-    char unk20[8];
-    KeyLink *link;          /* 0x28 */
-    short id;               /* 0x2C */
-    unsigned char ready;    /* 0x2E */
-} KeyFollower;
-
-
-/* Take a key slot from the scaled pool (-1 when none is left), register it, and start both
- * position copies from the holder's position. Returns the object id. */
-__attribute__((section(".text.KeyFollower_attachScaled")))
-int KeyFollower_attachScaled(KeyFollower *self, int a1, int a2, int a3, int key)
+/* Take a sphere unit from the pool for the node (-1 when none is left), store owner under key 1, and start both
+ * position copies from the shape's position. Returns the node's id. */
+__attribute__((section(".text.cDamageNode_attachSphere")))
+int cDamageNode_attachSphere(cDamageNode *self, int group, const struct cMatrix *mtx, const cVec *ofs,
+                             float radius, cDamageUnit *owner)
 {
-    char *slot;
-    slot = Pool_createObjWithScale(D_005E8040);
-    self->link = (KeyLink *)slot;
-    if (slot == 0) {
+    cCollisionUnit *unit;
+    unit = Pool_createObjWithScale(&D_005E8040, group, mtx, ofs, radius);
+    self->unit = unit;
+    if (unit == 0) {
         return -1;
     }
-    KeySlotTable_set(slot + 0x14, 1, key);
-    cVec_copy3(&self->posB, self->link->holder->pos);
+    KeySlotTable_set(unit->keyTable, 1, (int)owner);
+    cVec_copy3(&self->posB, self->unit->shape->pos);
     cVec_copy3(&self->posA, &self->posB);
     self->ready = 1;
     return self->id;
 }
 
 /* The element that slides in and out sits at 0xDC of the owner. */
-#define SLIDE_ELEM      1               /* the sliding element */
+#define OWNER_SLIDE_IDW(self) ((CustomIDWork *)((char *)(self) + 0xDC))
 #define SLIDE_HIDDEN_Y  (-0x46)
 
 /* Place or slide the element in (sel 2: down from hidden to shown over 10 frames; sel 3:
  * the way back; sel 1: shown at once; others: hidden). */
 __attribute__((section(".text.CustomIDOwner_setSlideStateB")))
-void CustomIDOwner_setSlideStateB(PanelObj *self, unsigned char sel)
+void CustomIDOwner_setSlideStateB(void *self, unsigned char sel)
 {
     switch (sel) {
     case 0:
     default:
-        CustomIDWork_SetOffsetPosY(&self->elem[SLIDE_ELEM], SLIDE_HIDDEN_Y);
+        CustomIDWork_SetOffsetPosY(OWNER_SLIDE_IDW(self), SLIDE_HIDDEN_Y);
         func_001DEE60(self, 1, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosY(&self->elem[SLIDE_ELEM], 0);
+        CustomIDWork_SetOffsetPosY(OWNER_SLIDE_IDW(self), 0);
         func_001DEE60(self, 1, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosY(&self->elem[SLIDE_ELEM], SLIDE_HIDDEN_Y, 0, 10);
+        CustomIDWork_SetMoveOffsetPosY(OWNER_SLIDE_IDW(self), SLIDE_HIDDEN_Y, 0, 10);
         func_001DEE60(self, 1, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosY(&self->elem[SLIDE_ELEM], 0, SLIDE_HIDDEN_Y, 10);
+        CustomIDWork_SetMoveOffsetPosY(OWNER_SLIDE_IDW(self), 0, SLIDE_HIDDEN_Y, 10);
         func_001DEE60(self, 1, 1);
         break;
     }
@@ -151,7 +126,7 @@ void cGameObjTurnB_stepTurn(cGameObjTurnB *self) {
     switch (self->base.step) {
     case 0:
         if (self->base.actorId != ACTOR_ID_A && self->base.actorId != ACTOR_ID_B) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 3, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 3, (cObj *)self, 0, 0, 0, 0);
         }
         self->base.stepArg = 0;
         self->base.step = 1;
@@ -220,6 +195,7 @@ void Pos_followGroundB(char *self)
  * handler is the pointer stored at entry + 4. Then run func_001B76D8. */
 
 
+
 typedef struct StateEntry {
     short adjust;                       /* 0x0 */
     short selector;                     /* 0x2 */
@@ -231,14 +207,37 @@ typedef struct StateTable {
     StateEntry e[4];
 } StateTable;
 
-extern EmPhaseTable4 D_004235D0;
+extern StateTable D_004235D0;
 
 __attribute__((section(".text.StateObj_runHandlerB")))
-void StateObj_runHandlerB(cOmBase *self)
+void StateObj_runHandlerB(void *a0)
 {
-    EmPhaseTable4 tbl;
-    if (ClearField5B4IfFlagUnset_1B76B0(self) == 0) return;
+    char *s0 = (char *)a0;
+    StateTable tbl;
+    char *e;
+    int i8;
+    int f0;
+    int type;
+    int arg;
+    int (*fp)(int);
+    long entry;
+    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
     tbl = D_004235D0;
-    EM_PHASE_RUN(&tbl, self, self->mode);
-    func_001B76D8(self);
+    i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
+    e = (char *)&tbl + i8;
+    type = *(short *)(e + 2);
+    if (type >= 0) {
+        int base = *(int *)(s0 + *(short *)(e + 4));
+        entry = *(long *)(base + type * 8 - 8);
+        fp = (int (*)(int))(int)(entry >> 32);
+    } else {
+        fp = *(int (**)(int))((char *)&tbl + i8 + 4);
+    }
+    f0 = tbl.e[*(unsigned char *)(s0 + 0x2F4)].adjust;
+    if (type >= 0)
+        arg = (short)entry + f0;
+    else
+        arg = f0;
+    fp((int)(s0 + arg));
+    func_001B76D8(s0);
 }

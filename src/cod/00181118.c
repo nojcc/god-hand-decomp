@@ -3,8 +3,8 @@ extern void func_00180CD8(char *self);
 
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
-#include "godhand/emPhaseTable.h"
 #include "godhand/cSnd.h"
+#include "godhand/emPhaseTable.h"
 #include "godhand/cDamageUnit.h"
 
 __attribute__((section(".text.func_00181118")))
@@ -48,7 +48,7 @@ void func_00181118(char *self)
             *(short *)(self + 0x600) = 8;
             *(float *)(self + 0x604) = (*(float **)(self + 0xF0))[1];
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, (cObj *)self, 0, 0, 0, 0);
         }
     }
     func_00180CD8(self);

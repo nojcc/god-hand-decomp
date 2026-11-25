@@ -3,7 +3,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/criStm.h"
 #include "godhand/espSys.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/DogRace.h"
 #include "godhand/gameWork.h"

@@ -1,6 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/heapArena.h"
 #include "godhand/Poker.h"
+#include "godhand/cIDBaseFn.h"
+#include "godhand/BlackJackFn.h"
+#include "godhand/PanelObjFn.h"
+#include "godhand/PokerFn.h"
 #include "godhand/cDvd.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cCoreSave.h"

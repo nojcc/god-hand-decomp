@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/cOmBase.h"
 #include "godhand/mtx.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 extern void capVu0AddVectorXYZ(void *a0, void *a1, void *a2);
 extern void sceVu0MulVector(void *a0, void *a1, void *a2);

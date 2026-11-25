@@ -1,22 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
-
-#include "godhand/cModel.h"
-#include "godhand/cTaskWork.h"
-#include "godhand/criStm.h"
-#include "godhand/heapArena.h"
-#include "godhand/cTaskManager.h"
-#include "godhand/vu0.h"
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cObjBase.h"
+
+#include "godhand/cTaskWork.h"
+#include "godhand/cTaskManager.h"
+#include "godhand/vu0.h"
+#include "godhand/objFactory.h"
 #include "godhand/globals.h"
 
 extern int D_00747A34;
+extern char D_00754C10[];
+extern void *_MemoryAlloc(int size, int align, void *region);
+extern void func_003A52F0(void *dst, int val, int len);
 extern void func_002D58E8(void *work, void *entry, int arg);
 extern void func_002D5440(cTaskManager *self, int index);
 extern void InitFields_1B6E90(void *);
 #include "godhand/objField.h"
-#include "godhand/vtables.h"
-#include "godhand/objFactory.h"
 extern int D_00428778;
 
 /* Allocate and zero a 0x4D0-byte object, run the base constructor and set its vtable pointer; 0 if the allocator is locked or full. */
@@ -31,7 +30,7 @@ __attribute__((section(".text.CreateObjectWithVtableC")))
 void *CreateObjectWithVtableC(void) {
     struct cObjBase *s0;
     if (D_00747A34 & 0x10000) return 0;
-    s0 = _MemoryAlloc(0x4D0, 0x10, &D_00754C10);
+    s0 = _MemoryAlloc(0x4D0, 0x10, D_00754C10);
     if (s0 == 0) return 0;
     func_003A52F0(s0, 0, 0x4D0);
     cObjBase(s0);

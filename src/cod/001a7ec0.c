@@ -2,11 +2,18 @@
 
 #include "godhand/cMovie.h"
 #include "godhand/regTbl.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cE3.h"
 #include "godhand/cOm53.h"
 #include "godhand/cMc.h"
 #include "godhand/player.h"
+
+/* 1 while the track holds a player. The unsigned char result is what makes
+ * the compiler build the 0/1 with a branch, as retail does. */
+static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
+    if (t->handle != 0) return 1;
+    return 0;
+}
 
 extern void func_002B4A50(cMovie *self);
 extern void cMovieTrack_stop(cMovieTrack *track);

@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/cOmWeapon.h"
+#include "godhand/cOmWeaponFn.h"
 #include "godhand/motion.h"
 #include "godhand/globals.h"
 
@@ -388,8 +388,8 @@ void func_00247050(cEm00 *self)
         v1 = EM_RES(self);
         func_002A8578(self, *(int *)(v1 + 0x11A8) + v1, *(int *)(v1 + 0x11B4) + v1,
                       0xA, 0.0f, t0, 0);
-        if (self->fx0 != 0) {
-            Obj1D00_SetState_6_E_a1(&self->fx0->base, 0);
+        if (self->weapon366 != 0) {
+            Obj1D00_SetState_6_E_a1(&self->weapon366->base, 0);
         }
         self->step = self->step + 1;
     case 3:

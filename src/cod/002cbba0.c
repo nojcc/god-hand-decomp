@@ -1,6 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
+#include "godhand/cBgmData.h"
+
+extern int cSeData_IsAlive(void *d);
 
 
 /* Stops a voice, then remembers its handle in the first free stop slot. */

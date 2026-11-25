@@ -1,5 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
+#include "godhand/cBgmData.h"
+
+/* The sound object's own storage, addressed by retail as separate symbols. */
+extern cSndSeEntry D_005FEFF0[];        /* the sound-effect slots seEntry points at */
+extern cBgmData D_005FFCF0[];           /* the BGM data records bgm points at */
+extern cSndSeVoice D_005FFD80[];        /* the voice pool */
+extern cSndBgmNode D_00601180[];        /* the BGM node pool */
 
 
 /* sn-2.95.3-136 matched TU. One CALL-loop -> one errata pad nop

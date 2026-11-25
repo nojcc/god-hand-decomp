@@ -5,6 +5,7 @@
 #include "godhand/cDamageManage.h"
 #include "godhand/vtables.h"
 #include "godhand/globals.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern float fRand1_1(void);
 extern void func_001DEE60(void *ui, int sub, int on);

@@ -51,12 +51,12 @@ void func_00233DD8(cEm00 *self)
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x1178);
             }
-            func_002A8578((int)self, recA, recB, 10, 0.0f, sel, 0);
-            if (self->fx0 != 0) {
+            func_002A8578(self, recA, recB, 10, 0.0f, sel, 0);
+            if (self->weapon366 != 0) {
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    Obj1D00_SetState_6_2_a1(&self->fx0->base, 1);
+                    Obj1D00_SetState_6_2_a1(&self->weapon366->base, 1);
                 } else {
-                    Obj1D00_SetState_6_2_a1(&self->fx0->base, 0);
+                    Obj1D00_SetState_6_2_a1(&self->weapon366->base, 0);
                 }
             }
             self->timerA = 0x28;
@@ -68,12 +68,12 @@ void func_00233DD8(cEm00 *self)
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x1190);
             }
-            func_002A8578((int)self, recA, recB, 10, 0.0f, sel, 0);
-            if (self->fx0 != 0) {
+            func_002A8578(self, recA, recB, 10, 0.0f, sel, 0);
+            if (self->weapon366 != 0) {
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    Obj1D00_SetState6_Variant6_a1(&self->fx0->base, 1);
+                    Obj1D00_SetState6_Variant6_a1(&self->weapon366->base, 1);
                 } else {
-                    Obj1D00_SetState6_Variant6_a1(&self->fx0->base, 0);
+                    Obj1D00_SetState6_Variant6_a1(&self->weapon366->base, 0);
                 }
             }
             self->timerA = 0x19;
@@ -85,12 +85,12 @@ void func_00233DD8(cEm00 *self)
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x11B0);
             }
-            func_002A8578((int)self, recA, recB, 10, 0.0f, sel, 0);
-            if (self->fx0 != 0) {
+            func_002A8578(self, recA, recB, 10, 0.0f, sel, 0);
+            if (self->weapon366 != 0) {
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    Obj1D00_SetState_6_E_a1(&self->fx0->base, 1);
+                    Obj1D00_SetState_6_E_a1(&self->weapon366->base, 1);
                 } else {
-                    Obj1D00_SetState_6_E_a1(&self->fx0->base, 0);
+                    Obj1D00_SetState_6_E_a1(&self->weapon366->base, 0);
                 }
             }
             self->timerA = 0x28;
@@ -102,12 +102,12 @@ void func_00233DD8(cEm00 *self)
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x119C);
             }
-            func_002A8578((int)self, recA, recB, 10, 0.0f, sel, 0);
-            if (self->fx0 != 0) {
+            func_002A8578(self, recA, recB, 10, 0.0f, sel, 0);
+            if (self->weapon366 != 0) {
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    Obj1D00_SetState_6_C_a1(&self->fx0->base, 1);
+                    Obj1D00_SetState_6_C_a1(&self->weapon366->base, 1);
                 } else {
-                    Obj1D00_SetState_6_C_a1(&self->fx0->base, 0);
+                    Obj1D00_SetState_6_C_a1(&self->weapon366->base, 0);
                 }
             }
             self->timerA = 0x19;

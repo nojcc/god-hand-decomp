@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/BlackJack.h"
+#include "godhand/BlackJackFn.h"
 
 
 __attribute__((section(".text.func_001D4AA8")))

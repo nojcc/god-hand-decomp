@@ -31,7 +31,7 @@ void BlackJack_UpdateDealDealerHandB(BlackJack *self)
         self->phase += 1;
         break;
     case 3: {
-        long f = (unsigned int)self->handB[1]->flags;
+        long f = self->handB[1]->flags;
 
         if (((f >> 1) & 1) == 0)
             break;
@@ -43,7 +43,7 @@ void BlackJack_UpdateDealDealerHandB(BlackJack *self)
             if (self->dealSlotB < BLACKJACK_HAND_NUM) {
                 self->handB[self->dealSlotB]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
                 func_001D0C98(self->handB[self->dealSlotB], 0);
-                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->handB[self->dealSlotB]->obj, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, (cObj *)self->handB[self->dealSlotB]->obj, 0, 0, 0, 0);
                 self->timer = DEAL_FRAMES;
                 self->phase += 1;
                 break;

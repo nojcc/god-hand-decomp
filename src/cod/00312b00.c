@@ -4,13 +4,11 @@
 #include "godhand/cObj.h"
 #include "godhand/FileLoadRec.h"
 #include "godhand/objFactory.h"
-extern void *func_00318138(void);
-extern char *func_003181A8(void);
 extern cModelNode *cModel_getMeshPtr(cModel *self, int n);
 extern int cModel_getMeshNum(char *);
 
 __attribute__((section(".text.func_00312B00")))
-char *func_00312B00(int id, int dataId)
+cObj *func_00312B00(int id, int dataId)
 {
     char *obj;
     void *d;
@@ -92,5 +90,5 @@ char *func_00312B00(int id, int dataId)
             *(int *)((char *)cModel_getMeshPtr((cModel *)obj, i++) + 0x380) |= 0x2000;
         *(int *)(obj + 0x250) |= 0x10000;
     }
-    return obj;
+    return (cObj *)obj;
 }

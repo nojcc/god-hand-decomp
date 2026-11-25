@@ -6,12 +6,14 @@
 extern int ClearField5B4IfFlagUnset_1B76B0(void *a0);
 extern void cModel_ScrollTexture(void *a0, float f);
 extern void func_001CF3A8(char *self);
+extern void cOmBase_dieCommon(cOmBase *self);
 
 #include "godhand/cModel.h"
 #include "godhand/emPhaseTable.h"
 #include "godhand/cDamageGive.h"
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/vecInline.h"
+#include "godhand/cDamageUnitFn.h"
 
 /* A gimmick with two damage-give volumes that are parked every frame before its phase runs. */
 typedef struct cOmFallGimmick {

@@ -1,6 +1,10 @@
 /* sn-2.95.3-136: CustomID panel helpers (offset slides, scale/colour pulses on 0x7C-byte works at +0x60). */
 #include "godhand/CustomIDPanel.h"
 #include "godhand/Poker.h"
+#include "godhand/cIDBaseFn.h"
+#include "godhand/BlackJackFn.h"
+#include "godhand/PanelObjFn.h"
+#include "godhand/PokerFn.h"
 
 __attribute__((section(".text.func_001DE5F8")))
 void func_001DE5F8(Poker *self, unsigned char sel, unsigned char mode)

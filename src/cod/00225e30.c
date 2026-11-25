@@ -1,12 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/cGameObj.h"
-#include "godhand/player.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern unsigned int irand(void);
+extern int Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
@@ -15,103 +16,104 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
  * func_002A8578 and 8 more. */
 __attribute__((section(".text.func_00225E30"))) void func_00225E30(cEm00 *self)
 {
+    char *s1 = (char *)self;
 
-    self->unk186A = 2;
-    self->emFlags2 |= 0x400;
+    *(unsigned char *)(s1 + 0x186A) = 2;
+    *(int *)(s1 + 0x16D4) |= 0x400;
     CheckSlotsShort2FEAndSetByte1864_262A10(self);
-    switch (self->step) {
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
         case 0: {
             int r;
             int p1;
             int p2;
-            self->unk1864 = 0;
-            r = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            *(unsigned char *)(s1 + 0x1864) = 0;
+            r = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
             StoreMotionParamsBoth_2609A8(self, 0x28, 0, 0x3E, 0, 0x111);
             if (cCoreSave_getGameLevel(&D_00569B70) >= 2 && (irand() & 1)) {
-                int w = EM_RES(self);
+                int w = *(int *)(s1 + 0x304);
                 p1 = EM_RES_REC(w, 0x1DF0);
                 p2 = EM_RES_REC(w, 0x1DF4);
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    int w2 = EM_RES(self);
+                    int w2 = *(int *)(s1 + 0x304);
                     p2 = EM_RES_REC(w2, 0x1DF8);
                 }
-                self->timerB = 0x66;
+                *(int *)(s1 + 0x5F4) = 0x66;
             } else {
-                int w = EM_RES(self);
+                int w = *(int *)(s1 + 0x304);
                 p1 = EM_RES_REC(w, 0x1DE4);
                 p2 = EM_RES_REC(w, 0x1DE8);
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    int w2 = EM_RES(self);
+                    int w2 = *(int *)(s1 + 0x304);
                     p2 = EM_RES_REC(w2, 0x1DEC);
                 }
-                self->timerB = 0x2C;
+                *(int *)(s1 + 0x5F4) = 0x2C;
             }
-            self->timerC = 0;
-            func_002A8578(self, p1, p2, 0xA, 0.0f, r, 0);
-            self->timerA = 0x2C;
+            *(int *)(s1 + 0x5FC) = 0;
+            func_002A8578(s1, p1, p2, 0xA, 0.0f, r, 0);
+            *(int *)(s1 + 0x5F0) = 0x2C;
             switch (cCoreSave_getGameLevel(&D_00569B70)) {
                 default:
                 case 1:
-                    self->timerA = (int)((float)self->timerA * 0.75f);
+                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.75f);
                     break;
                 case 2:
-                    self->timerA = (int)((float)self->timerA * 0.8f);
+                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.8f);
                     break;
                 case 3:
                 case 4:
-                    self->timerA = (int)((float)self->timerA * 0.9f);
+                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.9f);
                     break;
                 case 5:
                     break;
             }
-            self->unk5F8 = 0;
-            self->step = self->step + 1;
+            *(int *)(s1 + 0x5F8) = 0;
+            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         }
         /* fallthrough */
         case 1:
-            if (self->timerA != 0) {
-                cGameObj *pl;
-                self->timerA = self->timerA - 1;
-                pl = Getplayer();
-                cGameObj_SetTgtTurn(self, pl->pos, self->speedRate * 0.19634954f);
+            if (*(int *)(s1 + 0x5F0) != 0) {
+                int q;
+                *(int *)(s1 + 0x5F0) = *(int *)(s1 + 0x5F0) - 1;
+                q = Getplayer();
+                cGameObj_SetTgtTurn((cGameObj *)s1, *(cVec **)(q + 0xF0), *(float *)(s1 + 0x5A8) * 0.19634954f);
             }
-            if (moveMotion(self))
-                func_002705D8(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            if (moveMotion(s1))
+                func_002705D8(s1);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
             break;
         default:
             break;
     }
 
-    if (self->seqFlags & 1)
+    if (*(unsigned short *)(s1 + 0x3AC) & 1)
         func_00260B30(self);
-    if (self->seqFlags & 2) {
-        if (self->unk5F8 == 0) {
-            self->unk5F8 = 1;
+    if (*(unsigned short *)(s1 + 0x3AC) & 2) {
+        if (*(int *)(s1 + 0x5F8) == 0) {
+            *(int *)(s1 + 0x5F8) = 1;
             func_0026BEF0(self, 4, 0);
         }
-        self->timerA = 0x1E;
+        *(int *)(s1 + 0x5F0) = 0x1E;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
             default:
             case 1:
-                self->timerA = (int)((float)self->timerA * 0.75f);
+                *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.75f);
                 break;
             case 2:
-                self->timerA = (int)((float)self->timerA * 0.8f);
+                *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.8f);
                 break;
             case 3:
             case 4:
-                self->timerA = (int)((float)self->timerA * 0.9f);
+                *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.9f);
                 break;
             case 5:
                 break;
         }
     } else {
-        self->unk5F8 = 0;
+        *(int *)(s1 + 0x5F8) = 0;
     }
-    if (self->seqFlags & 3)
-        self->timerC = 1;
-    if (self->timerC != 0)
-        self->emFlags2 &= 0xFFFFFBFFU;
+    if (*(unsigned short *)(s1 + 0x3AC) & 3)
+        *(int *)(s1 + 0x5FC) = 1;
+    if (*(int *)(s1 + 0x5FC) != 0)
+        *(unsigned int *)(s1 + 0x16D4) &= 0xFFFFFBFFU;
 }

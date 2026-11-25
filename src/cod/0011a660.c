@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cCollisionSolid.h"
-#include "godhand/pl00.h"
 #include "godhand/motion.h"
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
+extern int moveMotion(void *a0);
 extern void func_0012C540(void *a0, int a1);
 
 /* sn-2.95.3-136 candidate. */
@@ -18,76 +18,78 @@ extern void func_0012C540(void *a0, int a1);
 
 
 __attribute__((section(".text.func_0011A660")))
-void func_0011A660(pl00 *self)
+void func_0011A660(void *a0)
 {
-    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
-    self->base.hitFlash = 2.0f;
-    switch (self->base.step) {
+    char *s0 = (char *)a0;
+
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
+    *(float *)(s0 + 0x54C) = 2.0f;
+    switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
     {
-        char *b = self->base.pack;
+        int b = *(int *)(s0 + 0x304);
 
-        self->comboSlot = 0;
-        self->comboSet = 0;
-        func_002A8578(self, EM_RES_REC(b, 0x6F0), EM_RES_REC(b, 0x6F4),
+        *(short *)(s0 + 0x5E0) = 0;
+        *(short *)(s0 + 0x5E2) = 0;
+        func_002A8578(s0, *(int *)(b + 0x6F0) + b, *(int *)(b + 0x6F4) + b,
                       3, 0.0f, 0, 0);
-        CallWithAndClearField698_12AC28(self);
-        func_0012B928(self);
-        self->base.step = self->base.step + 1;
+        CallWithAndClearField698_12AC28(s0);
+        func_0012B928(s0);
+        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     }
     case 1:
-        if (moveMotion(self) == 0) {
+        if (moveMotion(s0) == 0) {
             return;
         }
-        func_0012C540(self, 1);
-        self->base.step = self->base.step + 1;
-        self->base.objFlags = self->base.objFlags | 2;
+        func_0012C540(s0, 1);
+        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
+        *(int *)(s0 + 0x250) = *(int *)(s0 + 0x250) | 2;
         {
-            cGameObj *p = self->unk68C;
+            char *p = *(char **)(s0 + 0x68C);
 
             if (p != 0) {
-                p->objFlags = p->objFlags | 2;
+                *(int *)(p + 0x250) = *(int *)(p + 0x250) | 2;
             }
         }
         break;
     case 2:
     {
-        char *b = self->base.pack;
+        int b = *(int *)(s0 + 0x304);
 
-        func_002A8578(self, EM_RES_REC(b, 0x28), EM_RES_REC(b, 0x2C),
+        func_002A8578(s0, *(int *)(b + 0x28) + b, *(int *)(b + 0x2C) + b,
                       3, 0.0f, 0, 0);
-        self->base.step = self->base.step + 1;
+        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     }
     case 3:
-        moveMotion(self);
-        self->flags15F4 = self->flags15F4 | 0x1000;
-        self->base.objFlags = self->base.objFlags | 2;
+        moveMotion(s0);
+        *(int *)(s0 + 0x15F4) = *(int *)(s0 + 0x15F4) | 0x1000;
+        *(int *)(s0 + 0x250) = *(int *)(s0 + 0x250) | 2;
         {
-            cGameObj *p = self->unk68C;
+            char *p = *(char **)(s0 + 0x68C);
 
             if (p != 0) {
-                p->objFlags = p->objFlags | 2;
+                *(int *)(p + 0x250) = *(int *)(p + 0x250) | 2;
             }
         }
         break;
     case 4:
     {
-        char *b = self->base.pack;
+        int b = *(int *)(s0 + 0x304);
 
-        self->comboSlot = 0;
-        self->comboSet = 0;
-        func_002A8578(self, EM_RES_REC(b, 0x6F8), EM_RES_REC(b, 0x6FC),
+        *(short *)(s0 + 0x5E0) = 0;
+        *(short *)(s0 + 0x5E2) = 0;
+        func_002A8578(s0, *(int *)(b + 0x6F8) + b, *(int *)(b + 0x6FC) + b,
                       0, 0.0f, 0, 0);
-        self->base.step = self->base.step + 1;
+        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     }
     case 5:
-        if (moveMotion(self) == 0) {
+        if (moveMotion(s0) == 0) {
             return;
         }
-        self->base.mode = 0;
-        self->base.phase = 0;
-        self->base.step = 0;
-        self->base.stepArg = 0;
+        *(unsigned char *)(s0 + 0x2F4) = 0;
+        *(unsigned char *)(s0 + 0x2F5) = 0;
+        *(unsigned char *)(s0 + 0x2F6) = 0;
+        *(unsigned char *)(s0 + 0x2F7) = 0;
         break;
     }
 }

@@ -2,7 +2,7 @@
 
 /* Switch an object to its second pose: close the damage volume, hide meshes 0 to 3, show mesh 0x40, set the flag on parts 2 to 8 and clear the pickup bits, then place each part from the scaled offset vector. */
 #include "godhand/cModel.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/vu0.h"
 
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);

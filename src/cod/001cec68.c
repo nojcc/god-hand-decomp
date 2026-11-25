@@ -2,9 +2,9 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/espSys.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/vu0.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern void func_002B6310(cVec *out, void *node);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *node);

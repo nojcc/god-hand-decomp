@@ -103,7 +103,7 @@ void func_00224A28(cEm00 *self)
         self->unk16E8 = 0;
         pos = self->pos;
         self->emFlags |= EMFLAG_GUARDED;
-        turn = Turn_dest((float *)pos, (float *)Getplayer()->pos, self->rot.y, PI_F);
+        turn = Turn_dest((float *)pos, self->rot.y, (float *)Getplayer()->pos, PI_F);
         if (turn < 0.0f) {
             angle = -turn;
         } else {

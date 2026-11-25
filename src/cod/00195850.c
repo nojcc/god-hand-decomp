@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern char D_00426F88[];
 extern void SetField214PtrThenInit_1B6F38(void *self, void *a1);

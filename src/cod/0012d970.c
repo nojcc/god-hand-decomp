@@ -5,7 +5,6 @@
 
 
 extern int D_0041D5A8;
-extern unsigned char D_0041D558[]; /* cGrid.h's type; that header clashes here */
 
 typedef struct { char b[0x10]; } Blob16;
 

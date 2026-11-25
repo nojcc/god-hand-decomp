@@ -7,6 +7,7 @@
  * the 0x17C3 getter); phase 0 also fires two func_002606E8 events (0x200, 0x203).
  * Shared tail steps moveMotion (func_002705D8 on completion) + 1.0f vectors. sn-2.95.3-136. */
 
+extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_002606E8(void *a0, int a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
@@ -18,7 +19,7 @@ extern void cObjBase_addNullSpeed(void *a0, float s);
 __attribute__((section(".text.func_00244610"))) void func_00244610(cEm00 *self)
 {
     int res;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->emFlags = self->emFlags | 0x10000;
     switch (self->step) {
         case 0: {

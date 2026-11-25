@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
-#include "godhand/cOmWeapon.h"
+#include "godhand/cOmWeaponFn.h"
 #include "godhand/capVu0.h"
 #include "godhand/player.h"
 
@@ -12,7 +12,7 @@ int func_00272588(cEm00 *self) {
     if (self->unk6EC != 0) {
         return 0;
     }
-    if (self->fx0 != 0) {
+    if (self->weapon366 != 0) {
         return 0;
     }
     switch (self->emNo) {

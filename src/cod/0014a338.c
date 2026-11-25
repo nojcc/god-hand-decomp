@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"

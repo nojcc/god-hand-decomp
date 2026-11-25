@@ -58,7 +58,7 @@ void func_00115310(pl00 *self)
             CVEC_PUT(&self->base.unk580, *at);
             from = self->base.pos;
             at = cGameObj_vt(self->held)->getPos((char *)self->held + cGameObj_vt(self->held)->getPosDelta);
-            off = Turn_dest((float *)from, (float *)at, self->base.rot.y, 3.1415927f);
+            off = Turn_dest((float *)from, self->base.rot.y, (float *)at, 3.1415927f);
             off = absf(off);
             if (off > 2.3561945f)
                 back = 1;
@@ -67,22 +67,22 @@ void func_00115310(pl00 *self)
         if (back != 0) {
             cOm_attachThrown((struct ThrowerObj *)self);
             if (self->sub6A0 != 0) {
-                func_002A8578((int)self->sub6A0, motionBlock_at(self->base.pack, 0x378),
+                func_002A8578(self->sub6A0, motionBlock_at(self->base.pack, 0x378),
                               motionBlock_at(self->base.pack, 0x394), 0, 0.0f, 0, 0);
                 func_001331B8(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
             }
-            func_002A8578((int)self, motionBlock_at(self->base.pack, 0x35C),
+            func_002A8578(self, motionBlock_at(self->base.pack, 0x35C),
                           motionBlock_at(self->base.pack, 0x360), 0, 0.0f, 0, 0);
             self->stepScale = self->base.rot.y + 3.1415927f;
             self->stepScale = Adjust_theta(self->stepScale);
         } else {
             cOm_attachThrown((struct ThrowerObj *)self);
             if (self->sub6A0 != 0) {
-                func_002A8578((int)self->sub6A0, motionBlock_at(self->base.pack, 0x6E8),
+                func_002A8578(self->sub6A0, motionBlock_at(self->base.pack, 0x6E8),
                               motionBlock_at(self->base.pack, 0x6EC), 0, 0.0f, 0, 0);
                 func_001331B8(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
             }
-            func_002A8578((int)self, motionBlock_at(self->base.pack, 0x6E0),
+            func_002A8578(self, motionBlock_at(self->base.pack, 0x6E0),
                           motionBlock_at(self->base.pack, 0x6E4), 0, 0.0f, 0, 0);
         }
         Obj0000_Clear_Fields_640_648_124E58(self);
@@ -90,7 +90,7 @@ void func_00115310(pl00 *self)
     case 1:
         func_00124EC0(self);
         if (self->base.seqFlags & 0x10) {
-            turn = Turn_dest((float *)self->base.pos, (float *)&self->base.unk580, self->stepScale, 0.22439948f);
+            turn = Turn_dest((float *)self->base.pos, self->stepScale, (float *)&self->base.unk580, 0.22439948f);
             self->stepScale = self->stepScale + turn;
             self->stepScale = Adjust_theta(self->stepScale);
             self->base.rot.y = self->base.rot.y + turn;

@@ -1,22 +1,25 @@
-#include "godhand/heapArena.h"
-#include "godhand/criStm.h"
-#include "godhand/cDvd.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cGameObj.h"
-#include "godhand/newlibStdio.h"
-#include "godhand/newlibMalloc.h"
 #include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int D_0041EBE8;
 extern void (*D_003C4908)(void);
 extern void ADXT_Stop(int a0);
 extern void func_0032B300(int a0, int a1);
 extern void ADXT_Destroy(int a0);
 extern void func_0031C900(int a0);
+extern void func_003A6290(void);
 extern void Obj0000_Setup_Fields_00_04_08_0C_0E_10_18_1C_20_24_28_2C_54(int a0, int a1, int a2, int a3);
+extern int D_003FA62C;
+extern void __malloc_lock(int a0);
+extern void __malloc_unlock(int a0);
 extern int D_003C2388;
+extern int D_00583F20[];
+extern int D_00754230[];
 extern void cIDManager_getLocalFileName(int a0, void *a1, int a2, int a3);
+extern int cDvd_ReadAlloc(void *a0, void *a1, void *a2, void *a3, int t0, int t1, int t2, int t3);
+extern int cDvd_CheckWait(void *a0, int a1);
 extern void func_0015EAC8(char *work);
 extern void func_002D5890(int a0, int a1);
 extern void func_002D5440(int a0, int a1);
@@ -25,7 +28,7 @@ extern void func_002D5440(int a0, int a1);
  * the cObj destructor. */
 __attribute__((section(".text.cObjBase__dtor")))
 void cObjBase__dtor(struct cObjBase *self, int flags) {
-    self->vtable = D_0041EBE8;
+    self->vtable = (cVtEnt *)&D_0041EBE8;
     cObj__dtor(self, flags);
 }
 
@@ -35,10 +38,9 @@ void cGameObj__dtor(struct cGameObj *self, int flags) {
     cObjBase__dtor((struct cObjBase *)self, flags);
 }
 
-/* Give a job back: clear it. */
 __attribute__((section(".text.func_00201228")))
-void func_00201228(cDvd *self, cDvdJob *job) {
-    func_003A52F0(job, 0, sizeof(cDvdJob));
+int func_00201228(int a0, int a1) {
+    return func_003A52F0(a1, 0, 0x88);
 }
 
 __attribute__((section(".text.func_00320280")))
@@ -76,11 +78,11 @@ void func_003A61F0(int a0)
 }
 
 __attribute__((section(".text.func_003A7C70")))
-void *func_003A7C70(unsigned int n)
+int func_003A7C70(int a0)
 {
-    void *r;
+    int r;
     __malloc_lock(D_003FA62C);
-    r = func_003AC2F8(D_003FA62C, n);
+    r = func_003AC2F8(D_003FA62C, a0);
     __malloc_unlock(D_003FA62C);
     return r;
 }
@@ -88,13 +90,13 @@ void *func_003A7C70(unsigned int n)
 __attribute__((section(".text.func_00161500")))
 int func_00161500(int a0, int a1)
 {
-    char name[0x40];
+    int local[16];
     if (*(int*)((char*)a0+0x50) == 0) {
         int r;
-        cIDManager_getLocalFileName(D_003C2388, name, a1, -1);
-        r = cDvd_ReadAlloc(&D_00583F20, name, (void*)((char*)a0+0x50), &D_00754230, 0, 0, 0, 0);
+        cIDManager_getLocalFileName(D_003C2388, &local, a1, -1);
+        r = cDvd_ReadAlloc(D_00583F20, &local, (void*)((char*)a0+0x50), D_00754230, 0, 0, 0, 0);
         *(int*)((char*)a0+0x54) = r;
-        cDvd_CheckWait(&D_00583F20, r);
+        cDvd_CheckWait(D_00583F20, r);
     }
     return *(int*)((char*)a0+0x50);
 }

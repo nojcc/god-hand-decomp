@@ -36,7 +36,6 @@ typedef struct BreakFrame {
     cVec rot;                           /* 0x10 */
 } BreakFrame;
 
-
 extern void func_001AA8D8(char *a0, int a1, float *a2, float *a3);
 
 /* Break the object: switch its damage and collision off, scatter every piece
@@ -62,7 +61,7 @@ void func_001AAB10(cOmBreakable *self)
     if (self->vol[2] != 0) {
         self->vol[2]->flags &= ~1;
     }
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     VU0_LQC2(4, &self->base.knock, 0);
     VU0_SQC2(4, &f, 0);
     cVec_set4(&f.rot, 0.0f, 0.0f, 0.0f, 1.0f);
@@ -71,6 +70,6 @@ void func_001AAB10(cOmBreakable *self)
     for (i = BREAK_FIRST_PIECE; i < BREAK_PIECE_END && self->base.partNum != i; i++) {
         func_001AA8D8((char *)self, i, &f.push.x, &f.rot.x);
     }
-    SetEffect(1, BREAK_EFFECT, self, 0, BREAK_EFFECT, (unsigned int)self);
+    SetEffect(1, BREAK_EFFECT, (cObj *)self, 0, BREAK_EFFECT, (cObj *)self);
     self->flags |= BREAK_DONE;
 }

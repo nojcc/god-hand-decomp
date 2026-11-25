@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/CustomIDWork.h"
 #include "godhand/Poker.h"
+#include "godhand/PanelObj.h"
 #include "godhand/BlackJack.h"
 #include "godhand/cIDBase.h"
 

@@ -1,7 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-#include "godhand/cObjBase.h"
-#include "godhand/vtables.h"
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cObjBase.h"
 #include "godhand/globals.h"
 
 extern void cActionButtonUnit_setOk(int x);
@@ -26,9 +25,9 @@ short GetNextAnimIndex_1451E0(cIDBaseScreen *self) {
 }
 
 __attribute__((section(".text.InitVtableAndForwardSetup_100508")))
-void InitVtableAndForwardSetup_100508(struct cObjBase *self, int flags) {
-    self->vtable = D_0041B6A0;
-    cObjBase__dtor(self, flags);
+void InitVtableAndForwardSetup_100508(void *a0, int flags) {
+    *(char**)((char*)a0+0x214) = D_0041B6A0;
+    cObjBase__dtor(a0, flags);
 }
 
 __attribute__((section(".text.Forward100FB8_101E98")))
@@ -37,9 +36,9 @@ int Forward100FB8_101E98(void) {
 }
 
 __attribute__((section(".text.InitAltVtableAndSetup_102128")))
-int InitAltVtableAndSetup_102128(void *a0) {
+void InitAltVtableAndSetup_102128(void *a0, int flags) {
     *(char**)((char*)a0+0x214) = D_0041B730;
-    return cPlBase__dtor(a0);
+    cPlBase__dtor(a0, flags);
 }
 
 __attribute__((section(".text.FreeFieldObject_1267F8")))

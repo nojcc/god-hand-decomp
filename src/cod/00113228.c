@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/capVu0.h"
 #include "godhand/motion.h"
 
@@ -25,7 +26,7 @@ void func_00113228(pl00 *self)
     cEmManage_SetSlotWait(&D_005864F0, 2);
     cEmManage_SetPlCatched(&D_005864F0);
     cEmManage_SetBigHitEffWait(&D_005864F0, 2);
-    self->flags15F4 |= 0x200;
+    self->unk15F4 |= 0x200;
     if (self->base.step != 0 &&
         self->unk649 == 0 &&
         func_0010B2E8(self, 1) != 0) {
@@ -41,7 +42,7 @@ void func_00113228(pl00 *self)
         self->unk1684 = 1;
         func_00129578(self);
         {
-            char *v = self->base.pack;
+            int v = EM_RES(&self->base);
             func_002A8578(self, EM_RES_REC(v, 0x60C), EM_RES_REC(v, 0x610), 3, 0.0f, 0, 0);
         }
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);

@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cOmBase.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 
 __attribute__((section(".text.func_001506F0")))

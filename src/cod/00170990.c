@@ -1,13 +1,13 @@
 #include "godhand/cDamageManage.h"
+#include "godhand/cSnd.h"
 #include "godhand/globals.h"
 
-extern int D_005FEE00[];
 extern int D_00420920;
 
 __attribute__((section(".text.InitActorVU0Slots0A0C_170990")))
-void InitActorVU0Slots0A0C_170990(void *obj) {
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, obj, 0, 0, 0, 0);
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, obj, 0, 0, 0, 0);
+void InitActorVU0Slots0A0C_170990(void *a0) {
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, a0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, a0, 0, 0, 0, 0);
 }
 
 __attribute__((section(".text.GetOrInitSingleton785818_170A08")))
@@ -20,9 +20,9 @@ int *GetOrInitSingleton785818_170A08(void) {
 }
 
 __attribute__((section(".text.InitActorSetVtable_170A58")))
-void *InitActorSetVtable_170A58(void *a0) {
+void *InitActorSetVtable_170A58(char *a0) {
     func_001BFAC8(a0);
-    *(int *)((char *)a0 + 0x214) = (int)&D_00420780;
+    *(int *)(a0 + 0x214) = (int)&D_00420780;
     return a0;
 }
 
@@ -32,16 +32,16 @@ int FreeActorVtableState_170A90(int a0, int a1) {
     *(int *)(a0 + 0x214) = (int)&D_00420780;
     v1 = *(cDamageTake **)(a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, v1);
         *(int *)(a0 + 0x600) = 0;
     }
     return func_001BFB00(a0, a1);
 }
 
 __attribute__((section(".text.InitActorVU0Slots0A0CB_170C20")))
-void InitActorVU0Slots0A0CB_170C20(void *obj) {
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, obj, 0, 0, 0, 0);
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, obj, 0, 0, 0, 0);
+void InitActorVU0Slots0A0CB_170C20(void *a0) {
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, a0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, a0, 0, 0, 0, 0);
 }
 
 __attribute__((section(".text.GetOrInitSingleton785828_170C98")))

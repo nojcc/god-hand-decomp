@@ -1,14 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cSceAtManager.h"
 #include "godhand/cFontTex.h"
 #include "godhand/cMessCommon.h"
 #include "godhand/cSnd.h"
 #include "godhand/globals.h"
+#include "godhand/cObjBase.h"
 
 extern void *SearchData(void *name, void *table, int which);
+extern void cSndSeVoice_CheckEnd(void *snd, int handle);
+extern int cSnd_ReserveSeSlot(void *snd, void *data);
 extern cSceAtManager D_005FEA60;
 extern int FindNodeByHit_2C2490(cSceAtManager *mgr, cVec *shape, float *out);
 extern int D_00747A2C;
@@ -103,7 +105,7 @@ int cEm00_areaHitCheck(cEm00 *self)
     if (hit == 1) {
         EM_HITCD(self) = HIT_COOLDOWN;
         if (((unsigned char *)&D_00747A2C)[0x25] == 5)
-            SetEffect(0, HIT_EFFECT_ID, self, 0, -1, 0xFFFFFFFFu);
+            SetEffect(0, HIT_EFFECT_ID, (cObj *)self, 0, -1, EFFECT_FOLLOW_OWNER);
         if (self->hp >= VITAL_LOW) {
             self->hp = self->hp - HIT_DAMAGE;
             if (self->hp <= 0)

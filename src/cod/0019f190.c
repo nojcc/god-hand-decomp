@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
+#include "godhand/cDamageManage.h"
 
 /* sn-2.95.3-136 matched TU. */
 

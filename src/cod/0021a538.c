@@ -52,8 +52,9 @@
 #define INCLUDE_ASM_USE_MACRO_INC 1
 #include "include_asm.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
-#include "godhand/cOmWeapon.h"
+#include "godhand/pl00Fn.h"
+#include "godhand/cOmWeaponFn.h"
+#include "godhand/cGameObjFn.h"
 /* No cEm00.h: the guarded body passes 4 of the motion setters' 6 arguments.
  * No motion.h: it passes 5 of func_002A8578's 7. */
 

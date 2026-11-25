@@ -10,9 +10,24 @@
 
 #include "godhand/cObj.h"
 
-struct cObjVec2;
+/* The 0x360-byte actor whose vtable is D_00450CE8: a cObj with two vectors
+ * and a flag byte. */
+typedef struct cObjVec2 {
+    cObj base;                          /* 0x000 */
+    cVec unk310;                        /* 0x310 */
+    char unk320[0xC];
+    unsigned char unk32C;               /* 0x32C */
+    char unk32D[0x13];
+    cVec unk340;                        /* 0x340 */
+    char unk350[0x10];
+} cObjVec2;                             /* 0x360 */
+typedef char cObjVec2_size_check[sizeof(cObjVec2) == 0x360 ? 1 : -1];
 
 extern unsigned char D_003C3D18;        /* serial stamped into each new actor (cObj.unk2FC) */
+extern cVtEnt D_0044B840[];            /* cObjTestSet's method table (CreateObjectWithVtableA) */
+extern cVtEnt D_00450B98[];            /* objDummy's method table (CreateObjectWithVtableB) */
+extern cVtEnt D_00450B28[];            /* dbObj's method table (CreateObjectWithVtableC) */
+extern cVtEnt D_00450C38[];            /* objCock's method table (func_003184E0) */
 
 /* 0xFFFF is the "no data" id. */
 static __inline__ int validId(int d)
@@ -25,9 +40,9 @@ cObj *func_0030FAC8(int id, int dataId);
 void *func_0030FB20(int id, cObj *obj);
 cObj *func_0030FE68(int id, int dataId);
 void *func_00312AB0(int id, int dataId);
-char *func_00312B00(int id, int dataId);
+cObj *func_00312B00(int id, int dataId);
 
-struct cObjVec2 *func_00312E88(void);
+cObjVec2 *func_00312E88(void);
 void *AllocAndInitSystem_312F00(void);
 void *func_00312F70(void);
 void *func_00313030(void);
@@ -206,5 +221,7 @@ void *func_00317D50(void);
 void *CreateObjectWithVtableB(void);
 void *AllocInitObj3184E0_317F00(void);
 void *CreateObjectWithVtableC(void);
+void *func_00318138(void);
+void *func_003181A8(void);
 
 #endif

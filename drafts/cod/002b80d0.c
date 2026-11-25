@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 #include "godhand/cObjSimple.h"
+#include "godhand/cOmBase.h"
 #include "godhand/cutCmd.h"
 #include "godhand/vecInline.h"
 #include "godhand/vu0.h"
@@ -27,20 +28,20 @@ void cObjSimple_SwingLimb(cObjSimple *self, unsigned int limb, float push, float
 
     CVEC_ZERO(ang);
     if (limb < 8) {
-        cObjSimpleChild *part = cObjSimple_childAtIdx(self, frame, D_003C2560[limb]);
+        cOmBase *part = cOmBase_childAtIdx((cOmBase *)self, frame, D_003C2560[limb]);
 
         if (part != 0) {
-            if (cEvent_getCutFrame(D_00586AF0) == 0.0f || (self->flags & 1)) {
+            if (cEvent_getCutFrame(D_00586AF0) == 0.0f || (self->unk2F0 & 1)) {
                 swing = 0.0f;
                 self->swingAccum = 0.0f;
                 self->swing[limb] = 0.0f;
                 push = 0.0f;
             }
-            part->flags154 |= 0x100200;
+            part->partFlags |= 0x100200;
             push += self->swingAccum;
             self->swing[limb] += push * (0.0f < push ? D_003C2580 : D_003C25A0)[limb];
             self->swing[limb] += swing * (0.0f < swing ? D_003C2580 : D_003C25A0)[limb];
-            vec4_set_point(&tmp_.x, part->localPos.x, part->localPos.y, part->localPos.z);
+            vec4_set_point(&tmp_.x, part->mtxLocal[12], part->mtxLocal[13], part->mtxLocal[14]);
             CVEC_ASSIGN_VEC(ang, tmp_);
             ang.x += self->swing[limb];
             if (ang.x < D_003C25C0[limb]) {
@@ -51,7 +52,7 @@ void cObjSimple_SwingLimb(cObjSimple *self, unsigned int limb, float push, float
                 ang.x = D_003C25E0[limb];
                 self->swing[limb] = 0.0f;
             }
-            CVEC_PUT(part->outPos, ang);
+            CVEC_PUT(part->anchor, ang);
         }
     }
 }

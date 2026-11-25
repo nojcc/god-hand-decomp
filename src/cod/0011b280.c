@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/motion.h"
-#include "godhand/pl00.h"
+#include "godhand/pl00Fn.h"
 
 extern void func_0010A438(void *a0);
 extern int D_007474A0;

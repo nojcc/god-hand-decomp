@@ -1,6 +1,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/cOmWeapon.h"
+#include "godhand/cOmWeaponFn.h"
 
 /* func_00277A48 — +0x2F6 phase machine (record fields 0x54/0x58, mode 3): phase 0
  * fires func_002A8578 and advances, phases 0/1 step moveMotion and add the

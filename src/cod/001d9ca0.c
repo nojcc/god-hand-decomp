@@ -1,6 +1,9 @@
 #include "godhand/cSnd.h"
-#include "godhand/Poker.h"
+
 extern int PartHolder_classify(void *self);
+extern void func_001DE858(void *self, unsigned char n);
+extern void cSnd_SetBgmState(void *snd, int state);
+extern void cSnd_BgmEventStart(void *snd, int ev, int a, int b);
 
 __attribute__((section(".text.func_001D9CA0")))
 void func_001D9CA0(void *self)

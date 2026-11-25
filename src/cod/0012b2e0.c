@@ -4,7 +4,7 @@
 #include "godhand/heapArena.h"
 #include "godhand/cRecordIndex.h"
 #include "godhand/cMessage.h"
-#include "godhand/cOmWeapon.h"
+#include "godhand/cOmWeaponFn.h"
 
 extern int cOmWeapon_SetDamage(void *weapon);
 extern void func_002B2400(cMessageWin *win);

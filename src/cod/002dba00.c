@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/pl00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/player.h"
 
 extern int cEmManage_CkPlCatched(void *p);

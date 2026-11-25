@@ -1,7 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/pl00.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cDamageManage.h"
 #include "godhand/globals.h"
 
 extern char D_00429C80[];
@@ -18,11 +17,11 @@ __attribute__((section(".text.ResetField214FreeField180_1C2820")))
 void ResetField214FreeField180_1C2820(int *a0, int a1) {
     *(char **)((char *)a0 + 0x214) = D_00429C80;
     if (a0[0x180] != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)a0[0x180]);
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)(a0 + 0x180));
         a0[0x180] = 0;
     }
     if (a0[0x181] != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)a0[0x180]);
+        ClearAndResetFields_1FE278(&D_00574380, *(cDamageTake **)(a0 + 0x180));
         a0[0x180] = 0;
     }
     SetField214PtrThenInit_1B6F38(a0, a1);
@@ -61,11 +60,14 @@ void cTaskWork_sleep(char *a0, int a1)
 }
 
 __attribute__((section(".text.InvokeVirtualAtField214AndForward_124E68")))
-void InvokeVirtualAtField214AndForward_124E68(pl00 *self, float f12)
+void InvokeVirtualAtField214AndForward_124E68(char *a0, float f12)
 {
-    cGameObj *e = self->held;
-    if (e != 0) {
-        cGameObjVt *vt = cGameObj_vt(e);
-        cGameObj_SetTgtTurn(self, vt->getPos((char *)e + vt->getPosDelta), f12);
+    char *a1 = *(char **)(a0 + 0x640);
+    if (a1 != 0) {
+        char *v1 = *(char **)(a1 + 0x214);
+        short off = *(short *)(v1 + 0x68);
+        cVec *(*fn)(char *) = *(cVec *(**)(char *))(v1 + 0x6C);
+        cVec *r = fn(a1 + off);
+        cGameObj_SetTgtTurn((cGameObj *)a0, r, f12);
     }
 }

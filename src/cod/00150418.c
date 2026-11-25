@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/heapList.h"
 
 extern void func_002B2080(void *node);

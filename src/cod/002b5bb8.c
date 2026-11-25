@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/cSnd.h"
 #include "godhand/criStm.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cMovie.h"
 
 /* Free a block taken by func_002B5AF8 and clear its slot (a1 is not read). */

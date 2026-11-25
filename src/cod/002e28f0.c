@@ -5,13 +5,12 @@ extern float capVu0Atan2(float y, float x);
 extern float sqrtf(float x);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void *CopyVec16From20_B62E0(void *dst, char *self);
+extern void UpdateObjByIndexedOp_2FBE50(void *self);
 extern void cNode_setTranslationFromWorld(void *self, void *v);
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
-#include "godhand/espSys.h"
-#include "godhand/cNode.h"
 #include "godhand/cObjBase.h"
 
 
@@ -35,7 +34,7 @@ typedef struct Frame {
     Vec4 a;               /* 0x00 */
     Vec4 b;               /* 0x10 */
     Vec4 c;               /* 0x20 */
-    cEffectParam s;                  /* 0x30 */
+    cEffectParam s;       /* 0x30 */
     Vec4 d;               /* 0xB0 */
 } Frame;
 
@@ -117,20 +116,20 @@ void func_002E28F0(void *arg, float thr) {
             if (*(signed char *)(self + 0x2C0) != -1) {
                 SetEffect(*(signed char *)(self + 0x2C0),
                           *(unsigned char *)(self + 0x2C1) + 1, 0, &fr.s, -1,
-                          0xFFFFFFFF);
+                          EFFECT_FOLLOW_OWNER);
             } else {
                 fr.s.unk74 = *(unsigned char *)(self + 0x2D6);
                 SetEffect(*(short *)(self + 0x23A),
                           *(unsigned short *)(self + 0x23C), 0, &fr.s, -1,
-                          0xFFFFFFFF);
+                          EFFECT_FOLLOW_OWNER);
             }
             if (*(int *)(self + 0x2C8) != 2) {
-                UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
+                UpdateObjByIndexedOp_2FBE50(self);
                 return;
             }
         }
         if (*(int *)(self + 0x2C8) == 3) {
-            UpdateObjByIndexedOp_2FBE50((EspAnim *)self);
+            UpdateObjByIndexedOp_2FBE50(self);
             return;
         }
         {

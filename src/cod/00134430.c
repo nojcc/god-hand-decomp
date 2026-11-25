@@ -1,15 +1,20 @@
-#include "godhand/vu0.h"
 #include "godhand/cCollisionSolid.h"
+#include "godhand/vu0.h"
 
-/* Unit constructor: zero the bounds, set owner, priority and 0x0C, no solids. */
+#define CSOLID_UNIT_MIN_OFFSET  0x20    /* cCollisionSolidManageUnit.min, for the VU0 store */
+#define CSOLID_UNIT_MAX_OFFSET  0x30    /* cCollisionSolidManageUnit.max */
+
+/* Unit constructor: set both bounds to (0, 0, 0, 1), then store the owner, the priority and
+ * the share, with no solids and no next unit. */
 
 __attribute__((section(".text.func_00134430")))
-cCollisionSolidUnit *func_00134430(cCollisionSolidUnit *self, struct cGameObj *owner, int priority, float unk0C) {
-    VU0_SQC2_VF0(self, 0x20);
-    VU0_SQC2_VF0(self, 0x30);
+cCollisionSolidManageUnit *func_00134430(cCollisionSolidManageUnit *self, struct cGameObj *owner,
+                                         int priority, float share) {
+    VU0_SQC2_VF0(self, CSOLID_UNIT_MIN_OFFSET);
+    VU0_SQC2_VF0(self, CSOLID_UNIT_MAX_OFFSET);
     self->owner = owner;
     self->priority = priority;
-    self->unk0C = unk0C;
+    self->share = share;
     self->first = 0;
     self->next = 0;
     return self;

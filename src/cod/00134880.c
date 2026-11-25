@@ -1,19 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
 #include "godhand/BlackJack.h"
-#include "godhand/cNode.h"
-#include "godhand/cCollisionSolid.h"
-#include "godhand/mtx.h"
-#include "godhand/CustomIDWork.h"
 #include "godhand/globals.h"
 
 extern void func_002A84A8(void *a0, int a1, int a2, int a3, float f12);
 extern int setMotionInfo(void *a0, int a1, int a2, int a3, float f12, float f13, int t0);
+extern void func_002B6400(int a0);
 extern int SetField214PtrThenInit_1B6F38(void *obj);
 extern char *InitFields_1B6E90(char *a0);
 extern int func_00305908(void *self, int id, void *data);
 extern void cActionButton_set(void *a0, int a1, int a2, int a3, int a4, int a5, int a6);
 extern char D_00568288;
+extern void MtxInitRotVec(void *a0, int a1, int a2);
+extern void MtxMultiply(int a0, int a1, void *a2);
 
 __attribute__((section(".text.func_002A8578")))
 void func_002A8578(void *obj, int motA, int motB, int mode, float start, int sel, int keep) {
@@ -26,15 +26,22 @@ void func_002A8578(void *obj, int motA, int motB, int mode, float start, int sel
 }
 
 __attribute__((section(".text.cNode_setLocalTranslation")))
-void cNode_setLocalTranslation(cNode *self, cVec *v)
+void cNode_setLocalTranslation(int a0, int a1)
 {
-    func_002B6400(self);
-    cVec_copy3(&self->trans, v);
+    char *d;
+    func_002B6400(a0);
+    d = (char*)a0 + 0x40;
+    if (d != (char*)a1) {
+        *(float*)((char*)a0 + 0x40) = *(float*)((char*)a1 + 0x0);
+        *(float*)(d + 0x4) = *(float*)((char*)a1 + 0x4);
+        *(float*)(d + 0x8) = *(float*)((char*)a1 + 0x8);
+    }
 }
 
 __attribute__((section(".text.cCollisionSolidManage_CreateSphere")))
-void cCollisionSolidManage_CreateSphere(cCollisionSolidManage *self, struct cGameObj *owner, void *body, cVec *center, float radius) {
-    cCollisionSolidUnit *unit = func_001346C8(self, owner);
+void cCollisionSolidManage_CreateSphere(cCollisionSolidManage *self, struct cGameObj *owner,
+                                        const struct cMatrix *body, const cVec *center, float radius) {
+    cCollisionSolidManageUnit *unit = func_001346C8(self, owner);
     if (unit) {
         func_00134520(unit, body, center, radius);
     }
@@ -42,7 +49,7 @@ void cCollisionSolidManage_CreateSphere(cCollisionSolidManage *self, struct cGam
 
 __attribute__((section(".text.CustomIDWork_SetNumber_1D5760")))
 void CustomIDWork_SetNumber_1D5760(BlackJack *self, int number) {
-    CustomIDWork_SetNumber(&self->elem[0x2], number);
+    CustomIDWork_SetNumber(&self->elem[BLACKJACK_ELEM_NUMBER], number);
 }
 
 __attribute__((section(".text.cFILTER_gif_tag_start")))
@@ -69,10 +76,16 @@ void cFILTER_gif_tag_end(int a0) {
 }
 
 __attribute__((section(".text.cNode_setLocalScale")))
-void cNode_setLocalScale(cNode *self, cVec *v)
+void cNode_setLocalScale(int a0, int a1)
 {
-    func_002B6400(self);
-    cVec_copy3(&self->scale, v);
+    char *d;
+    func_002B6400(a0);
+    d = (char*)a0 + 0x20;
+    if (d != (char*)a1) {
+        *(float*)((char*)a0 + 0x20) = *(float*)((char*)a1 + 0x0);
+        *(float*)(d + 0x4) = *(float*)((char*)a1 + 0x4);
+        *(float*)(d + 0x8) = *(float*)((char*)a1 + 0x8);
+    }
 }
 
 __attribute__((section(".text.func_001C7DE0")))
@@ -107,10 +120,12 @@ void func_002DB770(void)
     cActionButton_set(&D_00568288, 0xB, 0x13, 0x10, 0, 0, 0);
 }
 
+struct buf_00147B60 { char b[0x40]; };
+
 __attribute__((section(".text.MtxMulRotVec")))
-void MtxMulRotVec(void *dst, void *src, cVec *rot, int order)
+void MtxMulRotVec(int a0, int a1, int a2, int a3)
 {
-    float m[4][4];
-    MtxInitRotVec(m, rot, order);
-    MtxMultiply(dst, src, m);
+    struct buf_00147B60 buf;
+    MtxInitRotVec(&buf, a2, a3 & 0xFF);
+    MtxMultiply(a0, a1, &buf);
 }

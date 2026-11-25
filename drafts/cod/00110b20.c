@@ -21,7 +21,7 @@ extern void func_0012AC98(pl00 *self);
 __attribute__((section(".text.func_00110B20")))
 void func_00110B20(pl00 *self)
 {
-    self->flags15F4 |= 0x100000;
+    self->unk15F4 |= 0x100000;
     switch (self->base.step) {
     case 0: {
         int start;
@@ -104,21 +104,21 @@ void func_00110B20(pl00 *self)
                     vec3_set(&w->rot.x, 0, 0, 0);
                     vec3_set(&heldPos.x, 0, 0, 0);
                     vec3_set(&heldRot.x, 0, 0, 0);
-                    cOmWeapon_setParent((cOmWeapon *)w, (cOmBase *)self->sub698, 2, &heldPos, &heldRot);
+                    cOmWeapon_setParent((cOmWeapon *)w, self->sub698, 2, &heldPos, &heldRot);
                     func_0012AFE8(self, (cOmWeapon *)w);
-                    SetEffect(0, 0x67, self->sub698, 0, -1, 0xFFFFFFFF);
+                    SetEffect(0, 0x67, (cObj *)self->sub698, 0, -1, EFFECT_FOLLOW_OWNER);
                 }
             } else {
                 func_0012AFE8(self, (cOmWeapon *)weapon);
                 Obj0000_Set_Field_68C_Zero_1D0C18((int *)self->sub698);
-                SetEffect(0, 0x67, self->sub698, 0, -1, 0xFFFFFFFF);
+                SetEffect(0, 0x67, (cObj *)self->sub698, 0, -1, EFFECT_FOLLOW_OWNER);
             }
         } else {
             func_0012AC98(self);
         }
     }
     if (self->base.stepArg != 0)
-        self->flags15F4 |= 0x1000000;
+        self->unk15F4 |= 0x1000000;
     if (func_00123938(self, 1) != 0)
         Obj0000_Clear_Fields_640_648_124E58(self);
 }

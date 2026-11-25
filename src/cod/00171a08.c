@@ -1,22 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDvd.h"
-#include "godhand/cNode.h"
 #include "godhand/cIDBase.h"
-#include "godhand/heapArena.h"
-#include "godhand/CustomIDWork.h"
+#include "godhand/cSnd.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cObj.h"
 #include "godhand/vu0.h"
-#include "godhand/cSnd.h"
 #include "godhand/globals.h"
 
 extern void cDvd_pollJob(cDvd *self);
 extern void func_00201250(cDvd *self);
+extern void cHeap_free(void *heap, void *p);
+extern void BlockOwner_dtor(void *self, int flags);
 extern int func_001717C0(cOmBase *self, void *target, cVec *pos);
 extern void *InitFields_1B6E90(void *self);
 extern int D_00429B88;
 extern void KillEffect(void *obj, int a, int b);
+extern void cSnd_SeStop(void *snd, int handle);
 extern void SetField214PtrThenInit_1B6F38(void *obj, int flag);
 
 /* Run one step of the disc queue: start the next job, poll the running one, or idle, by the state at +0x1108. */
@@ -38,8 +38,9 @@ void cDvd_step(cDvd *self) {
 
 /* An object with a method table at 0xF0 and a heap block at 0x2F0. */
 typedef struct HeapOwner {
-    BlockOwner base;                    /* 0x000 */
-    char unk2D4[0x2F0 - 0x2D4];
+    char unk000[0xF0];
+    void *vt;                           /* 0xF0 */
+    char unkF4[0x1FC];
     char *buf;                          /* 0x2F0 */
 } HeapOwner;
 
@@ -47,15 +48,15 @@ typedef struct HeapOwner {
 __attribute__((section(".text.cHeapOwner_deletingDtor")))
 void cHeapOwner_deletingDtor(HeapOwner *self, int flags) {
     char *buf;
-    self->base.base.vt = &D_0044F448;
+    self->vt = &D_0044F448;
     buf = self->buf;
     if (buf != 0) {
         cHeap_free(*(void **)(buf - 0x20), buf);
     }
-    BlockOwner_dtor(&self->base, flags);
+    BlockOwner_dtor(self, flags);
 }
 
-#define IDWORK_HIGHLIGHT  10            /* index of the id work whose hide bit follows the mode byte */
+#define IDWORK_HIGHLIGHT  10            /* id of the entry whose hidden bit follows the mode byte */
 
 /* An ID screen: a mode byte at 1 and the id base at 0x30. */
 typedef struct IdModeScreen {
@@ -65,15 +66,15 @@ typedef struct IdModeScreen {
     cIDBaseObj idBase;                  /* 0x30 */
 } IdModeScreen;
 
-/* Hide the highlight element when the mode is 2, else show it. */
+/* Show the highlight entry when the mode is 2, else hide it. */
 __attribute__((section(".text.CustomID_toggleBit29")))
 void CustomID_toggleBit29(IdModeScreen *self) {
     if (self->mode == 2) {
-        cIDBaseEnt *obj = cIDBase_getIDWork(&self->idBase, IDWORK_HIGHLIGHT);
-        obj->flags &= ~IDENT_FLAG_HIDDEN;
+        cIDBaseEnt *ent = cIDBase_getIDWork(&self->idBase, IDWORK_HIGHLIGHT);
+        ent->flags &= ~IDENT_FLAG_HIDDEN;
     } else {
-        cIDBaseEnt *obj = cIDBase_getIDWork(&self->idBase, IDWORK_HIGHLIGHT);
-        obj->flags |= IDENT_FLAG_HIDDEN;
+        cIDBaseEnt *ent = cIDBase_getIDWork(&self->idBase, IDWORK_HIGHLIGHT);
+        ent->flags |= IDENT_FLAG_HIDDEN;
     }
 }
 

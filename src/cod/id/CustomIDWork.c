@@ -19,6 +19,6 @@ __attribute__((section(".text.CustomIDWork_SetNumber")))
 void CustomIDWork_SetNumber(CustomIDWork *self, int number) {
     cIDBaseEnt *obj = self->obj;
     if (obj != 0) {
-        obj->seed = number;
+        obj->number = number;
     }
 }

@@ -1,6 +1,6 @@
 /* sn-2.95.3-136: option cursor (0xBC) driven by the pad repeat bits, confirm/cancel SEs. */
-#include "godhand/gameWork.h"
 #include "godhand/cSnd.h"
+#include "godhand/gameWork.h"
 #include "godhand/globals.h"
 extern int func_00161B30(char *self);
 

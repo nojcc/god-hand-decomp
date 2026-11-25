@@ -1,5 +1,5 @@
 /* ee-2.9-991111 matched TU. */
-#include "godhand/eeKernel.h"
+#include "godhand/eeKernelFn.h"
 
 /* ee-2.9-991111 — SCE libgraph 3.0.2, graph015.o :: sceGsSetDefLoadImage */
 

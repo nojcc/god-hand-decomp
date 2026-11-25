@@ -1,27 +1,26 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
-#include "godhand/cNode.h"
-#include "godhand/heapArena.h"
-#include "godhand/PanelObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
-#include "godhand/CustomIDWork.h"
-#include "godhand/cIDBase.h"
-#include "godhand/idPair.h"
-#include "godhand/sceVu0.h"
-#include "godhand/gameWork.h"
+#include "godhand/cCockScroll.h"
 #include "godhand/globals.h"
+#include "godhand/PanelObj.h"
+
+extern unsigned short D_00747A50;
 extern void func_0026ECD0(cEm00 *self, int flag);
 extern float ESLib_ESHermite(float t, float p0, float p1, float m0, float m1);
+extern void cHeap_free(int heap, int *block);
+extern void cIDBase_initIDWork(void *part, int idx);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
+extern float capVu0Length(void *a0);
 extern char *D_005CAFF0;
 
 #define EMFLAGS_NO_REACT   0x40000      /* emFlags: the enemy ignores the trigger */
 #define EM_NO_A            0x256
 #define EM_NO_B            0x218
-#define ROOM_NO_A          0x406        /* room id that blocks enemy 0x256 */
-#define ROOM_NO_B          0x1          /* room id that blocks enemy 0x218 */
+#define ROOM_NO_A          0x406        /* D_00747A50 value that blocks enemy 0x256 */
+#define ROOM_NO_B          0x1          /* D_00747A50 value that blocks enemy 0x218 */
 
 
 
@@ -41,9 +40,9 @@ int cEm00_tryReact(cEm00 *self)
         return 0;
     if (self->hp <= 0)
         return 0;
-    if (self->emNo == EM_NO_A && D_007474A0.room == ROOM_NO_A)
+    if (self->emNo == EM_NO_A && D_00747A50 == ROOM_NO_A)
         return 0;
-    if (self->emNo == EM_NO_B && D_007474A0.room == ROOM_NO_B)
+    if (self->emNo == EM_NO_B && D_00747A50 == ROOM_NO_B)
         return 0;
     func_0026ECD0(self, 1);
     return 1;
@@ -63,41 +62,50 @@ cVec *Hermite3_interpolate(cVec *ret, cVec *tmp, float *p0, float *p1, float t)
     return ret;
 }
 
+/* An object that owns six heap blocks; each block's heap handle is stored
+ * 0x20 bytes before it. */
+typedef struct BlockOwner {
+    char unk000[0xF0];
+    void *vt;                           /* 0xF0 */
+    char unkF4[0x1C8];
+    int *blockBC;                       /* 0x2BC */
+    int *blockC0;                       /* 0x2C0 */
+    int *blockC4;                       /* 0x2C4 */
+    int *blockC8;                       /* 0x2C8 */
+    int *blockCC;                       /* 0x2CC */
+    int *blockD0;                       /* 0x2D0 */
+} BlockOwner;
+
+#define BLOCK_HEAP(b)  ((b)[-8])        /* heap handle kept in front of the block */
 
 
 
-
+extern void func_002FBE28(BlockOwner *self, int flags);
 
 /* Destructor: reset the method table, free the six blocks, then run the base destructor. */
 __attribute__((section(".text.BlockOwner_dtor")))
 void BlockOwner_dtor(BlockOwner *self, int flags)
 {
-    self->base.vt = D_0044E960;
+    self->vt = D_0044E960;
     if (self->blockCC != 0)
-        cHeap_free(HEAP_OWNER(self->blockCC), self->blockCC);
+        cHeap_free(BLOCK_HEAP(self->blockCC), self->blockCC);
     if (self->blockD0 != 0)
-        cHeap_free(HEAP_OWNER(self->blockD0), self->blockD0);
+        cHeap_free(BLOCK_HEAP(self->blockD0), self->blockD0);
     if (self->blockC4 != 0)
-        cHeap_free(HEAP_OWNER(self->blockC4), self->blockC4);
+        cHeap_free(BLOCK_HEAP(self->blockC4), self->blockC4);
     if (self->blockC8 != 0)
-        cHeap_free(HEAP_OWNER(self->blockC8), self->blockC8);
+        cHeap_free(BLOCK_HEAP(self->blockC8), self->blockC8);
     if (self->blockBC != 0)
-        cHeap_free(HEAP_OWNER(self->blockBC), self->blockBC);
+        cHeap_free(BLOCK_HEAP(self->blockBC), self->blockBC);
     if (self->blockC0 != 0)
-        cHeap_free(HEAP_OWNER(self->blockC0), self->blockC0);
-    func_002FBE28(&self->base, flags);
+        cHeap_free(BLOCK_HEAP(self->blockC0), self->blockC0);
+    func_002FBE28(self, flags);
 }
 
-#define IDPAIR_POS_Y     (-50.0f)       /* y position of the first element of each part */
-
-
-
-
-
-/* Clear the state bytes, initialise the four elements of both parts, give
- * the first element of each part its sine amplitude and set the timer to 90. */
-__attribute__((section(".text.IdPair_init")))
-void IdPair_init(IdPair *self)
+/* Clear the state bytes, initialise the four entries of both parts, put the
+ * first entry of each part at the top and set the timer to 90. */
+__attribute__((section(".text.cCockScroll_reset")))
+void cCockScroll_reset(cCockScroll *self)
 {
     unsigned short i;
     cIDBaseObj *part;
@@ -110,16 +118,16 @@ void IdPair_init(IdPair *self)
     do {
         cIDBase_initIDWork(self, i);
         i = i + 1;
-    } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork(&self->base, 0)->posY = IDPAIR_POS_Y;
+    } while (i < COCKSCROLL_WORK_NUM);
+    cIDBase_getIDWork(&self->base, 0)->posY = COCKSCROLL_TOP;
     i = 0;
     part = &self->part2;
     do {
         cIDBase_initIDWork(part, i);
         i = i + 1;
-    } while (i < IDPAIR_WORK_NUM);
-    cIDBase_getIDWork(part, 0)->posY = IDPAIR_POS_Y;
-    self->timer = IDPAIR_SHOW_TIME;
+    } while (i < COCKSCROLL_WORK_NUM);
+    cIDBase_getIDWork(part, 0)->posY = COCKSCROLL_TOP;
+    self->timer = COCKSCROLL_SHOW_TIME;
 }
 
 /* A trigger object with a reach (a float at 0x2B8); 0 means it always fires. */
@@ -185,7 +193,6 @@ typedef struct PanelOwner {
     char unk3026[0x1E];
     unsigned char reversed;             /* 0x3044 */
 } PanelOwner;
-
 
 /* Move to a step and restart its sub-step. Written as a helper so that every
  * arm ends in the same store pair, in retail's order (sub first). */

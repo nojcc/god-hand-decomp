@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 #include "godhand/vtables.h"
 
 extern void func_002A84A8(void *p);

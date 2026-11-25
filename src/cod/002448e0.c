@@ -1,14 +1,14 @@
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
-#include "godhand/cObjBase.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
-#include "godhand/cGameObj.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand0_1(void);
@@ -36,7 +36,7 @@ extern float fRand0_1(void);
  * cObjBase_addNullSpeed and 7 more. */
 __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
 {
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
             int gb;
@@ -68,10 +68,10 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             /* fallthrough */
         case 3:
             *(char *)((char *)self + 0x617) = 1;
-            self->forceShown = 1;
+            *(char *)((char *)self + 0x623) = 1;
             self->hitFlash = 2.0f;
             *(char *)((char *)self + 0x531) = -1;
-            cGameObj_SetTgtTurn(self, &self->unk16A0, self->speedRate * 0.09817477f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &self->unk16A0, self->speedRate * 0.09817477f);
             *(unsigned short *)((char *)self + 0x434) =
                 *(unsigned short *)((char *)self + 0x434) | 8;
             moveMotion(self);
@@ -93,7 +93,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             }
             self->timer2 = self->timer2 - self->speedRate;
             if (self->timer2 <= 0.0f) {
-                SetEffectPos(0x58, 0x9C, 0, (void *)self->pos, -1, 1.0f);
+                SetEffectPos(0x58, 0x9C, 0, (void *)self->pos, 1.0f, -1);
                 self->timer2 = 6.0f;
             }
             if (*(int *)((char *)self + 0x474) != 1 && *(int *)((char *)self + 0x474) != 9) {
@@ -102,7 +102,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             *(float *)((char *)self + 0x608) = *(float *)((char *)self + 0x608) - self->speedRate;
             if (*(float *)((char *)self + 0x608) <= 0.0f) {
                 *(float *)((char *)self + 0x608) = 15.0f;
-                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xFB, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xFB, (cObj *)self, 0, 0, 0, 0);
             }
             break;
         case 4: {
@@ -126,7 +126,7 @@ __attribute__((section(".text.func_002448E0"))) void func_002448E0(cEm00 *self)
             *(int *)((char *)self + 0x4A8) = *(int *)((char *)self + 0x4A8) & 0x7FFFFFFF;
             self->hitFlash = 5.0f;
             self->step += 1;
-            self->forceShown = 0;
+            *(char *)((char *)self + 0x623) = 0;
         }
             /* fallthrough */
         case 5:

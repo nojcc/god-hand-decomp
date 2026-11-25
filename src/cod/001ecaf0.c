@@ -1,15 +1,66 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cRoomSave.h"
-#include "godhand/criStm.h"
 #include "godhand/cIDBase.h"
 #include "godhand/CustomIDWork.h"
-#include "godhand/DogRace.h"
-#include "godhand/ColiseumEmSelect.h"
 
+extern void cIDBase_initialize(void *p, int a, int b);
+extern void cIDBase_restartAnim(void *p);
+extern void SetCustomIDDispOneOrAll_1F4778(void *p, int n, int f);
+extern void Panel_hideIcons(void *p);
+extern void func_001EDC28(void *p, int n);
+extern void func_001ED700(void *p, int n, int f);
+extern void func_001EE2A8(void *p, int n);
+extern void func_001EE2C8(void *p, int n);
+extern void SetCustomIDDispOneOrAll_1EE1C0(void *p, int n, int f);
+extern void CustomIDWork_setDispAllButEight(void *p, int a, int b);
+extern void func_001ED490(void *p, int a);
+extern void func_003A52F0(void *dst, int val, int n);
 extern cRoomSaveData D_005E9CB8[ROOMSAVE_PAGE_NUM];
 
-/* Build the 0x6F custom-ID works of the coliseum pick display, then hide all of them. */
+#define COLISEUMEM_ELEM_NUM       0x6F
+#define DOGRACE_UI_ELEM_NUM       6
+#define DOGRACE_LIST_ELEM_NUM     0x1D
+#define DOGRACE_RESULT_ELEM_NUM   0x2D
+
+/* The four displays built here: a cIDBase at 0x10 and the CustomIDWork
+ * elements it animates from 0x60. */
+typedef struct ColiseumEmDisp {
+    char unk000[0x10];
+    cIDBaseObj id;                      /* 0x010 */
+    char unk058[0x60 - 0x10 - sizeof(cIDBaseObj)];
+    CustomIDWork elem[COLISEUMEM_ELEM_NUM];     /* 0x060 */
+} ColiseumEmDisp;                       /* 0x3624 as far as it is known */
+
+typedef struct DogRaceUi {
+    char unk000[0x10];
+    cIDBaseObj id;                      /* 0x010 */
+    char unk058[0x60 - 0x10 - sizeof(cIDBaseObj)];
+    CustomIDWork elem[DOGRACE_UI_ELEM_NUM];     /* 0x060 */
+    char unk348[0x350 - 0x348];
+} DogRaceUi;                            /* 0x350 */
+
+typedef struct DogRaceList {
+    char unk000[0x10];
+    cIDBaseObj id;                      /* 0x010 */
+    char unk058[0x60 - 0x10 - sizeof(cIDBaseObj)];
+    CustomIDWork elem[DOGRACE_LIST_ELEM_NUM];   /* 0x060 */
+    char unkE6C[0xE7C - 0xE6C];
+} DogRaceList;                          /* 0xE7C */
+
+typedef struct DogRaceResult {
+    char unk000[0x10];
+    cIDBaseObj id;                      /* 0x010 */
+    char unk058[0x60 - 0x10 - sizeof(cIDBaseObj)];
+    CustomIDWork elem[DOGRACE_RESULT_ELEM_NUM]; /* 0x060 */
+    char unk162C[0x1630 - 0x162C];
+} DogRaceResult;                        /* 0x1630 */
+
+typedef char DogRaceUi_size_check[sizeof(DogRaceUi) == 0x350 ? 1 : -1];
+typedef char DogRaceList_size_check[sizeof(DogRaceList) == 0xE7C ? 1 : -1];
+typedef char DogRaceResult_size_check[sizeof(DogRaceResult) == 0x1630 ? 1 : -1];
+
+/* Build the 0x6F custom-ID works of a UI object, then show all of them. */
 
 
 

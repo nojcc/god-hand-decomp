@@ -1,4 +1,5 @@
 #include "godhand/cOmBase.h"
+#include "godhand/cOmBaseFn.h"
 extern void KillEffect(void *, int, int);
 
 __attribute__((section(".text.func_001B8448")))

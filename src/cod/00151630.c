@@ -1,4 +1,4 @@
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/cRoomSave.h"
 
 /* sn-2.95.3-136 matched TU. */
@@ -53,17 +53,17 @@ __attribute__((section(".text.cDamageUnit_SetDamageCollFlashActive")))
 void cDamageUnit_SetDamageCollFlashActive(cDamageUnit *self, int active, short flash)
 {
     cDamageNode *p;
-    cDamageData *c;
+    cCollisionUnit *c;
 
     p = self->nodes;
     while (p != 0) {
-        c = p->data;
+        c = p->unit;
         if (active == 1) {
-            c->flags = c->flags | DAMAGE_FLAG_ACTIVE;
+            c->flags = c->flags | COLL_UNIT_FLAG_ACTIVE;
         } else {
-            c->flags = c->flags & DAMAGE_MASK_INACTIVE;
+            c->flags = c->flags & COLL_UNIT_FLAG_INACTIVE_MASK;
         }
-        p->flash = flash;
+        *(short *)((char *)p + 0x30) = flash;
         p = p->next;
     }
 }

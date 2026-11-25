@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDvd.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 
 /* cDvd_cancelAll: drop the running job, then give every queued job back. */

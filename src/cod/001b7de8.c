@@ -4,6 +4,8 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/globals.h"
+#include "godhand/cOmBaseFn.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern int SearchData(int a0, void *a1, int a2);
 extern void cModel_setTextureExchange(void *a0, int a1, int a2, int a3);

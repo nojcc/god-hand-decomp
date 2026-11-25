@@ -3,6 +3,7 @@
 #include "godhand/criStm.h"
 #include "godhand/cSnd.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cOmBaseFn.h"
 
 extern char *D_00754C38;
 extern char D_0061B7C0[];

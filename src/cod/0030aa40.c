@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 extern void sceVu0UnitMatrix(void *m);
 

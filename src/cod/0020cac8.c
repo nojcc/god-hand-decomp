@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 #include "godhand/player.h"
 
 extern int irand(void);
@@ -14,6 +14,7 @@ int func_0020CAC8(cEm00 *self, int force)
 {
     cGameObj *pl = Getplayer();
     unsigned short seq;
+    cDamageTake *take;
     int kind;
     int ok;
 
@@ -64,7 +65,8 @@ int func_0020CAC8(cEm00 *self, int force)
     if ((seq & 4) != 0) {
         return 0;
     }
-    kind = self->unk698->kind;
+    take = self->unk698;
+    kind = take->kind;
     if (kind < 0x17 || (kind >= 0x19 && kind != 0x1B)) {
         return 0;
     }

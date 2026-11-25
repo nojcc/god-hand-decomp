@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cFont.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cMessCommon.h"
 #include "godhand/cModel.h"
+#include "godhand/effectPos.h"
 #include "godhand/vu0.h"
 #include "godhand/cEmManage.h"
-#include "godhand/effectPos.h"
 #include "godhand/globals.h"
 
 extern void *SearchData(void *pack, void *name, int id);
@@ -119,7 +118,7 @@ void cOmEffectHolder_syncEffectPos(cOmEffectHolder *self) {
     src = ((cVec *(*)(void *))self->vtable[16].pfn)((char *)self + self->vtable[16].delta);
     cVec_copy3(&pos, src);
     if (self->effect != 0) {
-        SetEffectPos(0, self->effect, 0, &pos, -1, 1.0f);
+        SetEffectPos(0, self->effect, 0, &pos, 1.0f, -1);
     }
 }
 

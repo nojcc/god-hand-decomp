@@ -2,6 +2,7 @@
 #include "godhand/cSnd.h"
 
 extern void func_002CB070(cSnd *self);
+extern void cSndBgmNode_Release(cSndBgmNode *node);
 extern void func_00375050(int a, int b);
 extern void sceGsSyncV(int a);
 extern void cSndMemHeap_Close(void *a);

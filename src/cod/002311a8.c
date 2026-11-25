@@ -1,11 +1,12 @@
 #include "godhand/cEm00.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 
@@ -25,16 +26,17 @@ extern void cObjBase_addNullSpeed(void *a0, float s);
  * func_002A8578, cSnd_SeCall_2CBA48, GetSeqSEBase, moveMotion, func_002705D8 and 2 more. */
 __attribute__((section(".text.func_002311A8"))) void func_002311A8(cEm00 *self)
 {
+    char *s1 = (char *)self;
 
-    switch (self->step) {
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
         case 0: {
-            int t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
+            int t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
             int o1;
             int o2;
 
-            switch (self->emNo) {
+            switch (*(int *)(s1 + 0x564)) {
                 default: {
-                    int b = EM_RES(self);
+                    int b = *(int *)(s1 + 0x304);
 
                     o1 = EM_RES_REC(b, 0x1C0);
                     o2 = EM_RES_REC(b, 0x1C4);
@@ -51,7 +53,7 @@ __attribute__((section(".text.func_002311A8"))) void func_002311A8(cEm00 *self)
                 case 0x24F:
                 case 0x278:
                 case 0x279: {
-                    int b = EM_RES(self);
+                    int b = *(int *)(s1 + 0x304);
 
                     o1 = EM_RES_REC(b, 0x948);
                     o2 = EM_RES_REC(b, 0x94C);
@@ -73,23 +75,23 @@ __attribute__((section(".text.func_002311A8"))) void func_002311A8(cEm00 *self)
                 case 0x24E:
                 case 0x252:
                 case 0x25A: {
-                    int b = EM_RES(self);
+                    int b = *(int *)(s1 + 0x304);
 
                     o1 = EM_RES_REC(b, 0x11A0);
                     o2 = EM_RES_REC(b, 0x11A4);
                 } break;
             }
-            func_002A8578(self, o1, o2, 0xA, 0.0f, t0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
-            self->hitFlash = 2.0f;
-            self->step = self->step + 1;
+            func_002A8578(s1, o1, o2, 0xA, 0.0f, t0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(s1), (cObj *)self, 0, 0, 0, 0);
+            *(float *)(s1 + 0x54C) = 2.0f;
+            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         }
         case 1:
-            if (moveMotion(self) != 0) {
-                func_002705D8(self);
+            if (moveMotion(s1) != 0) {
+                func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
             break;
     }
 }

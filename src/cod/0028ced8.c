@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 
 extern int cDataManager_addPinnedData(void *a0, int a1, int a2);
 extern char D_005864E0[];

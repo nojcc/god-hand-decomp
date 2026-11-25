@@ -1,13 +1,15 @@
-#include "godhand/cEm00.h"
-#include "godhand/motion.h"
-#include "godhand/cModel.h"
-#include "godhand/cSnd.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
+extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 extern void func_002A74E0(void *a0, void *a1, int a2);
+extern void func_002A7CA0(void *a0, void *a1);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern int irand(void);
 extern int D_007476B0;
@@ -22,7 +24,7 @@ __attribute__((section(".text.func_00286D10"))) void func_00286D10(cEm00 *self)
     *((int *)(((char *)self + 0x15B0))) = (*((int *)(((char *)self + 0x15B0)))) & 0xFFFFFFFE;
     if ((D_007476B0 & 7) == ((*((unsigned char *)(((char *)self + 0x2FC)))) & 7)) {
         func_002A74E0(self, s1, 1);
-        func_002A7CA0((cGameObj *)self, &self->unk1570);
+        func_002A7CA0(self, &self->unk1570);
     }
     switch (*((unsigned char *)(((char *)self + 0x2F6)))) {
         case 0:
@@ -66,12 +68,12 @@ __attribute__((section(".text.func_00286D10"))) void func_00286D10(cEm00 *self)
                         break;
                 }
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5A, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5A, (cObj *)self, 0, 0, 0, 0);
             *((unsigned char *)(((char *)self + 0x2F6))) =
                 (*((unsigned char *)(((char *)self + 0x2F6)))) + 1;
 
         case 1:
-            cGameObj_SetTgtTurn(self, &self->unk1570, 0.098174773f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &self->unk1570, 0.098174773f);
             if ((((((moveMotion(self) != 0) &&
                     (((*((int *)(((char *)self + 0x15B0)))) & 0x200) == 0)) &&
                    (f20 > 100.0f)) &&
@@ -81,7 +83,7 @@ __attribute__((section(".text.func_00286D10"))) void func_00286D10(cEm00 *self)
                 *((unsigned char *)(((char *)self + 0x2F6))) = 2;
                 *((int *)(((char *)self + 0x15B0))) = (*((int *)(((char *)self + 0x15B0)))) | 0x200;
             }
-            cModel_calcNullPart((cModel *)self);
+            cModel_calcNullPart(self);
             Add_nullspeed(self);
             if (f20 < 1.0f) {
                 float d;
@@ -104,16 +106,16 @@ __attribute__((section(".text.func_00286D10"))) void func_00286D10(cEm00 *self)
             v0 = *((int *)(((char *)self + 0x304)));
             func_002A8578(self, (*((int *)(v0 + 0x178))) + v0, (*((int *)(v0 + 0x17C))) + v0, 10,
                           0.0f, 0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5C, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5C, (cObj *)self, 0, 0, 0, 0);
             *((unsigned char *)(((char *)self + 0x2F6))) =
                 (*((unsigned char *)(((char *)self + 0x2F6)))) + 1;
 
         case 3:
-            cGameObj_SetTgtTurn(self, &self->unk1570, 0.098174773f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &self->unk1570, 0.098174773f);
             if (moveMotion(self) != 0) {
                 *((unsigned char *)(((char *)self + 0x2F6))) = 0;
             }
-            cModel_calcNullPart((cModel *)self);
+            cModel_calcNullPart(self);
             Add_nullspeed(self);
             break;
     }

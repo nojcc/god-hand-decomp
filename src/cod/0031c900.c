@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 
 __attribute__((section(".text.func_0031C900")))

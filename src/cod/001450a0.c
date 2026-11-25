@@ -7,6 +7,7 @@
 #include "godhand/Slot1.h"
 #include "godhand/scrollLayer.h"
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cIDBaseScreenFn.h"
 
 extern void func_0();
 extern cMc D_005E6900;

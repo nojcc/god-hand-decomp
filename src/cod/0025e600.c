@@ -1,61 +1,63 @@
 #include "godhand/cModel.h"
 #include "godhand/cEm00.h"
+#include "godhand/cOmWeapon.h"
 typedef void (*Pfn)(void *self);
 
+extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern void ClearField630_SetField2F6_1C2318(void *a0);
 extern void func_001D0108(void *a0);
+extern void cEm_breakHeldWeapons(void *a0);
 extern void func_001D0408(void *a0);
-#include "godhand/cOmWeapon.h"
 extern void KillEffect(void *a0, int a1, int a2);
 
 __attribute__((section(".text.func_0025E600")))
-void func_0025E600(cEm00 *self)
+void func_0025E600(char *self)
 {
     short idx;
     Pfn fn;
     cVtEnt8 e;
 
-    EmThrower_throwHeld(self, 0, 0);
-    EmThrower_throwHeld(self, 1, 0);
+    EmThrower_throwHeld((cEm00 *)self, 0, 0);
+    EmThrower_throwHeld((cEm00 *)self, 1, 0);
     ReleaseField6ECByTag564_26B1E8(self);
-    if (*(void **)((char *)self + 0x70C) != 0) {
-        ClearField630_SetField2F6_1C2318(*(void **)((char *)self + 0x70C));
-        *(void **)((char *)self + 0x70C) = 0;
+    if (*(void **)(self + 0x70C) != 0) {
+        ClearField630_SetField2F6_1C2318(*(void **)(self + 0x70C));
+        *(void **)(self + 0x70C) = 0;
     }
-    if (self->unk730 != 0) {
-        func_001D0108(self->unk730);
-        self->unk730 = 0;
+    if (*(void **)(self + 0x730) != 0) {
+        func_001D0108(*(void **)(self + 0x730));
+        *(void **)(self + 0x730) = 0;
     }
     cEm_breakHeldWeapons(self);
-    if (self->gotoEffect != 0) {
-        func_001D0408(self->gotoEffect);
-        self->gotoEffect = 0;
+    if (*(void **)(self + 0x738) != 0) {
+        func_001D0408(*(void **)(self + 0x738));
+        *(void **)(self + 0x738) = 0;
     }
-    if (self->fx0 != 0) {
-        Obj1D00_ClearState_6(&self->fx0->base);
+    if (*(void **)(self + 0x6F0) != 0) {
+        Obj1D00_ClearState_6(*(cOmBase **)(self + 0x6F0));
     }
-    if (self->fx6 != 0) {
-        Obj1D00_ClearState_7(&self->fx6->base);
+    if (*(void **)(self + 0x708) != 0) {
+        Obj1D00_ClearState_7(*(void **)(self + 0x708));
     }
-    if (self->emFlags2 & 0x20) {
+    if (*(int *)(self + 0x16D4) & 0x20) {
         KillEffect(self, 1, 2);
-        self->emFlags2 &= 0xFFFFFFDF;
+        *(unsigned int *)(self + 0x16D4) &= ~0x20;
     }
-    self->unk1864 = 0;
-    if (self->phase >= 5) {
-        self->phase = 0;
+    *(unsigned char *)(self + 0x1864) = 0;
+    if (*(unsigned char *)(self + 0x2F5) >= 5) {
+        *(unsigned char *)(self + 0x2F5) = 0;
     }
-    idx = D_003BF878[self->phase].index;
+    idx = D_003BF878[*(unsigned char *)(self + 0x2F5)].index;
     if (idx >= 0) {
-        e = (*(cVtEnt8 **)((char *)self + D_003BF878[self->phase].u.delta2))[idx - 1];
+        e = (*(cVtEnt8 **)(self + D_003BF878[*(unsigned char *)(self + 0x2F5)].u.delta2))[idx - 1];
         fn = e.pfn;
     } else {
-        fn = D_003BF878[self->phase].u.pfn;
+        fn = D_003BF878[*(unsigned char *)(self + 0x2F5)].u.pfn;
     }
     {
-        short d = D_003BF878[self->phase].delta;
+        short d = D_003BF878[*(unsigned char *)(self + 0x2F5)].delta;
         int off = idx >= 0 ? e.delta + d : d;
 
-        fn((char *)self + off);
+        fn(self + off);
     }
 }

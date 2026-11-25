@@ -1,6 +1,6 @@
 #include "godhand/cEm00.h"
 #include "godhand/cCamManager.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/motion.h"
 #include "godhand/player.h"
 
@@ -18,7 +18,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
     void *parts;
     cGameObj *pl;
     cDamageUnit *s2;
-    char *v0;
+    int v0;
     cGameObjVt *vt;
     float one;
     cCamManager *mgr;
@@ -53,7 +53,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
     }
     switch (self->step) {
         case 0:
-            v0 = self->pack;
+            v0 = EM_RES(self);
             func_002A8578(self, EM_RES_REC(v0, 0x444), EM_RES_REC(v0, 0x448), 0, 0.0f, 0, 0);
             self->seqFlags = self->seqFlags & 0xFDFF;
             self->unk617 = 1;
@@ -77,7 +77,7 @@ __attribute__((section(".text.func_0025FA18"))) void func_0025FA18(cEm00 *self)
             }
             break;
         case 2:
-            v0 = self->pack;
+            v0 = EM_RES(self);
             func_002A8578(self, EM_RES_REC(v0, 0x153C), EM_RES_REC(v0, 0x1540), 0, 0.0f, 0, 0);
             self->seqFlags = self->seqFlags & 0xFDFF;
             self->unk617 = 1;

@@ -127,13 +127,13 @@ void func_00169DF8(ShopPanel *self)
     shown = 0;
     for (row = 0; row < SHOP_ROWS; row++) {
         item++;
-        self->ent[SHOP_ROW_NUMBER + row]->seed = row + self->scroll + 1;
+        self->ent[SHOP_ROW_NUMBER + row]->number = row + self->scroll + 1;
         self->ent[SHOP_ROW_NAME + row]->msg = SHOP_MSG_NAME;
-        self->ent[SHOP_ROW_PRICE + row]->seed = 0;
+        self->ent[SHOP_ROW_PRICE + row]->number = 0;
         self->ent[SHOP_ROW_NAME + row]->b8B = 7;
         self->ent[SHOP_ROW_LOCK + row]->flags &= ~SHOP_HIDE;
         if (item >= SHOP_ITEMS) {
-            self->ent[SHOP_ROW_NUMBER + row]->seed = 0;
+            self->ent[SHOP_ROW_NUMBER + row]->number = 0;
             continue;
         }
         if (D_0042AD58[item].stage == -1
@@ -145,7 +145,7 @@ void func_00169DF8(ShopPanel *self)
         }
         self->rowReel[row] = D_0042AD58[item].reel;
         self->ent[SHOP_ROW_NAME + row]->msg = D_0042AD58[item].msg;
-        self->ent[SHOP_ROW_PRICE + row]->seed = D_0042AD58[item].price;
+        self->ent[SHOP_ROW_PRICE + row]->number = D_0042AD58[item].price;
         if (self->state == 1 && row == self->cursor) {
             self->title->msg = item + SHOP_MSG_INFO;
             self->subtitle->msg = item + SHOP_MSG_INFO;
@@ -160,7 +160,7 @@ void func_00169DF8(ShopPanel *self)
             self->stageInfo->msg = D_0042AD58[item].stageMsg + SHOP_MSG_STAGE;
         }
         if (!cCoreSave_ckGodReel(&D_00569B70, D_0042AD58[item].reel)
-            && cCoreSave_getGold(&D_00569B70) >= (int)self->ent[SHOP_ROW_PRICE + row]->seed) {
+            && cCoreSave_getGold(&D_00569B70) >= (int)self->ent[SHOP_ROW_PRICE + row]->number) {
             self->ent[SHOP_ROW_LOCK + row]->flags |= SHOP_HIDE;
             self->ent[SHOP_ROW_NAME + row]->b8B = 6;
             if (!cCoreSave_ckClearStage(&D_00569B70, (unsigned short)(D_0042AD58[item].stage + 1))

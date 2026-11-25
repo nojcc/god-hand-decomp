@@ -7,9 +7,9 @@
 #include "godhand/cCollisionSolid.h"
 
 /* The unit owned by owner, or 0. */
-cCollisionSolidUnit *func_001346C8(cCollisionSolidManage *self, struct cGameObj *owner)
+cCollisionSolidManageUnit *func_001346C8(cCollisionSolidManage *self, struct cGameObj *owner)
 {
-    cCollisionSolidUnit *u;
+    cCollisionSolidManageUnit *u;
 
     if (owner == 0) {
         return 0;

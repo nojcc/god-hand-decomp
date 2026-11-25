@@ -1,22 +1,23 @@
 #include "godhand/cEm00.h"
-#include "godhand/cDamageUnit.h"
-#include "godhand/cObjBase.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern int moveMotion(void *a0);
 extern void Obj0000_Set_Bytes_2F4_2F7_2F5_2F6_27DCD0(int a0, int a1);
 extern void KillEffect(void *a0, int a1, int a2);
+extern int cDamageUnit_SetDamageCollActive(void *a0, int a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -126,7 +127,7 @@ __attribute__((section(".text.func_0025E790"))) void func_0025E790(cEm00 *self)
                         s2 = EM_RES_REC(b, 0xAD4);
                         s1 = EM_RES_REC(b, 0xAD8);
                     }
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x23), s3, 0, 0,
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x23), (cObj *)self, 0, 0,
                                        0, 0);
                     break;
                 case 0x260:
@@ -246,15 +247,15 @@ __attribute__((section(".text.func_0025E790"))) void func_0025E790(cEm00 *self)
                     cDamageUnit_SetDamageCollActive(s5, 0);
                 }
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 8), s3, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 8), (cObj *)self, 0, 0, 0, 0);
             switch (*(int *)(s3 + 0x564)) {
                 case 0x207:
                 case 0x240:
                 case 0x249:
                 case 0x24A:
                 case 0x24E:
-                    SetEffect(0x58, 0x9F, s3, &s, -1, 0xFFFFFFFF);
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x22), s3, 0, 0,
+                    SetEffect(0x58, 0x9F, (cObj *)self, &s, -1, EFFECT_FOLLOW_OWNER);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x22), (cObj *)self, 0, 0,
                                        0, 0);
                     break;
             }

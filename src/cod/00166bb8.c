@@ -7,9 +7,9 @@
 #include "godhand/cIDBase.h"
 #include "godhand/cIDMenuPanel.h"
 #include "godhand/menuKey.h"
+#include "godhand/padWork.h"
 
 #define OPTION_ROWS      8
-#define PAD_WORK_VIBRATION 0x4B8               /* D_005E8140 byte: pad vibration on */
 
 #define OPTION_MSG_ASK   0x2008               /* message id of the yes/no question */
 
@@ -23,7 +23,6 @@ typedef struct PauseOptionPanel {
     signed char answer;                 /* 0x131 0 = yes, 1 = no */
 } PauseOptionPanel;
 
-extern unsigned char D_005E8140[];
 extern void func_001672F0(void *self);
 
 /* Input step of the pause options panel: moves through the eight rows,

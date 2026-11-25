@@ -1,4 +1,4 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/vu0.h"
@@ -19,7 +19,7 @@ void func_0028D138(cEm00 *self, cOmWeapon *weapon, int kind)
     VU0_SQC2_VF0_MEM(&pos, 0);
     VU0_SQC2_VF0_MEM(&rot, 0);
     CEM00_WEAPON_GRIP(self, kind, self->motionFlags & 2, pos, rot, hand);
-    cOmWeapon_setParent(weapon, (cOmBase *)self, hand, &pos, &rot);
+    cOmWeapon_setParent(weapon, (cGameObj *)self, hand, &pos, &rot);
     if (kind != 0x369) {
         self->unk1634 = weapon;
     } else {

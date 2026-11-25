@@ -3,7 +3,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/reachObj.h"
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 extern void *Gp_draw_poly3(void *v, int color, int count, int a4, int a5);
 extern void *Gp_draw_poly4(void *v, int color, int count, void *ctx, int a5, int a6);

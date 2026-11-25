@@ -1,13 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
-#include "godhand/cModel.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/globals.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int moveMotion(void *a0);
+extern void ReleaseObj(void *a0);
 extern void func_00275DA8(void *a0);
 
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -67,7 +68,7 @@ __attribute__((section(".text.func_00247E60"))) void func_00247E60(cEm00 *self)
             s.unk72 = 0;
             s.unk74 = 0;
             s.unk78 = 0;
-            SetEffect(0xBD, 0x19, self, &s, 1, 0xFFFFFFFF);
+            SetEffect(0xBD, 0x19, (cObj *)self, &s, 1, EFFECT_FOLLOW_OWNER);
             v = cModel_getMeshPtr_14B730(self, &D_0042CAD0);
             if (v != 0) {
                 *(int *)(v + 0x380) = *(int *)(v + 0x380) & 0xFFFFFFFE;

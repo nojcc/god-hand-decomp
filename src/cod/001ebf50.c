@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cModel.h"
+#include "godhand/cModelFn.h"
 
 
 static inline void SetBit(int *w, int b) {

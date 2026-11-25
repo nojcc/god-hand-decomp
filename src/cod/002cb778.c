@@ -1,4 +1,4 @@
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/criStm.h"
 #include "godhand/cSnd.h"
 #include "include_asm.h"
@@ -8,12 +8,14 @@
 extern int D_00747A34;
 extern void cSndMemHeap_ResetFirstBlk(void *);
 extern int cSndMemHeap_Alloc(int, int);
+extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int slot);
+extern int cSeData_IsAlive(void *d);
 
 /* A slot is available when it is unset (-1), has no owner, or its entry is alive. */
 __attribute__((section(".text.cSnd_SeIsLoaded")))
 int cSnd_SeIsLoaded(cSnd *self, int slot)
 {
-    cSeData *e;
+    cSndSeEntry *e;
     if (slot == -1) return 1;
     e = cSnd_GetSeData(self, slot);
     if (e->owner == -1) return 1;

@@ -44,7 +44,7 @@ typedef struct cSeBuf {
 typedef struct cSeData {
     int state;                  /* 0x00 CSEDATA_STATE_* */
     unsigned int flags;         /* 0x04 load progress bits */
-    struct HeapArena *pool;     /* 0x08 allocator the bank is read into */
+    void *pool;                 /* 0x08 allocator the bank is read into */
     cSeBuf *head;               /* 0x0C */
     cSeBuf *buf;                /* 0x10 the bank image */
     int f14;                    /* 0x14 */
@@ -60,7 +60,7 @@ typedef struct cSeData {
     int f30;                    /* 0x30 */
     int f34;                    /* 0x34 */
     int f38;                    /* 0x38 */
-    int owner;                  /* 0x3C object id the bank is loaded for */
+    int f3C;                    /* 0x3C */
 } cSeData;                      /* 0x40 */
 
 /* Header of a loaded BGM table. */
@@ -87,7 +87,7 @@ typedef struct cBgmData {
     signed char f01;            /* 0x01 */
     char unk02[2];
     int state;                  /* 0x04 bit flags, CBGMDATA_STATE_READY when loaded */
-    struct HeapArena *pool;     /* 0x08 allocator the data is read into */
+    void *pool;                 /* 0x08 allocator the data is read into */
     cBgmHead *head;             /* 0x0C */
     cBgmTbl *tbl;               /* 0x10 */
     void *f14;                  /* 0x14 */
@@ -127,7 +127,6 @@ cBgmHead *cBgmData_GetHeadPtr(cBgmData *d);
 cBgmTbl *cBgmData_GetTblPtr(cBgmData *d, int n);
 cBgmData *cBgmData_Init(cBgmData *d);
 int cBgmData_IsReadDone(cBgmData *d);
-int cBgmData_LoadNamed(cBgmData *d, int kind, char *fileName);
 int cBgmData_LoadNumbered(cBgmData *d, int kind, int req);
 int cBgmData_PrepareDecode(cBgmData *d);
 void cBgmData_Relocate(cBgmData *d);
@@ -147,9 +146,6 @@ void cSeData_RegisterBank(cSeData *d);
 void cSeData_Release(cSeData *d);
 int cSeData_ResolveBank(cSeData *d);
 void cSeData_SelectHeap(cSeData *d);
-void cSeData_Update(cSeData *d);
-int cSeData_IsAlive(cSeData *d);
-int cSeData_IsFailed(cSeData *d);
 int cSeData_IsFree(cSeData *d);
 int cBgmData_IsReady(cBgmData *d);
 int cBgmData_IsEmpty(cBgmData *d);

@@ -1,10 +1,11 @@
 #include "godhand/cModel.h"
 #include "godhand/cObjBase.h"
-#include "godhand/Slot1.h"
 
 /* sn-2.95.3-136 matched TU. */
 
-extern void func_001E7E68(void *a, void *b, void *c, unsigned short d);
+extern void func_001E7E68(void *dst, void *a, void *b, int n);
+extern void InitClearStructAndSet_1E79A8(int *a0, int a1);
+extern void Scroll_showLayerBySelector(void *a0, int a1);
 extern unsigned char D_0076CF20[];
 extern void func_0037C5C8(void *slot, void *obj, int bit);
 extern void func_0037C6A0(void *slot);
@@ -44,19 +45,19 @@ void func_0012CC70(void *this)
     *(void **)((char *)this + 0x644) = q;
     *(int *)((char *)this + 0x15F4) |= 0x800000;
     if (*(int *)((char *)q + 0x564) != 0x26A) {
-        SetEffect(0, 0x61, q, 0, 6, 0xFFFFFFFFu);
+        SetEffect(0, 0x61, q, 0, 6, EFFECT_FOLLOW_OWNER);
         return;
     }
-    SetEffect(0, 0x79, q, 0, 6, 0xFFFFFFFFu);
+    SetEffect(0, 0x79, q, 0, 6, EFFECT_FOLLOW_OWNER);
     e = *(void **)((char *)this + 0x644);
     if (*(void **)((char *)e + 0x748) != 0) {
-        SetEffect(0, 0x79, *(void **)((char *)e + 0x748), 0, 6, 0xFFFFFFFFu);
+        SetEffect(0, 0x79, *(void **)((char *)e + 0x748), 0, 6, EFFECT_FOLLOW_OWNER);
     }
     if (*(void **)((char *)e + 0x74C) != 0) {
-        SetEffect(0, 0x79, *(void **)((char *)e + 0x74C), 0, 6, 0xFFFFFFFFu);
+        SetEffect(0, 0x79, *(void **)((char *)e + 0x74C), 0, 6, EFFECT_FOLLOW_OWNER);
     }
     if (*(void **)((char *)e + 0x750) != 0) {
-        SetEffect(0, 0x79, *(void **)((char *)e + 0x750), 0, 6, 0xFFFFFFFFu);
+        SetEffect(0, 0x79, *(void **)((char *)e + 0x750), 0, 6, EFFECT_FOLLOW_OWNER);
     }
 }
 
@@ -66,10 +67,8 @@ void func_0012CC70(void *this)
 
 
 
-/* Set up the first slot machine: build the three reels from their data pairs and the prize board, store id, and show
- * only scroll layer 1. Does nothing if any data pointer is 0 or n is 0x16 or more. */
 __attribute__((section(".text.Slot1_Initialize")))
-void Slot1_Initialize(Slot1 *self, unsigned short id, void *p0, void *p1,
+void Slot1_Initialize(void *this, unsigned short id, void *p0, void *p1,
                       void *p2, void *p3, void *p4, void *p5,
                       unsigned short n, int last)
 {
@@ -81,12 +80,12 @@ void Slot1_Initialize(Slot1 *self, unsigned short id, void *p0, void *p1,
     if (p5 == 0) return;
     if (last == 0) return;
     if (n >= 0x16) return;
-    func_001E7E68(&self->reel[0], p0, p1, n);
-    func_001E7E68(&self->reel[1], p2, p3, n);
-    func_001E7E68(&self->reel[2], p4, p5, n);
-    InitClearStructAndSet_1E79A8(&self->panel, last);
-    self->unk48C = id;
-    Scroll_showLayerBySelector(self, 0);
+    func_001E7E68((char *)this + 0x58, p0, p1, n);
+    func_001E7E68((char *)this + 0x160, p2, p3, n);
+    func_001E7E68((char *)this + 0x268, p4, p5, n);
+    InitClearStructAndSet_1E79A8((int *)((char *)this + 0x370), last);
+    *(short *)((char *)this + 0x48C) = id;
+    Scroll_showLayerBySelector(this, 0);
 }
 
 /* sn-2.95.3-136 */

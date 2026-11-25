@@ -26,7 +26,7 @@ typedef struct cOmWeaponPiece {
 typedef struct cOmWeapon {
     cOmBase base;                       /* 0x000 */
     char unk5E0[0x20];
-    cOmBase *parent;                        /* 0x600 the fighter holding it, 0 when free */
+    struct cGameObj *parent;                /* 0x600 the fighter holding it, 0 when free */
     int parentIdx;                          /* 0x604 index of the held slot on the parent */
     char unk608[0x8];
     cVec heldPos;                           /* 0x610 */
@@ -41,8 +41,8 @@ typedef struct cOmWeapon {
     char unk666[0x2];
     int timer;                              /* 0x668 frame countdown, see cOmWeapon_SetDamage */
     float unk66C;                           /* 0x66C */
-    int throwArg;                           /* 0x670 second argument of setThrow */
-    float fallVel;                          /* 0x674 vertical speed while dropping */
+    struct cGameObj *thrower;               /* 0x670 the fighter that threw it (setThrow's cGameObj argument) */
+    float fallVel;                          /* 0x674 vertical speed while dropping; func_001C9AF0 uses it as a frame countdown */
     char unk678[0x10];
     unsigned char waterHit;                 /* 0x688 set once LineObj_checkWaterHit finds water */
     char unk689[0x7];
@@ -56,56 +56,23 @@ typedef struct cOmWeapon {
     cOmWeaponPiece piece[COMWEAPON_PIECE_NUM];/* 0x6B0 debris pieces spawned when it breaks */
 } cOmWeapon;
 
-/* The nearest weapon within radius of pos that can be picked up. With any == 0
- * it also skips the weapons func_001D0AE0 rejects. */
-cOmWeapon *func_002DDAB0(cVec *pos, int any, float radius);
-
-typedef char cOmWeapon_size_check[(sizeof(cOmWeapon) == 0x790) ? 1 : -1];
-
-/* Attaches the weapon to body part idx of par with the hold offsets heldPos and heldRot, and starts the held state. */
-void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, cVec *heldRot);
-/* Set the four state bytes to mode 0, phase 6 (or 8), step 0, stepArg 0. */
+/* cOmWeapon::setParent: attach the weapon to body part idx of par with the hold offsets heldPos and heldRot, and start the held state. */
+void cOmWeapon_setParent(cOmWeapon *self, struct cGameObj *par, unsigned int idx, const cVec *heldPos, const cVec *heldRot);
+/* Set the four state bytes to mode 0, phase 6 (7, 8 or 9), step 0, stepArg 0. */
 void Obj1D00_ClearState_6(cOmBase *self);
 void Obj1D00_ClearState_7(cOmBase *self);
 void Obj1D00_ClearState_8(cOmBase *self);
 void Obj1D00_ClearState_9(cOmBase *self);
-void Obj1D00_SetState6_Variant6_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_2_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_4_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_8_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_C_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_E_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_7_A_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_7_C_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_7_E_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_7_1A_a1(cOmBase *self, int arg);
-void Obj1D00_SetState_6_A(cOmBase *self);
-void Obj1D00_SetState_7_2(cOmBase *self);
-void Obj1D00_SetState_7_4(cOmBase *self);
-void Obj1D00_SetState_7_6(cOmBase *self);
-void Obj1D00_SetState_7_8(cOmBase *self);
-void Obj1D00_SetState_7_10(cOmBase *self);
-void Obj1D00_SetState_7_12(cOmBase *self);
-void Obj1D00_SetState_7_14(cOmBase *self);
-void Obj1D00_SetState_7_16(cOmBase *self);
-void Obj1D00_SetState_7_18(cOmBase *self);
-void Obj1D00_SetState_7_1C(cOmBase *self);
-int Obj1D00_GetField_665(cOmWeapon *self);
-int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(cOmBase *self);
-/* Throw the weapon with velocity pos and throw argument arg and enter state 0x11
- * (definition in 001ad818.c). */
-void func_001D0140(cOmWeapon *self, cVec *pos, int arg);
-/* Break the weapon into its debris pieces. */
-void cOmWeapon_SetBreak(cOmWeapon *self);
-/* Drop the weapon. */
-void cOmWeapon_setFall(cOmWeapon *self);
+/* setThrow's siblings: let go of the holder, launch with velocity vel, keep thrower and enter a throw state.
+ * func_001CFB28 also zeroes the body's anchor (state 4); func_001D0140 enters 0x11, func_001D0240 0x12. */
+void func_001CFB28(cOmWeapon *self, const cVec *vel, struct cGameObj *thrower);
+void func_001D0140(cOmWeapon *self, const cVec *vel, struct cGameObj *thrower);
+void func_001D0240(cOmWeapon *self, const cVec *vel, struct cGameObj *thrower);
+
+typedef char cOmWeapon_size_check[(sizeof(cOmWeapon) == 0x790) ? 1 : -1];
+
 /* Once per weapon: cast a line from posA to pos and, on a water surface,
  * splash and play the splash sound. */
 void LineObj_checkWaterHit(cOmWeapon *self);
-/* Hand weapon to parent with the hold offsets of type (two loaders with the same table). */
-void SetOrientByType_26AF20(cOmBase *parent, cOmWeapon *weapon, unsigned int type);
-void cOmWeapon_loadEffectParamsByType(cOmBase *parent, cOmWeapon *weapon, unsigned int type);
-/* Hand weapon to self's right or left hand with self's kind's grip. */
-void cOmBase_attachWeaponGrip(cOmBase *self, cOmWeapon *weapon, int left);
 
 #endif

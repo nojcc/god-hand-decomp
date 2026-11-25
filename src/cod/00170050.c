@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/cOmHitVolume.h"

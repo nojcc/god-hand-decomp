@@ -78,14 +78,14 @@ void func_001AD5C8(cOmGimmickMove *self)
         self->base.step = 0;
         self->base.stepArg = 0;
         self->base.phase = 1;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, GIMMICK_START_SE, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, GIMMICK_START_SE, (cObj *)self, 0, 0, 0, 0);
         /* fall through: the move starts this frame */
     case 1:
         if (cOmSub_move(self->move))
             return;
         self->triggered = 0;
         self->moving = 0;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, GIMMICK_END_SE, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, GIMMICK_END_SE, (cObj *)self, 0, 0, 0, 0);
         resetPart(self);
         break;
     }

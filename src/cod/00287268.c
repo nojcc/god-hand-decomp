@@ -4,10 +4,11 @@
  * while any actor is active. */
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
-#include "godhand/motion.h"
-#include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
+extern int moveMotion(void *a0);
+extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 extern int IsAnyActorActive_289418(void *a0);
 extern float fRand0_1(void);
@@ -18,7 +19,7 @@ void cEm00_stepGrowlWhileActive(cEm00 *self)
     int res;
     float t;
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
     case 0:
         self->gotoFlags = self->gotoFlags | 0x10;
@@ -29,7 +30,7 @@ void cEm00_stepGrowlWhileActive(cEm00 *self)
     case 1:
         self->hitFlash = 3.0f;
         moveMotion(self);
-        cModel_calcNullPart((cModel *)self);
+        cModel_calcNullPart(self);
         Add_nullspeed(self);
         break;
     }
@@ -37,7 +38,7 @@ void cEm00_stepGrowlWhileActive(cEm00 *self)
         t = self->timer - self->speedRate;
         self->timer = t;
         if (t <= 0.0f) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x60, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x60, (cObj *)self, 0, 0, 0, 0);
             self->timer = fRand0_1() * 30.0f + 60.0f;
         }
     } else {

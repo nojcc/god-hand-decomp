@@ -1,9 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cCollisionSolid.h"
-#include "godhand/motion.h"
 #include "godhand/cGameObj.h"
-#include "godhand/player.h"
+#include "godhand/motion.h"
+extern char *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void func_00129718(void *a0, void *a1, int a2);
@@ -25,11 +26,11 @@ __attribute__((section(".text.func_00243FA0")))
 void func_00243FA0(char *s0)
 {
     int b;
-    cGameObj *o;
+    char *o;
     float *p;
     float t;
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
     *(int *)(s0 + 0x16D0) |= 0x10000;
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
@@ -39,7 +40,7 @@ void func_00243FA0(char *s0)
         *(char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         o = Getplayer();
-        cGameObj_SetTgtTurn(s0, o->pos,
+        cGameObj_SetTgtTurn((cGameObj *)s0, *(cVec **)(o + 0xF0),
                                          *(float *)(s0 + 0x5A8) * 0.19634954f);
         if (moveMotion(s0) != 0)
             *(char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
@@ -56,7 +57,7 @@ void func_00243FA0(char *s0)
     case 3:
         if (64.0f < *(float *)(s0 + 0x618)) {
             o = Getplayer();
-            cGameObj_SetTgtTurn(s0, o->pos,
+            cGameObj_SetTgtTurn((cGameObj *)s0, *(cVec **)(o + 0xF0),
                                              *(float *)(s0 + 0x5A8) *
                                                  0.09817477f);
         }
@@ -107,7 +108,7 @@ void func_00243FA0(char *s0)
         *(char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 7:
         o = Getplayer();
-        cGameObj_SetTgtTurn(s0, o->pos,
+        cGameObj_SetTgtTurn((cGameObj *)s0, *(cVec **)(o + 0xF0),
                                          *(float *)(s0 + 0x5A8) * 0.19634954f);
         if (moveMotion(s0) != 0) {
             *(char *)(s0 + 0x2F4) = 0;

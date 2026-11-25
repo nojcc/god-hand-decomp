@@ -1,6 +1,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 #include "godhand/player.h"
+#include "godhand/cGameObjFn.h"
 
 /* sn-2.95.3-136 matched TU. */
 

@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/eh.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 /* __get_eh_info: the address of the current thread's exception info. */
 __attribute__((section(".text.__get_eh_info")))

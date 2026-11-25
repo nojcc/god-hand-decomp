@@ -1,5 +1,5 @@
 /* ee-2.9-991111 matched TU. */
-#include "godhand/eeKernel.h"
+#include "godhand/eeKernelFn.h"
 #include "godhand/globals.h"
 
 extern void func_0039C3E8(int a0, int a1, int a2);

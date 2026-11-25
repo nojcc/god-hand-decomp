@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/DogRace.h"
 
 extern void ClearObjRef_1EE9A0(void *a0);

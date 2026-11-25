@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/capVu0.h"
 #include "godhand/motion.h"
 
@@ -31,13 +32,13 @@ void func_0010E230(pl00 *self)
 {
     int one = 1;
 
-    self->flags15F4 |= 0x40000;
+    self->unk15F4 |= 0x40000;
     if (self->base.hp <= 0)
         self->base.hp = one;
     switch (self->base.step) {
     case 0: {
         cGameObj *o;
-        char *w;
+        int w;
 
 
         o = self->held;
@@ -71,13 +72,13 @@ void func_0010E230(pl00 *self)
         func_00124540(self, 0);
         self->comboSlot = 0;
         self->comboSet = 0;
-        if (self->unk648 > 0)
+        if ((signed char)self->unk648 > 0)
             self->unk648 = 0x2D;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self,
             (int)(self->unk600 * 8.0f), 2, 0x18, 0, 0xA);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self,
             (int)(self->unk600 * 8.0f), 2, 0x18, 0, 0xA);
-        w = self->base.pack;
+        w = EM_RES(&self->base);
         func_002A8578(self, EM_RES_REC(w, 0x1AC), EM_RES_REC(w, 0x1B4),
                       3, 0.0f, 0, 0);
         self->unk15C4 = 0.0f;

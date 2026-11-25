@@ -1,9 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cMessage.h"
-#include "godhand/criStm.h"
-#include "godhand/heapArena.h"
-#include "godhand/cIDBaseScreen.h"
+#include "godhand/cIDBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cMessCommon.h"
@@ -11,7 +9,10 @@
 
 extern unsigned int D_00747A78;
 extern void func_002B2438(cMessageWin *win);
+extern unsigned short D_003BD70C;
+extern void cIDBase_resetAnim(void *id);
 extern unsigned int D_007474A8;
+extern void *_MemoryAlloc(int size, int align, int heap);
 extern int cMessCommon_getCodeSize(int code);
 
 /* Update every open message window unless the lock bit is set; a window of kind 7 is deleted. */
@@ -49,19 +50,53 @@ void cMessage_updateAll(cMessage *self) {
 /* Reset the screen object: restart all seven display blocks and clear the cursor words. */
 
 
+#define SCR_SLOT_NUM  5
+
+/* Store through a cast pointer, not a member access. A member store cannot alias the scalar
+ * global D_003BD70C, so the scheduler lifts that load above it; retail keeps the load after
+ * the stores, which only the cast form reproduces. */
+#define SCR_STORE(type, field, value)  (*(type *)&(field) = (value))
+
+/* A display block sits on a 0x50 stride. */
+typedef struct ScrIdSlot {
+    cIDBaseObj id;                      /* 0x00 */
+    char pad48[0x50 - sizeof(cIDBaseObj)];
+} ScrIdSlot;
+
+typedef struct ScrObj {
+    char unk000[0x90];
+    int unk90;                          /* 0x090 */
+    char unk94[0x6C];
+    ScrIdSlot slot[SCR_SLOT_NUM];       /* 0x100 */
+    char unk290[0x18E];
+    short unk41E;                       /* 0x41E */
+    short unk420;                       /* 0x420 */
+    char unk422[0xE];
+    ScrIdSlot extraA;                   /* 0x430 */
+    ScrIdSlot extraB;                   /* 0x480 */
+    short unk4D0;                       /* 0x4D0 */
+} ScrObj;
+
+typedef char ScrObj_extraA_check[((int)&((ScrObj *)0)->extraA == 0x430) ? 1 : -1];
+typedef char ScrObj_unk4D0_check[((int)&((ScrObj *)0)->unk4D0 == 0x4D0) ? 1 : -1];
+
+
+extern void func_00144C90(ScrObj *self);
+
+
 __attribute__((section(".text.ScrObj_reset")))
-void ScrObj_reset(cIDBaseScreen *self) {
+void ScrObj_reset(ScrObj *self) {
     unsigned short i;
     func_00144C90(self);
-    for (i = 0; i < SCR_ROW_NUM; i++) {
-        cIDBase_resetAnim(&self->row[i].id);
+    for (i = 0; i < SCR_SLOT_NUM; i++) {
+        cIDBase_resetAnim(&self->slot[i]);
     }
-    cIDBase_resetAnim(&self->extraA.id);
-    cIDBase_resetAnim(&self->extraB.id);
-    SCR_STORE(short, self->phase, 0);
-    SCR_STORE(short, self->step, 0);
-    SCR_STORE(int, self->flags, 0);
-    SCR_STORE(unsigned short, self->timer, D_003BD70C);
+    cIDBase_resetAnim(&self->extraA);
+    cIDBase_resetAnim(&self->extraB);
+    SCR_STORE(short, self->unk41E, 0);
+    SCR_STORE(short, self->unk420, 0);
+    SCR_STORE(int, self->unk90, 0);
+    SCR_STORE(short, self->unk4D0, D_003BD70C);
 }
 
 /* Enemy slot upkeep: with no key held count the cooldown down, then release the slot; a held key picks the slot kind. */
@@ -96,25 +131,24 @@ void cEm00_updateSlotCooldown(EmSlotObj *self) {
     }
 }
 
-/* Sphere constructor: run the base one, then set the sphere table, owner, state, centre and radius. */
+/* Sphere constructor: run the base one, then set the sphere table, body matrix, state, centre and radius. */
 
 
 
 #define CSOLID_CENTER_OFFSET  0x50      /* cCollisionSolidObj.center, for the VU0 store */
 #define CSOLID_UNK60_OFFSET   0x60      /* cCollisionSolidObj.unk60 */
 
-
-
 __attribute__((section(".text.cCollisionSolid_constructSphere")))
-cCollisionSolidObj *cCollisionSolid_constructSphere(cCollisionSolidObj *self, void *owner, cVec *center, float radius) {
+cCollisionSolidObj *cCollisionSolid_constructSphere(cCollisionSolidObj *self, const struct cMatrix *body,
+                                                    const cVec *center, float radius) {
     cVec *dst;
-    cCollisionSolid(&self->base);
+    cCollisionSolid(self);
     dst = &self->center;
-    self->base.vt = &D_0041D7E0;
-    self->owner = owner;
+    self->vt = &D_0041D7E0;
+    self->body = body;
     VU0_SQC2_VF0(self, CSOLID_CENTER_OFFSET);
     VU0_SQC2_VF0(self, CSOLID_UNK60_OFFSET);
-    self->base.kind = CSOLID_KIND_SPHERE;
+    self->state = CSOLID_STATE_SPHERE;
     cVec_copy3(dst, center);
     self->radius = radius;
     return self;
@@ -147,10 +181,12 @@ typedef struct FileLoader {
     void *buf;                          /* 0x4C0 the file's contents */
 } FileLoader;
 
+extern int D_003C3CF0;                  /* heap the buffer comes from */
 extern int func_00398B90(CdFile *file, const char *path);       /* sceCdSearchFile */
 extern int sceCdRead(unsigned int lsn, unsigned int sectors, void *buf, CdRMode *mode);
 extern int func_00398DA0(int mode);                             /* sceCdSync */
 
+extern void *func_003A52F0(void *dst, int val, int n);          /* memset */
 
 __attribute__((section(".text.FileLoader_readWholeFile")))
 void FileLoader_readWholeFile(FileLoader *self) {

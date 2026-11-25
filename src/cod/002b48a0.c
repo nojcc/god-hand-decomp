@@ -6,5 +6,5 @@
 __attribute__((section(".text.func_002B48A0")))
 void *func_002B48A0(int unused, unsigned int size)
 {
-    return func_002B5AF8(&D_005E79D0, unused, size);
+    return func_002B5AF8((cMovie *)D_005E79D0, unused, size);
 }

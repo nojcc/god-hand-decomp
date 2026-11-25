@@ -62,8 +62,6 @@ int ClearAndResetFields_1FE278(cDamageManage *self, cDamageTake *take);
 void StartHitStop_1FE348(cDamageManage *self, int frames);
 /* Nonzero while a hit pause runs (CkHitStop__13cDamageManage). */
 int cDamageManage_CkHitStop(cDamageManage *self);
-/* Release every give and take record owner holds. */
-void func_001FE370(cDamageManage *self, void *owner);
 /* The per-frame update: counts the hit pause down, or runs every live give
  * and take. */
 void func_001FDFD8(cDamageManage *self);

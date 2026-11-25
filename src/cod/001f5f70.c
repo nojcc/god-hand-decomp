@@ -26,6 +26,7 @@ extern unsigned long D_00747640;
 extern void func_001F6680(MenuScreen *s);
 extern void func_001F6758(MenuScreen *s);
 extern void CustomID_toggleBit29(MenuScreen *s);
+extern void cSnd_BgmEventStart(void *snd, int ev, int a, int b);
 extern int cSnd_BgmEvIsPlaying(void *snd, int ev);
 
 __attribute__((section(".text.func_001F5F70")))

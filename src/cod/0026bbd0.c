@@ -1,9 +1,8 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/sceVu0.h"
 #include "godhand/mtx.h"
-
 
 /* Throw weapon w from part 8 of enemy self: the start point in the part
  * depends on unk1869, which counts down to 0 here; the throw goes 0.1
@@ -20,7 +19,7 @@ void func_0026BBD0(cEm00 *self, cOmWeapon *w)
     if (w == 0) {
         return;
     }
-    hand = cOmBase_childAtIdx((cOmBase *)self, frame, 8);
+    hand = cOmBase_childAt((cOmBase *)self, frame, 8);
     if (hand == 0) {
         return;
     }
@@ -60,5 +59,5 @@ void func_0026BBD0(cEm00 *self, cOmWeapon *w)
     dir.x = 0.0f;
     dir.y = 0.0f;
     cVec_applyMatrix(&dir, m);
-    func_001D0140(w, &dir, (int)self);
+    func_001D0140(w, &dir, (cGameObj *)self);
 }

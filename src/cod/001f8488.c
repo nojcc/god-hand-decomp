@@ -4,14 +4,16 @@
 #include "godhand/cArea.h"
 #include "godhand/vu0.h"
 #include "godhand/cObjSimple.h"
-#include "godhand/cModel.h"
-#include "godhand/cObjBase.h"
-#include "godhand/player.h"
 
+extern cHeatSys D_005CB000;
+extern void cHeatSys_UpdateHeatMax(cHeatSys *self, float range);
+extern void cHeatSys_SetHeatGage(cHeatSys *self, float gage);
 extern void func_002A9C90(cHeatSys *self, float range);
 extern int func_001573C8(float *pt, cAreaVec4 *a, cAreaVec4 *b, cAreaVec4 *c, cAreaVec4 *d);
 extern void cModel_ScrollTexture(cObjSimple *self, float dt);
 extern void cObjSimple_FollowParent(cObjSimple *self);
+extern void cModel_calcParts(cObjSimple *self);
+extern void cObjBase_KageDraw(cObjSimple *self);
 extern void EmClothMove(int cloth, cObjSimple *self, void *data, void *anchor);
 extern void cObjSimple_MoveBust(cObjSimple *self);
 extern void cObjSimple_MoveRing(cObjSimple *self);
@@ -60,30 +62,20 @@ int cArea_HitCheckQuad(cArea *self, float *pt)
     return func_001573C8(pt, &q[0], &q[1], &q[2], &q[3]) != 0;
 }
 
-static __inline__ void cObjSimpleVec3_Copy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
-{
-    if (d != s) {
-        d->x = s->x;
-        d->y = s->y;
-        d->z = s->z;
-    }
-}
-
 /* Per-frame update: scroll the texture, step the model, then the pendulum, bust and ring physics. */
 __attribute__((section(".text.cObjSimple_Update")))
 void cObjSimple_Update(cObjSimple *self)
 {
-    int state = self->state;
-    if (state >= 0) { if (state >= 4) { if (state == COBJSIMPLE_STATE_ACTIVE) {
-        cObjSimpleVtEnt *vt = self->vtbl;
-        vt[11].pfn((char *)self + vt[11].delta);
+    int mode = self->mode;
+    if (mode >= 0) { if (mode >= 4) { if (mode == COBJSIMPLE_STATE_ACTIVE) {
+        CVCALL_FN(self, 11, void (*)(void *))(CVCALL_THIS(self, 11));
     }}}
     cModel_ScrollTexture(self, 1.0f);
     if (self->parentOn)
         cObjSimple_FollowParent(self);
-    cModel_calcParts((cModel *)self);
+    cModel_calcParts(self);
     if (self->kageObj)
-        cObjBase_KageDraw((struct cObjBase *)self);
+        cObjBase_KageDraw(self);
     if (self->pendulumOn)
         EmClothMove(self->pendulumId, self, self->pendulumData, self->clothAnchor);
     if (self->bustFlag)
@@ -92,5 +84,5 @@ void cObjSimple_Update(cObjSimple *self)
         cObjSimple_MoveRing(self);
     if (self->oneBodyFlag)
         cObjSimple_UpdateHandMesh(self);
-    cObjSimpleVec3_Copy(&self->pos, self->parentPos);
+    cVec_copy3(&self->posA, self->pos);
 }

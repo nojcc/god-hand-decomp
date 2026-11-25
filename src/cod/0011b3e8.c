@@ -1,9 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
-#include "godhand/pl00.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
@@ -11,29 +10,30 @@ extern float capVu0Atan2(float y, float x);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 extern void func_00124EC0(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 #include "godhand/vu0.h"
 /* Phase machine of the enemy that turns toward the target of its link record: step 0 starts the
  * motion and sets the facing angle from the vector to the target, step 1 waits for the motion to
  * end. */
-__attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLinkTarget(pl00 *self)
+__attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLinkTarget(cEm00 *self)
 {
     char buf[0x30] __attribute__((aligned(16)));
     int s2v, s1v;
     cSnd *g;
 
-    switch (self->base.step) {
+    switch (self->step) {
         case 0: {
-            char *v0 = self->base.pack;
+            int v0 = EM_RES(self);
             char *p;
             g = &D_005FEE00;
             s2v = EM_RES_REC(v0, 0x270);
             s1v = EM_RES_REC(v0, 0x274);
-            cSnd_SeCall_2CBA48(g, 0, 0xCF, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(g, 0, 0x2D, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(g, 0, 0x32, self, 0, 0, 0, 0);
-            self->base.hitFlash = 5.0f;
+            cSnd_SeCall_2CBA48(g, 0, 0xCF, (cObj *)self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(g, 0, 0x2D, (cObj *)self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(g, 0, 0x32, (cObj *)self, 0, 0, 0, 0);
+            self->hitFlash = 5.0f;
             func_0012C348(self, 2);
             CallWithAndClearField698_12AC28(self);
             func_0012B928(self);
@@ -48,9 +48,9 @@ __attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLi
                     VU0_SQC2_VF0(buf, 0x0);
                     a = *(char **)(p + 0xF0);
                     q = buf + 0x10;
-                    b = (char *)self->base.pos;
+                    b = (char *)self->pos;
                     VU0_SQC2_VF0(buf, 0x20);
-                    CEM00_REGALLOC_NUDGE(&self->base);
+                    CEM00_REGALLOC_NUDGE(self);
                     VU0_LQC2(4, a, 0);
                     VU0_LQC2(5, b, 0);
                     VU0_VSUB_XYZ(4, 4, 5);
@@ -62,20 +62,20 @@ __attribute__((section(".text.cEm00_stepFaceLinkTarget"))) void cEm00_stepFaceLi
                         ((float *)buf)[1] = ((float *)(buf + 0x10))[1];
                         ((float *)buf)[2] = ((float *)(buf + 0x10))[2];
                     }
-                    self->base.rot.y = capVu0Atan2(((float *)buf)[0], ((float *)buf)[2]);
+                    self->rot.y = capVu0Atan2(((float *)buf)[0], ((float *)buf)[2]);
                 }
             }
-            self->base.step = self->base.step + 1;
-            self->unk15B0 = 0x1E;
+            self->step = self->step + 1;
+            self->gotoFlags = 0x1E;
         }
         case 1:
             func_00124EC0(self);
             if (moveMotion(self) != 0) {
                 pl00_clearMotionCam(self, 0, 0);
-                self->base.mode = 0;
-                self->base.phase = 0;
-                self->base.step = 0;
-                self->base.stepArg = 0;
+                self->mode = 0;
+                self->phase = 0;
+                self->step = 0;
+                self->stepArg = 0;
             }
             cObjBase_addNullSpeed_Rotation(self, 1.0f);
             cObjBase_addNullSpeed(self, 1.0f);

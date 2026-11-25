@@ -1,43 +1,28 @@
-/* sn-2.95.3-136 */
-#include "godhand/cGameObj.h"
-#include "godhand/cOmBase.h"
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
 
-#define CSOLID_FLAG_ACTIVE  0x1
-#define CSOLID_FLAG_HIT     0x2         /* set on both solids of a touching pair */
-#define CSOLID_KIND_SPHERE  1
-#define CSOLID_KIND_BOX     3
 #define CSOLID_BOUND        10000.0f
 
-
-extern int func_00135250(void *unused, float *a1, float *a2, float *a3, float *t0);
-extern int func_00134CB0(cCollisionSolidManage *self, cCollisionSolidUnit *ua, cCollisionSolidBody *a,
-                         cCollisionSolidUnit *ub, cCollisionSolidBody *b);
-extern int func_00134E18(cCollisionSolidManage *self, cCollisionSolidUnit *ua, cCollisionSolidBody *a,
-                         cCollisionSolidUnit *ub, cCollisionSolidBody *b, int swapped);
-extern int func_00135040(cCollisionSolidManage *self, cCollisionSolidUnit *ua, cCollisionSolidBody *a,
-                         cCollisionSolidUnit *ub, cCollisionSolidBody *b);
-
-/* cCollisionSolidManage_ChkHit: refresh the bounds of obj's unit, test each of its
- * active solids against the active solids of every other unit, flag the touching
- * pairs, list up to 32 owners hit and return 1 on any hit. */
+/* Refresh the bounds of obj's unit, test each of its active solids against
+ * the active solids of every other unit, flag the touching pairs, list up to
+ * CSOLID_HIT_MAX owners hit and return 1 on any hit. */
 __attribute__((section(".text.cCollisionSolidManage_ChkHit")))
-int cCollisionSolidManage_ChkHit(cCollisionSolidManage *self, cGameObj *obj)
+int cCollisionSolidManage_ChkHit(cCollisionSolidManage *self, struct cGameObj *obj)
 {
     cVec min;
     cVec max;
-    cCollisionSolidUnit *unit;
-    cCollisionSolidUnit *other;
-    cCollisionSolidBody *a;
-    cCollisionSolidBody *b;
+    cCollisionSolidManageUnit *unit;
+    cCollisionSolidManageUnit *other;
+    cCollisionSolidObj *a;
+    cCollisionSolidObj *b;
     unsigned int i;
     int ret;
     int hit;
     long scr = (unsigned int)obj->scrFlags;
-    long bit2 = scr >> 2 & 1;           /* scrFlags bit 2, not named yet */
-    long suspended;
+    long noScrColl = scr >> 2 & 1;      /* GAMEOBJ_SCR_NOSCRCOLL */
+    long suspended;                     /* GAMEOBJ_SCR_SUSPEND */
 
-    if (bit2 != 0)
+    if (noScrColl != 0)
         return 0;
     suspended = scr >> 3 & 1;
     if (suspended != 0)
@@ -52,8 +37,8 @@ int cCollisionSolidManage_ChkHit(cCollisionSolidManage *self, cGameObj *obj)
     cVec_set4(&min, CSOLID_BOUND, CSOLID_BOUND, CSOLID_BOUND, 1.0f);
     cVec_set4(&max, -CSOLID_BOUND, -CSOLID_BOUND, -CSOLID_BOUND, 1.0f);
     for (b = unit->first; b != 0; b = b->next) {
-        b->vt->calcBounds((char *)b + b->vt->calcBoundsDelta);
-        if (b->min.x < min.x) min.x = b->min.x;
+        b->vt->updateBounds((char *)b + b->vt->updateBoundsDelta);
+        if (min.x > b->min.x) min.x = b->min.x;
         if (min.y > b->min.y) min.y = b->min.y;
         if (min.z > b->min.z) min.z = b->min.z;
         if (max.x < b->max.x) max.x = b->max.x;
@@ -63,13 +48,13 @@ int cCollisionSolidManage_ChkHit(cCollisionSolidManage *self, cGameObj *obj)
     cVec_copy3(&unit->min, &min);
     cVec_copy3(&unit->max, &max);
     for (a = unit->first; a != 0; a = a->next) {
-        long active = (unsigned int)a->flags;
+        long active = a->flags;
 
         if ((active & CSOLID_FLAG_ACTIVE) == 0)
             continue;
         for (other = self->first; other != 0; other = other->next) {
             long oscr;
-            long osuspended;
+            long osuspended;            /* GAMEOBJ_SCR_SUSPEND */
 
             if (unit == other)
                 continue;
@@ -80,25 +65,26 @@ int cCollisionSolidManage_ChkHit(cCollisionSolidManage *self, cGameObj *obj)
             if (func_00135250(self, &unit->min.x, &unit->max.x, &other->min.x, &other->max.x) == 0)
                 continue;
             for (b = other->first; b != 0; b = b->next) {
-                long bactive = (unsigned int)b->flags;
+                long bactive = b->flags;
 
                 if ((bactive & CSOLID_FLAG_ACTIVE) == 0)
                     continue;
                 hit = 0;
-                if (a->kind == CSOLID_KIND_SPHERE) {
-                    if (b->kind == CSOLID_KIND_SPHERE) {
+                if (a->state == CSOLID_STATE_SPHERE) {
+                    if (b->state == CSOLID_STATE_SPHERE) {
                         if (func_00134CB0(self, unit, a, other, b) != 0)
                             hit = 1;
-                    } else if (b->kind == CSOLID_KIND_BOX) {
-                        if (func_00134E18(self, unit, a, other, b, 0) != 0)
+                    } else if (b->state == CSOLID_STATE_BOX) {
+                        if (func_00134E18(self, unit, a, other, (cCollisionSolidBox *)b, 0) != 0)
                             hit = 1;
                     }
-                } else if (a->kind == CSOLID_KIND_BOX) {
-                    if (b->kind == CSOLID_KIND_SPHERE) {
-                        if (func_00134E18(self, other, b, unit, a, 1) != 0)
+                } else if (a->state == CSOLID_STATE_BOX) {
+                    if (b->state == CSOLID_STATE_SPHERE) {
+                        if (func_00134E18(self, other, b, unit, (cCollisionSolidBox *)a, 1) != 0)
                             hit = 1;
-                    } else if (b->kind == CSOLID_KIND_BOX) {
-                        if (func_00135040(self, unit, a, other, b) != 0)
+                    } else if (b->state == CSOLID_STATE_BOX) {
+                        if (cCollisionSolidManage_pushBoxBox(self, unit, (cCollisionSolidBox *)a, other,
+                                                         (cCollisionSolidBox *)b) != 0)
                             hit = 1;
                     }
                 }

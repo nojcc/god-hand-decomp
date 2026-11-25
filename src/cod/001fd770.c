@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern void func_001FCCC0(void *a0);
 

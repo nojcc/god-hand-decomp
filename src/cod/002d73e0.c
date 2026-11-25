@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cWorldLight.h"
 #include "godhand/criStm.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 
 /* Clears every light and frees the lights each preset still owns. The far

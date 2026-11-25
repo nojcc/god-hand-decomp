@@ -1,7 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/motion.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/capVu0.h"
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
@@ -25,7 +26,7 @@ void func_0010DE70(pl00 *self)
         func_00124540(self, 1);
         self->comboSlot = 0;
         self->comboSet = 0;
-        if (self->unk648 > 0)
+        if ((signed char)self->unk648 > 0)
             self->unk648 = 0x2D;
         switch (self->base.stepArg) {
         default:
@@ -33,7 +34,7 @@ void func_0010DE70(pl00 *self)
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 15.0f), 4, 0x1A, 0, 0x77);
             Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 15.0f), 4, 0x1A, 0, 0x77);
             {
-                char *t = self->base.pack;
+                int t = EM_RES(&self->base);
                 f = 2.0f;
                 p = EM_RES_REC(t, 0x830);
                 q = EM_RES_REC(t, 0x834);
@@ -43,7 +44,7 @@ void func_0010DE70(pl00 *self)
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 10.0f), 4, 0x1A, 0, 0x77);
             Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 4, 0x1A, 0, 0x77);
             {
-                char *t = self->base.pack;
+                int t = EM_RES(&self->base);
                 f = 5.0f;
                 p = EM_RES_REC(t, 0x61C);
                 q = EM_RES_REC(t, 0x624);
@@ -53,7 +54,7 @@ void func_0010DE70(pl00 *self)
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 10.0f), 3, 0x1B, 0, 0x77);
             Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 3, 0x1B, 0, 0x77);
             {
-                char *t = self->base.pack;
+                int t = EM_RES(&self->base);
                 f = 2.0f;
                 p = EM_RES_REC(t, 0x838);
                 q = EM_RES_REC(t, 0x83C);

@@ -1,9 +1,9 @@
+#include "godhand/cSnd.h"
 #include "godhand/globals.h"
 extern unsigned char D_00785798[];
 extern int D_00420328;
-#include "godhand/cDamageManage.h"
 #include "godhand/objField.h"
-extern unsigned char D_005FEE00[];
+#include "godhand/cDamageManage.h"
 
 __attribute__((section(".text.GetOrInit_007857B8_16FC30")))
 void *GetOrInit_007857B8_16FC30(void)
@@ -59,6 +59,7 @@ void *GetOrInitSingleton7857C8_16FF18(void)
     return &D_007857C8;
 }
 
+#include "godhand/vu0.h"
 
 
 

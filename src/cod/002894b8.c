@@ -3,8 +3,8 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEma2.h"
 #include "godhand/vu0.h"
-#include "godhand/player.h"
 
+extern cGameObj *Getplayer(void);
 extern int D_00747A2C;
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
 
@@ -54,7 +54,7 @@ int cEma2_startHitCooldown(cEma2 *self)
     if (ChkLine(start, &to, 0, 0, 1, 0x18, 0, 0, 0, 0, 0, 0, n) == n)
         return 0;
     self->base.hitFlash = EMA2_COOLDOWN;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
     return 1;
 }
 

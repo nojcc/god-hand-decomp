@@ -4,6 +4,8 @@
 #include "godhand/cEm00.h"
 #include "godhand/cSnd.h"
 
+extern void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
+
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern void MtxInitCoord(float *mtx, cVec *pos, cVec *rot, cVec *scale, int order);

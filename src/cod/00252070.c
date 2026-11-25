@@ -1,25 +1,25 @@
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cEm00.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cEm00.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
-#include "godhand/cSnd.h"
+#include "godhand/cCamera.h"
 
 extern unsigned int irand(void);
 extern void *Getplayer(void);
-extern float Turn_dest(void *a0, float f12, float f13, void *a1);
-extern float Adjust_theta(float f12);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int moveMotion(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern void ReleaseField6ECByTag564_26B1E8(void *a0);
+extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
 extern int cEmBase_checkDeadFlag(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
-/* Not effectPos.h: the second hit-spark call below matches retail only with
- * the size evaluated before the handle, as this order gives it. */
-extern void SetEffectPos(int a0, int a1, int a2, void *a3, float f12, int t0);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern void func_00262750(void *a0, int a1);
@@ -69,7 +69,7 @@ void func_00252070(void *a0)
 
                 self->stepArg = 0;
                 if (tgt != 0) {
-                    float d = Turn_dest(self->pos, self->rot.y, 3.14159274f, *(void **)(tgt + 0xF0));
+                    float d = Turn_dest(&self->pos->x, self->rot.y, *(void **)(tgt + 0xF0), 3.14159274f);
 
                     if (d < 0.0f) {
                         d = -d;
@@ -77,7 +77,7 @@ void func_00252070(void *a0)
                     if (tgt == Getplayer()) {
                         self->rot.y = Adjust_theta(((cEm00 *)Getplayer())->rot.y + 3.14159274f);
                     } else {
-                        cGameObj_SetTgtTurn(self, *(cVec **)(tgt + 0xF0), 3.14159274f);
+                        cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(tgt + 0xF0), 3.14159274f);
                     }
                     if (d > 1.57079637f) {
                         self->stepArg = 1;
@@ -402,11 +402,11 @@ void func_00252070(void *a0)
         self->timerB = 0;
         self->home.y = 0.75f;
         self->timerA = 0x28;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0xC), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0xC), (cObj *)self, 0, 0, 0, 0);
         switch (self->emNo) {
         default:
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2B, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2E, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2B, (cObj *)self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2E, (cObj *)self, 0, 0, 0, 0);
             break;
         case 0x20F:
         case 0x210:
@@ -417,10 +417,10 @@ void func_00252070(void *a0)
         case 0x272:
         case 0x273:
         case 0x274:
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x1E, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x1E, (cObj *)self, 0, 0, 0, 0);
             break;
         }
-        InitRenderStruct_2A8608((cGameObj *)self, 0x58, 8, 0, 2, 0);
+        InitRenderStruct_2A8608(self, 0x58, 8, 0, 2, 0);
         cVec_copy3(EM_VEC(self, EM_TURNTO_OFFSET), (cVec *)self->pos);
         if (self->hp <= 0 && !(self->emFlags2 & 0x1000)
             && (func_00273D30(self), (self->emNo != 0x21F || !(self->emFlags2 & 0x100000)))) {
@@ -453,9 +453,9 @@ void func_00252070(void *a0)
             vecA.y += 1.0f;
             SetEffectPos(0x58, 9, 0, &vecA, 1.0f, -1);
             self->tint.w = 0.0f;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2C, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x35, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xDA, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2C, (cObj *)self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x35, (cObj *)self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xDA, (cObj *)self, 0, 0, 0, 0);
             if ((EM_AT(int, self, EM_FLAGS1644_OFFSET) & 0x800000) || self->hp > 0
                 || (self->emFlags2 & 0x1000)) {
                 self->step++;

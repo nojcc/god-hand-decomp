@@ -5,14 +5,15 @@
 #include "godhand/cOmBase.h"
 #include "godhand/classFADE.h"
 #include "godhand/cScenario.h"
+#include "godhand/cSnd.h"
 #include "godhand/gameWork.h"
 #include "godhand/player.h"
-#include "godhand/cSnd.h"
 
 #define EVENT_FADE_TIME  15
 
 extern char *D_003C23A4;
 
+extern int cSnd_SeFadeOut(void *a0, int a1, short a2);
 extern void cTaskWork_exit(cTaskWork *task);
 extern void func_002C45A8(cScenario *self, int no, cVec *pos, float arg);
 
@@ -26,7 +27,7 @@ void func_0028E858(cGameObj *self)
     cGameObj_vt(self)->reset((char *)self + cGameObj_vt(self)->resetDelta, 0);
     pl = Getplayer();
     cGameObj_vt(pl)->reset((char *)pl + cGameObj_vt(pl)->resetDelta, 0);
-    se = cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0, self, 0, 0, 0, 0);
+    se = cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0, (cObj *)self, 0, 0, 0, 0);
     cScenario_execUpCut(D_003C2F84, 0x3004, 0, 0, 0, 1);
     cSnd_SeFadeOut(&D_005FEE00, se, EVENT_FADE_TIME);
     if (*(short *)(D_003C23A4 + 0xBEC) == 0) {

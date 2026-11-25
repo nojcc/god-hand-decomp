@@ -1,18 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
-
 extern int espSys_effDataRegist(void *a0, int a1, void *a2);
 extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
-extern char *CreateObj(int a0, int a1);
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
-#include "godhand/cOmWeapon.h"
-#include "godhand/cObjBase.h"
 extern int D_00747B00;
 extern int D_007419A0;
 
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
+#include "godhand/player.h"
+#include "godhand/cDamageManage.h"
+#include "godhand/cOmWeapon.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -31,10 +29,10 @@ extern int D_007419A0;
 __attribute__((section(".text.func_001C9268")))
 int func_001C9268(char *p)
 {
-    cVec buf[3];
-    int n;
+    float buf[12];
+    char *n;
     int flag;
-    cVec *sph;
+    float *sph;
 
     if (func_001B6FB8(p) == 0) {
         return 0;
@@ -111,39 +109,39 @@ int func_001C9268(char *p)
         break;
     }
 
-    *(cDamageGive **)(p + 0x650) = cDamageManage_CreateDamageGive(&D_00574380, 1, p);
+    *(cDamageGive **)(p + 0x650) = cDamageManage_CreateDamageGive(&D_00574380, 1, (cGameObj *)p);
     flag = *(unsigned char *)(p + 0x2B4);
     *(int *)buf = flag;
     if (flag) {
-        n = **(int **)(p + 0x278);
+        n = **(char ***)(p + 0x278);
     } else {
         n = 0;
     }
-    buf[1].x = 0.0f;
-    buf[1].y = 0.0f;
-    buf[1].z = 0.0f;
-    sph = &buf[1];
-    sph->w = 1.0f;
-    *(int *)(p + 0x654) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x650), (void *)(n + 0x80),
-                                                          sph, 0.3f);
+    buf[4] = 0.0f;
+    buf[5] = 0.0f;
+    buf[6] = 0.0f;
+    sph = buf + 4;
+    sph[3] = 1.0f;
+    *(int *)(p + 0x654) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x650), (const struct cMatrix *)(n + 0x80),
+                                                          (const cVec *)sph, 0.3f);
     cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x650), 0);
 
-    *(cDamageGive **)(p + 0x658) = cDamageManage_CreateDamageGive(&D_00574380, 0, p);
+    *(cDamageGive **)(p + 0x658) = cDamageManage_CreateDamageGive(&D_00574380, 0, (cGameObj *)p);
     if (*(int *)(p + 0x658) != 0) {
         int flag2 = *(unsigned char *)(p + 0x2B4);
-        int n2;
+        char *n2;
         *(int *)buf = flag2;
         if (flag2) {
-            n2 = **(int **)(p + 0x278);
+            n2 = **(char ***)(p + 0x278);
         } else {
             n2 = 0;
         }
-        buf[0].w = 1.0f;
-        buf[0].x = 0.0f;
-        buf[0].y = 0.0f;
-        buf[0].z = 0.0f;
-        *(int *)(p + 0x65C) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x658), (void *)(n2 + 0x80),
-                                                              &buf[0], 0.4f);
+        buf[3] = 1.0f;
+        buf[0] = 0.0f;
+        buf[1] = 0.0f;
+        buf[2] = 0.0f;
+        *(int *)(p + 0x65C) = cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x658), (const struct cMatrix *)(n2 + 0x80),
+                                                              (const cVec *)buf, 0.4f);
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)(p + 0x658), 0);
         *(short *)(*(int *)(p + 0x658) + 0x46) = 0x2F;
         *(int *)(*(int *)(p + 0x658) + 0x4C) = 0x32;
@@ -156,7 +154,7 @@ int func_001C9268(char *p)
     }
 
     if (*(unsigned short *)(p + 0x2FE) == 0x3B7) {
-        SetEffect(0x58, 0x8D, p, 0, 8, 0xFFFFFFFF);
+        SetEffect(0x58, 0x8D, (cObj *)p, 0, 8, EFFECT_FOLLOW_OWNER);
     }
     switch (*(unsigned short *)(p + 0x2FE)) {
     case 0x3AE:
@@ -165,22 +163,22 @@ int func_001C9268(char *p)
             espSys_effDataRegist(&D_007419A0, 0x206,
                                  (void *)(*(int *)(e + 0xC) + (int)e));
         }
-        SetEffect(0x206, 1, p, 0, 8, 0xFFFFFFFF);
+        SetEffect(0x206, 1, (cObj *)p, 0, 8, EFFECT_FOLLOW_OWNER);
         break;
     case 0x3B7:
-        SetEffect(0x58, 0x8D, p, 0, 8, 0xFFFFFFFF);
+        SetEffect(0x58, 0x8D, (cObj *)p, 0, 8, EFFECT_FOLLOW_OWNER);
         break;
     case 0x3B8:
-        SetEffect(0x69, 4, p, 0, 8, 0xFFFFFFFF);
-        SetEffect(0x69, 9, p, 0, -1, 0xFFFFFFFF);
+        SetEffect(0x69, 4, (cObj *)p, 0, 8, EFFECT_FOLLOW_OWNER);
+        SetEffect(0x69, 9, (cObj *)p, 0, -1, EFFECT_FOLLOW_OWNER);
         break;
     case 0x3B9:
-        SetEffect(0x69, 5, p, 0, 8, 0xFFFFFFFF);
-        SetEffect(0x69, 0xA, p, 0, -1, 0xFFFFFFFF);
+        SetEffect(0x69, 5, (cObj *)p, 0, 8, EFFECT_FOLLOW_OWNER);
+        SetEffect(0x69, 0xA, (cObj *)p, 0, -1, EFFECT_FOLLOW_OWNER);
         break;
     case 0x3BA:
-        SetEffect(0x69, 6, p, 0, 8, 0xFFFFFFFF);
-        SetEffect(0x69, 0xB, p, 0, -1, 0xFFFFFFFF);
+        SetEffect(0x69, 6, (cObj *)p, 0, 8, EFFECT_FOLLOW_OWNER);
+        SetEffect(0x69, 0xB, (cObj *)p, 0, -1, EFFECT_FOLLOW_OWNER);
         break;
     case 0x369:
         break;
@@ -234,12 +232,10 @@ int func_001C9268(char *p)
     *(char *)(p + 0x688) = 0;
     *(int *)(p + 0x68C) = 0;
     if (*(unsigned short *)(p + 0x2FE) == 0x37B || *(unsigned short *)(p + 0x2FE) == 0x390) {
-        char *obj = CreateObj(0x37C, 0xFFFF);
-        *(char **)(p + 0x68C) = obj;
+        cGameObj *obj = CreateObj(0x37C, 0xFFFF);
+        *(cGameObj **)(p + 0x68C) = obj;
         if (obj != 0) {
-            char *cls;
-            int (*fn)(char *);
-            short off;
+            cGameObjVt *vt;
             float *src;
             float *src2;
             float *dst;
@@ -248,10 +244,8 @@ int func_001C9268(char *p)
 
             VU0_SQC2_VF0(buf, 0x0);
             VU0_SQC2_VF0(buf, 0x20);
-            cls = *(char **)(obj + 0x214);
-            fn = *(int (**)(char *))(cls + 0x44);
-            off = *(short *)(cls + 0x40);
-            fn(obj + off);
+            vt = cGameObj_vt(obj);
+            vt->initial((char *)obj + vt->initialDelta);
 
             dst = *(float **)(*(char **)(p + 0x68C) + 0xF0);
             src = *(float **)(p + 0xF0);
@@ -271,13 +265,13 @@ int func_001C9268(char *p)
             p100[0] = 0;
             p100[1] = 0;
             p100[2] = 0;
-            buf[0].x = 0.0f;
-            buf[0].y = 0.0f;
-            buf[0].z = 0.0f;
-            buf[2].x = 0.0f;
-            buf[2].y = 0.0f;
-            buf[2].z = 0.0f;
-            cOmWeapon_setParent((cOmWeapon *)(*(int *)(p + 0x68C)), (cOmBase *)p, 2, &buf[0], &buf[2]);
+            buf[0] = 0.0f;
+            buf[1] = 0.0f;
+            buf[2] = 0.0f;
+            buf[8] = 0.0f;
+            buf[9] = 0.0f;
+            buf[10] = 0.0f;
+            cOmWeapon_setParent(*(cOmWeapon **)(p + 0x68C), (cGameObj *)p, 2, (cVec *)buf, (cVec *)&buf[8]);
         }
     }
 

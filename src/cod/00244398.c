@@ -9,6 +9,7 @@
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void KillEffect(int a0, int a1, int a2);
 extern void func_00262750(void *a0, int a1);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale);
 extern void cObjBase_addNullSpeed(cObjBase *self, float scale);
 extern void func_001D0108(cOmWeapon *self);
@@ -24,7 +25,7 @@ void func_00244398(cEm00 *self)
     int landed;
     int motion;
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->emFlags |= 0x10000;
     switch (self->step) {
     case 0:
@@ -65,7 +66,7 @@ void func_00244398(cEm00 *self)
         }
         if (self->seqFlags & 1) {
             if (self->unk730 != 0) {
-                func_001D0108(self->unk730);
+                func_001D0108((cOmWeapon *)self->unk730);
                 self->unk730 = 0;
             }
         }

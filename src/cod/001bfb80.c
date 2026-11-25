@@ -1,35 +1,41 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/vu0.h"
-#include "godhand/criStm.h"
-#include "godhand/espSys.h"
-#include "godhand/heapArena.h"
-#include "godhand/cObjBase.h"
-#include "godhand/cOmBase.h"
-#include "godhand/cOmWeapon.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
-#include "godhand/cMovie.h"
+#include "godhand/vu0.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cOmWeapon.h"
 #include "godhand/globals.h"
 
+extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 extern int ClearField5B4IfFlagUnset_1B76B0(int self);
 extern void func_001B76D8(void *self);
 extern char D_00754C30[];
 extern char D_00754C38[];
 extern char D_00754C50[];
 extern char D_00754C58[];
+extern char D_00754C20[];
+extern char D_00754240[];
+extern char D_00754C10[];
+extern int D_003C3CF0;
 extern void *SearchData(void *a, void *b, int c);
 extern void PtrVec_create(void *counter, int value);
+extern void *_MemoryAlloc(int size, int align, int heap);
+extern void Arena_init(void *arena, void *mem, int size, int flags);
 extern void func_00150098(int step);
 extern void Forward149400_1492E8(int step);
+extern void func_003A52F0(void *dst, int val, int n);
 extern void mwPlySetTimerCh(int arg);
 extern void mwPlySetMallocFn(void *alloc, void *free, void *obj);
+extern void func_002B48A0(void);
+extern void func_002B48C8(void);
 extern void FreeResourceNode_2D3710(void *node);
 extern void func_002D34A8(char *rec);
 extern int func_002D3210(char *rec);
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern void func_002F5588(void *dst, void *self);
 extern void cNode_setTranslationFromWorld(void *self, void *v);
+extern void LinkObj_callLockOn(void *self);
 
 /* Once per weapon (waterHit): cast a line from posA to pos; when the hit
  * surface (flags at hit+4) has bit 0x400 (water), spawn effect 0x55 at the
@@ -41,8 +47,15 @@ typedef struct HitRec {
     unsigned int surface;               /* 0x4 */
 } HitRec;
 
+/* What ChkLine fills in: the hit point, then the record of the surface it hit. */
+typedef struct LineHit {
+    cVec point;                         /* 0x00 */
+    HitRec *rec;                        /* 0x10 */
+    char unk14[0xC];
+} LineHit;
+
 #define SURFACE_WATER  0x400
-#define FRAME ((char *)buf - 0x30)
+#define FRAME ((char *)&hit - 0x30)
 
 
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, void *a6,
@@ -52,15 +65,15 @@ extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, void *a
 
 __attribute__((section(".text.LineObj_checkWaterHit")))
 void LineObj_checkWaterHit(cOmWeapon *self) {
-    float buf[8];
+    LineHit hit;
     if (self->waterHit == 0) {
-        float *v = buf;
+        cVec *v = &hit.point;
         int one;
         VU0_SQC2_VF0(FRAME, 0x30);
         one = 1;
-        if (ChkLine(&self->base.posA, self->base.pos, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
-            && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, (cVec *)v, -1, 1.0f);
+        if (ChkLine(&self->base.posA, self->base.pos, v, 0, 7, 0, &hit.rec, 1, 0, 0, 0, 0, one) != 0
+            && (hit.rec->surface & SURFACE_WATER) != 0) {
+            SetEffectPos(0, 0x55, 0, v, 1.0f, -1);
             cSnd_SeCall(&D_005FEE00, 2, 0x50, self->base.pos, 0, 0);
             self->waterHit = one;
         }
@@ -170,13 +183,25 @@ void System_initPools(void) {
     PtrVec_create(D_00754C50, SIZE_BUF);
     PtrVec_create(D_00754C58, info->extra);
     n = info->count * ENTRY_SIZE + ENTRY_HEADER;
-    Arena_init(&D_00754C20, _MemoryAlloc(n, POOL_ALIGN, D_003C3CF0), n, 0);
-    Arena_init(&D_00754240, _MemoryAlloc(info->sizeA, POOL_ALIGN, D_003C3CF0), info->sizeA, 0);
-    Arena_init(&D_00754C10, _MemoryAlloc(info->sizeB, POOL_ALIGN, D_003C3CF0), info->sizeB, 0);
+    Arena_init(D_00754C20, _MemoryAlloc(n, POOL_ALIGN, D_003C3CF0), n, 0);
+    Arena_init(D_00754240, _MemoryAlloc(info->sizeA, POOL_ALIGN, D_003C3CF0), info->sizeA, 0);
+    Arena_init(D_00754C10, _MemoryAlloc(info->sizeB, POOL_ALIGN, D_003C3CF0), info->sizeB, 0);
     func_00150098(info->stepA);
     Forward149400_1492E8(info->stepB);
 }
 
+/* Init the movie player pool: set the table pointer D_005E7E30, clear the
+ * counters, hand the movie library a 59.94 fps setup record, set it up with
+ * the allocator hooks func_002B48A0 and func_002B48C8, then free the three
+ * resource nodes (0xAC bytes each) and clear the three slot pointers. */
+typedef struct MoviePool {
+    char *nodes;                        /* 0x00 first resource node */
+    int slot[3];                        /* 0x04 */
+    int count;                          /* 0x10 */
+    unsigned char flag;                 /* 0x14 */
+    char pad15[3];
+    int unk18;                          /* 0x18 */
+} MoviePool;
 
 typedef struct MovieSetup {
     float fps;                          /* 0x00 */
@@ -186,6 +211,8 @@ typedef struct MovieSetup {
     int rest[4];                        /* 0x10 cleared by the memset */
 } MovieSetup;
 
+#define NODE_SIZE   0xAC
+#define NODE_COUNT  3
 #define MOVIE_FPS   59.94f
 
 
@@ -198,17 +225,17 @@ extern void func_003452D8(MovieSetup *setup);
 
 
 __attribute__((section(".text.MoviePool_init")))
-void MoviePool_init(cMovie *self) {
+void MoviePool_init(MoviePool *self) {
     MovieSetup setup;
     int *slot;
-    cMovieTrack *node;
+    char *node;
     int i;
     self->count = 0;
     self->flag = 0;
-    self->busyMask = 0;
-    slot = self->player;
-    i = MOVIE_TRACK_NUM - 1;
-    self->track = D_005E7E30;
+    self->unk18 = 0;
+    slot = self->slot;
+    i = NODE_COUNT - 1;
+    self->nodes = D_005E7E30;
     func_003A52F0(&setup, 0, 0x20);
     setup.fps = MOVIE_FPS;
     setup.a = 1;
@@ -217,11 +244,11 @@ void MoviePool_init(cMovie *self) {
     func_003452D8(&setup);
     mwPlySetTimerCh(-1);
     mwPlySetMallocFn((void *)func_002B48A0, (void *)func_002B48C8, 0);
-    node = self->track;
+    node = self->nodes;
     do {
         FreeResourceNode_2D3710(node);
         i--;
-        node++;
+        node += NODE_SIZE;
         *slot++ = 0;
     } while (i >= 0);
 }

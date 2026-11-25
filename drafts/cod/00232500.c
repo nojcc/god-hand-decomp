@@ -89,7 +89,7 @@ void func_00232500(cEm00 *self)
         case 0x24D:
         case 0x24E:
         case 0x25A:
-            if ((irand() & 1) && self->fx0 == 0) {
+            if ((irand() & 1) && self->weapon366 == 0) {
                 StoreMotionParamsBoth_2609A8(self, 0x14, 0, 0x37, -1, 0);
                 recA = RES(0x1134);
                 recB = RES(0x1138);
@@ -129,7 +129,7 @@ void func_00232500(cEm00 *self)
             break;
         case 0x209:
         case 0x21F:
-            fxFollow = self->fx5;
+            fxFollow = self->weapon375;
             StoreMotionParamsBoth_2609A8(self, 0x32, 0x19, 0x3E, -1, 0);
             fxKind = 0x61;
             fxNo = 0xC;
@@ -155,7 +155,7 @@ void func_00232500(cEm00 *self)
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                     recB = RES(0x1E78);
                 }
-                SetOrientByType_26AF20((cOmBase *)self, self->fx4, 1);
+                SetOrientByType_26AF20((cOmBase *)self, (void *)self->fx4, 1);
             }
             /* retail sets the turn time again after the weapon check */
             self->timerA = 0xF;
@@ -353,7 +353,7 @@ void func_00232500(cEm00 *self)
         if (self->timerA != 0) {
             self->timerA--;
             from = self->pos;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.196349546f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.196349546f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
 #include "godhand/espSys.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/mtx.h"
 #include "godhand/EspDataBank.h"
 #include "godhand/globals.h"

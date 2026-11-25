@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/vu0.h"
 #include "godhand/globals.h"
 
 extern int irand(void);
@@ -26,8 +26,8 @@ __attribute__((section(".text.VoiceFighter_playHitVoice")))
 void VoiceFighter_playHitVoice(VoiceFighter *self)
 {
     if (self->voiceNo >= 0)
-        cSnd_SeCall_2CBA48(&D_005FEE00, SE_BUS_VOICE, self->voiceNo, self, 0, 0, 0, 0);
-    cSnd_SeCall_2CBA48(&D_005FEE00, SE_BUS_VOICE, SE_NO_GRUNT, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, SE_BUS_VOICE, self->voiceNo, (cObj *)self, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, SE_BUS_VOICE, SE_NO_GRUNT, (cObj *)self, 0, 0, 0, 0);
 }
 
 #define KEYREC_SIZE 0xC

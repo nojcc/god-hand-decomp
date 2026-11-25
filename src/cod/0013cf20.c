@@ -5,7 +5,7 @@
 #include "godhand/cActionButton.h"
 #include "godhand/vu0.h"
 #include "godhand/cVec.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern void displayScrollLayer(int id, int on);
 extern int Rnd(void);

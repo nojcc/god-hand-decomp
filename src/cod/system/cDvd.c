@@ -1,6 +1,6 @@
 /* TU: cDvd [system] - recovered C++ class. */
 #include "godhand/cDvd.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 /* Queue a read of a named file. Returns the job id, 0 on failure. size, when not 0, overrides the size in bytes. */
 __attribute__((section(".text.cDvd_ReadAlloc")))

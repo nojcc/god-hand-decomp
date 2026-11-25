@@ -1,6 +1,6 @@
 /* cygnus-2.96 matched TU. */
 #include "godhand/CustomIDWork.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern void Obj3290_Tramp_0033E6A8_9070(void *);
 extern void func_00328488(void *, void *);

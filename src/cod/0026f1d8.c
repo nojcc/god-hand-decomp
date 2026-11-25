@@ -1,4 +1,4 @@
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 /* sn-2.95.3-136 matched TU. */
 
 /* 1 while unk17CC is positive (func_0026F120 sets it), else 0. */

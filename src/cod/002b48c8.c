@@ -10,5 +10,5 @@ extern int FreeEntrySlot_2B5BB8(cMovie *self, int unused, void *block);
 __attribute__((section(".text.func_002B48C8")))
 int func_002B48C8(int unused, void *block)
 {
-    return FreeEntrySlot_2B5BB8(&D_005E79D0, unused, block);
+    return FreeEntrySlot_2B5BB8((cMovie *)D_005E79D0, unused, block);
 }

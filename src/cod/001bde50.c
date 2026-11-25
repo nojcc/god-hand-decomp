@@ -14,7 +14,7 @@ void *func_001BDE50(void *a0){
   char *s0; int i;
   InitFields_1B6E90(a0);
   s0 = (char*)a0 + 0x600;
-  *(cVtEnt **)((char*)a0+0x214) = D_004294F0;
+  *(cVtEnt **)((char*)a0+0x214) = (cVtEnt *)&D_004294F0;
   i = 7;
   do {
     VU0_SQC2_VF0(s0, 0x0);

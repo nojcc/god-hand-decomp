@@ -32,25 +32,25 @@ int func_002F1B60(EffModelObj *self)
     }
     if (cGameObj_vt(self->model)->initial((char *)self->model + cGameObj_vt(self->model)->initialDelta) == 0) {
         func_002D9F68(self, (int)D_0044ED48);
-        ReleaseObj((struct cModel *)self->model);
+        ReleaseObj((char *)self->model);
         return 0;
     }
     if (self->mode >= EFFOBJ_MODE_MAX) {
         func_002D9F68(self, (int)D_0044ED68);
-        ReleaseObj((struct cModel *)self->model);
+        ReleaseObj((char *)self->model);
         return 0;
     }
     if (self->mode & EFFOBJ_MODE_T32) {
         tex = espSys_getEffT32Addr(D_007419A0, self->rec->t32Kind, self->t32Idx);
         if (tex == 0) {
             func_002D9F68(self, (int)D_0044ED80);
-            ReleaseObj((struct cModel *)self->model);
+            ReleaseObj((char *)self->model);
             return 0;
         }
     }
     if (cModel_setupModel(self->model, mdl, tex, 0, 0) == 0) {
         func_002D9F68(self, (int)D_0044EDA0);
-        ReleaseObj((struct cModel *)self->model);
+        ReleaseObj((char *)self->model);
         return 0;
     }
     if (self->effGroup != 0) {
@@ -61,7 +61,7 @@ int func_002F1B60(EffModelObj *self)
         param.unk70 = 0;
         param.unk72 = 0;
         param.unk78 = 0;
-        SetEffect(self->effKind, self->effNo, self->model, &param, -1, 0xFFFFFFFF);
+        SetEffect(self->effKind, self->effNo, (cObj *)self->model, &param, -1, EFFECT_FOLLOW_OWNER);
     }
     return 1;
 }

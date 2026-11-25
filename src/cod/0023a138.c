@@ -4,6 +4,7 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 
@@ -19,7 +20,7 @@ extern void cObjBase_addNullSpeed(void *a0, float s);
 __attribute__((section(".text.func_0023A138"))) void func_0023A138(cEm00 *self)
 {
     int res;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->hitFlash = 3.0f;
     switch (self->step) {
         case 0:

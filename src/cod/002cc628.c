@@ -2,7 +2,10 @@
 #include "godhand/cSnd.h"
 
 extern void SetSequenceBlendWeight_3739A0(void *a0, int a1, float f);
+extern void cSndBgmNode_Fade(void *a0);
 extern void func_002CCD80(void *a0);
+extern void cSndBgmNode_Run(void *a0);
+extern void cSndBgmNode_Update(void *a0);
 extern void func_00372CB0(void *a0);
 
 /* sn-2.95.3-136 matched TU. */

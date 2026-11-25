@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern void Adjust_theta_vec(float *p);
 extern void capVu0AddVectorXYZ(void *a0, void *a1, void *a2);

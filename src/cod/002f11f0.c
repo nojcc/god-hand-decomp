@@ -2,7 +2,7 @@
 #include "godhand/globals.h"
 
 #include "godhand/espSys.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/mtx.h"
 
 extern void sceVu0ApplyMatrix(void *dst, void *m, void *src);

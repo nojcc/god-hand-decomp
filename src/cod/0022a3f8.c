@@ -1,12 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
+#include "godhand/cCamera.h"
 #include "godhand/motion.h"
-#include "godhand/player.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-extern float Turn_dest(void *a0, void *a1, float f12, float f13);
-extern float Adjust_theta(float f12);
+extern void *Getplayer(void);
+extern int moveMotion(void *a0);
 extern int cEmManage_CkPlSorry(void *a0);
 extern int cEmManage_CkPlCatched(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
@@ -63,11 +63,11 @@ __attribute__((section(".text.func_0022A3F8"))) void func_0022A3F8(cEm00 *self)
             /* fallthrough */
         case 1: {
             void *self;
-            cGameObj *pl;
+            char *v0;
             float th;
             self = *(void **)(s1 + 0xF0);
-            pl = Getplayer();
-            th = Turn_dest(self, pl->pos, *(float *)(s1 + 0x600),
+            v0 = (char *)Getplayer();
+            th = Turn_dest(self, *(float *)(s1 + 0x600), *(void **)(v0 + 0xF0),
                            *(float *)(s1 + 0x5A8) * 0.09817477f);
             *(float *)(s1 + 0x600) += th;
             *(float *)(s1 + 0x600) = Adjust_theta(*(float *)(s1 + 0x600));
@@ -112,11 +112,11 @@ __attribute__((section(".text.func_0022A3F8"))) void func_0022A3F8(cEm00 *self)
             char *g;
             if (*(float *)(s1 + 0x618) > 9.0f) {
                 void *self;
-                cGameObj *pl;
+                char *v0;
                 float th;
                 self = *(void **)(s1 + 0xF0);
-                pl = Getplayer();
-                th = Turn_dest(self, pl->pos, *(float *)(s1 + 0x600),
+                v0 = (char *)Getplayer();
+                th = Turn_dest(self, *(float *)(s1 + 0x600), *(void **)(v0 + 0xF0),
                                *(float *)(s1 + 0x5A8) * 0.09817477f);
                 *(float *)(s1 + 0x600) += th;
                 *(float *)(s1 + 0x600) = Adjust_theta(*(float *)(s1 + 0x600));

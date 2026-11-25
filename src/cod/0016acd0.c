@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cShopPanel.h"
+#include "godhand/cIDMenuPanel.h"
 
+extern void cIDBase_trans(void *a0);
 extern unsigned char D_005864F0[];
 extern int cEmManage_CreateItem(void *a0, int a1, int a2, int a3);
 extern void func_0019BA08(void *a0, int a1, int a2);
@@ -18,16 +19,31 @@ extern void func_0032DF70(void *a0, int a1, int a2);
 extern void func_0032DA28(void *a0, int a1, int a2);
 extern void func_00374958(void *a0, float f);
 
+#define SHOP_INPUTS  5                  /* combo inputs shown at once */
+
 /* sn-2.95.3-136 matched TU. */
 
 
 
 
 
-/* Draw step of the shop: once the panel is up (state 3), draw each shown combo input
- * one row lower, faded by its timer, then draw the second display and the panel. */
+/* cSubScrShopMain, retail's name (its type-info function func_0016C1E8
+ * registers "15cSubScrShopMain"): the shop's main sub-screen, with a second
+ * display at 0xD0 and the combo input display at 0x210. */
+typedef struct cSubScrShopMain {
+    cIDPanelHead head;                  /* 0x000 */
+    char unk064[0xD0 - 0x64];
+    cIDBaseObj subBase;                 /* 0x0D0 */
+    char unk118[0x210 - 0x118];
+    cIDBaseObj inputBase;               /* 0x210 entry 0 drawn once per shown input */
+    char unk258[0x260 - 0x258];
+    short inputTimer[SHOP_INPUTS];      /* 0x260 frames each shown input stays up */
+    char unk26A[2];
+    int input[SHOP_INPUTS];             /* 0x26C input shown in each slot */
+} cSubScrShopMain;
+
 __attribute__((section(".text.func_0016ACD0")))
-void func_0016ACD0(ShopPanel *self)
+void func_0016ACD0(cSubScrShopMain *self)
 {
     unsigned short i;
 
@@ -40,11 +56,11 @@ void func_0016ACD0(ShopPanel *self)
                 cIDBaseEnt *w2 = cIDBase_getIDWork(&self->inputBase, 0);
                 cIDBaseEnt *w3;
                 cIDBaseEnt *w4;
-                w1->posY = w2->src->posY - (float)(i * 26);
+                w1->posY = w2->src->posY - i * 26;
                 w3 = cIDBase_getIDWork(&self->inputBase, 0);
-                w3->colorBase.c[3] = (int)((float)*q / 20.0f * 256.0f);
+                w3->colorBase.c[3] = (int)(*q / 20.0f * 256.0f);
                 w4 = cIDBase_getIDWork(&self->inputBase, 0);
-                w4->seed = self->input[i];
+                w4->number = self->input[i];
                 cIDBase_move(&self->inputBase);
                 cIDBase_trans(&self->inputBase);
             }
@@ -55,10 +71,9 @@ void func_0016ACD0(ShopPanel *self)
 }
 
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/vu0.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
+#include "godhand/vu0.h"
 
 
 
@@ -72,7 +87,7 @@ __attribute__((section(".text.func_0019B580")))
 void func_0019B580(void *a0)
 {
     char *s0 = (char *)a0;
-    cVec buf;
+    cVec buf __attribute__((aligned(16)));
 
     switch (*(unsigned char *)(s0 + 0x2F5)) {
     case 0: {
@@ -90,8 +105,8 @@ void func_0019B580(void *a0)
             buf.y = src[1];
             buf.z = src[2];
         }
-        SetEffectPos(0, 0xCC, 0, &buf, -1, 1.0f);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, s0, 0, 0, 0, 0);
+        SetEffectPos(0, 0xCC, 0, &buf, 1.0f, -1);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, a0, 0, 0, 0, 0);
         if (*(char *)(s0 + 0xA92) == 0) {
             func_0019BA08(s0, 0, 2);
             cEmManage_CreateItem(&D_005864F0, *(int *)(s0 + 0xF0), 0xFFFF, 0);
@@ -145,6 +160,7 @@ void func_0019B580(void *a0)
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -223,7 +239,7 @@ void func_001BFD28(void *a0)
             fr.s.unk20.z = fr.a.z;
         }
         fr.s.size = 1.0f;
-        SetEffect(0, 0x1C, 0, &fr.s, -1, 0xFFFFFFFF);
+        SetEffect(0, 0x1C, 0, &fr.s, -1, EFFECT_FOLLOW_OWNER);
         {
             char *vt2 = *(char **)(s0 + 0x214);
             short off2 = *(short *)(vt2 + 0xA8);

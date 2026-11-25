@@ -41,7 +41,7 @@ void func_00245A18(cEm00 *self)
         self->unk1864 = 0;
         func_002A8578(self, EM_RES_REC(EM_RES(self), 0x3538),
                       EM_RES_REC(EM_RES(self), 0x353C), 3, 0.0f, 0, 0);
-        InitRenderStruct_2A8608((cGameObj *)self, 0x77, 8, 0, 2, (void *)self->fx5);
+        InitRenderStruct_2A8608((cGameObj *)self, 0x77, 8, 0, 2, (void *)self->weapon375);
         self->timer = 15.0f;
         self->step++;
         /* fallthrough */
@@ -129,7 +129,7 @@ void func_00245A18(cEm00 *self)
             break;
         }
         if (self->emFlags2 & EMFLAG_SPIN_FX) {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 9, 0, 2, (void *)self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 9, 0, 2, (void *)self->weapon375);
         }
         self->timer2 = 30.0f;
         self->step++;
@@ -157,9 +157,9 @@ void func_00245A18(cEm00 *self)
         }
         func_002A8578(self, motA, motB, 3, 0.0f, 0, 0);
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0xA, 0, 2, (void *)self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0xA, 0, 2, (void *)self->weapon375);
         } else {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0xA, 0, 2, (void *)self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0xA, 0, 2, (void *)self->weapon375);
         }
         self->timerA = 15;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -185,7 +185,7 @@ void func_00245A18(cEm00 *self)
             self->timerA--;
             from = self->pos;
             to = Getplayer()->pos;
-            turn = Turn_dest((float *)from, (float *)to, self->timer, self->speedRate * TURN_FAST);
+            turn = Turn_dest((float *)from, self->timer, (float *)to, self->speedRate * TURN_FAST);
             self->timer += turn;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += turn;

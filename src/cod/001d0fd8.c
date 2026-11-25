@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/BlackJack.h"
+#include "godhand/player.h"
 #include "godhand/vu0.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cCoreSave.h"
@@ -8,8 +9,10 @@
 #include "godhand/globals.h"
 
 extern float D_00568050[4];
-extern BlackJackCardObj *CreateObj(int id, int a1);
 extern void cOmTrump_Initialize(BlackJackCardObj *obj, int rank);
+extern void func_001D4DF0(BlackJack *self);
+extern void BlackJackId_SetDefaultDisp(BlackJack *self);
+extern void func_001D5780(BlackJack *self, int gold);
 extern int *D_003C2384;
 extern void *D_003C2380;
 extern unsigned char *D_003C23A4;
@@ -151,7 +154,7 @@ void BlackJack_Initialize(BlackJack *self, int level)
     deck = self->deck;
     for (suit = 0; suit < BLACKJACK_SUIT_NUM; suit++) {
         for (rank = 0; rank < BLACKJACK_RANK_NUM; rank++) {
-            BlackJackCardObj *obj = CreateObj(f.suitId[suit], 0xFFFF);
+            BlackJackCardObj *obj = (BlackJackCardObj *)CreateObj(f.suitId[suit], 0xFFFF);
             float *src = D_00568050;
 
             if (obj != 0) {

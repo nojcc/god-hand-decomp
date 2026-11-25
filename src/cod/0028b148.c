@@ -1,13 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cRelSys.h"
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 #include "godhand/cSnd.h"
 #include "godhand/seqNode.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/heapArena.h"
 #include "godhand/cScenario.h"
 #include "godhand/mtx.h"
 #include "godhand/vtables.h"
+#include "godhand/cGameObjFn.h"
+
+/* cSndBgmNode's method table; the node's SndVoiceNode part sits at 0. */
+extern struct cVtEnt D_0044CEE8[];
 
 extern int cTaskManager_execute_2D54F0(cTaskManager *task, void *entry, void *arg, int slot);
 extern char D_0044E090[];
@@ -105,9 +109,9 @@ int cScenario_taskExec_2C38D8(cScenario *self, void *entry, void *arg, int slot)
 
 
 __attribute__((section(".text.cSndBgmNode_Dtor")))
-void cSndBgmNode_Dtor(cSndBgmNode *node, int flags) {
-    node->base.vt = D_0044CEE8;
-    func_00372C80(&node->base, flags);
+void cSndBgmNode_Dtor(SndVoiceNode *node, int flags) {
+    node->vt = D_0044CEE8;
+    func_00372C80(node, flags);
 }
 
 /* clone */

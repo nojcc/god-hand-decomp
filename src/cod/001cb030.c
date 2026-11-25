@@ -1,5 +1,5 @@
 #include "godhand/cEm00.h"
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 #include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */

@@ -3,7 +3,7 @@
 #include "godhand/cDvd.h"
 #include "godhand/criStm.h"
 #include "godhand/cSnd.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cBgmData.h"
 #include "godhand/globals.h"
 
@@ -64,7 +64,7 @@ int cSeData_ResolveBank(cSeData *d)
         if (d->f1C == 0)
             return 0;
         if ((D_00747A34 & 0x10000000) != 0)
-            func_003A6A20(D_0044CF78, d->owner, d->bankId, d->buf->f2C);
+            func_003A6A20(D_0044CF78, d->f3C, d->bankId, d->buf->f2C);
         d->f34 = func_002D30E0(D_00603A40, base, d->f1C, d->buf->f2C);
     }
     cSeData_AddLoadBits(d, 0x20);
@@ -78,7 +78,7 @@ int cSeData_LoadFromBuf(cSeData *d, int bankId, cSeBuf *buf, int owner)
     if (d->state != 0)
         cSeData_Release(d);
     d->bankId = bankId;
-    d->owner = owner;
+    d->f3C = owner;
     d->state = 1;
     cSeData_SelectHeap(d);
     d->buf = buf;

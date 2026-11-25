@@ -1,6 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
 
+extern int cSnd_GetBgmData(int a0, int a1);
+extern void cSndBgmNode_StepState(void *a0);
+extern void cSndBgmNode_Link(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -19,7 +22,7 @@ int cSndBgmNode_Setup(cSndBgmNode *node, int bank, cSndBgmReq *req, int flags)
     int state;
 
     node->bank = bank + 0x80;
-    node->data = cSnd_GetBgmData(&D_005FEE00, bank);
+    node->data = cSnd_GetBgmData((int)&D_005FEE00, bank);
     node->reqNo = req->reqNo;
     state = req->state;
     node->state = state;

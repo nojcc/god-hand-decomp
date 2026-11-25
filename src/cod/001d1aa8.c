@@ -7,7 +7,10 @@
 extern void cFILTER_gif_tag_start(int a0, int a1, long a2);
 extern void cFILTER_gif_tag_end(int a0);
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);
-extern void SetBlendField6AC_1D58F0(BlackJack *self, int on);
+extern void func_001D5360(void *a0, int a1);
+extern void func_001D5500(void *a0, int a1);
+extern void SetBlendField6AC_1D58F0(void *a0, int a1);
+extern void func_001D5430(void *a0, int a1);
 extern int D_007474A0;
 
 __attribute__((section(".text.func_00299BA0")))

@@ -29,7 +29,7 @@ extern void func_001B4D08(char *a0, int a1, float *a2, float *a3);
 
 
 
-#include "godhand/cModel.h"
+#include "godhand/cModelFn.h"
 #include "godhand/cDamageUnit.h"
 #include "godhand/vu0.h"
 

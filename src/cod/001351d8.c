@@ -1,17 +1,15 @@
-#include "godhand/cObjBase.h"
 #include "godhand/cCollisionSolid.h"
-#include "godhand/mtx.h"
+#include "godhand/cObjBase.h"
 #include "godhand/globals.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern unsigned int D_00747A84;
+extern void VecRotVec(float *out, float *in, cVec *rot, int order);
 extern void Adjust_theta_vec(cVec *v);
-#include "godhand/angle.h"
-extern float Adjust_theta(float f12);
 
 #include "godhand/vu0.h"
-#include "godhand/cGameObj.h"
+#include "godhand/cCamera.h"
 
 
 
@@ -47,15 +45,14 @@ void cObjBase_addNullSpeed_Rotation(cObjBase *self, float scale) {
 
 __attribute__((section(".text.cCollisionSolidManage_SetActive")))
 void cCollisionSolidManage_SetActive(cCollisionSolidManage *self, struct cGameObj *owner, int active) {
-    cCollisionSolidUnit *unit = func_001346C8(self, owner);
+    cCollisionSolidManageUnit *unit = func_001346C8(self, owner);
     if (unit != 0) {
-        SetNodeListFlag_134608(unit, active);
+        cCollisionSolidManageUnit_setActive(unit, active);
     }
 }
 
 __attribute__((section(".text.cGameObj_SetTgtTurn")))
-void cGameObj_SetTgtTurn(void *self, cVec *target, float rate) {
-    struct cGameObj *o = self;
-    float r = Turn_dest(&o->pos->x, &target->x, o->rot.y, rate * D_007479FC);
-    o->rot.y = Adjust_theta(o->rot.y + r);
+void cGameObj_SetTgtTurn(struct cGameObj *self, const cVec *target, float rate) {
+    float r = Turn_dest(&self->pos->x, self->rot.y, &target->x, rate * D_007479FC);
+    self->rot.y = Adjust_theta(self->rot.y + r);
 }

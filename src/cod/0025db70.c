@@ -6,13 +6,14 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+extern void *Getplayer(void);
 extern void SetMotionStep(void *a0, float a1);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0027DC50(void *a0, int a1);
 
 #include "godhand/vu0.h"
-#include "godhand/player.h"
 
 /* Phase machine on the step byte, 8 case labels. Calls Getplayer, SetMotionStep,
  * cCollisionSolidManage_SetActive, func_002A8578, func_0027DC50, VU0_VADD_XYZ_IP and 4 more. */
@@ -23,7 +24,7 @@ __attribute__((section(".text.func_0025DB70"))) void func_0025DB70(cEm00 *self)
 
     self->speedRate = v;
     SetMotionStep(self, v);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
             int p;

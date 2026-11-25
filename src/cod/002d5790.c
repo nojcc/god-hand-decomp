@@ -1,4 +1,4 @@
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 __attribute__((section(".text.func_002D5790")))
 void func_002D5790(char *self)

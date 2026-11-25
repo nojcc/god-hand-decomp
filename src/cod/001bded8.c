@@ -2,8 +2,6 @@
 
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cGameObj.h"
-#include "godhand/cOmBase.h"
-#include "godhand/vtables.h"
 #include "godhand/globals.h"
 
 extern int D_00586AF0;
@@ -11,6 +9,7 @@ extern void func_00297B20(void *a, void *b);
 extern void func_00297B40(void *a, void *b);
 extern void ScrollLayer_hideAtEnd(void);
 extern void func_00298460(void);
+extern void cOmBase_dieCommon(void *obj);
 extern char D_007419A0[];
 extern void espSys_effDataRelease(void *sys, int effNo);
 extern void SetField214PtrThenInit_1B6F38(cGameObj *self, int flag);
@@ -31,14 +30,15 @@ void RegisterCostumeHookPair(void)
 
 /* Destroy hook: release the collision unit, then the owned child object. */
 typedef struct ChildOwner {
-    char unk000[0x15EC];
+    cGameObj base;                      /* 0x000 */
+    char unk5B0[0x15EC - 0x5B0];
     void *child;                        /* 0x15EC owned object, dies with its owner */
 } ChildOwner;
 
 __attribute__((section(".text.ChildOwner_releaseChild")))
 void ChildOwner_releaseChild(ChildOwner *self)
 {
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (struct cGameObj *)self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, &self->base);
     if (self->child != 0) {
         cOmBase_dieCommon(self->child);
         self->child = 0;
@@ -105,7 +105,7 @@ void StateObj_runStep(StateObj *self)
 /* Destructor of a game object subclass: set its method table, release effect data 0x241, run the base destructor. */
 __attribute__((section(".text.cGameObj_destructSubclassB")))
 void cGameObj_destructSubclassB(cGameObj *self, int flag) {
-    self->vtable = D_004294F0;
+    self->vtable = (cVtEnt *)&D_004294F0;
     espSys_effDataRelease(D_007419A0, 0x241);
     SetField214PtrThenInit_1B6F38(self, flag);
 }

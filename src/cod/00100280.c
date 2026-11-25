@@ -1,17 +1,14 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
-#include "godhand/cModel.h"
+#define CGAMEOBJ_NO_TYPEDEF             /* this TU calls the constructor cGameObj */
+#include "godhand/cGameObj.h"
+#include "godhand/cCollisionSolid.h"
 #include "godhand/globals.h"
 
 extern int D_007854C8;
 extern void cGameObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *, void *, void *);
 extern void cObjBase__tf(void);
-#define CGAMEOBJ_NO_TYPEDEF
-#include "godhand/cModel.h"
-#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
-#include "godhand/cGameObj.h"
-#include "godhand/vtables.h"
 extern void cObjBase_addNullSpeed_Rotation(void *, float);
 extern void cObjBase_addNullSpeed(void *, float);
 
@@ -26,20 +23,21 @@ int IsStateByteIdle_10B5F0(unsigned char *a0) {
     return 1;
 }
 
-/* Constructor: build the cGameObj, then set cPlBase's method table and class name. */
 __attribute__((section(".text.cPlBase")))
-struct cGameObj *cPlBase(struct cGameObj *self) {
-    cGameObj(self);
-    self->vtable = D_0041B598;
-    self->kindName = D_0041B590;
-    return self;
+void *cPlBase(void *a0) {
+    void *r;
+    cGameObj(a0);
+    *(int **)((char*)a0 + 0x214) = &D_0041B598;
+    r = a0;
+    *(int **)((char*)a0 + 0x4AC) = &D_0041B590;
+    return r;
 }
 
 __attribute__((section(".text.cPlBase__dtor")))
-void cPlBase__dtor(struct cGameObj *self, int flags) {
-    self->vtable = D_0041B598;
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, self);
-    cGameObj__dtor(self, flags);
+void cPlBase__dtor(void *a0, int flags) {
+    *(int **)((char*)a0 + 0x214) = &D_0041B598;
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, a0);
+    cGameObj__dtor(a0, flags);
 }
 
 __attribute__((section(".text.cPlBase__tf")))

@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */
 __attribute__((section(".text.func_00393F80")))

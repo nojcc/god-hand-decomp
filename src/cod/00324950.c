@@ -2,6 +2,7 @@
 
 #include "godhand/criSj.h"
 #include "godhand/globals.h"
+#include "godhand/criCbTbl.h"
 
 extern volatile int D_003C7418;
 extern char D_003C7420[];
@@ -15,7 +16,6 @@ extern void func_0033F0B8(void);
 extern void func_0033F3F0(void);
 extern void Obj3260_Tramp_00337728_D288(void);
 extern void LSC_Init(void);
-extern void func_0033BE80(void);
 extern void Obj3260_NoOp_D2B8(void *fn, int arg);
 extern void func_00335D18(void *fn, int arg);
 extern void func_003A52F0(void *dst, int val, int len);
@@ -107,7 +107,7 @@ void SjRbf_ungetChunk(SjRbf *sj, int id, SjChunk *ck)
         } else if (sj->err != 0) {
             sj->err(sj->errObj, -3);
         }
-        sj->freeTaken -= ck->len;
+        sj->flow[0][0] -= ck->len;
     } else if (id == 1) {
         pos = (sj->dataPos + size - len) % size;
         if (pos == (data - sj->buf) % size) {
@@ -116,7 +116,7 @@ void SjRbf_ungetChunk(SjRbf *sj, int id, SjChunk *ck)
         } else if (sj->err != 0) {
             sj->err(sj->errObj, -3);
         }
-        sj->dataTaken -= ck->len;
+        sj->flow[1][0] -= ck->len;
     } else {
         ck->len = 0;
         ck->data = 0;
@@ -174,10 +174,10 @@ void SjRbf_putChunk(SjRbf *sj, int id, SjChunk *ck)
             cnt = ck->len;
         }
         sj->data += cnt;
-        sj->unk34 += ck->len;
+        sj->flow[1][1] += ck->len;
     } else if (id == 0) {
         sj->free += len;
-        sj->unk2C += ck->len;
+        sj->flow[0][1] += ck->len;
     } else {
         ck->len = 0;
         ck->data = 0;

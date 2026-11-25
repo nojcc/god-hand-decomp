@@ -1,6 +1,5 @@
 /* sn-2.95.3-136 */
 #include "godhand/cGameObj.h"
-#include "godhand/mtx.h"
 #include "godhand/cOmWeapon.h"
 #include "godhand/cCamera.h"
 #include "godhand/player.h"
@@ -18,8 +17,7 @@ typedef struct cEmCarrier {
     cOmWeapon *held;            /* 0x700 the weapon it carries, or 0 */
 } cEmCarrier;
 
-extern float Turn_dest(void *a0, void *a1, float f12, float f13);
-extern void func_001CFB28(cOmWeapon *self, cVec *pos, int arg);
+extern void MtxInitRotY(void *a0, float angle);
 
 /* Throws the carried weapon toward the player, turned at most 60 degrees from the enemy's heading. */
 __attribute__((section(".text.func_0026B4E8")))
@@ -36,7 +34,7 @@ void func_0026B4E8(cEmCarrier *self)
     {
         cVec *from = self->base.pos;
         cVec *to = Getplayer()->pos;
-        float turn = Turn_dest(from, to, self->base.rot.y, THROW_TURN_LIMIT);
+        float turn = Turn_dest(&from->x, self->base.rot.y, &to->x, THROW_TURN_LIMIT);
 
         MtxInitRotY(mtx, Adjust_theta(turn + self->base.rot.y));
     }
@@ -47,5 +45,5 @@ void func_0026B4E8(cEmCarrier *self)
     cVec_copy3(held->base.pos, self->base.pos);
     held->base.pos->y += HELD_LIFT;
     cVec_copy3(&held->base.posA, self->base.pos);
-    func_001CFB28(held, &vel, (int)self);
+    func_001CFB28(held, &vel, &self->base);
 }

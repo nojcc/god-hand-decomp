@@ -1,13 +1,14 @@
 /* include/godhand/player.h - the player object, its restart point and the
- * method-table entries the player code calls.
+ * functions the player code calls.
  *
- * The views below sit on top of cGameObj (cGameObj.h) for words that
- * header leaves as padding. Field names are ours; offsets are exact.
+ * The player is a pl00 (pl00.h), which derives from cGameObj (cGameObj.h);
+ * its method table is cGameObjVt. Field names are ours; offsets are exact.
  */
 #ifndef GODHAND_PLAYER_H
 #define GODHAND_PLAYER_H
 
 #include "godhand/cGameObj.h"
+#include "godhand/pl00.h"
 #include "godhand/cHeatSys.h"
 
 /* The player's saved position, rotation and heat gauge (restart point). */
@@ -21,53 +22,19 @@ typedef struct PlayerSave {
 extern PlayerSave D_00755880;
 extern cHeatSys D_005CB000;     /* the player's heat gauge */
 
-/* The setPos/setRot pairs of the player's method table at 0x214. */
-typedef struct cPlayerVt {
-    char unk00[0x70];
-    short setPosDelta;          /* 0x70 */
-    short pad72;
-    void (*setPos)(void *self, cVec *pos);  /* 0x74 */
-    short setRotDelta;          /* 0x78 */
-    short pad7A;
-    void (*setRot)(void *self, cVec *rot);  /* 0x7C */
-} cPlayerVt;
-
-/* The init entry of a freshly created object's method table. */
-typedef struct cObjInitVt {
-    char unk00[0x40];
-    short initDelta;            /* 0x40 */
-    short pad42;
-    void (*init)(void *self);   /* 0x44 */
-} cObjInitVt;
-
-/* The object at cGameObj + 0x68C. */
-typedef struct cPlayerLink {
-    char unk000[0x2F0];
-    int flags;                  /* 0x2F0 bit 0: the player was moved */
-} cPlayerLink;
-
-/* cGameObj.unk000 holds a second position copy at 0x30. */
-typedef struct cGameObjHead {
-    char unk00[0x30];
-    cVec pos;                   /* 0x30 */
-} cGameObjHead;
-
-/* Partial view of the player object: the sub screen fields. */
-typedef struct PlSub {
-    char pad000[0x2F4];
-    unsigned char subOpen;      /* 0x2F4 */
-    unsigned char subSel;       /* 0x2F5 */
-    char pad2F6[0x15F4 - 0x2F6];
-    int flags15F4;              /* 0x15F4 */
-} PlSub;
-
-extern int pl00_CkSubScreen(PlSub *pl);
-extern int func_0012BAF0(PlSub *pl);
+/* Whether the sub screen is up: 1 when base.mode (0x2F4) is 0 and base.phase
+ * (0x2F5) is 0 to 3. */
+extern int pl00_CkSubScreen(pl00 *pl);
+/* The same test, but 1 at once when unk15F4 bit 0x400 is set. */
+extern int func_0012BAF0(pl00 *pl);
 
 extern cGameObj *Getplayer(void);
 extern cGameObj *CreateObj(int kind, int dataId);
+extern void ReleaseObj(char *obj);
 /* Start the thrown object obj for move type `type`, moving along speed. owner
  * is the thrower, kept at obj+0x62C. */
 extern void cOmbe_SetSpeed(cGameObj *obj, cGameObj *owner, cVec *speed, int type);
+extern void cHeatSys_UpdateHeatMax(cHeatSys *self, float max);
+extern void cHeatSys_SetHeatGage(cHeatSys *self, float heat);
 
 #endif

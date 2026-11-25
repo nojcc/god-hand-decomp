@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
-#include "godhand/pl00.h"
-#include "godhand/player.h"
 #include "godhand/globals.h"
 
 extern void Obj0000_Set_Field_424_1595E8(void *a, int b);
 extern void *SearchData(void *a, void *b, int c);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);
 extern char D_005864F0[];
+extern char *Getplayer();
+extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
 extern int cEmManage_CkPlCatched(void *p);
 extern void func_00129718(void *a, void *b, int c);
 
@@ -26,12 +26,12 @@ int func_00282EC0(char *a0) {
 
 __attribute__((section(".text.func_002DD7B0")))
 void func_002DD7B0(char *a0) {
-    cGameObj *pl;
+    char *o;
     char *g;
-    pl = Getplayer();
+    o = Getplayer();
     if (a0 == 0) return;
-    if (pl->hp <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
+    if (*(short *)(o + 0x54A) <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(o) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -40,18 +40,18 @@ void func_002DD7B0(char *a0) {
     *(float *)(a0 + 0x54C) = 30.0f;
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x24;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(pl, a0, 0x23);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)a0, 0);
+    func_00129718(o, a0, 0x23);
 }
 
 __attribute__((section(".text.func_002DD870")))
 void func_002DD870(char *a0) {
-    cGameObj *pl;
+    char *o;
     char *g;
-    pl = Getplayer();
+    o = Getplayer();
     if (a0 == 0) return;
-    if (pl->hp <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
+    if (*(short *)(o + 0x54A) <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(o) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -60,18 +60,18 @@ void func_002DD870(char *a0) {
     *(float *)(a0 + 0x54C) = 30.0f;
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x25;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(pl, a0, 0x24);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)a0, 0);
+    func_00129718(o, a0, 0x24);
 }
 
 __attribute__((section(".text.func_002DD930")))
 void func_002DD930(char *a0) {
-    cGameObj *pl;
+    char *o;
     char *g;
-    pl = Getplayer();
+    o = Getplayer();
     if (a0 == 0) return;
-    if (pl->hp <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
+    if (*(short *)(o + 0x54A) <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(o) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -80,18 +80,18 @@ void func_002DD930(char *a0) {
     *(float *)(a0 + 0x54C) = 30.0f;
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x26;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(pl, a0, 0x25);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)a0, 0);
+    func_00129718(o, a0, 0x25);
 }
 
 __attribute__((section(".text.func_002DD9F0")))
 void func_002DD9F0(char *a0) {
-    cGameObj *pl;
+    char *o;
     char *g;
-    pl = Getplayer();
+    o = Getplayer();
     if (a0 == 0) return;
-    if (pl->hp <= 0) return;
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)pl) != 0) return;
+    if (*(short *)(o + 0x54A) <= 0) return;
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(o) != 0) return;
     g = D_005864F0;
     if (*(int *)(g + 0x514) > 0) return;
     if (cEmManage_CkPlCatched(g) != 0) return;
@@ -100,6 +100,6 @@ void func_002DD9F0(char *a0) {
     *(float *)(a0 + 0x54C) = 30.0f;
     *(char *)(a0 + 0x2F4) = 1;
     *(char *)(a0 + 0x2F5) = 0x27;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)a0, 0);
-    func_00129718(pl, a0, 0x26);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)a0, 0);
+    func_00129718(o, a0, 0x26);
 }

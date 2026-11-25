@@ -24,11 +24,11 @@ int func_002B3C20(EffCmdObj *o)
     switch (tag) {
     case 0x45524F43:
     case 0x65726F63:
-        SetEffect(0, no, p, 0, -1, 0xFFFFFFFF);
+        SetEffect(0, no, p, 0, -1, EFFECT_FOLLOW_OWNER);
         break;
     case 0x4D4F4F52:
     case 0x6D6F6F72:
-        SetEffect(1, no, p, 0, -1, 0xFFFFFFFF);
+        SetEffect(1, no, p, 0, -1, EFFECT_FOLLOW_OWNER);
         break;
     }
     return 0;

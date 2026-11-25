@@ -1,5 +1,5 @@
 /* ee-2.9-991111 matched TU. */
-#include "godhand/eeKernel.h"
+#include "godhand/eeKernelFn.h"
 #include "godhand/globals.h"
 
 /* ee-2.9-991111 — SCE libcdvd 3.0.2, cdvd017.o :: sceCdStatus */

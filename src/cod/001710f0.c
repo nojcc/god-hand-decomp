@@ -3,7 +3,7 @@
 #include "godhand/criStm.h"
 
 #include "godhand/cMovie.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 
 extern void func_00345F48(int handle, int mode);
 extern void displayScrollLayer(int a0, int a1);

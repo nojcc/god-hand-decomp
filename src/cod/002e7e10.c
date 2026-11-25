@@ -4,7 +4,7 @@
 #include "godhand/vu0.h"
 #include "godhand/espSys.h"
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/mtx.h"
 
 extern char *cWorldLight_Get_LightData2(void *a0, int a1, int a2);

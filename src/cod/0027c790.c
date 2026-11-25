@@ -1,9 +1,10 @@
 #include "godhand/cEm00.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
 
 /* func_00281D98 */
 
@@ -147,7 +148,7 @@ __attribute__((section(".text.func_0027C790"))) void func_0027C790(cEm00 *self)
     int res;
     switch (self->step) {
         case 0:
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 12, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 12, (cObj *)self, 0, 0, 0, 0);
             if (self->stepArg) {
                 res = EM_RES(self);
                 func_002A8578(self, EM_RES_REC(res, 0x40), EM_RES_REC(res, 0x44), 0, 0.0f, 0, 0);

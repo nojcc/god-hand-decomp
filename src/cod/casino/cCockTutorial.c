@@ -1,14 +1,18 @@
 /* TU: cCockTutorial [casino] - recovered C++ class. */
-#include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
-#include "godhand/cDvd.h"
 #include "godhand/cCockTutorial.h"
 #include "godhand/globals.h"
 
 extern void *D_003C2388;
 extern void *D_003C2384;
+extern char D_00583F20[];
+extern char D_00754220[];
 extern void cIDManager_getLocalFileName(void *mgr, char *out, char *fmt, int n);
+extern int cDvd_ReadAlloc(void *dvd, char *name, void **out, void *heap, int a, int b, int c, int d);
+extern void cDvd_CheckWait(void *dvd, int id);
 extern void cIDManager_setIDData(void *mgr, int pack, void *data);
+extern void cIDBase_initialize(cCockTutorial *self, int pack, int a);
+extern void cIDBase_setPackedMessData(cCockTutorial *self, int pack, int a);
+extern void cIDBase_restartAnim(cCockTutorial *self);
 
 /* Prepare the tutorial display for the room: load the message pack once,
  * initialise the display and look the seven entries up by id. */
@@ -18,13 +22,13 @@ void cCockTutorial_roomInit(cCockTutorial *self) {
     unsigned int i;
     if (self->data == 0) {
         cIDManager_getLocalFileName(D_003C2388, name, D_0041E970, -1);
-        self->readId = cDvd_ReadAlloc(&D_00583F20, name, &self->data, &D_00754220, 0, 0, 0, 0);
-        cDvd_CheckWait(&D_00583F20, self->readId);
+        self->readId = cDvd_ReadAlloc(D_00583F20, name, &self->data, D_00754220, 0, 0, 0, 0);
+        cDvd_CheckWait(D_00583F20, self->readId);
         cIDManager_setIDData(*(void **)D_003C2384, COCKTUT_MSG_PACK, self->data);
-        cIDBase_initialize(&self->base, COCKTUT_MSG_PACK, 0);
-        cIDBase_setPackedMessData(&self->base, COCKTUT_MSG_PACK, 1);
+        cIDBase_initialize(self, COCKTUT_MSG_PACK, 0);
+        cIDBase_setPackedMessData(self, COCKTUT_MSG_PACK, 1);
     }
-    cIDBase_restartAnim(&self->base);
+    cIDBase_restartAnim(self);
     self->base.playing = 1;
     for (i = 0; i < COCKTUT_ENT_NUM; i++) {
         self->ent[i] = cIDBase_getIDWork(&self->base, i);

@@ -1,9 +1,6 @@
-/* cygnus-2.96 matched TU. */
-#include "godhand/cGameObj.h"
 #include "godhand/adxm.h"
 #include "godhand/adxmThread.h"
 #include "godhand/globals.h"
-
 extern int SleepThread(void);
 extern int Obj33C8_GetShort_24(int a0);
 extern int Obj33C8_GetField_28(int a0);
@@ -30,85 +27,76 @@ void NoOp_282E50(void) {}
 __attribute__((section(".text.NoOp_282EB8")))
 void NoOp_282EB8(void) {}
 
-/* Mode, phase, step and step argument all 0. */
 __attribute__((section(".text.ClearBytes2F4To2F7_283170")))
-void ClearBytes2F4To2F7_283170(cGameObj *self) {
-    self->mode = 0;
-    self->phase = 0;
-    self->step = 0;
-    self->stepArg = 0;
+void ClearBytes2F4To2F7_283170(char *a0) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 0;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = 0;
 }
 
-/* Phase 1 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode1_283188")))
-void SetBytes2F4Mode1_283188(cGameObj *self, int arg) {
-    self->mode = 0;
-    self->phase = 1;
-    self->step = 0;
-    self->stepArg = arg;
+void SetBytes2F4Mode1_283188(char *a0, char a1) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 1;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = a1;
 }
 
-/* Phase 2 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode2_2831B0")))
-void SetBytes2F4Mode2_2831B0(cGameObj *self, int arg) {
-    self->mode = 0;
-    self->phase = 2;
-    self->step = 0;
-    self->stepArg = arg;
+void SetBytes2F4Mode2_2831B0(char *a0, char a1) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 2;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = a1;
 }
 
-/* Phase 4 at step 0. */
 __attribute__((section(".text.SetBytes2F4Mode4_283240")))
-void SetBytes2F4Mode4_283240(cGameObj *self) {
-    self->mode = 0;
-    self->phase = 4;
-    self->step = 0;
-    self->stepArg = 0;
+void SetBytes2F4Mode4_283240(char *a0) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 4;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = 0;
 }
 
-/* Phase 5 at step 0. */
 __attribute__((section(".text.SetBytes2F4Mode5_283258")))
-void SetBytes2F4Mode5_283258(cGameObj *self) {
-    self->mode = 0;
-    self->phase = 5;
-    self->step = 0;
-    self->stepArg = 0;
+void SetBytes2F4Mode5_283258(char *a0) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 5;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = 0;
 }
 
-/* Phase 7 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode7_283270")))
-void SetBytes2F4Mode7_283270(cGameObj *self, int arg) {
-    self->mode = 0;
-    self->phase = 7;
-    self->step = 0;
-    self->stepArg = arg;
+void SetBytes2F4Mode7_283270(char *a0, char a1) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 7;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = a1;
 }
 
-/* Phase 8 at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode8_283288")))
-void SetBytes2F4Mode8_283288(cGameObj *self, int arg) {
-    self->mode = 0;
-    self->phase = 8;
-    self->step = 0;
-    self->stepArg = arg;
+void SetBytes2F4Mode8_283288(char *a0, char a1) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 8;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = a1;
 }
 
-/* Phase 0xB at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode11_283360")))
-void SetBytes2F4Mode11_283360(cGameObj *self, int arg) {
-    self->mode = 0;
-    self->phase = 0xB;
-    self->step = 0;
-    self->stepArg = arg;
+void SetBytes2F4Mode11_283360(char *a0, char a1) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 0xB;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = a1;
 }
 
-/* Phase 0xA at step 0 with the step argument. */
 __attribute__((section(".text.SetBytes2F4Mode10_2833C0")))
-void SetBytes2F4Mode10_2833C0(cGameObj *self, int arg) {
-    self->mode = 0;
-    self->phase = 0xA;
-    self->step = 0;
-    self->stepArg = arg;
+void SetBytes2F4Mode10_2833C0(char *a0, char a1) {
+    a0[0x2F4] = 0;
+    a0[0x2F5] = 0xA;
+    a0[0x2F6] = 0;
+    a0[0x2F7] = a1;
 }
 
 __attribute__((section(".text.Forward33F130_3248D8")))
@@ -117,8 +105,9 @@ int Forward33F130_3248D8(int a0, int a1) { return func_0033F130(a1); }
 __attribute__((section(".text.Forward335A18_324C78")))
 int Forward335A18_324C78(int a0) { return func_00335A18(a0); }
 
+/* SVM callback slot 6; arg is the callback argument, unused. */
 __attribute__((section(".text.Forward324D88_324E70")))
-int Forward324D88_324E70(void) { return adxm_goto_svr_border(D_003C814C, D_003C80C8); }
+void Forward324D88_324E70(int arg) { adxm_goto_svr_border(D_003C814C, D_003C80B0.g); }
 
 __attribute__((section(".text.SleepThread_3252E0")))
 void SleepThread_3252E0(void) { SleepThread(); }

@@ -29,7 +29,7 @@
 #define COBJ_FIELDS \
     CMODEL_FIELDS \
     char unk2E4[0xC]; \
-    unsigned int unk2F0;                /* 0x2F0 MoveObj clears the low two bits after each move */ \
+    unsigned int unk2F0;                /* 0x2F0 MoveObj clears the low two bits after each move; setPlayerPos sets bit 0 of the object the player links at 0x68C; on a cObjSimple bit 0 resets the swing each frame */ \
     unsigned char mode;                 /* 0x2F4 0x2F4..0x2F7 are the four state bytes the move code writes together */ \
     unsigned char phase;                /* 0x2F5 */ \
     unsigned char step;                 /* 0x2F6 */ \
@@ -73,11 +73,5 @@ static __inline__ long cObj_idInRange(const struct cObj *obj, int lo, int hi)
     }
     return in;
 }
-
-/* The address of a record in the data pack. The pack starts with a table of
- * offsets from its own start; res is the pack (the char *pack, or its address
- * as an int) and off the table slot. Retail adds the offset and the pack's
- * address as integers, offset first. */
-#define EM_RES_REC(res, off) (*(int *)((res) + (off)) + (int)(res))
 
 #endif

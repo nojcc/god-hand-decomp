@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/criStm.h"
 #include "godhand/motion.h"
 #include "godhand/globals.h"
@@ -26,7 +27,7 @@ void func_001134C8(pl00 *self)
     cEmManage_SetSlotWait(&D_005864F0, 2);
     cEmManage_SetPlCatched(&D_005864F0);
     cEmManage_SetBigHitEffWait(&D_005864F0, 2);
-    self->flags15F4 |= 0x200;
+    self->unk15F4 |= 0x200;
     if (self->base.step != 0) {
         if (self->unk649 == 0) {
             if (func_0010B2E8(self, 1) != 0) {
@@ -37,14 +38,14 @@ void func_001134C8(pl00 *self)
     }
     switch (self->base.step) {
     case 0: {
-        char *v0;
+        int v0;
         self->comboSlot = 0;
         self->comboSet = 0;
         Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x50, 6, 0x28, 0, 0x123);
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x50, 6, 0x28, 0, 0x123);
         self->unk1684 = 1;
         func_00129578(self);
-        v0 = self->base.pack;
+        v0 = EM_RES(&self->base);
         func_002A8578(self, EM_RES_REC(v0, 0x8A8), EM_RES_REC(v0, 0x8AC), 3, 0.0f, 0, 0);
         cEmManage_SetSpeedRate(&D_005864F0, 0.1f);
         self->base.step += 1;

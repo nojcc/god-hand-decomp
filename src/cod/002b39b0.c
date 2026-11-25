@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
 
-
 __attribute__((section(".text.func_002B39B0")))
 int func_002B39B0(unsigned char *obj)
 {

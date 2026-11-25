@@ -2,14 +2,15 @@
 
 extern void func_001268F0(void *a0);
 #include "godhand/motion.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 __attribute__((section(".text.func_00115F60")))
 void func_00115F60(pl00 *self) {
-    char *v0;
+    int v0;
     float one;
     self->base.hitFlash = 5.0f;
     switch (self->base.step) {
@@ -30,7 +31,7 @@ void func_00115F60(pl00 *self) {
             }
         }
         self->base.rot.y = self->unk670;
-        v0 = self->base.pack;
+        v0 = EM_RES(&self->base);
         func_002A8578(self, EM_RES_REC(v0, 0x8B8), EM_RES_REC(v0, 0x8BC), 0, 0.0f, 0, 0);
         self->base.step = self->base.step + 1;
     case 1:

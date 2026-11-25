@@ -1,15 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
-#include "godhand/Poker.h"
-#include "godhand/cObjBase.h"
-#include "godhand/CustomIDWork.h"
-#include "godhand/vu0.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
+#include "godhand/vu0.h"
 
 extern void func_001B6FB8(void *self);
 extern void cOmDoor_setObjCollision(void *self);
+extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
+extern void CustomIDWork_SetOffsetPosY(void *work, int y);
+extern void CustomIDWork_SetMoveOffsetPosY(void *work, int from, int to, int frames);
+extern void SetCustomIDDispOneOrAll_1DD258(void *self, int entry, int on);
 
 /* func_001BBF68 stays undeclared on purpose: an implicit int declaration keeps retail's jal slot store. */
 
@@ -37,8 +38,8 @@ typedef struct DoorObj {
  * Returns 1. */
 __attribute__((section(".text.DoorObj_construct1B")))
 int DoorObj_construct1B(DoorObj *self) {
-    cVec f[2];
-    cVec *t;
+    float f[8];
+    float *t;
     int hp;
     float one, ca, cb, cc, cd;
     func_001B6FB8(self);
@@ -48,18 +49,18 @@ int DoorObj_construct1B(DoorObj *self) {
     cb = 3.1f;
     cc = 0.2f;
     cd = -0.875f;
-    t = &f[1];
-    f[0].x = ca;
-    f[0].y = cb;
-    f[0].z = cc;
-    f[1].x = cd;
-    f[0].w = one;
-    t->w = one;
-    f[1].y = 0.0f;
-    f[1].z = 0.0f;
+    t = &f[4];
+    f[0] = ca;
+    f[1] = cb;
+    f[2] = cc;
+    f[4] = cd;
+    f[3] = one;
+    t[3] = one;
+    f[5] = 0.0f;
+    f[6] = 0.0f;
     self->life = hp;
     self->lifeMax = hp;
-    cVec_copy3((cVec *)self->size, &f[0]);
+    cVec_copy3((cVec *)self->size, (cVec *)f);
     cOmDoor_setObjCollision(self);
     self->hasBody = hp;
     self->body = self->bodyRec;
@@ -88,52 +89,59 @@ typedef struct HitRec {
     unsigned int surface;               /* 0x4 */
 } HitRec;
 
+/* What ChkLine fills in: the hit point, then the record of the surface it hit. */
+typedef struct LineHit {
+    cVec point;                         /* 0x00 */
+    HitRec *rec;                        /* 0x10 */
+    char unk14[0xC];
+} LineHit;
+
 #define SURFACE_WATER  0x400
-#define FRAME ((char *)buf - 0x30)
+#define FRAME ((char *)&hit - 0x30)
 
 __attribute__((section(".text.LineObjB_checkWaterHit")))
 void LineObjB_checkWaterHit(LineObjB *self) {
-    float buf[8];
+    LineHit hit;
     if (self->done == 0) {
-        float *v = buf;
+        cVec *v = &hit.point;
         int one;
         VU0_SQC2_VF0(FRAME, 0x30);
         one = 1;
-        if (ChkLine(self->pos, self->owner, v, 0, 7, 0, &buf[4], 1, 0, 0, 0, 0, one) != 0
-            && (((HitRec *)*(void **)&buf[4])->surface & SURFACE_WATER) != 0) {
-            SetEffectPos(0, 0x55, 0, (cVec *)v, -1, 1.0f);
+        if (ChkLine(self->pos, self->owner, v, 0, 7, 0, &hit.rec, 1, 0, 0, 0, 0, one) != 0
+            && (hit.rec->surface & SURFACE_WATER) != 0) {
+            SetEffectPos(0, 0x55, 0, v, 1.0f, -1);
             cSnd_SeCall(&D_005FEE00, 2, 0x50, self->owner, 0, 0);
             self->done = one;
         }
     }
 }
 
-#define PANEL_ELEM       0x11           /* the sliding panel's element */
+#define PANEL_WORK       0x89C          /* CustomIDWork of the sliding panel */
 #define PANEL_Y_HIDDEN   0x46
 #define PANEL_SLIDE_FRAMES  0xA
 
 /* Panel mode: 0 hidden, 1 shown, 2 slide in, 3 slide out; entries 0x11 and 0x12 follow the mode. */
 __attribute__((section(".text.PanelWork_setModeB")))
-void PanelWork_setModeB(Poker *self, unsigned char mode) {
+void PanelWork_setModeB(char *self, unsigned char mode) {
     switch (mode) {
     default:
     case 0:
-        CustomIDWork_SetOffsetPosY(&self->elem[PANEL_ELEM], PANEL_Y_HIDDEN);
+        CustomIDWork_SetOffsetPosY(self + PANEL_WORK, PANEL_Y_HIDDEN);
         SetCustomIDDispOneOrAll_1DD258(self, 0x11, 0);
         SetCustomIDDispOneOrAll_1DD258(self, 0x12, 0);
         break;
     case 1:
-        CustomIDWork_SetOffsetPosY(&self->elem[PANEL_ELEM], 0);
+        CustomIDWork_SetOffsetPosY(self + PANEL_WORK, 0);
         SetCustomIDDispOneOrAll_1DD258(self, 0x11, 1);
         SetCustomIDDispOneOrAll_1DD258(self, 0x12, 1);
         break;
     case 2:
-        CustomIDWork_SetMoveOffsetPosY(&self->elem[PANEL_ELEM], PANEL_Y_HIDDEN, 0, PANEL_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosY(self + PANEL_WORK, PANEL_Y_HIDDEN, 0, PANEL_SLIDE_FRAMES);
         SetCustomIDDispOneOrAll_1DD258(self, 0x11, 1);
         SetCustomIDDispOneOrAll_1DD258(self, 0x12, 1);
         break;
     case 3:
-        CustomIDWork_SetMoveOffsetPosY(&self->elem[PANEL_ELEM], 0, PANEL_Y_HIDDEN, PANEL_SLIDE_FRAMES);
+        CustomIDWork_SetMoveOffsetPosY(self + PANEL_WORK, 0, PANEL_Y_HIDDEN, PANEL_SLIDE_FRAMES);
         SetCustomIDDispOneOrAll_1DD258(self, 0x11, 1);
         SetCustomIDDispOneOrAll_1DD258(self, 0x12, 1);
         break;

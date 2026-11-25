@@ -2,7 +2,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cScenario.h"
 #include "godhand/cRoomSave.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 __attribute__((section(".text.cMessDrawFont_setRubyData")))
 void cMessDrawFont_setRubyData(int *a0, int a1, int a2) {

@@ -25,11 +25,11 @@ __attribute__((section(".text.cObjSimple_UpdateHandMesh")))
 void cObjSimple_UpdateHandMesh(cObjSimple *self)
 {
     int frame[3];
-    cObjSimpleChild *hand;
+    cOmBase *hand;
     float bendR;
     float bendL;
 
-    hand = (cObjSimpleChild *)cOmBase_childAt((cOmBase *)self, frame, HAND_CHILD);
+    hand = cOmBase_childAt((cOmBase *)self, frame, HAND_CHILD);
     if (hand != 0) {
         bendR = hand->rot.x;
         bendL = hand->rot.z;

@@ -1,22 +1,28 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/player.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
+extern void *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
+extern void func_00281260(void *a0);
+extern void ClearBytes2F4To2F7_283170(void *a0);
 extern void func_002495E0(void *a0, float f);
+extern char D_005CB000[];
 
 /* Phase machine on the step byte, 4 case labels. Calls cCollisionSolidManage_SetActive,
  * Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578, moveMotion, cObjBase_addNullSpeed_Rotation,
  * cObjBase_addNullSpeed and 1 more. */
 __attribute__((section(".text.func_002426A0"))) void func_002426A0(cEm00 *self)
 {
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    float one;
+
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->emFlags |= 0x11000;
     self->emFlags |= 0x20000;
     switch (self->step) {
@@ -36,10 +42,11 @@ __attribute__((section(".text.func_002426A0"))) void func_002426A0(cEm00 *self)
             self->step++;
         }
         case 1:
+            one = 1.0f;
             moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
-            if (0.0f < self->slideTime) {
+            cObjBase_addNullSpeed_Rotation(self, one);
+            cObjBase_addNullSpeed(self, one);
+            if (0.0f < *(float *)((char *)self + 0x16C0)) {
                 func_002705D8(self);
             }
             if ((self->emFlags & 0x20000000) != 0) {
@@ -57,8 +64,9 @@ __attribute__((section(".text.func_002426A0"))) void func_002426A0(cEm00 *self)
             if (moveMotion(self) != 0) {
                 self->step = 0;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            one = 1.0f;
+            cObjBase_addNullSpeed_Rotation(self, one);
+            cObjBase_addNullSpeed(self, one);
             break;
     }
 }
@@ -72,7 +80,7 @@ __attribute__((section(".text.func_00249960"))) void func_00249960(cEm00 *self)
     int t0;
     float one;
     unsigned char *hs;
-    capVu0MagnitudeSqXZ(Getplayer()->pos, &D_005850B0);
+    capVu0MagnitudeSqXZ(*((void **)(((char *)Getplayer()) + 0xF0)), &D_005850B0);
     *((int *)(((char *)self + 0x16D0))) = (*((int *)(((char *)self + 0x16D0)))) | 0x30400;
     switch (*((unsigned char *)(((char *)self + 0x2F6)))) {
         do {
@@ -101,11 +109,11 @@ __attribute__((section(".text.func_00249960"))) void func_00249960(cEm00 *self)
                 one = 1.0f;
                 cObjBase_addNullSpeed_Rotation(self, one);
                 cObjBase_addNullSpeed(self, one);
-                hs = (unsigned char *)&D_005CB000;
+                hs = (unsigned char *)D_005CB000;
                 break;
         } while (0);
         default:
-            hs = (unsigned char *)&D_005CB000;
+            hs = (unsigned char *)D_005CB000;
             break;
     }
 

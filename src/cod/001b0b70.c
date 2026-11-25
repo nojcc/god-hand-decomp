@@ -3,8 +3,8 @@
 #include "godhand/criStm.h"
 #include "godhand/cIDBase.h"
 #include "godhand/cDvd.h"
-#include "godhand/heapArena.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/heapArenaFn.h"
+#include "godhand/ColiseumEmSelectFn.h"
 #include "godhand/JukeBox.h"
 #include "godhand/objFactory.h"
 #include "godhand/objCtor.h"
@@ -71,7 +71,7 @@ extern void *D_003C2F84;
 __attribute__((section(".text.ResetAnimState_1F5EF8")))
 void ResetAnimState_1F5EF8(JukeBoxObj *self) {
     cIDBase_restartAnim(&self->idBase);
-    self->unk00 = 1;
+    self->type = 1;
     self->unk01 = 1;
     self->unk02 = 0;
     self->unk03 = 0;
@@ -153,9 +153,9 @@ void ColiseumEmSelect__Initialize(ColiseumEmSelect *self)
     r = cDvd_ReadAlloc(&D_00583F20, buf, &self->cardNode, &D_00754220, 0, 0, 0, 0);
     cDvd_CheckWait(&D_00583F20, r);
     cIDManager_setIDData(*D_003C2384, 0x15, self->cardNode);
-    InitUiIdWorksAndShowAll(&self->idBase);
-    func_001F4B78(&self->idBase, cCoreSave_getGold(&D_00569B70));
-    DispMenu_open(&self->idBase);
+    InitUiIdWorksAndShowAll((ColiseumEmDisp *)self->idBase);
+    func_001F4B78((ColiseumEmDisp *)self->idBase, cCoreSave_getGold(&D_00569B70));
+    DispMenu_open((ColiseumEmDisp *)self->idBase);
     func_001F4068(self, 0, &D_003BE8B0[self->top], 1);
     func_001F4068(self, 1, &D_003BE8B0[self->top + 1], 1);
     func_001F4068(self, 2, &D_003BE8B0[self->top + 2], 1);
@@ -164,7 +164,7 @@ void ColiseumEmSelect__Initialize(ColiseumEmSelect *self)
     func_001F4068(self, 5, &D_003BE8B0[self->top + 5], 1);
     func_001F4068(self, 6, &D_003BE8B0[self->top + 6], 1);
     func_001F4248(self, 1);
-    CustomIDWork_placeByIndex(&self->idBase, self->row, 1);
+    CustomIDWork_placeByIndex((ColiseumEmDisp *)self->idBase, self->row, 1);
     if (D_00747A2C & 0x200) {
         D_00569B70.data->flags |= 0x800000;
     }
@@ -173,8 +173,8 @@ void ColiseumEmSelect__Initialize(ColiseumEmSelect *self)
     } else {
         self->ringNum = 0x32;
     }
-    func_001F5510(&self->idBase, self->ringNum, 7);
-    MarkObj_setPulse(&self->idBase, 1);
+    func_001F5510((ColiseumEmDisp *)self->idBase, self->ringNum, 7);
+    MarkObj_setPulse((ColiseumEmDisp *)self->idBase, 1);
     self->vtIndex = 0;
     self->step = 0;
     self->unk0C = 0;

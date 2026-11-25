@@ -1,12 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
-#include "godhand/capVu0.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
-#include "godhand/cCollisionSolid.h"
+#include "godhand/motion.h"
+#include "godhand/pl00.h"
 
+extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
+extern int  moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
+extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
@@ -22,6 +23,7 @@ extern void func_001B54E8(void *a0);
 extern void func_002A87E8(void *a0, int a1);
 extern void func_001B76D8(void *a0);
 
+struct VtEnt { short delta; short index; void *pfn; };
 
 static __inline__ long inrange(unsigned short k, int lo, int hi)
 {
@@ -36,77 +38,78 @@ static __inline__ long inrange(unsigned short k, int lo, int hi)
 }
 
 __attribute__((section(".text.func_0010EBF8")))
-void func_0010EBF8(pl00 *self)
+void func_0010EBF8(void *a0)
 {
+    char *s1 = (char *)a0;
     int one = 1;
 
-    if (self->base.hp <= 0)
-        self->base.hp = one;
-    switch (self->base.step) {
+    if (*(short *)(s1 + 0x54A) <= 0)
+        *(short *)(s1 + 0x54A) = one;
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0:
     {
-        cGameObj *e;
-        char *t;
+        char *e;
+        int t;
 
-        func_00124540(self, 0);
-        self->comboSlot = 0;
-        self->comboSet = 0;
-        if (self->unk648 > 0)
-            self->unk648 = 0x2D;
-        e = self->held;
+        func_00124540(s1, 0);
+        *(short *)(s1 + 0x5E0) = 0;
+        *(short *)(s1 + 0x5E2) = 0;
+        if (*(signed char *)(s1 + 0x648) > 0)
+            *(char *)(s1 + 0x648) = 0x2D;
+        e = *(char **)(s1 + 0x640);
         if (e != 0) {
-            if (inrange(e->actorId, 0x200, 0x300) & 0xFF)
+            if (inrange(*(unsigned short *)(e + 0x2FE), 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
         }
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 10.0f), 0xB, 0xA, 0, 0xA);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 0xB, 0xA, 0, 0xA);
-        t = self->base.pack;
-        func_002A8578(self, EM_RES_REC(t, 0x100), EM_RES_REC(t, 0x108), 5, 0.0f, 0, 0);
-        self->unk15C4 = 0.0f;
-        self->unk15B0 = 1;
-        self->stepCount = 0;
-        self->unk15B8 = 1;
-        self->stepScale = 1.0f;
-        self->unk1588 = 0.0f;
-        self->base.unk568 = 0x32;
-        (self->base.step)++;
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(a0, (int)(*(float *)(s1 + 0x600) * 10.0f), 0xB, 0xA, 0, 0xA);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(a0, (int)(*(float *)(s1 + 0x600) * 10.0f), 0xB, 0xA, 0, 0xA);
+        t = *(int *)(s1 + 0x304);
+        func_002A8578(s1, *(int *)(t + 0x100) + t, *(int *)(t + 0x108) + t, 5, 0.0f, 0, 0);
+        *(float *)(s1 + 0x15C4) = 0.0f;
+        *(int *)(s1 + 0x15B0) = 1;
+        *(int *)(s1 + 0x15B4) = 0;
+        *(int *)(s1 + 0x15B8) = 1;
+        *(float *)(s1 + 0x15C0) = 1.0f;
+        *(float *)(s1 + 0x1588) = 0.0f;
+        *(short *)(s1 + 0x568) = 0x32;
+        (*(unsigned char *)(s1 + 0x2F6))++;
     }
         /* fallthrough */
     case 1:
     {
-        cGameObj *e;
+        char *e;
 
-        if (self->base.unk568 != 0) {
-            self->base.unk568 = self->base.unk568 - 1;
-            InvokeVirtualAtField214AndForward_124E68(self, 0.196349546f);
+        if (*(short *)(s1 + 0x568) != 0) {
+            *(short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
+            InvokeVirtualAtField214AndForward_124E68(s1, 0.196349546f);
         }
-        if (self->held != 0)
-            self->unk648 = 0x14;
-        if (moveMotion(self) != 0) {
-            pl00_clearMotionCam(self, 1, 0);
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+        if (*(int *)(s1 + 0x640) != 0)
+            *(char *)(s1 + 0x648) = 0x14;
+        if (moveMotion(s1) != 0) {
+            pl00_clearMotionCam(s1, 1, 0);
+            *(char *)(s1 + 0x2F4) = 0;
+            *(char *)(s1 + 0x2F5) = 0;
+            *(char *)(s1 + 0x2F6) = 0;
+            *(char *)(s1 + 0x2F7) = 0;
         }
-        e = self->held;
+        e = *(char **)(s1 + 0x640);
         if (e != 0) {
-            cGameObjVt *vt = cGameObj_vt(e);
-            cVec *pos = self->base.pos;
-            cVec *r = vt->getPos((char *)e + vt->getPosDelta);
+            struct VtEnt *vt = *(struct VtEnt **)(e + 0x214);
+            float *pos = *(float **)(s1 + 0xF0);
+            void *r = ((void *(*)(void *))vt[13].pfn)(e + vt[13].delta);
             if (capVu0MagnitudeSqXZ(pos, r) < 1.21000004f) {
-                self->base.nullSpeed.x = 0.0f;
-                self->base.nullSpeed.z = 0.0f;
+                *(int *)(s1 + 0x330) = 0;
+                *(int *)(s1 + 0x338) = 0;
             }
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     }
-    func_0010A438(self);
-    if (func_00123938(self, 1) != 0)
-        pl00_clearMotionCam(self, 1, 0);
+    func_0010A438(s1);
+    if (func_00123938(s1, 1) != 0)
+        pl00_clearMotionCam(s1, 1, 0);
 }
 
 #include "godhand/vu0.h"
@@ -126,7 +129,7 @@ void func_00241C18(void *a0)
 
         gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s0) & 0xFFFF;
         v = *(char **)(s0 + 0x304);
-        func_002A8578(s0, EM_RES_REC(v, 0x111C), EM_RES_REC(v, 0x1120), 3, 0.0f, gb, 0);
+        func_002A8578(s0, *(int *)(v + 0x111C) + (int)v, *(int *)(v + 0x1120) + (int)v, 3, 0.0f, gb, 0);
         *(float *)(s0 + 0x6D0) = 1.954f;
         *(float *)(s0 + 0x6D4) = 4.0f;
         *(float *)(s0 + 0x6D8) = -14.8719997f;
@@ -250,6 +253,7 @@ struct Table_001B4068 { struct Entry_001B4068 e[1]; };
 extern struct Table_001B4068 D_003BDD38;
 
 #include "godhand/vu0.h"
+#include "godhand/cCollisionSolid.h"
 
 static __inline__ char *GetChild(char *p, int idx, char *fr)
 {
@@ -270,12 +274,12 @@ void func_001B4068(void *a0)
         return;
     if (cOmBase_checkDamage(s0, *(int *)(s0 + 0x650)) != 0) {
         if (*(short *)(s0 + 0x54A) <= 0) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x89, s0, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x89, a0, 0, 0, 0, 0);
             *(char *)(s0 + 0x2F4) = 3;
             *(char *)(s0 + 0x2F5) = 0;
             *(int *)(s0 + 0x5B0) |= 1;
         } else {
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x8E, s0, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x8E, a0, 0, 0, 0, 0);
         }
         StunObj_startStun(s0);
     }
@@ -329,7 +333,7 @@ void func_001B4068(void *a0)
         break;
     }
     VU0_SQC2_VF0(buf, 0x10);
-    if (func_001329C0(s0, buf + 0x10, 0, 0, 10.0f) != 0)
+    if (func_001329C0(a0, (cVec *)(buf + 0x10), 0, 0, 10.0f) != 0)
         (*(float **)(s0 + 0xF0))[1] = *(float *)(buf + 0x14);
     func_002A87E8(s0, 0);
     func_001B76D8(s0);

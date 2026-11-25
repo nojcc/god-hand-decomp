@@ -47,9 +47,7 @@ void func_002A94F0(HeapArena *self);
 /* operator new[] and delete: 16-byte aligned from the default arena. */
 
 void *cHeap_allocFirstFit(HeapArena *heap, unsigned int size, unsigned int align);
-void cHeap_free(HeapArena *heap, void *p);
 void func_002A9620(HeapArena *heap, HeapBlk *blk, HeapBlk *after);
-void *_MemoryAlloc(unsigned int size, unsigned int align, HeapArena *heap);
 void *__builtin_vec_new(unsigned int size);
 void __builtin_delete(void *p);
 void __builtin_vec_delete(void *p);

@@ -1,18 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cCollisionSolid.h"
 #include "godhand/cCamera.h"
-#include "godhand/cObjBase.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 #include "godhand/ColiseumBattle.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cDamageUnit.h"
-#include "godhand/cSnd.h"
-#include "godhand/player.h"
 #include "godhand/cEm00.h"
+#include "godhand/cObjBase.h"
 
 extern void sceVu0ApplyMatrix(cVec *out, float *mtx, cVec *in);
 extern void sceVu0CameraMatrix(float *out, cVec *p, cVec *zd, cVec *yd);
+extern void *Getplayer(void);
 extern void cOmBase_setMeshDispFromLayer(cOmBase *self, int layer, int on);
 extern void KillEffect(void *obj, int effNo, int mode);
 
@@ -116,8 +116,8 @@ void cOmBase_setDispMode(cOmBase *self, int mode)
         cOmBase_setMeshDispFromLayer(self, 0x33, 1);
         break;
     case 4:
-        SetEffect(0x298, 2, self, 0, -1, -1);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, self, 0, 0, 0, 0);
+        SetEffect(0x298, 2, (cObj *)self, 0, -1, EFFECT_FOLLOW_OWNER);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x113, (cObj *)self, 0, 0, 0, 0);
         break;
     }
 }
@@ -164,7 +164,7 @@ void cOmBase_switchOff(cOmOffBody *self)
         self->solid[1]->flags &= ~1;
     if (self->solid[2] != 0)
         self->solid[2]->flags &= ~1;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->killFlags |= OMOFF_FLAG_FADE_KILL;
     KillEffect(self, 3, 2);
     KillEffect(self, 0xB, 2);

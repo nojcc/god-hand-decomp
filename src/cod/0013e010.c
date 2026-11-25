@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cCockGetPoint.h"
+#include "godhand/cIDBaseFn.h"
 
 /* Restart every marker display and set it playing, then mark every slot unused. */
 __attribute__((section(".text.func_0013E010")))

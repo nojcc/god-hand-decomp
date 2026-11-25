@@ -5,6 +5,7 @@
  * registers swapped. The heat-mode byte in the slot-wait branch loads through
  * v1 in retail and v0 here. Needs the cSnd.h overlay (cSnd_SeCall_2CBA48). */
 #include "godhand/cEm00.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cSnd.h"
@@ -48,7 +49,7 @@ void func_00271810(cEm00 *self)
             switch (((cDamageTake *)self->unk698)->kind) {
             case 0x34:
             case 0x35:
-                SetEffect(0x58, 0x9E, self, &param, -1, 0xFFFFFFFF);
+                SetEffect(0x58, 0x9E, (cObj *)self, &param, -1, EFFECT_FOLLOW_OWNER);
                 cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x12B, self, 0, 0, 0, 0);
                 break;
             }
@@ -59,12 +60,12 @@ void func_00271810(cEm00 *self)
     case 0x249:
     case 0x24A:
     case 0x24E:
-        SetEffect(0x58, 0x9E, self, &param, -1, 0xFFFFFFFF);
+        SetEffect(0x58, 0x9E, (cObj *)self, &param, -1, EFFECT_FOLLOW_OWNER);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x12B, self, 0, 0, 0, 0);
         break;
     case 0x275:
     case 0x276:
-        SetEffect(0xCD, 0x16, self, &param, -1, 0xFFFFFFFF);
+        SetEffect(0xCD, 0x16, (cObj *)self, &param, -1, EFFECT_FOLLOW_OWNER);
         cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x12B, self, 0, 0, 0, 0);
         break;
     }

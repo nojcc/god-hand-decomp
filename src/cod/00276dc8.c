@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 */
 /* func_00276DC8: take the push direction from the link's heading (sn-2.95.3-136) */
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 #include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/vu0.h"

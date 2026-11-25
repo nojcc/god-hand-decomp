@@ -1,14 +1,15 @@
 #include "godhand/cCollisionSolid.h"
-#include "godhand/cEm00.h"
-#include "godhand/motion.h"
-#include "godhand/cModel.h"
-#include "godhand/cSnd.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
 extern int GetSeqSEBase(void *a0);
 extern int irand(void);
+extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 
 /* Phase machine on the step byte, 2 case labels. Calls func_002A8578, cSnd_SeCall_2CBA48,
@@ -26,7 +27,7 @@ __attribute__((section(".text.func_002803F0"))) void func_002803F0(cEm00 *self)
                 res = EM_RES(self);
                 func_002A8578(self, EM_RES_REC(res, 0x100), EM_RES_REC(res, 0x104), 2, 0.0f, t0, 0);
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), (cObj *)self, 0, 0, 0, 0);
             self->step = self->step + 1;
         case 1:
             if (moveMotion(self) != 0) {
@@ -44,7 +45,7 @@ __attribute__((section(".text.func_002803F0"))) void func_002803F0(cEm00 *self)
 __attribute__((section(".text.func_002887D0"))) void func_002887D0(cEm00 *self)
 {
     int res;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->gotoFlags = self->gotoFlags | 2;
     switch (self->step) {
         case 0:
@@ -56,7 +57,7 @@ __attribute__((section(".text.func_002887D0"))) void func_002887D0(cEm00 *self)
                 func_002A8578(self, EM_RES_REC(res, 0xB0), EM_RES_REC(res, 0xB4), 10, 0.0f, 0, 0);
             }
             if (self->stepArg == 0)
-                cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5C, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5C, (cObj *)self, 0, 0, 0, 0);
             self->step = self->step + 1;
         case 1:
             if (moveMotion(self) != 0) {
@@ -72,7 +73,7 @@ __attribute__((section(".text.func_002887D0"))) void func_002887D0(cEm00 *self)
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cModel_calcNullPart((cModel *)self);
+            cModel_calcNullPart(self);
             break;
     }
 }
@@ -94,7 +95,7 @@ __attribute__((section(".text.func_00288660"))) void func_00288660(cEm00 *self)
                 s2 = EM_RES_REC(b, 0x58);
                 s1 = EM_RES_REC(b, 0x5C);
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5C, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5C, (cObj *)self, 0, 0, 0, 0);
             func_002A8578(self, s2, s1, 5, 0.0f, 0, 0);
             self->timerA = 10;
             self->step = self->step + 1;
@@ -106,7 +107,7 @@ __attribute__((section(".text.func_00288660"))) void func_00288660(cEm00 *self)
                 self->timerA = t - 1;
                 v0 = *(int *)(q + 0x34);
                 if (v0 != 0)
-                    cGameObj_SetTgtTurn(self, *(cVec **)(v0 + 0xF0), self->speedRate * 0.39269909f);
+                    cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(v0 + 0xF0), self->speedRate * 0.39269909f);
             }
             if (moveMotion(self) != 0) {
                 if (self->gotoFlags & 0x80) {
@@ -121,7 +122,7 @@ __attribute__((section(".text.func_00288660"))) void func_00288660(cEm00 *self)
                 self->step = 0;
                 self->stepArg = 0;
             }
-            cModel_calcNullPart((cModel *)self);
+            cModel_calcNullPart(self);
             Add_nullspeed(self);
             break;
         }
@@ -133,10 +134,10 @@ __attribute__((section(".text.func_00288660"))) void func_00288660(cEm00 *self)
 __attribute__((section(".text.func_00280000"))) void func_00280000(cEm00 *self)
 {
     int res;
-    cEm00 *target = self->target;
+    void *s2 = (void *)self->target;
     switch (self->step) {
         case 0:
-            if (func_0026F1D8(target) != 0) {
+            if (func_0026F1D8(s2) != 0) {
                 switch (irand() & 1) {
                     case 0:
                     default:
@@ -170,11 +171,11 @@ __attribute__((section(".text.func_00280000"))) void func_00280000(cEm00 *self)
                         break;
                 }
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), (cObj *)self, 0, 0, 0, 0);
             self->step = self->step + 1;
         case 1:
             if (moveMotion(self) != 0) {
-                if (func_0026F1D8(target) != 0) {
+                if (func_0026F1D8(s2) != 0) {
                     self->phase = 0x10;
                     self->step = 2;
                     self->mode = 0;

@@ -1,11 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/cGameObj.h"
-#include "godhand/player.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern char *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -49,10 +50,10 @@ __attribute__((section(".text.func_002276B0"))) void func_002276B0(cEm00 *self)
         }
             /* fallthrough */
         case 1: {
-            cGameObj *pl;
+            char *v0;
             self->emFlags2 |= 0x20000;
-            pl = Getplayer();
-            cGameObj_SetTgtTurn(self, pl->pos, self->speedRate * 0.09817477f);
+            v0 = Getplayer();
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(v0 + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self) != 0) {
                 self->step += 1;
             }
@@ -72,10 +73,10 @@ __attribute__((section(".text.func_002276B0"))) void func_002276B0(cEm00 *self)
         }
             /* fallthrough */
         case 3: {
-            cGameObj *pl;
+            char *v0;
             self->emFlags2 |= 0x20000;
-            pl = Getplayer();
-            cGameObj_SetTgtTurn(self, pl->pos, self->speedRate * 0.09817477f);
+            v0 = Getplayer();
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(v0 + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self) != 0) {
                 self->step = 4;
             }
@@ -169,10 +170,10 @@ __attribute__((section(".text.func_002276B0"))) void func_002276B0(cEm00 *self)
         }
             /* fallthrough */
         case 9: {
-            cGameObj *pl;
+            char *v0;
             self->emFlags2 |= 0x20000;
-            pl = Getplayer();
-            cGameObj_SetTgtTurn(self, pl->pos, self->speedRate * 0.09817477f);
+            v0 = Getplayer();
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(v0 + 0xF0), self->speedRate * 0.09817477f);
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cScenario.h"
 #include "godhand/cSceAtManager.h"

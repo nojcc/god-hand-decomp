@@ -1,6 +1,6 @@
 #include "godhand/cEmManage.h"
 #include "godhand/criStm.h"
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 
 extern int D_00448CA0;
 extern int D_00448E20;

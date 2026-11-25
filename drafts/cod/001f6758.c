@@ -6,6 +6,9 @@
 #include "include_asm.h"
 #ifdef NON_MATCHING
 #include "godhand/JukeBox.h"
+#include "godhand/globals.h"
+
+#define JUKEBOX_LIST_ROWS   12      /* song rows on screen */
 
 /* Show the song rows of the current list with their titles, hide the rest,
  * mark the selected song, and place the cursor entry (8 for rows 0-5, 9 for
@@ -16,29 +19,29 @@ void func_001F6758(JukeBoxObj *self)
     int i;
 
     for (i = 0; i < JUKEBOX_LIST_ROWS; i++) {
-        if (i < D_003BF0D0[self->list]) {
+        if (i < D_003BF0D0[self->unk0C]) {
             cIDBase_getIDWork(&self->idBase, i + 0x10)->flags &= ~IDENT_FLAG_HIDDEN;
             cIDBase_getIDWork(&self->idBase, i + 0x30)->flags &= ~IDENT_FLAG_HIDDEN;
-            cIDBase_getIDWork(&self->idBase, i + 0x30)->msg = D_003BF0C0[self->list][i] + 0x2000;
+            cIDBase_getIDWork(&self->idBase, i + 0x30)->msg = D_003BF0C0[self->unk0C][i] + 0x2000;
         } else {
             cIDBase_getIDWork(&self->idBase, i + 0x10)->flags |= IDENT_FLAG_HIDDEN;
             cIDBase_getIDWork(&self->idBase, i + 0x30)->flags |= IDENT_FLAG_HIDDEN;
         }
-        if (i == self->cursor && self->unk01 == 1) {
+        if (i == self->unk20 && self->unk01 == 1) {
             cIDBase_getIDWork(&self->idBase, i + 0x1C)->flags &= ~IDENT_FLAG_HIDDEN;
         } else {
             cIDBase_getIDWork(&self->idBase, i + 0x1C)->flags |= IDENT_FLAG_HIDDEN;
         }
     }
     if (self->unk01 == 1) {
-        if (self->cursor < 6) {
+        if (self->unk20 < 6) {
             cIDBase_getIDWork(&self->idBase, 8)->flags &= ~IDENT_FLAG_HIDDEN;
             cIDBase_getIDWork(&self->idBase, 9)->flags |= IDENT_FLAG_HIDDEN;
-            cIDBase_getIDWork(&self->idBase, 8)->posY = self->cursor * 40.2f + 153.0f;
+            cIDBase_getIDWork(&self->idBase, 8)->posY = self->unk20 * 40.2f + 153.0f;
         } else {
             cIDBase_getIDWork(&self->idBase, 8)->flags |= IDENT_FLAG_HIDDEN;
             cIDBase_getIDWork(&self->idBase, 9)->flags &= ~IDENT_FLAG_HIDDEN;
-            cIDBase_getIDWork(&self->idBase, 9)->posY = (self->cursor - 6) * 40.2f + 153.0f;
+            cIDBase_getIDWork(&self->idBase, 9)->posY = (self->unk20 - 6) * 40.2f + 153.0f;
         }
     } else {
         cIDBase_getIDWork(&self->idBase, 8)->flags |= IDENT_FLAG_HIDDEN;

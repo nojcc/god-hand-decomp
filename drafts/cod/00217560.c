@@ -27,7 +27,7 @@ void func_00217560(cEm00 *self)
 
         sel = Obj0000_Get_Byte_17C3_NZ_2_276468(self);
         from = Getplayer()->pos;
-        rel = Turn_dest((float *)from, (float *)self->pos, Getplayer()->rot.y, 3.1415927f);
+        rel = Turn_dest((float *)from, Getplayer()->rot.y, (float *)self->pos, 3.1415927f);
         if (self->emNo != 0x256 && self->emNo != 0x27E) {
             if (0.0f < rel) {
                 if (self->unk17C3 != 0) {
@@ -80,7 +80,7 @@ void func_00217560(cEm00 *self)
             if (self->emNo != 0x256 && self->emNo != 0x27E) {
                 cVec *from = Getplayer()->pos;
 
-                rel = Turn_dest((float *)from, (float *)self->pos, Getplayer()->rot.y, 3.1415927f);
+                rel = Turn_dest((float *)from, Getplayer()->rot.y, (float *)self->pos, 3.1415927f);
                 rel = absf(rel);
                 if (rel < 0.5235988f)
                     self->step = 2;
@@ -101,7 +101,7 @@ void func_00217560(cEm00 *self)
         self->unk1864 = 0;
         from = Getplayer()->pos;
         /* retail computes the turn toward the player here and drops it */
-        Turn_dest((float *)from, (float *)self->pos, Getplayer()->rot.y, 3.1415927f);
+        Turn_dest((float *)from, Getplayer()->rot.y, (float *)self->pos, 3.1415927f);
         func_002A8578(self, EM_RES_REC(EM_RES(self), 0x1668),
                       EM_RES_REC(EM_RES(self), 0x166C), 3, 0.0f, sel, 0);
         self->step++;

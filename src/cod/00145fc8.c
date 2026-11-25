@@ -2,6 +2,7 @@
  * fade in colour 0 on every part, then colour 1 on the second part's third entry, then stop. */
 #include "godhand/cIDBaseScreen.h"
 #include "godhand/globals.h"
+#include "godhand/cIDBaseScreenFn.h"
 
 __attribute__((section(".text.func_00145FC8")))
 void func_00145FC8(cIDBaseScreen *self)

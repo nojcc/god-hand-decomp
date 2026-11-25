@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cCockTutorial.h"
+#include "godhand/cIDBaseFn.h"
 
 /* Tutorial panel steps: grow the frame to its full size and show the message, fill in the page for the
  * message, shrink the frame away, then forget the message. */

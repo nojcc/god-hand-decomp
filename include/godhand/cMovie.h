@@ -54,19 +54,11 @@ typedef struct cMovieTrack {
 
 extern void ResHolder_release(cMovieTrack *track);
 
-/* 1 while the track holds a player. The unsigned char result is what makes
- * the compiler build the 0/1 with a branch, as retail does. */
-static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
-    if (t->handle != 0) return 1;
-    return 0;
-}
-
 struct cMovie;
 
 /* The movie calls the scenario's movie object makes: cMovie_Start returns a handle, and the
  * other three take the movie manager (D_005E79D0) and that handle, which they don't read. */
-/* cMovie_Start's arg is not read. */
-extern int cMovie_Start(struct cMovie *self, int id, int arg);
+extern int cMovie_Start(void *mgr, int id, int arg);
 extern void cMovie_haltActive(void *mgr, int handle);
 extern int cMovie_GetStatus(void *mgr, int handle);
 extern void cMovie_Stop(void *mgr, int handle);
@@ -91,8 +83,6 @@ typedef struct cMovie {
     cMovieAlloc alloc[MOVIE_ALLOC_NUM]; /* 0x1C */
 } cMovie;
 
-extern cMovie D_005E79D0;
-extern cMovieTrack D_005E7E30[MOVIE_TRACK_NUM];   /* the tracks D_005E79D0.track points at */
 
 /* Set the movie player up: point it at the track table D_005E7E30, clear the
  * counters, hand the movie library a 59.94 fps setup record and the allocator

@@ -3,6 +3,9 @@
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
+extern int cSnd_BgmEvIsReady(cSnd *self, int bgmPt, int reqNo);
+extern cBgmData *cSnd_GetBgmData(cSnd *self, int bank);
+
 
 /* Fade a bgm request over 15 with the default weight. */
 __attribute__((section(".text.cSnd_BgmEvFadeDefault")))

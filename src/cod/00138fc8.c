@@ -1,33 +1,41 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cCamManager.h"
-#include "godhand/cCamera.h"
-#include "godhand/heapArena.h"
 #include "godhand/cEm00.h"
 #include "godhand/cEmSetParam.h"
 #include "godhand/cScenario.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/SlotUi.h"
-#include "godhand/espSys.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/globals.h"
 
+extern void cCamera_move(void *cam);
 extern void cEmSetParam_updateSetDataFlag(cEmSetParam *self, int id, unsigned int flags);
 extern void cTaskWork_sleep(cTaskWork *work, int frames);
 extern SlotUiHost **D_003C2384;
 extern int cIDBase_release(void *idBase);
+extern void cHeap_free(int heap, int *node);
 
-/* Call virtual method 2 unless the effect has ESP_ANIM_SKIP_METHOD2. */
+/* Calls the object's own method at vtable slot 0x10, unless the object
+ * has the 0x10000 flag set. */
+typedef struct VtEnt { short delta; short pad; void (*fn)(void *self); } VtEnt;
+typedef struct Obj002FBE88 {
+    char unk000[0xF0];
+    VtEnt *vt;                          /* 0x0F0 method table; the call uses entry 2 */
+    char unk0F4[0x11C - 0xF4];
+    unsigned int flags;                 /* 0x11C */
+} Obj002FBE88;
+
 __attribute__((section(".text.func_002FBE88")))
-void func_002FBE88(EspAnim *self)
+void func_002FBE88(Obj002FBE88 *self)
 {
-    cVtEnt *vt;
-    if (self->flags & ESP_ANIM_SKIP_METHOD2) {
+    VtEnt *vt;
+    if (self->flags & 0x10000) {
         return;
     }
-    vt = self->vtable;
-    ((void (*)(void *))vt[2].pfn)((char *)self + vt[2].delta);
+    vt = self->vt;
+    vt[2].fn((char *)self + vt[2].delta);
 }
 
 /* Steps the manager's state, then moves the current camera unless the
@@ -91,11 +99,11 @@ void SlotUi_release(SlotUi *self)
 {
     SlotUiHost *host;
     cIDBase_release(&self->id2);
-    cIDBase_release(&self->id);
+    cIDBase_release(self);
     host = *D_003C2384;
     host->pickB = 0;
     host->pickA = 0;
     if (self->node != 0) {
-        cHeap_free(HEAP_OWNER(self->node), self->node);
+        cHeap_free(self->node[-8], self->node);
     }
 }

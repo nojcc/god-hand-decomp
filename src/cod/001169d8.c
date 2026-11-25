@@ -3,7 +3,7 @@
 #include "godhand/cActionButton.h"
 #include "godhand/espSys.h"
 #include "godhand/cOmBase.h"
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 #include "godhand/vu0.h"
 #include "godhand/gameWork.h"
 

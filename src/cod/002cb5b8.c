@@ -1,8 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 #include "godhand/globals.h"
+
+extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int slot);
+extern void cSndSeVoice_Unlink(cSndSeVoice *voice);
 
 
 /* Starts a free voice with the given key pair and ids, at the global origin. */

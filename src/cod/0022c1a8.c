@@ -1,14 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
-#include "godhand/cOmWeapon.h"
 #include "godhand/motion.h"
-#include "godhand/cGameObj.h"
-#include "godhand/player.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern unsigned int irand(void);
+extern void *Getplayer(void);
+extern int moveMotion(void *a0);
 
+extern void func_0026BDD0(void *a0, int a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
@@ -16,7 +17,7 @@ extern void cObjBase_addNullSpeed(void *a0, float f);
  * cCoreSave_getGameLevel, func_002A8578, Getplayer, cGameObj_SetTgtTurn and 6 more. */
 __attribute__((section(".text.func_0022C1A8"))) void func_0022C1A8(cEm00 *self)
 {
-    cOmWeapon *r;
+    int r;
 
     self->unk186A = 2;
     self->emFlags = self->emFlags | 0x400;
@@ -44,13 +45,13 @@ __attribute__((section(".text.func_0022C1A8"))) void func_0022C1A8(cEm00 *self)
         }
             /* fallthrough */
         case 1: {
-            cGameObj *p;
+            char *p;
             if (self->timer2 > 0.0f) {
                 self->timer2 = self->timer2 - self->speedRate;
                 self->emFlags = self->emFlags | 0x800000;
             }
-            p = Getplayer();
-            cGameObj_SetTgtTurn(self, p->pos, self->speedRate * 0.19634955f);
+            p = (char *)Getplayer();
+            cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(p + 0xF0), self->speedRate * 0.19634955f);
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
@@ -68,7 +69,7 @@ __attribute__((section(".text.func_0022C1A8"))) void func_0022C1A8(cEm00 *self)
                 r = func_0026AA30(self, 0x36B);
             }
             if (r != 0) {
-                func_0026BDD0((cGameObj *)self, r);
+                func_0026BDD0(self, r);
                 self->emFlags2 = self->emFlags2 | 0x10000;
             }
         }

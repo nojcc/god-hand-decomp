@@ -83,15 +83,4 @@ static __inline__ cOmBase *cOmBase_childAtIdx(cOmBase *b, int *frame, int idx)
 /* The anchor point objects are placed and turned around (func_00249770, cGameObj_placeBeforeAnchor). */
 extern cVec D_005850B0;
 
-/* The cOm classes' common death: release the object. */
-void cOmBase_dieCommon(cOmBase *self);
-/* Call the current mode's method from the mode table, then the post step
- * (skipped for actor ACTOR_NO_POST) and func_001B76D8. */
-void cOmBase_tickModeTableSkip381(cOmBase *self);
-/* State-table dispatchers: call the handler for the state at 0x2F4, then
- * func_001B76D8. */
-void StateObj_runHandler(void *a0);
-void func_001BC0A0(void *a0);
-void func_001BD6B0(void *a0);
-
 #endif

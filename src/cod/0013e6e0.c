@@ -2,7 +2,7 @@
 
 #include "godhand/SlotUi.h"
 #include "godhand/cIDBase.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/DispMgr.h"
 #include "godhand/DogRace.h"

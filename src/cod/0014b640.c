@@ -2,14 +2,17 @@
 
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 #include "godhand/cModel.h"
 #include "godhand/cGameObj.h"
 #include "godhand/sceVu0.h"
 #include "godhand/motion.h"
-#include "godhand/cSnd.h"
+#include "godhand/cCamera.h"
 
+extern int moveMotion(void *a0);
 extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0, float f12, float f13, float f14);
+extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 extern void func_002A74E0(void *a0, void *a1, int a2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
@@ -18,7 +21,6 @@ extern unsigned char D_005864F0[];
 extern void *Getplayer(void);
 extern int cCoreSave_getGameLevel(void *a0);
 extern float capVu0Atan2(float y, float x);
-extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern int irand(void);
 extern char D_00569B70[];
 extern int cModel_getMeshNum(cModel *self);
@@ -64,7 +66,7 @@ void cEm00_updateKnockDrift(cEm00 *self)
     if (func_00291010(D_005864F0, buf, 0, 1, 0, self->rot.y, 10.0f, 3.14159274f) == 0) {
         inFront = 0;
     }
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
     case 0: {
         int b = EM_RES(self);
@@ -89,7 +91,7 @@ void cEm00_updateKnockDrift(cEm00 *self)
             p2[2] = p2[2] * 0.99f + self->home.z * 0.01f;
         }
         moveMotion(self);
-        cModel_calcNullPart((cModel *)self);
+        cModel_calcNullPart(self);
         Add_nullspeed(self);
         if ((self->gotoFlags & 0x40) != 0) {
             break;
@@ -110,7 +112,7 @@ void cEm00_updateKnockDrift(cEm00 *self)
         if (self->unk15BC <= 0.0f) {
             self->unk15BC = fRand0_1() * 90.0f + 90.0f;
             if (inFront != 0) {
-                cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5A, self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x5A, (cObj *)self, 0, 0, 0, 0);
             }
         }
         break;
@@ -140,13 +142,13 @@ void cEm00_updateKnockDrift(cEm00 *self)
                 }
             }
             func_002A74E0(self, &self->unk1590, 1);
-            func_002A7CA0((cGameObj *)self, &self->unk1570);
+            func_002A7CA0(self, &self->unk1570);
             self->mode = 0;
             self->phase = 4;
             self->step = 0;
             self->stepArg = 0;
         }
-        cModel_calcNullPart((cModel *)self);
+        cModel_calcNullPart(self);
         Add_nullspeed(self);
         break;
     }
@@ -244,7 +246,7 @@ void cEm00_stepWatchTargetAttack(cEm00 *self)
         yaw = capVu0Atan2(*(float *)(fr + 0x10), *(float *)(fr + 0x18));
         cpos = child->pos;
         player = Getplayer();
-        ad = (d = Turn_dest(cpos, player->pos, yaw, 3.14159274f));
+        ad = (d = Turn_dest(&cpos->x, yaw, &player->pos->x, 3.14159274f));
         if (d < 0.0f) {
             ad = -d;
         }

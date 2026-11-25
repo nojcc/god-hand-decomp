@@ -3,7 +3,6 @@
 #include "godhand/Slot2.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/Poker.h"
 
 extern void ModeObj_pollInputBits(void *self);
 extern void func_00164238(void *self);
@@ -96,28 +95,28 @@ void func_002BF708(Obj2BF708 *self)
 
 /* Moves the sphere centre into world space, then rebuilds the box around it:
  * min gets the corner at centre - radius, max the corner at centre + radius.
- * Clears flag bit 1 (the box is up to date). */
+ * Clears CSOLID_FLAG_HIT. */
 __attribute__((section(".text.cCollisionSolid_updateBounds")))
 void cCollisionSolid_updateBounds(cCollisionSolidObj *self)
 {
     float r;
-    sceVu0ApplyMatrix(&self->unk60, self->owner, &self->center);
+    sceVu0ApplyMatrix(&self->unk60, (void *)self->body, &self->center);
     r = self->radius;
-    self->base.min.x = self->unk60.x - r;
-    self->base.min.y = self->unk60.y - r;
-    self->base.min.z = self->unk60.z - r;
-    self->base.max.x = self->unk60.x + r;
-    self->base.max.y = self->unk60.y + r;
-    self->base.max.z = self->unk60.z + r;
+    self->min.x = self->unk60.x - r;
+    self->min.y = self->unk60.y - r;
+    self->min.z = self->unk60.z - r;
+    self->max.x = self->unk60.x + r;
+    self->max.y = self->unk60.y + r;
+    self->max.z = self->unk60.z + r;
     /* signed mask: retail builds ~2 with one addiu */
-    self->base.flags = (int)self->base.flags & ~2;
+    self->flags = (int)self->flags & ~CSOLID_FLAG_HIT;
 }
 
 extern int D_0061A990;                  /* a counter that changes every frame */
 
 
 /* A pseudo-random number in lo..hi, mixed from the frame counter, the gold
- * and a random draw. self is not read. */
+ * and a random draw. */
 __attribute__((section(".text.Casino_randRange")))
 int Casino_randRange(void *self, int lo, int hi)
 {

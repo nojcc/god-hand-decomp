@@ -1,5 +1,5 @@
 #include "godhand/vu0.h"
-#include "godhand/cModel.h"
+#include "godhand/cModelFn.h"
 
 extern void IK_InverseKinematics(void *, void *);
 

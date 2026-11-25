@@ -2,12 +2,10 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 extern void func_00188798(void *a0);
-extern int cSnd_SeCall_2CBA48(void *a0, int a1, int a2, void *a3, int t0, int t1, int t2, int t3);
-extern int SetEffect(int a0, int a1, void *a2, int a3, int t0, unsigned t1);
 extern void cDamageUnit_SetDamageCollActive(void *a0, int a1);
-extern char D_005FEE00[];
 extern void func_00195620(void *a0);
 extern void cSnd_SeStop(void *a0, int a1);
 extern void KillEffect(int a0, int a1, int a2);
@@ -23,6 +21,7 @@ extern void CopyVec3ToField30_147C40(void *a0, void *a1);
 extern void MtxMulScaleVec(void *a0, void *a1, void *a2);
 extern int MtxCopy();
 #include "godhand/objField.h"
+#include "godhand/cObjBase.h"
 extern char D_005864F0[];
 
 struct VtEnt { short delta; short index; void *pfn; };
@@ -44,10 +43,11 @@ void cOmBreakable_stepBreak(void *a0)
 
     switch (*(unsigned char *)(s1 + 0x2F5)) {
     case 0: {
-        int cnt, tt, part;
+        int cnt, part;
+        cOmBase *tt;
         unsigned char ok;
         if (*(int *)(s1 + 0xB20) != 0) {
-            cSnd_SeStop(D_005FEE00, *(int *)(s1 + 0xB20));
+            cSnd_SeStop(&D_005FEE00, *(int *)(s1 + 0xB20));
             *(int *)(s1 + 0xB20) = 0;
         }
         VU0_SQC2_VF0(buf, 0x0);
@@ -58,14 +58,14 @@ void cOmBreakable_stepBreak(void *a0)
             if (ok) part = *(int *)(*(int *)(s1 + 0x278) + 8); else part = 0;
         }
         ForwardVec3At30_147C60(buf, (float *)(part + 0x80));
-        SetEffect(0x177, 2, s1, 0, -1, 0xFFFFFFFF);
+        SetEffect(0x177, 2, a0, 0, -1, EFFECT_FOLLOW_OWNER);
         {
             int two = 2;
             cnt = *(unsigned char *)(s1 + 0x2B4);
             ok = ((*(int *)(buf + 0x10) = cnt), (two < cnt));
-            if (ok) tt = *(int *)(*(int *)(s1 + 0x278) + 8); else tt = 0;
+            if (ok) tt = (*(cOmBase ***)(s1 + 0x278))[2]; else tt = 0;
         }
-        cSnd_SeCall_2CBA48(D_005FEE00, 2, 0x87, s1, 0, tt, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x87, a0, 0, (cParts *)tt, 0, 0);
         KillEffect((int)s1, 1, 2);
         cEmManage_CreateItem(D_005864F0, (int)buf, 0xFFFF, 0);
         func_00195620(s1);

@@ -1,4 +1,4 @@
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/criStm.h"
 #include "godhand/objFactory.h"
 #include "godhand/objCtor.h"

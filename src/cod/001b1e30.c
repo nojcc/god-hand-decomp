@@ -3,21 +3,30 @@
 #include "godhand/Poker.h"
 #include "godhand/cOm71.h"
 
+/* The card's heading: y of its rotation (0x100), 0 face up and pi face down.
+ * BlackJack.h names that word unk104 as an int, so it is read here as a float. */
+#define CARD_ROT_Y(card) (*(float *)&(card)->obj->unk104)
+
 extern float Adjust_theta(float);
 extern int moveMotion(int *);
 extern void cObjBase_addNullSpeed_Rotation(int *, float);
 extern void cObjBase_addNullSpeed(int *, float);
+extern void Poker_resetDeck(Poker *self);
+extern void func_001DD340(Poker *self);
+extern void func_001DEE60(char *ui, int element, int show);
 
 __attribute__((section(".text.func_001D0CE8")))
 void func_001D0CE8(BlackJackCard *card) {
     long f = (unsigned int)card->flags;
+    int fl;
     if (((f >> 1) & 1) == 0) {
         if (((f >> 2) & 1) == 0) return;
-        card->obj->rot.y += 0.15707963705062866f;
-        card->obj->rot.y = Adjust_theta(card->obj->rot.y);
-        if (0.0f <= card->obj->rot.y) {
-            card->obj->rot.y = 0.0f;
-            card->flags = (card->flags | 2) & -5;
+        CARD_ROT_Y(card) += 0.15707963705062866f;
+        CARD_ROT_Y(card) = Adjust_theta(CARD_ROT_Y(card));
+        if (0.0f <= CARD_ROT_Y(card)) {
+            CARD_ROT_Y(card) = 0.0f;
+            fl = card->flags;
+            card->flags = (fl | 2) & -5;
         }
     }
 }
@@ -25,13 +34,15 @@ void func_001D0CE8(BlackJackCard *card) {
 __attribute__((section(".text.func_001D6E20")))
 void func_001D6E20(BlackJackCard *card) {
     long f = (unsigned int)card->flags;
+    int fl;
     if (((f >> 3) & 1) == 0) {
         if (((f >> 4) & 1) == 0) return;
-        card->obj->rot.y += 0.20943951606750488f;
-        card->obj->rot.y = Adjust_theta(card->obj->rot.y);
-        if (0.0f <= card->obj->rot.y) {
-            card->obj->rot.y = 0.0f;
-            card->flags = (card->flags | 8) & -0x11;
+        CARD_ROT_Y(card) += 0.20943951606750488f;
+        CARD_ROT_Y(card) = Adjust_theta(CARD_ROT_Y(card));
+        if (0.0f <= CARD_ROT_Y(card)) {
+            CARD_ROT_Y(card) = 0.0f;
+            fl = card->flags;
+            card->flags = (fl | 8) & -0x11;
         }
     }
 }
@@ -39,29 +50,35 @@ void func_001D6E20(BlackJackCard *card) {
 __attribute__((section(".text.func_001D0DF8")))
 void func_001D0DF8(BlackJackCard *card) {
     long f = (unsigned int)card->flags;
+    int fl;
     if (((f >> 1) & 1) == 0) return;
     if (((f >> 2) & 1) == 0) return;
-    card->obj->rot.y += 0.15707963705062866f;
-    if (3.1415927410125732f <= card->obj->rot.y) {
-        card->obj->rot.y = 3.1415927410125732f;
-        card->flags &= -3;
-        card->flags &= -5;
+    CARD_ROT_Y(card) += 0.15707963705062866f;
+    if (3.1415927410125732f <= CARD_ROT_Y(card)) {
+        CARD_ROT_Y(card) = 3.1415927410125732f;
+        fl = card->flags;
+        card->flags = fl & -3;
+        fl = card->flags;
+        card->flags = fl & -5;
     }
-    card->obj->rot.y = Adjust_theta(card->obj->rot.y);
+    CARD_ROT_Y(card) = Adjust_theta(CARD_ROT_Y(card));
 }
 
 __attribute__((section(".text.func_001D6F30")))
 void func_001D6F30(BlackJackCard *card) {
     long f = (unsigned int)card->flags;
+    int fl;
     if (((f >> 3) & 1) == 0) return;
     if (((f >> 4) & 1) == 0) return;
-    card->obj->rot.y += 0.20943951606750488f;
-    if (3.1415927410125732f <= card->obj->rot.y) {
-        card->obj->rot.y = 3.1415927410125732f;
-        card->flags &= -9;
-        card->flags &= -0x11;
+    CARD_ROT_Y(card) += 0.20943951606750488f;
+    if (3.1415927410125732f <= CARD_ROT_Y(card)) {
+        CARD_ROT_Y(card) = 3.1415927410125732f;
+        fl = card->flags;
+        card->flags = fl & -9;
+        fl = card->flags;
+        card->flags = fl & -0x11;
     }
-    card->obj->rot.y = Adjust_theta(card->obj->rot.y);
+    CARD_ROT_Y(card) = Adjust_theta(CARD_ROT_Y(card));
 }
 
 __attribute__((section(".text.func_001B1E30")))
@@ -103,7 +120,7 @@ void func_001D7450(Poker *self)
     SetCustomIDNumberIndexed_1DD648(self, 5, 8);
     SetCustomIDNumberIndexed_1DD648(self, 6, 3);
     SetCustomIDNumberIndexed_1DD648(self, 7, 2);
-    func_001DEE60(&self->ui, 0x11, 0);
+    func_001DEE60(POKER_UI(self), 0x11, 0);
 
     v = (unsigned int)self->flags;
     if (((v >> 3) & 1) == 0) {

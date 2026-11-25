@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/heapArena.h"
-#include "godhand/cNode.h"
+#include "godhand/heapArenaFn.h"
+#include "godhand/cNodeFn.h"
 
 extern float capVu0LengthSq(void *a0);
 extern float sqrtf(float x);

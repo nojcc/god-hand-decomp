@@ -4,6 +4,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cOmHitVolumeSetup.h"
 #include "godhand/cDamageGive.h"
+#include "godhand/cDamageUnitFn.h"
 
 #define GIVE_BOX_KIND     0x41
 #define GIVE_SPHERE_KIND  0x2E

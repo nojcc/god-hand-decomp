@@ -1,7 +1,8 @@
 /* sn-2.95.3-136 */
-#include "godhand/cModel.h"
+#include "godhand/cModelFn.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vecInline.h"
+extern void cOmBase_dieCommon(cOmBase *self);
 
 #define COMBASE_F2_KEEP_HIDE  9                 /* flags2 bit: stay hidden */
 #define COMBASE_F2_RECALC_BIT 4                 /* flags2 bit: rebuild the parts */

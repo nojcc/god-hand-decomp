@@ -1,10 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEmManage.h"
-#include "godhand/cCamManager.h"
 #include "godhand/cSnd.h"
+#include "godhand/cDamageUnit.h"
 
+extern char D_00463050[];
 extern int D_003C2F84;
 extern int D_00747A78;
+extern void cCamManager_setPlCamera(char *a0, int a1);
 extern void cScenario__endSoftEvent(int a0);
 extern void func_003201F0();
 extern void func_0031F4A0();
@@ -48,7 +50,7 @@ int func_001832A8(char *a0, char *a1)
 __attribute__((section(".text.func_001A4CF8")))
 void func_001A4CF8(char *a0) {
     if (*(unsigned char *)(a0 + 0x763)) {
-        cCamManager_setPlCamera(&D_00463050, 0);
+        cCamManager_setPlCamera(D_00463050, 0);
         cScenario__endSoftEvent(D_003C2F84);
         D_00747A78 &= 0xFFFEFFFF;
     }
@@ -74,28 +76,20 @@ void func_00294A88(cEmManage *self) {
     cSnd_SeCall_2CB8A0(&D_005FEE00, 2, 0xA4, -1, -1, 0, 0);
 }
 
+/* Store the offset (x, y, z) and update the shape. */
 __attribute__((section(".text.cCollisionShape_setOffsetPos")))
-int cCollisionShape_setOffsetPos(char *a0, char *a1)
+void cCollisionShape_setOffsetPos(cCollisionShape *self, const cVec *ofs)
 {
-    char *v0 = a0 + 0x50;
-    if (v0 != a1) {
-        *(float *)(a0 + 0x50) = *(float *)(a1 + 0);
-        *(float *)(v0 + 4) = *(float *)(a1 + 4);
-        *(float *)(v0 + 8) = *(float *)(a1 + 8);
-    }
-    return func_002BB2D8(a0);
+    cVec_copy3(&self->ofs, ofs);
+    func_002BB2D8(self);
 }
 
+/* Store the rotation (x, y, z) and update the shape. */
 __attribute__((section(".text.func_002BB298")))
-int func_002BB298(char *a0, char *a1)
+void func_002BB298(cCollisionShape *self, const cVec *rot)
 {
-    char *v0 = a0 + 0x60;
-    if (v0 != a1) {
-        *(float *)(a0 + 0x60) = *(float *)(a1 + 0);
-        *(float *)(v0 + 4) = *(float *)(a1 + 4);
-        *(float *)(v0 + 8) = *(float *)(a1 + 8);
-    }
-    return func_002BB2D8(a0);
+    cVec_copy3(&self->rot, rot);
+    func_002BB2D8(self);
 }
 
 __attribute__((section(".text.func_00304BF8")))

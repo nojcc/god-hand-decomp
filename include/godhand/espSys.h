@@ -43,10 +43,10 @@ extern void func_00306FC0(char *self, espMemNode *node);
 #define ESP_DATA_PAUSE   0x2000         /* EspData.flags: advance through the clock function */
 #define ESP_DATA_HIDE_WHEN_CLEAR 0x800  /* EspData.flags: hidden while D_00741DB8 is 0 */
 #define ESP_DATA_HIDE_WHEN_SET   0x400  /* EspData.flags: hidden while D_00741DB8 is set */
-#define ESP_ANIM_CLOCK   0x100          /* EspAnim.flags (byte 0x11D bit 0): advance by the clock function */
-#define ESP_ANIM_HIDE    0x800000       /* EspAnim.flags: not drawn */
-#define ESP_ANIM_SKIP_METHOD2 0x10000   /* EspAnim.flags: func_002FBE88 does not call virtual method 2 */
-#define ESP_ANIM_KEEP_HOOK_BIT 7    /* EspAnim.flags bit 7: the hook still runs when the owner has CMODEL_F_SHOWN */
+#define ESP_ANIM_CLOCK   0x100          /* EspAnim word at 0x11C (lockFlags bit 0): advance by the clock function */
+#define ESP_ANIM_HIDE    0x800000       /* EspAnim word at 0x11C: not drawn */
+#define ESP_ANIM_SKIP_METHOD2 0x10000   /* EspAnim word at 0x11C: func_002FBE88 does not call virtual method 2 */
+#define ESP_ANIM_KEEP_HOOK_BIT 7    /* EspAnim word at 0x11C, bit 7: the hook still runs when the owner has CMODEL_F_SHOWN */
 #define SYSFLAG_SLOWMO   0x20000        /* bit of GameWork.flags5E4 */
 
 typedef struct EspData {
@@ -62,9 +62,9 @@ typedef struct EspAnim {
     int unk10C;                         /* 0x10C */
     EspData *data;                      /* 0x110 */
     cGameObj *owner;                    /* 0x114 the object the effect belongs to */
-    char unk118[0x11C - 0x118];
-    int flags;                          /* 0x11C ESP_ANIM_CLOCK, ESP_ANIM_KEEP_HOOK_BIT, ESP_ANIM_HIDE */
-    char unk120[0x124 - 0x120];
+    char unk118[0x11D - 0x118];
+    unsigned char lockFlags;            /* 0x11D bit 0: advance by the clock function */
+    char unk11E[0x124 - 0x11E];
     float pos[3];                       /* 0x124 */
     float unk130;
     float vel[3];                       /* 0x134 */

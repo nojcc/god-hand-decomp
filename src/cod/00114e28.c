@@ -1,4 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCollisionSolid.h"
+#include "godhand/cSnd.h"
+#include "godhand/cIDBase.h"
+#include "godhand/effectPos.h"
 #include "godhand/globals.h"
 
 extern unsigned char D_005864F0[];
@@ -8,6 +12,7 @@ extern void func_0012B928(void *a0);
 extern void func_001299F0(void *a0, void *a1, void *a2, int a3, float f12);
 extern void cEm00_GetPlMotion(void *a0, int a1, float f12, float f13);
 extern void func_00124EC0(void *a0);
+extern int moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
@@ -16,25 +21,26 @@ extern void KillEffectWithFlag(void *a0, int a1, int a2, int a3);
 extern void func_001AAB10(void *a0);
 extern void SetField5B0Bit2ClearBit8_1B7908(int a0);
 extern void func_001268F0(void *a0);
+extern void Obj0000_Clear_Fields_640_648_124E58(void *a0);
 extern void func_00126770(void *a0);
-#include "godhand/cCollisionSolid.h"
-#include "godhand/pl00.h"
-#include "godhand/cEm00.h"
-#include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
-#include "godhand/cDvd.h"
 #include "godhand/motion.h"
-#include "godhand/cObjBase.h"
-#include "godhand/cOmWeapon.h"
-#include "godhand/cSnd.h"
 #include "godhand/player.h"
+extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
 extern void func_0012A8D8(void *a0);
 extern void cIDManager_getLocalFileName();
+extern int cDvd_ReadAlloc();
+extern void cDvd_CheckWait();
 extern void cIDManager_setIDData();
+extern void cIDBase_initialize();
+extern void cIDBase_resetAnim();
 extern int D_003C2388;
+extern char D_00583F20[];
+extern char D_00754220[];
 extern int *D_003C2384;
 extern void SetMotionStep(void *a0, float f12);
+extern int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
+extern void SetOrientByType_26AF20(void *a0, int a1, unsigned int a2);
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -59,62 +65,62 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 #include "godhand/cCoreSave.h"
 
 __attribute__((section(".text.func_001215C8")))
-void func_001215C8(pl00 *self)
+void func_001215C8(void *a0)
 {
-    cEm00 *s2;
-    cVec buf;
+    char *s1 = (char *)a0;
+    char *s2;
+    float buf[4] __attribute__((aligned(16)));
     float v;
 
-    self->base.hitFlash = 5.0f;
-    self->base.objFlags = self->base.objFlags | 0x10000;
-    s2 = self->unk694;
-    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
+    *(float *)(s1 + 0x54C) = 5.0f;
+    *(int *)(s1 + 0x250) = *(int *)(s1 + 0x250) | 0x10000;
+    s2 = *(char **)(s1 + 0x694);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s1, 0);
     cEmManage_SetPlCatched(&D_005864F0);
 
-    switch (self->base.step) {
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0:
-        CallWithAndClearField698_12AC28(self);
-        func_0012B928(self);
-        buf.x = -0.257099986f;
-        buf.y = 0.0f;
-        buf.z = 1.64129996f;
-        buf.w = 1.0f;
-        v = buf.y;
-        func_001299F0(self, s2, &buf, 0, v);
+        CallWithAndClearField698_12AC28(s1);
+        func_0012B928(s1);
+        buf[0] = -0.257099986f;
+        buf[1] = 0.0f;
+        buf[2] = 1.64129996f;
+        buf[3] = 1.0f;
+        v = buf[1];
+        func_001299F0(s1, s2, buf, 0, v);
         cEm00_GetPlMotion(s2, 0x2D, v, v);
-        self->unk15B0 = 1;
-        self->base.unk56E = 0xF;
+        *(int *)(s1 + 0x15B0) = 1;
+        *(short *)(s1 + 0x56E) = 0xF;
         cCoreSave_addGameLevelPoint(&D_00569B70, 0x64);
-        self->base.step = self->base.step + 1;
+        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         /* fallthrough */
     case 1:
-        if (self->base.unk56E != 0 && s2 != 0) {
-            cVec *d;
-            cVec *e = &s2->vel;
-            self->base.unk56E = self->base.unk56E - 1;
-            d = self->base.pos;
+        if (*(short *)(s1 + 0x56E) != 0 && s2 != 0) {
+            char *d;
+            char *e = s2 + 0x550;
+            *(short *)(s1 + 0x56E) = *(unsigned short *)(s1 + 0x56E) - 1;
+            d = *(char **)(s1 + 0xF0);
             VU0_VADD_XYZ_IP(d, 0, e);
         }
-        func_00124EC0(self);
-        if (moveMotion(self)) {
-            pl00_clearMotionCam(self, 0, 0);
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+        func_00124EC0(s1);
+        if (moveMotion(s1)) {
+            pl00_clearMotionCam(s1, 0, 0);
+            *(unsigned char *)(s1 + 0x2F4) = 0;
+            *(unsigned char *)(s1 + 0x2F5) = 0;
+            *(unsigned char *)(s1 + 0x2F6) = 0;
+            *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
-    if (func_00123938(self, 1)) {
-        pl00_clearMotionCam(self, 0, 0);
+    if (func_00123938(s1, 1)) {
+        pl00_clearMotionCam(s1, 0, 0);
     }
 }
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
-#include "godhand/effectPos.h"
 
 
 
@@ -128,7 +134,7 @@ __attribute__((section(".text.func_001AA6C0")))
 void func_001AA6C0(void *a0)
 {
     char *s1 = (char *)a0;
-    cVec buf;
+    cVec buf __attribute__((aligned(16)));
     int hold[4];
 
     switch (*(unsigned char *)(s1 + 0x2F5)) {
@@ -138,7 +144,7 @@ void func_001AA6C0(void *a0)
         float *(*fp)();
         float *src;
         int b;
-        void *part;
+        cOmBase *part;
         KillEffect(s1, 0xB, 0);
         KillEffectWithFlag(s1, 3, 2, 0x1E);
         VU0_SQC2_VF0(&buf, 0);
@@ -151,23 +157,23 @@ void func_001AA6C0(void *a0)
             buf.y = src[1];
             buf.z = src[2];
         }
-        SetEffectPos(0, 7, 0, &buf, -1, 1.0f);
+        SetEffectPos(0, 7, 0, &buf, 1.0f, -1);
         {
             int i = 5;
             if ((hold[0] = b = *(unsigned char *)(s1 + 0x2B4)), i < b)
-                part = *(void **)(*(int *)(s1 + 0x278) + i * 4);
+                part = (*(cOmBase ***)(s1 + 0x278))[i];
             else
                 part = 0;
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x5B, s1, 0, part, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x5B, a0, 0, (cParts *)part, 0, 0);
         {
             int i = 5;
             if ((hold[0] = b = *(unsigned char *)(s1 + 0x2B4)), i < b)
-                part = *(void **)(*(int *)(s1 + 0x278) + i * 4);
+                part = (*(cOmBase ***)(s1 + 0x278))[i];
             else
                 part = 0;
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x87, s1, 0, part, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x87, a0, 0, (cParts *)part, 0, 0);
         func_001AAB10(s1);
         SetField5B0Bit2ClearBit8_1B7908((int)s1);
         *(short *)(s1 + 0x600) = 0x1E;
@@ -224,81 +230,80 @@ void func_001AA6C0(void *a0)
 
 
 __attribute__((section(".text.func_00114E28")))
-void func_00114E28(pl00 *self)
+void func_00114E28(void *a0)
 {
-    char *t;
+    char *s1 = (char *)a0;
+    int t;
     int p1;
     int p2;
 
-    switch (self->base.step) {
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0:
-        self->comboSlot = 0;
-        self->comboSet = 0;
-        func_001268F0(self);
-        Obj0000_Clear_Fields_640_648_124E58(self);
-        func_00126770(self);
-        pl00_clearMotionCam(self, 0, 0);
-        t = self->base.pack;
-        p1 = EM_RES_REC(t, 0x3D8);
-        p2 = EM_RES_REC(t, 0x3DC);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x29, self, 0, 0, 0, 0);
-        func_002A8578(self, p1, p2, 3, 0.0f, 0, 0);
-        self->base.step = self->base.step + 1;
+        *(short *)(s1 + 0x5E0) = 0;
+        *(short *)(s1 + 0x5E2) = 0;
+        func_001268F0(s1);
+        Obj0000_Clear_Fields_640_648_124E58(s1);
+        func_00126770(s1);
+        pl00_clearMotionCam(s1, 0, 0);
+        t = *(int *)(s1 + 0x304);
+        p1 = *(int *)(t + 0x3D8) + t;
+        p2 = *(int *)(t + 0x3DC) + t;
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x29, a0, 0, 0, 0, 0);
+        func_002A8578(s1, p1, p2, 3, 0.0f, 0, 0);
+        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         /* fallthrough */
     case 1:
-        InvokeVirtualAtField214AndForward_124E68(self, 0.19634954f);
-        if (moveMotion(self) != 0) {
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+        InvokeVirtualAtField214AndForward_124E68(s1, 0.19634954f);
+        if (moveMotion(s1) != 0) {
+            *(unsigned char *)(s1 + 0x2F4) = 0;
+            *(unsigned char *)(s1 + 0x2F5) = 0;
+            *(unsigned char *)(s1 + 0x2F6) = 0;
+            *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
-    if ((self->base.seqFlags & 1) != 0 && self->sub698 == 0) {
+    if ((*(unsigned short *)(s1 + 0x3AC) & 1) != 0 && *(int *)(s1 + 0x698) == 0) {
         cGameObj *obj = CreateObj(0x3AF, 0xFFFF);
-        self->sub698 = obj;
+        *(cGameObj **)(s1 + 0x698) = obj;
         if (obj != 0) {
-            cGameObj *p2c;
-            cGameObj *p3;
-            cVec *src1;
-            cVec *src2;
-            cVec *dst;
-            cVec *posA;
-            cVec *rot;
+            char *p2c;
+            char *p3;
+            float *src1;
+            float *src2;
+            float *dst;
+            float *p490;
+            int *p100;
 
             {
-                cGameObjVt *v1 = cGameObj_vt(obj);
-                short off = v1->initialDelta;
-                int (*fn)(void *) = v1->initial;
-                fn((char *)obj + off);
+                cGameObjVt *vt = cGameObj_vt(obj);
+                vt->initial((char *)obj + vt->initialDelta);
             }
-            src1 = self->base.pos;
-            dst = self->sub698->pos;
+            src1 = *(float **)(s1 + 0xF0);
+            dst = *(float **)(*(char **)(s1 + 0x698) + 0xF0);
             if (dst != src1) {
-                dst->x = src1->x;
-                dst->y = src1->y;
-                dst->z = src1->z;
+                dst[0] = src1[0];
+                dst[1] = src1[1];
+                dst[2] = src1[2];
             }
-            p2c = self->sub698;
-            src2 = self->base.pos;
-            posA = &p2c->posA;
-            if (posA != src2) {
-                posA->x = src2->x;
-                posA->y = src2->y;
-                posA->z = src2->z;
+            p2c = *(char **)(s1 + 0x698);
+            src2 = *(float **)(s1 + 0xF0);
+            p490 = (float *)(p2c + 0x490);
+            if (p490 != src2) {
+                p490[0] = src2[0];
+                p490[1] = src2[1];
+                p490[2] = src2[2];
             }
-            p3 = self->sub698;
-            rot = &p3->rot;
-            rot->x = 0.0f;
-            rot->y = 0.0f;
-            rot->z = 0.0f;
-            func_0012A8D8(self);
+            p3 = *(char **)(s1 + 0x698);
+            p100 = (int *)(p3 + 0x100);
+            p100[0] = 0;
+            p100[1] = 0;
+            p100[2] = 0;
+            func_0012A8D8(s1);
         }
     }
-    func_00123938(self, 1);
+    func_00123938(s1, 1);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -316,10 +321,10 @@ void func_00114E28(pl00 *self)
 
 
 
-typedef struct MiddleBossPart {
-    cIDBaseObj id;                      /* 0x00 */
+typedef struct {
+    cIDBaseObj id;
     char pad48[0x50 - sizeof(cIDBaseObj)];
-} MiddleBossPart;
+} IDBase50;
 
 typedef struct {
     cIDBaseObj base;     /* 0x00 */
@@ -330,7 +335,7 @@ typedef struct {
     int fA4;             /* 0xA4 */
     int fA8[5];          /* 0xA8 */
     char padBC[4];
-    MiddleBossPart id[5]; /* 0xC0 */
+    IDBase50 id[5];      /* 0xC0 */
     char pad250[0x70];
     float f2C0[5];       /* 0x2C0 */
     float f2D4[5];       /* 0x2D4 */
@@ -341,39 +346,39 @@ typedef struct {
 } MiddleBoss;
 
 __attribute__((section(".text.cCockMiddleBoss_roomInit")))
-void cCockMiddleBoss_roomInit(MiddleBoss *self) {
+void cCockMiddleBoss_roomInit(MiddleBoss *a0) {
     char buf[0x40];
     int r;
     unsigned short i;
 
     do {
-        if (self->fA0 == 0) {
+        if (a0->fA0 == 0) {
             cIDManager_getLocalFileName(D_003C2388, buf, D_0041E190, -1);
-            r = cDvd_ReadAlloc(&D_00583F20, buf, &self->fA0, &D_00754220, 0, 0, 0, 0);
-            self->fA4 = r;
-            cDvd_CheckWait(&D_00583F20, r);
-            cIDManager_setIDData(*D_003C2384, 0xD, self->fA0);
-            cIDBase_initialize(&self->base, 0xD, 0);
-            cIDBase_resetAnim(&self->base);
-            cIDBase_getIDWork(&self->base, 0)->posX = -100.0f;
-            self->f90 = 0;
+            r = cDvd_ReadAlloc(D_00583F20, buf, &a0->fA0, D_00754220, 0, 0, 0, 0);
+            a0->fA4 = r;
+            cDvd_CheckWait(D_00583F20, r);
+            cIDManager_setIDData(*D_003C2384, 0xD, a0->fA0);
+            cIDBase_initialize(&a0->base, 0xD, 0);
+            cIDBase_resetAnim(&a0->base);
+            cIDBase_getIDWork(&a0->base, 0)->posX = -100.0f;
+            a0->f90 = 0;
             for (i = 0; i < 5; i++) {
-                MiddleBossPart *id = &self->id[i];
+                IDBase50 *id = &a0->id[i];
                 cIDBaseEnt *w;
                 cIDBase_initialize(&id->id, 0xD, 1);
                 cIDBase_resetAnim(&id->id);
-                self->f2C0[i] = 1.0f;
-                self->f2D4[i] = 1.0f;
-                self->f2E8[i] = 1.0f;
-                self->f2FC[i] = 0;
-                self->f370[i] = 0;
-                self->fA8[i] = 0;
+                a0->f2C0[i] = 1.0f;
+                a0->f2D4[i] = 1.0f;
+                a0->f2E8[i] = 1.0f;
+                a0->f2FC[i] = 0;
+                a0->f370[i] = 0;
+                a0->fA8[i] = 0;
                 w = cIDBase_getIDWork(&id->id, 0);
-                w->posY = cIDBase_getIDWork(&self->base, 0)->posY;
+                w->posY = cIDBase_getIDWork(&a0->base, 0)->posY;
             }
         }
     } while (0);
-    self->f90 = 0x80000000;
+    a0->f90 = 0x80000000;
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -461,55 +466,62 @@ void func_001C8020(char *s0)
 
 
 __attribute__((section(".text.func_00273748")))
-void func_00273748(cEm00 *self)
+void func_00273748(char *s0)
 {
-    int frame[3];
-    cOmWeapon *o;
-    cOmBase *part;
+    int hold[4];
+    char *o;
+    char *part;
+    int b;
     int big;
     float k;
     float t;
     float v;
 
-    o = self->fx4;
+    o = *(char **)(s0 + 0x700);
     if (o == 0) return;
-    switch (self->emNo) {
+    switch (*(int *)(s0 + 0x564)) {
     case 0x208:
-        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&o->base)) {
-            if ((*(long *)((char *)self + 0x2F0) & 0xFFFF00000000) == 0xE0000000000) return;
-            if (!(capVu0MagnitudeSqXZ(self->fx4->base.pos, self->pos) < 0.360000014f)) return;
-            SetOrientByType_26AF20((cOmBase *)self, self->fx4, 0);
-        } else if (self->emFlags < 0) {
-            SetOrientByType_26AF20((cOmBase *)self, self->fx4, 1);
+        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(o)) {
+            if ((*(long *)(s0 + 0x2F0) & 0xFFFF00000000) == 0xE0000000000) return;
+            if (!(capVu0MagnitudeSqXZ(*(char **)(*(char **)(s0 + 0x700) + 0xF0), *(char **)(s0 + 0xF0)) < 0.360000014f)) return;
+            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 0);
+        } else if (*(int *)(s0 + 0x16D0) < 0) {
+            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 1);
         } else {
-            SetOrientByType_26AF20((cOmBase *)self, self->fx4, 0);
+            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 0);
         }
         return;
     case 0x22F:
         big = 1;
-        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&o->base)) {
-            if ((*(long *)((char *)self + 0x2F0) & 0xFFFF00000000) != 0xE0000000000) {
-                if (capVu0MagnitudeSqXZ(self->fx4->base.pos, self->pos) < 0.360000014f) {
-                    SetOrientByType_26AF20((cOmBase *)self, self->fx4, 2);
+        if (Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(o)) {
+            if ((*(long *)(s0 + 0x2F0) & 0xFFFF00000000) != 0xE0000000000) {
+                if (capVu0MagnitudeSqXZ(*(char **)(*(char **)(s0 + 0x700) + 0xF0), *(char **)(s0 + 0xF0)) < 0.360000014f) {
+                    SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 2);
                 }
             }
-        } else if (self->emFlags < 0) {
-            SetOrientByType_26AF20((cOmBase *)self, self->fx4, 3);
+        } else if (*(int *)(s0 + 0x16D0) < 0) {
+            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 3);
         } else {
             big = 0;
-            SetOrientByType_26AF20((cOmBase *)self, self->fx4, 2);
+            SetOrientByType_26AF20(s0, *(int *)(s0 + 0x700), 2);
         }
-        o = self->fx4;
-        part = cOmBase_childAt(&o->base, frame, 1);
+        o = *(char **)(s0 + 0x700);
+        {
+            int one = 1;
+            if ((hold[0] = b = *(unsigned char *)(o + 0x2B4)), one < b)
+                part = *(char **)(*(int *)(o + 0x278) + 4);
+            else
+                part = 0;
+        }
         if (part == 0) return;
         k = 1.0f;
         if (big) k = 4.0f;
-        t = 1.0f - self->speedRate * 0.100000001f;
-        v = part->scale.x * t + k * (1.0f - t);
-        part->scale.x = v;
-        part->scale.y = v;
-        part->scale.z = v;
-        self->fx4->base.objFlags |= 0x40000;
+        t = 1.0f - *(float *)(s0 + 0x5A8) * 0.100000001f;
+        v = *(float *)(part + 0x110) * t + k * (1.0f - t);
+        *(float *)(part + 0x110) = v;
+        *(float *)(part + 0x114) = v;
+        *(float *)(part + 0x118) = v;
+        *(int *)(*(char **)(s0 + 0x700) + 0x250) |= 0x40000;
         return;
     }
 }

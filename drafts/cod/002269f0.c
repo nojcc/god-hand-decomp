@@ -217,7 +217,7 @@ void func_002269F0(cEm00 *self)
         if (self->timerA != 0) {
             self->timerA--;
             from = self->pos;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.196349546f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.196349546f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;

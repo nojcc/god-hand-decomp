@@ -3,7 +3,7 @@ extern void *D_003C23A4;
 extern void ObjTrans(void);
 extern void func_002AF028(void *);
 #include "godhand/cMc.h"
-#include "godhand/cCamera.h"
+#include "godhand/cCameraFn.h"
 #include "godhand/DispMgr.h"
 
 extern void *D_005CAFF0;

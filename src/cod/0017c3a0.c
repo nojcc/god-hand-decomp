@@ -1,43 +1,55 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/CustomIDPanel.h"
-#include "godhand/DogRace.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cSnd.h"
 #include "godhand/cScenario.h"
 #include "godhand/globals.h"
 
+extern void CustomIDWork_SetMoveOffsetPosYSin(CustomIDWork *self, int amp, unsigned short frames);
 extern void CustomIDWork_ResetMoveOffsetPos(CustomIDWork *self);
+extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern void func_0017C028(void *self, int pos, void *rot);
+extern int cSnd_SeFadeOut(cSnd *self, int handle, short fade);
 extern unsigned int D_00747A30;
 
+/* Two CustomIDWork elements sit at 0x10D8 and 0x1154 of the owner. */
+#define OWNER_IDW_A(self) ((CustomIDWork *)((char *)(self) + 0x10D8))
+#define OWNER_IDW_B(self) ((CustomIDWork *)((char *)(self) + 0x1154))
 
 
 
-/* CustomIDOwner_setBob: with sel set, start the 16-frame sine bob on elements 34 and 35 (-3 and +3); otherwise reset their offsets. */
+/* CustomIDOwner_setBob: with sel set, start the 16-frame sine bob on both elements (-3 and +3); otherwise reset their offsets. */
 __attribute__((section(".text.CustomIDOwner_setBob")))
-void CustomIDOwner_setBob(DogRaceResult *self, int sel)
+void CustomIDOwner_setBob(void *self, int sel)
 {
     if (sel != 0) {
-        CustomIDWork_SetMoveOffsetPosYSin(&self->elem[34], -3, 16);
-        CustomIDWork_SetMoveOffsetPosYSin(&self->elem[35], 3, 16);
+        CustomIDWork_SetMoveOffsetPosYSin(OWNER_IDW_A(self), -3, 16);
+        CustomIDWork_SetMoveOffsetPosYSin(OWNER_IDW_B(self), 3, 16);
     } else {
-        CustomIDWork_ResetMoveOffsetPos(&self->elem[34]);
-        CustomIDWork_ResetMoveOffsetPos(&self->elem[35]);
+        CustomIDWork_ResetMoveOffsetPos(OWNER_IDW_A(self));
+        CustomIDWork_ResetMoveOffsetPos(OWNER_IDW_B(self));
     }
 }
 
-/* CustomIDOwner_setShown: show or hide work 2, restart its animation (anim[1]) and run it only while shown. */
+typedef struct IdOwner {
+    int flags;                 /* 0x000 bit 1: the ID display is shown */
+    char unk04[0x91C];
+    int unk920;                /* 0x920 */
+    int unk924;                /* 0x924 */
+} IdOwner;
+
+/* CustomIDOwner_setShown: show or hide the ID display (flag bit 1) and clear the two 0x920 counters. */
 __attribute__((section(".text.CustomIDOwner_setShown")))
-void CustomIDOwner_setShown(CustomIDPanel *self, int on)
+void CustomIDOwner_setShown(IdOwner *self, int on)
 {
     SetCustomIDDispOneOrAll_1F29C0(self, 2, on);
-    self->anim[1].state = 0;
-    self->anim[1].timer = 0;
+    self->unk920 = 0;
+    self->unk924 = 0;
     if (on != 0) {
-        self->flags |= CIDPANEL_ANIM1;
+        self->flags |= 2;
     } else {
-        self->flags &= ~CIDPANEL_ANIM1;
+        self->flags &= ~2;
     }
 }
 
@@ -98,9 +110,9 @@ int cScenario_getStrFromObjId(cScenario *self, char *buf, int objId)
 }
 
 /* cSnd_SeCallGlobal: play a sound effect on the global sound manager unless bit 1 of D_00747A30 is set;
- * bound to obj when there is one, otherwise at the origin. unused is not read. */
+ * with a nonzero voice it takes the object call, otherwise the call at the origin. */
 __attribute__((section(".text.cSnd_SeCallGlobal")))
-void cSnd_SeCallGlobal(void *unused, int id, short slot, void *obj)
+void cSnd_SeCallGlobal(void *unused, int slot, short key, void *voice)
 {
     unsigned long fl;
     unsigned long bit;
@@ -109,10 +121,10 @@ void cSnd_SeCallGlobal(void *unused, int id, short slot, void *obj)
     bit = fl >> 1;
     t = bit & 1;
     if (t == 0) {
-        if (obj != 0) {
-            cSnd_SeCall_2CBA48(&D_005FEE00, id, slot, obj, 0, 0, 0, 0);
+        if (voice != 0) {
+            cSnd_SeCall_2CBA48(&D_005FEE00, slot, key, voice, 0, 0, 0, 0);
         } else {
-            cSnd_SeCall_2CB8A0(&D_005FEE00, id, slot, -1, -1, 0, 0);
+            cSnd_SeCall_2CB8A0(&D_005FEE00, slot, key, -1, -1, 0, 0);
         }
     }
 }

@@ -1,16 +1,24 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cSnd.h"
 #include "godhand/Slot2.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern void func_001E7848(SlotUi *a0, int a1);
+extern void func_001E7868(SlotUi *a0, int a1);
+extern void func_001E7888(SlotUi *a0, int a1);
+extern void func_001E78A8(SlotUi *a0, int a1);
+extern void func_001E78C8(SlotUi *a0, int a1);
+extern void func_001E78E8(SlotUi *a0, int a1);
 extern void func_001E6ED8(char *a0, int a1, int a2);
 extern void Slot2_showLayersForBetLv(char *a0);
 extern void Slot2_setLineMark(char *a0, int a1, int a2);
 extern void func_001E6C80(char *a0, int a1, int a2);
 extern void func_001E6D48(char *a0, int a1, int a2);
 extern void func_001E6E10(char *a0, int a1, int a2);
+extern void CustomIDOwner_setColorMode(SlotUi *a0, int a1);
+extern void SetUiIdWorkDispRange(SlotUi *a0, int a1);
 extern int D_007474A0;
 extern int D_00747A2C;
 extern long D_00747640;

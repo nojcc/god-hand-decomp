@@ -1,11 +1,12 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cDamageUnit.h"
-#include "godhand/heapArena.h"
 #include "godhand/ColiseumEmSelect.h"
 #include "godhand/cSceAtManager.h"
 
 extern ColiseumHost **D_003C2384;
+extern void func_001F46E0(void *idBase);
+extern void cHeap_free(int heap, int *node);
 
 /* Set the radius of the hit volume with the given id (first match only). */
 __attribute__((section(".text.cDamageUnit_SetDamageCollRadius")))
@@ -15,8 +16,8 @@ void cDamageUnit_SetDamageCollRadius(cDamageUnit *self, int id, float radius)
     if (node == 0) return;
     do {
         if (node->id == id) {
-            cCollisionShape *shape = node->data->shape;
-            cDamageVtEnt *ent = &shape->vt[CDAMAGE_SHAPE_SETRADIUS];
+            cCollisionShape *shape = node->unit->shape;
+            cDamageVtEnt *ent = &shape->vt[CCOLLISION_SHAPE_SETRADIUS];
             ((void (*)(void *, float))ent->pfn)((char *)shape + ent->delta, radius);
             return;
         }
@@ -29,12 +30,12 @@ __attribute__((section(".text.ColiseumEmSelect_close")))
 void ColiseumEmSelect_close(ColiseumEmSelect *self)
 {
     ColiseumHost *host;
-    func_001F46E0(&self->idBase);
+    func_001F46E0(self->idBase);
     host = *D_003C2384;
     host->pickB = 0;
     host->pickA = 0;
     if (self->cardNode != 0) {
-        cHeap_free(HEAP_OWNER(self->cardNode), self->cardNode);
+        cHeap_free(self->cardNode[-8], self->cardNode);
     }
 }
 

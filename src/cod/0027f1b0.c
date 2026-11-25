@@ -20,7 +20,9 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void func_0027F3A0(char *self);
 extern void cObjBase_SetSeqEffect(cObjBase *a0);
 extern void func_00280DB8(char *self);
+extern void cModel_calcParts(cModel *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
+extern void cModel_calcWorldParts(cModel *a0);
 extern float capVu0Sin(float f12);
 extern float Adjust_theta(float angle);
 extern void cModel_ScrollTexture(cModel *a0, float f);
@@ -45,10 +47,10 @@ void func_0027F1B0(cEm00 *self)
 
     cObjBase_SetSeqEffect(self);
     func_00280DB8((char *)self);
-    cModel_calcParts((cModel *)self);
+    cModel_calcParts(self);
     IK_InverseKinematics(self->ik, self);
-    cModel_calcWorldParts((cModel *)self);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cModel_calcWorldParts(self);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
 
     scroll = capVu0Sin(EM_WOBBLE(self)) * 0.5f;
     scroll += 1.0f;

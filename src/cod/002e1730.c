@@ -4,7 +4,7 @@ extern void CopyVec16From20_B62E0(void *dst, void *self);
 extern float capVu0Sin(float f12);
 
 #include "godhand/vu0.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 struct VtEnt { short delta; short index; void *pfn; };
 typedef struct { char b[0x10]; } C16;

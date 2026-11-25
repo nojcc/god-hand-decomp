@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 
 extern void ColiseumBattle_DefeatAllEnemies(void);
 extern unsigned char D_00447BA0[];

@@ -4,7 +4,7 @@
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-#include "godhand/cOmBase.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/vu0.h"
 
@@ -12,18 +12,9 @@ extern void sceVu0SubVector(void *a0, void *a1, void *a2);
 extern void sceVu0Normalize(void *a0, void *a1);
 extern void sceVu0ScaleVector(void *dst, void *src, float s);
 
-/* One collision unit in the manager's list. */
-typedef struct cCollUnit {
-    cOmBase *owner;                     /* 0x00 */
-    int unk04;                          /* 0x04 */
-    int priority;                       /* 0x08 */
-    float share;                        /* 0x0C */
-    struct cCollUnit *next;             /* 0x10 */
-} cCollUnit;
-
 /* Push unit a's owner out of unit b's sphere in the ground plane; 0 when they do not touch. */
-int func_00134CB0(void *mgr, cCollUnit *ua, cCollisionSolidObj *sa, cCollUnit *ub,
-                  cCollisionSolidObj *sb)
+int func_00134CB0(cCollisionSolidManage *mgr, cCollisionSolidManageUnit *ua, cCollisionSolidObj *sa,
+                  cCollisionSolidManageUnit *ub, cCollisionSolidObj *sb)
 {
     struct {
         cVec a;                         /* 0x00 */

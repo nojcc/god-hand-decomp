@@ -16,13 +16,13 @@ void func_00129578(void *this)
         case 4:
         case 6:
         default:
-            SetEffect(0, 0x19, this, 0, -1, 0xFFFFFFFFu);
+            SetEffect(0, 0x19, this, 0, -1, EFFECT_FOLLOW_OWNER);
             break;
         case 1:
         case 3:
         case 5:
         case 7:
-            SetEffect(0, 0x75, this, 0, -1, 0xFFFFFFFFu);
+            SetEffect(0, 0x75, this, 0, -1, EFFECT_FOLLOW_OWNER);
             break;
         }
     }

@@ -1,18 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 #include "godhand/globals.h"
 
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float fRand1_1(void);
 extern unsigned int Rnd(void);
 
 #include "godhand/vu0.h"
-#include "godhand/cGameObj.h"
 
 /* Phase machine of the enemy that circles the player: it turns toward the player, drifts its height
  * toward the player's, and steps along the 0x580 vector scaled by speedRate until the countdown
@@ -57,7 +58,7 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
         case 3:
             if (g != 0) {
                 if (16.0f < dist) {
-                    cGameObj_SetTgtTurn(self, *(cVec **)(g + 0xF0), self->speedRate * 0.024543693f);
+                    cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(g + 0xF0), self->speedRate * 0.024543693f);
                 }
                 if (*(float *)((char *)self->pos + 4) <
                     *(float *)(*(char **)(g + 0xF0) + 4) + 2.5f) {
@@ -110,7 +111,7 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
         case 5:
             if (g != 0) {
                 if (4.0f < dist) {
-                    cGameObj_SetTgtTurn(self, *(cVec **)(g + 0xF0), self->speedRate * 0.09817477f);
+                    cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)(g + 0xF0), self->speedRate * 0.09817477f);
                 }
                 if (*(float *)(*(char **)(g + 0xF0) + 4) + 2.0f <
                     *(float *)((char *)self->pos + 4)) {
@@ -167,22 +168,22 @@ __attribute__((section(".text.cEm00_stepCirclePlayer"))) void cEm00_stepCirclePl
             switch ((unsigned char)(Rnd() % 6)) {
                 default:
                 case 0:
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0, (cObj *)self, 0, 0, 0, 0);
                     break;
                 case 1:
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 1, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 1, (cObj *)self, 0, 0, 0, 0);
                     break;
                 case 2:
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 2, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 2, (cObj *)self, 0, 0, 0, 0);
                     break;
                 case 3:
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 3, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 3, (cObj *)self, 0, 0, 0, 0);
                     break;
                 case 4:
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 4, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 4, (cObj *)self, 0, 0, 0, 0);
                     break;
                 case 5:
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 5, self, 0, 0, 0, 0);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, 5, (cObj *)self, 0, 0, 0, 0);
                     break;
             }
         }

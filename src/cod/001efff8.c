@@ -1,27 +1,24 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
-#include "godhand/cDvd.h"
 #include "godhand/cScenario.h"
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
-#include "godhand/cModel.h"
-#include "godhand/cSnd.h"
-#include "godhand/cMovie.h"
-#include "godhand/gameWork.h"
+#include "godhand/cDamageManage.h"
 #include "godhand/globals.h"
 
 extern unsigned int D_00747A84;
 extern void func_0028E858(void);
+extern char D_007474A0[];
 extern void *SearchData(void *name, void *table, int which);
 extern unsigned int D_00747A78;
 extern char *D_005CAFF0;
 extern void func_001582A0(void *self, void *link, float f12, float f13, int a2, int a3, int t0);
 extern void cParts_setRotationOrder(void *self, int order);
-extern char D_00747AC0[];
+extern void cModel_calcParts(void *self);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E28F0(void *obj, float y);
+extern char D_00583F20[];
 extern char D_005E6900[];
 extern void FileLoader_readWholeFile(void *self);
 extern void func_00397128(int a0);
@@ -31,6 +28,7 @@ extern void sceGsResetGraph(int mode, int inter, int omode, int ffmode);
 extern void sceGsSyncV(int mode);
 extern void cDvd_init(void *dvd);
 extern void func_002C9D20(void *snd);
+extern void MoviePool_init(void *res);
 extern void SlotIds_sendSetup(void *card);
 extern void func_0031A718(void *arg);
 extern void func_002BE4E8(void *arg);
@@ -83,9 +81,9 @@ typedef struct MenuObj {
 
 __attribute__((section(".text.cMenu_loadDataTables")))
 void cMenu_loadDataTables(MenuObj *self) {
-    GameWork *sys = &D_007474A0;
-    D_003C23A4->data = SearchData(sys->langData, D_0044B100, 0);
-    D_003C23A4->tex = SearchData(sys->langData, D_0044B100, 1);
+    char *sys = D_007474A0;
+    D_003C23A4->data = SearchData(*(void **)(sys + 0x558), D_0044B100, 0);
+    D_003C23A4->tex = SearchData(*(void **)(sys + 0x558), D_0044B100, 1);
     self->timer = MENU_TIMER_INIT;
     self->state = 0;
 }
@@ -128,30 +126,22 @@ void PartObj_refresh(PartObj *self) {
             }
             cParts_setRotationOrder(self, 4);
         }
-        cModel_calcParts((cModel *)self);
+        cModel_calcParts(self);
     }
 }
 
 /* Create the six damage-give volumes of the object (slots from 0xBB0): each
  * is kind 3 with a unit sphere at the origin of the global D_00747AC0,
  * hit values 0x55 and 100, switched off, with bit 0 of its flags set. */
-typedef struct DmgGive {
-    unsigned int flags;                 /* 0x00 */
-    char unk04[0x42];
-    short hitA;                         /* 0x46 */
-    char unk48[4];
-    int hitB;                           /* 0x4C */
-} DmgGive;
-
 typedef struct GiveOwner {
     char unk000[0xBB0];
-    DmgGive *give[6];                   /* 0xBB0 */
+    cDamageGive *give[6];                   /* 0xBB0 */
 } GiveOwner;
 
 #define GIVE_COUNT      6
 #define GIVE_KIND       3
-#define GIVE_HIT_A      0x55
-#define GIVE_HIT_B      100
+#define GIVE_ATTACK_KIND      0x55
+#define GIVE_POWER      100
 
 
 
@@ -161,20 +151,20 @@ typedef struct GiveOwner {
 __attribute__((section(".text.GiveOwner_createGiveVolumes")))
 void GiveOwner_createGiveVolumes(GiveOwner *self) {
     unsigned int i = 0;
-    DmgGive **slot = self->give;
+    cDamageGive **slot = self->give;
     do {
-        cVec v;
+        float v[4];
         i++;
         *slot = cDamageManage_CreateDamageGive(&D_00574380, GIVE_KIND, 0);
         if (*slot != 0) {
-            v.x = 0.0f;
-            v.y = 0.0f;
-            v.z = 0.0f;
-            v.w = 1.0f;
-            cDamageUnit_AddDamageCollSphere((cDamageUnit *)(*slot), D_00747AC0, &v, 1.0f);
-            (*slot)->hitA = GIVE_HIT_A;
-            (*slot)->hitB = GIVE_HIT_B;
-            cDamageUnit_SetDamageCollActive((cDamageUnit *)(*slot), 0);
+            v[0] = 0.0f;
+            v[1] = 0.0f;
+            v[2] = 0.0f;
+            v[3] = 1.0f;
+            cDamageUnit_AddDamageCollSphere((cDamageUnit *)*slot, &D_00747AC0, (const cVec *)v, 1.0f);
+            (*slot)->kind = GIVE_ATTACK_KIND;
+            (*slot)->power = GIVE_POWER;
+            cDamageUnit_SetDamageCollActive((cDamageUnit *)*slot, 0);
             (*slot)->flags |= 1;
         }
         slot++;
@@ -255,7 +245,7 @@ void Pos_followGround(char *self)
 
 __attribute__((section(".text.System_bringUp")))
 void System_bringUp(void *arg) {
-    GameWork *sys;
+    char *sys;
     int r;
     FileLoader_readWholeFile(arg);
     do {
@@ -267,15 +257,15 @@ void System_bringUp(void *arg) {
     func_00397128(1);
     func_0030ABD8();
     func_00395058();
-    sys = &D_007474A0;
-    if ((sys->mode ^ 1) == 0)
+    sys = D_007474A0;
+    if ((*(int *)(sys + 0x578) ^ 1) == 0)
         sceGsResetGraph(0, 1, 3, 0);
     else
         sceGsResetGraph(0, 1, 2, 0);
     sceGsSyncV(0);
-    cDvd_init(&D_00583F20);
+    cDvd_init(D_00583F20);
     func_002C9D20(&D_005FEE00);
-    MoviePool_init(&D_005E79D0);
+    MoviePool_init(D_005E79D0);
     SlotIds_sendSetup(D_005E6900);
     func_0031A718(arg);
     func_002BE4E8(arg);

@@ -1,12 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cSnd.h"
 #include "godhand/menuCtl.h"
 #include "godhand/cObjPtrArrayWrapper.h"
 #include "godhand/SndSlotInit.h"
 #include "godhand/sync.h"
-#include "godhand/cSnd.h"
 #include "godhand/globals.h"
-
 
 /* Once the current slot's stream header is in, read its format into the slot info and rebuild the page. */
 __attribute__((section(".text.MenuCtl_readSlotStreamInfo")))

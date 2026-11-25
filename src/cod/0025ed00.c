@@ -1,13 +1,13 @@
 #include "godhand/cEm00.h"
-#include "godhand/cObjBase.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -25,6 +25,7 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 
 #include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 
 /* Phase machine on the step byte, 58 case labels. Calls VU0_SQC2_VF0,
@@ -32,6 +33,7 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
  * more. */
 __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
 {
+    char *s3 = (char *)self;
     cEffectParam s;
     int s2;
     int s1;
@@ -60,32 +62,32 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
     s.unk50 = 0;
     VU0_SQC2_VF0(&s, 0x60);
     s.unk70 = 0;
-    s.size = self->scale.y;
+    s.size = *(float *)(s3 + 0x114);
     s.unk72 = 0;
     s.unk74 = 0;
     s.unk78 = 0;
-    switch (self->step) {
+    switch (*(unsigned char *)(s3 + 0x2F6)) {
         case 0:
-            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            switch (self->emNo) {
+            nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s3) & 0xFFFF;
+            switch (*(int *)(s3 + 0x564)) {
                 default:
-                    if ((self->seqFlags & 0x200) != 0) {
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
                         if ((irand() & 1) != 0) {
-                            int b = EM_RES(self);
+                            int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x380);
                             s1 = EM_RES_REC(b, 0x384);
                         } else {
-                            int b = EM_RES(self);
+                            int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x388);
                             s1 = EM_RES_REC(b, 0x38C);
                         }
                     } else {
                         if ((irand() & 1) != 0) {
-                            int b = EM_RES(self);
+                            int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x370);
                             s1 = EM_RES_REC(b, 0x374);
                         } else {
-                            int b = EM_RES(self);
+                            int b = *(int *)(s3 + 0x304);
                             s2 = EM_RES_REC(b, 0x378);
                             s1 = EM_RES_REC(b, 0x37C);
                         }
@@ -103,59 +105,59 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
                 case 0x24F:
                 case 0x278:
                 case 0x279:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xB44);
                         s1 = EM_RES_REC(b, 0xB48);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xB3C);
                         s1 = EM_RES_REC(b, 0xB40);
                     }
                     break;
                 case 0x250:
                 case 0x251:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xB44);
                         s1 = EM_RES_REC(b, 0xB48);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xB3C);
                         s1 = EM_RES_REC(b, 0xB40);
                     }
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0,
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x23), (cObj *)self, 0, 0,
                                        0, 0);
                     break;
                 case 0x260:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xB44);
                         s1 = EM_RES_REC(b, 0xB48);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xB3C);
                         s1 = EM_RES_REC(b, 0xB40);
                     }
                     break;
                 case 0x264:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x326C);
                         s1 = EM_RES_REC(b, 0x3270);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x326C);
                         s1 = EM_RES_REC(b, 0x3270);
                     }
                     break;
                 case 0x265:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x3818);
                         s1 = EM_RES_REC(b, 0x381C);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x3818);
                         s1 = EM_RES_REC(b, 0x381C);
                     }
@@ -166,24 +168,24 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
                 case 0x208:
                 case 0x224:
                 case 0x241:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x17B8);
                         s1 = EM_RES_REC(b, 0x17BC);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x17B0);
                         s1 = EM_RES_REC(b, 0x17B4);
                     }
                     break;
                 case 0x209:
                 case 0x21F:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x17B8);
                         s1 = EM_RES_REC(b, 0x17BC);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x17B0);
                         s1 = EM_RES_REC(b, 0x17B4);
                     }
@@ -197,12 +199,12 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
                 case 0x272:
                 case 0x273:
                 case 0x274:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xF6C);
                         s1 = EM_RES_REC(b, 0xF70);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0xF64);
                         s1 = EM_RES_REC(b, 0xF68);
                     }
@@ -224,48 +226,48 @@ __attribute__((section(".text.func_0025ED00"))) void func_0025ED00(cEm00 *self)
                 case 0x24E:
                 case 0x252:
                 case 0x25A:
-                    if ((self->seqFlags & 0x200) != 0) {
-                        int b = EM_RES(self);
+                    if ((*(unsigned short *)(s3 + 0x3AC) & 0x200) != 0) {
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x1398);
                         s1 = EM_RES_REC(b, 0x139C);
                     } else {
-                        int b = EM_RES(self);
+                        int b = *(int *)(s3 + 0x304);
                         s2 = EM_RES_REC(b, 0x1390);
                         s1 = EM_RES_REC(b, 0x1394);
                     }
                     break;
             }
-            func_002A8578(self, s2, s1, 5, 0.0f, nb, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 8), self, 0, 0, 0, 0);
-            switch (self->emNo) {
+            func_002A8578(s3, s2, s1, 5, 0.0f, nb, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 8), (cObj *)self, 0, 0, 0, 0);
+            switch (*(int *)(s3 + 0x564)) {
                 case 0x207:
                 case 0x240:
                 case 0x249:
                 case 0x24A:
                 case 0x24E:
-                    SetEffect(0x58, 0x9F, self, &s, -1, 0xFFFFFFFF);
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x22), self, 0, 0,
+                    SetEffect(0x58, 0x9F, (cObj *)self, &s, -1, EFFECT_FOLLOW_OWNER);
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s3) + 0x22), (cObj *)self, 0, 0,
                                        0, 0);
                     break;
             }
-            self->step += 1;
+            *(unsigned char *)(s3 + 0x2F6) += 1;
             /* fallthrough */
         case 1:
-            if (moveMotion(self) != 0) {
-                if ((self->flags1644 & 0x800000) != 0) {
-                    self->mode = 2;
-                    self->phase = 3;
-                    self->step = 0;
-                    self->stepArg = 0;
+            if (moveMotion(s3) != 0) {
+                if ((*(int *)(s3 + 0x1644) & 0x800000) != 0) {
+                    *(signed char *)(s3 + 0x2F4) = 2;
+                    *(signed char *)(s3 + 0x2F5) = 3;
+                    *(signed char *)(s3 + 0x2F6) = 0;
+                    *(signed char *)(s3 + 0x2F7) = 0;
                 } else {
-                    self->mode = 2;
-                    self->phase = 2;
-                    self->step = 0;
-                    self->stepArg = 0;
+                    *(signed char *)(s3 + 0x2F4) = 2;
+                    *(signed char *)(s3 + 0x2F5) = 2;
+                    *(signed char *)(s3 + 0x2F6) = 0;
+                    *(signed char *)(s3 + 0x2F7) = 0;
                 }
             } else {
-                cObjBase_addNullSpeed_Rotation(self, 1.0f);
-                cObjBase_addNullSpeed(self, 1.0f);
+                cObjBase_addNullSpeed_Rotation(s3, 1.0f);
+                cObjBase_addNullSpeed(s3, 1.0f);
             }
             break;
     }

@@ -1,64 +1,43 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/fpu.h"
-#include "godhand/cOmBase.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/sceVu0.h"
 
-extern int func_00136A88(cVec *a, cVec *b, float *reach);
-
-static __inline__ float cVec_dist(cVec *a, cVec *b)
-{
-    float dx = b->x - a->x;
-    float dy = b->y - a->y;
-    float dz = b->z - a->z;
-    float d;
-
-    FPU_SQRT_S(d, dx * dx + dy * dy + dz * dz);
-    return d;
-}
-
-/* One collision unit in the manager's list. */
-typedef struct cCollUnit {
-    cOmBase *owner;                     /* 0x00 */
-    int unk04;                          /* 0x04 */
-    int priority;                       /* 0x08 */
-    float share;                        /* 0x0C */
-    struct cCollUnit *next;             /* 0x10 */
-} cCollUnit;
-
-/* A solid body with its reference point past the common record. */
-typedef struct cCollisionSolidPt {
-    cCollisionSolidObj base;            /* 0x000 */
-    char unk74[0x10C];
-    cVec point;                         /* 0x180 */
-} cCollisionSolidPt;
-
-/* Push unit a's owner out of unit b's solid in the ground plane; 0 when they do not touch. The
- * root in cVec_dist is FPU_SQRT_S: with __builtin_sqrtf cc1 schedules the reach load and the
- * zero into the root's pad and inverts the return test. mgr, the collision manager its callers
- * pass, is not read. */
-__attribute__((section(".text.func_00135040")))
-int func_00135040(void *mgr, cCollUnit *ua, cCollisionSolidPt *sa, cCollUnit *ub,
-                  cCollisionSolidPt *sb)
+/* Box against box: when they overlap, push ua's owner away from b along the
+ * line between their centers, in x and z only. Returns 1 on contact. self is
+ * not read. */
+__attribute__((section(".text.cCollisionSolidManage_pushBoxBox")))
+int cCollisionSolidManage_pushBoxBox(cCollisionSolidManage *self, cCollisionSolidManageUnit *ua,
+                                     cCollisionSolidBox *a, cCollisionSolidManageUnit *ub,
+                                     cCollisionSolidBox *b)
 {
     cVec push;
     float reach;
-    cVec *pa = &sa->point;
-    cVec *pb = &sb->point;
+    cCollisionSolidBoxWorld *pa = &a->world;
+    cCollisionSolidBoxWorld *pb = &b->world;
+    float dx;
+    float dy;
+    float dz;
+    float dist;
     float depth;
     float keep;
 
     if (func_00136A88(pa, pb, &reach) == 0) {
         return 0;
     }
-    depth = reach - cVec_dist(pa, pb);
+    dx = pb->center.x - pa->center.x;
+    dy = pb->center.y - pa->center.y;
+    dz = pb->center.z - pa->center.z;
+    FPU_SQRT_S(dist, dx * dx + dy * dy + dz * dz);
+    depth = reach - dist;
     if (depth <= 0.0f) {
         return 0;
     }
     if (ua->priority == 0) {
         return 1;
     }
-    sceVu0SubVector(&push, pa, pb);
+    sceVu0SubVector(&push, &pa->center, &pb->center);
     sceVu0Normalize(&push, &push);
     sceVu0ScaleVector(&push, &push, depth);
     if (ua->priority == ub->priority) {

@@ -26,7 +26,6 @@ typedef struct JumpFrame {
 } JumpFrame;
 
 extern cSceAtManager D_005FEA60;
-extern float Turn_dest(void *from, void *to, float angle, float limit);
 
 /* Starts a jump when the enemy faces its target and a jump point lies ahead of it.
  * Returns 1 when the jump starts. */
@@ -46,7 +45,7 @@ int func_0024BDA0(cEm00 *self)
         return 0;
     }
     VU0_SQC2_VF0_MEM(&f.point, 0);
-    turn = Turn_dest(&self->posA, &self->unk16A0, self->rot.y, 3.1415927f);
+    turn = Turn_dest(&self->posA.x, self->rot.y, &self->unk16A0.x, 3.1415927f);
     if (turn < 0.0f) {
         off = -turn;
     } else {

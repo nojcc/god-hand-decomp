@@ -2,6 +2,7 @@
 #include "godhand/cIDBaseScreen.h"
 #include "godhand/IDPanelScreen.h"
 #include "godhand/globals.h"
+#include "godhand/cIDBaseScreenFn.h"
 extern int D_0044F078;
 extern int D_0044F1C8;
 extern int D_0044FCF8;

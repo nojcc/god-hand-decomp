@@ -4,16 +4,19 @@
  * get-up motion, step 1 and 3 wait for it to end. */
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/player.h"
 
+extern int moveMotion(void *a0);
+extern void *Getplayer(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern void func_00281470(int a0, unsigned char a1);
+extern void func_00283378(int a0, unsigned char a1);
 
 
 
 __attribute__((section(".text.cEm00_stepGetUp")))
 void cEm00_stepGetUp(cEm00 *self)
 {
-    cGameObj *player;
+    void *player;
     int motion;
 
     player = Getplayer();
@@ -28,8 +31,8 @@ void cEm00_stepGetUp(cEm00 *self)
         p1 = EM_RES_REC(res, 0x3E34);
         p2 = EM_RES_REC(res, 0x3E38);
         self->emFlags = self->emFlags & 0xFEFFFFFF;
-        *(int *)&self->unk16F4 = 0;
-        func_002A8578(self, p1, p2, 2, self->unk16F4, motion, 0);
+        *(int *)&self->neckYaw = 0;
+        func_002A8578(self, p1, p2, 2, self->neckYaw, motion, 0);
         if (self->sub0 != 0) {
             func_00281470(self->sub0, 0);
         }
@@ -71,8 +74,8 @@ void cEm00_stepGetUp(cEm00 *self)
         res = EM_RES(self);
         p1 = EM_RES_REC(res, 0x3E3C);
         p2 = EM_RES_REC(res, 0x3E40);
-        *(int *)&self->unk16F4 = 0;
-        func_002A8578(self, p1, p2, 2, self->unk16F4, motion, 0);
+        *(int *)&self->neckYaw = 0;
+        func_002A8578(self, p1, p2, 2, self->neckYaw, motion, 0);
         if (self->sub0 != 0) {
             func_00281470(self->sub0, 1);
         }

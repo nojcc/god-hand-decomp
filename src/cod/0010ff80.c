@@ -1,7 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/vu0.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/motion.h"
 
 extern void func_00126770(void *a0);
@@ -26,7 +27,7 @@ void func_0010FF80(pl00 *self)
     cVec *obj2;
     float k;
     float one;
-    char *t;
+    int t;
 
     VU0_SQC2_VF0(b, 0);
     switch (self->base.step) {
@@ -43,7 +44,7 @@ void func_0010FF80(pl00 *self)
             s1->y = src[1];
             s1->z = src[2];
         }
-        t = self->base.pack;
+        t = EM_RES(&self->base);
         /* Called as int-returning: the $v0 def steers obj and d into v1 and a0. */
         ((int (*)(void *, int, int, int, float, int, int))func_002A8578)(
             self, EM_RES_REC(t, 0x20C), EM_RES_REC(t, 0x6DC), 3, 15.0f, 0, 0);

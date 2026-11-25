@@ -6,6 +6,7 @@
 
 #ifdef NON_MATCHING
 #include "godhand/cEm00.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/sceVu0.h"
 #include "godhand/player.h"
 

@@ -5,7 +5,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
-#include "godhand/pl00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/cBgmData.h"
 #include "godhand/globals.h"
 

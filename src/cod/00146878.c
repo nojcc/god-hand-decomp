@@ -1,11 +1,12 @@
-#include "godhand/idPair.h"
+#include "godhand/cCockScroll.h"
 
-/* Reset the banner, empty its queue and restart the first part's animation. */
+extern void cIDBase_restartAnim(void *);
+
 __attribute__((section(".text.func_00146878")))
-void func_00146878(IdPair *self)
+void func_00146878(cCockScroll *self)
 {
-    IdPair_init(self);
+    cCockScroll_reset(self);
     self->count = 0;
-    cIDBase_restartAnim(&self->base);
+    cIDBase_restartAnim(self);
     self->base.playing = 1;
 }

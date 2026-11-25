@@ -2,6 +2,13 @@
 #include "godhand/Poker.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+extern void Poker_releaseIds(Poker *self);
+extern void IdScreen_loadIdData(Poker *self);
+extern void PokerId_Move(Poker *self);
+extern void PokerId__Trans(Poker *self);
+extern void func_001DD238(Poker *self, int number);
+extern void func_001DD340(Poker *self);
+extern void SetCustomIDNumberIndexed_1DD648(Poker *self, unsigned int a1, int a2);
 
 typedef struct PokerSuitIds {
     int w[POKER_SUIT_NUM];

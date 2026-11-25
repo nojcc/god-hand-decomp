@@ -7,11 +7,9 @@ extern void func_001B6FB8(void *a0);
 extern int cModel_getMeshPtr(void *a0, int a1);
 
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cModel.h"
-#include "godhand/vu0.h"
 #include "godhand/cSnd.h"
+#include "godhand/vu0.h"
 
 
 
@@ -74,10 +72,10 @@ void func_00180140(char *p)
             int lim = 1;
             int b2;
             unsigned char ok2;
-            char *e2;
+            cOmBase *e2;
             ok2 = ((*(int *)hold = b2 = *(unsigned char *)(p + 0x2B4)), (lim < b2));
-            if (ok2) e2 = *(char **)(*(char **)(p + 0x278) + 4); else e2 = 0;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xDF, p, 0, e2, 0, 0);
+            if (ok2) e2 = (*(cOmBase ***)(p + 0x278))[1]; else e2 = 0;
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xDF, (cObj *)p, 0, (cParts *)e2, 0, 0);
         }
         p[0xA28] = 1;
         p[0x2F5] = 1;
@@ -107,6 +105,8 @@ void func_00180140(char *p)
 }
 
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/vu0.h"
+#include "godhand/cDamageManage.h"
 
 
 
@@ -169,10 +169,10 @@ void func_0017FF68(char *p)
             int lim = 1;
             int b2;
             unsigned char ok2;
-            char *e2;
+            cOmBase *e2;
             ok2 = ((*(int *)hold = b2 = *(unsigned char *)(p + 0x2B4)), (lim < b2));
-            if (ok2) e2 = *(char **)(*(char **)(p + 0x278) + 4); else e2 = 0;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xDF, p, 0, e2, 0, 0);
+            if (ok2) e2 = (*(cOmBase ***)(p + 0x278))[1]; else e2 = 0;
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xDF, (cObj *)p, 0, (cParts *)e2, 0, 0);
         }
         p[0xA28] = 1;
         p[0x2F5] = 1;

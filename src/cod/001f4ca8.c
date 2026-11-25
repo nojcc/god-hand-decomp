@@ -1,7 +1,7 @@
 /* sn-2.95.3-136: func_001F4CA8, set one of the seven custom ID item boxes: its UV rectangle,
  * the value func_002D6578 takes and its x position, by box mode and by D_00747A0C. */
 #include "godhand/CustomIDWork.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 
 extern int D_00747A0C;
 

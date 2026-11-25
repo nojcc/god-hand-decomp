@@ -73,9 +73,9 @@ void func_00231AC0(cEm00 *self)
             recB = RES(0x34EC);
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x34F0);
-                InitRenderStruct_2A8608((cGameObj *)self, 0x61, 0x14, 0, 2, self->fx5);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x61, 0x14, 0, 2, self->weapon375);
             } else {
-                InitRenderStruct_2A8608((cGameObj *)self, 0x61, 0x13, 0, 2, self->fx5);
+                InitRenderStruct_2A8608((cGameObj *)self, 0x61, 0x13, 0, 2, self->weapon375);
             }
             self->timer3 = 16.0f;
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
@@ -190,7 +190,7 @@ void func_00231AC0(cEm00 *self)
         if (self->timerA != 0) {
             self->timerA--;
             from = self->pos;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.196349546f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.196349546f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;
@@ -218,9 +218,9 @@ void func_00231AC0(cEm00 *self)
         }
         func_002A8578(self, recA, recB, 3, 0.0f, sel, 0);
         if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0x18, 0, 2, self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0x18, 0, 2, self->weapon375);
         } else {
-            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0x17, 0, 2, self->fx5);
+            InitRenderStruct_2A8608((cGameObj *)self, 0x77, 0x17, 0, 2, self->weapon375);
         }
         self->timerA = 30;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
@@ -247,7 +247,7 @@ void func_00231AC0(cEm00 *self)
         if (self->timerA != 0) {
             self->timerA--;
             from = self->pos;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.196349546f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.196349546f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;

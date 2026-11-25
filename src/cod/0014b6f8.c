@@ -1,7 +1,7 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 #include "godhand/objField.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 __attribute__((section(".text.CopyVec3ToField20_173908")))
 void CopyVec3ToField20_173908(char *a0, float *a1) {

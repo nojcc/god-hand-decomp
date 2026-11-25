@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/motion.h"
 #include "godhand/player.h"
 
@@ -53,7 +53,7 @@ void func_00114120(pl00 *self)
         cHeatSys *hs = &D_005CB000;
         if (hs->mode == 0) {
             cHeatSys_SetHeatMode(hs, 1);
-            self->flags15F4 = (self->flags15F4 | 0x10) & ~0x20;
+            self->unk15F4 = (self->unk15F4 | 0x10) & ~0x20;
             CallWithAndClearField698_12AC28(self);
             func_0012B928(self);
         }

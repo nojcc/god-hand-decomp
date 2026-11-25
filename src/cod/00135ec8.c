@@ -1,10 +1,8 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/sceVu0.h"
 
 extern float sceVu0InnerProduct(void *a0, void *a1);
 extern float func_00156AC0(void *a0, void *a1, void *a2);
-
-#include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
 
 
 

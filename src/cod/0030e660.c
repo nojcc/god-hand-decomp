@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 */
-#include "godhand/eeKernel.h"
+#include "godhand/eeKernelFn.h"
 #include "godhand/globals.h"
 
 typedef unsigned char u_char;

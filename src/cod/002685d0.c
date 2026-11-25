@@ -13,12 +13,12 @@ extern unsigned char D_005864F0[];
 
 #include "godhand/vu0.h"
 #include "godhand/cObjBase.h"
-#include "godhand/cEm00.h"
 
 
 __attribute__((section(".text.func_002685D0")))
-void func_002685D0(cEm00 *self)
+void func_002685D0(void *a0)
 {
+    char *s0 = (char *)a0;
     cEffectParam s;
     int s1;
 
@@ -46,34 +46,34 @@ void func_002685D0(cEm00 *self)
     s.unk50 = 0;
     VU0_SQC2_VF0(&s, 0x60);
     s.unk70 = 0;
-    s.size = self->scale.y;
+    s.size = *(float *)(s0 + 0x114);
     s.unk72 = 0;
     s.unk74 = 0;
     s.unk78 = 0;
     s1 = 0;
-    if (self->emNo < 0x216) {
-        s1 = (self->emNo >= 0x214);
+    if (*(int *)(s0 + 0x564) < 0x216) {
+        s1 = (*(int *)(s0 + 0x564) >= 0x214);
     }
     if (cEmManage_DarkWorldCk(&D_005864F0) != 0 || s1 != 0) {
-        if ((self->emFlags & 0x100) == 0) {
-            self->emFlags = self->emFlags | 0x100;
-            switch (self->emNo) {
+        if ((*(int *)(s0 + 0x16D0) & 0x100) == 0) {
+            *(int *)(s0 + 0x16D0) = *(int *)(s0 + 0x16D0) | 0x100;
+            switch (*(int *)(s0 + 0x564)) {
             case 0x200: default:
-                SetEffect(0x58, 0xB, self, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xB, a0, &s, 4, EFFECT_FOLLOW_OWNER);
                 break;
             case 0x205: case 0x206: case 0x207: case 0x224: case 0x241:
-                SetEffect(0x58, 0xD, self, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xD, a0, &s, 4, EFFECT_FOLLOW_OWNER);
                 break;
             case 0x20F: case 0x210: case 0x226:
-                SetEffect(0x58, 0xE, self, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xE, a0, &s, 4, EFFECT_FOLLOW_OWNER);
                 break;
             case 0x20A: case 0x20C: case 0x20D: case 0x245: case 0x247: case 0x24F:
-                SetEffect(0x58, 0xC, self, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0xC, a0, &s, 4, EFFECT_FOLLOW_OWNER);
                 break;
             case 0x21A: case 0x21B: case 0x21D: case 0x21E: case 0x225: case 0x22C:
             case 0x22D: case 0x22E: case 0x22F: case 0x248: case 0x249: case 0x24C:
             case 0x24D: case 0x24E: case 0x25A:
-                SetEffect(0x58, 0x6D, self, &s, 4, 0xFFFFFFFFu);
+                SetEffect(0x58, 0x6D, a0, &s, 4, EFFECT_FOLLOW_OWNER);
                 break;
             case 0x208: case 0x209: case 0x20B: case 0x20E: case 0x211: case 0x213:
             case 0x214: case 0x215: case 0x217: case 0x21C: case 0x21F: case 0x220:
@@ -85,9 +85,9 @@ void func_002685D0(cEm00 *self)
             }
         }
     } else {
-        if ((self->emFlags & 0x100) != 0) {
-            self->emFlags = self->emFlags & 0xFFFFFEFF;
-            KillEffect(self, 4, 2);
+        if ((*(int *)(s0 + 0x16D0) & 0x100) != 0) {
+            *(int *)(s0 + 0x16D0) = *(int *)(s0 + 0x16D0) & 0xFFFFFEFF;
+            KillEffect(s0, 4, 2);
         }
     }
 }

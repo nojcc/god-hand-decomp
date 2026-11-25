@@ -1,5 +1,5 @@
-#include "godhand/gameWork.h"
 #include "godhand/cSnd.h"
+#include "godhand/gameWork.h"
 extern void func_001645E0(char *self);
 
 __attribute__((section(".text.func_00164238")))

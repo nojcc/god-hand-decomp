@@ -1,10 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
+extern void cNode_setLocalTranslation(void *self, void *v);
+extern void LinkObj_callLockOn(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/vu0.h"
-#include "godhand/espSys.h"
-#include "godhand/cNode.h"
 #include "godhand/cObjBase.h"
 
 
@@ -75,7 +75,7 @@ void func_00280BE0(char *p, char *par, int idx, float *v0p, float *v1p)
     cpy3((float *)(p + 0x15A0), v1p);
     cpy3((float *)(p + 0x110), (float *)(par + 0x110));
     s.size = *(float *)(p + 0x114);
-    SetEffect(0xC2, 1, p, &s, 1, 0xFFFFFFFFu);
+    SetEffect(0xC2, 1, (cObj *)p, &s, 1, EFFECT_FOLLOW_OWNER);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -130,7 +130,7 @@ void func_002F9E80(char *this)
         char *r = *(char **)(this + 0x110);
         vc[1] = vc[1] + *(float *)(r + 0x140);
     }
-    cNode_setLocalTranslation((cNode *)this, (cVec *)vc);
+    cNode_setLocalTranslation(this, vc);
     d = v[1] - vc[1];
     lim = *(float *)(this + 0x2B8);
     sv = *(float *)(this + 0x194);
@@ -140,6 +140,6 @@ void func_002F9E80(char *this)
         fac = one - (d - lim) / *(float *)(this + 0x2BC);
     }
     *(float *)(this + 0x194) = *(float *)(this + 0x194) * fac;
-    LinkObj_callLockOn((EspAnim *)this);
+    LinkObj_callLockOn(this);
     *(float *)(this + 0x194) = sv;
 }

@@ -1,31 +1,33 @@
 #define COBJBASE_NO_TYPEDEF
-#include "godhand/cDamageManage.h"
-#include "godhand/Poker.h"
-#include "godhand/criStm.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cObjBase.h"
-#include "godhand/cGameObj.h"
-#include "godhand/cDvd.h"
-#include "godhand/DispMgr.h"
 #include "godhand/cSnd.h"
+#include "godhand/DispMgr.h"
 #include "godhand/cIDBase.h"
-#include "godhand/heapArena.h"
-#include "godhand/cCamManager.h"
+#include "godhand/cDamageManage.h"
 #include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern char D_0041EBE8[];
 extern void *cObj__ctor(void *self);
+extern void func_003A52F0(void *dst, int val, int n);
 extern void cObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
+extern int D_00754230;
+extern void func_002A94F0(void *a0);
 extern int D_004292F0;
 extern void *InitFields_1B6E90(void *a0);
 extern int D_007859B8;
 extern int D_00785878;
 extern void GetOrInitGlobal785878_1B8058(void);
-extern void cIDBase_initEntry(void *a0, int a1, void *a2);
 extern void func_002B64C0(int a0);
+extern void SetCustomIDDispOneOrAll_1DD258(int a0, int a1, int a2);
 extern void cScenario_sleepFrames(int a0);
+extern int cDvd_Check(int a0, int a1);
+extern void func_001FE370(cDamageManage *a0, int a1);
+extern void *D_005CAFF0;
+extern void func_00138CA8(void *a0, void *a1, void *a2, int a3);
 
 __attribute__((section(".text.func_001D6D20")))
 void func_001D6D20(int a0, int a1) {
@@ -60,7 +62,7 @@ void func_002D5080(long long *a0, int *a1, int *a2) {
 __attribute__((section(".text.cObjBase")))
 struct cObjBase *cObjBase(struct cObjBase *self) {
     cObj__ctor(self);
-    self->vtable = D_0041EBE8;
+    self->vtable = (cVtEnt *)D_0041EBE8;
     VU0_SQC2_VF0(self, 0x310);
     VU0_SQC2_VF0(self, 0x320);
     VU0_SQC2_VF0(self, 0x330);
@@ -140,11 +142,11 @@ void *cGameObj__tf(void)
 }
 
 __attribute__((section(".text.cIDBase_initIDWork")))
-void cIDBase_initIDWork(void *self, int idx)
+void cIDBase_initIDWork(void *a0, int idx)
 {
-    void *work = cIDBase_getIDWork(self, idx);
-    if (work != 0) {
-        cIDBase_initEntry(self, *(int*)((char*)work + 0x1C), work);
+    cIDBaseEnt *ent = cIDBase_getIDWork(a0, idx);
+    if (ent != 0) {
+        cIDBase_initEntry(a0, ent->src, ent);
     }
 }
 
@@ -178,7 +180,7 @@ int func_00380AE8(int a0, int a1) {
 __attribute__((section(".text.func_00126770")))
 void func_00126770(char *a0) {
     char *s1 = a0;
-    cSnd *snd;
+    cSnd *s0;
     int v0, v1;
     int x;
     x = *(int *)(s1 + 0x165C);
@@ -186,54 +188,54 @@ void func_00126770(char *a0) {
         cActionButtonUnit_setExit(x);
         *(int *)(s1 + 0x165C) = 0;
     }
-    snd = &D_005FEE00;
-    cSnd_SeStop(snd, *(int *)(s1 + 0x161C));
+    s0 = &D_005FEE00;
+    cSnd_SeStop(s0, *(int *)(s1 + 0x161C));
     *(int *)(s1 + 0x161C) = 0;
-    v0 = snd->flagsB0;
-    v1 = snd->flagsAC;
+    v0 = s0->flagsB0;
+    v1 = s0->flagsAC;
     v0 &= 0xFFBFFFFF;
     v1 &= 0xFFBFFFFF;
-    snd->flagsB0 = v0;
-    snd->flagsAC = v1;
-    cSnd_SeStop(snd, *(int *)(s1 + 0x1620));
+    s0->flagsB0 = v0;
+    s0->flagsAC = v1;
+    cSnd_SeStop(s0, *(int *)(s1 + 0x1620));
     *(int *)(s1 + 0x1620) = 0;
 }
 
 __attribute__((section(".text.func_00143A90")))
-void func_00143A90(DispMgrGold *self) {
-    if (self->num != 0) {
+void func_00143A90(cCockPrintData *self) {
+    if (self->work[0] != 0) {
         self->gold = cCoreSave_getGold(&D_00569B70);
-        self->num->seed = cCoreSave_getGold(&D_00569B70);
+        self->work[0]->number = cCoreSave_getGold(&D_00569B70);
         cCoreSave_initAddGold(&D_00569B70);
     }
 }
 
 __attribute__((section(".text.func_001DD5A0")))
-void func_001DD5A0(Poker *self, int a1) {
-    SetCustomIDDispOneOrAll_1DD258(self, 0x25, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x26, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x27, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x28, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x29, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x2A, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x2B, a1);
-    SetCustomIDDispOneOrAll_1DD258(self, 0x2C, a1);
+void func_001DD5A0(int a0, int a1) {
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x25, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x26, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x27, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x28, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x29, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x2A, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x2B, a1);
+    SetCustomIDDispOneOrAll_1DD258(a0, 0x2C, a1);
 }
 
 __attribute__((section(".text.cDvd_CheckWaitFrame")))
-void cDvd_CheckWaitFrame(cDvd *self, int id) {
-    while (cDvd_Check(self, id) != 0) {
+void cDvd_CheckWaitFrame(int a0, int a1) {
+    while (cDvd_Check(a0, a1) != 0) {
         cScenario_sleepFrames(1);
     }
     cScenario_sleepFrames(1);
 }
 
 __attribute__((section(".text.func_0028EB88")))
-void func_0028EB88(struct cGameObj *self, int flags) {
-    self->vtable = D_0044A660;
-    func_001FE370(&D_00574380, self);
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, self);
-    cGameObj__dtor(self, flags);
+void func_0028EB88(int a0, int a1) {
+    *(int **)((char *)a0 + 0x214) = &D_0044A660;
+    func_001FE370(&D_00574380, a0);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (cGameObj *)a0);
+    cGameObj__dtor((struct cGameObj *)a0, a1);
 }
 
 __attribute__((section(".text.func_002B4768")))
@@ -245,17 +247,23 @@ void func_002B4768(int a0, int a1, int a2) {
     *(int *)a2 = *(int *)a2 + (v0 << 1);
 }
 
-/* Make the parts camera current, saving the previous camera and mode. */
 __attribute__((section(".text.cCamManager_setPartsCamera")))
-void cCamManager_setPartsCamera(cCamManager *self, unsigned char blend)
+void cCamManager_setPartsCamera(void *a0, int a1)
 {
-    if (self->mode != CAMMGR_MODE_PARTS && self->mode != CAMMGR_MODE_HOLD) {
-        if (blend) {
-            func_00138CA8(self, &self->parts, D_005CAFF0, blend);
-        }
-        self->prevMode = self->mode;
-        self->prevCamera = (struct cCamera *)CAMMGR_CUR_CAMERA_WORD;
-        D_005CAFF0 = &self->parts;
-        self->mode = CAMMGR_MODE_PARTS;
+    void *s0 = a0;
+    int a3 = a1 & 0xFF;
+    int v1 = *(int*)((char*)s0 + 0x1028);
+    void *s2;
+    if (v1 == 0x40)
+        return;
+    if (v1 == 0x10)
+        return;
+    s2 = (char*)s0 + 0x920;
+    if (a3 != 0) {
+        func_00138CA8(s0, s2, D_005CAFF0, a3);
     }
+    *(int*)((char*)s0 + 0x102C) = *(int*)((char*)s0 + 0x1028);
+    *(void**)((char*)s0 + 0xFF0) = D_005CAFF0;
+    D_005CAFF0 = s2;
+    *(int*)((char*)s0 + 0x1028) = 0x40;
 }

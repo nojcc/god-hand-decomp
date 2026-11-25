@@ -2,7 +2,7 @@
 
 #include "godhand/cEvent.h"
 #include "godhand/cDvd.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/globals.h"
 

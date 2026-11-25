@@ -1,12 +1,12 @@
 #include "godhand/cModel.h"
-#include "godhand/cIDBase.h"
-#include "godhand/idPair.h"
-#include "godhand/heapArena.h"
 #include "godhand/cCockTutorial.h"
+#include "godhand/cCockScroll.h"
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
 extern char D_0041DCC8[];
+extern void __builtin_delete(void);
+extern void cIDBase_trans(void *);
 
 /* Start a tutorial message once the pack is loaded: remember the message
  * number, raise the flag byte and hide entries 5 and 6. */
@@ -42,17 +42,16 @@ __attribute__((section(".text.InitPtrField80AndForward_146748")))
 void InitPtrField80AndForward_146748(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete(a0);
+        __builtin_delete();
     }
 }
 
-/* Draw the banner part on show (the second one while altQueue[0] is set), unless the banner is idle (step 0 or 6). */
+/* cCockScroll's draw: while the banner runs, draw the part on show. */
 __attribute__((section(".text.ForwardTransBySubState_146E20")))
-void ForwardTransBySubState_146E20(IdPair *self) {
-    char v1 = self->state[0];
-    if (v1 == 0) return;
-    if (v1 == 6) return;
-    if (self->altQueue[0] == 0) {
+void ForwardTransBySubState_146E20(cCockScroll *self) {
+    if (self->state[0] == COCKSCROLL_STEP_WAIT) return;
+    if (self->state[0] == COCKSCROLL_STEP_POP) return;
+    if (self->kindQueue[0] == 0) {
         cIDBase_trans(&self->base);
     } else {
         cIDBase_trans(&self->part2);
@@ -63,7 +62,7 @@ __attribute__((section(".text.InitPtrField80AndForward_146E70")))
 void InitPtrField80AndForward_146E70(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete(a0);
+        __builtin_delete();
     }
 }
 
@@ -71,6 +70,6 @@ __attribute__((section(".text.InitPtrField80AndForward_146F98")))
 void InitPtrField80AndForward_146F98(void *a0, int a1) {
     *(char **)((char *)a0 + 0x80) = D_0041DCC8;
     if (a1 & 1) {
-        __builtin_delete(a0);
+        __builtin_delete();
     }
 }

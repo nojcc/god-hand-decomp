@@ -1,8 +1,8 @@
 /* include/godhand/pl00.h - pl00, the player object.
  *
  * pl00 derives from cGameObj. Past the base part it keeps the objects that
- * fight beside the player in a row of pointers at 0x698 and 0x6A0, and the
- * weapon it holds at 0x6A8; the player forwards the state changes that concern
+ * fight beside the player: three of them sit in a row of pointers at 0x698,
+ * 0x6A0 and 0x6A8, and the player forwards the state changes that concern
  * them (suspend, for one) through their method table at 0x214.
  *
  * Only the fields the methods drawn so far touch are named. Offsets are
@@ -25,20 +25,19 @@ typedef struct pl00VtEnt {
 #define PL00_VT_SETSUSPEND  12
 
 struct cEm00;
-struct cOmWeapon;
 
 typedef struct pl00 {
     cGameObj base;
     char unk5B0[0x5D8 - 0x5B0];
     int unk5D8;                         /* 0x5D8 */
     float unk5DC;                       /* 0x5DC */
-    unsigned short comboSlot;           /* 0x5E0 slot of the combo being run; cleared with comboSet when a state starts */
+    unsigned short comboSlot;           /* 0x5E0 slot of the combo being run */
     unsigned short comboSet;            /* 0x5E2 combo set */
     unsigned short comboTicks;          /* 0x5E4 cleared when a combo starts */
     unsigned short comboStage;          /* 0x5E6 cleared when a combo starts */
     char unk5E8[0x5F0 - 0x5E8];
     short unk5F0;                       /* 0x5F0 */
-    unsigned short unk5F2;              /* 0x5F2 */
+    unsigned short unk5F2;              /* 0x5F2 style: func_001269E0 picks each motion's records by it */
     char unk5F4[0x600 - 0x5F4];
     float unk600;                       /* 0x600 */
     float unk604;                       /* 0x604 */
@@ -46,7 +45,7 @@ typedef struct pl00 {
     float unk60C;                       /* 0x60C */
     char unk610[0x61E - 0x610];
     unsigned char unk61E;               /* 0x61E */
-    unsigned char unk61F;               /* 0x61F while set, the hit countdown at 0x568 also sets flags15F4 bit 0x8000 */
+    unsigned char unk61F;               /* 0x61F while set, the hit countdown at 0x568 also sets unk15F4 bit 0x8000 */
     char unk620;
     unsigned char unk621;               /* 0x621 */
     unsigned char unk622;               /* 0x622 */
@@ -55,9 +54,9 @@ typedef struct pl00 {
     signed char unk626;                 /* 0x626 */
     char unk627[0x630 - 0x627];
     cVec unk630;                        /* 0x630 func_0012A578 scales the player's offset from this point */
-    cGameObj *held;                     /* 0x640 the object the player holds, 0 while none (func_00124540 picks an enemy to catch) */
-    char unk644[0x648 - 0x644];
-    signed char unk648;                 /* 0x648 set to 0x14 while an object is held */
+    cGameObj *held;                     /* 0x640 the object the player holds, 0 while none */
+    char unk644[4];
+    unsigned char unk648;               /* 0x648 set to 0x14 while an object is held */
     unsigned char unk649;               /* 0x649 */
     char unk64A[0x660 - 0x64A];
     cVec unk660;                        /* 0x660 x and z copied back into pos */
@@ -72,9 +71,7 @@ typedef struct pl00 {
     cGameObj *unk69C;                   /* 0x69C */
     cGameObj *sub6A0;                   /* 0x6A0 */
     char unk6A4[4];
-    struct cOmWeapon *weapon;           /* 0x6A8 the weapon in hand: func_0012C8D8 stores a picked-up
-                                         * weapon here and passes it to cOmWeapon_setParent,
-                                         * func_00123460 passes it to cOmWeapon_kickOff and clears it */
+    cGameObj *sub6A8;                   /* 0x6A8 */
     char unk6AC[0x76C - 0x6AC];
     float unk76C;                       /* 0x76C */
     char unk770[0x1588 - 0x770];
@@ -88,7 +85,7 @@ typedef struct pl00 {
     float unk15C4;                      /* 0x15C4 */
     char unk15C8[0x15F0 - 0x15C8];
     float unk15F0;                      /* 0x15F0 */
-    int flags15F4;                      /* 0x15F4 */
+    int unk15F4;                        /* 0x15F4 flag word */
     char unk15F8[0x15FC - 0x15F8];
     float unk15FC;                      /* 0x15FC */
     char unk1600;
@@ -101,27 +98,27 @@ typedef struct pl00 {
     unsigned char unk1614;              /* 0x1614 which of three counter motions runs next, 0 to 2 */
     signed char comboCount;             /* 0x1615 hits in the current combo */
     short comboTimer;                   /* 0x1616 frames left before the combo ends */
-    short unk1618;                      /* 0x1618 cleared when mode 1 starts */
+    short unk1618;                      /* 0x1618 */
     char unk161A[0x161C - 0x161A];
     int unk161C;                        /* 0x161C */
     int unk1620;                        /* 0x1620 sound handle, stopped with cSnd_SeStop */
     char unk1624[0x165C - 0x1624];
     int unk165C;                        /* 0x165C */
-    int unk1660[2];                     /* 0x1660 */
-    int moveA;                          /* 0x1668 the move being run */
-    int moveB;                          /* 0x166C */
+    int unk1660[2];                     /* 0x1660 [0] blend record 0, [1] blend record 1 */
+    int moveA;                          /* 0x1668 the move being run (blend record 0) */
+    int moveB;                          /* 0x166C blend record 1 */
     int unk1670[2];                     /* 0x1670 */
     int unk1678[2];                     /* 0x1678 */
     short unk1680[2];                   /* 0x1680 */
-    char unk1684;                       /* 0x1684 */
+    char unk1684;                       /* 0x1684 cleared when a motion starts */
 } pl00;
 
 typedef char pl00_chk_sub698[((int)&((pl00 *)0)->sub698 == 0x698) ? 1 : -1];
 typedef char pl00_chk_sub6A0[((int)&((pl00 *)0)->sub6A0 == 0x6A0) ? 1 : -1];
-typedef char pl00_chk_weapon[((int)&((pl00 *)0)->weapon == 0x6A8) ? 1 : -1];
-typedef char pl00_chk_flags[((int)&((pl00 *)0)->flags15F4 == 0x15F4) ? 1 : -1];
+typedef char pl00_chk_sub6A8[((int)&((pl00 *)0)->sub6A8 == 0x6A8) ? 1 : -1];
 typedef char pl00_chk_combo[((int)&((pl00 *)0)->comboCount == 0x1615) ? 1 : -1];
 typedef char pl00_chk_timer[((int)&((pl00 *)0)->comboTimer == 0x1616) ? 1 : -1];
+typedef char pl00_chk_comboSlot[((int)&((pl00 *)0)->comboSlot == 0x5E0) ? 1 : -1];
 typedef char pl00_chk_held[((int)&((pl00 *)0)->held == 0x640) ? 1 : -1];
 typedef char pl00_chk_stepScale[((int)&((pl00 *)0)->stepScale == 0x15C0) ? 1 : -1];
 typedef char pl00_chk_1620[((int)&((pl00 *)0)->unk1620 == 0x1620) ? 1 : -1];
@@ -131,24 +128,6 @@ typedef char pl00_chk_694[((int)&((pl00 *)0)->unk694 == 0x694) ? 1 : -1];
 typedef char pl00_chk_15B0[((int)&((pl00 *)0)->unk15B0 == 0x15B0) ? 1 : -1];
 typedef char pl00_chk_1684[((int)&((pl00 *)0)->unk1684 == 0x1684) ? 1 : -1];
 
-/* 1 when the given bit of flags15F4 is set, else 0. */
-int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(pl00 *self);
-/* Nonzero if the player may start an attack: no action at 0x6A0, alive, not caught, and bit 8 of flags15F4 set. */
-int pl00_ckAtkActBtnEnable(pl00 *self);
-int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(pl00 *self);
-int Obj0000_IsSet_Field_15F4_Bit_100000_12CA48(pl00 *self);
-int Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8(pl00 *self);
-
-/* Spend heat gauge through cHeatSys and switch to heat mode when the flags allow; nonzero when it switched. */
-int func_00123938(pl00 *self, int mode);
-/* Pick the enemy the player catches (unk640); returns 1 and sets unk648 when one is found. */
-int func_00124540(pl00 *self, int kind);
-/* 1 when one of the five slots at 0x5B0 is in a busy motion, else 0. */
-int func_0010B2E8(pl00 *self, int flag);
-/* Clear the catch target (unk640) and its flag (unk648). */
-void Obj0000_Clear_Fields_640_648_124E58(pl00 *self);
-/* Turn toward the catch target (unk640) at the given rate, when there is one. */
-void InvokeVirtualAtField214AndForward_124E68(pl00 *self, float f12);
 /* Set blend record 0: moveA and the [0] words of 0x1660, 0x1670, 0x1678, 0x1680. */
 void Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(pl00 *self, int move, int a2, int a3, int a4, short a5);
 /* Set blend record 1: moveB and the [1] words of 0x1660, 0x1670, 0x1678, 0x1680. */

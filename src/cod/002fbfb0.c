@@ -12,7 +12,7 @@ int func_002FC1A0(EspAnim *self);
 __attribute__((section(".text.func_002FBFB0")))
 void func_002FBFB0(EspAnim *self)
 {
-    if ((self->data->flags & ESP_DATA_PAUSE) == 0 && (((unsigned char *)&self->flags)[1] & 1) != 0) {
+    if ((self->data->flags & ESP_DATA_PAUSE) == 0 && (self->lockFlags & 1) != 0) {
         func_002FA350(&self->frameT);
     } else if ((D_007474A0.flags5E4 & SYSFLAG_SLOWMO) != 0) {
         func_002FA350(&self->frameT);
@@ -37,7 +37,7 @@ void func_002FBFB0(EspAnim *self)
     ESP_VCALL(self, 12, void (*)(void *));
     ESP_VCALL(self, 13, void (*)(void *));
     ESP_VCALL(self, 14, void (*)(void *));
-    if (!(((self->data->flags & ESP_DATA_PAUSE) == 0 && (((unsigned char *)&self->flags)[1] & 1) != 0)
+    if (!(((self->data->flags & ESP_DATA_PAUSE) == 0 && (self->lockFlags & 1) != 0)
           || (D_007474A0.flags5E4 & SYSFLAG_SLOWMO) != 0)
         || self->keyPrev != self->key) {
         self->pos[0] += self->vel[0];

@@ -1,8 +1,7 @@
 /* TU: JukeBox - recovered C++ class. */
+#include "godhand/cSnd.h"
 #include "godhand/JukeBox.h"
 #include "include_asm.h"
-#include "godhand/cSnd.h"
-#include "godhand/player.h"
 
 extern unsigned int D_00747A78;
 extern void *D_003C2F84;
@@ -10,12 +9,16 @@ typedef struct { char pad[0x1B0]; short f; } CacT;
 extern CacT D_005CAC90;              /* struct base; sh @0x1B0 */
 extern int D_00747470;               /* fade obj base */
 extern void Set_bg_mode(int a, int b, int c, int d);
-extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, int e, unsigned int f, int g);
 extern void classFADE_kill(void *p);
 extern void cTaskWork_sleep(void *p, int a);
+extern void *Getplayer(void);
 extern void pl00_reset(void *p);
 extern void func_001F6B78(void *p, int a);
 extern void func_001F6C40(void *p, int a);
+extern int JukeBox_Load(void *p);
+extern void JukeBox_Release(void *p);
+extern void cSnd_BgmFlaggedNodeKick(void *p, float f);
 
 extern void cIDBase(void *);
 

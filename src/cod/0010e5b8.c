@@ -1,24 +1,27 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/pl00.h"
-#include "godhand/capVu0.h"
-#include "godhand/cGameObj.h"
-#include "godhand/cObjBase.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
-#include "godhand/player.h"
-#include "godhand/cEm00.h"
+#include "godhand/motion.h"
+#include "godhand/pl00.h"
+#include "godhand/cObjBase.h"
 
+extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f);
+extern int  moveMotion(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern float capVu0MagnitudeXZ(void *a0, void *a1);
+extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
 
+extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int a4, int a5);
 extern void SetMotionStep(void *a0, float f12);
+extern void cSnd_SeStop(void *a0, int a1);
 extern void KillEffect(void *a0, int a1, int a2);
+extern char *Getplayer(void);
 extern int D_007474A0;
 
+struct VtEnt { short delta; short index; void *pfn; };
 
 static __inline__ long inrange(unsigned short k, int lo, int hi)
 {
@@ -33,154 +36,155 @@ static __inline__ long inrange(unsigned short k, int lo, int hi)
 }
 
 __attribute__((section(".text.func_0010E5B8")))
-void func_0010E5B8(pl00 *self)
+void func_0010E5B8(void *a0)
 {
+    char *s1 = (char *)a0;
     int one = 1;
 
-    if (self->base.hp <= 0)
-        self->base.hp = one;
-    switch (self->base.step) {
+    if (*(short *)(s1 + 0x54A) <= 0)
+        *(short *)(s1 + 0x54A) = one;
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0:
     {
-        cGameObj *e;
-        cGameObj *e2;
-        char *t;
+        char *e;
+        char *e2;
+        int t;
 
-        func_00124540(self, 0);
-        self->comboSlot = 0;
-        self->comboSet = 0;
-        if (self->unk648 > 0)
-            self->unk648 = 0x2D;
-        e = self->held;
+        func_00124540(s1, 0);
+        *(short *)(s1 + 0x5E0) = 0;
+        *(short *)(s1 + 0x5E2) = 0;
+        if (*(signed char *)(s1 + 0x648) > 0)
+            *(char *)(s1 + 0x648) = 0x2D;
+        e = *(char **)(s1 + 0x640);
         if (e != 0) {
-            if (inrange(e->actorId, 0x200, 0x300) & 0xFF)
+            if (inrange(*(unsigned short *)(e + 0x2FE), 0x200, 0x300) & 0xFF)
                 cCoreSave_addGameLevelPoint(&D_00569B70, 0x14);
         }
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, (int)(self->unk600 * 10.0f), 8, 0x13, 0, 0xA);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, (int)(self->unk600 * 10.0f), 8, 0x13, 0, 0xA);
-        t = self->base.pack;
-        func_002A8578(self, EM_RES_REC(t, 0x18C), EM_RES_REC(t, 0x194), 5, 0.0f, 0, 0);
-        self->stepScale = 1.0f;
-        self->unk15C4 = 0.0f;
-        self->unk15B0 = 1;
-        self->unk15B8 = 1;
-        self->unk1588 = 0.0f;
-        self->stepCount = 0;
-        e2 = self->held;
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(a0, (int)(*(float *)(s1 + 0x600) * 10.0f), 8, 0x13, 0, 0xA);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(a0, (int)(*(float *)(s1 + 0x600) * 10.0f), 8, 0x13, 0, 0xA);
+        t = *(int *)(s1 + 0x304);
+        func_002A8578(s1, *(int *)(t + 0x18C) + t, *(int *)(t + 0x194) + t, 5, 0.0f, 0, 0);
+        *(float *)(s1 + 0x15C0) = 1.0f;
+        *(float *)(s1 + 0x15C4) = 0.0f;
+        *(int *)(s1 + 0x15B0) = 1;
+        *(int *)(s1 + 0x15B8) = 1;
+        *(float *)(s1 + 0x1588) = 0.0f;
+        *(int *)(s1 + 0x15B4) = 0;
+        e2 = *(char **)(s1 + 0x640);
         if (e2 != 0) {
-            cGameObjVt *vt = cGameObj_vt(e2);
-            cVec *pos = self->base.pos;
-            cVec *r = vt->getPos((char *)e2 + vt->getPosDelta);
+            struct VtEnt *vt = *(struct VtEnt **)(e2 + 0x214);
+            float *pos = *(float **)(s1 + 0xF0);
+            void *r = ((void *(*)(void *))vt[13].pfn)(e2 + vt[13].delta);
             float d = capVu0MagnitudeXZ(pos, r) - 1.20000005f;
-            if (self->comboSlot == 0 && self->unk61F != 0) {
+            if (*(unsigned short *)(s1 + 0x5E0) == 0 && *(unsigned char *)(s1 + 0x61F) != 0) {
                 if (1.0f < d) d = 1.0f;
             } else {
                 if (0.5f < d) d = 0.5f;
             }
             if (0.0f < d)
-                self->unk1588 = d * 0.150000006f;
+                *(float *)(s1 + 0x1588) = d * 0.150000006f;
         }
-        self->unk5F0 = 0xA;
-        self->base.unk568 = 0x32;
-        (self->base.step)++;
+        *(short *)(s1 + 0x5F0) = 0xA;
+        *(short *)(s1 + 0x568) = 0x32;
+        (*(unsigned char *)(s1 + 0x2F6))++;
     }
         /* fallthrough */
     case 1:
     {
-        if (self->base.unk568 != 0) {
-            self->base.unk568 = self->base.unk568 - 1;
-            InvokeVirtualAtField214AndForward_124E68(self, 0.196349546f);
+        if (*(short *)(s1 + 0x568) != 0) {
+            *(short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
+            InvokeVirtualAtField214AndForward_124E68(s1, 0.196349546f);
         }
-        if (self->held != 0)
-            self->unk648 = 0x14;
-        self->base.speedRate = 1.0f;
-        self->unk5DC = 1.0f;
-        if (self->base.seqFlags & 0x80) {
-            if (self->unk15B0 != 0) {
-                if (self->unk15C4 <= 0.0f)
-                    self->unk15C4 = 1.0f;
+        if (*(int *)(s1 + 0x640) != 0)
+            *(char *)(s1 + 0x648) = 0x14;
+        *(float *)(s1 + 0x5A8) = 1.0f;
+        *(float *)(s1 + 0x5DC) = 1.0f;
+        if (*(unsigned short *)(s1 + 0x3AC) & 0x80) {
+            if (*(int *)(s1 + 0x15B0) != 0) {
+                if (*(float *)(s1 + 0x15C4) <= 0.0f)
+                    *(float *)(s1 + 0x15C4) = 1.0f;
             }
         }
-        if (self->unk15C4 > 0.0f && self->unk15B0 != 0) {
-            if (self->stepCount == 0) {
-                self->stepCount = 1;
-                InitRenderStruct_2A8608(&self->base, 0, 0x31, 2, 2, 0);
+        if (*(float *)(s1 + 0x15C4) > 0.0f && *(int *)(s1 + 0x15B0) != 0) {
+            if (*(int *)(s1 + 0x15B4) == 0) {
+                *(int *)(s1 + 0x15B4) = 1;
+                InitRenderStruct_2A8608(s1, 0, 0x31, 2, 2, 0);
             }
             if ((D_007474A0 & 0xD0) != 0) {
                 float sp = 0.0250000004f;
-                self->base.speedRate = sp;
-                self->unk5DC = sp;
-                self->unk15C4 = self->unk15C4 - sp;
-                SetMotionStep(self, sp);
-                self->stepScale = self->stepScale + 0.0500000007f;
-                if (self->unk15C4 <= 0.0f)
-                    self->stepScale = self->stepScale + 1.0f;
-                if (self->stepScale >= 1.10000002f) {
-                    if (self->unk15B8 != 0) {
-                        self->unk15B8 = 0;
-                        self->unk1620 = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11B, self, 0, 0, 0, 0);
+                *(float *)(s1 + 0x5A8) = sp;
+                *(float *)(s1 + 0x5DC) = sp;
+                *(float *)(s1 + 0x15C4) = *(float *)(s1 + 0x15C4) - sp;
+                SetMotionStep(s1, sp);
+                *(float *)(s1 + 0x15C0) = *(float *)(s1 + 0x15C0) + 0.0500000007f;
+                if (*(float *)(s1 + 0x15C4) <= 0.0f)
+                    *(float *)(s1 + 0x15C0) = *(float *)(s1 + 0x15C0) + 1.0f;
+                if (*(float *)(s1 + 0x15C0) >= 1.10000002f) {
+                    if (*(int *)(s1 + 0x15B8) != 0) {
+                        *(int *)(s1 + 0x15B8) = 0;
+                        *(int *)(s1 + 0x1620) = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x11B, a0, 0, 0, 0, 0);
                     }
                 }
             } else {
-                self->unk15C4 = 0.0f;
-                self->unk15B0 = 0;
+                *(float *)(s1 + 0x15C4) = 0.0f;
+                *(int *)(s1 + 0x15B0) = 0;
             }
-            if (self->unk15C4 <= 0.0f)
-                self->unk15B0 = 0;
+            if (*(float *)(s1 + 0x15C4) <= 0.0f)
+                *(int *)(s1 + 0x15B0) = 0;
         } else {
-            if (self->base.seqFlags & 3)
+            if (*(unsigned short *)(s1 + 0x3AC) & 3)
                 KillEffect(Getplayer(), 2, 2);
-            if (self->stepCount != 0) {
-                self->stepCount = 0;
-                if (self->stepScale >= 2.5f) {
+            if (*(int *)(s1 + 0x15B4) != 0) {
+                *(int *)(s1 + 0x15B4) = 0;
+                if (*(float *)(s1 + 0x15C0) >= 2.5f) {
                     KillEffect(Getplayer(), 2, 2);
-                    SetEffect(0, 0x32, self, 0, -1, 0xFFFFFFFFu);
+                    SetEffect(0, 0x32, a0, 0, -1, EFFECT_FOLLOW_OWNER);
                 }
-                cSnd_SeStop(&D_005FEE00, self->unk1620);
-                self->unk1620 = 0;
+                cSnd_SeStop(&D_005FEE00, *(int *)(s1 + 0x1620));
+                *(int *)(s1 + 0x1620) = 0;
             }
         }
-        if (moveMotion(self) != 0) {
-            pl00_clearMotionCam(self, 1, 0);
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+        if (moveMotion(s1) != 0) {
+            pl00_clearMotionCam(s1, 1, 0);
+            *(char *)(s1 + 0x2F4) = 0;
+            *(char *)(s1 + 0x2F5) = 0;
+            *(char *)(s1 + 0x2F6) = 0;
+            *(char *)(s1 + 0x2F7) = 0;
         }
         {
-            cGameObj *e = self->held;
+            char *e = *(char **)(s1 + 0x640);
             if (e != 0) {
-                cGameObjVt *vt = cGameObj_vt(e);
-                cVec *pos = self->base.pos;
-                cVec *r = vt->getPos((char *)e + vt->getPosDelta);
+                struct VtEnt *vt = *(struct VtEnt **)(e + 0x214);
+                float *pos = *(float **)(s1 + 0xF0);
+                void *r = ((void *(*)(void *))vt[13].pfn)(e + vt[13].delta);
                 if (capVu0MagnitudeSqXZ(pos, r) < 1.21000004f) {
-                    self->base.nullSpeed.x = 0.0f;
-                    self->base.nullSpeed.z = 0.0f;
+                    *(int *)(s1 + 0x330) = 0;
+                    *(int *)(s1 + 0x338) = 0;
                 }
             }
         }
-        self->base.nullSpeed.z = self->base.nullSpeed.z + self->unk1588;
-        self->unk1588 = self->unk1588 * 0.899999976f;
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        *(float *)(s1 + 0x338) = *(float *)(s1 + 0x338) + *(float *)(s1 + 0x1588);
+        *(float *)(s1 + 0x1588) = *(float *)(s1 + 0x1588) * 0.899999976f;
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     }
-    self->unk1610 = self->stepScale;
-    if (2.5f < self->stepScale) {
-        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0x10, 8, 0x14, 0, 0xA);
-        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0x10, 8, 0x14, 0, 0xA);
+    *(float *)(s1 + 0x1610) = *(float *)(s1 + 0x15C0);
+    if (2.5f < *(float *)(s1 + 0x15C0)) {
+        Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(a0, 0x10, 8, 0x14, 0, 0xA);
+        Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(a0, 0x10, 8, 0x14, 0, 0xA);
     }
-    func_0010A438(self);
-    if (self->base.seqFlags & 0x10) {
-        if (self->unk5F0 != 0) {
-            self->unk5F0 = self->unk5F0 - 1;
-            self->flags15F4 |= 0x20000;
+    func_0010A438(s1);
+    if (*(unsigned short *)(s1 + 0x3AC) & 0x10) {
+        if (*(short *)(s1 + 0x5F0) != 0) {
+            *(short *)(s1 + 0x5F0) = *(unsigned short *)(s1 + 0x5F0) - 1;
+            *(int *)(s1 + 0x15F4) |= 0x20000;
         } else {
-            self->comboSlot = 0;
-            self->comboSet = 0;
+            *(short *)(s1 + 0x5E0) = 0;
+            *(short *)(s1 + 0x5E2) = 0;
         }
     }
-    if (func_00123938(self, 1) != 0)
-        pl00_clearMotionCam(self, 1, 0);
+    if (func_00123938(s1, 1) != 0)
+        pl00_clearMotionCam(s1, 1, 0);
 }

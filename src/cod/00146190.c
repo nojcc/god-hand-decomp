@@ -2,6 +2,7 @@
  * second entry of every row to nothing, then shrink the first entries of the first four
  * rows by a third of their base scale a frame and clear the screen once they vanish. */
 #include "godhand/cIDBaseScreen.h"
+#include "godhand/cIDBaseScreenFn.h"
 
 __attribute__((section(".text.func_00146190")))
 void func_00146190(cIDBaseScreen *self) {

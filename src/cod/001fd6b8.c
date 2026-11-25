@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/fileBuf.h"
 
 extern unsigned int D_007476B0;
@@ -7,13 +7,13 @@ extern unsigned int D_007476B0;
 __attribute__((section(".text.cDamageUnit_SetDamageCollFlashActiveById")))
 void cDamageUnit_SetDamageCollFlashActiveById(cDamageUnit *self, int id, int active, short flash) {
     cDamageNode *n = self->nodes;
-    cDamageData *q;
+    cCollisionUnit *q;
     while (n != 0) {
         if (n->id == id) {
-            q = n->data;
-            if (active == 1) q->flags = q->flags | DAMAGE_FLAG_ACTIVE;
-            else q->flags = q->flags & DAMAGE_MASK_INACTIVE;
-            n->flash = flash;
+            q = n->unit;
+            if (active == 1) q->flags = q->flags | COLL_UNIT_FLAG_ACTIVE;
+            else q->flags = q->flags & COLL_UNIT_FLAG_INACTIVE_MASK;
+            *(short *)((char *)n + 0x30) = flash;
             return;
         }
         n = n->next;

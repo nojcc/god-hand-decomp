@@ -1,113 +1,134 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cObjBase.h"
-#include "godhand/cOmBase.h"
-#include "godhand/cOmSub.h"
-#include "godhand/rand.h"
-#include "godhand/vecInline.h"
 
-extern int cOmSub_move(char *a0);
-extern void cOmSub_setReverse(cOmSub *self, int reverse);
+extern float fRand1_1(void);
+extern void cDamageUnit_SetDamageCollFlashActive(void *a0, int a1, short a2);
+extern int cOmSub_move(void *a0);
+extern void cOmSub_setReverse(void *a0, int a1);
 extern void func_001B7EE0(void *a0, float f12);
-extern void cOmSub_initMove1_pos(char *dst, char *obj, int idx, int a3, void *a4, float w, float h);
 
-/* A gimmick that trembles part 2, then drops it with its damage collision
- * flashing, and raises it again on the reversed path. */
-typedef struct cOmDropper {
-    cOmBase base;                       /* 0x000 */
-    char unk5E0[0x608 - 0x5E0];
-    cDamageUnit *coll;                  /* 0x608 */
-    char unk60C[0x990 - 0x60C];
-    cOmSub move;                        /* 0x990 */
-    char unkAD0[0xAF0 - 0xAD0];
-    short timer;                        /* 0xAF0 */
-    unsigned char donePhase;            /* 0xAF2 phase to go to when the run ends */
-    unsigned char moving;               /* 0xAF3 1 while func_001B7EE0 runs each frame */
-    char unkAF4[0xB08 - 0xAF4];
-    float restY;                        /* 0xB08 part 2's resting anchor height */
-} cOmDropper;
+extern void cOmSub_initMove1_pos(void *a0, void *a1, int a2, int a3, void *t0,
+                                 float f12, float f13);
 
-/* Tremble part 2 for 30 frames, drop it, wait 60 frames, raise it again. */
+
+
+
+
+
 __attribute__((section(".text.func_00194D10")))
-void func_00194D10(cOmDropper *self)
+void func_00194D10(void *a0)
 {
-    int frame[3];
-    cVec drop;
+    char *s0 = (char *)a0;
+    unsigned char frame[0x20] __attribute__((aligned(16)));
+    int b1, b2, b3, b4, b5, b6, b7;
+    int i1, i2, i3, i4, i5, i6, i7;
+    unsigned char ok1, ok2, ok3, ok4, ok5, ok6, ok7;
 
-    switch (self->base.step) {
-    case 0:
-        if (cOmBase_childAt(&self->base, frame, 2) != 0) {
-            self->restY = cOmBase_childAt(&self->base, frame, 2)->anchor->y;
+    switch (*(unsigned char *)(s0 + 0x2F6)) {
+    case 0: {
+        int obj;
+        i1 = 2;
+        ok1 = ((*(int *)frame = b1 = *(unsigned char *)(s0 + 0x2B4)), (i1 < b1));
+        if (ok1) obj = *(int *)(*(int *)(s0 + 0x278) + i1 * 4); else obj = 0;
+        if (obj != 0) {
+            int obj2;
+            i2 = 2;
+        ok2 = ((*(int *)frame = b2 = *(unsigned char *)(s0 + 0x2B4)), (i2 < b2));
+            if (ok2) obj2 = *(int *)(*(int *)(s0 + 0x278) + i2 * 4); else obj2 = 0;
+            *(float *)(s0 + 0xB08) = *(float *)(*(int *)(obj2 + 0xD0) + 4);
         }
-        self->timer = 0x1E;
-        self->base.step = 1;
-        self->moving = 0;
-        self->base.stepArg = 0;
-        /* fallthrough */
+        *(short *)(s0 + 0xAF0) = 0x1E;
+        *(unsigned char *)(s0 + 0x2F6) = 1;
+        *(unsigned char *)(s0 + 0xAF3) = 0;
+        *(unsigned char *)(s0 + 0x2F7) = 0;
+    }
+    /* fallthrough */
     case 1: {
-        if (cOmBase_childAt(&self->base, frame, 2) != 0) {
-            cOmBase *part = cOmBase_childAt(&self->base, frame, 2);
-            float d = fRand1_1() * 0.05f;
-
-            part->anchor->y = self->restY + d;
+        int obj;
+        int t;
+        i3 = 2;
+        ok3 = ((*(int *)frame = b3 = *(unsigned char *)(s0 + 0x2B4)), (i3 < b3));
+        if (ok3) obj = *(int *)(*(int *)(s0 + 0x278) + i3 * 4); else obj = 0;
+        if (obj != 0) {
+            int s1;
+            float d;
+            i4 = 2;
+        ok4 = ((*(int *)frame = b4 = *(unsigned char *)(s0 + 0x2B4)), (i4 < b4));
+            if (ok4) s1 = *(int *)(*(int *)(s0 + 0x278) + i4 * 4); else s1 = 0;
+            d = fRand1_1() * 0.05f;
+            *(float *)(*(int *)(s1 + 0xD0) + 4) = *(float *)(s0 + 0xB08) + d;
         }
-        self->timer -= 1;
-        if (self->timer >= 0)
+        t = *(unsigned short *)(s0 + 0xAF0) - 1;
+        *(short *)(s0 + 0xAF0) = t;
+        if ((short)t >= 0)
             break;
-        cOmBase_childAt(&self->base, frame, 2)->anchor->y = self->restY;
-        cDamageUnit_SetDamageCollFlashActive(self->coll, 1, 7);
-        vec4_set_point(&drop.x, 0.0f, -2.2699999f, 0.0f);
-        cOmSub_initMove1_pos((char *)&self->move, (char *)self, 2, 7, &drop, 0.2f, 0.0f);
-        self->moving = 1;
-        self->base.step = 2;
-        self->base.stepArg = 0;
+        i5 = 2;
+        ok5 = ((*(int *)frame = b5 = *(unsigned char *)(s0 + 0x2B4)), (i5 < b5));
+        if (ok5) obj = *(int *)(*(int *)(s0 + 0x278) + i5 * 4); else obj = 0;
+        *(float *)(*(int *)(obj + 0xD0) + 4) = *(float *)(s0 + 0xB08);
+        cDamageUnit_SetDamageCollFlashActive(*(void **)(s0 + 0x608), 1, 7);
+        {
+            float *q = (float *)(frame + 0x10);
+            *(int *)(frame + 0x10) = 0;
+            q[1] = -2.2699999f;
+            *(int *)(frame + 0x18) = 0;
+            q[3] = 1.0f;
+            cOmSub_initMove1_pos(s0 + 0x990, s0, 2, 7, q, 0.2f, 0.0f);
+        }
+        *(unsigned char *)(s0 + 0xAF3) = 1;
+        *(unsigned char *)(s0 + 0x2F6) = 2;
+        *(unsigned char *)(s0 + 0x2F7) = 0;
         break;
     }
     case 2: {
-        cOmBase *part;
-
-        if (cOmSub_move((char *)&self->move) != 0)
+        cOmBase *t1;
+        if (cOmSub_move(s0 + 0x990) != 0)
             break;
-        SetEffect(0x177, 1, self, 0, -1, 0xFFFFFFFFU);
-        part = cOmBase_childAt(&self->base, frame, 1);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xB6, self, 0, part, 0, 0);
-        self->timer = 0x3C;
-        self->base.step = 3;
-        self->base.stepArg = 0;
+        SetEffect(0x177, 1, a0, 0, -1, EFFECT_FOLLOW_OWNER);
+        i6 = 1;
+        ok6 = ((*(int *)frame = b6 = *(unsigned char *)(s0 + 0x2B4)), (i6 < b6));
+        if (ok6) t1 = (*(cOmBase ***)(s0 + 0x278))[i6]; else t1 = 0;
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xB6, a0, 0, (cParts *)t1, 0, 0);
+        *(short *)(s0 + 0xAF0) = 0x3C;
+        *(unsigned char *)(s0 + 0x2F6) = 3;
+        *(unsigned char *)(s0 + 0x2F7) = 0;
         break;
     }
     case 3: {
-        cOmSub *move;
-        cOmBase *part;
-
-        self->timer -= 1;
-        if (self->timer >= 0)
+        cOmBase *t1;
+        int t = *(unsigned short *)(s0 + 0xAF0) - 1;
+        *(short *)(s0 + 0xAF0) = t;
+        if ((short)t >= 0)
             break;
-        move = &self->move;
-        move->unk30 = 30.0f;
-        cOmSub_setReverse(move, 1);
-        part = cOmBase_childAt(&self->base, frame, 1);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xB7, self, 0, part, 0, 0);
-        self->base.stepArg = 0;
-        self->base.step = 4;
+        {
+            char *q = s0 + 0x990;
+            *(float *)(q + 0x30) = 30.0f;
+            cOmSub_setReverse(q, 1);
+        }
+        i7 = 1;
+        ok7 = ((*(int *)frame = b7 = *(unsigned char *)(s0 + 0x2B4)), (i7 < b7));
+        if (ok7) t1 = (*(cOmBase ***)(s0 + 0x278))[i7]; else t1 = 0;
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xB7, a0, 0, (cParts *)t1, 0, 0);
+        *(unsigned char *)(s0 + 0x2F7) = 0;
+        *(unsigned char *)(s0 + 0x2F6) = 4;
         break;
     }
     case 4:
-        if (cOmSub_move((char *)&self->move) != 0)
+        if (cOmSub_move(s0 + 0x990) != 0)
             break;
-        self->moving = 0;
-        self->base.step = 5;
-        self->base.stepArg = 0;
+        *(unsigned char *)(s0 + 0xAF3) = 0;
+        *(unsigned char *)(s0 + 0x2F6) = 5;
+        *(unsigned char *)(s0 + 0x2F7) = 0;
         break;
     case 5:
-        self->base.step = 0;
-        self->base.phase = self->donePhase;
-        self->base.stepArg = 0;
+        *(unsigned char *)(s0 + 0x2F6) = 0;
+        *(unsigned char *)(s0 + 0x2F5) = *(unsigned char *)(s0 + 0xAF2);
+        *(unsigned char *)(s0 + 0x2F7) = 0;
         break;
     default:
         break;
     }
-    if (self->moving == 1)
-        func_001B7EE0(self, 2.3f);
+    if (*(unsigned char *)(s0 + 0xAF3) == 1)
+        func_001B7EE0(s0, 2.3f);
 }

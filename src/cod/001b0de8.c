@@ -2,7 +2,7 @@
 
 /* Set up an object with two damage-give volumes: clear its counters and 150 radius field, create a volume per slot (kinds 0 and 1), add a 3.0 sphere on its first child body to each and switch them off. Actor 0x360 is scaled 2.0. Returns 1. */
 #include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/cOmBase.h"
 #include "godhand/vu0.h"
 

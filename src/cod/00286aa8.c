@@ -9,6 +9,7 @@ extern void Add_nullspeed(void *a0);
 extern void func_002A74E0(void *a0, void *a1, int a2);
 
 #include "godhand/vu0.h"
+#include "godhand/cGameObjFn.h"
 
 
 extern int func_00291010(void *a0, void *a1, void *a2, int a3, int t0,

@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/cGameObj.h"
 #include "godhand/mtx.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/objField.h"
 #include "godhand/vu0.h"
 #include "godhand/espSys.h"

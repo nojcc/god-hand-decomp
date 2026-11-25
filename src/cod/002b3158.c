@@ -1,4 +1,6 @@
 #include "godhand/cSnd.h"
+
+extern int cSnd_SeIsLoaded(void *, int);
 extern void func_002B45C8(void *);
 
 __attribute__((section(".text.func_002B3158")))

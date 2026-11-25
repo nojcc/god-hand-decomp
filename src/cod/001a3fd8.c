@@ -1,4 +1,5 @@
 #include "godhand/cOmBase.h"
+#include "godhand/cOmBaseFn.h"
 extern void func_001B7EE0(void *, float);
 
 __attribute__((section(".text.func_001A3FD8")))

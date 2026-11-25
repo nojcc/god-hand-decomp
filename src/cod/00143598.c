@@ -2,14 +2,14 @@
 
 extern int D_00421FE8;
 extern int InitFields_1B6E90(void *self);
+extern void cIDBase_restartAnim(void *self);
 extern void *D_003C23A4;
 extern void *cMessage_getMessageAddr(void *mgr, int id);
 extern void *cMessage_getRubyAddr(void *mgr, int id);
 
 #include "godhand/vu0.h"
-#include "godhand/cIDBase.h"
-#include "godhand/cCockPrintData.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cCockPrintData.h"
 
 
 
@@ -61,24 +61,31 @@ void *func_0017E0F8(void *a0) {
     return a0;
 }
 
-/* Start the gold counter: show the saved gold, look up its entries, clear the popups and hide the label. */
+
+
+
+
+
+
+
+
 __attribute__((section(".text.func_00143598")))
 void func_00143598(cCockPrintData *self) {
     unsigned short i;
 
-    cIDBase_restartAnim(&self->base);
+    cIDBase_restartAnim(self);
     self->base.playing = 1;
     self->gold = cCoreSave_getGold(&D_00569B70);
 
-    for (i = 0; i < COCKPRINT_ENT_NUM; i++) {
-        self->ent[i] = cIDBase_getIDWork(&self->base, i);
+    for (i = 0; i < COCKPRINT_WORK_NUM; i++) {
+        self->work[i] = cIDBase_getIDWork(&self->base, i);
     }
-    for (i = 0; i < COCKPRINT_POPUP_NUM; i++) {
+    for (i = 0; i < COCKPRINT_SLOT_NUM; i++) {
         self->on[i] = 0;
     }
 
-    self->ent[COCKPRINT_LABEL]->flags |= IDENT_FLAG_NO_DRAW;
-    self->ent[COCKPRINT_COUNTER]->seed = self->gold;
+    self->work[2]->flags |= IDENT_FLAG_NO_DRAW;
+    self->work[0]->number = self->gold;
     cCoreSave_initAddGold(&D_00569B70);
     self->mode = 0;
 }

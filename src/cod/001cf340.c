@@ -1,9 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cOmWeapon.h"
+#include "godhand/cOmWeaponFn.h"
 #include "godhand/mtx.h"
 #include "godhand/vu0.h"
-#include "godhand/cModel.h"
+#include "godhand/cModelFn.h"
 #include "godhand/player.h"
 #include "godhand/cEm00.h"
 

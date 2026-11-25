@@ -4,6 +4,7 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
@@ -16,7 +17,7 @@ __attribute__((section(".text.func_00247320"))) void func_00247320(cEm00 *self)
     int res;
 
     self->emFlags = self->emFlags | 0x20000;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
             int t0 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;

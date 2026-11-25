@@ -1,24 +1,28 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/motion.h"
-#include "godhand/cModel.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 #include "godhand/globals.h"
 
+extern int moveMotion(void *a0);
+extern void cModel_calcNullPart(void *a0);
 extern void Add_nullspeed(void *a0);
 extern unsigned int D_00747A78;
 extern void cEmBase_setTalkButton(void);
 extern int Getplayer(void);
 extern void cObjBase_SetSeqEffect(void *a0);
+extern void cModel_calcParts(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
+extern void cModel_calcWorldParts(void *a0);
 extern void func_002A87E8(void *a0, int a1);
+extern int cSnd_SeEndCk(void *a0, int a1);
 extern int func_00291010(void *a0, void *a1, int a2, int a3, float f12, float f13, float f14, int t0);
 extern char D_005864F0[];
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
 extern void cParts_setRotationOrder(void *a0, int a1);
+extern void cObjBase_KageInit(void *a0, void *a1, void *a2);
 
 __attribute__((section(".text.func_002826C8")))
 void func_002826C8(void *a0)
@@ -76,7 +80,7 @@ void func_002865F0(void *a0)
         (*(float **)(s0 + 0xF0))[0] = (*(float **)(s0 + 0xF0))[0] * 0.99f + *(float *)(s0 + 0x5C0) * 0.01f;
         (*(float **)(s0 + 0xF0))[2] = (*(float **)(s0 + 0xF0))[2] * 0.99f + *(float *)(s0 + 0x5C8) * 0.01f;
         moveMotion(s0);
-        cModel_calcNullPart((cModel *)s0);
+        cModel_calcNullPart(s0);
         Add_nullspeed(s0);
         break;
     }
@@ -116,7 +120,7 @@ void func_0028A560(void *a0)
         (*(float **)(s0 + 0xF0))[2] = (*(float **)(s0 + 0xF0))[2] * 0.99f + *(float *)(s0 + 0x5C8) * 0.01f;
         *(int *)(s0 + 0x15A0) = *(int *)(s0 + 0x15A0) | 1;
         moveMotion(s0);
-        cModel_calcNullPart((cModel *)s0);
+        cModel_calcNullPart(s0);
         Add_nullspeed(s0);
         break;
     }
@@ -140,17 +144,17 @@ void func_0028E420(void *a0)
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     case 1:
         v0 = Getplayer();
-        cGameObj_SetTgtTurn(s0, *(cVec **)(v0 + 0xF0), *(float *)(s0 + 0x5A8) * 0.09817477f);
+        cGameObj_SetTgtTurn((cGameObj *)s0, *(cVec **)(v0 + 0xF0), *(float *)(s0 + 0x5A8) * 0.09817477f);
         moveMotion(s0);
         break;
     }
     cObjBase_SetSeqEffect(s0);
-    cModel_calcParts((cModel *)s0);
+    cModel_calcParts(s0);
     IK_InverseKinematics(s0 + 0x448, s0);
-    cModel_calcWorldParts((cModel *)s0);
+    cModel_calcWorldParts(s0);
     func_002A87E8(s0, 0);
     if (cSnd_SeEndCk(&D_005FEE00, *(int *)(s0 + 0x1550)) != 0) {
-        *(int *)(s0 + 0x1550) = cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x12, s0, 0, 0, 0, 0);
+        *(int *)(s0 + 0x1550) = cSnd_SeCall_2CBA48(&D_005FEE00, 1, 0x12, a0, 0, 0, 0, 0);
     }
     q = (float *)(s0 + 0x490);
     p = *(float **)(s0 + 0xF0);
@@ -162,7 +166,7 @@ void func_0028E420(void *a0)
 }
 
 #include "godhand/vu0.h"
-#include "godhand/cGameObj.h"
+#include "godhand/cDamageManage.h"
 
 
 
@@ -186,7 +190,7 @@ void func_00288350(void *a0)
     }
     case 1:
         moveMotion(s0);
-        cModel_calcNullPart((cModel *)s0);
+        cModel_calcNullPart(s0);
         Add_nullspeed(s0);
         VU0_LQC2(4, *(char **)(s0 + 0xF0), 0);
         VU0_SQC2(4, buf, 0);
@@ -208,7 +212,7 @@ void func_00288350(void *a0)
             *(unsigned char *)(s0 + 0x2F6) = 0;
             *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cModel_calcNullPart((cModel *)s0);
+        cModel_calcNullPart(s0);
         Add_nullspeed(s0);
         break;
     }
@@ -224,7 +228,7 @@ int func_00101EB8(char *a0)
     int v0;
     int v3;
     int n;
-    int base;
+    char *base;
     struct sph *q;
     float z;
     float *p;
@@ -235,14 +239,14 @@ int func_00101EB8(char *a0)
     }
     *(int *)(s1 + 0x254) = *(int *)(s1 + 0x254) | 0x8000000;
     cParts_setRotationOrder(s1, 4);
-    cObjBase_KageInit((cObjBase *)s1, s1 + 0x5C0, D_003C3F58);
-    cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)s1, 5, 0.2f);
+    cObjBase_KageInit(s1, s1 + 0x5C0, D_003C3F58);
+    cCollisionSolidManage_CreateUnit(&D_00462FC0, (cGameObj *)s1, 5, 0.2f);
     q = (struct sph *)(buf + 0x0);
     *(int *)(buf + 0x0) = 0;
     q->b = 0.5f;
     *(int *)(buf + 0x8) = 0;
     q->d = 1.0f;
-    cCollisionSolidManage_CreateSphere(&D_00462FC0, (struct cGameObj *)s1, s1 + 0x80, (cVec *)q, 0.5f);
+    cCollisionSolidManage_CreateSphere(&D_00462FC0, (cGameObj *)s1, (const struct cMatrix *)(s1 + 0x80), (const cVec *)q, 0.5f);
     *(short *)(s1 + 0x548) = cCoreSave_getVitalMax(&D_00569B70);
     v3 = cCoreSave_getVital(&D_00569B70);
     if (v3 >= *(short *)(s1 + 0x548)) {
@@ -250,7 +254,7 @@ int func_00101EB8(char *a0)
     } else {
         *(short *)(s1 + 0x54A) = v3;
     }
-    *(cDamageTake **)(s1 + 0x5B0) = cDamageManage_CreateDamageTake(&D_00574380, s1, 0);
+    *(cDamageTake **)(s1 + 0x5B0) = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)s1, 0);
     if (*(int *)(s1 + 0x5B0) != 0) {
         struct sph *rr;
         n = *(unsigned char *)(s1 + 0x2B4);
@@ -258,7 +262,7 @@ int func_00101EB8(char *a0)
         {
             int one = 1;
             if (one < n) {
-                base = *(int *)(*(int *)(s1 + 0x278) + 4);
+                base = *(char **)(*(char **)(s1 + 0x278) + 4);
             } else {
                 base = 0;
             }
@@ -269,7 +273,7 @@ int func_00101EB8(char *a0)
         *(int *)(buf + 0x8) = 0;
         rr->d = 1.0f;
         *(int *)(s1 + 0x5B4) = cDamageUnit_AddDamageCollSphere(
-            *(cDamageUnit **)(s1 + 0x5B0), (void *)(base + 0x80), (cVec *)rr, 0.25f);
+            *(cDamageUnit **)(s1 + 0x5B0), (const struct cMatrix *)(base + 0x80), (const cVec *)rr, 0.25f);
     }
     *(unsigned char *)(s1 + 0x2F5) = 6;
     v0 = *(int *)(s1 + 0x304);

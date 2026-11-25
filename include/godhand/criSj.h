@@ -5,37 +5,7 @@
 #ifndef GODHAND_CRISJ_H
 #define GODHAND_CRISJ_H
 
-/* CRI scalar types. */
-typedef signed char Sint8;
-typedef unsigned char Uint8;
-typedef int Sint32;
-typedef unsigned int Uint32;
-
-/* A chunk of stream data (CRI's SJCK). */
-typedef struct SjChunk {
-    Sint8 *data;                /* 0x00 */
-    Sint32 len;                 /* 0x04 */
-} SjChunk;
-
-typedef struct SjObj SjObj;
-
-/* The stream joint interface (CRI's SJ_IF). */
-typedef struct SjIf {
-    void *obj;                                                  /* 0x00 */
-    void (*addRef)(SjObj *sj);                                  /* 0x04 */
-    void (*release)(SjObj *sj);                                 /* 0x08 */
-    void (*destroy)(SjObj *sj);                                 /* 0x0C */
-    void *(*getUuid)(SjObj *sj);                                /* 0x10 */
-    void (*reset)(SjObj *sj);                                   /* 0x14 */
-    void (*getChunk)(SjObj *sj, int id, int len, SjChunk *ck);  /* 0x18 */
-    void (*ungetChunk)(SjObj *sj, int id, SjChunk *ck);         /* 0x1C */
-    void (*putChunk)(SjObj *sj, int id, SjChunk *ck);           /* 0x20 */
-    int (*getNumData)(SjObj *sj, int id);                       /* 0x24 */
-} SjIf;
-
-struct SjObj {
-    SjIf *vt;
-};
+#include "godhand/criSjIf.h"
 
 /* The memory stream joint (SJMEM). */
 typedef struct SjMem {
@@ -70,13 +40,11 @@ typedef struct SjRbf {
     Sint8 *buf;                 /* 0x1C */
     int size;                   /* 0x20 */
     int extra;                  /* 0x24 */
-    int freeTaken;              /* 0x28 bytes taken from the free lane */
-    int unk2C;
-    int dataTaken;              /* 0x30 bytes taken from the data lane */
-    int unk34;
+    int flow[2][2];             /* 0x28 bytes by lane (0 free, 1 data): [lane][0] taken, [lane][1] put */
     void (*err)(void *obj, int code);   /* 0x38 */
     void *errObj;               /* 0x3C */
 } SjRbf;
+typedef char SjRbf_size_check[(sizeof(SjRbf) == 0x40) ? 1 : -1];
 
 /* One chunk of the unified stream joint (CRI's SJUNI). */
 typedef struct SjUniChunk {
@@ -99,6 +67,7 @@ typedef struct SjUni {
     SjUniChunk *list[4];        /* 0x18 */
 } SjUni;
 
+extern int SJRBF_GetFlowCnt(SjObj *sj, int lane, int kind);
 extern Sint8 *SJ_SearchTag(SjChunk *ck, Sint8 *tag, Sint8 *endtag, SjChunk *tagck);
 
 /* Sofdec stream-joint position feed (0x327818..). */

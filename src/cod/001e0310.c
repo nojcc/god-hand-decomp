@@ -1,187 +1,217 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
-#include "godhand/Slot1.h"
-#include "godhand/gameWork.h"
 
-/* D_007474A0.rep (pad repeat bits) addressed off D_00747A2C, as retail does: the typed field loads another base. */
-#define GAMESYS_PAD_REP  (*(long *)((char *)&D_00747A2C - (0x58C - 0x1B0)))
-#define GAMESYS_F_DEBUG    0x200             /* D_00747A2C.unk00: the debug gold key works */
-#define KEY_DEBUG_GOLD     0x33000000000L
-#define KEY_BET_UP         0x400000000L
-#define KEY_BET_DOWN       0x200000000L      /* leaves the machine at bet level 0 */
-#define KEY_SPIN           0x2200802000000L
-#define KEY_HELP           0x10000000000L
-#define KEY_CLOSE          0x33F00000000L
-#define SE_BET_UP          0x15F
-#define SE_BET_DOWN        0x161
-#define SE_HELP            0x15E
-#define DEBUG_GOLD         1000
-#define SLOT1_STATE_SPIN   1
-#define SLOT1_STATE_LEAVE  4
+extern void func_001E7848(char *a0, int a1);
+extern void func_001E7868(char *a0, int a1);
+extern void func_001E7888(char *a0, int a1);
+extern void func_001E78A8(char *a0, int a1);
+extern void func_001E78C8(char *a0, int a1);
+extern void func_001E78E8(char *a0, int a1);
+extern void MarkPanel_setMark(char *a0, int a1, int a2, int a3);
+extern void Slot2_selectMark(char *a0, int a1, int a2, int a3);
+extern void Slot2_showLayersForMode(char *a0);
+extern void func_001E3D78(char *a0, int a1, int a2);
+extern void func_001E3E40(char *a0, int a1, int a2, int a3);
+extern void MarkObj_setMarkFlag(char *a0, int a1, int a2);
+extern void CustomIDOwner_setColorMode(char *a0, int a1);
+extern void SetUiIdWorkDispRange(char *a0, int a1);
+extern int D_007474A0;
+extern int D_00747A2C;
+extern long D_00747640;
 
-/* Bet screen of the first slot machine: step 0 shows the prizes and resets the marks, the layers and the reels;
- * step 1 waits for the reels to stop, then raises or lowers the bet, spins, leaves (cancel at bet 0) or opens the
- * help panel; steps 2 to 4 open the help panel, wait for a key and close it again. */
+/* sn-2.95.3-136 matched TU. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 __attribute__((section(".text.func_001E0310")))
-void func_001E0310(Slot1 *self)
+void func_001E0310(void *a0)
 {
+    char *s1 = (char *)a0;
     long v;
     int done;
 
-    switch (self->step) {
+    switch (*(int *)(s1 + 0x8)) {
     case 0: {
-        SlotUi *ui = &self->ui;
-        Slot1Reel *r0;
-        Slot1Reel *r1;
-        Slot1Reel *r2;
+        char *s0 = s1 + 0x4D0;
+        char *p0;
+        char *p1;
+        char *p2;
 
-        func_001E7848(ui, self->prize[0]);
-        func_001E7868(ui, self->prize[1]);
-        func_001E7888(ui, self->prize[2]);
-        func_001E78A8(ui, self->prize[3]);
-        func_001E78C8(ui, self->prize[4]);
-        func_001E78E8(ui, self->prize[5]);
-        self->betLv = 0;
-        MarkPanel_setMark(self, 0, 0, 0);
-        MarkPanel_setMark(self, 1, 0, 0);
-        MarkPanel_setMark(self, 2, 0, 0);
-        Slot2_selectMark(self, 0, 0, 0);
-        Slot2_selectMark(self, 1, 0, 0);
-        Slot2_selectMark(self, 2, 0, 0);
-        Slot2_selectMark(self, 3, 0, 0);
-        Slot2_selectMark(self, 4, 0, 0);
-        Slot2_showLayersForMode(self);
-        func_001E3D78(self, 0, 0);
-        func_001E3E40(self, 0, 0, 0);
-        func_001E3E40(self, 1, 0, 0);
-        func_001E3E40(self, 2, 0, 0);
-        func_001E3E40(self, 3, 0, 0);
-        func_001E3E40(self, 4, 0, 0);
-        MarkObj_setMarkFlag(self, 0, 0);
-        MarkObj_setMarkFlag(self, 1, 0);
-        r0 = &self->reel[0];
-        r1 = &self->reel[1];
-        r2 = &self->reel[2];
-        r0->state = 0;
-        r0->step = 0;
-        r0->phase = 0;
-        r1->state = 0;
-        r1->step = 0;
-        r1->phase = 0;
-        r2->state = 0;
-        r2->step = 0;
-        r2->phase = 0;
-        self->step = self->step + 1;
+        func_001E7848(s0, *(int *)(s1 + 0x3CC));
+        func_001E7868(s0, *(int *)(s1 + 0x3D0));
+        func_001E7888(s0, *(int *)(s1 + 0x3D4));
+        func_001E78A8(s0, *(int *)(s1 + 0x3D8));
+        func_001E78C8(s0, *(int *)(s1 + 0x3DC));
+        func_001E78E8(s0, *(int *)(s1 + 0x3E0));
+        *(unsigned short *)(s1 + 0x48E) = 0;
+        MarkPanel_setMark(s1, 0, 0, 0);
+        MarkPanel_setMark(s1, 1, 0, 0);
+        MarkPanel_setMark(s1, 2, 0, 0);
+        Slot2_selectMark(s1, 0, 0, 0);
+        Slot2_selectMark(s1, 1, 0, 0);
+        Slot2_selectMark(s1, 2, 0, 0);
+        Slot2_selectMark(s1, 3, 0, 0);
+        Slot2_selectMark(s1, 4, 0, 0);
+        Slot2_showLayersForMode(s1);
+        func_001E3D78(s1, 0, 0);
+        func_001E3E40(s1, 0, 0, 0);
+        func_001E3E40(s1, 1, 0, 0);
+        func_001E3E40(s1, 2, 0, 0);
+        func_001E3E40(s1, 3, 0, 0);
+        func_001E3E40(s1, 4, 0, 0);
+        MarkObj_setMarkFlag(s1, 0, 0);
+        MarkObj_setMarkFlag(s1, 1, 0);
+        p0 = s1 + 0x58;
+        p1 = s1 + 0x160;
+        p2 = s1 + 0x268;
+        *(int *)(p0 + 0x4) = 0;
+        *(int *)(p0 + 0x8) = 0;
+        *(int *)(p0 + 0xC) = 0;
+        *(int *)(p1 + 0x4) = 0;
+        *(int *)(p1 + 0x8) = 0;
+        *(int *)(p1 + 0xC) = 0;
+        *(int *)(p2 + 0x4) = 0;
+        *(int *)(p2 + 0x8) = 0;
+        *(int *)(p2 + 0xC) = 0;
+        *(int *)(s1 + 0x8) = *(int *)(s1 + 0x8) + 1;
     }
     /* fallthrough */
     case 1:
-        if (D_00747A2C.unk00 & GAMESYS_F_DEBUG) {
-            if (GAMESYS_PAD_REP & KEY_DEBUG_GOLD) {
-                cCoreSave_addGold(&D_00569B70, DEBUG_GOLD, 0);
+        if (D_00747A2C & 0x200) {
+            char *o = (char *)&D_00747A2C;
+            if (*(long *)(o - 0x3DC) & 0x33000000000L) {
+                cCoreSave_addGold(&D_00569B70, 0x3E8, 0);
             }
         }
-        v = self->reel[0].doneFlag;
+        v = *(unsigned int *)(s1 + 0x118);
         if ((v & 1) == 0) {
             return;
         }
-        v = self->reel[1].doneFlag;
+        v = *(unsigned int *)(s1 + 0x220);
         if ((v & 1) == 0) {
             return;
         }
-        v = self->reel[2].doneFlag;
+        v = *(unsigned int *)(s1 + 0x328);
         if ((v & 1) == 0) {
             return;
         }
-        if (self->betLv == 0) {
-            if (D_007474A0.trg & KEY_BET_DOWN) {
-                cSnd_SeCall_2CB8A0(&D_005FEE00, 0, SE_BET_DOWN, -1, -1, 0, 0);
-                self->state = SLOT1_STATE_LEAVE;
-                self->step = 0;
-                self->phase = 0;
+        if (*(unsigned short *)(s1 + 0x48E) == 0) {
+            char *g = (char *)&D_007474A0;
+            if (*(long *)(g + 0x1A0) & 0x200000000L) {
+                cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x161, -1, -1, 0, 0);
+                *(int *)(s1 + 0x4) = 4;
+                *(int *)(s1 + 0x8) = 0;
+                *(int *)(s1 + 0xC) = 0;
                 return;
             }
         }
         {
-            long f = D_007474A0.trg;
+            char *g = (char *)&D_007474A0;
+            long f = *(long *)(g + 0x1A0);
 
-            if (f & KEY_BET_UP) {
-                if (self->betLv >= SLOT1_BET_MAX) {
+            if (f & 0x400000000L) {
+                if (*(unsigned short *)(s1 + 0x48E) >= 3) {
                     return;
                 }
-                if (cCoreSave_getGold(&D_00569B70) < self->betCost) {
+                if (cCoreSave_getGold(&D_00569B70) < *(int *)(s1 + 0x3C8)) {
                     return;
                 }
-                self->betLv += 1;
-                cCoreSave_subGold(&D_00569B70, self->betCost);
-                Slot2_showLayersForMode(self);
-                cSnd_SeCall_2CB8A0(&D_005FEE00, 0, SE_BET_UP, -1, -1, 0, 0);
+                *(unsigned short *)(s1 + 0x48E) += 1;
+                cCoreSave_subGold(&D_00569B70, *(int *)(s1 + 0x3C8));
+                Slot2_showLayersForMode(s1);
+                cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15F, -1, -1, 0, 0);
                 return;
             }
-            if (f & KEY_BET_DOWN) {
-                if (self->betLv == 0) {
+            if (f & 0x200000000L) {
+                if (*(unsigned short *)(s1 + 0x48E) == 0) {
                     return;
                 }
-                self->betLv -= 1;
-                cCoreSave_addGold(&D_00569B70, self->betCost, 0);
-                Slot2_showLayersForMode(self);
-                cSnd_SeCall_2CB8A0(&D_005FEE00, 0, SE_BET_DOWN, -1, -1, 0, 0);
+                *(unsigned short *)(s1 + 0x48E) -= 1;
+                cCoreSave_addGold(&D_00569B70, *(int *)(s1 + 0x3C8), 0);
+                Slot2_showLayersForMode(s1);
+                cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x161, -1, -1, 0, 0);
                 return;
             }
-            if (self->betLv != 0 && (f & KEY_SPIN)) {
-                self->state = SLOT1_STATE_SPIN;
-                self->step = 0;
-                self->phase = 0;
+            if (*(unsigned short *)(s1 + 0x48E) != 0 && (f & 0x2200802000000L)) {
+                *(int *)(s1 + 0x4) = 1;
+                *(int *)(s1 + 0x8) = 0;
+                *(int *)(s1 + 0xC) = 0;
                 return;
             }
         }
-        if ((D_007474A0.trg & KEY_HELP) == 0) {
-            return;
+        {
+            char *g = (char *)&D_007474A0;
+            if ((*(long *)(g + 0x1A0) & 0x10000000000L) == 0) {
+                return;
+            }
         }
-        CustomIDOwner_setColorMode(&self->ui, 1);
-        self->timer = 0xF;
-        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, SE_HELP, -1, -1, 0, 0);
-        self->step = self->step + 1;
+        CustomIDOwner_setColorMode(s1 + 0x4D0, 1);
+        *(int *)(s1 + 0x10) = 0xF;
+        cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15E, -1, -1, 0, 0);
+        *(int *)(s1 + 0x8) = *(int *)(s1 + 0x8) + 1;
         break;
     case 2:
-        if (self->timer != 0) {
-            self->timer -= 1;
+        if (*(int *)(s1 + 0x10) != 0) {
+            *(int *)(s1 + 0x10) -= 1;
             done = 0;
         } else {
             done = 1;
         }
         if ((done & 0xFF) != 0) {
-            SetUiIdWorkDispRange(&self->ui, 1);
-            self->timer = 0xA;
-            self->step = self->step + 1;
+            SetUiIdWorkDispRange(s1 + 0x4D0, 1);
+            *(int *)(s1 + 0x10) = 0xA;
+            *(int *)(s1 + 0x8) = *(int *)(s1 + 0x8) + 1;
         }
         break;
     case 3:
-        if (self->timer != 0) {
-            self->timer -= 1;
+        if (*(int *)(s1 + 0x10) != 0) {
+            *(int *)(s1 + 0x10) -= 1;
             done = 0;
         } else {
             done = 1;
         }
         if ((done & 0xFF) != 0) {
-            if (D_007474A0.trg & KEY_CLOSE) {
-                SlotUi *ui = &self->ui;
-                SetUiIdWorkDispRange(ui, 0);
-                CustomIDOwner_setColorMode(ui, 2);
-                self->timer = 0xA;
-                self->step = self->step + 1;
+            if (D_00747640 & 0x33F00000000L) {
+                char *s0 = s1 + 0x4D0;
+                SetUiIdWorkDispRange(s0, 0);
+                CustomIDOwner_setColorMode(s0, 2);
+                *(int *)(s1 + 0x10) = 0xA;
+                *(int *)(s1 + 0x8) = *(int *)(s1 + 0x8) + 1;
             }
         }
         break;
     case 4:
-        if (self->timer != 0) {
-            self->timer -= 1;
+        if (*(int *)(s1 + 0x10) != 0) {
+            *(int *)(s1 + 0x10) -= 1;
             done = 0;
         } else {
             done = 1;
         }
         if ((done & 0xFF) != 0) {
-            self->step = 1;
+            *(int *)(s1 + 0x8) = 1;
         }
         break;
     }

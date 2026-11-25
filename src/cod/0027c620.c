@@ -1,5 +1,5 @@
 #include "godhand/cEm00.h"
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 #include "godhand/motion.h"
 
 /* func_0027C620 — +0x2F6 phase machine (record fields 0x28/0x2C, mode 5): phase 0

@@ -1,7 +1,7 @@
 /* TU: cOmbb [object] - recovered C++ class. */
 #include "godhand/cOmbb.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/cObjBase.h"
 
 /* Kind of bomb this object is. */
 __attribute__((section(".text.cOmbb_ckBomb")))
@@ -19,8 +19,8 @@ void cOmbb_setFire(cOmbb *self)
         self->base.mode = 0;
         self->base.step = COMBB_FUSE_LIT;
         KillEffect(self, 0, 2);
-        SetEffect(1, 1, self, 0, 0, 0xFFFFFFFFU);
-        self->hissSe = cSnd_SeCall_2CBA48(&D_005FEE00, 2, COMBB_SE_HISS, self, 0, 0, 0, 0);
+        SetEffect(1, 1, (cObj *)self, 0, 0, EFFECT_FOLLOW_OWNER);
+        self->hissSe = cSnd_SeCall_2CBA48(&D_005FEE00, 2, COMBB_SE_HISS, (cObj *)self, 0, 0, 0, 0);
         self->fireLit = 1;
     }
 }

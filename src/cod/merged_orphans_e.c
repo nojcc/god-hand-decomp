@@ -1,5 +1,5 @@
 /* cSnd_SetBgmTblNo: `func_002D0658(0.0f)` — forwarding call with a float arg. */
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/globals.h"
 extern void func_002D0658(float);
 __attribute__((section(".text.cSnd_SetBgmTblNo")))

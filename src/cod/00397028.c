@@ -1,6 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/sceDma.h"
-#include "godhand/eeKernel.h"
+#include "godhand/eeKernelFn.h"
 #include "godhand/globals.h"
 
 

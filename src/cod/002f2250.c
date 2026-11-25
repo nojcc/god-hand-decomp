@@ -2,7 +2,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/espSys.h"
 extern void *StoreVecFromFieldB0_2B6160(void *a0, void *a1);
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/mtx.h"
 #include "godhand/cModel.h"
 #include "godhand/cCamera.h"

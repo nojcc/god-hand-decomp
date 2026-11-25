@@ -1,41 +1,40 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/PanelObj.h"
-#include "godhand/criStm.h"
 #include "godhand/cIDBase.h"
-#include "godhand/heapArena.h"
 #include "godhand/CustomIDWork.h"
-#include "godhand/cMovie.h"
+#include "godhand/PanelObj.h"
 #include "godhand/globals.h"
 
+extern int _MemoryAlloc(void *ctx, int k, int v);
+extern void cIDBase_initialize(void *p, int a, int b);
+extern void cIDBase_restartAnim(void *p);
+extern void func_001DEE60(void *p, int a, int b);
 extern char *Obj0000_Get_Field_20_Plus_A1_Shifted3_1333B8(void *p, unsigned short i);
 extern int cScrArray_SearchScroll(void *p, long v);
 extern void HideModelMgr_ClearHiddenModelList(void *p);
 extern char D_005CAE50[];
 extern char D_00754C38[];
+extern void func_003A52F0(void *d, int c, int n);
 extern void func_001FC810(void *n, void *buf, int cnt);
 
-typedef struct { HeapArena *heap[2]; } ArenaPair;
-extern ArenaPair D_0044B288;
+typedef struct { int w[2]; } Blob8;
 
-/* size bytes, 128-byte aligned, from the first of D_0044B288's two arenas with room;
- * the block and its arena go in a free slot of the movie object (a1 is not read). */
 __attribute__((section(".text.func_002B5AF8")))
-void *func_002B5AF8(cMovie *self, int unused, unsigned int size)
+int func_002B5AF8(void *a0, int a1, void *ctx)
 {
-    ArenaPair buf;
-    cMovieAlloc *res;
+    Blob8 buf;
+    char *res;
     int i;
-    void *v;
+    int v;
 
-    buf = D_0044B288;
-    res = func_002B4FE8(self, 0);
+    buf = *(Blob8 *)D_0044B288;
+    res = func_002B4FE8(a0, 0);
     if (res == 0) return 0;
 
     for (i = 0; i < 2; i++) {
-        v = _MemoryAlloc(size, 0x80, buf.heap[i]);
+        v = _MemoryAlloc(ctx, 0x80, buf.w[i]);
         if (v != 0) {
-            res->block = v;
-            res->heap = buf.heap[i];
+            *(int *)(res + 0x0) = v;
+            *(int *)(res + 0x4) = buf.w[i];
             return v;
         }
     }
@@ -56,7 +55,7 @@ void func_001DECE0(PanelObj *p)
     CustomIDWork_SetMessNo(&p->elem[7], 0x1000);
     CustomIDWork_SetMessNo(&p->elem[9], 0x1001);
     CustomIDWork_SetMessNo(&p->elem[10], 0x1002);
-    func_001DEE60(p, PANEL_ELEM_ALL, 0);
+    func_001DEE60(p, 0x11, 0);
 }
 
 __attribute__((section(".text.func_00307A60")))

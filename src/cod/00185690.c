@@ -31,14 +31,14 @@ void func_00185690(void *a0, int a1) {
         cOmBase_setMeshDispFromLayer(s0, 0x1C, 1);
         break;
     case 3:
-        SetEffect(0x298, 0x9, s0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(0x298, 0x9, s0, 0, -1, EFFECT_FOLLOW_OWNER);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, s0, 0, 0, 0, 0);
         cOmBase_setMeshDispFromLayer(s0, 0x18, 1);
         cOmBase_setMeshDispFromLayer(s0, 0x1C, 1);
         func_00186038(s0, 0x7);
         break;
     case 4:
-        SetEffect(0x298, 0xA, s0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(0x298, 0xA, s0, 0, -1, EFFECT_FOLLOW_OWNER);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, s0, 0, 0, 0, 0);
         cOmBase_setMeshDispFromLayer(s0, 0x18, 1);
         cOmBase_setMeshDispFromLayer(s0, 0x1C, 1);

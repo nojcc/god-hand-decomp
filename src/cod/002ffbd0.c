@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/heapArena.h"
-#include "godhand/cNode.h"
+#include "godhand/heapArenaFn.h"
+#include "godhand/cNodeFn.h"
 
 extern int Setup_Fields_2B0_2F56C0();
 extern int Setup_Field_2B0_2F61C8();

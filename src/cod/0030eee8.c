@@ -1,6 +1,8 @@
 /* sn-2.95.3-136: Move, the per-frame game update: runs every subsystem's move in order and records the elapsed
  * timer-0 counts of the first step and of the whole frame. */
+#include "godhand/cCollisionSolid.h"
 #include "godhand/cScenario.h"
+#include "godhand/cSnd.h"
 #include "godhand/cSubScr.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cDataManager.h"
@@ -13,18 +15,14 @@
 extern int D_00747A78;
 extern void *D_003C2648;
 extern void *D_003C23A4;
-extern char D_005E8040[];
 extern char D_005CAE50[];
 extern char D_0061A990[];
 extern char D_00586AF0[];
 extern char D_00463050[];
 extern char D_00604700[];
-extern char D_00462FC0[];
 extern char D_00583EC0[];
 extern int *D_00754C50[];
-extern char D_005FEE00[];
 
-extern void func_002B9D58(void *p);
 extern void ListOwner_updateFollowFocus(void *p);
 extern void func_002D9BE0(void *p);
 extern void func_00296530(void *p);
@@ -49,7 +47,7 @@ void Move(void)
 {
     D_00752D44 = D_00752CF0;
     D_00752CFC = T0_COUNT;
-    func_002B9D58(D_005E8040);
+    func_002B9D58(&D_005E8040);
     D_00752CFC -= T0_COUNT;
     ListOwner_updateFollowFocus(D_005CAE50);
     func_002D9BE0(D_0061A990);
@@ -60,7 +58,7 @@ void Move(void)
     cWorldLight_Move(D_00604700);
     func_001FDFD8(&D_00574380);
     MoveObj();
-    NoOp_1352F0(D_00462FC0);
+    NoOp_1352F0(&D_00462FC0);
     func_002BF2D0(D_003C2648);
     func_001601D8(D_003BD930);
     MoveEffect();
@@ -74,6 +72,6 @@ void Move(void)
     func_00140E58(Cockpit);
     func_001FE748(&D_00580D20);
     func_001FE748(&D_005864E0);
-    InitSubsystemGroup_2CA518(D_005FEE00);
+    InitSubsystemGroup_2CA518(&D_005FEE00);
     D_00752D44 -= T0_COUNT;
 }

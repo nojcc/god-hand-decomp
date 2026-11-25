@@ -4,10 +4,11 @@
 #include "godhand/cSnd.h"
 
 extern void SetLinkedObjField2B_1D6D68(void *a0, int a1);
+extern void cSnd_BgmEventStart(void *a0, int a1, int a2, int a3);
 extern void func_001D49E0(void *a0, int a1);
 extern void func_001D4AA8(void *a0, int a1);
-extern void func_001D6850(BlackJack *self, int mode);
-extern void IdGlow_setState(BlackJack *self, int mode);
+extern void func_001D6850(void *a0, int a1);
+extern void IdGlow_setState(void *a0, int a1);
 extern void func_001D6D20(void *a0, int a1);
 extern long D_00747640;
 

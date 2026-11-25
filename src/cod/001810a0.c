@@ -2,7 +2,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/cRelSys.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cEvent.h"
 #include "godhand/cDataManager.h"
 #include "godhand/cDvd.h"
@@ -91,7 +91,7 @@ int cDataManager_retireSlot(cDataSlot *slot)
 __attribute__((section(".text.LinkObj_callLockOn")))
 void LinkObj_callLockOn(EspAnim *self)
 {
-    unsigned long f = self->flags;
+    unsigned long f = *(int *)((char *)self + 0x11C);
     unsigned long bit;
     cVtEnt *vt;
     if (f & ESP_ANIM_HIDE)

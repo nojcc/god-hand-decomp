@@ -1,6 +1,7 @@
 /* TU: cCamManager [camera] - recovered C++ class. */
 #include "include_asm.h"
 #include "godhand/cCamManager.h"
+#include "godhand/cCameraFn.h"
 
 /* Make the player camera current, saving the previous camera and mode. */
 __attribute__((section(".text.cCamManager_setPlCamera")))

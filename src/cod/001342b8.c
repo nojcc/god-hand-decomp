@@ -1,12 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
-#include "godhand/IdScreen4.h"
-#include "godhand/cCockPrintData.h"
-#include "godhand/cCockEmBar.h"
+#include "godhand/cCockAlert.h"
 #include "godhand/globals.h"
 
 extern unsigned char D_0044BAB0[];
+extern void __builtin_delete(void *a);
+extern int cIDBase_initialize();
 extern int D_00747A80;
 extern int cGameObj_isClip();
 extern void func_0031EEC8(void *a, void *b);
@@ -93,9 +91,9 @@ void func_0013F118(void *a0) {
 
 
 __attribute__((section(".text.func_00143558")))
-void func_00143558(cCockPrintData *self) {
-    cIDBase_initialize(&self->base, 1, 0x13);
-    cIDBase_initialize(&self->popupBase, 1, 0x18);
+void func_00143558(void *a0) {
+    cIDBase_initialize(a0, 1, 0x13);
+    cIDBase_initialize((char *)a0 + 0xB0, 1, 0x18);
 }
 
 /* LANE K3, wave 18 -- DEAD-HEAD boundary class.
@@ -136,25 +134,39 @@ int func_001B80C0(void *a0) {
 
 
 __attribute__((section(".text.func_0013D048")))
-void func_0013D048(cCockEmBar *self) {
-    cIDBase_initialize(&self->base, 1, 6);
-    cIDBase_initialize(&self->sub[2].id, 1, 7);
-    cIDBase_initialize(&self->sub[3].id, 1, 8);
-    cIDBase_initialize(&self->sub[0].id, 1, 0x1B);
-    cIDBase_initialize(&self->sub[1].id, 1, 0x1C);
+void func_0013D048(void *a0) {
+    cIDBase_initialize(a0, 1, 6);
+    cIDBase_initialize((char *)a0 + 0x140, 1, 7);
+    cIDBase_initialize((char *)a0 + 0x190, 1, 8);
+    cIDBase_initialize((char *)a0 + 0xA0, 1, 0x1B);
+    cIDBase_initialize((char *)a0 + 0xF0, 1, 0x1C);
 }
 
-/* Build the four-entry display (id 0xA) and cache its entries. */
+/* LANE K3, wave 18 -- DEAD-HEAD boundary class.
+ * declared symbol : func_0013C220
+ * TRUE ENTRY      : 0x0013C220
+ * head bytes      : 8 (dead words in front of the true entry)
+ * compiler        : sn-2.95.3-136
+ * extra keys      : none
+ * symbol_addrs    : func_0013C220 = 0x0013C220; // type:func
+ *
+ * Byte-exact over the TRUE span only.  score_candidate compares the
+ * DECLARED span and reports a clean length miss of 2 words.
+ * Land it after the boundary moves.
+ */
+
+
+
 __attribute__((section(".text.func_0013C220")))
-void func_0013C220(IdScreen4 *self) {
+void func_0013C220(cCockAlert *self) {
     unsigned short i;
     self->unk90 = 0;
-    cIDBase_initialize(&self->base, 1, 0xA);
+    cIDBase_initialize(self, 1, 0xA);
     i = 0;
     do {
         self->ent[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
-    } while (i < IDSCREEN4_ENT_NUM);
+    } while (i < COCKALERT_ENT_NUM);
 }
 
 /* LANE K3, wave 18 -- DEAD-HEAD boundary class.

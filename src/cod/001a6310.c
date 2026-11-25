@@ -35,7 +35,7 @@ void func_001A6310(cOmRockerLow *self)
 
     switch (self->base.phase) {
     case 0:
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x96, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x96, (cObj *)self, 0, 0, 0, 0);
         cVec_copy3(&self->swingDir, &self->knock);
         cVec_unitOf(&f.unit, &self->swingDir);
         VU0_LQC2(4, &f.unit, 0);

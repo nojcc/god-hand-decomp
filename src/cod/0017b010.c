@@ -5,7 +5,7 @@
 #include "godhand/cEmManage.h"
 #include "godhand/cOmBase.h"
 #include "godhand/FileLoadRec.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 #include "godhand/globals.h"
 
 extern void *InitFields_1B6E90(void *self);

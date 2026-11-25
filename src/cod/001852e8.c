@@ -2,53 +2,53 @@
 #include "godhand/cSnd.h"
 #include "godhand/cObjBase.h"
 
-extern void cOmBase_setMeshDispFromLayer(void *model, int layer, int show);
+extern void cOmBase_setMeshDispFromLayer(void *a0, int a1, int a2);
 extern void func_00186038(char *a0, int a1);
 
 __attribute__((section(".text.func_001852E8")))
-void func_001852E8(void *self, unsigned int arg1)
+void func_001852E8(void *arg0, unsigned int arg1)
 {
-    cOmBase_setMeshDispFromLayer(self, 1, 0);
-    cOmBase_setMeshDispFromLayer(self, 2, 0);
-    cOmBase_setMeshDispFromLayer(self, 3, 0);
-    cOmBase_setMeshDispFromLayer(self, 4, 0);
-    cOmBase_setMeshDispFromLayer(self, 6, 0);
-    cOmBase_setMeshDispFromLayer(self, 7, 0);
-    cOmBase_setMeshDispFromLayer(self, 8, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 1, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 2, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 3, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 4, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 6, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 7, 0);
+    cOmBase_setMeshDispFromLayer(arg0, 8, 0);
     switch (arg1) {
     case 0:
-        cOmBase_setMeshDispFromLayer(self, 1, 1);
-        cOmBase_setMeshDispFromLayer(self, 6, 1);
+        cOmBase_setMeshDispFromLayer(arg0, 1, 1);
+        cOmBase_setMeshDispFromLayer(arg0, 6, 1);
         break;
     case 1:
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x111, self, 0, 0, 0, 0);
-        cOmBase_setMeshDispFromLayer(self, 2, 1);
-        cOmBase_setMeshDispFromLayer(self, 7, 1);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x111, arg0, 0, 0, 0, 0);
+        cOmBase_setMeshDispFromLayer(arg0, 2, 1);
+        cOmBase_setMeshDispFromLayer(arg0, 7, 1);
         break;
     case 2:
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x111, self, 0, 0, 0, 0);
-        cOmBase_setMeshDispFromLayer(self, 3, 1);
-        cOmBase_setMeshDispFromLayer(self, 8, 1);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x111, arg0, 0, 0, 0, 0);
+        cOmBase_setMeshDispFromLayer(arg0, 3, 1);
+        cOmBase_setMeshDispFromLayer(arg0, 8, 1);
         break;
     case 3:
-        SetEffect(0x298, 7, self, 0, -1, 0xFFFFFFFF);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, self, 0, 0, 0, 0);
-        cOmBase_setMeshDispFromLayer(self, 4, 1);
-        cOmBase_setMeshDispFromLayer(self, 8, 1);
-        func_00186038(self, 0);
-        func_00186038(self, 1);
-        func_00186038(self, 2);
+        SetEffect(0x298, 7, arg0, 0, -1, EFFECT_FOLLOW_OWNER);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, arg0, 0, 0, 0, 0);
+        cOmBase_setMeshDispFromLayer(arg0, 4, 1);
+        cOmBase_setMeshDispFromLayer(arg0, 8, 1);
+        func_00186038(arg0, 0);
+        func_00186038(arg0, 1);
+        func_00186038(arg0, 2);
         break;
     case 4:
-        SetEffect(0x298, 8, self, 0, -1, 0xFFFFFFFF);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, self, 0, 0, 0, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x114, self, 0, 0, 0, 0);
-        cOmBase_setMeshDispFromLayer(self, 4, 1);
-        cOmBase_setMeshDispFromLayer(self, 8, 1);
-        func_00186038(self, 3);
-        func_00186038(self, 4);
-        func_00186038(self, 5);
-        func_00186038(self, 6);
+        SetEffect(0x298, 8, arg0, 0, -1, EFFECT_FOLLOW_OWNER);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, arg0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x114, arg0, 0, 0, 0, 0);
+        cOmBase_setMeshDispFromLayer(arg0, 4, 1);
+        cOmBase_setMeshDispFromLayer(arg0, 8, 1);
+        func_00186038(arg0, 3);
+        func_00186038(arg0, 4);
+        func_00186038(arg0, 5);
+        func_00186038(arg0, 6);
         break;
     }
 }

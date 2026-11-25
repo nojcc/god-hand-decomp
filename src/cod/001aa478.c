@@ -2,7 +2,7 @@
 
 #include "godhand/cObj.h"
 #include "godhand/criStm.h"
-#include "godhand/pl00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cDvd.h"
 #include "godhand/cModel.h"

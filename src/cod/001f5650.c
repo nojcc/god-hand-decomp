@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 */
 #include "godhand/CustomIDWork.h"
 #include "godhand/CustomIDPanel.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 
 #define STAT_DISP_PIP      0x50     /* pip entries 0x50.. */
 #define STAT_DISP_GAUGE0   0x57

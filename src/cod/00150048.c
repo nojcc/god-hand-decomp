@@ -1,17 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
-#include "godhand/criStm.h"
-#include "godhand/cSnd.h"
-#include "godhand/cNode.h"
-#include "godhand/cIDBase.h"
-#include "godhand/heapArena.h"
-#include "godhand/stageSet.h"
-#include "godhand/globals.h"
 
 extern void func_003182D8(int a, int b);
 extern void func_0031CE90(int a, int b);
 extern unsigned char D_0045F039[];
 extern int D_00466470;
+extern void __builtin_delete();
 extern void EmitterAllKill(void);
 extern void EspAllKill(void);
 extern void sdeIssLumpProcess(void);
@@ -22,6 +16,7 @@ extern int sceIpuRestartDMA(int chan);
 extern int D_003FA62C;
 extern void Obj0000_Get_D_0045FB80_3AD118(int a);
 extern void Deci2Call(int a, int *b);
+extern void cSndSeVoice_Init(void *a);
 extern void cIDParam_initialize(void *a);
 extern void Setup_00309028_309028(void *a0);
 extern void ADXT_Stop(void *p);
@@ -32,11 +27,14 @@ extern void func_0032DB70(void *p);
 extern void func_0032E040(void *p, int b);
 extern int D_0076DF10;
 extern unsigned char D_0041ECA0[];
+extern unsigned char D_0042C4D8[];
 extern unsigned char D_0044AEF8[];
 extern char D_0044B310[];
 extern char D_0044BAB0[];
 extern char D_0044D1C8[];
 extern char D_0044D388[];
+extern int D_00450080;
+extern int D_00451288;
 
 __attribute__((section(".text.func_003184C0")))
 void func_003184C0(void) {
@@ -92,11 +90,10 @@ int func_00150100(int a0) {
     return ObjList_queueObj(&D_00466470, a0);
 }
 
-/* Destructor: frees box when bit 0 of the flags is set. */
 __attribute__((section(".text.cBoundingBox__dtor")))
-void cBoundingBox__dtor(BoundingBox *box, int mode) {
-    if (mode & 1) {
-        __builtin_delete(box);
+void cBoundingBox__dtor(int a0, int a1) {
+    if (a1 & 1) {
+        __builtin_delete();
     }
 }
 
@@ -248,6 +245,7 @@ void func_00374958(int *a0) {
 	}
 }
 
+void func_003A52F0(int *p, int b, int c);
 __attribute__((section(".text.sdeIssWorkClear")))
 void sdeIssWorkClear(void) {
 	func_003A52F0(&D_0076DF10, 0, 0x600);
@@ -272,6 +270,7 @@ int func_003B1E68(int a0, int a1, int a2) {
 }
 
 void func_001661D8(void *a0);
+void cIDBase_trans(void *a0);
 
 __attribute__((section(".text.func_00165E88")))
 void func_00165E88(void *a0) {
@@ -343,11 +342,11 @@ void func_002A98D8(int *a0, int a1) {
 }
 
 __attribute__((section(".text.func_002B6568")))
-void func_002B6568(cNode *self, int flags)
+void func_002B6568(void *a0, int a1)
 {
-    self->vt = D_0044B310;
-    if (flags & 1) {
-        __builtin_delete(self);
+    *(char **)((char *)a0 + 0xF0) = D_0044B310;
+    if (a1 & 1) {
+        __builtin_delete(a0);
     }
 }
 
@@ -379,20 +378,20 @@ void func_002D9E30(void *a0, int a1)
 }
 
 __attribute__((section(".text.func_002FBDD8")))
-void func_002FBDD8(cNode *self, int flags)
+void func_002FBDD8(void *a0, int a1)
 {
-    self->vt = D_0044B310;
-    if (flags & 1) {
-        __builtin_delete(self);
+    *(char **)((char *)a0 + 0xF0) = D_0044B310;
+    if (a1 & 1) {
+        __builtin_delete(a0);
     }
 }
 
 __attribute__((section(".text.func_003028E8")))
-void func_003028E8(cNode *self, int flags)
+void func_003028E8(void *a0, int a1)
 {
-    self->vt = D_0044B310;
-    if (flags & 1) {
-        __builtin_delete(self);
+    *(char **)((char *)a0 + 0xF0) = D_0044B310;
+    if (a1 & 1) {
+        __builtin_delete(a0);
     }
 }
 

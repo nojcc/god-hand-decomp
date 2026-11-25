@@ -4,10 +4,13 @@
 #include "godhand/seqNode.h"
 #include "godhand/cRelSys.h"
 #include "godhand/Slot2.h"
+#include "godhand/Slot2Fn.h"
 #include "godhand/globals.h"
+#include "godhand/cOmBaseFn.h"
 extern int D_007474A0[];
 extern int D_007419A0;
 extern int D_0044E090;
+extern int D_0044CEE8;
 
 __attribute__((section(".text.InitObjectFields364_1398D0")))
 void *InitObjectFields364_1398D0(void *a0) {
@@ -137,12 +140,12 @@ void InitSubsystemGroup_2CA518(void *a0)
 }
 
 __attribute__((section(".text.cSndBgmNode_Ctor")))
-cSndBgmNode *cSndBgmNode_Ctor(cSndBgmNode *node)
+void *cSndBgmNode_Ctor(void *a0)
 {
-	Obj0000_Set_Field_80_372C68(&node->base);
-	node->base.vt = D_0044CEE8;
-	cSndBgmNode_Init(node);
-	return node;
+	Obj0000_Set_Field_80_372C68(a0);
+	*(int **)((char *)a0 + 0x80) = &D_0044CEE8;
+	cSndBgmNode_Init(a0);
+	return a0;
 }
 
 __attribute__((section(".text.FreeResourceNode_2D3710")))

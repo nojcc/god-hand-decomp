@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 */
 #include "include_asm.h"
 
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 #include "godhand/mtx.h"
 #include "godhand/sceVu0.h"
 

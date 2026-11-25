@@ -1,11 +1,11 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/pl00.h"
+#include "godhand/cCamera.h"
 
 extern char *Getplayer(void);
+extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
 extern int cEmManage_CkPlCatched(void *p);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern int D_005864F0;
-extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 extern void func_00129718(void *a, void *b, int c);
 
 __attribute__((section(".text.func_002DBCA0")))
@@ -18,7 +18,7 @@ void func_002DBCA0(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -45,7 +45,7 @@ void func_002DC2F0(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -53,8 +53,8 @@ void func_002DC2F0(void *arg)
                     r[0x2F5] = 0x17;
                     r[0x2F6] = 0;
                     r[0x2F7] = 0;
-                    Turn_dest(*((void **) (r + 0xF0)), *((void **) (s1 + 0xF0)),
-                              *((float *) (r + 0x104)), 3.14159274f);
+                    Turn_dest(*((void **) (r + 0xF0)), *((float *) (r + 0x104)),
+                              *((void **) (s1 + 0xF0)), 3.14159274f);
                 }
             }
         }
@@ -71,7 +71,7 @@ void func_002DC420(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -96,7 +96,7 @@ void func_002DC548(void *arg)
     s0 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -121,7 +121,7 @@ void func_002DC898(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -149,7 +149,7 @@ void func_002DD270(void *arg)
         return;
     }
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {

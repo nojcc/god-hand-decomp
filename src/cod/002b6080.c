@@ -1,5 +1,5 @@
 #include "godhand/vu0.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 /* func_002B6080 — zero a stack vector, run cNode_updateWorldMatrix(a1), fetch the scale
  * vector of the matrix at a1+0xB0 into the stack buffer, copy it to a0, and

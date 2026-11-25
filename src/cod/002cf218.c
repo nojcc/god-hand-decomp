@@ -3,6 +3,10 @@
 #include "godhand/cSnd.h"
 #include "godhand/cBgmData.h"
 
+extern void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
+extern void cSndBgmNode_FadeTo(cSndBgmNode *node, float level, float time);
+extern cSndBgmNode *cSnd_FindBgmNode(cSnd *self, int bank, int reqNo);
+
 extern float GetSequenceBlendWeight_373938(cSndBgmNode *, int);
 extern void UpdateSequenceNodeWeighted_373560(cSndBgmNode *, int, float);
 

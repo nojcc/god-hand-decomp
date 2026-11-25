@@ -11,7 +11,7 @@ __attribute__((section(".text.cOmb0_ReleaseCollision")))
 void cOmb0_ReleaseCollision(cOmb0 *self)
 {
     self->collisionOn = 0;
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (struct cGameObj *)self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (cGameObj *)self);
 }
 
 /* Split the global tick counter into hours, minutes and seconds. */

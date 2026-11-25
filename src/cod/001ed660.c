@@ -3,7 +3,7 @@
 #include "godhand/cIDBase.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/DogRace.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 
 extern int cIDBase_release();
 

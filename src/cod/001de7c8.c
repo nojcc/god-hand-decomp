@@ -3,7 +3,7 @@
 #include "godhand/Poker.h"
 #include "godhand/mtx.h"
 #include "godhand/Slot2.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern void displayScrollLayer(int layer, int on);
 extern float *func_002B6328(cNode *node);

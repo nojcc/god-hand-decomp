@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 #include "godhand/player.h"
 
 extern int Obj0000_Get_Field_5FC_NE_Zero_12C748(void *a0);
@@ -13,6 +13,7 @@ __attribute__((section(".text.func_0020D140")))
 int func_0020D140(cEm00 *self)
 {
     unsigned short seq;
+    cDamageTake *take;
     int kind;
     int vital;
     unsigned int lim;
@@ -34,7 +35,8 @@ int func_0020D140(cEm00 *self)
     if ((seq & 4) != 0) {
         return 0;
     }
-    kind = self->unk698->kind;
+    take = self->unk698;
+    kind = take->kind;
     switch (kind) {
     case 1: case 2: case 3: case 4:
     case 7: case 8:

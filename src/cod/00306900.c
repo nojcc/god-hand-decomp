@@ -19,5 +19,5 @@ int SetEffectParts(int kind, int id, void *owner, int part, float x, float y, fl
     param.unk72 = 0;
     param.unk74 = 0;
     param.unk78 = 0;
-    return SetEffect(kind, id, owner, &param, handle, 0xFFFFFFFF);
+    return SetEffect(kind, id, owner, &param, handle, EFFECT_FOLLOW_OWNER);
 }

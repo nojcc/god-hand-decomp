@@ -1,14 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/ColiseumBattle.h"
-#include "godhand/criStm.h"
-#include "godhand/cCoreSave.h"
-#include "godhand/vu0.h"
-#include "godhand/cModel.h"
 #define CGAMEOBJ_NO_TYPEDEF
 #include "godhand/cGameObj.h"
+#include "godhand/ColiseumBattle.h"
+#include "godhand/cCoreSave.h"
+#include "godhand/vu0.h"
 #include "godhand/globals.h"
 
-extern void cGameObj(void *);
+extern void func_003A52F0(void *, int, int);
+extern void func_001F2708(void *);
 
 __attribute__((section(".text.func_00134650")))
 void *func_00134650(void *this) {
@@ -98,7 +97,7 @@ void *func_0028EB00(void *a0) {
     int i;
 
     cGameObj(a0);
-    *(cVtEnt **)((char *)a0 + 0x214) = D_0044A660;
+    *(int **)((char *)a0 + 0x214) = &D_0044A660;
     p = (char *)a0 + 0x5C0;
     for (i = 1; i != -1; i--) {
         VU0_SQC2_VF0(p, 0x0);

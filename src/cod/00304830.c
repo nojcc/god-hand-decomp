@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern void func_002B62F8(float *v, void *s);
 extern float Adjust_theta(float a);

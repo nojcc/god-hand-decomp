@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 */
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 
 /* Starts phase 3 at the step for `kind`: 0, 2, 4 or 6 for kinds 0 to 3. */
 __attribute__((section(".text.func_002831C8")))

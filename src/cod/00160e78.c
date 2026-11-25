@@ -1,16 +1,15 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cModel.h"
-#include "godhand/CustomIDWork.h"
-#include "godhand/DogRace.h"
-#include "godhand/CustomIDPanel.h"
 #include "godhand/objField.h"
 #include "godhand/vu0.h"
 #include "godhand/cSnd.h"
 #include "godhand/globals.h"
+#include "godhand/eeKernel.h"
 
 extern float fRand1_1(void);
 extern float fRand0_1(void);
 extern void func_00147C88(void *a0, void *a1, int a2);
+extern void *cSnd_GetSeData(void *a0, int a1);
 extern int cSaveLoad_openSave(void *p, int a1);
 extern char D_00747A24[];
 extern char D_00747A2C[];
@@ -19,7 +18,7 @@ extern char D_003C2648[];
 extern void func_00381D38(void);
 extern void func_003A6A20(char *a0);
 extern void func_0031C900(int a0);
-extern int ChangeThreadPriority(int tid, int prio);
+extern void CustomIDWork_SetLocalPosY(char *a0, int a1);
 extern int SignalSema(int sema);
 extern void ExitDeleteThread(void);
 
@@ -90,7 +89,7 @@ int cSnd_EmSeFind(cSnd *self, int objId)
     int owner;
     int *slot;
     unsigned int i;
-    cSeData *e;
+    cSndSeEntry *e;
 
     owner = cSnd_getEmSeGroupOwner(self, objId);
     if (owner <= 0)
@@ -185,16 +184,16 @@ int func_00381B38(int a0, int a1) {
 
 /* sn-2.95.3-136 matched TU. */
 
-extern CustomIDSlotTbl D_0042BDD8;
+typedef struct { int w[5]; } Blk1EE;
+extern Blk1EE D_0042BDD8;
 
 
-/* Place element 28 at the row of slot 0..4. */
 __attribute__((section(".text.func_001EE6C8")))
-void func_001EE6C8(DogRaceList *self, unsigned short slot) {
-    CustomIDSlotTbl buf;
-    if (slot < 5) {
+void func_001EE6C8(char *a0, unsigned short a1) {
+    Blk1EE buf;
+    if (a1 < 5) {
         buf = D_0042BDD8;
-        CustomIDWork_SetLocalPosY(&self->elem[28], buf.w[slot]);
+        CustomIDWork_SetLocalPosY(a0 + 0xDF0, buf.w[a1]);
     }
 }
 

@@ -4,6 +4,7 @@
 #include "godhand/cModel.h"
 #include "godhand/cEma2.h"
 #include "godhand/cEmSetParam.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern void cGameObjSortEnt_makeHeap(cGameObjSortEnt *first, cGameObjSortEnt *last, void *tag, void *tagB, void *tagC);
 extern void cGameObjSortEnt_adjustHeap(cGameObjSortEnt *first, int holeIndex, int len, long val, void *tag);

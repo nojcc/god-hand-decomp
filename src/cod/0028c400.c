@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cEm00.h"
+#include "godhand/cEm00Fn.h"
 
 extern int cModel_setTextureExchange(void *self, void *tex, void *tbl, int n);
 extern int cModel_setupModel(void *a, void *b, void *c, int d, int e);

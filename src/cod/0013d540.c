@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/IDPanelScreen.h"
+#include "godhand/cCockGameOver.h"
 
 extern void IconScreen_stepGrow(void *this);
 extern void func_0013D7B0(void *this);
@@ -8,44 +8,58 @@ extern void IconScreen_waitChildDone(void *this);
 extern void func_0013DB50(void *this);
 extern void CustomIDWork_Main(void *p);
 
-/* Per-frame step of the panel: fill ent, run the step, hide three entries while the
- * save flag is set, run the five CustomIDWorks and move both displays. */
+/* func_0013D540 — sn-2.95.3-136, --call-loop-pad.
+   The CustomIDWork_Main sweep (for j=4; j>=0; j--) is the padded call-loop
+   (bgez close). */
+
+
+
+
+
+
+
+
+
+
+
 __attribute__((section(".text.func_0013D540")))
-void func_0013D540(IDPanelScreen *self) {
+void func_0013D540(void *this) {
+    char *base = (char *)this;
+    cCockGameOver *o = this;
     unsigned short i;
     int j;
-    cIDBaseObj *second;
-    CustomIDWork *p;
+    cIDBaseObj *pD0;
+    char *p;
 
-    for (i = 0; i < 11; i++) {
-        self->ent[i] = cIDBase_getIDWork(&self->base, i);
+    for (i = 0; i < COCKGAMEOVER_ENT_NUM; i++) {
+        o->ent[i] = cIDBase_getIDWork(&o->base, i);
     }
 
-    switch (self->step) {
+    switch (*(unsigned short *)(base + 0x92)) {
     case 0:
-        IconScreen_stepGrow(self);
+        IconScreen_stepGrow(this);
         break;
     case 1:
-        func_0013D7B0(self);
+        func_0013D7B0(this);
         break;
     case 2:
-        IconScreen_waitChildDone(self);
+        IconScreen_waitChildDone(this);
         break;
     }
 
     if ((D_00569B70.data->flags & 0x04000000) != 0) {
-        self->ent[1]->flags |= IDENT_FLAG_NO_DRAW;
-        self->ent[4]->flags |= IDENT_FLAG_NO_DRAW;
-        self->ent[0]->flags |= IDENT_FLAG_NO_DRAW;
-        func_0013DB50(self);
+        *(int *)(*(char **)(base + 0x98) + 0x2C) |= 0x08000000;
+        *(int *)(*(char **)(base + 0xA4) + 0x2C) |= 0x08000000;
+        *(int *)(*(char **)(base + 0x94) + 0x2C) |= 0x08000000;
+        func_0013DB50(this);
     }
 
-    second = &self->base2;
-    p = self->cw;
+    pD0 = &o->base2;
+    p = base + 0x120;
     for (j = 4; j >= 0; j--) {
         CustomIDWork_Main(p);
-        p++;
+        p += 0x7C;
     }
-    cIDBase_move(second);
-    cIDBase_move(&self->base);
+    cIDBase_move(pD0);
+    cIDBase_move(this);
 }

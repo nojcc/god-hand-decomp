@@ -8,14 +8,14 @@
 
 #ifdef NON_MATCHING
 /* pl00_CkSubScreen's INCLUDE_ASM stays in 000000.c. */
-int pl00_CkSubScreen(PlSub *pl)
+int pl00_CkSubScreen(pl00 *pl)
 {
     int sel;
 
-    if (pl->subOpen != 0) {
+    if (pl->base.mode != 0) {
         return 0;
     }
-    sel = pl->subSel;
+    sel = pl->base.phase;
     if (sel < 4) {
         if (sel >= 0) {
             return 1;
@@ -24,17 +24,17 @@ int pl00_CkSubScreen(PlSub *pl)
     return 0;
 }
 
-int func_0012BAF0(PlSub *pl)
+int func_0012BAF0(pl00 *pl)
 {
     int sel;
 
-    if (pl->flags15F4 & 0x400) {
+    if (pl->unk15F4 & 0x400) {
         return 1;
     }
-    if (pl->subOpen != 0) {
+    if (pl->base.mode != 0) {
         return 0;
     }
-    sel = pl->subSel;
+    sel = pl->base.phase;
     if (sel < 4) {
         if (sel >= 0) {
             return 1;

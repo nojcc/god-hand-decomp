@@ -1,21 +1,23 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSceAtManager.h"
-#include "godhand/idPair.h"
+#include "godhand/cCockScroll.h"
+
+extern int cIDBase_initialize();
 
 /* Set up both parts (ids 0x1D and 0x1E), keep the first part's four entries and clear the queue. */
 __attribute__((section(".text.func_001467E8")))
-void func_001467E8(IdPair *self) {
+void func_001467E8(cCockScroll *self) {
     unsigned short i;
-    cIDBase_initialize(&self->base, 1, 0x1D);
+    cIDBase_initialize(self, 1, 0x1D);
     cIDBase_initialize(&self->part2, 1, 0x1E);
     i = 0;
     do {
         self->work[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
-    } while (i < IDPAIR_WORK_NUM);
+    } while (i < COCKSCROLL_WORK_NUM);
     self->count = 0;
-    IdPair_init(self);
+    cCockScroll_reset(self);
 }
 
 /* SN ProDG ee-gcc 2.95.3. House style inherited from the matched

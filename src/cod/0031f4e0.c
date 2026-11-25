@@ -1,5 +1,6 @@
 /* cygnus-2.96 matched TU. */
-#include "godhand/criStm.h"
+#include "godhand/MpvHandle.h"
+#include "godhand/adxm.h"
 
 extern void func_00324C50(void);
 extern void func_0032AF88(void);
@@ -30,22 +31,11 @@ extern void SFBUF_RingGetRead(int a, int b, int *p);
 extern void (*D_003F2000)(void);
 extern void (*D_003F2008)(void);
 extern void (*D_003F2010)(void);
-extern void (*D_003F200C)(void);
-extern void (*D_003F2024)(int, int, int, int, int);
-extern void (*D_003F2028)(int, int, int);
-extern void (*D_003F202C)(int, int, int);
-extern void (*D_003F2034)(int, int);
-extern void (*D_003F2038)(int, int);
-extern void (*D_003F203C)(int, int, int, int);
-extern void (*D_003F2040)(int, int, int);
 extern void (*D_003F2044)(void);
 extern void ADXB_Stop(int);
 extern void (*D_003E9D20)(void);
 extern void func_00335B88(int);
 extern int (*D_003F2004)(void);
-extern int (*D_003F2030)(int, int);
-extern struct cb_0031f4e0 D_00755C20;
-extern struct cb2 D_00755C28;
 
 __attribute__((section(".text.func_003248F0")))
 int func_003248F0(void) {
@@ -137,9 +127,8 @@ int func_00360D50(void) {
 }
 
 __attribute__((section(".text.func_0031F4E0")))
-/* Nonzero when string *a sorts before string *b. */
-int func_0031F4E0(char **a, char **b) {
-    return (unsigned int)func_003A5678(*a, *b) >> 31;
+int func_0031F4E0(int *a0, int *a1) {
+    return (unsigned int)func_003A5678(*a0, *a1) >> 31;
 }
 
 __attribute__((section(".text.func_003342E8")))
@@ -258,58 +247,58 @@ void func_0036CD70(void) {
 }
 
 __attribute__((section(".text.func_0036CD98")))
-void func_0036CD98(void) {
+void func_0036CD98(int dev, int id, int val) {
     if (D_003F200C) {
-        D_003F200C();
+        D_003F200C(dev, id, val);
     }
 }
 
 __attribute__((section(".text.func_0036CDC0")))
-void func_0036CDC0(int a0, int a1, int a2, int a3, int a4) {
+void func_0036CDC0(int dev, int no, SjObj *sj, void (*cb)(int arg, int ch), int arg) {
     if (D_003F2024) {
-        D_003F2024(a0, a1, a2, a3, a4);
+        D_003F2024(dev, no, sj, cb, arg);
     }
 }
 
 __attribute__((section(".text.func_0036CDE8")))
-void func_0036CDE8(int a0, int a1, int a2) {
+void func_0036CDE8(int dev, char *buf, int size) {
     if (D_003F2028) {
-        D_003F2028(a0, a1, a2);
+        D_003F2028(dev, buf, size);
     }
 }
 
 __attribute__((section(".text.func_0036CE10")))
-void func_0036CE10(int a0, int a1, int a2) {
+void func_0036CE10(int dev, char **buf, int *len) {
     if (D_003F202C) {
-        D_003F202C(a0, a1, a2);
+        D_003F202C(dev, buf, len);
     }
 }
 
 __attribute__((section(".text.func_0036CE68")))
-void func_0036CE68(int a0, int a1) {
+void func_0036CE68(int dev, MpvPicAtr *atr) {
     if (D_003F2034) {
-        D_003F2034(a0, a1);
+        D_003F2034(dev, atr);
     }
 }
 
 __attribute__((section(".text.func_0036CE90")))
-void func_0036CE90(int a0, int a1) {
+void func_0036CE90(int dev, int *bitRate) {
     if (D_003F2038) {
-        D_003F2038(a0, a1);
+        D_003F2038(dev, bitRate);
     }
 }
 
 __attribute__((section(".text.func_0036CEB8")))
-void func_0036CEB8(int a0, int a1, int a2, int a3) {
+void func_0036CEB8(int dev, int *b, int *c, int *x) {
     if (D_003F203C) {
-        D_003F203C(a0, a1, a2, a3);
+        D_003F203C(dev, b, c, x);
     }
 }
 
 __attribute__((section(".text.func_0036CEE0")))
-void func_0036CEE0(int a0, int a1, int a2) {
+void func_0036CEE0(int dev, int *d, int *e) {
     if (D_003F2040) {
-        D_003F2040(a0, a1, a2);
+        D_003F2040(dev, d, e);
     }
 }
 
@@ -363,15 +352,12 @@ int func_0036CD18(void) {
 }
 
 __attribute__((section(".text.func_0036CE38")))
-int func_0036CE38(int a0, int a1) {
+int func_0036CE38(int dev, SjObj *sj) {
     if (D_003F2030) {
-        return D_003F2030(a0, a1);
+        return D_003F2030(dev, sj);
     }
     return 0;
 }
-
-struct cb_0031f4e0 { void (*fn)(int); int arg; };
-
 
 __attribute__((section(".text.func_00325FA8")))
 void func_00325FA8(void) {
@@ -379,9 +365,6 @@ void func_00325FA8(void) {
         D_00755C20.fn(D_00755C20.arg);
     }
 }
-
-struct cb2 { void (*fn)(int); int arg; };
-
 
 __attribute__((section(".text.func_00325FD8")))
 void func_00325FD8(void) {

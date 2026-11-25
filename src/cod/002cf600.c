@@ -21,7 +21,7 @@ int cSeData_LoadFile(cSeData *d, int bankId, char *fileName)
     }
     d->bankId = bankId;
     d->state = 1;
-    d->owner = 0x7FFFFFFF;
+    d->f3C = 0x7FFFFFFF;
     cSeData_SelectHeap(d);
     func_003A6C58(name, D_0044CF68, fileName);
     if (cDvd_FileExist(&D_00583F20, name) == 0 ||
@@ -67,8 +67,8 @@ int cSeData_CheckImage(cSeData *d)
     }
     b = d->buf;
     d->f14 = b->f10;
-    if (d->owner == 0x7FFFFFFF)
-        d->owner = b->f08;
+    if (d->f3C == 0x7FFFFFFF)
+        d->f3C = b->f08;
     d->f28 = d->bankId + 0x82;
     d->f20 = d->buf->f18;
     cSeData_AddLoadBits(d, 4);

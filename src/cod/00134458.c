@@ -2,17 +2,18 @@
 
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cSnd.h"
-#include "godhand/cNode.h"
-#include "godhand/cModel.h"
-#include "godhand/cOmBase.h"
-#include "godhand/heapArena.h"
-#include "godhand/vtables.h"
 
+extern void cOmBase_dieCommon(void *obj);
+extern void __builtin_delete(void *p);
+extern cSndSeEntry *cSnd_GetSeData(cSnd *self, int idx);
+extern int cSndSeVoice_CheckEnd(cSnd *self, int idx);
+extern char D_0044EE38[];
 extern unsigned short *cMessage_getMessageAddr(void *table, int id);
 
 /* Destroy hook of the enemy class with vtable D_004481A8: release the collision unit, then the owned child object. */
 typedef struct EnemyOwner {
-    char unk000[0x15B0];
+    cGameObj base;                      /* 0x000 */
+    char unk5B0[0x15B0 - 0x5B0];
     void *child;                        /* 0x15B0 owned object, dies with its owner */
 } EnemyOwner;
 
@@ -23,26 +24,18 @@ typedef struct EnemyOwner {
 __attribute__((section(".text.EnemyOwner_releaseChild")))
 void EnemyOwner_releaseChild(EnemyOwner *self)
 {
-    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, (struct cGameObj *)self);
+    cCollisionSolidManage_ReleaseUnit(&D_00462FC0, &self->base);
     if (self->child != 0) {
         cOmBase_dieCommon(self->child);
         self->child = 0;
     }
 }
 
-/* Deleting destructor of the node list holder: empty the list, then free the holder when the delete flag is set. */
-typedef struct NodeList {
-    int unk00;
-    void *head;                         /* 0x04 first node */
-} NodeList;
-
-extern void NodeList_clear(NodeList *self);
-
-
-__attribute__((section(".text.NodeList_deletingDtor")))
-void NodeList_deletingDtor(NodeList *self, int flags)
+/* Deleting destructor of the unit: destroy its solids, then free the unit when the delete flag is set. */
+__attribute__((section(".text.cCollisionSolidManageUnit__dtor")))
+void cCollisionSolidManageUnit__dtor(cCollisionSolidManageUnit *self, int flags)
 {
-    NodeList_clear(self);
+    cCollisionSolidManageUnit_clear(self);
     if (flags & 1) {
         __builtin_delete(self);
     }
@@ -61,19 +54,33 @@ void cSnd_CheckSeEnd(cSnd *self, int slot)
 }
 
 /* Destroy hook of the object with vtable D_0044EE38: hide and release the owned object, then run the base destroy. */
+typedef struct OwnedObj {
+    char unk000[0x250];
+    unsigned int objFlags;              /* 0x250 */
+} OwnedObj;
+
+typedef struct HolderObj {
+    char unk000[0xF0];
+    void *vt;                           /* 0xF0 */
+    char unkF4[0x1BC];
+    OwnedObj *owned;                    /* 0x2B0 */
+} HolderObj;
+
 #define OBJ_F_HIDE  0x2                 /* objFlags bit 1 */
 
 
+extern void ReleaseObj(OwnedObj *obj);
+extern void func_002FBE28(HolderObj *self, int flag);
 
 __attribute__((section(".text.HolderObj_destroyOwned")))
-void HolderObj_destroyOwned(cNodeOwner *self, int flag)
+void HolderObj_destroyOwned(HolderObj *self, int flag)
 {
-    self->base.vt = D_0044EE38;
+    self->vt = D_0044EE38;
     if (self->owned != 0) {
         self->owned->objFlags |= OBJ_F_HIDE;
         ReleaseObj(self->owned);
     }
-    func_002FBE28(&self->base, flag);
+    func_002FBE28(self, flag);
 }
 
 /* 1 when the character code is one of the 10 codes listed in message 4, else 0. */

@@ -1,7 +1,7 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/CustomIDWork.h"
 #include "godhand/Poker.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 
 extern struct T32 D_0042B5B0;
 

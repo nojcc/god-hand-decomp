@@ -1,6 +1,6 @@
 /* sn-2.95.3-136: func_002D3D88, movie player setup: allocate the decoder work, the two stream buffers and
  * the output image, create the player, and attach the effect buffer when the high flag bit is set. */
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/criStm.h"
 #include "godhand/cMovie.h"
 #include "godhand/globals.h"

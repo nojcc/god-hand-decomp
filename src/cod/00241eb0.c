@@ -1,3 +1,4 @@
+#include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
 
@@ -9,6 +10,7 @@ extern unsigned char D_005864F0[];
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_00262750(void *a0, int a1);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
@@ -20,7 +22,6 @@ extern void SetField_2F6_1C2308(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 
 #include "godhand/vu0.h"
-#include "godhand/cGameObj.h"
 
 #define FRAME ((char *)va - 0x30)
 
@@ -159,7 +160,7 @@ __attribute__((section(".text.func_00241EB0"))) void func_00241EB0(cEm00 *self)
         case 7:
             *(int *)(s3 + 0x16D0) |= 0x400;
             if (self != 0) {
-                cGameObj_SetTgtTurn(s3, *(cVec **)((char *)self + 0xF0),
+                cGameObj_SetTgtTurn((cGameObj *)s3, *(cVec **)((char *)self + 0xF0),
                                     *(float *)(s3 + 0x5A8) * 0.098174770424681f);
                 if (capVu0MagnitudeSqXZ(*(void **)((char *)self + 0xF0), *(void **)(s3 + 0xF0)) <
                     64.0f) {

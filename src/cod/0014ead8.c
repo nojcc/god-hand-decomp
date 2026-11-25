@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cObjBase.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 extern unsigned int func_0031ED08(float f);
 extern int moveMotion(cObjBase *self);

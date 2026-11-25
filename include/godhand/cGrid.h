@@ -7,7 +7,6 @@
 #define GODHAND_CGRID_H
 
 #include "godhand/cOmBase.h"
-#include "godhand/cModel.h"
 
 typedef struct cGrid {
     char unk00[0x30];
@@ -75,18 +74,6 @@ typedef struct cCollisionScrollSolid {
 typedef char cCollisionScrollSolid_size_check[(sizeof(cCollisionScrollSolid) == 0x190) ? 1 : -1];
 typedef char cCollisionScrollSolid_board_size_check[(sizeof(((cCollisionScrollSolid *)0)->u.board) == 0x100 - 0xA0) ? 1 : -1];
 
-#define CCOLLSOLID_BOX   2              /* cCollisionScrollSolid.type of a box */
-
-/* Vtables of the base body and of the box. */
-extern unsigned char D_0041D5A8[];
-extern unsigned char D_0041D558[];
-
-/* Construct a box for owner (its position and rotation copied, mtx its
- * matrix) with the two vectors, the size and the six faces. */
-cCollisionScrollSolid *cHitRec_constructSixBlob(cCollisionScrollSolid *self, cModel *owner, float *mtx,
-                         cVec *v70, cVec *v90, cVec *size, cCollFace *f0, cCollFace *f1,
-                         cCollFace *f2, cCollFace *f3, cCollFace *f4, cCollFace *f5);
-
 /* 1 << n for n = 0..31; the board debug draw copies it to the stack. */
 extern const int D_0041D2E0[32];
 
@@ -104,6 +91,7 @@ cCollisionScrollSolid *func_0012EAD8(char *self, void *obj, void *mtx, void *v70
                                      void *face2, void *face3, void *face4, void *face5);
 
 extern void func_00133948(void *self, void *boxMin, void *boxMax);
-extern int func_00133408(void *unused, float *min, float *max, float *boxMin, float *boxMax);
+/* Nonzero when the bounds amin..amax and bmin..bmax overlap; self isn't read. */
+int func_00133408(cGrid *self, float *amin, float *amax, float *bmin, float *bmax);
 
 #endif /* GODHAND_CGRID_H */

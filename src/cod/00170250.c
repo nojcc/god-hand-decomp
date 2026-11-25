@@ -1,7 +1,7 @@
-#include "godhand/cDamageManage.h"
+#include "godhand/cSnd.h"
 #include "godhand/objField.h"
+#include "godhand/cDamageManage.h"
 #include "godhand/globals.h"
-extern unsigned char D_005FEE00[];
 extern unsigned char D_00785798[];
 
 #include "godhand/vu0.h"
@@ -76,9 +76,9 @@ void FreeObjResourceAndDestroyD_170570(void *a0, void *a1) {
 }
 
 __attribute__((section(".text.InitObjVU0Slots0A0C_170700")))
-void InitObjVU0Slots0A0C_170700(void *obj) {
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, obj, 0, 0, 0, 0);
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, obj, 0, 0, 0, 0);
+void InitObjVU0Slots0A0C_170700(void *a0) {
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xA, a0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xC, a0, 0, 0, 0, 0);
 }
 
 __attribute__((section(".text.GetOrInit_D_007857F8_170778")))
@@ -103,7 +103,7 @@ void FreeObjResourceAndDestroyE_170800(int a0, int a1) {
     *(int*)((char*)a0 + 0x214) = (int)&D_004206B0;
     v1 = *(cDamageTake **)((char*)a0 + 0x600);
     if (v1 != 0) {
-        ClearAndResetFields_1FE278(&D_00574380, (cDamageTake *)v1);
+        ClearAndResetFields_1FE278(&D_00574380, v1);
         *(int*)((char*)a0 + 0x600) = 0;
     }
     func_001BFB00(a0, a1);

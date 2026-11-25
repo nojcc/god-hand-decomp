@@ -1,8 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cScrSpriteDraw.h"
+#include "godhand/cCollisionSolid.h"
 
 extern int D_003C2388;
 extern void *cIDManager_getTexAddr(int a, int b, int c);
+extern void cIDBase_trans(void *p);
 extern void func_002BC6C8(void *a0, void *a1, void *pts);
 extern void func_002BB760(void *a0, void *a1, void *pts, float h);
 extern void *cModel_getMeshPtr(void *m, int i);
@@ -10,10 +12,6 @@ extern void *D_00754C38;
 extern void *D_00754C58;
 extern void *InitFields_1B6E90(void *this);
 #include "godhand/objField.h"
-#include "godhand/BlackJack.h"
-#include "godhand/cCollisionSolid.h"
-#include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
 extern unsigned char D_00424B68[];
 
 /* sn-2.95.3-136 candidate. */
@@ -42,7 +40,7 @@ static __inline__ void CopyVec3(float *d, float *s)
 }
 
 __attribute__((section(".text.BlackJackId__Trans")))
-void BlackJackId__Trans(BlackJack *self)
+void BlackJackId__Trans(char *self)
 {
     char cfg[0x50];
     float v[4][4];
@@ -85,7 +83,7 @@ void BlackJackId__Trans(BlackJack *self)
     if (r != 0) {
         *(long *)((char *)r + 0x1A0) = 0x3001D;
     }
-    cIDBase_trans(&self->id);
+    cIDBase_trans(self + 0x10);
 }
 
 /* sn-2.95.3-136 candidate. */
@@ -419,17 +417,13 @@ void *func_00193EA8(unsigned char *this) {
     return this;
 }
 
-/* sn-2.95.3-136 candidate. */
-
-
-
-
-
+/* Give owner a unit at the end of the list, unless it has one or is null. */
 __attribute__((section(".text.cCollisionSolidManage_CreateUnit")))
-void cCollisionSolidManage_CreateUnit(cCollisionSolidManage *self, struct cGameObj *owner, int priority, float unk0C)
+void cCollisionSolidManage_CreateUnit(cCollisionSolidManage *self, struct cGameObj *owner, int priority,
+                                      float share)
 {
-    cCollisionSolidUnit *p;
-    cCollisionSolidUnit *q;
+    cCollisionSolidManageUnit *p;
+    cCollisionSolidManageUnit *q;
 
     if (owner != 0) {
         if (func_001346C8(self, owner) == 0) {
@@ -438,10 +432,10 @@ void cCollisionSolidManage_CreateUnit(cCollisionSolidManage *self, struct cGameO
                 while (q->next != 0) {
                     q = q->next;
                 }
-                p = func_00134430(func_0030F550(0x40), owner, priority, unk0C);
+                p = func_00134430(func_0030F550(sizeof(cCollisionSolidManageUnit)), owner, priority, share);
                 q->next = p;
             } else {
-                p = func_00134430(func_0030F550(0x40), owner, priority, unk0C);
+                p = func_00134430(func_0030F550(sizeof(cCollisionSolidManageUnit)), owner, priority, share);
                 self->first = p;
             }
             if (p != 0) {

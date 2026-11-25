@@ -228,6 +228,7 @@
 !src/cod/00134430.c
 !src/cod/001347e8.c
 !src/cod/00134880.c
+!src/cod/001348e8.c
 !src/cod/00135040.c
 !src/cod/001351d8.c
 !src/cod/001352f8.c
@@ -778,6 +779,7 @@
 !src/cod/00325360.c
 !src/cod/00325468.c
 !src/cod/00325578.c
+!src/cod/00325638.c
 !src/cod/003260.c
 !src/cod/003264c8.c
 !src/cod/003270.c
@@ -969,6 +971,7 @@
 !src/cod/00369e80.c
 !src/cod/00369f20.c
 !src/cod/0036a378.c
+!src/cod/0036a3e8.c
 !src/cod/0036bf50.c
 !src/cod/0036bf58.c
 !src/cod/0036c0a8.c
@@ -1364,6 +1367,7 @@
 !src/cod/0032ddf8.c
 !src/cod/0032d9b8.c
 !src/cod/0032a160.c
+!src/cod/0032a1b0.c
 !src/cod/003390b8.c
 !src/cod/0033a6d0.c
 !src/cod/00328048.c
@@ -1384,6 +1388,7 @@
 !src/cod/00347310.c
 !src/cod/00345d58.c
 !src/cod/00348258.c
+!src/cod/00348920.c
 !src/cod/00348158.c
 !src/cod/00358600.c
 !src/cod/00359168.c
@@ -2061,6 +2066,7 @@
 !src/cod/002da940.c
 !src/cod/001d0090.c
 !src/cod/00146978.c
+!src/cod/00146a18.c
 !src/cod/0035a540.c
 !src/cod/003691d8.c
 !src/cod/001f6b78.c
@@ -2207,6 +2213,7 @@
 !src/cod/0032c310.c
 !src/cod/001179c8.c
 !src/cod/001df528.c
+!src/cod/001df7d0.c
 !src/cod/0028c400.c
 !src/cod/00273230.c
 !src/cod/001aade0.c
@@ -3077,6 +3084,7 @@
 !include/godhand/sfdRing.h
 !include/godhand/mwsfPlay.h
 !include/godhand/espSpawn.h
+!include/godhand/effectPos.h
 !include/godhand/effModelObj.h
 !include/godhand/cSescr.h
 !include/godhand/adxsjd.h
@@ -3188,7 +3196,6 @@
 !include/godhand/cE3.h
 !include/godhand/cDoor.h
 !include/godhand/cDamageGive.h
-!include/godhand/cDamageManage.h
 !include/godhand/cCockTutorial.h
 !include/godhand/cCamera.h
 !include/godhand/cActionButton.h
@@ -3355,8 +3362,6 @@
 !src/cod/001dc1a8.c
 !src/cod/001dc4c0.c
 !src/cod/00271148.c
-!src/cod/001348e8.c
-!src/cod/00146a18.c
 !src/cod/001c6a90.c
 !src/cod/001bded8.c
 !src/cod/001450a0.c
@@ -3940,6 +3945,7 @@
 !src/cod/00350c78.c
 !src/cod/003517d0.c
 !src/cod/00351c18.c
+!src/cod/00351cb0.c
 !src/cod/003525f0.c
 !src/cod/003526d0.c
 !src/cod/00352888.c
@@ -4232,7 +4238,9 @@
 !include/godhand/regTbl.h
 !include/godhand/cRelSys.h
 !include/godhand/iopReq.h
-!include/godhand/devObj.h
+!include/godhand/MpvHandle.h
+!include/godhand/MpvPicAtr.h
+!include/godhand/criSjIf.h
 !include/godhand/mwPly.h
 !include/godhand/cOmHitVolumeSetup.h
 !include/godhand/heapArena.h
@@ -4253,8 +4261,6 @@
 !src/cod/00346578.c
 !src/cod/003489b0.c
 !src/cod/0034a0f0.c
-!src/cod/00351cb0.c
-!src/cod/0036a3e8.c
 !src/cod/0034cce8.c
 !src/cod/00353098.c
 !src/cod/00360000.c
@@ -4282,7 +4288,7 @@
 !src/cod/002006b8.c
 !include/godhand/cGrid.h
 !include/godhand/drawPrim.h
-!include/godhand/idSet.h
+!include/godhand/cCockActButton.h
 !include/godhand/cSubScr.h
 !src/cod/00244398.c
 !src/cod/00248d00.c
@@ -4334,7 +4340,6 @@
 !src/cod/002fbfb0.c
 !src/cod/002fdda8.c
 !src/cod/00300628.c
-!src/cod/0032a1b0.c
 !src/cod/00365ec0.c
 !src/cod/00302790.c
 !src/cod/003029c0.c
@@ -4369,7 +4374,6 @@
 !src/cod/0037c930.c
 !src/cod/0037ca98.c
 !src/cod/0037cae0.c
-!src/cod/00325638.c
 !src/cod/0037d558.c
 !src/cod/0037e200.c
 !src/cod/0037e368.c
@@ -4472,7 +4476,6 @@
 !include/godhand/cIDBaseScreen.h
 !include/godhand/capVu0.h
 !include/godhand/eeKernel.h
-!include/godhand/keySlot.h
 !include/godhand/libm.h
 !include/godhand/fpu.h
 !include/godhand/gsLoadImage.h
@@ -4484,9 +4487,7 @@
 !include/godhand/sceMpeg.h
 !include/godhand/sceTimer.h
 !include/godhand/scrollLayer.h
-!include/godhand/idPair.h
 !include/godhand/IDPanelScreen.h
-!include/godhand/IdScreen4.h
 !include/godhand/sif.h
 !include/godhand/texWork.h
 !include/godhand/sndCmd.h
@@ -4501,10 +4502,29 @@
 !include/godhand/tim2.h
 !include/godhand/typeInfo.h
 !include/godhand/sceDma.h
-!include/godhand/effectPos.h
 !include/godhand/objCtor.h
 !include/godhand/objFactory.h
 !include/godhand/cOmBaseFn.h
+!include/godhand/Slot2Fn.h
+!include/godhand/CustomIDPanelFn.h
+!include/godhand/cIDBaseFn.h
+!include/godhand/BlackJackFn.h
+!include/godhand/PanelObjFn.h
+!include/godhand/PokerFn.h
+!include/godhand/ColiseumEmSelectFn.h
+!include/godhand/cCameraFn.h
+!include/godhand/cDamageUnitFn.h
+!include/godhand/cEm00Fn.h
+!include/godhand/cGameObjFn.h
+!include/godhand/cIDBaseScreenFn.h
+!include/godhand/cModelFn.h
+!include/godhand/cNodeFn.h
+!include/godhand/cObjBaseFn.h
+!include/godhand/cOmWeaponFn.h
+!include/godhand/eeKernelFn.h
+!include/godhand/heapArenaFn.h
+!include/godhand/pl00Fn.h
+!include/godhand/sceVu0Fn.h
 !include/godhand/cOmEffSlots.h
 !include/godhand/cGameLoop.h
 !include/godhand/fileBuf.h
@@ -5173,7 +5193,10 @@
 !src/cod/001c26b8.c
 !src/cod/002bc470.c
 !src/cod/0025de58.c
-!src/cod/001df7d0.c
 !src/cod/002c9e78.c
 !include/godhand/globals.h
+!include/godhand/rollObj.h
 !progress/unit_sources.json
+!include/godhand/cCockScroll.h
+!include/godhand/cCockAlert.h
+!include/godhand/cCockGameOver.h

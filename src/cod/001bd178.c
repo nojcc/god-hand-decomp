@@ -3,9 +3,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/cEmManage.h"
 #include "godhand/cOmDoor.h"
-#include "godhand/cMovie.h"
 #include "godhand/globals.h"
-
 
 /* Lock the door (on == 1) or unlock it. */
 __attribute__((section(".text.cOmDoor_setLock")))
@@ -79,15 +77,15 @@ void func_002B45B0(char *p)
 
 /* cygnus-2.96 | drop-freorder-blocks */
 __attribute__((section(".text.func_002B4F78")))
-int func_002B4F78(cMovie *self)
+int func_002B4F78(char *p)
 {
-    int n = self->count + 1;
+    int n = *(int *)(p + 0x10) + 1;
 
-    self->count = n;
+    *(int *)(p + 0x10) = n;
     if (n == 0) {
-        self->count = 1;
+        *(int *)(p + 0x10) = 1;
     }
-    return self->count;
+    return *(int *)(p + 0x10);
 }
 
 /* cygnus-2.96 | drop-freorder-blocks */

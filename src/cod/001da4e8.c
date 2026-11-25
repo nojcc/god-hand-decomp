@@ -1,6 +1,19 @@
 /* sn-2.95.3-136: func_001DA4E8, poker panel slide-in sequence. */
 #include "godhand/Poker.h"
 #include "godhand/decCount.h"
+extern void func_001DE088(Poker *self, unsigned char mode);
+extern void func_001DE170(Poker *self, unsigned char mode);
+extern void func_001DE258(Poker *self, unsigned char mode);
+extern void func_001DE340(Poker *self, unsigned char mode);
+extern void CustomIDOwner_setSlideState(Poker *self, unsigned char sel);
+extern void PanelWork_setModeB(Poker *self, unsigned char mode);
+extern void Panel_slide(Poker *self, unsigned char mode);
+
+extern void CustomIDOwner_setSlideStateB(void *self, unsigned char sel);
+extern void PokerUi_slidePanel(void *ui, int mode);
+extern void Panel_slideSidePanelArrows(void *ui, int mode);
+extern void UiPanel_setSlideMode(void *self, unsigned char mode);
+extern void func_001DEE40(void *self, int number);
 
 __attribute__((section(".text.func_001DA4E8")))
 void func_001DA4E8(Poker *self)
@@ -26,13 +39,13 @@ void func_001DA4E8(Poker *self)
         self->phase += 1;
         break;
     case 2: {
-        PanelObj *ui;
+        char *ui;
         int v;
 
         if (DecCount(&self->timer) == 0) {
             break;
         }
-        ui = &self->ui;
+        ui = POKER_UI(self);
         CustomIDOwner_setSlideStateB(ui, 2);
         PokerUi_slidePanel(ui, 2);
         Panel_slideSidePanelArrows(ui, 2);

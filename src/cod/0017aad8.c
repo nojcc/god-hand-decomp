@@ -9,6 +9,8 @@ extern int InitFields_1B6E90(void *);
 /* sn-2.95.3-136 candidate. */
 #include "godhand/vu0.h"
 #include "godhand/Poker.h"
+extern void func_001DD1F8(Poker *self);
+extern void func_001DEE20(void *ui);
 
 
 
@@ -46,7 +48,7 @@ void PokerId__Trans(Poker *self)
     char *z;
     int i;
 
-    func_001DEE20(&self->ui);
+    func_001DEE20(POKER_UI(self));
     func_001DD1F8(self);
 
     *(int *)(cfg + 0x0) = 1;

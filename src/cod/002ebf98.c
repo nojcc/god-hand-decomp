@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cFxTrail.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/mtx.h"
 #include "godhand/vu0.h"
 extern void *StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);

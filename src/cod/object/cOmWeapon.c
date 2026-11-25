@@ -1,10 +1,10 @@
 /* TU: cOmWeapon [object] - recovered C++ class. */
 #include "godhand/cOmWeapon.h"
-#include "godhand/cObjBase.h"
 #include "include_asm.h"
-#include "godhand/cModel.h"
+#include "godhand/cObjBase.h"
 
 extern void func_001CF3A8(void *a0);
+extern void cModel_calcParts(void *a0);
 extern void func_001331B8(char *a0, long a1, int a2);
 extern char D_005CAE50[];
 
@@ -19,7 +19,7 @@ static inline void cpy3(float *d, float *s)
 
 /* Attach the weapon to slot idx of a fighter: pin its collision body to the fighter's body part, copy the hold offsets and start the held state. */
 __attribute__((section(".text.cOmWeapon_setParent")))
-void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, cVec *heldRot)
+void cOmWeapon_setParent(cOmWeapon *self, cGameObj *par, unsigned int idx, const cVec *heldPos, const cVec *heldRot)
 {
     unsigned char frame[0x10] __attribute__((aligned(16)));
     int b, b2;
@@ -28,7 +28,7 @@ void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, 
     cOmBase *body;
     cVec *anchor;
 
-    ok = ((*(int *)frame = b = par->partNum), (idx >= 0 && idx < b));
+    ok = ((*(int *)frame = b = par->partNum), ((int)idx >= 0 && (int)idx < b));
     if (ok) part = par->children[idx]; else part = 0;
     if (part == 0) return;
     ok2 = ((*(int *)frame = b2 = self->base.partNum), (b2 != 0));
@@ -51,14 +51,14 @@ void cOmWeapon_setParent(cOmWeapon *self, cOmBase *par, int idx, cVec *heldPos, 
     self->unk664 = 0;
     self->base.phase = 1;
     func_001CF3A8(self);
-    cModel_calcParts((cModel *)self);
+    cModel_calcParts(self);
     func_001331B8(D_005CAE50, self->base.modelHandle, 0);
     if (self->base.actorId != 0x369) return;
     if (par == 0) return;
     if (par->emNo == 0x252) {
-        SetEffect(0xAA, 0xC, self, 0, 8, 0xFFFFFFFFu);
+        SetEffect(0xAA, 0xC, (cObj *)self, 0, 8, EFFECT_FOLLOW_OWNER);
     }
     if (par->emNo == 0x263) {
-        SetEffect(0xBC, 0x1D, self, 0, 8, 0xFFFFFFFFu);
+        SetEffect(0xBC, 0x1D, (cObj *)self, 0, 8, EFFECT_FOLLOW_OWNER);
     }
 }

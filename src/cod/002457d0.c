@@ -3,6 +3,7 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -62,7 +63,7 @@ __attribute__((section(".text.func_002457D0"))) void func_002457D0(cEm00 *self)
                     }
                     break;
             }
-            *(unsigned char *)((char *)self + 0x1869) = 4;
+            self->unk1869 = 4;
             *(int *)((char *)self + 0x17A8) = 0;
             self->step += 1;
         }

@@ -1,9 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/cObjBase.h"
 
 extern void KillEffect(void *a0, int a1, int a2);
+extern void cSnd_SeStop(void *a0, int a1);
 
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 
@@ -20,13 +21,13 @@ void cOmbb__clearFire(void *arg) {
     int se;
     float f;
     KillEffect(s0, 0, 2);
-    SetEffect(1, 2, s0, 0, 0, 0xFFFFFFFFU);
+    SetEffect(1, 2, arg, 0, 0, EFFECT_FOLLOW_OWNER);
     se = *(int *)(s0 + 0x608);
     if (se != 0) {
         cSnd_SeStop(&D_005FEE00, se);
     }
     *(int *)(s0 + 0x608) = 0;
-    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x16, s0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x16, arg, 0, 0, 0, 0);
     switch (cCoreSave_getGameLevel(&D_00569B70) - 1) {
     case 0:
     default: *(float *)(s0 + 0x604) = 450.0f; break;

@@ -48,7 +48,6 @@ typedef char CustomIDPanel_anim_check[((int)&((CustomIDPanel *)0)->anim == 0x918
 typedef char CustomIDPanel_id2_check[((int)&((CustomIDPanel *)0)->id2 == 0x930) ? 1 : -1];
 typedef char CustomIDPanel_size_check[(sizeof(CustomIDPanel) == 0xAF4) ? 1 : -1];
 
-CustomIDPanel *func_001F2708(CustomIDPanel *self);
 void IdUi_initWorks(CustomIDPanel *self);
 void func_001F28C0(CustomIDPanel *self);
 void func_001F28F0(CustomIDPanel *self);

@@ -4,7 +4,9 @@
 
 /* sn-2.95.3-136 matched TU. */
 
+extern void *Getplayer(void);
 extern void Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DCE8(char *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -24,7 +26,6 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/player.h"
 
 /* Phase machine on the step byte, 9 case labels. Calls Getplayer, cCollisionSolidManage_SetActive,
  * func_002A8578, Obj0000_Set_Bytes_2F4_2F5_2F6_2F7_27DCE8, VU0_VADD_XYZ_IP, moveMotion and 4 more.
@@ -33,7 +34,7 @@ __attribute__((section(".text.func_00238C50"))) void func_00238C50(cEm00 *self)
 {
     char *s1 = (char *)Getplayer();
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
         case 0: {
             int p;

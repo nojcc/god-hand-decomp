@@ -1,118 +1,120 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cEm00.h"
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/motion.h"
-#include "godhand/player.h"
-#include "godhand/gameWork.h"
 
+extern char *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_002DB770(void);
 extern void KillEffect(void *a0, int a1, int a2);
+extern char D_007474A0[];
 
 __attribute__((section(".text.func_00238F10")))
-void func_00238F10(cEm00 *self)
+void func_00238F10(void *a0)
 {
     int one = 1;
-    cGameObj *pl = Getplayer();
+    char *s0 = (char *)a0;
+    char *s2 = Getplayer();
 
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
-    switch (self->step) {
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
+    switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0: {
-        char *p = self->pack;
+        int p = *(int *)(s0 + 0x304);
 
-        self->unk1864 = 0;
-        func_002A8578(self, EM_RES_REC(p, 0x39DC), EM_RES_REC(p, 0x39E0),
+        *(char *)(s0 + 0x1864) = 0;
+        func_002A8578(s0, *(int *)(p + 0x39DC) + p, *(int *)(p + 0x39E0) + p,
                       0, 0.0f, 0, 0);
-        self->unk56E = 0xF;
+        *(short *)(s0 + 0x56E) = 0xF;
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         default:
         case 1:
-            self->unk568 = 0xF;
+            *(short *)(s0 + 0x568) = 0xF;
             break;
         case 2:
-            self->unk568 = 0x14;
+            *(short *)(s0 + 0x568) = 0x14;
             break;
         case 3:
         case 4:
-            self->unk568 = 0x19;
+            *(short *)(s0 + 0x568) = 0x19;
             break;
         case 5:
-            self->unk568 = 0x1E;
+            *(short *)(s0 + 0x568) = 0x1E;
             break;
         }
-        self->unk56A = 0;
-        self->step = self->step + 1;
+        *(short *)(s0 + 0x56A) = 0;
+        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     }
     /* fallthrough */
     case 1:
-        if (moveMotion(self) != 0) {
-            self->mode = 0;
-            self->phase = 0x6C;
-            self->step = 0;
-            self->stepArg = 0;
+        if (moveMotion(s0) != 0) {
+            *(unsigned char *)(s0 + 0x2F4) = 0;
+            *(unsigned char *)(s0 + 0x2F5) = 0x6C;
+            *(unsigned char *)(s0 + 0x2F6) = 0;
+            *(unsigned char *)(s0 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
-        if (self->unk56A != 0) {
-            (self->unk56A)--;
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
+        if (*(short *)(s0 + 0x56A) != 0) {
+            (*(short *)(s0 + 0x56A))--;
         } else {
-            GameWork *g;
+            char *g;
 
             func_002DB770();
-            g = &D_007474A0;
-            if (g->padBtn & 0xF0)
-                (self->unk568)--;
-            if (g->padBtn & 0xF00000)
-                self->unk568 -= 4;
+            g = D_007474A0;
+            if (*(int *)(g + 8) & 0xF0)
+                (*(short *)(s0 + 0x568))--;
+            if (*(int *)(g + 8) & 0xF00000)
+                *(short *)(s0 + 0x568) -= 4;
         }
-        if (self->seqFlags & 0x10) {
-            if (self->unk568 <= 0) {
-                pl->step = 2;
-                self->step = 2;
+        if (*(unsigned short *)(s0 + 0x3AC) & 0x10) {
+            if (*(short *)(s0 + 0x568) <= 0) {
+                *(unsigned char *)(s2 + 0x2F6) = 2;
+                *(unsigned char *)(s0 + 0x2F6) = 2;
             }
-            self->unk56A = 0x3E7;
+            *(short *)(s0 + 0x56A) = 0x3E7;
         }
         break;
     case 2: {
-        char *p = self->pack;
+        int p = *(int *)(s0 + 0x304);
 
-        self->unk1864 = 0;
-        func_002A8578(self, EM_RES_REC(p, 0x39E4), EM_RES_REC(p, 0x39E8),
+        *(char *)(s0 + 0x1864) = 0;
+        func_002A8578(s0, *(int *)(p + 0x39E4) + p, *(int *)(p + 0x39E8) + p,
                       0, 0.0f, 0, 0);
-        self->emFlags2 &= 0xDFFFFFFFU;
-        KillEffect(self, 1, 2);
-        self->unk568 = one;
-        self->unk56E = 0xF;
-        self->step = self->step + 1;
+        *(unsigned int *)(s0 + 0x16D4) &= 0xDFFFFFFFU;
+        KillEffect(s0, 1, 2);
+        *(short *)(s0 + 0x568) = one;
+        *(short *)(s0 + 0x56E) = 0xF;
+        *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     }
     /* fallthrough */
     case 3:
-        if (moveMotion(self) != 0) {
-            if (self->hp < 2) {
-                self->mode = 2;
-                self->hp = 0;
-                self->phase = 0;
-                self->step = 0;
-                self->stepArg = 0;
+        if (moveMotion(s0) != 0) {
+            if (*(short *)(s0 + 0x54A) < 2) {
+                *(unsigned char *)(s0 + 0x2F4) = 2;
+                *(short *)(s0 + 0x54A) = 0;
+                *(unsigned char *)(s0 + 0x2F5) = 0;
+                *(unsigned char *)(s0 + 0x2F6) = 0;
+                *(unsigned char *)(s0 + 0x2F7) = 0;
                 return;
             }
-            func_002705D8(self);
+            func_002705D8(s0);
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
-        if (self->seqFlags & 1) {
-            if (self->unk568 != 0) {
-                cGameObjVt *vt = cGameObj_vt((cGameObj *)self);
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
+        if (*(unsigned short *)(s0 + 0x3AC) & 1) {
+            if (*(short *)(s0 + 0x568) != 0) {
+                char *vt = *(char **)(s0 + 0x214);
+                int (*fp)() = *(int (**)())(vt + 0xAC);
 
-                vt->unkAC((char *)self + vt->unkA8Delta, 0x32, 0, 0, 0);
-                if (self->hp <= 0)
-                    self->hp = 1;
-                self->unk568 = 0;
+                fp(s0 + *(short *)(vt + 0xA8), 0x32, 0, 0, 0);
+                if (*(short *)(s0 + 0x54A) <= 0)
+                    *(short *)(s0 + 0x54A) = 1;
+                *(short *)(s0 + 0x568) = 0;
             }
         } else {
-            self->unk568 = 1;
+            *(short *)(s0 + 0x568) = 1;
         }
         break;
     default:

@@ -1,6 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern unsigned char D_00747A50[];
 

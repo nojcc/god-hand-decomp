@@ -1,6 +1,7 @@
 /* TU: cCockItem [casino] - recovered C++ class. */
 #include "godhand/heapArena.h"
 #include "godhand/cCockItem.h"
+#include "godhand/cIDBaseFn.h"
 #include "godhand/cDvd.h"
 #include "include_asm.h"
 #include "godhand/globals.h"

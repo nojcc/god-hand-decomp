@@ -17,7 +17,6 @@ typedef struct cOmGimmick {
     unsigned int checks;                /* 0x600 bit 4 floor, bit 5 walls, bit 6 solids */
 } cOmGimmick;
 
-
 extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
 extern void cObjBase_SetSeqEffect(void *self);
 extern void func_001B76D8(void *self);
@@ -37,7 +36,7 @@ void func_001B1C78(cOmGimmick *self)
         long solids = self->checks;
 
         if (((solids >> 6) & 1) == 1) {
-            cCollisionSolidManage_ChkHit(&D_00462FC0, (struct cGameObj *)self);
+            cCollisionSolidManage_ChkHit(&D_00462FC0, (cGameObj *)self);
         }
     }
     {
@@ -45,7 +44,7 @@ void func_001B1C78(cOmGimmick *self)
 
         if (((walls >> 5) & 1) == 1) {
             VU0_SQC2_VF0(&hit, 0);
-            if (ChkCollScrWall(self, &hit, 0, 0, 0, 0, GIM_WALL_RADIUS) != 0) {
+            if (ChkCollScrWall((cGameObj *)self, GIM_WALL_RADIUS, &hit, 0, 0, 0, 0) != 0) {
                 self->base.pos->x = hit.x;
                 self->base.pos->z = hit.z;
             }
@@ -56,7 +55,7 @@ void func_001B1C78(cOmGimmick *self)
 
         if (((floor >> 4) & 1) == 1) {
             VU0_SQC2_VF0(&hit, 0);
-            if (func_001329C0(self, &hit, 0, 0, GIM_FLOOR_RANGE) != 0) {
+            if (func_001329C0((cGameObj *)self, &hit, 0, 0, GIM_FLOOR_RANGE) != 0) {
                 self->base.pos->y = hit.y;
             }
         }

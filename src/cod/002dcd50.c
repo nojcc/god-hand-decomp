@@ -1,8 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cCamera.h"
 
+extern void *Getplayer(void);
 extern int cEmManage_CkPlCatched(void *a0);
+extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *a0);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern float Turn_dest(void *a0, float f12, float f13, void *a1);
 extern char D_005864F0[];
 extern char D_00568288;
 extern void func_002DD270();
@@ -44,8 +46,6 @@ extern void cActionButton_set(void *a0, int a1, int a2,
 
 
 #include "godhand/vu0.h"
-#include "godhand/pl00.h"
-#include "godhand/player.h"
 
 typedef void *(*vfn)(void *);
 
@@ -68,7 +68,7 @@ void func_002DCD50(void *a0)
     if (*(short *)(o + 0x54A) <= 0) {
         return;
     }
-    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)o) != 0) {
+    if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(o) != 0) {
         return;
     }
     if (*(int *)(g + 0x514) > 0) {
@@ -126,7 +126,7 @@ void func_002DCD50(void *a0)
         {
             char *vt2 = *(char **)(s1 + 0x214);
             void *p3 = (*(vfn *)(vt2 + 0x6C))(s1 + *(short *)(vt2 + 0x68));
-            float ta = Turn_dest(fp, *(float *)(o + 0x104), 3.1415927f, p3);
+            float ta = Turn_dest((float *)fp, *(float *)(o + 0x104), p3, 3.1415927f);
             float da;
 
             if (ta < th) {

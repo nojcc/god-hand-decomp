@@ -1,5 +1,5 @@
 #include "godhand/vu0.h"
-#include "godhand/cCamera.h"
+#include "godhand/cCameraFn.h"
 #include "godhand/globals.h"
 
 /* cCamera — large object constructor: set the vtable at 0x35C, zero a

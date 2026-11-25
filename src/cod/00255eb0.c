@@ -1,17 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/cSnd.h"
-#include "godhand/cGameObj.h"
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 
 
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
@@ -20,6 +22,11 @@ extern unsigned char D_00747A2C[];
 
 #define FRAME ((char *)va - 0x30)
 
+/* The record the target link at 0x698 points to; only the enemy pointer is named. */
+typedef struct cEmLink {
+    char unk00[0x34];
+    cEm00 *target;                          /* 0x34 the enemy being watched */
+} cEmLink;
 /* A jumping enemy. Step 0 starts the jump motion chosen by the enemy number and
  * aims at the linked enemy. Step 1 applies gravity and waits for the floor. Step 2
  * starts the fall motion. Step 3 falls until the line check hits the floor, then
@@ -94,7 +101,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
             int b = EM_RES(self);
             ma = EM_RES_REC(b, 0xB4C);
             mb = EM_RES_REC(b, 0xB50);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), (cObj *)self, 0, 0, 0, 0);
         }
             break;
         case 0x260:
@@ -159,20 +166,20 @@ void cEm00_stepLeapAndLand(cEm00 *self)
             break;
         }
         func_002A8578(self, ma, mb, 3, 0.0f, gb, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), (cObj *)self, 0, 0, 0, 0);
         self->timerA = 0;
         {
-            cDamageTake *take = self->unk698;
+            cEmLink *q = self->unk698;
 
-            if (take != 0) {
-                cGameObj *atk = take->attacker;
+            if (q != 0) {
+                cEm00 *r = q->target;
 
-                if (atk != 0) {
+                if (r != 0) {
                     cVec *d = &self->posB;
                     cVec *e;
 
                     self->timerA = 0xA;
-                    e = atk->pos;
+                    e = r->pos;
                     if (d != e) {
                         self->posB.x = e->x;
                         d->y = e->y;
@@ -192,7 +199,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
 
         if (c != 0) {
             self->timerA = c - 1;
-            cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
         }
         self->pos->y = self->pos->y + self->home.y * self->speedRate;
         q = self->pos;
@@ -356,7 +363,7 @@ void cEm00_stepLeapAndLand(cEm00 *self)
 
         if (c != 0) {
             self->timerA = c - 1;
-            cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
         }
         if (self->seqFlags & 4) {
             cVec *q;

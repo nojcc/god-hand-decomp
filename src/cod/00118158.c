@@ -35,7 +35,7 @@ void func_00118158(char *s1)
     *(float *)(s1 + 0x54C) = 5.0f;
     *(int *)(s1 + 0x250) |= 0x10000;
     s2 = *(char **)(s1 + 0x694);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s1, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s1, 0);
     s0 = (char *)&D_005864F0;
     cEmManage_SetPlCatched(s0);
     cEmManage_SetSlotWait(s0, 2);

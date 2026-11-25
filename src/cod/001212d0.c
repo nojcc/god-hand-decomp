@@ -12,22 +12,22 @@ extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0012C0F8(void *a0, int a1);
 extern void func_0012C348(void *a0, int a1);
+extern void cSnd_DieDemoStart(void *a0);
 extern int  D_00747A24;
 extern char D_005864F0[];
 extern unsigned short D_003F2060[];
 extern void ADXT_SetOutVol(int a0, int a1);
 extern void sceVu0ApplyMatrix(void *v1, void *m0, void *v0);
 extern void func_002BB868(void *a0, void *a1, float f);
+extern int _MemoryAlloc(int a0, int a1, void *a2);
+extern char D_00754240[];
 
 /* func_001212D0 — 0x001212D0, 760 B — sn-2.95.3-136.
  * +0x2F6 phase machine, 0x694 object family; template src/cod/0011c348.c. */
 #include "godhand/cCollisionSolid.h"
-#include "godhand/pl00.h"
-#include "godhand/cEm00.h"
-#include "godhand/vu0.h"
-#include "godhand/heapArena.h"
-#include "godhand/cCoreSave.h"
 #include "godhand/cSnd.h"
+#include "godhand/vu0.h"
+#include "godhand/cCoreSave.h"
 
 
 
@@ -51,95 +51,96 @@ extern void func_002BB868(void *a0, void *a1, float f);
 
 
 __attribute__((section(".text.func_001212D0")))
-void func_001212D0(pl00 *self)
+void func_001212D0(void *a0)
 {
-    cEm00 *s1;
-    cVec *p;
-    cVec *q;
+    char *s0 = (char *)a0;
+    char *s1;
+    char *p;
+    char *q;
 
-    self->base.hitFlash = 5.0f;
-    self->base.objFlags |= 0x10000;
-    s1 = self->unk694;
-    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
+    *(float *)(s0 + 0x54C) = 5.0f;
+    *(int *)(s0 + 0x250) |= 0x10000;
+    s1 = *(char **)(s0 + 0x694);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
     cEmManage_SetPlCatched(D_005864F0);
-    switch (self->base.step) {
+    switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
     {
         float buf[4];
         float z;
 
-        CallWithAndClearField698_12AC28(self);
-        func_0012B928(self);
+        CallWithAndClearField698_12AC28(s0);
+        func_0012B928(s0);
         buf[1] = 0.0f;
         z = buf[1];
         buf[0] = -0.2378f;
         buf[2] = 1.5403f;
         buf[3] = 1.0f;
-        func_001299F0(self, s1, buf, 0, z);
+        func_001299F0(s0, s1, buf, 0, z);
         cEm00_GetPlMotion(s1, 0x2C, z, z);
-        self->unk15B0 = 1;
-        self->stepCount = 1;
-        self->base.unk56E = 0xF;
+        *(int *)(s0 + 0x15B0) = 1;
+        *(int *)(s0 + 0x15B4) = 1;
+        *(short *)(s0 + 0x56E) = 0xF;
         if (s1 != 0) {
-            func_0012C0F8(self, (int)(s1->unk76C * 15.0f));
+            func_0012C0F8(s0, (int)(*(float *)(s1 + 0x76C) * 15.0f));
         }
-        func_0012C348(self, 2);
+        func_0012C348(s0, 2);
         cCoreSave_addGameLevelPoint(&D_00569B70, -0x140);
-        (self->base.step)++;
+        (*(unsigned char *)(s0 + 0x2F6))++;
     }
         /* fallthrough */
     
     
     case 1:
-        if (self->base.unk56E == 0 || s1 == 0)
+        if (*(short *)(s0 + 0x56E) == 0 || s1 == 0)
             goto join;
-        (self->base.unk56E)--;
-        p = self->base.pos;
+        (*(short *)(s0 + 0x56E))--;
+        p = *(char **)(s0 + 0xF0);
     
-        q = &s1->vel;
+        q = s1 + 0x550;
         VU0_VADD_XYZ_IP(p, 0, q);
     join:
-        func_00124EC0(self);
-        if (moveMotion(self) != 0) {
-            if (self->base.hp > 0) {
-                pl00_clearMotionCam(self, 0, 0);
-                self->base.mode = 1;
-                self->base.phase = 4;
-                self->base.step = 0;
-                self->base.stepArg = 0;
+        func_00124EC0(s0);
+        if (moveMotion(s0) != 0) {
+            if (*(short *)(s0 + 0x54A) > 0) {
+                pl00_clearMotionCam(s0, 0, 0);
+                *(char *)(s0 + 0x2F4) = 1;
+                *(char *)(s0 + 0x2F5) = 4;
+                *(char *)(s0 + 0x2F6) = 0;
+                *(char *)(s0 + 0x2F7) = 0;
             } else {
                 D_00747A24 |= 8;
             }
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
-        if ((self->base.seqFlags & 1) != 0) {
-            if (self->unk15B0 != 0) {
-                self->unk15B0 = 0;
+        cObjBase_addNullSpeed_Rotation(s0, 1.0f);
+        cObjBase_addNullSpeed(s0, 1.0f);
+        if ((*(unsigned short *)(s0 + 0x3AC) & 1) != 0) {
+            if (*(int *)(s0 + 0x15B0) != 0) {
+                *(int *)(s0 + 0x15B0) = 0;
                 if (s1 != 0) {
-                    func_0012C0F8(self, (int)(s1->unk76C * 15.0f));
+                    func_0012C0F8(s0, (int)(*(float *)(s1 + 0x76C) * 15.0f));
                 }
-                func_0012C348(self, 2);
+                func_0012C348(s0, 2);
             }
         } else {
-            self->unk15B0 = 1;
+            *(int *)(s0 + 0x15B0) = 1;
         }
-        if ((self->base.seqFlags & 2) != 0) {
-            if (self->stepCount != 0) {
-                self->stepCount = 0;
+        if ((*(unsigned short *)(s0 + 0x3AC) & 2) != 0) {
+            if (*(int *)(s0 + 0x15B4) != 0) {
+                *(int *)(s0 + 0x15B4) = 0;
                 if (s1 != 0) {
-                    func_0012C0F8(self, (int)(s1->unk76C * 20.0f));
+                    func_0012C0F8(s0, (int)(*(float *)(s1 + 0x76C) * 20.0f));
                 }
-                if (self->base.hp <= 0) {
-                    self->base.hp = 0;
+                if (*(short *)(s0 + 0x54A) <= 0) {
+                    *(short *)(s0 + 0x54A) = 0;
                     cSnd_DieDemoStart(&D_005FEE00);
                     cCoreSave_addGameLevelPoint(&D_00569B70, -0x3E8);
-                    self->base.motionFlags |= 8;
+                    *(unsigned short *)(s0 + 0x434) |= 8;
                 }
-                func_0012C348(self, 2);
+                func_0012C348(s0, 2);
             }
         } else {
-            self->stepCount = 1;
+            *(int *)(s0 + 0x15B4) = 1;
         }
         break;
     default:
@@ -356,7 +357,7 @@ int func_002EBD10(void *a0, int a1, int n)
     char *q;
 
     if (*(int *)(s1 + 0x2E0) & 8) {
-        HeapArena *d = &D_00754240;
+        char *d = D_00754240;
 
         sz = n * 0x60 + 0xF0;
         p = _MemoryAlloc(sz, 0x10, d);
@@ -367,7 +368,7 @@ int func_002EBD10(void *a0, int a1, int n)
         p = _MemoryAlloc(sz, 0x10, d);
         *(int *)(s1 + 0x2D0) = p;
     } else {
-        HeapArena *d = &D_00754240;
+        char *d = D_00754240;
 
         sz = n * 0x40 + 0xF0;
         sz2 = sz;
@@ -383,7 +384,7 @@ int func_002EBD10(void *a0, int a1, int n)
         return 0;
     }
     sz2 = n * 0x10;
-    p = _MemoryAlloc(sz2, 0x10, &D_00754240);
+    p = _MemoryAlloc(sz2, 0x10, D_00754240);
     *(int *)(s1 + 0x2BC) = p;
     if (p == 0) {
         return 0;
@@ -396,7 +397,7 @@ int func_002EBD10(void *a0, int a1, int n)
         *(float *)(q + 0xC) = 1.0f;
     }
     if (*(int *)(s1 + 0x2E0) & 4) {
-        p = _MemoryAlloc(n * 0x10, 0x10, &D_00754240);
+        p = _MemoryAlloc(n * 0x10, 0x10, D_00754240);
         *(int *)(s1 + 0x2C0) = p;
         if (p == 0) {
             return 0;

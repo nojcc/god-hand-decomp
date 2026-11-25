@@ -19,17 +19,16 @@ extern char D_007419A0[];
 __attribute__((section(".text.cOmBase_initEffData27D")))
 int cOmBase_initEffData27D(cOmBase *self)
 {
-    char *res;
+    int res;
 
     func_001B6FB8(self);
-    res = self->pack;
-    espSys_effDataRegist(D_007419A0, EFFDATA_ID, (void *)(EM_RES_REC(res, 0xC)));
-    SetEffect(EFFDATA_ID, 1, self, 0, -1, 0xFFFFFFFF);
+    res = (int)self->pack;
+    espSys_effDataRegist(D_007419A0, EFFDATA_ID, (void *)(*(int *)(res + 0xC) + res));
+    SetEffect(EFFDATA_ID, 1, (cObj *)self, 0, -1, EFFECT_FOLLOW_OWNER);
     return 1;
 }
 
 #define COMBASE_F2_SOLID  0x8           /* flags2 bit 3 */
-
 
 
 
@@ -43,12 +42,12 @@ int cOmBase_initSphereBody(cOmBase *self)
 
     func_001B6FB8(self);
     self->flags2 |= COMBASE_F2_SOLID;
-    cCollisionSolidManage_CreateUnit(&D_00462FC0, (struct cGameObj *)self, 6, 0.1f);
+    cCollisionSolidManage_CreateUnit(&D_00462FC0, (cGameObj *)self, 6, 0.1f);
     centre.x = 0.0f;
     centre.y = 0.5f;
     centre.z = 0.0f;
     centre.w = 1.0f;
-    cCollisionSolidManage_CreateSphere(&D_00462FC0, (struct cGameObj *)self, self->mtx, &centre, 0.4f);
+    cCollisionSolidManage_CreateSphere(&D_00462FC0, (cGameObj *)self, (const struct cMatrix *)self->mtx, &centre, 0.4f);
     self->mode = 0;
     return 1;
 }

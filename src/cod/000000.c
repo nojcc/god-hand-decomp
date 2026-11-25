@@ -1,7 +1,5 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/DispMgr.h"
-#include "godhand/cCollisionSolid.h"
-#include "godhand/seqNode.h"
 #include "godhand/cObjSimple.h"
 #include "include_asm.h"
 #include "godhand/cEma2.h"
@@ -9,19 +7,16 @@
 #include "godhand/cEm00.h"
 #include "godhand/cOmbb.h"
 #include "godhand/pl00.h"
-#include "godhand/Poker.h"
-#include "godhand/DogRace.h"
-#include "godhand/sceVu0.h"
-#include "godhand/cObjBase.h"
-#include "godhand/cIDBase.h"
 #include "godhand/globals.h"
+#include "godhand/MpvHandle.h"
+#include "godhand/cCollisionSolid.h"
+#include "godhand/criCbTbl.h"
 
 /* ------------------------------------------------------------------ */
 /* Externs unified across the 7-function D_0044BED0 cluster.          */
 /* ------------------------------------------------------------------ */
 extern unsigned char *D_003C23A4;  /* 0x003C23A4: pointer in .data */
 extern char D_003C2555;                  /* 0x003C2555: 1-byte flag in .data */
-extern int D_0044BED0;                   /* 0x0044BED0: first int of rodata table */
 extern int D_00747A80;                   /* 0x00747A80: BSS word */
 extern int D_00747A98;                   /* 0x00747A98: BSS word */
 
@@ -71,8 +66,8 @@ unsigned char cModel_getMeshNum(unsigned char *arg0) { return arg0[0x2B1]; }
 __attribute__((section(".text.SetField_2F4_10BE10")))
 void SetField_2F4_10BE10(char *arg0) { arg0[0x2F4] = 0; }
 
-__attribute__((section(".text.Obj0000_Set_Field_8_134648")))
-void Obj0000_Set_Field_8_134648(cCollisionSolidUnit *unit, int priority) { unit->priority = priority; }
+__attribute__((section(".text.cCollisionSolidManageUnit_setPriority")))
+void cCollisionSolidManageUnit_setPriority(cCollisionSolidManageUnit *self, int priority) { self->priority = priority; }
 
 __attribute__((section(".text.SetField_104_13E3F8")))
 void SetField_104_13E3F8(char *arg0) { arg0[0x104] = 0; }
@@ -190,40 +185,40 @@ void cNowLoading_exitTask(void) {
     D_003C2555 = 1;
 }
 
-/* D_0044BED0 cluster — 7 byte-identical accessor functions */
+/* D_0044BED0 cluster: 7 byte-identical functions that store the cCollisionShape base vtable */
 __attribute__((section(".text.Obj0000_Set_Ptr_Field_100_2BA4D8")))
-void Obj0000_Set_Ptr_Field_100_2BA4D8(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Ptr_Field_100_2BA4D8(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_Ptr_Field_100_2BA580")))
-void Obj0000_Set_Ptr_Field_100_2BA580(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Ptr_Field_100_2BA580(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_Ptr_Field_100_2BA6E8")))
-void Obj0000_Set_Ptr_Field_100_2BA6E8(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Ptr_Field_100_2BA6E8(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_Ptr_100_D_0044BED0_2BA818")))
-void Obj0000_Set_Ptr_100_D_0044BED0_2BA818(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Ptr_100_D_0044BED0_2BA818(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_Ptr_100_D_0044BED0_2BA8D0")))
-void Obj0000_Set_Ptr_100_D_0044BED0_2BA8D0(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Ptr_100_D_0044BED0_2BA8D0(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_Field_100_Ptr_D_0044BED0_2BA938")))
-void Obj0000_Set_Field_100_Ptr_D_0044BED0_2BA938(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Field_100_Ptr_D_0044BED0_2BA938(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_Ptr_Field_100_D_0044BED0_2BAA30")))
-void Obj0000_Set_Ptr_Field_100_D_0044BED0_2BAA30(char *arg0) {
-    *(int **)(arg0 + 0x100) = &D_0044BED0;
+void Obj0000_Set_Ptr_Field_100_D_0044BED0_2BAA30(cCollisionShape *self) {
+    self->vt = D_0044BED0;
 }
 
 __attribute__((section(".text.Obj0000_Set_D_00747A80_Field_70_2BF780")))
@@ -360,8 +355,8 @@ __attribute__((section(".text.NoOp_1DCE60")))
 void NoOp_1DCE60(void) {}
 
 __attribute__((section(".text.SetField_56_1DEBE8")))
-void SetField_56_1DEBE8(Poker *self, int mode) {
-    self->id.mode = mode;
+void SetField_56_1DEBE8(char *a0, int a1) {
+    a0[0x56] = (char)a1;
 }
 
 __attribute__((section(".text.SetField_162C_1ED488")))
@@ -739,23 +734,16 @@ void Obj0000_Set_D_003DECFC_D_003DED00_3364F8(int a0, int a1) {
     D_003DED00 = a1;
 }
 
-extern int D_007588A0[2];
-
 __attribute__((section(".text.Obj0000_Set_D_007588A0_Pair_33BC18")))
-void Obj0000_Set_D_007588A0_Pair_33BC18(int a0, int a1) {
-    D_007588A0[0] = a0;
-    D_007588A0[1] = a1;
+void Obj0000_Set_D_007588A0_Pair_33BC18(void (*fn)(int), int arg) {
+    D_007588A0.fn = fn;
+    D_007588A0.arg = arg;
 }
 
-struct {
-    int x;
-    int y;
-} D_007588A8;
-
 __attribute__((section(".text.Obj0000_Set_D_007588A8_XY_33BC30")))
-void Obj0000_Set_D_007588A8_XY_33BC30(int a0, int a1) {
-    D_007588A8.x = a0;
-    D_007588A8.y = a1;
+void Obj0000_Set_D_007588A8_XY_33BC30(void (*fn)(int), int arg) {
+    D_007588A8.fn = fn;
+    D_007588A8.arg = arg;
 }
 
 extern int D_007588C0[2];
@@ -780,13 +768,6 @@ void Obj0000_Set_D_003EC454_D_003EC458_340438(int a0, int a1) {
     D_003EC458 = a1;
 }
 
-extern unsigned char D_003EE088[];
-
-__attribute__((section(".text.Obj0000_Get_Ptr_D_003EE088_Scaled_8_348920")))
-void *Obj0000_Get_Ptr_D_003EE088_Scaled_8_348920(int a0) {
-    return (void *)(D_003EE088 + a0 * 8);
-}
-
 extern int D_003EE340[2];
 
 __attribute__((section(".text.Obj0000_Set_D_003EE340_Args_0_1_35F958")))
@@ -795,10 +776,12 @@ void Obj0000_Set_D_003EE340_Args_0_1_35F958(int a0, int a1) {
     D_003EE340[1] = a1;
 }
 
+extern unsigned char D_003BAFE0[];
+
 __attribute__((section(".text.Obj0000_Set_Field_80_372C68")))
-SndVoiceNode *Obj0000_Set_Field_80_372C68(SndVoiceNode *self) {
-    self->vt = D_003BAFE0;
-    return self;
+void *Obj0000_Set_Field_80_372C68(void *arg0) {
+    *(void **)((unsigned char *)arg0 + 0x80) = (void *)D_003BAFE0;
+    return arg0;
 }
 
 __attribute__((section(".text.Obj0000_Set_D_003FC7AC_D_003FC7B0_3B9D98")))
@@ -1112,11 +1095,11 @@ int MPSLIB_CheckHn(int *a0) {
 }
 
 __attribute__((section(".text.Obj0000_Set_Field_3BC_Triple")))
-void Obj0000_Set_Field_3BC_Triple(unsigned char *a0, int a1, int a2, int a3, int a4) {
-    int *p = (int *)(a0 + 0x3BC + a1 * 12);
-    p[0] = a2;
-    p[1] = a3;
-    p[2] = a4;
+void Obj0000_Set_Field_3BC_Triple(MpvHandle *hn, int no, SjObj *sj, void (*cb)(int arg, int ch), int arg) {
+    SfdSjCh *ch = &hn->ch[no];
+    ch->sj = sj;
+    ch->cb = cb;
+    ch->arg = arg;
 }
 
 __attribute__((section(".text.Tramp_003356B0_00335610")))
@@ -1125,23 +1108,21 @@ void Tramp_003356B0_00335610(int a0, int a1) {
 }
 
 __attribute__((section(".text.Obj0000_Set_D_00766D44_Check_Field_188_NE_2")))
-int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(int *a0) {
-    D_00766D44 = (void *)a0;
-    if (a0 == 0) {
+int Obj0000_Set_D_00766D44_Check_Field_188_NE_2(MpvHandle *hn) {
+    D_00766D44 = hn;
+    if (hn == 0) {
         return -1;
     }
-    return (*(int *)((char *)a0 + 0x188) ^ 2) == 0 ? 0 : -1;
+    return (hn->stat ^ MPV_HN_USED) == 0 ? 0 : -1;
 }
 
-extern int func_0036CD98(int);
-
 __attribute__((section(".text.Obj0000_Get_Field_3B4_Via_func_0036CD98")))
-int Obj0000_Get_Field_3B4_Via_func_0036CD98(unsigned char *a0) {
-    int v0 = 0;
-    if (a0 != 0) {
-        v0 = *(int *)(a0 + 0x3B4);
+void Obj0000_Get_Field_3B4_Via_func_0036CD98(MpvHandle *hn, int id, int val) {
+    int dev = 0;
+    if (hn != 0) {
+        dev = hn->dev;
     }
-    return func_0036CD98(v0);
+    func_0036CD98(dev, id, val);
 }
 
 __attribute__((section(".text.Obj0000_Set_D_0076A5D8_Check_Field_0_EQ_2")))
@@ -1181,32 +1162,30 @@ void Obj0000_Set_D_003FAE30_Field_10_Zero(void) {
     *(int *)(D_003FAE30 + 0x10) = 0;
 }
 
-__attribute__((section(".text.Tramp_001F7DF8_00101E28"))) float Tramp_001F7DF8_00101E28(void *v)
+__attribute__((section(".text.Tramp_001F7DF8_00101E28"))) void Tramp_001F7DF8_00101E28(void)
 {
- do { return capVu0Length(v); } while (0);
+ do { capVu0Length(); } while (0);
 }
 
-__attribute__((section(".text.Tramp_cObjBase_R0_scenario_10B760"))) void Tramp_cObjBase_R0_scenario_10B760(struct cObjBase *self)
+__attribute__((section(".text.Tramp_cObjBase_R0_scenario_10B760"))) void Tramp_cObjBase_R0_scenario_10B760(void)
 {
- do { cObjBase_R0_scenario(self); } while (0);
+ do { cObjBase_R0_scenario(); } while (0);
 }
 
 __attribute__((section(".text.Tramp_func_0014EFA8_0012BBE0")))
-void Tramp_func_0014EFA8_0012BBE0(struct cObjBase *self)
+void Tramp_func_0014EFA8_0012BBE0(void)
 {
- do { cObjBase_KageDraw(self); } while (0);
+ do { cObjBase_KageDraw(); } while (0);
 }
 
-__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(cIDBaseObj *self)
+__attribute__((section(".text.Tramp_func_002AAC28_0013C508"))) void Tramp_func_002AAC28_0013C508(void)
 {
- do { cIDBase_trans(self); } while (0);
+ do { cIDBase_trans(); } while (0);
 }
 
 
 
 
-
-extern void func_0015B0C0(void);
 
 __attribute__((section(".text.Tramp_func_0015B0C0_0015B0A0")))
 void Tramp_func_0015B0C0_0015B0A0(void)
@@ -1408,8 +1387,6 @@ void Obj0000_Call_FnFC_Field_100_94_90_Scaled(unsigned char *arg0)
   *((int *) (arg0 + 0xF4)) = *((int *) (arg0 + 0x94));
 }
 
-extern int func_00369F20(int, unsigned int);
-
 __attribute__((section(".text.Obj0000_Check_D_0045A460_Magic_And_D_0045A470_Val")))
 int Obj0000_Check_D_0045A460_Magic_And_D_0045A470_Val(void)
 {
@@ -1509,7 +1486,7 @@ __attribute__((section(".text.GetField_2_158CC8")))
 float GetField_2_158CC8(int a0, float *a1) { return a1[2]; }
 
 __attribute__((section(".text.Obj0000_Clear_Fields_640_648_124E58")))
-void Obj0000_Clear_Fields_640_648_124E58(pl00 *self) { self->held = 0; self->unk648 = 0; }
+void Obj0000_Clear_Fields_640_648_124E58(char *a0) { *(int *)(a0 + 0x640) = 0; a0[0x648] = 0; }
 
 __attribute__((section(".text.ReturnOne_1F6FA0")))
 int ReturnOne_1F6FA0(void) { return 1; }
@@ -1556,8 +1533,8 @@ int Obj0000_Get_Byte_2F4_EQ_1_10B5B8(char *a0) {
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_400000_10B698")))
-int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(pl00 *self) {
-    int v = self->flags15F4 & 0x400000;
+int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(char *a0) {
+    int v = *(int*)(a0 + 0x15F4) & 0x400000;
     return v != 0;
 }
 
@@ -1578,20 +1555,20 @@ void pl00_setEventWait(char *a0) {
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_1000_12C530")))
-int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(pl00 *self) {
-    int v = self->flags15F4 & 0x1000;
+int Obj0000_IsSet_Field_15F4_Bit_1000_12C530(char *a0) {
+    int v = *(int*)(a0 + 0x15F4) & 0x1000;
     return v != 0;
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_100000_12CA48")))
-int Obj0000_IsSet_Field_15F4_Bit_100000_12CA48(pl00 *self) {
-    int v = self->flags15F4 & 0x100000;
+int Obj0000_IsSet_Field_15F4_Bit_100000_12CA48(char *a0) {
+    int v = *(int*)(a0 + 0x15F4) & 0x100000;
     return v != 0;
 }
 
 __attribute__((section(".text.Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8")))
-int Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8(pl00 *self) {
-    int v = self->flags15F4 & 0x1000000;
+int Obj0000_IsSet_Field_15F4_Bit_1000000_12CED8(char *a0) {
+    int v = *(int*)(a0 + 0x15F4) & 0x1000000;
     return v != 0;
 }
 
@@ -1612,10 +1589,10 @@ void SetField_8_133B80(char *a0) {
 }
 
 __attribute__((section(".text.cPartsCamera_SetParts")))
-void cPartsCamera_SetParts(char *a0, void *a1, void *a2, void *a3) {
-    *(void **)(a0 + 0x360) = a1;
-    *(void **)(a0 + 0x364) = a2;
-    *(void **)(a0 + 0x368) = a3;
+void cPartsCamera_SetParts(char *a0, int a1, int a2, int a3) {
+    *(int*)(a0 + 0x360) = a1;
+    *(int*)(a0 + 0x364) = a2;
+    *(int*)(a0 + 0x368) = a3;
 }
 
 
@@ -1627,9 +1604,12 @@ int Obj0000_Init_Fields_00_04_1D6DB0(int a0) {
 }
 
 __attribute__((section(".text.Obj0000_Or_Field_0_Bit_1_Clear_Field_348_1ED7C8")))
-void Obj0000_Or_Field_0_Bit_1_Clear_Field_348_1ED7C8(DogRaceUi *self) {
-    self->step = 0;
-    self->flags |= DOGRACE_UI_F_INTRO;
+int Obj0000_Or_Field_0_Bit_1_Clear_Field_348_1ED7C8(int a0) {
+    int v0 = *(int*)((char*)a0 + 0x0);
+    *(int*)((char*)a0 + 0x348) = 0;
+    v0 |= 1;
+    *(int*)((char*)a0 + 0x0) = v0;
+    return v0;
 }
 
 __attribute__((section(".text.NoOp_1F1C48")))
@@ -1947,7 +1927,7 @@ __attribute__((section(".text.NoOp_279F60")))
 void NoOp_279F60(void) {}
 
 __attribute__((section(".text.Obj0000_Get_Field_1580_27A128")))
-struct cGameObj *Obj0000_Get_Field_1580_27A128(struct cGameObj *a0) { return *(struct cGameObj **)((char *)a0 + 0x1580); }
+int Obj0000_Get_Field_1580_27A128(int a0) { return *(int*)((char*)a0 + 0x1580); }
 
 __attribute__((section(".text.NoOp_27CFF8")))
 void NoOp_27CFF8(void) {}
@@ -2284,13 +2264,13 @@ void cEma2_SetPoisonDie(cEma2 *self) {
 
 INCLUDE_ASM("nonmatching", cIDBase_getIDWork);
 
-/* Reset the object to state 1 with its state arguments cleared. */
+/* Reset the object to mode 1 with phase, step and stepArg cleared. */
 __attribute__((section(".text.cObjSimple_R0_Init")))
 void cObjSimple_R0_Init(cObjSimple *self) {
-    self->state = 1;
-    self->stateArg[0] = 0;
-    self->stateArg[1] = 0;
-    self->stateArg[2] = 0;
+    self->mode = 1;
+    self->phase = 0;
+    self->step = 0;
+    self->stepArg = 0;
 }
 
 INCLUDE_ASM("nonmatching", SearchData);

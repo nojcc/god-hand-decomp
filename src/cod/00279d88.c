@@ -17,10 +17,11 @@ typedef struct EmPlace {
     char unk32[0xE];
 } EmPlace;
 
-
 extern int func_00279F68(char *a0);
 extern int func_0028EBF0(void *self, void *src, int arg);
+extern void cModel_calcParts(cModel *self);
 extern void IK_InverseKinematics(void *a0, void *a1);
+extern void cModel_calcWorldParts(cModel *self);
 extern void cParts_setRotationOrder(char *arg0, int arg1);
 
 /* Set up enemy 0x23F: load its model, place the parts at the origin and turn its collision on. */
@@ -40,12 +41,12 @@ int func_00279D88(cEm00 *self)
         func_0028EBF0(self, &place, 0);
         self->target = 0;
         self->watchArg = 0;
-        cModel_calcParts((cModel *)self);
+        cModel_calcParts(self);
         IK_InverseKinematics(self->ik, self);
-        cModel_calcWorldParts((cModel *)self);
+        cModel_calcWorldParts(self);
         self->active = 1;
         self->unk531 = -1;
-        cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+        cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
         cParts_setRotationOrder((char *)self, 4);
         self->hp = self->hpMax = 1;
         self->turnSpeed = EMSETUP_TURN_RATE;

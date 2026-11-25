@@ -1,16 +1,16 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cOmBase.h"
-#include "godhand/cDamageUnit.h"
-#include "godhand/cIDBase.h"
-#include "godhand/idSet.h"
-#include "godhand/CustomIDPanel.h"
 #include "godhand/vu0.h"
-#include "godhand/cModel.h"
-#include "godhand/player.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/cCockActButton.h"
 
 extern int D_00747A78;
+extern cOmBase *Getplayer(void);
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
+extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int id, int on);
+extern void CustomIDWork_SetNumber(void *work, int value);
+extern int cIDBase_initialize(void *self, int a1, int a2);
 extern int ChkLine(cVec *from, cVec *to, cVec *hit, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12);
 
 #define SYSFLAG_FREEZE  0x40000000      /* bit of D_00747A78: the game is frozen */
@@ -26,6 +26,7 @@ typedef struct cEmNear {
 
 
 extern void func_00279FF0(cEmNear *self);
+extern void cModel_calcParts(cEmNear *self);
 
 /* Per-frame update unless the game is frozen: measure the distance to the player, update the AI, rebuild the parts, copy the position. */
 __attribute__((section(".text.cEmNear_updateNearPlayer")))
@@ -33,35 +34,34 @@ void cEmNear_updateNearPlayer(cEmNear *self) {
     if ((D_00747A78 & SYSFLAG_FREEZE) == 0) {
         self->playerDistSq = capVu0MagnitudeSqXZ(Getplayer()->pos, self->base.pos);
         func_00279FF0(self);
-        cModel_calcParts((cModel *)self);
+        cModel_calcParts(self);
         cVec_copy3(&self->base.posA, self->base.pos);
     }
 }
 
-/* Number display: shows or hides the five digit works 0xD..0x11, then sets the number in work 14. */
+/* Number display: shows or hides the five digit elements 0xD..0x11, then sets the number in the work at 0x728. */
 __attribute__((section(".text.DigitDisplay_setNumber")))
-void DigitDisplay_setNumber(CustomIDPanel *self, int on, int value) {
+void DigitDisplay_setNumber(char *self, int on, int value) {
     SetCustomIDDispOneOrAll_1F29C0(self, 0xD, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0xE, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0xF, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0x10, on);
     SetCustomIDDispOneOrAll_1F29C0(self, 0x11, on);
-    CustomIDWork_SetNumber(&self->work[14], value);
+    CustomIDWork_SetNumber(self + 0x728, value);
 }
-
 
 /* Builds the id set (kind 4): collects the 13 element works and copies the first one's position. */
 __attribute__((section(".text.func_0013BC28")))
-void func_0013BC28(IdSet *self) {
+void func_0013BC28(cCockActButton *self) {
     unsigned short i;
 
     self->unk90 = 0;
-    cIDBase_initialize(&self->base, 1, 4);
+    cIDBase_initialize(self, 1, 4);
     i = 0;
     do {
         self->work[i] = cIDBase_getIDWork(&self->base, i);
         i = i + 1;
-    } while (i < IDSET_WORK_NUM);
+    } while (i < COCKACTBUTTON_WORK_NUM);
     self->x = self->work[0]->posX;
     self->y = self->work[0]->posY;
     self->msg = -1;

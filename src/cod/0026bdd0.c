@@ -1,6 +1,4 @@
 /* sn-2.95.3-136 */
-#include "godhand/cEm00.h"
-#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cOmWeapon.h"
@@ -19,7 +17,7 @@ typedef struct DropFrame {
     cVec vel;
 } DropFrame;
 
-extern void func_001D0240(cOmWeapon *self, cVec *pos, int arg);
+extern void MtxInitRotY(void *a0, float angle);
 
 /* Puts the weapon at the enemy's hand and lets it go straight ahead. */
 __attribute__((section(".text.func_0026BDD0")))
@@ -45,5 +43,5 @@ void func_0026BDD0(cGameObj *self, cOmWeapon *weapon)
     f.vel.y = 0;
     f.vel.z = DROP_SPEED;
     cVec_applyMatrix(&f.vel, f.mtx);
-    func_001D0240(weapon, &f.vel, (int)self);
+    func_001D0240(weapon, &f.vel, self);
 }

@@ -6,12 +6,13 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/player.h"
 
 extern int D_007474A8;
 
+extern int Getplayer();
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern float SetMotionStep(void *a0, float f);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f12);
 extern void cObjBase_addNullSpeed(void *a0, float f12);
 
@@ -24,7 +25,7 @@ void func_002383D0(cEm00 *self)
     char *s2;
 
     s3 = (char *)Getplayer();
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
     switch (*(unsigned char *)(s0 + 0x2F6)) {
     case 0:
     {

@@ -95,22 +95,22 @@ int func_002E64B0(cObjGround *self, char *set)
     }
     self->flags &= ~0x40000000;
     StoreVecFromFieldB0_2B6160((cVec *)&v, (cNode *)self);
-    vec3_copy(&mot->parentPos->x, &v.x);
+    vec3_copy(&mot->pos->x, &v.x);
     CopyVec16From20_B62E0(&v, (char *)self);
     v.z = v.x;
     cNode_setLocalScale((cNode *)self, (cVec *)&v);
     vec3_copy(&self->mot->scale.x, &v.x);
     func_002B60D0((cVec *)&rot, (cNode *)self);
     vec3_copy(&self->mot->rot.x, &rot.x);
-    self->mot->vec240.x = self->color[0];
-    self->mot->vec240.y = self->color[1];
-    self->mot->vec240.z = self->color[2];
-    self->mot->f24C = self->color[3];
+    self->mot->tint.x = self->color[0];
+    self->mot->tint.y = self->color[1];
+    self->mot->tint.z = self->color[2];
+    self->mot->tint.w = self->color[3];
     if (self->flags & 0x80000) {
         cObj_setMeshValue((cModel *)self->mot, 0x51011);
     }
-    self->mot->drawFlags |= 0x8000000;
-    self->mot->vtbl[10].pfn((char *)self->mot + self->mot->vtbl[10].delta);
+    self->mot->texFlags |= 0x8000000;
+    CVCALL_FN(self->mot, 10, void (*)(void *))(CVCALL_THIS(self->mot, 10));
     return 1;
 }
 #else

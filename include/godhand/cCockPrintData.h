@@ -1,40 +1,41 @@
-/* include/godhand/cCockPrintData.h - cCockPrintData, the cockfight gold counter.
+/* include/godhand/cCockPrintData.h - cCockPrintData, the cockpit's gold
+ * display, with a second display at 0xB0 drawn once per active slot.
  *
- * cCockPrintData is a cIDBase display object (vtable 0x0041E66C). The shown
- * amount counts toward the saved gold, and each gold pickup pops up a line
- * (drawn through `popupBase`) that rises and fades.
+ * The class name is retail's: the vtable D_0041E668 holds func_00143598 and
+ * func_00143998, and its type-info function (func_00143B20) registers
+ * "14cCockPrintData" with base "9cCockBase". The DispMgr holds one at 0x1AE0,
+ * and its constructor stores the vtable pointer at 0x80 (0x1419C4). The
+ * method and field names are ours.
  */
 #ifndef GODHAND_CCOCKPRINTDATA_H
 #define GODHAND_CCOCKPRINTDATA_H
 
 #include "godhand/cIDBase.h"
 
-#define COCKPRINT_ENT_NUM     4
-#define COCKPRINT_COUNTER     0         /* its seed is the number drawn */
-#define COCKPRINT_POPUP       1
-#define COCKPRINT_LABEL       2
-#define COCKPRINT_LABEL2      3
-#define COCKPRINT_POPUP_NUM   16
-#define COCKPRINT_MODE_MASK   3
-#define COCKPRINT_MODE_LABEL  1         /* show the label */
+#define COCKPRINT_WORK_NUM  4
+#define COCKPRINT_SLOT_NUM  16
 
 typedef struct cCockPrintData {
-    cIDBaseObj base;                            /* 0x000 */
-    char unk048[0x90 - sizeof(cIDBaseObj)];
-    unsigned int gold;                          /* 0x090 amount shown */
-    cIDBaseEnt *ent[COCKPRINT_ENT_NUM];         /* 0x094 entries looked up by id 0..3 */
+    cIDBaseObj base;                        /* 0x000 */
+    char unk048[0x80 - sizeof(cIDBaseObj)];
+    void *vtable;                           /* 0x080 */
+    char unk084[0x90 - 0x84];
+    int gold;                               /* 0x090 the gold shown */
+    cIDBaseEnt *work[COCKPRINT_WORK_NUM];   /* 0x094 work[0] shows the gold; 0 before setup */
     char unk0A4[0xB0 - 0xA4];
-    cIDBaseObj popupBase;                       /* 0x0B0 draws one popup line */
-    char unk0F8[0x100 - 0xB0 - sizeof(cIDBaseObj)];
-    float posYOfs[COCKPRINT_POPUP_NUM];         /* 0x100 */
-    unsigned int add[COCKPRINT_POPUP_NUM];      /* 0x140 amount each popup shows */
-    short timer[COCKPRINT_POPUP_NUM];           /* 0x180 */
-    unsigned char alpha[COCKPRINT_POPUP_NUM];   /* 0x1A0 */
-    unsigned char on[COCKPRINT_POPUP_NUM];      /* 0x1B0 */
-    unsigned char mode;                         /* 0x1C0 low two bits: COCKPRINT_MODE_* */
-} cCockPrintData;
+    cIDBaseObj base2;                       /* 0x0B0 drawn once per active slot */
+    char unk0F8[0x100 - 0xF8];
+    float posYOfs[COCKPRINT_SLOT_NUM];      /* 0x100 */
+    unsigned int number[COCKPRINT_SLOT_NUM]; /* 0x140 the number each slot shows */
+    char unk180[0x1A0 - 0x180];
+    unsigned char alpha[COCKPRINT_SLOT_NUM]; /* 0x1A0 */
+    unsigned char on[COCKPRINT_SLOT_NUM];   /* 0x1B0 1: the slot is drawn */
+    char mode;                              /* 0x1C0 */
+    char unk1C1[0x1D0 - 0x1C1];
+} cCockPrintData;                           /* 0x1D0 */
 
-typedef char cCockPrintData_popupBase_check[((int)&((cCockPrintData *)0)->popupBase == 0xB0) ? 1 : -1];
-typedef char cCockPrintData_mode_check[((int)&((cCockPrintData *)0)->mode == 0x1C0) ? 1 : -1];
+typedef char cCockPrintData_vtable_check[((int)&((cCockPrintData *)0)->vtable == 0x80) ? 1 : -1];
+typedef char cCockPrintData_on_check[((int)&((cCockPrintData *)0)->on == 0x1B0) ? 1 : -1];
+typedef char cCockPrintData_size_check[(sizeof(cCockPrintData) == 0x1D0) ? 1 : -1];
 
-#endif
+#endif /* GODHAND_CCOCKPRINTDATA_H */

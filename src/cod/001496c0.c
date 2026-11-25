@@ -2,7 +2,7 @@
 
 #include "godhand/cModel.h"
 #include "godhand/DogRace.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/CustomIDWork.h"
 #include "godhand/cOmSized.h"
 #include "godhand/cOmBase.h"

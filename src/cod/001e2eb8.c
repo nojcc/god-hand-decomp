@@ -1,87 +1,82 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
-#include "godhand/cObjBase.h"
 #include "godhand/effectPos.h"
-#include "godhand/Slot1.h"
-#include "godhand/scrollLayer.h"
 
+extern void LayerScreen_hideLayers(char *a0, int a1);
+extern void Slot2_selectMark(char *a0, int a1, int a2, int a3);
+extern void MarkObj_setMarkFlag(char *a0, int a1, int a2);
+extern void displayScrollLayer(int a0, int a1);
 
-/* Win stage of the first slot machine: blink for 10 frames and show the drift layers once, light the selected mark
- * and the keep mark for 120 frames, then return to the first state. */
 __attribute__((section(".text.func_001E2EB8")))
-void func_001E2EB8(Slot1 *self)
+void func_001E2EB8(char *a0)
 {
     long v;
     int done;
 
-    switch (self->phase) {
+    switch (*(int *)(a0 + 0xC)) {
     case 0:
-        v = (unsigned int)self->flags;
-        self->blinkTimer = 0xA;
+        v = *(unsigned int *)(a0 + 0x54);
+        *(short *)(a0 + 0x4C2) = 0xA;
         if (((v >> 8) & 1) == 0) {
-            LayerScreen_hideLayers(self, 1);
-            self->flags |= SLOT1_F_DRIFT_SET;
+            LayerScreen_hideLayers(a0, 1);
+            *(int *)(a0 + 0x54) |= 0x100;
         }
-        self->phase += 1;
+        *(int *)(a0 + 0xC) += 1;
         break;
     case 1:
-        Slot2_selectMark(self, self->slotId, 1, 1);
-        MarkObj_setMarkFlag(self, 0, 1);
-        self->timer = 0x78;
-        self->phase += 1;
+        Slot2_selectMark(a0, *(unsigned short *)(a0 + 0x494), 1, 1);
+        MarkObj_setMarkFlag(a0, 0, 1);
+        *(int *)(a0 + 0x10) = 0x78;
+        *(int *)(a0 + 0xC) += 1;
         break;
     case 2:
-        if (self->timer != 0) {
-            self->timer -= 1;
+        if (*(int *)(a0 + 0x10) != 0) {
+            *(int *)(a0 + 0x10) -= 1;
             done = 0;
         } else {
             done = 1;
         }
         if ((done & 0xFF) != 0) {
-            Slot2_selectMark(self, self->slotId, 0, 0);
-            self->phase += 1;
+            Slot2_selectMark(a0, *(unsigned short *)(a0 + 0x494), 0, 0);
+            *(int *)(a0 + 0xC) += 1;
         }
         break;
     case 3:
-        self->state = 0;
-        self->step = 0;
-        self->phase = 0;
+        *(int *)(a0 + 0x4) = 0;
+        *(int *)(a0 + 0x8) = 0;
+        *(int *)(a0 + 0xC) = 0;
         break;
     }
 }
 
-#define DRIFT_LAYER_A  22      /* scrollLayer[] indices shown while the objects pass x -50..-60 */
-#define DRIFT_LAYER_B  34
-
-/* Drift the two objects left a unit a frame while flags bit 9 is set (back to 0 past -130), and show two layers while they pass x -50..-60. */
 __attribute__((section(".text.func_001E4610")))
-void func_001E4610(Slot1 *self)
+void func_001E4610(char *a0)
 {
     long v;
 
-    if (self->drift[0] == 0)
+    if (*(int *)(a0 + 0x4B0) == 0)
         return;
-    if (self->drift[1] == 0)
+    if (*(int *)(a0 + 0x4B4) == 0)
         return;
-    v = (unsigned int)self->flags;
+    v = *(unsigned int *)(a0 + 0x54);
     if (((v >> 9) & 1) == 0)
         return;
 
-    self->drift[0]->pos->x -= 1.0f;
-    self->drift[1]->pos->x -= 1.0f;
+    *(float *)(*(int *)(*(int *)(a0 + 0x4B0) + 0xF0)) -= 1.0f;
+    *(float *)(*(int *)(*(int *)(a0 + 0x4B4) + 0xF0)) -= 1.0f;
 
-    if (self->drift[0]->pos->x < -130.0f) {
-        self->drift[0]->pos->x = 0.0f;
-        self->drift[1]->pos->x = 0.0f;
+    if (*(float *)(*(int *)(*(int *)(a0 + 0x4B0) + 0xF0)) < -130.0f) {
+        *(int *)(*(int *)(*(int *)(a0 + 0x4B0) + 0xF0)) = 0;
+        *(int *)(*(int *)(*(int *)(a0 + 0x4B4) + 0xF0)) = 0;
     }
 
-    if (self->drift[0]->pos->x < -50.0f &&
-        self->drift[0]->pos->x > -60.0f) {
-        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_A], 1);
-        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_B], 1);
+    if (*(float *)(*(int *)(*(int *)(a0 + 0x4B0) + 0xF0)) < -50.0f &&
+        *(float *)(*(int *)(*(int *)(a0 + 0x4B0) + 0xF0)) > -60.0f) {
+        displayScrollLayer(*(int *)(a0 + 0x458), 1);
+        displayScrollLayer(*(int *)(a0 + 0x488), 1);
     } else {
-        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_A], 0);
-        displayScrollLayer(self->scrollLayer[DRIFT_LAYER_B], 0);
+        displayScrollLayer(*(int *)(a0 + 0x458), 0);
+        displayScrollLayer(*(int *)(a0 + 0x488), 0);
     }
 }
 
@@ -105,7 +100,7 @@ void func_0027BDD8(char *a0)
     if (0.0f < *(float *)(a0 + 0x54C))
         return;
 
-    cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, a0, 0, 0, 0, 0);
+    cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xA, (cObj *)a0, 0, 0, 0, 0);
 
     b = *(unsigned char *)(a0 + 0x2B4);
     spill[0] = b;
@@ -115,7 +110,7 @@ void func_0027BDD8(char *a0)
     else
         obj = 0;
     if (obj != 0)
-        SetEffectPos(0x58, 0x10, 0, (void *)*(int *)(obj + 0xF0), -1, 1.0f);
+        SetEffectPos(0x58, 0x10, 0, (void *)*(int *)(obj + 0xF0), 1.0f, -1);
 
     *(float *)(a0 + 0x54C) = 3.0f;
     if (*(short *)(a0 + 0x548) <= 0)

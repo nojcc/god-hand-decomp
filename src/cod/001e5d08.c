@@ -1,15 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cSnd.h"
 #include "godhand/Slot2.h"
-#include "godhand/cObjBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cSnd.h"
 #include "godhand/globals.h"
+#include "godhand/cObjBase.h"
 
 extern void func_001E6ED8(Slot2 *a0, int a1, int a2);
 extern void Slot2_setLineMark(Slot2 *a0, int a1, int a2);
 extern void func_001E8E48(void *a0, void *a1);
+extern void cSnd_BgmEventStart(void *a0, int a1, int a2, int a3);
+extern int cSnd_SeCall(void *a0, int a1, short a2, int a3, int a4, int a5);
+extern void cSnd_SeStop(void *a0, int a1);
 extern void func_001E6C80(Slot2 *a0, int a1, int a2);
 
 /* Slot2 payout stage, first line prize: pay out coin by coin until a button
@@ -37,7 +40,7 @@ void Slot2_payoutLine1(Slot2 *self) {
 
     switch (self->phase) {
     case 0:
-        SetEffect(1, 1, 0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(1, 1, 0, 0, -1, EFFECT_FOLLOW_OWNER);
         func_001E6ED8(self, 1, 1);
         Slot2_setLineMark(self, 1, 1);
         self->timer = 0x3C;
@@ -56,7 +59,7 @@ void Slot2_payoutLine1(Slot2 *self) {
         self->coinNum = self->unk36C[0] / 100;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId[1] = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId[1] = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -104,7 +107,7 @@ void Slot2_payoutLine2(Slot2 *self) {
 
     switch (self->phase) {
     case 0:
-        SetEffect(1, 2, 0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(1, 2, 0, 0, -1, EFFECT_FOLLOW_OWNER);
         func_001E6ED8(self, 1, 1);
         func_001E6C80(self, 1, 1);
         self->timer = 0x3C;
@@ -123,7 +126,7 @@ void Slot2_payoutLine2(Slot2 *self) {
         self->coinNum = self->unk36C[1] / 100;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId[1] = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId[1] = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:

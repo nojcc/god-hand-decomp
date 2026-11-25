@@ -1,8 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
-#include "godhand/pl00.h"
 #include "godhand/motion.h"
 
+extern void *cSnd_GetSeData(void *a0, int a1);
+extern int cSeData_IsAlive(void *p);
+extern void cSndSeVoice_Unlink(void *a0);
 extern unsigned int D_00747A84;
 extern int D_00747A78;
 extern unsigned int irand(void);
@@ -10,6 +12,7 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_0012C348(void *a0, int a1);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -19,7 +22,7 @@ __attribute__((section(".text.cSndSeVoice_Update")))
 void cSndSeVoice_Update(cSndSeVoice *voice)
 {
     char buf[0x30] __attribute__((aligned(16)));
-    cSeData *entry;
+    cSndSeEntry *entry;
     cSnd *snd;
     cSnd *sndNow;
     int found, total, played, state;
@@ -30,7 +33,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
     if (cSndSeVoice_IsActive(voice) == 0) {
         return;
     }
-    snd = (cSnd *)&D_005FEE00;
+    snd = &D_005FEE00;
     entry = cSnd_GetSeData(snd, voice->key0);
     if (cSeData_IsAlive(entry) == 0) {
         goto reset;
@@ -77,7 +80,7 @@ void cSndSeVoice_Update(cSndSeVoice *voice)
         if (1.0f < ratio) {
             ratio = 1.0f;
         }
-        sndNow = (cSnd *)&D_005FEE00;
+        sndNow = &D_005FEE00;
         sndNow->f9C = ratio;
     }
     state = SdeIssStatusGetBySndId(voice->handle);
@@ -110,68 +113,69 @@ age:
 }
 
 __attribute__((section(".text.func_0011A8F8")))
-void func_0011A8F8(pl00 *self)
+void func_0011A8F8(void *a0)
 {
+    char *s1 = (char *)a0;
     float one;
     float f;
 
-    switch (self->base.step) {
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0: {
         int p1, p2;
         switch (irand() % 3) {
         case 0:
         default:
             {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             p1 = *(int *)(v0 + 0x140) + (int)v0;
             p2 = *(int *)(v0 + 0x144) + (int)v0;
             }
             break;
         case 1:
             {
-            char *v1 = self->base.pack;
+            char *v1 = *(char **)(s1 + 0x304);
             p1 = *(int *)(v1 + 0x4DC) + (int)v1;
             p2 = *(int *)(v1 + 0x4E0) + (int)v1;
             }
             break;
         case 2:
             {
-            char *v2 = self->base.pack;
+            char *v2 = *(char **)(s1 + 0x304);
             p1 = *(int *)(v2 + 0x4E4) + (int)v2;
             p2 = *(int *)(v2 + 0x4E8) + (int)v2;
             }
             break;
         }
-        func_002A8578(self, p1, p2, 1, 0.0f, 0, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCE, self, 0, 0, 0, 0);
-        func_0012C348(self, 0);
-        pl00_clearMotionCam(self, 0, 0);
-        CallWithAndClearField698_12AC28(self);
-        func_0012B928(self);
-        self->base.step += 1;
+        func_002A8578(s1, p1, p2, 1, 0.0f, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCE, a0, 0, 0, 0, 0);
+        func_0012C348(s1, 0);
+        pl00_clearMotionCam(s1, 0, 0);
+        CallWithAndClearField698_12AC28(s1);
+        func_0012B928(s1);
+        *(unsigned char *)(s1 + 0x2F6) += 1;
     }
         /* fallthrough */
     case 1:
-        if (moveMotion(self) != 0) {
-            if (func_00123938(self, 1) != 0) {
+        if (moveMotion(s1) != 0) {
+            if (func_00123938(s1, 1) != 0) {
                 return;
             }
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+            *(char *)(s1 + 0x2F4) = 0;
+            *(char *)(s1 + 0x2F5) = 0;
+            *(char *)(s1 + 0x2F6) = 0;
+            *(char *)(s1 + 0x2F7) = 0;
         }
         one = 1.0f;
-        cObjBase_addNullSpeed_Rotation(self, one);
-        cObjBase_addNullSpeed(self, one);
-        f = self->base.hitFlash;
+        cObjBase_addNullSpeed_Rotation(s1, one);
+        cObjBase_addNullSpeed(s1, one);
+        f = *(float *)(s1 + 0x54C);
         break;
     default:
-        f = self->base.hitFlash;
+        f = *(float *)(s1 + 0x54C);
         break;
     }
     if (f <= 1.0f) {
-        self->base.seqFlags |= 0x40;
+        *(unsigned short *)(s1 + 0x3AC) |= 0x40;
     }
-    func_00123938(self, 1);
+    func_00123938(s1, 1);
 }

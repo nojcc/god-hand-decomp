@@ -3,6 +3,7 @@
 #include "godhand/cBgmData.h"
 
 extern char D_003C3138[];
+extern void cSnd_SetBgmState(void *a0, int a1);
 
 /* sn-2.95.3-136 matched TU. */
 

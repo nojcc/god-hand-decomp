@@ -2,11 +2,11 @@
 
 #include "godhand/cEma2.h"
 #include "godhand/cSnd.h"
-#include "godhand/gameWork.h"
-#include "godhand/player.h"
+#include "godhand/cCamera.h"
 
+extern cGameObj *Getplayer(void);
+extern unsigned short D_00747A50;
 extern float capVu0MagnitudeSqXZ(cVec *a, cVec *b);
-extern float Turn_dest(cVec *from, cVec *to, float rot, float limit);
 
 /* 65/73 words exact (89.0%), sn-2.95.3-136 with fp_hazard_rules mtc1, insn delta +3. Shape aligned; retail cross-jumps the mode/phase/step tail of the two no-flag arms (mode constant set in the branch delay slot), this body keeps them apart. A local mode variable made it worse (54/73). */
 
@@ -17,7 +17,7 @@ extern float Turn_dest(cVec *from, cVec *to, float rot, float limit);
 
 
 #define EMA2_HIT_SE        0x96         /* sound played on a hit */
-#define EMA2_GAME_MODE     0x501        /* room id in which a hit scales with the player */
+#define EMA2_GAME_MODE     0x501        /* D_00747A50 value in which a hit scales with the player */
 #define PLAYER_POWER(p)    (*(float *)((char *)(p) + 0x600))   /* the player record is not typed yet */
 #define EMA2_POWER_SCALE   10.0f
 #define EMA2_STATE_HIT     1            /* mode while it is alive */
@@ -34,8 +34,8 @@ void cEma2_setDamage(cEma2 *self)
 
     if (self->base.hp <= 0)
         return;
-    cSnd_SeCall_2CBA48(&D_005FEE00, 0, EMA2_HIT_SE, self, 0, 0, 0, 0);
-    if (D_007474A0.room == EMA2_GAME_MODE)
+    cSnd_SeCall_2CBA48(&D_005FEE00, 0, EMA2_HIT_SE, (cObj *)self, 0, 0, 0, 0);
+    if (D_00747A50 == EMA2_GAME_MODE)
         self->base.hp -= (int)(PLAYER_POWER(player) * EMA2_POWER_SCALE);
     else
         self->base.hp -= 1;
@@ -91,7 +91,7 @@ void func_00292F70(cEmManage *self, cVec *pos)
     if (EM_TURN_FAR_SQ < dist)
         return;
     playerPos = Getplayer()->pos;
-    turn = Turn_dest(playerPos, pos, Getplayer()->rot.y, 3.1415927f);
+    turn = Turn_dest(&playerPos->x, Getplayer()->rot.y, &pos->x, 3.1415927f);
     sideCopy = &side;   /* a second name for side keeps the two float copies in retail order */
     amount = turn;
     side = turn;

@@ -1,19 +1,22 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 #include "godhand/pl00.h"
 #include "godhand/vu0.h"
 #include "godhand/cMovie.h"
 #include "godhand/motion.h"
-#include "godhand/cSnd.h"
+#include "godhand/cDamageUnit.h"
 
 extern void func_001268F0(void *a0);
+extern void func_00124540(void *a0, int a1);
+extern void cSnd_SeStop(void *a0, int a1);
 extern unsigned int irand(void);
+extern void InvokeVirtualAtField214AndForward_124E68(void *a0, float f12);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
-extern int cCollisionManager_checkNearCollision(void *a0, int a1, void *a2, float f);
 extern void pl00_addComboHit(void *a0);
-extern char D_005E8040[];
 extern void func_002D42E0(cMovieTrack *track);
 extern int D_00747A84;
 
@@ -22,7 +25,7 @@ extern int D_00747A84;
  * state to 2 and calls pl00_addComboHit. */
 __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAttack(pl00 *self)
 {
-    float v[4] __attribute__((aligned(16)));
+    cVec v __attribute__((aligned(16)));
     float one;
     int s2v, s0v, n;
 
@@ -37,7 +40,7 @@ __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAt
             switch (self->unk1614) {
                 case 0:
                 default: {
-                    char *t = self->base.pack;
+                    int t = EM_RES(&self->base);
                     s2v = EM_RES_REC(t, 0x284);
                     s0v = EM_RES_REC(t, 0x288);
                 }
@@ -48,7 +51,7 @@ __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAt
                     }
                     break;
                 case 1: {
-                    char *t = self->base.pack;
+                    int t = EM_RES(&self->base);
                     s2v = EM_RES_REC(t, 0x27C);
                     s0v = EM_RES_REC(t, 0x280);
                 }
@@ -59,7 +62,7 @@ __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAt
                     }
                     break;
                 case 2: {
-                    char *t = self->base.pack;
+                    int t = EM_RES(&self->base);
                     s2v = EM_RES_REC(t, 0x28C);
                     s0v = EM_RES_REC(t, 0x290);
                 }
@@ -70,7 +73,7 @@ __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAt
                     }
                     break;
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x41, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x41, (cObj *)self, 0, 0, 0, 0);
             func_002A8578(self, s2v, s0v, 3, 2.0f, 0, 0);
             self->stepCount = 8;
             self->unk15B0 = 0;
@@ -92,13 +95,13 @@ __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAt
             self->comboSet = 0;
             if (self->stepCount != 0) {
                 self->stepCount -= 1;
-                self->flags15F4 |= 0x10000;
+                self->unk15F4 |= 0x10000;
                 self->unk1603 = 2;
                 if (self->unk15B0 == 0) {
                     VU0_LQC2(4, (char *)self->base.pos, 0);
-                    VU0_SQC2(4, v, 0);
-                    v[1] = v[1] + one;
-                    if (cCollisionManager_checkNearCollision(D_005E8040, 2, v, 1.5f) != 0) {
+                    VU0_SQC2(4, &v, 0);
+                    v.y = v.y + one;
+                    if (cCollisionManager_checkNearCollision(&D_005E8040, 2, &v, 1.5f) != 0) {
                         self->unk15B0 = 1;
                     }
                 }
@@ -117,6 +120,12 @@ __attribute__((section(".text.pl00_stepCountedAttack"))) void pl00_stepCountedAt
             pl00_addComboHit(self);
         }
     }
+}
+
+/* 1 while the track holds a player (a branch-built 0/1, as in retail). */
+static __inline__ unsigned char cMovieTrack_inUse(cMovieTrack *t) {
+    if (t->handle != 0) return 1;
+    return 0;
 }
 
 /* Stop every track that holds a player, then clear the "movie playing" bit.

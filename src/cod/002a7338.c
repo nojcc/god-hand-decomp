@@ -1,15 +1,15 @@
-/* sn-2.95.3-136 */
+/* sn-2.95.3-136 matched TU. */
 #define CGAMEOBJ_NO_TYPEDEF
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cGameObj.h"
 #include "godhand/cVec.h"
 #include "godhand/vu0.h"
 
-extern char D_0044ADF0[];
+extern char D_0044ADF0[];               /* "cGameObj" */
 
 /* Construct the object: the cObjBase base, this class's method table and
  * class name, the stored position (0, 0, 0, 1), the velocity and the vectors
- * at 0x580 and 0x590 zeroed, the speed rate 1.0. */
+ * at 0x580 and 0x590 set to (0, 0, 0, 1) from $vf0, the speed rate 1.0. */
 __attribute__((section(".text.cGameObj")))
 struct cGameObj *cGameObj(struct cGameObj *self)
 {

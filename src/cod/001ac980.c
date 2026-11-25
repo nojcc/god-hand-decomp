@@ -6,8 +6,8 @@ extern void func_001B7EE0(void *self, float f);
 
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
-#include "godhand/emPhaseTable.h"
 #include "godhand/cSnd.h"
+#include "godhand/emPhaseTable.h"
 #include "godhand/cDamageUnit.h"
 
 __attribute__((section(".text.func_001AC980")))
@@ -55,7 +55,7 @@ void func_001AC980(char *self)
                 *(short *)(self + 0x610) = 8;
                 *(float *)(self + 0x614) = (*(float **)(self + 0xF0))[1];
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 10, (cObj *)self, 0, 0, 0, 0);
             }
         }
     }

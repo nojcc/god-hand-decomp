@@ -1,18 +1,17 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
 #include "godhand/cSnd.h"
-#include "godhand/cIDBase.h"
-#include "godhand/cGameObj.h"
-#include "godhand/cCockLastBossBar.h"
-#include "godhand/cOmBase.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cDamageManage.h"
 
+extern void cIDBase_trans(void *p);
 extern char D_00747A24[];
 extern void KillEffect(void *p, int a, int b);
 extern void espSys_effDataRelease(void *a, int b);
+extern void cOmBase_dieCommon(void *p);
 extern void SetField214PtrThenInit_1B6F38(void *a, void *b);
 extern char D_0042AA98[];
 extern char D_007419A0[];
+extern int cSnd_GetBgmData(int a0, int a1);
 extern int cSaveLoad_openLoad(void *p);
 extern char D_00747A2C[];
 extern char D_00747A88[];
@@ -20,28 +19,27 @@ extern char D_003C2648[];
 extern int GuardedCall_00329FD0_329F98(void *h);
 extern void func_00381D60(void *a, void *b, void *c);
 
-/* Draw the bar while a boss with hit points is set, the ui is on and nothing holds the screen. */
 __attribute__((section(".text.func_0013EBA0")))
-void func_0013EBA0(cCockLastBossBar *self)
+void func_0013EBA0(char *p)
 {
-    struct cGameObj *w;
+    char *w;
     char *g;
     unsigned long fl;
     unsigned long bit;
 
-    if (self->data == 0) return;
-    w = self->boss;
+    if (*(int *)(p + 0x94) == 0) return;
+    w = *(char **)(p + 0x9C);
     if (w == 0) return;
     fl = *(int *)D_00747A24;
     bit = (fl >> 3) & 1;
     if (bit) return;
     g = D_00747A24;
     if (*(int *)(g + 0x8) < 0) return;
-    if (w->hpMax == 0) return;
-    if ((self->unkA0 & 0x20000000) == 0) return;
+    if (*(short *)(w + 0x548) == 0) return;
+    if ((*(int *)(p + 0xA0) & 0x20000000) == 0) return;
     if (cCoreSave_getStateBit0(&D_00569B70) != 0) return;
     if ((*(int *)(g + 0x60) & 0x80000) != 0) return;
-    cIDBase_trans(&self->base);
+    cIDBase_trans(p);
 }
 
 typedef void (*Fn)(void *, int);
@@ -106,11 +104,11 @@ typedef struct { int f0; int f4; int f8; unsigned short fC; unsigned short fE; }
 
 /* Starts a BGM request on a node if the bank's data is ready. */
 __attribute__((section(".text.cSnd_BgmNodeSet")))
-int cSnd_BgmNodeSet(cSndBgmNode *node, int bank, int reqNo, int state, unsigned int param, int wordA, int wordB)
+int cSnd_BgmNodeSet(cSndBgmNode *node, int bank, int reqNo, int state, int param, int wordA, int wordB)
 {
     cSndBgmReq req;
 
-    if (cBgmData_IsReady(cSnd_GetBgmData(&D_005FEE00, bank)) == 0) return 0;
+    if (cBgmData_IsReady(cSnd_GetBgmData((int)&D_005FEE00, bank)) == 0) return 0;
     req.reqNo = reqNo;
     req.state = state;
     req.param = param;

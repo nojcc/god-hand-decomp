@@ -5,6 +5,8 @@
 #define IDWORK_F1C(self, j) (*((unsigned char *)(self) + (j) * 0x50 + 0x11C))
 
 extern cObjSimpleVec3 D_003BD880;
+extern void cIDBase_initIDWork(void *w, int id);
+extern void cIDBase_restartAnim(void *w);
 
 static inline void vcpy(cObjSimpleVec3 *d, cObjSimpleVec3 *s)
 {
@@ -44,7 +46,7 @@ void func_00144C90(cIDBaseScreen *self)
         self->tbl[i][0]->sclX = 0;
         self->tbl[i][0]->sclY = 0;
         self->tbl[i][0]->posX = self->tbl[i][0]->posX + self->pos.x + (self->tbl[i][0]->f68 * sc - self->tbl[i][0]->f68) * 0.5f;
-        self->tbl[i][0]->posY = self->tbl[i][0]->posY + self->pos.y + (float)(i * 32);
+        self->tbl[i][0]->posY = self->tbl[i][0]->posY + self->pos.y + i * 32;
         self->tbl[i][1]->sclX = 0;
         self->tbl[i][1]->sclY = 0;
         self->rowY[i] = self->tbl[i][0]->posY;
@@ -60,7 +62,7 @@ void func_00144C90(cIDBaseScreen *self)
     e = self->tbl[4][0];
     self->rowX[4] = e->posX;
     self->rowY[4] = e->posY;
-    e->flags |= 8;
+    e->flags |= IDENT_FLAG_CHILD;
     self->phase = 1;
     self->step = 0;
     self->unk2A4 = 0;

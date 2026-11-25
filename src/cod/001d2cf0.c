@@ -19,7 +19,7 @@ void BlackJack_UpdateDealPlayer(BlackJack *self)
     case 1:
         if (self->timer == 0) {
             self->handA[self->dealSlot]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->handA[self->dealSlot]->obj, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, (cObj *)self->handA[self->dealSlot]->obj, 0, 0, 0, 0);
             self->timer = DEAL_FRAMES;
             self->phase += 1;
         } else {
@@ -74,7 +74,7 @@ void BlackJack_UpdateDealDealer(BlackJack *self)
     case 1:
         if (self->timer == 0) {
             self->handA[self->dealSlot]->obj->flags &= ~BLACKJACK_CARD_FACE_DOWN;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, self->handA[self->dealSlot]->obj, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0, (cObj *)self->handA[self->dealSlot]->obj, 0, 0, 0, 0);
             self->timer = DEAL_FRAMES;
             self->phase += 1;
         } else {

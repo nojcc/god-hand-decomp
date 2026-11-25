@@ -1,4 +1,5 @@
 #include "godhand/cDamageManage.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern void Trail_snapToSources(void *a0);
 extern void FlashDriver_resetFlash(void *a0);

@@ -15,6 +15,7 @@ extern void func_0026DB00(void *a0, int a1, int a2);
 
 #include "godhand/vu0.h"
 #include "godhand/player.h"
+#include "godhand/cGameObjFn.h"
 
 
 

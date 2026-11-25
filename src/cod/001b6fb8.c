@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/cEm00.h"
-#include "godhand/cNode.h"
+#include "godhand/cEm00Fn.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
 #include "godhand/globals.h"

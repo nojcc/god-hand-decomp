@@ -1,13 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cOmHitHolder.h"
 
+#include "godhand/cSnd.h"
 #include "godhand/Slot1.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cSnd.h"
-#include "godhand/cOmBase.h"
-#include "godhand/cModel.h"
-#include "godhand/emPhaseTable.h"
 #include "godhand/globals.h"
 
 extern int IsEntryActive_1C2490(int a0);
@@ -17,14 +13,19 @@ extern int ColiseumBattle_CountLiveEnemies(void *a0);
 extern void cEmSetParam_setEm(void *a0, int a1);
 extern void cEmWrap_StartAction(void *a0);
 extern char D_00586AB0[];
-extern int ClearField5B4IfFlagUnset_1B76B0(cOmBase *self);
+extern int ClearField5B4IfFlagUnset_1B76B0(int a0);
+extern void cOmBase_updateWithHitRecord(void *a0);
 extern void func_002A87E8(void *a0, int a1);
-extern void func_001B76D8(cOmBase *self);
+extern void func_001B76D8(void *a0);
 extern unsigned short D_003F2060[];
 extern void ADXT_SetOutVol(int a0, int a1);
+extern void func_001E3D78(Slot1 *a0, int a1, int a2);
 extern void func_001E8E48(void *a0, void *a1);
+extern int cSnd_SeCall(void *a0, int a1, short a2, int a3, int a4, int a5);
+extern void cSnd_SeStop(void *a0, int a1);
 
 /* Phase-machine tick: drop the pending entry at +0x15B0 (stop it if still running), then run the handler of the 0..1 state byte. */
+
 
 
 struct Entry_func_0028A8D0 { short f0; short f2; short f4; short f6; };
@@ -72,6 +73,12 @@ void UpdateStateTableWithPendingEntry(char *s0)
 /* Coliseum wave director, second variant: clear the field, then spawn the next group when the timer (750 frames) runs out or no enemy is left. */
 
 
+
+
+
+
+
+
 __attribute__((section(".text.ColiseumWaveDirectorB")))
 void ColiseumWaveDirectorB(void *a0) {
     char *s0 = (char *)a0;
@@ -111,29 +118,55 @@ bail:
 /* Phase-machine tick: when flag bit 2 is clear run the state handler, skip the sync step if bit 1 is set, then the shared post-update; else run the alternate update. */
 
 
-extern EmPhaseTable4 D_00423E10;
 
+
+
+extern struct Table_173 D_00423E10;
+
+struct Entry_173 { short f0; unsigned short type; unsigned short f4; short f6; };
+struct Table_173 { struct Entry_173 e[4]; };
 
 __attribute__((section(".text.UpdatePhaseWithFlagGate")))
-void UpdatePhaseWithFlagGate(cOmHitHolder *self)
+void UpdatePhaseWithFlagGate(void *a0)
 {
-    EmPhaseTable4 buf;
-    long flags;
-    if (ClearField5B4IfFlagUnset_1B76B0(&self->base) == 0) return;
-    flags = (unsigned int)self->base.flags0;
+    char *s0 = (char *)a0;
+    struct Table_173 buf;
+    char *e;
+    int i8;
+    int f0;
+    long flags; int type; int arg; int (*fp)(int); long entry;
+    if (ClearField5B4IfFlagUnset_1B76B0((int)s0) == 0) return;
+    flags = *(unsigned int *)(s0 + 0x5B0);
     if (((flags >> 2) & 1) == 0) {
         buf = D_00423E10;
-        EM_PHASE_RUN(&buf, self, self->base.mode);
-        flags = (unsigned int)self->base.flags0;
+        i8 = *(unsigned char *)(s0 + 0x2F4) * 8;
+        e = (char *)&buf + i8;
+        type = (short)*(unsigned short *)(e + 2);
+        if (type >= 0) {
+            int base = *(int *)(s0 + (short)*(unsigned short *)(e + 4));
+            entry = *(long *)(base + type * 8 - 8);
+            fp = (int (*)(int))(int)(entry >> 32);
+        } else {
+            fp = *(int (**)(int))((char *)&buf + i8 + 4);
+        }
+        f0 = buf.e[*(unsigned char *)(s0 + 0x2F4)].f0;
+        if (type >= 0)
+            arg = (short)entry + f0;
+        else
+            arg = f0;
+        fp((int)(s0 + arg));
+        flags = *(unsigned int *)(s0 + 0x5B0);
         if (((flags >> 1) & 1) == 0)
-            func_002A87E8(self, 0);
-        func_001B76D8(&self->base);
+            func_002A87E8(s0, 0);
+        func_001B76D8(s0);
     } else {
-        cOmBase_updateWithHitRecord(self);
+        cOmBase_updateWithHitRecord(s0);
     }
 }
 
 /* Nudge two scroll positions of the selected row by a step (10 when bit 1 of the pad flags is set): stick/dpad moves the first, up/down the second via the table; then update the linked sound. */
+
+
 
 
 __attribute__((section(".text.AdjustRowScrollPosition")))
@@ -193,6 +226,16 @@ call1:
 /* Slot1 payout stage, prize line 2: pay out coin by coin until a button is pressed or the coins run out. */
 
 
+
+
+
+
+
+
+
+
+
+
 __attribute__((section(".text.Slot1_payoutLine3")))
 void Slot1_payoutLine3(Slot1 *self) {
     unsigned char buf[16] __attribute__((aligned(16)));
@@ -218,7 +261,7 @@ void Slot1_payoutLine3(Slot1 *self) {
         self->coinNum = self->prize[2] / 10;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:

@@ -1,6 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cEmManage.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/espSys.h"
 #include "godhand/newlibStdio.h"
 #include "godhand/newlibMalloc.h"

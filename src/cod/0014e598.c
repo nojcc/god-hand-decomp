@@ -1,9 +1,7 @@
 #include "godhand/cObj.h"
-#include "godhand/seqNode.h"
-#include "godhand/heapArena.h"
 #define COBJBASE_NO_TYPEDEF
 #include "godhand/cObjBase.h"
-#include "godhand/vtables.h"
+#include "godhand/objFactory.h"
 #include "godhand/globals.h"
 
 /* sn-2.95.3-136 matched TU. */
@@ -11,8 +9,11 @@
 extern void flush__7ostream(void *a0);
 extern void __as__22_IO_ostream_withassignR7ostream(void *a0, void *a1);
 extern void __as__22_IO_istream_withassignR7istream(void *a0, void *a1);
+extern int D_003BAFE0[];
+extern void __builtin_delete(void);
 extern void func_003B9DE0(void *);
 extern void func_001495A0(cObj *self);
+extern int D_0041EAF0;
 extern void func_001BD580(void *);
 extern int D_00420D68;
 extern int D_00421C80;
@@ -39,10 +40,10 @@ void Tramp___as__22_IO_istream_withassignR7istream_389960(void *a0, void *a1) {
 }
 
 __attribute__((section(".text.func_00372C80")))
-void func_00372C80(SndVoiceNode *self, int flags) {
-    self->vt = D_003BAFE0;
-    if (flags & 1) {
-        __builtin_delete(self);
+void func_00372C80(int *a0, int a1) {
+    *(int **)((char *)a0 + 0x80) = D_003BAFE0;
+    if (a1 & 1) {
+        __builtin_delete();
     }
 }
 
@@ -64,7 +65,7 @@ int func_003BA800(int *a0) {
 __attribute__((section(".text.cObj__ctor")))
 cObj *cObj__ctor(cObj *self) {
     func_001495A0(self);
-    self->vtable = D_0041EAF0;
+    self->vtable = (cVtEnt *)&D_0041EAF0;
     return self;
 }
 
@@ -110,9 +111,9 @@ void *func_0019C118(void *a0){
   return a0;
 }
 
-/* Constructor of the cObjBase subclass with method table D_00450C38. */
 __attribute__((section(".text.func_003184E0")))
-struct cObjBase *func_003184E0(struct cObjBase *self){
+void *func_003184E0(void *a0){
+  struct cObjBase *self = a0;
   cObjBase(self);
   self->vtable = D_00450C38;
   return self;

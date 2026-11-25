@@ -3,7 +3,7 @@
 #include "godhand/cGameObj.h"
 #include "godhand/cCamManager.h"
 #include "godhand/cDvd.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/cScenario.h"
 #include "godhand/vu0.h"
 

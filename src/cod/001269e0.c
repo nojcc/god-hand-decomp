@@ -1,4 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cEm00.h"
 #include "godhand/pl00.h"
 #include "godhand/cObj.h"
 #include "godhand/motion.h"
@@ -12,18 +13,18 @@
 #define PL00_PICK_MOTION(rec, norm, alt, other)                 \
     switch (style) {                                            \
     default:                                                    \
-        motA = EM_RES_REC(self->base.pack, rec);                \
-        motB = EM_RES_REC(self->base.pack, other);              \
+        motA = EM_RES_REC(EM_RES(&self->base), rec);                \
+        motB = EM_RES_REC(EM_RES(&self->base), other);              \
         break;                                                  \
     case 0:                                                     \
     case 1:                                                     \
     case 2:                                                     \
-        motA = EM_RES_REC(self->base.pack, rec);                \
-        motB = EM_RES_REC(self->base.pack, norm);               \
+        motA = EM_RES_REC(EM_RES(&self->base), rec);                \
+        motB = EM_RES_REC(EM_RES(&self->base), norm);               \
         break;                                                  \
     case 3:                                                     \
-        motA = EM_RES_REC(self->base.pack, rec);                \
-        motB = EM_RES_REC(self->base.pack, alt);                \
+        motA = EM_RES_REC(EM_RES(&self->base), rec);                \
+        motB = EM_RES_REC(EM_RES(&self->base), alt);                \
         break;                                                  \
     }
 
@@ -250,20 +251,20 @@ void func_001269E0(pl00 *self, int motion, int now)
         switch (style) {
         default:
             start = 5.0f;
-            motA = EM_RES_REC(self->base.pack, 0x120);
-            motB = EM_RES_REC(self->base.pack, 0x124);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x120);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x124);
             break;
         case 0:
         case 1:
         case 2:
             start = 5.0f;
-            motA = EM_RES_REC(self->base.pack, 0x120);
-            motB = EM_RES_REC(self->base.pack, 0x128);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x120);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x128);
             break;
         case 3:
             start = 5.0f;
-            motA = EM_RES_REC(self->base.pack, 0x120);
-            motB = EM_RES_REC(self->base.pack, 0x12C);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x120);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x12C);
             break;
         }
         break;
@@ -358,19 +359,19 @@ void func_001269E0(pl00 *self, int motion, int now)
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, self->moveB, 4, 1, 0, 0xA);
         switch (style) {
         default:
-            motA = EM_RES_REC(self->base.pack, 0x564);
-            motB = EM_RES_REC(self->base.pack, 0x568);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x564);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x568);
             break;
         case 0:
         case 1:
         case 2:
-            motA = EM_RES_REC(self->base.pack, 0x564);
-            motB = EM_RES_REC(self->base.pack, 0x56C);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x564);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x56C);
             break;
         case 3:
             Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, self->moveA, 0xC, 8, 0, 0xA);
-            motA = EM_RES_REC(self->base.pack, 0x564);
-            motB = EM_RES_REC(self->base.pack, 0x570);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x564);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x570);
             break;
         }
         break;
@@ -425,17 +426,17 @@ void func_001269E0(pl00 *self, int motion, int now)
         Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, self->moveB, 7, 8, 0, 0xA);
         switch (style) {
         default:
-            motB = motA = EM_RES_REC(self->base.pack, 0x420);
+            motB = motA = EM_RES_REC(EM_RES(&self->base), 0x420);
             break;
         case 0:
         case 1:
         case 2:
-            motA = EM_RES_REC(self->base.pack, 0x420);
-            motB = EM_RES_REC(self->base.pack, 0x428);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x420);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x428);
             break;
         case 3:
-            motA = EM_RES_REC(self->base.pack, 0x420);
-            motB = EM_RES_REC(self->base.pack, 0x42C);
+            motA = EM_RES_REC(EM_RES(&self->base), 0x420);
+            motB = EM_RES_REC(EM_RES(&self->base), 0x42C);
             break;
         }
         break;

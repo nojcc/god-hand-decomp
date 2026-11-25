@@ -14,7 +14,7 @@ __attribute__((section(".text.func_0017B870")))
 void *func_0017B870(void *a0){
   char *v1; int i;
   InitFields_1B6E90(a0);
-  *(cVtEnt **)((char*)a0+0x214) = D_00421BB8;
+  *(cVtEnt **)((char*)a0+0x214) = (cVtEnt *)&D_00421BB8;
   v1 = (char*)a0 + 0x600;
   i = 0xE;
   do {

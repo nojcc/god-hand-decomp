@@ -1,21 +1,21 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/vu0.h"
-#include "godhand/espSys.h"
-#include "godhand/cNode.h"
-#include "godhand/CustomIDWork.h"
-#include "godhand/cOmBase.h"
-#include "godhand/cModel.h"
 #include "godhand/cSnd.h"
-#include "godhand/ColiseumEmSelect.h"
-#include "godhand/player.h"
+#include "godhand/vu0.h"
+#include "godhand/cOmBase.h"
+#include "godhand/cDamageUnit.h"
+#include "godhand/rollObj.h"
 
+extern void CustomIDWork_SetLocalPosY(char *work, int y);
+extern void SetCustomIDDispOneOrAll_1F4778(char *self, int id, int on);
 extern void StoreVecFromFieldB0_2B6160(float *out, void *obj);
 extern void cNode_setTranslationFromWorld(void *self, float *pos);
+extern void func_002FBED0(void *self);
 extern int cOmBase_checkDamage(void *self, void *damage);
-extern void func_001B0540(void *self);
 extern void func_001B7EE0(void *self, float f);
 extern float capVu0LengthSq(void *v);
+extern cOmBase *Getplayer(void);
+extern void cModel_calcParts(void *model);
 
 #define POS_NUM  7                      /* positions per table */
 
@@ -24,18 +24,18 @@ typedef struct { int w[POS_NUM]; } PosTbl;
 extern PosTbl D_0042BFB0;               /* local Y of the first work entry per index */
 extern PosTbl D_0042BFD0;               /* local Y of the second work entry per index */
 
-/* Place elements 8 and 9 at the Y values of position `idx` (0..6) and set their visibility. */
+/* Place the two work entries at the Y values of position `idx` (0..6) and set the visibility of ids 8 and 9. */
 __attribute__((section(".text.CustomIDWork_placeByIndex")))
-void CustomIDWork_placeByIndex(ColiseumEmDisp *self, unsigned short idx, int on)
+void CustomIDWork_placeByIndex(char *self, unsigned short idx, int on)
 {
     PosTbl a;
     PosTbl b;
 
     if (idx < POS_NUM) {
         a = D_0042BFB0;
-        CustomIDWork_SetLocalPosY(&self->elem[8], a.w[idx]);
+        CustomIDWork_SetLocalPosY(self + 0x440, a.w[idx]);
         b = D_0042BFD0;
-        CustomIDWork_SetLocalPosY(&self->elem[9], b.w[idx]);
+        CustomIDWork_SetLocalPosY(self + 0x4BC, b.w[idx]);
         SetCustomIDDispOneOrAll_1F4778(self, 8, on);
         SetCustomIDDispOneOrAll_1F4778(self, 9, on);
     }
@@ -157,7 +157,7 @@ void WrapObj_wrapIntoBox(WrapObj *self)
     VU0_LQC2(4, pos, 0);
     VU0_SQC2(4, center, 0x20);
     cNode_setTranslationFromWorld(self, dst);
-    func_002FBED0((EspAnim *)self);
+    func_002FBED0(self);
 }
 
 
@@ -167,15 +167,9 @@ struct Entry_func_001B0838 { short f0; short f2; short f4; short f6; };
 struct Table_func_001B0838 { struct Entry_func_001B0838 e[1]; };
 extern struct Table_func_001B0838 D_003BDCB0;
 
-typedef struct HitPhaseObj {
-    cOmBase base;                       /* 0x000 */
-    char unk5E0[0x20];
-    void *damage;                       /* 0x600 */
-} HitPhaseObj;
-
 /* Phase tick: on a damage hit cap the displayed health at 1000, flash and play sound 0x2D and enter phase 1; then run the handler the phase picks from the table and the two shared post steps. */
 __attribute__((section(".text.HitPhaseObj_tickPhase")))
-void HitPhaseObj_tickPhase(HitPhaseObj *self)
+void HitPhaseObj_tickPhase(RollObj *self)
 {
     char *s0 = (char *)self;
     char *e;
@@ -191,7 +185,7 @@ void HitPhaseObj_tickPhase(HitPhaseObj *self)
             self->base.hp = cap;
         }
         self->base.hitFlash = 5.0f;
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x2D, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x2D, (cObj *)self, 0, 0, 0, 0);
         self->base.step = 0;
         self->base.phase = 1;
         self->base.stepArg = 0;
@@ -216,57 +210,32 @@ void HitPhaseObj_tickPhase(HitPhaseObj *self)
     func_001B7EE0(self, 2.5f);
 }
 
-#define COLL_NODE_FLAGS_MASK  0x203
-#define COLL_NODE_FLAGS_LIVE  0x3
-
-typedef struct CollOwner {
-    char unk00[0xC0];
-    float *pos;                         /* 0xC0 */
-} CollOwner;
-
-typedef struct CollNode {
-    unsigned int flags;                 /* 0x00 */
-    struct CollNode *next;              /* 0x04 */
-    char unk08[4];
-    unsigned char kind;                 /* 0x0C */
-    char unk0D[3];
-    int bit;                            /* 0x10 layer bit number */
-    char unk14[0x20];
-    CollOwner *owner;                   /* 0x34 */
-} CollNode;
-
-typedef struct cCollisionManager {
-    char unk00[0x10];
-    CollNode *head;                     /* 0x10 */
-    char unk14[8];
-    unsigned int mask[16];              /* 0x1C per layer bit set of nodes that count */
-} cCollisionManager;
-
-/* First live node of the layer's kind-opposite group whose owner lies within `radius` of pos, or 0. */
+/* First live unit of the layer's kind-opposite group whose shape lies within `radius` of pos, or 0. */
 __attribute__((section(".text.cCollisionManager_checkNearCollision")))
-CollNode *cCollisionManager_checkNearCollision(cCollisionManager *self, int layer, float *pos, float radius)
+cCollisionUnit *cCollisionManager_checkNearCollision(cCollisionManager *self, int layer, const cVec *pos,
+                                                     float radius)
 {
     float v[4] __attribute__((aligned(16)));
     float d[4] __attribute__((aligned(16)));
     float e[4] __attribute__((aligned(16)));
     float r2;
     int want;
-    CollNode *node;
+    cCollisionUnit *node;
     int ok;
-    float *ownerPos;
+    cVec *shapePos;
     float *copyDst;
 
     r2 = radius * radius;
     want = func_002B8A30(self, layer);
     VU0_SQC2_VF0(v, 0);
     for (node = self->head; node != 0; node = node->next) {
-        ok = ((node->flags & COLL_NODE_FLAGS_MASK) == COLL_NODE_FLAGS_LIVE);
+        ok = ((node->flags & COLL_UNIT_FLAGS_MASK) == COLL_UNIT_FLAGS_LIVE);
         if (ok != 1) continue;
         if (node->kind == want) continue;
-        if ((self->mask[layer] & (1 << node->bit)) == 0) continue;
-        ownerPos = node->owner->pos;
+        if ((self->mask[layer] & (1 << node->group)) == 0) continue;
+        shapePos = node->shape->pos;
         VU0_SQC2_VF0(v, 0x20);
-        VU0_LQC2(4, ownerPos, 0);
+        VU0_LQC2(4, shapePos, 0);
         copyDst = d;
         VU0_LQC2(5, pos, 0);
         VU0_VSUB_XYZ(4, 4, 5);
@@ -303,7 +272,7 @@ void FollowObj_snapToPlayer(FollowObj *self, int mode)
     cVec_copy3(self->base.pos, Getplayer()->pos);
     cVec_copy3(&self->base.posA, self->base.pos);
     cVec_copy3(&self->base.rot, &Getplayer()->rot);
-    cModel_calcParts((cModel *)self);
+    cModel_calcParts(self);
     switch (mode) {
     default:
     case 0:

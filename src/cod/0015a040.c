@@ -1,22 +1,27 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cDamageUnit.h"
 #include "godhand/cIDBase.h"
-#include "godhand/CustomIDWork.h"
 #include "godhand/cTaskManager.h"
 #include "godhand/cTaskWork.h"
 #include "godhand/cOmBase.h"
-#include "godhand/ColiseumEmSelect.h"
 #include "godhand/globals.h"
 
 extern void Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(void *self);
 extern void cIDManager_setIDData(void *mgr, int kind, int res);
+extern void cIDBase_initialize(void *self, int kind, int arg);
+extern void cIDBase_resetAnim(void *self);
+extern int cIDBase_setPackedMessData(void *self, int kind, int arg);
 extern void **D_003C2384;
 extern cTaskManager D_00752C00;
 extern void cTaskWork_sleep(cTaskWork *task, int frames);
 extern float capVu0Sin(float rad);
 extern float capVu0Cos(float rad);
+extern void CustomIDWork_SetMoveOffsetPosXSin(void *work, int kind, int frames);
 extern void CustomIDWork_ResetMoveOffsetPos(void *work);
-extern char D_00747B00[];
+extern void CustomIDWork_SetColorAnimSin(void *work, int from, int to, int frames);
+extern void CustomIDWork_ResetColorAnim(void *work);
+extern cVec D_00747B00;                 /* the zero vector */
 
 /* Constructor of the 6-part display object: base setup, then (when its data table matches) the ID data, initial animation and message, and the 27 display works. */
 
@@ -60,10 +65,10 @@ void IdDispObj_construct(IdDispObj *self)
     Obj0000_Set_Fields_68_6C_From_D_007474A0_1615D0(self);
     if (func_00161500(self, D_0041F378) != 0) {
         cIDManager_setIDData(*D_003C2384, IDOBJ_KIND, self->resHandle);
-        cIDBase_initialize(&self->base, IDOBJ_KIND, 0);
-        cIDBase_resetAnim(&self->base);
+        cIDBase_initialize(self, IDOBJ_KIND, 0);
+        cIDBase_resetAnim(self);
         self->base.playing = 1;
-        cIDBase_setPackedMessData(&self->base, IDOBJ_KIND, 1);
+        cIDBase_setPackedMessData(self, IDOBJ_KIND, 1);
         self->b5A = 0;
         self->state = 2;
         self->b5B = 0;
@@ -213,6 +218,11 @@ void Quaternion_AddRotationAxis(cVec *q, cVec *axis, float angle)
 }
 
 /* Turn the pulsing selection mark on or off: on starts the sine move of the offset work and the sine colour fade between a grey 0x80 and a grey 0xC0 colour, off resets both. */
+typedef struct MarkObj {
+    char unk000[0x440];
+    char moveWork[0x7C];                /* 0x440 CustomIDWork of the mark offset */
+    char colorWork[0x7C];               /* 0x4BC CustomIDWork of the mark colour */
+} MarkObj;
 
 
 
@@ -220,89 +230,46 @@ void Quaternion_AddRotationAxis(cVec *q, cVec *axis, float angle)
 
 
 __attribute__((section(".text.MarkObj_setPulse")))
-void MarkObj_setPulse(ColiseumEmDisp *self, int on)
+void MarkObj_setPulse(MarkObj *self, int on)
 {
     int base;
     int peak;
     int from;
     int to;
     if (on) {
-        CustomIDWork_SetMoveOffsetPosXSin(&self->elem[8], 3, 0x10);
+        CustomIDWork_SetMoveOffsetPosXSin(self->moveWork, 3, 0x10);
         from = (((((((base & ~0xFF) | 0x80) & ~0xFF00) | 0x8000) & ~0xFF0000) | 0x800000) & ~0xFF000000) | 0x80000000;
         to = (((((((peak & ~0xFF) | 0xC0) & ~0xFF00) | 0xC000) & ~0xFF0000) | 0xC00000) & ~0xFF000000) | 0x80000000;
-        CustomIDWork_SetColorAnimSin(&self->elem[9], from, to, 4);
+        CustomIDWork_SetColorAnimSin(self->colorWork, from, to, 4);
     } else {
-        CustomIDWork_ResetMoveOffsetPos(&self->elem[8]);
-        CustomIDWork_ResetColorAnim(&self->elem[9]);
+        CustomIDWork_ResetMoveOffsetPos(self->moveWork);
+        CustomIDWork_ResetColorAnim(self->colorWork);
     }
 }
 
-/* Take a free object from the pool and set it up: base init, its embedded sub-object (table D_0044BD60 as method table, scale applied through its method 3); when the taken record is not in the free state it is handed back through the pool's method 12. Returns the object, or 0. */
-#define POOLOBJ_FREE_MASK   0x201
-#define POOLOBJ_FREE_VALUE  0x1
-#define POOLOBJ_SUB_OFFSET  0xE0
 
-typedef struct SubVtEnt {
-    short delta;
-    short index;
-    void (*pfn)(void *self, float scale);
-} SubVtEnt;
-
-typedef struct SubVt {
-    char unk00[0x18];
-    SubVtEnt scale;                     /* 0x18 method 3 */
-} SubVt;
-
-typedef struct PoolVtEnt {
-    short delta;
-    short index;
-    void (*pfn)(void *self, void *obj);
-} PoolVtEnt;
-
-typedef struct PoolVt {
-    char unk00[0x30];
-    PoolVtEnt release;                  /* 0x30 method 6 */
-} PoolVt;
-
-typedef struct Pool {
-    char unk00[0x18];
-    PoolVt *vt;                         /* 0x18 */
-} Pool;
-
-typedef struct PoolObj {
-    unsigned int flags;                 /* 0x00 */
-    char unk04[0x30];
-    void *owner;                        /* 0x34 */
-    char unk38[0xA8];
-    int state;                          /* 0xE0 first word of the sub-object */
-    char unkE4[0x1C];
-    SubVt *subVt;                       /* 0x100 */
-} PoolObj;
-
-extern PoolObj *create(Pool *pool, int flag);
-extern void func_002B8A70(PoolObj *obj, int arg);
-
-
-
-
+/* Take a free unit from the pool and build a sphere in it: the group, the shape (no rotation; vtable D_0044BD60), state 0, then the radius through the shape's method 3. A unit that isn't free goes back through the pool's method 6. Returns the unit, or 0. */
 __attribute__((section(".text.Pool_createObjWithScale")))
-PoolObj *Pool_createObjWithScale(Pool *pool, int arg, int a, int b, float scale)
+cCollisionUnit *Pool_createObjWithScale(cCollisionManager *pool, int group, const struct cMatrix *mtx,
+                                        const cVec *ofs, float radius)
 {
-    PoolObj *obj = create(pool, 0);
-    PoolObj *sub;
+    cCollisionUnit *obj = create(pool, CCOLLISION_SHAPE_SPHERE);
+    cCollisionShape *shape;
     if (obj == 0) {
         return 0;
     }
-    if (((obj->flags & POOLOBJ_FREE_MASK) ^ POOLOBJ_FREE_VALUE) != 0) {
-        pool->vt->release.pfn((char *)pool + pool->vt->release.delta, obj);
+    if (((obj->flags & COLL_UNIT_FLAGS_READY_MASK) ^ COLL_UNIT_FLAGS_READY) != 0) {
+        ((void (*)(void *, cCollisionUnit *))pool->vt[CCOLLISION_MANAGER_RELEASE].pfn)(
+            (char *)pool + pool->vt[CCOLLISION_MANAGER_RELEASE].delta, obj);
         return 0;
     }
-    func_002B8A70(obj, arg);
-    sub = (PoolObj *)((char *)obj + POOLOBJ_SUB_OFFSET);
-    cCollisionShape_construct(sub, a, b, D_00747B00);
-    sub->subVt = (SubVt *)D_0044BD60;
-    obj->state = 0;
-    sub->subVt->scale.pfn((char *)sub + sub->subVt->scale.delta, scale);
-    obj->owner = sub;
+    func_002B8A70(obj, group);
+    shape = &obj->body;
+    cCollisionShape_construct(shape, mtx, ofs, &D_00747B00);
+    shape->vt = D_0044BD60;
+    shape->state = CCOLLISION_SHAPE_SPHERE;
+    ((void (*)(void *, float))shape->vt[CCOLLISION_SHAPE_SETRADIUS].pfn)(
+        (char *)shape + shape->vt[CCOLLISION_SHAPE_SETRADIUS].delta, radius);
+    obj->shape = shape;
     return obj;
 }

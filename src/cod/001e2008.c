@@ -1,13 +1,20 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cSnd.h"
 #include "godhand/Slot1.h"
-#include "godhand/cObjBase.h"
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cSnd.h"
 #include "godhand/globals.h"
+#include "godhand/cObjBase.h"
 
+extern void func_001E3D78(Slot1 *a0, int a1, int a2);
 extern void func_001E8E48(void *a0, void *a1);
+extern int cSnd_SeCall(void *a0, int a1, short a2, int a3, int a4, int a5);
+extern void cSnd_SeStop(void *a0, int a1);
+extern void Slot2_setMarkLayersAt464(Slot1 *a0, int a1, int a2);
+extern void cSnd_BgmEventStart(void *a0, int a1, int a2, int a3);
+extern void Slot2_setMarkLayersAt46C(Slot1 *a0, int a1, int a2);
+extern void func_001E7470(int a0, int a1, int a2);
 
 /* Slot1 payout stage, prize line 3: pay out coin by coin until a button is pressed or the coins run out. */
 
@@ -47,7 +54,7 @@ void Slot1_payoutLine4(Slot1 *self) {
         self->coinNum = self->prize[3] / 10;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -108,7 +115,7 @@ void Slot1_payoutLine5(Slot1 *self) {
         self->coinNum = self->prize[4] / 10;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -169,7 +176,7 @@ void Slot1_payoutLine6(Slot1 *self) {
         self->coinNum = self->prize[5] / 10;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -215,7 +222,7 @@ void Slot1_payoutLine1(Slot1 *self) {
     switch (self->phase) {
     case 0:
         self->payMode = SLOT1_PAYMODE_ON;
-        SetEffect(1, 1, 0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(1, 1, 0, 0, -1, EFFECT_FOLLOW_OWNER);
         Slot2_selectMark(self, self->slotId, 1, 1);
         Slot2_setMarkLayersAt464(self, 1, 1);
         self->timer = 0x3C;
@@ -234,7 +241,7 @@ void Slot1_payoutLine1(Slot1 *self) {
         self->coinNum = self->prize[0] / 100;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -280,7 +287,7 @@ void Slot1_payoutLine2(Slot1 *self) {
     switch (self->phase) {
     case 0:
         self->payMode = SLOT1_PAYMODE_ON;
-        SetEffect(1, 2, 0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(1, 2, 0, 0, -1, EFFECT_FOLLOW_OWNER);
         Slot2_selectMark(self, self->slotId, 1, 1);
         Slot2_setMarkLayersAt46C(self, 1, 1);
         self->timer = 0x3C;
@@ -299,7 +306,7 @@ void Slot1_payoutLine2(Slot1 *self) {
         self->coinNum = self->prize[1] / 100;
         VU0_SQC2_VF0(buf, 0);
         func_001E8E48(&self->reel[0], buf);
-        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, buf, 0, 0);
+        self->seId = cSnd_SeCall(&D_005FEE00, 2, 2, (int)buf, 0, 0);
         self->phase = self->phase + 1;
         break;
     case 2:
@@ -326,12 +333,12 @@ void Slot1_payoutLine2(Slot1 *self) {
 
 
 __attribute__((section(".text.SetUiIdWorkDispRange")))
-void SetUiIdWorkDispRange(SlotUi *self, int show) {
-    func_001E7470(self, 2, show);
-    func_001E7470(self, 3, show);
-    func_001E7470(self, 4, show);
-    func_001E7470(self, 5, show);
-    func_001E7470(self, 6, show);
-    func_001E7470(self, 7, show);
-    func_001E7470(self, 8, show);
+void SetUiIdWorkDispRange(int a0, int a1) {
+    func_001E7470(a0, 2, a1);
+    func_001E7470(a0, 3, a1);
+    func_001E7470(a0, 4, a1);
+    func_001E7470(a0, 5, a1);
+    func_001E7470(a0, 6, a1);
+    func_001E7470(a0, 7, a1);
+    func_001E7470(a0, 8, a1);
 }

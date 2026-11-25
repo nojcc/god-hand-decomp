@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cEm00.h"
+#include "godhand/cDamageUnit.h"
 #include "godhand/cObjBase.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cCamera.h"
@@ -35,8 +36,7 @@ void func_0024DA80(cEm00 *self)
         }
         hit = self->unk698;
         if (hit != 0 && hit->attacker != 0) {
-            float turn = Turn_dest(&self->pos->x, &((cGameObj *)hit->attacker)->pos->x,
-                                   self->rot.y, 3.1415927f);
+            float turn = Turn_dest(&self->pos->x, self->rot.y, &((cGameObj *)hit->attacker)->pos->x, 3.1415927f);
 
             turn = absf(turn);
             if (turn > 2.3561945f) {

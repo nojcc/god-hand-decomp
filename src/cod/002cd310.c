@@ -1,8 +1,10 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/cSnd.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 #include "godhand/cBgmData.h"
+
+extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
 
 extern void ClearFlagBits_373858(cSndBgmNode *node, int bits);
 extern int IsSequenceFlagSet_3737C8(cSndBgmNode *node, int bits);

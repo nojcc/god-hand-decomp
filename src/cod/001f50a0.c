@@ -1,8 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/CustomIDWork.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 #include "godhand/DispMgr.h"
+#include "godhand/cIDBaseScreenFn.h"
 
 extern int ReturnOne_1F6FA0(void *self);
 

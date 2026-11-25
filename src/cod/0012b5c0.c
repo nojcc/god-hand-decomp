@@ -30,7 +30,7 @@ typedef struct VuFxObj {
 __attribute__((section(".text.cObj_initVuFields610")))
 VuFxObj *cObj_initVuFields610(VuFxObj *self) {
     InitFields_1B6E90(self);
-    self->vtable = D_004282F0;
+    self->vtable = (cVtEnt *)&D_004282F0;
     VU0_SQC2_VF0(self, VUFX_OFFSET(vecA));
     VU0_SQC2_VF0(self, VUFX_OFFSET(vecB));
     VU0_SQC2_VF0(self, VUFX_OFFSET(vecC));

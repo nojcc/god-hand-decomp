@@ -2,11 +2,12 @@
 
 #include "godhand/cEm00.h"
 #include "godhand/cOmb2.h"
+#include "godhand/cSnd.h"
 #include "godhand/Slot2.h"
 #include "godhand/cMessDrawFont.h"
-#include "godhand/cSnd.h"
 
 extern void displayScrollLayer(int layer, int show);
+extern void cSnd_BgmEventStart(void *snd, int event, int a2, int a3);
 extern void func_002B00A0(cMessDrawFont *self, void *cmd);
 extern void func_002B0208(cMessDrawFont *self, void *cmd);
 extern void PosObj_forwardSpan(cMessDrawFont *self, void *cmd);

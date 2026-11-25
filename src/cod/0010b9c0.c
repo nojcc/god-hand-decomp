@@ -2,16 +2,16 @@
 
 extern float SetMotionStep(void *a0, float f12);
 #include "godhand/cCollisionSolid.h"
-#include "godhand/motion.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
+#include "godhand/motion.h"
+extern int moveMotion(void *a0);
 extern float fRand1_1(void);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
 extern unsigned int irand(void);
 extern void func_0012C348(void *a0, int a1);
 
 #include "godhand/vu0.h"
-#include "godhand/effectPos.h"
 
 
 
@@ -33,7 +33,7 @@ void func_0010B9C0(void *a0)
     char *s0 = (char *)a0;
 
     *(float *)(s0 + 0x54C) = 5.0f;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
     *(int *)(s0 + 0x15F4) |= 0x2000;
     *(float *)(s0 + 0x5A8) = 1.0f;
     SetMotionStep(s0, 1.0f);
@@ -106,8 +106,8 @@ void func_0010B9C0(void *a0)
             fr.z = fRand1_1() * k + 0.5f;
             sceVu0ApplyMatrix(&fr, s0 + 0x80, &fr);
             *(short *)(s0 + 0x568) = 0;
-            SetEffectPos(0, 0x40, 0, &fr, -1, 1.0f);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x111, s0, 0, 0, 0, 0);
+            SetEffectPos(0, 0x40, 0, &fr, 1.0f, -1);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x111, a0, 0, 0, 0, 0);
         }
         break;
     case 4: {
@@ -141,7 +141,7 @@ void func_0010B9C0(void *a0)
             break;
         }
         func_002A8578(s0, f1, f2, 1, 0.0f, 0, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCE, s0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xCE, a0, 0, 0, 0, 0);
         func_0012C348(s0, 0);
         *(unsigned char *)(s0 + 0x2F6) = *(unsigned char *)(s0 + 0x2F6) + 1;
     }

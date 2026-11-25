@@ -1,12 +1,14 @@
 #include "godhand/cEm00.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_00274FE8(void *a0);
@@ -32,12 +34,13 @@ extern void func_00274FE8(void *a0);
  * GetSeqSEBase and 6 more. */
 __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
 {
+    char *s1 = (char *)self;
     int s3;
     int s2;
     int s4;
 
-    if (self->step == 0) {
-        switch (self->emNo) {
+    if (*(unsigned char *)(s1 + 0x2F6) == 0) {
+        switch (*(int *)(s1 + 0x564)) {
             case 0x20F:
             case 0x210:
             case 0x211:
@@ -47,25 +50,25 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
             case 0x272:
             case 0x273:
             case 0x274:
-                self->step = 2;
+                *(unsigned char *)(s1 + 0x2F6) = 2;
                 break;
         }
     }
-    switch (self->step) {
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
         case 0:
-            if (func_002740D8(self) != 0) {
+            if (func_002740D8(s1) != 0) {
                 if (irand() & 1) {
-                    self->unk17C3 = 1;
+                    *(char *)(s1 + 0x17C3) = 1;
                 } else {
-                    self->unk17C3 = 0;
+                    *(char *)(s1 + 0x17C3) = 0;
                 }
             }
-            s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            ReleaseField6ECByTag564_26B1E8(self);
-            switch (self->emNo) {
+            s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            ReleaseField6ECByTag564_26B1E8(s1);
+            switch (*(int *)(s1 + 0x564)) {
                 case 0x256:
                 case 0x27E: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x2A28);
                     s2 = EM_RES_REC(b, 0x2A2C);
                 } break;
@@ -81,34 +84,34 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 case 0x24F:
                 case 0x278:
                 case 0x279: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0xB5C);
                     s2 = EM_RES_REC(b, 0xB60);
                 } break;
                 case 0x250:
                 case 0x251: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0xB5C);
                     s2 = EM_RES_REC(b, 0xB60);
-                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0,
+                    cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(s1) + 0x23), (cObj *)self, 0, 0,
                                        0, 0);
                 } break;
                 case 0x260: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0xB5C);
                     s2 = EM_RES_REC(b, 0xB60);
                 } break;
                 case 0x264: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x326C);
                     s2 = EM_RES_REC(b, 0x3270);
-                    self->stepArg = 1;
+                    *(char *)(s1 + 0x2F7) = 1;
                 } break;
                 case 0x265: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x3818);
                     s2 = EM_RES_REC(b, 0x381C);
-                    self->stepArg = 1;
+                    *(char *)(s1 + 0x2F7) = 1;
                 } break;
                 case 0x205:
                 case 0x206:
@@ -116,13 +119,13 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 case 0x208:
                 case 0x224:
                 case 0x241: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x17D0);
                     s2 = EM_RES_REC(b, 0x17D4);
                 } break;
                 case 0x209:
                 case 0x21F: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x17D0);
                     s2 = EM_RES_REC(b, 0x17D4);
                 } break;
@@ -144,97 +147,97 @@ __attribute__((section(".text.func_0025A3E8"))) void func_0025A3E8(cEm00 *self)
                 case 0x24E:
                 case 0x252:
                 case 0x25A: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x13B0);
                     s2 = EM_RES_REC(b, 0x13B4);
-                    self->stepArg = 1;
+                    *(char *)(s1 + 0x2F7) = 1;
                 } break;
                 default: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x638);
                     s2 = EM_RES_REC(b, 0x63C);
                 } break;
                 case 0x223: {
-                    char *b = self->pack;
+                    int b = *(int *)(s1 + 0x304);
                     s3 = EM_RES_REC(b, 0x2E34);
                     s2 = EM_RES_REC(b, 0x2E38);
-                    self->stepArg = 1;
+                    *(char *)(s1 + 0x2F7) = 1;
                 } break;
             }
-            func_002A8578(self, s3, s2, 3, 0.0f, s4, 0);
-            if (self->stepArg == 0) {
-                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2D, self, 0, 0, 0, 0);
-                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x32, self, 0, 0, 0, 0);
+            func_002A8578(s1, s3, s2, 3, 0.0f, s4, 0);
+            if (*(unsigned char *)(s1 + 0x2F7) == 0) {
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2D, (cObj *)self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x32, (cObj *)self, 0, 0, 0, 0);
             }
-            if (self->hp <= 0) {
-                self->hp = 1;
+            if (*(short *)(s1 + 0x54A) <= 0) {
+                *(short *)(s1 + 0x54A) = 1;
             }
-            self->unk16EC = 0;
-            self->step += 1;
+            *(int *)(s1 + 0x16EC) = 0;
+            *(unsigned char *)(s1 + 0x2F6) += 1;
             /* fallthrough */
         case 1:
-            if (self->stepArg == 0) {
-                self->emFlags |= 0x40000;
+            if (*(unsigned char *)(s1 + 0x2F7) == 0) {
+                *(int *)(s1 + 0x16D0) |= 0x40000;
             }
-            if (moveMotion(self) != 0) {
-                if (self->stepArg == 0) {
-                    func_002705D8(self);
+            if (moveMotion(s1) != 0) {
+                if (*(unsigned char *)(s1 + 0x2F7) == 0) {
+                    func_002705D8(s1);
                 } else {
-                    self->mode = 0;
-                    self->phase = 0x6B;
-                    self->step = 0;
-                    self->stepArg = 1;
+                    *(char *)(s1 + 0x2F4) = 0;
+                    *(char *)(s1 + 0x2F5) = 0x6B;
+                    *(char *)(s1 + 0x2F6) = 0;
+                    *(char *)(s1 + 0x2F7) = 1;
                 }
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
             break;
         case 2:
-            if (func_002740D8(self) != 0) {
+            if (func_002740D8(s1) != 0) {
                 if (irand() & 1) {
-                    self->unk17C3 = 1;
+                    *(char *)(s1 + 0x17C3) = 1;
                 } else {
-                    self->unk17C3 = 0;
+                    *(char *)(s1 + 0x17C3) = 0;
                 }
             }
-            s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            ReleaseField6ECByTag564_26B1E8(self);
+            s4 = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            ReleaseField6ECByTag564_26B1E8(s1);
             {
-                char *b = self->pack;
-                func_002A8578(self, EM_RES_REC(b, 0xF84), EM_RES_REC(b, 0xF88), 0, 0.0f, s4, 0);
+                int b = *(int *)(s1 + 0x304);
+                func_002A8578(s1, EM_RES_REC(b, 0xF84), EM_RES_REC(b, 0xF88), 0, 0.0f, s4, 0);
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2D, self, 0, 0, 0, 0);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x32, self, 0, 0, 0, 0);
-            if (self->hp <= 0) {
-                self->hp = 1;
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x2D, (cObj *)self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x32, (cObj *)self, 0, 0, 0, 0);
+            if (*(short *)(s1 + 0x54A) <= 0) {
+                *(short *)(s1 + 0x54A) = 1;
             }
-            self->unk16EC = 0;
-            self->step += 1;
+            *(int *)(s1 + 0x16EC) = 0;
+            *(unsigned char *)(s1 + 0x2F6) += 1;
             /* fallthrough */
         case 3:
-            self->emFlags |= 0x40000;
-            if (moveMotion(self) != 0) {
-                self->step += 1;
+            *(int *)(s1 + 0x16D0) |= 0x40000;
+            if (moveMotion(s1) != 0) {
+                *(unsigned char *)(s1 + 0x2F6) += 1;
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
             break;
         case 4: {
-            int nb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            char *b = self->pack;
-            func_002A8578(self, EM_RES_REC(b, 0xF8C), EM_RES_REC(b, 0xF90), 0, 0.0f, nb, 0);
-            self->timer = 150.0f;
-            self->step += 1;
+            int nb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            int b = *(int *)(s1 + 0x304);
+            func_002A8578(s1, EM_RES_REC(b, 0xF8C), EM_RES_REC(b, 0xF90), 0, 0.0f, nb, 0);
+            *(float *)(s1 + 0x600) = 150.0f;
+            *(unsigned char *)(s1 + 0x2F6) += 1;
         }
             /* fallthrough */
         case 5:
-            self->emFlags |= 0x40000;
-            moveMotion(self);
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
-            self->timer -= self->speedRate;
-            if (self->timer <= 0.0f) {
-                func_00274FE8(self);
+            *(int *)(s1 + 0x16D0) |= 0x40000;
+            moveMotion(s1);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
+            *(float *)(s1 + 0x600) -= *(float *)(s1 + 0x5A8);
+            if (*(float *)(s1 + 0x600) <= 0.0f) {
+                func_00274FE8(s1);
             }
             break;
     }

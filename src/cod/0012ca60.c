@@ -1,21 +1,20 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cModel.h"
-#include "godhand/pl00.h"
 #include "godhand/cOmbb.h"
 #include "godhand/cSceAtManager.h"
+#include "godhand/cCamera.h"
 
 /* sn-2.95.3-136 matched TU. */
 
+extern void cModel_calcParts(void *a0);
 extern cModelNode *cModel_getMeshPtr(cModel *self, int idx);
 extern char *Getplayer(void);
+extern int Obj0000_IsSet_Field_15F4_Bit_400000_10B698(void *p);
 extern int cEmManage_CkPlCatched(void *p);
 extern int D_005864F0;
-extern float Turn_dest(void *a0, void *a1, float f12, float f13);
-extern float Adjust_theta(float f12);
 extern void func_00129718(void *a, void *b, int c);
 extern cSceAtManager D_005FEA60;
 extern int D_00568288;
-extern float Turn_dest_dir(float f12, float f13, float f14);
 extern void func_002DCA58(void);
 extern void cActionButton_set(void *a0, int a1, int a2, int a3, void *t0, int t1, int t2);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
@@ -81,7 +80,7 @@ void func_00279C20(char *a0)
     *(float *)(a0 + 0x24C) = 1.0f;
     *(int *)(a0 + 0x250) = *(int *)(a0 + 0x250) & 0xFFFFFFEF;
     *(int *)(a0 + 0x1580) = 0;
-    cModel_calcParts((cModel *)a0);
+    cModel_calcParts(a0);
 }
 
 /* sn-2.95.3-136 matched TU. */
@@ -148,7 +147,7 @@ void func_002DC670(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -157,8 +156,8 @@ void func_002DC670(void *arg)
                     r[0x2F4] = 0;
                     r[0x2F6] = 0;
                     *((float *) (r + 0x104)) = *((float *) (r + 0x104)) +
-                        (Turn_dest(*((void **) (r + 0xF0)), *((void **) (s1 + 0xF0)),
-                                   *((float *) (r + 0x104)), 3.14159274f) + 3.14159274f);
+                        (Turn_dest(*((void **) (r + 0xF0)), *((float *) (r + 0x104)),
+                                   *((void **) (s1 + 0xF0)), 3.14159274f) + 3.14159274f);
                     *((float *) (r + 0x104)) = Adjust_theta(*((float *) (r + 0x104)));
                 }
             }
@@ -179,7 +178,7 @@ void func_002DD6C0(void *arg)
         return;
     }
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -193,7 +192,7 @@ void func_002DD6C0(void *arg)
                     s0[0x2F7] = 0;
                     s0[0x2F4] = 1;
                     s0[0x2F5] = 0x22;
-                    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)s0, 0);
+                    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s0, 0);
                     func_00129718(r, s0, 0x22);
                 }
             }
@@ -206,7 +205,7 @@ void func_002DD6C0(void *arg)
 __attribute__((section(".text.SetActionJumpUp")))
 void SetActionJumpUp(void)
 {
-    cVec buf[2];
+    float buf[8];
     char *s0;
     char *g;
     float *p;
@@ -216,12 +215,12 @@ void SetActionJumpUp(void)
     s0 = Getplayer();
     VU0_SQC2_VF0(buf, 0);
     if (*((short *) (s0 + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)s0) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(s0) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
-                    if (cSceAtManager_findJumpPoint(&D_005FEA60, *((cVec **) (s0 + 0xF0)), &buf[0], &buf[1].x) != 0) {
-                        t = Turn_dest_dir(*((float *) (s0 + 0x104)), buf[1].x, 3.14159274f);
+                    if (cSceAtManager_findJumpPoint(&D_005FEA60, *((cVec **) (s0 + 0xF0)), (cVec *) buf, buf + 4) != 0) {
+                        t = Turn_dest_dir(*((float *) (s0 + 0x104)), buf[4], 3.14159274f);
                         if (t < 0.0f) {
                             at = -t;
                         } else {
@@ -231,12 +230,12 @@ void SetActionJumpUp(void)
                             return;
                         }
                         p = (float *) (s0 + 0x660);
-                        if (p != &buf[0].x) {
-                            *((float *) (s0 + 0x660)) = buf[0].x;
-                            p[1] = buf[0].y;
-                            p[2] = buf[0].z;
+                        if (p != buf) {
+                            *((float *) (s0 + 0x660)) = buf[0];
+                            p[1] = buf[1];
+                            p[2] = buf[2];
                         }
-                        *((float *) (s0 + 0x670)) = buf[1].x;
+                        *((float *) (s0 + 0x670)) = buf[4];
                         t = 0.0f;
                         cActionButton_set(&D_00568288, 0x4, 0x8, 0, func_002DCA58, 0, 0);
                     }
@@ -260,7 +259,7 @@ void func_002DC740(void *arg)
     s1 = (char *) arg;
     r = Getplayer();
     if (*((short *) (r + 0x54A)) > 0) {
-        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698((pl00 *)r) == 0) {
+        if (Obj0000_IsSet_Field_15F4_Bit_400000_10B698(r) == 0) {
             g = (char *) &D_005864F0;
             if (*((int *) (g + 0x514)) <= 0) {
                 if (cEmManage_CkPlCatched(g) == 0) {
@@ -278,8 +277,8 @@ void func_002DC740(void *arg)
                     if (ad > 0.5f) {
                         return;
                     }
-                    t = Turn_dest(*((void **) (r + 0xF0)), *((void **) (s1 + 0xF0)),
-                                  *((float *) (r + 0x104)), 3.14159274f);
+                    t = Turn_dest(*((void **) (r + 0xF0)), *((float *) (r + 0x104)),
+                                  *((void **) (s1 + 0xF0)), 3.14159274f);
                     if (t < 0.0f) {
                         at = -t;
                     } else {

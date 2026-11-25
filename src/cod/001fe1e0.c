@@ -1,6 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/cSnd.h"
-#include "godhand/cGameObj.h"
+#include "godhand/cGameObjFn.h"
 #include "godhand/cDamageManage.h"
 #include "godhand/cMovie.h"
 #include "godhand/FileLoadRec.h"

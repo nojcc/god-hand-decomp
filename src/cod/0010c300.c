@@ -3,7 +3,8 @@
 
 extern float SetMotionStep(void *a0, float f12);
 #include "godhand/motion.h"
-#include "godhand/pl00.h"
+#include "godhand/cEm00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/cModel.h"
 extern float Adjust_theta(float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
@@ -15,8 +16,8 @@ extern void Add_nullspeedDir(void *a0, float f12);
 __attribute__((section(".text.func_0010C300")))
 void func_0010C300(pl00 *self)
 {
-    char *t0;
-    char *v0;
+    int t0;
+    int v0;
     void *q;
     int p1;
     int p2;
@@ -36,17 +37,17 @@ void func_0010C300(pl00 *self)
     case 0:
         self->comboSlot = 0;
         self->comboSet = 0;
-        if (self->unk648 >= 0xB) {
+        if ((signed char)self->unk648 >= 0xB) {
             self->unk648 = 0xA;
         }
-        t0 = self->base.pack;
+        t0 = EM_RES(&self->base);
         q = self->sub6A0;
         p1 = EM_RES_REC(t0, 0x58);
         p2 = EM_RES_REC(t0, 0x5C);
         if (q != 0) {
             func_002A8578(q, EM_RES_REC(t0, 0x370), EM_RES_REC(t0, 0x38C),
                           0xA, 0.0f, 0, 0);
-            v0 = self->base.pack;
+            v0 = EM_RES(&self->base);
             p1 = EM_RES_REC(v0, 0x34C);
             p2 = EM_RES_REC(v0, 0x350);
         }

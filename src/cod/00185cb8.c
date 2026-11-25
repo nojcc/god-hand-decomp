@@ -29,7 +29,7 @@ void func_00185CB8(void *a0, int a1) {
         cOmBase_setMeshDispFromLayer(s0, 0x13, 1);
         break;
     case 4:
-        SetEffect(0x298, 0xB, s0, 0, -1, 0xFFFFFFFFU);
+        SetEffect(0x298, 0xB, s0, 0, -1, EFFECT_FOLLOW_OWNER);
         cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x112, s0, 0, 0, 0, 0);
         cOmBase_setMeshDispFromLayer(s0, 0x13, 1);
         func_00186038(s0, 0xE);

@@ -1,13 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00.h"
-#include "godhand/motion.h"
-#include "godhand/player.h"
-#include "godhand/angle.h"
 #include "godhand/cCamera.h"
+#include "godhand/motion.h"
 #include "godhand/globals.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern void *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -32,68 +32,70 @@ extern void cObjBase_addNullSpeed(void *a0, float a1);
  * func_002A8578, cCoreSave_getGameLevel, Getplayer, Turn_dest, Adjust_theta and 6 more. */
 __attribute__((section(".text.func_002170B8"))) void func_002170B8(cEm00 *self)
 {
-    switch (self->step) {
+    char *s1 = (char *)self;
+
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
         case 0: {
             int gb;
             char *v0;
-            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(self) & 0xFFFF;
-            v0 = self->pack;
-            func_002A8578(self, EM_RES_REC(v0, 0x1C8), EM_RES_REC(v0, 0x1CC), 3, 0.0f, gb,
+            gb = Obj0000_Get_Byte_17C3_NZ_2_276468(s1) & 0xFFFF;
+            v0 = *(char **)(s1 + 0x304);
+            func_002A8578(s1, EM_RES_REC((int)v0, 0x1C8), EM_RES_REC((int)v0, 0x1CC), 3, 0.0f, gb,
                           0);
-            self->timerA = 0x1E;
+            *(int *)(s1 + 0x5F0) = 0x1E;
             switch (cCoreSave_getGameLevel(&D_00569B70)) {
                 case 1:
                 default:
-                    self->timerA = (int)((float)self->timerA * 0.75f);
+                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.75f);
                     break;
                 case 2:
-                    self->timerA = (int)((float)self->timerA * 0.8f);
+                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.8f);
                     break;
                 case 3:
                 case 4:
-                    self->timerA = (int)((float)self->timerA * 0.9f);
+                    *(int *)(s1 + 0x5F0) = (int)((float)*(int *)(s1 + 0x5F0) * 0.9f);
                     break;
                 case 5:
                     break;
             }
-            self->timer = self->rot.y;
-            self->step += 1;
+            *(float *)(s1 + 0x600) = *(float *)(s1 + 0x104);
+            *(unsigned char *)(s1 + 0x2F6) += 1;
         }
             /* fallthrough */
         case 1:
-            if (self->timerA != 0) {
-                cVec *pos;
-                cGameObj *pl;
+            if (*(int *)(s1 + 0x5F0) != 0) {
+                void *self;
+                char *v0;
                 float th;
-                self->timerA -= 1;
-                pos = self->pos;
-                pl = Getplayer();
-                th = Turn_dest(&pos->x, &pl->pos->x, self->timer,
-                               self->speedRate * 0.39269908f);
-                self->timer += th;
-                self->timer = Adjust_theta(self->timer);
-                self->rot.y += th;
-                self->rot.y = Adjust_theta(self->rot.y);
+                *(int *)(s1 + 0x5F0) -= 1;
+                self = *(void **)(s1 + 0xF0);
+                v0 = (char *)Getplayer();
+                th = Turn_dest(self, *(float *)(s1 + 0x600), *(void **)(v0 + 0xF0),
+                               *(float *)(s1 + 0x5A8) * 0.39269908f);
+                *(float *)(s1 + 0x600) += th;
+                *(float *)(s1 + 0x600) = Adjust_theta(*(float *)(s1 + 0x600));
+                *(float *)(s1 + 0x104) += th;
+                *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
             }
-            if (moveMotion(self) != 0) {
-                func_002705D8(self);
+            if (moveMotion(s1) != 0) {
+                func_002705D8(s1);
             }
-            cObjBase_addNullSpeed_Rotation(self, 1.0f);
-            cObjBase_addNullSpeed(self, 1.0f);
+            cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+            cObjBase_addNullSpeed(s1, 1.0f);
             break;
     }
-    if (self->seqFlags & 1) {
-        if ((self->emFlags2 & 8) == 0) {
-            cModelNode *r;
+    if (*(unsigned short *)(s1 + 0x3AC) & 1) {
+        if ((*(int *)(s1 + 0x16D4) & 8) == 0) {
+            char *r;
             func_0026BEF0(self, 8, 0);
-            self->emFlags2 |= 8;
-            r = cModel_getMeshPtr_14B730((cModel *)self, D_004365A8);
+            *(int *)(s1 + 0x16D4) |= 8;
+            r = (char *)cModel_getMeshPtr_14B730(s1, D_004365A8);
             if (r != 0) {
-                r->dispFlags |= CMODEL_NODE_HIDE;
+                *(int *)(r + 0x380) |= 1;
             }
-            r = cModel_getMeshPtr_14B730((cModel *)self, D_004365B0);
+            r = (char *)cModel_getMeshPtr_14B730(s1, D_004365B0);
             if (r != 0) {
-                r->dispFlags |= CMODEL_NODE_HIDE;
+                *(int *)(r + 0x380) |= 1;
             }
         }
     }

@@ -4,7 +4,7 @@ extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
 extern char *D_005CAFF0;
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 /* sn-2.95.3-136 matched TU. */
 

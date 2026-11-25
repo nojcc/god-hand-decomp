@@ -5,10 +5,11 @@
 #include "godhand/cCamera.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cDamageUnitFn.h"
 #include "godhand/Poker.h"
 #include "godhand/cIDBase.h"
 #include "godhand/globals.h"
+extern void func_001DD180(Poker *self);
 
 extern cPlCameraTarget *Getplayer(void);
 extern void func_00139FF8(struct cPlCamera *self);
@@ -21,6 +22,7 @@ extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
 extern void NoOp_164978(void *p);
+extern void func_001DEDA8(void *ui);
 
 /* Follow the player: the normal chase, or the lock-on chase in state 4. */
 __attribute__((section(".text.cPlCamera_update")))
@@ -182,7 +184,7 @@ __attribute__((section(".text.Poker_releaseIds")))
 void Poker_releaseIds(Poker *self)
 {
     PokerHost *host;
-    func_001DEDA8(&self->ui);
+    func_001DEDA8(POKER_UI(self));
     func_001DD180(self);
     host = *D_003C2384;
     host->clear94 = 0;

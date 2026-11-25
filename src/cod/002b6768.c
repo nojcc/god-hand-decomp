@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cObjBase.h"
+#include "godhand/cObjBaseFn.h"
 #include "godhand/globals.h"
 
 extern void *SearchData(void *a, void *b, int c);

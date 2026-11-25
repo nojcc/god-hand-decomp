@@ -2,7 +2,7 @@
 
 #include "godhand/cEm00.h"
 #include "godhand/Poker.h"
-#include "godhand/ColiseumEmSelect.h"
+#include "godhand/ColiseumEmSelectFn.h"
 #include "godhand/CustomIDWork.h"
 
 extern void cModel_setTextureExchange(void *model, int set, int rec, int flag);

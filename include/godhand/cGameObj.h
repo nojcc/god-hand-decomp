@@ -23,6 +23,7 @@
 /* Bits of cGameObj.scrFlags (0x5A0). */
 #define GAMEOBJ_SCR_CLIP     0x01       /* cut off by the screen frustum */
 #define GAMEOBJ_SCR_BEHIND   0x02       /* behind the camera */
+#define GAMEOBJ_SCR_NOSCRCOLL 0x04      /* screen collision off (cEmWrap::setScrCollEnable) */
 #define GAMEOBJ_SCR_SUSPEND  0x08       /* set by setSuspend(1) */
 
 /* Bits of cGameObj.seqFlags (0x3AC). These names are still under review:
@@ -52,7 +53,12 @@ typedef struct cGameObjVt {
     short getPosDelta;                  /* 0x68 */
     short pad6A;
     cVec *(*getPos)(void *self);        /* 0x6C the object's current position */
-    char unk70[0x80 - 0x70];
+    short setPosDelta;                  /* 0x70 */
+    short pad72;
+    void (*setPos)(void *self, cVec *pos); /* 0x74 cGameObj_setPos in cGameObj's table */
+    short setRotDelta;                  /* 0x78 */
+    short pad7A;
+    void (*setRot)(void *self, cVec *rot); /* 0x7C cGameObj_setRot in cGameObj's table */
     short lockOnDelta;                  /* 0x80 */
     short pad82;
     void (*lockOn)(void *self);         /* 0x84 getLockOnPos and getHitCheckPos both call it */
@@ -87,15 +93,18 @@ typedef struct cGameObjEffect {
 /* cGameObj is cObjBase (COBJBASE_FIELDS, 0x000..0x4D0) plus its own fields:
  * the retail constructor (0x2A7338) calls cObjBase first, then writes only
  * 0x214, 0x4AC and 0x4D0 onward. That constructor is the function cGameObj,
- * so its TU defines CGAMEOBJ_NO_TYPEDEF before this include. */
+ * so a TU that defines or calls it defines CGAMEOBJ_NO_TYPEDEF before this
+ * include, writes struct cGameObj, and gets the constructor's prototype. */
 #ifndef CGAMEOBJ_NO_TYPEDEF
 typedef struct cGameObj cGameObj;
+#else
+struct cGameObj *cGameObj(struct cGameObj *self);
 #endif
 #define CGAMEOBJ_FIELDS \
     COBJBASE_FIELDS \
     int unk4D0;                         /* 0x4D0 0xFFFF after construction */ \
     char unk4D4[0x510 - 0x4D4]; \
-    float unk510;                       /* 0x510 cleared by the constructor; func_002A74E0 writes it from the target it is given, enemy steps compare it with 8.0 */ \
+    float unk510;                       /* 0x510 0 after construction; cEm00 compares it with 8.0 */ \
     char unk514[0x520 - 0x514]; \
     cVec stored;                        /* 0x520 position remembered with storedWait (w is 1.0) */ \
     unsigned char storedWait;           /* 0x530 */ \
@@ -127,21 +136,12 @@ struct cGameObj {
     CGAMEOBJ_FIELDS
 };                                      /* 0x5B0: the longs at 0x538 make it 8-aligned */
 
-/* cGameObj's own method table, which its constructor and destructor store at 0x214. */
+/* cGameObj's own method table, which its constructor stores at 0x214. */
 extern cVtEnt D_0044AE28[];
 
-/* cGameObj's part of the destructor: put its method table back, then run
- * cObjBase__dtor. */
+/* The destructor (retail _$_8cGameObj): put D_0044AE28 back, then run the
+ * cObjBase part. flags is g++'s in-charge argument, passed on unchanged. */
 void cGameObj__dtor(struct cGameObj *self, int flags);
-/* Turn rot.y toward target by at most rate (scaled by D_007479FC), through
- * Turn_dest and Adjust_theta. self is any object built on cGameObj's fields
- * (cGameObj, pl00, cEm00 and their handlers' raw object pointers). */
-void cGameObj_SetTgtTurn(void *self, cVec *target, float rate);
-/* Destructor of the cGameObj subclass with method table D_0044A660: leave
- * the damage manager and the solid-collision manager, then run
- * cGameObj__dtor. */
-void func_0028EB88(struct cGameObj *self, int flags);
-extern cVtEnt D_0044A660[];
 
 /* The typed method table behind cGameObj's g++ vtable (0x214). */
 static __inline__ cGameObjVt *cGameObj_vt(const struct cGameObj *self)
@@ -175,14 +175,27 @@ typedef char cGameObj_chk_ground[GAMEOBJ_OFFSET(groundKind) == 0x474 ? 1 : -1];
 typedef char cGameObj_chk_frame[GAMEOBJ_OFFSET(motionFrame) == 0x430 ? 1 : -1];
 typedef char cGameObj_chk_name[GAMEOBJ_OFFSET(name) == 0x538 ? 1 : -1];
 typedef char cGameObj_chk_size[sizeof(struct cGameObj) == 0x5B0 ? 1 : -1];
+typedef char cGameObjVt_chk_setPos[(int)&((cGameObjVt *)0)->setPos == 0x74 ? 1 : -1];
+typedef char cGameObjVt_chk_setRot[(int)&((cGameObjVt *)0)->setRot == 0x7C ? 1 : -1];
+typedef char cGameObjVt_chk_lockOn[(int)&((cGameObjVt *)0)->lockOn == 0x84 ? 1 : -1];
 
 /* The sort uses insertion sort alone below this many entries. */
 #define GAMEOBJ_SORT_THRESHOLD 16
 
-/* cObj_idInRange on a cGameObj: write `if (cGameObj_idInRange(obj, lo, hi) & 0xFF)`. */
+/* Whether the actor id of obj lies in [lo, hi), as a long flag. The retail
+ * range tests build the flag with a branch and a copy, then mask it with 0xFF
+ * where it is tested: write `if (cGameObj_idInRange(obj, lo, hi) & 0xFF)`. */
 static __inline__ long cGameObj_idInRange(const struct cGameObj *obj, int lo, int hi)
 {
-    return cObj_idInRange((const struct cObj *)obj, lo, hi);
+    int id = obj->actorId;
+    long in = 0;
+
+    if (id >= lo) {
+        int below = id < hi;
+
+        in = below;
+    }
+    return in;
 }
 
 /* One entry of the sorted target list: an id and the key it is ordered by. */
@@ -208,54 +221,10 @@ static __inline__ unsigned char cGameObjSortEnt_less(const cGameObjSortEnt *a, c
 }
 
 
-/* Mode 0 and the given phase, step and step argument. */
-static __inline__ void cGameObj_setState(struct cGameObj *self, unsigned char phase, unsigned char step, unsigned char arg)
-{
-    self->stepArg = arg;
-    self->phase = phase;
-    self->step = step;
-    self->mode = 0;
-}
+extern void func_002831C8(struct cGameObj *self, unsigned int kind, unsigned char arg);
 
-/* State setters: phase N at step 0, with the step argument when they take one. */
-void func_00281260(struct cGameObj *self);
-void Obj2810_SetState_1_a1(struct cGameObj *self, int arg);
-void Obj2810_SetState_2_a1(struct cGameObj *self, int arg);
-void Obj2810_ClearState_4(struct cGameObj *self);
-void Obj2810_ClearState_5(struct cGameObj *self);
-void Obj2810_ClearState_6(struct cGameObj *self);
-void Obj2810_SetState_8_a1(struct cGameObj *self, int arg);
-void Obj2810_SetState_9_a1(struct cGameObj *self, int arg);
-void Obj2810_SetState_E_a1(struct cGameObj *self, int arg);
-void Obj2810_ClearState_B(struct cGameObj *self);
-void Obj2810_ClearState_C(struct cGameObj *self);
-void Obj2810_SetState_D_a1(struct cGameObj *self, int arg);
-void ClearBytes2F4To2F7_283170(struct cGameObj *self);
-void SetBytes2F4Mode1_283188(struct cGameObj *self, int arg);
-void SetBytes2F4Mode2_2831B0(struct cGameObj *self, int arg);
-void SetBytes2F4Mode4_283240(struct cGameObj *self);
-void SetBytes2F4Mode5_283258(struct cGameObj *self);
-void SetBytes2F4Mode7_283270(struct cGameObj *self, int arg);
-void SetBytes2F4Mode8_283288(struct cGameObj *self, int arg);
-void SetBytes2F4Mode11_283360(struct cGameObj *self, int arg);
-void SetBytes2F4Mode10_2833C0(struct cGameObj *self, int arg);
-
-/* Phase N at step 0, 2, 4 or 6 for kind 0 to 3 (an unknown kind gives step 0). */
-void cGameObj_startPhase3(struct cGameObj *self, unsigned int kind, unsigned char arg);
-void func_002831C8(struct cGameObj *self, unsigned int kind, unsigned char arg);
-void func_00281368(struct cGameObj *self, int kind);
-void func_002813F0(struct cGameObj *self, int kind);
-void func_00281470(struct cGameObj *self, unsigned char kind);
-void func_00281500(struct cGameObj *self, unsigned char kind);
-void func_00281560(struct cGameObj *self, unsigned char kind);
-void func_00283378(struct cGameObj *self, unsigned char kind);
-void func_002833D8(struct cGameObj *self, unsigned char kind);
-void func_00283438(struct cGameObj *self, unsigned char kind);
-int func_00273C38(struct cGameObj *self);
-int func_00275888(struct cGameObj *self, float dist);
-unsigned char func_002A7CA0(struct cGameObj *self, cVec *out);
-
-/* Start effect id for self with the default parameters and kill it with self. */
-void InitRenderStruct_2A8608(struct cGameObj *self, int kind, int id, int handle, int killMode, void *owner);
+/* cGameObj::SetTgtTurn: turn rot.y toward target by at most rate (scaled by
+ * D_007479FC), through Turn_dest and Adjust_theta. */
+void cGameObj_SetTgtTurn(struct cGameObj *self, const cVec *target, float rate);
 
 #endif /* GODHAND_CGAMEOBJ_H */

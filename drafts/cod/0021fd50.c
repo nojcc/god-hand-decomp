@@ -58,7 +58,7 @@ void func_0021FD50(cEm00 *self)
         }
         break;
     case 0x223:
-        if (self->step == 0 && self->fx1 == 0) {
+        if (self->step == 0 && self->weapon36D == 0) {
             self->step = 2;
         }
         break;
@@ -269,10 +269,10 @@ void func_0021FD50(cEm00 *self)
             if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
                 recB = RES(0x2F3C);
                 if (self->fx6 != 0) {
-                    Obj1D00_SetState_7_1A_a1(&self->fx6->base, 1);
+                    Obj1D00_SetState_7_1A_a1((void *)self->fx6, 1);
                 }
             } else if (self->fx6 != 0) {
-                Obj1D00_SetState_7_1A_a1(&self->fx6->base, 0);
+                Obj1D00_SetState_7_1A_a1((void *)self->fx6, 0);
             }
             self->timerA = 0x32;
             StoreMotionParams_2609E0((char *)self, 5, 0, 0x3D, -1, 0);
@@ -292,13 +292,13 @@ void func_0021FD50(cEm00 *self)
         case 0x24C:
         case 0x24E:
         case 0x25A:
-            if (self->fx0 != 0
+            if (self->weapon366 != 0
                 && (self->playerDist > 4.0f
                     || (self->emNo == 0x21C && cCoreSave_getGameLevel(&D_00569B70) >= 3))) {
                 if (cCoreSave_getGameLevel(&D_00569B70) == 5) {
-                    Obj1D00_SetState_6_4_a1(&self->fx0->base, 1);
+                    Obj1D00_SetState_6_4_a1(&self->weapon366->base, 1);
                 } else {
-                    Obj1D00_SetState_6_4_a1(&self->fx0->base, 0);
+                    Obj1D00_SetState_6_4_a1(&self->weapon366->base, 0);
                 }
                 recA = RES(0x117C);
                 recB = RES(0x1180);
@@ -520,7 +520,7 @@ void func_0021FD50(cEm00 *self)
             Set_Fields_1884_1894_2609F8((char *)self, 0xA, 0, 0x3E, 0, 0xF0);
             break;
         case 0x209:
-            fxFollow = self->fx5;
+            fxFollow = self->weapon375;
             fxKind = 0x61;
             fxNo = 0x10;
             fxMode = 2;
@@ -553,7 +553,7 @@ void func_0021FD50(cEm00 *self)
             fxKind = 0x77;
             fxNo = 0xD;
             fxMode = 2;
-            fxFollow = self->fx5;
+            fxFollow = self->weapon375;
             if (irand() & 1) {
                 recA = RES(0x3550);
                 recB = RES(0x3554);
@@ -713,14 +713,14 @@ void func_0021FD50(cEm00 *self)
             self->timer2 -= self->speedRate;
         }
         if (self->emNo == 0x208 && self->fx4 != 0
-            && Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&self->fx4->base) == 0) {
+            && Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08((void *)self->fx4) == 0) {
             self->emFlags |= 0x80000000;
         }
         if (self->timerA != 0) {
             cVec *from = self->pos;
 
             self->timerA--;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.09817477f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.09817477f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;
@@ -918,7 +918,7 @@ void func_0021FD50(cEm00 *self)
     case 3: {
         cVec *from = self->pos;
 
-        angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.09817477f);
+        angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.09817477f);
         self->timer += angle;
         self->timer = Adjust_theta(self->timer);
         self->rot.y += angle;
@@ -1002,7 +1002,7 @@ void func_0021FD50(cEm00 *self)
                 }
                 break;
             case 0x21F:
-                fxFollow = self->fx5;
+                fxFollow = self->weapon375;
                 fxKind = 0x77;
                 fxNo = 0x14;
                 fxMode = 2;
@@ -1136,7 +1136,7 @@ void func_0021FD50(cEm00 *self)
     case 5: {
         cVec *from = self->pos;
 
-        angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.09817477f);
+        angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.09817477f);
         self->timer += angle;
         self->timer = Adjust_theta(self->timer);
         self->rot.y += angle;
@@ -1254,7 +1254,7 @@ void func_0021FD50(cEm00 *self)
                 }
                 break;
             case 0x21F:
-                fxFollow = self->fx5;
+                fxFollow = self->weapon375;
                 fxKind = 0x77;
                 fxNo = 0x16;
                 fxMode = 2;
@@ -1324,7 +1324,7 @@ void func_0021FD50(cEm00 *self)
             cVec *from = self->pos;
 
             self->timerA--;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.09817477f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.09817477f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;

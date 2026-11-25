@@ -1,7 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/cEmManage.h"
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern char D_0076A880[];
 

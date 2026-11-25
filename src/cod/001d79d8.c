@@ -1,9 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
-#include "godhand/Poker.h"
 #include "godhand/cSnd.h"
 
-extern void SetBlendField348_1DDBB8(Poker *self, int a1);
+extern void func_001DD770(void *a0, int a1);
+extern void func_001DD840(void *a0, int a1);
+extern void func_001DD910(void *a0, int a1);
+extern void func_001DD5A0(void *a0, int a1);
+extern void SetBlendField348_1DDBB8(void *a0, int a1);
+extern void CustomIDWork_SetNumber_1DD218(char *a0, int a1);
+extern void SetCustomIDNumberIndexed_1DD648(char *a0, int a1, int a2);
 extern int D_007474A0;
 extern void PushEntryAtField10000_299868(char *a0, long a1, long a2);
 extern int D_003C1180;
@@ -13,72 +18,73 @@ extern int D_003C11BC;
 extern int D_00586B80;
 
 __attribute__((section(".text.func_001D79D8")))
-void func_001D79D8(Poker *self) {
+void func_001D79D8(void *a0) {
+    char *o = (char *)a0;
     char *g;
 
-    switch (self->phase) {
+    switch (*(unsigned char *)(o + 0x3025)) {
     case 0:
-        func_001DD840(self, 0);
-        SetBlendField348_1DDBB8(self, 1);
-        self->phase = self->phase + 1;
+        func_001DD840(o, 0);
+        SetBlendField348_1DDBB8(o, 1);
+        *(unsigned char *)(o + 0x3025) = *(unsigned char *)(o + 0x3025) + 1;
         /* fallthrough */
     case 1:
         g = (char *)&D_007474A0;
         if (*(long *)(g + 0x1B0) & 0xCC0000C000000L) {
-            func_001DD840(self, 1);
-            SetBlendField348_1DDBB8(self, 0);
+            func_001DD840(o, 1);
+            SetBlendField348_1DDBB8(o, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15F, -1, -1, 0, 0);
-            self->phase = 0;
-            self->state = 4;
+            *(unsigned char *)(o + 0x3025) = 0;
+            *(unsigned char *)(o + 0x3024) = 4;
         } else if (*(long *)(g + 0x1B0) & 0x3300003000000L) {
-            func_001DD840(self, 1);
-            SetBlendField348_1DDBB8(self, 0);
+            func_001DD840(o, 1);
+            SetBlendField348_1DDBB8(o, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15F, -1, -1, 0, 0);
-            self->phase = 0;
-            self->state = 1;
+            *(unsigned char *)(o + 0x3025) = 0;
+            *(unsigned char *)(o + 0x3024) = 1;
         } else if (*(long *)(g + 0x1A0) & 0x10000000) {
-            while (self->bet < self->betMax && cCoreSave_getGold(&D_00569B70) >= 0x64) {
+            while (*(int *)(o + 0x3034) < *(int *)(o + 0x3030) && cCoreSave_getGold(&D_00569B70) >= 0x64) {
                 cCoreSave_subGold(&D_00569B70, 0x64);
-                self->bet = self->bet + 0x64;
-                self->flags = self->flags | 8;
+                *(int *)(o + 0x3034) = *(int *)(o + 0x3034) + 0x64;
+                *(int *)(o + 0x3020) = *(int *)(o + 0x3020) | 8;
             }
-            if (self->bet != 0) {
-                CustomIDWork_SetNumber_1DD218(self, self->bet);
-                func_001DD840(self, 2);
-                SetBlendField348_1DDBB8(self, 0);
-                func_001DD770(self, 2);
-                func_001DD5A0(self, 0);
-                self->phase = 0;
-                self->state = 3;
+            if (*(int *)(o + 0x3034) != 0) {
+                CustomIDWork_SetNumber_1DD218(o, *(int *)(o + 0x3034));
+                func_001DD840(o, 2);
+                SetBlendField348_1DDBB8(o, 0);
+                func_001DD770(o, 2);
+                func_001DD5A0(o, 0);
+                *(unsigned char *)(o + 0x3025) = 0;
+                *(unsigned char *)(o + 0x3024) = 3;
             }
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15E, -1, -1, 0, 0);
         } else if (*(long *)(g + 0x1A0) & 0x20000000) {
-            if (self->bet > 0) {
+            if (*(int *)(o + 0x3034) > 0) {
                 cCoreSave_addGold(&D_00569B70, 0x64, 0);
-                self->bet = self->bet - 0x64;
-                CustomIDWork_SetNumber_1DD218(self, self->bet);
-                if (self->bet == 0) {
-                    func_001DD910(self, 2);
-                    func_001DD5A0(self, 1);
+                *(int *)(o + 0x3034) = *(int *)(o + 0x3034) - 0x64;
+                CustomIDWork_SetNumber_1DD218(o, *(int *)(o + 0x3034));
+                if (*(int *)(o + 0x3034) == 0) {
+                    func_001DD910(o, 2);
+                    func_001DD5A0(o, 1);
                 }
             } else {
-                func_001DD840(self, 1);
-                SetBlendField348_1DDBB8(self, 0);
-                self->phase = 0;
-                self->state = 4;
+                func_001DD840(o, 1);
+                SetBlendField348_1DDBB8(o, 0);
+                *(unsigned char *)(o + 0x3025) = 0;
+                *(unsigned char *)(o + 0x3024) = 4;
             }
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x161, -1, -1, 0, 0);
         }
         break;
     }
-    SetCustomIDNumberIndexed_1DD648(self, 0, self->bet ? self->bet * 0x32 : 0x32);
-    SetCustomIDNumberIndexed_1DD648(self, 1, self->bet ? self->bet * 0x14 : 0x14);
-    SetCustomIDNumberIndexed_1DD648(self, 2, self->bet ? self->bet * 0xF : 0xF);
-    SetCustomIDNumberIndexed_1DD648(self, 3, self->bet ? self->bet * 0xA : 0xA);
-    SetCustomIDNumberIndexed_1DD648(self, 4, self->bet ? self->bet * 8 : 8);
-    SetCustomIDNumberIndexed_1DD648(self, 5, self->bet ? self->bet * 8 : 8);
-    SetCustomIDNumberIndexed_1DD648(self, 6, self->bet ? self->bet * 3 : 3);
-    SetCustomIDNumberIndexed_1DD648(self, 7, self->bet ? self->bet * 2 : 2);
+    SetCustomIDNumberIndexed_1DD648(o, 0, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 0x32 : 0x32);
+    SetCustomIDNumberIndexed_1DD648(o, 1, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 0x14 : 0x14);
+    SetCustomIDNumberIndexed_1DD648(o, 2, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 0xF : 0xF);
+    SetCustomIDNumberIndexed_1DD648(o, 3, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 0xA : 0xA);
+    SetCustomIDNumberIndexed_1DD648(o, 4, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 8 : 8);
+    SetCustomIDNumberIndexed_1DD648(o, 5, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 8 : 8);
+    SetCustomIDNumberIndexed_1DD648(o, 6, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 3 : 3);
+    SetCustomIDNumberIndexed_1DD648(o, 7, *(int *)(o + 0x3034) ? *(int *)(o + 0x3034) * 2 : 2);
 }
 
 typedef unsigned long u_long;

@@ -2,7 +2,7 @@
 
 #include "godhand/cOmBase.h"
 #include "godhand/CustomIDWork.h"
-#include "godhand/pl00.h"
+#include "godhand/pl00Fn.h"
 #include "godhand/cEmManage.h"
 #include "godhand/BlackJack.h"
 #include "godhand/vu0.h"

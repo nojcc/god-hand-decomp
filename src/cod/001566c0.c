@@ -13,7 +13,7 @@ extern float sqrtf(float x);
 
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 __attribute__((section(".text.LengthPositionToGivenLine")))
 float LengthPositionToGivenLine(void *a0, void *a1, void *a2, int *a3) {

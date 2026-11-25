@@ -1,8 +1,5 @@
-/* sn-2.95.3-136 matched TU. */
-#include "godhand/cRelSys.h"
-#include "godhand/cCamera.h"
 #include "godhand/cObjBase.h"
-#include "godhand/ColiseumEmSelect.h"
+/* sn-2.95.3-136 matched TU. */
 
 typedef struct {
     char pad0[0x80];
@@ -22,10 +19,12 @@ typedef struct {
 extern char D_005FEC58[];
 extern Tbl D_0041F250;
 extern int D_00747A0C;
+extern void cCamera_reset(void *self);
 extern void ClearFields_1614D0(void *self);
 extern void EmClothInit(int id, void *self, void *data, void *anchor);
 extern void EmClothMove(int id, void *self, void *data, void *anchor);
 extern void Obj0000_Clear_Fields_50_To_7C_13C5C8(void *self);
+extern void SetCustomIDDispOneOrAll_1F4778(void *self, int id, int on);
 extern void func_002949C8(void *self);
 extern void func_002B4528(void *self, int value);
 extern void func_002D5918(void *self);
@@ -59,19 +58,19 @@ int func_00294998(char *self)
 __attribute__((section(".text.func_0016FE68")))
 void func_0016FE68(void *owner)
 {
-    SetEffect(1, 3, owner, 0, -1, 0xFFFFFFFFU);
+    SetEffect(1, 3, owner, 0, -1, EFFECT_FOLLOW_OWNER);
 }
 
 __attribute__((section(".text.func_00170150")))
 void func_00170150(void *owner)
 {
-    SetEffect(1, 4, owner, 0, -1, 0xFFFFFFFFU);
+    SetEffect(1, 4, owner, 0, -1, EFFECT_FOLLOW_OWNER);
 }
 
 __attribute__((section(".text.func_00170438")))
 void func_00170438(void *owner)
 {
-    SetEffect(1, 5, owner, 0, -1, 0xFFFFFFFFU);
+    SetEffect(1, 5, owner, 0, -1, EFFECT_FOLLOW_OWNER);
 }
 
 __attribute__((section(".text.func_002714E8")))
@@ -105,10 +104,10 @@ void func_0027EDF0(char *self)
 }
 
 __attribute__((section(".text.func_00139090")))
-void func_00139090(struct cCamera *self)
+void func_00139090(char *self)
 {
     cCamera_reset(self);
-    self->unk1C0 = 0;
+    *(int *)(self + 0x1C0) = 0;
 }
 
 __attribute__((section(".text.func_00146EF0")))
@@ -126,7 +125,7 @@ void func_0016C238(char *self)
 }
 
 __attribute__((section(".text.func_001F5278")))
-void func_001F5278(ColiseumEmDisp *self, unsigned short value, int on)
+void func_001F5278(void *self, unsigned short value, int on)
 {
     if (value < 7) {
         SetCustomIDDispOneOrAll_1F4778(self, value + 0x49, on);
@@ -157,9 +156,9 @@ int func_002B3050(char *self)
 }
 
 __attribute__((section(".text.func_002BE6A0")))
-int func_002BE6A0(cRelSlot *slot)
+int func_002BE6A0(void **self)
 {
-    return snDllLoaded(slot->data, 0) == 0;
+    return snDllLoaded(*self, 0) == 0;
 }
 
 __attribute__((section(".text.func_001627A0")))
@@ -188,8 +187,8 @@ void func_0016F608(char *self)
     int resource = *(int *)(self + 0x5EC);
     if (resource != 0) {
         SetEffect(
-            *(int *)(self + 0x5F0), resource, self, 0,
-            -1, 0xFFFFFFFFU);
+            *(int *)(self + 0x5F0), resource, (cObj *)self, 0,
+            -1, EFFECT_FOLLOW_OWNER);
     }
 }
 
@@ -199,8 +198,8 @@ void func_0016F900(char *self)
     int resource = *(int *)(self + 0x5EC);
     if (resource != 0) {
         SetEffect(
-            *(int *)(self + 0x5F0), resource, self, 0,
-            -1, 0xFFFFFFFFU);
+            *(int *)(self + 0x5F0), resource, (cObj *)self, 0,
+            -1, EFFECT_FOLLOW_OWNER);
     }
 }
 
@@ -210,8 +209,8 @@ void func_0016FBF8(char *self)
     int resource = *(int *)(self + 0x5EC);
     if (resource != 0) {
         SetEffect(
-            *(int *)(self + 0x5F0), resource, self, 0,
-            -1, 0xFFFFFFFFU);
+            *(int *)(self + 0x5F0), resource, (cObj *)self, 0,
+            -1, EFFECT_FOLLOW_OWNER);
     }
 }
 

@@ -1,11 +1,13 @@
 /* sn-2.95.3-136: event movie play step: pause bgm and lock game flags, start the movie, wait for it to end, then restore and fade in (0x160FF0). */
+#include "godhand/cSnd.h"
 #include "godhand/gameWork.h"
 #include "godhand/classFADE.h"
 #include "godhand/cMovie.h"
-#include "godhand/cSnd.h"
 #include "godhand/globals.h"
 
 extern void KeyStop(void);
+extern void cSnd_BattleBgmAllPause(void *, float);
+extern void cSnd_BgmFlaggedNodeKick(void *, float);
 /* Two lock-flag words of the game work: 0x5D8 (D_00747A78, the system flags) and 0x5E0
  * (D_00747A80). They are written through the address because retail addresses both from
  * the word at 0x5E0; as GameWork fields or as their own symbols the code changes. */

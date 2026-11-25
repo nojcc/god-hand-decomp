@@ -1,6 +1,6 @@
 #include "godhand/vu0.h"
 extern void *StoreVecFromFieldB0_2B6160(void *dst, void *node);
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 
 extern void *func_002B6310(void *dst, void *node);
 

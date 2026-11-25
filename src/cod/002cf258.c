@@ -195,7 +195,7 @@ int cSeData_LoadNumbered(cSeData *d, int bankId, int arg)
     cSeData_MakeFileName(d, bankId, arg, name);
     r = cSeData_LoadFile(d, bankId, name);
     if (r == 1)
-        d->owner = arg;
+        d->f3C = arg;
     return r;
 }
 

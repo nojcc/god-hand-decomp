@@ -3,6 +3,7 @@
 #include "godhand/cFxBurst.h"
 #include "godhand/vu0.h"
 #include "godhand/sceVu0.h"
+#include "godhand/cNodeFn.h"
 
 
 extern void func_002B62F8(void *a0, char *a1);

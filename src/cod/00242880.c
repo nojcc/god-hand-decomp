@@ -1,17 +1,18 @@
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
-#include "godhand/cObjBase.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern void Spawner_spawnChild(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
 #include "godhand/vu0.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cObjBase.h"
 
 
 
@@ -70,7 +71,7 @@ __attribute__((section(".text.func_00242880"))) void func_00242880(cEm00 *self)
     fr.unk72 = 0;
     fr.unk74 = 0;
     fr.unk78 = 0;
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
 
     self->emFlags |= 0x10000;
     switch (self->step) {
@@ -98,8 +99,8 @@ __attribute__((section(".text.func_00242880"))) void func_00242880(cEm00 *self)
                     break;
             }
             Spawner_spawnChild(self);
-            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x107, self, 0, 0, 0, 0);
-            SetEffect(0x69, 1, self, &fr, 1, 0xFFFFFFFFU);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x107, (cObj *)self, 0, 0, 0, 0);
+            SetEffect(0x69, 1, (cObj *)self, &fr, 1, EFFECT_FOLLOW_OWNER);
             self->emFlags2 |= 0x20;
             self->step++;
         }

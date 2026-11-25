@@ -1,20 +1,21 @@
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
+#include "godhand/cSnd.h"
 #include "godhand/motion.h"
 #include "godhand/cEmManage.h"
-#include "godhand/cSnd.h"
 
 /* sn-2.95.3-136 matched TU. */
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern char *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern float SetMotionStep(void *a0, float f12);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 
 #include "godhand/vu0.h"
-#include "godhand/cGameObj.h"
-#include "godhand/player.h"
 /* Phase machine on the step byte, 2 case labels. Calls func_002948C8, VU0_SQC2_VF0,
  * cCollisionSolidManage_SetActive, Obj0000_Get_Byte_17C3_NZ_2_276468, func_002A8578,
  * cSnd_SeCall_2CBA48 and 9 more. */
@@ -26,7 +27,7 @@ __attribute__((section(".text.func_00244708"))) void func_00244708(cEm00 *self)
 
     bomb = func_002948C8(&D_005864F0, self->unk17B1);
     VU0_SQC2_VF0(&buf, 0);
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->emFlags = self->emFlags | 0x10000;
     switch (self->step) {
         case 0: {
@@ -35,10 +36,10 @@ __attribute__((section(".text.func_00244708"))) void func_00244708(cEm00 *self)
             func_002A8578(self, EM_RES_REC((int)v1, 0x4FC), EM_RES_REC((int)v1, 0x500), 3, 0.0f, gb,
                           0);
         }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x64, self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x64, (cObj *)self, 0, 0, 0, 0);
             self->step++;
         case 1: {
-            float *p = (float *)(Getplayer()->pos);
+            float *p = (float *)(*(char **)(Getplayer() + 0xF0));
             if (&buf.x != p) {
                 buf.x = p[0];
                 buf.y = p[1];
@@ -53,7 +54,7 @@ __attribute__((section(".text.func_00244708"))) void func_00244708(cEm00 *self)
                 }
             }
         }
-            cGameObj_SetTgtTurn(self, &buf, self->speedRate * 0.392699093f);
+            cGameObj_SetTgtTurn((cGameObj *)self, &buf, self->speedRate * 0.392699093f);
             if (moveMotion(self) != 0) {
                 func_002705D8(self);
             }
@@ -90,7 +91,7 @@ __attribute__((section(".text.func_001CEF28"))) void func_001CEF28(cEm00 *self)
             self->step++;
         case 1:
             moveMotion(self);
-            if (capVu0MagnitudeSqXZ(Getplayer()->pos, (void *)self->pos) < 4.0f)
+            if (capVu0MagnitudeSqXZ(*(void **)(Getplayer() + 0xF0), (void *)self->pos) < 4.0f)
                 self->unk568 = 1;
             if (self->unk568 != 0) {
                 t = *(float *)((char *)self + 0x674) - sp;

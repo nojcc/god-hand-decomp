@@ -1,7 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 
 #include "godhand/classFADE.h"
-#include "godhand/cIDBase.h"
 #include "godhand/cScenario.h"
 #include "godhand/cOl2b.h"
 #include "godhand/cCoreSave.h"
@@ -13,6 +12,7 @@ extern void printf_2E0DA8(int x, int y, int a2, int a3, char *fmt, ...);
 extern void cTaskWork_sleep(void *work, int frames);
 extern void cOl2b_setOpenFix(cOl2b *self);
 extern int D_003C2388;
+extern int cIDBase_initialize(void *part, int a1, int id);
 extern void *cIDManager_getTexAddr_2ACE28(int mgr, int id);
 
 /* Debug overlay owner: the value shown on screen sits at 0x2A08C. */
@@ -59,8 +59,8 @@ __attribute__((section(".text.cOl2b_startOpening")))
 int cOl2b_startOpening(cOl2b *self)
 {
     func_001B6FB8(self);
-    self->flags5B8 |= COL2B_FLAG5B8_FIXED;
-    self->flags250 |= COL2B_FLAG250_OPEN;
+    self->base.flags2 |= COL2B_FLAG2_FIXED;
+    self->base.objFlags |= COL2B_OBJ_OPEN;
     self->stateA29 = 0;
     self->stateA28 = 0;
     self->state = COL2B_STATE_OPENING;
@@ -123,16 +123,9 @@ void PhaseJob_step(PhaseJob *job)
 /* A screen made of four cIDBase parts: the first at 0, the others at 0x500,
  * 0x550 and 0x4B0; the counter at 0x90 and the texture address at 0x94. */
 typedef struct IdScreen {
-    cIDBaseObj base;                    /* 0x000 part A */
-    char unk48[0x90 - sizeof(cIDBaseObj)];
-    int count;                          /* 0x090 */
-    void *tex;                          /* 0x094 */
-    char unk98[0x4B0 - 0x98];
-    cIDBaseObj partD;                   /* 0x4B0 */
-    char unk4F8[0x500 - 0x4F8];
-    cIDBaseObj partB;                   /* 0x500 */
-    char unk548[0x550 - 0x548];
-    cIDBaseObj partC;                   /* 0x550 */
+    char unk00[0x90];
+    int count;                          /* 0x90 */
+    void *tex;                          /* 0x94 */
 } IdScreen;
 
 
@@ -144,9 +137,9 @@ __attribute__((section(".text.IdScreen_init")))
 void IdScreen_init(IdScreen *self)
 {
     self->count = 0;
-    cIDBase_initialize(&self->base, 1, SCREEN_PART_ID_A);
-    cIDBase_initialize(&self->partB, 1, SCREEN_PART_ID_B);
-    cIDBase_initialize(&self->partC, 1, SCREEN_PART_ID_C);
-    cIDBase_initialize(&self->partD, 1, SCREEN_PART_ID_D);
+    cIDBase_initialize(self, 1, SCREEN_PART_ID_A);
+    cIDBase_initialize((char *)self + 0x500, 1, SCREEN_PART_ID_B);
+    cIDBase_initialize((char *)self + 0x550, 1, SCREEN_PART_ID_C);
+    cIDBase_initialize((char *)self + 0x4B0, 1, SCREEN_PART_ID_D);
     self->tex = cIDManager_getTexAddr_2ACE28(D_003C2388, SCREEN_TEX_ID);
 }

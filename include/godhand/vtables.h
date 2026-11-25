@@ -12,26 +12,14 @@
 
 #include "godhand/cModel.h"             /* cVtEnt */
 
-extern cVtEnt D_0041B598[];  /* cPlBase */
-extern cVtEnt D_0041B6A0[];  /* pl01 */
 extern cVtEnt D_0041EA90[];  /* cModel */
 extern cVtEnt D_0041EAF0[];  /* cObj */
-extern cVtEnt D_00421BB8[];  /* cOl1c */
-extern cVtEnt D_00422240[];  /* cOl25 */
 extern cVtEnt D_00427400[];  /* cOm51 */
-extern cVtEnt D_00427A58[];  /* cOm57 */
-extern cVtEnt D_004282F0[];  /* cOm60 */
-extern cVtEnt D_00428840[];  /* cOmb5 */
-extern cVtEnt D_004294F0[];  /* cOme9 */
-extern cVtEnt D_00447AD0[];  /* cEm12 */
 extern cVtEnt D_00447D48[];  /* cEm32 */
 extern cVtEnt D_00447E68[];  /* cEm3f */
-extern cVtEnt D_00448028[];  /* cEm57 */
 extern cVtEnt D_004481A8[];  /* cEm63 */
 extern cVtEnt D_004483A8[];  /* cEm66 */
 extern cVtEnt D_00448598[];  /* cEm6b */
-extern cVtEnt D_00448890[];  /* cEm7a */
-extern cVtEnt D_00448948[];  /* cEm7f */
 extern cVtEnt D_0044A408[];  /* cEma6 */
 extern cVtEnt D_0044A528[];  /* cEmad */
 extern cVtEnt D_0044E538[];  /* esp04 */

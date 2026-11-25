@@ -1,5 +1,5 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cNode.h"
+#include "godhand/cNodeFn.h"
 #include "godhand/globals.h"
 
 extern int D_00741DC8;

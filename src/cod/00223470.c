@@ -1,13 +1,14 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/cGameObj.h"
-#include "godhand/player.h"
+#include "godhand/cObjBase.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
 extern void func_0026EE40(void *a0, int a1, int a2);
+extern void *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -45,7 +46,7 @@ __attribute__((section(".text.func_00223470"))) void func_00223470(cEm00 *self)
         case 1:
             if (self->timerA != 0) {
                 self->timerA -= 1;
-                cGameObj_SetTgtTurn(self, Getplayer()->pos,
+                cGameObj_SetTgtTurn((cGameObj *)self, *(cVec **)((char *)Getplayer() + 0xF0),
                                     self->speedRate * 0.19634955f);
             }
             if (moveMotion(self) != 0) {
@@ -58,7 +59,7 @@ __attribute__((section(".text.func_00223470"))) void func_00223470(cEm00 *self)
             cObjBase_addNullSpeed(self, 1.0f);
             if (self->timerB == 0) {
                 if (self->seqFlags & 2) {
-                    SetEffect(0x58, 0x29, self, 0, -1, 0xFFFFFFFF);
+                    SetEffect(0x58, 0x29, (cObj *)self, 0, -1, EFFECT_FOLLOW_OWNER);
                     self->timerB = 1;
                 }
             }

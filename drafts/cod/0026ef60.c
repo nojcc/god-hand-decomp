@@ -25,7 +25,6 @@ typedef struct ViewFrame {
 
 extern float capVu0Atan2(float y, float x);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
-extern float Turn_dest(void *a0, void *a1, float f12, float f13);
 
 /* Nonzero while the object should stay active: busy, near the camera target, in front
  * of the camera, or moving. */
@@ -55,7 +54,7 @@ int func_0026EF60(cGameObj *self)
     if (capVu0MagnitudeSqXZ(self->pos, &f.eye) < VIEW_NEAR_SQ) {
         return 1;
     }
-    angle = Turn_dest(&f.eye, self->pos, angle, VIEW_TURN_LIMIT);
+    angle = Turn_dest(&f.eye.x, angle, &self->pos->x, VIEW_TURN_LIMIT);
     if (angle < 0.0f) {
         off = -angle;
     } else {

@@ -5,21 +5,22 @@ extern void cEmManage_SetPlCatched(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
 #include "godhand/cCollisionSolid.h"
-#include "godhand/pl00.h"
-#include "godhand/gameWork.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
-extern float Turn_dest(void *a0, float f12, float f13, void *a1);
-extern float Adjust_theta(float f12);
+#include "godhand/motion.h"
+#include "godhand/cCamera.h"
+extern int moveMotion(void *a0);
 extern void func_00124EC0(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 extern void func_002DB7A8(void);
 extern float SetMotionStep(void *a0, float f12);
 extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
+extern void cSnd_DieDemoStart(void *a0);
 extern void func_0012C348(void *a0, int a1);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern char D_005864F0[];
+extern int D_007474A8;
+extern int D_00747A24;
 
 /* sn-2.95.3-136 matched TU. */
 
@@ -49,53 +50,55 @@ extern char D_005864F0[];
 
 
 __attribute__((section(".text.func_001162C0")))
-void func_001162C0(pl00 *self) {
-    self->base.hitFlash = 30.0f;
+void func_001162C0(void *a0) {
+    char *s1 = (char *)a0;
+
+    *(float *)(s1 + 0x54C) = 30.0f;
     cEmManage_SetSlotWait(D_005864F0, 2);
     cEmManage_SetPlCatched(D_005864F0);
-    self->flags15F4 = self->flags15F4 | 0x200;
-    cCollisionSolidManage_SetActive(&D_00462FC0, &self->base, 0);
-    switch (self->base.step) {
+    *(int *)(s1 + 0x15F4) = *(int *)(s1 + 0x15F4) | 0x200;
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)s1, 0);
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0: {
-        char *b;
+        int b;
 
-        CallWithAndClearField698_12AC28(self);
-        func_0012B928(self);
-        b = self->base.pack;
-        func_002A8578(self, EM_RES_REC(b, 0x8E0), EM_RES_REC(b, 0x8E4),
+        CallWithAndClearField698_12AC28(s1);
+        func_0012B928(s1);
+        b = *(int *)(s1 + 0x304);
+        func_002A8578(s1, *(int *)(b + 0x8E0) + b, *(int *)(b + 0x8E4) + b,
                       0, 0.0f, 0, 0);
-        moveMotion(self);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF5, self, 0, 0, 0, 0);
-        self->base.step = self->base.step + 1;
+        moveMotion(s1);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF5, a0, 0, 0, 0, 0);
+        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
     }
         /* fallthrough */
     case 1: {
-        float r = Turn_dest(&self->base.unk580, self->base.rot.y,
-                            self->base.speedRate * 0.39269909f,
-                            self->base.pos);
+        float r = Turn_dest((float *)(s1 + 0x580), *(float *)(s1 + 0x104),
+                            *(float **)(s1 + 0xF0),
+                            *(float *)(s1 + 0x5A8) * 0.39269909f);
 
-        self->base.rot.y = self->base.rot.y + r;
-        self->base.rot.y = Adjust_theta(self->base.rot.y);
-        func_00124EC0(self);
-        if (moveMotion(self) != 0) {
-            self->base.step = self->base.step + 1;
+        *(float *)(s1 + 0x104) = *(float *)(s1 + 0x104) + r;
+        *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
+        func_00124EC0(s1);
+        if (moveMotion(s1) != 0) {
+            *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        self->base.nullSpeed.z = -0.1f;
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        *(float *)(s1 + 0x338) = -0.1f;
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
     case 2: {
-        char *b = self->base.pack;
+        int b = *(int *)(s1 + 0x304);
 
-        func_002A8578(self, EM_RES_REC(b, 0x8E8), EM_RES_REC(b, 0x8EC),
+        func_002A8578(s1, *(int *)(b + 0x8E8) + b, *(int *)(b + 0x8EC) + b,
                       0, 0.0f, 0, 0);
-        self->base.unk568 = 10;
-        self->stepScale = 30.0f;
-        self->base.step = self->base.step + 1;
-        self->unk15B0 = 0;
-        self->stepCount = 0;
-        self->unk15B8 = 0;
+        *(short *)(s1 + 0x568) = 10;
+        *(float *)(s1 + 0x15C0) = 30.0f;
+        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
+        *(int *)(s1 + 0x15B0) = 0;
+        *(int *)(s1 + 0x15B4) = 0;
+        *(int *)(s1 + 0x15B8) = 0;
     }
         /* fallthrough */
     case 3: {
@@ -106,12 +109,12 @@ void func_001162C0(pl00 *self) {
         int lim;
 
         func_002DB7A8();
-        if (self->unk15B8 != 0) {
-            self->unk15B8 = self->unk15B8 - 1;
+        if (*(int *)(s1 + 0x15B8) != 0) {
+            *(int *)(s1 + 0x15B8) = *(int *)(s1 + 0x15B8) - 1;
         }
-        self->unk15B0 = self->unk15B0 + 1;
-        if ((D_007474A0.padBtn & 0xF0) != 0) {
-            switch (self->stepCount) {
+        *(int *)(s1 + 0x15B0) = *(int *)(s1 + 0x15B0) + 1;
+        if ((D_007474A8 & 0xF0) != 0) {
+            switch (*(int *)(s1 + 0x15B4)) {
             default:
             case 0: lim = 9; break;
             case 1: lim = 8; break;
@@ -122,116 +125,116 @@ void func_001162C0(pl00 *self) {
             case 6: lim = 3; break;
             case 7: lim = 2; break;
             }
-            if (self->unk15B0 < lim) {
-                self->stepCount = self->stepCount + 1;
+            if (*(int *)(s1 + 0x15B0) < lim) {
+                *(int *)(s1 + 0x15B4) = *(int *)(s1 + 0x15B4) + 1;
             }
-            if (lim < self->unk15B0) {
-                self->stepCount = self->stepCount - 1;
+            if (lim < *(int *)(s1 + 0x15B0)) {
+                *(int *)(s1 + 0x15B4) = *(int *)(s1 + 0x15B4) - 1;
             }
-            if (self->stepCount < 0) {
-                self->stepCount = 0;
+            if (*(int *)(s1 + 0x15B4) < 0) {
+                *(int *)(s1 + 0x15B4) = 0;
             }
-            if (self->stepCount >= 8) {
-                self->stepCount = 7;
+            if (*(int *)(s1 + 0x15B4) >= 8) {
+                *(int *)(s1 + 0x15B4) = 7;
             }
-            self->unk15B0 = 0;
-            self->unk15B8 = 10;
-        } else if (self->unk15B8 <= 0) {
-            self->unk15B8 = 5;
-            self->stepCount = self->stepCount - 1;
-            if (self->stepCount < 0) {
-                self->stepCount = 0;
+            *(int *)(s1 + 0x15B0) = 0;
+            *(int *)(s1 + 0x15B8) = 10;
+        } else if (*(int *)(s1 + 0x15B8) <= 0) {
+            *(int *)(s1 + 0x15B8) = 5;
+            *(int *)(s1 + 0x15B4) = *(int *)(s1 + 0x15B4) - 1;
+            if (*(int *)(s1 + 0x15B4) < 0) {
+                *(int *)(s1 + 0x15B4) = 0;
             }
         }
-        switch (self->stepCount) {
+        switch (*(int *)(s1 + 0x15B4)) {
         default:
-        case 0: self->base.speedRate = 1.0f; break;
-        case 1: self->base.speedRate = 1.2f; break;
-        case 2: self->base.speedRate = 1.4f; break;
-        case 3: self->base.speedRate = 1.6f; break;
-        case 4: self->base.speedRate = 1.8f; break;
-        case 5: self->base.speedRate = 2.0f; break;
-        case 6: self->base.speedRate = 2.2f; break;
-        case 7: self->base.speedRate = 2.5f; break;
+        case 0: *(float *)(s1 + 0x5A8) = 1.0f; break;
+        case 1: *(float *)(s1 + 0x5A8) = 1.2f; break;
+        case 2: *(float *)(s1 + 0x5A8) = 1.4f; break;
+        case 3: *(float *)(s1 + 0x5A8) = 1.6f; break;
+        case 4: *(float *)(s1 + 0x5A8) = 1.8f; break;
+        case 5: *(float *)(s1 + 0x5A8) = 2.0f; break;
+        case 6: *(float *)(s1 + 0x5A8) = 2.2f; break;
+        case 7: *(float *)(s1 + 0x5A8) = 2.5f; break;
         }
-        SetMotionStep(self, self->base.speedRate);
-        rate = (self->base.speedRate - 1.5f) * 0.1f;
-        mag = capVu0MagnitudeSqXZ(self->base.pos, &self->base.unk580);
+        SetMotionStep(s1, *(float *)(s1 + 0x5A8));
+        rate = (*(float *)(s1 + 0x5A8) - 1.5f) * 0.1f;
+        mag = capVu0MagnitudeSqXZ(*(void **)(s1 + 0xF0), s1 + 0x580);
         if (mag < 0.09f) {
             if (rate < 0.0f) {
                 rate = 0.0f;
             }
         }
-        r = Turn_dest(&self->base.unk580, self->base.rot.y,
-                      self->base.speedRate * 0.39269909f,
-                      self->base.pos);
-        self->base.rot.y = self->base.rot.y + r;
-        self->base.rot.y = Adjust_theta(self->base.rot.y);
-        func_00124EC0(self);
-        moveMotion(self);
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        self->base.nullSpeed.z = rate;
-        cObjBase_addNullSpeed(self, 1.0f);
-        if (0.0f < self->stepScale) {
-            self->stepScale =
-                self->stepScale - self->base.speedRate;
+        r = Turn_dest((float *)(s1 + 0x580), *(float *)(s1 + 0x104),
+                      *(float **)(s1 + 0xF0),
+                      *(float *)(s1 + 0x5A8) * 0.39269909f);
+        *(float *)(s1 + 0x104) = *(float *)(s1 + 0x104) + r;
+        *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
+        func_00124EC0(s1);
+        moveMotion(s1);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        *(float *)(s1 + 0x338) = rate;
+        cObjBase_addNullSpeed(s1, 1.0f);
+        if (0.0f < *(float *)(s1 + 0x15C0)) {
+            *(float *)(s1 + 0x15C0) =
+                *(float *)(s1 + 0x15C0) - *(float *)(s1 + 0x5A8);
         }
-        mag2 = capVu0MagnitudeSqXZ(self->base.pos, &self->base.unk580);
+        mag2 = capVu0MagnitudeSqXZ(*(void **)(s1 + 0xF0), s1 + 0x580);
         if (mag2 < 0.25f) {
-            if (self->stepScale <= 0.0f) {
-                self->base.step = 4;
+            if (*(float *)(s1 + 0x15C0) <= 0.0f) {
+                *(unsigned char *)(s1 + 0x2F6) = 4;
                 break;
             }
         }
-        if (self->base.unk590.z * self->base.unk590.z < mag2) {
-            self->base.step = 6;
+        if (*(float *)(s1 + 0x598) * *(float *)(s1 + 0x598) < mag2) {
+            *(unsigned char *)(s1 + 0x2F6) = 6;
             break;
         }
-        self->base.unk568--;
-        if (self->base.unk568 <= 0) {
-            self->base.unk568 = 10;
-            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF6, self, 0, 0, 0, 0);
+        *(short *)(s1 + 0x568) = *(unsigned short *)(s1 + 0x568) - 1;
+        if (*(short *)(s1 + 0x568) <= 0) {
+            *(short *)(s1 + 0x568) = 10;
+            cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF6, a0, 0, 0, 0, 0);
         }
         break;
     }
     case 4: {
-        char *b = self->base.pack;
+        int b = *(int *)(s1 + 0x304);
 
-        func_002A8578(self, EM_RES_REC(b, 0x8F8), EM_RES_REC(b, 0x8FC),
+        func_002A8578(s1, *(int *)(b + 0x8F8) + b, *(int *)(b + 0x8FC) + b,
                       0, 0.0f, 0, 0);
         cSnd_DieDemoStart(&D_005FEE00);
-        func_0012C348(self, 2);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF7, self, 0, 0, 0, 0);
-        self->base.step = self->base.step + 1;
+        func_0012C348(s1, 2);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0xF7, a0, 0, 0, 0, 0);
+        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
     }
         /* fallthrough */
     case 5:
-        self->base.motionFlags = self->base.motionFlags | 8;
-        if (moveMotion(self) != 0) {
-            self->base.hp = 0;
+        *(unsigned short *)(s1 + 0x434) = *(unsigned short *)(s1 + 0x434) | 8;
+        if (moveMotion(s1) != 0) {
+            *(short *)(s1 + 0x54A) = 0;
             D_00747A24 = D_00747A24 | 8;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     case 6: {
-        char *b = self->base.pack;
+        int b = *(int *)(s1 + 0x304);
 
-        func_002A8578(self, EM_RES_REC(b, 0x8F0), EM_RES_REC(b, 0x8F4),
+        func_002A8578(s1, *(int *)(b + 0x8F0) + b, *(int *)(b + 0x8F4) + b,
                       0, 0.0f, 0, 0);
-        self->base.step = self->base.step + 1;
+        *(unsigned char *)(s1 + 0x2F6) = *(unsigned char *)(s1 + 0x2F6) + 1;
     }
         /* fallthrough */
     case 7:
-        if (moveMotion(self) != 0) {
-            pl00_clearMotionCam(self, 1, 0);
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+        if (moveMotion(s1) != 0) {
+            pl00_clearMotionCam(s1, 1, 0);
+            *(unsigned char *)(s1 + 0x2F4) = 0;
+            *(unsigned char *)(s1 + 0x2F5) = 0;
+            *(unsigned char *)(s1 + 0x2F6) = 0;
+            *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
         break;
     }
 }

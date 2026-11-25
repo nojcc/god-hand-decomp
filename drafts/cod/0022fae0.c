@@ -285,7 +285,7 @@ void func_0022FAE0(cEm00 *self)
             break;
         case 0x209:
         case 0x21F:
-            fxFollow = self->fx5;
+            fxFollow = self->weapon375;
             StoreMotionParamsBoth_2609A8(self, 0x32, 0x18, 0x3E, -1, 0);
             fxMode = 2;
             fxKind = 0x61;
@@ -538,7 +538,7 @@ void func_0022FAE0(cEm00 *self)
         if (self->timerA != 0) {
             self->timerA--;
             from = self->pos;
-            angle = Turn_dest(&from->x, &Getplayer()->pos->x, self->timer, self->speedRate * 0.19634955f);
+            angle = Turn_dest(&from->x, self->timer, &Getplayer()->pos->x, self->speedRate * 0.19634955f);
             self->timer += angle;
             self->timer = Adjust_theta(self->timer);
             self->rot.y += angle;

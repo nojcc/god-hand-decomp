@@ -1,12 +1,12 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#include "godhand/cCollisionSolid.h"
 #include "godhand/globals.h"
 
 extern void cPlBase__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
 extern char D_007854C8[];
-#include "godhand/cCollisionSolid.h"
 #include "godhand/motion.h"
-#include "godhand/DispMgr.h"
+#include "godhand/cObjBase.h"
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 
@@ -65,7 +65,7 @@ void UpdateAttackMovePhase_102FE8(void *a0) {
         g = *(int *)((char *)a0 + 0x304);
         func_002A8578(a0, (void *)(*(int *)((char *)g + 0x54) + g),
                       (void *)(*(int *)((char *)g + 0x58) + g), 0, 0.0f, 0, 0);
-        if (SetEffect(0, 0x51, a0, 0, -1, 0xFFFFFFFF)) { }
+        if (SetEffect(0, 0x51, a0, 0, -1, EFFECT_FOLLOW_OWNER)) { }
         (*(unsigned char *)((char *)a0 + 0x2F6))++;
         /* fallthrough */
     case 1:
@@ -90,14 +90,18 @@ void ForwardVtableCall_138210(char *a0) {
     fn(a0 + *(short *)((char *)p + 8));
 }
 
-/* Index of the first slot with no object, or -1 when all are taken. */
 __attribute__((section(".text.FindFreeSlotIndex_140C58")))
-int FindFreeSlotIndex_140C58(DispMgr *mgr) {
-    int no;
-    for (no = 0; no < DISPMGR_SLOT_NUM; no++) {
-        if (mgr->slot[no].obj == 0) {
-            return no;
+int FindFreeSlotIndex_140C58(char *a0) {
+    int v1 = 0;
+    a0 += 0x22F4;
+    while (1) {
+        if (*(int*)a0 == 0) {
+            return v1;
         }
+        v1++;
+        if (v1 >= 0x11) {
+            return -1;
+        }
+        a0 += 0xC;
     }
-    return -1;
 }

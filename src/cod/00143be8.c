@@ -1,7 +1,7 @@
 #include "godhand/cIDScreen3.h"
-#include "godhand/cIDBase.h"
-#include "godhand/player.h"
 
+extern void *Getplayer(void);
+extern void cIDBase_restartAnim(void *self);
 
 /* cIDScreen3 setup: restart every display, keep the first entries of each part, reset the colour. */
 __attribute__((section(".text.func_00143BE8")))
@@ -15,15 +15,15 @@ void func_00143BE8(cIDScreen3 *obj)
     obj->f90 = 0;
     obj->player = Getplayer();
     obj->pulse = IDSCREEN3_PULSE;
-    cIDBase_restartAnim(&obj->base);
+    cIDBase_restartAnim(obj);
     obj->base.playing = 1;
-    cIDBase_restartAnim(&a->base);
+    cIDBase_restartAnim(a);
     a->base.playing = 1;
     cIDBase_move(&a->base);
-    cIDBase_restartAnim(&b->base);
+    cIDBase_restartAnim(b);
     b->base.playing = 1;
     cIDBase_move(&b->base);
-    cIDBase_restartAnim(&c->base);
+    cIDBase_restartAnim(c);
     c->base.playing = 1;
     for (; i < IDSCREEN3_ENT_NUM; i++)
         obj->ent[i] = cIDBase_getIDWork(&obj->base, i);

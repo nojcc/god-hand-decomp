@@ -1,13 +1,15 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
+#define CGAMEOBJ_NO_TYPEDEF
+#include "godhand/cGameObj.h"
 #include "godhand/globals.h"
 
+extern void cOmWeapon_setFall(int arg);
+extern void ReleaseObj(int);
 extern int D_00785878;
 extern void cGameObj__tf(void);
 extern void SetField_0_4_8_31EEA8(void *a0, void *a1, void *a2);
 
 #include "godhand/vu0.h"
-#define CGAMEOBJ_NO_TYPEDEF
-#include "godhand/cOmWeapon.h"
 
 
 
@@ -18,7 +20,7 @@ __attribute__((section(".text.InitFields_1B6E90")))
 char *InitFields_1B6E90(char *a0) {
     char *p490;
     char *p5D0;
-    cGameObj(a0);
+    cGameObj((struct cGameObj *)a0);
     *(int*)(a0 + 0x5B0) = 0;
     *(int*)(a0 + 0x5B4) = 0;
     *(int*)(a0 + 0x214) = (int)&D_00428A20;
@@ -48,7 +50,7 @@ char *InitFields_1B6E90(char *a0) {
 
 __attribute__((section(".text.CallWithAndClearField698_12AC28")))
 void CallWithAndClearField698_12AC28(char *a0) {
-    cOmWeapon *v = *(cOmWeapon **)(a0 + 0x698);
+    int v = *(int*)(a0 + 0x698);
     if (v) {
         cOmWeapon_setFall(v);
         *(int*)(a0 + 0x698) = 0;
@@ -56,8 +58,8 @@ void CallWithAndClearField698_12AC28(char *a0) {
 }
 
 __attribute__((section(".text.cOmBase_dieCommon")))
-void cOmBase_dieCommon(cOmBase *self) {
-    ReleaseObj((struct cModel *)self);
+void cOmBase_dieCommon(int a0) {
+    ReleaseObj(a0);
 }
 
 __attribute__((section(".text.GetOrInitGlobal785878_1B8058")))

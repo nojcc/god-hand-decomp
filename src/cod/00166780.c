@@ -52,7 +52,7 @@ void func_00166780(cSubScrOption *self)
             D_003BD9E8++;
             break;
         case 1:
-            if (D_00747470.state >> 2 & 1) {
+            if (D_00747470.state >> FADE_STATE_DONE_BIT & 1) {
                 D_003BD9E8 = 2;
             }
             break;
@@ -75,7 +75,7 @@ void func_00166780(cSubScrOption *self)
             D_003BD9E8++;
             break;
         case 1:
-            if (D_00747470.state >> 2 & 1) {
+            if (D_00747470.state >> FADE_STATE_DONE_BIT & 1) {
                 D_003BD9E8 = 2;
             }
             break;
@@ -93,7 +93,7 @@ void func_00166780(cSubScrOption *self)
         break;
     case 4:
         self->ent[15]->flags |= IDENT_FLAG_NO_DRAW;
-        self->ent[SUBSCR_OPTION_ENT_ASK]->flags &= ~IDENT_FLAG_NO_DRAW;
+        self->ent[18]->flags &= ~IDENT_FLAG_NO_DRAW;
         switch (self->answer) {
         case 0:
             self->ent[22]->flags &= ~IDENT_FLAG_NO_DRAW;
@@ -117,7 +117,7 @@ void func_00166780(cSubScrOption *self)
         self->ent[16]->msg = OPTION_MSG_ASK;
         self->ent[17]->msg = OPTION_MSG_ASK;
     }
-    self->ent[SUBSCR_OPTION_ENT_ASK]->msg = 0x300D;
+    self->ent[18]->msg = 0x300D;
     self->ent[19]->msg = 0x300D;
     self->ent[20]->msg = 0x300E;
     self->ent[21]->msg = 0x300E;

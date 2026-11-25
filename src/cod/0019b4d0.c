@@ -1,12 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
 
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
-#include "godhand/mtx.h"
 #include "godhand/cGameObj.h"
 #include "godhand/cOmBase.h"
-#include "godhand/cSnd.h"
 
+extern int cSnd_SeFadeOut(void *snd, int handle, short fade);
 extern float Adjust_theta(float theta);
+extern void MtxInitRotY(float *mtx, float angle);
 extern void sceVu0ApplyMatrix(void *dst, void *mtx, void *src);
 extern void StoreVecFromFieldB0_2B6160(cVec *dst, void *obj);
 extern void func_002E6B88(void *obj, float y);

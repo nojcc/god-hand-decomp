@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 */
 #include "godhand/cCamManager.h"
+#include "godhand/cCameraFn.h"
 
 /* Start on the player camera: set the mode, reset the camera and make it current. */
 __attribute__((section(".text.func_00138C70")))

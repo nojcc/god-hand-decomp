@@ -1,74 +1,77 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cSnd.h"
-#include "godhand/cNode.h"
-#include "godhand/espSys.h"
 #include "godhand/globals.h"
 
+extern void *cSnd_GetSeData(void *a0, int a1);
+extern void func_002FBFB0(int a0);
+extern void UpdateObjByIndexedOp_2FBE50(int a0);
 extern void getEffTypeString(void *a0, int a1);
 extern void func_003A6C58(void *a0, void *a1, void *a2, int a3, int t0);
 
-/* Plays key on a free voice bound to obj (or part); slot 1 means the emergency slot that the group of
-   owner (or of obj, when owner is 0) holds. */
 __attribute__((section(".text.cSnd_SeCall_2CBA48")))
-int cSnd_SeCall_2CBA48(cSnd *self, int slot, int key, void *obj, void *owner, void *part, int a6, int a7) {
-    int no = (short)slot;
-    int k = (short)key;
+int cSnd_SeCall_2CBA48(cSnd *self, int slot, short key, cObj *obj, cObj *owner, cParts *part, unsigned int a6, int a7) {
+    int blk = (short)slot;
     int group;
-    cSndSeVoice *v;
+    void *r;
 
-    if (no == 1) {
+    if (blk == 1) {
         int *p;
         unsigned int i;
         if (owner != 0) {
             group = cSnd_getEmSeGroupOwner(self, *(int *)((char *)owner + 0x564));
             if (group <= 0)
-                group = *(unsigned short *)((char *)owner + 0x300);
+                group = owner->createId;
         } else {
             group = cSnd_getEmSeGroupOwner(self, *(int *)((char *)obj + 0x564));
             if (group <= 0)
-                group = *(unsigned short *)((char *)obj + 0x300);
+                group = obj->createId;
         }
         p = D_0044CE48;
         i = 0;
         do {
-            if (cSnd_GetSeData(self, *p)->owner == group)
-                no = *(short *)p;
+            void *e = cSnd_GetSeData(self, *p);
+            if (*(int *)((char *)e + 0x3C) == group)
+                blk = *(short *)p;
             i++;
             p++;
         } while (i < 0xC);
     }
 
-    if (cSeData_IsAlive(cSnd_GetSeData(self, no)) == 0)
+    r = cSnd_GetSeData(self, blk);
+    if (cSeData_IsAlive(r) == 0)
         return 0;
-    v = cSnd_AllocVoice(self);
-    if (v == 0)
-        return 0;
-    return cSndSeVoice_Bind(v, no, k, obj, part, a6, a7);
+    {
+        int v = cSnd_AllocVoice(self);
+        if (v == 0)
+            return 0;
+        return cSndSeVoice_Bind(v, blk, key, obj, part, a6, a7);
+    }
 }
 
 __attribute__((section(".text.func_002FBED0")))
-void func_002FBED0(EspAnim *self) {
-    if (func_002B5E50((cNode *)self)) {
-        cGameObj *owner = self->owner;
-        if (owner) {
-            if (owner->objFlags < 0) {
-                UpdateObjByIndexedOp_2FBE50(self);
+void func_002FBED0(int a0) {
+    int s0 = a0;
+    if (func_002B5E50(a0)) {
+        int v = *(int*)(s0 + 0x114);
+        if (v) {
+            if (*(int*)(v + 0x250) < 0) {
+                UpdateObjByIndexedOp_2FBE50(s0);
             }
         }
     }
-    func_002FBFB0(self);
-    if (self->data->flags & ESP_DATA_HIDE_WHEN_CLEAR) {
+    func_002FBFB0(s0);
+    if (((*(int**)(s0 + 0x110))[1]) & 0x800) {
         if (D_00741DB8 == 0) {
-            self->flags = self->flags | ESP_ANIM_HIDE;
+            *(int*)(s0 + 0x11C) = *(int*)(s0 + 0x11C) | 0x800000;
         } else {
-            self->flags = self->flags & ~ESP_ANIM_HIDE;
+            *(int*)(s0 + 0x11C) = *(int*)(s0 + 0x11C) & 0xFF7FFFFF;
         }
     }
-    if (self->data->flags & ESP_DATA_HIDE_WHEN_SET) {
+    if (((*(int**)(s0 + 0x110))[1]) & 0x400) {
         if (D_00741DB8 != 0) {
-            self->flags = self->flags | ESP_ANIM_HIDE;
+            *(int*)(s0 + 0x11C) = *(int*)(s0 + 0x11C) | 0x800000;
         } else {
-            self->flags = self->flags & ~ESP_ANIM_HIDE;
+            *(int*)(s0 + 0x11C) = *(int*)(s0 + 0x11C) & 0xFF7FFFFF;
         }
     }
 }

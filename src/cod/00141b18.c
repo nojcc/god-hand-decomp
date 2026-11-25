@@ -3,7 +3,9 @@
 #include "godhand/cIDScreen4.h"
 #include "godhand/cCoreSave.h"
 
+extern void cIDBase_initialize(void *p, int a, int b);
 extern void cIDBase_initIDWork(void *p, int i);
+extern void cIDBase_restartAnim(void *p);
 
 /* Set up the screen: build the four displays, collect the entry pointers of the first three,
  * restart the animation of the main one and of the last, mark four entries and store the game level. */
@@ -19,7 +21,7 @@ void cIDScreen4_initialize(cIDScreen4 *self)
     cIDBase_initialize(&self->partC, 1, 0x14);
     for (i = 0; i < IDSCREEN4_MAIN_ENT_NUM; i++) {
         cIDBase_initIDWork(self, i);
-        self->mainEnt[i] = cIDBase_getIDWork(self, i);
+        self->mainEnt[i] = cIDBase_getIDWork(&self->base, i);
     }
     for (i = 0; i < IDSCREEN4_A_ENT_NUM; i++) {
         cIDBase_initIDWork(&self->partA, i);

@@ -1,22 +1,19 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/CustomIDWork.h"
 #include "godhand/cCollisionSolid.h"
-#include "godhand/cNode.h"
+#include "godhand/CustomIDWork.h"
 #include "godhand/cMessCommon.h"
-#include "godhand/cSnd.h"
-#include "godhand/cBgmData.h"
 #include "godhand/globals.h"
 
 extern unsigned int D_007476B0;
 extern int D_00568288;
 extern void cActionButton_set(int *a0, int a1, int a2, int a3, int t0, int t1, int t2);
 extern int cModel_getMeshPtr(int a0, int a1);
-extern void NodeList_clear(int *a0);
-extern void NodeList_deletingDtor(int *a0, int a1);
 
 __attribute__((section(".text.cSnd_GetBgmData")))
-struct cBgmData *cSnd_GetBgmData(cSnd *self, int bank) {
-    return &self->bgm[bank];
+int cSnd_GetBgmData(int a0, int a1) {
+    int v0 = *(int*)((char*)a0 + 0x40);
+    int t = a1 * 0x44;
+    return v0 + t;
 }
 
 /* Size in 16-bit codes of the code at the stream head: 1 for a printable
@@ -31,9 +28,9 @@ int cMessCommon_getCodeSize(unsigned int code) {
 }
 
 __attribute__((section(".text.func_002FBE28")))
-void func_002FBE28(cNode *self, int flags) {
-    self->vt = &D_0044FAD0;
-    func_002FBDD8(self, flags);
+void func_002FBE28(int a0) {
+    *(int **)((char*)a0 + 0xF0) = &D_0044FAD0;
+    func_002FBDD8(a0);
 }
 
 __attribute__((section(".text.func_00151368")))
@@ -95,10 +92,10 @@ int func_001BFB28(int a0){
 
 __attribute__((section(".text.cCollisionSolidManage_ReleaseUnit")))
 void cCollisionSolidManage_ReleaseUnit(cCollisionSolidManage *self, struct cGameObj *owner){
-    cCollisionSolidUnit *node;
-    cCollisionSolidUnit *prev;
-    cCollisionSolidUnit *head;
-    cCollisionSolidUnit *next;
+    cCollisionSolidManageUnit *node;
+    cCollisionSolidManageUnit *prev;
+    cCollisionSolidManageUnit *head;
+    cCollisionSolidManageUnit *next;
 
     prev = 0;
     if (owner == 0) {
@@ -122,9 +119,9 @@ void cCollisionSolidManage_ReleaseUnit(cCollisionSolidManage *self, struct cGame
     } else {
         self->first = next;
     }
-    NodeList_clear((int *)node);
+    cCollisionSolidManageUnit_clear(node);
     if (node != 0) {
-        NodeList_deletingDtor((int *)node, 3);
+        cCollisionSolidManageUnit__dtor(node, 3);
     }
     self->unitNum = self->unitNum - 1;
 }

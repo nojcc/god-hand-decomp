@@ -6,6 +6,8 @@
 
 extern void func_001DBF18(void *self, unsigned short *a, unsigned short *b, unsigned short *c, unsigned short *d);
 extern void func_00297C88(void *ev, int id);
+extern cBgmData *cSnd_GetBgmData(void *snd, int idx);
+extern void cBgmData_LoadNamed(cBgmData *data, int slot, char *name);
 extern int func_001C2328(void *obj);
 
 extern void func_001DBFB8(void *self, unsigned short *x0, unsigned short *y0, unsigned short *x1, unsigned short *y1,

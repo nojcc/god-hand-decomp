@@ -72,7 +72,7 @@ cEmActor *cEmManage_GetTargetNear(cEmManage *self, cVec *pos, float dir, float r
         dist = capVu0MagnitudeSqXZ(pos, cGameObj_vt(em)->getPos((char *)em + cGameObj_vt(em)->getPosDelta));
         if ((range + extra) * (range + extra) < dist)
             continue;
-        turn = Turn_dest(&pos->x, &cGameObj_vt(em)->getPos((char *)em + cGameObj_vt(em)->getPosDelta)->x, dir, 3.1415927f);
+        turn = Turn_dest(&pos->x, dir, &cGameObj_vt(em)->getPos((char *)em + cGameObj_vt(em)->getPosDelta)->x, 3.1415927f);
         turn = absf(turn);
         if (angle < turn)
             continue;
@@ -127,7 +127,7 @@ cEmActor *cEmManage_GetTargetNear(cEmManage *self, cVec *pos, float dir, float r
                 dy = absf(pos->y - opos.y);
                 if (dy > 1.5f)
                     continue;
-                turn = Turn_dest(&pos->x, &opos.x, dir, 3.1415927f);
+                turn = Turn_dest(&pos->x, dir, &opos.x, 3.1415927f);
                 turn = absf(turn);
                 if (angle * 1.25f < turn)
                     continue;
@@ -137,7 +137,7 @@ cEmActor *cEmManage_GetTargetNear(cEmManage *self, cVec *pos, float dir, float r
                 dy = absf(pos->y - opos.y);
                 if (dy > 1.0f)
                     continue;
-                turn = Turn_dest(&pos->x, &opos.x, dir, 3.1415927f);
+                turn = Turn_dest(&pos->x, dir, &opos.x, 3.1415927f);
                 turn = absf(turn);
                 if (angle < turn)
                     continue;

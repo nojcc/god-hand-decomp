@@ -1,6 +1,6 @@
 /* SN ProDG ee-gcc 2.95.3 matched TU. */
 #include "godhand/cScenario.h"
-#include "godhand/cCamera.h"
+#include "godhand/cCameraFn.h"
 #include "godhand/cCamManager.h"
 
 extern void cTaskPool_killAll(cTaskManager *task);

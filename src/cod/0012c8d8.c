@@ -1,35 +1,65 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cOmWeapon.h"
-#include "godhand/cCoreSave.h"
-#include "godhand/cVecType.h"
-#include "godhand/vecInline.h"
-#include "godhand/pl00.h"
-#include "godhand/player.h"
-#include "godhand/vu0.h"
 
-/* Give the player the paper (object 0x376) when its hand is empty: mark it in the save, create it
- * at the player's position, unturned, and attach it to hand 2 with the costume's grip offset. */
+
+/* sn-2.95.3-136 matched TU. */
+
+
+
+
+
+
+
+#include "godhand/vu0.h"
+#include "godhand/cCoreSave.h"
+#include "godhand/player.h"
+#include "godhand/cOmWeapon.h"
+
 __attribute__((section(".text.pl00_setPaper")))
-void pl00_setPaper(pl00 *self) {
-    cVec grip[2];
+void pl00_setPaper(void *a0) {
+    char *s0 = (char *)a0;
+    cVec buf[2];
     cCoreSave *w;
     cGameObj *obj;
 
-    if (self->weapon == 0) {
+    if (*(int *)(s0 + 0x6A8) == 0) {
         w = &D_00569B70;
         cCoreSave_setPaper(w);
         obj = CreateObj(0x376, 0xFFFF);
-        self->weapon = (cOmWeapon *)obj;
+        *(cGameObj **)(s0 + 0x6A8) = obj;
         if (obj != 0) {
-            cGameObj_vt(obj)->initial((char *)obj + cGameObj_vt(obj)->initialDelta);
-            cVec_copy3(self->weapon->base.pos, self->base.pos);
-            cVec_copy3(&self->weapon->base.posA, self->base.pos);
-            vec3_set(&self->weapon->base.rot.x, 0.0f, 0.0f, 0.0f);
-            VU0_SQC2_VF0(grip, 0x0);
-            VU0_SQC2_VF0(grip, 0x10);
-            grip[0].x = 0.0f;
-            grip[0].y = 0.047f;
-            grip[0].z = -0.14f;
+            cGameObjVt *vt;
+            float *src;
+            float *src2;
+            float *dst;
+            float *d490;
+            int *p100;
+
+            vt = cGameObj_vt(obj);
+            vt->initial((char *)obj + vt->initialDelta);
+
+            dst = *(float **)(*(char **)(s0 + 0x6A8) + 0xF0);
+            src = *(float **)(s0 + 0xF0);
+            if (dst != src) {
+                dst[0] = src[0];
+                dst[1] = src[1];
+                dst[2] = src[2];
+            }
+            src2 = *(float **)(s0 + 0xF0);
+            d490 = (float *)(*(char **)(s0 + 0x6A8) + 0x490);
+            if (d490 != src2) {
+                d490[0] = src2[0];
+                d490[1] = src2[1];
+                d490[2] = src2[2];
+            }
+            p100 = (int *)(*(char **)(s0 + 0x6A8) + 0x100);
+            p100[0] = 0;
+            p100[1] = 0;
+            p100[2] = 0;
+            VU0_SQC2_VF0(buf, 0x0);
+            VU0_SQC2_VF0(buf, 0x10);
+            buf[0].x = 0.0f;
+            buf[0].y = 0.047f;
+            buf[0].z = -0.14f;
             switch (cCoreSave_getCostumeNo(w)) {
             case 0:
             case 1:
@@ -38,16 +68,16 @@ void pl00_setPaper(pl00 *self) {
             case 3:
             case 4:
             case 5:
-                grip[0].z = -0.155f;
+                buf[0].z = -0.155f;
                 break;
             case 6:
             case 7:
                 break;
             }
-            grip[1].x = 0.0f;
-            grip[1].y = 0.0f;
-            grip[1].z = 0.0f;
-            cOmWeapon_setParent(self->weapon, (cOmBase *)self, 2, &grip[0], &grip[1]);
+            buf[1].x = 0.0f;
+            buf[1].y = 0.0f;
+            buf[1].z = 0.0f;
+            cOmWeapon_setParent(*(cOmWeapon **)(s0 + 0x6A8), a0, 2, &buf[0], &buf[1]);
         }
     }
 }

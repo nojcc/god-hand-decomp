@@ -3,12 +3,13 @@
 #include "godhand/cDvd.h"
 #include "godhand/criStm.h"
 #include "godhand/cEm00.h"
-#include "godhand/heapArena.h"
+#include "godhand/heapArenaFn.h"
 #include "godhand/Slot1.h"
 #include "godhand/vu0.h"
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
+#include "godhand/cCockLoading.h"
 #include "godhand/fileBuf.h"
 #include "godhand/globals.h"
 
@@ -166,7 +167,7 @@ void DispMgr_reset(DispMgr *self)
     DispMgr_registerSub(self, &self->item, 16);
     DispMgr_registerSub(self, MGR_SUB(self, 0x1AE0), 17);
     SetupFields10And14_13D3C0(&self->panel);
-    func_0013ECF0(&self->nowLoading);
+    func_0013ECF0((cCockLoading *)self->nowLoading);
     Obj0000_Clear_Fields_94_9C_13C808(&self->bossBar);
     ClearFields_A0_250_358_13F2F8(MGR_SUB(self, 0x1E90));
     ClearFields94And9C_13E7D8(&self->lastBossBar);

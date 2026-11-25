@@ -1,8 +1,9 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cObjBase.h"
-#include "godhand/vtables.h"
+#include "godhand/objFactory.h"
 #include "godhand/globals.h"
 
+extern char D_00450CE8[];
 extern char D_0076A790[];
 
 /* clone */
@@ -30,9 +31,9 @@ void func_00318518(struct cObjBase *self, int flags) {
 
 
 __attribute__((section(".text.func_0031A018")))
-void func_0031A018(struct cObjBase *self, int flags) {
-    self->vtable = D_00450CE8;
-    cObj__dtor(self, flags);
+void func_0031A018(void *a0, int flags) {
+    *(char**)((char*)a0+0x214) = D_00450CE8;
+    cObj__dtor(a0, flags);
 }
 
 /* clone */

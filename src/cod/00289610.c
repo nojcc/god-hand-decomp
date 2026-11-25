@@ -3,6 +3,7 @@
 #include "godhand/cEma2.h"
 #include "godhand/motion.h"
 #include "godhand/player.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern unsigned int func_0031ED08(float f12);
 

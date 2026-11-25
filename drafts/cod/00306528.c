@@ -10,7 +10,7 @@
 extern unsigned int D_00747A78;         /* system flags */
 extern int D_00747A84;                  /* system state word */
 extern void getEffTypeString(char *dst, int type);
-extern int func_003066D0(int count, int *ents, void *owner, unsigned int follow, cEffectParam *param, int kind,
+extern int func_003066D0(int count, int *ents, cObj *owner, cObj *follow, cEffectParam *param, int kind,
                          int handle, unsigned short id);
 
 /* Start effect id of the given kind on owner: look up its EST file, fill in the default parameters when
@@ -20,7 +20,7 @@ extern int func_003066D0(int count, int *ents, void *owner, unsigned int follow,
  * stores come after the unk44/flags stores. */
 #ifdef NON_MATCHING
 __attribute__((section(".text.SetEffect")))
-int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, unsigned int follow)
+int SetEffect(int kind, int id, cObj *owner, cEffectParam *param, int handle, cObj *follow)
 {
     char name[16];
     cEffectParam def;
@@ -33,8 +33,8 @@ int SetEffect(int kind, int id, void *owner, cEffectParam *param, int handle, un
         return 1;
     if (id == 0 && kind != 3)
         return 1;
-    if (follow == 0xFFFFFFFF)
-        follow = (unsigned int)owner;
+    if (follow == EFFECT_FOLLOW_OWNER)
+        follow = owner;
     ents = func_00306030(D_007419A0, kind, id);
     file = ents;
     if (file == 0) {

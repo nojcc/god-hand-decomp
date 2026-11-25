@@ -1,12 +1,13 @@
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cSnd.h"
 #include "godhand/Slot2.h"
 #include "godhand/BlackJack.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/cSnd.h"
 #include "godhand/globals.h"
 
 extern void printf_2E0D60(int a, int b, int c, int d, int e, int f, char *g, int h);
-extern void SetBlendField820_1D5B90(BlackJack *self, int on);
+extern void func_001D5690(void *a0, int a1);
+extern void SetBlendField820_1D5B90(void *a0, int a1);
 extern int D_007474A0;
 extern int D_004664A0;
 extern int D_007476B0;
@@ -88,24 +89,26 @@ void func_001E6938(Slot2 *self)
 
 
 __attribute__((section(".text.BlackJack_UpdateDoubleDownMenu")))
-void BlackJack_UpdateDoubleDownMenu(BlackJack *self)
+void BlackJack_UpdateDoubleDownMenu(void *a0)
 {
-    switch (self->phase) {
+    char *s0 = (char *)a0;
+
+    switch (*(int *)(s0 + 0x1808)) {
     case 0:
-        func_001D5690(self, 0);
-        SetBlendField820_1D5B90(self, 1);
-        self->phase += 1;
+        func_001D5690(s0, 0);
+        SetBlendField820_1D5B90(s0, 1);
+        *(int *)(s0 + 0x1808) += 1;
         /* fallthrough */
     case 1: {
         char *g = (char *)&D_007474A0;
         long f = *(long *)(g + 0x1B0);
 
         if ((f & 0x3300003000000L) != 0) {
-            func_001D5690(self, 1);
-            SetBlendField820_1D5B90(self, 0);
+            func_001D5690(s0, 1);
+            SetBlendField820_1D5B90(s0, 0);
             cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15F, -1, -1, 0, 0);
-            self->phase = 0;
-            self->state = 6;
+            *(int *)(s0 + 0x1808) = 0;
+            *(int *)(s0 + 0x1804) = 6;
             return;
         }
         {
@@ -114,14 +117,14 @@ void BlackJack_UpdateDoubleDownMenu(BlackJack *self)
             if ((h & 0x10000000L) != 0) {
                 int v;
 
-                cCoreSave_subGold(&D_00569B70, self->bet);
-                v = self->bet * 2;
-                self->bet = v;
-                CustomIDWork_SetNumber_1D5760(self, v);
-                SetBlendField820_1D5B90(self, 0);
+                cCoreSave_subGold(&D_00569B70, *(int *)(s0 + 0x1814));
+                v = *(int *)(s0 + 0x1814) * 2;
+                *(int *)(s0 + 0x1814) = v;
+                CustomIDWork_SetNumber_1D5760(a0, v);
+                SetBlendField820_1D5B90(s0, 0);
                 cSnd_SeCall_2CB8A0(&D_005FEE00, 0, 0x15E, -1, -1, 0, 0);
-                self->phase = 0;
-                self->state = 0xB;
+                *(int *)(s0 + 0x1808) = 0;
+                *(int *)(s0 + 0x1804) = 0xB;
             }
         }
         break;

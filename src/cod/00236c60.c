@@ -1,32 +1,37 @@
-/* sn-2.95.3-136 matched TU. */
 #include "godhand/cCollisionSolid.h"
 #include "godhand/cEm00.h"
 #include "godhand/motion.h"
-#include "godhand/player.h"
-#include "godhand/vu0.h"
 
+/* sn-2.95.3-136 matched TU. */
+
+extern void *Getplayer(void);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float s);
 extern void cObjBase_addNullSpeed(void *a0, float s);
 
-/* Play the enemy's motion while it moves with the player's velocity for its first 15 frames, then
- * set mode 0, phase 0x6C. */
+#include "godhand/vu0.h"
+/* Phase machine on the step byte, 2 case labels. Calls Getplayer, cCollisionSolidManage_SetActive,
+ * func_002A8578, VU0_VADD_XYZ_IP, moveMotion, cObjBase_addNullSpeed_Rotation and 1 more. */
 __attribute__((section(".text.func_00239698"))) void func_00239698(cEm00 *self)
 {
-    cGameObj *pl = Getplayer();
+    char *s1 = (char *)Getplayer();
+    char *p;
+    char *q;
     int b;
-
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     switch (self->step) {
         case 0:
             self->unk1864 = 0;
             b = EM_RES(self);
             func_002A8578(self, EM_RES_REC(b, 0x1484), EM_RES_REC(b, 0x1488), 0, 0.0f, 0, 0);
-            self->unk56E = 0xF;
+            *(short *)((char *)self + 0x56E) = 0xF;
             self->step++;
         case 1:
-            if (self->unk56E != 0) {
-                self->unk56E--;
-                VU0_VADD_XYZ_IP(self->pos, 0, &pl->vel);
+            if (*(short *)((char *)self + 0x56E) != 0) {
+                (*(short *)((char *)self + 0x56E))--;
+                p = (char *)self->pos;
+                q = s1 + 0x550;
+                VU0_VADD_XYZ_IP(p, 0, q);
             }
             self->hitFlash = 3.0f;
             if (moveMotion(self) != 0) {
@@ -41,26 +46,31 @@ __attribute__((section(".text.func_00239698"))) void func_00239698(cEm00 *self)
     }
 }
 
-/* As func_00239698 with another motion, keeping objFlags bit 0x40000 set while it plays. */
+#include "godhand/vu0.h"
+/* Phase machine on the step byte, 2 case labels. Calls Getplayer, cCollisionSolidManage_SetActive,
+ * func_002A8578, VU0_VADD_XYZ_IP, moveMotion, cObjBase_addNullSpeed_Rotation and 1 more. */
 __attribute__((section(".text.func_00236C60"))) void func_00236C60(cEm00 *self)
 {
-    cGameObj *pl = Getplayer();
+    char *s1 = (char *)Getplayer();
+    char *p;
+    char *q;
     int b;
-
-    cCollisionSolidManage_SetActive(&D_00462FC0, (struct cGameObj *)self, 0);
+    cCollisionSolidManage_SetActive(&D_00462FC0, (cGameObj *)self, 0);
     self->hitFlash = 3.0f;
     switch (self->step) {
         case 0:
             self->unk1864 = 0;
             b = EM_RES(self);
             func_002A8578(self, EM_RES_REC(b, 0x1D98), EM_RES_REC(b, 0x1D9C), 0, 0.0f, 0, 0);
-            self->unk56E = 0xF;
+            *(short *)((char *)self + 0x56E) = 0xF;
             self->step++;
         case 1:
             self->objFlags = self->objFlags | 0x40000;
-            if (self->unk56E != 0) {
-                self->unk56E--;
-                VU0_VADD_XYZ_IP(self->pos, 0, &pl->vel);
+            if (*(short *)((char *)self + 0x56E) != 0) {
+                (*(short *)((char *)self + 0x56E))--;
+                p = (char *)self->pos;
+                q = s1 + 0x550;
+                VU0_VADD_XYZ_IP(p, 0, q);
             }
             if (moveMotion(self) != 0) {
                 self->mode = 0;

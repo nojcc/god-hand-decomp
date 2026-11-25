@@ -8,7 +8,7 @@ extern float sceVu0InnerProduct(void *a0, void *a1);
 
 
 #include "godhand/vu0.h"
-#include "godhand/sceVu0.h"
+#include "godhand/sceVu0Fn.h"
 
 __attribute__((section(".text.GetDistCalcPointSegment")))
 float GetDistCalcPointSegment(void *a0, void *a1, void *a2, float *out) {

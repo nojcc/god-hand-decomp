@@ -8,9 +8,9 @@ extern float capVu0Atan2(float y, float x);
 extern float Adjust_theta(float f12);
 extern void CallWithAndClearField698_12AC28(void *a0);
 extern void func_0012B928(void *a0);
-#include "godhand/motion.h"
-#include "godhand/pl00.h"
 #include "godhand/cSnd.h"
+#include "godhand/motion.h"
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_0010A438(void *a0);
@@ -38,48 +38,50 @@ extern void func_0010A438(void *a0);
 
 
 #include "godhand/vu0.h"
+#include "godhand/pl00.h"
 
 __attribute__((section(".text.func_0011ADD8")))
-void func_0011ADD8(pl00 *self)
+void func_0011ADD8(void *a0)
 {
+    char *s1 = (char *)a0;
     float buf[4] __attribute__((aligned(16)));
     int s3v, s2v;
 
-    self->base.hitFlash = 15.0f;
-    switch (self->base.step) {
+    *(float *)(s1 + 0x54C) = 15.0f;
+    switch (*(unsigned char *)(s1 + 0x2F6)) {
     case 0: {
         cSnd *g;
         char *p;
 
-        switch (self->base.stepArg) {
+        switch (*(unsigned char *)(s1 + 0x2F7)) {
         case 0: default:
             switch (irand() % 5) {
             case 0: default: {
-                char *v0 = self->base.pack;
+                char *v0 = *(char **)(s1 + 0x304);
                 s3v = *(int *)(v0 + 0x158) + (int)v0;
                 s2v = *(int *)(v0 + 0x15C) + (int)v0;
                 break;
             }
             case 1: {
-                char *v0 = self->base.pack;
+                char *v0 = *(char **)(s1 + 0x304);
                 s3v = *(int *)(v0 + 0x4FC) + (int)v0;
                 s2v = *(int *)(v0 + 0x500) + (int)v0;
                 break;
             }
             case 2: {
-                char *v0 = self->base.pack;
+                char *v0 = *(char **)(s1 + 0x304);
                 s3v = *(int *)(v0 + 0x164) + (int)v0;
                 s2v = *(int *)(v0 + 0x168) + (int)v0;
                 break;
             }
             case 3: {
-                char *v0 = self->base.pack;
+                char *v0 = *(char **)(s1 + 0x304);
                 s3v = *(int *)(v0 + 0x504) + (int)v0;
                 s2v = *(int *)(v0 + 0x508) + (int)v0;
                 break;
             }
             case 4: {
-                char *v0 = self->base.pack;
+                char *v0 = *(char **)(s1 + 0x304);
                 s3v = *(int *)(v0 + 0x50C) + (int)v0;
                 s2v = *(int *)(v0 + 0x510) + (int)v0;
                 break;
@@ -87,137 +89,137 @@ void func_0011ADD8(pl00 *self)
             }
             break;
         case 1: {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x158) + (int)v0;
             s2v = *(int *)(v0 + 0x15C) + (int)v0;
             break;
         }
         case 2: {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x4FC) + (int)v0;
             s2v = *(int *)(v0 + 0x500) + (int)v0;
             break;
         }
         case 3: {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x514) + (int)v0;
             s2v = *(int *)(v0 + 0x518) + (int)v0;
             break;
         }
         case 4: {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x164) + (int)v0;
             s2v = *(int *)(v0 + 0x168) + (int)v0;
             break;
         }
         case 5: {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x504) + (int)v0;
             s2v = *(int *)(v0 + 0x508) + (int)v0;
             break;
         }
         case 6: {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x50C) + (int)v0;
             s2v = *(int *)(v0 + 0x510) + (int)v0;
             break;
         }
         }
         g = &D_005FEE00;
-        cSnd_SeCall_2CBA48(g, 0, 0xD7, self, 0, 0, 0, 0);
-        cSnd_SeCall_2CBA48(g, 0, 0x123, self, 0, 0, 0, 0);
-        pl00_clearMotionCam(self, 0, 0);
-        func_0012C348(self, 2);
-        p = self->unk678;
+        cSnd_SeCall_2CBA48(g, 0, 0xD7, a0, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(g, 0, 0x123, a0, 0, 0, 0, 0);
+        pl00_clearMotionCam(s1, 0, 0);
+        func_0012C348(s1, 2);
+        p = *(char **)(s1 + 0x678);
         if (p != 0) {
             VU0_LQC2(4, p + 0x10, 0);
             VU0_SQC2(4, buf, 0);
-            self->base.rot.y = capVu0Atan2(buf[0], buf[2]) + 3.1415927f;
-            self->base.rot.y = Adjust_theta(self->base.rot.y);
+            *(float *)(s1 + 0x104) = capVu0Atan2(buf[0], buf[2]) + 3.1415927f;
+            *(float *)(s1 + 0x104) = Adjust_theta(*(float *)(s1 + 0x104));
         }
-        CallWithAndClearField698_12AC28(self);
-        func_0012B928(self);
-        func_002A8578(self, s3v, s2v, 2, 0.0f, 0, 0);
-        self->unk15B0 = 0;
-        self->stepCount = 0;
-        self->base.step += 1;
+        CallWithAndClearField698_12AC28(s1);
+        func_0012B928(s1);
+        func_002A8578(s1, s3v, s2v, 2, 0.0f, 0, 0);
+        *(int *)(s1 + 0x15B0) = 0;
+        *(int *)(s1 + 0x15B4) = 0;
+        *(unsigned char *)(s1 + 0x2F6) += 1;
     }
         /* fallthrough */
     case 1: {
         char *g;
 
-        if (self->stepCount != 0) {
-            self->stepCount -= 1;
+        if (*(int *)(s1 + 0x15B4) != 0) {
+            *(int *)(s1 + 0x15B4) -= 1;
         }
         g = (char *)&D_007474A0;
         if ((*(int *)(g + 8) & 0xF0) != 0) {
-            self->stepCount = 0xA;
+            *(int *)(s1 + 0x15B4) = 0xA;
         }
-        if (moveMotion(self) != 0) {
-            if (self->stepCount > 0) {
-                self->base.phase = 4;
-                self->base.mode = 1;
-                self->base.step = 0;
-                self->base.stepArg = 1;
+        if (moveMotion(s1) != 0) {
+            if (*(int *)(s1 + 0x15B4) > 0) {
+                *(unsigned char *)(s1 + 0x2F5) = 4;
+                *(unsigned char *)(s1 + 0x2F4) = 1;
+                *(unsigned char *)(s1 + 0x2F6) = 0;
+                *(unsigned char *)(s1 + 0x2F7) = 1;
             } else {
-                self->base.mode = 1;
-                self->base.phase = 4;
-                self->base.step = 0;
-                self->base.stepArg = 0;
+                *(unsigned char *)(s1 + 0x2F4) = 1;
+                *(unsigned char *)(s1 + 0x2F5) = 4;
+                *(unsigned char *)(s1 + 0x2F6) = 0;
+                *(unsigned char *)(s1 + 0x2F7) = 0;
             }
             break;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
-        if ((self->base.seqFlags & 0x20) != 0) {
-            self->unk15B0 = 1;
-            if (self->unk61E != 0 || (*(int *)(g + 8) & 0xF0) != 0) {
-                self->base.stepArg = 1;
-                self->base.hitFlash = 5.0f;
-                self->base.phase = 6;
-                self->base.step = 0;
-                self->base.mode = 0;
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
+        if ((*(unsigned short *)(s1 + 0x3AC) & 0x20) != 0) {
+            *(int *)(s1 + 0x15B0) = 1;
+            if (*(unsigned char *)(s1 + 0x61E) != 0 || (*(int *)(g + 8) & 0xF0) != 0) {
+                *(unsigned char *)(s1 + 0x2F7) = 1;
+                *(float *)(s1 + 0x54C) = 5.0f;
+                *(unsigned char *)(s1 + 0x2F5) = 6;
+                *(unsigned char *)(s1 + 0x2F6) = 0;
+                *(unsigned char *)(s1 + 0x2F4) = 0;
             }
             break;
         }
-        if (self->unk15B0 != 0) {
-            self->unk15B0 = 0;
-            func_0012C0F8(self, self->unk160C);
-            if (self->base.hp <= 0) {
-                self->base.hp = 1;
+        if (*(int *)(s1 + 0x15B0) != 0) {
+            *(int *)(s1 + 0x15B0) = 0;
+            func_0012C0F8(s1, *(int *)(s1 + 0x160C));
+            if (*(short *)(s1 + 0x54A) <= 0) {
+                *(short *)(s1 + 0x54A) = 1;
             }
-            self->unk160C = 0;
+            *(int *)(s1 + 0x160C) = 0;
         }
         break;
     }
     case 2: {
-        if (self->stepCount != 0) {
-            char *v0 = self->base.pack;
+        if (*(int *)(s1 + 0x15B4) != 0) {
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x51C) + (int)v0;
             s2v = *(int *)(v0 + 0x520) + (int)v0;
-            Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(self, 0xA, 0x17, 0x2A, 0, 0xA);
-            Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(self, 0xA, 0x17, 0x2A, 0, 0xA);
-            self->unk1684 = 0;
+            Obj0000_Set_Fields_1668_1660_1670_1678_1680_10A408(a0, 0xA, 0x17, 0x2A, 0, 0xA);
+            Obj0000_Set_Fields_166C_1664_1674_167C_Short_1682_10A420(a0, 0xA, 0x17, 0x2A, 0, 0xA);
+            *(char *)(s1 + 0x1684) = 0;
         } else {
-            char *v0 = self->base.pack;
+            char *v0 = *(char **)(s1 + 0x304);
             s3v = *(int *)(v0 + 0x174) + (int)v0;
             s2v = *(int *)(v0 + 0x178) + (int)v0;
         }
-        func_002A8578(self, s3v, s2v, 0xA, 0.0f, 0, 0);
-        self->base.step += 1;
+        func_002A8578(s1, s3v, s2v, 0xA, 0.0f, 0, 0);
+        *(unsigned char *)(s1 + 0x2F6) += 1;
     }
         /* fallthrough */
     case 3:
-        if (moveMotion(self) != 0) {
-            self->base.mode = 0;
-            self->base.phase = 0;
-            self->base.step = 0;
-            self->base.stepArg = 0;
+        if (moveMotion(s1) != 0) {
+            *(unsigned char *)(s1 + 0x2F4) = 0;
+            *(unsigned char *)(s1 + 0x2F5) = 0;
+            *(unsigned char *)(s1 + 0x2F6) = 0;
+            *(unsigned char *)(s1 + 0x2F7) = 0;
         }
-        cObjBase_addNullSpeed_Rotation(self, 1.0f);
-        cObjBase_addNullSpeed(self, 1.0f);
-        if (func_00123938(self, 1) == 0) {
-            func_0010A438(self);
+        cObjBase_addNullSpeed_Rotation(s1, 1.0f);
+        cObjBase_addNullSpeed(s1, 1.0f);
+        if (func_00123938(s1, 1) == 0) {
+            func_0010A438(s1);
         }
         break;
     }

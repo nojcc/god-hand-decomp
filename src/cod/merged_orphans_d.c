@@ -1,5 +1,5 @@
-#include "godhand/cGameObj.h"
 #include "godhand/cCollisionSolid.h"
+#include "godhand/cGameObj.h"
 #include "godhand/globals.h"
 
 /* ── 1. id/mask thunks ──────────────────────────────────────────────
@@ -55,8 +55,8 @@ extern void SetField214PtrThenInit_1B6F38(void *obj);
 extern void func_00298088(void);
 extern void func_00297B40(void *a, void *b);
 
-__attribute__((section(".text.InitObjVtableField30_133B58")))
-void InitObjVtableField30_133B58(cCollisionSolidBody *self, int flags) {
+__attribute__((section(".text.cCollisionSolidCapsule__dtor")))
+void cCollisionSolidCapsule__dtor(cCollisionSolidObj *self, int flags) {
     self->vt = &D_0041D7B8;
     cCollisionSolid__dtor(self, flags);
 }

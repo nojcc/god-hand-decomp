@@ -1,20 +1,23 @@
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cEm00.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cGameObj.h"
+#include "godhand/cEm00.h"
 #include "godhand/cCoreSave.h"
-#include "godhand/motion.h"
 #include "godhand/cSnd.h"
+#include "godhand/effectPos.h"
+#include "godhand/motion.h"
+#include "godhand/cOmWeapon.h"
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
-#include "godhand/cOmWeapon.h"
-#include "godhand/effectPos.h"
+extern int moveMotion(void *a0);
+extern void ReleaseField6ECByTag564_26B1E8(void *a0);
+extern int Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(int a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0026EE40(void *a0, int a1, int a2);
+extern void InitRenderStruct_2A8608(void *a0, int a1, int a2, int a3, int t0, int t1);
 extern void func_001D0B30(int a0, float a1);
 extern void cEm00_armAttackVolume(void *a0);
 
@@ -62,7 +65,7 @@ void cEm00_idleChooseNext(void *a0)
     int rCount = 1;
     int four = 4;
     int rFlag = 0;
-    void *rObj = 0;
+    int rObj = 0;
     int nextPhase;
 
     self->emFlags |= 0x400;
@@ -125,7 +128,7 @@ void cEm00_idleChooseNext(void *a0)
                 rId = 0x77;
                 rCount = 0xE;
                 rFlag = 2;
-                rObj = EM_AT(void *, self, EM_FX5_OFFSET);
+                rObj = EM_AT(int, self, EM_FX5_OFFSET);
             }
             break;
         case 0x220: case 0x221: case 0x222:
@@ -148,10 +151,10 @@ void cEm00_idleChooseNext(void *a0)
             func_002A8578(self, recA, recB, 1, 0.0f, nb, 0);
         }
         if (EM_AT(int, self, EM_FX0_OFFSET) != 0) {
-            Obj1D00_ClearState_6((cOmBase *)(EM_AT(int, self, EM_FX0_OFFSET)));
+            Obj1D00_ClearState_6(EM_AT(cOmBase *, self, EM_FX0_OFFSET));
         }
-        if (self->fx6 != 0) {
-            Obj1D00_ClearState_7(&self->fx6->base);
+        if (EM_AT(int, self, EM_FX6_OFFSET) != 0) {
+            Obj1D00_ClearState_7(EM_AT(cOmBase *, self, EM_FX6_OFFSET));
         }
         {
             char *e;
@@ -163,10 +166,10 @@ void cEm00_idleChooseNext(void *a0)
                 e = 0;
             }
             if (e != 0) {
-                SetEffectPos(0x58, 0x11, 0, *(void **)(e + 0xF0), -1, 1.0f);
+                SetEffectPos(0x58, 0x11, 0, *(void **)(e + 0xF0), 1.0f, -1);
             }
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xF6, self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0xF6, (cObj *)self, 0, 0, 0, 0);
         {
             int t = self->emNo;
             if (t >= 0x205 && (t < 0x208 || t == 0x224)) {
@@ -198,7 +201,7 @@ void cEm00_idleChooseNext(void *a0)
             }
         }
         if ((rId ^ 0x4E2) != 0) {
-            InitRenderStruct_2A8608((cGameObj *)self, rId, rCount, 0, rFlag, rObj);
+            InitRenderStruct_2A8608(self, rId, rCount, 0, rFlag, rObj);
         }
         self->step = self->step + 1;
         /* fallthrough */
@@ -207,7 +210,7 @@ void cEm00_idleChooseNext(void *a0)
             int c = EM_AT(int, self, EM_TURNFRAMES_OFFSET);
             if (c != 0) {
                 EM_AT(int, self, EM_TURNFRAMES_OFFSET) = c - 1;
-                cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+                cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
             }
         }
         if (moveMotion(self) != 0 || (self->seqFlags & 0x10) != 0) {
@@ -411,8 +414,8 @@ void cEm00_idleChooseNext(void *a0)
                         EM_AT(float, self, EM_SPECIALCOOL_OFFSET) = 300.0f;
                         return;
                     }
-                    if ((irand() & 1) != 0 && self->fx4 != 0 &&
-                        Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(&self->fx4->base) == 0) {
+                    if ((irand() & 1) != 0 && EM_AT(int, self, EM_FX4_OFFSET) != 0 &&
+                        Obj1D00_IsSet_Byte_2F4_EqFour_Byte_2F5_1D0B08(EM_AT(int, self, EM_FX4_OFFSET)) == 0) {
                         SETACT(0x16, 0);
                         return;
                     }

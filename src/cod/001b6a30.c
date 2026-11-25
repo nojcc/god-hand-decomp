@@ -3,26 +3,26 @@
 /* sn-2.95.3-136 matched TU. */
 
 extern void KillEffect(void *a0, int a1, int a2);
+extern void MtxInitRotVec(void *a0, void *a1, int a2);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
+extern void cDamageUnit_SetDamageCollActive(int a0, int a1);
 extern void cDamageGive_SetDmgGiveHitVecDir(int a0, void *a1);
 extern float cEmManage_GetSpeedRate(void *a0);
 extern int ChkLine(void *a0, int a1, void *a2, int a3, int a4, int a5, int a6,
                    int a7, int a8, int a9, int a10, int a11, int a12);
 extern char D_005864F0[];
 
-#include "godhand/vu0.h"
-#include "godhand/cDamageUnit.h"
-#include "godhand/mtx.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
+#include "godhand/vu0.h"
+#include "godhand/cObjBase.h"
 
 #define FRAME ((char *)mtx - 0x30)
 
 __attribute__((section(".text.func_001B6A30")))
 void func_001B6A30(void *a0)
 {
-    float mtx[16];
+    cVec mtx[4];
     char *s1 = (char *)a0;
 
     if (*(int *)(s1 + 0x62C) >= 0) {
@@ -61,22 +61,22 @@ void func_001B6A30(void *a0)
             break;
         }
         if (*(short *)(s1 + 0x628) <= 0) {
-        SetEffectPos(1, 1, 0, (cVec *)(s1 + 0x600), -1, 1.0f);
+        SetEffectPos(1, 1, 0, (cVec *)(s1 + 0x600), 1.0f, -1);
         v0 = s1 + 0x610;
         v2 = s1 + 0x100;
-        SetEffect(1, 2, s1, 0, 1, 0xFFFFFFFFu);
+        SetEffect(1, 2, a0, 0, 1, EFFECT_FOLLOW_OWNER);
         *(int *)(s1 + 0x610) = 0;
         *(int *)(v0 + 0x4) = 0;
         *(float *)(v0 + 0x8) = 1.0f;
         *(float *)(v0 + 0xC) = 1.0f;
-        MtxInitRotVec(mtx, (cVec *)v2, 0);
+        MtxInitRotVec(mtx, v2, 0);
         sceVu0ApplyMatrix(v0, mtx, v0);
         d = *(int *)(s1 + 0x620);
         if (d != 0) {
-            cDamageUnit_SetDamageCollActive((cDamageUnit *)d, 1);
+            cDamageUnit_SetDamageCollActive(d, 1);
             cDamageGive_SetDmgGiveHitVecDir(*(int *)(s1 + 0x620), v2);
         }
-        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x46, s1, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 2, 0x46, a0, 0, 0, 0, 0);
         *(short *)(s1 + 0x628) = 0x5A;
         *(char *)(s1 + 0x2F6) = 0;
         *(char *)(s1 + 0x2F5) = 2;
@@ -99,7 +99,7 @@ void func_001B6A30(void *a0)
         int d;
 
         rate = cEmManage_GetSpeedRate(D_005864F0);
-        vp = (char *)&mtx[4];
+        vp = (char *)&mtx[1];
         VU0_LQC2(4, s1 + 0x610, 0);
         VU0_SQC2(4, FRAME, 0x40);
         VU0_LQC2(4, FRAME, 0x40);
@@ -108,7 +108,7 @@ void func_001B6A30(void *a0)
         VU0_SQC2(4, FRAME, 0x40);
         VU0_LQC2(4, vp, 0);
         VU0_SQC2(4, FRAME, 0x30);
-        v = mtx;
+        v = &mtx[0].x;
         p = *(float **)(s1 + 0xF0);
         VU0_VADD_XYZ_IP(p, 0, v);
         n = *(unsigned short *)(s1 + 0x628) - 1;
@@ -137,7 +137,7 @@ void func_001B6A30(void *a0)
                         v[1] = *(float *)(w + 4);
                         v[2] = *(float *)(w + 8);
                     }
-                    mtx[1] = *(float *)(*(int *)(s1 + 0xF0) + 4);
+                    mtx[0].y = *(float *)(*(int *)(s1 + 0xF0) + 4);
                 }
             }
         }
@@ -146,15 +146,15 @@ void func_001B6A30(void *a0)
         }
         KillEffect(s1, 1, 2);
         if (eff != 0) {
-            SetEffectPos(1, 3, 0, (cVec *)mtx, -1, 1.0f);
+            SetEffectPos(1, 3, 0, mtx, 1.0f, -1);
         }
         d = *(int *)(s1 + 0x620);
         if (d != 0) {
-            cDamageUnit_SetDamageCollActive((cDamageUnit *)d, 0);
+            cDamageUnit_SetDamageCollActive(d, 0);
         }
         d = *(int *)(s1 + 0x624);
         if (d != 0) {
-            cDamageUnit_SetDamageCollActive((cDamageUnit *)d, 0);
+            cDamageUnit_SetDamageCollActive(d, 0);
         }
         ph = 4;
         goto setph;
@@ -177,7 +177,7 @@ void func_001B6A30(void *a0)
         KillEffect(s1, 1, 2);
         d = *(int *)(s1 + 0x620);
         if (d != 0) {
-            cDamageUnit_SetDamageCollActive((cDamageUnit *)d, 0);
+            cDamageUnit_SetDamageCollActive(d, 0);
         }
         break;
     }

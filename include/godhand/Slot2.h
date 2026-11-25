@@ -81,8 +81,6 @@ typedef char Slot2_menuSel_check[(int)&((Slot2 *)0)->menuSel == 0xA80 ? 1 : -1];
 
 /* Step the prize board (Slot2.panel, Slot1.panel). */
 void func_001E79E8(void *panel);
-/* Clear a prize board's first 0x54 bytes and store id in its first word. */
-void InitClearStructAndSet_1E79A8(Slot2Panel *self, int id);
 /* Constructor: clear the game state, construct the reels, the prize board
  * and the panel. */
 Slot2 *Slot2__ctor(Slot2 *self);

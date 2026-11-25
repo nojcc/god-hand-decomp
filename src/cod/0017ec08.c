@@ -11,6 +11,6 @@ extern void InitFields_1B6E90(void *);
 __attribute__((section(".text.func_0017EC08")))
 void *func_0017EC08(void *a0) {
     InitFields_1B6E90(a0);
-    *(cVtEnt **)((char *)a0 + 0x214) = D_00422240;
+    *(cVtEnt **)((char *)a0 + 0x214) = (cVtEnt *)&D_00422240;
     return a0;
 }

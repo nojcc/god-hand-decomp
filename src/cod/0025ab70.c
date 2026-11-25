@@ -8,6 +8,7 @@
 #include "godhand/motion.h"
 
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int moveMotion(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 
@@ -87,7 +88,7 @@ void cEm00_stepMotionThenTimedEnd(cEm00 *self)
             }
             break;
         }
-        cCollisionSolidManage_SetPriority(&D_00462FC0, (struct cGameObj *)self, 0);
+        cCollisionSolidManage_SetPriority(&D_00462FC0, (cGameObj *)self, 0);
         {
             cVec *p;
             cVec *q;
@@ -131,7 +132,7 @@ void cEm00_stepMotionThenTimedEnd(cEm00 *self)
         t = self->timer - self->speedRate;
         self->timer = t;
         if (t <= 0.0f) {
-            cCollisionSolidManage_SetPriority(&D_00462FC0, (struct cGameObj *)self, 5);
+            cCollisionSolidManage_SetPriority(&D_00462FC0, (cGameObj *)self, 5);
             if (self->unk17BB != 0 && self->unk1740 <= 0.0f) {
                 func_00274238(self, 0);
             } else {

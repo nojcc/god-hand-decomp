@@ -1,8 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
-#include "godhand/cDamageManage.h"
-#include "godhand/cDamageUnit.h"
+#include "godhand/cSnd.h"
 #include "godhand/CustomIDWork.h"
-#include "godhand/cObjBase.h"
 #include "godhand/cDataManager.h"
 #include "godhand/cCoreSave.h"
 #include "godhand/vu0.h"
@@ -10,8 +8,10 @@
 #include "godhand/cOl21.h"
 #include "godhand/cEma2.h"
 #include "godhand/cGame.h"
-#include "godhand/cSnd.h"
+#include "godhand/cDamageManage.h"
 #include "godhand/globals.h"
+#include "godhand/cObjBase.h"
+#include "godhand/cDamageUnitFn.h"
 
 extern void func_001F8A88(void *a0, float x0, float x1, float y0, float y1, float z0, float z1);
 extern void sceVu0ApplyMatrix(void *a0, void *a1, void *a2);
@@ -351,8 +351,8 @@ void func_001B1630(char *p)
             *(int *)(p + 0x250) = *(int *)(p + 0x250) & 0xFFFFFFEF;
         if (*(unsigned char *)(p + 0x667) == 0) {
             *(unsigned char *)(p + 0x667) = 1;
-            SetEffect(0x58, 5, p, 0, 7, 0xFFFFFFFFu);
-            *(int *)(p + 0x668) = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x117, p, 0, 0, 0, 0);
+            SetEffect(0x58, 5, (cObj *)p, 0, 7, EFFECT_FOLLOW_OWNER);
+            *(int *)(p + 0x668) = cSnd_SeCall_2CBA48(&D_005FEE00, 0, 0x117, (cObj *)p, 0, 0, 0, 0);
         }
     }
 }
@@ -372,26 +372,26 @@ int func_001B2548(char *p)
 {
     unsigned char frame[0x20] __attribute__((aligned(16)));
     int flag;
-    int n;
+    char *n;
     cDamageTake *dg;
-    int sph;
+    unsigned char *sph;
 
     func_001B6FB8(p);
-    dg = cDamageManage_CreateDamageTake(&D_00574380, p, 1);
+    dg = cDamageManage_CreateDamageTake(&D_00574380, (cGameObj *)p, 1);
     *(cDamageTake **)(p + 0x600) = dg;
     if (dg != 0) {
         flag = *(unsigned char *)(p + 0x2B4);
         *(int *)frame = flag;
         if (flag) {
-            n = **(int **)(p + 0x278);
+            n = **(char ***)(p + 0x278);
         } else {
             n = 0;
         }
         n = n + 0x80;
-        sph = (int)(frame + 0x10);
+        sph = frame + 0x10;
         VU0_LQC2(4, &D_003BD880, 0);
         VU0_SQC2(4, frame, 0x10);
-        cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x600), (void *)n, (cVec *)sph, 2.25f);
+        cDamageUnit_AddDamageCollSphere(*(cDamageUnit **)(p + 0x600), (const struct cMatrix *)n, (const cVec *)sph, 2.25f);
         *(int *)(*(int *)(p + 0x600)) |= 1;
     }
     *(short *)(p + 0x548) = 0x3E8;

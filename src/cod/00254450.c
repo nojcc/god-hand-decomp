@@ -1,16 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 
 /* sn-2.95.3-136 matched TU. */
+#include "godhand/cGameObj.h"
 #include "godhand/cEm00.h"
 #include "godhand/cCoreSave.h"
+#include "godhand/cSnd.h"
 #include "godhand/vu0.h"
 #include "godhand/motion.h"
-#include "godhand/cSnd.h"
-#include "godhand/cGameObj.h"
 
 extern unsigned int irand(void);
 extern int Obj0000_Get_Byte_17C3_NZ_2_276468(void *a0);
+extern int moveMotion(void *a0);
 extern int GetSeqSEBase(void *a0);
+extern void ReleaseField6ECByTag564_26B1E8(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern int ChkLine(void *a0, void *a1, void *a2, int a3, int a4, int a5, int a6,
@@ -207,7 +209,7 @@ void cEm00_hitReaction(void *a0)
                 int p = EM_RES(self);
                 recA = EM_RES_REC(p, 0xA68);
                 recB = EM_RES_REC(p, 0xA6C);
-                cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
+                cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), (cObj *)self, 0, 0, 0, 0);
             }
             break;
         case 0x260:
@@ -236,13 +238,13 @@ void cEm00_hitReaction(void *a0)
             break;
         }
         func_002A8578(self, recA, recB, 3, 0.0f, nb, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), (cObj *)self, 0, 0, 0, 0);
         {
-            cDamageTake *take = self->unk698;
+            char *link = (char *)self->unk698;
 
             self->timerA = 0;
-            if (take != 0) {
-                cGameObj *watched = take->attacker;
+            if (link != 0) {
+                cEm00 *watched = *(cEm00 **)(link + 0x34);
 
                 if (watched != 0) {
                     self->timerA = 0xA;
@@ -259,7 +261,7 @@ void cEm00_hitReaction(void *a0)
             int c = self->timerA;
             if (c != 0) {
                 self->timerA = c - 1;
-                cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+                cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
             }
         }
         self->pos->y = self->pos->y + self->home.y * self->speedRate;
@@ -629,7 +631,7 @@ void cEm00_hitReaction(void *a0)
             } else {
                 MOTION_PAIR(0x9D8, 0x9DC)
             }
-            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), self, 0, 0, 0, 0);
+            cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)(GetSeqSEBase(self) + 0x23), (cObj *)self, 0, 0, 0, 0);
             break;
         case 0x260:
             MOTION_PAIR(0x3184, 0x3188)
@@ -676,7 +678,7 @@ void cEm00_hitReaction(void *a0)
             recB = EM_RES_REC(p, 0x788);
         }
         func_002A8578(self, recA, recB, 2, 0.0f, nb, 0);
-        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), self, 0, 0, 0, 0);
+        cSnd_SeCall_2CBA48(&D_005FEE00, 1, (short)GetSeqSEBase(self), (cObj *)self, 0, 0, 0, 0);
         func_0026F120(self);
         switch (cCoreSave_getGameLevel(&D_00569B70)) {
         case 1:
@@ -704,11 +706,11 @@ void cEm00_hitReaction(void *a0)
             self->stepArg = 1;
         }
         {
-            cDamageTake *take = self->unk698;
+            char *link = (char *)self->unk698;
 
             self->timerA = 0;
-            if (take != 0) {
-                cGameObj *watched = take->attacker;
+            if (link != 0) {
+                cEm00 *watched = *(cEm00 **)(link + 0x34);
 
                 if (watched != 0) {
                     self->timerA = 0xA;
@@ -723,7 +725,7 @@ void cEm00_hitReaction(void *a0)
             int c = self->timerA;
             if (c != 0) {
                 self->timerA = c - 1;
-                cGameObj_SetTgtTurn(self, &self->posB, self->speedRate * 0.3926991f);
+                cGameObj_SetTgtTurn((cGameObj *)self, &self->posB, self->speedRate * 0.3926991f);
             }
         }
         if (moveMotion(self) != 0) {
@@ -758,7 +760,7 @@ void cEm00_hitReaction(void *a0)
                 && self->unk17BB != 0 && self->unk1740 <= 0.0f) {
                 func_00274238(self, 0);
             } else if (EM_AT(unsigned char, self, EM_UNK17B9_OFFSET) != 0 && !(irand() & 3)
-                       && func_00273C38((cGameObj *)self) != 0) {
+                       && func_00273C38(self) != 0) {
                 self->mode = 0;
                 self->step = 0;
                 self->phase = 0xA;

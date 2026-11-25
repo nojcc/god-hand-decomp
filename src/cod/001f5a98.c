@@ -1,23 +1,29 @@
 /* sn-2.95.3-136 matched TU. */
 
-#include "godhand/heapArena.h"
-#include "godhand/cIDBase.h"
-#include "godhand/cDvd.h"
 #include "godhand/JukeBox.h"
 #include "godhand/cSnd.h"
 #include "godhand/globals.h"
 
 extern int D_003C2388;
 extern int *D_003C2384;
+extern char D_00583F20[];
+extern char D_00754220[];
 extern char D_007474A0[];
 extern int D_00747A24[];
 extern void cIDManager_getLocalFileName(int a0, void *a1, void *a2, int a3);
-extern void cIDManager_setIDData(int a0, int a1, void *name);
+extern int cDvd_ReadAlloc(void *a0, void *a1, void *a2, void *a3, int t0, int t1, int t2, int t3);
+extern void cDvd_CheckWait(void *a0, int a1);
+extern void cIDManager_setIDData(int a0, int a1, int a2);
+extern int cIDBase_initialize(void *id, int no, int flag);
+extern int cIDBase_setPackedMessData(void *id, int no, int flag);
 extern void SlotList_selectPrev(JukeBoxObj *self);
 extern void SetSequenceFlags_373810(cSndBgmNode *node, int bits);
 extern void ClearFlagBits_373858(cSndBgmNode *node, int bits);
+extern void cSndBgmNode_FadeOut(cSndBgmNode *node, float time);
 extern void UpdateSequenceNodeSetFlag_373488(cSndBgmNode *node);
 extern int GetSequenceResult_373770(cSndBgmNode *node);
+extern void cSndBgmNode_Unlink(cSndBgmNode *node);
+extern void cSndBgmNode_FadeIn(cSndBgmNode *node, float time);
 
 /* sn-2.95.3-136 */
 
@@ -47,8 +53,8 @@ int JukeBox_Load(JukeBoxObj *self)
 
     cIDManager_getLocalFileName(D_003C2388, name, D_0042C000, -1);
     id = &self->idBase;
-    h = cDvd_ReadAlloc(&D_00583F20, name, &self->dataFile, &D_00754220, 0, 0, 0, 0);
-    cDvd_CheckWait(&D_00583F20, h);
+    h = cDvd_ReadAlloc(D_00583F20, name, &self->dataFile, D_00754220, 0, 0, 0, 0);
+    cDvd_CheckWait(D_00583F20, h);
     cIDManager_setIDData(*D_003C2384, JUKEBOX_ID_NO, self->dataFile);
     if (cIDBase_initialize(id, JUKEBOX_ID_NO, 0) == 0
         || cIDBase_setPackedMessData(id, JUKEBOX_ID_NO, 1) == 0) {
@@ -59,8 +65,8 @@ int JukeBox_Load(JukeBoxObj *self)
     self->bgmEvent = JUKEBOX_BGM_NONE;
     self->unk08 = 10;
     self->done = 0;
-    self->list = 1;
-    self->cursor = 0;
+    self->unk0C = 1;
+    self->unk20 = 0;
     self->unk05 = 0;
     if ((*(unsigned int *)(game + 0x588) & 0x8000000) != 0) {
         self->unk10 = 1;
@@ -83,7 +89,7 @@ int JukeBox_Load(JukeBoxObj *self)
         self->unk1C = 0;
     }
     SlotList_selectPrev(self);
-    self->unk00 = 0;
+    self->type = 0;
     self->unk01 = 0;
     self->unk02 = 0;
     self->unk03 = 0;

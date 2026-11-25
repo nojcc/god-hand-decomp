@@ -1,18 +1,18 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cCoreSave.h"
 #include "godhand/ColiseumBattle.h"
-#include "godhand/vu0.h"
 #include "godhand/cSnd.h"
-#include "godhand/cCamManager.h"
-#include "godhand/cCamera.h"
+#include "godhand/vu0.h"
 #include "godhand/globals.h"
 
 
+extern int cSnd_SeCall(void *a0, int a1, short a2, int a3, int a4, int a5);
 
-extern void classFADE_start(void *p, int b, int c, int d, unsigned int e, unsigned int f, int g);
+extern void classFADE_start(void *p, int b, int c, int d, int e, unsigned int f, int g);
 extern void cScenario_beginRoomJump_2C4548(char *p, int a1, float f, void *buf, int a3, unsigned int t0, int t1);
 extern void NoOp_1F0490(char *a0);
 extern char D_00747470[];
+extern int D_005CAFF0;
 extern int D_00747A24[];
 extern long D_00747640;
 extern char *D_003C2F84;
@@ -29,7 +29,7 @@ void ColiseumBattle_StepResult(ColiseumBattle *self)
 
     switch (self->state) {
     case 0:
-        cSnd_SeCall(&D_005FEE00, 0, 0x35, &D_005CAFF0->eye, 0, 0);
+        cSnd_SeCall(&D_005FEE00, 0, 0x35, D_005CAFF0 + 0x210, 0, 0);
         CustomIDOwner_setShown(&self->ui, 1);
         self->timer = 0x3C;
         self->state = self->state + 1;

@@ -1,4 +1,4 @@
-#include "godhand/cCamera.h"
+#include "godhand/cCameraFn.h"
 #include "godhand/cCockEmBar.h"
 
 struct vtbl {
