@@ -1,7 +1,9 @@
-/* sn-2.95.3-136: func_0030FB70, 1 when an object of actor id `id` can be registered: the main list and the list for that actor id (0 or any other) both have spare capacity. dataId is not read. */
+/* sn-2.95.3-136 matched TU. */
 #include "godhand/sideCounter.h"
 #include "godhand/objFactory.h"
 
+/* 1 when an object of actor id `id` can be registered: the main list and the list for that
+ * actor id (0 or any other) both have spare capacity. dataId is not read. */
 __attribute__((section(".text.func_0030FB70")))
 int func_0030FB70(int id, int dataId)
 {

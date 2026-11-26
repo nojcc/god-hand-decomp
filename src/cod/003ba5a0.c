@@ -1,4 +1,4 @@
-/* cygnus-2.96 */
+/* cygnus-2.96 matched TU. */
 #include "godhand/sjFeedCtl.h"
 #include "godhand/criStm.h"
 #include "godhand/ac3Hdr.h"

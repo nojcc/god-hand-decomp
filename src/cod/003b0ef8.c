@@ -1,4 +1,4 @@
-/* ee-2.9-991111 */
+/* ee-2.9-991111 matched TU. */
 #include "godhand/sceSnprintf.h"
 
 extern char D_0045FE60[];           /* "0.%d" */
