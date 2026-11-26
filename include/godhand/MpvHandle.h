@@ -26,6 +26,7 @@
 /* MPV_CheckDelim results: the start code at the pointer. */
 #define MPV_DLM_SLICE       0x03    /* slice of row 1; a slice of any row tests (r & MPV_DLM_SLICE) */
 #define MPV_DLM_SLICE_NEXT  0x01    /* slice of a later row */
+#define MPV_DLM_SLICE_TOP   0x02    /* slice of row 1 only */
 #define MPV_DLM_PSC         0x04    /* picture */
 #define MPV_DLM_GSC         0x08    /* group of pictures */
 #define MPV_DLM_ESC         0x10    /* extension */
@@ -94,7 +95,10 @@ typedef struct MpvHandle {
     int cur;                    /* 0x3B8 user data channel */
     SfdSjCh ch[4];              /* 0x3BC user data channels */
     MpvPicUsr usr;              /* 0x3EC */
-    char unk3F8[0x408 - 0x3F8];
+    char unk3F8[4];
+    int unk3FC;                 /* 0x3FC cleared by each sequence and GOP header */
+    int unk400;                 /* 0x400 */
+    char unk404[4];
     int stopReq;                /* 0x408 */
     char unk40C[0x440 - 0x40C];
 } MpvHandle;

@@ -1,3 +1,8 @@
+/* cygnus-2.96 */
+#include "godhand/sjFeedCtl.h"
+
+/* Even offset of the first AC-3 sync word (0B 77 or 77 0B) in the n bytes at p: 0 when n < 3, and
+ * n or more when there is none. */
 __attribute__((section(".text.ac3cnv_search_header")))
 int ac3cnv_search_header(unsigned char *p, int n)
 {

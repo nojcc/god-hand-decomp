@@ -1,10 +1,16 @@
 /* sn-2.95.3-136 */
+/* NON_MATCHING func_002890A0 (sn-2.95.3-136, fp_hazard_rules fdiv): same length, 56 instructions off,
+ * all register choices, the same pairs as its siblings func_0027D400 and func_0028AE18: retail gives
+ * &tmp_ s1, inv s0, &bustVel s5 and &v s4 (this C swaps each pair) and keeps the clamped tilt in $f2.
+ * Retail's vadd addresses bustVel from s2 although s5 already holds it; binding &bustVel before the
+ * add (as here) gets its early addiu, CVEC_ADD_TO by name gets 63 off. */
 #include "include_asm.h"
 #include "godhand/cOmBase.h"
 #include "godhand/mtx.h"
 #include "godhand/capVu0.h"
 #include "godhand/sceVu0.h"
 #include "godhand/cVec.h"
+#include "godhand/fpu.h"
 
 extern float D_003C0460;                /* the bust spring's rest offset along z */
 
@@ -24,20 +30,19 @@ typedef struct cEmBust {
 
 #ifdef NON_MATCHING
 /* Enemies 0x2A7 and 0x2AB: swing child 29 (the bust) like cObjSimple_MoveBust,
- * scaled by the enemy's speed rate. Still differs from retail: the saved
- * registers for &bustVel, &v and the 0x70 temporary are assigned in another
- * order, and the float registers of the swing update differ. */
+ * scaled by the enemy's speed rate. */
 __attribute__((section(".text.func_002890A0")))
 void func_002890A0(cEmBust *self)
 {
     int frame[3];
-    sceVu0FMATRIX inv;
+    float inv[16];
     cVec v;
     CVEC_TEMPS;
     cOmBase *bust;
+    float len;
     float tilt;
 
-    if (self->base.actionId != EMBUST_KIND_A && self->base.actionId != EMBUST_KIND_B) {
+    if (self->base.emNo != EMBUST_KIND_A && self->base.emNo != EMBUST_KIND_B) {
         return;
     }
     bust = cOmBase_childAt(&self->base, frame, EMBUST_CHILD);
@@ -49,13 +54,28 @@ void func_002890A0(cEmBust *self)
     v.x = ret_.x;
     v.z = ret_.z;
     v.y = 0.0f;
-    CVEC_ADD_TO(self->bustVel, &v);
+    {
+        cVec *d_ = &self->bustVel;
+
+        CVEC_ADD_TO(*d_, &v);
+    }
     MtxInverse(inv, bust->mtx);
-    CVEC_APPLY(inv, &self->bustVel);
+    {
+        cVec *a_ = &self->bustVel;
+        void *m_ = inv;
+        cVec *t_ = &tmp_;
+
+        VU0_LQC2(4, a_, 0);
+        VU0_SQC2_MEM(4, &tmp_, 0);
+        sceVu0ApplyMatrix(t_, m_, t_);
+        VU0_LQC2(4, t_, 0);
+        VU0_SQC2_MEM(4, &ret_, 0);
+    }
     v.x = ret_.x;
     v.y = ret_.y;
     v.z = ret_.z;
-    tilt = -capVu0Atan2(v.y, __builtin_sqrtf(v.x * v.x + v.z * v.z));
+    FPU_SQRT_S(len, v.x * v.x + v.z * v.z);
+    tilt = -capVu0Atan2(v.y, len);
     if (tilt > EMBUST_MAX_TILT) {
         tilt = EMBUST_MAX_TILT;
     }

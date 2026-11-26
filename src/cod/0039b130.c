@@ -1,10 +1,10 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/globals.h"
+#include "godhand/sceSnprintf.h"
 
 /* ee-2.9-991111 — SCE libmpeg 3.0.2, output.o :: _dispRefImage */
 
 extern long long func_0031DE10(long long a, long long b);
-extern void func_003B1EE0(char *buf, int size, char *fmt, int a, int b);
 extern void _sceMpegError(char *c, char *msg);
 extern void func_0039BB20(char *c, char *pic);
 extern void _cpr8(char *c, char *pic);

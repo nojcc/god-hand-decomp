@@ -10,7 +10,6 @@
 #define EM_NO_SCREEN_GHOST   0x26A
 #define SYSFLAG_SCENE_HIDE   0x20000000
 #define EMFLAG_SECOND_PART   0x1000000
-#define OBJFLAG_SEE_THROUGH  0x10u
 #define GHOST_RATE           0.3f
 #define GHOST_HEAD_NEAR_SQ   64.0f
 #define GHOST_PART_NEAR_SQ   36.0f
@@ -61,12 +60,12 @@ void func_00276478(cEm00 *self)
                 }
                 if (near) {
                     self->tint.w = GHOST_RATE;
-                    self->objFlags |= OBJFLAG_SEE_THROUGH;
+                    self->objFlags |= GAMEOBJ_OBJ_SEE_THROUGH;
                     return;
                 }
             }
         }
     }
     self->tint.w = 1.0f;
-    self->objFlags &= ~OBJFLAG_SEE_THROUGH;
+    self->objFlags &= ~GAMEOBJ_OBJ_SEE_THROUGH;
 }

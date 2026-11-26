@@ -32,6 +32,11 @@
 #define GS_SET_ALPHA(a, b, c, d, fix) \
     ((unsigned long)(a) | ((unsigned long)(b) << 2) | ((unsigned long)(c) << 4) | \
      ((unsigned long)(d) << 6) | ((unsigned long)(fix) << 32))
+#define GS_SET_CLAMP(wms, wmt, minu, maxu, minv, maxv) \
+    ((unsigned long)(wms) | ((unsigned long)(wmt) << 2) | ((unsigned long)(minu) << 4) | \
+     ((unsigned long)(maxu) << 14) | ((unsigned long)(minv) << 24) | ((unsigned long)(maxv) << 34))
+#define GS_SET_ZBUF(zbp, psm, zmsk) \
+    ((unsigned long)(zbp) | ((unsigned long)(psm) << 24) | ((unsigned long)(zmsk) << 32))
 #define GS_SET_UV(u, v) ((unsigned long)(u) | ((unsigned long)(v) << 16))
 #define GS_SET_TEST(ate, atst, aref, afail, date, datm, zte, ztst) \
     ((unsigned long)(ate) | ((unsigned long)(atst) << 1) | ((unsigned long)(aref) << 4) | \
@@ -51,6 +56,11 @@ extern int D_003C11B4;                  /* frame buffer height */
 extern int D_003C11BC;                  /* log2 of the frame buffer height, TEX0's th */
 extern unsigned int D_003C11C8;         /* size of one frame buffer, in 64-word blocks */
 extern int D_00586B80;                  /* GS window y of the screen's top row */
+extern int D_003C1188;                  /* texture width func_0029F7D8 samples (TEX0 TBW, CLAMP MAXU, end U) */
+extern int D_003C1194;                  /* and height (CLAMP MAXV, end V) */
+extern int D_003C11C0;                  /* its TEX0 TH */
+extern unsigned char D_003C3CC8;        /* its TEX0 TBP0 */
+extern unsigned char D_003C3CC9;        /* its TEX0 PSM */
 
 void PushEntryAtField10000_299868(char *ctx, long reg, long data);
 

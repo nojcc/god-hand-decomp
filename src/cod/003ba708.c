@@ -1,42 +1,29 @@
 /* cygnus-2.96 matched TU. */
 
-#include "godhand/criSj.h"
+#include "godhand/sjFeedCtl.h"
 #include "godhand/criStm.h"
+#include "godhand/ac3Hdr.h"
 #include "godhand/globals.h"
 
-/* A buffered source: `data` is copied into the stream joint at `sj`. */
-typedef struct SjFeed {
-    char unk00[8];
-    Sint8 *data;                /* 0x08 */
-    char unk0C[8];
-    SjObj *sj;                  /* 0x14 */
-} SjFeed;
-
-#define SJ_FEED_SIZE  0x1800
-#define SJ_ID_FREE    0
-#define SJ_ID_FULL    1
-
-extern void func_003B9DE0(char *msg);
-
-/* Copy the whole buffer into the stream joint, in up to two chunks. Returns 0, or -1 when the joint
+/* Copy the whole src block into the out joint, in up to two chunks. Returns 0, or -1 when the joint
  * could not take all of it. */
 __attribute__((section(".text.SjFeed_writeAll")))
-int SjFeed_writeAll(SjFeed *feed)
+int SjFeed_writeAll(SjFeedCtl *feed)
 {
     SjChunk ck;
-    int left = SJ_FEED_SIZE;
+    int left = SJFEED_BLOCK;
     int done;
 
-    feed->sj->vt->getChunk(feed->sj, SJ_ID_FREE, SJ_FEED_SIZE, &ck);
-    func_003A5148(ck.data, feed->data, ck.len);
+    feed->out->vt->getChunk(feed->out, SJ_LANE_FREE, SJFEED_BLOCK, &ck);
+    func_003A5148(ck.data, feed->src, ck.len);
     done = ck.len;
-    feed->sj->vt->putChunk(feed->sj, SJ_ID_FULL, &ck);
+    feed->out->vt->putChunk(feed->out, SJ_LANE_FULL, &ck);
     left -= done;
     if (left > 0) {
-        feed->sj->vt->getChunk(feed->sj, SJ_ID_FREE, left, &ck);
-        func_003A5148(ck.data, feed->data + done, ck.len);
+        feed->out->vt->getChunk(feed->out, SJ_LANE_FREE, left, &ck);
+        func_003A5148(ck.data, feed->src + done, ck.len);
         left -= ck.len;
-        feed->sj->vt->putChunk(feed->sj, SJ_ID_FULL, &ck);
+        feed->out->vt->putChunk(feed->out, SJ_LANE_FULL, &ck);
     }
     if (left != 0) {
         func_003B9DE0(D_00460A70);

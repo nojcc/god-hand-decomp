@@ -1,94 +1,100 @@
-/* NON_MATCHING mpvhdec_DecGscSj (cygnus-2.96): MPV GOP header parse.
-* Prologue
- * matches up to the start-code skip; retail keeps `bitpos ? nxt << bitpos : nxt` as xori/movn
- * while ours combines it to a bare sllv, and the time-code/bit reads schedule differently. */
-#include "godhand/criSj.h"
+/* cygnus-2.96. NON_MATCHING mpvhdec_DecGscSj: 156 words vs retail 159. Retail skips the start
+ * code with a movn (acc = bitpos ? nxt << bitpos : nxt); here combine folds that to one sllv.
+ * Reading the start code into a local that is never used keeps the movn (14 instructions off,
+ * all in the prologue's scheduling), which the dead-store rule doesn't allow. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
-extern void SJ_SplitChunk(SjChunk *ck, int n, SjChunk *a, SjChunk *b);
+#include "godhand/criAix.h"
+#include "godhand/MpvHandle.h"
 
-#define LOADW(w)                                    \
-    w = *p++;                                       \
-    w <<= 8;                                        \
-    w |= (unsigned char)*p++;                       \
-    w <<= 8;                                        \
-    w |= (unsigned char)*p++;                       \
-    w <<= 8;                                        \
+/* Load the next big-endian word of the stream into w. */
+#define MPV_LOADW(w)                    \
+    w = *p++;                           \
+    w <<= 8;                            \
+    w |= (unsigned char)*p++;           \
+    w <<= 8;                            \
+    w |= (unsigned char)*p++;           \
+    w <<= 8;                            \
     w |= (unsigned char)*p++
 
-#define GETBIT1(dst)                                \
-    dst = acc >> 31;                                \
-    if (bitpos == 31) {                             \
-        acc = nxt;                                  \
-        bitpos = 0;                                 \
-        LOADW(nxt);                                 \
-    } else {                                        \
-        bitpos++;                                   \
-        acc <<= 1;                                  \
+/* v = the next n bits (n > 0). */
+#define MPV_GETBITS(v, n)                       \
+    if (bitpos >= 32 - (n)) {                   \
+        bitpos -= 32 - (n);                     \
+        if (bitpos != 0) {                      \
+            acc |= nxt >> ((n) - bitpos);       \
+            v = acc >> (32 - (n));              \
+            acc = nxt << bitpos;                \
+        } else {                                \
+            v = acc >> (32 - (n));              \
+            acc = nxt;                          \
+        }                                       \
+        MPV_LOADW(nxt);                         \
+    } else {                                    \
+        v = acc >> (32 - (n));                  \
+        acc <<= (n);                            \
+        bitpos += (n);                          \
     }
 
+/* v = the next bit. */
+#define MPV_GETBIT(v)                           \
+    v = acc >> 31;                              \
+    if (bitpos == 31) {                         \
+        acc = nxt;                              \
+        bitpos = 0;                             \
+        MPV_LOADW(nxt);                         \
+    } else {                                    \
+        bitpos++;                               \
+        acc <<= 1;                              \
+    }
+
+/* Decodes a group of pictures header: the time code and the closed GOP
+ * and broken link flags. */
 __attribute__((section(".text.mpvhdec_DecGscSj")))
-int mpvhdec_DecGscSj(char *h, SjObj *sj)
+int mpvhdec_DecGscSj(MpvHandle *hn, SjObj *sj)
 {
     SjChunk tail;
+    MpvPicAtr *atr;
     SjChunk *ck;
-    char *d;
     char *p;
     unsigned int acc;
     unsigned int nxt;
-    unsigned int tc;
     int bitpos;
+    unsigned int tc;
 
-    d = h + 0x1D0;
-    ck = (SjChunk *)(h + 0x38C);
-    *(int *)(h + 0x3B8) = 2;
-    *(int *)(d + 0x30) = *(int *)(d + 0x30) + 1;
-    *(int *)(h + 0x3FC) = 0;
-    *(int *)(h + 0x400) = 0;
-    *(int *)(d + 0x68) = 0;
+    atr = &hn->picAtr;
+    ck = &hn->ck;
+    hn->cur = 2;
+    atr->f30++;
+    hn->unk3FC = 0;
+    hn->unk400 = 0;
+    atr->unk68 = 0;
     sj->vt->getChunk(sj, 1, 0x7FFFFFFF, ck);
 
     p = (char *)((int)ck->data & ~3);
     bitpos = ((int)ck->data - (int)p) * 8;
-    LOADW(acc);
-    LOADW(nxt);
-    acc <<= bitpos;
-    if (bitpos != 0) {
-        acc = nxt << bitpos;
-    } else {
+    p += 4;
+    MPV_LOADW(nxt);
+    if (bitpos == 0)
         acc = nxt;
-    }
-    LOADW(nxt);
+    else
+        acc = nxt << bitpos;
+    MPV_LOADW(nxt);
 
-    if (bitpos >= 7) {
-        bitpos -= 7;
-        if (bitpos != 0) {
-            acc |= nxt >> (25 - bitpos);
-            tc = acc >> 7;
-            acc = nxt << bitpos;
-        } else {
-            tc = acc >> 7;
-            acc = nxt;
-        }
-        LOADW(nxt);
-    } else {
-        tc = acc >> 7;
-        acc <<= 25;
-        bitpos += 25;
-    }
-    *(int *)(d + 0x2C) = tc & 0x3F;
+    MPV_GETBITS(tc, 25);
+    atr->tcPic = tc & 0x3F;
     tc >>= 6;
-    *(int *)(d + 0x28) = tc & 0x3F;
+    atr->tcSec = tc & 0x3F;
     tc >>= 7;
-    *(int *)(d + 0x24) = tc & 0x3F;
+    atr->tcMin = tc & 0x3F;
     tc >>= 6;
-    *(int *)(d + 0x20) = tc & 0x1F;
-    *(int *)(d + 0x1C) = tc >> 5;
-    GETBIT1(*(int *)(h + 0x2B4));
-    GETBIT1(*(int *)(h + 0x2B8));
+    atr->tcHour = tc & 0x1F;
+    atr->drop = tc >> 5;
+    MPV_GETBIT(hn->d);
+    MPV_GETBIT(hn->e);
 
-    SJ_SplitChunk(ck, (int)p + ((bitpos + 7) >> 3) - 8 - *(int *)(h + 0x38C), ck, &tail);
+    SJ_SplitChunk(ck, (int)(p + ((bitpos + 7) >> 3) - 8) - (int)hn->ck.data, ck, &tail);
     sj->vt->putChunk(sj, 0, ck);
     sj->vt->ungetChunk(sj, 1, &tail);
     return 0;

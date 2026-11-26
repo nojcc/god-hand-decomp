@@ -5,6 +5,7 @@ extern void func_003B2B70(int a0);
 
 /* ee-2.9-991111 */
 #include "godhand/gp.h"
+#include "godhand/sceSnprintf.h"
 
 typedef struct client {
     int f0;

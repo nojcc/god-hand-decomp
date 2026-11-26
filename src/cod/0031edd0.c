@@ -1,11 +1,11 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/globals.h"
+#include "godhand/sceSnprintf.h"
 
 extern void func_0031EC48(float *, void *);
 extern double func_0031EAB0(int, unsigned int, int, unsigned long long);
 extern void func_0031EEC8(void *a, void *b);
 extern int D_00460DB0;
-extern void func_003B1EE0(void *buf, int size, int a, int b);
 extern void _sceMpegError(int a0, void *buf);
 
 __attribute__((section(".text.func_0032DC90")))
@@ -58,9 +58,9 @@ void *func_0038C168(void)
 }
 
 __attribute__((section(".text.func_0039C3E8")))
-void func_0039C3E8(int a0, int a1, int a2)
+void func_0039C3E8(int a0, const char *fmt, int a2)
 {
     char buf[0x100];
-    func_003B1EE0(buf, 0x100, a1, a2);
+    func_003B1EE0(buf, 0x100, fmt, a2);
     _sceMpegError(a0, buf);
 }

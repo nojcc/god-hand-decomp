@@ -1,6 +1,9 @@
 /* func_001C3778 / func_001C3988 (SN, 528 B): clear then set the local/parent matrix-skip bits on
  * child parts 1..n around cModel_calcParts.: retail range check compares idx against a
- * register zero (no movn) and reads flags0 as lwu+dsra. */
+ * register zero (no movn) and reads flags0 as lwu+dsra. These are the setPos/setRot vtable
+ * slots of the cOmHitVolume objects (0x60C is cOmHitVolume.count, loaded with lb): they take
+ * (self, pos) and pass pos on to func_001B7E50 / func_001B7EA8. Retail keeps the count store
+ * at 0(sp) and a second induction variable for the idx >= 0 test, which the C drops. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING

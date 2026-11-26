@@ -97,13 +97,22 @@ struct cIDBaseSrc {
     char unk64;
     signed char b65;            /* 0x65 */
     unsigned char kind;         /* 0x66 */
-    char unk67[9];
+    unsigned char pathKind;     /* 0x67 the position path: 0 func_002AC6E0, 1 func_002AC878 */
+    char unk68[4];
+    short recNum;               /* 0x6C key spans of the position animation */
+    short pathNum;              /* 0x6E points of the position path */
     char partB[0xC0];           /* 0x70 */
     char partA[0x84];           /* 0x130 */
     char partC[0x64];           /* 0x1B4 */
     char partD[0x64];           /* 0x218 */
     char partE[0x64];           /* 0x27C */
 };                              /* 0x2E0 */
+
+/* A point of an entry's position path, read through part[0]. */
+typedef struct cIDPathPt {
+    float x;
+    float y;
+} cIDPathPt;
 
 /* One display entry. */
 struct cIDBaseEnt {
@@ -147,10 +156,16 @@ struct cIDBaseEnt {
     char unk92[2];
     float rotX;                 /* 0x94 */
     float rotY;                 /* 0x98 */
-    char unk9C[4];
+    float pathLen;              /* 0x9C length of the position path */
     short jit[5];               /* 0xA0 random jitter, see resetAnim */
     char unkAA[2];
 };                              /* 0xAC */
+
+/* The entry's position path. */
+static __inline__ cIDPathPt *cIDBaseEnt_path(cIDBaseEnt *ent)
+{
+    return ent->part[0];
+}
 
 /* The display object. */
 typedef struct cIDBase {
@@ -183,6 +198,12 @@ cIDBaseEnt *cIDBase_getIDWork(cIDBaseObj *self, int id);
 
 /* Fill display entry `ent` from source record `src`. */
 void cIDBase_initEntry(cIDBaseObj *self, cIDBaseSrc *src, cIDBaseEnt *ent);
+
+/* The point at fraction t of ent's position path into *x, *y: on a Catmull-Rom
+ * spline (func_002AC6E0) or on straight segments (func_002AC878). 0 when
+ * t > 1 or the path is too short. obj is not read. */
+int func_002AC6E0(cIDBaseObj *obj, float t, float *x, float *y, cIDBaseEnt *ent);
+int func_002AC878(cIDBaseObj *obj, float t, float *x, float *y, cIDBaseEnt *ent);
 
 typedef char cIDBaseEnt_size_check[sizeof(cIDBaseEnt) == IDBASE_ENT_SIZE ? 1 : -1];
 typedef char cIDBaseSrc_size_check[sizeof(cIDBaseSrc) == IDBASE_SRC_SIZE ? 1 : -1];

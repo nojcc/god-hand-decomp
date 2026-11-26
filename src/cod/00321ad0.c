@@ -3,8 +3,8 @@
 /* ee-2.9-991111 */
 #include "godhand/ehFrameSort.h"
 #include "godhand/newlibMalloc.h"
+#include "godhand/newlibStdlib.h"
 
-extern void func_003A7B48(void) __attribute__((noreturn));   /* abort */
 extern void func_00322748(fde_vector *linear, fde_vector *erratic);   /* fde_split */
 extern void fde_merge(fde_vector *v1, fde_vector *v2);            /* fde_merge */
 

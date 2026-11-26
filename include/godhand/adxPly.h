@@ -67,5 +67,10 @@ extern void adxt_GetTime(AdxPly *adxt, int *ncount, int *tscale);
 extern int ADXT_GetNumSmplObuf(AdxPly *adxt, int ch);
 /* Count one resynchronisation of the vsync clock (D_003D1428). */
 extern int Obj0000_PostInc_D_003D1428_32A148(void);
+/* Getters that call their inner getter on the handle between the lock and unlock calls. */
+extern int func_0032A4A8(int adxt);
+extern int func_0032A530(int adxt);
+extern int func_0032A5B8(int adxt);
+extern int func_0032A648(int adxt);
 
 #endif

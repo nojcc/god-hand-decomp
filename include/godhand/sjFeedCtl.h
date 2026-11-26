@@ -15,6 +15,7 @@
 #define SJFEED_BLOCK        0x1800
 #define SJFEED_HDR_LEN      6
 #define SJFEED_BIG          0x7FFFFFFF
+#define SJFEED_IEC_HDR_LEN  8       /* src bytes before the frame data */
 
 #define SJFEED_START        1
 #define SJFEED_RUN          2
@@ -27,17 +28,23 @@
 typedef struct SjFeedCtl {
     char unk00[4];
     int state;                          /* 0x04 SJFEED_* */
-    void *src;                          /* 0x08 the block the feed copies out */
-    char unk0C[4];
+    char *src;                          /* 0x08 the block the feed copies out */
+    int srcLen;                         /* 0x0C bytes in src */
     SjObj *in;                          /* 0x10 joint with the data waiting */
     SjObj *out;                         /* 0x14 joint the blocks go to */
     char unk18[4];
     int pos;                            /* 0x1C bytes passed so far */
     int sent;                           /* 0x20 bytes written to out */
     int final;                          /* 0x24 1: the source has ended */
-    int copyMode;                       /* 0x28 1: refresh src before writing */
-    char unk2C[8];
-    int step;                           /* 0x34 bytes the source advances per block */
+    int copyMode;                       /* 0x28 1: sync word read as 0B 77, src is byte-swapped before writing; 2: 77 0B */
+    int sampleRate;                     /* 0x2C from the header's sample-rate code */
+    int bitRate;                        /* 0x30 from the header's frame-size code */
+    int step;                           /* 0x34 bytes the source advances per block: the AC-3 frame length */
 } SjFeedCtl;
+
+extern int ac3cnv_search_header(unsigned char *p, int n);
+extern int func_003BA3D8(SjFeedCtl *feed, unsigned char *hdr);
+extern int func_003BA5A0(SjFeedCtl *feed);
+extern int SjFeed_writeAll(SjFeedCtl *feed);
 
 #endif

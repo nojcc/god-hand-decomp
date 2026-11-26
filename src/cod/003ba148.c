@@ -10,7 +10,6 @@ extern void SJ_SplitChunk(SjChunk *ck, int len, SjChunk *head, SjChunk *tail);
 extern void ac3cnv_create_iec_header(SjFeedCtl *feed);
 
 extern void ac3cnv_switch_endian(void *src, int len);
-extern int SjFeed_writeAll(SjFeedCtl *feed);
 
 /* Advance the feed one step: move to running, stop when the source has
  * ended and nothing is waiting, and at state 2 pass one block through. */

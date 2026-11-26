@@ -40,6 +40,7 @@ typedef struct Tim2PicHdr {
 } Tim2PicHdr;
 
 extern int D_0041ED80[];        /* GS pixel format of each TIM2 image type, from 1 (texture bank loads) */
+extern int D_0041ED98[];        /* the same table, for func_00151FA0 */
 
 /* GS buffer width (in 64-pixel units) of a width-pixel image of format psm. */
 int Tim2CalcBufWidth(unsigned int psm, int width);

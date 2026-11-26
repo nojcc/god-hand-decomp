@@ -112,8 +112,8 @@ typedef struct cMovieClip {
 extern cMovieClip D_005E7BF0[];
 extern cMovieClip D_005E7D10[];
 
-/* Set to 1 when a movie starts; func_0030B148 reads and clears it. */
-extern int D_003C3CD4;
+/* Set to 1 when a movie starts; the vblank handler (func_0030B148) reads and clears it. */
+extern volatile int D_003C3CD4;
 
 /* The first free track (handle 0), or -1 when all MOVIE_TRACK_NUM play. */
 int func_002B4F38(cMovie *self);

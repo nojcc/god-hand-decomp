@@ -134,7 +134,10 @@ struct cOmWeapon;
 /* The method table at 0x214. Each method is a short delta, added to this
  * before the call, a short index and a pfn. */
 typedef struct cEm00Vt {
-    char unk00[0x60];
+    char unk00[0x58];
+    short scenarioDelta;                    /* 0x58 */
+    short pad5A;
+    void (*scenario)(void *self);           /* 0x5C cObjBase_R0_scenario in cEmLinked's table (D_00448890) */
     short suspendDelta;                     /* 0x60 */
     short pad62;
     void (*suspend)(void *self, int flag);  /* 0x64 */
@@ -326,7 +329,9 @@ typedef struct cEm00 {
     int unk1710;                            /* 0x1710 cleared at the start of a step */
     char unk1714[0xC];
     float unk1720;                          /* 0x1720 */
-    char unk1724[0xC];
+    char unk1724[0x4];
+    float unk1728;                          /* 0x1728 func_00260438 sets it to 1800.0 on enemy 0x278 */
+    char unk172C[0x4];
     float unk1730;                          /* 0x1730 */
     float unk1734;                          /* 0x1734 set by func_00274150, counted down by speedRate in func_00208BE0; positive ends the wait in func_0023AFD8 */
     char unk1738[0x4];

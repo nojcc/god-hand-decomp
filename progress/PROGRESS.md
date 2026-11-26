@@ -180,7 +180,7 @@ This tree now lives in `/Users/joncaceres/god-hand-decomp` on branch `work`. The
 - **Not on this branch:** the batch 84 NM drafts (func_00317FF0, func_00356B10, func_003B2708, func_002D8EB0, func_0030FB70, func_00376080) and the func_00103760 handoff, all made after the snapshot. Upstream matched func_00103760 as FollowObj_snapToPlayer. NM drafts whose functions are now matched were dropped (see `nm_closer_log.md`).
 - **Cold build:** PASSED (container_run.sh compile.py --cold, 321 s, after a fresh split) — ELF `1742f95b…` OK · overlay `ea599323…` OK
 - **session_check:** fails dual_compiler_regress and data_decls (both fail on unmodified upstream too) and section_owner (the NON_MATCHING drafts have bodies no carve owns; expected while they are drafts). Everything else passes or skips.
-- **Rules:** agents never run git (see `.cursor/rules/no-git.mdc`). Leave changed files for the maintainer to commit. Real C only: a single `nop` or barrier is fine, no pasted listings, no forced registers.
+- **Rules:** `.cursor/rules/agent-rules.mdc` (no git, Docker, layout, registering, drafts, logs), with the maintainer's standard in `.claude/skills/pr-review/references/lucas_rulings.md` and `checklist.md`.
 
 ## Checkpoint (single-agent, batches 85-91; due at batch 90, run after batch 91) — 2026-10-18T16:08:00Z
 
@@ -624,3 +624,44 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - cOm71_SetMotionRun now declared once in cOm71.h (001b1e30.c's local `int *` extern removed); com71_setmotionrun.c -Wall clean.
 - Skipped: func_002FC1A0 and func_002E9D48 (their div.s padding is fdivdep, which is on main since #37 merged; not attempted yet), func_002E8EE8 (large GS packet builder).
 - Fifth batch in a row with zero matches (230-234): run stopped per the stop rule. Build: both hashes match.
+
+### Batch 235 (libgcc frame.c, sce printf, ADX stream)
+- Registered: execute_cfa_insn (920 B, src/cod/00322138.c, extern_jtbl D_004512D0) and printfloat (472 B, src/cod/003b0ef8.c, extern_double for its three rodata literals).
+- New sceSnprintf.h: one prototype each for the kernel printf core and its helpers; seven units use it instead of local or K&R copies. `_sceSnprintf`'s count is unsigned (callers' 0xFFFFFFFFU loads).
+- newlibStdlib.h declares abort noreturn; two frame.c units use it, SlotTable_resolveValue keeps its implicit call (29 vs 34 words with the header).
+- Draft: adxstmf_stat_exec (12 instructions, register choice and one compare order). ADXStm.h rewritten from retail.
+- Skipped: adxt_stat_decinfo (constant held in a variable), StartThread_3B0BA8 (sq $zero).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 236 (CRI MPV/RNA/ADX, linked enemies, vblank handler)
+- Registered: func_0030B148 (336 B, src/cod/0030b148.c), the vblank interrupt handler; it ends in sync + ei through sync.h.
+- gameWork.h: `field` at 0x214 (GS CSR FIELD bit) and GameWork_isPal() (shared with 0031a300.c). cMovie.h: D_003C3CD4 is volatile (main thread sets it, the handler clears it). sceDma.h: sceDmaSync.
+- Drafts: ps2rna_sndcbf (16 mnemonics), mpvhdec_DecGscSj (3 words, decision row on the dropped start-code read), sfmpv_PeekNextPicUd (2 words), ADX_DecodeMono4 (68), func_00283688 and func_00284068 (SN C++ units, 4 instructions each: register swap in the vector subtraction).
+- Headers: MpvPicAtr.h (GOP time code fields), MpvHandle.h (0x3FC/0x400, MPV_DLM_SLICE_TOP), cEm00.h (vt method 0x58), cEmLinked.h (three prototypes).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 237 (MPV extension headers, object lists, filter/texture loaders)
+- Registered: func_0030FB70 (332 B, src/cod/0030fb70.c): can an object of this actor id still be registered (room in the main list and its actor list).
+- ptrVec.h: PtrVecRef_size/capacity/hasRoom, used by the four list units. cObjPtrArrayWrapper.h now uses PtrVecRef/PtrVec; the two private vector types are gone. adxPly.h: four getter prototypes.
+- Drafts: parseShc (R5900 loop lengthening, 2 words), parseEsc (7 instructions, NM closer), func_0029F7D8 (FRAME constant fold, 2 words), func_00151FA0 (~33).
+- Skipped: func_0031D3D0 (header work listed in the log), classFADE_start, func_00312F70 family.
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 238 (ID path points, cylinder overlap)
+- Registered: func_002AC6E0 (404 B) and func_002AC878 (320 B), the Catmull-Rom and straight-segment path samplers for ID entries, and func_002DB008 (188 B), the cylinder twin of func_002DAF68. All three use FPU_SQRT_S and fp_hazard_rules fdiv.
+- cIDBase.h names the path fields (pathKind, recNum, pathNum, pathLen), adds cIDPathPt with cIDBaseEnt_path(), and declares the two samplers. New esLib.h declares ESLib_ESCatMullRom.
+- Pre-existing -Wall warnings remain in 0013d698.c and 001a4430.c (see the log row).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 239 (scenery see-through fade, AC-3 feed)
+- Registered: func_002A87E8 (544 B), which fades a scenery object see-through while it hides the player, and func_003BA5A0 (284 B), which fills the AC-3 feed's IEC block from its in joint.
+- cGameObj.h: GAMEOBJ_OBJ_SEE_THROUGH (shared with 00276478.c). gameWork.h: SYSFLAG_SOFT_EVENT.
+- sjFeedCtl.h is now the one type for the AC-3 feed record: SjFeed_writeAll's local view and ac3Hdr.h's unused Ac3Hdr are gone, and the header declares the feed functions.
+- Draft: func_003BA3D8 (AC-3 header parse, 2 instructions, delay-slot annul choice).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 240 (collision push-out, enemy head tilts)
+- Registered: func_00134E18 (552 B), sphere against box in the ground plane; FPU_SQRT_S keeps the radius load after the root.
+- cCollisionSolid.h: func_00137670 prototype.
+- Drafts: func_00134CB0 (2 instructions, register), func_00274D18 (matches with a `t_` binding CVEC_SUB lacks; decision row), func_0028AE18 (45, registers).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.

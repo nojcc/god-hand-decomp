@@ -1,7 +1,7 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/globals.h"
+#include "godhand/sceSnprintf.h"
 
-extern int _sceSnprintf(void *cb, void *state, int a, int b, void *ap);
 extern void func_003B7AA8(char *s);
 extern int Tramp_003B4AD8_1F6E98(void *buf, int n);
 extern int NoOp_1F6ED8(void *buf, int n);
@@ -38,11 +38,11 @@ typedef void *va_list;
 #define va_end(ap)
 
 __attribute__((section(".text._sceSnprintf_pf")))
-int _sceSnprintf_pf(void *cb, void *state, int *pn, int fmt, ...) {
+int _sceSnprintf_pf(SceSnprintfPut put, void *arg, int *pn, const char *fmt, ...) {
     int n;
     va_list ap;
     va_start(ap, fmt);
-    n = _sceSnprintf(cb, state, *pn, fmt, ap);
+    n = _sceSnprintf(put, arg, *pn, fmt, ap);
     *pn = *pn - n;
     return n;
 }

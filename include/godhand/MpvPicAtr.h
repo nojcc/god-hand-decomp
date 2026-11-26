@@ -17,14 +17,18 @@ typedef struct MpvPicAtr {
     int ofs;                    /* 0x14 frame offset, also the channel */
     unsigned int picType;       /* 0x18 1 I, 2 P, 3 B */
     int drop;                   /* 0x1C */
-    char unk20[0x30 - 0x20];
+    int tcHour;                 /* 0x20 GOP time code */
+    int tcMin;                  /* 0x24 */
+    int tcSec;                  /* 0x28 */
+    int tcPic;                  /* 0x2C */
     int f30;                    /* 0x30 */
     char unk34[0x38 - 0x34];
     int f38;                    /* 0x38 */
     char unk3C[0x57 - 0x3C];
     signed char f57;            /* 0x57 */
     unsigned int picStruct;     /* 0x58 0 none, 1-2 field, 3 frame */
-    char unk5C[0x6C - 0x5C];
+    char unk5C[0x68 - 0x5C];
+    int unk68;                  /* 0x68 cleared by each sequence and GOP header */
     signed char progressive;    /* 0x6C */
     char unk6D[0x80 - 0x6D];
 } MpvPicAtr;

@@ -6,6 +6,7 @@
 #include "godhand/cMovie.h"
 #include "godhand/cDamageManage.h"
 #include "godhand/globals.h"
+#include "godhand/esLib.h"
 
 extern void func_001B6FB8(void *self);
 extern void cOm4f_setOpenCloseRot(void *self, float a, float b);

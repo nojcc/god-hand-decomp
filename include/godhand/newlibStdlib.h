@@ -17,5 +17,6 @@ unsigned long func_003A9018(struct _reent *rptr, const char *nptr, char **endptr
 int func_003A9228(int a0, int a1, int a2);                                              /* strtoul, as defined in 0014e598.c */
 long _strtol_r(struct _reent *rptr, const char *nptr, char **endptr, int base);
 int func_003AD0C0(int a0, int a1, int a2);                                              /* strtol, as defined in 0014e598.c */
+void func_003A7B48(void) __attribute__((noreturn));                                       /* abort: _exit(1) */
 
 #endif /* GODHAND_NEWLIBSTDLIB_H */

@@ -21,6 +21,8 @@ void WaitDma(volatile sceDmaChan *chan);
 unsigned int sceDmaPause(volatile sceDmaChan *chan);
 /* Turn a scratchpad address (0x7xxxxxxx) into the DMA's scratchpad form (bit 31 set). */
 unsigned int CheckAddress(unsigned int addr);
+/* sceDmaSync: mode 0 waits for the channel to stop, mode 1 only tests it; nonzero while it runs. */
+int sceDmaSync(sceDmaChan *chan, int mode, int timeout);
 /* sceDmaSend: start a chain transfer at the tag. */
 void sceDmaSend(sceDmaChan *chan, void *tag);
 /* sceDmaSendN: send qwc quadwords from addr. */

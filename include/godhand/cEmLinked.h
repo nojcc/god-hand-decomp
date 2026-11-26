@@ -31,6 +31,12 @@ typedef char cEmLinkStep_size_check[(sizeof(cEmLinkStep) == 0x5C) ? 1 : -1];
 
 /* Runs the push step: the step work and the model it moves. */
 void func_00104010(void *self, void *work, void *model);
+/* Runs the step work against the model, as func_00104010 does (reads all three). */
+void func_00107C68(void *self, void *work, void *model);
+/* Point the push along the heading of the link's child 2 (or of the link), then run the step. */
+void func_00283AA8(cEmLinked *self);
+/* Runs the push step on the enemy's model. */
+void func_002844A0(cEmLinked *self);
 
 /* Hang the enemy's first child from child idx of parent and link the enemy to it. */
 void cEm12_SetParent(cEmLinked *self, cGameObj *parent, int idx);

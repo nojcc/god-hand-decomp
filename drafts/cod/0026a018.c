@@ -1,8 +1,8 @@
-/* NON_MATCHING func_0026A018 (sn-2.95.3-136; needs c_flags_add -f=-ffast-math for the
- * bare sqrt.s): retail copies the difference into dir with no self-check (dir may be
- * a second vector type, or a set method), and loads the two Turn_dest_dir constants
- * after the first capVu0Atan2 call; this form keeps the check and hoists them.
- * The part's 0x150 angle is in cParts padding (cModel.h). */
+/* sn-2.95.3-136 */
+/* NON_MATCHING func_0026A018 (sn-2.95.3-136, fp_hazard_rules fdiv): 4 instructions off. In the
+ * subtraction retail holds head->pos in v1 and &tmp_ in v0 (this C swaps them). Writing the
+ * subtraction as a block with the non-volatile VU0_ZERO_VSUB_XYZ_TO gives the registers but schedules
+ * the head->pos load before the mov.s that saves yaw (2 off). The copy into dir has no self-check. */
 #include "include_asm.h"
 
 #ifdef NON_MATCHING
@@ -12,47 +12,46 @@
 #include "godhand/capVu0.h"
 #include "godhand/cCamera.h"
 #include "godhand/player.h"
+#include "godhand/fpu.h"
 
 #define HEAD_PART 37
 
-typedef struct cPartsTurn {
-    char unk000[0x100];
-    cVec rot;                           /* 0x100 */
-    char unk110[0x40];
-    float yaw;                          /* 0x150 */
-    int partFlags;                      /* 0x154 */
-} cPartsTurn;
-
-
-/* Enemy 0x264: turn the head part toward the player. */
+/* Enemy 0x264: turn the head part toward a point 1.7 above the player, at most 45 degrees off the
+ * body's back direction, by speedRate * 3 degrees a frame. */
+__attribute__((section(".text.func_0026A018")))
 void func_0026A018(cEm00 *self)
 {
-    CVEC_TEMPS;
     if ((self->emNo ^ 0x264) == 0) {
         cGameObj *pl = Getplayer();
         cVec target;
         cVec dir;
         cVec ang;
         int frame[3];
-        cParts *head;
+        CVEC_TEMPS;
+        cOmBase *head;
         float yaw;
+        float len;
 
         CVEC_ZERO(target);
         CVEC_ZERO(dir);
         CVEC_ZERO(ang);
         CVEC_ASSIGN(target, pl->pos);
         target.y += 1.7f;
-        head = (cParts *)cOmBase_childAt((cOmBase *)self, frame, HEAD_PART);
+        head = cOmBase_childAt((cOmBase *)self, frame, HEAD_PART);
         if (head != 0) {
             yaw = Adjust_theta(self->rot.y + 3.1415927f);
-            CVEC_SET_SUB(dir, &target, head->pos);
-            ang.x = -capVu0Atan2(dir.y, __builtin_sqrtf(dir.x * dir.x + dir.z * dir.z));
+            CVEC_SUB(&target, head->pos);
+            dir.x = ret_.x;
+            dir.y = ret_.y;
+            dir.z = ret_.z;
+            FPU_SQRT_S(len, dir.x * dir.x + dir.z * dir.z);
+            ang.x = -capVu0Atan2(dir.y, len);
             ang.y = capVu0Atan2(dir.x, dir.z);
             ang.x = Turn_dest_dir(ang.x, 0.0f, 0.7853982f);
             ang.y = Turn_dest_dir(yaw, ang.y, 0.7853982f);
-            ((cPartsTurn *)head)->rot.x += Turn_dest_dir(((cPartsTurn *)head)->rot.x, ang.x, self->speedRate * 0.05235988f);
-            ((cPartsTurn *)head)->yaw += Turn_dest_dir(((cPartsTurn *)head)->yaw, ang.y, self->speedRate * 0.05235988f);
-            head->partFlags |= 0x800;
+            head->rot.x += Turn_dest_dir(head->rot.x, ang.x, self->speedRate * 0.05235988f);
+            head->extraYaw += Turn_dest_dir(head->extraYaw, ang.y, self->speedRate * 0.05235988f);
+            head->partFlags |= CPARTS_EXTRA_YAW;
         }
     }
 }

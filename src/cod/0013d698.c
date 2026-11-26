@@ -10,9 +10,6 @@ extern int ClearField5B4IfFlagUnset_1B76B0(void *self);
 extern void func_002A87E8(void *self, int arg);
 extern void func_001B76D8(void *self);
 extern float Curve_sample(cIDBaseObj *obj, int frame, int recNo, int a3);
-extern int func_002AC6E0(cIDBaseObj *obj, float t, float *x, float *y, cIDBaseEnt *ent);
-extern int func_002AC878(cIDBaseObj *obj, float t, float *x, float *y, cIDBaseEnt *ent);
-
 /* Step 0 of the icon screen: grow the main entry's scale and spin each frame; when the scale reaches 1.0, snap both to
  * the source record's values, show the three child entries again, go to step 1 and move the display. */
 

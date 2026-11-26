@@ -32,6 +32,7 @@
 #define GAMEOBJ_MOTION_LOOP  0x02
 
 /* Bits of cGameObj.objFlags (0x250). */
+#define GAMEOBJ_OBJ_SEE_THROUGH 0x10u   /* drawn see-through, tint.w as its alpha, while it hides the player */
 #define GAMEOBJ_OBJ_SUSPEND  0x8000     /* set by setSuspend(1) */
 #define GAMEOBJ_OBJ_SKIP     0x80000000 /* set by ReleaseObj; the move loops skip the object (MCOBJ_FLAG_SKIP) */
 

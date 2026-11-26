@@ -2,8 +2,7 @@
 
 #include "godhand/ehFrameObj.h"
 #include "godhand/newlibMalloc.h"
-
-extern void func_003A7B48(void);
+#include "godhand/newlibStdlib.h"
 
 /* gcc frame.c: unlink the object registered with `begin`, free its sorted FDE array, return it. */
 __attribute__((section(".text.__deregister_frame_info")))

@@ -229,6 +229,7 @@
 !src/cod/001347e8.c
 !src/cod/00134880.c
 !src/cod/001348e8.c
+!src/cod/00134e18.c
 !src/cod/00135040.c
 !src/cod/001351d8.c
 !src/cod/001352f8.c
@@ -531,6 +532,7 @@
 !src/cod/002a7280.c
 !src/cod/002a7338.c
 !src/cod/002a8608.c
+!src/cod/002a87e8.c
 !src/cod/002a9420.c
 !src/cod/002a9790.c
 !src/cod/002a98a8.c
@@ -641,6 +643,7 @@
 !src/cod/002d9d40.c
 !src/cod/002d9d48.c
 !src/cod/002daf68.c
+!src/cod/002db008.c
 !src/cod/002e0ad8.c
 !src/cod/002e13d8.c
 !src/cod/002e81d8.c
@@ -694,6 +697,7 @@
 !src/cod/0030ab48.c
 !src/cod/0030aba0.c
 !src/cod/0030ac38.c
+!src/cod/0030b148.c
 !src/cod/0030e0.c
 !src/cod/0030e598.c
 !src/cod/00313510.c
@@ -1774,6 +1778,8 @@
 !src/cod/00213ea8.c
 !src/cod/00172570.c
 !src/cod/002ac5b0.c
+!src/cod/002ac6e0.c
+!src/cod/002ac878.c
 !src/cod/002a48a8.c
 !src/cod/00138470.c
 !src/cod/001fa080.c
@@ -3084,6 +3090,7 @@
 !include/godhand/sfdRing.h
 !include/godhand/mwsfPlay.h
 !include/godhand/espSpawn.h
+!include/godhand/esLib.h
 !include/godhand/effectPos.h
 !include/godhand/effModelObj.h
 !include/godhand/cSescr.h
@@ -3664,6 +3671,7 @@
 !src/cod/002ae1c8.c
 !src/cod/00306c78.c
 !src/cod/0030fac8.c
+!src/cod/0030fb70.c
 !src/cod/00312ab0.c
 !src/cod/00378bf8.c
 !src/cod/0037c2e0.c
@@ -3824,6 +3832,7 @@
 !src/cod/00320800.c
 !src/cod/00321e08.c
 !src/cod/00322030.c
+!src/cod/00322138.c
 !src/cod/00322f80.c
 !src/cod/00323840.c
 !src/cod/00323aa0.c
@@ -4417,6 +4426,7 @@
 !src/cod/003363f8.c
 !src/cod/0032dd70.c
 !src/cod/00328bb0.c
+!src/cod/003ba5a0.c
 !src/cod/003ba708.c
 !src/cod/0032ac48.c
 !src/cod/00343c18.c
@@ -4485,6 +4495,7 @@
 !include/godhand/newlibStdio.h
 !include/godhand/newlibStdlib.h
 !include/godhand/sceMpeg.h
+!include/godhand/sceSnprintf.h
 !include/godhand/sceTimer.h
 !include/godhand/scrollLayer.h
 !include/godhand/IDPanelScreen.h
@@ -4533,6 +4544,7 @@
 !drafts/
 !drafts/cod/
 !drafts/cod/*.c
+!drafts/cod/*.cc
 !src/cod/sa_00321288.c
 !src/cod/sa_003448b0.c
 !src/cod/sa_0030da08.c
