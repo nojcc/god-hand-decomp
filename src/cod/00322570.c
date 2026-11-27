@@ -38,7 +38,7 @@ FrameState *__frame_state_for(void *pc_target, FrameState *state_in)
     insn = f + 1;
 
     if (info.augmentation[0] == 'z') {
-        int i;
+        unsigned int i;
 
         insn = decode_uleb128(insn, &i);
         insn += i;

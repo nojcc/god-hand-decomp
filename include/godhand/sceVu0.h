@@ -27,6 +27,16 @@ void sceVu0ScaleVector(void *a0, void *a1, float s);
 void sceVu0Normalize(void *a0, void *a1);
 /* out = the view matrix of a camera at p looking along zd with up yd. */
 void sceVu0CameraMatrix(void *out, void *p, void *zd, void *yd);
+/* m = the identity matrix. */
+void sceVu0UnitMatrix(void *m);
+/* a0 = a1 x a2 (x, y and z). */
+void sceVu0OuterProduct(void *a0, void *a1, void *a2);
+/* The dot product of a0 and a1 (x, y and z). */
+float sceVu0InnerProduct(void *a0, void *a1);
+/* a0 = a1 * a2 (matrix times vector); returns the clip flags of a0 against its w. */
+int katVu0ViewVolumeClip(void *a0, void *a1, void *a2);
+/* a0 = a1 * a2 divided by w, as fixed-point ints (z and w as plain ints when a3 is set). */
+void sceVu0RotTransPers(void *a0, void *a1, void *a2, int a3);
 /* dst = the matrix src (sceVu0CopyMatrix). */
 void func_0030A548(void *dst, void *src);
 

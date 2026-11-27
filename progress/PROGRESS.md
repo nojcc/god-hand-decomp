@@ -665,3 +665,30 @@ Not a checkpoint: the header merge, the held registrations and the full and cold
 - cCollisionSolid.h: func_00137670 prototype.
 - Drafts: func_00134CB0 (2 instructions, register), func_00274D18 (matches with a `t_` binding CVEC_SUB lacks; decision row), func_0028AE18 (45, registers).
 - Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail.
+
+### Batch 241 (enemy turns, spawns, fly pieces; checkpoint)
+- No matches. Drafts: func_0027D400 (38), func_0026A018 (4), func_001C8930 (2), func_00260438 (new, 2), func_002890A0 (compiles again, 56).
+- cEm00.h: `float unk1728` (func_00260438 sets it to 1800.0).
+- Checkpoint: a globals.h declaration of D_00747A50 broke four units on the cold build; taken out, then cold and cached builds both match retail.
+
+### Batch 242 (review 2026-11-26 code fixes)
+- Unregistered: func_002AC6E0 and func_002AC878 read the unwritten dist[0]; the defined form is 2 instructions off each, so they are drafts again (decision row). matched_code drops 724 B.
+- snprintf_char takes the callback's `void *arg`, so func_003B1EE0 passes it without a function-pointer cast.
+- New vblank.h (D_00753D80 `volatile unsigned int`, D_00753D84, D_00752D80); printfloat's formats in sceSnprintf.h as `const char`.
+- Types: ftoi takes `unsigned long`; decode_uleb128 takes `unsigned int *` (CieInfo.code_align unsigned, five commented `(unsigned int *)&offset` casts in execute_cfa_insn); func_00107C68 typed in cEmLinked.h (cEmLinkStep gains num/part/parts, cPtRec moved there); func_003BA4F8 takes `SjFeedCtl *` (new bsmod at 0x38) with its prototype in sjFeedCtl.h.
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail. session_check passes except the local score high-water mark (the 724 B above).
+
+### Batch 243 (retry list: SN C++ shared slots)
+- Matched: Quaternion_SetCoordinateRotationZ and func_0015ABA0 in the new SN C++ unit src/cod/0015a9a0.cc (fdiv, -fno-exceptions), +1,024 B.
+- Drafts: func_001501D0 (49 off), func_001361A0 (176 vs 173), func_0015EC60 (163 vs 159), func_001646C0 (same length, 23 off).
+- Headers: sceVu0.h gains sceVu0UnitMatrix, sceVu0OuterProduct, sceVu0InnerProduct, katVu0ViewVolumeClip, sceVu0RotTransPers; mtx.h func_0015A190 as defined; libm.h powf (func_003A1F38); new shadowPacket.h (ShadowPacket, FloatBits, func_0015EEE0).
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail. session_check passes (dual_compiler_regress run on its own).
+
+### Batch 244 (review 2026-11-26 closeout)
+- Every code finding in the review is fixed and logged: first lines (#1), address order of the units, carves and allowlist lines including 0015a9a0.cc and printfloat (#2), the cOmTwin.h rewrite (#12), `!drafts/cod/*.cc` (#13). #11, #14 and #15 are PR-description items.
+
+### Batch 245 (retry list: cSubScrShopMain open)
+- Matched: func_00168560 (1,160 B) in plain C, src/cod/00168560.c, opening the skill shop's main screen (retail 15cSubScrShopMain, "idskillshop"). It was parked for shared slots, but one block around `pos` is enough in C.
+- Headers: new cSubScrShopMain.h and sysFlags.h (SysFlagWords, moved from 001496c0.c); prototypes for cIDManager_setIDData, func_002D9778 and GetJacket (now `cGameObj *`, definition in 000000.c retyped in place).
+- Reverted: 001689e8.c's move to the shared record (it needed byte-pointer casts; decision row) and a C++-only cast in cIDBase.h.
+- Builds: ELF `1742f95bef65bdb2…`, r207 `ea59932301345e48…`, both match retail. session_check passes (dual_compiler_regress run on its own); naming_sync passes; -Wall 0 new.

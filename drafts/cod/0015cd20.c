@@ -5,13 +5,13 @@
  * pointers, which shifts the register assignment. Retail also shares the 4/8 queue call with
  * the depth-sorted call and keeps the screen-space call separate. */
 #include "include_asm.h"
+#include "godhand/sceVu0.h"
 
 #ifdef NON_MATCHING
 #include "godhand/cCamManager.h"
 
 extern int PostInc_D_00566E10_0015B0F0_15B0F0(int a0);
 extern void func_0030A548(void *dst, void *src);
-extern void sceVu0RotTransPers(int *dst, float (*m)[4], float *src, int mode);
 extern void sceVu0FTOI4Vector(void *a0, void *a1);
 extern void func_0031A600(char *a0, int a1, int a2, int a3);
 extern int D_003C1180;

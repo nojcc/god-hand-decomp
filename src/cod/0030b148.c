@@ -4,14 +4,11 @@
 #include "godhand/cSnd.h"
 #include "godhand/cMovie.h"
 #include "godhand/sync.h"
+#include "godhand/vblank.h"
 
 #define GS_CSR      ((volatile unsigned long *)0x12001000)
 #define GS_CSR_FIELD_SHIFT 13
 #define EE_T0_COUNT ((volatile int *)0x10000000)
-
-extern volatile unsigned int D_00753D80; /* vblanks counted by the handler */
-extern int D_00753D84;                   /* nonzero while the packet waits to go */
-extern char D_00752D80[];                /* the packet the handler sends to GIF */
 
 /* Sends the waiting packet once GIF is idle and at least limit vblanks have
  * passed. A macro, not an inline function: retail reads limit after the DMA

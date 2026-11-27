@@ -22,7 +22,7 @@ __attribute__((section(".text.extract_cie_info")))
 void *extract_cie_info(DwarfFde *f, CieInfo *c)
 {
     unsigned char *p;
-    int i;
+    unsigned int i;
 
     c->augmentation = ((DwarfCie *)((char *)&f->CIE_delta - f->CIE_delta))->augmentation;
 

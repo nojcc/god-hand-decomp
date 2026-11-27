@@ -1,4 +1,5 @@
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 /* katVu0ViewVolumeClip — VU0 4x4 matrix * vector with W-clip: loads the matrix
  * (a1, rows at 0x0/0x10/0x20/0x30) and the vector (a2), transforms via the

@@ -43,14 +43,14 @@ void *execute_cfa_insn(void *p, FrameStateInternal *state, CieInfo *info, void *
 {
     unsigned int insn = *(unsigned char *)p;
     unsigned int reg;
-    int offset;
+    int offset;    /* signed: the decoded word is stored sign-extended into the long slots */
 
     p = (unsigned char *)p + 1;
     if (insn & DW_CFA_advance_loc)
         *pc = (char *)*pc + (insn & 0x3F) * info->code_align;
     else if (insn & DW_CFA_offset) {
         reg = insn & 0x3F;
-        p = decode_uleb128(p, &offset);
+        p = decode_uleb128(p, (unsigned int *)&offset);
         offset *= info->data_align;
         state->s.saved[reg] = REG_SAVED_OFFSET;
         state->s.reg_or_offset[reg] = offset;
@@ -78,7 +78,7 @@ void *execute_cfa_insn(void *p, FrameStateInternal *state, CieInfo *info, void *
 
         case DW_CFA_offset_extended:
             p = decode_uleb128(p, &reg);
-            p = decode_uleb128(p, &offset);
+            p = decode_uleb128(p, (unsigned int *)&offset);
             offset *= info->data_align;
             state->s.saved[reg] = REG_SAVED_OFFSET;
             state->s.reg_or_offset[reg] = offset;
@@ -103,7 +103,7 @@ void *execute_cfa_insn(void *p, FrameStateInternal *state, CieInfo *info, void *
 
         case DW_CFA_def_cfa:
             p = decode_uleb128(p, &reg);
-            p = decode_uleb128(p, &offset);
+            p = decode_uleb128(p, (unsigned int *)&offset);
             state->s.cfa_reg = reg;
             state->s.cfa_offset = offset;
             break;
@@ -112,7 +112,7 @@ void *execute_cfa_insn(void *p, FrameStateInternal *state, CieInfo *info, void *
             state->s.cfa_reg = reg;
             break;
         case DW_CFA_def_cfa_offset:
-            p = decode_uleb128(p, &offset);
+            p = decode_uleb128(p, (unsigned int *)&offset);
             state->s.cfa_offset = offset;
             break;
 
@@ -135,7 +135,7 @@ void *execute_cfa_insn(void *p, FrameStateInternal *state, CieInfo *info, void *
             break;
 
         case DW_CFA_GNU_args_size:
-            p = decode_uleb128(p, &offset);
+            p = decode_uleb128(p, (unsigned int *)&offset);
             state->s.args_size = offset;
             break;
 

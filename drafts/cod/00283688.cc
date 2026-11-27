@@ -54,7 +54,7 @@ void func_00283688(cEmLinked *self)
                     p->mtx[14] += ofs.z;
                     p = p->next;
                 }
-                func_00107C68(self, &self->work, &self->base.unk5B0);
+                func_00107C68((cOmBase *)self, &self->work, (cPtRec *)&self->base.unk5B0);
             }
         }
     }

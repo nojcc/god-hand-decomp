@@ -44,4 +44,7 @@ typedef struct cIDManager {
 extern char D_0044AF70[];               /* name table SearchData looks in */
 extern void *SearchData(void *name, void *table, int which);
 
+/* Look the resource name up twice and keep both results in pair[slot]. */
+void cIDManager_setIDData(cIDManager *self, int slot, void *name);
+
 #endif

@@ -19,6 +19,12 @@ void MtxInitTransVec(float *mtx, cVec *pos);
 void MtxInitRotVec(void *mtx, cVec *rot, unsigned char order);
 /* m = the rotation of the unit quaternion q (x, y, z, w). */
 void MtxInitRotQuaternion(float m[4][4], float q[4]);
+/* q = the rotation by angle about axis. */
+void Quaternion_SetRotationAxis(cVec *q, cVec *axis, float angle);
+/* q (x, y, z, w) = the rotation of the 4x4 matrix m. */
+void func_0015A190(float *q, void *m);
+/* (0, 1, 0, 1): the Y axis func_001501D0 turns a part about. */
+extern cVec D_003BD8B0;
 /* mtx = a scale by scale (x, y, z). */
 void MtxInitScaleVec(void *mtx, cVec *scale);
 /* mtx = a translation by pos, then the rotation of q, then a scale by scale. */

@@ -66,18 +66,18 @@ void _request_end(void *packet, void *data)
 /* ee-2.9-991111 */
 
 __attribute__((section(".text.ftoi")))
-int ftoi(unsigned long long d)
+int ftoi(unsigned long d)
 {
-    long long e;
+    long e;
 
-    e = (long long)((d << 1) >> 53);
+    e = (long)((d << 1) >> 53);
     e = e - 0x433;
     if (e < -0x35)
         return 0;
     if (e >= 0xD)
         return 0x270F;
     d = (d << 12) >> 12;
-    d = d | ((unsigned long long)0x8000 << 37);
+    d = d | ((unsigned long)0x8000 << 37);
     if (e < 0) {
         e = -e;
         d = d >> (e - 2);

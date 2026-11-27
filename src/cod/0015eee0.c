@@ -1,29 +1,15 @@
-typedef union {
-    float f;
-    unsigned int u;
-} FloatBits;
+/* sn-2.95.3-136 matched TU. */
+#include "godhand/shadowPacket.h"
 
-typedef struct {
-    long v0;
-    char pad0[0x18];
-    long v20;
-    char pad1[0x18];
-    long v40;
-    char pad2[0x18];
-    long v60;
-    char pad3[0x18];
-    long v80;
-} FloatRows;
-
-
+/* Clear the shadow quad: every corner at 0, colour 0 and Q = 1.0. */
 __attribute__((section(".text.func_0015EEE0")))
-void func_0015EEE0(FloatRows *p)
+void func_0015EEE0(ShadowPacket *p)
 {
     FloatBits bits;
     bits.f = 1.0f;
-    p->v20 = 0;
-    p->v80 = 0;
-    p->v60 = 0;
-    p->v40 = 0;
-    p->v0 = (long)bits.u << 32;
+    p->vtx[0].xyz = 0;
+    p->vtx[3].xyz = 0;
+    p->vtx[2].xyz = 0;
+    p->vtx[1].xyz = 0;
+    p->rgbaq = (long)bits.u << 32;
 }

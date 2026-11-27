@@ -1,7 +1,8 @@
 /* cygnus-2.96 matched TU. */
 #include "godhand/globals.h"
+#include "godhand/sjFeedCtl.h"
+#include "godhand/ac3Hdr.h"
 
-extern void func_003B9DE0(void *a0);
 extern int *Obj0000_Get_D_00459FA8_35F8A8(void);
 extern void sfx_InitLibWork(void);
 extern void func_0035FE60(void);
@@ -9,16 +10,18 @@ extern void SFXZ_Init(void);
 extern void SFXA_Init(void);
 extern int SFH_IsExistStmId(void *h, unsigned char id, int *out);
 
+/* Check the AC-3 bsid byte at hdr (one byte on when the stream is byte-swapped): a bsid
+ * of 9 or more is an unsupported version, else keep the bsmod in the feed. */
 __attribute__((section(".text.func_003BA4F8")))
-int func_003BA4F8(char *a0, unsigned char *a1) {
+int func_003BA4F8(SjFeedCtl *feed, unsigned char *hdr) {
     unsigned int b;
-    a1 += (*(int *)(a0 + 0x28) == 1);
-    b = *a1;
+    hdr += (feed->copyMode == 1);
+    b = *hdr;
     if ((b >> 3) >= 9) {
         func_003B9DE0(D_00460A00);
         return -1;
     }
-    *(int *)(a0 + 0x38) = b & 7;
+    feed->bsmod = b & 7;
     return 0;
 }
 

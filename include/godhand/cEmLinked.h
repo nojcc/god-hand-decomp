@@ -8,13 +8,26 @@
 #define EMLINK_MODE_FREE  0x100         /* no usable link */
 #define EMLINK_MODE_HELD  0x500         /* pushed along by the link */
 
-/* The push step's work (func_00104010). */
+/* The push step's work (func_00104010): the tracked points and the part each rides on. */
 typedef struct cEmLinkStep {
-    char unk00[0x38];
+    unsigned int num;                   /* 0x00 tracked points */
+    unsigned char *part;                /* 0x04 part index of each point */
+    char unk08[0x30];
     int kind;                           /* 0x38 0 at init; the SetParent methods set a per-class value */
-    char unk3C[0x1C];
+    char unk3C[0x18];
+    cOmBase **parts;                    /* 0x54 part list, or 0 for the object's children */
     cGameObj *parent;                   /* 0x58 the link, also kept in cEmLinked.link */
 } cEmLinkStep;
+
+/* One tracked point (func_00107C68): its offset in the part and its world position. */
+typedef struct cPtRec {
+    cVec local;                         /* 0x00 point in the part's space */
+    char unk10[0x20];
+    cVec vel;                           /* 0x30 */
+    cVec pos;                           /* 0x40 world point */
+    cVec prev;                          /* 0x50 world point last frame */
+    char unk60[0x40];
+} cPtRec;
 
 typedef struct cEmLinked {
     cEm00 base;                         /* 0x0000 */
@@ -28,11 +41,13 @@ typedef struct cEmLinked {
 } cEmLinked;
 
 typedef char cEmLinkStep_size_check[(sizeof(cEmLinkStep) == 0x5C) ? 1 : -1];
+typedef char cPtRec_size_check[(sizeof(cPtRec) == 0xA0) ? 1 : -1];
 
 /* Runs the push step: the step work and the model it moves. */
 void func_00104010(void *self, void *work, void *model);
-/* Runs the step work against the model, as func_00104010 does (reads all three). */
-void func_00107C68(void *self, void *work, void *model);
+/* Snap each of work's points in rec to its part: world position from the part's matrix,
+ * the previous position set to it and the velocity cleared. */
+void func_00107C68(cOmBase *self, cEmLinkStep *work, cPtRec *rec);
 /* Point the push along the heading of the link's child 2 (or of the link), then run the step. */
 void func_00283AA8(cEmLinked *self);
 /* Runs the push step on the enemy's model. */

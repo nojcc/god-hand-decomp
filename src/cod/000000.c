@@ -18,7 +18,7 @@
 extern unsigned char *D_003C23A4;  /* 0x003C23A4: pointer in .data */
 extern char D_003C2555;                  /* 0x003C2555: 1-byte flag in .data */
 extern int D_00747A80;                   /* 0x00747A80: BSS word */
-extern int D_00747A98;                   /* 0x00747A98: BSS word */
+extern cGameObj *D_00747A98;             /* 0x00747A98: the jacket object */
 
 
 __attribute__((section(".text.Obj0000_Clear_Fields_50_To_7C_13C5C8")))
@@ -238,7 +238,7 @@ int Getplayer(void) {
 }
 
 __attribute__((section(".text.GetJacket")))
-int GetJacket(void) {
+cGameObj *GetJacket(void) {
     return D_00747A98;
 }
 

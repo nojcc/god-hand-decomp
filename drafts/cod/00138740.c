@@ -5,6 +5,7 @@
 #include "include_asm.h"
 #include "godhand/cCamera.h"
 #include "godhand/mtx.h"
+#include "godhand/sceVu0.h"
 
 #ifdef NON_MATCHING
 
@@ -14,7 +15,6 @@ extern float func_003A1AE8(float x);                                   /* tanf *
 extern void func_0030AA40(float *m, float scrz, float ax, float ay, float cx, float cy,
                           float zmin, float zmax, float nearz, float farz);   /* sceVu0ViewScreenMatrix */
 extern void func_0030A2E0(float *dst, float *a, float *b);              /* sceVu0MulMatrix */
-extern void sceVu0UnitMatrix(float *m);
 extern float capVu0Sin(float x);
 extern void cCamera_calcViewMatrix(struct cCamera *self);
 

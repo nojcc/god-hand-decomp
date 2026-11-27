@@ -3899,6 +3899,10 @@
       "compiler": "sn-2.95.3-136"
     },
     {
+      "path": "src/cod/00168560.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
       "path": "src/cod/001739a0.c",
       "compiler": "sn-2.95.3-136"
     },
@@ -7157,16 +7161,6 @@
       "fp_hazard_rules": "fdiv,mtc1"
     },
     {
-      "path": "src/cod/002ac6e0.c",
-      "compiler": "sn-2.95.3-136",
-      "fp_hazard_rules": "fdiv"
-    },
-    {
-      "path": "src/cod/002ac878.c",
-      "compiler": "sn-2.95.3-136",
-      "fp_hazard_rules": "fdiv"
-    },
-    {
       "path": "src/cod/002a48a8.c",
       "compiler": "sn-2.95.3-136",
       "fp_hazard_rules": "fdiv,mtc1"
@@ -8981,6 +8975,14 @@
       "path": "src/cod/0015a878.c",
       "compiler": "sn-2.95.3-136",
       "fp_hazard_rules": "div"
+    },
+    {
+      "path": "src/cod/0015a9a0.cc",
+      "compiler": "sn-2.95.3-136",
+      "fp_hazard_rules": "fdiv",
+      "c_flags_add": [
+        "-f=-fno-exceptions"
+      ]
     },
     {
       "path": "src/cod/00319520.c",
@@ -37983,14 +37985,6 @@
       "tu": "src/cod/003b0e30.c"
     },
     {
-      "name": "printfloat",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x003B0EF8",
-      "size": 472,
-      "lib": true,
-      "tu": "src/cod/003b0ef8.c"
-    },
-    {
       "name": "_sceSnprintf_pf",
       "unit": "asm/cod/000000",
       "vaddr": "0x003B1E90",
@@ -39522,6 +39516,20 @@
       "vaddr": "0x0015A878",
       "size": 296,
       "tu": "src/cod/0015a878.c"
+    },
+    {
+      "name": "Quaternion_SetCoordinateRotationZ",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0015A9A0",
+      "size": 512,
+      "tu": "src/cod/0015a9a0.cc"
+    },
+    {
+      "name": "func_0015ABA0",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0015ABA0",
+      "size": 512,
+      "tu": "src/cod/0015a9a0.cc"
     },
     {
       "name": "cOl1b_setCloseFix",
@@ -69141,6 +69149,14 @@
       "tu": "src/cod/003b0e68.c"
     },
     {
+      "name": "printfloat",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003B0EF8",
+      "size": 472,
+      "lib": true,
+      "tu": "src/cod/003b0ef8.c"
+    },
+    {
       "name": "sceSifResetIop",
       "unit": "asm/cod/000000",
       "vaddr": "0x003B60E8",
@@ -76470,6 +76486,13 @@
       "tu": "src/cod/0016ee10.c"
     },
     {
+      "name": "func_00168560",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00168560",
+      "size": 1160,
+      "tu": "src/cod/00168560.c"
+    },
+    {
       "name": "func_002BA540",
       "unit": "asm/cod/000000",
       "vaddr": "0x002BA540",
@@ -83041,20 +83064,6 @@
       "vaddr": "0x002AC650",
       "size": 144,
       "tu": "src/cod/00150418.c"
-    },
-    {
-      "name": "func_002AC6E0",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x002AC6E0",
-      "size": 404,
-      "tu": "src/cod/002ac6e0.c"
-    },
-    {
-      "name": "func_002AC878",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x002AC878",
-      "size": 320,
-      "tu": "src/cod/002ac878.c"
     },
     {
       "name": "Screen_closeAndRestorePlayer",

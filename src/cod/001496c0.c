@@ -11,6 +11,7 @@
 #include "godhand/cTaskWork.h"
 #include "godhand/espSys.h"
 #include "godhand/vtables.h"
+#include "godhand/sysFlags.h"
 
 extern void cModel_removeMesh(cModel *self);
 extern void func_00149E60(cModel *self);
@@ -100,19 +101,6 @@ void ScreenMarker_moveToWorldPos(DogRaceUi *self, cVec *world, int on) {
         func_001ED700(self, MARKER_ELEM, on);
     }
 }
-
-/* The system flag words from D_00747A78 on: the third one is at +8. */
-typedef struct SysFlagWords {
-    unsigned int f78;                   /* 0x747A78 */
-    unsigned int f7C;
-    unsigned int f80;                   /* 0x747A80 */
-} SysFlagWords;
-
-extern SysFlagWords D_00747A78;
-
-
-
-
 
 /* Enter the cut: next phase, freeze the game flags and the pad, run the cut task for this object and mark both the task and the scenario as soft events. */
 __attribute__((section(".text.cOmBase_startCutTask")))

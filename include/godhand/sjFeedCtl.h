@@ -40,10 +40,12 @@ typedef struct SjFeedCtl {
     int sampleRate;                     /* 0x2C from the header's sample-rate code */
     int bitRate;                        /* 0x30 from the header's frame-size code */
     int step;                           /* 0x34 bytes the source advances per block: the AC-3 frame length */
+    int bsmod;                          /* 0x38 the header's bitstream mode (low 3 bits of the bsid byte) */
 } SjFeedCtl;
 
 extern int ac3cnv_search_header(unsigned char *p, int n);
 extern int func_003BA3D8(SjFeedCtl *feed, unsigned char *hdr);
+extern int func_003BA4F8(SjFeedCtl *feed, unsigned char *hdr);
 extern int func_003BA5A0(SjFeedCtl *feed);
 extern int SjFeed_writeAll(SjFeedCtl *feed);
 

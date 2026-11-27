@@ -5,6 +5,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/effectPos.h"
 #include "godhand/pl00.h"
+#include "godhand/player.h"
 #include "godhand/vu0.h"
 #include "godhand/cGameObj.h"
 
@@ -15,7 +16,6 @@ extern void cEmWrap_SetVitalMax(void *wrap, int vital);
 extern void cEmWrap_SetVital(void *wrap, int vital);
 extern void cEmWrap_StartAction(void *wrap);
 extern int cRoomSave_clearEmDeadFlag(void *self, int id);
-extern cGameObj *GetJacket(void);
 extern int cSnd_SeCall(void *a0, int a1, int a2, void *a3, int a4, int a5);
 
 #define ARENA_PHASE_DEFEAT    0

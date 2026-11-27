@@ -4,6 +4,7 @@
  * and 0xFFFFFF masks inside the loops; its fill loop also carries the
  * short-loop nops neither assembler adds to this C. */
 #include "include_asm.h"
+#include "godhand/libm.h"
 
 #ifdef NON_MATCHING
 
@@ -22,7 +23,6 @@ typedef struct ClutGrad {
 } ClutGrad;
 
 extern void SortPair_quicksort(short *key, int *val, int lo, int hi);
-extern float func_003A1F38(float x, float y);
 
 /* Build a 256-entry palette from the sorted colour keys (placed along a gamma
  * curve) and then the alpha keys. In mode 1 every eighth entry is fill and the

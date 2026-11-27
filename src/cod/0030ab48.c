@@ -1,4 +1,5 @@
 #include "godhand/vu0.h"
+#include "godhand/sceVu0.h"
 
 /* sceVu0RotTransPers — VU0 4x4 matrix * vector with perspective divide, converting
  * the result to fixed-point.  Transforms the vector (a2) by the matrix (a1),

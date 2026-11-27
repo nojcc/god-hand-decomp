@@ -6,6 +6,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/DispMgr.h"
 #include "godhand/globals.h"
+#include "godhand/mtx.h"
 
 extern void SetCustomIDDispOneOrAll_1F29C0(void *self, int sel, int on);
 extern void cSndSeVoice_CheckEnd(cSnd *self, int slot);

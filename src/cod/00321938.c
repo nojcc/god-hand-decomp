@@ -5,7 +5,7 @@
  * p into *val and returns the pointer past the last byte consumed. */
 
 __attribute__((section(".text.decode_uleb128")))
-unsigned char *decode_uleb128(unsigned char *p, int *val) {
+unsigned char *decode_uleb128(unsigned char *p, unsigned int *val) {
     int sh = 0, r;
     unsigned char b;
     b = *p;

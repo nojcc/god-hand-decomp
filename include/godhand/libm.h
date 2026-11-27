@@ -8,4 +8,7 @@ float func_003A1B78(float x);
 /* Square root; __builtin_sqrtf gives the inline sqrt.s. */
 float sqrtf(float x);
 
+/* powf: x to the power y (newlib's wrapper; its error record names "powf"). */
+float func_003A1F38(float x, float y);
+
 #endif

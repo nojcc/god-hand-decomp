@@ -17,7 +17,7 @@ typedef struct dwarf_fde {
 typedef struct cie_info {
     char *augmentation;                 /* 0x00 */
     void *eh_ptr;                       /* 0x04 */
-    int code_align;                     /* 0x08 */
+    unsigned int code_align;            /* 0x08 */
     int data_align;                     /* 0x0C */
     unsigned int ra_regno;              /* 0x10 */
 } CieInfo;
@@ -55,7 +55,7 @@ void *execute_cfa_insn(void *insn, FrameStateInternal *state, CieInfo *info, voi
 /* The frame state for the code at pc_target, into state_in; 0 when no FDE covers it. */
 FrameState *__frame_state_for(void *pc_target, FrameState *state_in);
 /* Read an unsigned LEB128 value into *val; returns the byte after it (frame.c decode_uleb128). */
-unsigned char *decode_uleb128(unsigned char *p, int *val);
+unsigned char *decode_uleb128(unsigned char *p, unsigned int *val);
 
 struct object {
     void *pc_begin;                     /* 0x00 nonzero once the sorted array was built */

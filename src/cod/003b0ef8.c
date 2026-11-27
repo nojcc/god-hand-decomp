@@ -1,10 +1,6 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/sceSnprintf.h"
 
-extern char D_0045FE60[];           /* "0.%d" */
-extern char D_0045FE68[];           /* "e+%d" */
-extern char D_0045FE70[];           /* "e%d" */
-
 /* Print d through put as a sign, "0." and six mantissa digits, then "e" and the
  * decimal exponent; returns the number of characters. The mantissa goes to ftoi
  * converted to an integer, which ftoi then reads as the bits of a double. */

@@ -29,6 +29,8 @@ extern int pl00_CkSubScreen(pl00 *pl);
 extern int func_0012BAF0(pl00 *pl);
 
 extern cGameObj *Getplayer(void);
+/* The jacket object, 0 while there is none. */
+extern cGameObj *GetJacket(void);
 extern cGameObj *CreateObj(int kind, int dataId);
 extern void ReleaseObj(char *obj);
 /* Start the thrown object obj for move type `type`, moving along speed. owner

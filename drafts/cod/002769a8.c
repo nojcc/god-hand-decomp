@@ -3,6 +3,7 @@
 #include "godhand/cOmBase.h"
 #include "godhand/cModel.h"
 #include "godhand/vu0.h"
+#include "godhand/cEmLinked.h"
 
 #define HELD_FOLLOW_CHILD   0x02        /* flags: move the parts by the child-to-child offset */
 #define CMODEL_F_HIDE       0x10
@@ -31,7 +32,6 @@ typedef struct cHeldFrame {
 #define HELDFRAME_OFFSET(field) ((int)&((cHeldFrame *)0)->field)
 
 extern int D_00747A78;
-extern void func_00107C68(void *self, void *a1, void *a2);
 extern void func_00276DC8(cHeldModel *self);
 
 /* Moves the model with its holder: optional child offset, then position, rotation, alpha and the visibility flags. */
@@ -72,7 +72,7 @@ void func_002769A8(cHeldModel *self)
                 p->mtx[14] += f.ofs.z;
                 p = p->next;
             }
-            func_00107C68(self, self->work2130, &self->unk2E4);
+            func_00107C68((cOmBase *)self, (cEmLinkStep *)self->work2130, (cPtRec *)&self->unk2E4);
         }
     }
     if (self->holder != 0) {

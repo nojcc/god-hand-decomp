@@ -10,8 +10,9 @@ extern int CreateSema(struct SemaParam *p);
 /* ee-2.9-991111 */
 
 __attribute__((section(".text.snprintf_char")))
-int snprintf_char(char **pp, int *pn, int c)
+int snprintf_char(void *arg, int *pn, int c)
 {
+    char **pp = arg;
     char *p;
     if (*pn == 0)
         return 1;

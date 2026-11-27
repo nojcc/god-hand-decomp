@@ -194,5 +194,8 @@ typedef char cWorldLight_lightDir_check[WORLDLIGHT_OFFSET(lightDir) == 0x161A0 ?
     (*(T *)((char *)(self) + WORLDLIGHT_OFFSET(field)))
 
 void cWorldLight_savePreset(cWorldLight *self, cWorldLightPreset *dst, cWorldLight *src);
+/* Resets the world light: saves the settings to the backup copy, clears all
+ * lights, sets the ambient colour and adds one default light. */
+void func_002D9778(cWorldLight *self);
 
 #endif

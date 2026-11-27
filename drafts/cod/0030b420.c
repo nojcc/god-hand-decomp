@@ -10,6 +10,7 @@
 #include "godhand/cDamageManage.h"
 #include "godhand/cDvd.h"
 #include "godhand/cMovie.h"
+#include "godhand/vblank.h"
 typedef struct GameWork {
     char pad000[0x584];
     unsigned int flags;         /* 0x584 */
@@ -33,7 +34,6 @@ extern char D_00586AF0[];
 extern void *D_003C2F84;
 extern char D_005CAE50[];
 extern char D_00604700[];
-extern int D_00753D80;
 
 extern void func_003A6A20(const char *s);
 extern int sceGsSyncV(int mode);

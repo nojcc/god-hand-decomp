@@ -93,6 +93,8 @@
 !include/godhand/mmi.h
 !include/godhand/mul64.h
 !include/godhand/vu0.h
+!include/godhand/vblank.h
+!include/godhand/shadowPacket.h
 !include/include_asm.h
 !include/labels.inc
 !include/macro.inc
@@ -281,6 +283,7 @@
 !src/cod/0015f0b8.c
 !src/cod/0015fba8.c
 !src/cod/001684d8.c
+!src/cod/00168560.c
 !src/cod/0016f3b0.c
 !src/cod/0016f698.c
 !src/cod/0016f988.c
@@ -1778,8 +1781,6 @@
 !src/cod/00213ea8.c
 !src/cod/00172570.c
 !src/cod/002ac5b0.c
-!src/cod/002ac6e0.c
-!src/cod/002ac878.c
 !src/cod/002a48a8.c
 !src/cod/00138470.c
 !src/cod/001fa080.c
@@ -2131,6 +2132,7 @@
 !src/cod/003a8048.c
 !src/cod/003ae1d0.c
 !src/cod/0015a878.c
+!src/cod/0015a9a0.cc
 !src/cod/003ae730.c
 !src/cod/00319520.c
 !src/cod/0010b9c0.c
@@ -2593,6 +2595,7 @@
 !src/cod/003b5120.c
 !src/cod/003b6738.c
 !src/cod/003b0e68.c
+!src/cod/003b0ef8.c
 !src/cod/003b60e8.c
 !src/cod/0035a128.c
 !src/cod/0035d828.c
@@ -3500,6 +3503,7 @@
 !include/godhand/espSys.h
 !include/godhand/flagList.h
 !include/godhand/gameWork.h
+!include/godhand/sysFlags.h
 !include/godhand/mdlPkt.h
 !include/godhand/menuCtl.h
 !include/godhand/motion.h
@@ -4452,7 +4456,6 @@
 !src/cod/0038f200.c
 !src/cod/0039ccc0.c
 !src/cod/003a0018.c
-!src/cod/003b0ef8.c
 !src/cod/003b21d0.c
 !src/cod/003b3650.c
 !src/cod/003b3f50.c
@@ -4507,6 +4510,7 @@
 !include/godhand/cIDObj.h
 !include/godhand/cSubScrMenu.h
 !include/godhand/cSubScrOption.h
+!include/godhand/cSubScrShopMain.h
 !include/godhand/cObjGround.h
 !include/godhand/cPathMover.h
 !include/godhand/cShopPanel.h

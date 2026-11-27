@@ -14,5 +14,5 @@ __attribute__((section(".text.func_003B1EE0")))
 int func_003B1EE0(char *buf, int n, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    return _sceSnprintf((SceSnprintfPut)snprintf_char, &buf, n, fmt, ap);
+    return _sceSnprintf(snprintf_char, &buf, n, fmt, ap);
 }
