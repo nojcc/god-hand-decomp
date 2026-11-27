@@ -5,7 +5,7 @@ extern "C" {
 #include "godhand/sceVu0.h"
 #include "godhand/mtx.h"
 
-/* *r = a x b, with w = 1. */
+/* *r = a x b, with w = 1. A file-local inline: no header has a cross product helper. */
 static __inline__ void cVec_cross(cVec *r, cVec *a, cVec *b)
 {
     r->x = a->y * b->z - a->z * b->y;
@@ -23,7 +23,7 @@ void Quaternion_SetCoordinateRotationZ(cVec *q, cVec *dirZ, cVec *up)
 
     CVEC_COPY(z, dirZ);
     cVec x;
-    {
+    {   /* C++ scope: the next block reuses t and u's slots (as C: frame 0xF0 not 0xD0, 92 off) */
         cVec t;
         cVec u;
 
@@ -32,7 +32,7 @@ void Quaternion_SetCoordinateRotationZ(cVec *q, cVec *dirZ, cVec *up)
         CVEC_COPY(x, &u);
     }
     cVec y;
-    {
+    {   /* the slots of the block above */
         cVec t;
         cVec u;
 
@@ -63,7 +63,7 @@ void func_0015ABA0(cVec *q, cVec *xdir, cVec *dirZ)
 
     CVEC_COPY(z, dirZ);
     cVec y;
-    {
+    {   /* C++ scope: the next block reuses t and u's slots (as C: frame 0xF0 not 0xD0, 94 off) */
         cVec t;
         cVec u;
 
@@ -72,7 +72,7 @@ void func_0015ABA0(cVec *q, cVec *xdir, cVec *dirZ)
         CVEC_COPY(y, &u);
     }
     cVec x;
-    {
+    {   /* the slots of the block above */
         cVec t;
         cVec u;
 

@@ -2080,7 +2080,7 @@ extern char D_00460900[];
 extern char D_00460928[];
 extern int D_00460950;
 extern char D_00460A00[];
-extern char D_00460A38[];
+extern const char D_00460A38[];    /* "E03032409 : Transmission of input data has failed." */
 extern char D_00460A70[];
 extern int D_00460AA8;
 extern char D_00460AD0[];
