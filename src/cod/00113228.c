@@ -4,6 +4,7 @@
 #include "godhand/pl00Fn.h"
 #include "godhand/capVu0.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 extern void cEmManage_SetSlotWait(void *a0, int a1);
 extern void cEmManage_SetPlCatched(void *a0);

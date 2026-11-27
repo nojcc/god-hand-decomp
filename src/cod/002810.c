@@ -1,7 +1,7 @@
 /* ee-2.9-991111 matched TU. */
 #include "godhand/cEm00.h"
 #include "godhand/cGameObjFn.h"
-
+#include "godhand/cObj.h"
 /* Mode, phase, step and step argument all 0. */
 __attribute__((section(".text.func_00281260")))
 void func_00281260(cGameObj *self)

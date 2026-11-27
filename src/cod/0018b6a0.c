@@ -1,5 +1,6 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cDamageManage.h"
+#include "godhand/cGameObj.h"
 
 extern int cOmBase_checkDamage();
 extern int ClearStateAndFlag_1C7E08();
@@ -12,11 +13,11 @@ extern char D_00423AB8[];
 
 
 __attribute__((section(".text.func_0018B6A0")))
-void func_0018B6A0(void *a0) {
+void func_0018B6A0(cGameObj *a0) {
     int v1;
     v1 = cOmBase_checkDamage(a0, *(int *)((char*)a0 + 0x650));
     if (v1 == 1) {
-        if (*(short *)((char*)a0 + 0x54A) <= 0) {
+        if (a0->hp <= 0) {
             int v3 = *(int *)((char*)a0 + 0x5B0);
             *(char *)((char*)a0 + 0x2F4) = 2;
             *(char *)((char*)a0 + 0x2F5) = 0;
@@ -46,7 +47,7 @@ void func_0018BF40(void *a0) {
     if (*(int*)((char*)a0 + 0x650) != 0) {
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)((char*)a0 + 0x650), 0);
     }
-    func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
+    cCollisionScroll_SetCollEnableByName((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
 }
 
@@ -72,11 +73,11 @@ void func_0018C120(void *a0, void *a1) {
 
 
 __attribute__((section(".text.func_0018C4A8")))
-void func_0018C4A8(void *a0) {
+void func_0018C4A8(cGameObj *a0) {
     int v1;
     v1 = cOmBase_checkDamage(a0, *(int *)((char*)a0 + 0x650));
     if (v1 == 1) {
-        if (*(short *)((char*)a0 + 0x54A) <= 0) {
+        if (a0->hp <= 0) {
             int v3 = *(int *)((char*)a0 + 0x5B0);
             *(char *)((char*)a0 + 0x2F4) = 2;
             *(char *)((char*)a0 + 0x2F5) = 0;
@@ -106,7 +107,7 @@ void func_0018CD48(void *a0) {
     if (*(int*)((char*)a0 + 0x650) != 0) {
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)((char*)a0 + 0x650), 0);
     }
-    func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
+    cCollisionScroll_SetCollEnableByName((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
 }
 
@@ -132,11 +133,11 @@ void func_0018CF28(void *a0, void *a1) {
 
 
 __attribute__((section(".text.func_0018D298")))
-void func_0018D298(void *a0) {
+void func_0018D298(cGameObj *a0) {
     int v1;
     v1 = cOmBase_checkDamage(a0, *(int *)((char*)a0 + 0x650));
     if (v1 == 1) {
-        if (*(short *)((char*)a0 + 0x54A) <= 0) {
+        if (a0->hp <= 0) {
             int v3 = *(int *)((char*)a0 + 0x5B0);
             *(char *)((char*)a0 + 0x2F4) = 2;
             *(char *)((char*)a0 + 0x2F5) = 0;
@@ -166,7 +167,7 @@ void func_0018DB00(void *a0) {
     if (*(int*)((char*)a0 + 0x650) != 0) {
         cDamageUnit_SetDamageCollActive(*(cDamageUnit **)((char*)a0 + 0x650), 0);
     }
-    func_001331B8((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
+    cCollisionScroll_SetCollEnableByName((int)&D_005CAE50, *(double*)((char*)a0 + 0x540), 0);
     ClearStateAndFlag_1C7E08(a0);
 }
 
@@ -192,11 +193,11 @@ void func_0018DCE0(void *a0, void *a1) {
 
 
 __attribute__((section(".text.func_0018E050")))
-void func_0018E050(void *a0) {
+void func_0018E050(cGameObj *a0) {
     int v1;
     v1 = cOmBase_checkDamage(a0, *(int *)((char*)a0 + 0x650));
     if (v1 == 1) {
-        if (*(short *)((char*)a0 + 0x54A) <= 0) {
+        if (a0->hp <= 0) {
             int v3 = *(int *)((char*)a0 + 0x5B0);
             *(char *)((char*)a0 + 0x2F4) = 2;
             *(char *)((char*)a0 + 0x2F5) = 0;

@@ -1,3 +1,4 @@
+#include "godhand/cGameObj.h"
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/player.h"
 #include "godhand/cEm00.h"
@@ -6,11 +7,6 @@ extern float capVu0MagnitudeSqXZ(void *a0, void *a1);
 extern void cEm00_setGoto(void *a0, int a1, int a2, int a3, float f);
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
-
-
 __attribute__((section(".text.func_0026E588")))
 int func_0026E588(cEm00 *self) {
     if (0.0f < self->slideTime) return 0;

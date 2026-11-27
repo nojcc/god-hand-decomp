@@ -3055,6 +3055,11 @@
 !include/godhand/Slot2.h
 !include/godhand/cModel.h
 !include/godhand/cEmSetParam.h
+!include/godhand/sfxalp.h
+!include/godhand/cCollisionScroll.h
+!include/godhand/adxbPrm.h
+!include/godhand/SubSlotTable.h
+!include/godhand/HitNode.h
 !include/godhand/StreamBuf.h
 !include/godhand/SpritePacket.h
 !include/godhand/PadRec.h
@@ -5216,3 +5221,15 @@
 !include/godhand/cCockScroll.h
 !include/godhand/cCockAlert.h
 !include/godhand/cCockGameOver.h
+!src/cod/0012bab8.c
+!src/cod/00332508.c
+!src/cod/0036cb98.c
+!src/cod/001331b8.c
+!src/cod/0035a8a8.c
+!src/cod/002bbdb8.c
+!src/cod/001b57e8.c
+!src/cod/001bcd70.c
+!src/cod/0035ffb0.c
+!src/cod/003219d0.c
+!src/cod/00178e18.c
+!src/cod/003bb058.c

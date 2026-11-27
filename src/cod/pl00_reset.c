@@ -12,7 +12,6 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void func_00126770(void *a0);
 extern void IK_InverseKinematics(void *a0, void *a1);
 extern void func_001CF3A8(void *a0);
-
 /* Player reset: clear the state bytes, restart motion 0x28/0x2C, rebuild the model
  * (move, calcParts, IK, calcWorldParts) and the weapon in hand, fix unk15F4, leave heat
  * mode and clear the catch target (unk640). */

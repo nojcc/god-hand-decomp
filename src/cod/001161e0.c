@@ -4,10 +4,10 @@ extern void func_001268F0(void *a0);
 #include "godhand/motion.h"
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
+#include "godhand/cGameObj.h"
 extern void func_00124EC0(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
-
 __attribute__((section(".text.UpdateAttackState2F6_1161E0")))
 void UpdateAttackState2F6_1161E0(pl00 *self) {
     int v0;

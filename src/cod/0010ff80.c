@@ -4,6 +4,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 extern void func_00126770(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
@@ -11,7 +12,6 @@ extern float *cGameObj_findBurningPos(void *a0);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);
 extern void func_0012A3C0(void *a0);
-
 __attribute__((section(".text.func_0010FF80")))
 void func_0010FF80(pl00 *self)
 {

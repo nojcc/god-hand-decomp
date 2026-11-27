@@ -4,6 +4,7 @@
 #include "godhand/pl00Fn.h"
 #include "godhand/capVu0.h"
 #include "godhand/motion.h"
+#include "godhand/cGameObj.h"
 
 /* L1 w34 parked: 216/225 EXACT, insn delta -1, needs --assembler sn (ps2eeas supplies the mtc1 nop at .L0010E2EC). Residue: flag copy daddu $a0,$v0 (R allocated $v0 here), beqzl for beqz at 0x0010E334 (follows the flag register), mov.s $f12 placement before the func_002A8578 call. Edits this wave: int one = 1 hoisted, extern int func_00124540, stores 15C4/15B0 first. */
 /* func_0010E230 — 0x0010E230, 900 B — sn-2.95.3-136. */
@@ -26,7 +27,6 @@ static __inline__ long InMidRange(unsigned short k, int lo, int hi)
     }
     return c;
 }
-
 __attribute__((section(".text.func_0010E230")))
 void func_0010E230(pl00 *self)
 {

@@ -3,6 +3,7 @@
 #include "godhand/pl00Fn.h"
 #include "godhand/motion.h"
 #include "godhand/player.h"
+#include "godhand/cGameObj.h"
 
 extern void func_0012B928(void *a0);
 extern void CallWithAndClearField698_12AC28(void *a0);
@@ -13,7 +14,6 @@ extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cEmManage_SetSpeedRate(void *a0, float f12);
 extern char D_005864F0[];
-
 __attribute__((section(".text.func_00114120")))
 void func_00114120(pl00 *self)
 {

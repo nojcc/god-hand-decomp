@@ -4,6 +4,7 @@ extern void func_001268F0(void *a0);
 #include "godhand/motion.h"
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
+#include "godhand/cGameObj.h"
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);

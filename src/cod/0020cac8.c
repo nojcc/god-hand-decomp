@@ -2,10 +2,10 @@
 #include "godhand/cCoreSave.h"
 #include "godhand/cEm00Fn.h"
 #include "godhand/player.h"
+#include "godhand/cGameObj.h"
 
 extern int irand(void);
 extern int Obj0000_Get_Field_5FC_NE_Zero_12C748(void *a0);
-
 /* Put the enemy in phase 0x46 when its enemy number allows it, it has hp kept
  * back, the last hit was of kind 0x17, 0x18 or 0x1B and the game-level dice
  * agree (force == 1 skips the dice); 1 when it did. */

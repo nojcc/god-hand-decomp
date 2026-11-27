@@ -4,7 +4,7 @@
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
 #include "godhand/globals.h"
-
+#include "godhand/cObj.h"
 __attribute__((section(".text.UpdateStatePhase2F6_10CC58")))
 void UpdateStatePhase2F6_10CC58(pl00 *self) {
     int v0;

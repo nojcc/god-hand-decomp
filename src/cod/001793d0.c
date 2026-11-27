@@ -4,6 +4,7 @@
 #include "godhand/cSnd.h"
 #include "godhand/Poker.h"
 #include "godhand/cDamageUnitFn.h"
+#include "godhand/cObj.h"
 
 extern void func_003057D0(void *a, int b, int c);
 extern void espSys_effDataRelease(void *a, int b);
@@ -20,11 +21,10 @@ extern void cIDBase_restartAnim(void *p);
 extern void CustomIDWork_SetNumber_1DD218(void *p, int n);
 extern void func_001DD238(void *p, int n);
 extern char *Getplayer(void);
-
 __attribute__((section(".text.func_001793D0")))
-void func_001793D0(char *p)
+void func_001793D0(cObj *p)
 {
-    int st = *(unsigned char *)(p + 0x2F5);
+    int st = p->phase;
     int n;
 
     if (st == 0) goto init;
@@ -32,18 +32,18 @@ void func_001793D0(char *p)
     return;
 init:
     cSnd_SeCall_2CBA48(&D_005FEE00, 2, 2, (cObj *)p, 0, 0, 0, 0);
-    *(short *)(p + 0x654) = 0xF;
-    *(char *)(p + 0x2F5) = 1;
-    *(char *)(p + 0x2F6) = 0;
-    *(char *)(p + 0x2F7) = 0;
+    *(short *)((char *)p + 0x654) = 0xF;
+    *(char *)((char *)p + 0x2F5) = 1;
+    *(char *)((char *)p + 0x2F6) = 0;
+    *(char *)((char *)p + 0x2F7) = 0;
 tick:
-    n = *(unsigned short *)(p + 0x654) - 1;
-    *(short *)(p + 0x654) = n;
+    n = *(unsigned short *)((char *)p + 0x654) - 1;
+    *(short *)((char *)p + 0x654) = n;
     if ((short)n <= 0) {
-        *(char *)(p + 0x2F4) = 0;
-        *(char *)(p + 0x2F5) = 0;
-        *(char *)(p + 0x2F6) = 0;
-        *(char *)(p + 0x2F7) = 0;
+        *(char *)((char *)p + 0x2F4) = 0;
+        *(char *)((char *)p + 0x2F5) = 0;
+        *(char *)((char *)p + 0x2F6) = 0;
+        *(char *)((char *)p + 0x2F7) = 0;
     }
 }
 

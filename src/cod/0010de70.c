@@ -4,12 +4,11 @@
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
 #include "godhand/capVu0.h"
+#include "godhand/cGameObj.h"
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void func_0010A438(void *a0);
-
-
 __attribute__((section(".text.func_0010DE70")))
 void func_0010DE70(pl00 *self)
 {

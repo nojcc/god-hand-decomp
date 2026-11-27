@@ -6,6 +6,7 @@ extern float SetMotionStep(void *a0, float f12);
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
 #include "godhand/cModel.h"
+#include "godhand/cGameObj.h"
 extern float Adjust_theta(float f12);
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float f);
 extern void cObjBase_addNullSpeed(void *a0, float f);

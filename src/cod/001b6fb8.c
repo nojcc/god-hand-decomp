@@ -5,13 +5,13 @@
 #include "godhand/cModel.h"
 #include "godhand/DispMgr.h"
 #include "godhand/globals.h"
+#include "godhand/cGameObj.h"
 
 extern int SearchData(int a0, void *a1, int a2);
 extern int cModel_setupModel(void *a0, int a1, int a2, int a3, int a4);
 extern void cOmBase_setTexChange(void *a0, int a1);
 extern void cParts_setRotationOrder(void *a0, int a1);
 extern void func_00147C88(void *a0, void *a1, int a2);
-
 __attribute__((section(".text.func_001B6FB8")))
 int func_001B6FB8(void *a0)
 {

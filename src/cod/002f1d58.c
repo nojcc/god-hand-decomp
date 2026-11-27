@@ -1,6 +1,7 @@
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cNodeFn.h"
 #include "godhand/globals.h"
+#include "godhand/cObj.h"
 
 extern int D_00741DC8;
 extern void StoreVecFromFieldB0_2B6160(void *dst, void *self);
@@ -11,22 +12,6 @@ extern void func_002D9F68(void *, int, ...);
 extern void func_0014D7D0(void *a0);
 
 /* sn-2.95.3-136 matched TU. */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 __attribute__((section(".text.func_002F1D58")))
 int func_002F1D58(char *o, char *src) {
     float v[4];

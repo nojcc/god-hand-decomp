@@ -1,3 +1,4 @@
+#include "godhand/cGameObj.h"
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/cEm00.h"
 #include "godhand/cOmWeaponFn.h"
@@ -6,7 +7,6 @@
 
 extern void func_001D0AD0(cOmWeapon *self);
 extern void cEm00_setGoto(cEm00 *self, cVec *pos, int kind, int reset, float time);
-
 __attribute__((section(".text.func_00272588")))
 int func_00272588(cEm00 *self) {
     if (self->unk6EC != 0) {

@@ -42,10 +42,10 @@ void pl00_SubscreenMode(void *a0, int a1) {
 
 __attribute__((section(".text.pl00_SubscreenMotSet")))
 void pl00_SubscreenMotSet(void *a0, int a1) {
-    char *s0 = (char *)a0;
+    pl00 *s0 = a0;
     func_001269E0(a0, a1, 1);
-    *(unsigned char *)(s0 + 0x2F4) = 5;
-    *(unsigned char *)(s0 + 0x2F6) = 2;
-    *(unsigned char *)(s0 + 0x2F5) = 0;
-    *(unsigned char *)(s0 + 0x2F7) = 0;
+    s0->base.mode = 5;
+    s0->base.step = 2;
+    s0->base.phase = 0;
+    s0->base.stepArg = 0;
 }

@@ -1,3 +1,5 @@
+#include "godhand/cObj.h"
+#include "godhand/cGameObj.h"
 /* sn-2.95.3-136 matched TU. */
 #include "godhand/gameWork.h"
 
@@ -5,7 +7,6 @@ extern char *D_00754C38;
 extern char *D_00754C30;
 extern char D_0061B644;
 extern unsigned int D_00747A78;
-
 __attribute__((section(".text.setColorScrollLayer")))
 void setColorScrollLayer(int id, float r, float g, float b) {
     char **a2;
@@ -47,24 +48,24 @@ void classPAD_WORK_Pad_act_set(char *o, unsigned int v, unsigned int w) {
 }
 
 __attribute__((section(".text.func_001D0090")))
-void func_001D0090(char *o, int v) {
-    float *d = (float *)(o + 0x490);
-    char *n = *(char **)(o + 0x600);
+void func_001D0090(cObj *o, int v) {
+    float *d = (float *)((char *)o + 0x490);
+    char *n = *(char **)((char *)o + 0x600);
     unsigned int f;
     if (n != 0) {
         float *s = *(float **)(n + 0xF0);
         if (d != s) { d[0] = s[0]; d[1] = s[1]; d[2] = s[2]; }
     }
-    *(float *)(o + 0x24C) = 1.0f;
-    f = *(unsigned int *)(o + 0x250) & 0xFFFFFFEFU;
-    *(unsigned int *)(o + 0x250) = f;
-    *(int *)(o + 0x670) = v;
-    *(unsigned char *)(o + 0x2F5) = 0xF;
-    *(int *)(o + 0x600) = 0;
-    *(int *)(o + 0x630) = 0;
-    *(unsigned char *)(o + 0x2F4) = 0;
-    *(unsigned char *)(o + 0x2F6) = 0;
-    *(unsigned char *)(o + 0x2F7) = 0;
+    *(float *)((char *)o + 0x24C) = 1.0f;
+    f = *(unsigned int *)((char *)o + 0x250) & 0xFFFFFFEFU;
+    *(unsigned int *)((char *)o + 0x250) = f;
+    *(int *)((char *)o + 0x670) = v;
+    o->phase = 0xF;
+    *(int *)((char *)o + 0x600) = 0;
+    *(int *)((char *)o + 0x630) = 0;
+    o->mode = 0;
+    o->step = 0;
+    o->stepArg = 0;
 }
 
 /* compiler: sn-2.95.3-136 ; extra keys: none */

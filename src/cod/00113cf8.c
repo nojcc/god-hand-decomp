@@ -8,13 +8,13 @@ extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 #include "godhand/motion.h"
 #include "godhand/cEm00.h"
 #include "godhand/pl00Fn.h"
+#include "godhand/cGameObj.h"
 extern void func_00124EC0(void *a0);
 
 extern void cObjBase_addNullSpeed_Rotation(void *a0, float a1);
 extern void cObjBase_addNullSpeed(void *a0, float a1);
 extern void cEmManage_SetSpeedRate(void *a0, float a1);
 extern int D_005864F0;
-
 __attribute__((section(".text.func_00113CF8")))
 void func_00113CF8(pl00 *self)
 {

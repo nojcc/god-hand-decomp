@@ -13,7 +13,7 @@ struct ThrowerObj;
 extern char D_005CAE50[];
 extern void func_001268F0(int *p);
 extern void cOm_attachThrown(struct ThrowerObj *self);
-extern void func_001331B8(void *a0, long a1, int a2);
+extern void cCollisionScroll_SetCollEnableByName(void *a0, long a1, int a2);
 extern void func_00124EC0(void *a0);
 extern void pl00_clearMotionCam(void *a0, int a1, int a2);
 
@@ -69,7 +69,7 @@ void func_00115310(pl00 *self)
             if (self->sub6A0 != 0) {
                 func_002A8578(self->sub6A0, motionBlock_at(self->base.pack, 0x378),
                               motionBlock_at(self->base.pack, 0x394), 0, 0.0f, 0, 0);
-                func_001331B8(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
+                cCollisionScroll_SetCollEnableByName(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
             }
             func_002A8578(self, motionBlock_at(self->base.pack, 0x35C),
                           motionBlock_at(self->base.pack, 0x360), 0, 0.0f, 0, 0);
@@ -80,7 +80,7 @@ void func_00115310(pl00 *self)
             if (self->sub6A0 != 0) {
                 func_002A8578(self->sub6A0, motionBlock_at(self->base.pack, 0x6E8),
                               motionBlock_at(self->base.pack, 0x6EC), 0, 0.0f, 0, 0);
-                func_001331B8(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
+                cCollisionScroll_SetCollEnableByName(D_005CAE50, ((cOmBase *)self->sub6A0)->modelHandle, 0);
             }
             func_002A8578(self, motionBlock_at(self->base.pack, 0x6E0),
                           motionBlock_at(self->base.pack, 0x6E4), 0, 0.0f, 0, 0);

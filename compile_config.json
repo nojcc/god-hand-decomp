@@ -19686,6 +19686,69 @@
       "extern_jtbl": [
         "D_00443A80"
       ]
+    },
+    {
+      "path": "src/cod/0012bab8.c",
+      "compiler": "sn-2.95.3-136",
+      "call_loop_pad": true
+    },
+    {
+      "path": "src/cod/00332508.c",
+      "compiler": "cygnus-2.96",
+      "c_flags_drop": [
+        "-f=-freorder-blocks"
+      ]
+    },
+    {
+      "path": "src/cod/0036cb98.c",
+      "compiler": "cygnus-2.96"
+    },
+    {
+      "path": "src/cod/0015fcb8.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/001331b8.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/0035a8a8.c",
+      "compiler": "cygnus-2.96"
+    },
+    {
+      "path": "src/cod/002bbdb8.c",
+      "compiler": "sn-2.95.3-136",
+      "fp_hazard_rules": "fdiv"
+    },
+    {
+      "path": "src/cod/001b57e8.c",
+      "compiler": "sn-2.95.3-136",
+      "c_flags_add": [
+        "-f=-fno-gcse"
+      ]
+    },
+    {
+      "path": "src/cod/001bcd70.c",
+      "compiler": "sn-2.95.3-136",
+      "c_flags_add": [
+        "-f=-fno-gcse"
+      ]
+    },
+    {
+      "path": "src/cod/0035ffb0.c",
+      "compiler": "cygnus-2.96"
+    },
+    {
+      "path": "src/cod/003219d0.c",
+      "compiler": "ee-2.9-991111"
+    },
+    {
+      "path": "src/cod/00178e18.c",
+      "compiler": "sn-2.95.3-136"
+    },
+    {
+      "path": "src/cod/003bb058.c",
+      "compiler": "sn-2.95.3-136"
     }
   ],
   "_carved_funcs_doc": [
@@ -24636,6 +24699,13 @@
       "tu": "src/cod/000000.c"
     },
     {
+      "name": "CFT_MakeArgb8888AlpLumiTbl",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00365EC0",
+      "size": 592,
+      "tu": "src/cod/00365ec0.c"
+    },
+    {
       "name": "Obj0000_Get_D_003F1FF0_36CCA8",
       "unit": "asm/cod/000000",
       "vaddr": "0x0036CCA8",
@@ -24844,6 +24914,13 @@
       "vaddr": "0x0035F958",
       "size": 20,
       "tu": "src/cod/000000.c"
+    },
+    {
+      "name": "func_0035F970",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0035F970",
+      "size": 276,
+      "tu": "src/cod/0035f970.c"
     },
     {
       "name": "Obj0000_Set_Field_80_372C68",
@@ -28404,6 +28481,13 @@
       "vaddr": "0x0033D578",
       "size": 32,
       "tu": "src/cod/00138528.c"
+    },
+    {
+      "name": "ADXB_EndDecode",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0033D598",
+      "size": 392,
+      "tu": "src/cod/0033d598.c"
     },
     {
       "name": "Forward33B658_33E678",
@@ -35982,7 +36066,8 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x0035A8A8",
       "size": 60,
-      "lib": true
+      "lib": true,
+      "tu": "src/cod/0035a8a8.c"
     },
     {
       "name": "SFD_GetTime",
@@ -37985,6 +38070,14 @@
       "tu": "src/cod/003b0e30.c"
     },
     {
+      "name": "printfloat",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003B0EF8",
+      "size": 472,
+      "lib": true,
+      "tu": "src/cod/003b0ef8.c"
+    },
+    {
       "name": "_sceSnprintf_pf",
       "unit": "asm/cod/000000",
       "vaddr": "0x003B1E90",
@@ -39445,7 +39538,7 @@
       "unit": "asm/cod/000000",
       "vaddr": "0x0012BAB8",
       "size": 52,
-      "tu": "src/cod/000000.c"
+      "tu": "src/cod/0012bab8.c"
     },
     {
       "name": "cCollisionScroll_SetLayerCollEnable",
@@ -69149,14 +69242,6 @@
       "tu": "src/cod/003b0e68.c"
     },
     {
-      "name": "printfloat",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x003B0EF8",
-      "size": 472,
-      "lib": true,
-      "tu": "src/cod/003b0ef8.c"
-    },
-    {
       "name": "sceSifResetIop",
       "unit": "asm/cod/000000",
       "vaddr": "0x003B60E8",
@@ -78901,13 +78986,6 @@
       "tu": "src/cod/001dc4c0.c"
     },
     {
-      "name": "func_00271148",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00271148",
-      "size": 332,
-      "tu": "src/cod/00271148.c"
-    },
-    {
       "name": "EventBgm_startByStageCount",
       "unit": "asm/cod/000000",
       "vaddr": "0x00298DB8",
@@ -81153,6 +81231,13 @@
       "vaddr": "0x00270D00",
       "size": 176,
       "tu": "src/cod/00270d00.c"
+    },
+    {
+      "name": "func_00271148",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00271148",
+      "size": 332,
+      "tu": "src/cod/00271148.c"
     },
     {
       "name": "func_002DB7E0",
@@ -83542,6 +83627,13 @@
       "tu": "src/cod/001a4430.c"
     },
     {
+      "name": "func_002C9E78",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x002C9E78",
+      "size": 220,
+      "tu": "src/cod/002c9e78.c"
+    },
+    {
       "name": "sftrn_BuildAll",
       "unit": "asm/cod/000000",
       "vaddr": "0x0035BDD0",
@@ -85397,20 +85489,6 @@
       "tu": "src/cod/00192d20.c"
     },
     {
-      "name": "func_0035F970",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x0035F970",
-      "size": 276,
-      "tu": "src/cod/0035f970.c"
-    },
-    {
-      "name": "CFT_MakeArgb8888AlpLumiTbl",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x00365EC0",
-      "size": 592,
-      "tu": "src/cod/00365ec0.c"
-    },
-    {
       "name": "func_001A3E10",
       "unit": "asm/cod/000000",
       "vaddr": "0x001A3E10",
@@ -86116,13 +86194,6 @@
       "vaddr": "0x0030B298",
       "size": 388,
       "tu": "src/cod/0030b298.c"
-    },
-    {
-      "name": "ADXB_EndDecode",
-      "unit": "asm/cod/000000",
-      "vaddr": "0x0033D598",
-      "size": 392,
-      "tu": "src/cod/0033d598.c"
     },
     {
       "name": "Move",
@@ -87273,11 +87344,95 @@
       "tu": "src/cod/0025de58.c"
     },
     {
-      "name": "func_002C9E78",
+      "name": "DTX_Init",
       "unit": "asm/cod/000000",
-      "vaddr": "0x002C9E78",
-      "size": 220,
-      "tu": "src/cod/002c9e78.c"
+      "vaddr": "0x00332508",
+      "size": 240,
+      "tu": "src/cod/00332508.c"
+    },
+    {
+      "name": "sfxalp_ReleaseHn",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0036CB98",
+      "size": 40,
+      "tu": "src/cod/0036cb98.c"
+    },
+    {
+      "name": "SubSlotTable_register",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0015FCB8",
+      "size": 96,
+      "tu": "src/cod/0015fcb8.c"
+    },
+    {
+      "name": "HitNode_containsQuadPoint",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x002C0B38",
+      "size": 240,
+      "tu": "src/cod/0015fcb8.c"
+    },
+    {
+      "name": "cCollisionScroll_SetCollEnableByName",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x001331B8",
+      "size": 280,
+      "tu": "src/cod/001331b8.c"
+    },
+    {
+      "name": "HitCheck_capsulePairFromMtxInset",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x002BBDB8",
+      "size": 820,
+      "tu": "src/cod/002bbdb8.c"
+    },
+    {
+      "name": "cOmTwin_setup",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x001B57E8",
+      "size": 620,
+      "tu": "src/cod/001b57e8.c"
+    },
+    {
+      "name": "cOmPartsBox_placeParts",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x001BCD70",
+      "size": 576,
+      "tu": "src/cod/001bcd70.c"
+    },
+    {
+      "name": "sfd_ReleaseHn",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x0035FFB0",
+      "size": 40,
+      "tu": "src/cod/0035ffb0.c"
+    },
+    {
+      "name": "fde_merge",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003219D0",
+      "size": 252,
+      "tu": "src/cod/003219d0.c"
+    },
+    {
+      "name": "func_003A79F8",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003A79F8",
+      "size": 240,
+      "tu": "src/cod/00178e18.c"
+    },
+    {
+      "name": "cOmHitVolume_initTakeBox",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x00178E18",
+      "size": 316,
+      "tu": "src/cod/00178e18.c"
+    },
+    {
+      "name": "func_003BB058",
+      "unit": "asm/cod/000000",
+      "vaddr": "0x003BB058",
+      "size": 272,
+      "tu": "src/cod/003bb058.c"
     }
   ],
   "build_dir": "build",
