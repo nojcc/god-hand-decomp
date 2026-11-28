@@ -23,7 +23,8 @@ static __inline__ unsigned int PtrVecRef_size(PtrVecRef *l)
     return l->v ? (unsigned int)(l->v->end - l->v->begin) : 0;
 }
 
-/* Entries the storage holds; 0 before it is allocated. */
+/* Entries the storage holds; 0 before it is allocated. The locals are load-bearing: the
+ * ternary spelling of PtrVecRef_size changes the code of all four callers. */
 static __inline__ unsigned int PtrVecRef_capacity(PtrVecRef *l)
 {
     PtrVec *v = l->v;

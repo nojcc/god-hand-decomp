@@ -1,8 +1,6 @@
 /* sn-2.95.3-136: func_0030A200, when entry n is ready, sync and send its two GIF packets (+0x8, +0xC). */
 #include "godhand/sceDma.h"
 
-extern int sceDmaSync(sceDmaChan *chan, int mode, int timeout);
-
 typedef struct {
     unsigned char pad0;
     unsigned char ready;
@@ -20,9 +18,9 @@ void func_0030A200(int n)
     GifPktEnt *e = &D_00747BA0[n];
 
     if (e->ready == 1) {
-        sceDmaSync(SCE_DMA_GIF, 0, 0);
-        sceDmaSend(SCE_DMA_GIF, e->pkt0);
-        sceDmaSync(SCE_DMA_GIF, 0, 0);
-        sceDmaSend(SCE_DMA_GIF, e->pkt1);
+        sceDmaSync(DMA_GIF_CHAN, 0, 0);
+        sceDmaSend(DMA_GIF_CHAN, e->pkt0);
+        sceDmaSync(DMA_GIF_CHAN, 0, 0);
+        sceDmaSend(DMA_GIF_CHAN, e->pkt1);
     }
 }

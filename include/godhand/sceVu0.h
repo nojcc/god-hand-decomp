@@ -25,10 +25,10 @@ void sceVu0SubVector(void *a0, void *a1, void *a2);
 void sceVu0ScaleVector(void *a0, void *a1, float s);
 /* a0 = a1 scaled to length 1 in x, y and z; w zeroed. */
 void sceVu0Normalize(void *a0, void *a1);
-/* out = the view matrix of a camera at p looking along zd with up yd. */
-void sceVu0CameraMatrix(void *out, void *p, void *zd, void *yd);
 /* m = the identity matrix. */
 void sceVu0UnitMatrix(void *m);
+/* out = the view matrix of a camera at p looking along zd with up yd. */
+void sceVu0CameraMatrix(void *out, void *p, void *zd, void *yd);
 /* a0 = a1 x a2 (x, y and z). */
 void sceVu0OuterProduct(void *a0, void *a1, void *a2);
 /* The dot product of a0 and a1 (x, y and z). */

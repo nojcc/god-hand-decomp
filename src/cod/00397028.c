@@ -3,7 +3,6 @@
 #include "godhand/eeKernelFn.h"
 #include "godhand/globals.h"
 
-
 __attribute__((section(".text.WaitDma")))
 void WaitDma(volatile sceDmaChan *chan)
 {

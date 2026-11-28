@@ -92,6 +92,7 @@
 !include/godhand/eesyscall.h
 !include/godhand/mmi.h
 !include/godhand/mul64.h
+!include/godhand/vblank.h
 !include/godhand/vu0.h
 !include/godhand/vblank.h
 !include/godhand/shadowPacket.h
@@ -4506,6 +4507,7 @@
 !include/godhand/libpad.h
 !include/godhand/newlibStdio.h
 !include/godhand/newlibStdlib.h
+!include/godhand/sceDma.h
 !include/godhand/sceMpeg.h
 !include/godhand/sceSnprintf.h
 !include/godhand/sceTimer.h

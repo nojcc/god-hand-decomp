@@ -63,6 +63,10 @@ extern void cMovie_haltActive(void *mgr, int handle);
 extern int cMovie_GetStatus(void *mgr, int handle);
 extern void cMovie_Stop(void *mgr, int handle);
 
+/* Set to 1 when a movie starts (sw at 0x2B4CFC); the vblank handler, func_0030B148, reads and
+ * clears it, so it is volatile. */
+extern volatile int D_003C3CD4;
+
 struct HeapArena;
 
 /* One heap block the movie library took through the allocator hooks; a free slot has block 0. */
@@ -111,9 +115,6 @@ typedef struct cMovieClip {
 
 extern cMovieClip D_005E7BF0[];
 extern cMovieClip D_005E7D10[];
-
-/* Set to 1 when a movie starts; the vblank handler (func_0030B148) reads and clears it. */
-extern volatile int D_003C3CD4;
 
 /* The first free track (handle 0), or -1 when all MOVIE_TRACK_NUM play. */
 int func_002B4F38(cMovie *self);
